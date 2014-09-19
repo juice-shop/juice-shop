@@ -27,7 +27,7 @@
         "karma-coverage": "~0.2",
         "karma-chrome-launcher": "~0.1",
         "karma-phantomjs-launcher": "~0.1",
-        "karma-jasmine": "~0.1",
+        "karma-jasmine": "~0.2.2",
         "http-server": "~0.6",
         "bower": "~1.3",
         "shelljs": "~0.3",
