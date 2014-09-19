@@ -34,7 +34,7 @@ function setupDatabase() {
     var Basket = sequelize.define('Basket', {
     });
 
-    BasketItem = sequelize.define('BasketItems', {
+    var BasketItem = sequelize.define('BasketItems', {
         quantity: Sequelize.INTEGER
     })
 
@@ -66,12 +66,50 @@ function setupDatabase() {
             description: 'Cute but stupid rodent.',
             price: 20.99,
             stock: 10
+        }).success(function (product) {
+            console.log(product.values)
         });
         Product.create({
             name: 'Bunny',
             description: 'Likes carrots and knows where the Easter Egg is hidden.',
             price: 24.99,
             stock: 15
+        }).success(function (product) {
+            console.log(product.values)
+        });
+        Product.create({
+            name: 'Horse',
+            description: 'Animal to ride on.',
+            price: 1200.99,
+            stock: 3
+        }).success(function (product) {
+            console.log(product.values)
+        });
+        Basket.create({
+            UserId: 1
+        }).success(function (basket) {
+            console.log(basket.values)
+        });
+        BasketItem.create({
+            BasketId: 1,
+            ProductId: 1,
+            quantity: 2
+        }).success(function (item) {
+            console.log(item.values)
+        });
+        BasketItem.create({
+            BasketId: 1,
+            ProductId: 2,
+            quantity: 3
+        }).success(function (item) {
+            console.log(item.values)
+        });
+        BasketItem.create({
+            BasketId: 1,
+            ProductId: 3,
+            quantity: 1
+        }).success(function (item) {
+            console.log(item.values)
         });
     });
 }
