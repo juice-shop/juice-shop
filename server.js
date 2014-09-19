@@ -28,13 +28,13 @@ var Product = sequelize.define('Product', {
 var Basket = sequelize.define('Basket', {
 });
 
-BasketItems = sequelize.define('BasketItems', {
+BasketItem = sequelize.define('BasketItems', {
     quantity: Sequelize.INTEGER
 })
 
 Basket.belongsTo(User)
-Basket.hasMany(Product, {through: BasketItems});
-Product.hasMany(Basket, {through: BasketItems});
+Basket.hasMany(Product, {through: BasketItem});
+Product.hasMany(Basket, {through: BasketItem});
 
 /* Data */
 sequelize.drop();
