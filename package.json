@@ -34,7 +34,8 @@
         "shelljs": "~0.3",
         "win-spawn": "~2.0.0",
         "codeclimate-test-reporter": "~0.0.3",
-        "istanbul": "~0.3.2"
+        "istanbul": "~0.3.2",
+        "lcov-result-merger": "1.0.0"
     },
 
     "repository": {
