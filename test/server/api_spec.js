@@ -1,4 +1,5 @@
-var frisby = require('frisby');
+var frisby = require('frisby'),
+    passwordHash = require('password-hash');
 
 var URL = 'http://localhost:3000/api';
 
@@ -48,7 +49,7 @@ frisby.create('POST new user')
         name: 'Horst Horstmann',
         email: 'horst@horstma.nn',
         admin: false,
-        password: 'sha1$123'
+        password: passwordHash.generate('hooooorst')
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
@@ -75,12 +76,12 @@ frisby.create('POST new user')
             }).toss();
         frisby.create('PUT update existing user')
             .put(URL + '/Users/' + user.data.id, {
-                password: 'sha1$abc123'
+                admin: true
             })
             .expectStatus(200)
             .expectHeaderContains('content-type', 'application/json')
             .expectJSON('data', {
-                password: 'sha1$abc123'
+                admin: true
             }).toss();
         frisby.create('DELETE existing user')
             .delete(URL + '/Users/' + user.data.id)
