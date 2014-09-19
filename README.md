@@ -5,6 +5,7 @@ An intentionally insecure web application suitable for pen testing and security 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
+[![Dependency Status](https://gemnasium.com/349462b4fd2776ca21bf978a0cb4f43c.svg)](https://gemnasium.com/bkimminich/juice-shop)
 
 > Translating "dump" or "useless outfit" into German yields "Saftladen" which can reverse-translated word by word into "juice shop". Hence the name of this project.    
  
