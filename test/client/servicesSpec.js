@@ -7,4 +7,10 @@ describe('service', function () {
         }));
     });
 
+    describe('ProductService', function () {
+        it('should be defined', inject(function (ProductService) {
+            expect(ProductService).toBeDefined();
+        }));
+    });
+
 });

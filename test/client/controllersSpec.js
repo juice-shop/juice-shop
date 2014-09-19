@@ -1,10 +1,10 @@
 describe('controllers', function () {
     beforeEach(module('myApp'));
 
-    describe('BestDealsController', function () {
+    describe('ProductController', function () {
         it('should be defined', inject(function ($controller) {
             // spec body
-            var ctrl = $controller('BestDealsController', {
+            var ctrl = $controller('ProductController', {
                 $scope: {}
             });
             expect(ctrl).toBeDefined();
