@@ -2,8 +2,7 @@ angular.module('myApp').controller('UserController', [
     '$scope',
     'UserService',
     '$modal',
-	'$rootScope',
-    function ($scope, userService, $modal, $rootScope) {
+    function ($scope, userService, $modal) {
 
 		$scope.showDetail = function (id) {
 
@@ -23,13 +22,10 @@ angular.module('myApp').controller('UserController', [
 			});
 		}
 
-
         userService.find().success(function (data) {
             $scope.users = data.data;
         }).error(function (data) {
             console.log(data);
         });
-
-
 
     }]);
