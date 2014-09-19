@@ -11,4 +11,5 @@ after_script:
   cp "./coverage/PhantomJS 1.9.7 (Linux)/lcov.info" ./coverage/lcov-client.info
   cp "./coverage/server-tests/lcov.info" ./coverage/lcov-server.info
   ./node_modules/bin/lcov-result-merger 'coverage/lcov-*.info' 'coverage/lcov.info'
+  dir coverage
   cat "./coverage/lcov.info" | ./node_modules/.bin/codeclimate
