@@ -40,7 +40,7 @@ Product.hasMany(Basket, {through: BasketItems});
 sequelize.drop();
 sequelize.sync().success(function () {
     User.create({
-        email: 'admin@ng-bodge.it',
+        email: 'admin@juice-sh.op',
         name: 'Administrator',
         admin: true,
         password: "top5ecr3t"
@@ -48,7 +48,7 @@ sequelize.sync().success(function () {
         console.log(user.values)
     });
     User.create({
-        email: 'joe@ng-bodge.it',
+        email: 'joe@juice-sh.op',
         name: 'Joe Average',
         admin: false,
         password: "averagejoe"
