@@ -62,25 +62,33 @@ function setupDatabase() {
             console.log(user.values)
         });
         Product.create({
-            name: 'Guinea Pig',
-            description: 'Cute but stupid rodent.',
-            price: 20.99,
-            stock: 10
+            name: 'Apple Juice (1000ml)',
+            description: 'The all-time classic.',
+            price: 1.99,
+            stock: 100
         }).success(function (product) {
             console.log(product.values)
         });
         Product.create({
-            name: 'Bunny',
-            description: 'Likes carrots and knows where the Easter Egg is hidden.',
-            price: 24.99,
+            name: 'Orange Juice (1000ml)',
+            description: 'Made from oranges hand-picked by Uncle Dittmeyer',
+            price: 2.99,
             stock: 15
         }).success(function (product) {
             console.log(product.values)
         });
         Product.create({
-            name: 'Horse',
-            description: 'Animal to ride on.',
-            price: 1200.99,
+            name: 'Eggfruit Juice (500ml)',
+            description: 'Yikes!',
+            price: 8.99,
+            stock: 4
+        }).success(function (product) {
+            console.log(product.values)
+        });
+        Product.create({
+            name: 'Juice Shop T-Shirt (3XL)',
+            description: 'Real fans wear it 24/7!',
+            price: 24.99,
             stock: 3
         }).success(function (product) {
             console.log(product.values)

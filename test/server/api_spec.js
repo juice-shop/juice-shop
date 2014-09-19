@@ -46,9 +46,9 @@ frisby.create('GET all users')
 frisby.create('POST new user')
     .post(URL + '/Users', {
         name: 'Horst Horstmann',
-        email: 'horst@horstmann.ho',
+        email: 'horst@horstma.nn',
         admin: false,
-        password: '123'
+        password: 'sha1$123'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
@@ -75,12 +75,12 @@ frisby.create('POST new user')
             }).toss();
         frisby.create('PUT update existing user')
             .put(URL + '/Users/' + user.data.id, {
-                password: 'abc123'
+                password: 'sha1$abc123'
             })
             .expectStatus(200)
             .expectHeaderContains('content-type', 'application/json')
             .expectJSON('data', {
-                password: 'abc123'
+                password: 'sha1$abc123'
             }).toss();
         frisby.create('DELETE existing user')
             .delete(URL + '/Users/' + user.data.id)
