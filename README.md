@@ -1,4 +1,4 @@
-# The Juice Shop
+# Juice Shop
 
 An intentionally insecure web application suitable for pen testing and security awareness trainings.
 
