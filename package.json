@@ -33,7 +33,8 @@
         "bower": "~1.3",
         "shelljs": "~0.3",
         "win-spawn": "~2.0.0",
-        "codeclimate-test-reporter": "~0.0.3"
+        "codeclimate-test-reporter": "~0.0.3",
+        "istanbul": "~0.3.2"
     },
 
     "repository": {
@@ -47,6 +48,6 @@
         "start": "node app",
 
         "pretest": "npm install",
-        "test": "karma start karma.conf.js && node server-tests"
+        "test": "karma start karma.conf.js && istanbul cover server-tests.js"
     }
 }

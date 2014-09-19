@@ -9,3 +9,4 @@ addons:
 
 after_script:
   cat "./coverage/PhantomJS 1.9.7 (Linux)/lcov.info" | ./node_modules/.bin/codeclimate
+  cat "./coverage/lcov.info" | ./node_modules/.bin/codeclimate
