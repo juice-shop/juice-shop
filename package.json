@@ -12,9 +12,9 @@
     "dependencies": {
         "sequelize": "1.7.10",
         "sqlite3": "2.2.7",
-        "express": "4.8.5",
+        "express": "4.9.3",
         "sequelize-restful": "0.3.0",
-        "morgan": "1.2.3",
+        "morgan": "1.3.0",
 		"async": "0.9.0"
 
 	},
