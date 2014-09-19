@@ -1,0 +1,10 @@
+div.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #F3F3F3;
+}
+
+.page-header-sm {
+    margin: 10px 0 20px;
+}

@@ -1,0 +1,6 @@
+{
+    "globalstrict": true,
+    "globals": {
+        "angular": false
+    }
+}

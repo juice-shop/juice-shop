@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Next Generation BodgeIt Store</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower_components/highlightjs/styles/default.css" rel="stylesheet">
+    <!-- Grid -->
+    <link href="bower_components/ng-grid/ng-grid.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">BodgeIt Store</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#/administration">Administration</a>
+            </li>
+        </ul>
+
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<!-- CONTENT -->
+<div class="container-fluid" role="content" ng-view>
+</div>
+
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<!-- libraries, third party components -->
+<script src="bower_components/highlightjs/highlight.pack.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/string/lib/string.min.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/jquery/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-highlightjs/angular-highlightjs.min.js"></script>
+<script src="bower_components/angular-grid/ng-grid-2.0.13.min.js"></script>
+
+
+<!--  application specific source files -->
+<script src="js/app.js"></script>
+<script src="js/routes.js"></script>
+
+<!-- services -->
+<script src="js/services/UserService.js"></script>
+
+<!-- controllers -->
+<script src="js/controllers/BestDealsController.js"></script>
+<script src="js/controllers/UserController.js"></script>
+<script src="js/controllers/AdministrationController.js"></script>
+
+<!-- directives -->
+
+<!--
+<script src="js/directives/datatablesDirective.js"></script>
+<script src="js/directives/regexRulesValidationDirective.js"></script>
+
+<script src="js/filters.js"></script>
+-->
+
+</body>
+</html>

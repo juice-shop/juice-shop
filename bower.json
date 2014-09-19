@@ -1,0 +1,21 @@
+{
+    "name": "juice-shop",
+    "description": "An intentionally insecure web application suitable for pen testing and security awareness trainings",
+    "version": "0.0.0",
+    "private": true,
+    "dependencies": {
+        "angular": "1.2.x",
+        "angular-route": "1.2.x",
+        "angular-loader": "1.2.x",
+        "angular-mocks": "~1.2.x",
+        "angular-bootstrap": "0.11.0",
+        "angular-highlightjs": "0.3.0",
+        "highlightjs": "8.0.0",
+        "bootstrap": "3.2.0",
+        "jquery": "1.9.0",
+        "underscore": "1.6.0",
+        "string": "1.9.1",
+        "moment": "2.8.1",
+		"angular-grid": "2.0.13"
+    }
+}

@@ -1,0 +1,15 @@
+*.log
+coverage/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+
+# NPM
+node_modules/
+
+# Bower
+app/bower_components/

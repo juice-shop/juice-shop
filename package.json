@@ -1,0 +1,50 @@
+{
+    "name": "juice-shop",
+    "version": "0.0.0",
+    "description": "An intentionally insecure web application suitable for pen testing and security awareness trainings",
+    "author": "Bjoern Kimminich",
+    "contributors": ["Bjoern Kimminich"],
+    "private": true,
+
+    "keywords": [
+        "bodgeit", "owasp", "pentest", "pentesting", "web security", "security", "vulnerable", "vulnerability"
+    ],
+    "dependencies": {
+        "sequelize": "1.7.10",
+        "sqlite3": "2.2.7",
+        "express": "4.8.5",
+        "sequelize-restful": "0.3.0",
+        "morgan": "1.2.3",
+		"async": "0.9.0"
+
+	},
+    "devDependencies": {
+        "frisby": "~0.8.3",
+        "jasmine-node": "~1.14.5",
+        "karma": "~0.12",
+        "karma-cli": "0.0.4",
+        "karma-junit-reporter": "~0.2",
+        "karma-coverage": "~0.2",
+        "karma-chrome-launcher": "~0.1",
+        "karma-phantomjs-launcher": "~0.1",
+        "karma-jasmine": "~0.1",
+        "http-server": "~0.6",
+        "bower": "~1.3",
+        "shelljs": "~0.3",
+        "win-spawn": "~2.0.0"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bkimminich/juice-shop.git"
+    },
+
+    "scripts": {
+        "postinstall": "bower install",
+
+        "start": "node app",
+
+        "pretest": "npm install",
+        "test": "karma start karma.conf.js && node server-tests"
+    }
+}
