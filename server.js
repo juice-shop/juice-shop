@@ -70,75 +70,17 @@ sequelize.sync().success(function () {
 });
 
 /* app configuration */
-app.use(express.static(application_root + '/static/app'));
+app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
+app.use(restful(sequelize, { }));
 
 app.use(function (req, res, next) {
-    if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
-        res.sendFile(__dirname + '/static/app/index.html');
+    if (req.url.indexOf('/api') !== 0) {
+        res.sendFile(__dirname + '/app/index.html');
     } else {
         next();
     }
 });
-
-app.use(restful(sequelize, { }));
-
-/*app.get('/rest/user/:id/current-location', function(req, res){
-	User.find(req.params.id).success(function(user) {
-		geocoder.geocode(user.password, function ( err, data ) {
-			res.send(data);
-		});
-	}).error(function(error) {
-			res.send(error);
-	});
-});
-
-app.get('/rest/user/:id/home-location', function(req, res){
-    User.find(req.params.id).success(function(user) {
-        geocoder.geocode(user.homeLocation, function ( err, data ) {
-            res.send(data);
-        });
-    }).error(function(error) {
-        res.send(error);
-    });
-});
-
-
-app.get('/rest/transport-order/:id/route', function(req, res){
-
-	Product.find(req.params.id).success(function(transportOrder) {
-
-		async.parallel([
-			function(callback){
-			 	//get location name
-				 geocoder.geocode(transportOrder.name, function ( err, data ) {
-					 callback(null, data);
-				 });
-
-			},
-			function(callback){
-				//get location to
-				geocoder.geocode(transportOrder.to, function ( err, data ) {
-					callback(null, data);
-				});
-
-			}
-		],
-		function(err, results){
-
-			res.send({
-				name: results[0],
-				to: results[1]
-			});
-
-		});
-
-
-	}).error(function(error) {
-			res.send(error);
-		});
-
-});*/
 
 /* provide server */
 exports.start = function( config, readyCallback ) {
