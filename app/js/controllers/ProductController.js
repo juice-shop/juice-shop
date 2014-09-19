@@ -1,4 +1,4 @@
-angular.module('myApp').controller('BestDealsController', [
+angular.module('myApp').controller('ProductController', [
     '$scope',
     'ProductService',
     '$modal',
