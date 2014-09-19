@@ -6,6 +6,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
         storage: 'data/juiceshop.sqlite'
     }),
     restful = require('sequelize-restful'),
+    passwordHash = require('password-hash'),
     express = require('express'),
 	async = require('async'),
 	app = express();
@@ -48,7 +49,7 @@ function setupDatabase() {
             email: 'admin@juice-sh.op',
             name: 'Administrator',
             admin: true,
-            password: "top5ecr3t"
+            password: passwordHash.generate('top5ecr3t')
         }).success(function (user) {
             console.log(user.values)
         });
@@ -56,7 +57,7 @@ function setupDatabase() {
             email: 'joe@juice-sh.op',
             name: 'Joe Average',
             admin: false,
-            password: "averagejoe"
+            password: passwordHash.generate('averagejoe')
         }).success(function (user) {
             console.log(user.values)
         });
