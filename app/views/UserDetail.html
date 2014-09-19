@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">User</h3>
+    <h3 class="modal-title">User #{{user.id}}</h3>
 </div>
 <div class="modal-body">
 
@@ -14,6 +14,30 @@
                 <strong>Email</strong>
 
                 <p>{{user.email}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Password</strong>
+
+                <p>{{user.password}}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Admin?</strong>
+
+                <p>{{user.admin}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Created at</strong>
+
+                <p>{{user.createdAt}}</p>
+            </div>
+            <div class="col-md-6">
+                <strong>Updated at</strong>
+
+                <p>{{user.updatedAt}}</p>
             </div>
         </div>
     </div>
