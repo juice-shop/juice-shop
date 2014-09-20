@@ -1,7 +1,15 @@
 {
-    "undef": true,
-    "unused": true,
+    "curly": true,
+    "devel": true,
+    "eqeqeq": true,
     "globals": {
-        "angular": false
-    }
+        "angular": true,
+        "console": true
+    },
+    "indent": 2,
+    "quotmark": "single",
+    "strict": true,
+    "trailing": true,
+    "undef": true,
+    "unused": true
 }
