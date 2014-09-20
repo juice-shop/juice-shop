@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 var frisby = require('frisby'),
     passwordHash = require('password-hash');
 

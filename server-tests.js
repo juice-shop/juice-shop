@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 var spawn = require('win-spawn');
 var server = require('./server.js');
 server.start( { port: 3000 }, function() {

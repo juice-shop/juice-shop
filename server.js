@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
