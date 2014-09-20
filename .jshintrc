@@ -6,7 +6,6 @@
         "angular": true,
         "console": true
     },
-    "indent": 2,
     "quotmark": "single",
     "strict": true,
     "trailing": true,
