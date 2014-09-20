@@ -13,14 +13,14 @@ angular.module('myApp').controller('UserController', [
 				}).error(function (data) {
 						console.log(data);
 				});
-			}
+			};
 
 			$modal.open({
 				templateUrl: 'views/UserDetail.html',
 				controller: userDetailController,
 				size: 'lg'
 			});
-		}
+		};
 
         userService.find().success(function (data) {
             $scope.users = data.data;

@@ -13,14 +13,14 @@ angular.module('myApp').controller('ProductController', [
                 }).error(function (data) {
                     console.log(data);
                 });
-            }
+            };
 
             $modal.open({
                 templateUrl: 'views/ProductDetail.html',
                 controller: productDetailsController,
                 size: 'lg'
             });
-        }
+        };
 
         productService.find().success(function (data) {
             $scope.products = data.data;

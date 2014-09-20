@@ -36,9 +36,9 @@ function setupDatabase() {
 
     var BasketItem = sequelize.define('BasketItems', {
         quantity: Sequelize.INTEGER
-    })
+    });
 
-    Basket.belongsTo(User)
+    Basket.belongsTo(User);
     Basket.hasMany(Product, {through: BasketItem});
     Product.hasMany(Basket, {through: BasketItem});
 
