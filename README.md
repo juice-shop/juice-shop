@@ -1,6 +1,6 @@
 # Juice Shop
 
-An intentionally insecure web application suitable for pen testing and security awareness trainings.
+An intentionally insecure RIA suitable for pen testing and security awareness trainings written in Node, Express and Angular.
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop)
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
