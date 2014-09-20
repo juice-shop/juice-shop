@@ -8,5 +8,6 @@ addons:
     repo_token: 4c1b01eba7eeb3e9af53beaa4f097b5a49754c4edb8e95d59088bac519607637
 
 after_script:
-  # cat "./coverage/PhantomJS 1.9.7 (Linux)/lcov.info" | ./node_modules/.bin/codeclimate
-  cat "./coverage/server-tests/lcov.info" | ./node_modules/.bin/codeclimate
+  cat "./coverage/PhantomJS 1.9.7 (Linux)/lcov.info" | ./node_modules/.bin/codeclimate
+  # TODO merge both results into one .lcov and then let codeclimate analyze it
+  # cat "./coverage/server-tests/lcov.info" | ./node_modules/.bin/codeclimate
