@@ -8,7 +8,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     restful = require('sequelize-restful'),
     passwordHash = require('password-hash'),
     express = require('express'),
-	async = require('async'),
 	app = express();
 
 setupDatabase();
