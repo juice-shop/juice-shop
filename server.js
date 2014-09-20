@@ -50,7 +50,7 @@ function setupDatabase() {
             admin: true,
             password: passwordHash.generate('top5ecr3t')
         }).success(function (user) {
-            console.log(user.values)
+            console.log(user.values);
         });
         User.create({
             email: 'joe@juice-sh.op',
@@ -58,7 +58,7 @@ function setupDatabase() {
             admin: false,
             password: passwordHash.generate('averagejoe')
         }).success(function (user) {
-            console.log(user.values)
+            console.log(user.values);
         });
         Product.create({
             name: 'Apple Juice (1000ml)',
@@ -66,7 +66,7 @@ function setupDatabase() {
             price: 1.99,
             stock: 100
         }).success(function (product) {
-            console.log(product.values)
+            console.log(product.values);
         });
         Product.create({
             name: 'Orange Juice (1000ml)',
@@ -74,7 +74,7 @@ function setupDatabase() {
             price: 2.99,
             stock: 15
         }).success(function (product) {
-            console.log(product.values)
+            console.log(product.values);
         });
         Product.create({
             name: 'Eggfruit Juice (500ml)',
@@ -82,7 +82,7 @@ function setupDatabase() {
             price: 8.99,
             stock: 4
         }).success(function (product) {
-            console.log(product.values)
+            console.log(product.values);
         });
         Product.create({
             name: 'Juice Shop T-Shirt (3XL)',
@@ -90,33 +90,33 @@ function setupDatabase() {
             price: 24.99,
             stock: 3
         }).success(function (product) {
-            console.log(product.values)
+            console.log(product.values);
         });
         Basket.create({
             UserId: 1
         }).success(function (basket) {
-            console.log(basket.values)
+            console.log(basket.values);
         });
         BasketItem.create({
             BasketId: 1,
             ProductId: 1,
             quantity: 2
         }).success(function (item) {
-            console.log(item.values)
+            console.log(item.values);
         });
         BasketItem.create({
             BasketId: 1,
             ProductId: 2,
             quantity: 3
         }).success(function (item) {
-            console.log(item.values)
+            console.log(item.values);
         });
         BasketItem.create({
             BasketId: 1,
             ProductId: 3,
             quantity: 1
         }).success(function (item) {
-            console.log(item.values)
+            console.log(item.values);
         });
     });
 }
