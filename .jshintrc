@@ -2,6 +2,8 @@
     "undef": true,
     "unused": true,
     "globals": {
-        "angular": false
+        "angular": false,
+        "require": false,
+        "console": false
     }
 }
