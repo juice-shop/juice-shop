@@ -16,6 +16,6 @@
         "underscore": "1.7.0",
         "string": "1.9.1",
         "moment": "~2.8.x",
-		"angular-grid": "2.0.13"
+        "angular-grid": "2.0.13"
     }
 }
