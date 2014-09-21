@@ -4,18 +4,18 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-        "angular": "1.2.x",
-        "angular-route": "1.2.x",
-        "angular-loader": "1.2.x",
-        "angular-mocks": "~1.2.x",
-        "angular-bootstrap": "0.11.0",
-        "angular-highlightjs": "0.3.0",
-        "highlightjs": "8.0.0",
-        "bootstrap": "3.2.0",
-        "jquery": "~2.1.x",
-        "underscore": "1.7.0",
-        "string": "2.0.1",
-        "moment": "~2.8.x",
-        "angular-grid": "2.0.13"
+        "angular": "~1.2",
+        "angular-route": "~1.2",
+        "angular-loader": "~1.2",
+        "angular-mocks": "~1.2",
+        "angular-bootstrap": "~0.11",
+        "angular-highlightjs": "~0.3",
+        "highlightjs": "~8.0",
+        "bootstrap": "~3.2",
+        "jquery": "~2.1",
+        "underscore": "~1.7",
+        "string": "~2.0",
+        "moment": "~2.8",
+        "angular-grid": "~2.0"
     }
 }
