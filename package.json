@@ -48,6 +48,6 @@
         "start": "node app",
 
         "pretest": "npm install",
-        "test": "karma start karma.conf.js && istanbul cover server-tests.js"
+        "test": "karma start karma.conf.js && istanbul cover ./test/server-tests.js"
     }
 }
