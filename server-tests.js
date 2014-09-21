@@ -1,4 +1,5 @@
 /*jslint node: true */
+"use strict"
 
 var spawn = require('win-spawn');
 var server = require('./server.js');
@@ -12,7 +13,7 @@ server.start( { port: 3000 }, function() {
     jasmineNode.stderr.on('data', logToConsole);
 
     jasmineNode.on('exit', function(exitCode) {
-        console.log("Jasmine-Node exited with code " + exitCode + ".");
+        console.log('Jasmine-Node exited with code ' + exitCode + '.');
         server.close();
     });
 });

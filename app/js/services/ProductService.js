@@ -1,6 +1,8 @@
+"use strict"
+
 angular.module('myApp').factory('ProductService', ['$http', function ($http) {
 
-    var host = "/api/Products";
+    var host = '/api/Products';
 
     function find(params) {
         return $http.get(host + '/', {

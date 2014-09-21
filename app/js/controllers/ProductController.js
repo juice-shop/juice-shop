@@ -1,3 +1,5 @@
+"use strict"
+
 angular.module('myApp').controller('ProductController', [
     '$scope',
     'ProductService',
