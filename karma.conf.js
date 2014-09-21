@@ -12,7 +12,7 @@ module.exports = function (config) {
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-bootstrap/ui-bootstrap.js',
             'app/bower_components/underscore/underscore.js',
-            'app/bower_components/jquery/jquery.js',
+            'app/bower_components/jquery/dist/jquery.js',
             'app/bower_components/angular-grid/build/ng-grid.js',
             'app/js/app.js',
             'app/js/**/*.js',
@@ -27,7 +27,6 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
 
         plugins: [
-            'karma-chrome-launcher',
             'karma-phantomjs-launcher',
             'karma-jasmine',
             'karma-coverage'
