@@ -1,33 +1,45 @@
 describe('controllers', function () {
+    var controller;
     beforeEach(module('myApp'));
 
     describe('ProductController', function () {
-        it('should be defined', inject(function ($controller) {
-            // spec body
-            var ctrl = $controller('ProductController', {
-                $scope: {}
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('ProductController', {
+                '$scope': scope
             });
-            expect(ctrl).toBeDefined();
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.showDetail).toBeDefined();
         }));
     });
 
     describe('UserController', function () {
-        it('should be defined', inject(function ($controller) {
-            // spec body
-            var ctrl = $controller('UserController', {
-                $scope: {}
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('UserController', {
+                '$scope': scope
             });
-            expect(ctrl).toBeDefined();
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.showDetail).toBeDefined();
         }));
     });
 
     describe('AdministrationController', function () {
-        it('should be defined', inject(function ($controller) {
-            // spec body
-            var ctrl = $controller('AdministrationController', {
-                $scope: {}
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('AdministrationController', {
+                '$scope': scope
             });
-            expect(ctrl).toBeDefined();
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
         }));
     });
 
