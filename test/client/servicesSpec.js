@@ -6,6 +6,7 @@ describe('service', function () {
             expect(UserService).toBeDefined();
             expect(UserService.find).toBeDefined();
             expect(UserService.get).toBeDefined();
+            expect(UserService.del).toBeDefined();
         }));
     });
 

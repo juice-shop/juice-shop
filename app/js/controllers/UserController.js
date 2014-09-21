@@ -23,6 +23,15 @@ angular.module('myApp').controller('UserController', [
             });
         };
 
+        $scope.delete = function (id) {
+
+            userService.del(id).success(function (data) {
+            }).error(function (data) {
+                console.log(data);
+            });
+
+        };
+
         userService.find().success(function (data) {
             $scope.users = data.data;
         }).error(function (data) {

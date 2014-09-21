@@ -13,8 +13,13 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
         return $http.get(host + '/' + id);
     }
 
+    function del(id) {
+        return $http.delete(host + '/' + id);
+    }
+
     return {
         find: find,
-        get: get
+        get: get,
+        del: del
     };
 }]);
