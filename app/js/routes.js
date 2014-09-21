@@ -1,6 +1,5 @@
-"use strict"
-
 angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
+    'use strict';
 
     $routeProvider.when('/best-deals', {
         templateUrl: 'views/BestDeals.html',

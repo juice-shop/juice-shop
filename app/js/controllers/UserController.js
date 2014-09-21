@@ -1,10 +1,9 @@
-"use strict"
-
 angular.module('myApp').controller('UserController', [
     '$scope',
     'UserService',
     '$modal',
     function ($scope, userService, $modal) {
+        'use strict';
 
 		$scope.showDetail = function (id) {
 

@@ -1,5 +1,5 @@
 /*jslint node: true */
-"use strict"
+'use strict';
 
 var spawn = require('win-spawn');
 var server = require('./server.js');

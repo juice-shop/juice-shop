@@ -1,6 +1,5 @@
-"use strict"
-
 angular.module('myApp').factory('ProductService', ['$http', function ($http) {
+    'use strict';
 
     var host = '/api/Products';
 

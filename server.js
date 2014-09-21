@@ -1,5 +1,5 @@
 /*jslint node: true */
-"use strict"
+'use strict';
 
 var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),

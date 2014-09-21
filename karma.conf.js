@@ -1,7 +1,7 @@
 /*jslint node: true */
-"use strict"
-
 module.exports = function (config) {
+    'use strict';
+
     config.set({
 
         basePath: '',
