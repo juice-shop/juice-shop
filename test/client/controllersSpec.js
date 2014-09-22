@@ -57,4 +57,18 @@ describe('controllers', function () {
         }));
     });
 
+    describe('FeedbackController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('FeedbackController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.delete).toBeDefined();
+        }));
+    });
+
 });
