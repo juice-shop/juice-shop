@@ -12,6 +12,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     passwordHash = require('password-hash'),
     express = require('express'),
     errorhandler = require('errorhandler'),
+    csrf = require('csurf'),
     app = express();
 
 setupDatabase();
@@ -136,6 +137,7 @@ function setupApplication() {
             next();
         }
     });
+    app.use(csrf());
     app.use(errorhandler());
 }
 
