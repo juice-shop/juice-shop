@@ -15,6 +15,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     csrf = require('csurf'),
+    serveIndex = require('serve-index'),
     app = express();
 
 setupDatabase();
@@ -135,8 +136,9 @@ function setupApplication() {
     app.use(cookieParser('supersecret'));
     app.use(session({secret: 'topsecret'}));
     app.use(csrf());
+    app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}))
     app.use(function (req, res, next) {
-        if (req.url.indexOf('/api') !== 0) {
+         if (req.url.indexOf('/api') !== 0) {
             res.sendFile(__dirname + '/app/index.html');
         } else {
             next();
