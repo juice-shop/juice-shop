@@ -11,6 +11,10 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'AdministrationController'
     });
 
+    $routeProvider.when('/about', {
+        templateUrl: 'views/About.html',
+        controller: 'AboutController'
+    });
 
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
