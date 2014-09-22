@@ -132,8 +132,8 @@ function setupApplication() {
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
     app.use(restful(sequelize, { }));
-    app.use(session({secret: 'keyboard cat'}));
     app.use(cookieParser());
+    app.use(session({secret: 'topsecret'}));
     app.use(csrf());
     app.use(function (req, res, next) {
         if (req.url.indexOf('/api') !== 0) {
