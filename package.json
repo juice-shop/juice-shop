@@ -11,7 +11,7 @@
     ],
     "dependencies": {
         "sequelize": "~1.7",
-        "sqlite3": "~2.2",
+        "sqlite3": "~3.0",
         "express": "~4.9",
         "errorhandler": "~1.2",
         "express-session": "~1.8",
@@ -25,7 +25,7 @@
 
     "devDependencies": {
         "frisby": "~0.8",
-        "jasmine-node": "~1.14",
+        "jasmine-node": "~2.0",
         "karma": "~0.12",
         "karma-cli": "~0.0",
         "karma-junit-reporter": "~0.2",
