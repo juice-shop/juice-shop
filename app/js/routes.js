@@ -16,6 +16,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'AboutController'
     });
 
+    $routeProvider.when('/feedback', {
+        templateUrl: 'views/Feedback.html',
+        controller: 'FeedbackController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);

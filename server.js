@@ -49,6 +49,13 @@ function setupDatabase() {
     Basket.hasMany(Product, {through: BasketItem});
     Product.hasMany(Basket, {through: BasketItem});
 
+    var Feedback = sequelize.define('Feedback', {
+        comment: Sequelize.STRING,
+        rating: Sequelize.INTEGER
+    });
+
+    Feedback.belongsTo(User);
+
     /* Data */
     sequelize.drop();
     sequelize.sync().success(function () {
@@ -123,6 +130,13 @@ function setupDatabase() {
             BasketId: 1,
             ProductId: 3,
             quantity: 1
+        }).success(function (item) {
+            console.log(item.values);
+        });
+        Feedback.create({
+            UserId: 2,
+            comment: 'I love this shop! Best juice in town!',
+            rating: 5
         }).success(function (item) {
             console.log(item.values);
         });
