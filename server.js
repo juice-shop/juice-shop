@@ -12,6 +12,8 @@ var application_root = __dirname.replace(/\\/g, '/'),
     passwordHash = require('password-hash'),
     express = require('express'),
     errorhandler = require('errorhandler'),
+    session = require('express-session'),
+    cookieParser = require('cookie-parser'),
     csrf = require('csurf'),
     app = express();
 
@@ -130,6 +132,9 @@ function setupApplication() {
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
     app.use(restful(sequelize, { }));
+    app.use(session({secret: 'keyboard cat'}));
+    app.use(cookieParser());
+    app.use(csrf());
     app.use(function (req, res, next) {
         if (req.url.indexOf('/api') !== 0) {
             res.sendFile(__dirname + '/app/index.html');
@@ -137,7 +142,6 @@ function setupApplication() {
             next();
         }
     });
-    app.use(csrf());
     app.use(errorhandler());
 }
 
