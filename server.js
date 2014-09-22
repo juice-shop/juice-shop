@@ -11,6 +11,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     restful = require('sequelize-restful'),
     passwordHash = require('password-hash'),
     express = require('express'),
+    errorhandler = require('errorhandler'),
     app = express();
 
 setupDatabase();
@@ -135,6 +136,7 @@ function setupApplication() {
             next();
         }
     });
+    app.use(errorhandler());
 }
 
 function exportServer() {
