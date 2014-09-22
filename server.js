@@ -131,8 +131,8 @@ function setupDatabase() {
 function setupApplication() {
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
-    app.use(restful(sequelize, { }));
-    app.use(cookieParser());
+    app.use(restful(sequelize, { endpoint: '/api' }));
+    app.use(cookieParser('supersecret'));
     app.use(session({secret: 'topsecret'}));
     app.use(csrf());
     app.use(function (req, res, next) {
