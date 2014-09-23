@@ -150,7 +150,10 @@ function setupApplication() {
     app.use(morgan('combined'));
     app.use(restful(sequelize, { endpoint: '/api' }));
     app.use(cookieParser('supersecret'));
-    app.use(session({secret: 'topsecret'}));
+    app.use(session({secret: 'topsecret',
+                    saveUninitialized: true,
+                    resave: true})
+    );
     app.use(csrf());
     app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}))
     app.use(function (req, res, next) {
