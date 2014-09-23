@@ -16,8 +16,6 @@
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="bower_components/highlightjs/styles/default.css" rel="stylesheet">
-    <!-- Grid -->
-    <link href="bower_components/ng-grid/ng-grid.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/app.css"/>
 </head>
@@ -36,7 +34,7 @@
                 <a href="#/about">About Us</a>
             </li>
             <li class="dropdown">
-                <a href="#/feedback">Feedback</a>
+                <a href="#/contact">Contact Us</a>
             </li>
             <li class="dropdown">
                 <a href="#/login">Login</a>
@@ -44,9 +42,12 @@
             <li class="dropdown">
                 <a href="#/basket">Your Basket</a>
             </li>
-            <li class="dropdown">
-                <a href="#/search">Search</a>
-            </li>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
             <li class="dropdown">
                 <a href="#/administration">Administration</a>
             </li>
@@ -73,8 +74,6 @@
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/angular-highlightjs/angular-highlightjs.min.js"></script>
-<script src="bower_components/angular-grid/ng-grid-2.0.13.min.js"></script>
-
 
 <!--  application specific source files -->
 <script src="js/app.js"></script>

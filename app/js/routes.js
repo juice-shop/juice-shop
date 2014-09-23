@@ -16,8 +16,8 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'AboutController'
     });
 
-    $routeProvider.when('/feedback', {
-        templateUrl: 'views/Feedback.html',
+    $routeProvider.when('/contact', {
+        templateUrl: 'views/Contact.html',
         controller: 'FeedbackController'
     });
 

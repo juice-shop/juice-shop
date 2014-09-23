@@ -16,6 +16,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     cookieParser = require('cookie-parser'),
     csrf = require('csurf'),
     serveIndex = require('serve-index'),
+    favicon = require('serve-favicon'),
     app = express();
 
 setupDatabase();
@@ -144,11 +145,15 @@ function setupDatabase() {
 }
 
 function setupApplication() {
+    app.use(favicon(__dirname + '/app/public/favicon.ico'));
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
     app.use(restful(sequelize, { endpoint: '/api' }));
     app.use(cookieParser('supersecret'));
-    app.use(session({secret: 'topsecret'}));
+    app.use(session({secret: 'topsecret',
+                    saveUninitialized: true,
+                    resave: true})
+    );
     app.use(csrf());
     app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}))
     app.use(function (req, res, next) {

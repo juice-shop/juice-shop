@@ -68,6 +68,7 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.delete).toBeDefined();
+            expect(scope.save).toBeDefined();
         }));
     });
 
