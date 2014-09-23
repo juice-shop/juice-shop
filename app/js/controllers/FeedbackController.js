@@ -1,12 +1,16 @@
 angular.module('myApp').controller('FeedbackController', [
     '$scope',
+    '$sce',
     'FeedbackService',
-    function ($scope, feedbackService) {
+    function ($scope, $sce, feedbackService) {
         'use strict';
 
         function findAll() {
             feedbackService.find().success(function (data) {
                 $scope.feedbacks = data.data;
+                for (var i=0; i<$scope.feedbacks.length; i++) {
+                    $scope.feedbacks[i].comment = $sce.trustAsHtml($scope.feedbacks[i].comment);
+                }
             }).error(function (data) {
                 console.log(data);
             });

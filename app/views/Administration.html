@@ -35,7 +35,7 @@
             </tr>
             <tr data-ng-repeat="feedback in feedbacks">
                 <td>{{feedback.UserId}}</td>
-                <td>{{feedback.comment}}</td>
+                <td><div ng-bind-html="feedback.comment"></div></td>
                 <td>{{feedback.rating}}</td>
                 <td>
                     <div class="btn-group">
