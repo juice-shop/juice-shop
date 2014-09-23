@@ -9,12 +9,17 @@ angular.module('myApp').factory('FeedbackService', ['$http', function ($http) {
         });
     }
 
+    function save(params) {
+        return $http.post(host + '/', params);
+    }
+
     function del(id) {
         return $http.delete(host + '/' + id);
     }
 
     return {
         find: find,
+        save: save,
         del: del
     };
 }]);

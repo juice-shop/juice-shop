@@ -18,4 +18,13 @@ describe('service', function () {
         }));
     });
 
+    describe('FeedbackService', function () {
+        it('should be defined', inject(function (FeedbackService) {
+            expect(FeedbackService).toBeDefined();
+            expect(FeedbackService.find).toBeDefined();
+            expect(FeedbackService.save).toBeDefined();
+            expect(FeedbackService.del).toBeDefined();
+        }));
+    });
+
 });
