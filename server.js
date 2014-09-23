@@ -145,14 +145,14 @@ function setupDatabase() {
 }
 
 function setupApplication() {
-    app.use(favicon(__dirname + '/public/favicon.ico'));
+    app.use(favicon(__dirname + '/app/public/favicon.ico'));
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
     app.use(restful(sequelize, { endpoint: '/api' }));
     app.use(cookieParser('supersecret'));
     app.use(session({secret: 'topsecret'}));
     app.use(csrf());
-    app.use('/ftp', serveIndex('public/ftp', {'icons': true}))
+    app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}))
     app.use(function (req, res, next) {
          if (req.url.indexOf('/api') !== 0) {
             res.sendFile(__dirname + '/app/index.html');
