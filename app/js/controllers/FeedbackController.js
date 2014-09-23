@@ -27,11 +27,4 @@ angular.module('myApp').controller('FeedbackController', [
 
         };
 
-        $scope.save = function () {
-            feedbackService.save($scope.feedback).success(function () {
-                $scope.feedback = {};
-                findAll();
-            });
-        }
-
     }]);

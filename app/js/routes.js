@@ -18,7 +18,7 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/contact', {
         templateUrl: 'views/Contact.html',
-        controller: 'FeedbackController'
+        controller: 'ContactController'
     });
 
     /* default route */
