@@ -18,6 +18,7 @@
         "cookie-parser": "~1.3",
         "csurf": "~1.6",
         "serve-index": "~1.3",
+        "serve-favicon": "~2.1",
         "sequelize-restful": "~0.3",
         "morgan": "~1.3",
         "password-hash": "~1.2"
@@ -53,6 +54,6 @@
         "start": "node app",
 
         "pretest": "npm install",
-        "test": "karma start karma.conf.js && istanbul cover ./test/server-tests.js"
+        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     }
 }

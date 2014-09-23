@@ -16,6 +16,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     cookieParser = require('cookie-parser'),
     csrf = require('csurf'),
     serveIndex = require('serve-index'),
+    favicon = require('serve-favicon'),
     app = express();
 
 setupDatabase();
@@ -144,6 +145,7 @@ function setupDatabase() {
 }
 
 function setupApplication() {
+    app.use(favicon(__dirname + '/public/favicon.ico'));
     app.use(express.static(application_root + '/app'));
     app.use(morgan('combined'));
     app.use(restful(sequelize, { endpoint: '/api' }));
