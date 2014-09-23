@@ -13,6 +13,10 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
         return $http.get(host + '/' + id);
     }
 
+    function save(params) {
+        return $http.post(host + '/', params);
+    }
+
     function del(id) {
         return $http.delete(host + '/' + id);
     }
@@ -20,6 +24,7 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
     return {
         find: find,
         get: get,
+        save: save,
         del: del
     };
 }]);

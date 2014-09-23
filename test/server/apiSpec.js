@@ -38,7 +38,6 @@ frisby.create('GET all users')
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data.*', {
         id: Number,
-        name: String,
         email: String,
         admin: Boolean,
         password: String,
@@ -48,7 +47,6 @@ frisby.create('GET all users')
 
 frisby.create('POST new user')
     .post(URL + '/Users', {
-        name: 'Horst Horstmann',
         email: 'horst@horstma.nn',
         admin: false,
         password: passwordHash.generate('hooooorst')
@@ -66,7 +64,6 @@ frisby.create('POST new user')
             .expectHeaderContains('content-type', 'application/json')
             .expectJSONTypes('data', {
                 id: Number,
-                name: String,
                 email: String,
                 admin: Boolean,
                 password: String,

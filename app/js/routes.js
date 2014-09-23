@@ -21,6 +21,16 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'ContactController'
     });
 
+    $routeProvider.when('/login', {
+        templateUrl: 'views/Login.html',
+        controller: 'LoginController'
+    });
+
+    $routeProvider.when('/register', {
+        templateUrl: 'views/Register.html',
+        controller: 'RegisterController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);

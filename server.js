@@ -26,9 +26,8 @@ exportServer();
 function setupDatabase() {
     /* Domain Model */
     var User = sequelize.define('User', {
-        name: Sequelize.STRING,
-        password: Sequelize.STRING,
         email: Sequelize.STRING,
+        password: Sequelize.STRING,
         admin: Sequelize.BOOLEAN
     });
 
@@ -62,7 +61,6 @@ function setupDatabase() {
     sequelize.sync().success(function () {
         User.create({
             email: 'admin@juice-sh.op',
-            name: 'Administrator',
             admin: true,
             password: passwordHash.generate('top5ecr3t')
         }).success(function (user) {
@@ -70,7 +68,6 @@ function setupDatabase() {
         });
         User.create({
             email: 'joe@juice-sh.op',
-            name: 'Joe Average',
             admin: false,
             password: passwordHash.generate('averagejoe')
         }).success(function (user) {
