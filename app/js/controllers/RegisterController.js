@@ -9,8 +9,8 @@ angular.module('myApp').controller('RegisterController', [
             $scope.user.admin = false;
             userService.save($scope.user).success(function () {
                 $scope.user = {};
-                $location.path( "/login" );
+                $location.path( '/login' );
             });
-        }
+        };
 
     }]);

@@ -4,7 +4,7 @@ angular.module('myApp').controller('LoginController', [
         'use strict';
 
         $scope.login = function () {
-        }
+        };
 
 
     }]);

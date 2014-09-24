@@ -152,7 +152,7 @@ function setupApplication() {
                     resave: true})
     );
     app.use(csrf());
-    app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}))
+    app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
     app.use(function (req, res, next) {
          if (req.url.indexOf('/api') !== 0) {
             res.sendFile(__dirname + '/app/index.html');

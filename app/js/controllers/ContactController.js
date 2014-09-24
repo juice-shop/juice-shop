@@ -8,6 +8,6 @@ angular.module('myApp').controller('ContactController', [
             feedbackService.save($scope.feedback).success(function () {
                 $scope.feedback = {};
             });
-        }
+        };
 
     }]);
