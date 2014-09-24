@@ -19,6 +19,10 @@ frisby.create('GET all models declared in API')
         tableName: 'Users'
     })
     .expectJSON('data.?', {
+        name: 'Feedback',
+        tableName: 'Feedbacks'
+    })
+    .expectJSON('data.?', {
         name: 'Basket',
         tableName: 'Baskets'
     })
