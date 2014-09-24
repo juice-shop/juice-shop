@@ -2,10 +2,10 @@ describe('controllers', function () {
     var controller;
     beforeEach(module('myApp'));
 
-    describe('ProductController', function () {
+    describe('BestDealsController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();
-            controller = $controller('ProductController', {
+            controller = $controller('BestDealsController', {
                 '$scope': scope
             });
         }));

@@ -3,7 +3,7 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/best-deals', {
         templateUrl: 'views/BestDeals.html',
-        controller: 'ProductController'
+        controller: 'BestDealsController'
     });
 
     $routeProvider.when('/administration', {
