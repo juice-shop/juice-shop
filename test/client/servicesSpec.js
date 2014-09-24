@@ -1,4 +1,4 @@
-describe('service', function () {
+describe('services', function () {
     var $httpBackend, result;
 
     beforeEach(module('myApp'));
