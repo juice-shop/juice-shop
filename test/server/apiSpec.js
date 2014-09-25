@@ -1,7 +1,6 @@
 /*jslint node: true */
 
-var frisby = require('frisby'),
-    passwordHash = require('password-hash');
+var frisby = require('frisby');
 
 var URL = 'http://localhost:3000/api';
 
@@ -53,7 +52,7 @@ frisby.create('POST new user')
     .post(URL + '/Users', {
         email: 'horst@horstma.nn',
         admin: false,
-        password: passwordHash.generate('hooooorst')
+        password: 'hooooorst'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')

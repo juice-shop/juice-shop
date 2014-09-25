@@ -1,7 +1,6 @@
 /*jslint node: true */
 
-var frisby = require('frisby'),
-    passwordHash = require('password-hash');
+var frisby = require('frisby');
 
 var URL = 'http://localhost:3000/rest';
 
@@ -9,8 +8,8 @@ var URL = 'http://localhost:3000/rest';
 frisby.create('POST login non-existing user')
     .post(URL + '/user/login', {
         email: 'otto@mei.er',
-        password: passwordHash.generate('ooootto')
-    })
+        password: 'ooootto'
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {})
@@ -20,7 +19,7 @@ frisby.create('POST new user')
     .post('http://localhost:3000/api/Users', {
         email: 'horst@horstma.nn',
         admin: false,
-        password: passwordHash.generate('hooooorst')
+        password: 'hooooorst'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
@@ -29,7 +28,7 @@ frisby.create('POST new user')
             .post(URL + '/user/login', {
                 email: user.data.email,
                 password: user.data.password
-            })
+            }, {json: true})
             .expectStatus(200)
             .expectHeaderContains('content-type', 'application/json')
             .expectJSON('data', {

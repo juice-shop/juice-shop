@@ -21,10 +21,15 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
         return $http.delete(host + '/' + id);
     }
 
+    function login(params) {
+        return $http.post('/rest/user/login', params);
+    }
+
     return {
         find: find,
         get: get,
         save: save,
-        del: del
+        del: del,
+        login: login
     };
 }]);

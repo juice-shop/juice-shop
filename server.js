@@ -10,7 +10,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
         storage: 'data/juiceshop.sqlite'
     }),
     restful = require('sequelize-restful'),
-    passwordHash = require('password-hash'),
     express = require('express'),
     errorhandler = require('errorhandler'),
     session = require('express-session'),
@@ -58,12 +57,12 @@ sequelize.sync().success(function () {
     User.create({
         email: 'admin@juice-sh.op',
         admin: true,
-        password: passwordHash.generate('top5ecr3t')
+        password: 'top5ecr3t'
     });
     User.create({
         email: 'joe@juice-sh.op',
         admin: false,
-        password: passwordHash.generate('averagejoe')
+        password: 'averagejoe'
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
@@ -118,10 +117,11 @@ app.use(session({secret: 'topsecret',
         saveUninitialized: true,
         resave: true})
 );
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res){
+    console.log(req.body);
     sequelize.query("SELECT * FROM Users WHERE email = '" + req.body.email +
         "' AND password = '" + req.body.password + "'", User, {plain: true})
         .success(function(data) {
