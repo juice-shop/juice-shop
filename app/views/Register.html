@@ -3,31 +3,31 @@
         <h3 class="page-header page-header-sm">User Registration</h3>
 
         <div class="container-fluid well" ng-controller="RegisterController">
-            <div class="row">
-                <div class="form-group">
-                    <label for="userEmail">Email</label>
-                    <input type="text" class="form-control input-sm" id="userEmail" ng-model="user.email"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <label for="userPassword">Password</label>
-                    <input type="password" class="form-control input-sm" id="userPassword" ng-model="user.password"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <label for="userPassword">Repeat Password</label>
-                    <input type="password" class="form-control input-sm" id="userPasswordRepeat"/>
-                </div>
-            </div>
-            <div class="row">
-                <form role="form">
+            <form role="form" novalidate="">
+                <div class="row">
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default" ng-click="save()">Register</button>
+                        <label for="userEmail">Email</label>
+                        <input type="text" class="form-control input-sm" id="userEmail" ng-model="user.email" required/>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="userPassword">Password</label>
+                        <input type="password" class="form-control input-sm" id="userPassword" ng-model="user.password" required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="userPassword">Repeat Password</label>
+                        <input type="password" class="form-control input-sm" id="userPasswordRepeat" required/>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default" ng-click="save()">Register</button>
+                        </div>
+                </div>
+            </form>
         </div>
 
     </div>
