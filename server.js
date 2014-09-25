@@ -14,7 +14,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     errorhandler = require('errorhandler'),
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
-    csrf = require('csurf'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
@@ -120,16 +119,18 @@ app.use(session({secret: 'topsecret',
 app.use(bodyParser.json());
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
-app.post('/rest/user/login', function(req, res){
-    console.log(req.body);
+app.post('/rest/user/login', function(req, res, next){
     sequelize.query("SELECT * FROM Users WHERE email = '" + req.body.email +
         "' AND password = '" + req.body.password + "'", User, {plain: true})
         .success(function(data) {
-            res.send(toJSON(data));
+            var user = toJSON(data);
+            req.session.user = user;
+            res.send(user);
+        }).error(function (error) {
+            next(error);
         });
 });
 /* Static Resources */
-app.use(csrf());
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 app.use(function (req, res, next) {
     if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
