@@ -98,3 +98,65 @@ frisby.create('POST new user')
             .toss();
     })
     .toss();
+
+/* Product Tests */
+frisby.create('GET all products')
+    .get(URL + '/Products')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes('data.*', {
+        id: Number,
+        name: String,
+        description: String,
+        price: Number
+    }).toss();
+
+frisby.create('POST new product')
+    .post(URL + '/Products', {
+        name: 'Raspberry Juice (1000ml)',
+        description: "Made from blended Raspberry Pi, water and sugar.",
+        price: 4.99
+    })
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes('data', {
+        id: Number,
+        createdAt: String,
+        updatedAt: String
+    }).afterJSON(function (product) {
+        frisby.create('GET existing user by id')
+            .get(URL + '/Products/' + product.data.id)
+            .expectStatus(200)
+            .expectHeaderContains('content-type', 'application/json')
+            .expectJSONTypes('data', {
+                id: Number,
+                name: String,
+                description: String,
+                price: Number,
+                createdAt: String,
+                updatedAt: String
+            })
+            .expectJSON('data', {
+                id: product.data.id
+            }).toss();
+        frisby.create('PUT update existing product')
+            .put(URL + '/Products/' + product.data.id, {
+                description: "Made from blended raspberries, water and sugar."
+            })
+            .expectStatus(200)
+            .expectHeaderContains('content-type', 'application/json')
+            .expectJSON('data', {
+                description: "Made from blended raspberries, water and sugar."
+            }).toss();
+        frisby.create('DELETE existing product')
+            .delete(URL + '/Products/' + product.data.id)
+            .expectStatus(200)
+            .expectHeaderContains('content-type', 'application/json').toss();
+        frisby.create('GET non-existing product by id')
+            .get(URL + '/Products/' + product.data.id)
+            .expectStatus(200)
+            .expectHeaderContains('content-type', 'application/json')
+            .expectJSON('data', {})
+            .toss();
+    })
+    .toss();
