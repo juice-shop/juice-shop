@@ -1,5 +1,5 @@
 describe('controllers', function () {
-    var controller;
+    var scope, location, controller;
     beforeEach(module('myApp'));
 
     describe('BestDealsController', function () {
@@ -113,8 +113,9 @@ describe('controllers', function () {
     });
 
     describe('SearchController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
+        beforeEach(inject(function ($rootScope, $location, $controller) {
             scope = $rootScope.$new();
+            location = $location;
             controller = $controller('SearchController', {
                 '$scope': scope
             });
@@ -124,6 +125,14 @@ describe('controllers', function () {
             expect(controller).toBeDefined();
             expect(scope.search).toBeDefined();
         }));
+
+        it('forwards to search result with search query as URL parameter', inject(function ($controller) {
+            scope.searchQuery = 'lemon juice';
+            scope.search();
+            expect(location.path()).toBe('/search');
+            expect(location.search()).toEqual({q: 'lemon juice'});
+        }));
+
     });
 
     describe('SearchResultController', function () {
