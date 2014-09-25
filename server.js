@@ -2,7 +2,6 @@
 'use strict';
 
 var application_root = __dirname.replace(/\\/g, '/'),
-    fs = require('fs'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
@@ -120,6 +119,7 @@ app.use(bodyParser.json());
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
+    /*jshint -W110 */
     sequelize.query("SELECT * FROM Users WHERE email = '" + req.body.email +
         "' AND password = '" + req.body.password + "'", User, {plain: true})
         .success(function(data) {
@@ -173,7 +173,7 @@ function toJSON(data, status) {
         }
     }
     return {
-        status: status || "success",
+        status: status || 'success',
         data: wrappedData
-    }
+    };
 }
