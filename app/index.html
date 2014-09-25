@@ -35,11 +35,11 @@
             <li class="dropdown">
                 <a href="#/basket">Your Basket</a>
             </li>
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-left" role="form" ng-controller="SearchController">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default" ng-click="search()">Submit</button>
             </form>
             <li class="dropdown">
                 <a href="#/contact">Contact Us</a>
@@ -92,6 +92,9 @@
 <script src="js/controllers/ContactController.js"></script>
 <script src="js/controllers/LoginController.js"></script>
 <script src="js/controllers/RegisterController.js"></script>
+<script src="js/controllers/BasketController.js"></script>
+<script src="js/controllers/SearchController.js"></script>
+<script src="js/controllers/SearchResultController.js"></script>
 
 </body>
 </html>

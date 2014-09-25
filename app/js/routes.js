@@ -36,6 +36,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'BasketController'
     });
 
+    $routeProvider.when('/search', {
+        templateUrl: 'views/SearchResult.html',
+        controller: 'SearchResultController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);

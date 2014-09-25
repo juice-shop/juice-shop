@@ -112,4 +112,31 @@ describe('controllers', function () {
         }));
     });
 
+    describe('SearchController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('SearchController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.search).toBeDefined();
+        }));
+    });
+
+    describe('SearchResultController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('SearchResultController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+        }));
+    });
+
 });
