@@ -1,4 +1,4 @@
-# Juice Shop
+# Juice Shop ![Logo](/app/public/images/logo_64px.jpg)
 
 An intentionally insecure RIA suitable for pen testing and security awareness trainings written in Node, Express and Angular. Heavily inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
