@@ -2,6 +2,7 @@
 'use strict';
 
 var application_root = __dirname.replace(/\\/g, '/'),
+    fs = require('fs'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
@@ -17,144 +18,161 @@ var application_root = __dirname.replace(/\\/g, '/'),
     csrf = require('csurf'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
+    bodyParser = require('body-parser'),
     app = express();
 
-setupDatabase();
-setupApplication();
-exportServer();
+/* Domain Model */
+var User = sequelize.define('User', {
+    email: Sequelize.STRING,
+    password: Sequelize.STRING,
+    admin: Sequelize.BOOLEAN
+});
 
-function setupDatabase() {
-    /* Domain Model */
-    var User = sequelize.define('User', {
-        email: Sequelize.STRING,
-        password: Sequelize.STRING,
-        admin: Sequelize.BOOLEAN
+var Product = sequelize.define('Product', {
+    name: Sequelize.STRING,
+    description: Sequelize.STRING,
+    price: Sequelize.DECIMAL
+});
+
+var Basket = sequelize.define('Basket', {
+});
+
+var BasketItem = sequelize.define('BasketItems', {
+    quantity: Sequelize.INTEGER
+});
+
+Basket.belongsTo(User);
+Basket.hasMany(Product, {through: BasketItem});
+Product.hasMany(Basket, {through: BasketItem});
+
+var Feedback = sequelize.define('Feedback', {
+    comment: Sequelize.STRING,
+    rating: Sequelize.INTEGER
+});
+
+Feedback.belongsTo(User);
+
+/* Data */
+sequelize.drop();
+sequelize.sync().success(function () {
+    User.create({
+        email: 'admin@juice-sh.op',
+        admin: true,
+        password: passwordHash.generate('top5ecr3t')
     });
-
-    var Product = sequelize.define('Product', {
-        name: Sequelize.STRING,
-        description: Sequelize.STRING,
-        price: Sequelize.DECIMAL,
-        stock: Sequelize.INTEGER
+    User.create({
+        email: 'joe@juice-sh.op',
+        admin: false,
+        password: passwordHash.generate('averagejoe')
     });
-
-    var Basket = sequelize.define('Basket', {
+    Product.create({
+        name: 'Apple Juice (1000ml)',
+        description: 'The all-time classic.',
+        price: 1.99
     });
-
-    var BasketItem = sequelize.define('BasketItems', {
-        quantity: Sequelize.INTEGER
+    Product.create({
+        name: 'Orange Juice (1000ml)',
+        description: 'Made from oranges hand-picked by Uncle Dittmeyer',
+        price: 2.99
     });
-
-    Basket.belongsTo(User);
-    Basket.hasMany(Product, {through: BasketItem});
-    Product.hasMany(Basket, {through: BasketItem});
-
-    var Feedback = sequelize.define('Feedback', {
-        comment: Sequelize.STRING,
-        rating: Sequelize.INTEGER
+    Product.create({
+        name: 'Eggfruit Juice (500ml)',
+        description: 'Yikes!',
+        price: 8.99
     });
-
-    Feedback.belongsTo(User);
-
-    /* Data */
-    sequelize.drop();
-    sequelize.sync().success(function () {
-        User.create({
-            email: 'admin@juice-sh.op',
-            admin: true,
-            password: passwordHash.generate('top5ecr3t')
-        });
-        User.create({
-            email: 'joe@juice-sh.op',
-            admin: false,
-            password: passwordHash.generate('averagejoe')
-        });
-        Product.create({
-            name: 'Apple Juice (1000ml)',
-            description: 'The all-time classic.',
-            price: 1.99,
-            stock: 100
-        });
-        Product.create({
-            name: 'Orange Juice (1000ml)',
-            description: 'Made from oranges hand-picked by Uncle Dittmeyer',
-            price: 2.99,
-            stock: 15
-        });
-        Product.create({
-            name: 'Eggfruit Juice (500ml)',
-            description: 'Yikes!',
-            price: 8.99,
-            stock: 4
-        });
-        Product.create({
-            name: 'Juice Shop T-Shirt (3XL)',
-            description: 'Real fans wear it 24/7!',
-            price: 24.99,
-            stock: 3
-        });
-        Basket.create({
-            UserId: 1
-        });
-        BasketItem.create({
-            BasketId: 1,
-            ProductId: 1,
-            quantity: 2
-        });
-        BasketItem.create({
-            BasketId: 1,
-            ProductId: 2,
-            quantity: 3
-        });
-        BasketItem.create({
-            BasketId: 1,
-            ProductId: 3,
-            quantity: 1
-        });
-        Feedback.create({
-            UserId: 2,
-            comment: 'I love this shop! Best juice in town!',
-            rating: 5
-        });
+    Product.create({
+        name: 'Juice Shop T-Shirt (3XL)',
+        description: 'Real fans wear it 24/7!',
+        price: 24.99
     });
-}
+    Basket.create({
+        UserId: 1
+    });
+    BasketItem.create({
+        BasketId: 1,
+        ProductId: 1,
+        quantity: 2
+    });
+    BasketItem.create({
+        BasketId: 1,
+        ProductId: 2,
+        quantity: 3
+    });
+    BasketItem.create({
+        BasketId: 1,
+        ProductId: 3,
+        quantity: 1
+    });
+    Feedback.create({
+        UserId: 2,
+        comment: 'I love this shop! Best juice in town!',
+        rating: 5
+    });
+});
 
-function setupApplication() {
-    app.use(favicon(__dirname + '/app/public/favicon.ico'));
-    app.use(express.static(application_root + '/app'));
-    app.use(morgan('combined'));
-    app.use(restful(sequelize, { endpoint: '/api' }));
-    app.use(cookieParser('supersecret'));
-    app.use(session({secret: 'topsecret',
-                    saveUninitialized: true,
-                    resave: true})
-    );
-    app.use(csrf());
-    app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
-    app.use(function (req, res, next) {
-         if (req.url.indexOf('/api') !== 0) {
-            res.sendFile(__dirname + '/app/index.html');
+app.use(favicon(__dirname + '/app/public/favicon.ico'));
+app.use(express.static(application_root + '/app'));
+app.use(morgan('combined'));
+app.use(cookieParser('supersecret'));
+app.use(session({secret: 'topsecret',
+        saveUninitialized: true,
+        resave: true})
+);
+app.use(bodyParser.urlencoded({ extended: false }));
+/* Restful APIs */
+app.use(restful(sequelize, { endpoint: '/api' }));
+app.post('/rest/user/login', function(req, res){
+    sequelize.query("SELECT * FROM Users WHERE email = '" + req.body.email +
+        "' AND password = '" + req.body.password + "'", User, {plain: true})
+        .success(function(data) {
+            res.send(toJSON(data));
+        });
+});
+/* Static Resources */
+app.use(csrf());
+app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
+app.use(function (req, res, next) {
+    if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
+        res.sendFile(__dirname + '/app/index.html');
+    } else {
+        next();
+    }
+});
+/* Generic error handling */
+app.use(errorhandler());
+
+exports.start = function (config, readyCallback) {
+    if (!this.server) {
+        this.server = app.listen(config.port, function () {
+            console.log('Listening on port %d', config.port);
+            // callback to call when the server is ready
+            if (readyCallback) {
+                readyCallback();
+            }
+        });
+    }
+};
+
+exports.close = function () {
+    this.server.close();
+};
+
+function toJSON(data, status) {
+    var wrappedData = {};
+    if (data) {
+        if (!data.length && data.dataValues) {
+            wrappedData = data.dataValues;
+        } else if (data.length > 0) {
+            wrappedData = [];
+            for (var i=0; i<data.length; i++) {
+                wrappedData.push(data[i].dataValues);
+            }
         } else {
-            next();
+            wrappedData = data;
         }
-    });
-    app.use(errorhandler());
-}
-
-function exportServer() {
-    exports.start = function (config, readyCallback) {
-        if (!this.server) {
-            this.server = app.listen(config.port, function () {
-                console.log('Listening on port %d', config.port);
-                // callback to call when the server is ready
-                if (readyCallback) {
-                    readyCallback();
-                }
-            });
-        }
-    };
-
-    exports.close = function () {
-        this.server.close();
-    };
+    }
+    return {
+        status: status || "success",
+        data: wrappedData
+    }
 }
