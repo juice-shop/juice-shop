@@ -12,6 +12,8 @@ angular.module('myApp').controller('LoginController', [
                 } else {
                     alert('Wrong credentials!');
                 }
+            }).error(function(error) {
+                console.log(error);
             });
         };
 
