@@ -31,6 +31,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'RegisterController'
     });
 
+    $routeProvider.when('/basket', {
+        templateUrl: 'views/Basket.html',
+        controller: 'BasketController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);
