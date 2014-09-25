@@ -1,6 +1,6 @@
 # Juice Shop
 
-An intentionally insecure RIA suitable for pen testing and security awareness trainings written in Node, Express and Angular. Heavily inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by @psiinon.
+An intentionally insecure RIA suitable for pen testing and security awareness trainings written in Node, Express and Angular. Heavily inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop)
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
@@ -13,13 +13,13 @@ An intentionally insecure RIA suitable for pen testing and security awareness tr
  
 ## Features
 
-- Easy to install: Just requires [node.js](www.nodejs.org)
+- Easy to install: Just requires [node.js](http://nodejs.org)
 - Self contained: Additional dependencies will be resolved and downloaded automatically
 - No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup
 - Open source: No hidden costs or caveats
  
 ## Getting started
-1. Install [node.js](www.nodejs.org)
+1. Install [node.js](http://nodejs.org)
 2. Run ```npm install``` (only has to be done before first start or when you change the source code)
 3. Run ```npm start```
 4. Browse to http://localhost:3000
