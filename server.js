@@ -119,7 +119,7 @@ app.use(bodyParser.json());
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
-    sequelize.query("SELECT * FROM Users WHERE email = '" + req.body.email + "' AND password = '" + req.body.password + "'", User, {plain: true})
+    sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + req.body.password + '\'', User, {plain: true})
         .success(function(data) {
             var user = toJSON(data);
             req.session.user = user;
