@@ -13,8 +13,13 @@ angular.module('myApp').factory('ProductService', ['$http', function ($http) {
         return $http.get(host + '/' + id);
     }
 
+    function search(params) {
+        return $http.get('/rest/product/search', params);
+    }
+
     return {
         find: find,
-        get: get
+        get: get,
+        search: search
     };
 }]);

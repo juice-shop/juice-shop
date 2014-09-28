@@ -15,7 +15,7 @@ frisby.create('POST login non-existing user')
     .expectJSON('data', {})
     .toss();
 
-frisby.create('POST new user')
+frisby.create('POST new user via API')
     .post('http://localhost:3000/api/Users', {
         email: 'horst@horstma.nn',
         admin: false,
@@ -44,6 +44,34 @@ frisby.create('POST new user')
     })
     .toss();
 
+/* Product Search*/
+frisby.create('GET product search with no matches returns no products')
+    .get(URL + '/product/search?q=nomatcheswhatsoever')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONLength('data', 0)
+    .toss();
+
+frisby.create('GET product search with one match returns found product')
+    .get(URL + '/product/search?q=apple')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONLength('data', 1)
+    .toss();
+
+frisby.create('GET product search with empty search parameter returns all products')
+    .get(URL + '/product/search?q=')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONLength('data', 5) // test data defines 4 only, but async apiSpec.js creates +1 parallel to this test
+    .toss();
+
+frisby.create('GET product search without search parameter returns all products')
+    .get(URL + '/product/search')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONLength('data', 5) // test data defines 4 only, but async apiSpec.js creates +1 parallel to this test
+    .toss();
 
 
 

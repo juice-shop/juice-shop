@@ -128,6 +128,14 @@ app.post('/rest/user/login', function(req, res, next){
             next(error);
         });
 });
+app.get('/rest/product/search', function(req, res, next){
+    Product.findAll({where: sequelize.or({name: {like: '%' + (req.query.q || '') + '%'}},{description: {like: '%' + (req.query.q || '') + '%'}})})
+        .success(function(data) {
+            res.send(toJSON(data));
+        }).error(function (error) {
+            next(error);
+        });
+});
 /* Static Resources */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 app.use(function (req, res, next) {
