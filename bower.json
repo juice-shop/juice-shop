@@ -8,6 +8,7 @@
         "angular-route": "~1.2",
         "angular-loader": "~1.2",
         "angular-mocks": "~1.2",
+        "angular-cookies": "~1.2",
         "angular-bootstrap": "~0.11",
         "angular-highlightjs": "~0.3",
         "highlightjs": "~8.0",
