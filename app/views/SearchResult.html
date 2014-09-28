@@ -2,6 +2,25 @@
     <div class="col-md-8">
         <h3 class="page-header page-header-sm">Search Results <span class="label label-default" ng-bind-html="searchQuery"></span></h3>
 
+        <table class="table table-striped table-bordered table-condensed" ng-controller="BestDealsController">
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="product in products">
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
     </div>
 </div>

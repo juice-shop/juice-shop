@@ -2,5 +2,33 @@
     <div class="col-md-8">
         <h3 class="page-header page-header-sm">Your Basket</h3>
 
+        <table class="table table-striped table-bordered table-condensed" ng-controller="BestDealsController">
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="product in products">
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-minus-sign"></span></a>
+                        <span class="btn btn-default btn-xs">1</span>
+                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-plus-sign"></span></a>
+                    </div>
+                </td>
+                <td>{{product.price}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
