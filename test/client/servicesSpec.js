@@ -63,6 +63,7 @@ describe('services', function () {
             expect(ProductService).toBeDefined();
             expect(ProductService.find).toBeDefined();
             expect(ProductService.get).toBeDefined();
+            expect(ProductService.search).toBeDefined();
         }));
 
         it('should get all products directly from the rest api', inject(function (ProductService) {

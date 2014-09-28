@@ -129,7 +129,8 @@ app.post('/rest/user/login', function(req, res, next){
         });
 });
 app.get('/rest/product/search', function(req, res, next){
-    Product.findAll({where: sequelize.or({name: {like: '%' + (req.query.q || '') + '%'}},{description: {like: '%' + (req.query.q || '') + '%'}})})
+    var criteria = '%' + (req.query.q === 'undefined' ? '' : req.query.q || '') + '%';
+    Product.findAll({where: sequelize.or({name: {like: criteria}},{description: {like: criteria}})})
         .success(function(data) {
             res.send(toJSON(data));
         }).error(function (error) {
