@@ -121,7 +121,7 @@ app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + req.body.password + '\'', User, {plain: true})
         .success(function(data) {
-            var user = toJSON(data);
+            var user = queryResultToJson(data);
             req.session.user = user;
             res.send(user);
         }).error(function (error) {
@@ -129,10 +129,10 @@ app.post('/rest/user/login', function(req, res, next){
         });
 });
 app.get('/rest/product/search', function(req, res, next){
-    var criteria = '%' + (req.query.q === 'undefined' ? '' : req.query.q || '') + '%';
-    Product.findAll({where: sequelize.or({name: {like: criteria}},{description: {like: criteria}})})
+    var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
+    sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
         .success(function(data) {
-            res.send(toJSON(data));
+            res.send(queryResultToJson(data));
         }).error(function (error) {
             next(error);
         });
@@ -165,7 +165,7 @@ exports.close = function () {
     this.server.close();
 };
 
-function toJSON(data, status) {
+function queryResultToJson(data, status) {
     var wrappedData = {};
     if (data) {
         if (!data.length && data.dataValues) {
@@ -173,7 +173,11 @@ function toJSON(data, status) {
         } else if (data.length > 0) {
             wrappedData = [];
             for (var i=0; i<data.length; i++) {
-                wrappedData.push(data[i].dataValues);
+                if (data[i].dataValues) {
+                    wrappedData.push(data[i].dataValues);
+                } else {
+                    wrappedData.push(data[i]);
+                }
             }
         } else {
             wrappedData = data;
