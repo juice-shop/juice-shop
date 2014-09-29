@@ -72,13 +72,13 @@ sequelize.sync().success(function () {
     });
     Product.create({
         name: 'Orange Juice (1000ml)',
-        description: 'Made from oranges hand-picked by Uncle Dittmeyer',
+        description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
         price: 2.99,
         image: 'orange_juice.jpg'
     });
     Product.create({
         name: 'Eggfruit Juice (500ml)',
-        description: 'Yikes!',
+        description: 'Now with even more exotic flavour.',
         price: 8.99,
         image: 'eggfruit_juice.jpg'
     });
