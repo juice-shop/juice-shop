@@ -8,6 +8,7 @@ An intentionally insecure RIA suitable for pen testing and security awareness tr
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
 [![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
+[![Nodejitsu Deploy Status](https://webhooks.nodejitsu.com/bkimminich/juice-shop.png)](https://webops.nodejitsu.com#bkimminich/juice-shop)
 
 > Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.    
  
