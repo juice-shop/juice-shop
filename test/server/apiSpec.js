@@ -107,14 +107,16 @@ frisby.create('GET all products')
         id: Number,
         name: String,
         description: String,
-        price: Number
+        price: Number,
+        image: String
     }).toss();
 
 frisby.create('POST new product')
     .post(URL + '/Products', {
         name: 'Raspberry Juice (1000ml)',
         description: "Made from blended Raspberry Pi, water and sugar.",
-        price: 4.99
+        price: 4.99,
+        image: 'raspberry_juice.jpg'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
@@ -132,6 +134,7 @@ frisby.create('POST new product')
                 name: String,
                 description: String,
                 price: Number,
+                image: String,
                 createdAt: String,
                 updatedAt: String
             })

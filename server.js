@@ -29,7 +29,8 @@ var User = sequelize.define('User', {
 var Product = sequelize.define('Product', {
     name: Sequelize.STRING,
     description: Sequelize.STRING,
-    price: Sequelize.DECIMAL
+    price: Sequelize.DECIMAL,
+    image: Sequelize.STRING
 });
 
 var Basket = sequelize.define('Basket', {
@@ -66,22 +67,26 @@ sequelize.sync().success(function () {
     Product.create({
         name: 'Apple Juice (1000ml)',
         description: 'The all-time classic.',
-        price: 1.99
+        price: 1.99,
+        image: 'apple_juice.jpg'
     });
     Product.create({
         name: 'Orange Juice (1000ml)',
         description: 'Made from oranges hand-picked by Uncle Dittmeyer',
-        price: 2.99
+        price: 2.99,
+        image: 'orange_juice.jpg'
     });
     Product.create({
         name: 'Eggfruit Juice (500ml)',
         description: 'Yikes!',
-        price: 8.99
+        price: 8.99,
+        image: 'eggfruit_juice.jpg'
     });
     Product.create({
         name: 'Juice Shop T-Shirt (3XL)',
         description: 'Real fans wear it 24/7!',
-        price: 24.99
+        price: 24.99,
+        image: 'fan_shirt.jpg'
     });
     Basket.create({
         UserId: 1
