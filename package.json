@@ -55,8 +55,7 @@
     "scripts": {
         "start": "node app",
         "pretest": "npm install && bower install",
-        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
-        "predeploy": "bower install"
+        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     },
     "subdomain": "juice-shop",
     "engines": {
