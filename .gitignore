@@ -10,6 +10,3 @@ out/
 
 # NPM
 node_modules/
-
-# Bower
-app/bower_components/

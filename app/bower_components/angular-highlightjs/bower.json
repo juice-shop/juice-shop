@@ -1,0 +1,22 @@
+{
+  "name": "angular-highlightjs",
+  "version": "0.3.0",
+  "description": "AngularJS directive for syntax highlighting with highlight.js.",
+  "main": "angular-highlightjs.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "example",
+    "plunk-source",
+    "Gruntfile.js",
+    "package.json",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  	"highlightjs": "8.0.0",
+  	"angular" : ">1.0.8"
+  },
+  "devDependencies": {}
+}

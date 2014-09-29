@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Custom Plunker</title>
+        <link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+        <script type="text/javascript" src="../build/ng-grid.debug.js"></script>
+        <script type="text/javascript" src="ng-grid-csv-export.js"></script>
+        <script type="text/javascript" src="jspdf/jspdf.source.js"></script>
+        <script type="text/javascript" src="ng-grid-pdf-export.js"></script>
+        <script type="text/javascript" src="ng-grid-flexible-height.js"></script>
+        <style type="text/css">
+          .gridStyle 
+            { border: 1px solid rgb(212,212,212)
+            ; height: 1400px
+            ; width: 80%
+          }
+        </style>
+        <script type="text/javascript">
+            // main.js
+            var app = angular.module('myApp', ['ngGrid']);
+            app.controller('MyCtrl', function($scope) {
+                csvOpts = { columnOverrides: { obj: function(o) { return o.a + '|' +  o.b; } } }
+                hgtOpts = { minHeight: 200 }  ;
+                pdfOpts = {} ;
+                $scope.myDataSmall = [ {hasThing: false,  obj: {a:5, b:6}, name: "Moroni", age: 50, ln: 'sdf'}
+                                     , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                     ]
+                $scope.myDataBig = [ {hasThing: false,  obj: {a:5, b:6}, name: "Moroni", age: 50, ln: 'sdf'}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "asdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iadfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iafsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iafsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iafsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iadfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iadfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "iadfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tisdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:6, b:7}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing: false,  obj: {a:5, b:7}, name: "Jacob", age: 27}
+                                   , {hasThing:  true,  obj: {a:2, b:8}, ln: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing:  true,  obj: {a:1, b:8}, ln: "Jacob", age: 27}
+                                   , {hasThing: false,  obj: {a:7, b:9}, name: "Tiasdfsdfnd", age: 43}
+                                   , {hasThing: false,  obj: {a:5, b:9}, name: "Jacob", age: 27}
+                                   , {hasThing:  true,  obj: {a:5, b:7}, name: "Nephi", age: 29}
+                                   , {hasThing: false,  obj: {a:5, b:7}, name: "Enos", age: 34}
+                                   ];
+                $scope.gridOptionsBig = {
+                    data: 'myDataBig',
+                    plugins: [new ngGridCsvExportPlugin(csvOpts),new ngGridFlexibleHeightPlugin(hgtOpts),new ngGridPdfExportPlugin(pdfOpts)],
+                    showGroupPanel: true,
+					showFooter: true
+                };
+                $scope.gridOptionsSmall = {
+                    data: 'myDataSmall',
+                    plugins: [new ngGridCsvExportPlugin(csvOpts),new ngGridFlexibleHeightPlugin(),new ngGridPdfExportPlugin(pdfOpts)],
+                    showGroupPanel: true,
+					showFooter: true
+                };
+            });
+        </script>
+    </head>
+    <body ng-controller="MyCtrl">
+        <div> <a ng-click="myDataSmall.push(myDataBig[0])"> add one to small </a></div>
+        <div> <a ng-click="myDataSmall.pop()"> remove one from small </a> </div>
+        <div class="gridStyle" ng-grid="gridOptionsSmall"></div>
+        <hr>
+        <div> <a ng-click="myDataBig.push(myDataSmall[0])"> add one to big </a> </div>
+        <div> <a ng-click="myDataBig.pop()"> remove one from big </a> </div>
+        <div class="gridStyle" ng-grid="gridOptionsBig"></div>
+    </body>
+</html>

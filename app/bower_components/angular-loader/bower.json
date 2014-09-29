@@ -1,0 +1,8 @@
+{
+  "name": "angular-loader",
+  "version": "1.2.25",
+  "main": "./angular-loader.js",
+  "dependencies": {
+    "angular": "1.2.25"
+  }
+}
