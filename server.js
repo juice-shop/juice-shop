@@ -16,6 +16,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
+    crypto = require('crypto'),
     app = express();
 
 /* Domain Model */
@@ -55,12 +56,12 @@ sequelize.sync().success(function () {
     User.create({
         email: 'admin@juice-sh.op',
         admin: true,
-        password: 'top5ecr3t'
+        password: hash('top5ecr3t')
     });
     User.create({
         email: 'joe@juice-sh.op',
         admin: false,
-        password: 'averagejoe'
+        password: hash('averagejoe')
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
@@ -119,7 +120,7 @@ app.use(bodyParser.json());
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
-    sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + req.body.password + '\'', User, {plain: true})
+    sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + hash(req.body.password) + '\'', User, {plain: true})
         .success(function(data) {
             var user = queryResultToJson(data);
             req.session.user = user;
@@ -188,3 +189,8 @@ function queryResultToJson(data, status) {
         data: wrappedData
     };
 }
+
+function hash(data) {
+    return crypto.createHash("md5").update(data).digest("hex");
+}
+exports.hash = hash;
