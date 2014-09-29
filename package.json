@@ -19,7 +19,7 @@
     ],
     "dependencies": {
         "sequelize": "~1.7",
-        "sqlite3": "~3.0",
+        "sqlite3": "~2.2",
         "express": "~4.9",
         "errorhandler": "~1.2",
         "express-session": "~1.8",
