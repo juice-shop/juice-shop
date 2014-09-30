@@ -178,8 +178,11 @@ exports.start = function (config, readyCallback) {
     }
 };
 
-exports.close = function () {
+exports.close = function (exitCode) {
     this.server.close();
+    if (exitCode && exitCode !== 0) {
+        process.exit(exitCode);
+    }
 };
 
 function queryResultToJson(data, status) {
