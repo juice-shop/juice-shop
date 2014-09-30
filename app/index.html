@@ -29,18 +29,18 @@
 
 <!-- HEADER -->
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Juice Shop</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <li class="dropdown" ng-show="!isLoggedIn()">
                 <a href="#/login">Login</a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/logout">Logout</a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/basket">Your Basket</a>
             </li>
             <form class="navbar-form navbar-left" role="form" ng-controller="SearchController">
@@ -105,6 +105,7 @@
 <script src="js/controllers/SearchController.js"></script>
 <script src="js/controllers/SearchResultController.js"></script>
 <script src="js/controllers/LogoutController.js"></script>
+<script src="js/controllers/NavbarController.js"></script>
 
 <div class="github-fork-ribbon-wrapper right-bottom">
     <div class="github-fork-ribbon">

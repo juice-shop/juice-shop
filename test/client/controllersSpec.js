@@ -97,7 +97,7 @@ describe('controllers', function () {
 
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
-            // expect(controller.login).toBeDefined(); // TODO Fails test for unknown reason
+            expect(scope.login).toBeDefined();
         }));
     });
 
@@ -162,6 +162,20 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.showDetail).toBeDefined();
+        }));
+    });
+
+    describe('NavbarController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('NavbarController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.isLoggedIn).toBeDefined();
         }));
     });
 
