@@ -135,16 +135,17 @@ app.use(bodyParser.json());
 
 /* Authorization */
 
-/* Baskets/BasketItems: API only accessible for authenticated users */
+/* Baskets: API only accessible for authenticated users */
 app.use('/api/Baskets', expressJwt({secret: secret}));
-app.use('/api/BasketItems', expressJwt({secret: secret}));
 app.use('/api/Baskets/:id', expressJwt({secret: secret}));
+
+/* BasketItems: API only accessible for authenticated users */
+app.use('/api/BasketItems', expressJwt({secret: secret}));
 app.use('/api/BasketItems/:id', expressJwt({secret: secret}));
 
 /* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
 app.get('/api/Feedbacks', expressJwt({secret: secret}));
-app.put('/api/Feedbacks/:id', expressJwt({secret: secret}));
-app.delete('/api/Feedbacks/:id', expressJwt({secret: secret}));
+app.use('/api/Feedbacks/:id', expressJwt({secret: secret}));
 
 /* Users: Only POST is allowed in order to register a new uer */
 app.get('/api/Users', expressJwt({secret: secret}));
