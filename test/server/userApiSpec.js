@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var frisby = require('frisby'),
-    hash = require('../../server').hash;
+    hash = require('../../lib/utils').hash;
 
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';

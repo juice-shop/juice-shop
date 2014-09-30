@@ -16,9 +16,9 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    crypto = require('crypto'),
     expressJwt = require('express-jwt'),
     jwt = require('jsonwebtoken'),
+    utils = require('./lib/utils'),
     app = express();
 
 var secret = 'h0lyHandgr3nade';
@@ -61,12 +61,12 @@ sequelize.sync().success(function () {
     User.create({
         email: 'admin@juice-sh.op',
         admin: true,
-        password: hash('admin123')
+        password: utils.hash('admin123')
     });
     User.create({
         email: 'jim@juice-sh.op',
         admin: false,
-        password: hash('ncc-1701')
+        password: utils.hash('ncc-1701')
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
@@ -132,7 +132,7 @@ app.use('/api/BasketItems', expressJwt({secret: secret}));
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
-    sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + hash(req.body.password || '') + '\'', User, {plain: true})
+    sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + utils.hash(req.body.password || '') + '\'', User, {plain: true})
         .success(function(data) {
             var user = queryResultToJson(data);
             if (user.data && user.data.id) {
@@ -208,8 +208,3 @@ function queryResultToJson(data, status) {
         data: wrappedData
     };
 }
-
-function hash(data) {
-    return crypto.createHash("md5").update(data).digest("hex");
-}
-exports.hash = hash;
