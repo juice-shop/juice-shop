@@ -39,10 +39,8 @@ frisby.create('POST new user')
             }, {json: true})
             .expectStatus(200)
             .expectHeaderContains('content-type', 'application/json')
-            .expectJSON('data', {
-                id: user.data.id,
-                email: user.data.email,
-                password: user.data.password
+            .expectJSONTypes({
+                token: String
             }).toss();
         frisby.create('GET existing user by id')
             .get(API_URL + '/Users/' + user.data.id)
@@ -88,7 +86,5 @@ frisby.create('POST login non-existing user')
         email: 'otto@mei.er',
         password: 'ooootto'
     }, {json: true})
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'application/json')
-    .expectJSON('data', {})
+    .expectStatus(401)
     .toss();

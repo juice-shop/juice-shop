@@ -29,7 +29,9 @@
         "serve-favicon": "~2.1",
         "body-parser": "~1.9",
         "sequelize-restful": "~0.3",
-        "morgan": "~1.3"
+        "morgan": "~1.3",
+        "express-jwt": "~0.3",
+        "jsonwebtoken": "~1.1"
     },
     "devDependencies": {
         "frisby": "~0.8",

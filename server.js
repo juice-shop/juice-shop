@@ -17,7 +17,11 @@ var application_root = __dirname.replace(/\\/g, '/'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     crypto = require('crypto'),
+    expressJwt = require('express-jwt'),
+    jwt = require('jsonwebtoken'),
     app = express();
+
+var secret = 'h0lyHandgr3nade';
 
 /* Domain Model */
 var User = sequelize.define('User', {
@@ -116,20 +120,27 @@ sequelize.sync().success(function () {
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
-app.use(cookieParser('supersecret'));
-app.use(session({secret: 'topsecret',
+app.use(cookieParser(secret));
+app.use(session({secret: secret,
         saveUninitialized: true,
         resave: true})
 );
 app.use(bodyParser.json());
+/* Authorization */
+app.use('/api/Baskets', expressJwt({secret: secret}));
+app.use('/api/BasketItems', expressJwt({secret: secret}));
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
 app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + hash(req.body.password) + '\'', User, {plain: true})
         .success(function(data) {
             var user = queryResultToJson(data);
-            req.session.userid = user.id;
-            res.send(user);
+            if (user.data && user.data.id) {
+                var token = jwt.sign(user, secret, { expiresInMinutes: 60*5 });
+                res.json({ token: token });
+            } else {
+                res.status(401).send('Invalid email or password');
+            }
         }).error(function (error) {
             next(error);
         });
@@ -138,7 +149,7 @@ app.get('/rest/product/search', function(req, res, next){
     var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
     sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
         .success(function(data) {
-            res.send(queryResultToJson(data));
+            res.json(queryResultToJson(data));
         }).error(function (error) {
             next(error);
         });

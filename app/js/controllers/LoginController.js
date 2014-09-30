@@ -1,19 +1,17 @@
 angular.module('myApp').controller('LoginController', [
     '$scope',
+    '$window',
     'UserService',
-    function ($scope, userService) {
+    function ($scope, $window, userService) {
         'use strict';
 
         $scope.login = function () {
             userService.login($scope.user).success(function (data) {
-                // TODO remove dummy implementation
-                if (data && data.data && data.data.id) {
-                    alert('Logged in!');
-                } else {
-                    alert('Wrong credentials!');
-                }
+                $window.sessionStorage.token = data.token;
+                $scope.message = 'Welcome ' + $scope.user.email;
             }).error(function(error) {
-                console.log(error);
+                delete $window.sessionStorage.token;
+                $scope.message = error;
             });
         };
 
