@@ -128,7 +128,7 @@ app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + req.body.email + '\' AND password = \'' + hash(req.body.password) + '\'', User, {plain: true})
         .success(function(data) {
             var user = queryResultToJson(data);
-            req.session.user = user;
+            req.session.userid = user.id;
             res.send(user);
         }).error(function (error) {
             next(error);
