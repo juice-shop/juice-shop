@@ -43,45 +43,45 @@ frisby.create('POST new product')
             .expectHeaderContains('content-type', 'application/json')
             .expectJSON('data', {
                 description: "Made from blended raspberries, water and sugar."
-            }).toss();
-        frisby.create('DELETE existing product')
-            .delete(API_URL + '/Products/' + product.data.id)
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .after(function() {
-                frisby.create('GET all products')
-                    .get(API_URL + '/Products')
+            }).after(function () {
+                frisby.create('DELETE existing product')
+                    .delete(API_URL + '/Products/' + product.data.id)
                     .expectStatus(200)
                     .expectHeaderContains('content-type', 'application/json')
-                    .expectJSONTypes('data.*', {
-                        id: Number,
-                        name: String,
-                        description: String,
-                        price: Number,
-                        image: String
-                    }).afterJSON(function (products) {
-                        frisby.create('GET product search with empty search parameter returns all products')
-                            .get(REST_URL + '/product/search?q=')
+                    .after(function() {
+                        frisby.create('GET all products')
+                            .get(API_URL + '/Products')
                             .expectStatus(200)
                             .expectHeaderContains('content-type', 'application/json')
-                            .expectJSONLength('data', products.data.length)
-                            .toss();
-                        frisby.create('GET product search without search parameter returns all products')
-                            .get(REST_URL + '/product/search')
+                            .expectJSONTypes('data.*', {
+                                id: Number,
+                                name: String,
+                                description: String,
+                                price: Number,
+                                image: String
+                            }).afterJSON(function (products) {
+                                frisby.create('GET product search with empty search parameter returns all products')
+                                    .get(REST_URL + '/product/search?q=')
+                                    .expectStatus(200)
+                                    .expectHeaderContains('content-type', 'application/json')
+                                    .expectJSONLength('data', products.data.length)
+                                    .toss();
+                                frisby.create('GET product search without search parameter returns all products')
+                                    .get(REST_URL + '/product/search')
+                                    .expectStatus(200)
+                                    .expectHeaderContains('content-type', 'application/json')
+                                    .expectJSONLength('data', products.data.length)
+                                    .toss();
+                            }).toss();
+                        frisby.create('GET non-existing product by id')
+                            .get(API_URL + '/Products/' + product.data.id)
                             .expectStatus(200)
                             .expectHeaderContains('content-type', 'application/json')
-                            .expectJSONLength('data', products.data.length)
+                            .expectJSON('data', {})
                             .toss();
                     }).toss();
             }).toss();
-        frisby.create('GET non-existing product by id')
-            .get(API_URL + '/Products/' + product.data.id)
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSON('data', {})
-            .toss();
-    })
-    .toss();
+    }).toss();
 
 frisby.create('GET product search with no matches returns no products')
     .get(REST_URL + '/product/search?q=nomatcheswhatsoever')
