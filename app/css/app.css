@@ -8,3 +8,7 @@ div.sidebar {
 .page-header-sm {
     margin: 10px 0 20px;
 }
+
+.right-bottom .github-fork-ribbon {
+    background-color: #333;
+}
