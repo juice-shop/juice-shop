@@ -57,12 +57,12 @@ sequelize.sync().success(function () {
     User.create({
         email: 'admin@juice-sh.op',
         admin: true,
-        password: hash('top5ecr3t')
+        password: hash('admin123')
     });
     User.create({
-        email: 'joe@juice-sh.op',
+        email: 'jim@juice-sh.op',
         admin: false,
-        password: hash('averagejoe')
+        password: hash('ncc-1701')
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
