@@ -95,6 +95,20 @@ describe('controllers', function () {
 
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
+            expect(controller.login).toBeDefined();
+        }));
+    });
+
+    describe('LogoutController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('LogoutController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
         }));
     });
 

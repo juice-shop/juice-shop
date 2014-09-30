@@ -41,6 +41,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'SearchResultController'
     });
 
+    $routeProvider.when('/logout', {
+        templateUrl: 'views/Logout.html',
+        controller: 'LogoutController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);
