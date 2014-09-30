@@ -88,3 +88,11 @@ frisby.create('POST login non-existing user')
     }, {json: true})
     .expectStatus(401)
     .toss();
+
+frisby.create('POST login without credentials')
+    .post(REST_URL + '/user/login', {
+        email: undefined,
+        password: undefined
+    }, {json: true})
+    .expectStatus(401)
+    .toss();
