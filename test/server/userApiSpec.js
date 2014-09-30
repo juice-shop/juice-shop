@@ -32,6 +32,18 @@ frisby.create('POST new user')
         createdAt: String,
         updatedAt: String
     }).afterJSON(function (user) {
+        frisby.create('POST login existing user')
+            .post(REST_URL + '/user/login', {
+                email: 'horst@horstma.nn',
+                password: 'hooooorst'
+            }, {json: true})
+            .expectStatus(200)
+            .expectHeaderContains('content-type', 'application/json')
+            .expectJSON('data', {
+                id: user.data.id,
+                email: user.data.email,
+                password: user.data.password
+            }).toss();
         frisby.create('GET existing user by id')
             .get(API_URL + '/Users/' + user.data.id)
             .expectStatus(200)
@@ -55,32 +67,21 @@ frisby.create('POST new user')
             .expectHeaderContains('content-type', 'application/json')
             .expectJSON('data', {
                 admin: true
+            }).after(function () {
+                frisby.create('DELETE existing user')
+                    .delete(API_URL + '/Users/' + user.data.id)
+                    .expectStatus(200)
+                    .expectHeaderContains('content-type', 'application/json')
+                    .after(function () {
+                        frisby.create('GET non-existing user by id')
+                            .get(API_URL + '/Users/' + user.data.id)
+                            .expectStatus(200)
+                            .expectHeaderContains('content-type', 'application/json')
+                            .expectJSON('data', {})
+                            .toss();
+                    }).toss();
             }).toss();
-        frisby.create('POST login existing user')
-            .post(REST_URL + '/user/login', {
-                email: 'horst@horstma.nn',
-                password: 'hooooorst'
-            }, {json: true})
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSON('data', {
-                id: user.data.id,
-                email: user.data.email,
-                password: user.data.password
-            })
-            .toss();
-        frisby.create('DELETE existing user')
-            .delete(API_URL + '/Users/' + user.data.id)
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json').toss();
-        frisby.create('GET non-existing user by id')
-            .get(API_URL + '/Users/' + user.data.id)
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSON('data', {})
-            .toss();
-    })
-    .toss();
+    }).toss();
 
 frisby.create('POST login non-existing user')
     .post(REST_URL + '/user/login', {
