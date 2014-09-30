@@ -132,11 +132,32 @@ app.use(session({secret: secret,
         resave: true})
 );
 app.use(bodyParser.json());
+
 /* Authorization */
+
+/* Baskets/BasketItems: API only accessible for authenticated users */
 app.use('/api/Baskets', expressJwt({secret: secret}));
 app.use('/api/BasketItems', expressJwt({secret: secret}));
+app.use('/api/Baskets/:id', expressJwt({secret: secret}));
+app.use('/api/BasketItems/:id', expressJwt({secret: secret}));
+
+/* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
+app.get('/api/Feedbacks', expressJwt({secret: secret}));
+app.put('/api/Feedbacks/:id', expressJwt({secret: secret}));
+app.delete('/api/Feedbacks/:id', expressJwt({secret: secret}));
+
+/* Users: Only POST is allowed in order to register a new uer */
+app.get('/api/Users', expressJwt({secret: secret}));
+app.use('/api/Users/:id', expressJwt({secret: secret}));
+
+/* Products: Only GET is allowed in order to view products */
+app.post('/api/Products', expressJwt({secret: secret}));
+app.put('/api/Products/:id', expressJwt({secret: secret}));
+app.delete('/api/Products/:id', expressJwt({secret: secret}));
+
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api' }));
+
 app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + utils.hash(req.body.password || '') + '\'', User, {plain: true})
         .success(function(data) {
@@ -151,6 +172,7 @@ app.post('/rest/user/login', function(req, res, next){
             next(error);
         });
 });
+
 app.get('/rest/product/search', function(req, res, next){
     var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
     sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
@@ -160,8 +182,10 @@ app.get('/rest/product/search', function(req, res, next){
             next(error);
         });
 });
+
 /* Static Resources */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
+
 app.use(function (req, res, next) {
     if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
         res.sendFile(__dirname + '/app/index.html');
@@ -169,6 +193,7 @@ app.use(function (req, res, next) {
         next();
     }
 });
+
 /* Generic error handling */
 app.use(errorhandler());
 

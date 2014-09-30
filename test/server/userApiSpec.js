@@ -6,19 +6,6 @@ var frisby = require('frisby'),
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
 
-frisby.create('GET all users')
-    .get(API_URL + '/Users')
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'application/json')
-    .expectJSONTypes('data.*', {
-        id: Number,
-        email: String,
-        admin: Boolean,
-        password: String,
-        createdAt: String,
-        updatedAt: String
-    }).toss();
-
 frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
@@ -42,44 +29,29 @@ frisby.create('POST new user')
             .expectJSONTypes({
                 token: String
             }).toss();
-        frisby.create('GET existing user by id')
-            .get(API_URL + '/Users/' + user.data.id)
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSONTypes('data', {
-                id: Number,
-                email: String,
-                admin: Boolean,
-                password: String,
-                createdAt: String,
-                updatedAt: String
-            })
-            .expectJSON('data', {
-                id: user.data.id
-            }).toss();
-        frisby.create('PUT update existing user')
-            .put(API_URL + '/Users/' + user.data.id, {
-                admin: true
-            })
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSON('data', {
-                admin: true
-            }).after(function () {
-                frisby.create('DELETE existing user')
-                    .delete(API_URL + '/Users/' + user.data.id)
-                    .expectStatus(200)
-                    .expectHeaderContains('content-type', 'application/json')
-                    .after(function () {
-                        frisby.create('GET non-existing user by id')
-                            .get(API_URL + '/Users/' + user.data.id)
-                            .expectStatus(200)
-                            .expectHeaderContains('content-type', 'application/json')
-                            .expectJSON('data', {})
-                            .toss();
-                    }).toss();
-            }).toss();
     }).toss();
+
+frisby.create('GET all users is forbidden via public API')
+    .get(API_URL + '/Users')
+    .expectStatus(401)
+    .toss();
+
+frisby.create('GET existing user by id is forbidden via public API')
+    .get(API_URL + '/Users/1')
+    .expectStatus(401)
+    .toss();
+
+frisby.create('PUT update existing user is forbidden via public API')
+    .put(API_URL + '/Users/1', {
+        admin: true
+    })
+    .expectStatus(401)
+    .toss();
+
+frisby.create('DELETE existing user is forbidden via public API')
+    .delete(API_URL + '/Users/1')
+    .expectStatus(401)
+    .toss();
 
 frisby.create('POST login non-existing user')
     .post(REST_URL + '/user/login', {
