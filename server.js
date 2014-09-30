@@ -87,6 +87,12 @@ sequelize.sync().success(function () {
         image: 'eggfruit_juice.jpg'
     });
     Product.create({
+        name: 'Raspberry Juice (1000ml)',
+        description: "Made from blended Raspberry Pi, water and sugar.",
+        price: 4.99,
+        image: 'raspberry_juice.jpg'
+    });
+    Product.create({
         name: 'Juice Shop T-Shirt (3XL)',
         description: 'Real fans wear it 24/7!',
         price: 24.99,
@@ -95,7 +101,7 @@ sequelize.sync().success(function () {
     Product.create({
         name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
         description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft">More...</a>',
-        price: 24.99,
+        price: 0.01,
         image: 'owasp_osaft.jpg'
     });
     Basket.create({
@@ -153,7 +159,7 @@ app.use('/api/Users/:id', expressJwt({secret: secret}));
 
 /* Products: Only GET is allowed in order to view products */
 app.post('/api/Products', expressJwt({secret: secret}));
-app.put('/api/Products/:id', expressJwt({secret: secret}));
+//app.put('/api/Products/:id', expressJwt({secret: secret})); // = missing function-level access control vulnerability
 app.delete('/api/Products/:id', expressJwt({secret: secret}));
 
 /* Restful APIs */

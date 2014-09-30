@@ -73,19 +73,23 @@ frisby.create('GET product search with one match returns found product')
 
 frisby.create('POST new product is forbidden via public API')
     .post(API_URL + '/Products', {
-        name: 'Raspberry Juice (1000ml)',
-        description: "Made from blended Raspberry Pi, water and sugar.",
-        price: 4.99,
-        image: 'raspberry_juice.jpg'
+        name: 'Dirt Juice (1000ml)',
+        description: "Made from ugly dirt.",
+        price: 0.99,
+        image: 'dirt_juice.jpg'
     })
     .expectStatus(401)
     .toss();
 
-frisby.create('PUT update existing product is forbidden via public API')
+frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
     .put(API_URL + '/Products/1', {
-        description: "Made from blended raspberries, water and sugar."
+        description: "The classiest juice ever!"
     })
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        description: "The classiest juice ever!"
+    })
     .toss();
 
 frisby.create('DELETE existing product is forbidden via public API')
