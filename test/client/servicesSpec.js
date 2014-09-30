@@ -56,6 +56,15 @@ describe('services', function () {
             expect(result).toBe('apiResponse');
         }));
 
+        it('should login user directly via the rest api', inject(function (UserService) {
+            $httpBackend.whenPOST('/rest/user/login').respond(200, 'apiResponse');
+
+            UserService.login().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
     });
 
     describe('ProductService', function () {
