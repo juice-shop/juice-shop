@@ -13,6 +13,7 @@ angular.module('myApp').controller('SearchResultController', [
 
                 productService.get(id).success(function (data) {
                     $scope.product = data.data;
+                    $scope.product.description = $sce.trustAsHtml($scope.product.description);
                 }).error(function (data) {
                     console.log(data);
                 });
@@ -26,8 +27,12 @@ angular.module('myApp').controller('SearchResultController', [
         };
 
         $scope.searchQuery = $sce.trustAsHtml($location.search().q);
+
         productService.search($scope.searchQuery).success(function (data) {
             $scope.products = data.data;
+            for (var i=0; i<$scope.products.length; i++) {
+                $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
+            }
         }).error(function (data) {
             console.log(data);
         });

@@ -92,6 +92,12 @@ sequelize.sync().success(function () {
         price: 24.99,
         image: 'fan_shirt.jpg'
     });
+    Product.create({
+        name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
+        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft">More...</a>',
+        price: 24.99,
+        image: 'owasp_osaft.jpg'
+    });
     Basket.create({
         UserId: 1
     });

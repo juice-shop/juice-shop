@@ -10,9 +10,9 @@
             </tr>
             <tr data-ng-repeat="product in products">
                 <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
+                <td><div ng-bind-html="product.description"></div></td>
                 <td>{{product.price}}</td>
-                <td>
+                <td class="col-md-1">
                     <div class="btn-group">
                         <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><span class="glyphicon glyphicon-eye-open"></span></a>
                         <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-shopping-cart"></span></a>
