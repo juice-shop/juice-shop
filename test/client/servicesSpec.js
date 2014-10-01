@@ -134,7 +134,46 @@ describe('services', function () {
     describe('BasketService', function () {
         it('should be defined', inject(function (BasketService) {
             expect(BasketService).toBeDefined();
+            expect(BasketService.find).toBeDefined();
             expect(BasketService.get).toBeDefined();
+            expect(BasketService.put).toBeDefined();
+            expect(BasketService.del).toBeDefined();
+        }));
+
+        it('should get basket directly from the rest api', inject(function (BasketService) {
+            $httpBackend.whenGET('/rest/basket/1').respond(200, 'apiResponse');
+
+            BasketService.find(1).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should get single basket item directly via the rest api', inject(function (BasketService) {
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200, 'apiResponse');
+
+            BasketService.get(1).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should update basket item directly via the rest api', inject(function (BasketService) {
+            $httpBackend.whenPUT('/api/BasketItems/1').respond(200, 'apiResponse');
+
+            BasketService.put(1, {}).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should delete basket item directly via the rest api', inject(function (BasketService) {
+            $httpBackend.whenDELETE('/api/BasketItems/1').respond(200, 'apiResponse');
+
+            BasketService.del(1).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
         }));
 
     });
