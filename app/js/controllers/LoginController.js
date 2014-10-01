@@ -8,7 +8,6 @@ angular.module('myApp').controller('LoginController', [
 
         $scope.login = function () {
             userService.login($scope.user).success(function (data) {
-                console.log(data);
                 $window.sessionStorage.token = data.token;
                 $window.sessionStorage.bid = data.bid;
                 $location.path( '/' );
