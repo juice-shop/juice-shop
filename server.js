@@ -11,7 +11,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     restful = require('sequelize-restful'),
     express = require('express'),
     errorhandler = require('errorhandler'),
-    session = require('express-session'),
     cookieParser = require('cookie-parser'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
@@ -134,10 +133,6 @@ app.use(favicon(__dirname + '/app/public/favicon.ico'));
 app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
 app.use(cookieParser(secret));
-app.use(session({secret: secret,
-        saveUninitialized: true,
-        resave: true})
-);
 app.use(bodyParser.json());
 
 /* Authorization */
