@@ -140,6 +140,10 @@ app.use(bodyParser.json());
 /* Baskets: Unauthorized users are not allowed to access baskets */
 app.use('/rest/basket', expressJwt({secret: secret}));
 
+/* BasketItems: API only accessible for authenticated users */
+app.use('/api/BasketItems', expressJwt({secret: secret}));
+app.use('/api/BasketItems/:id', expressJwt({secret: secret}));
+
 /* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
 app.get('/api/Feedbacks', expressJwt({secret: secret}));
 app.use('/api/Feedbacks/:id', expressJwt({secret: secret}));
@@ -154,7 +158,7 @@ app.post('/api/Products', expressJwt({secret: secret}));
 app.delete('/api/Products/:id', expressJwt({secret: secret}));
 
 /* Restful APIs */
-app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks'] }));
+app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems'] }));
 
 app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + utils.hash(req.body.password || '') + '\'', User, {plain: true})
