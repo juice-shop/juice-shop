@@ -178,5 +178,23 @@ describe('services', function () {
 
     });
 
+    describe('ChallengeService', function () {
+        it('should be defined', inject(function (ChallengeService) {
+            expect(ChallengeService).toBeDefined();
+            expect(ChallengeService.find).toBeDefined();
+        }));
+
+        it('should get all feedback directly from the rest api', inject(function (ChallengeService) {
+            $httpBackend.whenGET('/api/Challenges/').respond(200, 'apiResponse');
+
+            ChallengeService.find().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+    });
+
+
 
 });

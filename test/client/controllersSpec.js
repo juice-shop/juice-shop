@@ -195,4 +195,18 @@ describe('controllers', function () {
         }));
     });
 
+    describe('ChallengeController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('ChallengeController', {
+                '$scope': scope
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+        }));
+    });
+
+
 });

@@ -46,6 +46,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'LogoutController'
     });
 
+    $routeProvider.when('/score-board', {
+        templateUrl: 'views/ScoreBoard.html',
+        controller: 'ChallengeController'
+    });
+
     /* default route */
     $routeProvider.otherwise({redirectTo: '/best-deals'});
 }]);

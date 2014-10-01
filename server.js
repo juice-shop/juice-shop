@@ -58,9 +58,25 @@ var Feedback = sequelize.define('Feedback', {
 
 Feedback.belongsTo(User);
 
+var Challenge = sequelize.define('Challenges', {
+    description: Sequelize.STRING,
+    link: Sequelize.STRING,
+    solved: Sequelize.BOOLEAN
+});
+
+/* Challenges */
+var redirectChallenge;
+
 /* Data */
 sequelize.drop();
 sequelize.sync().success(function () {
+    Challenge.create({
+        description: 'Wherever you go, there you are.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards',
+        solved: false
+    }).success(function(challenge) {
+        redirectChallenge = challenge;
+    });
     User.create({
         email: 'admin@juice-sh.op',
         password: utils.hash('admin123')
@@ -162,8 +178,12 @@ app.post('/api/Products', expressJwt({secret: secret}));
 //app.put('/api/Products/:id', expressJwt({secret: secret})); // = missing function-level access control vulnerability
 app.delete('/api/Products/:id', expressJwt({secret: secret}));
 
+/* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization */
+app.post('/api/Challenges', expressJwt({secret: Math.random()}));
+app.use('/api/Challenges/:id', expressJwt({secret: Math.random()}));
+
 /* Restful APIs */
-app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems'] }));
+app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 
 app.post('/rest/user/login', function(req, res, next){
     sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + utils.hash(req.body.password || '') + '\'', User, {plain: true})
@@ -207,12 +227,16 @@ app.get('/rest/basket/:id', function(req, res, next){
 /* Static Resources */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 
-app.get('/redirect', function(req, res, next) {
+app.get('/redirect', function(req, res) {
     var to = req.query.to;
-    if (to.indexOf('https://github.com/bkimminich/juice-shop') > -1) {
+    var githubUrl = 'https://github.com/bkimminich/juice-shop';
+    if (to.indexOf(githubUrl) > -1) {
+        if (to !== githubUrl) {
+            solve(redirectChallenge);
+        }
         res.redirect(to);
     } else {
-        res.redirect('https://github.com/bkimminich/juice-shop');
+        res.redirect(githubUrl);
     }
 });
 
@@ -245,3 +269,10 @@ exports.close = function (exitCode) {
         process.exit(exitCode);
     }
 };
+
+function solve(challenge) {
+    challenge.solved = true;
+    challenge.save().success(function() {
+        console.log('Solved challenge "' + challenge.description + '"');
+    });
+}
