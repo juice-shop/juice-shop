@@ -5,6 +5,7 @@ angular.module('myApp').controller('LogoutController', [
         'use strict';
 
         delete $window.sessionStorage.token;
+        delete $window.sessionStorage.bid;
         $location.path( '/' );
 
     }]);

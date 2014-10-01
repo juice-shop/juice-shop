@@ -171,8 +171,12 @@ app.post('/rest/user/login', function(req, res, next){
         .success(function(data) {
             var user = utils.queryResultToJson(data);
             if (user.data && user.data.id) {
-                var token = jwt.sign(user, secret, { expiresInMinutes: 60*5 });
-                res.json({ token: token });
+                Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
+                    var token = jwt.sign(user, secret, { expiresInMinutes: 60*5 });
+                    res.json({ token: token, bid: basket.id });
+                }).error(function (error) {
+                    next(error);
+                });
             } else {
                 res.status(401).send('Invalid email or password');
             }
