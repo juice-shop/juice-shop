@@ -17,9 +17,9 @@
                 <td>{{product.price}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-minus-sign"></span></a>
+                        <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><span class="glyphicon glyphicon-minus-sign"></span></a>
                         <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
-                        <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><span class="glyphicon glyphicon-plus-sign"></span></a>
                     </div>
                 </td>
                 <td>{{product.price*product.basketItem.quantity}}</td>
