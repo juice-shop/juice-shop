@@ -26,8 +26,7 @@ var secret = 'h0lyHandgr3nade';
 /* Domain Model */
 var User = sequelize.define('User', {
     email: Sequelize.STRING,
-    password: Sequelize.STRING,
-    admin: Sequelize.BOOLEAN
+    password: Sequelize.STRING
 });
 
 var Product = sequelize.define('Product', {
@@ -60,13 +59,15 @@ sequelize.drop();
 sequelize.sync().success(function () {
     User.create({
         email: 'admin@juice-sh.op',
-        admin: true,
         password: utils.hash('admin123')
     });
     User.create({
         email: 'jim@juice-sh.op',
-        admin: false,
         password: utils.hash('ncc-1701')
+    });
+    User.create({
+        email: 'bender@juice-sh.op',
+        password: utils.hash('booze')
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
