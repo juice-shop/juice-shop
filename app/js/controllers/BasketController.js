@@ -6,13 +6,26 @@ angular.module('myApp').controller('BasketController', [
     function ($scope, $sce, $window, basketService) {
         'use strict';
 
-        basketService.get($window.sessionStorage.bid).success(function (data) {
-            $scope.products = data.data.products;
-            for (var i=0; i<$scope.products.length; i++) {
-                $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
-            }
-        }).error(function (data) {
-            console.log(data);
-        });
+        function load() {
+            basketService.get($window.sessionStorage.bid).success(function (data) {
+                $scope.products = data.data.products;
+                for (var i=0; i<$scope.products.length; i++) {
+                    $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
+                }
+            }).error(function (data) {
+                console.log(data);
+            });
+        }
+        load();
+
+        $scope.delete = function (id) {
+
+            basketService.del(id).success(function () {
+                load();
+            }).error(function (data) {
+                console.log(data);
+            });
+
+        };
 
     }]);

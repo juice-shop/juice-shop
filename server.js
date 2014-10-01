@@ -39,6 +39,11 @@ var Basket = sequelize.define('Basket', {
 });
 
 var BasketItem = sequelize.define('BasketItems', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     quantity: Sequelize.INTEGER
 });
 
