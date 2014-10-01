@@ -193,6 +193,15 @@ app.get('/rest/product/search', function(req, res, next){
 /* Static Resources */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 
+app.get('/redirect', function(req, res, next) {
+    var to = req.query.to;
+    if (to.indexOf('https://github.com/bkimminich/juice-shop') > -1) {
+        res.redirect(to);
+    } else {
+        res.redirect('https://github.com/bkimminich/juice-shop');
+    }
+});
+
 app.use(function (req, res, next) {
     if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
         res.sendFile(__dirname + '/app/index.html');
