@@ -131,4 +131,13 @@ describe('services', function () {
         }));
     });
 
+    describe('BasketService', function () {
+        it('should be defined', inject(function (BasketService) {
+            expect(BasketService).toBeDefined();
+            expect(BasketService.get).toBeDefined();
+        }));
+
+    });
+
+
 });

@@ -142,6 +142,9 @@ app.use(bodyParser.json());
 
 /* Authorization */
 
+/* Baskets: Unauthorized users are not allowed to access baskets */
+app.use('/rest/basket', expressJwt({secret: secret}));
+
 /* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
 app.get('/api/Feedbacks', expressJwt({secret: secret}));
 app.use('/api/Feedbacks/:id', expressJwt({secret: secret}));
@@ -180,6 +183,16 @@ app.post('/rest/user/login', function(req, res, next){
 app.get('/rest/product/search', function(req, res, next){
     var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
     sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
+        .success(function(data) {
+            res.json(utils.queryResultToJson(data));
+        }).error(function (error) {
+            next(error);
+        });
+});
+
+app.get('/rest/basket/:id', function(req, res, next){
+    var id = req.params.id;
+    Basket.find({where: {id: id}, include: [ Product ]})
         .success(function(data) {
             res.json(utils.queryResultToJson(data));
         }).error(function (error) {

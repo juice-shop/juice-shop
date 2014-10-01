@@ -2,7 +2,7 @@
     <div class="col-md-8">
         <h3 class="page-header page-header-sm">Your Basket</h3>
 
-        <table class="table table-striped table-bordered table-condensed" ng-controller="BestDealsController">
+        <table class="table table-striped table-bordered table-condensed" ng-controller="BasketController">
             <tr>
                 <th>Product</th>
                 <th>Description</th>
@@ -18,11 +18,11 @@
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-minus-sign"></span></a>
-                        <span class="btn btn-default btn-xs">1</span>
+                        <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
                         <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-plus-sign"></span></a>
                     </div>
                 </td>
-                <td>{{product.price}}</td>
+                <td>{{product.price*product.basketItem.quantity}}</td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-default btn-xs" ng-click=""><span class="glyphicon glyphicon-trash"></span></a>
