@@ -21,14 +21,6 @@ frisby.create('GET all models declared in API')
         tableName: 'Feedbacks'
     })
     .expectJSON('data.?', {
-        name: 'Basket',
-        tableName: 'Baskets'
-    })
-    .expectJSON('data.?', {
-        name: 'BasketItems',
-        tableName: 'BasketItems'
-    })
-    .expectJSON('data.?', {
         name: 'Product',
         tableName: 'Products'
     }).toss();

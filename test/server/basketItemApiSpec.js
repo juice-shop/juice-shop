@@ -10,28 +10,33 @@ frisby.create('POST new basket item is forbidden via public API')
         ProductId: 1,
         quantity: 1
     })
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectJSON({status : 'error'})
     .toss();
 
 frisby.create('GET all basket item is forbidden via public API')
     .get(API_URL + '/BasketItems')
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectJSON({status : 'error'})
     .toss();
 
 frisby.create('GET existing basket item by id is forbidden via public API')
     .get(API_URL + '/BasketItems/1')
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectJSON({status : 'error'})
     .toss();
 
 frisby.create('PUT update basket item feedback is forbidden via public API')
     .put(API_URL + '/BasketItems/1', {
         quantity: 2
     })
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectJSON({status : 'error'})
     .toss();
 
 frisby.create('DELETE existing basket item is forbidden via public API')
     .delete(API_URL + '/BasketItems/1')
-    .expectStatus(401)
+    .expectStatus(200)
+    .expectJSON({status : 'error'})
     .toss();
 
