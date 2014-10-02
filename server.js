@@ -70,6 +70,7 @@ var Challenge = sequelize.define('Challenges', {
 
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge,
+
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, localXssChallenge,
     persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
     csrfChallenge, directoryListingChallenge, adminSectionChallenge, scoreBoardChallenge;
@@ -155,21 +156,21 @@ sequelize.sync().success(function () {
         adminSectionChallenge = challenge;
     });
     Challenge.create({
-        description: 'Trick Jim into changing his password by performing a CSRF attack.' ,
+        description: 'Trick a user into changing his password.' ,
         link: 'https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF)',
         solved: false
     }).success(function(challenge) {
         csrfChallenge = challenge;
     });
     Challenge.create({
-        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to some other URL without using SQL Injection.',
+        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to some other URL.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
         solved: false
     }).success(function(challenge) {
         changeProductChallenge = challenge;
     });
     Challenge.create({
-        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a> is easy - getting access to it is another story.',
+        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
         solved: false
     }).success(function(challenge) {
