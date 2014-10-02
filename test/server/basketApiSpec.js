@@ -1,12 +1,12 @@
 /*jslint node: true */
 
-var frisby = require('frisby');
+var frisby = require('frisby'),
+    insecurity = require('../../lib/insecurity');
 
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
 
-var token = require('jsonwebtoken').sign({}, 'h0lyHandgr3nade', { expiresInMinutes: 60*5 }),
-    authHeader = { 'Authorization': 'Bearer ' + token } ;
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
 frisby.create('GET existing basket by id is not allowed via public API')
     .get(REST_URL + '/basket/1')

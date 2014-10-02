@@ -15,13 +15,9 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    expressJwt = require('express-jwt'),
-    jwt = require('jsonwebtoken'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     app = express();
-
-var secret = 'h0lyHandgr3nade';
 
 /* Domain Model */
 var User = sequelize.define('User', {
@@ -194,34 +190,34 @@ app.use('/public/ftp/:file', function(req, res, next) {
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
-app.use(cookieParser(secret));
+app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
 /* Authorization */
 
 /* Baskets: Unauthorized users are not allowed to access baskets */
-app.use('/rest/basket', expressJwt({secret: secret}));
+app.use('/rest/basket', insecurity.isAuthorized());
 
 /* BasketItems: API only accessible for authenticated users */
-app.use('/api/BasketItems', expressJwt({secret: secret}));
-app.use('/api/BasketItems/:id', expressJwt({secret: secret}));
+app.use('/api/BasketItems', insecurity.isAuthorized());
+app.use('/api/BasketItems/:id', insecurity.isAuthorized());
 
 /* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
-app.get('/api/Feedbacks', expressJwt({secret: secret}));
-app.use('/api/Feedbacks/:id', expressJwt({secret: secret}));
+app.get('/api/Feedbacks', insecurity.isAuthorized());
+app.use('/api/Feedbacks/:id', insecurity.isAuthorized());
 
 /* Users: Only POST is allowed in order to register a new uer */
-app.get('/api/Users', expressJwt({secret: secret}));
-app.use('/api/Users/:id', expressJwt({secret: secret}));
+app.get('/api/Users', insecurity.isAuthorized());
+app.use('/api/Users/:id', insecurity.isAuthorized());
 
 /* Products: Only GET is allowed in order to view products */
-app.post('/api/Products', expressJwt({secret: secret}));
-//app.put('/api/Products/:id', expressJwt({secret: secret})); // = missing function-level access control vulnerability
-app.delete('/api/Products/:id', expressJwt({secret: secret}));
+app.post('/api/Products', insecurity.isAuthorized());
+//app.put('/api/Products/:id', insecurity.isAuthorized()); // = missing function-level access control vulnerability
+app.delete('/api/Products/:id', insecurity.isAuthorized());
 
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
-app.post('/api/Challenges', expressJwt({secret: Math.random()}));
-app.use('/api/Challenges/:id', expressJwt({secret: Math.random()}));
+app.post('/api/Challenges', insecurity.denyAll());
+app.use('/api/Challenges/:id', insecurity.denyAll());
 
 /* Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
@@ -232,8 +228,7 @@ app.post('/rest/user/login', function(req, res, next){
             var user = utils.queryResultToJson(data);
             if (user.data && user.data.id) {
                 Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
-                    var token = jwt.sign(user, secret, { expiresInMinutes: 60*5 });
-                    res.json({ token: token, bid: basket.id });
+                    res.json({ token: insecurity.authorize(user), bid: basket.id });
                 }).error(function (error) {
                     next(error);
                 });
