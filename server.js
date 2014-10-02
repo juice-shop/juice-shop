@@ -72,11 +72,18 @@ var Challenge = sequelize.define('Challenges', {
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, localXssChallenge,
     persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
-    csrfChallenge;
+    csrfChallenge, directoryListingChallenge, adminSectionChallenge, scoreBoardChallenge;
 
 /* Data */
 sequelize.drop();
 sequelize.sync().success(function () {
+    Challenge.create({
+        description: 'Find the carefully hidden \'Score Board\' page.',
+        link: 'https://www.owasp.org/index.php/Top_10_2007-Information_Leakage_and_Improper_Error_Handling',
+        solved: false
+    }).success(function(challenge) {
+        scoreBoardChallenge = challenge;
+    });
     Challenge.create({
         description: 'Log in with the administrator\'s user account.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
@@ -134,7 +141,21 @@ sequelize.sync().success(function () {
         negativeOrderChallenge = challenge;
     });
     Challenge.create({
-        description: 'Trick Jim into changing his password by performing in a CSRF attack.' ,
+        description: 'Access a confidential document.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        directoryListingChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Access the administration section of the store.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        adminSectionChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Trick Jim into changing his password by performing a CSRF attack.' ,
         link: 'https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF)',
         solved: false
     }).success(function(challenge) {
