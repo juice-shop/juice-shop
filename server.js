@@ -27,11 +27,11 @@ var User = sequelize.define('User', {
     { hooks: {
         beforeCreate: function (user, fn) {
             user.password = insecurity.hash(user.password);
-            fn(null, user)
+            fn(null, user);
         },
         beforeUpdate: function (user, fn) { // Pitfall: Will hash the hashed password again if password was not updated
             user.password = insecurity.hash(user.password);
-            fn(null, user)
+            fn(null, user);
         }
     }}
 );
@@ -219,7 +219,7 @@ sequelize.sync().success(function () {
     });
     Product.create({
         name: 'Raspberry Juice (1000ml)',
-        description: "Made from blended Raspberry Pi, water and sugar.",
+        description: 'Made from blended Raspberry Pi, water and sugar.',
         price: 4.99,
         image: 'raspberry_juice.jpg'
     });

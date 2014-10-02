@@ -5,6 +5,7 @@ var myApp = angular.module('myApp', [
 ]);
 
 myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
+    'use strict';
     return {
         request: function (config) {
             config.headers = config.headers || {};
@@ -23,5 +24,6 @@ myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
 });
 
 myApp.config(function ($httpProvider) {
+    'use strict';
     $httpProvider.interceptors.push('authInterceptor');
 });
