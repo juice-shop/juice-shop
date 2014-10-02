@@ -6,6 +6,8 @@ var frisby = require('frisby'),
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
 
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
+
 frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
@@ -32,6 +34,27 @@ frisby.create('POST new user')
             .expectHeaderContains('content-type', 'application/json')
             .expectJSONTypes({
                 token: String
+            })
+            .afterJSON(function() {
+                frisby.create('GET existing user by id')
+                    .addHeaders(authHeader)
+                    .get(API_URL + '/Users/' + user.data.id)
+                    .expectStatus(200)
+                    .afterJSON(function() {
+                        frisby.create('PUT update existing user')
+                            .addHeaders(authHeader)
+                            .put(API_URL + '/Users/' + user.data.id, {
+                                email: 'horst.horstmann@horstma.nn'
+                            })
+                            .expectStatus(200)
+                            .afterJSON(function() {
+                                frisby.create('DELETE existing user')
+                                    .addHeaders(authHeader)
+                                    .delete(API_URL + '/Users/' + + user.data.id)
+                                    .expectStatus(200)
+                                    .toss();
+                            }).toss();
+                    }).toss();
             }).toss();
     }).toss();
 
@@ -71,4 +94,10 @@ frisby.create('POST login without credentials')
         password: undefined
     }, {json: true})
     .expectStatus(401)
+    .toss();
+
+frisby.create('GET all users')
+    .addHeaders(authHeader)
+    .get(API_URL + '/Users')
+    .expectStatus(200)
     .toss();

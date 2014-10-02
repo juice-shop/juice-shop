@@ -1,36 +1,12 @@
 /*jslint node: true */
 
-var frisby = require('frisby');
+var frisby = require('frisby'),
+    insecurity = require('../../lib/insecurity');
 
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
 
-frisby.create('GET all products')
-    .get(API_URL + '/Products')
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'application/json')
-    .expectJSONTypes('data.*', {
-        id: Number,
-        name: String,
-        description: String,
-        price: Number,
-        image: String
-    })
-    .afterJSON(function (products) {
-        frisby.create('GET product search with empty search parameter returns all products')
-            .get(REST_URL + '/product/search?q=')
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSONLength('data', products.data.length)
-            .toss();
-        frisby.create('GET product search without search parameter returns all products')
-            .get(REST_URL + '/product/search')
-            .expectStatus(200)
-            .expectHeaderContains('content-type', 'application/json')
-            .expectJSONLength('data', products.data.length)
-            .toss();
-    })
-    .toss();
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
 frisby.create('GET existing user by id')
     .get(API_URL + '/Products/1')
@@ -97,3 +73,56 @@ frisby.create('DELETE existing product is forbidden via public API')
     .expectStatus(401)
     .toss();
 
+frisby.create('POST new product')
+    .addHeaders(authHeader)
+    .post(API_URL + '/Products', {
+        name: 'Dirt Juice (1000ml)',
+        description: "Made from ugly dirt.",
+        price: 0.99,
+        image: 'dirt_juice.jpg'
+    })
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes('data', {
+        id: Number,
+        createdAt: String,
+        updatedAt: String
+    })
+    .afterJSON(function(product) {
+        frisby.create('GET existing product item by id')
+            .addHeaders(authHeader)
+            .get(API_URL + '/Products/' + product.data.id)
+            .expectStatus(200)
+            .afterJSON(function () {
+                frisby.create('DELETE existing product')
+                    .addHeaders(authHeader)
+                    .delete(API_URL + '/Products/' + +product.data.id)
+                    .expectStatus(200)
+                    .afterJSON(function() {
+                        frisby.create('GET all products')
+                            .get(API_URL + '/Products')
+                            .expectStatus(200)
+                            .expectHeaderContains('content-type', 'application/json')
+                            .expectJSONTypes('data.*', {
+                                id: Number,
+                                name: String,
+                                description: String,
+                                price: Number,
+                                image: String
+                            })
+                            .afterJSON(function (products) {
+                                frisby.create('GET product search with empty search parameter returns all products')
+                                    .get(REST_URL + '/product/search?q=')
+                                    .expectStatus(200)
+                                    .expectHeaderContains('content-type', 'application/json')
+                                    .expectJSONLength('data', products.data.length)
+                                    .toss();
+                                frisby.create('GET product search without search parameter returns all products')
+                                    .get(REST_URL + '/product/search')
+                                    .expectStatus(200)
+                                    .expectHeaderContains('content-type', 'application/json')
+                                    .expectJSONLength('data', products.data.length)
+                                    .toss();
+                            }).toss();
+                    }).toss();
+            }).toss();
+    }).toss();

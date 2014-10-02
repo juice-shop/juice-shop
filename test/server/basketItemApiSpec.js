@@ -53,7 +53,6 @@ frisby.create('POST new basket item')
     })
     .expectStatus(200)
     .afterJSON(function(basketItem) {
-        console.log(basketItem);
         frisby.create('GET existing basket item by id')
             .addHeaders(authHeader)
             .get(API_URL + '/BasketItems/' + basketItem.data.id)
