@@ -273,7 +273,7 @@ app.get('/redirect', function(req, res) {
 });
 
 app.use(function (req, res, next) {
-    if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest') && !utils.startsWith(req.url, '/public')) {
+    if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
         res.sendFile(__dirname + '/app/index.html');
     } else {
         next();
