@@ -7,9 +7,9 @@ angular.module('myApp').controller('FeedbackController', [
 
         function findAll() {
             feedbackService.find().success(function (data) {
-                $scope.challenges = data.data;
-                for (var i=0; i<$scope.challenges.length; i++) {
-                    $scope.challenges[i].comment = $sce.trustAsHtml($scope.challenges[i].comment);
+                $scope.feedbacks = data.data;
+                for (var i=0; i<$scope.feedbacks.length; i++) {
+                    $scope.feedbacks[i].comment = $sce.trustAsHtml($scope.feedbacks[i].comment);
                 }
             }).error(function (data) {
                 console.log(data);
