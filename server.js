@@ -71,21 +71,21 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge;
 sequelize.drop();
 sequelize.sync().success(function () {
     Challenge.create({
-        description: 'Wherever you go, there you are.',
+        description: 'Wherever you go, there you are. (Holy Shrine, Diablo®)',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards',
         solved: false
     }).success(function(challenge) {
         redirectChallenge = challenge;
     });
     Challenge.create({
-        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
+        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg is easy - getting access to it might not be.</a>.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
         solved: false
     }).success(function(challenge) {
         easterEggLevelOneChallenge = challenge;
     });
     Challenge.create({
-        description: 'Find <i>the real</i> easter egg.',
+        description: 'Beat some tough crypto to find <i>the real</i> easter egg.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure',
         solved: false
     }).success(function(challenge) {
