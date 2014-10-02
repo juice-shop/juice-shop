@@ -120,7 +120,7 @@ sequelize.sync().success(function () {
         persistedXssChallenge = challenge;
     });
     Challenge.create({
-        description: 'Wherever you go, there you are. (Holy Shrine, Diablo®)',
+        description: 'Wherever you go, there you are.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards',
         solved: false
     }).success(function(challenge) {
