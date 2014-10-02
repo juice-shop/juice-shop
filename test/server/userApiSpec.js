@@ -10,7 +10,7 @@ frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
         admin: false,
-        password: hash('hooooorst')
+        password: 'hooooorst'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
@@ -18,7 +18,11 @@ frisby.create('POST new user')
         id: Number,
         createdAt: String,
         updatedAt: String
-    }).afterJSON(function (user) {
+    })
+    .expectJSON('data', {
+        password: hash('hooooorst')
+    })
+    .afterJSON(function (user) {
         frisby.create('POST login existing user')
             .post(REST_URL + '/user/login', {
                 email: 'horst@horstma.nn',

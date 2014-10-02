@@ -24,9 +24,16 @@ var secret = 'h0lyHandgr3nade';
 
 /* Domain Model */
 var User = sequelize.define('User', {
-    email: Sequelize.STRING,
-    password: Sequelize.STRING
-});
+        email: Sequelize.STRING,
+        password: Sequelize.STRING
+    },
+    { hooks: {
+        beforeCreate: function (user, fn) {
+            user.password = utils.hash(user.password);
+            fn(null, user)
+        }
+    }}
+);
 
 var Product = sequelize.define('Product', {
     name: Sequelize.STRING,
@@ -78,7 +85,7 @@ sequelize.sync().success(function () {
         redirectChallenge = challenge;
     });
     Challenge.create({
-        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg is easy - getting access to it might not be.</a>.',
+        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a> is easy - getting access to it might not be.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
         solved: false
     }).success(function(challenge) {
@@ -93,15 +100,15 @@ sequelize.sync().success(function () {
     });
     User.create({
         email: 'admin@juice-sh.op',
-        password: utils.hash('admin123')
+        password: 'admin123'
     });
     User.create({
         email: 'jim@juice-sh.op',
-        password: utils.hash('ncc-1701')
+        password: 'ncc-1701'
     });
     User.create({
         email: 'bender@juice-sh.op',
-        password: utils.hash('booze')
+        password: 'booze'
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
