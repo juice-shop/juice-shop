@@ -65,7 +65,7 @@ var Challenge = sequelize.define('Challenges', {
 });
 
 /* Challenges */
-var redirectChallenge;
+var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge;
 
 /* Data */
 sequelize.drop();
@@ -76,6 +76,20 @@ sequelize.sync().success(function () {
         solved: false
     }).success(function(challenge) {
         redirectChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        easterEggLevelOneChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Find <i>the real</i> easter egg.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure',
+        solved: false
+    }).success(function(challenge) {
+        easterEggLevelTwoChallenge = challenge;
     });
     User.create({
         email: 'admin@juice-sh.op',
@@ -121,7 +135,7 @@ sequelize.sync().success(function () {
     });
     Product.create({
         name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
-        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft">More...</a>',
+        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
         price: 0.01,
         image: 'owasp_osaft.jpg'
     });
@@ -150,7 +164,26 @@ sequelize.sync().success(function () {
     });
 });
 
+/* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
+
+/* public/ftp directory browsing and file download */
+app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
+app.use('/public/ftp/:file', function(req, res, next) {
+    var file = req.params.file;
+    console.log(file);
+    if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
+        file = utils.cutOffPoisonNullByte(file);
+        if (file.toLowerCase() === 'eastere.gg') {
+            solve(easterEggLevelOneChallenge);
+        }
+        res.sendFile(__dirname + '/app/public/ftp/' + file);
+    } else {
+        res.status(403);
+        next('Only .md and .txt files are allowed!');
+    }
+});
+
 app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
 app.use(cookieParser(secret));
@@ -178,7 +211,7 @@ app.post('/api/Products', expressJwt({secret: secret}));
 //app.put('/api/Products/:id', expressJwt({secret: secret})); // = missing function-level access control vulnerability
 app.delete('/api/Products/:id', expressJwt({secret: secret}));
 
-/* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization */
+/* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', expressJwt({secret: Math.random()}));
 app.use('/api/Challenges/:id', expressJwt({secret: Math.random()}));
 
@@ -225,13 +258,12 @@ app.get('/rest/basket/:id', function(req, res, next){
 });
 
 /* Static Resources */
-app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 
 app.get('/redirect', function(req, res) {
     var to = req.query.to;
     var githubUrl = 'https://github.com/bkimminich/juice-shop';
     if (to.indexOf(githubUrl) > -1) {
-        if (to !== githubUrl) {
+        if (to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
             solve(redirectChallenge);
         }
         res.redirect(to);
@@ -241,7 +273,7 @@ app.get('/redirect', function(req, res) {
 });
 
 app.use(function (req, res, next) {
-    if (req.url.indexOf('/api') !== 0 && req.url.indexOf('/rest') !== 0) {
+    if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest') && !utils.startsWith(req.url, '/public')) {
         res.sendFile(__dirname + '/app/index.html');
     } else {
         next();
