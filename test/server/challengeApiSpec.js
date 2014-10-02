@@ -1,8 +1,11 @@
 /*jslint node: true */
 
-var frisby = require('frisby');
+var frisby = require('frisby'),
+    insecurity = require('../../lib/insecurity');
 
 var API_URL = 'http://localhost:3000/api';
+
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
 frisby.create('GET all challenges ')
     .get(API_URL + '/Challenges')
@@ -16,12 +19,14 @@ frisby.create('GET all challenges ')
     })
     .toss();
 
-frisby.create('GET existing challenge by id is forbidden via public API')
+frisby.create('GET existing challenge by id is forbidden via public API even when authenticated')
+    .addHeaders(authHeader)
     .get(API_URL + '/Challenges/1')
     .expectStatus(401)
     .toss();
 
 frisby.create('POST new challenge')
+    .addHeaders(authHeader)
     .post(API_URL + '/Challenges', {
         description: 'I am not a vulnerability!',
         link: 'http://invulnerab.le',
@@ -30,7 +35,8 @@ frisby.create('POST new challenge')
     .expectStatus(401)
     .toss();
 
-frisby.create('PUT update existing challenge is forbidden via public API')
+frisby.create('PUT update existing challenge is forbidden via public API even when authenticated')
+    .addHeaders(authHeader)
     .put(API_URL + '/Challenges/1', {
         comment: "This sucks like nothing has ever sucked before",
         rating: 1
@@ -38,7 +44,8 @@ frisby.create('PUT update existing challenge is forbidden via public API')
     .expectStatus(401)
     .toss();
 
-frisby.create('DELETE existing challenge is forbidden via public API')
+frisby.create('DELETE existing challenge is forbidden via public API even when authenticated')
+    .addHeaders(authHeader)
     .delete(API_URL + '/Challenges/1')
     .expectStatus(401)
     .toss();
