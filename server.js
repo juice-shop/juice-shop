@@ -69,17 +69,83 @@ var Challenge = sequelize.define('Challenges', {
 });
 
 /* Challenges */
-var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge;
+var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge,
+    loginAdminChallenge, loginJimChallenge, loginBenderChallenge, localXssChallenge,
+    persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
+    csrfChallenge;
 
 /* Data */
 sequelize.drop();
 sequelize.sync().success(function () {
+    Challenge.create({
+        description: 'Log in with the administrator\'s user account.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
+        solved: false
+    }).success(function(challenge) {
+        loginAdminChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Log in with Jim\'s user account.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
+        solved: false
+    }).success(function(challenge) {
+        loginJimChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Log in with Bender\'s user account.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
+        solved: false
+    }).success(function(challenge) {
+        loginBenderChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Perform a reflected XSS attack with &lt;script&gt;alert(\'XSS1\')&lt;/script&gt;.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS)',
+        solved: false
+    }).success(function(challenge) {
+        localXssChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Perform a persisted XSS attack with &lt;script&gt;alert(\'XSS2\')&lt;/script&gt;.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS)',
+        solved: false
+    }).success(function(challenge) {
+        persistedXssChallenge = challenge;
+    });
     Challenge.create({
         description: 'Wherever you go, there you are. (Holy Shrine, Diablo®)',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards',
         solved: false
     }).success(function(challenge) {
         redirectChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Access someone else\'s basket.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        basketChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Place an order that makes you rich.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        negativeOrderChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Trick Jim into changing his password by performing in a CSRF attack.' ,
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF)',
+        solved: false
+    }).success(function(challenge) {
+        csrfChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to some other URL without using SQL Injection.',
+        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
+        solved: false
+    }).success(function(challenge) {
+        changeProductChallenge = challenge;
     });
     Challenge.create({
         description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a> is easy - getting access to it is another story.',
