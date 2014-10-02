@@ -28,6 +28,10 @@ var User = sequelize.define('User', {
         beforeCreate: function (user, fn) {
             user.password = insecurity.hash(user.password);
             fn(null, user)
+        },
+        beforeUpdate: function (user, fn) { // Pitfall: Will hash the hashed password again if password was not updated
+            user.password = insecurity.hash(user.password);
+            fn(null, user)
         }
     }}
 );
@@ -64,122 +68,122 @@ Feedback.belongsTo(User);
 
 var Challenge = sequelize.define('Challenges', {
     description: Sequelize.STRING,
-    link: Sequelize.STRING,
-    solved: Sequelize.BOOLEAN
+    solved: Sequelize.BOOLEAN,
+    solvable: Sequelize.BOOLEAN // TODO Remove when all challenges are solvable
 });
 
 /* Challenges */
-var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge,
+var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
+    loginAdminChallenge, loginJimChallenge, loginBenderChallenge,
 
-    loginAdminChallenge, loginJimChallenge, loginBenderChallenge, localXssChallenge,
-    persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
-    csrfChallenge, directoryListingChallenge, adminSectionChallenge, scoreBoardChallenge;
+    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
+    csrfChallenge, adminSectionChallenge, scoreBoardChallenge;
 
 /* Data */
 sequelize.drop();
 sequelize.sync().success(function () {
     Challenge.create({
         description: 'Find the carefully hidden \'Score Board\' page.',
-        link: 'https://www.owasp.org/index.php/Top_10_2007-Information_Leakage_and_Improper_Error_Handling',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         scoreBoardChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with the administrator\'s user account.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         loginAdminChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with Jim\'s user account.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         loginJimChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with Bender\'s user account.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A1-Injection',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         loginBenderChallenge = challenge;
     });
     Challenge.create({
         description: 'Perform a reflected XSS attack with &lt;script&gt;alert(\'XSS1\')&lt;/script&gt;.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS)',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         localXssChallenge = challenge;
     });
     Challenge.create({
         description: 'Perform a persisted XSS attack with &lt;script&gt;alert(\'XSS2\')&lt;/script&gt;.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A3-Cross-Site_Scripting_(XSS)',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         persistedXssChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A10-Unvalidated_Redirects_and_Forwards',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         redirectChallenge = challenge;
     });
     Challenge.create({
         description: 'Access someone else\'s basket.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         basketChallenge = challenge;
     });
     Challenge.create({
         description: 'Place an order that makes you rich.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         negativeOrderChallenge = challenge;
     });
     Challenge.create({
         description: 'Access a confidential document.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         directoryListingChallenge = challenge;
     });
     Challenge.create({
         description: 'Access the administration section of the store.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         adminSectionChallenge = challenge;
     });
     Challenge.create({
         description: 'Trick a user into changing his password.' ,
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF)',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         csrfChallenge = challenge;
     });
     Challenge.create({
         description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to some other URL.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: false
     }).success(function(challenge) {
         changeProductChallenge = challenge;
     });
     Challenge.create({
         description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         easterEggLevelOneChallenge = challenge;
     });
     Challenge.create({
         description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
-        link: 'https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure',
-        solved: false
+        solved: false,
+        solvable: true
     }).success(function(challenge) {
         easterEggLevelTwoChallenge = challenge;
     });
@@ -268,6 +272,8 @@ app.use('/public/ftp/:file', function(req, res, next) {
         file = insecurity.cutOffPoisonNullByte(file);
         if (file.toLowerCase() === 'eastere.gg') {
             solve(easterEggLevelOneChallenge);
+        } else if (file.toLowerCase() === 'acquisitions.md') {
+            solve(directoryListingChallenge);
         }
         res.sendFile(__dirname + '/app/public/ftp/' + file);
     } else {
@@ -315,6 +321,13 @@ app.post('/rest/user/login', function(req, res, next){
         .success(function(data) {
             var user = utils.queryResultToJson(data);
             if (user.data && user.data.id) {
+                if (user.data.id === 1) {
+                    solve(loginAdminChallenge);
+                } else if (user.data.id === 2) {
+                    solve(loginJimChallenge);
+                } else if  (user.data.id === 3) {
+                    solve(loginBenderChallenge);
+                }
                 Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
                     res.json({ token: insecurity.authorize(user), bid: basket.id });
                 }).error(function (error) {

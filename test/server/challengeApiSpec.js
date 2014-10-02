@@ -14,7 +14,6 @@ frisby.create('GET all challenges ')
     .expectJSONTypes('data.*', {
         id: Number,
         description: String,
-        link: String,
         solved: Boolean
     })
     .toss();
@@ -29,7 +28,6 @@ frisby.create('POST new challenge')
     .addHeaders(authHeader)
     .post(API_URL + '/Challenges', {
         description: 'I am not a vulnerability!',
-        link: 'http://invulnerab.le',
         solved: false
     })
     .expectStatus(401)
@@ -38,7 +36,7 @@ frisby.create('POST new challenge')
 frisby.create('PUT update existing challenge is forbidden via public API even when authenticated')
     .addHeaders(authHeader)
     .put(API_URL + '/Challenges/1', {
-        comment: "This sucks like nothing has ever sucked before",
+        description: "I am a vulnerability!!!",
         rating: 1
     })
     .expectStatus(401)
