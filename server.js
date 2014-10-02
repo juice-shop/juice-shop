@@ -257,8 +257,7 @@ app.get('/rest/basket/:id', function(req, res, next){
         });
 });
 
-/* Static Resources */
-
+/* Redirects */
 app.get('/redirect', function(req, res) {
     var to = req.query.to;
     var githubUrl = 'https://github.com/bkimminich/juice-shop';
@@ -272,6 +271,13 @@ app.get('/redirect', function(req, res) {
     }
 });
 
+/* Easter Egg */
+app.use('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', function (req, res) {
+    solve(easterEggLevelTwoChallenge);
+    res.sendFile(__dirname + '/app/private/threejs-demo.html');
+});
+
+/* Angular.js client */
 app.use(function (req, res, next) {
     if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
         res.sendFile(__dirname + '/app/index.html');
