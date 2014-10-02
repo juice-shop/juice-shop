@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var frisby = require('frisby'),
-    hash = require('../../lib/utils').hash;
+    insecurity = require('../../lib/insecurity');
 
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
@@ -20,7 +20,7 @@ frisby.create('POST new user')
         updatedAt: String
     })
     .expectJSON('data', {
-        password: hash('hooooorst')
+        password: insecurity.hash('hooooorst')
     })
     .afterJSON(function (user) {
         frisby.create('POST login existing user')

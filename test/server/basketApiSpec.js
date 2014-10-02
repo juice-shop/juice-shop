@@ -3,6 +3,23 @@
 var frisby = require('frisby');
 
 var API_URL = 'http://localhost:3000/api';
+var REST_URL = 'http://localhost:3000/rest';
+
+var token = require('jsonwebtoken').sign({}, 'h0lyHandgr3nade', { expiresInMinutes: 60*5 }),
+    authHeader = { 'Authorization': 'Bearer ' + token } ;
+
+frisby.create('GET existing basket by id is not allowed via public API')
+    .get(REST_URL + '/basket/1')
+    .expectStatus(401)
+    .toss();
+
+frisby.create('GET non-existing basket by id')
+    .addHeaders(authHeader)
+    .get(REST_URL + '/basket/4711')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {})
+    .toss();
 
 frisby.create('POST new basket is not part of public API')
     .post(API_URL + '/Baskets', {

@@ -18,6 +18,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     expressJwt = require('express-jwt'),
     jwt = require('jsonwebtoken'),
     utils = require('./lib/utils'),
+    insecurity = require('./lib/insecurity'),
     app = express();
 
 var secret = 'h0lyHandgr3nade';
@@ -29,7 +30,7 @@ var User = sequelize.define('User', {
     },
     { hooks: {
         beforeCreate: function (user, fn) {
-            user.password = utils.hash(user.password);
+            user.password = insecurity.hash(user.password);
             fn(null, user)
         }
     }}
@@ -85,14 +86,14 @@ sequelize.sync().success(function () {
         redirectChallenge = challenge;
     });
     Challenge.create({
-        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a> is easy - getting access to it might not be.',
+        description: 'Finding the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a> is easy - getting access to it is another story.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control',
         solved: false
     }).success(function(challenge) {
         easterEggLevelOneChallenge = challenge;
     });
     Challenge.create({
-        description: 'Beat some tough crypto to find <i>the real</i> easter egg.',
+        description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
         link: 'https://www.owasp.org/index.php/Top_10_2013-A6-Sensitive_Data_Exposure',
         solved: false
     }).success(function(challenge) {
@@ -180,7 +181,7 @@ app.use('/public/ftp/:file', function(req, res, next) {
     var file = req.params.file;
     console.log(file);
     if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
-        file = utils.cutOffPoisonNullByte(file);
+        file = insecurity.cutOffPoisonNullByte(file);
         if (file.toLowerCase() === 'eastere.gg') {
             solve(easterEggLevelOneChallenge);
         }
@@ -226,7 +227,7 @@ app.use('/api/Challenges/:id', expressJwt({secret: Math.random()}));
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 
 app.post('/rest/user/login', function(req, res, next){
-    sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + utils.hash(req.body.password || '') + '\'', User, {plain: true})
+    sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
         .success(function(data) {
             var user = utils.queryResultToJson(data);
             if (user.data && user.data.id) {
