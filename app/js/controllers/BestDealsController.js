@@ -28,6 +28,7 @@ angular.module('myApp').controller('BestDealsController', [
         };
 
         $scope.addToBasket = function (id) {
+
             basketService.find($window.sessionStorage.bid).success(function (data) {
                 var productsInBasket = data.data.products;
                 var found = false;
@@ -36,8 +37,12 @@ angular.module('myApp').controller('BestDealsController', [
                         found = true;
                         basketService.get(productsInBasket[i].basketItem.id).success(function (data) {
                             var newQuantity = data.data.quantity + 1;
-                            basketService.put(data.data.id, {quantity: newQuantity}).success(function () {
-
+                            basketService.put(data.data.id, {quantity: newQuantity}).success(function (data) {
+                                productService.get(data.data.ProductId).success(function(data) {
+                                    $scope.confirmation = 'Added another ' + data.data.name  + ' to basket.';
+                                }).error(function (data) {
+                                    console.log(data);
+                                });
                             }).error(function (data) {
                                 console.log(data);
                             });
@@ -48,7 +53,11 @@ angular.module('myApp').controller('BestDealsController', [
                 }
                 if (!found) {
                     basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).success(function (data) {
-
+                        productService.get(data.data.ProductId).success(function(data) {
+                            $scope.confirmation = 'Placed ' + data.data.name  + ' into basket.';
+                        }).error(function (data) {
+                            console.log(data);
+                        });
                     }).error(function (data) {
                         console.log(data);
                     });
