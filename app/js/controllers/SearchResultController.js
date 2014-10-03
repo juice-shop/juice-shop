@@ -3,8 +3,9 @@ angular.module('myApp').controller('SearchResultController', [
     '$location',
     '$sce',
     'ProductService',
+    'BasketService',
     '$modal',
-    function ($scope, $location, $sce, productService, $modal) {
+    function ($scope, $location, $sce, productService, basketService, $modal) {
         'use strict';
 
         $scope.showDetail = function (id) { // TODO resolve duplication with BestDealsController
@@ -25,6 +26,10 @@ angular.module('myApp').controller('SearchResultController', [
                 size: 'lg'
             });
         };
+
+        $scope.addToBasket = function(id) { // TODO resolve duplication with BestDealsController
+
+        }
 
         $scope.searchQuery = $sce.trustAsHtml($location.search().q);
 

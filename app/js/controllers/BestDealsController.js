@@ -2,8 +2,9 @@ angular.module('myApp').controller('BestDealsController', [
     '$scope',
     '$sce',
     'ProductService',
+    'BasketService',
     '$modal',
-    function ($scope, $sce, productService, $modal) {
+    function ($scope, $sce, productService, basketService, $modal) {
         'use strict';
 
         $scope.showDetail = function (id) {
@@ -24,6 +25,10 @@ angular.module('myApp').controller('BestDealsController', [
                 size: 'lg'
             });
         };
+
+        $scope.addToBasket = function(id) {
+
+        }
 
         productService.find().success(function (data) {
             $scope.products = data.data;

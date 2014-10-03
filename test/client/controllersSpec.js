@@ -13,6 +13,7 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.showDetail).toBeDefined();
+            expect(scope.addToBasket).toBeDefined();
         }));
     });
 
@@ -161,6 +162,7 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.showDetail).toBeDefined();
+            expect(scope.addToBasket).toBeDefined();
         }));
     });
 
