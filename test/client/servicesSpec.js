@@ -149,7 +149,7 @@ describe('services', function () {
         }));
 
         it('should create basket item directly via the rest api', inject(function (BasketService) {
-            $httpBackend.whenPOST('/api/BasketItems').respond(200, 'apiResponse');
+            $httpBackend.whenPOST('/api/BasketItems/').respond(200, 'apiResponse');
 
             BasketService.save().success(function (data) { result = data; });
             $httpBackend.flush();
