@@ -93,11 +93,11 @@ frisby.create('POST new product')
             .get(API_URL + '/Products/' + product.data.id)
             .expectStatus(200)
             .afterJSON(function () {
-                frisby.create('DELETE existing product')
+                frisby.create('DELETE existing product is forbidden via API even when authenticated')
                     .addHeaders(authHeader)
                     .delete(API_URL + '/Products/' + +product.data.id)
-                    .expectStatus(200)
-                    .afterJSON(function() {
+                    .expectStatus(401)
+                    .after(function() {
                         frisby.create('GET all products')
                             .get(API_URL + '/Products')
                             .expectStatus(200)
