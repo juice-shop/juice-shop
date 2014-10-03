@@ -48,10 +48,10 @@ frisby.create('POST new user')
                             })
                             .expectStatus(200)
                             .afterJSON(function() {
-                                frisby.create('DELETE existing user')
+                                frisby.create('DELETE existing user is forbidden via API even when authenticated')
                                     .addHeaders(authHeader)
                                     .delete(API_URL + '/Users/' + + user.data.id)
-                                    .expectStatus(200)
+                                    .expectStatus(401)
                                     .toss();
                             }).toss();
                     }).toss();

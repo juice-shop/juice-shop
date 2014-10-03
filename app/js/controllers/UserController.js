@@ -32,14 +32,4 @@ angular.module('myApp').controller('UserController', [
             });
         };
 
-        $scope.delete = function (id) {
-
-            userService.del(id).success(function () {
-                findAll();
-            }).error(function (data) {
-                console.log(data);
-            });
-
-        };
-
     }]);

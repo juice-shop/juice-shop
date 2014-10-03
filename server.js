@@ -302,7 +302,9 @@ app.use('/api/Feedbacks/:id', insecurity.isAuthorized());
 
 /* Users: Only POST is allowed in order to register a new uer */
 app.get('/api/Users', insecurity.isAuthorized());
-app.use('/api/Users/:id', insecurity.isAuthorized());
+app.get('/api/Users/:id', insecurity.isAuthorized());
+app.put('/api/Users/:id', insecurity.isAuthorized());
+app.delete('/api/Users/:id', insecurity.denyAll()); // Deleting users is forbidden entirely to keep login challenges solvable
 
 /* Products: Only GET is allowed in order to view products */
 app.post('/api/Products', insecurity.isAuthorized());

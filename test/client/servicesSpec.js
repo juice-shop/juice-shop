@@ -17,7 +17,6 @@ describe('services', function () {
             expect(UserService).toBeDefined();
             expect(UserService.find).toBeDefined();
             expect(UserService.get).toBeDefined();
-            expect(UserService.del).toBeDefined();
         }));
 
         it('should get all users directly from the rest api', inject(function (UserService) {
@@ -33,15 +32,6 @@ describe('services', function () {
             $httpBackend.whenGET('/api/Users/1').respond(200, 'apiResponse');
 
             UserService.get(1).success(function (data) { result = data; });
-            $httpBackend.flush();
-
-            expect(result).toBe('apiResponse');
-        }));
-
-        it('should delete user directly via the rest api', inject(function (UserService) {
-            $httpBackend.whenDELETE('/api/Users/1').respond(200, 'apiResponse');
-
-            UserService.del(1).success(function (data) { result = data; });
             $httpBackend.flush();
 
             expect(result).toBe('apiResponse');
