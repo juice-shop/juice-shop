@@ -2,10 +2,11 @@ angular.module('myApp').controller('SearchResultController', [
     '$scope',
     '$location',
     '$sce',
+    '$window',
     'ProductService',
     'BasketService',
     '$modal',
-    function ($scope, $location, $sce, productService, basketService, $modal) {
+    function ($scope, $location, $sce, $window, productService, basketService, $modal) {
         'use strict';
 
         $scope.showDetail = function (id) { // TODO resolve duplication with BestDealsController
@@ -28,6 +29,34 @@ angular.module('myApp').controller('SearchResultController', [
         };
 
         $scope.addToBasket = function(id) { // TODO resolve duplication with BestDealsController
+            basketService.find($window.sessionStorage.bid).success(function (data) {
+                var productsInBasket = data.data.products;
+                var found = false;
+                for (var i = 0; i < productsInBasket.length; i++) {
+                    if (productsInBasket[i].id === id) {
+                        found = true;
+                        basketService.get(productsInBasket[i].basketItem.id).success(function (data) {
+                            var newQuantity = data.data.quantity + 1;
+                            basketService.put(data.data.id, {quantity: newQuantity}).success(function () {
+
+                            }).error(function (data) {
+                                console.log(data);
+                            });
+                        }).error(function (data) {
+                            console.log(data);
+                        });
+                    }
+                }
+                if (!found) {
+                    basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).success(function (data) {
+
+                    }).error(function (data) {
+                        console.log(data);
+                    });
+                }
+            }).error(function (data) {
+                console.log(data);
+            });
 
         }
 
