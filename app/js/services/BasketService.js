@@ -19,10 +19,15 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         return $http.delete(host + '/' + id);
     }
 
+    function save(params) {
+        return $http.post(host + '/', params);
+    }
+
     return {
         find: find,
         get: get,
         put: put,
-        del: del
+        del: del,
+        save: save
     };
 }]);
