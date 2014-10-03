@@ -148,6 +148,15 @@ describe('services', function () {
             expect(result).toBe('apiResponse');
         }));
 
+        it('should create basket item directly via the rest api', inject(function (UserService) {
+            $httpBackend.whenPOST('/api/BasketItems').respond(200, 'apiResponse');
+
+            BasketService.save().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
         it('should update basket item directly via the rest api', inject(function (BasketService) {
             $httpBackend.whenPUT('/api/BasketItems/1').respond(200, 'apiResponse');
 
