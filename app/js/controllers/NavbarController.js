@@ -1,12 +1,5 @@
 angular.module('myApp').controller('NavbarController', [
-    '$scope',
-    '$window',
-    function ($scope, $window) {
+    function () {
         'use strict';
-
-        $scope.isLoggedIn = function () {
-            return $window.sessionStorage.token;
-        };
-
 
     }]);
