@@ -47,7 +47,11 @@
         "win-spawn": "~2.0",
         "codeclimate-test-reporter": "~0.0",
         "istanbul": "~0.3",
-        "lcov-result-merger": "~1.0"
+        "lcov-result-merger": "~1.0",
+        "grunt": "~0.4.5",
+        "grunt-cli": "~0.1.13",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-concat": "~0.4.0"
     },
     "repository": {
         "type": "git",
@@ -55,6 +59,7 @@
     },
     "scripts": {
         "postinstall": "node bower_install.js",
+        "prestart": "grunt minify",
         "start": "node app",
         "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     },

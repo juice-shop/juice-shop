@@ -160,7 +160,7 @@ sequelize.sync().success(function () {
         adminSectionChallenge = challenge;
     });
     Challenge.create({
-        description: 'Trick a user into changing his password.' ,
+        description: 'Trick Bender into changing his password into ' ,
         solved: false,
         solvable: false
     }).success(function(challenge) {
@@ -262,6 +262,13 @@ sequelize.sync().success(function () {
 
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
+
+/* Database checks for solved challenges */
+app.use(function (req, res, next) {
+    /* Check O-Saft product for changed URL */
+
+    next();
+});
 
 /* public/ftp directory browsing and file download */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
