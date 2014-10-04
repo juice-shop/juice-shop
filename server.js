@@ -160,7 +160,7 @@ sequelize.sync().success(function () {
         adminSectionChallenge = challenge;
     });
     Challenge.create({
-        description: 'Trick Bender into changing his password into ' ,
+        description: 'Trick Bender into changing his password into <i>slurmCl4ssic</i>.' ,
         solved: false,
         solvable: false
     }).success(function(challenge) {
