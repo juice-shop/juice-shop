@@ -75,6 +75,7 @@ var Challenge = sequelize.define('Challenges', {
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
+    errorHandlingChallenge,
 
     localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge,
     adminSectionChallenge, scoreBoardChallenge;
@@ -92,6 +93,13 @@ sequelize.sync().success(function () {
         solvable: false
     }).success(function(challenge) {
         scoreBoardChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Provoke an error that is not very gracefully handled.',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        errorHandlingChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with the administrator\'s user account.',
@@ -422,6 +430,10 @@ app.use(function (req, res, next) {
 });
 
 /* Generic error handling */
+app.use(function (req, res, next) {
+    solve(errorHandlingChallenge);
+    next();
+});
 app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {
