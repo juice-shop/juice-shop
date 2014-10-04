@@ -60,6 +60,7 @@
     "scripts": {
         "postinstall": "node bower_install.js",
         "prestart": "grunt minify",
+        "predeploy": "grunt minify",
         "start": "node app",
         "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     },
