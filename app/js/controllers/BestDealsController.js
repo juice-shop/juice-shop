@@ -66,7 +66,7 @@ angular.module('myApp').controller('BestDealsController', [
                 console.log(data);
             });
 
-        }
+        };
 
         productService.find().success(function (data) {
             $scope.products = data.data;

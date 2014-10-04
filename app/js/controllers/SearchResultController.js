@@ -67,7 +67,7 @@ angular.module('myApp').controller('SearchResultController', [
                 console.log(data);
             });
 
-        }
+        };
 
         $scope.searchQuery = $sce.trustAsHtml($location.search().q);
 

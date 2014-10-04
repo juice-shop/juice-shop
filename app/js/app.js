@@ -32,6 +32,6 @@ myApp.run(['$window', '$rootScope', function($window, $rootScope) {
     'use strict';
     $rootScope.isLoggedIn = function() {
         return $window.sessionStorage.token;
-    }
+    };
 
 }]);
