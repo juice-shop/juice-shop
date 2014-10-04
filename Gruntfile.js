@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                     'app/dist/juice-shop.min.js': [ 'app/dist/juice-shop.js' ]
                 },
                 options: {
-                    mangle: true
+                    mangle: false
                 }
             }
         },
