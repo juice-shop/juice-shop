@@ -149,6 +149,13 @@ describe('controllers', function () {
             expect(location.search()).toEqual({q: 'lemon juice'});
         }));
 
+        it('forwards to search result with empty search criteria if no search query is present', inject(function ($controller) {
+            scope.searchQuery = undefined;
+            scope.search();
+            expect(location.path()).toBe('/search');
+            expect(location.search()).toEqual({q: ''});
+        }));
+
     });
 
     describe('SearchResultController', function () {
