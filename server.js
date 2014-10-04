@@ -74,10 +74,14 @@ var Challenge = sequelize.define('Challenges', {
 
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
-    loginAdminChallenge, loginJimChallenge, loginBenderChallenge,
+    loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
 
-    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge, changeProductChallenge,
-    csrfChallenge, adminSectionChallenge, scoreBoardChallenge;
+    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge,
+    adminSectionChallenge, scoreBoardChallenge;
+
+/* Entities relevant for challenges */
+
+var bender, osaft;
 
 /* Data */
 sequelize.drop();
@@ -162,14 +166,14 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Trick Bender into changing his password into <i>slurmCl4ssic</i>.' ,
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         csrfChallenge = challenge;
     });
     Challenge.create({
-        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to some other URL.',
+        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         changeProductChallenge = challenge;
     });
@@ -198,6 +202,8 @@ sequelize.sync().success(function () {
     User.create({
         email: 'bender@juice-sh.op',
         password: 'booze'
+    }).success(function(user) {
+        bender = user;
     });
     Product.create({
         name: 'Apple Juice (1000ml)',
@@ -234,6 +240,8 @@ sequelize.sync().success(function () {
         description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
         price: 0.01,
         image: 'owasp_osaft.jpg'
+    }).success(function(product) {
+        osaft = product;
     });
     Basket.create({
         UserId: 1
@@ -265,8 +273,22 @@ app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
 /* Database checks for solved challenges */
 app.use(function (req, res, next) {
-    /* Check O-Saft product for changed URL */
-
+    if (osaft) {
+        osaft.reload().success(function () {
+            if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
+                if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
+                    solve(changeProductChallenge);
+                }
+            }
+        });
+    }
+    if (bender) {
+        bender.reload().success(function() {
+            if (bender.password === insecurity.hash('slurmCl4ssic')) {
+                solve(csrfChallenge);
+            }
+        });
+    }
     next();
 });
 
