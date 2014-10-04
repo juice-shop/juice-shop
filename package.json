@@ -58,7 +58,7 @@
         "url": "https://github.com/bkimminich/juice-shop.git"
     },
     "scripts": {
-        "postinstall": "node bower_install.js && grunt minify",
+        "postinstall": "node bower_install.js && node grunt_minify.js",
         "start": "node app",
         "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     },
