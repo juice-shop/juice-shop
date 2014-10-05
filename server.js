@@ -277,9 +277,14 @@ sequelize.sync().success(function () {
         quantity: 1
     });
     Feedback.create({
-        UserId: 2,
-        comment: 'I love this shop! Best juice in town!',
+        UserId: 1,
+        comment: 'I love this shop! Best juice in town! Highly recommended!',
         rating: 5
+    });
+    Feedback.create({
+        UserId: 3,
+        comment: 'No real drinks available here!',
+        rating: 1
     });
 });
 
