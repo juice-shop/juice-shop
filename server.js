@@ -78,7 +78,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     errorHandlingChallenge,
 
     localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge,
-    adminSectionChallenge, scoreBoardChallenge;
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge;
 
 /* Entities relevant for challenges */
 
@@ -135,6 +135,13 @@ sequelize.sync().success(function () {
         solvable: false
     }).success(function(challenge) {
         persistedXssChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Get rid of all 5-star customer feedback.',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        feedbackChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
@@ -297,6 +304,11 @@ app.use(function (req, res, next) {
             }
         });
     }
+    Feedback.findAndCountAll({where: {rating: 5}}).success(function(data) {
+        if (data.count === 0) {
+            solve(feedbackChallenge)
+        }
+    });
     next();
 });
 
