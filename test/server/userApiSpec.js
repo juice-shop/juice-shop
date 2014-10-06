@@ -96,6 +96,62 @@ frisby.create('POST login without credentials')
     .expectStatus(401)
     .toss();
 
+frisby.create('POST login with WHERE-clause disabling SQL injection attack')
+    .post(REST_URL + '/user/login', {
+        email: '\' or 1=1--',
+        password: undefined
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        token: String
+    })
+    .toss();
+
+frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection attack')
+    .post(REST_URL + '/user/login', {
+        email: 'admin@juice-sh.op\'--',
+        password: undefined
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        token: String
+    })
+    .toss();
+
+frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection attack')
+    .post(REST_URL + '/user/login', {
+        email: 'jim@juice-sh.op\'--',
+        password: undefined
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        token: String
+    })
+    .toss();
+
+frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection attack')
+    .post(REST_URL + '/user/login', {
+        email: 'bender@juice-sh.op\'--',
+        password: undefined
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        token: String
+    })
+    .toss();
+
+frisby.create('POST login with query-breaking SQL Injection attack')
+    .post(REST_URL + '/user/login', {
+        email: '\';',
+        password: undefined
+    }, {json: true})
+    .expectStatus(401)
+    .toss();
+
 frisby.create('GET all users')
     .addHeaders(authHeader)
     .get(API_URL + '/Users')

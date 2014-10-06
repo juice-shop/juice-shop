@@ -18,43 +18,6 @@ frisby.create('GET index.html when visiting application URL with any path')
     .expectBodyContains('Juice Shop')
     .toss();
 
-frisby.create('GET error message with information leakage when calling /redirect without query parameter')
-    .get(URL + "/redirect")
-    .expectStatus(500)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<h1>Error (Express ~')
-    .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
-    .toss();
-
-frisby.create('GET error message with information leakage when calling /redirect with unrecognized query parameter')
-    .get(URL + "/redirect?x=y")
-    .expectStatus(500)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<h1>Error (Express ~')
-    .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
-    .toss();
-
-frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when this URL is passed as "to" parameter')
-    .get(URL + "/redirect?to=https://github.com/bkimminich/juice-shop")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
-    .toss();
-
-frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when anything is passed as "to" parameter')
-    .get(URL + "/redirect?to=whatever")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
-    .toss();
-
-frisby.create('GET redirected to target URL when https://github.com/bkimminich/juice-shop is part of the as "to" parameter')
-    .get(URL + "/redirect?to=http://kimminich.de?satisfyIndexOf=https://github.com/bkimminich/juice-shop")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>Björn Kimminich&#039;s Blog | Stuff like Clean Code, Software Craftsmanship and Application Security</title>')
-    .toss();
-
 frisby.create('GET /public/ftp serves a directory listing')
     .get(URL + "/public/ftp")
     .expectStatus(200)
@@ -80,6 +43,11 @@ frisby.create('GET a non-existing file in /public/ftp will return a 403 error fo
 frisby.create('GET an existing file in /public/ftp will return a 403 error for invalid file type')
     .get(URL + "/public/ftp/eastere.gg")
     .expectStatus(403)
+    .toss();
+
+frisby.create('GET the confidential file in /public/ftp')
+    .get(URL + "/public/ftp/acquisitions.md")
+    .expectStatus(200)
     .toss();
 
 frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .txt suffix')
