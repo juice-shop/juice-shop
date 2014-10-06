@@ -245,6 +245,24 @@ sequelize.sync().success(function () {
         image: 'raspberry_juice.jpg'
     });
     Product.create({
+        name: 'Lemon Juice (500ml)',
+        description: 'Sour but full of vitamins.',
+        price: 2.99,
+        image: 'lemon_juice.jpg'
+    });
+    Product.create({
+        name: 'Banana Juice (1000ml)',
+        description: 'Monkeys love it the most.',
+        price: 1.99,
+        image: 'banana_juice.jpg'
+    });
+    Product.create({
+        name: 'Lemon Juice (500ml)',
+        description: 'Sour but full of vitamins.',
+        price: 2.99,
+        image: 'lemon_juice.jpg'
+    });
+    Product.create({
         name: 'Juice Shop T-Shirt (3XL)',
         description: 'Real fans wear it 24/7!',
         price: 24.99,
