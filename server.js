@@ -279,6 +279,12 @@ sequelize.sync().success(function () {
     Basket.create({
         UserId: 1
     });
+    Basket.create({
+        UserId: 2
+    });
+    Basket.create({
+        UserId: 3
+    });
     BasketItem.create({
         BasketId: 1,
         ProductId: 1,
@@ -292,6 +298,16 @@ sequelize.sync().success(function () {
     BasketItem.create({
         BasketId: 1,
         ProductId: 3,
+        quantity: 1
+    });
+    BasketItem.create({
+        BasketId: 2,
+        ProductId: 4,
+        quantity: 2
+    });
+    BasketItem.create({
+        BasketId: 3,
+        ProductId: 5,
         quantity: 1
     });
     Feedback.create({
