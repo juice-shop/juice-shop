@@ -476,7 +476,7 @@ app.use(function (req, res, next) {
     if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
         res.sendFile(__dirname + '/app/index.html');
     } else {
-        next();
+        next(new Error("Unexpected path: " + req.url));
     }
 });
 
@@ -485,7 +485,7 @@ app.use(function (err, req, res, next) {
     solve(errorHandlingChallenge);
     next(err);
 });
-errorhandler.title = 'Error (Express ' + require('./package.json').dependencies.express + ')'
+errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')'
 app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {
