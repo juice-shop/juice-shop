@@ -350,7 +350,7 @@ app.use('/public/ftp/:file', function(req, res, next) {
         res.sendFile(__dirname + '/app/public/ftp/' + file);
     } else {
         res.status(403);
-        next('Only .md and .txt files are allowed!');
+        next(new Error('Only .md and .txt files are allowed!'));
     }
 });
 
@@ -465,9 +465,9 @@ app.use(function (req, res, next) {
 });
 
 /* Generic error handling */
-app.use(function (req, res, next) {
+app.use(function (err, req, res, next) {
     solve(errorHandlingChallenge);
-    next();
+    next(err);
 });
 app.use(errorhandler());
 
