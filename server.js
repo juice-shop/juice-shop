@@ -469,6 +469,7 @@ app.use(function (err, req, res, next) {
     solve(errorHandlingChallenge);
     next(err);
 });
+errorhandler.title = 'Error (Express ' + require('./package.json').dependencies.express + ')'
 app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {

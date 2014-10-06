@@ -22,15 +22,15 @@ frisby.create('GET error message with information leakage when calling /redirect
     .get(URL + "/redirect")
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('Connect')
-    .expectBodyContains('TypeError: Cannot call method')
-    .expectBodyContains('indexOf')
+    .expectBodyContains('<h1>Error (Express ~')
+    .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
     .toss();
 
 frisby.create('GET error message with information leakage when calling /redirect with unrecognized query parameter')
     .get(URL + "/redirect?x=y")
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Error (Express ~')
     .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
     .toss();
 
