@@ -17,6 +17,7 @@ describe('services', function () {
             expect(UserService).toBeDefined();
             expect(UserService.find).toBeDefined();
             expect(UserService.get).toBeDefined();
+            expect(UserService.changePassword).toBeDefined();
         }));
 
         it('should get all users directly from the rest api', inject(function (UserService) {
@@ -50,6 +51,15 @@ describe('services', function () {
             $httpBackend.whenPOST('/rest/user/login').respond(200, 'apiResponse');
 
             UserService.login().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should change user password directly via the rest api', inject(function (UserService) {
+            $httpBackend.whenGET('/rest/user/change-password?current=foo&new=bar&repeat=bar').respond(200, 'apiResponse');
+
+            UserService.changePassword({current: 'foo', new: 'bar', repeat: 'bar'}).success(function (data) { result = data; });
             $httpBackend.flush();
 
             expect(result).toBe('apiResponse');

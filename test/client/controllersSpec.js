@@ -215,5 +215,17 @@ describe('controllers', function () {
         }));
     });
 
+    describe('ChangePasswordController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            controller = $controller('ChangePasswordController', {
+                '$scope': scope
+            });
+        }));
 
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+            expect(scope.changePassword).toBeDefined();
+        }));
+    });
 });
