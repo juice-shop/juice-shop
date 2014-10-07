@@ -20,6 +20,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     app = express();
 
 var loggedInUsers = {};
+errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')';
 
 /* Domain Model */
 var User = sequelize.define('User', {
@@ -328,49 +329,11 @@ sequelize.sync().success(function () {
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
 /* Database checks for solved challenges */
-app.use(function (req, res, next) {
-    if (osaft) {
-        osaft.reload().success(function () {
-            if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
-                if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
-                    solve(changeProductChallenge);
-                }
-            }
-        });
-    }
-    if (bender) {
-        bender.reload().success(function() {
-            if (bender.password === insecurity.hash('slurmCl4ssic')) {
-                solve(csrfChallenge);
-            }
-        });
-    }
-    Feedback.findAndCountAll({where: {rating: 5}}).success(function(data) {
-        if (data.count === 0) {
-            solve(feedbackChallenge)
-        }
-    });
-    next();
-});
+app.use(verifyDatabaseRelatedChallenges());
 
 /* public/ftp directory browsing and file download */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
-app.use('/public/ftp/:file', function(req, res, next) {
-    var file = req.params.file;
-    console.log(file);
-    if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
-        file = insecurity.cutOffPoisonNullByte(file);
-        if (file.toLowerCase() === 'eastere.gg') {
-            solve(easterEggLevelOneChallenge);
-        } else if (file.toLowerCase() === 'acquisitions.md') {
-            solve(directoryListingChallenge);
-        }
-        res.sendFile(__dirname + '/app/public/ftp/' + file);
-    } else {
-        res.status(403);
-        next(new Error('Only .md and .txt files are allowed!'));
-    }
-});
+app.use('/public/ftp/:file', serveFiles());
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('combined'));
@@ -378,145 +341,40 @@ app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
 /* Authorization */
-
 /* Baskets: Unauthorized users are not allowed to access baskets */
 app.use('/rest/basket', insecurity.isAuthorized());
-
 /* BasketItems: API only accessible for authenticated users */
 app.use('/api/BasketItems', insecurity.isAuthorized());
 app.use('/api/BasketItems/:id', insecurity.isAuthorized());
-
 /* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
 app.get('/api/Feedbacks', insecurity.isAuthorized());
 app.use('/api/Feedbacks/:id', insecurity.isAuthorized());
-
 /* Users: Only POST is allowed in order to register a new uer */
 app.get('/api/Users', insecurity.isAuthorized());
 app.get('/api/Users/:id', insecurity.isAuthorized());
 app.put('/api/Users/:id', insecurity.isAuthorized());
 app.delete('/api/Users/:id', insecurity.denyAll()); // Deleting users is forbidden entirely to keep login challenges solvable
-
 /* Products: Only GET is allowed in order to view products */
 app.post('/api/Products', insecurity.isAuthorized());
 //app.put('/api/Products/:id', insecurity.isAuthorized()); // = missing function-level access control vulnerability
 app.delete('/api/Products/:id', insecurity.denyAll()); // Deleting products is forbidden entirely to keep the O-Saft url-change challenge solvable
-
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', insecurity.denyAll());
 app.use('/api/Challenges/:id', insecurity.denyAll());
 
-/* Restful APIs */
+/* Sequelize Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
-
-app.post('/rest/user/login', function(req, res, next){
-    sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
-        .success(function(data) {
-            var user = utils.queryResultToJson(data);
-            if (user.data && user.data.id) {
-                if (user.data.id === 1) {
-                    solve(loginAdminChallenge);
-                } else if (user.data.id === 2) {
-                    solve(loginJimChallenge);
-                } else if  (user.data.id === 3) {
-                    solve(loginBenderChallenge);
-                }
-                Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
-                    var token = insecurity.authorize(user);
-                    loggedInUsers[token] = user;
-                    res.json({ token: token, bid: basket.id });
-                }).error(function (error) {
-                    next(error);
-                });
-            } else {
-                res.status(401).send('Invalid email or password');
-            }
-        }).error(function (error) {
-            next(error);
-        });
-});
-
-app.get('/rest/user/change-password', function(req, res, next){
-    var password = req.query.new;
-    var repeatPassword = req.query.repeat;
-    if (!password || password === 'undefined') {
-        res.status(401).send('Password cannot be empty');
-    } else if (password !== repeatPassword) {
-        res.status(401).send('Passwords do not match');
-    } else {
-        var loggedInUser = loggedInUsers[req.headers.authorization.split(' ')[1]];
-        if (loggedInUser) {
-            console.log(loggedInUser);
-            User.find(loggedInUser.data.id).success(function(user) {
-                console.log(user);
-              user.updateAttributes({password: password}).success(function(data) {
-                  res.send(data);
-              }).error(function(error) {
-                  next(error);
-              });
-            }).error(function(error) {
-                next(error);
-            });
-        } else {
-            next(new Error('Blocked attempt to change password for another user'));
-        }
-    }
-});
-
-app.get('/rest/product/search', function(req, res, next){
-    var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
-    sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
-        .success(function(data) {
-            res.json(utils.queryResultToJson(data));
-        }).error(function (error) {
-            next(error);
-        });
-});
-
-app.get('/rest/basket/:id', function(req, res, next){
-    var id = req.params.id;
-    Basket.find({where: {id: id}, include: [ Product ]})
-        .success(function(data) {
-            res.json(utils.queryResultToJson(data));
-        }).error(function (error) {
-            next(error);
-        });
-});
-
-/* Redirects */
-app.get('/redirect', function(req, res) {
-    var to = req.query.to;
-    var githubUrl = 'https://github.com/bkimminich/juice-shop';
-    if (to.indexOf(githubUrl) > -1) {
-        if (to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
-            solve(redirectChallenge);
-        }
-        res.redirect(to);
-    } else {
-        res.redirect(githubUrl);
-    }
-});
-
-/* Easter Egg */
-app.use('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', function (req, res) {
-    solve(easterEggLevelTwoChallenge);
-    res.sendFile(__dirname + '/app/private/threejs-demo.html');
-});
-
-/* Angular.js client */
-app.use(function (req, res, next) {
-    if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
-        res.sendFile(__dirname + '/app/index.html');
-    } else {
-        next(new Error("Unexpected path: " + req.url));
-    }
-});
-
-/* Generic error handling */
-app.use(function (err, req, res, next) {
-    solve(errorHandlingChallenge);
-    next(err);
-});
-errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')'
+/* Custom Restful API */
+app.post('/rest/user/login', loginUser());
+app.get('/rest/user/change-password', changePassword());
+app.get('/rest/product/search', searchProducts());
+app.get('/rest/basket/:id', retrieveBasket());
+app.get('/redirect', performRedirect());
+/* File Serving */
+app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', serveEasterEgg());
+app.use(serveAngularClient());
+/* Error Handling */
+app.use(verifyErrorHandlingChallenge());
 app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {
@@ -543,4 +401,171 @@ function solve(challenge) {
     challenge.save().success(function() {
         console.log('Solved challenge "' + challenge.description + '"');
     });
+}
+
+function serveAngularClient() {
+    return function (req, res, next) {
+        if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
+            res.sendFile(__dirname + '/app/index.html');
+        } else {
+            next(new Error("Unexpected path: " + req.url));
+        }
+    };
+}
+
+function verifyErrorHandlingChallenge() {
+    return function (err, req, res, next) {
+        solve(errorHandlingChallenge);
+        next(err);
+    };
+}
+
+function serveEasterEgg() {
+    return function (req, res) {
+        solve(easterEggLevelTwoChallenge);
+        res.sendFile(__dirname + '/app/private/threejs-demo.html');
+    };
+}
+
+function performRedirect() {
+    return function(req, res) {
+        var to = req.query.to;
+        var githubUrl = 'https://github.com/bkimminich/juice-shop';
+        if (to.indexOf(githubUrl) > -1) {
+            if (to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
+                solve(redirectChallenge);
+            }
+            res.redirect(to);
+        } else {
+            res.redirect(githubUrl);
+        }
+    };
+}
+
+function retrieveBasket() {
+    return function(req, res, next){
+        var id = req.params.id;
+        Basket.find({where: {id: id}, include: [ Product ]})
+            .success(function(data) {
+                res.json(utils.queryResultToJson(data));
+            }).error(function (error) {
+                next(error);
+            });
+    };
+}
+
+function searchProducts() {
+    return function(req, res, next){
+        var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
+        sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
+            .success(function(data) {
+                res.json(utils.queryResultToJson(data));
+            }).error(function (error) {
+                next(error);
+            });
+    };
+}
+
+function changePassword() {
+    return function(req, res, next){
+        var password = req.query.new;
+        var repeatPassword = req.query.repeat;
+        if (!password || password === 'undefined') {
+            res.status(401).send('Password cannot be empty');
+        } else if (password !== repeatPassword) {
+            res.status(401).send('Passwords do not match');
+        } else {
+            var loggedInUser = loggedInUsers[req.headers.authorization.split(' ')[1]];
+            if (loggedInUser) {
+                console.log(loggedInUser);
+                User.find(loggedInUser.data.id).success(function(user) {
+                    console.log(user);
+                    user.updateAttributes({password: password}).success(function(data) {
+                        res.send(data);
+                    }).error(function(error) {
+                        next(error);
+                    });
+                }).error(function(error) {
+                    next(error);
+                });
+            } else {
+                next(new Error('Blocked attempt to change password for another user'));
+            }
+        }
+    };
+}
+
+function loginUser() {
+    return function(req, res, next){
+        sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
+            .success(function(data) {
+                var user = utils.queryResultToJson(data);
+                if (user.data && user.data.id) {
+                    if (user.data.id === 1) {
+                        solve(loginAdminChallenge);
+                    } else if (user.data.id === 2) {
+                        solve(loginJimChallenge);
+                    } else if  (user.data.id === 3) {
+                        solve(loginBenderChallenge);
+                    }
+                    Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
+                        var token = insecurity.authorize(user);
+                        loggedInUsers[token] = user;
+                        res.json({ token: token, bid: basket.id });
+                    }).error(function (error) {
+                        next(error);
+                    });
+                } else {
+                    res.status(401).send('Invalid email or password');
+                }
+            }).error(function (error) {
+                next(error);
+            });
+    };
+}
+
+function serveFiles() {
+    return function(req, res, next) {
+        var file = req.params.file;
+        console.log(file);
+        if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
+            file = insecurity.cutOffPoisonNullByte(file);
+            if (file.toLowerCase() === 'eastere.gg') {
+                solve(easterEggLevelOneChallenge);
+            } else if (file.toLowerCase() === 'acquisitions.md') {
+                solve(directoryListingChallenge);
+            }
+            res.sendFile(__dirname + '/app/public/ftp/' + file);
+        } else {
+            res.status(403);
+            next(new Error('Only .md and .txt files are allowed!'));
+        }
+    };
+}
+
+function verifyDatabaseRelatedChallenges() {
+    return function (req, res, next) {
+        if (osaft) {
+            osaft.reload().success(function () {
+                if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
+                    if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
+                        solve(changeProductChallenge);
+                    }
+                }
+            });
+        }
+        if (bender) {
+            bender.reload().success(function() {
+                if (bender.password === insecurity.hash('slurmCl4ssic')) {
+                    solve(csrfChallenge);
+                }
+            });
+        }
+        Feedback.findAndCountAll({where: {rating: 5}}).success(function(data) {
+            if (data.count === 0) {
+                solve(feedbackChallenge)
+            }
+        });
+        next();
+    };
 }
