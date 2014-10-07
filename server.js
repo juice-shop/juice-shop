@@ -19,6 +19,8 @@ var application_root = __dirname.replace(/\\/g, '/'),
     insecurity = require('./lib/insecurity'),
     app = express();
 
+var loggedInUsers = {};
+
 /* Domain Model */
 var User = sequelize.define('User', {
         email: Sequelize.STRING,
@@ -419,7 +421,9 @@ app.post('/rest/user/login', function(req, res, next){
                     solve(loginBenderChallenge);
                 }
                 Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
-                    res.json({ token: insecurity.authorize(user), bid: basket.id });
+                    var token = insecurity.authorize(user);
+                    loggedInUsers[token] = user;
+                    res.json({ token: token, bid: basket.id });
                 }).error(function (error) {
                     next(error);
                 });
@@ -429,6 +433,33 @@ app.post('/rest/user/login', function(req, res, next){
         }).error(function (error) {
             next(error);
         });
+});
+
+app.get('/rest/user/change-password', function(req, res, next){
+    var password = req.query.new;
+    var repeatPassword = req.query.repeat;
+    if (!password || password === 'undefined') {
+        res.status(401).send('Password cannot be empty');
+    } else if (password !== repeatPassword) {
+        res.status(401).send('Passwords do not match');
+    } else {
+        var loggedInUser = loggedInUsers[req.headers.authorization.split(' ')[1]];
+        if (loggedInUser) {
+            console.log(loggedInUser);
+            User.find(loggedInUser.data.id).success(function(user) {
+                console.log(user);
+              user.updateAttributes({password: password}).success(function(data) {
+                  res.send(data);
+              }).error(function(error) {
+                  next(error);
+              });
+            }).error(function(error) {
+                next(error);
+            });
+        } else {
+            next(new Error('Blocked attempt to change password for another user'));
+        }
+    }
 });
 
 app.get('/rest/product/search', function(req, res, next){

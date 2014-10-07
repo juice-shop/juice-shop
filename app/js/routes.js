@@ -46,6 +46,11 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
         controller: 'LogoutController'
     });
 
+    $routeProvider.when('/change-password', {
+        templateUrl: 'views/ChangePassword.html',
+        controller: 'ChangePasswordController'
+    });
+
     $routeProvider.when('/score-board', {
         templateUrl: 'views/ScoreBoard.html',
         controller: 'ChallengeController'
