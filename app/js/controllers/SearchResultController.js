@@ -50,6 +50,7 @@ angular.module('myApp').controller('SearchResultController', [
                         }).error(function (data) {
                             console.log(data);
                         });
+                        break;
                     }
                 }
                 if (!found) {

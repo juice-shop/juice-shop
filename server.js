@@ -408,7 +408,7 @@ function serveAngularClient() {
         if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
             res.sendFile(__dirname + '/app/index.html');
         } else {
-            next(new Error("Unexpected path: " + req.url));
+            next(new Error('Unexpected path: ' + req.url));
         }
     };
 }
@@ -563,7 +563,7 @@ function verifyDatabaseRelatedChallenges() {
         }
         Feedback.findAndCountAll({where: {rating: 5}}).success(function(data) {
             if (data.count === 0) {
-                solve(feedbackChallenge)
+                solve(feedbackChallenge);
             }
         });
         next();

@@ -49,6 +49,7 @@ angular.module('myApp').controller('BestDealsController', [
                         }).error(function (data) {
                             console.log(data);
                         });
+                        break;
                     }
                 }
                 if (!found) {
