@@ -7,6 +7,7 @@
             <form role="form" name="form" novalidate>
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
                     <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty">Please provide a comment.</p>
+                    <p ng-show="form.feedbackComment.$error.maxlength && form.feedbackComment.$dirty">Comment length must be 1-160 characters.</p>
                     <p ng-show="form.feedbackRating.$error.required && form.feedbackRating.$dirty">Please provide a rating.</p>
                 </div>
 
@@ -15,7 +16,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="feedbackComment">Comment</label>
-                                <textarea class="form-control input-sm" id="feedbackComment" name="feedbackComment" ng-model="feedback.comment" required></textarea>
+                                <textarea class="form-control input-sm" id="feedbackComment" name="feedbackComment" ng-model="feedback.comment" required ng-maxlength="160"></textarea>
                             </div>
                         </div>
                         <div class="row">
