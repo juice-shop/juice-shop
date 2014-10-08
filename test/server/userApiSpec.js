@@ -168,7 +168,7 @@ frisby.create('GET password change without passing any passwords')
 frisby.create('GET password change with passing wrong repeated password')
     .get(REST_URL + '/user/change-password?new=foo&repeat=bar')
     .expectStatus(401)
-    .expectBodyContains('Passwords do not match')
+    .expectBodyContains('New and repeated password do not match')
     .toss();
 
 frisby.create('GET password change without passing an authorization token')

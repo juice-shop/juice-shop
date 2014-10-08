@@ -471,9 +471,9 @@ function changePassword() {
         var password = req.query.new;
         var repeatPassword = req.query.repeat;
         if (!password || password === 'undefined') {
-            res.status(401).send('Password cannot be empty');
+            res.status(401).send('Password cannot be empty.');
         } else if (password !== repeatPassword) {
-            res.status(401).send('Passwords do not match');
+            res.status(401).send('New and repeated password do not match.');
         } else {
             var loggedInUser = loggedInUsers[req.headers.authorization.split(' ')[1]];
             if (loggedInUser) {
@@ -516,7 +516,7 @@ function loginUser() {
                         next(error);
                     });
                 } else {
-                    res.status(401).send('Invalid email or password');
+                    res.status(401).send('Invalid email or password.');
                 }
             }).error(function (error) {
                 next(error);
