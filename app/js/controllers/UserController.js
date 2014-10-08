@@ -16,19 +16,15 @@ angular.module('myApp').controller('UserController', [
 
         $scope.showDetail = function (id) {
 
-            var userDetailController = function ($scope) {
-
-                userService.get(id).success(function (data) {
-                    $scope.user = data.data;
-                }).error(function (data) {
-                    console.log(data);
-                });
-            };
-
             $modal.open({
                 templateUrl: 'views/UserDetail.html',
-                controller: userDetailController,
-                size: 'lg'
+                controller: 'UserDetailsController',
+                size: 'lg',
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
             });
         };
 
