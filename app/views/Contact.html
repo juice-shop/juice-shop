@@ -2,26 +2,36 @@
     <div class="col-md-4">
         <h3 class="page-header page-header-sm">Contact Us</h3>
 
-        <div class="container-fluid well" ng-controller="ContactController">
-            <form role="form" novalidate>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="feedbackComment">Comment</label>
-                        <textarea class="form-control input-sm" id="feedbackComment" ng-model="feedback.comment" required></textarea>
-                    </div>
+        <div ng-controller="ContactController">
+
+            <form role="form" name="form" novalidate>
+                <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
+                    <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty">Please provide a comment.</p>
+                    <p ng-show="form.feedbackRating.$error.required && form.feedbackRating.$dirty">Please provide a rating.</p>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label>Rating</label>
-                        <rating max="5" ng-model="feedback.rating"></rating>
-                    </div>
-                </div>
-                <div class="row">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default" ng-click="save()">Submit</button>
+
+                <div class="container-fluid well">
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="feedbackComment">Comment</label>
+                                <textarea class="form-control input-sm" id="feedbackComment" name="feedbackComment" ng-model="feedback.comment" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <rating max="5" name="feedbackRating" ng-model="feedback.rating" required></rating>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default" ng-disabled="form.$invalid" ng-click="save()">Submit</button>
+                                </div>
                         </div>
                 </div>
-            </form>
+             </form>
+
         </div>
 
     </div>
