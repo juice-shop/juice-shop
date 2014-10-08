@@ -2,32 +2,47 @@
     <div class="col-md-4">
         <h3 class="page-header page-header-sm">User Registration</h3>
 
-        <div class="container-fluid well" ng-controller="RegisterController">
-            <form role="form" novalidate="">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userEmail">Email</label>
-                        <input type="text" class="form-control input-sm" id="userEmail" ng-model="user.email" required/>
-                    </div>
+        <div ng-controller="RegisterController">
+
+            <form role="form" name="form" novalidate>
+
+                <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
+                    <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty">Please provide an email address.</p>
+                    <p ng-show="form.userEmail.$error.email && form.userEmail.$dirty">Email address is not valid.</p>
+                    <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty">Please provide a password.</p>
+                    <p ng-show="(form.userPassword.$error.minlength || form.userPassword.$error.maxlength) && form.userPassword.$dirty">Password must be 5-20 characters long.</p>
+                    <p ng-show="form.userPasswordRepeat.$error.required && form.userPasswordRepeat.$dirty">Please repeat your password.</p>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userPassword">Password</label>
-                        <input type="password" class="form-control input-sm" id="userPassword" ng-model="user.password" required/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userPasswordRepeat">Repeat Password</label>
-                        <input type="password" class="form-control input-sm" id="userPasswordRepeat" required/>
-                    </div>
-                </div>
-                <div class="row">
+
+                 <div class="container-fluid well" >
+
+                    <div class="row">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default" ng-click="save()">Register</button>
+                            <label for="userEmail">Email</label>
+                            <input type="email" class="form-control input-sm" id="userEmail" name="userEmail" ng-model="user.email" required/>
                         </div>
-                </div>
-            </form>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="userPassword">Password</label>
+                            <input type="password" class="form-control input-sm" id="userPassword" name="userPassword" ng-model="user.password" required ng-minlength="5" ng-maxlength="20"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="userPasswordRepeat">Repeat Password</label>
+                            <input type="password" class="form-control input-sm" id="userPasswordRepeat" name="userPasswordRepeat" ng-model="user.passwordRepeat" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" ng-disabled="form.$invalid" ng-click="save()">Register</button>
+                            </div>
+                    </div>
+
+            </div>
+
+        </form>
         </div>
 
     </div>
