@@ -25,6 +25,10 @@ An intentionally insecure RIA suitable for pen testing and security awareness tr
 3. Run ```npm start```
 4. Browse to http://localhost:3000
 
+## Troubleshooting
+
+- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again 
+
 You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend
 [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
