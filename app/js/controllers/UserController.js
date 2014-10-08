@@ -1,8 +1,8 @@
 angular.module('myApp').controller('UserController', [
     '$scope',
-    'UserService',
     '$modal',
-    function ($scope, userService, $modal) {
+    'UserService',
+    function ($scope, $modal, userService) {
         'use strict';
 
         function findAll() {

@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
-myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
+myApp.factory('authInterceptor', ['$rootScope', '$q', '$window', function ($rootScope, $q, $window) {
     'use strict';
     return {
         request: function (config) {
@@ -21,12 +21,12 @@ myApp.factory('authInterceptor', function ($rootScope, $q, $window) {
             return response || $q.when(response);
         }
     };
-});
+}]);
 
-myApp.config(function ($httpProvider) {
+myApp.config(['$httpProvider', function ($httpProvider) {
     'use strict';
     $httpProvider.interceptors.push('authInterceptor');
-});
+}]);
 
 myApp.run(['$window', '$rootScope', function($window, $rootScope) {
     'use strict';

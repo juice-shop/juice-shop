@@ -2,28 +2,23 @@ angular.module('myApp').controller('BestDealsController', [
     '$scope',
     '$sce',
     '$window',
+    '$modal',
     'ProductService',
     'BasketService',
-    '$modal',
-    function ($scope, $sce, $window, productService, basketService, $modal) {
+    function ($scope, $sce, $window, $modal, productService, basketService) {
         'use strict';
 
         $scope.showDetail = function (id) {
 
-            var productDetailsController = function ($scope) {
-
-                productService.get(id).success(function (data) {
-                    $scope.product = data.data;
-                    $scope.product.description = $sce.trustAsHtml($scope.product.description);
-                }).error(function (data) {
-                    console.log(data);
-                });
-            };
-
             $modal.open({
                 templateUrl: 'views/ProductDetail.html',
-                controller: productDetailsController,
-                size: 'lg'
+                controller: 'ProductDetailsController',
+                size: 'lg',
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
             });
         };
 

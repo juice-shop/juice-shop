@@ -489,7 +489,7 @@ function changePassword() {
                     next(error);
                 });
             } else {
-                next(new Error('Blocked attempt to change password for another user'));
+                next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress));
             }
         }
     };
