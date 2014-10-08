@@ -1,30 +1,25 @@
 angular.module('myApp').controller('SearchResultController', [
     '$scope',
-    '$location',
     '$sce',
     '$window',
     '$modal',
+    '$location',
     'ProductService',
     'BasketService',
-    function ($scope, $location, $sce, $window, $modal, productService, basketService) {
+    function ($scope, $sce, $window, $modal, $location, productService, basketService) {
         'use strict';
 
-        $scope.showDetail = function (id) { // TODO resolve duplication with BestDealsController
-
-            var productDetailsController = function ($scope) {
-
-                productService.get(id).success(function (data) {
-                    $scope.product = data.data;
-                    $scope.product.description = $sce.trustAsHtml($scope.product.description);
-                }).error(function (data) {
-                    console.log(data);
-                });
-            };
+        $scope.showDetail = function (id) {
 
             $modal.open({
                 templateUrl: 'views/ProductDetail.html',
-                controller: productDetailsController,
-                size: 'lg'
+                controller: 'ProductDetailsController',
+                size: 'lg',
+                resolve: {
+                    id: function () {
+                        return id;
+                    }
+                }
             });
         };
 
