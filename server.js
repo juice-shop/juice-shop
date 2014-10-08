@@ -545,7 +545,7 @@ function serveFiles() {
 
 function verifyDatabaseRelatedChallenges() {
     return function (req, res, next) {
-        if (osaft) {
+        if (changeProductChallenge && !changeProductChallenge.solved && osaft) {
             osaft.reload().success(function () {
                 if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
                     if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
@@ -554,18 +554,20 @@ function verifyDatabaseRelatedChallenges() {
                 }
             });
         }
-        if (bender) {
+        if (csrfChallenge && !csrfChallenge.solved && bender) {
             bender.reload().success(function() {
                 if (bender.password === insecurity.hash('slurmCl4ssic')) {
                     solve(csrfChallenge);
                 }
             });
         }
-        Feedback.findAndCountAll({where: {rating: 5}}).success(function(data) {
-            if (data.count === 0) {
-                solve(feedbackChallenge);
-            }
-        });
+        if (feedbackChallenge && !feedbackChallenge.solved) {
+            Feedback.findAndCountAll({where: {rating: 5}}).success(function (data) {
+                if (data.count === 0) {
+                    solve(feedbackChallenge);
+                }
+            });
+        }
         next();
     };
 }
