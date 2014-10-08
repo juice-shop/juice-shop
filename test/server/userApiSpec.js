@@ -35,28 +35,35 @@ frisby.create('POST new user')
             .expectJSONTypes({
                 token: String
             })
-            .afterJSON(function() {
-                frisby.create('GET existing user by id')
-                    .addHeaders(authHeader)
-                    .get(API_URL + '/Users/' + user.data.id)
+            .afterJSON(function(auth) {
+                frisby.create('GET password change with recognized authorization token')
+                    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+                    .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
                     .expectStatus(200)
-                    .afterJSON(function() {
-                        frisby.create('PUT update existing user')
+                    .toss();
+    }).toss();
+
+        frisby.create('GET existing user by id')
+            .addHeaders(authHeader)
+            .get(API_URL + '/Users/' + user.data.id)
+            .expectStatus(200)
+            .after(function() {
+                frisby.create('PUT update existing user')
+                    .addHeaders(authHeader)
+                    .put(API_URL + '/Users/' + user.data.id, {
+                        email: 'horst.horstmann@horstma.nn'
+                    })
+                    .expectStatus(200)
+                    .after(function() {
+                        frisby.create('DELETE existing user is forbidden via API even when authenticated')
                             .addHeaders(authHeader)
-                            .put(API_URL + '/Users/' + user.data.id, {
-                                email: 'horst.horstmann@horstma.nn'
-                            })
-                            .expectStatus(200)
-                            .afterJSON(function() {
-                                frisby.create('DELETE existing user is forbidden via API even when authenticated')
-                                    .addHeaders(authHeader)
-                                    .delete(API_URL + '/Users/' + + user.data.id)
-                                    .expectStatus(401)
-                                    .toss();
-                            }).toss();
+                            .delete(API_URL + '/Users/' + + user.data.id)
+                            .expectStatus(401)
+                            .toss();
                     }).toss();
             }).toss();
     }).toss();
+
 
 frisby.create('GET all users is forbidden via public API')
     .get(API_URL + '/Users')
@@ -150,6 +157,35 @@ frisby.create('POST login with query-breaking SQL Injection attack')
         password: undefined
     }, {json: true})
     .expectStatus(401)
+    .toss();
+
+frisby.create('GET password change without passing any passwords')
+    .get(REST_URL + '/user/change-password')
+    .expectStatus(401)
+    .expectBodyContains('Password cannot be empty')
+    .toss();
+
+frisby.create('GET password change with passing wrong repeated password')
+    .get(REST_URL + '/user/change-password?new=foo&repeat=bar')
+    .expectStatus(401)
+    .expectBodyContains('Passwords do not match')
+    .toss();
+
+frisby.create('GET password change without passing an authorization token')
+    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('TypeError: Cannot call method &#39;split&#39; of undefined')
+    .toss();
+
+frisby.create('GET password change with passing unrecognized authorization token')
+    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+    .addHeaders(authHeader)
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('Error: Blocked illegal activity')
     .toss();
 
 frisby.create('GET all users')
