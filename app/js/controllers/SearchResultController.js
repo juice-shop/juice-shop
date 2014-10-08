@@ -3,10 +3,10 @@ angular.module('myApp').controller('SearchResultController', [
     '$location',
     '$sce',
     '$window',
+    '$modal',
     'ProductService',
     'BasketService',
-    '$modal',
-    function ($scope, $location, $sce, $window, productService, basketService, $modal) {
+    function ($scope, $location, $sce, $window, $modal, productService, basketService) {
         'use strict';
 
         $scope.showDetail = function (id) { // TODO resolve duplication with BestDealsController

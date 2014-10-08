@@ -2,10 +2,10 @@ angular.module('myApp').controller('BestDealsController', [
     '$scope',
     '$sce',
     '$window',
+    '$modal',
     'ProductService',
     'BasketService',
-    '$modal',
-    function ($scope, $sce, $window, productService, basketService, $modal) {
+    function ($scope, $sce, $window, $modal, productService, basketService) {
         'use strict';
 
         $scope.showDetail = function (id) {
