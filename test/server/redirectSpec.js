@@ -35,8 +35,8 @@ frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when a
     .toss();
 
 frisby.create('GET redirected to target URL when https://github.com/bkimminich/juice-shop is part of the as "to" parameter')
-    .get(URL + "/redirect?to=http://kimminich.de?satisfyIndexOf=https://github.com/bkimminich/juice-shop")
+    .get(URL + "/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop")
     .expectStatus(200)
     .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>Björn Kimminich&#039;s Blog | Stuff like Clean Code, Software Craftsmanship and Application Security</title>')
+    .expectBodyContains('<title>Juice Shop</title>')
     .toss();
