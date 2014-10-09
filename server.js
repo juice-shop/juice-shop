@@ -80,7 +80,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
     errorHandlingChallenge,
 
-    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge,
+    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge, weakPasswordChallenge,
     adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
 
 /* Entities relevant for challenges */
@@ -145,6 +145,13 @@ sequelize.sync().success(function () {
         solvable: false
     }).success(function(challenge) {
         unionSqlInjectionChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        weakPasswordChallenge = challenge;
     });
     Challenge.create({
         description: 'Get rid of all 5-star customer feedback.',
@@ -497,6 +504,9 @@ function changePassword() {
 
 function loginUser() {
     return function(req, res, next){
+        if (req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
+            solve(weakPasswordChallenge);
+        }
         sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
             .success(function(data) {
                 var user = utils.queryResultToJson(data);
