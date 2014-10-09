@@ -7,6 +7,7 @@ angular.module('myApp').controller('ContactController', [
         $scope.save = function () {
             feedbackService.save($scope.feedback).success(function () {
                 $scope.feedback = {};
+                $scope.form.$setPristine();
             });
         };
 
