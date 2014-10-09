@@ -81,7 +81,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     errorHandlingChallenge,
 
     localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge;
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
 
 /* Entities relevant for challenges */
 
@@ -138,6 +138,13 @@ sequelize.sync().success(function () {
         solvable: false
     }).success(function(challenge) {
         persistedXssChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Retrieve a list of all user credentials via SQL Injection',
+        solved: false,
+        solvable: false
+    }).success(function(challenge) {
+        unionSqlInjectionChallenge = challenge;
     });
     Challenge.create({
         description: 'Get rid of all 5-star customer feedback.',
