@@ -5,6 +5,9 @@
         <div ng-controller="ContactController">
 
             <form role="form" name="form" novalidate>
+                <div class="alert-info" ng-show="confirmation && !form.$dirty">
+                    <p>{{confirmation}}</p>
+                </div>
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
                     <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty">Please provide a comment.</p>
                     <p ng-show="form.feedbackComment.$error.maxlength && form.feedbackComment.$dirty">Comment length must be 1-160 characters.</p>
