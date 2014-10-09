@@ -403,13 +403,6 @@ exports.close = function (exitCode) {
     }
 };
 
-function solve(challenge) {
-    challenge.solved = true;
-    challenge.save().success(function() {
-        console.log('Solved challenge "' + challenge.description + '"');
-    });
-}
-
 function serveAngularClient() {
     return function (req, res, next) {
         if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
@@ -577,4 +570,11 @@ function verifyDatabaseRelatedChallenges() {
         }
         next();
     };
+}
+
+function solve(challenge) {
+    challenge.solved = true;
+    challenge.save().success(function() {
+        console.log('Solved challenge "' + challenge.description + '"');
+    });
 }
