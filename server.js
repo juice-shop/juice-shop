@@ -484,9 +484,7 @@ function changePassword() {
         } else {
             var loggedInUser = loggedInUsers[req.headers.authorization.split(' ')[1]];
             if (loggedInUser) {
-                console.log(loggedInUser);
                 User.find(loggedInUser.data.id).success(function(user) {
-                    console.log(user);
                     user.updateAttributes({password: password}).success(function(data) {
                         res.send(data);
                     }).error(function(error) {
