@@ -15,6 +15,7 @@ angular.module('myApp').controller('LoginController', [
                 delete $window.sessionStorage.token;
                 delete $window.sessionStorage.bid;
                 $scope.error = error;
+                $scope.form.$setPristine();
                 // TODO If status code !=401 then solve(errorHandlingChallenge)
             });
         };

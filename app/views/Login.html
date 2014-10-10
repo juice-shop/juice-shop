@@ -4,35 +4,41 @@
 
         <div ng-controller="LoginController">
 
-            <div class="alert-danger" ng-show="error">
-                <p>{{error}}</p>
-            </div>
+            <form role="form" name="form" novalidate>
 
-            <div class="container-fluid well">
+                <div class="alert-danger" ng-show="error && !form.$dirty">
+                    <p>{{error}}</p>
+                </div>
+                <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
+                    <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty">Please provide an email address.</p>
+                    <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty">Please provide a password.</p>
+                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userEmail">Email</label>
-                        <input type="text" class="form-control input-sm" id="userEmail" ng-model="user.email"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="userPassword">Password</label>
-                        <input type="password" class="form-control input-sm" id="userPassword" ng-model="user.password"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <form role="form">
+                <div class="container-fluid well">
+
+                    <div class="row">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default" ng-click="login()">Log in</button>
+                            <label for="userEmail">Email</label>
+                            <input type="text" class="form-control input-sm" id="userEmail" name="userEmail" ng-model="user.email" required/>
                         </div>
-                    </form>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="userPassword">Password</label>
+                            <input type="password" class="form-control input-sm" id="userPassword" name="userPassword" ng-model="user.password" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" ng-disabled="form.$invalid" ng-click="login()">Log in</button>
+                            </div>
+                    </div>
+                    <div class="row">
+                        Not yet a customer? <a href="#/register">Register now!</a>
+                    </div>
                 </div>
-                <div class="row">
-                    Not yet a customer? <a href="#/register">Register now!</a>
-                </div>
-            </div>
+
+            </form>
         </div>
 
     </div>
