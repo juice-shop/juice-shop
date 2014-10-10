@@ -32,8 +32,11 @@
         "express-jwt": "~0.4",
         "jsonwebtoken": "~1.1",
         "grunt": "~0.4",
+        "grunt-cli": "~0.1",
+        "grunt-html2js": "~0.2",
         "grunt-contrib-uglify": "~0.6",
-        "grunt-contrib-concat": "~0.5"
+        "grunt-contrib-concat": "~0.5",
+        "grunt-contrib-clean": "~0.5"
     },
     "devDependencies": {
         "frisby": "~0.8",
@@ -57,7 +60,7 @@
         "url": "https://github.com/bkimminich/juice-shop.git"
     },
     "scripts": {
-        "postinstall": "node bower_install.js && node grunt_minify.js",
+        "postinstall": "node bower_install.js && node grunt_package.js",
         "start": "node app",
         "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
     },

@@ -17,20 +17,38 @@ module.exports = function(grunt) {
             }
         },
 
+        html2js: {
+            dist: {
+                src: [ 'app/views/*.html' ],
+                dest: 'app/tmp/views.js'
+            }
+        },
+
+        clean: {
+            temp: {
+                src: [ 'app/tmp' ]
+            },
+            dist: {
+                src: [ 'app/dist' ]
+            }
+        },
+
         concat: {
             options: {
                 separator: ';'
             },
             dist: {
-                src: [ 'app/js/**/*.js' ],
+                src: [ 'app/js/**/*.js', 'app/tmp/*.js' ],
                 dest: 'app/dist/juice-shop.js'
             }
-        }
+        },
 
     });
 
+    grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('minify', [ 'concat:dist', 'uglify:dist' ]);
+    grunt.registerTask('package', [ 'clean:dist', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp', ]);
 };
