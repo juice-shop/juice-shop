@@ -30,6 +30,9 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [ 'app/dist' ]
+            },
+            pckg: {
+                src: [ 'dist' ]
             }
         },
 
@@ -44,12 +47,12 @@ module.exports = function(grunt) {
         },
 
         compress: {
-            dist: {
+            pckg: {
                 options: {
-                    archive: 'app/dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
                 },
                 files: [{
-                    src: [ 'app/index.html', 'app/dist/*.js', 'app/css/*.css', 'app/bower_components/**', 'app/public/**', 'app/private/**',
+                    src: [ 'app/index.html', 'app/dist/juice-shop.min.js', 'app/css/*.css', 'app/bower_components/**', 'app/public/**', 'app/private/**',
                         'server.js', 'app.js', 'package.json', '*.md', 'data/*.sqlite', 'node_modules/**', 'lib/*.js']
                 }]
             }
@@ -64,5 +67,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
 
     grunt.registerTask('minify', [ 'clean:dist', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
-    grunt.registerTask('package', [ 'minify', 'compress:dist' ]);
+    grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
 };
