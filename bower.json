@@ -15,7 +15,7 @@
         "bootstrap": "~3.2",
         "jquery": "~2.1",
         "underscore": "~1.7",
-        "string": "~2.0",
+        "string": "~2.1",
         "moment": "~2.8",
         "github-fork-ribbon-css": "~0.1"
     }
