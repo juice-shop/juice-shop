@@ -41,6 +41,18 @@ module.exports = function(grunt) {
                 src: [ 'app/js/**/*.js', 'app/tmp/*.js' ],
                 dest: 'app/dist/juice-shop.js'
             }
+        },
+
+        compress: {
+            dist: {
+                options: {
+                    archive: 'app/dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                },
+                files: [{
+                    src: [ 'app/index.html', 'app/dist/*.js', 'app/css/*.css', 'app/bower_components/**', 'app/public/**', 'app/private/**',
+                        'server.js', 'app.js', 'package.json', '*.md', 'data/*.sqlite', 'node_modules/**', 'lib/*.js']
+                }]
+            }
         }
 
     });
@@ -49,7 +61,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-compress');
 
     grunt.registerTask('minify', [ 'clean:dist', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
-    grunt.registerTask('package', [ 'minify' ]);
+    grunt.registerTask('package', [ 'minify', 'compress:dist' ]);
 };

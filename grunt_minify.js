@@ -1,4 +1,4 @@
 /*jslint node: true */
 var grunt = require('grunt');
 
-grunt.tasks(['package']);
+grunt.tasks(['minify']);
