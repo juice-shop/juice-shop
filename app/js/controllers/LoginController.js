@@ -2,17 +2,18 @@ angular.module('myApp').controller('LoginController', [
     '$scope',
     '$window',
     '$location',
+    '$cookieStore',
     'UserService',
-    function ($scope, $window, $location, userService) {
+    function ($scope, $window, $location, $cookieStore, userService) {
         'use strict';
 
         $scope.login = function () {
             userService.login($scope.user).success(function (data) {
-                $window.sessionStorage.token = data.token;
+                $cookieStore.put('token', data.token);
                 $window.sessionStorage.bid = data.bid;
                 $location.path( '/' );
             }).error(function(error) {
-                delete $window.sessionStorage.token;
+                $cookieStore.remove('token');
                 delete $window.sessionStorage.bid;
                 $scope.error = error;
                 $scope.form.$setPristine();

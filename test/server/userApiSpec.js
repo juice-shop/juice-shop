@@ -36,9 +36,14 @@ frisby.create('POST new user')
                 token: String
             })
             .afterJSON(function(auth) {
-                frisby.create('GET password change with recognized authorization token')
+                frisby.create('GET password change with recognized token as cookie')
                     .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-                    .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
+                    .addHeaders({ 'Cookie': 'token=' + auth.token })
+                    .expectStatus(200)
+                    .toss();
+                frisby.create('GET password change with recognized token as cookie in double-quotes')
+                    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+                    .addHeaders({ 'Cookie': 'token="' + auth.token + '"' })
                     .expectStatus(200)
                     .toss();
     }).toss();
@@ -188,12 +193,12 @@ frisby.create('GET password change without passing an authorization token')
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')
-    .expectBodyContains('TypeError: Cannot call method &#39;split&#39; of undefined')
+    .expectBodyContains('Error: Blocked illegal activity')
     .toss();
 
-frisby.create('GET password change with passing unrecognized authorization token')
+frisby.create('GET password change with passing unrecognized authorization cookie')
     .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-    .addHeaders(authHeader)
+    .addHeaders({ 'Cookie': 'token=unknown' })
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')

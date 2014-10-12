@@ -4,13 +4,13 @@ var myApp = angular.module('myApp', [
     'ui.bootstrap'
 ]);
 
-myApp.factory('authInterceptor', ['$rootScope', '$q', '$window', function ($rootScope, $q, $window) {
+myApp.factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
     'use strict';
     return {
         request: function (config) {
             config.headers = config.headers || {};
-            if ($window.sessionStorage.token) {
-                config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+            if ($cookieStore.get('token')) {
+                config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
             }
             return config;
         },
@@ -28,10 +28,10 @@ myApp.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 }]);
 
-myApp.run(['$window', '$rootScope', function($window, $rootScope) {
+myApp.run(['$cookieStore', '$rootScope', function($cookieStore, $rootScope) {
     'use strict';
     $rootScope.isLoggedIn = function() {
-        return $window.sessionStorage.token;
+        return $cookieStore.get('token');
     };
 
 }]);
