@@ -228,4 +228,35 @@ describe('controllers', function () {
             expect(scope.changePassword).toBeDefined();
         }));
     });
+
+    describe('ProductDetailsController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            var id;
+            controller = $controller('ProductDetailsController', {
+                '$scope': scope,
+                'id': id
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+        }));
+    });
+
+    describe('UserDetailsController', function () {
+        beforeEach(inject(function ($rootScope, $controller) {
+            scope = $rootScope.$new();
+            var id;
+            controller = $controller('UserDetailsController', {
+                '$scope': scope,
+                'id': id
+            });
+        }));
+
+        it('should be defined', inject(function ($controller) {
+            expect(controller).toBeDefined();
+        }));
+    });
+
 });
