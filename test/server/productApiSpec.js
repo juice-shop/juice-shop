@@ -58,13 +58,13 @@ frisby.create('POST new product is forbidden via public API')
     .toss();
 
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
-    .put(API_URL + '/Products/1', {
-        description: "The classiest juice ever!"
+    .put(API_URL + '/Products/9', {
+        description: "<a href=\"http://kimminich.de\" target=\"_blank\">"
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
-        description: "The classiest juice ever!"
+        description: "<a href=\"http://kimminich.de\" target=\"_blank\">"
     })
     .toss();
 
