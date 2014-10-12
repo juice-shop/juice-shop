@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     src: [ 'app/index.html', 'app/dist/juice-shop.min.js', 'app/css/*.css', 'app/bower_components/**', 'app/public/**', 'app/private/**',
-                        'server.js', 'app.js', 'package.json', '*.md', 'data/*.sqlite', 'node_modules/**', 'lib/*.js']
+                        'server.js', 'app.js', 'package.json', 'LICENSE.md', 'data', 'node_modules/**', 'lib/*.js']
                 }]
             }
         }
