@@ -103,6 +103,18 @@ frisby.create('POST login without credentials')
     .expectStatus(401)
     .toss();
 
+frisby.create('POST login with admin credentials')
+    .post(REST_URL + '/user/login', {
+        email: 'admin@juice-sh.op',
+        password: 'admin123'
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        token: String
+    })
+    .toss();
+
 frisby.create('POST login with WHERE-clause disabling SQL injection attack')
     .post(REST_URL + '/user/login', {
         email: '\' or 1=1--',
