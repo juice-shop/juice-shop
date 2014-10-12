@@ -482,8 +482,6 @@ function changePassword() {
         } else if (password !== repeatPassword) {
             res.status(401).send('New and repeated password do not match.');
         } else {
-            console.log(req.cookies);
-            console.log(loggedInUsers);
             var loggedInUser = loggedInUsers[req.cookies.token];
             if (loggedInUser) {
                 User.find(loggedInUser.data.id).success(function(user) {
