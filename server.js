@@ -422,14 +422,18 @@ function serveAngularClient() {
 
 function verifyErrorHandlingChallenge() {
     return function (err, req, res, next) {
-        solve(errorHandlingChallenge);
+        if (notSolved(errorHandlingChallenge)) {
+            solve(errorHandlingChallenge);
+        }
         next(err);
     };
 }
 
 function serveEasterEgg() {
     return function (req, res) {
-        solve(easterEggLevelTwoChallenge);
+        if (notSolved(easterEggLevelTwoChallenge)) {
+            solve(easterEggLevelTwoChallenge);
+        }
         res.sendFile(__dirname + '/app/private/threejs-demo.html');
     };
 }
@@ -439,7 +443,7 @@ function performRedirect() {
         var to = req.query.to;
         var githubUrl = 'https://github.com/bkimminich/juice-shop';
         if (to.indexOf(githubUrl) > -1) {
-            if (to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
+            if (notSolved(redirectChallenge) && to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
                 solve(redirectChallenge);
             }
             res.redirect(to);
@@ -502,18 +506,18 @@ function changePassword() {
 
 function loginUser() {
     return function(req, res, next){
-        if (req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
+        if (notSolved(weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
             solve(weakPasswordChallenge);
         }
         sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
             .success(function(data) {
                 var user = utils.queryResultToJson(data);
                 if (user.data && user.data.id) {
-                    if (user.data.id === 1) {
+                    if (notSolved(loginAdminChallenge) && user.data.id === 1) {
                         solve(loginAdminChallenge);
-                    } else if (user.data.id === 2) {
+                    } else if (notSolved(loginJimChallenge) && user.data.id === 2) {
                         solve(loginJimChallenge);
-                    } else if  (user.data.id === 3) {
+                    } else if  (notSolved(loginBenderChallenge) && user.data.id === 3) {
                         solve(loginBenderChallenge);
                     }
                     Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
@@ -539,9 +543,9 @@ function serveFiles() {
         console.log(file);
         if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
             file = insecurity.cutOffPoisonNullByte(file);
-            if (file.toLowerCase() === 'eastere.gg') {
+            if (notSolved(easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
                 solve(easterEggLevelOneChallenge);
-            } else if (file.toLowerCase() === 'acquisitions.md') {
+            } else if (notSolved(directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
                 solve(directoryListingChallenge);
             }
             res.sendFile(__dirname + '/app/public/ftp/' + file);
@@ -554,7 +558,7 @@ function serveFiles() {
 
 function verifyDatabaseRelatedChallenges() {
     return function (req, res, next) {
-        if (changeProductChallenge && !changeProductChallenge.solved && osaft) {
+        if (notSolved(changeProductChallenge) && osaft) {
             osaft.reload().success(function () {
                 if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
                     if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
@@ -563,14 +567,14 @@ function verifyDatabaseRelatedChallenges() {
                 }
             });
         }
-        if (csrfChallenge && !csrfChallenge.solved && bender) {
+        if (notSolved(csrfChallenge) && bender) {
             bender.reload().success(function() {
                 if (bender.password === insecurity.hash('slurmCl4ssic')) {
                     solve(csrfChallenge);
                 }
             });
         }
-        if (feedbackChallenge && !feedbackChallenge.solved) {
+        if (notSolved(feedbackChallenge)) {
             Feedback.findAndCountAll({where: {rating: 5}}).success(function (data) {
                 if (data.count === 0) {
                     solve(feedbackChallenge);
@@ -586,4 +590,8 @@ function solve(challenge) {
     challenge.save().success(function() {
         console.log('Solved challenge "' + challenge.description + '"');
     });
+}
+
+function notSolved(challenge) {
+    return challenge && !challenge.solved;
 }
