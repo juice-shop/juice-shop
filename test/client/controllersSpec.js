@@ -1,11 +1,17 @@
 describe('controllers', function () {
-    var scope, location, controller, window, cookieStore,
-    userService = {
-        login: function(params) {}
-    };
-
+    var scope, location, controller, window, cookieStore, $httpBackend;
 
     beforeEach(module('myApp'));
+    beforeEach(inject(function($injector) {
+        $httpBackend = $injector.get('$httpBackend');
+    }));
+
+/* TODO When run this gets into async conflict with the mocking inside servicesSpec.js
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+*/
 
     describe('BestDealsController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
@@ -97,9 +103,9 @@ describe('controllers', function () {
             window = $window;
             cookieStore = $cookieStore;
             controller = $controller('LoginController', {
-                '$scope': scope,
-                'UserService': userService
+                '$scope': scope
             });
+            scope.form = {$setPristine : function() {}};
         }));
 
         it('should be defined', inject(function ($controller) {
@@ -107,11 +113,50 @@ describe('controllers', function () {
             expect(scope.login).toBeDefined();
         }));
 
-        xit('forwards to main page after successful login', inject(function ($controller) {
-            scope.user = {email : 'bender@juice-sh.op', password : 'booze'};
-            spyOn(userService, 'login').andReturn("Foo");
+        it('forwards to main page after successful login', inject(function ($controller) {
+            $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token'});
+
             scope.login();
+            $httpBackend.flush();
+
             expect(location.path()).toBe('/');
+        }));
+
+        it('sets the returned authentication token as session cookie', inject(function ($controller) {
+            $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token'});
+
+            scope.login();
+            $httpBackend.flush();
+
+            expect(cookieStore.get('token')).toBe('auth_token');
+        }));
+
+        it('puts the returned basket id into browser session storage', inject(function ($controller) {
+            $httpBackend.whenPOST('/rest/user/login').respond(200, {bid: 4711});
+
+            scope.login();
+            $httpBackend.flush();
+
+            expect(window.sessionStorage.bid).toBe('4711');
+        }));
+
+        it('removes authentication token and basket id on failed login attempt', inject(function ($controller) {
+            $httpBackend.whenPOST('/rest/user/login').respond(401);
+
+            scope.login();
+            $httpBackend.flush();
+
+            expect(cookieStore.get('token')).toBeUndefined;
+            expect(window.sessionStorage.bid).toBeUndefined;
+        }));
+
+        it('returns error message from server to client on failed login attempt', inject(function ($controller) {
+            $httpBackend.whenPOST('/rest/user/login').respond(401, 'error');
+
+            scope.login();
+            $httpBackend.flush();
+
+            expect(scope.error).toBe('error');
         }));
 
     });
