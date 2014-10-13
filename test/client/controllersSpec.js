@@ -1,5 +1,10 @@
 describe('controllers', function () {
-    var scope, location, controller, window;
+    var scope, location, controller, window, cookieStore,
+    userService = {
+        login: function(params) {}
+    };
+
+
     beforeEach(module('myApp'));
 
     describe('BestDealsController', function () {
@@ -86,12 +91,14 @@ describe('controllers', function () {
     });
 
     describe('LoginController', function () {
-        beforeEach(inject(function ($rootScope, $window, $location, $controller) {
+        beforeEach(inject(function ($rootScope, $window, $location, $cookieStore, $controller) {
             scope = $rootScope.$new();
             location = $location;
             window = $window;
+            cookieStore = $cookieStore;
             controller = $controller('LoginController', {
-                '$scope': scope
+                '$scope': scope,
+                'UserService': userService
             });
         }));
 
@@ -99,11 +106,22 @@ describe('controllers', function () {
             expect(controller).toBeDefined();
             expect(scope.login).toBeDefined();
         }));
+
+        xit('forwards to main page after successful login', inject(function ($controller) {
+            scope.user = {email : 'bender@juice-sh.op', password : 'booze'};
+            spyOn(userService, 'login').andReturn("Foo");
+            scope.login();
+            expect(location.path()).toBe('/');
+        }));
+
     });
 
     describe('LogoutController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
+        beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookieStore) {
             scope = $rootScope.$new();
+            window = $window;
+            location = $location;
+            cookieStore = $cookieStore;
             controller = $controller('LogoutController', {
                 '$scope': scope
             });
@@ -112,6 +130,19 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
         }));
+
+        it('should remove authentication token from cookies', inject(function ($controller) {
+            expect(cookieStore.get('token')).toBeUndefined();
+        }));
+
+        it('should remove basket id from session storage', inject(function ($controller) {
+            expect(window.sessionStorage.bid).toBeUndefined();
+        }));
+
+        it('should forward to main page', inject(function ($controller) {
+            expect(location.path()).toBe('/');
+        }));
+
     });
 
     describe('RegisterController', function () {
