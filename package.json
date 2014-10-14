@@ -37,8 +37,7 @@
         "grunt-contrib-uglify": "~0.6",
         "grunt-contrib-concat": "~0.5",
         "grunt-contrib-clean": "~0.6",
-        "grunt-contrib-compress": "~0.12",
-        "underscore.string": "~2.3"
+        "grunt-contrib-compress": "~0.12"
     },
     "devDependencies": {
         "frisby": "~0.8",

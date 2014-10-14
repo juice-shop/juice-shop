@@ -19,7 +19,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     insecurity = require('./lib/insecurity'),
     app = express();
 
-var loggedInUsers = {};
 errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')';
 
 /* Domain Model */
@@ -496,7 +495,7 @@ function changePassword() {
         } else if (password !== repeatPassword) {
             res.status(401).send('New and repeated password do not match.');
         } else {
-            var loggedInUser = loggedInUsers[req.cookies.token];
+            var loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token);
             if (loggedInUser) {
                 User.find(loggedInUser.data.id).success(function(user) {
                     user.updateAttributes({password: password}).success(function(data) {
@@ -532,8 +531,7 @@ function loginUser() {
                     }
                     Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
                         var token = insecurity.authorize(user);
-                        loggedInUsers[token] = user; // mapping original token to user
-                        loggedInUsers['"'+token+'"'] = user; // additional mapping as cookie might come back wrapped in double quotes
+                        insecurity.authenticatedUsers.put(token, user);
                         res.json({ token: token, bid: basket.id });
                     }).error(function (error) {
                         next(error);
