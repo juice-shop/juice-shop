@@ -65,7 +65,17 @@ Product.hasMany(Basket, {through: BasketItem});
 var Feedback = sequelize.define('Feedback', {
     comment: Sequelize.STRING,
     rating: Sequelize.INTEGER
-});
+    },
+    { hooks: {
+        beforeCreate: function (feedback, fn) {
+            feedback.comment = insecurity.sanitizeHtml(feedback.comment);
+            fn(null, feedback);
+        },
+        beforeUpdate: function (feedback, fn) {
+            feedback.comment = insecurity.sanitizeHtml(feedback.comment);
+            fn(null, feedback);
+        }
+    }});
 
 Feedback.belongsTo(User);
 
