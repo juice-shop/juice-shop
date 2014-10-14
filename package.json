@@ -37,7 +37,8 @@
         "grunt-contrib-uglify": "~0.6",
         "grunt-contrib-concat": "~0.5",
         "grunt-contrib-clean": "~0.6",
-        "grunt-contrib-compress": "~0.12"
+        "grunt-contrib-compress": "~0.12",
+        "sanitize-html": "1.4.2"
     },
     "devDependencies": {
         "frisby": "~0.8",

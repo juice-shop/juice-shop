@@ -75,3 +75,25 @@ frisby.create('GET all feedback')
     .get(API_URL + '/Feedbacks')
     .expectStatus(200)
     .toss();
+
+frisby.create('POST sanitizes unsafe HTML from comment')
+    .post(API_URL + '/Feedbacks', {
+        comment: 'I am a harm<script>steal-cookie</script><img src="csrf-attack"/><iframe src="evil-content"></iframe>less comment.',
+        rating: 1
+    })
+    .expectStatus(200)
+    .expectJSON('data', {
+        comment: 'I am a harmless comment.'
+    })
+    .toss();
+
+frisby.create('POST fails to sanitize unsafe HTML recursively')
+    .post(API_URL + '/Feedbacks', {
+        comment: 'I am not harmless: <<img src="csrf-attack"/>img src="csrf-attack"/>',
+        rating: 1
+    })
+    .expectStatus(200)
+    .expectJSON('data', {
+        comment: 'I am not harmless: <img src="csrf-attack"/>'
+    })
+    .toss();
