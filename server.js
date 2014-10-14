@@ -97,9 +97,9 @@ var Challenge = sequelize.define('Challenges', {
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
-    errorHandlingChallenge, knownVulnerableComponentChallenge,
+    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge
 
-    localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge, weakPasswordChallenge,
+    localXssChallenge, persistedXssChallenge, basketChallenge, weakPasswordChallenge,
     adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
 
 /* Entities relevant for challenges */
@@ -196,7 +196,7 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Place an order that makes you rich.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         negativeOrderChallenge = challenge;
     });
@@ -520,6 +520,10 @@ function createOrderPdf() {
                 doc.moveDown();
                 doc.text('Thank you for your order!');
                 doc.end();
+
+                if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
+                    solve (negativeOrderChallenge);
+                }
 
                 fileWriter.on('finish', function() {
                     BasketItem.destroy({BasketId: id});
