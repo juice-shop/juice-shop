@@ -507,7 +507,7 @@ function createOrderPdf() {
                 doc.moveDown();
                 doc.moveDown();
                 doc.moveDown();
-                doc.text('Customer: ' + customer.data.email);
+                doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined));
                 doc.moveDown();
                 doc.text('Order #: ' + orderNo);
                 doc.moveDown();

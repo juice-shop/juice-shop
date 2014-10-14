@@ -71,3 +71,16 @@ frisby.create('DELETE existing basket is not part of API')
     .expectJSON({status : 'error'})
     .toss();
 
+frisby.create('GET placing an order for a basket is not allowed via public API')
+    .get(REST_URL + '/basket/1/order')
+    .expectStatus(401)
+    .toss();
+
+frisby.create('GET placing an order for a basket')
+    .get(REST_URL + '/basket/1/order')
+    .addHeaders(authHeader)
+    .expectStatus(200)
+    .expectBodyContains('/public/ftp/order_')
+    .expectBodyContains('.pdf')
+    .toss();
+
