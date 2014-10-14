@@ -655,7 +655,7 @@ function verifyDatabaseRelatedChallenges() {
             });
         }
         if (notSolved(knownVulnerableComponentChallenge)) {
-            Feedback.findAndCountAll({where: Sequelize.and(["comment LIKE '%sanitize-html%'"], ["comment LIKE '%1.4.2%'"])}).success(function (data) {
+            Feedback.findAndCountAll({where: Sequelize.or(Sequelize.and(["comment LIKE '%sanitize-html%'"], ["comment LIKE '%1.4.2%'"]), Sequelize.and(["comment LIKE '%htmlparser2%'"], ["comment LIKE '%3.3.0%'"]) ) }).success(function (data) {
                 if (data.count > 0) {
                     solve(knownVulnerableComponentChallenge);
                 }
