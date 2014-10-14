@@ -97,7 +97,7 @@ var Challenge = sequelize.define('Challenges', {
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
-    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge
+    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge,
 
     localXssChallenge, persistedXssChallenge, basketChallenge, weakPasswordChallenge,
     adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
@@ -497,6 +497,7 @@ function createOrderPdf() {
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(data) {
+                var customer = insecurity.authenticatedUsers.from(req);
                 var orderNo = insecurity.hash(new Date()+'_'+id);
                 var pdfFile = 'order_' + orderNo + '.pdf';
                 var doc = new PDFDocument;
@@ -505,7 +506,11 @@ function createOrderPdf() {
                 doc.text('Juice-Shop - Order Confirmation');
                 doc.moveDown();
                 doc.moveDown();
+                doc.moveDown();
+                doc.text('Customer: ' + customer.data.email);
+                doc.moveDown();
                 doc.text('Order #: ' + orderNo);
+                doc.moveDown();
                 doc.moveDown();
                 var totalPrice = 0;
                 data.products.forEach(function(product) {
@@ -609,7 +614,6 @@ function loginUser() {
 function serveFiles() {
     return function(req, res, next) {
         var file = req.params.file;
-        console.log(file);
         if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
             file = insecurity.cutOffPoisonNullByte(file);
             if (notSolved(easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
