@@ -3,6 +3,7 @@
 
 var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
+    glob = require("glob"),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
@@ -22,6 +23,13 @@ var application_root = __dirname.replace(/\\/g, '/'),
     app = express();
 
 errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')';
+
+/* Delete old order PDFs */
+glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
+    files.forEach(function(filename) {
+        fs.unlink(filename);
+    });
+});
 
 /* Domain Model */
 var User = sequelize.define('User', {

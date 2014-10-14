@@ -33,6 +33,7 @@
         "express-jwt": "~0.4",
         "jsonwebtoken": "~1.1",
         "pdfkit": "~0.7",
+        "glob": "~4.0",
         "grunt": "~0.4",
         "grunt-cli": "~0.1",
         "grunt-html2js": "~0.2",
