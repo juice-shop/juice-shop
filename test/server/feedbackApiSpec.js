@@ -87,13 +87,13 @@ frisby.create('POST sanitizes unsafe HTML from comment')
     })
     .toss();
 
-frisby.create('POST fails to sanitize unsafe HTML recursively')
+frisby.create('POST fails to sanitize masked unsafe HTML recursively')
     .post(API_URL + '/Feedbacks', {
-        comment: 'I am not harmless: <<img src="csrf-attack"/>img src="csrf-attack"/>',
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<img src="csrf-attack"/>img src="csrf-attack"/>',
         rating: 1
     })
     .expectStatus(200)
     .expectJSON('data', {
-        comment: 'I am not harmless: <img src="csrf-attack"/>'
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <img src="csrf-attack"/>'
     })
     .toss();

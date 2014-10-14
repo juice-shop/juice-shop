@@ -87,7 +87,7 @@ var Challenge = sequelize.define('Challenges', {
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
-    errorHandlingChallenge,
+    errorHandlingChallenge, knownVulnerableComponentChallenge,
 
     localXssChallenge, persistedXssChallenge, basketChallenge, negativeOrderChallenge, weakPasswordChallenge,
     adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
@@ -217,6 +217,13 @@ sequelize.sync().success(function () {
         solvable: true
     }).success(function(challenge) {
         changeProductChallenge = challenge;
+    });
+    Challenge.create({
+        description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        knownVulnerableComponentChallenge = challenge;
     });
     Challenge.create({
         description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
@@ -586,6 +593,13 @@ function verifyDatabaseRelatedChallenges() {
             Feedback.findAndCountAll({where: {rating: 5}}).success(function (data) {
                 if (data.count === 0) {
                     solve(feedbackChallenge);
+                }
+            });
+        }
+        if (notSolved(knownVulnerableComponentChallenge)) {
+            Feedback.findAndCountAll({where: Sequelize.and(["comment LIKE '%sanitize-html%'"], ["comment LIKE '%1.4.2%'"])}).success(function (data) {
+                if (data.count > 0) {
+                    solve(knownVulnerableComponentChallenge);
                 }
             });
         }
