@@ -497,11 +497,30 @@ function createOrderPdf() {
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(data) {
-                var pdfFile = 'order_' + insecurity.hash(new Date()+'_'+id) + '.pdf';
+                var orderNo = insecurity.hash(new Date()+'_'+id);
+                var pdfFile = 'order_' + orderNo + '.pdf';
                 var doc = new PDFDocument;
                 var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
-                // TODO Write basket content into PDF
+
+                doc.text('Juice-Shop - Order Confirmation');
+                doc.moveDown();
+                doc.moveDown();
+                doc.text('Order #: ' + orderNo);
+                doc.moveDown();
+                var totalPrice = 0;
+                data.products.forEach(function(product) {
+                    var itemTotal = product.price*product.basketItem.quantity;
+                    doc.text(product.basketItem.quantity + 'x ' + product.name + ' á ' + product.price + ' = ' + itemTotal);
+                    doc.moveDown();
+                    totalPrice += itemTotal;
+                });
+                doc.moveDown();
+                doc.text('Total Price: ' + totalPrice);
+                doc.moveDown();
+                doc.moveDown();
+                doc.text('Thank you for your order!');
                 doc.end();
+
                 fileWriter.on('finish', function() {
                     BasketItem.destroy({BasketId: id});
                     res.send('/public/ftp/' + pdfFile);
