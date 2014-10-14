@@ -30,8 +30,8 @@ frisby.create('GET a non-existing Markdown file in /public/ftp will return a 404
     .expectStatus(404)
     .toss();
 
-frisby.create('GET a non-existing text file in /public/ftp will return a 404 error')
-    .get(URL + "/public/ftp/doesnotexist.txt")
+frisby.create('GET a non-existing PDF file in /public/ftp will return a 404 error')
+    .get(URL + "/public/ftp/doesnotexist.pdf")
     .expectStatus(404)
     .toss();
 
@@ -50,8 +50,8 @@ frisby.create('GET the confidential file in /public/ftp')
     .expectStatus(200)
     .toss();
 
-frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .txt suffix')
-    .get(URL + "/public/ftp/eastere.gg%2500.txt")
+frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .pdf suffix')
+    .get(URL + "/public/ftp/eastere.gg%2500.pdf")
     .expectStatus(200)
     .toss();
 

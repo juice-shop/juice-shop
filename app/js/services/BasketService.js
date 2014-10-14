@@ -19,6 +19,10 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         return $http.delete(host + '/' + id);
     }
 
+    function order(id) {
+        return $http.get('/rest/basket/'+id+'/order');
+    }
+
     function save(params) {
         return $http.post(host + '/', params);
     }
@@ -28,6 +32,7 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         get: get,
         put: put,
         del: del,
+        order: order,
         save: save
     };
 }]);

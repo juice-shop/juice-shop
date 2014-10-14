@@ -2,6 +2,7 @@
 'use strict';
 
 var application_root = __dirname.replace(/\\/g, '/'),
+    fs = require('fs'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
@@ -15,6 +16,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
+    PDFDocument = require('pdfkit'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     app = express();
@@ -399,6 +401,7 @@ app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
+app.get('/rest/basket/:id/order', createOrderPdf());
 app.get('/redirect', performRedirect());
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', serveEasterEgg());
@@ -481,6 +484,26 @@ function retrieveBasket() {
     };
 }
 
+function createOrderPdf() {
+    return function(req, res, next){
+        var id = req.params.id;
+        Basket.find({where: {id: id}, include: [ Product ]})
+            .success(function(data) {
+                var pdfFile = 'order_' + insecurity.hash(new Date()+'_'+id) + '.pdf';
+                var doc = new PDFDocument;
+                var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
+                // TODO Write basket content into PDF
+                doc.end();
+                fileWriter.on('finish', function() {
+                    BasketItem.destroy({BasketId: id});
+                    res.send('/public/ftp/' + pdfFile);
+                })
+            }).error(function (error) {
+                next(error);
+            });
+    };
+}
+
 function searchProducts() {
     return function(req, res, next){
         var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
@@ -556,7 +579,7 @@ function serveFiles() {
     return function(req, res, next) {
         var file = req.params.file;
         console.log(file);
-        if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.txt')))) {
+        if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
             file = insecurity.cutOffPoisonNullByte(file);
             if (notSolved(easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
                 solve(easterEggLevelOneChallenge);
@@ -566,7 +589,7 @@ function serveFiles() {
             res.sendFile(__dirname + '/app/public/ftp/' + file);
         } else {
             res.status(403);
-            next(new Error('Only .md and .txt files are allowed!'));
+            next(new Error('Only .md and .pdf files are allowed!'));
         }
     };
 }

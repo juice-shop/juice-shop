@@ -2,33 +2,39 @@
     <div class="col-md-8">
         <h3 class="page-header page-header-sm">Your Basket</h3>
 
-        <table class="table table-striped table-bordered table-condensed" ng-controller="BasketController">
-            <tr>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th></th>
-            </tr>
-            <tr data-ng-repeat="product in products">
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.price}}</td>
-                <td>
-                    <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><span class="glyphicon glyphicon-minus-sign"></span></a>
-                        <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
-                        <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                    </div>
-                </td>
-                <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
-                <td class="col-md-1">
-                    <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><span class="glyphicon glyphicon-trash"></span></a>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div ng-controller="BasketController">
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </tr>
+                <tr data-ng-repeat="product in products">
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.price}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><span class="glyphicon glyphicon-minus-sign"></span></a>
+                            <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
+                            <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        </div>
+                    </td>
+                    <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
+                    <td class="col-md-1">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="container-fluid well">
+                <button type="submit" class="btn btn-default" ng-disabled="products.length < 1" ng-click="order()">Submit Order</button>
+            </div>
+        </div>
     </div>
 </div>

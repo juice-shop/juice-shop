@@ -6,13 +6,6 @@ describe('controllers', function () {
         $httpBackend = $injector.get('$httpBackend');
     }));
 
-/* TODO When run this gets into async conflict with the mocking inside servicesSpec.js
-    afterEach(function() {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
-    });
-*/
-
     describe('BestDealsController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();
@@ -285,6 +278,7 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.delete).toBeDefined();
+            expect(scope.order).toBeDefined();
             expect(scope.inc).toBeDefined();
             expect(scope.dec).toBeDefined();
         }));

@@ -28,6 +28,14 @@ angular.module('myApp').controller('BasketController', [
 
         };
 
+        $scope.order = function() {
+            basketService.order($window.sessionStorage.bid).success(function (data) {
+                $window.location.href = data;
+            }).error(function (data) {
+                console.log(data);
+            });
+        }
+
         $scope.inc = function (id) {
             addToQuantity(id, 1);
         };

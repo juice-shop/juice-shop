@@ -7,11 +7,6 @@ describe('services', function () {
         result = undefined;
     }));
 
-    afterEach(function() {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
-    });
-
     describe('UserService', function () {
         it('should be defined', inject(function (UserService) {
             expect(UserService).toBeDefined();
@@ -180,6 +175,15 @@ describe('services', function () {
             $httpBackend.whenDELETE('/api/BasketItems/1').respond(200, 'apiResponse');
 
             BasketService.del(1).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should place order for basket via the rest api', inject(function (BasketService) {
+            $httpBackend.whenGET('/rest/basket/1/order').respond(200, 'apiResponse');
+
+            BasketService.order(1).success(function (data) { result = data; });
             $httpBackend.flush();
 
             expect(result).toBe('apiResponse');
