@@ -611,7 +611,7 @@ function searchProducts() {
         if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
             solve(localXssChallenge);
         }
-        sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
+        sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
             .success(function(data) {
                 // TODO Check data for user account columns and solve challenge accordingly
                 res.json(utils.queryResultToJson(data));

