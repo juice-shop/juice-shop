@@ -132,10 +132,8 @@ var Challenge = sequelize.define('Challenges', {
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
     errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
-    persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,
-
-    basketChallenge, weakPasswordChallenge, adminSectionChallenge, scoreBoardChallenge, feedbackChallenge,
-    unionSqlInjectionChallenge;
+    persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,basketChallenge, weakPasswordChallenge,
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
 
 /* Entities relevant for challenges */
 
@@ -147,7 +145,7 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Find the carefully hidden \'Score Board\' page.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         scoreBoardChallenge = challenge;
     });
@@ -238,7 +236,7 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Access someone else\'s basket.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         basketChallenge = challenge;
     });
@@ -259,7 +257,7 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Access the administration section of the store.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         adminSectionChallenge = challenge;
     });
@@ -417,8 +415,9 @@ sequelize.sync().success(function () {
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
-/* Database checks for solved challenges */
+/* Checks for solved challenges */
 app.use(verifyDatabaseRelatedChallenges());
+app.use('/public/images/tracking', verifyAccessControlChallenges());
 
 /* public/ftp directory browsing and file download */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
@@ -486,6 +485,17 @@ exports.close = function (exitCode) {
     }
 };
 
+function verifyAccessControlChallenges() {
+    return function (req, res, next) {
+        if (notSolved(scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
+            solve(scoreBoardChallenge);
+        } else if (notSolved(adminSectionChallenge) && utils.endsWith(req.url, '/administration.png')) {
+            solve(adminSectionChallenge);
+        }
+        next();
+    };
+}
+
 function serveAngularClient() {
     return function (req, res, next) {
         if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
@@ -498,7 +508,7 @@ function serveAngularClient() {
 
 function verifyErrorHandlingChallenge() {
     return function (err, req, res, next) {
-        if (notSolved(errorHandlingChallenge)) {
+        if (notSolved(errorHandlingChallenge) && err && res.statusCode > 401) {
             solve(errorHandlingChallenge);
         }
         next(err);
@@ -534,6 +544,12 @@ function retrieveBasket() {
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(data) {
+                if (notSolved(basketChallenge)) {
+                    var user = insecurity.authenticatedUsers.from(req);
+                    if (user && user.bid != id) {
+                        solve(basketChallenge);
+                    }
+                }
                 res.json(utils.queryResultToJson(data));
             }).error(function (error) {
                 next(error);
@@ -649,6 +665,7 @@ function loginUser() {
                     }
                     Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
                         var token = insecurity.authorize(user);
+                        user.bid = basket.id; // keep track of original basket for challenge solution check
                         insecurity.authenticatedUsers.put(token, user);
                         res.json({ token: token, bid: basket.id });
                     }).error(function (error) {
