@@ -54,7 +54,7 @@ function hashPasswordHook(user) {
 }
 
 function xssChallengeUserHook(user) {
-    if (notSolved(persistedXssChallengeUser) && utils.contains(user.email, '<script>alert(\'XSS2\')</script>')) {
+    if (notSolved(persistedXssChallengeUser) && utils.contains(user.email, '<script>alert("XSS2")</script>')) {
         solve(persistedXssChallengeUser);
     }
 }
@@ -77,7 +77,7 @@ var Product = sequelize.define('Product', {
     }});
 
 function xssChallengeProductHook(product) {
-    if (notSolved(restfulXssChallenge) && utils.contains(product.description, '<script>alert(\'XSS4\')</script>')) {
+    if (notSolved(restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS4")</script>')) {
         solve(restfulXssChallenge);
     }
 }
@@ -117,7 +117,7 @@ Feedback.belongsTo(User);
 
 function htmlSanitizationHook(feedback) {
     feedback.comment = insecurity.sanitizeHtml(feedback.comment);
-    if (notSolved(persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert(\'XSS3\')</script>')) {
+    if (notSolved(persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS3")</script>')) {
         solve(persistedXssChallengeFeedback);
     }
 }
@@ -178,28 +178,28 @@ sequelize.sync().success(function () {
         loginBenderChallenge = challenge;
     });
     Challenge.create({
-        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert(\'XSS1\')&lt;/script&gt;.',
+        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
         solved: false,
         solvable: true
     }).success(function(challenge) {
         localXssChallenge = challenge;
     });
     Challenge.create({
-        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS2\')&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
+        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
         solved: false,
         solvable: true
     }).success(function(challenge) {
         persistedXssChallengeUser = challenge;
     });
     Challenge.create({
-        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS3\')&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
         solved: false,
         solvable: true
     }).success(function(challenge) {
         persistedXssChallengeFeedback = challenge;
     });
     Challenge.create({
-        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS4\')&lt;/script&gt; without using the frontend application at all.',
+        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
         solved: false,
         solvable: true
     }).success(function(challenge) {
@@ -608,11 +608,12 @@ function createOrderPdf() {
 function searchProducts() {
     return function(req, res, next){
         var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
-        if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert(\'XSS1\')</script>')) {
+        if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
             solve(localXssChallenge);
         }
         sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
             .success(function(data) {
+                // TODO Check data for user account columns and solve challenge accordingly
                 res.json(utils.queryResultToJson(data));
             }).error(function (error) {
                 next(error);

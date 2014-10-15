@@ -48,7 +48,7 @@ frisby.create('GET product search with one match returns found product')
     .toss();
 
 frisby.create('GET product search with XSS attack is not blocked')
-    .get(REST_URL + '/product/search?q=&lt;script&gt;alert(\'XSS1\')&lt;/script&gt;')
+    .get(REST_URL + '/product/search?q=<script>alert("XSS1")</script>')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .toss();
