@@ -76,7 +76,7 @@ frisby.create('GET placing an order for a basket is not allowed via public API')
     .expectStatus(401)
     .toss();
 
-frisby.create('GET placing an order for a basket')
+frisby.create('GET placing an order for a basket returns URL to confirmation PDF')
     .get(REST_URL + '/basket/1/order')
     .addHeaders(authHeader)
     .expectStatus(200)
