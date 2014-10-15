@@ -38,22 +38,49 @@ var User = sequelize.define('User', {
     },
     { hooks: {
         beforeCreate: function (user, fn) {
-            user.password = insecurity.hash(user.password);
+            hashPasswordHook(user);
+            xssChallengeUserHook(user);
             fn(null, user);
         },
-        beforeUpdate: function (user, fn) { // Pitfall: Will hash the hashed password again if password was not updated
-            user.password = insecurity.hash(user.password);
+        beforeUpdate: function (user, fn) { // Pitfall: Will hash the hashed password again if password was not updated!
+            hashPasswordHook(user);
             fn(null, user);
         }
     }}
 );
+
+function hashPasswordHook(user) {
+    user.password = insecurity.hash(user.password);
+}
+
+function xssChallengeUserHook(user) {
+    if (notSolved(persistedXssChallengeUser) && utils.contains(user.email, '<script>alert(\'XSS2\')</script>')) {
+        solve(persistedXssChallengeUser);
+    }
+}
 
 var Product = sequelize.define('Product', {
     name: Sequelize.STRING,
     description: Sequelize.STRING,
     price: Sequelize.DECIMAL,
     image: Sequelize.STRING
-});
+    },
+    { hooks: {
+        beforeCreate: function (product, fn) {
+            xssChallengeProductHook(product);
+            fn(null, product);
+        },
+        beforeUpdate: function (product, fn) {
+            xssChallengeProductHook(product);
+            fn(null, product);
+        }
+    }});
+
+function xssChallengeProductHook(product) {
+    if (notSolved(restfulXssChallenge) && utils.contains(product.description, '<script>alert(\'XSS4\')</script>')) {
+        solve(restfulXssChallenge);
+    }
+}
 
 var Basket = sequelize.define('Basket', {
 });
@@ -77,16 +104,23 @@ var Feedback = sequelize.define('Feedback', {
     },
     { hooks: {
         beforeCreate: function (feedback, fn) {
-            feedback.comment = insecurity.sanitizeHtml(feedback.comment);
+            htmlSanitizationHook(feedback);
             fn(null, feedback);
         },
         beforeUpdate: function (feedback, fn) {
-            feedback.comment = insecurity.sanitizeHtml(feedback.comment);
+            htmlSanitizationHook(feedback);
             fn(null, feedback);
         }
     }});
 
 Feedback.belongsTo(User);
+
+function htmlSanitizationHook(feedback) {
+    feedback.comment = insecurity.sanitizeHtml(feedback.comment);
+    if (notSolved(persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert(\'XSS3\')</script>')) {
+        solve(persistedXssChallengeFeedback);
+    }
+}
 
 var Challenge = sequelize.define('Challenges', {
     description: Sequelize.STRING,
@@ -97,10 +131,11 @@ var Challenge = sequelize.define('Challenges', {
 /* Challenges */
 var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
-    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge,
+    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
+    persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,
 
-    localXssChallenge, persistedXssChallenge, basketChallenge, weakPasswordChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
+    basketChallenge, weakPasswordChallenge, adminSectionChallenge, scoreBoardChallenge, feedbackChallenge,
+    unionSqlInjectionChallenge;
 
 /* Entities relevant for challenges */
 
@@ -145,18 +180,32 @@ sequelize.sync().success(function () {
         loginBenderChallenge = challenge;
     });
     Challenge.create({
-        description: 'Perform a reflected XSS attack with &lt;script&gt;alert(\'XSS1\')&lt;/script&gt;.',
+        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert(\'XSS1\')&lt;/script&gt;.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         localXssChallenge = challenge;
     });
     Challenge.create({
-        description: 'Perform a persisted XSS attack with &lt;script&gt;alert(\'XSS2\')&lt;/script&gt;.',
+        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS2\')&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
-        persistedXssChallenge = challenge;
+        persistedXssChallengeUser = challenge;
+    });
+    Challenge.create({
+        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS3\')&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        persistedXssChallengeFeedback = challenge;
+    });
+    Challenge.create({
+        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert(\'XSS4\')&lt;/script&gt; without using the frontend application at all.',
+        solved: false,
+        solvable: true
+    }).success(function(challenge) {
+        restfulXssChallenge = challenge;
     });
     Challenge.create({
         description: 'Retrieve a list of all user credentials via SQL Injection',
@@ -543,6 +592,9 @@ function createOrderPdf() {
 function searchProducts() {
     return function(req, res, next){
         var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
+        if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert(\'XSS1\')</script>')) {
+            solve(localXssChallenge);
+        }
         sequelize.query('SELECT * FROM Products WHERE name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\'')
             .success(function(data) {
                 res.json(utils.queryResultToJson(data));

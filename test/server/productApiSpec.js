@@ -47,6 +47,12 @@ frisby.create('GET product search with one match returns found product')
     .expectJSONLength('data', 1)
     .toss();
 
+frisby.create('GET product search with XSS attack is not blocked')
+    .get(REST_URL + '/product/search?q=&lt;script&gt;alert(\'XSS1\')&lt;/script&gt;')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .toss();
+
 frisby.create('POST new product is forbidden via public API')
     .post(API_URL + '/Products', {
         name: 'Dirt Juice (1000ml)',
@@ -65,6 +71,17 @@ frisby.create('PUT update existing product is possible due to Missing Function-L
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
         description: "<a href=\"http://kimminich.de\" target=\"_blank\">"
+    })
+    .toss();
+
+frisby.create('PUT update existing product does not filter XSS attacks')
+    .put(API_URL + '/Products/8', {
+        description: "<script>alert(\'XSS4\')</script>"
+    })
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        description: "<script>alert(\'XSS4\')</script>"
     })
     .toss();
 
@@ -126,3 +143,17 @@ frisby.create('POST new product')
                     }).toss();
             }).toss();
     }).toss();
+
+frisby.create('POST new product does not filter XSS attacks')
+    .addHeaders(authHeader)
+    .post(API_URL + '/Products', {
+        name: 'XSS Juice (42ml)',
+        description: "<script>alert(\'XSS4\')</script>",
+        price: 9999.99,
+        image: 'xss_juice.jpg'
+    })
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        description: "<script>alert(\'XSS4\')</script>"
+    }).toss();
+

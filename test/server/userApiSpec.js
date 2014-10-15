@@ -11,7 +11,6 @@ var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
-        admin: false,
         password: 'hooooorst'
     })
     .expectStatus(200)
@@ -221,3 +220,14 @@ frisby.create('GET all users')
     .get(API_URL + '/Users')
     .expectStatus(200)
     .toss();
+
+frisby.create('POST new user with XSS attack in email address')
+    .post(API_URL + '/Users', {
+        email: '<script>alert(\'XSS2\')</script>',
+        password: 'does.not.matter'
+    })
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        email: '<script>alert(\'XSS2\')</script>'
+    }).toss();

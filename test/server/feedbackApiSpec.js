@@ -87,7 +87,7 @@ frisby.create('POST sanitizes unsafe HTML from comment')
     })
     .toss();
 
-frisby.create('POST fails to sanitize masked unsafe HTML recursively')
+frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitization recursively')
     .post(API_URL + '/Feedbacks', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<img src="csrf-attack"/>img src="csrf-attack"/>',
         rating: 1
@@ -95,5 +95,16 @@ frisby.create('POST fails to sanitize masked unsafe HTML recursively')
     .expectStatus(200)
     .expectJSON('data', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <img src="csrf-attack"/>'
+    })
+    .toss();
+
+frisby.create('POST fails to sanitize masked XSS-attack by not applying sanitization recursively')
+    .post(API_URL + '/Feedbacks', {
+        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <<script>alert(\'XSS3\')</script>script>alert(\'XSS3\')<</script>/script>',
+        rating: 1
+    })
+    .expectStatus(200)
+    .expectJSON('data', {
+        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <script>alert(\'XSS3\')</script>'
     })
     .toss();
