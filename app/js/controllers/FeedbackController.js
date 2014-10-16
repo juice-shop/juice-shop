@@ -6,13 +6,13 @@ angular.module('myApp').controller('FeedbackController', [
         'use strict';
 
         function findAll() {
-            feedbackService.find().success(function (data) {
-                $scope.feedbacks = data.data;
+            feedbackService.find().success(function (feedbacks) {
+                $scope.feedbacks = feedbacks.data;
                 for (var i=0; i<$scope.feedbacks.length; i++) {
                     $scope.feedbacks[i].comment = $sce.trustAsHtml($scope.feedbacks[i].comment);
                 }
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (err) {
+                console.log(err);
             });
         }
         findAll();
@@ -21,8 +21,8 @@ angular.module('myApp').controller('FeedbackController', [
 
             feedbackService.del(id).success(function () {
                 findAll();
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (err) {
+                console.log(err);
             });
 
         };

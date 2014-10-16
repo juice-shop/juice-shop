@@ -8,16 +8,15 @@ angular.module('myApp').controller('LoginController', [
         'use strict';
 
         $scope.login = function () {
-            userService.login($scope.user).success(function (data) {
-                $cookieStore.put('token', data.token);
-                $window.sessionStorage.bid = data.bid;
+            userService.login($scope.user).success(function (authentication) {
+                $cookieStore.put('token', authentication.token);
+                $window.sessionStorage.bid = authentication.bid;
                 $location.path( '/' );
             }).error(function(error) {
                 $cookieStore.remove('token');
                 delete $window.sessionStorage.bid;
                 $scope.error = error;
                 $scope.form.$setPristine();
-                // TODO If status code !=401 then solve(errorHandlingChallenge)
             });
         };
 

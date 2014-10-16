@@ -6,10 +6,10 @@ angular.module('myApp').controller('UserDetailsController', [
     function ($scope, $modal, userService, id) {
         'use strict';
 
-            userService.get(id).success(function (data) {
-                $scope.user = data.data;
-            }).error(function (data) {
-                console.log(data);
+            userService.get(id).success(function (user) {
+                $scope.user = user.data;
+            }).error(function (err) {
+                console.log(err);
             });
 
     }]);

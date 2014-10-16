@@ -7,7 +7,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
-        logging: true,
         dialect: 'sqlite',
         storage: 'data/juiceshop.sqlite'
     }),
@@ -521,14 +520,14 @@ function retrieveBasket() {
     return function(req, res, next){
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
-            .success(function(data) {
+            .success(function(basket) {
                 if (notSolved(basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
                     if (user && parseInt(user.bid, 10) !== id) {
                         solve(basketChallenge);
                     }
                 }
-                res.json(utils.queryResultToJson(data));
+                res.json(utils.queryResultToJson(basket));
             }).error(function (error) {
                 next(error);
             });
@@ -539,7 +538,7 @@ function createOrderPdf() {
     return function(req, res, next){
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
-            .success(function(data) {
+            .success(function(basket) {
                 var customer = insecurity.authenticatedUsers.from(req);
                 var orderNo = insecurity.hash(new Date()+'_'+id);
                 var pdfFile = 'order_' + orderNo + '.pdf';
@@ -556,7 +555,7 @@ function createOrderPdf() {
                 doc.moveDown();
                 doc.moveDown();
                 var totalPrice = 0;
-                data.products.forEach(function(product) {
+                basket.products.forEach(function(product) {
                     var itemTotal = product.price*product.basketItem.quantity;
                     doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
                     doc.moveDown();
@@ -590,9 +589,9 @@ function searchProducts() {
             solve(localXssChallenge);
         }
         sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
-            .success(function(data) {
+            .success(function(products) {
                 if (notSolved(unionSqlInjectionChallenge)) {
-                    var dataString = JSON.stringify(data);
+                    var dataString = JSON.stringify(products);
                     var solved = true;
                     User.findAll().success(function(data) {
                         var users = utils.queryResultToJson(data);
@@ -609,7 +608,7 @@ function searchProducts() {
                         }
                     });
                 }
-                res.json(utils.queryResultToJson(data));
+                res.json(utils.queryResultToJson(products));
             }).error(function (error) {
                 next(error);
             });
@@ -628,8 +627,8 @@ function changePassword() {
             var loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token);
             if (loggedInUser) {
                 User.find(loggedInUser.data.id).success(function(user) {
-                    user.updateAttributes({password: password}).success(function(data) {
-                        res.send(data);
+                    user.updateAttributes({password: password}).success(function(user) {
+                        res.send(user);
                     }).error(function(error) {
                         next(error);
                     });
@@ -649,8 +648,8 @@ function loginUser() {
             solve(weakPasswordChallenge);
         }
         sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
-            .success(function(data) {
-                var user = utils.queryResultToJson(data);
+            .success(function(authenticatedUser) {
+                var user = utils.queryResultToJson(authenticatedUser);
                 if (user.data && user.data.id) {
                     if (notSolved(loginAdminChallenge) && user.data.id === 1) {
                         solve(loginAdminChallenge);
@@ -713,8 +712,8 @@ function verifyDatabaseRelatedChallenges() {
             });
         }
         if (notSolved(feedbackChallenge)) {
-            Feedback.findAndCountAll({where: {rating: 5}}).success(function (data) {
-                if (data.count === 0) {
+            Feedback.findAndCountAll({where: {rating: 5}}).success(function (feedbacks) {
+                if (feedbacks.count === 0) {
                     solve(feedbackChallenge);
                 }
             });

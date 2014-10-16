@@ -7,11 +7,11 @@ angular.module('myApp').controller('ProductDetailsController', [
     function ($scope, $sce, $modal, productService, id) {
         'use strict';
 
-        productService.get(id).success(function (data) {
-            $scope.product = data.data;
+        productService.get(id).success(function (product) {
+            $scope.product = product.data;
             $scope.product.description = $sce.trustAsHtml($scope.product.description);
-        }).error(function (data) {
-            console.log(data);
+        }).error(function (err) {
+            console.log(err);
         });
 
     }]);

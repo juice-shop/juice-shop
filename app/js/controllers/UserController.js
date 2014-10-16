@@ -6,10 +6,10 @@ angular.module('myApp').controller('UserController', [
         'use strict';
 
         function findAll() {
-            userService.find().success(function (data) {
-                $scope.users = data.data;
-            }).error(function (data) {
-                console.log(data);
+            userService.find().success(function (users) {
+                $scope.users = users.data;
+            }).error(function (err) {
+                console.log(err);
             });
         }
         findAll();

@@ -181,7 +181,7 @@ describe('services', function () {
         }));
 
         it('should place order for basket via the rest api', inject(function (BasketService) {
-            $httpBackend.whenGET('/rest/basket/1/order').respond(200, 'apiResponse');
+            $httpBackend.whenPOST('/rest/basket/1/order').respond(200, 'apiResponse');
 
             BasketService.order(1).success(function (data) { result = data; });
             $httpBackend.flush();

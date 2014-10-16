@@ -7,13 +7,13 @@ angular.module('myApp').controller('BasketController', [
         'use strict';
 
         function load() {
-            basketService.find($window.sessionStorage.bid).success(function (data) {
-                $scope.products = data.data.products;
+            basketService.find($window.sessionStorage.bid).success(function (basket) {
+                $scope.products = basket.data.products;
                 for (var i=0; i<$scope.products.length; i++) {
                     $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
                 }
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (err) {
+                console.log(err);
             });
         }
         load();
@@ -22,17 +22,17 @@ angular.module('myApp').controller('BasketController', [
 
             basketService.del(id).success(function () {
                 load();
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (err) {
+                console.log(err);
             });
 
         };
 
         $scope.order = function() {
-            basketService.order($window.sessionStorage.bid).success(function (data) {
-                $window.location.href = data;
-            }).error(function (data) {
-                console.log(data);
+            basketService.order($window.sessionStorage.bid).success(function (confirmationUrl) {
+                $window.location.href = confirmationUrl;
+            }).error(function (err) {
+                console.log(err);
             });
         };
 
@@ -45,15 +45,15 @@ angular.module('myApp').controller('BasketController', [
         };
 
         function addToQuantity(id, value) {
-            basketService.get(id).success(function (data) {
-                var newQuantity = data.data.quantity+value;
+            basketService.get(id).success(function (basket) {
+                var newQuantity = basket.data.quantity+value;
                 basketService.put(id, {quantity: newQuantity > 1 ? newQuantity : 1}).success(function () {
                     load();
-                }).error(function (data) {
-                    console.log(data);
+                }).error(function (err) {
+                    console.log(err);
                 });
-            }).error(function (data) {
-                console.log(data);
+            }).error(function (err) {
+                console.log(err);
             });
         }
     }]);
