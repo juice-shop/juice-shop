@@ -125,7 +125,7 @@ function htmlSanitizationHook(feedback) {
 
 var Challenge = sequelize.define('Challenges', {
     description: Sequelize.STRING,
-    solved: Sequelize.BOOLEAN,
+    solved: Sequelize.BOOLEAN
 });
 
 /* Challenges */
