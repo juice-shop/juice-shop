@@ -100,11 +100,11 @@ frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitiz
 
 frisby.create('POST fails to sanitize masked XSS-attack by not applying sanitization recursively')
     .post(API_URL + '/Feedbacks', {
-        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <<script>alert(\'XSS3\')</script>script>alert(\'XSS3\')<</script>/script>',
+        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <<script>alert("XSS3")</script>script>alert("XSS3")<</script>/script>',
         rating: 1
     })
     .expectStatus(200)
     .expectJSON('data', {
-        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <script>alert(\'XSS3\')</script>'
+        comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <script>alert("XSS3")</script>'
     })
     .toss();

@@ -148,13 +148,13 @@ frisby.create('POST new product does not filter XSS attacks')
     .addHeaders(authHeader)
     .post(API_URL + '/Products', {
         name: 'XSS Juice (42ml)',
-        description: "<script>alert(\'XSS4\')</script>",
+        description: '<script>alert("XSS4")</script>',
         price: 9999.99,
         image: 'xss_juice.jpg'
     })
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
-        description: "<script>alert(\'XSS4\')</script>"
+        description: '<script>alert("XSS4")</script>'
     }).toss();
 
 frisby.create('GET product search fails with error message that exposes ins SQL Injection vulnerability')

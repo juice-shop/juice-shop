@@ -7,7 +7,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
-        logging: false,
+        logging: true,
         dialect: 'sqlite',
         storage: 'data/juiceshop.sqlite'
     }),
@@ -402,7 +402,7 @@ app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 app.use('/public/ftp/:file', serveFiles());
 
 app.use(express.static(application_root + '/app'));
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
@@ -435,7 +435,7 @@ app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
-app.get('/rest/basket/:id/order', createOrderPdf());
+app.post('/rest/basket/:id/order', createOrderPdf());
 app.get('/redirect', performRedirect());
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', serveEasterEgg());

@@ -45,6 +45,15 @@ frisby.create('POST new user')
                     .addHeaders({ 'Cookie': 'token="' + auth.token + '"' })
                     .expectStatus(200)
                     .toss();
+                frisby.create('GET existing basket of another user')
+                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                    .get(REST_URL + '/basket/2')
+                    .expectStatus(200)
+                    .expectHeaderContains('content-type', 'application/json')
+                    .expectJSON('data', {
+                        id: 2
+                    })
+                    .toss();
     }).toss();
 
         frisby.create('GET existing user by id')
@@ -223,11 +232,11 @@ frisby.create('GET all users')
 
 frisby.create('POST new user with XSS attack in email address')
     .post(API_URL + '/Users', {
-        email: '<script>alert(\'XSS2\')</script>',
+        email: '<script>alert("XSS2")</script>',
         password: 'does.not.matter'
     })
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
-        email: '<script>alert(\'XSS2\')</script>'
+        email: '<script>alert("XSS2")</script>'
     }).toss();
