@@ -613,7 +613,20 @@ function searchProducts() {
         }
         sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
             .success(function(data) {
-                // TODO Check data for user account columns and solve challenge accordingly
+                if (notSolved(unionSqlInjectionChallenge)) {
+                    var dataString = JSON.stringify(data);
+                    var solved = true;
+                    User.findAll().success(function(users) {
+                        if (users.data && users.data.length) {
+                            for (var i=0; i<users.data.length; i++) {
+                                solved = solved && contains(dataString, users.data[i].email) && contains(dataString, users.data[i].password);
+                            }
+                            if (solved) {
+                                solve(unionSqlInjectionChallenge);
+                            }
+                        }
+                    });
+                }
                 res.json(utils.queryResultToJson(data));
             }).error(function (error) {
                 next(error);
