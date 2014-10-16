@@ -24,7 +24,7 @@ frisby.create('GET existing challenge by id is forbidden via public API even whe
     .expectStatus(401)
     .toss();
 
-frisby.create('POST new challenge')
+frisby.create('POST new challenge is forbidden via public API even when authenticated')
     .addHeaders(authHeader)
     .post(API_URL + '/Challenges', {
         description: 'I am not a vulnerability!',
