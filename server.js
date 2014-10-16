@@ -616,10 +616,12 @@ function searchProducts() {
                 if (notSolved(unionSqlInjectionChallenge)) {
                     var dataString = JSON.stringify(data);
                     var solved = true;
-                    User.findAll().success(function(users) {
+                    User.findAll().success(function(data) {
+                        var users = utils.queryResultToJson(data);
                         if (users.data && users.data.length) {
                             for (var i=0; i<users.data.length; i++) {
-                                solved = solved && contains(dataString, users.data[i].email) && contains(dataString, users.data[i].password);
+                                solved = solved && utils.contains(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password);
+                                if (!solved) break;
                             }
                             if (solved) {
                                 solve(unionSqlInjectionChallenge);
