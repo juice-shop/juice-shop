@@ -4,7 +4,7 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
     var host = '/api/Users';
 
     function find(params) {
-        return $http.get(host + '/', {
+        return $http.get('/rest/user/authentication-details/', {
             params: params
         });
     }

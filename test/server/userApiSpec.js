@@ -230,6 +230,14 @@ frisby.create('GET all users')
     .expectStatus(200)
     .toss();
 
+frisby.create('GET all users decorated with attribute for authentication token')
+    .addHeaders(authHeader)
+    .get(REST_URL + '/user/authentication-details')
+    .expectStatus(200)
+    .expectJSONTypes('data.?',{
+        token: String
+    }).toss();
+
 frisby.create('POST new user with XSS attack in email address')
     .post(API_URL + '/Users', {
         email: '<script>alert("XSS2")</script>',

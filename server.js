@@ -432,6 +432,7 @@ app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'F
 /* Custom Restful API */
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
+app.get('/rest/user/authentication-details', retrieveUserList());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
 app.post('/rest/basket/:id/order', createOrderPdf());
@@ -528,6 +529,20 @@ function retrieveBasket() {
                     }
                 }
                 res.json(utils.queryResultToJson(basket));
+            }).error(function (error) {
+                next(error);
+            });
+    };
+}
+
+function retrieveUserList() {
+    return function(req, res, next){
+        User.findAll().success(function(users) {
+                var usersWithLoginStatus = utils.queryResultToJson(users);
+                usersWithLoginStatus.data.forEach(function(user) {
+                    user.token = insecurity.authenticatedUsers.tokenOf(user);
+                });
+                res.json(usersWithLoginStatus);
             }).error(function (error) {
                 next(error);
             });

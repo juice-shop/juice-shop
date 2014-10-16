@@ -16,7 +16,7 @@ describe('services', function () {
         }));
 
         it('should get all users directly from the rest api', inject(function (UserService) {
-            $httpBackend.whenGET('/api/Users/').respond(200, 'apiResponse');
+            $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, 'apiResponse');
 
             UserService.find().success(function (data) { result = data; });
             $httpBackend.flush();
