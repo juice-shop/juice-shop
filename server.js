@@ -208,7 +208,7 @@ sequelize.sync().success(function () {
     Challenge.create({
         description: 'Retrieve a list of all user credentials via SQL Injection',
         solved: false,
-        solvable: false
+        solvable: true
     }).success(function(challenge) {
         unionSqlInjectionChallenge = challenge;
     });
