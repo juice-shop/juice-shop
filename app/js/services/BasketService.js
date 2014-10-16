@@ -20,7 +20,7 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
     }
 
     function order(id) {
-        return $http.get('/rest/basket/'+id+'/order');
+        return $http.post('/rest/basket/'+id+'/order');
     }
 
     function save(params) {
