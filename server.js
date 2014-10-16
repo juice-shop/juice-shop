@@ -7,7 +7,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
-        //logging: false,
+        logging: false,
         dialect: 'sqlite',
         storage: 'data/juiceshop.sqlite'
     }),
