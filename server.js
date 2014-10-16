@@ -3,7 +3,7 @@
 
 var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
-    glob = require("glob"),
+    glob = require('glob'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
