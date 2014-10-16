@@ -34,7 +34,7 @@ angular.module('myApp').controller('BasketController', [
             }).error(function (data) {
                 console.log(data);
             });
-        }
+        };
 
         $scope.inc = function (id) {
             addToQuantity(id, 1);

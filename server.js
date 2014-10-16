@@ -524,7 +524,7 @@ function retrieveBasket() {
             .success(function(data) {
                 if (notSolved(basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
-                    if (user && user.bid != id) {
+                    if (user && parseInt(user.bid, 10) !== id) {
                         solve(basketChallenge);
                     }
                 }
@@ -543,7 +543,7 @@ function createOrderPdf() {
                 var customer = insecurity.authenticatedUsers.from(req);
                 var orderNo = insecurity.hash(new Date()+'_'+id);
                 var pdfFile = 'order_' + orderNo + '.pdf';
-                var doc = new PDFDocument;
+                var doc = new PDFDocument();
                 var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
 
                 doc.text('Juice-Shop - Order Confirmation');
@@ -558,7 +558,7 @@ function createOrderPdf() {
                 var totalPrice = 0;
                 data.products.forEach(function(product) {
                     var itemTotal = product.price*product.basketItem.quantity;
-                    doc.text(product.basketItem.quantity + 'x ' + product.name + ' á ' + product.price + ' = ' + itemTotal);
+                    doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
                     doc.moveDown();
                     totalPrice += itemTotal;
                 });
@@ -576,7 +576,7 @@ function createOrderPdf() {
                 fileWriter.on('finish', function() {
                     BasketItem.destroy({BasketId: id});
                     res.send('/public/ftp/' + pdfFile);
-                })
+                });
             }).error(function (error) {
                 next(error);
             });
@@ -599,7 +599,9 @@ function searchProducts() {
                         if (users.data && users.data.length) {
                             for (var i=0; i<users.data.length; i++) {
                                 solved = solved && utils.contains(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password);
-                                if (!solved) break;
+                                if (!solved) {
+                                    break;
+                                }
                             }
                             if (solved) {
                                 solve(unionSqlInjectionChallenge);
@@ -718,7 +720,10 @@ function verifyDatabaseRelatedChallenges() {
             });
         }
         if (notSolved(knownVulnerableComponentChallenge)) {
-            Feedback.findAndCountAll({where: Sequelize.or(Sequelize.and(["comment LIKE '%sanitize-html%'"], ["comment LIKE '%1.4.2%'"]), Sequelize.and(["comment LIKE '%htmlparser2%'"], ["comment LIKE '%3.3.0%'"]) ) }).success(function (data) {
+            Feedback.findAndCountAll({where: Sequelize.or(
+                Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
+                Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
+            ).success(function (data) {
                 if (data.count > 0) {
                     solve(knownVulnerableComponentChallenge);
                 }
