@@ -8,6 +8,10 @@ angular.module('myApp').controller('BestDealsController', [
     function ($scope, $sce, $window, $modal, productService, basketService) {
         'use strict';
 
+        function log(data) {
+            console.log(data);
+        }
+
         $scope.showDetail = function (id) {
 
             $modal.open({
@@ -35,15 +39,9 @@ angular.module('myApp').controller('BestDealsController', [
                             basketService.put(data.data.id, {quantity: newQuantity}).success(function (data) {
                                 productService.get(data.data.ProductId).success(function(data) {
                                     $scope.confirmation = 'Added another ' + data.data.name  + ' to basket.';
-                                }).error(function (data) {
-                                    console.log(data);
-                                });
-                            }).error(function (data) {
-                                console.log(data);
-                            });
-                        }).error(function (data) {
-                            console.log(data);
-                        });
+                                }).error(log(data));
+                            }).error(log(data));
+                        }).error(log(data));
                         break;
                     }
                 }
@@ -51,16 +49,10 @@ angular.module('myApp').controller('BestDealsController', [
                     basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).success(function (data) {
                         productService.get(data.data.ProductId).success(function(data) {
                             $scope.confirmation = 'Placed ' + data.data.name  + ' into basket.';
-                        }).error(function (data) {
-                            console.log(data);
-                        });
-                    }).error(function (data) {
-                        console.log(data);
-                    });
+                        }).error(log(data));
+                    }).error(log(data));
                 }
-            }).error(function (data) {
-                console.log(data);
-            });
+            }).error(log(data));
 
         };
 
@@ -69,8 +61,6 @@ angular.module('myApp').controller('BestDealsController', [
             for (var i = 0; i < $scope.products.length; i++) {
                 $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
             }
-        }).error(function (data) {
-            console.log(data);
-        });
+        }).error(log(data));
 
     }]);
