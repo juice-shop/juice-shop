@@ -53,7 +53,9 @@ angular.module('myApp').controller('SearchResultController', [
                         }).error(log(data));
                     }).error(log(data));
                 }
-            }).error(log(data));
+            }).error(function(data) {
+                log(data);
+            });
 
         };
 
@@ -64,6 +66,8 @@ angular.module('myApp').controller('SearchResultController', [
             for (var i=0; i<$scope.products.length; i++) {
                 $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
             }
-        }).error(log(data));
+        }).error(function(data) {
+            log(data);
+        });
 
     }]);

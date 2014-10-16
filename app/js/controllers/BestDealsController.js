@@ -52,7 +52,9 @@ angular.module('myApp').controller('BestDealsController', [
                         }).error(log(data));
                     }).error(log(data));
                 }
-            }).error(log(data));
+            }).error(function(data) {
+                log(data);
+            });
 
         };
 
@@ -61,6 +63,8 @@ angular.module('myApp').controller('BestDealsController', [
             for (var i = 0; i < $scope.products.length; i++) {
                 $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
             }
-        }).error(log(data));
+        }).error(function(data) {
+            log(data);
+        });
 
     }]);
