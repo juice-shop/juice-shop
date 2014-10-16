@@ -7,6 +7,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     morgan = require('morgan'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
+        //logging: false,
         dialect: 'sqlite',
         storage: 'data/juiceshop.sqlite'
     }),
@@ -125,7 +126,6 @@ function htmlSanitizationHook(feedback) {
 var Challenge = sequelize.define('Challenges', {
     description: Sequelize.STRING,
     solved: Sequelize.BOOLEAN,
-    solvable: Sequelize.BOOLEAN // TODO Remove when all challenges are solvable
 });
 
 /* Challenges */
@@ -144,155 +144,133 @@ sequelize.drop();
 sequelize.sync().success(function () {
     Challenge.create({
         description: 'Find the carefully hidden \'Score Board\' page.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         scoreBoardChallenge = challenge;
     });
     Challenge.create({
         description: 'Provoke an error that is not very gracefully handled.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         errorHandlingChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with the administrator\'s user account.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         loginAdminChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with Jim\'s user account.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         loginJimChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with Bender\'s user account.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         loginBenderChallenge = challenge;
     });
     Challenge.create({
         description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         localXssChallenge = challenge;
     });
     Challenge.create({
         description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         persistedXssChallengeUser = challenge;
     });
     Challenge.create({
         description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         persistedXssChallengeFeedback = challenge;
     });
     Challenge.create({
         description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         restfulXssChallenge = challenge;
     });
     Challenge.create({
         description: 'Retrieve a list of all user credentials via SQL Injection',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         unionSqlInjectionChallenge = challenge;
     });
     Challenge.create({
         description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         weakPasswordChallenge = challenge;
     });
     Challenge.create({
         description: 'Get rid of all 5-star customer feedback.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         feedbackChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         redirectChallenge = challenge;
     });
     Challenge.create({
         description: 'Access someone else\'s basket.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         basketChallenge = challenge;
     });
     Challenge.create({
         description: 'Place an order that makes you rich.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         negativeOrderChallenge = challenge;
     });
     Challenge.create({
         description: 'Access a confidential document.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         directoryListingChallenge = challenge;
     });
     Challenge.create({
         description: 'Access the administration section of the store.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         adminSectionChallenge = challenge;
     });
     Challenge.create({
         description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.' ,
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         csrfChallenge = challenge;
     });
     Challenge.create({
         description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         changeProductChallenge = challenge;
     });
     Challenge.create({
         description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         knownVulnerableComponentChallenge = challenge;
     });
     Challenge.create({
         description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         easterEggLevelOneChallenge = challenge;
     });
     Challenge.create({
         description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
-        solved: false,
-        solvable: true
+        solved: false
     }).success(function(challenge) {
         easterEggLevelTwoChallenge = challenge;
     });
