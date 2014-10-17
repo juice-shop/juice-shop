@@ -8,14 +8,18 @@
     ],
     "private": true,
     "keywords": [
-        "bodgeit",
+        "web security",
+        "web application security",
+        "webappsec",
         "owasp",
         "pentest",
         "pentesting",
-        "web security",
         "security",
         "vulnerable",
-        "vulnerability"
+        "vulnerability",
+        "broken",
+        "bodgeit"
+
     ],
     "dependencies": {
         "bower": "~1.3",
