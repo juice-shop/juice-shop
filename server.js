@@ -548,7 +548,7 @@ function retrieveBasket() {
             .success(function(basket) {
                 if (notSolved(basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
-                    if (user && parseInt(user.bid, 10) !== id) {
+                    if (user && user.bid != id) {
                         solve(basketChallenge);
                     }
                 }
