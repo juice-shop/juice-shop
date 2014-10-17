@@ -33,7 +33,7 @@
             <tr data-ng-repeat="feedback in feedbacks">
                 <td>{{feedback.UserId}}</td>
                 <td><div ng-bind-html="feedback.comment"></div></td>
-                <td>
+                <td class="col-md-2">
                     <rating max="5" ng-model="feedback.rating" readonly="true"></rating>
                 </td>
                 <td class="col-md-1">
