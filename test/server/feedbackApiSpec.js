@@ -64,7 +64,7 @@ frisby.create('DELETE existing feedback is forbidden via public API')
     .expectStatus(401)
     .toss();
 
-frisby.create('DELETE existing 5-start feedback')
+frisby.create('DELETE existing feedback')
     .delete(API_URL + '/Feedbacks/1')
     .addHeaders(authHeader)
     .expectStatus(200)
