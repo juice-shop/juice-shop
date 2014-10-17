@@ -5,11 +5,14 @@ angular.module('myApp').controller('FeedbackController', [
     function ($scope, $sce, feedbackService) {
         'use strict';
 
+        var images = ['public/images/carousel/1.jpg','public/images/carousel/2.jpg','public/images/carousel/3.jpg'];
+
         function findAll() {
             feedbackService.find().success(function (feedbacks) {
                 $scope.feedbacks = feedbacks.data;
                 for (var i=0; i<$scope.feedbacks.length; i++) {
                     $scope.feedbacks[i].comment = $sce.trustAsHtml($scope.feedbacks[i].comment);
+                    $scope.feedbacks[i].image = images[i % images.length];
                 }
             }).error(function (err) {
                 console.log(err);

@@ -411,8 +411,7 @@ app.use('/rest/basket', insecurity.isAuthorized());
 /* BasketItems: API only accessible for authenticated users */
 app.use('/api/BasketItems', insecurity.isAuthorized());
 app.use('/api/BasketItems/:id', insecurity.isAuthorized());
-/* Feedbacks: Only POST is allowed in order to provide feedback without being logged in */
-app.get('/api/Feedbacks', insecurity.isAuthorized());
+/* Feedbacks: GET allowed for feedback carousel, POST allowed in order to provide feedback without being logged in */
 app.use('/api/Feedbacks/:id', insecurity.isAuthorized());
 /* Users: Only POST is allowed in order to register a new uer */
 app.get('/api/Users', insecurity.isAuthorized());
@@ -426,6 +425,10 @@ app.delete('/api/Products/:id', insecurity.denyAll()); // Deleting products is f
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', insecurity.denyAll());
 app.use('/api/Challenges/:id', insecurity.denyAll());
+/* REST API */
+app.use('/rest/user/authentication-details', insecurity.isAuthorized());
+app.use('/rest/basket/:id', insecurity.isAuthorized());
+app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
 /* Sequelize Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));

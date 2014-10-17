@@ -41,9 +41,9 @@ frisby.create('POST new feedback')
             }).toss();
     }).toss();
 
-frisby.create('GET all feedback is forbidden via public API')
+frisby.create('GET all feedback')
     .get(API_URL + '/Feedbacks')
-    .expectStatus(401)
+    .expectStatus(200)
     .toss();
 
 frisby.create('GET existing feedback by id is forbidden via public API')
@@ -67,12 +67,6 @@ frisby.create('DELETE existing feedback is forbidden via public API')
 frisby.create('DELETE existing 5-start feedback')
     .delete(API_URL + '/Feedbacks/1')
     .addHeaders(authHeader)
-    .expectStatus(200)
-    .toss();
-
-frisby.create('GET all feedback')
-    .addHeaders(authHeader)
-    .get(API_URL + '/Feedbacks')
     .expectStatus(200)
     .toss();
 
