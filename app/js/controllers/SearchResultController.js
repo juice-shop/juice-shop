@@ -27,7 +27,7 @@ angular.module('myApp').controller('SearchResultController', [
             });
         };
 
-        $scope.addToBasket = function(id) { // TODO resolve duplication with BestDealsController
+        $scope.addToBasket = function(id) {
 
             basketService.find($window.sessionStorage.bid).success(function (basket) {
                 var productsInBasket = basket.data.products;

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-8">
-        <h3 class="page-header page-header-sm">Search Results <span class="label label-default" ng-bind-html="searchQuery"></span></h3>
+        <h3 ng-show="searchQuery" class="page-header page-header-sm">Search Results <span class="label label-default" ng-bind-html="searchQuery"></span></h3>
+        <h3 ng-show="!searchQuery" class="page-header page-header-sm">All Products</h3>
 
         <div ng-controller="SearchResultController">
 

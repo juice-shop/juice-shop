@@ -6,21 +6,6 @@ describe('controllers', function () {
         $httpBackend = $injector.get('$httpBackend');
     }));
 
-    describe('BestDealsController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
-            scope = $rootScope.$new();
-            controller = $controller('BestDealsController', {
-                '$scope': scope
-            });
-        }));
-
-        it('should be defined', inject(function ($controller) {
-            expect(controller).toBeDefined();
-            expect(scope.showDetail).toBeDefined();
-            expect(scope.addToBasket).toBeDefined();
-        }));
-    });
-
     describe('UserController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();

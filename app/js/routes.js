@@ -1,11 +1,6 @@
 angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
     'use strict';
 
-    $routeProvider.when('/best-deals', {
-        templateUrl: 'views/BestDeals.html',
-        controller: 'BestDealsController'
-    });
-
     $routeProvider.when('/administration', {
         templateUrl: 'views/Administration.html',
         controller: 'AdministrationController'
@@ -57,5 +52,5 @@ angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
     });
 
     /* default route */
-    $routeProvider.otherwise({redirectTo: '/best-deals'});
+    $routeProvider.otherwise({redirectTo: '/search'});
 }]);
