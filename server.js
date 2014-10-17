@@ -393,15 +393,15 @@ sequelize.sync().success(function () {
     });
     Feedback.create({
         comment: 'This is <b>the</b> store for juices of all kinds!',
-        rating: 5
+        rating: 4
     });
     Feedback.create({
         comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
-        rating: 5
+        rating: 4
     });
     Feedback.create({
         comment: 'Keep up the good work!',
-        rating: 4
+        rating: 3
     });
     Feedback.create({
         UserId: 3,
