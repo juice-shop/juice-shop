@@ -42,7 +42,7 @@ frisby.create('POST new user')
                     .toss();
                 frisby.create('GET password change with recognized token as cookie in double-quotes')
                     .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-                    .addHeaders({ 'Cookie': 'token="' + auth.token + '"' })
+                    .addHeaders({ 'Cookie': 'token=%22' + auth.token + '%22' })
                     .expectStatus(200)
                     .toss();
                 frisby.create('GET existing basket of another user')
