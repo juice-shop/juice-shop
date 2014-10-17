@@ -5,7 +5,15 @@ angular.module('myApp').controller('FeedbackController', [
     function ($scope, $sce, feedbackService) {
         'use strict';
 
-        var images = ['public/images/carousel/1.jpg','public/images/carousel/2.jpg','public/images/carousel/3.jpg'];
+        var images = [
+            'public/images/carousel/1.jpg',
+            'public/images/carousel/2.jpg',
+            'public/images/carousel/3.jpg',
+            'public/images/carousel/4.jpg',
+            'public/images/carousel/5.jpg',
+            'public/images/carousel/6.jpg',
+            'public/images/carousel/7.jpg'
+        ];
 
         function findAll() {
             feedbackService.find().success(function (feedbacks) {

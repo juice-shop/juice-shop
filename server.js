@@ -383,6 +383,27 @@ sequelize.sync().success(function () {
         rating: 5
     });
     Feedback.create({
+        UserId: 2,
+        comment: 'Great shop! The O-Saft is highly recommended!',
+        rating: 4
+    });
+    Feedback.create({
+        comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
+        rating: 2
+    });
+    Feedback.create({
+        comment: 'This is <b>the</b> store for juices of all kinds!',
+        rating: 5
+    });
+    Feedback.create({
+        comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
+        rating: 5
+    });
+    Feedback.create({
+        comment: 'Keep up the good work!',
+        rating: 4
+    });
+    Feedback.create({
         UserId: 3,
         comment: 'No real drinks available here!',
         rating: 1
