@@ -578,43 +578,47 @@ function createOrderPdf() {
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(basket) {
-                var customer = insecurity.authenticatedUsers.from(req);
-                var orderNo = insecurity.hash(new Date()+'_'+id);
-                var pdfFile = 'order_' + orderNo + '.pdf';
-                var doc = new PDFDocument();
-                var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
+                if (basket) {
+                    var customer = insecurity.authenticatedUsers.from(req);
+                    var orderNo = insecurity.hash(new Date()+'_'+id);
+                    var pdfFile = 'order_' + orderNo + '.pdf';
+                    var doc = new PDFDocument();
+                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
 
-                doc.text('Juice-Shop - Order Confirmation');
-                doc.moveDown();
-                doc.moveDown();
-                doc.moveDown();
-                doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined));
-                doc.moveDown();
-                doc.text('Order #: ' + orderNo);
-                doc.moveDown();
-                doc.moveDown();
-                var totalPrice = 0;
-                basket.products.forEach(function(product) {
-                    var itemTotal = product.price*product.basketItem.quantity;
-                    doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
+                    doc.text('Juice-Shop - Order Confirmation');
                     doc.moveDown();
-                    totalPrice += itemTotal;
-                });
-                doc.moveDown();
-                doc.text('Total Price: ' + totalPrice);
-                doc.moveDown();
-                doc.moveDown();
-                doc.text('Thank you for your order!');
-                doc.end();
+                    doc.moveDown();
+                    doc.moveDown();
+                    doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined));
+                    doc.moveDown();
+                    doc.text('Order #: ' + orderNo);
+                    doc.moveDown();
+                    doc.moveDown();
+                    var totalPrice = 0;
+                    basket.products.forEach(function(product) {
+                        var itemTotal = product.price*product.basketItem.quantity;
+                        doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
+                        doc.moveDown();
+                        totalPrice += itemTotal;
+                    });
+                    doc.moveDown();
+                    doc.text('Total Price: ' + totalPrice);
+                    doc.moveDown();
+                    doc.moveDown();
+                    doc.text('Thank you for your order!');
+                    doc.end();
 
-                if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
-                    solve (negativeOrderChallenge);
+                    if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
+                        solve (negativeOrderChallenge);
+                    }
+
+                    fileWriter.on('finish', function() {
+                        BasketItem.destroy({BasketId: id});
+                        res.send('/public/ftp/' + pdfFile);
+                    });
+                } else {
+                    next(new Error('Basket with id=' + id + ' does not exist.'));
                 }
-
-                fileWriter.on('finish', function() {
-                    BasketItem.destroy({BasketId: id});
-                    res.send('/public/ftp/' + pdfFile);
-                });
             }).error(function (error) {
                 next(error);
             });

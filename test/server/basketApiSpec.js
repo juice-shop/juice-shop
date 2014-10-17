@@ -71,17 +71,24 @@ frisby.create('DELETE existing basket is not part of API')
     .expectJSON({status : 'error'})
     .toss();
 
-frisby.create('GET placing an order for a basket is not allowed via public API')
+frisby.create('POST placing an order for a basket is not allowed via public API')
     .post(REST_URL + '/basket/1/order')
     .expectStatus(401)
     .toss();
 
-frisby.create('GET placing an order for a basket returns URL to confirmation PDF')
+frisby.create('POST placing an order for a basket returns URL to confirmation PDF')
     .post(REST_URL + '/basket/1/order')
     .addHeaders(authHeader)
     .expectStatus(200)
     .expectBodyContains('/public/ftp/order_')
     .expectBodyContains('.pdf')
+    .toss();
+
+frisby.create('POST placing an order for a non-existing basket')
+    .post(REST_URL + '/basket/42/order')
+    .addHeaders(authHeader)
+    .expectStatus(500)
+    .expectBodyContains('Error: Basket with id=42 does not exist.')
     .toss();
 
 frisby.create('POST new basket item with negative quantity')
