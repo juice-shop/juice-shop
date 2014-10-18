@@ -20,14 +20,26 @@ An intentionally insecure RIA suitable for pentesting and security awareness tra
 - Open source: No hidden costs or caveats
  
 ## Getting started
+
+### From Sources
+
 1. Install [node.js](http://nodejs.org)
-2. Run ```npm install``` (only has to be done before first start or when you change the source code)
-3. Run ```npm start```
-4. Browse to http://localhost:3000
+2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
+3. Run ```npm install``` (only has to be done before first start or when you change the source code)
+4. Run ```npm start```
+5. Browse to http://localhost:3000
+
+### Docker Container
+
+1. Install [Docker](https://www.docker.com)
+2. Run ```docker pull bkimminich/juice-shop```
+3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
+4. Browse to http://localhost:3000 
 
 ## Troubleshooting
 
-- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again 
+- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
+- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP 
 
 You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend
 [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
