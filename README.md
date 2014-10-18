@@ -1,7 +1,7 @@
-# Juice Shop ![Logo](/app/public/images/logo_64px.jpg)
+# Juice Shop
 [![Nodejitsu Deploy Status](https://webhooks.nodejitsu.com/bkimminich/juice-shop.png)](https://webops.nodejitsu.com#bkimminich/juice-shop)
 
-An intentionally insecure RIA suitable for pen testing and security awareness trainings written in Node, Express and Angular. Heavily inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
+An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop)
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
