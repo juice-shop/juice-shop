@@ -35,6 +35,18 @@ frisby.create('POST new user')
                 token: String
             })
             .afterJSON(function(auth) {
+                frisby.create('GET own user id and email on who-am-i request')
+                    .get(REST_URL + '/user/whoami')
+                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                    .expectStatus(200)
+                    .expectHeaderContains('content-type', 'application/json')
+                    .expectJSONTypes({
+                        id: Number
+                    })
+                    .expectJSON({
+                        email: 'horst@horstma.nn'
+                    })
+                    .toss();
                 frisby.create('GET password change with recognized token as cookie')
                     .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
                     .addHeaders({ 'Cookie': 'token=' + auth.token })
@@ -248,3 +260,24 @@ frisby.create('POST new user with XSS attack in email address')
     .expectJSON('data', {
         email: '<script>alert("XSS2")</script>'
     }).toss();
+
+frisby.create('GET who-am-i request returns nothing on missing auth token')
+    .get(REST_URL + '/user/whoami')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        id: undefined,
+        email: undefined
+    })
+    .toss();
+
+frisby.create('GET who-am-i request returns nothing on invalid auth token')
+    .get(REST_URL + '/user/whoami')
+    .addHeaders(authHeader)
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSONTypes({
+        id: undefined,
+        email: undefined
+    })
+    .toss();

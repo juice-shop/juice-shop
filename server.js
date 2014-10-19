@@ -457,6 +457,7 @@ app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'F
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
 app.get('/rest/user/authentication-details', retrieveUserList());
+app.get('/rest/user/whoami', retrieveLoggedInUsersId());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
 app.post('/rest/basket/:id/order', createOrderPdf());
@@ -495,6 +496,13 @@ function verifyAccessControlChallenges() {
             solve(adminSectionChallenge);
         }
         next();
+    };
+}
+
+function retrieveLoggedInUsersId() {
+    return function (req, res) {
+        var user = insecurity.authenticatedUsers.from(req);
+        res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
     };
 }
 
