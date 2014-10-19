@@ -66,6 +66,36 @@ frisby.create('POST new user')
                         id: 2
                     })
                     .toss();
+                frisby.create('POST feedback is associated with current user')
+                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                    .post(API_URL + '/Feedbacks', {
+                        comment: 'Horst\'s choice award!',
+                        rating: 5,
+                        UserId: 4
+                    }, {json: true})
+                    .expectStatus(200)
+                    .expectHeaderContains('content-type', 'application/json')
+                    .expectJSON('data', {
+                        UserId: 4
+                    }).afterJSON(function(data) {
+                        console.log(data);
+                    })
+                    .toss();
+                frisby.create('POST feedback is associated with any passed user id')
+                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                    .post(API_URL + '/Feedbacks', {
+                        comment: 'Bender\'s choice award!',
+                        rating: 2,
+                        UserId: 3
+                    }, {json: true})
+                    .expectStatus(200)
+                    .expectHeaderContains('content-type', 'application/json')
+                    .expectJSON('data', {
+                        UserId: 3
+                    }).afterJSON(function(data) {
+                        console.log(data);
+                    })
+                    .toss();
     }).toss();
 
         frisby.create('GET existing user by id')

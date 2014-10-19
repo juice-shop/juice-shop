@@ -132,7 +132,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
     errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
     persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,basketChallenge, weakPasswordChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge, forgedFeedbackChallenge;
 
 /* Entities relevant for challenges */
 
@@ -212,6 +212,12 @@ sequelize.sync().success(function () {
         solved: false
     }).success(function(challenge) {
         feedbackChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Post some feedback in another users name.',
+        solved: false
+    }).success(function(challenge) {
+        forgedFeedbackChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
@@ -451,6 +457,9 @@ app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
 app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
+/* Challenge evaluation before sequelize-restful takes over */
+app.post('/api/Feedbacks', verifyForgedFeedbackChallenge());
+
 /* Sequelize Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
@@ -487,6 +496,19 @@ exports.close = function (exitCode) {
         process.exit(exitCode);
     }
 };
+
+function verifyForgedFeedbackChallenge() {
+    return function(req, res, next) {
+        if (notSolved(forgedFeedbackChallenge)) {
+            var user = insecurity.authenticatedUsers.from(req);
+            var userId = user ? user.data.id : undefined;
+            if (req.body.UserId && req.body.UserId != userId) {
+                solve(forgedFeedbackChallenge);
+            }
+        }
+        next();
+    }
+}
 
 function verifyAccessControlChallenges() {
     return function (req, res, next) {
