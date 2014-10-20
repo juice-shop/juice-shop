@@ -44,6 +44,14 @@ describe('controllers', function () {
             expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>');
         }));
 
+        it('should hold no products when product search API call fails', inject(function ($controller, $location) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(500);
+
+            $httpBackend.flush();
+
+            expect(scope.products).toBeUndefined();
+        }));
+
         it('should open a modal dialog with product details', inject(function ($controller) {
             spyOn($modal, 'open');
 
@@ -57,8 +65,8 @@ describe('controllers', function () {
 
             window.sessionStorage.bid = 4711;
             $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
-            $httpBackend.whenGET('/api/Products/1').respond(200, {data: {name: 'Cherry Juice'}});
             $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}});
+            $httpBackend.whenGET('/api/Products/1').respond(200, {data: {name: 'Cherry Juice'}});
 
             scope.addToBasket(1);
             $httpBackend.flush();
@@ -136,6 +144,33 @@ describe('controllers', function () {
 
             expect(scope.confirmation).toBeUndefined();
 
+        }));
+
+        it('should not add anything on error creating new basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
+            $httpBackend.whenPOST('/api/BasketItems/').respond(500);
+
+            scope.addToBasket(1);
+            $httpBackend.flush();
+
+            expect(scope.confirmation).toBeUndefined();
+        }));
+
+        it('should not add anything on error retrieving product after creating new basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
+            $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}});
+            $httpBackend.whenGET('/api/Products/1').respond(500);
+
+            scope.addToBasket(1);
+            $httpBackend.flush();
+
+            expect(scope.confirmation).toBeUndefined();
         }));
 
     });
