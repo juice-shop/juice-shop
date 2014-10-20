@@ -209,6 +209,21 @@ describe('services', function () {
 
     });
 
+    describe('AdministrationService', function () {
+        it('should be defined', inject(function (AdministrationService) {
+            expect(AdministrationService).toBeDefined();
+            expect(AdministrationService.getApplicationVersion).toBeDefined();
+        }));
 
+        it('should get application version directly from the rest api', inject(function (AdministrationService) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(200, 'apiResponse');
+
+            AdministrationService.getApplicationVersion().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+    });
 
 });

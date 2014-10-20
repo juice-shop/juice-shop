@@ -22,7 +22,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     insecurity = require('./lib/insecurity'),
     app = express();
 
-errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')';
+errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
 
 /* Delete old order PDFs */
 glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
@@ -470,6 +470,7 @@ app.get('/rest/user/whoami', retrieveLoggedInUsersId());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
 app.post('/rest/basket/:id/order', createOrderPdf());
+app.get('/rest/admin/application-version', retrieveAppVersion());
 app.get('/redirect', performRedirect());
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', serveEasterEgg());
@@ -525,6 +526,12 @@ function retrieveLoggedInUsersId() {
     return function (req, res) {
         var user = insecurity.authenticatedUsers.from(req);
         res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
+    };
+}
+
+function retrieveAppVersion() {
+    return function (req, res) {
+        res.json({version: utils.version()});
     };
 }
 

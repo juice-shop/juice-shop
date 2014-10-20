@@ -1,7 +1,10 @@
 describe('controllers', function () {
-    var scope, controller;
+    var scope, controller, $httpBackend;
 
     beforeEach(module('myApp'));
+    beforeEach(inject(function($injector) {
+        $httpBackend = $injector.get('$httpBackend');
+    }));
 
     describe('NavbarController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
@@ -14,6 +17,15 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
         }));
+
+        it('should hold application version', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'});
+
+            $httpBackend.flush();
+
+            expect(scope.version).toBe('vx.y.z');
+        }));
+
     });
 
 });

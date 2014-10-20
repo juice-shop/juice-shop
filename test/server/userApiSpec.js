@@ -77,8 +77,6 @@ frisby.create('POST new user')
                     .expectHeaderContains('content-type', 'application/json')
                     .expectJSON('data', {
                         UserId: 4
-                    }).afterJSON(function(data) {
-                        console.log(data);
                     })
                     .toss();
                 frisby.create('POST feedback is associated with any passed user id')
@@ -92,8 +90,6 @@ frisby.create('POST new user')
                     .expectHeaderContains('content-type', 'application/json')
                     .expectJSON('data', {
                         UserId: 3
-                    }).afterJSON(function(data) {
-                        console.log(data);
                     })
                     .toss();
     }).toss();

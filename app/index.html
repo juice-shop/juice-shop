@@ -31,7 +31,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Juice Shop</a>
+            <a class="navbar-brand" href="#">Juice Shop <small>{{version}}</small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
