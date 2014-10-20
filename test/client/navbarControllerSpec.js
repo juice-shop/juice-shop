@@ -26,6 +26,22 @@ describe('controllers', function () {
             expect(scope.version).toBe('vx.y.z');
         }));
 
+        it('should show nothing on missing application version', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(200, {});
+
+            $httpBackend.flush();
+
+            expect(scope.version).toBe('');
+        }));
+
+        it('should show nothing on error retrieving application version', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(500);
+
+            $httpBackend.flush();
+
+            expect(scope.version).toBe('');
+        }));
+
     });
 
 });
