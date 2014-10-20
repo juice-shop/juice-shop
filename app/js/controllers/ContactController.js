@@ -11,8 +11,8 @@ angular.module('myApp').controller('ContactController', [
         });
 
         $scope.save = function () {
-            feedbackService.save($scope.feedback).success(function () {
-                $scope.confirmation = 'Thank you for your feedback' + ($scope.feedback.rating === 5 ? ' and your 5-star rating!' : '.');
+            feedbackService.save($scope.feedback).success(function (savedFeedback) {
+                $scope.confirmation = 'Thank you for your feedback' + (savedFeedback.data.rating === 5 ? ' and your 5-star rating!' : '.');
                 $scope.feedback = {};
                 $scope.form.$setPristine();
             });

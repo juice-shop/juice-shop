@@ -26,7 +26,7 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
     }
 
     function whoAmI() {
-        return $http.get('rest/user/whoami');
+        return $http.get('/rest/user/whoami');
     }
 
     return {

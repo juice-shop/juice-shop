@@ -2,7 +2,7 @@ describe('controllers', function () {
     var scope, location, controller, window, cookieStore, $httpBackend;
 
     beforeEach(module('myApp'));
-    beforeEach(inject(function($injector) {
+        beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
     }));
 

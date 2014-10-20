@@ -61,6 +61,15 @@ describe('services', function () {
             expect(result).toBe('apiResponse');
         }));
 
+        it('should return the logged-in users identity directly from the rest api', inject(function (UserService) {
+            $httpBackend.whenGET('/rest/user/whoami').respond(200, 'apiResponse');
+
+            UserService.whoAmI().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
     });
 
     describe('ProductService', function () {
