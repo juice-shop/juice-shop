@@ -1,8 +1,14 @@
 angular.module('myApp').controller('ContactController', [
     '$scope',
     'FeedbackService',
-    function ($scope, feedbackService) {
+    'UserService',
+    function ($scope, feedbackService, userService) {
         'use strict';
+
+        userService.whoAmI().success(function(data) {
+            $scope.feedback = {};
+            $scope.feedback.UserId = data.id;
+        });
 
         $scope.save = function () {
             feedbackService.save($scope.feedback).success(function () {

@@ -13,6 +13,7 @@ describe('services', function () {
             expect(UserService.find).toBeDefined();
             expect(UserService.get).toBeDefined();
             expect(UserService.changePassword).toBeDefined();
+            expect(UserService.whoAmI).toBeDefined();
         }));
 
         it('should get all users directly from the rest api', inject(function (UserService) {

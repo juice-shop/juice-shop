@@ -132,7 +132,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
     errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
     persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,basketChallenge, weakPasswordChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge, forgedFeedbackChallenge;
 
 /* Entities relevant for challenges */
 
@@ -212,6 +212,12 @@ sequelize.sync().success(function () {
         solved: false
     }).success(function(challenge) {
         feedbackChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Post some feedback in another users name.',
+        solved: false
+    }).success(function(challenge) {
+        forgedFeedbackChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
@@ -451,12 +457,16 @@ app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
 app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
+/* Challenge evaluation before sequelize-restful takes over */
+app.post('/api/Feedbacks', verifyForgedFeedbackChallenge());
+
 /* Sequelize Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
 app.get('/rest/user/authentication-details', retrieveUserList());
+app.get('/rest/user/whoami', retrieveLoggedInUsersId());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
 app.post('/rest/basket/:id/order', createOrderPdf());
@@ -487,6 +497,19 @@ exports.close = function (exitCode) {
     }
 };
 
+function verifyForgedFeedbackChallenge() {
+    return function(req, res, next) {
+        if (notSolved(forgedFeedbackChallenge)) {
+            var user = insecurity.authenticatedUsers.from(req);
+            var userId = user ? user.data.id : undefined;
+            if (req.body.UserId && req.body.UserId != userId) {
+                solve(forgedFeedbackChallenge);
+            }
+        }
+        next();
+    }
+}
+
 function verifyAccessControlChallenges() {
     return function (req, res, next) {
         if (notSolved(scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
@@ -495,6 +518,13 @@ function verifyAccessControlChallenges() {
             solve(adminSectionChallenge);
         }
         next();
+    };
+}
+
+function retrieveLoggedInUsersId() {
+    return function (req, res) {
+        var user = insecurity.authenticatedUsers.from(req);
+        res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
     };
 }
 
@@ -578,43 +608,47 @@ function createOrderPdf() {
         var id = req.params.id;
         Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(basket) {
-                var customer = insecurity.authenticatedUsers.from(req);
-                var orderNo = insecurity.hash(new Date()+'_'+id);
-                var pdfFile = 'order_' + orderNo + '.pdf';
-                var doc = new PDFDocument();
-                var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
+                if (basket) {
+                    var customer = insecurity.authenticatedUsers.from(req);
+                    var orderNo = insecurity.hash(new Date()+'_'+id);
+                    var pdfFile = 'order_' + orderNo + '.pdf';
+                    var doc = new PDFDocument();
+                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
 
-                doc.text('Juice-Shop - Order Confirmation');
-                doc.moveDown();
-                doc.moveDown();
-                doc.moveDown();
-                doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined));
-                doc.moveDown();
-                doc.text('Order #: ' + orderNo);
-                doc.moveDown();
-                doc.moveDown();
-                var totalPrice = 0;
-                basket.products.forEach(function(product) {
-                    var itemTotal = product.price*product.basketItem.quantity;
-                    doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
+                    doc.text('Juice-Shop - Order Confirmation');
                     doc.moveDown();
-                    totalPrice += itemTotal;
-                });
-                doc.moveDown();
-                doc.text('Total Price: ' + totalPrice);
-                doc.moveDown();
-                doc.moveDown();
-                doc.text('Thank you for your order!');
-                doc.end();
+                    doc.moveDown();
+                    doc.moveDown();
+                    doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined));
+                    doc.moveDown();
+                    doc.text('Order #: ' + orderNo);
+                    doc.moveDown();
+                    doc.moveDown();
+                    var totalPrice = 0;
+                    basket.products.forEach(function(product) {
+                        var itemTotal = product.price*product.basketItem.quantity;
+                        doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
+                        doc.moveDown();
+                        totalPrice += itemTotal;
+                    });
+                    doc.moveDown();
+                    doc.text('Total Price: ' + totalPrice);
+                    doc.moveDown();
+                    doc.moveDown();
+                    doc.text('Thank you for your order!');
+                    doc.end();
 
-                if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
-                    solve (negativeOrderChallenge);
+                    if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
+                        solve (negativeOrderChallenge);
+                    }
+
+                    fileWriter.on('finish', function() {
+                        BasketItem.destroy({BasketId: id});
+                        res.send('/public/ftp/' + pdfFile);
+                    });
+                } else {
+                    next(new Error('Basket with id=' + id + ' does not exist.'));
                 }
-
-                fileWriter.on('finish', function() {
-                    BasketItem.destroy({BasketId: id});
-                    res.send('/public/ftp/' + pdfFile);
-                });
             }).error(function (error) {
                 next(error);
             });
