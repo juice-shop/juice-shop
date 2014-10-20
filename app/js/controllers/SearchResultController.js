@@ -9,10 +9,6 @@ angular.module('myApp').controller('SearchResultController', [
     function ($scope, $sce, $window, $modal, $location, productService, basketService) {
         'use strict';
 
-        function log(data) {
-            console.log(data);
-        }
-
         $scope.showDetail = function (id) {
 
             $modal.open({
@@ -64,7 +60,7 @@ angular.module('myApp').controller('SearchResultController', [
                     });
                 }
             }).error(function(err) {
-                log(err);
+                console.log(err);
             });
         };
 
@@ -76,7 +72,7 @@ angular.module('myApp').controller('SearchResultController', [
                 $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description);
             }
         }).error(function(err) {
-            log(err);
+            console.log(err);
         });
 
     }]);

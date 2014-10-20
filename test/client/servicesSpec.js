@@ -13,6 +13,7 @@ describe('services', function () {
             expect(UserService.find).toBeDefined();
             expect(UserService.get).toBeDefined();
             expect(UserService.changePassword).toBeDefined();
+            expect(UserService.whoAmI).toBeDefined();
         }));
 
         it('should get all users directly from the rest api', inject(function (UserService) {
@@ -55,6 +56,15 @@ describe('services', function () {
             $httpBackend.whenGET('/rest/user/change-password?current=foo&new=bar&repeat=bar').respond(200, 'apiResponse');
 
             UserService.changePassword({current: 'foo', new: 'bar', repeat: 'bar'}).success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+        it('should return the logged-in users identity directly from the rest api', inject(function (UserService) {
+            $httpBackend.whenGET('/rest/user/whoami').respond(200, 'apiResponse');
+
+            UserService.whoAmI().success(function (data) { result = data; });
             $httpBackend.flush();
 
             expect(result).toBe('apiResponse');
@@ -208,6 +218,21 @@ describe('services', function () {
 
     });
 
+    describe('AdministrationService', function () {
+        it('should be defined', inject(function (AdministrationService) {
+            expect(AdministrationService).toBeDefined();
+            expect(AdministrationService.getApplicationVersion).toBeDefined();
+        }));
 
+        it('should get application version directly from the rest api', inject(function (AdministrationService) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(200, 'apiResponse');
+
+            AdministrationService.getApplicationVersion().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+
+    });
 
 });

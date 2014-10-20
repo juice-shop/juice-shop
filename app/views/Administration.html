@@ -10,7 +10,7 @@
             </tr>
             <tr data-ng-repeat="user in users">
                 <td class="col-md-1"><span ng-show="user.token" class="glyphicon glyphicon-user"></span></td>
-                <td>{{user.email}}</td>
+                <td><div ng-bind-html="user.email"></div></td>
                 <td class="col-md-1">
                     <div class="btn-group">
                         <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><span class="glyphicon glyphicon-eye-open"></span></a>

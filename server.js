@@ -22,7 +22,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     insecurity = require('./lib/insecurity'),
     app = express();
 
-errorhandler.title = 'Juice Shop (Express ' + require('./package.json').dependencies.express + ')';
+errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
 
 /* Delete old order PDFs */
 glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
@@ -132,7 +132,7 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
     loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
     errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
     persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,basketChallenge, weakPasswordChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge;
+    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge, forgedFeedbackChallenge;
 
 /* Entities relevant for challenges */
 
@@ -212,6 +212,12 @@ sequelize.sync().success(function () {
         solved: false
     }).success(function(challenge) {
         feedbackChallenge = challenge;
+    });
+    Challenge.create({
+        description: 'Post some feedback in another users name.',
+        solved: false
+    }).success(function(challenge) {
+        forgedFeedbackChallenge = challenge;
     });
     Challenge.create({
         description: 'Wherever you go, there you are.',
@@ -451,15 +457,20 @@ app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
 app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
+/* Challenge evaluation before sequelize-restful takes over */
+app.post('/api/Feedbacks', verifyForgedFeedbackChallenge());
+
 /* Sequelize Restful APIs */
 app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
 app.get('/rest/user/authentication-details', retrieveUserList());
+app.get('/rest/user/whoami', retrieveLoggedInUsersId());
 app.get('/rest/product/search', searchProducts());
 app.get('/rest/basket/:id', retrieveBasket());
 app.post('/rest/basket/:id/order', createOrderPdf());
+app.get('/rest/admin/application-version', retrieveAppVersion());
 app.get('/redirect', performRedirect());
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', serveEasterEgg());
@@ -487,6 +498,19 @@ exports.close = function (exitCode) {
     }
 };
 
+function verifyForgedFeedbackChallenge() {
+    return function(req, res, next) {
+        if (notSolved(forgedFeedbackChallenge)) {
+            var user = insecurity.authenticatedUsers.from(req);
+            var userId = user ? user.data.id : undefined;
+            if (req.body.UserId && req.body.UserId != userId) {
+                solve(forgedFeedbackChallenge);
+            }
+        }
+        next();
+    }
+}
+
 function verifyAccessControlChallenges() {
     return function (req, res, next) {
         if (notSolved(scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
@@ -495,6 +519,19 @@ function verifyAccessControlChallenges() {
             solve(adminSectionChallenge);
         }
         next();
+    };
+}
+
+function retrieveLoggedInUsersId() {
+    return function (req, res) {
+        var user = insecurity.authenticatedUsers.from(req);
+        res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
+    };
+}
+
+function retrieveAppVersion() {
+    return function (req, res) {
+        res.json({version: utils.version()});
     };
 }
 

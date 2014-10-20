@@ -25,11 +25,16 @@ angular.module('myApp').factory('UserService', ['$http', function ($http) {
         return $http.get('/rest/user/change-password?current='+ passwords.current +'&new=' + passwords.new + '&repeat=' + passwords.repeat);
     }
 
+    function whoAmI() {
+        return $http.get('/rest/user/whoami');
+    }
+
     return {
         find: find,
         get: get,
         save: save,
         login: login,
-        changePassword: changePassword
+        changePassword: changePassword,
+        whoAmI: whoAmI
     };
 }]);

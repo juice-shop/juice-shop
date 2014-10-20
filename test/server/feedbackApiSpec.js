@@ -64,7 +64,7 @@ frisby.create('DELETE existing feedback is forbidden via public API')
     .expectStatus(401)
     .toss();
 
-frisby.create('DELETE existing 5-start feedback')
+frisby.create('DELETE existing feedback')
     .delete(API_URL + '/Feedbacks/1')
     .addHeaders(authHeader)
     .expectStatus(200)
@@ -102,3 +102,27 @@ frisby.create('POST fails to sanitize masked XSS-attack by not applying sanitiza
         comment: 'But basically its the fault htmlparser2 in version 3.3.0 which sanitize-html 1.4.2 depends on: <script>alert("XSS3")</script>'
     })
     .toss();
+
+frisby.create('POST feedback in another users name as anonymous user')
+    .post(API_URL + '/Feedbacks', {
+        comment: 'Lousy crap!',
+        rating: 1,
+        UserId: 3
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        UserId: 3
+    }).toss();
+
+frisby.create('POST feedback in a non-existing users name as anonymous user')
+    .post(API_URL + '/Feedbacks', {
+        comment: 'When juice fails...',
+        rating: 2,
+        UserId: 4711
+    }, {json: true})
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', {
+        UserId: 4711
+    }).toss();
