@@ -58,6 +58,48 @@ describe('controllers', function () {
             expect(controller).toBeDefined();
             expect(scope.delete).toBeDefined();
         }));
+
+        it('should hold existing feedback', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: 'a'},{comment: 'b'}]});
+
+            $httpBackend.flush();
+
+            expect(scope.feedbacks.length).toBe(2);
+            expect(scope.feedbacks[0].comment).toBeDefined();
+            expect(scope.feedbacks[1].comment).toBeDefined();
+        }));
+
+        it('should add an image to each feedback', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}]});
+
+            $httpBackend.flush();
+
+            expect(scope.feedbacks[0].image).toBeDefined();
+        }));
+
+        xit('should consider each feedback comment as trusted HTML', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>'}]});
+
+            $httpBackend.flush();
+
+            expect(scope.feedbacks[0].comment).toEqual( { $$unwrapTrustedValue : Function });
+        }));
+
+        it('should hold nothing when no feedback exists', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: {}});
+
+            $httpBackend.flush();
+
+            expect(scope.feedbacks).toEqual({});
+        }));
+
+        it('should hold nothing on error from backend API', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(500);
+
+            $httpBackend.flush();
+
+            expect(scope.feedbacks).toBeUndefined();
+        }));
     });
 
     describe('ContactController', function () {
@@ -237,6 +279,7 @@ describe('controllers', function () {
             expect(scope.showDetail).toBeDefined();
             expect(scope.addToBasket).toBeDefined();
         }));
+
     });
 
     describe('NavbarController', function () {
