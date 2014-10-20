@@ -31,13 +31,13 @@ describe('controllers', function () {
             expect(scope.users[1].email).toBeDefined();
         }));
 
-        it('should not consider user email as trusted HTML', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'bjoern@<script>alert("XSS3")</script>.de'}]});
+        it('should consider user email as trusted HTML', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'bjoern@<script>alert("XSS2")</script>.de'}]});
             spyOn($sce, 'trustAsHtml');
 
             $httpBackend.flush();
 
-            expect($sce.trustAsHtml).toHaveBeenCalled();
+            expect($sce.trustAsHtml).toHaveBeenCalledWith('bjoern@<script>alert("XSS2")</script>.de');
         }));
 
         it('should hold nothing when no users exist', inject(function ($controller) {

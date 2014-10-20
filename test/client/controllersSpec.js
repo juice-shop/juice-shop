@@ -20,22 +20,6 @@ describe('controllers', function () {
         }));
     });
 
-    describe('SearchResultController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
-            scope = $rootScope.$new();
-            controller = $controller('SearchResultController', {
-                '$scope': scope
-            });
-        }));
-
-        it('should be defined', inject(function ($controller) {
-            expect(controller).toBeDefined();
-            expect(scope.showDetail).toBeDefined();
-            expect(scope.addToBasket).toBeDefined();
-        }));
-
-    });
-
     describe('BasketController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();

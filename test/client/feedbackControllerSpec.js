@@ -44,7 +44,7 @@ describe('controllers', function () {
 
             $httpBackend.flush();
 
-            expect($sce.trustAsHtml).toHaveBeenCalled();
+            expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>');
         }));
 
         it('should hold nothing when no feedback exists', inject(function ($controller) {
