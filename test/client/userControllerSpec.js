@@ -1,10 +1,11 @@
 describe('controllers', function () {
-    var scope, location, controller, window, cookieStore, $httpBackend;
+    var scope, controller, $httpBackend, $sce, $modal;
 
     beforeEach(module('myApp'));
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $sce = $injector.get('$sce');
+        $modal = $injector.get('$modal');
     }));
 
     describe('UserController', function () {
@@ -55,6 +56,13 @@ describe('controllers', function () {
             expect(scope.users).toBeUndefined();
         }));
 
+        it('should open a modal dialog with user details', inject(function ($controller) {
+            spyOn($modal, 'open');
+
+            scope.showDetail(42);
+
+            expect($modal.open).toHaveBeenCalled();
+        }));
 
     });
 
