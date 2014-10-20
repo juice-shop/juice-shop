@@ -1,5 +1,5 @@
 describe('controllers', function () {
-    var scope, location, controller, window, cookieStore, $httpBackend;
+    var scope, location, controller, $httpBackend;
 
     beforeEach(module('myApp'));
         beforeEach(inject(function($injector) {
