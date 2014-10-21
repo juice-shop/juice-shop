@@ -1,6 +1,7 @@
 /*jslint node: true */
 
-var frisby = require('frisby');
+var frisby = require('frisby'),
+    utils = require('../../lib/utils');
 
 var REST_URL = 'http://localhost:3000/rest/admin';
 
@@ -9,6 +10,6 @@ frisby.create('GET application version from package.json')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON({
-        version: '0.3.0'
+        version: utils.version()
     })
     .toss();

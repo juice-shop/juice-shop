@@ -1,7 +1,7 @@
 {
     "name": "juice-shop",
     "description": "An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "private": true,
     "dependencies": {
         "angular": "~1.2",
