@@ -38,6 +38,13 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
 4. Browse to http://localhost:3000 
 
+### Packaged Distribution
+
+1. Install [node.js](http://nodejs.org) (version 0.10.x)
+2. Download ```juice-shop-<version>.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+3. Unpack and run ```npm start``` in unzipped folder
+4. Browse to http://localhost:3000
+
 ## Troubleshooting
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
