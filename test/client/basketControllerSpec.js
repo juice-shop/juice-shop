@@ -99,7 +99,24 @@ describe('controllers', function () {
             $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 1}});
             $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 2}).respond(200);
 
-            scope.inc();
+            scope.inc(1);
+            $httpBackend.flush();
+        }));
+
+        it('should not increase quantity on error retrieving basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 1}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(500);
+
+            scope.inc(1);
+            $httpBackend.flush();
+        }));
+
+        it('should not increase quantity on error updating basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 2}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 2}});
+            $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 3}).respond(500);
+
+            scope.inc(1);
             $httpBackend.flush();
         }));
 
@@ -108,7 +125,7 @@ describe('controllers', function () {
             $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 5}});
             $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 4}).respond(200);
 
-            scope.dec();
+            scope.dec(1);
             $httpBackend.flush();
         }));
 
@@ -117,9 +134,27 @@ describe('controllers', function () {
             $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 1}});
             $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200);
 
-            scope.dec();
+            scope.dec(1);
             $httpBackend.flush();
         }));
+
+        it('should not decrease quantity on error retrieving basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 1}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(500);
+
+            scope.dec(1);
+            $httpBackend.flush();
+        }));
+
+        it('should not decrease quantity on error updating basket item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 2}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 2}});
+            $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(500);
+
+            scope.dec(1);
+            $httpBackend.flush();
+        }));
+
     });
 
 });
