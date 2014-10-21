@@ -7,19 +7,25 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         uglify: {
-            dist: {
+            js: {
                 files: {
-                    'app/dist/juice-shop.min.js': [ 'app/dist/juice-shop.js' ]
+                    'app/tmp/juice-shop.min.js': [ 'app/tmp/juice-shop.js' ]
                 },
                 options: {
                     mangle: true
                 }
+            },
+            dist: {
+                files: {
+                    'app/dist/juice-shop.min.js': [ 'app/tmp/juice-shop.min.js' ]
+                }
             }
         },
 
-        html2js: {
-            dist: {
-                src: [ 'app/views/*.html' ],
+        ngtemplates: {
+            myApp: {
+                cwd: 'app',
+                src: [ 'views/*.html' ],
                 dest: 'app/tmp/views.js'
             }
         },
@@ -40,9 +46,13 @@ module.exports = function(grunt) {
             options: {
                 separator: ';'
             },
+            js: {
+                src: [ 'app/js/**/*.js' ],
+                dest: 'app/tmp/juice-shop.js'
+            },
             dist: {
-                src: [ 'app/js/**/*.js', 'app/tmp/*.js' ],
-                dest: 'app/dist/juice-shop.js'
+                src: [ 'app/tmp/juice-shop.min.js', 'app/tmp/*.js' ],
+                dest: 'app/tmp/juice-shop.min.js'
             }
         },
 
@@ -60,12 +70,12 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
 
-    grunt.registerTask('minify', [ 'clean:dist', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:myApp', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
 };

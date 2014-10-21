@@ -8,8 +8,11 @@ An intentionally insecure RIA suitable for pentesting and security awareness tra
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
 [![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
+[![Docker](http://img.shields.io/badge/docker-container-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
-> Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.    
+> Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.
+    
+You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
  
 ## Features
 
@@ -22,7 +25,7 @@ An intentionally insecure RIA suitable for pentesting and security awareness tra
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org)
+1. Install [node.js](http://nodejs.org) (version 0.10.x)
 2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
@@ -35,16 +38,21 @@ An intentionally insecure RIA suitable for pentesting and security awareness tra
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
 4. Browse to http://localhost:3000 
 
+### Packaged Distribution
+
+1. Install [node.js](http://nodejs.org) (version 0.10.x)
+2. Download ```juice-shop-<version>.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+3. Unpack and run ```npm start``` in unzipped folder
+4. Browse to http://localhost:3000
+
 ## Troubleshooting
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
 - If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP 
-
-You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend
-[Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
 [![endorse](https://api.coderwall.com/bkimminich/endorsecount.png)](https://coderwall.com/bkimminich)
 [![geeklist](http://img.shields.io/badge/geeklist-%5E5-green.svg)](https://geekli.st/bkimminich/i-built-the-juice-shop-broken-full-js-stack-webapp-for-pentesting-and-security-trainings)
 [![Gratipay](http://img.shields.io/gratipay/bkimminich.svg)](https://gratipay.com/bkimminich)
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
+
