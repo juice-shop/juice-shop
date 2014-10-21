@@ -508,7 +508,7 @@ function verifyForgedFeedbackChallenge() {
             }
         }
         next();
-    }
+    };
 }
 
 function verifyAccessControlChallenges() {
