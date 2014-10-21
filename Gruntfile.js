@@ -26,13 +26,7 @@ module.exports = function(grunt) {
             myApp: {
                 cwd: 'app',
                 src: [ 'views/*.html' ],
-                dest: 'app/tmp/views.js',
-                options:    {
-                    htmlmin:  {
-                        collapseBooleanAttributes: true,
-                        collapseWhitespace: true
-                    }
-                }
+                dest: 'app/tmp/views.js'
             }
         },
 
