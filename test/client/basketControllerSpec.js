@@ -93,6 +93,33 @@ describe('controllers', function () {
 
             expect($window.location.replace.mostRecentCall).toEqual({});
         }));
+
+        it('should update basket item with increased quantity after adding another item of same type', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 1}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 1}});
+            $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 2}).respond(200);
+
+            scope.inc();
+            $httpBackend.flush();
+        }));
+
+        it('should update basket item with decreased quantity after removing an item', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 5}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 5}});
+            $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 4}).respond(200);
+
+            scope.dec();
+            $httpBackend.flush();
+        }));
+
+        it('should always keep one item of any product in the basket when reducing quantity via UI', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1, quantity: 1}}]}});
+            $httpBackend.whenGET('/api/BasketItems/1').respond(200,  {data: {id: 1, quantity: 1}});
+            $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200);
+
+            scope.dec();
+            $httpBackend.flush();
+        }));
     });
 
 });
