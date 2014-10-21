@@ -17,10 +17,17 @@ module.exports = function(grunt) {
             }
         },
 
-        html2js: {
+        ngtemplates: {
             dist: {
-                src: [ 'app/views/*.html' ],
-                dest: 'app/tmp/views.js'
+                cwd: 'app',
+                src: [ 'views/*.html' ],
+                dest: 'app/tmp/views.js',
+                options:    {
+                    htmlmin:  {
+                        collapseBooleanAttributes: true,
+                        collapseWhitespace: true
+                    }
+                }
             }
         },
 
@@ -60,12 +67,12 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
 
-    grunt.registerTask('minify', [ 'clean:dist', 'html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask('minify', [ 'clean:dist', 'ngtemplates:dist', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
 };

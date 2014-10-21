@@ -40,7 +40,7 @@
         "glob": "~4.0",
         "grunt": "~0.4",
         "grunt-cli": "~0.1",
-        "grunt-html2js": "~0.2",
+        "grunt-angular-templates": "~0.5",
         "grunt-contrib-uglify": "~0.6",
         "grunt-contrib-concat": "~0.5",
         "grunt-contrib-clean": "~0.6",
