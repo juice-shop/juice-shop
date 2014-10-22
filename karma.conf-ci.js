@@ -15,41 +15,17 @@ module.exports = function (config) {
             platform: 'Windows 8.1',
             version: '33'
         },
-        sl_opera: {
-            base: 'SauceLabs',
-            browserName: 'opera',
-            platform: 'Windows 7',
-            version: '12'
-        },
-        sl_safari: {
-            base: 'SauceLabs',
-            browserName: 'safari',
-            platform : 'OS X 10.9',
-            version: '7'
-        },
         sl_ie_11: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
             platform: 'Windows 8.1',
             version: '11'
         },
-        sl_ie_10: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows 8',
-            version: '10'
-        },
         sl_ie_9: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
             platform: 'Windows 7',
             version: '9'
-        },
-        sl_ie_8: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows XP',
-            version: '8'
         }
     };
 
