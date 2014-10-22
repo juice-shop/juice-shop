@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -61,10 +61,38 @@ module.exports = function(grunt) {
                 options: {
                     archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
                 },
-                files: [{
-                    src: [ 'app/index.html', 'app/dist/juice-shop.min.js', 'app/css/*.css', 'app/bower_components/**', 'app/public/**', 'app/private/**',
-                        'server.js', 'app.js', 'package.json', 'LICENSE.md', 'data', 'node_modules/**', 'lib/*.js']
-                }]
+                files: [
+                    {
+                        src: [  'app/index.html',
+                            'app/dist/juice-shop.min.js',
+                            'app/css/*.css',
+                            'app/bower_components/**',
+                            'app/public/**',
+                            'app/private/**',
+                            'server.js',
+                            'app.js',
+                            'package.json',
+                            'LICENSE.md',
+                            'data',
+                            'lib/*.js',
+                            'node_modules/sequelize/**',
+                            'node_modules/sqlite3/**',
+                            'node_modules/express/**',
+                            'node_modules/errorhandler/**',
+                            'node_modules/cookie-parser/**',
+                            'node_modules/serve-index/**',
+                            'node_modules/serve-favicon/**',
+                            'node_modules/body-parser/**',
+                            'node_modules/sequelize-restful/**',
+                            'node_modules/morgan/**',
+                            'node_modules/sanitize-html/**',
+                            'node_modules/express-jwt/**',
+                            'node_modules/jsonwebtoken/**',
+                            'node_modules/pdfkit/**',
+                            'node_modules/glob/**'
+                        ]
+                    }
+                ]
             }
         }
 
