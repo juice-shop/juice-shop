@@ -73,7 +73,7 @@ module.exports = function (config) {
 
         customLaunchers: customLaunchers,
 
-        reporters: ['saucelabs']
+        reporters: ['dots', 'saucelabs']
 
     });
 };
