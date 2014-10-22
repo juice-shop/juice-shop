@@ -60,7 +60,7 @@ module.exports = function (config) {
 
         customLaunchers: customLaunchers,
 
-        reporters: ['progress', 'saucelabs']
+        reporters: ['saucelabs']
 
     });
 };
