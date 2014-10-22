@@ -8,8 +8,13 @@ addons:
 after_success:
 - ./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'
 - cat "./test/coverage/lcov_merged.info" | ./node_modules/.bin/codeclimate
+- karma start karma.conf-ci.js
 deploy:
   provider: nodejitsu
   user: bkimminich
   api_key:
     secure: bzxWh4DRhjcJ52FXzZhEOMmseDOPCDw/yC5ikblBH0uwoXIPJD2yKJ884CqzyL8Jf3yFBpZasVvbFjNDPpyGxZv0UMInYhJBHuyFXKe+pqyf1z7vif0FaH2Fze9VfmCV/GPRiNMMgTcvgoCIJs8wXsCoRcafWVaX9m4xH5ZHt/I=
+env:
+  global:
+    - secure: U7+Gv3U8nP+AopuI9HrwqnrBeXBc39HyRZ7/di66rlVujzXeN8O821uQVjnxdIB8GcbmJyGx7Av1hqTBYyhot2mMtmtFnwUs5ijc3tu1IMv5BabQUIzHvMkXjAAAHRwBCbb2QMXHk/oEhdy0evsO8JDIwiHDP0SeFCS7sY9obco=
+    - secure: XMZ+PkMPArPdJMlWEu1l2BDFC8l2YR57ZkLOYIhOuITXfxPL389ujJvf6FPZoayUKjajCGDQ3TpBD46Gx6Cc1KFyORvKNx8wu83l+xcE5Oo8XuSx3VScpZv1jmdw8TgomqstjiWhcQjbjDZ52MCpBHMNTkNtJKNNAbDaC6/uXFQ=
