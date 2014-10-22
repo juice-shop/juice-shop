@@ -5,46 +5,51 @@ module.exports = function (config) {
     var customLaunchers = {
         sl_chrome: {
             base: 'SauceLabs',
-            browserName: 'chrome'
+            browserName: 'chrome',
+            platform : 'Linux',
+            version: '37'
         },
         sl_firefox: {
             base: 'SauceLabs',
-            browserName: 'firefox'
+            browserName: 'firefox',
+            platform: 'Windows 8.1',
+            version: '33'
         },
         sl_opera: {
             base: 'SauceLabs',
-            browserName: 'opera'
+            browserName: 'opera',
+            platform: 'Windows 7',
+            version: '12'
         },
         sl_safari: {
             base: 'SauceLabs',
-            browserName: 'safari'
+            browserName: 'safari',
+            platform : 'OS X 10.9',
+            version: '7'
         },
         sl_ie_11: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
+            platform: 'Windows 8.1',
             version: '11'
         },
         sl_ie_10: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
+            platform: 'Windows 8',
             version: '10'
         },
         sl_ie_9: {
             base: 'SauceLabs',
             browserName: 'internet explorer',
+            platform: 'Windows 7',
             version: '9'
         },
-        sl_android: {
+        sl_ie_8: {
             base: 'SauceLabs',
-            browserName: 'android'
-        },
-        sl_iphone: {
-            base: 'SauceLabs',
-            browserName: 'iphone'
-        },
-        sl_ipad: {
-            base: 'SauceLabs',
-            browserName: 'ipad'
+            browserName: 'internet explorer',
+            platform: 'Windows XP',
+            version: '8'
         }
     };
 
@@ -67,8 +72,7 @@ module.exports = function (config) {
 
         sauceLabs: {
             testName: 'Juice-Shop Angular Unit Tests',
-            recordVideo: true,
-            tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_PULL_REQUEST]
+            tags: [process.env.TRAVIS_BRANCH]
         },
 
         colors: true,
@@ -80,7 +84,7 @@ module.exports = function (config) {
 
         customLaunchers: customLaunchers,
 
-        reporters: ['dots', 'saucelabs']
+        reporters: ['progress', 'saucelabs']
 
     });
 };
