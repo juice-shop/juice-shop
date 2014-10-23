@@ -5,6 +5,11 @@ var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
     glob = require('glob'),
     morgan = require('morgan'),
+    Sequelize = require('sequelize'),
+    sequelize = new Sequelize('database', 'username', 'password', {
+        dialect: 'sqlite',
+        storage: 'data/juiceshop.sqlite'
+    }),
     restful = require('sequelize-restful'),
     express = require('express'),
     errorhandler = require('errorhandler'),
@@ -15,7 +20,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     PDFDocument = require('pdfkit'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
-    db = require('./lib/domain'),
     app = express();
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
@@ -28,9 +32,9 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
 });
 
 /* Domain Model */
-var User = db.sequelize.define('User', {
-        email: db.Sequelize.STRING,
-        password: db.Sequelize.STRING
+var User = sequelize.define('User', {
+        email: Sequelize.STRING,
+        password: Sequelize.STRING
     },
     { hooks: {
         beforeCreate: function (user, fn) {
@@ -55,11 +59,11 @@ function xssChallengeUserHook(user) {
     }
 }
 
-var Product = db.sequelize.define('Product', {
-    name: db.Sequelize.STRING,
-    description: db.Sequelize.STRING,
-    price: db.Sequelize.DECIMAL,
-    image: db.Sequelize.STRING
+var Product = sequelize.define('Product', {
+        name: Sequelize.STRING,
+        description: Sequelize.STRING,
+        price: Sequelize.DECIMAL,
+        image: Sequelize.STRING
     },
     { hooks: {
         beforeCreate: function (product, fn) {
@@ -78,25 +82,25 @@ function xssChallengeProductHook(product) {
     }
 }
 
-var Basket = db.sequelize.define('Basket', {
+var Basket = sequelize.define('Basket', {
 });
 
-var BasketItem = db.sequelize.define('BasketItems', {
+var BasketItem = sequelize.define('BasketItems', {
     id: {
-        type: db.Sequelize.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    quantity: db.Sequelize.INTEGER
+    quantity: Sequelize.INTEGER
 });
 
 Basket.belongsTo(User);
 Basket.hasMany(Product, {through: BasketItem});
 Product.hasMany(Basket, {through: BasketItem});
 
-var Feedback = db.sequelize.define('Feedback', {
-    comment: db.Sequelize.STRING,
-    rating: db.Sequelize.INTEGER
+var Feedback = sequelize.define('Feedback', {
+        comment: Sequelize.STRING,
+        rating: Sequelize.INTEGER
     },
     { hooks: {
         beforeCreate: function (feedback, fn) {
@@ -118,9 +122,9 @@ function htmlSanitizationHook(feedback) {
     }
 }
 
-var Challenge = db.sequelize.define('Challenges', {
-    description: db.Sequelize.STRING,
-    solved: db.Sequelize.BOOLEAN
+var Challenge = sequelize.define('Challenges', {
+    description: Sequelize.STRING,
+    solved: Sequelize.BOOLEAN
 });
 
 /* Challenges */
@@ -135,8 +139,8 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
 var bender, osaft;
 
 /* Data */
-db.sequelize.drop();
-db.sequelize.sync().success(function () {
+sequelize.drop();
+sequelize.sync().success(function () {
     Challenge.create({
         description: 'Find the carefully hidden \'Score Board\' page.',
         solved: false
@@ -453,11 +457,11 @@ app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
 app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
-/* Challenge evaluation before db.sequelize-restful takes over */
+/* Challenge evaluation before sequelize-restful takes over */
 app.post('/api/Feedbacks', verifyForgedFeedbackChallenge());
 
-/* db.Sequelize Restful APIs */
-app.use(restful(db.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
+/* Sequelize Restful APIs */
+app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
@@ -595,14 +599,14 @@ function retrieveBasket() {
 function retrieveUserList() {
     return function(req, res, next){
         User.findAll().success(function(users) {
-                var usersWithLoginStatus = utils.queryResultToJson(users);
-                usersWithLoginStatus.data.forEach(function(user) {
-                    user.token = insecurity.authenticatedUsers.tokenOf(user);
-                });
-                res.json(usersWithLoginStatus);
-            }).error(function (error) {
-                next(error);
+            var usersWithLoginStatus = utils.queryResultToJson(users);
+            usersWithLoginStatus.data.forEach(function(user) {
+                user.token = insecurity.authenticatedUsers.tokenOf(user);
             });
+            res.json(usersWithLoginStatus);
+        }).error(function (error) {
+            next(error);
+        });
     };
 }
 
@@ -664,7 +668,7 @@ function searchProducts() {
         if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
             solve(localXssChallenge);
         }
-        db.sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
+        sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
             .success(function(products) {
                 if (notSolved(unionSqlInjectionChallenge)) {
                     var dataString = JSON.stringify(products);
@@ -723,7 +727,7 @@ function loginUser() {
         if (notSolved(weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
             solve(weakPasswordChallenge);
         }
-        db.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
+        sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
             .success(function(authenticatedUser) {
                 var user = utils.queryResultToJson(authenticatedUser);
                 if (user.data && user.data.id) {
@@ -795,14 +799,14 @@ function verifyDatabaseRelatedChallenges() {
             });
         }
         if (notSolved(knownVulnerableComponentChallenge)) {
-            Feedback.findAndCountAll({where: db.Sequelize.or(
-                db.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
-                db.Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
+            Feedback.findAndCountAll({where: Sequelize.or(
+                    Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
+                    Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
             ).success(function (data) {
-                if (data.count > 0) {
-                    solve(knownVulnerableComponentChallenge);
-                }
-            });
+                    if (data.count > 0) {
+                        solve(knownVulnerableComponentChallenge);
+                    }
+                });
         }
         next();
     };
