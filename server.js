@@ -5,11 +5,6 @@ var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
     glob = require('glob'),
     morgan = require('morgan'),
-    Sequelize = require('sequelize'),
-    sequelize = new Sequelize('database', 'username', 'password', {
-        dialect: 'sqlite',
-        storage: 'data/juiceshop.sqlite'
-    }),
     restful = require('sequelize-restful'),
     express = require('express'),
     errorhandler = require('errorhandler'),
@@ -20,6 +15,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     PDFDocument = require('pdfkit'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
+    models = require("./models"),
     app = express();
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
@@ -29,102 +25,6 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
     files.forEach(function(filename) {
         fs.unlink(filename);
     });
-});
-
-/* Domain Model */
-var User = sequelize.define('User', {
-        email: Sequelize.STRING,
-        password: Sequelize.STRING
-    },
-    { hooks: {
-        beforeCreate: function (user, fn) {
-            hashPasswordHook(user);
-            xssChallengeUserHook(user);
-            fn(null, user);
-        },
-        beforeUpdate: function (user, fn) { // Pitfall: Will hash the hashed password again if password was not updated!
-            hashPasswordHook(user);
-            fn(null, user);
-        }
-    }}
-);
-
-function hashPasswordHook(user) {
-    user.password = insecurity.hash(user.password);
-}
-
-function xssChallengeUserHook(user) {
-    if (notSolved(persistedXssChallengeUser) && utils.contains(user.email, '<script>alert("XSS2")</script>')) {
-        solve(persistedXssChallengeUser);
-    }
-}
-
-var Product = sequelize.define('Product', {
-        name: Sequelize.STRING,
-        description: Sequelize.STRING,
-        price: Sequelize.DECIMAL,
-        image: Sequelize.STRING
-    },
-    { hooks: {
-        beforeCreate: function (product, fn) {
-            xssChallengeProductHook(product);
-            fn(null, product);
-        },
-        beforeUpdate: function (product, fn) {
-            xssChallengeProductHook(product);
-            fn(null, product);
-        }
-    }});
-
-function xssChallengeProductHook(product) {
-    if (notSolved(restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS4")</script>')) {
-        solve(restfulXssChallenge);
-    }
-}
-
-var Basket = sequelize.define('Basket', {
-});
-
-var BasketItem = sequelize.define('BasketItems', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    quantity: Sequelize.INTEGER
-});
-
-Basket.belongsTo(User);
-Basket.hasMany(Product, {through: BasketItem});
-Product.hasMany(Basket, {through: BasketItem});
-
-var Feedback = sequelize.define('Feedback', {
-        comment: Sequelize.STRING,
-        rating: Sequelize.INTEGER
-    },
-    { hooks: {
-        beforeCreate: function (feedback, fn) {
-            htmlSanitizationHook(feedback);
-            fn(null, feedback);
-        },
-        beforeUpdate: function (feedback, fn) {
-            htmlSanitizationHook(feedback);
-            fn(null, feedback);
-        }
-    }});
-
-Feedback.belongsTo(User);
-
-function htmlSanitizationHook(feedback) {
-    feedback.comment = insecurity.sanitizeHtml(feedback.comment);
-    if (notSolved(persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS3")</script>')) {
-        solve(persistedXssChallengeFeedback);
-    }
-}
-
-var Challenge = sequelize.define('Challenges', {
-    description: Sequelize.STRING,
-    solved: Sequelize.BOOLEAN
 });
 
 /* Challenges */
@@ -137,284 +37,6 @@ var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, d
 /* Entities relevant for challenges */
 
 var bender, osaft;
-
-/* Data */
-sequelize.drop();
-sequelize.sync().success(function () {
-    Challenge.create({
-        description: 'Find the carefully hidden \'Score Board\' page.',
-        solved: false
-    }).success(function(challenge) {
-        scoreBoardChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Provoke an error that is not very gracefully handled.',
-        solved: false
-    }).success(function(challenge) {
-        errorHandlingChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Log in with the administrator\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginAdminChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Log in with Jim\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginJimChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Log in with Bender\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginBenderChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
-        solved: false
-    }).success(function(challenge) {
-        localXssChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
-        solved: false
-    }).success(function(challenge) {
-        persistedXssChallengeUser = challenge;
-    });
-    Challenge.create({
-        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
-        solved: false
-    }).success(function(challenge) {
-        persistedXssChallengeFeedback = challenge;
-    });
-    Challenge.create({
-        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
-        solved: false
-    }).success(function(challenge) {
-        restfulXssChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Retrieve a list of all user credentials via SQL Injection',
-        solved: false
-    }).success(function(challenge) {
-        unionSqlInjectionChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
-        solved: false
-    }).success(function(challenge) {
-        weakPasswordChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Get rid of all 5-star customer feedback.',
-        solved: false
-    }).success(function(challenge) {
-        feedbackChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Post some feedback in another users name.',
-        solved: false
-    }).success(function(challenge) {
-        forgedFeedbackChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Wherever you go, there you are.',
-        solved: false
-    }).success(function(challenge) {
-        redirectChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Access someone else\'s basket.',
-        solved: false
-    }).success(function(challenge) {
-        basketChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Place an order that makes you rich.',
-        solved: false
-    }).success(function(challenge) {
-        negativeOrderChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Access a confidential document.',
-        solved: false
-    }).success(function(challenge) {
-        directoryListingChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Access the administration section of the store.',
-        solved: false
-    }).success(function(challenge) {
-        adminSectionChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.' ,
-        solved: false
-    }).success(function(challenge) {
-        csrfChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
-        solved: false
-    }).success(function(challenge) {
-        changeProductChallenge = challenge;
-    });
-    Challenge.create({
-        description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
-        solved: false
-    }).success(function(challenge) {
-        knownVulnerableComponentChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
-        solved: false
-    }).success(function(challenge) {
-        easterEggLevelOneChallenge = challenge;
-    });
-    Challenge.create({
-        description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
-        solved: false
-    }).success(function(challenge) {
-        easterEggLevelTwoChallenge = challenge;
-    });
-    User.create({
-        email: 'admin@juice-sh.op',
-        password: 'admin123'
-    });
-    User.create({
-        email: 'jim@juice-sh.op',
-        password: 'ncc-1701'
-    });
-    User.create({
-        email: 'bender@juice-sh.op',
-        password: 'booze'
-    }).success(function(user) {
-        bender = user;
-    });
-    Product.create({
-        name: 'Apple Juice (1000ml)',
-        description: 'The all-time classic.',
-        price: 1.99,
-        image: 'apple_juice.jpg'
-    });
-    Product.create({
-        name: 'Orange Juice (1000ml)',
-        description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
-        price: 2.99,
-        image: 'orange_juice.jpg'
-    });
-    Product.create({
-        name: 'Eggfruit Juice (500ml)',
-        description: 'Now with even more exotic flavour.',
-        price: 8.99,
-        image: 'eggfruit_juice.jpg'
-    });
-    Product.create({
-        name: 'Raspberry Juice (1000ml)',
-        description: 'Made from blended Raspberry Pi, water and sugar.',
-        price: 4.99,
-        image: 'raspberry_juice.jpg'
-    });
-    Product.create({
-        name: 'Lemon Juice (500ml)',
-        description: 'Sour but full of vitamins.',
-        price: 2.99,
-        image: 'lemon_juice.jpg'
-    });
-    Product.create({
-        name: 'Banana Juice (1000ml)',
-        description: 'Monkeys love it the most.',
-        price: 1.99,
-        image: 'banana_juice.jpg'
-    });
-    Product.create({
-        name: 'Lemon Juice (500ml)',
-        description: 'Sour but full of vitamins.',
-        price: 2.99,
-        image: 'lemon_juice.jpg'
-    });
-    Product.create({
-        name: 'Juice Shop T-Shirt (3XL)',
-        description: 'Real fans wear it 24/7!',
-        price: 24.99,
-        image: 'fan_shirt.jpg'
-    });
-    Product.create({
-        name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
-        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
-        price: 0.01,
-        image: 'owasp_osaft.jpg'
-    }).success(function(product) {
-        osaft = product;
-    });
-    Basket.create({
-        UserId: 1
-    });
-    Basket.create({
-        UserId: 2
-    });
-    Basket.create({
-        UserId: 3
-    });
-    BasketItem.create({
-        BasketId: 1,
-        ProductId: 1,
-        quantity: 2
-    });
-    BasketItem.create({
-        BasketId: 1,
-        ProductId: 2,
-        quantity: 3
-    });
-    BasketItem.create({
-        BasketId: 1,
-        ProductId: 3,
-        quantity: 1
-    });
-    BasketItem.create({
-        BasketId: 2,
-        ProductId: 4,
-        quantity: 2
-    });
-    BasketItem.create({
-        BasketId: 3,
-        ProductId: 5,
-        quantity: 1
-    });
-    Feedback.create({
-        UserId: 1,
-        comment: 'I love this shop! Best juice in town! Highly recommended!',
-        rating: 5
-    });
-    Feedback.create({
-        UserId: 2,
-        comment: 'Great shop! The O-Saft is highly recommended!',
-        rating: 4
-    });
-    Feedback.create({
-        comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
-        rating: 2
-    });
-    Feedback.create({
-        comment: 'This is <b>the</b> store for juices of all kinds!',
-        rating: 4
-    });
-    Feedback.create({
-        comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
-        rating: 4
-    });
-    Feedback.create({
-        comment: 'Keep up the good work!',
-        rating: 3
-    });
-    Feedback.create({
-        UserId: 3,
-        comment: 'No real drinks available here!',
-        rating: 1
-    });
-});
 
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
@@ -461,7 +83,7 @@ app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 app.post('/api/Feedbacks', verifyForgedFeedbackChallenge());
 
 /* Sequelize Restful APIs */
-app.use(restful(sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
+app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
 app.post('/rest/user/login', loginUser());
 app.get('/rest/user/change-password', changePassword());
@@ -481,12 +103,16 @@ app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {
     if (!this.server) {
-        this.server = app.listen(config.port, function () {
-            console.log('Listening on port %d', config.port);
-            // callback to call when the server is ready
-            if (readyCallback) {
-                readyCallback();
-            }
+        models.sequelize.drop();
+        models.sequelize.sync().success(function() {
+            createData();
+            this.server = app.listen(config.port, function () {
+                console.log('Listening on port %d', config.port);
+                // callback to call when the server is ready
+                if (readyCallback) {
+                    readyCallback();
+                }
+            });
         });
     }
 };
@@ -581,7 +207,7 @@ function performRedirect() {
 function retrieveBasket() {
     return function(req, res, next){
         var id = req.params.id;
-        Basket.find({where: {id: id}, include: [ Product ]})
+        models.Basket.find({where: {id: id}, include: [ Product ]})
             .success(function(basket) {
                 if (notSolved(basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
@@ -598,7 +224,7 @@ function retrieveBasket() {
 
 function retrieveUserList() {
     return function(req, res, next){
-        User.findAll().success(function(users) {
+        models.User.findAll().success(function(users) {
             var usersWithLoginStatus = utils.queryResultToJson(users);
             usersWithLoginStatus.data.forEach(function(user) {
                 user.token = insecurity.authenticatedUsers.tokenOf(user);
@@ -613,7 +239,7 @@ function retrieveUserList() {
 function createOrderPdf() {
     return function(req, res, next){
         var id = req.params.id;
-        Basket.find({where: {id: id}, include: [ Product ]})
+        models.Basket.find({where: {id: id}, include: [ models.Product ]})
             .success(function(basket) {
                 if (basket) {
                     var customer = insecurity.authenticatedUsers.from(req);
@@ -650,7 +276,7 @@ function createOrderPdf() {
                     }
 
                     fileWriter.on('finish', function() {
-                        BasketItem.destroy({BasketId: id});
+                        models.BasketItem.destroy({BasketId: id});
                         res.send('/public/ftp/' + pdfFile);
                     });
                 } else {
@@ -668,12 +294,12 @@ function searchProducts() {
         if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
             solve(localXssChallenge);
         }
-        sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
+        models.sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
             .success(function(products) {
                 if (notSolved(unionSqlInjectionChallenge)) {
                     var dataString = JSON.stringify(products);
                     var solved = true;
-                    User.findAll().success(function(data) {
+                    models.User.findAll().success(function(data) {
                         var users = utils.queryResultToJson(data);
                         if (users.data && users.data.length) {
                             for (var i=0; i<users.data.length; i++) {
@@ -706,7 +332,7 @@ function changePassword() {
         } else {
             var loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token);
             if (loggedInUser) {
-                User.find(loggedInUser.data.id).success(function(user) {
+                models.User.find(loggedInUser.data.id).success(function(user) {
                     user.updateAttributes({password: password}).success(function(user) {
                         res.send(user);
                     }).error(function(error) {
@@ -727,7 +353,7 @@ function loginUser() {
         if (notSolved(weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
             solve(weakPasswordChallenge);
         }
-        sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
+        models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
             .success(function(authenticatedUser) {
                 var user = utils.queryResultToJson(authenticatedUser);
                 if (user.data && user.data.id) {
@@ -738,7 +364,7 @@ function loginUser() {
                     } else if  (notSolved(loginBenderChallenge) && user.data.id === 3) {
                         solve(loginBenderChallenge);
                     }
-                    Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
+                    models.Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
                         var token = insecurity.authorize(user);
                         user.bid = basket.id; // keep track of original basket for challenge solution check
                         insecurity.authenticatedUsers.put(token, user);
@@ -792,14 +418,14 @@ function verifyDatabaseRelatedChallenges() {
             });
         }
         if (notSolved(feedbackChallenge)) {
-            Feedback.findAndCountAll({where: {rating: 5}}).success(function (feedbacks) {
+            models.Feedback.findAndCountAll({where: {rating: 5}}).success(function (feedbacks) {
                 if (feedbacks.count === 0) {
                     solve(feedbackChallenge);
                 }
             });
         }
         if (notSolved(knownVulnerableComponentChallenge)) {
-            Feedback.findAndCountAll({where: Sequelize.or(
+            models.Feedback.findAndCountAll({where: Sequelize.or(
                     Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
                     Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
             ).success(function (data) {
@@ -821,4 +447,281 @@ function solve(challenge) {
 
 function notSolved(challenge) {
     return challenge && !challenge.solved;
+}
+
+function createData() {
+    models.Challenge.create({
+        description: 'Find the carefully hidden \'Score Board\' page.',
+        solved: false
+    }).success(function(challenge) {
+        scoreBoardChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Provoke an error that is not very gracefully handled.',
+        solved: false
+    }).success(function(challenge) {
+        errorHandlingChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Log in with the administrator\'s user account.',
+        solved: false
+    }).success(function(challenge) {
+        loginAdminChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Log in with Jim\'s user account.',
+        solved: false
+    }).success(function(challenge) {
+        loginJimChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Log in with Bender\'s user account.',
+        solved: false
+    }).success(function(challenge) {
+        loginBenderChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
+        solved: false
+    }).success(function(challenge) {
+        localXssChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
+        solved: false
+    }).success(function(challenge) {
+        persistedXssChallengeUser = challenge;
+    });
+    models.Challenge.create({
+        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+        solved: false
+    }).success(function(challenge) {
+        persistedXssChallengeFeedback = challenge;
+    });
+    models.Challenge.create({
+        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
+        solved: false
+    }).success(function(challenge) {
+        restfulXssChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Retrieve a list of all user credentials via SQL Injection',
+        solved: false
+    }).success(function(challenge) {
+        unionSqlInjectionChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
+        solved: false
+    }).success(function(challenge) {
+        weakPasswordChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Get rid of all 5-star customer feedback.',
+        solved: false
+    }).success(function(challenge) {
+        feedbackChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Post some feedback in another users name.',
+        solved: false
+    }).success(function(challenge) {
+        forgedFeedbackChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Wherever you go, there you are.',
+        solved: false
+    }).success(function(challenge) {
+        redirectChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Access someone else\'s basket.',
+        solved: false
+    }).success(function(challenge) {
+        basketChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Place an order that makes you rich.',
+        solved: false
+    }).success(function(challenge) {
+        negativeOrderChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Access a confidential document.',
+        solved: false
+    }).success(function(challenge) {
+        directoryListingChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Access the administration section of the store.',
+        solved: false
+    }).success(function(challenge) {
+        adminSectionChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.' ,
+        solved: false
+    }).success(function(challenge) {
+        csrfChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
+        solved: false
+    }).success(function(challenge) {
+        changeProductChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
+        solved: false
+    }).success(function(challenge) {
+        knownVulnerableComponentChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
+        solved: false
+    }).success(function(challenge) {
+        easterEggLevelOneChallenge = challenge;
+    });
+    models.Challenge.create({
+        description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
+        solved: false
+    }).success(function(challenge) {
+        easterEggLevelTwoChallenge = challenge;
+    });
+    models.User.create({
+        email: 'admin@juice-sh.op',
+        password: 'admin123'
+    });
+    models.User.create({
+        email: 'jim@juice-sh.op',
+        password: 'ncc-1701'
+    });
+    models.User.create({
+        email: 'bender@juice-sh.op',
+        password: 'booze'
+    }).success(function(user) {
+        bender = user;
+    });
+    models.Product.create({
+        name: 'Apple Juice (1000ml)',
+        description: 'The all-time classic.',
+        price: 1.99,
+        image: 'apple_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Orange Juice (1000ml)',
+        description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
+        price: 2.99,
+        image: 'orange_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Eggfruit Juice (500ml)',
+        description: 'Now with even more exotic flavour.',
+        price: 8.99,
+        image: 'eggfruit_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Raspberry Juice (1000ml)',
+        description: 'Made from blended Raspberry Pi, water and sugar.',
+        price: 4.99,
+        image: 'raspberry_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Lemon Juice (500ml)',
+        description: 'Sour but full of vitamins.',
+        price: 2.99,
+        image: 'lemon_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Banana Juice (1000ml)',
+        description: 'Monkeys love it the most.',
+        price: 1.99,
+        image: 'banana_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Lemon Juice (500ml)',
+        description: 'Sour but full of vitamins.',
+        price: 2.99,
+        image: 'lemon_juice.jpg'
+    });
+    models.Product.create({
+        name: 'Juice Shop T-Shirt (3XL)',
+        description: 'Real fans wear it 24/7!',
+        price: 24.99,
+        image: 'fan_shirt.jpg'
+    });
+    models.Product.create({
+        name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
+        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
+        price: 0.01,
+        image: 'owasp_osaft.jpg'
+    }).success(function(product) {
+        osaft = product;
+    });
+    models.Basket.create({
+        UserId: 1
+    });
+    models.Basket.create({
+        UserId: 2
+    });
+    models.Basket.create({
+        UserId: 3
+    });
+    models.BasketItem.create({
+        BasketId: 1,
+        ProductId: 1,
+        quantity: 2
+    });
+    models.BasketItem.create({
+        BasketId: 1,
+        ProductId: 2,
+        quantity: 3
+    });
+    models.BasketItem.create({
+        BasketId: 1,
+        ProductId: 3,
+        quantity: 1
+    });
+    models.BasketItem.create({
+        BasketId: 2,
+        ProductId: 4,
+        quantity: 2
+    });
+    models.BasketItem.create({
+        BasketId: 3,
+        ProductId: 5,
+        quantity: 1
+    });
+    models.Feedback.create({
+        UserId: 1,
+        comment: 'I love this shop! Best juice in town! Highly recommended!',
+        rating: 5
+    });
+    models.Feedback.create({
+        UserId: 2,
+        comment: 'Great shop! The O-Saft is highly recommended!',
+        rating: 4
+    });
+    models.Feedback.create({
+        comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
+        rating: 2
+    });
+    models.Feedback.create({
+        comment: 'This is <b>the</b> store for juices of all kinds!',
+        rating: 4
+    });
+    models.Feedback.create({
+        comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
+        rating: 4
+    });
+    models.Feedback.create({
+        comment: 'Keep up the good work!',
+        rating: 3
+    });
+    models.Feedback.create({
+        UserId: 3,
+        comment: 'No real drinks available here!',
+        rating: 1
+    });
+
 }
