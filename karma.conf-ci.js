@@ -38,18 +38,6 @@ module.exports = function (config) {
             browserName: 'safari',
             platform: 'OS X 10.9',
             version: '7'
-        },
-        sl_ios: {
-            base: 'SauceLabs',
-            browserName: 'iPad',
-            platform: 'OS X 10.9',
-            version: '8.0'
-        },
-        sl_android: {
-            base: 'SauceLabs',
-            browserName: 'android',
-            platform: 'Linux',
-            version: '4.4'
         }
     };
 
