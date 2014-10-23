@@ -7,8 +7,12 @@ module.exports = function (sequelize, DataTypes) {
             description: DataTypes.STRING,
             price: DataTypes.DECIMAL,
             image: DataTypes.STRING
-        },
-        {
+        }, {
+            classMethods: {
+                associate: function (models) {
+                    Product.hasMany(models.Basket, {through: models.BasketItem});
+                }},
+
             hooks: {
                 beforeCreate: function (product, fn) {
                     xssChallengeProductHook(product);

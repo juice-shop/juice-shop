@@ -2,19 +2,14 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-    var BasketItem = sequelize.define('BasketItems', {
+    var BasketItem = sequelize.define('BasketItem', {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true
             },
             quantity: DataTypes.INTEGER
-        }, {
-            classMethods: {
-                associate: function (models) {
-                    models.Basket.hasMany(models.Product, {through: BasketItem});
-                    models.Product.hasMany(models.Basket, {through: BasketItem});
-                }}}
+        }
     );
     return BasketItem;
 };
