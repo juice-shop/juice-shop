@@ -38,6 +38,18 @@ module.exports = function (config) {
             browserName: 'safari',
             platform: 'OS X 10.9',
             version: '7'
+        },
+        sl_ios: {
+            base: 'SauceLabs',
+            browserName: 'iPad',
+            platform: 'OS X 10.9',
+            version: '8.0'
+        },
+        sl_android: {
+            base: 'SauceLabs',
+            browserName: 'android',
+            platform: 'Linux',
+            version: '4.4'
         }
     };
 
@@ -61,8 +73,14 @@ module.exports = function (config) {
         sauceLabs: {
             testName: 'Juice-Shop Angular Unit Tests',
             tags: [process.env.TRAVIS_BRANCH],
-            recordScreenshots: false
+            recordScreenshots: false,
+
         },
+
+        browserDisconnectTimeout : 10000,
+        browserDisconnectTolerance : 1,
+        browserNoActivityTimeout : 4*60*1000,
+        captureTimeout : 4*60*1000,
 
         colors: true,
         singleRun: true,
