@@ -1,6 +1,10 @@
 /*jslint node: true */
 'use strict';
 
+var utils = require("../lib/utils"),
+    challenges = require("../lib/datacache").challenges;
+
+
 module.exports = function (sequelize, DataTypes) {
     var Product = sequelize.define('Product', {
             name: DataTypes.STRING,
@@ -27,9 +31,7 @@ module.exports = function (sequelize, DataTypes) {
 };
 
 function xssChallengeProductHook(product) {
-    /*
-     if (notSolved(restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS4")</script>')) {
-     solve(restfulXssChallenge);
+     if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS4")</script>')) {
+         utils.solve(challenges.restfulXssChallenge);
      }
-     */
 }

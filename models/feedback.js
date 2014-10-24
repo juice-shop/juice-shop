@@ -1,7 +1,9 @@
 /*jslint node: true */
 'use strict';
 
-var insecurity = require('../lib/insecurity');
+var insecurity = require('../lib/insecurity'),
+    utils = require("../lib/utils"),
+    challenges = require("../lib/datacache").challenges;
 
 module.exports = function (sequelize, DataTypes) {
     var Feedback = sequelize.define('Feedback', {
@@ -29,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
 
 function htmlSanitizationHook(feedback) {
     feedback.comment = insecurity.sanitizeHtml(feedback.comment);
-/*    if (notSolved(persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS3")</script>')) {
-        solve(persistedXssChallengeFeedback);
-    }*/
+    if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS3")</script>')) {
+        utils.solve(challenges.persistedXssChallengeFeedback);
+    }
 }

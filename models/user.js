@@ -1,7 +1,9 @@
 /*jslint node: true */
 'use strict';
 
-var insecurity = require('../lib/insecurity');
+var insecurity = require('../lib/insecurity'),
+    utils = require("../lib/utils"),
+    challenges = require("../lib/datacache").challenges;
 
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
@@ -29,7 +31,7 @@ function hashPasswordHook(user) {
 }
 
 function xssChallengeUserHook(user) {
-    /*    if (notSolved(persistedXssChallengeUser) && utils.contains(user.email, '<script>alert("XSS2")</script>')) {
-     solve(persistedXssChallengeUser);
-     }*/
+    if (utils.notSolved(challenges.persistedXssChallengeUser) && utils.contains(user.email, '<script>alert("XSS2")</script>')) {
+        utils.solve(challenges.persistedXssChallengeUser);
+    }
 }

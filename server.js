@@ -16,6 +16,9 @@ var application_root = __dirname.replace(/\\/g, '/'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require("./models"),
+    datacreator = require("./lib/datacreator"),
+    cache = require("./lib/datacache"),
+    challenges = cache.challenges,
     app = express();
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
@@ -27,21 +30,10 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
     });
 });
 
-/* Challenges */
-var redirectChallenge, easterEggLevelOneChallenge, easterEggLevelTwoChallenge, directoryListingChallenge,
-    loginAdminChallenge, loginJimChallenge, loginBenderChallenge, changeProductChallenge, csrfChallenge,
-    errorHandlingChallenge, knownVulnerableComponentChallenge, negativeOrderChallenge, persistedXssChallengeFeedback,
-    persistedXssChallengeUser, localXssChallenge, restfulXssChallenge,basketChallenge, weakPasswordChallenge,
-    adminSectionChallenge, scoreBoardChallenge, feedbackChallenge, unionSqlInjectionChallenge, forgedFeedbackChallenge;
-
-/* Entities relevant for challenges */
-
-var bender, osaft;
-
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
-/* Checks for solved challenges */
+/* Checks for utils.solved challenges */
 app.use(verifyDatabaseRelatedChallenges());
 app.use('/public/images/tracking', verifyAccessControlChallenges());
 
@@ -105,7 +97,7 @@ exports.start = function (config, readyCallback) {
     if (!this.server) {
         models.sequelize.drop();
         models.sequelize.sync().success(function() {
-            createData();
+            datacreator();
             this.server = app.listen(config.port, function () {
                 console.log('Listening on port %d', config.port);
                 // callback to call when the server is ready
@@ -126,11 +118,11 @@ exports.close = function (exitCode) {
 
 function verifyForgedFeedbackChallenge() {
     return function(req, res, next) {
-        if (notSolved(forgedFeedbackChallenge)) {
+        if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
             var userId = user ? user.data.id : undefined;
             if (req.body.UserId && req.body.UserId != userId) {
-                solve(forgedFeedbackChallenge);
+                utils.solve(challenges.forgedFeedbackChallenge);
             }
         }
         next();
@@ -139,10 +131,10 @@ function verifyForgedFeedbackChallenge() {
 
 function verifyAccessControlChallenges() {
     return function (req, res, next) {
-        if (notSolved(scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
-            solve(scoreBoardChallenge);
-        } else if (notSolved(adminSectionChallenge) && utils.endsWith(req.url, '/administration.png')) {
-            solve(adminSectionChallenge);
+        if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
+            utils.solve(challenges.scoreBoardChallenge);
+        } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(req.url, '/administration.png')) {
+            utils.solve(challenges.adminSectionChallenge);
         }
         next();
     };
@@ -173,8 +165,8 @@ function serveAngularClient() {
 
 function verifyErrorHandlingChallenge() {
     return function (err, req, res, next) {
-        if (notSolved(errorHandlingChallenge) && err && res.statusCode > 401) {
-            solve(errorHandlingChallenge);
+        if (utils.notSolved(challenges.errorHandlingChallenge) && err && res.statusCode > 401) {
+            utils.solve(challenges.errorHandlingChallenge);
         }
         next(err);
     };
@@ -182,8 +174,8 @@ function verifyErrorHandlingChallenge() {
 
 function serveEasterEgg() {
     return function (req, res) {
-        if (notSolved(easterEggLevelTwoChallenge)) {
-            solve(easterEggLevelTwoChallenge);
+        if (utils.notSolved(challenges.easterEggLevelTwoChallenge)) {
+            utils.solve(challenges.easterEggLevelTwoChallenge);
         }
         res.sendFile(__dirname + '/app/private/threejs-demo.html');
     };
@@ -194,8 +186,8 @@ function performRedirect() {
         var to = req.query.to;
         var githubUrl = 'https://github.com/bkimminich/juice-shop';
         if (to.indexOf(githubUrl) > -1) {
-            if (notSolved(redirectChallenge) && to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
-                solve(redirectChallenge);
+            if (utils.notSolved(challenges.redirectChallenge) && to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
+                utils.solve(challenges.redirectChallenge);
             }
             res.redirect(to);
         } else {
@@ -209,10 +201,10 @@ function retrieveBasket() {
         var id = req.params.id;
         models.Basket.find({where: {id: id}, include: [ models.Product ]})
             .success(function(basket) {
-                if (notSolved(basketChallenge)) {
+                if (utils.notSolved(challenges.basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
                     if (user && user.bid != id) {
-                        solve(basketChallenge);
+                        utils.solve(challenges.basketChallenge);
                     }
                 }
                 res.json(utils.queryResultToJson(basket));
@@ -271,8 +263,8 @@ function createOrderPdf() {
                     doc.text('Thank you for your order!');
                     doc.end();
 
-                    if (notSolved(negativeOrderChallenge) && totalPrice < 0) {
-                        solve (negativeOrderChallenge);
+                    if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
+                        utils.solve(challenges.negativeOrderChallenge);
                     }
 
                     fileWriter.on('finish', function() {
@@ -291,25 +283,25 @@ function createOrderPdf() {
 function searchProducts() {
     return function(req, res, next){
         var criteria = req.query.q === 'undefined' ? '' : req.query.q || '';
-        if (notSolved(localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
-            solve(localXssChallenge);
+        if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
+            utils.solve(challenges.localXssChallenge);
         }
         models.sequelize.query('SELECT * FROM Products WHERE (name LIKE \'%' + criteria + '%\') OR (description LIKE \'%' + criteria + '%\')')
             .success(function(products) {
-                if (notSolved(unionSqlInjectionChallenge)) {
+                if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
                     var dataString = JSON.stringify(products);
                     var solved = true;
                     models.User.findAll().success(function(data) {
                         var users = utils.queryResultToJson(data);
                         if (users.data && users.data.length) {
                             for (var i=0; i<users.data.length; i++) {
-                                solved = solved && utils.contains(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password);
+                                utils.solved = utils.solved && utils.contains(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password);
                                 if (!solved) {
                                     break;
                                 }
                             }
                             if (solved) {
-                                solve(unionSqlInjectionChallenge);
+                                utils.solve(challenges.unionSqlInjectionChallenge);
                             }
                         }
                     });
@@ -350,19 +342,19 @@ function changePassword() {
 
 function loginUser() {
     return function(req, res, next){
-        if (notSolved(weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
-            solve(weakPasswordChallenge);
+        if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
+            utils.solve(challenges.weakPasswordChallenge);
         }
         models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, {plain: true})
             .success(function(authenticatedUser) {
                 var user = utils.queryResultToJson(authenticatedUser);
                 if (user.data && user.data.id) {
-                    if (notSolved(loginAdminChallenge) && user.data.id === 1) {
-                        solve(loginAdminChallenge);
-                    } else if (notSolved(loginJimChallenge) && user.data.id === 2) {
-                        solve(loginJimChallenge);
-                    } else if  (notSolved(loginBenderChallenge) && user.data.id === 3) {
-                        solve(loginBenderChallenge);
+                    if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
+                        utils.solve(challenges.loginAdminChallenge);
+                    } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === 2) {
+                        utils.solve(challenges.loginJimChallenge);
+                    } else if  (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === 3) {
+                        utils.solve(challenges.loginBenderChallenge);
                     }
                     models.Basket.findOrCreate({UserId: user.data.id}).success(function(basket) {
                         var token = insecurity.authorize(user);
@@ -386,10 +378,10 @@ function serveFiles() {
         var file = req.params.file;
         if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
             file = insecurity.cutOffPoisonNullByte(file);
-            if (notSolved(easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
-                solve(easterEggLevelOneChallenge);
-            } else if (notSolved(directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
-                solve(directoryListingChallenge);
+            if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
+                utils.solve(challenges.easterEggLevelOneChallenge);
+            } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
+                utils.solve(challenges.directoryListingChallenge);
             }
             res.sendFile(__dirname + '/app/public/ftp/' + file);
         } else {
@@ -401,36 +393,36 @@ function serveFiles() {
 
 function verifyDatabaseRelatedChallenges() {
     return function (req, res, next) {
-        if (notSolved(changeProductChallenge) && osaft) {
-            osaft.reload().success(function () {
-                if (!utils.contains(osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
-                    if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
-                        solve(changeProductChallenge);
+        if (utils.notSolved(challenges.changeProductChallenge) && cache.products.osaft) {
+            cache.products.osaft.reload().success(function () {
+                if (!utils.contains(cache.products.osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
+                    if (utils.contains(cache.products.osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
+                        utils.solve(challenges.changeProductChallenge);
                     }
                 }
             });
         }
-        if (notSolved(csrfChallenge) && bender) {
-            bender.reload().success(function() {
-                if (bender.password === insecurity.hash('slurmCl4ssic')) {
-                    solve(csrfChallenge);
+        if (utils.notSolved(challenges.csrfChallenge) && cache.users.bender) {
+            cache.users.bender.reload().success(function() {
+                if (cache.users.bender.password === insecurity.hash('slurmCl4ssic')) {
+                    utils.solve(challenges.csrfChallenge);
                 }
             });
         }
-        if (notSolved(feedbackChallenge)) {
+        if (utils.notSolved(challenges.feedbackChallenge)) {
             models.Feedback.findAndCountAll({where: {rating: 5}}).success(function (feedbacks) {
                 if (feedbacks.count === 0) {
-                    solve(feedbackChallenge);
+                    utils.solve(challenges.feedbackChallenge);
                 }
             });
         }
-        if (notSolved(knownVulnerableComponentChallenge)) {
+        if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
             models.Feedback.findAndCountAll({where: models.Sequelize.or(
                     models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
                     models.Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
             ).success(function (data) {
                     if (data.count > 0) {
-                        solve(knownVulnerableComponentChallenge);
+                        utils.solve(challenges.knownVulnerableComponentChallenge);
                     }
                 });
         }
@@ -438,290 +430,3 @@ function verifyDatabaseRelatedChallenges() {
     };
 }
 
-function solve(challenge) {
-    challenge.solved = true;
-    challenge.save().success(function() {
-        console.log('Solved challenge "' + challenge.description + '"');
-    });
-}
-
-function notSolved(challenge) {
-    return challenge && !challenge.solved;
-}
-
-function createData() {
-    models.Challenge.create({
-        description: 'Find the carefully hidden \'Score Board\' page.',
-        solved: false
-    }).success(function(challenge) {
-        scoreBoardChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Provoke an error that is not very gracefully handled.',
-        solved: false
-    }).success(function(challenge) {
-        errorHandlingChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Log in with the administrator\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginAdminChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Log in with Jim\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginJimChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Log in with Bender\'s user account.',
-        solved: false
-    }).success(function(challenge) {
-        loginBenderChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
-        solved: false
-    }).success(function(challenge) {
-        localXssChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
-        solved: false
-    }).success(function(challenge) {
-        persistedXssChallengeUser = challenge;
-    });
-    models.Challenge.create({
-        description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
-        solved: false
-    }).success(function(challenge) {
-        persistedXssChallengeFeedback = challenge;
-    });
-    models.Challenge.create({
-        description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
-        solved: false
-    }).success(function(challenge) {
-        restfulXssChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Retrieve a list of all user credentials via SQL Injection',
-        solved: false
-    }).success(function(challenge) {
-        unionSqlInjectionChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
-        solved: false
-    }).success(function(challenge) {
-        weakPasswordChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Get rid of all 5-star customer feedback.',
-        solved: false
-    }).success(function(challenge) {
-        feedbackChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Post some feedback in another users name.',
-        solved: false
-    }).success(function(challenge) {
-        forgedFeedbackChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Wherever you go, there you are.',
-        solved: false
-    }).success(function(challenge) {
-        redirectChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Access someone else\'s basket.',
-        solved: false
-    }).success(function(challenge) {
-        basketChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Place an order that makes you rich.',
-        solved: false
-    }).success(function(challenge) {
-        negativeOrderChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Access a confidential document.',
-        solved: false
-    }).success(function(challenge) {
-        directoryListingChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Access the administration section of the store.',
-        solved: false
-    }).success(function(challenge) {
-        adminSectionChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.' ,
-        solved: false
-    }).success(function(challenge) {
-        csrfChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
-        solved: false
-    }).success(function(challenge) {
-        changeProductChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
-        solved: false
-    }).success(function(challenge) {
-        knownVulnerableComponentChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
-        solved: false
-    }).success(function(challenge) {
-        easterEggLevelOneChallenge = challenge;
-    });
-    models.Challenge.create({
-        description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
-        solved: false
-    }).success(function(challenge) {
-        easterEggLevelTwoChallenge = challenge;
-    });
-    models.User.create({
-        email: 'admin@juice-sh.op',
-        password: 'admin123'
-    });
-    models.User.create({
-        email: 'jim@juice-sh.op',
-        password: 'ncc-1701'
-    });
-    models.User.create({
-        email: 'bender@juice-sh.op',
-        password: 'booze'
-    }).success(function(user) {
-        bender = user;
-    });
-    models.Product.create({
-        name: 'Apple Juice (1000ml)',
-        description: 'The all-time classic.',
-        price: 1.99,
-        image: 'apple_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Orange Juice (1000ml)',
-        description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
-        price: 2.99,
-        image: 'orange_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Eggfruit Juice (500ml)',
-        description: 'Now with even more exotic flavour.',
-        price: 8.99,
-        image: 'eggfruit_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Raspberry Juice (1000ml)',
-        description: 'Made from blended Raspberry Pi, water and sugar.',
-        price: 4.99,
-        image: 'raspberry_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Lemon Juice (500ml)',
-        description: 'Sour but full of vitamins.',
-        price: 2.99,
-        image: 'lemon_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Banana Juice (1000ml)',
-        description: 'Monkeys love it the most.',
-        price: 1.99,
-        image: 'banana_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Lemon Juice (500ml)',
-        description: 'Sour but full of vitamins.',
-        price: 2.99,
-        image: 'lemon_juice.jpg'
-    });
-    models.Product.create({
-        name: 'Juice Shop T-Shirt (3XL)',
-        description: 'Real fans wear it 24/7!',
-        price: 24.99,
-        image: 'fan_shirt.jpg'
-    });
-    models.Product.create({
-        name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
-        description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
-        price: 0.01,
-        image: 'owasp_osaft.jpg'
-    }).success(function(product) {
-        osaft = product;
-    });
-    models.Basket.create({
-        UserId: 1
-    });
-    models.Basket.create({
-        UserId: 2
-    });
-    models.Basket.create({
-        UserId: 3
-    });
-    models.BasketItem.create({
-        BasketId: 1,
-        ProductId: 1,
-        quantity: 2
-    });
-    models.BasketItem.create({
-        BasketId: 1,
-        ProductId: 2,
-        quantity: 3
-    });
-    models.BasketItem.create({
-        BasketId: 1,
-        ProductId: 3,
-        quantity: 1
-    });
-    models.BasketItem.create({
-        BasketId: 2,
-        ProductId: 4,
-        quantity: 2
-    });
-    models.BasketItem.create({
-        BasketId: 3,
-        ProductId: 5,
-        quantity: 1
-    });
-    models.Feedback.create({
-        UserId: 1,
-        comment: 'I love this shop! Best juice in town! Highly recommended!',
-        rating: 5
-    });
-    models.Feedback.create({
-        UserId: 2,
-        comment: 'Great shop! The O-Saft is highly recommended!',
-        rating: 4
-    });
-    models.Feedback.create({
-        comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
-        rating: 2
-    });
-    models.Feedback.create({
-        comment: 'This is <b>the</b> store for juices of all kinds!',
-        rating: 4
-    });
-    models.Feedback.create({
-        comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
-        rating: 4
-    });
-    models.Feedback.create({
-        comment: 'Keep up the good work!',
-        rating: 3
-    });
-    models.Feedback.create({
-        UserId: 3,
-        comment: 'No real drinks available here!',
-        rating: 1
-    });
-
-}
