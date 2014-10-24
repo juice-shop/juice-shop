@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>Happy Easter!</title>
-    <script src="three.js"></script>
-    <script src="OrbitControls.js"></script>
-    <script src="dat.gui.min.js"></script>
-    <script src="stats.min.js"></script>
+    <script src="/private/three.js"></script>
+    <script src="/private/OrbitControls.js"></script>
+    <script src="/private/dat.gui.min.js"></script>
+    <script src="/private/stats.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -61,7 +61,7 @@
     }
 
     function createEarthMaterial() {
-        var earthTexture = THREE.ImageUtils.loadTexture("eggmap.jpg");
+        var earthTexture = THREE.ImageUtils.loadTexture("/private/eggs.jpg");
 
         var earthMaterial = new THREE.MeshBasicMaterial();
         earthMaterial.map = earthTexture;
