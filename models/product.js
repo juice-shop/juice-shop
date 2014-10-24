@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var utils = require("../lib/utils"),
-    challenges = require("../lib/datacache").challenges;
+var utils = require('../lib/utils'),
+    challenges = require('../lib/datacache').challenges;
 
 
 module.exports = function (sequelize, DataTypes) {

@@ -2,8 +2,8 @@
 'use strict';
 
 var insecurity = require('../lib/insecurity'),
-    utils = require("../lib/utils"),
-    challenges = require("../lib/datacache").challenges;
+    utils = require('../lib/utils'),
+    challenges = require('../lib/datacache').challenges;
 
 module.exports = function (sequelize, DataTypes) {
     var Feedback = sequelize.define('Feedback', {
