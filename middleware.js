@@ -6,7 +6,7 @@ var fs = require('fs'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require('./models'),
-    cache = require("./lib/datacache"),
+    cache = require('./lib/datacache'),
     challenges = cache.challenges;
 
 exports.verifyForgedFeedbackChallenge = function() {
@@ -20,7 +20,7 @@ exports.verifyForgedFeedbackChallenge = function() {
         }
         next();
     };
-}
+};
 
 exports.verifyAccessControlChallenges = function() {
     return function (req, res, next) {
@@ -31,20 +31,20 @@ exports.verifyAccessControlChallenges = function() {
         }
         next();
     };
-}
+};
 
 exports.retrieveLoggedInUsersId = function() {
     return function (req, res) {
         var user = insecurity.authenticatedUsers.from(req);
         res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
     };
-}
+};
 
 exports.retrieveAppVersion = function() {
     return function (req, res) {
         res.json({version: utils.version()});
     };
-}
+};
 
 exports.serveAngularClient = function() {
     return function (req, res, next) {
@@ -54,7 +54,7 @@ exports.serveAngularClient = function() {
             next(new Error('Unexpected path: ' + req.url));
         }
     };
-}
+};
 
 exports.verifyErrorHandlingChallenge = function() {
     return function (err, req, res, next) {
@@ -63,7 +63,7 @@ exports.verifyErrorHandlingChallenge = function() {
         }
         next(err);
     };
-}
+};
 
 exports.serveEasterEgg = function() {
     return function (req, res) {
@@ -72,7 +72,7 @@ exports.serveEasterEgg = function() {
         }
         res.sendFile(__dirname + '/app/private/threejs-demo.html');
     };
-}
+};
 
 exports.performRedirect = function() {
     return function(req, res) {
@@ -87,7 +87,7 @@ exports.performRedirect = function() {
             res.redirect(githubUrl);
         }
     };
-}
+};
 
 exports.retrieveBasket = function() {
     return function(req, res, next){
@@ -105,7 +105,7 @@ exports.retrieveBasket = function() {
                 next(error);
             });
     };
-}
+};
 
 exports.retrieveUserList = function() {
     return function(req, res, next){
@@ -119,7 +119,7 @@ exports.retrieveUserList = function() {
             next(error);
         });
     };
-}
+};
 
 exports.createOrderPdf = function() {
     return function(req, res, next){
@@ -171,7 +171,7 @@ exports.createOrderPdf = function() {
                 next(error);
             });
     };
-}
+};
 
 exports.searchProducts = function() {
     return function(req, res, next){
@@ -204,7 +204,7 @@ exports.searchProducts = function() {
                 next(error);
             });
     };
-}
+};
 
 exports.changePassword = function() {
     return function(req, res, next){
@@ -231,7 +231,7 @@ exports.changePassword = function() {
             }
         }
     };
-}
+};
 
 exports.loginUser = function() {
     return function(req, res, next){
@@ -264,7 +264,7 @@ exports.loginUser = function() {
                 next(error);
             });
     };
-}
+};
 
 exports.serveFiles = function() {
     return function(req, res, next) {
@@ -282,7 +282,7 @@ exports.serveFiles = function() {
             next(new Error('Only .md and .pdf files are allowed!'));
         }
     };
-}
+};
 
 exports.verifyDatabaseRelatedChallenges = function() {
     return function (req, res, next) {
@@ -321,4 +321,4 @@ exports.verifyDatabaseRelatedChallenges = function() {
         }
         next();
     };
-}
+};
