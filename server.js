@@ -207,7 +207,7 @@ function performRedirect() {
 function retrieveBasket() {
     return function(req, res, next){
         var id = req.params.id;
-        models.Basket.find({where: {id: id}, include: [ Product ]})
+        models.Basket.find({where: {id: id}, include: [ models.Product ]})
             .success(function(basket) {
                 if (notSolved(basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
@@ -353,7 +353,7 @@ function loginUser() {
         if (notSolved(weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
             solve(weakPasswordChallenge);
         }
-        models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', User, {plain: true})
+        models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, {plain: true})
             .success(function(authenticatedUser) {
                 var user = utils.queryResultToJson(authenticatedUser);
                 if (user.data && user.data.id) {
