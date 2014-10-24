@@ -2,4 +2,4 @@
 'use strict';
 
 var server = require('./server');
-server.start({ port: 3000 });
+server.start({ port: process.env.PORT || 3000 });

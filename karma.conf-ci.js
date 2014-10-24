@@ -32,6 +32,12 @@ module.exports = function (config) {
             browserName: 'internet explorer',
             platform: 'Windows 7',
             version: '9'
+        },
+        sl_safari: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'OS X 10.9',
+            version: '7'
         }
     };
 
@@ -57,6 +63,11 @@ module.exports = function (config) {
             tags: [process.env.TRAVIS_BRANCH],
             recordScreenshots: false
         },
+
+        browserDisconnectTimeout : 10000,
+        browserDisconnectTolerance : 1,
+        browserNoActivityTimeout : 4*60*1000,
+        captureTimeout : 4*60*1000,
 
         colors: true,
         singleRun: true,

@@ -16,5 +16,5 @@ deploy:
     secure: bzxWh4DRhjcJ52FXzZhEOMmseDOPCDw/yC5ikblBH0uwoXIPJD2yKJ884CqzyL8Jf3yFBpZasVvbFjNDPpyGxZv0UMInYhJBHuyFXKe+pqyf1z7vif0FaH2Fze9VfmCV/GPRiNMMgTcvgoCIJs8wXsCoRcafWVaX9m4xH5ZHt/I=
 env:
   global:
-    - secure: U7+Gv3U8nP+AopuI9HrwqnrBeXBc39HyRZ7/di66rlVujzXeN8O821uQVjnxdIB8GcbmJyGx7Av1hqTBYyhot2mMtmtFnwUs5ijc3tu1IMv5BabQUIzHvMkXjAAAHRwBCbb2QMXHk/oEhdy0evsO8JDIwiHDP0SeFCS7sY9obco=
-    - secure: XMZ+PkMPArPdJMlWEu1l2BDFC8l2YR57ZkLOYIhOuITXfxPL389ujJvf6FPZoayUKjajCGDQ3TpBD46Gx6Cc1KFyORvKNx8wu83l+xcE5Oo8XuSx3VScpZv1jmdw8TgomqstjiWhcQjbjDZ52MCpBHMNTkNtJKNNAbDaC6/uXFQ=
+    - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
+    - secure: oKuecH+rXXiHdUL/ARWFXZ6FM8K/ASxIEpI44tDujSmJtgCMjgnsl3+GtF7e5EJGjfkNDDot09bsBboLqpFJeGXSVPSKtxtrRefnb8Ld0EpdlD3L7a9f6IHF7tmMZi2YxtJE80bLD6Tp/+Yz3Luqe+EydUjbn6OYFubF5+UcjqE=
