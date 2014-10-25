@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-- '0.11'
 - '0.10'
 addons:
   code_climate:
@@ -17,5 +16,9 @@ deploy:
     secure: bzxWh4DRhjcJ52FXzZhEOMmseDOPCDw/yC5ikblBH0uwoXIPJD2yKJ884CqzyL8Jf3yFBpZasVvbFjNDPpyGxZv0UMInYhJBHuyFXKe+pqyf1z7vif0FaH2Fze9VfmCV/GPRiNMMgTcvgoCIJs8wXsCoRcafWVaX9m4xH5ZHt/I=
 env:
   global:
-    - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
-    - secure: oKuecH+rXXiHdUL/ARWFXZ6FM8K/ASxIEpI44tDujSmJtgCMjgnsl3+GtF7e5EJGjfkNDDot09bsBboLqpFJeGXSVPSKtxtrRefnb8Ld0EpdlD3L7a9f6IHF7tmMZi2YxtJE80bLD6Tp/+Yz3Luqe+EydUjbn6OYFubF5+UcjqE=
+  - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
+  - secure: oKuecH+rXXiHdUL/ARWFXZ6FM8K/ASxIEpI44tDujSmJtgCMjgnsl3+GtF7e5EJGjfkNDDot09bsBboLqpFJeGXSVPSKtxtrRefnb8Ld0EpdlD3L7a9f6IHF7tmMZi2YxtJE80bLD6Tp/+Yz3Luqe+EydUjbn6OYFubF5+UcjqE=
+notifications:
+  email:
+  - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
+  - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
