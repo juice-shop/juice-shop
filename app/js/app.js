@@ -16,7 +16,7 @@ myApp.factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function (
         },
         response: function (response) {
             if (response.status === 401) {
-                console.err('401: ' + response.statusText);
+                console.log('401: ' + response.statusText);
             }
             return response || $q.when(response);
         }
