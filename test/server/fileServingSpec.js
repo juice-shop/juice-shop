@@ -64,7 +64,7 @@ frisby.create('GET the second easter egg by visiting the hidden URL')
     .get(URL + "/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg")
     .expectStatus(200)
     .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>Happy Easter!</title>')
+    .expectBodyContains('<title>Welcome to Planet Orangeuze</title>')
     .toss();
 
 frisby.create('GET tracking image for "Score Board" page access challenge')
