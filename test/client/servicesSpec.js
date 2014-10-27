@@ -143,6 +143,7 @@ describe('services', function () {
             expect(BasketService.get).toBeDefined();
             expect(BasketService.put).toBeDefined();
             expect(BasketService.del).toBeDefined();
+            expect(BasketService.checkout).toBeDefined();
         }));
 
         it('should get basket directly from the rest api', inject(function (BasketService) {
@@ -191,9 +192,9 @@ describe('services', function () {
         }));
 
         it('should place order for basket via the rest api', inject(function (BasketService) {
-            $httpBackend.whenPOST('/rest/basket/1/order').respond(200, 'apiResponse');
+            $httpBackend.whenPOST('/rest/basket/1/checkout').respond(200, 'apiResponse');
 
-            BasketService.order(1).success(function (data) { result = data; });
+            BasketService.checkout(1).success(function (data) { result = data; });
             $httpBackend.flush();
 
             expect(result).toBe('apiResponse');

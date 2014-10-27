@@ -28,8 +28,8 @@ angular.module('myApp').controller('BasketController', [
 
         };
 
-        $scope.order = function() {
-            basketService.order($window.sessionStorage.bid).success(function (confirmationUrl) {
+        $scope.checkout = function() {
+            basketService.checkout($window.sessionStorage.bid).success(function (confirmationUrl) {
                 $window.location.replace(confirmationUrl);
             }).error(function (err) {
                 console.log(err);

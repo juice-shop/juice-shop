@@ -72,12 +72,12 @@ frisby.create('DELETE existing basket is not part of API')
     .toss();
 
 frisby.create('POST placing an order for a basket is not allowed via public API')
-    .post(REST_URL + '/basket/1/order')
+    .post(REST_URL + '/basket/1/checkout')
     .expectStatus(401)
     .toss();
 
 frisby.create('POST placing an order for a basket returns URL to confirmation PDF')
-    .post(REST_URL + '/basket/1/order')
+    .post(REST_URL + '/basket/1/checkout')
     .addHeaders(authHeader)
     .expectStatus(200)
     .expectBodyContains('/public/ftp/order_')
@@ -85,7 +85,7 @@ frisby.create('POST placing an order for a basket returns URL to confirmation PD
     .toss();
 
 frisby.create('POST placing an order for a non-existing basket')
-    .post(REST_URL + '/basket/42/order')
+    .post(REST_URL + '/basket/42/checkout')
     .addHeaders(authHeader)
     .expectStatus(500)
     .expectBodyContains('Error: Basket with id=42 does not exist.')
@@ -101,7 +101,7 @@ frisby.create('POST new basket item with negative quantity')
     .expectStatus(200)
     .after(function() {
         frisby.create('GET placing an order for a basket with a negative total cost')
-            .post(REST_URL + '/basket/3/order')
+            .post(REST_URL + '/basket/3/checkout')
             .addHeaders(authHeader)
             .expectStatus(200)
             .expectBodyContains('/public/ftp/order_')
