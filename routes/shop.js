@@ -49,7 +49,7 @@ exports.retrieveBasket = function() {
             .success(function(basket) {
                 if (utils.notSolved(challenges.basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
-                    if (user && user.bid != id) {
+                    if (user && user.bid != id) { // jshint ignore:line (type conversion intented)
                         utils.solve(challenges.basketChallenge);
                     }
                 }

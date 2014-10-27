@@ -14,7 +14,7 @@ exports.forgedFeedbackChallenge = function() {
         if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
             var userId = user ? user.data.id : undefined;
-            if (req.body.UserId && req.body.UserId != userId) {
+            if (req.body.UserId && req.body.UserId != userId) { // jshint ignore:line (type conversion intented)
                 utils.solve(challenges.forgedFeedbackChallenge);
             }
         }
