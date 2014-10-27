@@ -17,7 +17,6 @@ describe('search', function () {
 
         element(by.id('searchButton')).click();
 
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search\?q=Apple/);
         var productNames = element.all(by.repeater('product in products').column('name'));
         expect(productNames.first().getText()).toMatch(/Apple/);
     });
@@ -27,17 +26,15 @@ describe('search', function () {
 
         element(by.id('searchButton')).click();
 
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search\?q=hand-picked/);
         var productDescriptions = element.all(by.repeater('product in products').column('description'));
         expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
     });
 
-    xit('search query should be susceptible to XSS attacks', function () {
+    it('search query should be susceptible to XSS attacks', function () {
         element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
 
         element(by.id('searchButton')).click();
 
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search\?q=<script>alert("XSS1")<\/script>/);
         browser.switchTo().alert().then(function (alert) {
             expect(alert.getText()).toEqual('XSS1');
             alert.accept();
