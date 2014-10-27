@@ -13,6 +13,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     middleware = require('./routes/middleware'),
+    user = require('./routes/user'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require('./models'),
@@ -75,10 +76,10 @@ app.post('/api/Feedbacks', middleware.verifyForgedFeedbackChallenge());
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
-app.post('/rest/user/login', middleware.loginUser());
-app.get('/rest/user/change-password', middleware.changePassword());
-app.get('/rest/user/authentication-details', middleware.retrieveUserList());
-app.get('/rest/user/whoami', middleware.retrieveLoggedInUsersId());
+app.post('/rest/user/login', user.login());
+app.get('/rest/user/change-password', user.changePassword());
+app.get('/rest/user/whoami', user.retrieveLoggedInUsersId());
+app.get('/rest/user/authentication-details', user.retrieveUserList());
 app.get('/rest/product/search', middleware.searchProducts());
 app.get('/rest/basket/:id', middleware.retrieveBasket());
 app.post('/rest/basket/:id/order', middleware.createOrderPdf());
