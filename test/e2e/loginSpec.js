@@ -61,4 +61,18 @@ describe('/#/login', function () {
 
     });
 
+    describe('challenge "adminCredentials"', function () {
+
+        it('should be able to log in with original (weak) admin credentials', function () {
+            email.sendKeys('admin@juice-sh.op');
+            password.sendKeys('admin123');
+            loginButton.click();
+
+            expect(browser.getLocationAbsUrl()).toMatch(/\/search/);
+        });
+
+        protractor.expect.challengeSolved({challenge: 'adminCredentials'});
+
+    });
+
 });
