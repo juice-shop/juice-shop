@@ -1,16 +1,14 @@
 /*jslint node: true */
 'use strict';
 
-var fs = require('fs'),
-    path = require('path'),
-    PDFDocument = require('pdfkit'),
+var path = require('path'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
     models = require('../models/index'),
     cache = require('../lib/datacache'),
     challenges = cache.challenges;
 
-exports.verifyForgedFeedbackChallenge = function() {
+exports.forgedFeedbackChallenge = function() {
     return function(req, res, next) {
         if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
@@ -23,7 +21,7 @@ exports.verifyForgedFeedbackChallenge = function() {
     };
 };
 
-exports.verifyAccessControlChallenges = function() {
+exports.accessControlChallenges = function() {
     return function (req, res, next) {
         if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
             utils.solve(challenges.scoreBoardChallenge);
@@ -34,23 +32,7 @@ exports.verifyAccessControlChallenges = function() {
     };
 };
 
-exports.retrieveAppVersion = function() {
-    return function (req, res) {
-        res.json({version: utils.version()});
-    };
-};
-
-exports.serveAngularClient = function() {
-    return function (req, res, next) {
-        if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
-            res.sendFile(path.resolve(__dirname + '/../app/index.html'));
-        } else {
-            next(new Error('Unexpected path: ' + req.url));
-        }
-    };
-};
-
-exports.verifyErrorHandlingChallenge = function() {
+exports.errorHandlingChallenge = function() {
     return function (err, req, res, next) {
         if (utils.notSolved(challenges.errorHandlingChallenge) && err && res.statusCode > 401) {
             utils.solve(challenges.errorHandlingChallenge);
@@ -59,49 +41,7 @@ exports.verifyErrorHandlingChallenge = function() {
     };
 };
 
-exports.serveEasterEgg = function() {
-    return function (req, res) {
-        if (utils.notSolved(challenges.easterEggLevelTwoChallenge)) {
-            utils.solve(challenges.easterEggLevelTwoChallenge);
-        }
-        res.sendFile(path.resolve(__dirname + '/../app/private/threejs-demo.html'));
-    };
-};
-
-exports.performRedirect = function() {
-    return function(req, res) {
-        var to = req.query.to;
-        var githubUrl = 'https://github.com/bkimminich/juice-shop';
-        if (to.indexOf(githubUrl) > -1) {
-            if (utils.notSolved(challenges.redirectChallenge) && to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
-                utils.solve(challenges.redirectChallenge);
-            }
-            res.redirect(to);
-        } else {
-            res.redirect(githubUrl);
-        }
-    };
-};
-
-exports.serveFiles = function() {
-    return function(req, res, next) {
-        var file = req.params.file;
-        if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
-            file = insecurity.cutOffPoisonNullByte(file);
-            if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
-                utils.solve(challenges.easterEggLevelOneChallenge);
-            } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
-                utils.solve(challenges.directoryListingChallenge);
-            }
-            res.sendFile(path.resolve(__dirname + '/../app/public/ftp/' + file));
-        } else {
-            res.status(403);
-            next(new Error('Only .md and .pdf files are allowed!'));
-        }
-    };
-};
-
-exports.verifyDatabaseRelatedChallenges = function() {
+exports.databaseRelatedChallenges = function() {
     return function (req, res, next) {
         if (utils.notSolved(challenges.changeProductChallenge) && cache.products.osaft) {
             cache.products.osaft.reload().success(function () {

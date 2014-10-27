@@ -12,9 +12,10 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    middleware = require('./routes/middleware'),
+    site = require('./routes/site'),
     user = require('./routes/user'),
     shop = require('./routes/shop'),
+    verify = require('./routes/verify'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require('./models'),
@@ -34,12 +35,12 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
 /* Checks for utils.solved challenges */
-app.use(middleware.verifyDatabaseRelatedChallenges());
-app.use('/public/images/tracking', middleware.verifyAccessControlChallenges());
+app.use(verify.databaseRelatedChallenges());
+app.use('/public/images/tracking', verify.accessControlChallenges());
 
 /* public/ftp directory browsing and file download */
 app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
-app.use('/public/ftp/:file', middleware.serveFiles());
+app.use('/public/ftp/:file', site.servePublicFiles());
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('dev'));
@@ -72,7 +73,7 @@ app.use('/rest/basket/:id', insecurity.isAuthorized());
 app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 
 /* Challenge evaluation before sequelize-restful takes over */
-app.post('/api/Feedbacks', middleware.verifyForgedFeedbackChallenge());
+app.post('/api/Feedbacks', verify.forgedFeedbackChallenge());
 
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
@@ -84,13 +85,13 @@ app.get('/rest/user/authentication-details', user.retrieveUserList());
 app.get('/rest/product/search', shop.searchProducts());
 app.get('/rest/basket/:id', shop.retrieveBasket());
 app.post('/rest/basket/:id/checkout', shop.placeOrder());
-app.get('/rest/admin/application-version', middleware.retrieveAppVersion());
-app.get('/redirect', middleware.performRedirect());
+app.get('/rest/admin/application-version', site.retrieveAppVersion());
+app.get('/redirect', site.performRedirect());
 /* File Serving */
-app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', middleware.serveEasterEgg());
-app.use(middleware.serveAngularClient());
+app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', site.serveEasterEgg());
+app.use(site.serveAngularClient());
 /* Error Handling */
-app.use(middleware.verifyErrorHandlingChallenge());
+app.use(verify.errorHandlingChallenge());
 app.use(errorhandler());
 
 exports.start = function (config, readyCallback) {
