@@ -10,7 +10,9 @@ after_success:
 - ./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'
 - cat "./test/coverage/lcov_merged.info" | ./node_modules/.bin/codeclimate
 - karma start karma.conf-ci.js
-- node test/e2eTests.js
+- npm start &
+- sleep 2
+- protractor protractor.conf.js
 deploy:
   provider: nodejitsu
   user: bkimminich
