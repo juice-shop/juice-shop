@@ -10,28 +10,6 @@ describe('/#/search', function () {
         searchButton = element(by.id('searchButton'));
     });
 
-    it('should show all products performing search without criteria', function () {
-        searchButton.click();
-
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search\?q=$/);
-    });
-
-    it('should show matching products for name when performing search with criteria', function () {
-        searchQuery.sendKeys('Apple');
-        searchButton.click();
-
-        var productNames = element.all(by.repeater('product in products').column('name'));
-        expect(productNames.first().getText()).toMatch(/Apple/);
-    });
-
-    it('should show matching products for description when performing search with criteria', function () {
-        searchQuery.sendKeys('hand-picked');
-        searchButton.click();
-
-        var productDescriptions = element.all(by.repeater('product in products').column('description'));
-        expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
-    });
-
     describe('challenge "xss1"', function () {
 
         it('search query should be susceptible to reflected XSS attacks', function () {
