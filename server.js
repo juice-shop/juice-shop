@@ -19,7 +19,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require('./models'),
-    datacreator = require('./lib/datacreator'),
+    datacreator = require('./data/datacreator'),
     app = express();
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';

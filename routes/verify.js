@@ -4,7 +4,7 @@
 var utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
     models = require('../models/index'),
-    cache = require('../lib/datacache'),
+    cache = require('../data/datacache'),
     challenges = cache.challenges,
     users = cache.users,
     products = cache.products;

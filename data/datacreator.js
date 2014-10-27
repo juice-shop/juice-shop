@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var models = require('../models'),
+var models = require('../models/index'),
     datacache = require('./datacache'),
     challenges = datacache.challenges,
     users = datacache.users,
