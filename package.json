@@ -59,6 +59,7 @@
         "karma-safari-launcher": "~0.1",
         "karma-phantomjs-launcher": "~0.1",
         "karma-jasmine": "~0.1",
+        "protractor": "~1.1",
         "http-server": "~0.7",
         "shelljs": "~0.3",
         "win-spawn": "~2.0",
@@ -73,7 +74,13 @@
     "scripts": {
         "postinstall": "node bower_install.js && node grunt_minify.js",
         "start": "node app",
-        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js"
+        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+
+        "preupdate-webdriver": "npm install",
+        "update-webdriver": "webdriver-manager update",
+        "preprotractor": "npm run update-webdriver",
+        "protractor": "node test/e2eTests.js"
+
     },
     "subdomain": "juice-shop",
     "engines": {
