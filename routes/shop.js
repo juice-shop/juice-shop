@@ -2,7 +2,6 @@
 'use strict';
 
 var fs = require('fs'),
-    path = require('path'),
     PDFDocument = require('pdfkit'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),

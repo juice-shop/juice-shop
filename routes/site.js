@@ -4,7 +4,6 @@
 var path = require('path'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
-    models = require('../models/index'),
     cache = require('../lib/datacache'),
     challenges = cache.challenges;
 

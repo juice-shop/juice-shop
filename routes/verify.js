@@ -1,12 +1,13 @@
 /*jslint node: true */
 'use strict';
 
-var path = require('path'),
-    utils = require('../lib/utils'),
+var utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
     models = require('../models/index'),
     cache = require('../lib/datacache'),
-    challenges = cache.challenges;
+    challenges = cache.challenges,
+    users = cache.users,
+    products = cache.products;
 
 exports.forgedFeedbackChallenge = function() {
     return function(req, res, next) {
@@ -43,18 +44,18 @@ exports.errorHandlingChallenge = function() {
 
 exports.databaseRelatedChallenges = function() {
     return function (req, res, next) {
-        if (utils.notSolved(challenges.changeProductChallenge) && cache.products.osaft) {
-            cache.products.osaft.reload().success(function () {
-                if (!utils.contains(cache.products.osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
-                    if (utils.contains(cache.products.osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
+        if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
+            products.osaft.reload().success(function () {
+                if (!utils.contains(products.osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
+                    if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
                         utils.solve(challenges.changeProductChallenge);
                     }
                 }
             });
         }
-        if (utils.notSolved(challenges.csrfChallenge) && cache.users.bender) {
-            cache.users.bender.reload().success(function() {
-                if (cache.users.bender.password === insecurity.hash('slurmCl4ssic')) {
+        if (utils.notSolved(challenges.csrfChallenge) && users.bender) {
+            users.bender.reload().success(function() {
+                if (users.bender.password === insecurity.hash('slurmCl4ssic')) {
                     utils.solve(challenges.csrfChallenge);
                 }
             });
