@@ -47,7 +47,7 @@ exports.retrieveBasket = function() {
         var id = req.params.id;
         models.Basket.find({where: {id: id}, include: [ models.Product ]})
             .success(function(basket) {
-                /* jshint eqeqeq:true */
+                /* jshint eqeqeq:false */
                 if (utils.notSolved(challenges.basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
                     if (user && user.bid != id) {

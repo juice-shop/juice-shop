@@ -11,7 +11,7 @@ var utils = require('../lib/utils'),
 
 exports.forgedFeedbackChallenge = function() {
     return function(req, res, next) {
-        /* jshint eqeqeq:true */
+        /* jshint eqeqeq:false */
         if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
             var userId = user ? user.data.id : undefined;
