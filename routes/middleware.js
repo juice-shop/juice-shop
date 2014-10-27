@@ -2,11 +2,12 @@
 'use strict';
 
 var fs = require('fs'),
+    path = require('path'),
     PDFDocument = require('pdfkit'),
-    utils = require('./lib/utils'),
-    insecurity = require('./lib/insecurity'),
-    models = require('./models'),
-    cache = require('./lib/datacache'),
+    utils = require('../lib/utils'),
+    insecurity = require('../lib/insecurity'),
+    models = require('../models/index'),
+    cache = require('../lib/datacache'),
     challenges = cache.challenges;
 
 exports.verifyForgedFeedbackChallenge = function() {
@@ -49,7 +50,7 @@ exports.retrieveAppVersion = function() {
 exports.serveAngularClient = function() {
     return function (req, res, next) {
         if (!utils.startsWith(req.url, '/api') && !utils.startsWith(req.url, '/rest')) {
-            res.sendFile(__dirname + '/app/index.html');
+            res.sendFile(path.resolve(__dirname + '/../app/index.html'));
         } else {
             next(new Error('Unexpected path: ' + req.url));
         }
@@ -70,7 +71,7 @@ exports.serveEasterEgg = function() {
         if (utils.notSolved(challenges.easterEggLevelTwoChallenge)) {
             utils.solve(challenges.easterEggLevelTwoChallenge);
         }
-        res.sendFile(__dirname + '/app/private/threejs-demo.html');
+        res.sendFile(path.resolve(__dirname + '/../app/private/threejs-demo.html'));
     };
 };
 
@@ -131,7 +132,7 @@ exports.createOrderPdf = function() {
                     var orderNo = insecurity.hash(new Date()+'_'+id);
                     var pdfFile = 'order_' + orderNo + '.pdf';
                     var doc = new PDFDocument();
-                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/app/public/ftp/' + pdfFile));
+                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/../app/public/ftp/' + pdfFile));
 
                     doc.text('Juice-Shop - Order Confirmation');
                     doc.moveDown();
@@ -276,7 +277,7 @@ exports.serveFiles = function() {
             } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
                 utils.solve(challenges.directoryListingChallenge);
             }
-            res.sendFile(__dirname + '/app/public/ftp/' + file);
+            res.sendFile(path.resolve(__dirname + '/../app/public/ftp/' + file));
         } else {
             res.status(403);
             next(new Error('Only .md and .pdf files are allowed!'));
