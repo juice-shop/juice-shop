@@ -2,27 +2,31 @@
 
 describe('/#/search', function () {
 
+    var searchQuery, searchButton;
+
     beforeEach(function () {
         browser.get('/#/search'); // not really necessary as search field is part of navbar on every dialog
+        searchQuery = element(by.model('searchQuery'));
+        searchButton = element(by.id('searchButton'));
     });
 
     it('should show all products performing search without criteria', function () {
-        element(by.id('searchButton')).click();
+        searchButton.click();
 
         expect(browser.getLocationAbsUrl()).toMatch(/\/search\?q=$/);
     });
 
     it('should show matching products for name when performing search with criteria', function () {
-        element(by.model('searchQuery')).sendKeys('Apple');
-        element(by.id('searchButton')).click();
+        searchQuery.sendKeys('Apple');
+        searchButton.click();
 
         var productNames = element.all(by.repeater('product in products').column('name'));
         expect(productNames.first().getText()).toMatch(/Apple/);
     });
 
     it('should show matching products for description when performing search with criteria', function () {
-        element(by.model('searchQuery')).sendKeys('hand-picked');
-        element(by.id('searchButton')).click();
+        searchQuery.sendKeys('hand-picked');
+        searchButton.click();
 
         var productDescriptions = element.all(by.repeater('product in products').column('description'));
         expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
@@ -31,8 +35,8 @@ describe('/#/search', function () {
     describe('challenge "xss1"', function () {
 
         it('search query should be susceptible to reflected XSS attacks', function () {
-            element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
-            element(by.id('searchButton')).click();
+            searchQuery.sendKeys('<script>alert("XSS1")</script>');
+            searchButton.click();
 
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS1');
@@ -48,8 +52,8 @@ describe('/#/search', function () {
     describe('challenge "unionSqlI"', function () {
 
         it('search query should be susceptible to UNION SQL injection attacks', function () {
-            element(by.model('searchQuery')).sendKeys('\') union select null,id,email,password,null,null,null from users--');
-            element(by.id('searchButton')).click();
+            searchQuery.sendKeys('\') union select null,id,email,password,null,null,null from users--');
+            searchButton.click();
 
             var productDescriptions = element.all(by.repeater('product in products').column('description'));
             expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
