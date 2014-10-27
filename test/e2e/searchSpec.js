@@ -1,6 +1,6 @@
 'use strict';
 
-describe('search', function () {
+describe('/#/search', function () {
 
     beforeEach(function () {
         browser.get('/#/search'); // not really necessary as search field is part of navbar on every dialog
@@ -28,7 +28,7 @@ describe('search', function () {
         expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
     });
 
-    describe('challenge xss1', function () {
+    describe('challenge "xss1"', function () {
 
         it('search query should be susceptible to reflected XSS attacks', function () {
             element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
@@ -45,7 +45,7 @@ describe('search', function () {
 
     });
 
-    describe('challenge unionSqlI', function () {
+    describe('challenge "unionSqlI"', function () {
 
         it('search query should be susceptible to UNION SQL injection attacks', function () {
             element(by.model('searchQuery')).sendKeys('\') union select null,id,email,password,null,null,null from users--');
