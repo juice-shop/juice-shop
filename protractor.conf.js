@@ -1,7 +1,5 @@
 /*jslint node: true */
 exports.config = {
-    sauceUser: process.env.SAUCE_USERNAME,
-    sauceKey: process.env.SAUCE_ACCESS_KEY,
 
     allScriptsTimeout: 11000,
 
@@ -20,7 +18,10 @@ exports.config = {
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000
-    }
+    },
+
+    sauceUser: process.env.SAUCE_USERNAME,
+    sauceKey: process.env.SAUCE_ACCESS_KEY
 
 };
 
@@ -32,6 +33,6 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
         'browserName': 'chrome',
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'build': process.env.TRAVIS_BUILD_NUMBER,
-        'name': 'Juice Shop e2e Protractor Tests'
+        'name': 'Juice-Shop Protractor e2e Tests'
     }
 }
