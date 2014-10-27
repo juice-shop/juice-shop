@@ -1,6 +1,6 @@
 'use strict';
 
-describe('routing', function () {
+describe('index', function () {
 
     it('should automatically route to /search when location hash/fragment is empty', function () {
         browser.get('/');
