@@ -25,8 +25,8 @@ exports.config = {
 };
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
-    config.seleniumAddress = 'http://localhost:4445/wd/hub';
-    config.capabilities = {
+    exports.config.seleniumAddress = 'http://localhost:4445/wd/hub';
+    exports.config.capabilities = {
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
         'browserName': 'chrome',
