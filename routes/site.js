@@ -4,7 +4,7 @@
 var path = require('path'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
-    cache = require('../lib/datacache'),
+    cache = require('../data/datacache'),
     challenges = cache.challenges;
 
 exports.serveAngularClient = function() {

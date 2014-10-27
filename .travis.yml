@@ -5,10 +5,12 @@ addons:
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
+  sauce_connect: true
 after_success:
 - ./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'
 - cat "./test/coverage/lcov_merged.info" | ./node_modules/.bin/codeclimate
 - karma start karma.conf-ci.js
+- node test/e2eTests.js
 deploy:
   provider: nodejitsu
   user: bkimminich

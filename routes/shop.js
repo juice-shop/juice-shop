@@ -6,7 +6,7 @@ var fs = require('fs'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
     models = require('../models/index'),
-    cache = require('../lib/datacache'),
+    cache = require('../data/datacache'),
     challenges = cache.challenges;
 
 exports.searchProducts = function() {

@@ -2,7 +2,7 @@
 'use strict';
 
 var utils = require('../lib/utils'),
-    challenges = require('../lib/datacache').challenges;
+    challenges = require('../data/datacache').challenges;
 
 
 module.exports = function (sequelize, DataTypes) {

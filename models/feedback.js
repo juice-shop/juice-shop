@@ -3,7 +3,7 @@
 
 var insecurity = require('../lib/insecurity'),
     utils = require('../lib/utils'),
-    challenges = require('../lib/datacache').challenges;
+    challenges = require('../data/datacache').challenges;
 
 module.exports = function (sequelize, DataTypes) {
     var Feedback = sequelize.define('Feedback', {

