@@ -55,7 +55,6 @@ describe('search', function () {
                 element(by.id('searchButton')).click();
             });
 
-
             var productDescriptions = element.all(by.repeater('product in products').column('description'));
             expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/);
         });
