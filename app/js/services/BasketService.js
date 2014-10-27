@@ -19,8 +19,8 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         return $http.delete(host + '/' + id);
     }
 
-    function order(id) {
-        return $http.post('/rest/basket/'+id+'/order');
+    function checkout(id) {
+        return $http.post('/rest/basket/'+id+'/checkout');
     }
 
     function save(params) {
@@ -32,7 +32,7 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         get: get,
         put: put,
         del: del,
-        order: order,
+        checkout: checkout,
         save: save
     };
 }]);

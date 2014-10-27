@@ -14,6 +14,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     bodyParser = require('body-parser'),
     middleware = require('./routes/middleware'),
     user = require('./routes/user'),
+    shop = require('./routes/shop'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
     models = require('./models'),
@@ -80,9 +81,9 @@ app.post('/rest/user/login', user.login());
 app.get('/rest/user/change-password', user.changePassword());
 app.get('/rest/user/whoami', user.retrieveLoggedInUsersId());
 app.get('/rest/user/authentication-details', user.retrieveUserList());
-app.get('/rest/product/search', middleware.searchProducts());
-app.get('/rest/basket/:id', middleware.retrieveBasket());
-app.post('/rest/basket/:id/order', middleware.createOrderPdf());
+app.get('/rest/product/search', shop.searchProducts());
+app.get('/rest/basket/:id', shop.retrieveBasket());
+app.post('/rest/basket/:id/checkout', shop.placeOrder());
 app.get('/rest/admin/application-version', middleware.retrieveAppVersion());
 app.get('/redirect', middleware.performRedirect());
 /* File Serving */

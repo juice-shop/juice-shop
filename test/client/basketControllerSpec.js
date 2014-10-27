@@ -26,7 +26,7 @@ describe('controllers', function () {
         it('should be defined', inject(function ($controller) {
             expect(controller).toBeDefined();
             expect(scope.delete).toBeDefined();
-            expect(scope.order).toBeDefined();
+            expect(scope.checkout).toBeDefined();
             expect(scope.inc).toBeDefined();
             expect(scope.dec).toBeDefined();
         }));
@@ -76,9 +76,9 @@ describe('controllers', function () {
 
         it('should redirect to confirmation URL after ordering basket', inject(function ($controller) {
             $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1}}]}});
-            $httpBackend.whenPOST('/rest/basket/42/order').respond(200, 'confirmationUrl');
+            $httpBackend.whenPOST('/rest/basket/42/checkout').respond(200, 'confirmationUrl');
 
-            scope.order();
+            scope.checkout();
             $httpBackend.flush();
 
             expect($window.location.replace).toHaveBeenCalledWith('confirmationUrl');
@@ -86,9 +86,9 @@ describe('controllers', function () {
 
         it('should not redirect anywhere when ordering basket fails', inject(function ($controller) {
             $httpBackend.whenGET('/rest/basket/42').respond(200,  {data: {products: [{basketItem: {id: 1}}]}});
-            $httpBackend.whenPOST('/rest/basket/42/order').respond(500);
+            $httpBackend.whenPOST('/rest/basket/42/checkout').respond(500);
 
-            scope.order();
+            scope.checkout();
             $httpBackend.flush();
 
             expect($window.location.replace.mostRecentCall).toEqual({});
