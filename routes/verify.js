@@ -11,10 +11,11 @@ var utils = require('../lib/utils'),
 
 exports.forgedFeedbackChallenge = function() {
     return function(req, res, next) {
+        /* jshint eqeqeq:true */
         if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
             var userId = user ? user.data.id : undefined;
-            if (req.body.UserId && req.body.UserId != userId) { // jshint ignore:line (type conversion intented)
+            if (req.body.UserId && req.body.UserId != userId) {
                 utils.solve(challenges.forgedFeedbackChallenge);
             }
         }
