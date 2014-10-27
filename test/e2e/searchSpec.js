@@ -30,7 +30,7 @@ describe('search', function () {
         expect(productDescriptions.first().getText()).toMatch(/hand-picked/);
     });
 
-    it('search query should be susceptible to XSS attacks', function () {
+    it('search query should be susceptible to reflected XSS attacks', function () {
         element(by.model('searchQuery')).sendKeys('<script>alert("XSS1")</script>');
 
         element(by.id('searchButton')).click();
@@ -39,6 +39,9 @@ describe('search', function () {
             expect(alert.getText()).toEqual('XSS1');
             alert.accept();
         });
+
     });
+
+    protractor.expect.challengeSolved({challenge: 'xss1'});
 
 });

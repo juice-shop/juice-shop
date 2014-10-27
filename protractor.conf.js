@@ -1,3 +1,4 @@
+/*jslint node: true */
 exports.config = {
     allScriptsTimeout: 11000,
 

@@ -13,6 +13,7 @@ frisby.create('GET all challenges ')
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data.*', {
         id: Number,
+        name: String,
         description: String,
         solved: Boolean
     })
@@ -27,6 +28,7 @@ frisby.create('GET existing challenge by id is forbidden via public API even whe
 frisby.create('POST new challenge is forbidden via public API even when authenticated')
     .addHeaders(authHeader)
     .post(API_URL + '/Challenges', {
+        name: 'Invulnerability',
         description: 'I am not a vulnerability!',
         solved: false
     })
@@ -36,6 +38,7 @@ frisby.create('POST new challenge is forbidden via public API even when authenti
 frisby.create('PUT update existing challenge is forbidden via public API even when authenticated')
     .addHeaders(authHeader)
     .put(API_URL + '/Challenges/1', {
+        name: 'Vulnerability',
         description: "I am a vulnerability!!!",
         rating: 1
     })
