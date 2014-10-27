@@ -1,5 +1,8 @@
 /*jslint node: true */
 exports.config = {
+    sauceUser: process.env.SAUCE_USERNAME,
+    sauceKey: process.env.SAUCE_ACCESS_KEY,
+
     allScriptsTimeout: 11000,
 
     specs: [
@@ -15,6 +18,7 @@ exports.config = {
     framework: 'jasmine',
 
     jasmineNodeOpts: {
+        showColors: true,
         defaultTimeoutInterval: 30000
     }
 };

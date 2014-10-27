@@ -80,7 +80,6 @@
         "update-webdriver": "webdriver-manager update",
         "preprotractor": "npm run update-webdriver",
         "protractor": "node test/e2eTests.js"
-
     },
     "subdomain": "juice-shop",
     "engines": {
