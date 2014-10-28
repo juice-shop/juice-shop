@@ -10,6 +10,7 @@ angular.module('myApp').controller('ChangePasswordController', [
                 $scope.currentPassword = undefined;
                 $scope.newPassword = undefined;
                 $scope.newPasswordRepeat = undefined;
+                $scope.error = undefined;
                 $scope.confirmation = 'Your password was successfully changed.';
                 $scope.form.$setPristine();
             }).error(function(error) {
