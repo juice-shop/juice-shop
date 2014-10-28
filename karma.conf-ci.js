@@ -63,7 +63,8 @@ module.exports = function (config) {
             username: process.env.SAUCE_USERNAME,
             accessKey: process.env.SAUCE_ACCESS_KEY,
             connectOptions: {
-                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+                port: 4446
             },
             build: process.env.TRAVIS_BUILD_NUMBER,
             tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER],
