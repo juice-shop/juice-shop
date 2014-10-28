@@ -6,7 +6,7 @@ var spawn = require('win-spawn'),
     server = require('./../server.js');
 
 server.start({ port: 3000 }, function () {
-    var protractor = spawn('protractor', [ 'protractor.conf.js' ]);
+    var protractor = spawn('protractor', [ 'protractor.conf.js' ], {env: process.env});
 
     function logToConsole(data) {
         console.log(String(data));
@@ -17,6 +17,8 @@ server.start({ port: 3000 }, function () {
 
     protractor.on('exit', function (exitCode) {
         console.log('Protractor exited with code ' + exitCode + '.');
+        console.log(process.env.SAUCE_USERNAME);
+        console.log(process.env.TRAVIS_BUILD_NUMBER);
         if (process.env.SAUCE_USERNAME && process.env.TRAVIS_BUILD_NUMBER) {
             setSaucelabJobResult(exitCode);
         }
