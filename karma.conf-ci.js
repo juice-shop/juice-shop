@@ -60,7 +60,7 @@ module.exports = function (config) {
 
         sauceLabs: {
             testName: 'Juice-Shop Angular Unit Tests',
-            tags: [process.env.TRAVIS_BRANCH],
+            tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER],
             recordScreenshots: false
         },
 
