@@ -35,4 +35,5 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
         'build': process.env.TRAVIS_BUILD_NUMBER,
         'name': 'Juice-Shop Protractor e2e Tests'
     }
+    
 }
