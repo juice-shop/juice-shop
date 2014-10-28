@@ -15,7 +15,9 @@ describe('/public/ftp', function () {
     it('should not be able to access file /public/ftp/easter.egg due to wrong file suffix', function () {
         browser.driver.get(browser.baseUrl + '/public/ftp/easter.egg');
 
-        // TODO Verify 403 error
+        browser.driver.isElementPresent(by.id('stacktrace')).then(function(present){
+            expect(present).toBe(true);
+        })
     });
 
     describe('challenge "easterEgg1"', function () {
