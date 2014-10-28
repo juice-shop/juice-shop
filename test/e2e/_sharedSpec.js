@@ -16,3 +16,25 @@ protractor.expect = {
         });
     }
 }
+
+protractor.beforeEach = {
+    login: function (context) {
+        describe("(shared)", function () {
+            var email, password;
+
+            beforeEach(function () {
+                email = context.email;
+                password = context.password;
+                browser.get('/#/login');
+                element(by.model('user.email')).sendKeys(email);
+                element(by.model('user.password')).sendKeys(password);
+                element(by.id('loginButton')).click();
+            });
+
+            it('should have logged in user "' + email + '" with password "' + password + '"', function () {
+                expect(browser.getLocationAbsUrl()).toMatch(/\/search/);
+            });
+
+        });
+    }
+}
