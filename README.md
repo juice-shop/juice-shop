@@ -10,7 +10,6 @@ An intentionally insecure RIA suitable for pentesting and security awareness tra
 [![Dependency Status bower](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb/badge.svg)](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
 [![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
 
 > Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.
     
