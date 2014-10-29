@@ -18,4 +18,19 @@ describe('/#/basket', function () {
 
     });
 
+    describe('challenge "negativeOrder"', function () {
+
+        xit('should be possible to put an item with negative price into the basket', function () {
+        });
+
+        xit('should be possible to put an item with negative quantity into the basket', function () {
+        });
+
+        xit('should be possible to place an order with a negative total amount', function () {
+        });
+
+        //protractor.expect.challengeSolved({challenge: 'negativeOrder'});
+
+    });
+
 });
