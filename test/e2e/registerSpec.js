@@ -17,12 +17,12 @@ describe('/#/register', function () {
     });
 
 
-    describe('challenge "xss4"', function () {
+    describe('challenge "xss2"', function () {
 
         xit('should be possible to bypass validation by directly using Rest API', function () {
         });
 
-        //protractor.expect.challengeSolved({challenge: 'xss4'});
+        //protractor.expect.challengeSolved({challenge: 'xss2'});
 
     });
 
