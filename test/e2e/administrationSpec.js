@@ -15,10 +15,15 @@ describe('/#/administration', function () {
 
     describe('challenge "fiveStarFeedback"', function () {
 
-        xit('should be possible to delete feedback for any logged-in user', function () {
+        protractor.beforeEach.login({email: 'jim@juice-sh.op', password: 'ncc-1701'});
+
+        it('should be possible for any logged-in user to delete feedback', function () {
+            browser.get('/#/administration');
+
+            element(by.repeater('feedback in feedbacks').row(0)).element(by.css('.glyphicon-trash')).click();
         });
 
-        //protractor.expect.challengeSolved({challenge: 'fiveStarFeedback'});
+        protractor.expect.challengeSolved({challenge: 'fiveStarFeedback'});
 
     });
 
