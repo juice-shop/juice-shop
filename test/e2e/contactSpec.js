@@ -2,7 +2,7 @@
 
 describe('/#/contact', function () {
 
-    var comment, rating, UserId, submitButton, expectedComment;
+    var comment, rating, submitButton;
 
     protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
 
@@ -10,8 +10,30 @@ describe('/#/contact', function () {
         browser.get('/#/contact');
         comment = element(by.model('feedback.comment'));
         rating = element(by.model('feedback.rating'));
-        UserId = element(by.model('feedback.UserId'));
         submitButton = element(by.id('submitButton'));
+    });
+
+    describe('challenge "forgedFeedback"', function () {
+
+        it('should be possible to provide feedback as another user', function () {
+            browser.executeScript('document.getElementById("userId").removeAttribute("ng-hide");');
+            browser.executeScript('document.getElementById("userId").removeAttribute("class");');
+
+            var UserId = element(by.model('feedback.UserId'));
+            UserId.clear();
+            UserId.sendKeys('2');
+            comment.sendKeys('Picard stinks!');
+            rating.click();
+
+            submitButton.click();
+
+            browser.get('/#/administration');
+            var feedbackUserId = element.all(by.repeater('feedback in feedbacks').column('UserId'));
+            expect(feedbackUserId.last().getText()).toMatch(2);
+        });
+
+        protractor.expect.challengeSolved({challenge: 'forgedFeedback'});
+
     });
 
     it('should sanitize script from comments to remove potentially malicious html', function () {
@@ -69,15 +91,6 @@ describe('/#/contact', function () {
         });
 
         protractor.expect.challengeSolved({challenge: 'xss3'});
-
-    });
-
-    describe('challenge "forgedFeedback"', function () {
-
-        xit('should be possible to provide feedback as another user', function () {
-        });
-
-        //protractor.expect.challengeSolved({challenge: 'forgedFeedback'});
 
     });
 
