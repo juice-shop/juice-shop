@@ -1,7 +1,7 @@
 /*jslint node: true */
 exports.config = {
 
-    allScriptsTimeout: 11000,
+    allScriptsTimeout: 30000,
 
     specs: [
         'test/e2e/*.js'
