@@ -2,8 +2,8 @@
 exports.config = {
     directConnect: true,
 
-    allScriptsTimeout: 30000,
-    getPageTimeout: 20000,
+    allScriptsTimeout: 60000,
+    getPageTimeout: 30000,
 
     specs: [
         'test/e2e/*.js'
@@ -19,8 +19,7 @@ exports.config = {
 
     jasmineNodeOpts: {
         showColors: true,
-        includeStackTrace: true,
-        defaultTimeoutInterval: 30000
+        defaultTimeoutInterval: 60000
     },
 
     sauceUser: process.env.SAUCE_USERNAME,
