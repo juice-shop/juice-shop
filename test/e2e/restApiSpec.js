@@ -36,11 +36,11 @@ describe('/rest', function () {
 
     describe('challenge "changeProduct"', function () {
 
-        xit('should be possible to change product via PUT request without being logged in', function () {
-
+        it('should be possible to change product via PUT request without being logged in', function () {
+            browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/Products/9\', {description: \'<a href="http://kimminich.de" target="_blank">kimminich.de</a>\'});');
         });
 
-        //protractor.expect.challengeSolved({challenge: 'changeProduct'});
+        protractor.expect.challengeSolved({challenge: 'changeProduct'});
 
     });
 
