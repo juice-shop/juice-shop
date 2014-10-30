@@ -15,8 +15,8 @@ describe('/redirect', function () {
     describe('challenge "redirect"', function () {
 
         it('should redirect to target URL if https://github.com/bkimminich/juice-shop is contained in it as parameter', function () {
-            browser.driver.get(browser.baseUrl + '/redirect?to=http://kimminich.de?trickIndexOf=https://github.com/bkimminich/juice-shop').then(function() {
-                expect(browser.driver.getCurrentUrl()).toMatch(/http:\/\/kimminich\.de/);
+            browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://github.com/bkimminich/juice-shop').then(function() {
+                expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/);
             });
         });
 
