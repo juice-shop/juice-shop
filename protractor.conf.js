@@ -3,14 +3,13 @@ exports.config = {
     directConnect: true,
 
     allScriptsTimeout: 60000,
-    getPageTimeout: 30000,
 
     specs: [
         'test/e2e/*.js'
     ],
 
     capabilities: {
-        'browserName': 'chrome'
+        'browserName': 'firefox'
     },
 
     baseUrl: 'http://localhost:3000',
