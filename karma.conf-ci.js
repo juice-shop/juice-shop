@@ -59,7 +59,7 @@ module.exports = function (config) {
         ],
 
         sauceLabs: {
-            testName: 'Juice-Shop Angular Unit Tests',
+            testName: 'Juice-Shop Unit Tests (Karma)',
             username: process.env.SAUCE_USERNAME,
             accessKey: process.env.SAUCE_ACCESS_KEY,
             connectOptions: {

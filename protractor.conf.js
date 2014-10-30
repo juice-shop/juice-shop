@@ -29,7 +29,7 @@ exports.config = {
 if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.seleniumAddress = 'http://localhost:4445/wd/hub';
     exports.config.capabilities = {
-        'name': 'Juice-Shop Protractor e2e Tests',
+        'name': 'Juice-Shop e2e Tests (Protractor)',
         'browserName': 'firefox',
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
