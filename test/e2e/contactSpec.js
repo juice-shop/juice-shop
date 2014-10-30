@@ -73,23 +73,14 @@ describe('/#/contact', function () {
 
             browser.ignoreSynchronization = true;
             browser.get('/#/administration');
+            browser.driver.sleep(1000);
 
-            browser.wait(function () {
-                return browser.switchTo().alert().then(
-                    function (alert) {
-                        expect(alert.getText()).toEqual('XSS3');
-                        return alert.accept().then(function () {
-                            browser.ignoreSynchronization = false;
-                            return element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click().then(function() {
-                                return true;
-                            });
-                        });
-                    },
-                    function () {
-                        return false;
-                        /* still waiting for alert ... */
-                    }
-                );
+            browser.switchTo().alert().then(function (alert) {
+                expect(alert.getText()).toEqual('XSS3');
+                alert.accept();
+                element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click();
+                browser.driver.sleep(1000);
+                browser.ignoreSynchronization = false;
             });
 
         });
