@@ -72,6 +72,16 @@ describe('/#/contact', function () {
             submitButton.click();
 
             browser.ignoreSynchronization = true;
+
+            browser.get('/#/about');
+            browser.driver.sleep(1000);
+
+            browser.switchTo().alert().then(function (alert) {
+                expect(alert.getText()).toEqual('XSS3');
+                alert.accept();
+                browser.driver.sleep(1000);
+            });
+
             browser.get('/#/administration');
             browser.driver.sleep(1000);
 
