@@ -31,7 +31,8 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.capabilities = {
         'name': 'Juice-Shop e2e Tests (Protractor)',
         'browserName': 'chrome',
-        'platform': 'Windows 8.1',
+        'platform': 'Windows 7',
+        'screen-resolution': '1920x1200',
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
