@@ -30,7 +30,7 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.seleniumAddress = 'http://localhost:4445/wd/hub';
     exports.config.capabilities = {
         'name': 'Juice-Shop e2e Tests (Protractor)',
-        'browserName': 'firefox',
+        'browserName': 'chrome',
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
