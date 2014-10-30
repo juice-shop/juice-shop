@@ -21,14 +21,23 @@ describe('/rest', function () {
                     alert.accept();
                     browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/Products/10\', {description: \'alert disabled\'});');
                     browser.driver.sleep(1000);
-                    try { // workaround for popup triggering twice sometimes on local machines
-                        browser.switchTo().alert().then(
-                            function (alert) {
-                                alert.accept();
-                            });
-                    } catch (err) {
-                        console.log(err);
-                    }
+
+                    // workaround for popup triggering twice sometimes on local machines
+                    browser.switchTo().alert().then(
+                        function (alert) {
+                            alert.accept();
+                        },
+                        function (err) {
+                            console.log(err);
+                            browser.switchTo().alert().then(
+                                function (alert) {
+                                    alert.accept();
+                                },
+                                function (err) {
+                                    console.log(err);
+                                });
+                        });
+
                     browser.ignoreSynchronization = false;
                 });
 
