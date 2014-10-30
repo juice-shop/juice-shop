@@ -79,9 +79,10 @@ describe('/#/contact', function () {
                     function (alert) {
                         expect(alert.getText()).toEqual('XSS3');
                         return alert.accept().then(function () {
-                            element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click();
                             browser.ignoreSynchronization = false;
-                            return true;
+                            return element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click().then(function() {
+                                return true;
+                            });
                         });
                     },
                     function () {
