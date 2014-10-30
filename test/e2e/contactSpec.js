@@ -78,13 +78,16 @@ describe('/#/contact', function () {
                 return browser.switchTo().alert().then(
                     function (alert) {
                         expect(alert.getText()).toEqual('XSS3');
-                        return alert.accept().then(function() {
+                        return alert.accept().then(function () {
                             element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click();
                             browser.ignoreSynchronization = false;
                             return true;
                         });
                     },
-                    function () { return false; /* still waiting for alert ... */ }
+                    function () {
+                        return false;
+                        /* still waiting for alert ... */
+                    }
                 );
             });
 
@@ -93,6 +96,20 @@ describe('/#/contact', function () {
         protractor.expect.challengeSolved({challenge: 'xss3'});
 
     });
+
+    describe('challenge "vulnerableComponent"', function () {
+
+        it('should be possible to post known vulnerable component(s) as feedback', function () {
+            comment.sendKeys('sanitize-html\uE00D1.4.2\uE00Dis\uE00Dvulnerable\uE00Dto\uE00Dmasking\uE00Dattacks\uE00Dbecause\uE00Dits\uE00Ddependency\uE00Dhtmlparser2\uE00D3.3.0\uE00Ddoes\uE00Dnot\uE00Dact\uE00Drecursively.');
+            rating.click();
+
+            submitButton.click();
+        });
+
+        protractor.expect.challengeSolved({challenge: 'vulnerableComponent'});
+
+    });
+
 
 });
 
