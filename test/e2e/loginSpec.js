@@ -14,7 +14,7 @@ describe('/#/login', function () {
     describe('challenge "loginAdmin"', function () {
 
         it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', function () {
-            email.sendKeys('\'\uE00Dor\uE00D1=1--');
+            email.sendKeys('\' or 1=1--');
             password.sendKeys('a');
             loginButton.click();
 

@@ -100,7 +100,7 @@ describe('/#/contact', function () {
     describe('challenge "vulnerableComponent"', function () {
 
         it('should be possible to post known vulnerable component(s) as feedback', function () {
-            comment.sendKeys('sanitize-html\uE00D1.4.2\uE00Dis\uE00Dvulnerable\uE00Dto\uE00Dmasking\uE00Dattacks\uE00Dbecause\uE00Dits\uE00Ddependency\uE00Dhtmlparser2\uE00D3.3.0\uE00Ddoes\uE00Dnot\uE00Dact\uE00Drecursively.');
+            comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because its dependency htmlparser2 3.3.0 does not act recursively.');
             rating.click();
 
             submitButton.click();
