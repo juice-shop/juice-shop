@@ -31,6 +31,7 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.capabilities = {
         'name': 'Juice-Shop e2e Tests (Protractor)',
         'browserName': 'chrome',
+        'selenium-version': '2.43.0',
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
