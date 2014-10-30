@@ -4,6 +4,28 @@ describe('/#/basket', function () {
 
     protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
 
+    describe('challenge "negativeOrder"', function () {
+
+        it('should be possible to update a basket to a negative quantity via the Rest API', function () {
+            browser.ignoreSynchronization = true;
+            browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});');
+            browser.driver.sleep(1000);
+
+            browser.get('/#/basket');
+            browser.ignoreSynchronization = false;
+
+            var productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'));
+            expect(productQuantities.first().getText()).toMatch(/-100/);
+        });
+
+        it('should be possible to place an order with a negative total amount', function () {
+            element(by.id('checkoutButton')).click();
+        });
+
+        protractor.expect.challengeSolved({challenge: 'negativeOrder'});
+
+    });
+
     describe('challenge "accessBasket"', function () {
 
         it('should access basket with id from cookie instead of the one associated to logged-in user', function () {
@@ -15,21 +37,6 @@ describe('/#/basket', function () {
         });
 
         protractor.expect.challengeSolved({challenge: 'accessBasket'});
-
-    });
-
-    describe('challenge "negativeOrder"', function () {
-
-        xit('should be possible to put an item with negative price into the basket', function () {
-        });
-
-        xit('should be possible to put an item with negative quantity into the basket', function () {
-        });
-
-        xit('should be possible to place an order with a negative total amount', function () {
-        });
-
-        //protractor.expect.challengeSolved({challenge: 'negativeOrder'});
 
     });
 
