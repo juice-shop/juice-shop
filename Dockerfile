@@ -1,15 +1,9 @@
 # DOCKER-VERSION 0.3.4
-FROM    centos:centos6
+FROM    dockerfile/nodejs
 MAINTAINER  Bjoern Kimminich
 
-RUN     yum groupinstall -y "Development Tools"
-RUN     yum groupinstall -y "Additional Development"
-RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-RUN     yum install -y glibc
-RUN     yum install -y npm
-
 COPY . /juice-shop
-RUN cd /juice-shop; npm install; bower_install.js; grunt_minify.js
+RUN cd /juice-shop; npm install
 
 WORKDIR /juice-shop
 
