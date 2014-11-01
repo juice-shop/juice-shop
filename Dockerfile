@@ -9,10 +9,9 @@ RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-
 RUN     yum install -y npm
 
 COPY . /juice-shop
-RUN cd /juice-shop
-RUN npm install
-RUN node bower_install.js
-RUN node grunt_minify.js
+RUN cd /juice-shop; npm install
+RUN cd /juice-shop; bower_install.js
+RUN cd /juice-shop; grunt_minify.js
 
 WORKDIR /juice-shop
 
