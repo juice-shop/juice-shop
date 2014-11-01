@@ -3,7 +3,7 @@ FROM    dockerfile/nodejs
 MAINTAINER  Bjoern Kimminich
 
 COPY . /juice-shop
-RUN cd /juice-shop; npm install
+RUN cd /juice-shop; npm install; node bower_install.js; node grunt_minify.js
 
 WORKDIR /juice-shop
 
