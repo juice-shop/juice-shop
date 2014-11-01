@@ -5,7 +5,7 @@
         <div ng-controller="ContactController">
 
             <form role="form" name="form" novalidate>
-                <input type="hidden" ng-model="feedback.UserId"/>
+                <input type="text" id="userId" ng-model="feedback.UserId" ng-hide="true"/>
                 <div class="alert-info" ng-show="confirmation && !form.$dirty">
                     <p>{{confirmation}}</p>
                 </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="row">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-default" ng-disabled="form.$invalid" ng-click="save()">Submit</button>
+                                    <button type="submit" id="submitButton" class="btn btn-default" ng-disabled="form.$invalid" ng-click="save()">Submit</button>
                                 </div>
                         </div>
                 </div>

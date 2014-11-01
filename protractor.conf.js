@@ -1,7 +1,8 @@
 /*jslint node: true */
 exports.config = {
+    directConnect: true,
 
-    allScriptsTimeout: 11000,
+    allScriptsTimeout: 60000,
 
     specs: [
         'test/e2e/*.js'
@@ -17,7 +18,7 @@ exports.config = {
 
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 30000
+        defaultTimeoutInterval: 60000
     },
 
     sauceUser: process.env.SAUCE_USERNAME,
@@ -28,12 +29,15 @@ exports.config = {
 if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.seleniumAddress = 'http://localhost:4445/wd/hub';
     exports.config.capabilities = {
+        'name': 'Juice-Shop e2e Tests (Protractor)',
+        'browserName': 'chrome',
+        'platform': 'Windows 7',
+        'screen-resolution': '1920x1200',
         'username': process.env.SAUCE_USERNAME,
         'accessKey': process.env.SAUCE_ACCESS_KEY,
-        'browserName': 'firefox',
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'build': process.env.TRAVIS_BUILD_NUMBER,
-        'name': 'Juice-Shop Protractor e2e Tests'
+        'tags': [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER]
     }
     
 }

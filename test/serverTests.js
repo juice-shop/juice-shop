@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var spawn = require('win-spawn');
-var server = require('./../server.js');
+var spawn = require('win-spawn'),
+    server = require('./../server.js');
 
 server.start({ port: 3000 }, function () {
     var jasmineNode = spawn('jasmine-node', [ 'test/server' ]);

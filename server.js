@@ -34,8 +34,7 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
 
-/* Checks for utils.solved challenges */
-app.use(verify.databaseRelatedChallenges());
+/* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges());
 
 /* public/ftp directory browsing and file download */
@@ -75,6 +74,8 @@ app.use('/rest/basket/:id/order', insecurity.isAuthorized());
 /* Challenge evaluation before sequelize-restful takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge());
 
+/* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
+app.use(verify.databaseRelatedChallenges());
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */

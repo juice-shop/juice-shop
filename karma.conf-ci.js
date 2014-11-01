@@ -59,8 +59,15 @@ module.exports = function (config) {
         ],
 
         sauceLabs: {
-            testName: 'Juice-Shop Angular Unit Tests',
-            tags: [process.env.TRAVIS_BRANCH],
+            testName: 'Juice-Shop Unit Tests (Karma)',
+            username: process.env.SAUCE_USERNAME,
+            accessKey: process.env.SAUCE_ACCESS_KEY,
+            connectOptions: {
+                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+                port: 4446
+            },
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER],
             recordScreenshots: false
         },
 

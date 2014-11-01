@@ -12,10 +12,19 @@ describe('/public/ftp', function () {
 
     });
 
-    it('should not be able to access file /public/ftp/easter.egg due to wrong file suffix', function () {
-        browser.driver.get(browser.baseUrl + '/public/ftp/easter.egg');
+    describe('challenge "errorHandling"', function () {
 
-        // TODO Verify 403 error
+        it('should leak information through error message accessing /public/ftp/easter.egg due to wrong file suffix', function () {
+            browser.driver.get(browser.baseUrl + '/public/ftp/easter.egg');
+
+            browser.driver.isElementPresent(by.id('stacktrace')).then(function(present){
+                expect(present).toBe(true);
+            })
+
+            protractor.expect.challengeSolved({challenge: 'errorHandling'});
+
+        });
+
     });
 
     describe('challenge "easterEgg1"', function () {
