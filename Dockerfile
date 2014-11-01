@@ -7,11 +7,12 @@ RUN     yum groupinstall -y "Development Libraries"
 RUN     yum groupinstall -y "Additional Development"
 RUN     rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 RUN     yum install -y npm
-RUN     npm install -g bower
-RUN     npm install -g grunt
 
 COPY . /juice-shop
-RUN cd /juice-shop; npm install; node bower_install.js; node grunt_minify.js
+RUN cd /juice-shop
+RUN npm install
+RUN node bower_install.js
+RUN node grunt_minify.js
 
 WORKDIR /juice-shop
 
