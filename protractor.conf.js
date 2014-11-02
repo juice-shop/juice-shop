@@ -21,6 +21,12 @@ exports.config = {
         defaultTimeoutInterval: 60000
     },
 
+    onPrepare: function() {
+        require('jasmine-reporters');
+        jasmine.getEnv().addReporter(
+            new jasmine.JUnitXmlReporter('test/reports/e2e_results', true, true));
+    },
+
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY
 

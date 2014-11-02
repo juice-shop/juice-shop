@@ -5,7 +5,7 @@ var spawn = require('win-spawn'),
     server = require('./../server.js');
 
 server.start({ port: 3000 }, function () {
-    var jasmineNode = spawn('jasmine-node', [ 'test/server' ]);
+    var jasmineNode = spawn('jasmine-node', [ 'test/server', '--junitreport', '--output', 'test/reports/server_results' ]);
 
     function logToConsole(data) {
         console.log(String(data));

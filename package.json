@@ -60,13 +60,13 @@
         "karma-phantomjs-launcher": "~0.1",
         "karma-jasmine": "~0.1",
         "protractor": "~1.3",
+        "jasmine-reporters": "~1.0",
         "http-server": "~0.7",
         "shelljs": "~0.3",
         "win-spawn": "~2.0",
         "codeclimate-test-reporter": "~0.0",
         "istanbul": "~0.3",
-        "lcov-result-merger": "~1.0",
-        "saucelabs": "~0.1"
+        "lcov-result-merger": "~1.0"
     },
     "repository": {
         "type": "git",
