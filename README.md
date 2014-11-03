@@ -58,3 +58,6 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
 [![Docker](http://img.shields.io/badge/docker-container-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkimminich/juice-shop/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
