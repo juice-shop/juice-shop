@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM hwestphal/docker-nodebox
+FROM    dockerfile/nodejs
 MAINTAINER  Bjoern Kimminich <docker.com@kimminich.de>
 
 COPY . /juice-shop
