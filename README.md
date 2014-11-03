@@ -52,12 +52,10 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
 - If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP 
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkimminich/juice-shop/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![endorse](https://api.coderwall.com/bkimminich/endorsecount.png)](https://coderwall.com/bkimminich)
 [![geeklist](http://img.shields.io/badge/geeklist-%5E5-green.svg)](https://geekli.st/bkimminich/i-built-the-juice-shop-broken-full-js-stack-webapp-for-pentesting-and-security-trainings)
 [![Gratipay](http://img.shields.io/gratipay/bkimminich.svg)](https://gratipay.com/bkimminich)
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
 [![Docker](http://img.shields.io/badge/docker-container-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkimminich/juice-shop/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
