@@ -42,7 +42,7 @@ app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 app.use('/public/ftp/:file', site.servePublicFiles());
 
 app.use(express.static(application_root + '/app'));
-app.use(morgan('dev', {skip: function () { return true; }}));
+app.use(morgan('dev', {skip: function (req, res) { return res.statusCode < 400; }}));
 app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
