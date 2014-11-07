@@ -113,8 +113,9 @@ exports.start = function (config, readyCallback) {
 };
 
 exports.close = function (exitCode) {
-    this.server.close();
-    if (exitCode && exitCode !== 0) {
+    if (this.server) {
+        this.server.close(exitCode);
+    } else {
         process.exit(exitCode);
     }
 };

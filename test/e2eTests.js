@@ -17,6 +17,6 @@ server.start({ port: 3000 }, function () {
 
     protractor.on('exit', function (exitCode) {
         console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
-        process.exit(exitCode);
+        server.close(exitCode);
     });
 });

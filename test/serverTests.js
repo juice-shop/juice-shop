@@ -17,6 +17,6 @@ server.start({ port: 3000 }, function () {
 
     jasmineNode.on('exit', function (exitCode) {
         console.log('Jasmine-Node exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
-        process.exit(exitCode);
+        server.close(exitCode);
     });
 });
