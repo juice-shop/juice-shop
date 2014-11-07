@@ -2,6 +2,7 @@
 'use strict';
 
 var spawn = require('win-spawn'),
+    colors = require('colors/safe'),
     server = require('./../server.js');
 
 server.start({ port: 3000 }, function () {
@@ -15,7 +16,7 @@ server.start({ port: 3000 }, function () {
     protractor.stderr.on('data', logToConsole);
 
     protractor.on('exit', function (exitCode) {
-        console.log('Protractor exited with code ' + exitCode + '.');
-        process.exit(exitCode);
+        console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
+        server.close(exitCode);
     });
 });

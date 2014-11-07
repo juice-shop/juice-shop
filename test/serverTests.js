@@ -2,10 +2,11 @@
 'use strict';
 
 var spawn = require('win-spawn'),
+    colors = require('colors/safe'),
     server = require('./../server.js');
 
 server.start({ port: 3000 }, function () {
-    var jasmineNode = spawn('jasmine-node', [ 'test/server' ]);
+    var jasmineNode = spawn('jasmine-node', [ 'test/server', '--junitreport', '--output', 'test/reports/server_results' ]);
 
     function logToConsole(data) {
         console.log(String(data));
@@ -15,7 +16,7 @@ server.start({ port: 3000 }, function () {
     jasmineNode.stderr.on('data', logToConsole);
 
     jasmineNode.on('exit', function (exitCode) {
-        console.log('Jasmine-Node exited with code ' + exitCode + '.');
-        process.exit(exitCode);
+        console.log('Jasmine-Node exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
+        server.close(exitCode);
     });
 });

@@ -5,6 +5,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
     glob = require('glob'),
     morgan = require('morgan'),
+    colors = require('colors/safe'),
     restful = require('sequelize-restful'),
     express = require('express'),
     errorhandler = require('errorhandler'),
@@ -42,7 +43,7 @@ app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
 app.use('/public/ftp/:file', site.servePublicFiles());
 
 app.use(express.static(application_root + '/app'));
-app.use(morgan('dev'));
+app.use(morgan('dev', {skip: function (req, res) { return res.statusCode < 400; }}));
 app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
@@ -101,7 +102,7 @@ exports.start = function (config, readyCallback) {
         models.sequelize.sync().success(function() {
             datacreator();
             this.server = app.listen(config.port, function () {
-                console.log('Listening on port %d', config.port);
+                console.log(colors.cyan('Listening on port %d'), config.port);
                 // callback to call when the server is ready
                 if (readyCallback) {
                     readyCallback();
@@ -112,8 +113,9 @@ exports.start = function (config, readyCallback) {
 };
 
 exports.close = function (exitCode) {
-    this.server.close();
-    if (exitCode && exitCode !== 0) {
+    if (this.server) {
+        this.server.close(exitCode);
+    } else {
         process.exit(exitCode);
     }
 };

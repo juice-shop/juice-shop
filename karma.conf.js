@@ -29,10 +29,11 @@ module.exports = function (config) {
         plugins: [
             'karma-phantomjs-launcher',
             'karma-jasmine',
-            'karma-coverage'
+            'karma-coverage',
+            'karma-junit-reporter'
         ],
 
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress', 'coverage', 'junit'],
 
         coverageReporter: {
             type: 'lcov',
@@ -41,6 +42,10 @@ module.exports = function (config) {
 
         preprocessors: {
             'app/js/**/*.js': 'coverage'
+        },
+
+        junitReporter: {
+            outputFile: 'test/reports/client_results.xml'
         }
     });
 };
