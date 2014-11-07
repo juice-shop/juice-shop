@@ -5,6 +5,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     fs = require('fs'),
     glob = require('glob'),
     morgan = require('morgan'),
+    colors = require('colors/safe'),
     restful = require('sequelize-restful'),
     express = require('express'),
     errorhandler = require('errorhandler'),
@@ -101,7 +102,7 @@ exports.start = function (config, readyCallback) {
         models.sequelize.sync().success(function() {
             datacreator();
             this.server = app.listen(config.port, function () {
-                console.log('Listening on port %d', config.port);
+                console.log(colors.cyan('Listening on port %d'), config.port);
                 // callback to call when the server is ready
                 if (readyCallback) {
                     readyCallback();

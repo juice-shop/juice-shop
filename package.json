@@ -37,6 +37,7 @@
         "jsonwebtoken": "~1.1",
         "pdfkit": "~0.7",
         "glob": "~4.0",
+        "colors": "~1.0",
         "grunt": "~0.4",
         "grunt-cli": "~0.1",
         "grunt-angular-templates": "~0.5",
