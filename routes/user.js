@@ -27,7 +27,7 @@ exports.login = function() {
                         var token = insecurity.authorize(user);
                         user.bid = basket.id; // keep track of original basket for challenge solution check
                         insecurity.authenticatedUsers.put(token, user);
-                        res.json({ token: token, bid: basket.id });
+                        res.json({ token: token, bid: basket.id, umail: user.data.email });
                     }).error(function (error) {
                         next(error);
                     });
