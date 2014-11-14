@@ -8,6 +8,7 @@ angular.module('myApp').controller('ContactController', [
         userService.whoAmI().success(function(data) {
             $scope.feedback = {};
             $scope.feedback.UserId = data.id;
+            $scope.userEmail = data.email || 'anonymous';
         });
 
         $scope.save = function () {
