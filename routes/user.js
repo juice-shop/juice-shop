@@ -67,7 +67,7 @@ exports.changePassword = function() {
     };
 };
 
-exports.retrieveLoggedInUsersId = function() {
+exports.retrieveLoggedInUser = function() {
     return function (req, res) {
         var user = insecurity.authenticatedUsers.from(req);
         res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
