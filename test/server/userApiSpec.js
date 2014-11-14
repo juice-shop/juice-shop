@@ -32,7 +32,9 @@ frisby.create('POST new user')
             .expectStatus(200)
             .expectHeaderContains('content-type', 'application/json')
             .expectJSONTypes({
-                token: String
+                token: String,
+                umail: String,
+                bid: Number
             })
             .afterJSON(function(auth) {
                 frisby.create('GET own user id and email on who-am-i request')

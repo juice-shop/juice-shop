@@ -82,7 +82,7 @@ app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Produc
 /* Custom Restful API */
 app.post('/rest/user/login', user.login());
 app.get('/rest/user/change-password', user.changePassword());
-app.get('/rest/user/whoami', user.retrieveLoggedInUsersId());
+app.get('/rest/user/whoami', user.retrieveLoggedInUser());
 app.get('/rest/user/authentication-details', user.retrieveUserList());
 app.get('/rest/product/search', shop.searchProducts());
 app.get('/rest/basket/:id', shop.retrieveBasket());

@@ -19,6 +19,12 @@
 
                         <div class="row">
                             <div class="form-group">
+                                <label>Author</label>
+                                <label class="form-control input-sm">{{userEmail}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
                                 <label for="feedbackComment">Comment</label>
                                 <textarea class="form-control input-sm" id="feedbackComment" name="feedbackComment" ng-model="feedback.comment" required ng-maxlength="160"></textarea>
                             </div>

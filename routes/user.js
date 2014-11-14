@@ -27,7 +27,7 @@ exports.login = function() {
                         var token = insecurity.authorize(user);
                         user.bid = basket.id; // keep track of original basket for challenge solution check
                         insecurity.authenticatedUsers.put(token, user);
-                        res.json({ token: token, bid: basket.id });
+                        res.json({ token: token, bid: basket.id, umail: user.data.email });
                     }).error(function (error) {
                         next(error);
                     });
@@ -67,7 +67,7 @@ exports.changePassword = function() {
     };
 };
 
-exports.retrieveLoggedInUsersId = function() {
+exports.retrieveLoggedInUser = function() {
     return function (req, res) {
         var user = insecurity.authenticatedUsers.from(req);
         res.json({id: (user ? user.data.id : undefined), email: (user ? user.data.email : undefined)});
