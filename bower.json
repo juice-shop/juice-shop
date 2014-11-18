@@ -20,6 +20,7 @@
     "github-fork-ribbon-css": "~0.1"
   },
   "resolutions": {
+    "highlightjs": "~8.3",
     "angular": "~1.3"
   }
 }
