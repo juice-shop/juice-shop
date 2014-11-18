@@ -1,22 +1,25 @@
 {
-    "name": "juice-shop",
-    "description": "An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
-    "version": "1.4.0",
-    "private": true,
-    "dependencies": {
-        "angular": "~1.2",
-        "angular-route": "~1.2",
-        "angular-loader": "~1.2",
-        "angular-mocks": "~1.2",
-        "angular-cookies": "~1.2",
-        "angular-bootstrap": "~0.12",
-        "angular-highlightjs": "~0.3",
-        "highlightjs": "~8.3",
-        "bootstrap": "~3.3",
-        "jquery": "~2.1",
-        "underscore": "~1.7",
-        "string": "~2.2",
-        "moment": "~2.8",
-        "github-fork-ribbon-css": "~0.1"
-    }
+  "name": "juice-shop",
+  "description": "An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
+  "version": "1.4.0",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.3",
+    "angular-route": "~1.3",
+    "angular-loader": "~1.3",
+    "angular-mocks": "~1.3",
+    "angular-cookies": "~1.3",
+    "angular-bootstrap": "~0.12",
+    "angular-highlightjs": "~0.3",
+    "highlightjs": "~8.3",
+    "bootstrap": "~3.3",
+    "jquery": "~2.1",
+    "underscore": "~1.7",
+    "string": "~2.2",
+    "moment": "~2.8",
+    "github-fork-ribbon-css": "~0.1"
+  },
+  "resolutions": {
+    "angular": "~1.3"
+  }
 }
