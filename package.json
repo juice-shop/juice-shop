@@ -19,7 +19,6 @@
         "vulnerability",
         "broken",
         "bodgeit"
-
     ],
     "dependencies": {
         "sequelize": "~1.7",
