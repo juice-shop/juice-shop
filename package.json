@@ -1,6 +1,6 @@
 {
     "name": "juice-shop",
-    "version": "1.3.4",
+    "version": "1.4.0",
     "description": "An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
     "author": "Bjoern Kimminich",
     "contributors": [
@@ -33,7 +33,7 @@
         "sequelize-restful": "~0.3",
         "morgan": "~1.5",
         "sanitize-html": "1.4.2",
-        "express-jwt": "~0.4",
+        "express-jwt": "~0.5",
         "jsonwebtoken": "~1.1",
         "pdfkit": "~0.7",
         "glob": "~4.0",
