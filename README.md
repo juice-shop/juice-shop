@@ -1,4 +1,5 @@
 # Juice Shop
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/bkimminich/juice-shop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
