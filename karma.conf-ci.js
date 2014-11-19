@@ -67,7 +67,7 @@ module.exports = function (config) {
                 port: 4446
             },
             build: process.env.TRAVIS_BUILD_NUMBER,
-            tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER],
+            tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, 'unit'],
             recordScreenshots: false
         },
 

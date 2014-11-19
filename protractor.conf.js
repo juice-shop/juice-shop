@@ -1,8 +1,11 @@
 /*jslint node: true */
+/*global jasmine*/
+'use strict';
+
 exports.config = {
     directConnect: true,
 
-    allScriptsTimeout: 60000,
+    allScriptsTimeout: 80000,
 
     specs: [
         'test/e2e/*.js'
@@ -18,7 +21,7 @@ exports.config = {
 
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 60000
+        defaultTimeoutInterval: 80000
     },
 
     onPrepare: function() {
@@ -43,7 +46,7 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
         'accessKey': process.env.SAUCE_ACCESS_KEY,
         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
         'build': process.env.TRAVIS_BUILD_NUMBER,
-        'tags': [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER]
-    }
+        'tags': [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, 'e2e']
+    };
     
-}
+};

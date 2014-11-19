@@ -38,6 +38,14 @@ describe('controllers', function () {
             expect($sce.trustAsHtml).toHaveBeenCalledWith('<a src="link">Link</a>');
         }));
 
+        it('should calculate percent of challenges solved', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true},{solved: true},{solved: false}]});
+
+            $httpBackend.flush();
+
+            expect(scope.percentChallengesSolved).toBe('67');
+        }));
+
         it('should hold nothing when no challenges exists', inject(function ($controller) {
             $httpBackend.whenGET('/api/Challenges/').respond(200, {data: {}});
 
