@@ -18,10 +18,7 @@ server.start({ port: 3000 }, function () {
 
     protractor.on('exit', function (exitCode) {
         console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
-        if (process.env.TRAVIS_BUILD_NUMBER && process.env.SAUCE_USERNAME) {
-            console.log(colors.rainbow('TRAVIS_BUILD_NUMBER' + process.env.TRAVIS_BUILD_NUMBER));
-            console.log(colors.rainbow('SAUCE_USERNAME' + process.env.SAUCE_USERNAME));
-            console.log(colors.rainbow('SAUCE_ACCESS_KEY' + process.env.SAUCE_ACCESS_KEY));
+        if (process.env.TRAVIS_BUILD_NUMBER && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
             setSaucelabJobResult(exitCode);
         }
         server.close(exitCode);
@@ -32,6 +29,7 @@ function setSaucelabJobResult(exitCode) {
     var sauceLabs = new SauceLabs({ username: process.env.SAUCE_USERNAME, password: process.env.SAUCE_ACCESS_KEY });
     sauceLabs.getJobs(function (err, jobs) {
         for (var j in jobs) {
+            console.log(colors.rainbow(j));
             if (jobs.hasOwnProperty(j)) {
                 sauceLabs.showJob(jobs[j].id, function (err, job) {
                     var tags = job.tags;
