@@ -5,7 +5,7 @@
 exports.config = {
     directConnect: true,
 
-    allScriptsTimeout: 120000,
+    allScriptsTimeout: 80000,
 
     specs: [
         'test/e2e/*.js'
@@ -21,7 +21,7 @@ exports.config = {
 
     jasmineNodeOpts: {
         showColors: true,
-        defaultTimeoutInterval: 120000
+        defaultTimeoutInterval: 80000
     },
 
     onPrepare: function() {
