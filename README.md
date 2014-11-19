@@ -1,5 +1,4 @@
 # Juice Shop
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/bkimminich/juice-shop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 An intentionally insecure RIA suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
@@ -60,3 +59,4 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
 [![Docker](http://img.shields.io/badge/docker-container-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/bkimminich/juice-shop?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
