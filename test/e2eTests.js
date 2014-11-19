@@ -33,13 +33,11 @@ function setSaucelabJobResult(exitCode) {
             if (jobs.hasOwnProperty(j)) {
                 sauceLabs.showJob(jobs[j].id, function (err, job) {
                     var tags = job.tags;
-                    for (var i = 0; i < tags.length; i++) {
-                        if (tags[i] === process.env.TRAVIS_BUILD_NUMBER) {
-                            sauceLabs.updateJob(job.id, 'passed=' + exitCode === 0 ? 'true' : 'false', function(err, res) {
-                                console.log('Marked job ' + job.id + ' for build #' + process.env.TRAVIS_BUILD_NUMBER + ' as ' + (exitCode === 0 ? colors.green('PASSED') : colors.red('FAILED')) + '.');
-                                server.close(exitCode);
-                            });
-                        }
+                    if (tags.indexOf(process.env.TRAVIS_BUILD_NUMBER) > -1 && tags.indexOf('e2e') > -1) {
+                        sauceLabs.updateJob(job.id, 'passed=' + exitCode === 0 ? 'true' : 'false', function(err, res) {
+                            console.log('Marked job ' + job.id + ' for build #' + process.env.TRAVIS_BUILD_NUMBER + ' as ' + (exitCode === 0 ? colors.green('PASSED') : colors.red('FAILED')) + '.');
+                            server.close(exitCode);
+                        });
                     }
                 });
             }
