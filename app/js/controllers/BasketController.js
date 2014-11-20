@@ -28,6 +28,20 @@ angular.module('myApp').controller('BasketController', [
 
         };
 
+        $scope.applyCoupon = function () {
+            basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).success(function (data) {
+                $scope.coupon = undefined;
+                $scope.confirmation = 'Discount of ' + data.discount + '% will be applied during checkout.';
+                $scope.error = undefined;
+                $scope.form.$setPristine();
+            }).error(function (error) {
+                console.log(error);
+                $scope.confirmation = undefined;
+                $scope.error = error;
+                $scope.form.$setPristine();
+            });
+        };
+
         $scope.checkout = function() {
             basketService.checkout($window.sessionStorage.bid).success(function (confirmationUrl) {
                 $window.location.replace(confirmationUrl);

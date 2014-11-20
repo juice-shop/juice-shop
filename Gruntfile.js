@@ -91,6 +91,7 @@ module.exports = function (grunt) {
                             'node_modules/express-jwt/**',
                             'node_modules/jsonwebtoken/**',
                             'node_modules/pdfkit/**',
+                            'node_modules/z85/**',
                             'node_modules/glob/**',
                             'node_modules/colors/**'
                         ]

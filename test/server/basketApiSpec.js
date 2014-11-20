@@ -8,6 +8,9 @@ var REST_URL = 'http://localhost:3000/rest';
 
 var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
+var validCoupon = insecurity.generateCoupon(new Date(), 42);
+var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 42);
+
 frisby.create('GET existing basket by id is not allowed via public API')
     .get(REST_URL + '/basket/1')
     .expectStatus(401)
@@ -108,4 +111,32 @@ frisby.create('POST new basket item with negative quantity')
             .expectBodyContains('.pdf')
             .toss();
     }).toss();
+
+frisby.create('PUT apply invalid coupon')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/xxxxxxxxxx')
+    .expectStatus(404)
+    .toss();
+
+frisby.create('PUT apply outdated coupon')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/'+outdatedCoupon)
+    .expectStatus(404)
+    .toss();
+
+frisby.create('PUT apply valid coupon to non-existing basket')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/4711/coupon/'+validCoupon)
+    .expectStatus(500)
+    .toss();
+
+frisby.create('PUT apply valid coupon to existing basket')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/'+validCoupon)
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON({discount : 42})
+    .toss();
+
+
 

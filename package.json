@@ -35,6 +35,7 @@
         "express-jwt": "~0.5",
         "jsonwebtoken": "~1.1",
         "pdfkit": "~0.7",
+        "z85": "~0.0",
         "glob": "~4.0",
         "colors": "~1.0",
         "grunt": "~0.4",
