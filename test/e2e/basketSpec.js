@@ -40,4 +40,24 @@ describe('/#/basket', function () {
 
     });
 
+    describe('challenge "forgedCoupon"', function () {
+
+        xit('should be possible to enter a coupon that gives an 80% discount', function () {
+            browser.get('/#/basket');
+            element(by.id('collapseCouponButton')).click();
+
+            element(by.model('coupon')).sendKeys('xxxxxxxxxx');
+            element(by.id('applyCouponButton')).click();
+        });
+
+        xit('should be possible to place an order with a forged coupon', function () {
+            element(by.id('checkoutButton')).click();
+        });
+
+        // protractor.expect.challengeSolved({challenge: 'forgedCoupon'});
+
+    });
+
+
+
 });

@@ -118,6 +118,9 @@ exports.placeOrder = function () {
                     doc.moveDown();
                     var discount = insecurity.discountFromCoupon(basket.coupon);
                     if (discount) {
+                        if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
+                            utils.solve(challenges.forgedCouponChallenge);
+                        }
                         var discountAmount = (totalPrice * (discount/100)).toFixed(2);
                         doc.text(discount + '% discount from coupon: -' + discountAmount)
                         doc.moveDown();
