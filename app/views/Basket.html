@@ -32,33 +32,36 @@
                 </tr>
             </table>
 
-            <div class="alert-info" ng-show="confirmation && !form.$dirty">
-                <p>{{confirmation}}</p>
-            </div>
-            <div class="alert-danger" ng-show="error && !form.$dirty">
-                <p>{{error}}</p>
-            </div>
-            <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
-                <p ng-show="(form.coupon.$error.minlength || form.coupon.$error.maxlength) && form.coupon.$dirty">Coupon code must be 10 characters long.</p>
-            </div>
+            <div collapse="couponCollapsed">
+                <div class="alert-info" ng-show="confirmation && !form.$dirty">
+                    <p>{{confirmation}}</p>
+                </div>
+                <div class="alert-danger" ng-show="error && !form.$dirty">
+                    <p>{{error}}</p>
+                </div>
+                <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
+                    <p ng-show="(form.coupon.$error.minlength || form.coupon.$error.maxlength) && form.coupon.$dirty">Coupon code must be 10 characters long.</p>
+                </div>
 
-            <div class="container-fluid well">
-                <form role="form" name="form" novalidate>
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="coupon">Coupon</label>
-                            <input type="text" class="form-control input-sm" id="coupon" name="coupon" ng-model="coupon" required ng-maxlength="10" ng-minlength="10"/>
-                        </div>
+                <div class="container-fluid well">
+                    <form role="form" name="form" novalidate>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="coupon">Coupon</label>
+                                <input type="text" class="form-control input-sm" id="coupon" name="coupon" ng-model="coupon" required ng-maxlength="10" ng-minlength="10"/>
+                            </div>
 
-                        <div class="form-group">
-                            <button type="submit" id="applyCouponButton" class="btn btn-default" ng-disabled="form.$invalid" ng-click="applyCoupon()">Apply Coupon</button>
+                            <div class="form-group">
+                                <button type="submit" id="applyCouponButton" class="btn btn-default" ng-disabled="form.$invalid" ng-click="applyCoupon()">Apply Coupon</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
 
             <div class="container-fluid well">
                 <button type="submit" id="checkoutButton" class="btn btn-default" ng-disabled="products.length < 1" ng-click="checkout()">Checkout</button>
+                <a class="btn btn-default" ng-click="couponCollapsed = !couponCollapsed"><span class="glyphicon glyphicon-gift"></span></a>
             </div>
         </div>
     </div>
