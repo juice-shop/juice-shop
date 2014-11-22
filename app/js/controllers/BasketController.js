@@ -6,6 +6,8 @@ angular.module('myApp').controller('BasketController', [
     function ($scope, $sce, $window, basketService) {
         'use strict';
 
+        $scope.couponCollapsed = true;
+
         function load() {
             basketService.find($window.sessionStorage.bid).success(function (basket) {
                 $scope.products = basket.data.products;
@@ -26,6 +28,20 @@ angular.module('myApp').controller('BasketController', [
                 console.log(err);
             });
 
+        };
+
+        $scope.applyCoupon = function () {
+            basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).success(function (data) {
+                $scope.coupon = undefined;
+                $scope.confirmation = 'Discount of ' + data.discount + '% will be applied during checkout.';
+                $scope.error = undefined;
+                $scope.form.$setPristine();
+            }).error(function (error) {
+                console.log(error);
+                $scope.confirmation = undefined;
+                $scope.error = error;
+                $scope.form.$setPristine();
+            });
         };
 
         $scope.checkout = function() {

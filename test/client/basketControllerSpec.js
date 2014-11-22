@@ -27,6 +27,7 @@ describe('controllers', function () {
             expect(controller).toBeDefined();
             expect(scope.delete).toBeDefined();
             expect(scope.checkout).toBeDefined();
+            expect(scope.applyCoupon).toBeDefined();
             expect(scope.inc).toBeDefined();
             expect(scope.dec).toBeDefined();
         }));

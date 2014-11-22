@@ -87,6 +87,7 @@ app.get('/rest/user/authentication-details', user.retrieveUserList());
 app.get('/rest/product/search', shop.searchProducts());
 app.get('/rest/basket/:id', shop.retrieveBasket());
 app.post('/rest/basket/:id/checkout', shop.placeOrder());
+app.put('/rest/basket/:id/coupon/:coupon', shop.applyCoupon());
 app.get('/rest/admin/application-version', site.retrieveAppVersion());
 app.get('/redirect', site.performRedirect());
 /* File Serving */

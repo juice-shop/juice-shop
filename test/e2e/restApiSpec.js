@@ -13,14 +13,14 @@ describe('/rest', function () {
             browser.driver.sleep(1000);
 
             browser.get('/#/search');
-            browser.driver.sleep(1000);
+            browser.driver.sleep(2000);
 
             browser.switchTo().alert().then(
                 function (alert) {
                     expect(alert.getText()).toEqual('XSS4');
                     alert.accept();
                     browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/Products/10\', {description: \'alert disabled\'});');
-                    browser.driver.sleep(1000);
+                    browser.driver.sleep(2000);
                     browser.ignoreSynchronization = false;
                 });
 

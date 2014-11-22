@@ -177,6 +177,13 @@ module.exports = function() {
         }).success(function (challenge) {
             challenges.easterEggLevelTwoChallenge = challenge;
         });
+        models.Challenge.create({
+            name: 'forgedCoupon',
+            description: 'Forge a coupon code that gives you a discount of at least 80%.',
+            solved: false
+        }).success(function (challenge) {
+            challenges.forgedCouponChallenge = challenge;
+        });
     }
     function createUsers() {
         models.User.create({

@@ -8,6 +8,10 @@ var REST_URL = 'http://localhost:3000/rest';
 
 var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
+var validCoupon = insecurity.generateCoupon(new Date(), 42);
+var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 42);
+var forgedCoupon = insecurity.generateCoupon(new Date(), 99);
+
 frisby.create('GET existing basket by id is not allowed via public API')
     .get(REST_URL + '/basket/1')
     .expectStatus(401)
@@ -100,7 +104,7 @@ frisby.create('POST new basket item with negative quantity')
     })
     .expectStatus(200)
     .after(function() {
-        frisby.create('GET placing an order for a basket with a negative total cost')
+        frisby.create('POST placing an order for a basket with a negative total cost')
             .post(REST_URL + '/basket/3/checkout')
             .addHeaders(authHeader)
             .expectStatus(200)
@@ -108,4 +112,46 @@ frisby.create('POST new basket item with negative quantity')
             .expectBodyContains('.pdf')
             .toss();
     }).toss();
+
+frisby.create('PUT forged coupon with 99% discount')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/2/coupon/'+forgedCoupon)
+    .expectStatus(200)
+    .after(function() {
+        frisby.create('POST placing an order for a basket with 99% discount')
+            .post(REST_URL + '/basket/2/checkout')
+            .addHeaders(authHeader)
+            .expectStatus(200)
+            .expectBodyContains('/public/ftp/order_')
+            .expectBodyContains('.pdf')
+            .toss();
+    }).toss();
+
+frisby.create('PUT apply invalid coupon')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/xxxxxxxxxx')
+    .expectStatus(404)
+    .toss();
+
+frisby.create('PUT apply outdated coupon')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/'+outdatedCoupon)
+    .expectStatus(404)
+    .toss();
+
+frisby.create('PUT apply valid coupon to non-existing basket')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/4711/coupon/'+validCoupon)
+    .expectStatus(500)
+    .toss();
+
+frisby.create('PUT apply valid coupon to existing basket')
+    .addHeaders(authHeader)
+    .put(REST_URL + '/basket/1/coupon/'+validCoupon)
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON({discount : 42})
+    .toss();
+
+
 

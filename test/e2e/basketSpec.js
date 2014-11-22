@@ -1,43 +1,74 @@
 'use strict';
 
+var insecurity = require('../../lib/insecurity');
+
 describe('/#/basket', function () {
 
-    protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
+    describe('as admin', function () {
 
-    describe('challenge "negativeOrder"', function () {
+        protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
 
-        it('should be possible to update a basket to a negative quantity via the Rest API', function () {
-            browser.ignoreSynchronization = true;
-            browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});');
-            browser.driver.sleep(1000);
+        describe('challenge "negativeOrder"', function () {
 
-            browser.get('/#/basket');
-            browser.ignoreSynchronization = false;
+            it('should be possible to update a basket to a negative quantity via the Rest API', function () {
+                browser.ignoreSynchronization = true;
+                browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});');
+                browser.driver.sleep(1000);
 
-            var productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'));
-            expect(productQuantities.first().getText()).toMatch(/-100/);
+                browser.get('/#/basket');
+                browser.ignoreSynchronization = false;
+
+                var productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'));
+                expect(productQuantities.first().getText()).toMatch(/-100/);
+            });
+
+            it('should be possible to place an order with a negative total amount', function () {
+                element(by.id('checkoutButton')).click();
+            });
+
+            protractor.expect.challengeSolved({challenge: 'negativeOrder'});
+
         });
 
-        it('should be possible to place an order with a negative total amount', function () {
-            element(by.id('checkoutButton')).click();
-        });
+        describe('challenge "accessBasket"', function () {
 
-        protractor.expect.challengeSolved({challenge: 'negativeOrder'});
+            it('should access basket with id from cookie instead of the one associated to logged-in user', function () {
+                browser.executeScript('window.sessionStorage.bid = 3;');
+
+                browser.get('/#/basket');
+
+                // TODO Verify functionally that it's not the basket of the admin
+            });
+
+            protractor.expect.challengeSolved({challenge: 'accessBasket'});
+
+        });
 
     });
 
-    describe('challenge "accessBasket"', function () {
+    describe('as jim', function () {
 
-        it('should access basket with id from cookie instead of the one associated to logged-in user', function () {
-            browser.executeScript('window.sessionStorage.bid = 2;');
+        protractor.beforeEach.login({email: 'jim@juice-sh.op', password: 'ncc-1701'});
 
-            browser.get('/#/basket');
+        describe('challenge "forgedCoupon"', function () {
 
-            // TODO Verify functionally that it's not the basket of the admin
+            it('should be possible to enter a coupon that gives an 80% discount', function () {
+                browser.get('/#/basket');
+                element(by.id('collapseCouponButton')).click();
+                element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 80));
+                element(by.id('applyCouponButton')).click();
+            });
+
+            it('should be possible to place an order with a forged coupon', function () {
+                element(by.id('checkoutButton')).click();
+            });
+
+            protractor.expect.challengeSolved({challenge: 'forgedCoupon'});
+
         });
 
-        protractor.expect.challengeSolved({challenge: 'accessBasket'});
-
     });
+
+
 
 });

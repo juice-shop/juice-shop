@@ -91,11 +91,19 @@ module.exports = function (grunt) {
                             'node_modules/express-jwt/**',
                             'node_modules/jsonwebtoken/**',
                             'node_modules/pdfkit/**',
+                            'node_modules/z85/**',
                             'node_modules/glob/**',
                             'node_modules/colors/**'
                         ]
                     }
                 ]
+            }
+        },
+
+        retire: {
+            js: ['app/**/*.js'],
+            node: ['.'],
+            options: {
             }
         }
 
@@ -106,6 +114,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-retire');
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:myApp', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);

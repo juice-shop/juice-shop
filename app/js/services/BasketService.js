@@ -23,6 +23,10 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         return $http.post('/rest/basket/'+id+'/checkout');
     }
 
+    function applyCoupon(id, coupon) {
+        return $http.put('/rest/basket/'+id+'/coupon/'+coupon);
+    }
+
     function save(params) {
         return $http.post(host + '/', params);
     }
@@ -33,6 +37,7 @@ angular.module('myApp').factory('BasketService', ['$http', function ($http) {
         put: put,
         del: del,
         checkout: checkout,
+        applyCoupon: applyCoupon,
         save: save
     };
 }]);
