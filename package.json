@@ -30,7 +30,6 @@
         "serve-favicon": "~2.1",
         "body-parser": "~1.9",
         "sequelize-restful": "~0.3",
-        "soap": "~0.6",
         "morgan": "~1.5",
         "sanitize-html": "1.4.2",
         "express-jwt": "~0.5",
