@@ -59,9 +59,28 @@
                 </div>
             </div>
 
+            <div collapse="paymentCollapsed">
+                <div class="container-fluid well">
+                    <div class="row">
+                        <label>Payment</label> <small>(I am grateful for tips. Please do not expect any orders to be processed for real, though.)</small>
+                    </div>
+                    <div class="row">
+                        <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-default">
+                            <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span> Bitcoin
+                        </a>
+                        <a href="/redirect?to=https://gratipay.com/bkimminich" target="_blank" class="btn btn-default">
+                            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Gratipay
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="container-fluid well">
-                <button type="submit" id="checkoutButton" class="btn btn-default" ng-disabled="products.length < 1" ng-click="checkout()">Checkout</button>
-                <a id="collapseCouponButton" class="btn btn-default" ng-click="couponCollapsed = !couponCollapsed"><span class="glyphicon glyphicon-gift"></span></a>
+                <div class="row">
+                    <button type="submit" id="checkoutButton" class="btn btn-default" ng-disabled="products.length < 1" ng-click="checkout()">Checkout</button>
+                    <a id="collapseCouponButton" class="btn btn-default" ng-click="couponCollapsed = !couponCollapsed"><span class="glyphicon glyphicon-gift"></span></a>
+                    <a id="collapsePaymentButton" class="btn btn-default" ng-click="paymentCollapsed = !paymentCollapsed"><span class="glyphicon glyphicon-credit-card"></span></a>
+                </div>
             </div>
         </div>
     </div>

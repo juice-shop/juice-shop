@@ -7,6 +7,7 @@ angular.module('myApp').controller('BasketController', [
         'use strict';
 
         $scope.couponCollapsed = true;
+        $scope.paymentCollapsed = true;
 
         function load() {
             basketService.find($window.sessionStorage.bid).success(function (basket) {

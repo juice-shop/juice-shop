@@ -51,16 +51,16 @@ exports.serveEasterEgg = function() {
 };
 
 exports.performRedirect = function() {
-    return function(req, res) {
-        var to = req.query.to;
-        var githubUrl = 'https://github.com/bkimminich/juice-shop';
-        if (to.indexOf(githubUrl) > -1) {
-            if (utils.notSolved(challenges.redirectChallenge) && to !== githubUrl) { // TODO Instead match against something like <anotherUrl>[?&]=githubUrl
+    return function(req, res, next) {
+        var toUrl = req.query.to;
+        if (insecurity.isRedirectAllowed(toUrl)) {
+            if (utils.notSolved(challenges.redirectChallenge) && insecurity.redirectWhitelist.indexOf(toUrl) === -1) {
                 utils.solve(challenges.redirectChallenge);
             }
-            res.redirect(to);
+            res.redirect(toUrl);
         } else {
-            res.redirect(githubUrl);
+            res.status(406);
+            next(new Error('Unrecognized target URL for redirect: ' + toUrl));
         }
     };
 };
