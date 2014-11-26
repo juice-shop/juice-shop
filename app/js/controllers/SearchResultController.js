@@ -1,3 +1,4 @@
+/*jslint loopfunc: true */
 angular.module('myApp').controller('SearchResultController', [
     '$scope',
     '$sce',
