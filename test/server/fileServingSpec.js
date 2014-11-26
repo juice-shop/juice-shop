@@ -40,8 +40,13 @@ frisby.create('GET a non-existing file in /public/ftp will return a 403 error fo
     .expectStatus(403)
     .toss();
 
-frisby.create('GET an existing file in /public/ftp will return a 403 error for invalid file type')
+frisby.create('GET an existing file in /public/ftp will return a 403 error for invalid file type .gg')
     .get(URL + "/public/ftp/eastere.gg")
+    .expectStatus(403)
+    .toss();
+
+frisby.create('GET an existing file in /public/ftp will return a 403 error for invalid file type .bak')
+    .get(URL + "/public/ftp/coupons_2013.md.bak")
     .expectStatus(403)
     .toss();
 
@@ -57,6 +62,16 @@ frisby.create('GET the easter egg file by using an encoded Poison Null Byte atta
 
 frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .md suffix')
     .get(URL + "/public/ftp/eastere.gg%2500.md")
+    .expectStatus(200)
+    .toss();
+
+frisby.create('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .pdf suffix')
+    .get(URL + "/public/ftp/coupons_2013.md.bak%2500.pdf")
+    .expectStatus(200)
+    .toss();
+
+frisby.create('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .md suffix')
+    .get(URL + "/public/ftp/coupons_2013.md.bak%2500.md")
     .expectStatus(200)
     .toss();
 
