@@ -1,0 +1,92 @@
+{
+    "name": "juice-shop",
+    "version": "1.5.4",
+    "description": "An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
+    "author": "Bjoern Kimminich",
+    "contributors": [
+        "Bjoern Kimminich"
+    ],
+    "private": true,
+    "keywords": [
+        "web security",
+        "web application security",
+        "webappsec",
+        "owasp",
+        "pentest",
+        "pentesting",
+        "security",
+        "vulnerable",
+        "vulnerability",
+        "broken",
+        "bodgeit"
+    ],
+    "dependencies": {
+        "sequelize": "~1.7",
+        "sqlite3": "~3.0",
+        "express": "~4.10",
+        "errorhandler": "~1.2",
+        "cookie-parser": "~1.3",
+        "serve-index": "~1.5",
+        "serve-favicon": "~2.1",
+        "body-parser": "~1.9",
+        "sequelize-restful": "~0.3",
+        "morgan": "~1.5",
+        "sanitize-html": "1.4.2",
+        "express-jwt": "~0.5",
+        "jsonwebtoken": "~1.1",
+        "pdfkit": "~0.7",
+        "z85": "~0.0",
+        "glob": "~4.0",
+        "colors": "~1.0",
+        "grunt": "~0.4",
+        "grunt-cli": "~0.1",
+        "grunt-angular-templates": "~0.5",
+        "grunt-contrib-uglify": "~0.6",
+        "grunt-contrib-concat": "~0.5",
+        "grunt-contrib-clean": "~0.6",
+        "grunt-contrib-compress": "~0.12",
+        "bower": "~1.3",
+        "saucelabs": "~0.1"
+    },
+    "devDependencies": {
+        "frisby": "~0.8",
+        "jasmine-node": "~1.14",
+        "karma": "~0.12",
+        "karma-cli": "~0.0",
+        "karma-junit-reporter": "~0.2",
+        "karma-coverage": "~0.2",
+        "karma-chrome-launcher": "~0.1",
+        "karma-sauce-launcher": "~0.2",
+        "karma-firefox-launcher": "~0.1",
+        "karma-safari-launcher": "~0.1",
+        "karma-phantomjs-launcher": "~0.1",
+        "karma-jasmine": "~0.1",
+        "protractor": "~1.3",
+        "jasmine-reporters": "~1.0",
+        "http-server": "~0.7",
+        "shelljs": "~0.3",
+        "win-spawn": "~2.0",
+        "codeclimate-test-reporter": "~0.0",
+        "istanbul": "~0.3",
+        "lcov-result-merger": "~1.0",
+        "grunt-retire": "~0.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bkimminich/juice-shop.git"
+    },
+    "scripts": {
+        "postinstall": "node bower_install.js && node grunt_minify.js",
+        "start": "node app",
+        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+
+        "preupdate-webdriver": "npm install",
+        "update-webdriver": "webdriver-manager update",
+        "preprotractor": "npm run update-webdriver",
+        "protractor": "node test/e2eTests.js"
+    },
+    "subdomain": "juice-shop",
+    "engines": {
+        "node": "0.10.x"
+    }
+}
