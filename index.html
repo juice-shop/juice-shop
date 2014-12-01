@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Juice-shop by bkimminich</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Juice-shop</h1>
+        <p>An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.</p>
+        <p class="view"><a href="https://github.com/bkimminich/juice-shop">View the Project on GitHub <small>bkimminich/juice-shop</small></a></p>
+        <ul>
+          <li><a href="https://github.com/bkimminich/juice-shop/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/bkimminich/juice-shop/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/bkimminich/juice-shop">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="juice-shop" class="anchor" href="#juice-shop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Juice Shop</h1>
+
+<p>An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" <a href="https://code.google.com/p/bodgeit/">BodgeIt Store</a> by <a href="https://github.com/psiinon">@psiinon</a>.</p>
+
+<blockquote>
+<p>Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.</p>
+</blockquote>
+
+<p>You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend <a href="https://code.google.com/p/zaproxy/">Zed Attack Proxy</a> which is open source and very powerful, yet beginner friendly.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Easy to install: Just requires <a href="http://nodejs.org">node.js</a>
+</li>
+<li>Self contained: Additional dependencies will be resolved and downloaded automatically</li>
+<li>No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup</li>
+<li>Open source: No hidden costs or caveats</li>
+</ul>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<h3>
+<a id="from-sources" class="anchor" href="#from-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Sources</h3>
+
+<ol>
+<li>Install <a href="http://nodejs.org">node.js</a> (version 0.10.x)</li>
+<li>Run <code>git clone https://github.com/bkimminich/juice-shop.git</code> (or clone <a href="https://github.com/bkimminich/juice-shop/fork">your own fork</a> of the repository) </li>
+<li>Run <code>npm install</code> (only has to be done before first start or when you change the source code)</li>
+<li>Run <code>npm start</code>
+</li>
+<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a>
+</li>
+</ol>
+
+<h3>
+<a id="docker-container" class="anchor" href="#docker-container" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Container</h3>
+
+<ol>
+<li>Install <a href="https://www.docker.com">Docker</a>
+</li>
+<li>Run <code>docker pull bkimminich/juice-shop</code>
+</li>
+<li>Run <code>docker run -d -p 3000:3000 bkimminich/juice-shop</code>
+</li>
+<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a> </li>
+</ol>
+
+<h3>
+<a id="packaged-distribution" class="anchor" href="#packaged-distribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packaged Distribution</h3>
+
+<ol>
+<li>Install <a href="http://nodejs.org">node.js</a> (version 0.10.x)</li>
+<li>Download <code>juice-shop-&lt;version&gt;.zip</code> attached to <a href="https://github.com/bkimminich/juice-shop/releases/latest">latest release</a>
+</li>
+<li>Unpack and run <code>npm start</code> in unzipped folder</li>
+<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a>
+</li>
+</ol>
+
+<h2>
+<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<ul>
+<li>If you are experiencing <a href="https://github.com/bower/bower/issues/50">Error 128</a> from some GitHub repos during <code>bower_install.js</code> execution, run <code>git config --global url."https://".insteadOf git://</code> and try <code>npm install</code> again</li>
+<li>If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host <code>127.0.0.1:3000</code> to <code>0.0.0.0:3000</code> for TCP </li>
+<li>If <code>npm install</code> fails after an update of your local copy during <code>bower_install.js</code> complaining about version issues, delete <code>/app/bower_components</code> and try again to remove outdated versions that cause conflicts</li>
+</ul>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/bkimminich">bkimminich</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
