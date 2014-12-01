@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <script src="javascripts/mermaid.full.min.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -52,6 +53,57 @@
 <li>No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup</li>
 <li>Open source: No hidden costs or caveats</li>
 </ul>
+
+<h2>
+<a id="architecture-overview" class="anchor" href="#architecture-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Architecture Overview</h2>
+
+<div class="mermaid">
+    graph TD;
+    A(Javascript Client: Angular.js + Bootstrap)-->B[Restful Server: Express.js + Sequelize-Restful];
+    B-->C[OR Mapper: Sequelize];
+    C-->D[Database: SQLite];
+    B-->E[File System];
+    B-->F[Document Creation: PDFKit];
+    F-->E;
+
+    classDef client fill:#DBFAFC,stroke:#333,stroke-width:1px;
+    classDef node fill:#9FE0F9,stroke:#333,stroke-width:1px;
+    classDef backend fill:#C6EAFA,stroke:#333,stroke-width:1px;
+
+    class A client;
+    class B,C,F node;
+    class D,E backend;
+</div>
+
+<h2>
+<a id="attack-scenarios" class="anchor" href="#attack-scenarios" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attack Scenarios</h2>
+
+<div class="mermaid">
+    graph TD;
+    A((Browser))-->|manual attack|B[Juice Shop];
+    C((Browser))-->D(Attack Proxy);
+    D-->|supported attack|B;
+    E(Vulnerabilitiy Scanner)-->|automated attack|B;
+
+    B---F(XSS);
+    B---G(SQLI);
+    B---H(Auth);
+    B---I(Crypto);
+    B---J(Logic);
+    B---K(...);
+
+    classDef client fill:#DBFAFC,stroke:#333,stroke-width:1px;
+    classDef app fill:#9FE0F9,stroke:#333,stroke-width:1px;
+    classDef tool fill:#C6EAFA,stroke:#333,stroke-width:1px;
+    classDef vuln fill:#F9F9F9,stroke:#FF0000,stroke-width:1px,stroke-dasharray: 5, 5;
+
+    class A,C client;
+    class B app;
+    class D,E tool;
+
+    class F,G,H,I,J,K vuln;
+</div>
+
 
 <h2>
 <a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
