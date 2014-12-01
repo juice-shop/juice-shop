@@ -22,6 +22,7 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 - Self contained: Additional dependencies will be resolved and downloaded automatically
 - No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup
 - Open source: No hidden costs or caveats
+- Score Board: The application keeps track of known vulnerabilities the user has successfully exploited
  
 ## Getting started
 
