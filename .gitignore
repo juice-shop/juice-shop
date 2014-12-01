@@ -1,0 +1,21 @@
+*.log
+coverage/
+reports/
+juiceshop.sqlite
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+
+# NPM
+node_modules/
+
+# Bower
+app/bower_components/
+
+# App
+dist/
+order_*.pdf
