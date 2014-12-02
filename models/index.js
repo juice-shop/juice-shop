@@ -6,8 +6,7 @@ var fs = require('fs'),
     Sequelize = require('sequelize'),
     sequelize = new Sequelize('database', 'username', 'password', {
         dialect: 'sqlite',
-        storage: 'data/juiceshop.sqlite',
-        logging: false
+        storage: 'data/juiceshop.sqlite'
     }),
     db = {};
 
