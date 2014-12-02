@@ -1,6 +1,6 @@
 {
     "name": "juice-shop",
-    "version": "1.5.4",
+    "version": "1.6.0",
     "description": "An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
     "author": "Bjoern Kimminich",
     "contributors": [
@@ -34,6 +34,7 @@
         "sanitize-html": "1.4.2",
         "express-jwt": "~0.5",
         "jsonwebtoken": "~1.2",
+        "helmet": "~0.5",
         "pdfkit": "~0.7",
         "z85": "~0.0",
         "glob": "~4.3",

@@ -8,8 +8,8 @@ var REST_URL = 'http://localhost:3000/rest';
 
 var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
 
-var validCoupon = insecurity.generateCoupon(new Date(), 42);
-var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 42);
+var validCoupon = insecurity.generateCoupon(new Date(), 15);
+var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20);
 var forgedCoupon = insecurity.generateCoupon(new Date(), 99);
 
 frisby.create('GET existing basket by id is not allowed via public API')
@@ -150,7 +150,7 @@ frisby.create('PUT apply valid coupon to existing basket')
     .put(REST_URL + '/basket/1/coupon/'+validCoupon)
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
-    .expectJSON({discount : 42})
+    .expectJSON({discount : 15})
     .toss();
 
 

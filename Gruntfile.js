@@ -90,6 +90,7 @@ module.exports = function (grunt) {
                             'node_modules/sanitize-html/**',
                             'node_modules/express-jwt/**',
                             'node_modules/jsonwebtoken/**',
+                            'node_modules/helmet/**',
                             'node_modules/pdfkit/**',
                             'node_modules/z85/**',
                             'node_modules/glob/**',
