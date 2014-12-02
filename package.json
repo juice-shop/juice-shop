@@ -34,6 +34,7 @@
         "sanitize-html": "1.4.2",
         "express-jwt": "~0.5",
         "jsonwebtoken": "~1.2",
+        "helmet": "~0.5",
         "pdfkit": "~0.7",
         "z85": "~0.0",
         "glob": "~4.3",

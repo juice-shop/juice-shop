@@ -8,6 +8,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     colors = require('colors/safe'),
     restful = require('sequelize-restful'),
     express = require('express'),
+    helmet = require('helmet'),
     errorhandler = require('errorhandler'),
     cookieParser = require('cookie-parser'),
     serveIndex = require('serve-index'),
@@ -31,6 +32,11 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
         fs.unlink(filename);
     });
 });
+
+/* Security middleware */
+app.use(helmet.noSniff());
+app.use(helmet.frameguard());
+//app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 
 /* Favicon */
 app.use(favicon(__dirname + '/app/public/favicon.ico'));
