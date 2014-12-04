@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "dependencies": {
     "angular": "~1.3",
@@ -9,6 +9,7 @@
     "angular-loader": "~1.3",
     "angular-mocks": "~1.3",
     "angular-cookies": "~1.3",
+    "angular-touch": "~1.3",
     "angular-bootstrap": "~0.12",
     "angular-highlightjs": "~0.3",
     "highlightjs": "~8.3",

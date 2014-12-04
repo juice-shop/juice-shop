@@ -1,6 +1,7 @@
 var myApp = angular.module('myApp', [
     'ngRoute',
     'ngCookies',
+    'ngTouch',
     'ui.bootstrap'
 ]);
 
