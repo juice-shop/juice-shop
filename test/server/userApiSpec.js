@@ -6,7 +6,7 @@ var frisby = require('frisby'),
 var API_URL = 'http://localhost:3000/api';
 var REST_URL = 'http://localhost:3000/rest';
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() } ;
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() };
 
 frisby.create('POST new user')
     .post(API_URL + '/Users', {
@@ -36,7 +36,7 @@ frisby.create('POST new user')
                 umail: String,
                 bid: Number
             })
-            .afterJSON(function(auth) {
+            .afterJSON(function (auth) {
                 frisby.create('GET own user id and email on who-am-i request')
                     .get(REST_URL + '/user/whoami')
                     .addHeaders({'Authorization': 'Bearer ' + auth.token})
@@ -49,68 +49,76 @@ frisby.create('POST new user')
                         email: 'horst@horstma.nn'
                     })
                     .toss();
-                frisby.create('GET password change with recognized token as cookie')
-                    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+                frisby.create('GET password change with passing wrong current password')
+                    .get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb')
+                    .addHeaders({ 'Cookie': 'token=' + auth.token })
+                    .expectStatus(401)
+                    .expectBodyContains('Current password is not correct')
+                    .toss();
+                frisby.create('GET password change with correct current password and recognized token as cookie')
+                    .get(REST_URL + '/user/change-password?current=hooooorst&new=foo&repeat=foo')
                     .addHeaders({ 'Cookie': 'token=' + auth.token })
                     .expectStatus(200)
-                    .toss();
-                frisby.create('GET password change with recognized token as cookie in double-quotes')
-                    .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-                    .addHeaders({ 'Cookie': 'token=%22' + auth.token + '%22' })
-                    .expectStatus(200)
-                    .toss();
-                frisby.create('GET existing basket of another user')
-                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
-                    .get(REST_URL + '/basket/2')
-                    .expectStatus(200)
-                    .expectHeaderContains('content-type', 'application/json')
-                    .expectJSON('data', {
-                        id: 2
+                    .afterJSON(function () {
+                        frisby.create('GET password change without current password and recognized token as cookie in double-quotes')
+                            .get(REST_URL + '/user/change-password?new=bar&repeat=bar')
+                            .addHeaders({ 'Cookie': 'token=%22' + auth.token + '%22' })
+                            .expectStatus(200)
+                            .toss();
+                        frisby.create('GET existing basket of another user')
+                            .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                            .get(REST_URL + '/basket/2')
+                            .expectStatus(200)
+                            .expectHeaderContains('content-type', 'application/json')
+                            .expectJSON('data', {
+                                id: 2
+                            })
+                            .toss();
+                        frisby.create('POST feedback is associated with current user')
+                            .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                            .post(API_URL + '/Feedbacks', {
+                                comment: 'Horst\'s choice award!',
+                                rating: 5,
+                                UserId: 4
+                            }, {json: true})
+                            .expectStatus(200)
+                            .expectHeaderContains('content-type', 'application/json')
+                            .expectJSON('data', {
+                                UserId: 4
+                            })
+                            .toss();
+                        frisby.create('POST feedback is associated with any passed user id')
+                            .addHeaders({'Authorization': 'Bearer ' + auth.token})
+                            .post(API_URL + '/Feedbacks', {
+                                comment: 'Bender\'s choice award!',
+                                rating: 2,
+                                UserId: 3
+                            }, {json: true})
+                            .expectStatus(200)
+                            .expectHeaderContains('content-type', 'application/json')
+                            .expectJSON('data', {
+                                UserId: 3
+                            })
+                            .toss();
                     })
                     .toss();
-                frisby.create('POST feedback is associated with current user')
-                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
-                    .post(API_URL + '/Feedbacks', {
-                        comment: 'Horst\'s choice award!',
-                        rating: 5,
-                        UserId: 4
-                    }, {json: true})
-                    .expectStatus(200)
-                    .expectHeaderContains('content-type', 'application/json')
-                    .expectJSON('data', {
-                        UserId: 4
-                    })
-                    .toss();
-                frisby.create('POST feedback is associated with any passed user id')
-                    .addHeaders({'Authorization': 'Bearer ' + auth.token})
-                    .post(API_URL + '/Feedbacks', {
-                        comment: 'Bender\'s choice award!',
-                        rating: 2,
-                        UserId: 3
-                    }, {json: true})
-                    .expectStatus(200)
-                    .expectHeaderContains('content-type', 'application/json')
-                    .expectJSON('data', {
-                        UserId: 3
-                    })
-                    .toss();
-    }).toss();
+            }).toss();
 
         frisby.create('GET existing user by id')
             .addHeaders(authHeader)
             .get(API_URL + '/Users/' + user.data.id)
             .expectStatus(200)
-            .after(function() {
+            .after(function () {
                 frisby.create('PUT update existing user')
                     .addHeaders(authHeader)
                     .put(API_URL + '/Users/' + user.data.id, {
                         email: 'horst.horstmann@horstma.nn'
                     })
                     .expectStatus(200)
-                    .after(function() {
+                    .after(function () {
                         frisby.create('DELETE existing user is forbidden via API even when authenticated')
                             .addHeaders(authHeader)
-                            .delete(API_URL + '/Users/' + + user.data.id)
+                            .delete(API_URL + '/Users/' + +user.data.id)
                             .expectStatus(401)
                             .toss();
                     }).toss();
@@ -274,7 +282,7 @@ frisby.create('GET all users decorated with attribute for authentication token')
     .addHeaders(authHeader)
     .get(REST_URL + '/user/authentication-details')
     .expectStatus(200)
-    .expectJSONTypes('data.?',{
+    .expectJSONTypes('data.?', {
         token: String
     }).toss();
 
