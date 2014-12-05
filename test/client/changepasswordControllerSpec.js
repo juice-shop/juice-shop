@@ -36,15 +36,19 @@ describe('controllers', function () {
             expect(scope.confirmation).toBeDefined();
         }));
 
-        it('should gracefully handle error on password change', inject(function ($controller) {
+        it('should clear form and gracefully handle error on password change', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/change-password?current=old&new=foobar&repeat=foobar').respond(500, 'error');
             scope.currentPassword = 'old';
             scope.newPassword = 'foobar';
             scope.newPasswordRepeat = 'foobar';
+            scope.form = {$setPristine: function() {}};
 
             scope.changePassword();
             $httpBackend.flush();
 
+            expect(scope.currentPassword).toBeUndefined();
+            expect(scope.newPassword).toBeUndefined();
+            expect(scope.newPasswordRepeat).toBeUndefined();
             expect(scope.error).toBe('error');
         }));
 

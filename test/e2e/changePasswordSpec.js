@@ -4,29 +4,47 @@ describe('/#/change-password', function () {
 
     var currentPassword, newPassword, newPasswordRepeat, changeButton;
 
-    protractor.beforeEach.login({email: 'bender@juice-sh.op', password: 'booze'});
+    describe('as bender', function () {
 
-    beforeEach(function () {
-        browser.get('/#/change-password');
-        currentPassword = element(by.model('currentPassword'));
-        newPassword = element(by.model('newPassword'));
-        newPasswordRepeat = element(by.model('newPasswordRepeat'));
-        changeButton = element(by.id('changeButton'));
-    });
+        protractor.beforeEach.login({email: 'bender@juice-sh.op', password: 'booze'});
 
-    describe('challenge "csrf"', function () {
+        beforeEach(function () {
+            browser.get('/#/change-password');
+            currentPassword = element(by.model('currentPassword'));
+            newPassword = element(by.model('newPassword'));
+            newPasswordRepeat = element(by.model('newPasswordRepeat'));
+            changeButton = element(by.id('changeButton'));
+        });
 
-        it('should be able to change password without providing matching current password', function () {
-            currentPassword.sendKeys('???');
-            newPassword.sendKeys('slurmCl4ssic');
-            newPasswordRepeat.sendKeys('slurmCl4ssic');
+        it('should be able to change password', function () {
+            currentPassword.sendKeys('booze');
+            newPassword.sendKeys('genderBender');
+            newPasswordRepeat.sendKeys('genderBender');
             changeButton.click();
 
             expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide');
         });
 
+    });
+
+    describe('challenge "csrf"', function () {
+
+        protractor.beforeEach.login({email: 'bender@juice-sh.op', password: 'genderBender'});
+
+        it('should be able to change password via GET witout passing current password', function () {
+            browser.driver.get(browser.baseUrl + '/rest/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic');
+
+            browser.get('/#/login');
+            element(by.model('user.email')).sendKeys('bender@juice-sh.op');
+            element(by.model('user.password')).sendKeys('slurmCl4ssic');
+            element(by.id('loginButton')).click();
+
+            expect(browser.getLocationAbsUrl()).toMatch(/\/search/);
+        });
+
         protractor.expect.challengeSolved({challenge: 'csrf'});
 
     });
+
 
 });
