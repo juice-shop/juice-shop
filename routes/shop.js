@@ -137,6 +137,7 @@ exports.placeOrder = function () {
                     }
 
                     fileWriter.on('finish', function () {
+                        basket.updateAttributes({coupon: null});
                         models.BasketItem.destroy({BasketId: id});
                         res.send('/public/ftp/' + pdfFile);
                     });
