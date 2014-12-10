@@ -301,10 +301,7 @@ frisby.create('GET who-am-i request returns nothing on missing auth token')
     .get(REST_URL + '/user/whoami')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
-    .expectJSONTypes({
-        id: undefined,
-        email: undefined
-    })
+    .expectJSONTypes({})
     .toss();
 
 frisby.create('GET who-am-i request returns nothing on invalid auth token')
@@ -312,8 +309,5 @@ frisby.create('GET who-am-i request returns nothing on invalid auth token')
     .addHeaders(authHeader)
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
-    .expectJSONTypes({
-        id: undefined,
-        email: undefined
-    })
+    .expectJSONTypes({})
     .toss();
