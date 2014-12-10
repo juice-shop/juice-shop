@@ -51,6 +51,7 @@
     },
     "devDependencies": {
         "frisby": "~0.8",
+        "request": "~2.49",
         "jasmine-node": "~1.14",
         "karma": "~0.12",
         "karma-cli": "~0.0",
