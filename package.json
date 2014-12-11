@@ -2,6 +2,7 @@
     "name": "juice-shop",
     "version": "1.6.4",
     "description": "An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
+    "homepage": "http://bkimminich.github.io/juice-shop/",
     "author": "Bjoern Kimminich",
     "contributors": [
         "Bjoern Kimminich"
@@ -77,6 +78,15 @@
         "type": "git",
         "url": "https://github.com/bkimminich/juice-shop.git"
     },
+    "bugs": {
+        "url": "https://github.com/bkimminich/juice-shop/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/bkimminich/juice-shop/blob/master/LICENSE.md"
+        }
+    ],
     "scripts": {
         "postinstall": "node bower_install.js && node grunt_minify.js",
         "start": "node app",
