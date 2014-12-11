@@ -84,7 +84,7 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/bkimminich/juice-shop/blob/master/LICENSE.md"
+            "url": "https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT"
         }
     ],
     "scripts": {
