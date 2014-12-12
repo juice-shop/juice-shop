@@ -32,6 +32,8 @@ exports.servePublicFiles = function() {
                 utils.solve(challenges.easterEggLevelOneChallenge);
             } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
                 utils.solve(challenges.directoryListingChallenge);
+            } else if (utils.notSolved(challenges.forgottenBackupChallenge) && (file.toLowerCase() === 'coupons_2013.md.bak' || file.toLowerCase() === 'package.json.bak')) {
+                utils.solve(challenges.forgottenBackupChallenge);
             }
             res.sendFile(path.resolve(__dirname + '/../app/public/ftp/' + file));
         } else {

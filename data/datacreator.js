@@ -136,6 +136,13 @@ module.exports = function() {
             challenges.directoryListingChallenge = challenge;
         });
         models.Challenge.create({
+            name: 'forgottenBackup',
+            description: 'Access a forgotten backup file.',
+            solved: false
+        }).success(function (challenge) {
+            challenges.forgottenBackupChallenge = challenge;
+        });
+        models.Challenge.create({
             name: 'adminSection',
             description: 'Access the administration section of the store.',
             solved: false
