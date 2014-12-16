@@ -48,6 +48,30 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
 
+### Amazon EC2 Instance
+
+ 1. Setup an _Amazon Linux AMI_ instance
+ 2. Copy the script below into _User Data_:
+ 3. Use a _Security Group_ that opens port 80
+ 4. Launch instance
+ 5. Browse to your instance's public DNS
+
+  ```
+  #!/bin/bash
+  yum update -y
+  yum install -y docker
+  service docker start
+
+  cat > /etc/init.d/juice-shop << EOF
+  #!/bin/bash
+  docker pull bkimminich/juice-shop:latest
+  docker run -d -p 80:3000 bkimminich/juice-shop:latest
+  EOF
+
+  docker pull bkimminich/juice-shop:latest
+  docker run -d -p 80:3000 bkimminich/juice-shop:latest
+  ```
+
 ## Troubleshooting
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
