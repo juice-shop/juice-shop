@@ -50,6 +50,8 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 
 ### Amazon EC2 Instance
 
+> Technically Amazon could view hacking activity on their EC2 instances as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
+
 1. Setup an _Amazon Linux AMI_ instance
 2. Copy the script below into _User Data_:
 3. Use a _Security Group_ that opens port 80
