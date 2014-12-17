@@ -48,6 +48,25 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
 
+### Amazon EC2 Instance
+
+> Technically Amazon could view hacking activity on their EC2 instances as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
+
+1. Setup an _Amazon Linux AMI_ instance
+2. Copy the script below into _User Data_:
+3. Use a _Security Group_ that opens port 80
+4. Launch instance
+5. Browse to your instance's public DNS
+
+```
+#!/bin/bash
+yum update -y
+yum install -y docker
+service docker start
+docker pull bkimminich/juice-shop:latest
+docker run -d -p 80:3000 bkimminich/juice-shop:latest
+```
+
 ## Troubleshooting
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
