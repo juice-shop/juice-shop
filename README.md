@@ -24,7 +24,13 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 - Open source: No hidden costs or caveats
 - Score Board: The application keeps track of known vulnerabilities the user has successfully exploited
  
-## Getting started
+## Preview
+
+Feel free to have a look at the latest version of Juice Shop: <http://juice-shop.jit.su/>
+
+> This is a "sneak-peek" instance only! You are __not allowed__ to use this instance for your own hacking endeavors! Technically [Nodejitsu](https://www.nodejitsu.com/) could view hacking activity on this instance as an attack on their infrastructure! You have been warned!
+
+## Setup
 
 ### From Sources
 
@@ -50,8 +56,6 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 
 ### Amazon EC2 Instance
 
-> Technically Amazon could view hacking activity on their EC2 instances as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
-
 1. Setup an _Amazon Linux AMI_ instance
 2. Copy the script below into _User Data_:
 3. Use a _Security Group_ that opens port 80
@@ -66,6 +70,8 @@ service docker start
 docker pull bkimminich/juice-shop:latest
 docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ```
+
+> Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
 
 ## Troubleshooting
 
