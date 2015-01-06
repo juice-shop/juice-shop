@@ -107,9 +107,17 @@
     class F,G,H,I,J,K vuln;
 </div>
 
+<h2>
+<a id="user-content-preview" class="anchor" href="#preview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preview</h2>
+
+<p>Feel free to have a look at the latest version of Juice Shop: <a href="http://juice-shop.jit.su/">http://juice-shop.jit.su/</a></p>
+
+<blockquote>
+    <p>This is a "sneak-peek" instance only! You are <strong>not allowed</strong> to use this instance for your own hacking endeavors! Technically <a href="https://www.nodejitsu.com/">Nodejitsu</a> could view hacking activity on this instance as an attack on their infrastructure! You have been warned!</p>
+</blockquote>
 
 <h2>
-<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
 
 <h3>
 <a id="from-sources" class="anchor" href="#from-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Sources</h3>
@@ -148,6 +156,29 @@
 <li>Browse to <a href="http://localhost:3000">http://localhost:3000</a>
 </li>
 </ol>
+
+<h3>
+<a id="user-content-amazon-ec2-instance" class="anchor" href="#amazon-ec2-instance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Amazon EC2 Instance</h3>
+
+<ol>
+    <li>Setup an <em>Amazon Linux AMI</em> instance</li>
+    <li>Copy the script below into <em>User Data</em>:</li>
+    <li>Use a <em>Security Group</em> that opens port 80</li>
+    <li>Launch instance</li>
+    <li>Browse to your instance's public DNS</li>
+</ol>
+
+<pre><code>#!/bin/bash
+yum update -y
+yum install -y docker
+service docker start
+docker pull bkimminich/juice-shop:latest
+docker run -d -p 80:3000 bkimminich/juice-shop:latest
+</code></pre>
+
+<blockquote>
+    <p>Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!</p>
+</blockquote>
 
 <h2>
 <a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
