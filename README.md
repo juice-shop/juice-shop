@@ -32,6 +32,8 @@ Feel free to have a look at the latest version of Juice Shop: <http://juice-shop
 
 ## Setup
 
+> If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
+
 ### From Sources
 
 1. Install [node.js](http://nodejs.org) (version 0.10.x)
