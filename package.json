@@ -51,8 +51,7 @@
         "saucelabs": "~0.1"
     },
     "devDependencies": {
-        "frisby": "0.8.3",
-        "request": "2.49.x",
+        "frisby": "~0.8.5",
         "jasmine-node": "~1.14",
         "karma": "~0.12",
         "karma-cli": "~0.0",
