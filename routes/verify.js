@@ -9,8 +9,8 @@ var utils = require('../lib/utils'),
     users = cache.users,
     products = cache.products;
 
-exports.forgedFeedbackChallenge = function() {
-    return function(req, res, next) {
+exports.forgedFeedbackChallenge = function () {
+    return function (req, res, next) {
         /* jshint eqeqeq:false */
         if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
             var user = insecurity.authenticatedUsers.from(req);
@@ -23,7 +23,7 @@ exports.forgedFeedbackChallenge = function() {
     };
 };
 
-exports.accessControlChallenges = function() {
+exports.accessControlChallenges = function () {
     return function (req, res, next) {
         if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
             utils.solve(challenges.scoreBoardChallenge);
@@ -34,7 +34,7 @@ exports.accessControlChallenges = function() {
     };
 };
 
-exports.errorHandlingChallenge = function() {
+exports.errorHandlingChallenge = function () {
     return function (err, req, res, next) {
         if (utils.notSolved(challenges.errorHandlingChallenge) && err && res.statusCode > 401) {
             utils.solve(challenges.errorHandlingChallenge);
@@ -43,7 +43,7 @@ exports.errorHandlingChallenge = function() {
     };
 };
 
-exports.databaseRelatedChallenges = function() {
+exports.databaseRelatedChallenges = function () {
     return function (req, res, next) {
         if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
             products.osaft.reload().success(function () {
@@ -55,7 +55,7 @@ exports.databaseRelatedChallenges = function() {
             });
         }
         if (utils.notSolved(challenges.csrfChallenge) && users.bender) {
-            users.bender.reload().success(function() {
+            users.bender.reload().success(function () {
                 if (users.bender.password === insecurity.hash('slurmCl4ssic')) {
                     utils.solve(challenges.csrfChallenge);
                 }
@@ -69,9 +69,7 @@ exports.databaseRelatedChallenges = function() {
             });
         }
         if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-            models.Feedback.findAndCountAll({where: models.Sequelize.or(
-                    models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),
-                    models.Sequelize.and(['comment LIKE \'%htmlparser2%\''], ['comment LIKE \'%3.3.0%\'']) ) }
+            models.Feedback.findAndCountAll({where: models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\''])}
             ).success(function (data) {
                     if (data.count > 0) {
                         utils.solve(challenges.knownVulnerableComponentChallenge);
