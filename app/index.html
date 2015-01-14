@@ -14,8 +14,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="bower_components/highlightjs/styles/default.css" rel="stylesheet">
+    <link href="bower_components/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet">
     <!-- Github Ribbon -->
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <!--[if lt IE 9]>
@@ -33,7 +32,13 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#/">Juice Shop <small>{{version}}</small></a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-left">
+            <form class="navbar-form navbar-left" role="form" ng-controller="SearchController">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
+                </div>
+                <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()">Submit</button>
+            </form>
             <li class="dropdown" ng-show="!isLoggedIn()">
                 <a href="#/login">Login</a>
             </li>
@@ -43,16 +48,12 @@
             <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/basket">Your Basket</a>
             </li>
-            <form class="navbar-form navbar-left" role="form" ng-controller="SearchController">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
-                </div>
-                <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()">Submit</button>
-            </form>
             <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/change-password">Change Password</a>
             </li>
-            <li class="dropdown">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
                 <a href="#/contact">Contact Us</a>
             </li>
             <!--
