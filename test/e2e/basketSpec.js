@@ -59,7 +59,7 @@ describe('/#/basket', function () {
             it('should be possible to enter a coupon that gives an 80% discount', function () {
                 browser.get('/#/basket');
                 element(by.id('collapseCouponButton')).click();
-                element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 80));
+                element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90));
                 element(by.id('applyCouponButton')).click();
             });
 
