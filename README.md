@@ -82,7 +82,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 - If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 
 ## License
-Copyright (c) 2014 Bjoern Kimminich  
+Copyright (c) 2015 Bjoern Kimminich  
 Licensed under the MIT license.
 
 [![Docker](http://img.shields.io/badge/docker-bkimminich%2Fjuice--shop-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
