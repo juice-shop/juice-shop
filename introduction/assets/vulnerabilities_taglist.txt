@@ -1,0 +1,34 @@
+security by obscurity
+information leakage
+stack traces
+error messages
+administrator account
+escalation of privileges
+authentication bypass
+account takeover
+xss
+cross site scripting
+broken validation
+recursive sanitization
+client-side
+server-side
+sensitive data
+encryption
+weak hashes
+spoofing
+impersonation
+business logic
+logic flaws
+redirect
+direct object references
+forgery
+csrf
+cross site request forgery
+forgotten backup
+sensitive files
+hidden fields
+rest api
+vulnerable component
+library
+easter egg
+cryptanalysis
