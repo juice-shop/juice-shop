@@ -1,206 +1,294 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <script src="javascripts/mermaid.full.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>juice-shop by bkimminich</title>
-  </head>
+<!doctype html>
+<html lang="en">
 
-  <body>
-    <div id="container">
-      <div class="inner">
+	<head>
+		<meta charset="utf-8">
 
-        <header>
-          <h1>Juice Shop</h1>
-          <h2>An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.</h2>
-        </header>
+		<title>Juice Shop</title>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/bkimminich/juice-shop/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/bkimminich/juice-shop/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/bkimminich/juice-shop" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+		<meta name="description" content="An intentionally insecure webapp suitable for pentesting and security awareness trainings written in pure Javascript">
+		<meta name="author" content="Björn Kimminich">
 
-        <hr>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-        <section id="main_content">
-          <h1>
-<a id="juice-shop" class="anchor" href="#juice-shop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Juice Shop</h1>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-<p>
-    An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" <a href="https://code.google.com/p/bodgeit/">BodgeIt Store</a> by <a href="https://github.com/psiinon">@psiinon</a>.
-</p>
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
 
-<blockquote>
-<p>Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the name of this project.</p>
-</blockquote>
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
 
-<p>You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend <a href="https://code.google.com/p/zaproxy/">Zed Attack Proxy</a> which is open source and very powerful, yet beginner friendly.</p>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
 
-<h2>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
 
-<ul>
-<li>Easy to install: Just requires <a href="http://nodejs.org">node.js</a>
-</li>
-<li>Self contained: Additional dependencies will be resolved and downloaded automatically</li>
-<li>No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup</li>
-<li>Open source: No hidden costs or caveats</li>
-<li>Score Board: The application keeps track of known vulnerabilities the user has successfully exploited</li>
-</ul>
+	<body>
 
-<h2>
-<a id="architecture-overview" class="anchor" href="#architecture-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Architecture Overview</h2>
+		<div class="reveal">
 
-<div class="mermaid">
-    graph TD;
-    A(Javascript Client: Angular.js + Bootstrap)-->B[Restful Server: Express.js + Sequelize-Restful];
-    B-->C[OR Mapper: Sequelize];
-    C-->D[Database: SQLite];
-    B-->E[File System];
-    B-->F[Document Creation: PDFKit];
-    F-->E;
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Juice Shop</h1>
+					<p>
+						An intentionally insecure Javascript Web Application
+					</p>
+					<img src="assets/juiceshop_logo_128px.jpg"/>
+					<p>
+						<a href="https://github.com/bkimminich/juice-shop">https://github.com/bkimminich/juice-shop</a>
+					</p>
+					<p>
+						<small>Created by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></small>
+					</p>
+					<hr>
+					<p>
+						<small><small>Press <code>Space</code> or swipe on your touchscreen to view this introduction! You can also use the navigation controls in the lower right corner.</small></small>
+					</p>
+				</section>
 
-    classDef client fill:#EBEBEB,stroke:#333,stroke-width:1px;
-    classDef node fill:#CCCCCC,stroke:#333,stroke-width:1px;
-    classDef backend fill:#D8D8D8,stroke:#333,stroke-width:1px;
+				<section>
+					<h2>Technology Stack</h2>
+					<p>
+						Javascript all the way from UI to REST API
+					</p>
+					<img src="assets/bootstrap-solid.svg" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/AngularJS-Shield-medium.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/nodejs.svg" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/express.png" height="80" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/SQLite370.svg.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/sequelize.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</section>
 
-    class A client;
-    class B,C,F node;
-    class D,E backend;
-</div>
+				<section>
+					<h2>Test Pyramid</h2>
+					<p>
+						<span style="background: rgba(103, 103, 103, 1)">&nbsp;Challenge Coverage&nbsp;</span><span style="background: rgba(89, 199, 48, 1)">&nbsp;100%&nbsp;</span> and <span style="background: rgba(103, 103, 103, 1)">&nbsp;Code Coverage&nbsp;</span><span style="background: rgba(89, 199, 48, 1)">&nbsp;96%&nbsp;</span>
+					</p>
+					<img src="assets/Avatar_Bjoern_2014.jpg" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/sauce-labs-logo.png" height="50" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/protractor-logo-600.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
+				</section>
 
-<h2>
-<a id="attack-scenarios" class="anchor" href="#attack-scenarios" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attack Scenarios</h2>
+				<section>
+					<h2>Build Process</h2>
+					<p>
+						Automated <a href="https://travis-ci.org/bkimminich/juice-shop">Continuous Integration</a> &amp; <a href="http://juice-shop.jit.su/">Demo Deployment</a>
+					</p>
+					<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/nodejitsu-transparent.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<br>
+					<img src="assets/Bower-logo.svg.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</section>
 
-<div class="mermaid">
-    graph TD;
-    A((Browser))-->|manual attack|B[Juice Shop];
-    C((Browser))-->D(Attack Proxy);
-    D-->|supported attack|B;
-    E(Vulnerabilitiy Scanner)-->|automated attack|B;
+				<section>
+					<h2>Simple Installation</h2>
+					<p>
+						Runs as <a href="https://github.com/bkimminich/juice-shop/releases/latest">local installation</a> and in <a href="https://registry.hub.docker.com/u/bkimminich/juice-shop/">container environment</a>
+					</p>
+					<br>
+					<img src="assets/nodejs_kze9of.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/200px-AWS_Simple_Icons_Compute_Amazon_EC2_Instances.svg.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+				</section>
 
-    B---F(XSS);
-    B---G(SQLI);
-    B---H(Auth);
-    B---I(Crypto);
-    B---J(Logic);
-    B---K(...);
+				<section>
+					<h2>25+ Challenges</h2>
+					<p>
+						Covering various vulnerabilities and design flaws
+					</p>
+					<img src="assets/vulnerabilities.png" height="300"/>
+					<p>
+						<small>Juice Shop covers the <a href="http://www.owasp.org">OWASP Top 10</a> and adds a lot of logic flaws and broken security mechanisms!</small>
+					</p>
+				</section>
 
-    classDef client fill:#EBEBEB,stroke:#333,stroke-width:1px;
-    classDef app fill:#CCCCCC,stroke:#333,stroke-width:1px;
-    classDef tool fill:#D8D8D8,stroke:#333,stroke-width:1px;
-    classDef vuln fill:#F9F9F9,stroke:#317eac,stroke-width:1px,stroke-dasharray: 5, 5;
+				<section>
+					<h2>Challenge Difficulty</h2>
+					<p>
+						Beginners and experts alike should find something to do
+					</p>
+					<img src="assets/wolfenstein-difficulty-settings.jpeg" height="400"/>
+				</section>
 
-    class A,C client;
-    class B app;
-    class D,E tool;
+				<section>
+					<h2>Score Board</h2>
+					<p>
+						Challenge progress is tracked on server-side
+					</p>
+					<img src="assets/scoreboard.png"/>
+				</section>
 
-    class F,G,H,I,J,K vuln;
-</div>
+				<section>
+					<h2>What if I crash the server?</h2>
+					<p>
+						The application is reset on every startup
+					</p>
+					<img src="assets/help-153094_640.png" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>Warning: This includes the challenge tracking and Score Board!</small>
+					</p>
+				</section>
 
-<h2>
-<a id="user-content-preview" class="anchor" href="#preview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preview</h2>
+				<section>
+					<h2>Can I use my Pentesting toys?</h2>
+					<p>
+						Feel free to do so!
+					</p>
+					<img src="assets/Zed%20Attack%20Proxy.png" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>Proxies like <a href="https://code.google.com/p/zaproxy/">ZAP</a> or <a href="http://portswigger.net/Burp/">Burp</a> will definitely be useful, but most automated scanners won't help much. Btw. I'd <a href="https://gitter.im/bkimminich/juice-shop">love to know</a> what challenges your tools did (not) help you with!</small>
+					</p>
+				</section>
 
-<p>Feel free to have a look at the latest version of Juice Shop: <a href="http://juice-shop.jit.su/">http://juice-shop.jit.su/</a></p>
+				<section>
+					<h2>Can I do a white box pentest?</h2>
+					<p>
+						No! The code would spoiler all challenge solutions!
+					</p>
+					<img src="assets/intellij.png" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>The running Juice Shop contains everything you need to solve all challenges!</small>
+					</p>
+				</section>
 
-<blockquote>
-    <p>This is a "sneak-peek" instance only! You are <strong>not allowed</strong> to use this instance for your own hacking endeavors! Technically <a href="https://www.nodejitsu.com/">Nodejitsu</a> could view hacking activity on this instance as an attack on their infrastructure! You have been warned!</p>
-</blockquote>
+				<section>
+					<h2>Can I look at the server log?</h2>
+					<p>
+						No! The console would reveal several challenge solutions!
+					</p>
+					<img src="assets/console.png" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>Again: The running Juice Shop contains <em>everything</em> you need to solve <em>all</em> challenges!</small>
+					</p>
+				</section>
 
-<h2>
-<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
+				<section>
+					<h2>It does not work!</h2>
+					<p>
+						Please carefully follow the instructions in the <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README.md</a>
+					</p>
+					<img src="assets/rtfm.jpg" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>If neither <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md#setup">Setup</a> nor <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md#troubleshooting">Troubleshooting</a> help solving your problem, please contact me via <a href="https://gitter.im/bkimminich/juice-shop">Gitter chat</a>.</small>
+					</p>
+				</section>
 
-<blockquote>
-    <p>If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the <a href="https://gitter.im/bkimminich/juice-shop">official Gitter Chat</a>!</p>
-</blockquote>
+				<section>
+					<h2>I'm stuck with a challenge!</h2>
+					<p>
+						Feel free to ask for <em>hints</em> in <a href="https://gitter.im/bkimminich/juice-shop">the official Gitter chat</a>
+					</p>
+					<img src="assets/Gitter.png" height="300" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<small>Please do not ask for <em>solutions</em>. If you wanted to, you find those in the <a href="https://github.com/bkimminich/juice-shop/tree/master/test/e2e">e2e testsuite</a>.</small>
+					</p>
+				</section>
 
-<h3>
-<a id="from-sources" class="anchor" href="#from-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>From Sources</h3>
+				<section>
+					<h2>Additional Information</h2>
+					<small>
+					<table>
+						<tbody>
+							<tr>
+								<td>Source code &amp; documentation</td>
+								<td><a href="https://github.com/bkimminich/juice-shop">https://github.com/bkimminich/juice-shop</a></td>
+							</tr>
+							<tr>
+								<td>Support &amp; feedback chatroom</td>
+								<td><a href="https://gitter.im/bkimminich/juice-shop">https://gitter.im/bkimminich/juice-shop</a></td>
+							</tr>
+						</tbody>
+					</table>
+					</small>
+					<hr>
+					<h4>Resources on Web Application Security</h4>
+					<small><small>
+						<table>
+							<tbody>
+							<tr>
+								<td>Web Application Security in a Nutshell</td>
+								<td><a href="http://webappsec-nutshell.kimminich.de">http://webappsec-nutshell.kimminich.de</a></td>
+							</tr>
+							<tr>
+								<td>Web Application Security Introduction</td>
+								<td><a href="http://slideshare.net/BjrnKimminich/web-application-security-introduction">http://slideshare.net/BjrnKimminich/web-application-security-introduction</a></td>
+							</tr>
+							<tr>
+								<td>Web Application Security Training Workshop</td>
+								<td><a href="http://slideshare.net/BjrnKimminich/web-application-security-21684264">http://slideshare.net/BjrnKimminich/web-application-security-21684264</a></td>
+							</tr>
+							</tbody>
+						</table>
+					</small></small>
+				</section>
 
-<ol>
-<li>Install <a href="http://nodejs.org">node.js</a> (version 0.10.x)</li>
-<li>Run <code>git clone https://github.com/bkimminich/juice-shop.git</code> (or clone <a href="https://github.com/bkimminich/juice-shop/fork">your own fork</a> of the repository) </li>
-<li>Run <code>npm install</code> (only has to be done before first start or when you change the source code)</li>
-<li>Run <code>npm start</code>
-</li>
-<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a>
-</li>
-</ol>
+				<section>
+					<h3>Copyright (c) 2015 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+					<p>
+						Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT">MIT license</a>.
+					</p>
+					<hr>
+					<p>
+						<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+					</p>
+				</section>
 
-<h3>
-<a id="docker-container" class="anchor" href="#docker-container" aria-hidden="true"><span class="octicon octicon-link"></span></a>Docker Container</h3>
+			</div>
 
-<ol>
-<li>Install <a href="https://www.docker.com">Docker</a>
-</li>
-<li>Run <code>docker pull bkimminich/juice-shop</code>
-</li>
-<li>Run <code>docker run -d -p 3000:3000 bkimminich/juice-shop</code>
-</li>
-<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a> </li>
-</ol>
+		</div>
 
-<h3>
-<a id="packaged-distribution" class="anchor" href="#packaged-distribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packaged Distribution</h3>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
 
-<ol>
-<li>Install <a href="http://nodejs.org">node.js</a> (version 0.10.x)</li>
-<li>Download <code>juice-shop-&lt;version&gt;.zip</code> attached to <a href="https://github.com/bkimminich/juice-shop/releases/latest">latest release</a>
-</li>
-<li>Unpack and run <code>npm start</code> in unzipped folder</li>
-<li>Browse to <a href="http://localhost:3000">http://localhost:3000</a>
-</li>
-</ol>
+		<script>
 
-<h3>
-<a id="user-content-amazon-ec2-instance" class="anchor" href="#amazon-ec2-instance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Amazon EC2 Instance</h3>
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
 
-<ol>
-    <li>Setup an <em>Amazon Linux AMI</em> instance</li>
-    <li>Copy the script below into <em>User Data</em>:</li>
-    <li>Use a <em>Security Group</em> that opens port 80</li>
-    <li>Launch instance</li>
-    <li>Browse to your instance's public DNS</li>
-</ol>
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-<pre><code>#!/bin/bash
-yum update -y
-yum install -y docker
-service docker start
-docker pull bkimminich/juice-shop:latest
-docker run -d -p 80:3000 bkimminich/juice-shop:latest
-</code></pre>
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
 
-<blockquote>
-    <p>Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!</p>
-</blockquote>
+		</script>
 
-<h2>
-<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Troubleshooting</h2>
+		<a class="fork-reveal" style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
 
-<ul>
-<li>If you are experiencing <a href="https://github.com/bower/bower/issues/50">Error 128</a> from some GitHub repos during <code>bower_install.js</code> execution, run <code>git config --global url."https://".insteadOf git://</code> and try <code>npm install</code> again</li>
-<li>If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host <code>127.0.0.1:3000</code> to <code>0.0.0.0:3000</code> for TCP </li>
-<li>If <code>npm install</code> fails after an update of your local copy during <code>bower_install.js</code> complaining about version issues, delete <code>/app/bower_components</code> and try again to remove outdated versions that cause conflicts</li>
-</ul>
-        </section>
-
-        <footer>
-          Juice-shop is maintained by <a href="https://github.com/bkimminich">bkimminich</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
-    </div>
-  </body>
+	</body>
 </html>
