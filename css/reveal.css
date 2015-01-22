@@ -1139,10 +1139,3 @@ body {
 
 .zoomed .reveal .roll span:after {
   visibility: hidden; }
-
-@media screen and (max-width: 800px) {
-    .hidden-mobile {
-        visibility: hidden;
-        display: none;
-    }
-}
