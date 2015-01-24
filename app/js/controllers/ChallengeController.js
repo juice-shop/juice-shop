@@ -13,18 +13,12 @@ angular.module('myApp').controller('ChallengeController', [
                 solvedChallenges += ($scope.challenges[i].solved) ? 1 : 0;
             }
             $scope.percentChallengesSolved = (100 * solvedChallenges / $scope.challenges.length).toFixed(0);
-            if ($scope.percentChallengesSolved === 100) {
-                $scope.completionColor = '#4c1'; // brightgreen
-            } else if ($scope.percentChallengesSolved > 80) {
-                $scope.completionColor = '#97ca00'; // green
-            } else if ($scope.percentChallengesSolved > 60) {
-                $scope.completionColor = '#a4a61d'; // yellowgreen
-            } else if ($scope.percentChallengesSolved > 40) {
-                $scope.completionColor = '#dfb317'; // yellow
-            } else if ($scope.percentChallengesSolved > 20) {
-                $scope.completionColor = '#fe7d37'; // orange
+            if ($scope.percentChallengesSolved > 66) {
+                $scope.completionColor = 'success';
+            } else if ($scope.percentChallengesSolved > 33) {
+                $scope.completionColor = 'warning';
             } else {
-                $scope.completionColor = '#e05d44'; // red
+                $scope.completionColor = 'danger';
             }
         }).error(function (data) {
             console.log(data);

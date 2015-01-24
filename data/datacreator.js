@@ -19,6 +19,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'scoreBoard',
             description: 'Find the carefully hidden \'Score Board\' page.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.scoreBoardChallenge = challenge;
@@ -26,6 +27,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'errorHandling',
             description: 'Provoke an error that is not very gracefully handled.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.errorHandlingChallenge = challenge;
@@ -33,6 +35,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'loginAdmin',
             description: 'Log in with the administrator\'s user account.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.loginAdminChallenge = challenge;
@@ -40,6 +43,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'loginJim',
             description: 'Log in with Jim\'s user account.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.loginJimChallenge = challenge;
@@ -47,6 +51,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'loginBender',
             description: 'Log in with Bender\'s user account.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.loginBenderChallenge = challenge;
@@ -54,6 +59,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'xss1',
             description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.localXssChallenge = challenge;
@@ -61,6 +67,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'xss2',
             description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.persistedXssChallengeUser = challenge;
@@ -68,6 +75,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'xss3',
             description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+            difficulty: 3,
             solved: false
         }).success(function (challenge) {
             challenges.persistedXssChallengeFeedback = challenge;
@@ -75,6 +83,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'xss4',
             description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.restfulXssChallenge = challenge;
@@ -82,6 +91,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'unionSqlI',
             description: 'Retrieve a list of all user credentials via SQL Injection',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.unionSqlInjectionChallenge = challenge;
@@ -89,6 +99,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'adminCredentials',
             description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.weakPasswordChallenge = challenge;
@@ -96,6 +107,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'fiveStarFeedback',
             description: 'Get rid of all 5-star customer feedback.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.feedbackChallenge = challenge;
@@ -103,6 +115,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'forgedFeedback',
             description: 'Post some feedback in another users name.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.forgedFeedbackChallenge = challenge;
@@ -110,6 +123,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'redirect',
             description: 'Wherever you go, there you are.',
+            difficulty: 3,
             solved: false
         }).success(function (challenge) {
             challenges.redirectChallenge = challenge;
@@ -117,6 +131,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'accessBasket',
             description: 'Access someone else\'s basket.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.basketChallenge = challenge;
@@ -124,6 +139,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'negativeOrder',
             description: 'Place an order that makes you rich.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.negativeOrderChallenge = challenge;
@@ -131,6 +147,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'confidentialDocument',
             description: 'Access a confidential document.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.directoryListingChallenge = challenge;
@@ -138,6 +155,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'forgottenBackup',
             description: 'Access a forgotten backup file.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.forgottenBackupChallenge = challenge;
@@ -145,6 +163,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'adminSection',
             description: 'Access the administration section of the store.',
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.adminSectionChallenge = challenge;
@@ -152,6 +171,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'csrf',
             description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.csrfChallenge = challenge;
@@ -159,6 +179,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'changeProduct',
             description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.changeProductChallenge = challenge;
@@ -166,6 +187,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'vulnerableComponent',
             description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.knownVulnerableComponentChallenge = challenge;
@@ -173,6 +195,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'easterEgg1',
             description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
+            difficulty: 2,
             solved: false
         }).success(function (challenge) {
             challenges.easterEggLevelOneChallenge = challenge;
@@ -180,6 +203,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'easterEgg2',
             description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
+            difficulty: 3,
             solved: false
         }).success(function (challenge) {
             challenges.easterEggLevelTwoChallenge = challenge;
@@ -187,6 +211,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'forgedCoupon',
             description: 'Forge a coupon code that gives you a discount of at least 80%.',
+            difficulty: 3,
             solved: false
         }).success(function (challenge) {
             challenges.forgedCouponChallenge = challenge;

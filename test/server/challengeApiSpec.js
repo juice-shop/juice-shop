@@ -15,6 +15,7 @@ frisby.create('GET all challenges ')
         id: Number,
         name: String,
         description: String,
+        difficulty: Number,
         solved: Boolean
     })
     .toss();
@@ -30,6 +31,7 @@ frisby.create('POST new challenge is forbidden via public API even when authenti
     .post(API_URL + '/Challenges', {
         name: 'Invulnerability',
         description: 'I am not a vulnerability!',
+        difficulty: 3,
         solved: false
     })
     .expectStatus(401)
@@ -40,7 +42,7 @@ frisby.create('PUT update existing challenge is forbidden via public API even wh
     .put(API_URL + '/Challenges/1', {
         name: 'Vulnerability',
         description: "I am a vulnerability!!!",
-        rating: 1
+        difficulty: 3
     })
     .expectStatus(401)
     .toss();
