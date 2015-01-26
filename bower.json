@@ -16,7 +16,7 @@
     "jquery": "~2.1",
     "underscore": "~1.7",
     "string": "~3.0",
-    "moment": "~2.8",
+    "moment": "~2.9.0",
     "github-fork-ribbon-css": "~0.1"
   },
   "resolutions": {
