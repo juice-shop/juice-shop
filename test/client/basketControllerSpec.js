@@ -156,6 +156,32 @@ describe('controllers', function () {
             $httpBackend.flush();
         }));
 
+        it('should reject an invalid coupon code', inject(function ($controller) {
+            scope.form = {$setPristine : function() {}};
+            $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}});
+            $httpBackend.whenPUT('/rest/basket/42/coupon/invalid_base85').respond(404, 'error');
+
+            scope.coupon = 'invalid_base85';
+            scope.applyCoupon();
+            $httpBackend.flush();
+
+            expect(scope.confirmation).toBeUndefined();
+            expect(scope.error).toBe('error');
+        }));
+
+        it('should accept a valid coupon code', inject(function ($controller) {
+            scope.form = {$setPristine : function() {}};
+            $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}});
+            $httpBackend.whenPUT('/rest/basket/42/coupon/valid_base85').respond(200, { discount: 42 });
+
+            scope.coupon = 'valid_base85';
+            scope.applyCoupon();
+            $httpBackend.flush();
+
+            expect(scope.confirmation).toBe('Discount of 42% will be applied during checkout.');
+            expect(scope.error).toBeUndefined();
+        }));
+
     });
 
 });
