@@ -193,6 +193,14 @@ module.exports = function() {
             challenges.knownVulnerableComponentChallenge = challenge;
         });
         models.Challenge.create({
+            name: 'weirdCrypto',
+            description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.weirdCryptoChallenge = challenge;
+        });
+        models.Challenge.create({
             name: 'easterEgg1',
             description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
             difficulty: 2,

@@ -94,7 +94,7 @@ frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitiz
 
 frisby.create('POST feedback in another users name as anonymous user')
     .post(API_URL + '/Feedbacks', {
-        comment: 'Lousy crap!',
+        comment: 'Lousy crap! And using z85/base85 and rot13 for crypto? Are you mad?!?!',
         rating: 1,
         UserId: 3
     }, {json: true})
