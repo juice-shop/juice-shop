@@ -112,6 +112,18 @@ describe('/#/contact', function () {
 
     });
 
+    describe('challenge "weirdCrypto"', function () {
+
+        it('should be possible to post weird crypto algorithm/library as feedback', function () {
+            comment.sendKeys('The following libraries should really not be used for crypto: z85, base85 and rot13');
+            rating.click();
+
+            submitButton.click();
+        });
+
+        protractor.expect.challengeSolved({challenge: 'weirdCrypto'});
+
+    });
 
 });
 
