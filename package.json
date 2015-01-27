@@ -1,7 +1,7 @@
 {
     "name": "juice-shop",
-    "version": "1.9.0",
-    "description": "An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.",
+    "version": "1.9.1",
+    "description": "An intentionally insecure Javascript Web Application",
     "homepage": "http://bkimminich.github.io/juice-shop/",
     "author": "Bjoern Kimminich",
     "contributors": [
@@ -63,7 +63,7 @@
         "karma-safari-launcher": "~0.1",
         "karma-phantomjs-launcher": "~0.1",
         "karma-jasmine": "~0.1",
-        "protractor": "~1.3",
+        "protractor": "~1.3.1",
         "jasmine-reporters": "~1.0",
         "http-server": "~0.7",
         "shelljs": "~0.3",

@@ -1,4 +1,4 @@
-# DOCKER-VERSION 0.3.4
+# Juice Shop - An intentionally insecure Javascript Web Application
 FROM    dockerfile/nodejs
 MAINTAINER  Bjoern Kimminich <docker.com@kimminich.de>
 
