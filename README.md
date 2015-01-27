@@ -2,8 +2,6 @@
 
 An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular. Inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
 
-> Juice Shop is the first application written entirely in Javascript listed in the [OWASP VWA Directory](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project). It also seems to be the first broken webapp that uses the currently popular architecture of an SPA/RIA frontend with a RESTful backend.
-
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop)
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
@@ -25,6 +23,8 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 - No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup
 - Open source: No hidden costs or caveats
 - Score Board: The application keeps track of known vulnerabilities the user has successfully exploited
+
+> Juice Shop is the first application written entirely in Javascript listed in the [OWASP VWA Directory](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project). It also seems to be the first broken webapp that uses the currently popular architecture of an SPA/RIA frontend with a RESTful backend.
 
 ## Preview
 
