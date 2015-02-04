@@ -9,11 +9,11 @@
                 <th></th>
             </tr>
             <tr data-ng-repeat="user in users">
-                <td class="col-md-1"><i ng-show="user.token" class="glyphicon glyphicon-user"></i></td>
+                <td class="col-md-1"><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
                 <td><div ng-bind-html="user.email"></div></td>
                 <td class="col-md-1">
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fa fa-eye"></i></a>
                     </div>
                 </td>
             </tr>
@@ -38,7 +38,7 @@
                 </td>
                 <td class="col-md-1">
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(feedback.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
                     </div>
                 </td>
             </tr>

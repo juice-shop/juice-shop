@@ -18,15 +18,15 @@
                     <td>{{product.price}}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="glyphicon glyphicon-minus-sign"></i></a>
+                            <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="fa fa-minus-square"></i></a>
                             <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
-                            <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="glyphicon glyphicon-plus-sign"></i></a>
+                            <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="fa fa-plus-square"></i></a>
                         </div>
                     </td>
                     <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
                     <td class="col-md-1">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" id="applyCouponButton" class="btn btn-default" ng-disabled="form.$invalid" ng-click="applyCoupon()"><i class="glyphicon glyphicon-piggy-bank"></i> Redeem</button>
+                                <button type="submit" id="applyCouponButton" class="btn btn-default" ng-disabled="form.$invalid" ng-click="applyCoupon()"><i class="fa fa-diamond"></i> Redeem</button>
                             </div>
                         </div>
                     </form>
@@ -66,10 +66,10 @@
                     </div>
                     <div class="row">
                         <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-default">
-                            <i class="glyphicon glyphicon-qrcode" aria-hidden="true"></i> Bitcoin
+                            <i class="fa fa-qrcode"></i> Bitcoin
                         </a>
                         <a href="/redirect?to=https://gratipay.com/bkimminich" target="_blank" class="btn btn-default">
-                            <i class="glyphicon glyphicon-heart-empty" aria-hidden="true"></i> Gratipay
+                            <i class="fa fa-gratipay"></i> Gratipay
                         </a>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
 
             <div class="container-fluid well">
                 <div class="row">
-                    <button type="submit" id="checkoutButton" class="btn btn-primary" ng-disabled="products.length < 1" ng-click="checkout()"><i class="glyphicon glyphicon-ok-circle"></i> Checkout</button>
-                    <a id="collapseCouponButton" class="btn btn-default" ng-click="couponCollapsed = !couponCollapsed"><i class="glyphicon glyphicon-gift"></i></a>
-                    <a id="collapsePaymentButton" class="btn btn-default" ng-click="paymentCollapsed = !paymentCollapsed"><i class="glyphicon glyphicon-credit-card"></i></a>
+                    <button type="submit" id="checkoutButton" class="btn btn-primary" ng-disabled="products.length < 1" ng-click="checkout()"><i class="fa fa-cart-arrow-down"></i> Checkout</button>
+                    <a id="collapseCouponButton" class="btn btn-default" ng-click="couponCollapsed = !couponCollapsed"><i class="fa fa-gift fa-lg"></i></a>
+                    <a id="collapsePaymentButton" class="btn btn-default" ng-click="paymentCollapsed = !paymentCollapsed"><i class="fa fa-credit-card fa-lg"></i></a>
                 </div>
             </div>
         </div>
