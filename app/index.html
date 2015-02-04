@@ -6,6 +6,7 @@
 <!--[if IE 8]>
 <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
+<!--suppress HtmlUnknownAnchorTarget -->
 <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
@@ -30,31 +31,31 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/">Juice Shop <small>{{version}}</small></a>
+            <img class="navbar-brand" src="/public/images/logo_128px.jpg"><a class="navbar-brand" href="#/">Juice Shop <small>{{version}}</small></a>
         </div>
         <ul class="nav navbar-nav navbar-left">
-            <form class="navbar-form navbar-left" role="form" ng-controller="SearchController">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
-                </div>
-                <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()">Submit</button>
-            </form>
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login">Login</a>
+                <a href="#/login"><i class="glyphicon glyphicon-log-in"></i> Login</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout">Logout</a>
+                <a href="#/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+            </li>
+            <li>
+                <form class="navbar-form" role="form" ng-controller="SearchController">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
+                    </div>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="glyphicon glyphicon-search"></i> Submit</button>
+                </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket">Your Basket</a>
+                <a href="#/basket"><i class="glyphicon glyphicon-shopping-cart"></i> Your Basket</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password">Change Password</a>
+                <a href="#/change-password"><i class="glyphicon glyphicon-cog"></i> Change Password</a>
             </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-                <a href="#/contact">Contact Us</a>
+            <li class="dropdown">
+                <a href="#/contact"><i class="glyphicon glyphicon-comment"></i> Contact Us</a>
             </li>
             <!--
             <li class="dropdown">
@@ -62,14 +63,14 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about">About Us</a>
+                <a href="#/about"><i class="glyphicon glyphicon-info-sign"></i> About Us</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <!-- CONTENT -->
-<div class="container-fluid" role="content" ng-view>
+<div class="container-fluid" ng-view>
 </div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
