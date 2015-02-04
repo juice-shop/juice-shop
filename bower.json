@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure Javascript Web Application",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "private": true,
   "dependencies": {
     "angular": "~1.3",
@@ -17,7 +17,8 @@
     "underscore": "~1.7",
     "string": "~3.0",
     "moment": "~2.9.0",
-    "github-fork-ribbon-css": "~0.1"
+    "github-fork-ribbon-css": "~0.1",
+    "fontawesome": "~4.3.0"
   },
   "resolutions": {
     "angular": "~1.3"

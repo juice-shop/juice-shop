@@ -16,6 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
     <link href="bower_components/bootswatch/slate/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Github Ribbon -->
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <!--[if lt IE 9]>
@@ -33,29 +35,29 @@
         <div class="navbar-header">
             <img class="navbar-brand" src="/public/images/logo_128px.jpg"><a class="navbar-brand" href="#/">Juice Shop <small>{{version}}</small></a>
         </div>
-        <ul class="nav navbar-nav navbar-left">
+        <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="glyphicon glyphicon-log-in"></i> Login</a>
+                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
             </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="glyphicon glyphicon-search"></i> Submit</button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> Search</button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="glyphicon glyphicon-shopping-cart"></i> Your Basket</a>
+                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> Your Basket</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="glyphicon glyphicon-cog"></i> Change Password</a>
+                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> Change Password</a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="glyphicon glyphicon-comment"></i> Contact Us</a>
+                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> Contact Us</a>
             </li>
             <!--
             <li class="dropdown">
@@ -63,7 +65,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="glyphicon glyphicon-info-sign"></i> About Us</a>
+                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> About Us</a>
             </li>
         </ul>
     </div>
