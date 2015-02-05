@@ -9,25 +9,27 @@
                 <p>{{confirmation}}</p>
             </div>
 
-            <table class="table table-striped table-bordered table-condensed">
-                <tr>
-                    <th>Product</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                <tr data-ng-repeat="product in products">
-                    <td>{{product.name}}</td>
-                    <td><div ng-bind-html="product.description"></div></td>
-                    <td>{{product.price}}</td>
-                    <td class="col-md-1">
-                        <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-default btn-xs" ng-click="addToBasket(product.id)" ng-show="isLoggedIn()"><i class="fa fa-cart-plus"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    <tr data-ng-repeat="product in products">
+                        <td>{{product.name}}</td>
+                        <td><div ng-bind-html="product.description"></div></td>
+                        <td>{{product.price}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-default btn-xs" ng-click="addToBasket(product.id)" ng-show="isLoggedIn()"><i class="fa fa-cart-plus"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
     </div>

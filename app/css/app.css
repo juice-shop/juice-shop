@@ -16,3 +16,7 @@ div.sidebar {
 li.ribbon-spacer {
     margin-right: 100px;
 }
+
+.btn-group {
+    display: flex;
+}
