@@ -25,6 +25,13 @@ frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6Z
     .expectBodyContains('1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN</title>')
     .toss();
 
+frisby.create('GET redirected to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub when this URL is passed as "to" parameter')
+    .get(URL + "/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub")
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<title>bkimminich/juice-shop on GitHub - Flattr.com</title>')
+    .toss();
+
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
     .get(URL + "/redirect")
     .expectStatus(500)
