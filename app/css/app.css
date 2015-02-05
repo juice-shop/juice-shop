@@ -20,3 +20,7 @@ li.ribbon-spacer {
 .btn-group {
     display: flex;
 }
+
+span.nowrap {
+    display: flex;
+}

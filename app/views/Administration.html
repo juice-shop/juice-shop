@@ -2,51 +2,47 @@
     <div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm">Administration <small>User</small></h3>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed" ng-controller="UserController">
-                <tr>
-                    <th></th>
-                    <th>Email</th>
-                    <th></th>
-                </tr>
-                <tr data-ng-repeat="user in users">
-                    <td><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
-                    <td><div ng-bind-html="user.email"></div></td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <table class="table table-striped table-bordered table-condensed" ng-controller="UserController">
+            <tr>
+                <th></th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="user in users">
+                <td><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
+                <td><div ng-bind-html="user.email"></div></td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fa fa-eye"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     
     <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm"><small>Feedback</small></h3>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed" ng-controller="FeedbackController">
-                <tr>
-                    <th>User</th>
-                    <th>Comment</th>
-                    <th>Rating</th>
-                    <th></th>
-                </tr>
-                <tr data-ng-repeat="feedback in feedbacks">
-                    <td>{{feedback.UserId}}</td>
-                    <td><div ng-bind-html="feedback.comment"></div></td>
-                    <td>
-                        <rating max="5" ng-model="feedback.rating" readonly="true"></rating>
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-danger btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <table class="table table-striped table-bordered table-condensed" ng-controller="FeedbackController">
+            <tr>
+                <th>User</th>
+                <th>Comment</th>
+                <th>Rating</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="feedback in feedbacks">
+                <td>{{feedback.UserId}}</td>
+                <td><div ng-bind-html="feedback.comment"></div></td>
+                <td>
+                    <rating max="5" ng-model="feedback.rating" readonly="true" class="nowrap"></rating>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-danger btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <img src="/public/images/tracking/administration.png"/>
     </div>
 </div>

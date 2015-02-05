@@ -3,36 +3,34 @@
         <h3 class="page-header page-header-sm">Your Basket</h3>
 
         <div ng-controller="BasketController">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-condensed">
-                    <tr>
-                        <th>Product</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th></th>
-                    </tr>
-                    <tr data-ng-repeat="product in products">
-                        <td>{{product.name}}</td>
-                        <td>{{product.description}}</td>
-                        <td>{{product.price}}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="fa fa-minus-square"></i></a>
-                                <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
-                                <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="fa fa-plus-square"></i></a>
-                            </div>
-                        </td>
-                        <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="fa fa-trash-o"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </tr>
+                <tr data-ng-repeat="product in products">
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.price}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="fa fa-minus-square"></i></a>
+                            <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
+                            <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="fa fa-plus-square"></i></a>
+                        </div>
+                    </td>
+                    <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
             <div class="container-fluid well">
                 <div class="row">
@@ -72,7 +70,7 @@
             <div collapse="paymentCollapsed">
                 <div class="container-fluid well">
                     <div class="row">
-                        <label>Payment</label> <small>(I am grateful for tips. Please do not expect any orders to be processed for real, though.)</small>
+                        <label>Payment</label> <small>(Thank you for sponsoring Juice Shop! <i class="fa fa-heart"></i>)</small>
                     </div>
                     <div class="row">
                         <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-danger">

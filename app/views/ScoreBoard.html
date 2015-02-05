@@ -12,7 +12,7 @@
             </tr>
             <tr data-ng-repeat="challenge in challenges">
                 <td><div ng-bind-html="challenge.description"></div></td>
-                <td align="center"><rating max="{{challenge.difficulty}}" ng-model="challenge.difficulty" readonly="true"></rating></td>
+                <td align="center"><rating max="{{challenge.difficulty}}" ng-model="challenge.difficulty" readonly="true" class="nowrap"></rating></td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger">unsolved</span>
                     <span id="{{challenge.name}}.solved" ng-show="challenge.solved" class="label label-success">solved</span>
