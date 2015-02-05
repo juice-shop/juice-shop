@@ -9,9 +9,9 @@
                 <th></th>
             </tr>
             <tr data-ng-repeat="user in users">
-                <td class="col-md-1"><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
+                <td><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
                 <td><div ng-bind-html="user.email"></div></td>
-                <td class="col-md-1">
+                <td>
                     <div class="btn-group">
                         <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fa fa-eye"></i></a>
                     </div>
@@ -33,12 +33,12 @@
             <tr data-ng-repeat="feedback in feedbacks">
                 <td>{{feedback.UserId}}</td>
                 <td><div ng-bind-html="feedback.comment"></div></td>
-                <td class="col-md-2">
-                    <rating max="5" ng-model="feedback.rating" readonly="true"></rating>
+                <td>
+                    <rating max="5" ng-model="feedback.rating" readonly="true" class="nowrap"></rating>
                 </td>
-                <td class="col-md-1">
+                <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
                     </div>
                 </td>
             </tr>

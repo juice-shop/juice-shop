@@ -32,6 +32,12 @@ describe('/redirect', function () {
             });
         });
 
+        it('should redirect to target URL if http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub is contained in it as parameter', function () {
+            browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub').then(function() {
+                expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/);
+            });
+        });
+
         protractor.expect.challengeSolved({challenge: 'redirect'});
 
     });
