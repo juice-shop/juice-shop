@@ -51,12 +51,14 @@ Feel free to have a look at the latest version of Juice Shop: <http://juice-shop
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
 4. Browse to <http://localhost:3000> 
 
-### Packaged Distribution
+### Packaged Distribution (Windows only)
 
 1. Install [node.js](http://nodejs.org) (version 0.10.x)
-2. Download ```juice-shop-<version>.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+2. Download ```juice-shop-<version>_win32.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
+
+> The packaged distribution will not work on Linux or other operating systems because SQLite will automatically be compiled from source for the OS which ```npm install``` is executed on.
 
 ### Amazon EC2 Instance
 
