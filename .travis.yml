@@ -3,22 +3,17 @@ node_js:
 - '0.10'
 branches:
   except:
-    - gh-pages
+  - gh-pages
 addons:
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
   sauce_connect: true
 after_success:
-- ./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'
+- "./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'"
 - cat "./test/coverage/lcov_merged.info" | ./node_modules/.bin/codeclimate
 - karma start karma.conf-ci.js
 - node test/e2eTests.js
-deploy:
-  provider: nodejitsu
-  user: bkimminich
-  api_key:
-    secure: bzxWh4DRhjcJ52FXzZhEOMmseDOPCDw/yC5ikblBH0uwoXIPJD2yKJ884CqzyL8Jf3yFBpZasVvbFjNDPpyGxZv0UMInYhJBHuyFXKe+pqyf1z7vif0FaH2Fze9VfmCV/GPRiNMMgTcvgoCIJs8wXsCoRcafWVaX9m4xH5ZHt/I=
 env:
   global:
   - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
@@ -29,7 +24,14 @@ notifications:
   - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
   webhooks:
     urls:
-      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+    - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
     on_start: true
+deploy:
+  provider: heroku
+  api_key:
+    secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
+  app: juice-shop
+  on:
+    repo: bkimminich/juice-shop
