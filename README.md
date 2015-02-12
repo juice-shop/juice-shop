@@ -1,17 +1,6 @@
-# Juice Shop
+# Juice Shop [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
 
 An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.
-
-[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg)](https://travis-ci.org/bkimminich/juice-shop)
-[![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
-[![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
-
-[![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
-[![Dependency Status npm](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec)
-[![Dependency Status bower](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb/badge.svg)](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb)
-[![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
-[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
 
 > Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the project name. That the initials "JS" match with those of "Javascript" was purely coincidental!
     
@@ -91,6 +80,12 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 
 Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)! Pull requests are also highly welcome (if the test still pass)!
+
+[![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
+[![Dependency Status npm](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec)
+[![Dependency Status bower](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb/badge.svg)](https://www.versioneye.com/user/projects/544a2e5ac310f965f90000eb)
+[![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
+[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
 
 ## Credits
 
