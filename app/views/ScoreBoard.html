@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm">Score Board</h3>
 
         <progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></progressbar>
@@ -12,7 +12,7 @@
             </tr>
             <tr data-ng-repeat="challenge in challenges">
                 <td><div ng-bind-html="challenge.description"></div></td>
-                <td align="center"><rating max="{{challenge.difficulty}}" ng-model="challenge.difficulty" readonly="true"></rating></td>
+                <td align="center"><rating max="{{challenge.difficulty}}" ng-model="challenge.difficulty" readonly="true" class="nowrap"></rating></td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger">unsolved</span>
                     <span id="{{challenge.name}}.solved" ng-show="challenge.solved" class="label label-success">solved</span>

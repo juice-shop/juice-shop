@@ -88,7 +88,7 @@ describe('/#/contact', function () {
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS3');
                 alert.accept();
-                element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.glyphicon-trash')).click();
+                element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash')).click();
                 browser.driver.sleep(1000);
                 browser.ignoreSynchronization = false;
             });

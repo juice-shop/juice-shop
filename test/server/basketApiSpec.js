@@ -115,7 +115,7 @@ frisby.create('POST new basket item with negative quantity')
 
 frisby.create('PUT forged coupon with 99% discount')
     .addHeaders(authHeader)
-    .put(REST_URL + '/basket/2/coupon/'+forgedCoupon)
+    .put(REST_URL + '/basket/2/coupon/'+encodeURIComponent(forgedCoupon))
     .expectStatus(200)
     .after(function() {
         frisby.create('POST placing an order for a basket with 99% discount')
@@ -135,19 +135,19 @@ frisby.create('PUT apply invalid coupon')
 
 frisby.create('PUT apply outdated coupon')
     .addHeaders(authHeader)
-    .put(REST_URL + '/basket/1/coupon/'+outdatedCoupon)
+    .put(REST_URL + '/basket/1/coupon/'+encodeURIComponent(outdatedCoupon))
     .expectStatus(404)
     .toss();
 
 frisby.create('PUT apply valid coupon to non-existing basket')
     .addHeaders(authHeader)
-    .put(REST_URL + '/basket/4711/coupon/'+validCoupon)
+    .put(REST_URL + '/basket/4711/coupon/'+encodeURIComponent(validCoupon))
     .expectStatus(500)
     .toss();
 
 frisby.create('PUT apply valid coupon to existing basket')
     .addHeaders(authHeader)
-    .put(REST_URL + '/basket/1/coupon/'+validCoupon)
+    .put(REST_URL + '/basket/1/coupon/'+encodeURIComponent(validCoupon))
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON({discount : 15})

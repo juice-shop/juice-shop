@@ -59,7 +59,7 @@ module.exports = function (grunt) {
         compress: {
             pckg: {
                 options: {
-                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>.zip'
+                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_win32.zip'
                 },
                 files: [
                     {

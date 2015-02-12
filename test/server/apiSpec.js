@@ -38,7 +38,6 @@ frisby.create('GET all models declared in API')
 frisby.create('GET error message with information leakage when calling unrecognized path with /rest in it')
     .get(REST_URL + "/unrecognized")
     .expectStatus(500)
-    .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')
     .expectBodyContains('Unexpected path: /rest/unrecognized')
     .toss();
