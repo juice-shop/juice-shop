@@ -28,9 +28,9 @@ You may find it easier to find vulnerabilities using a pen test tool. I strongly
 
 ## Preview
 
-Feel free to have a look at the latest version of Juice Shop: <http://juice-shop.jit.su/>
+Feel free to have a look at the latest version of Juice Shop: <https://juice-shop.herokuapp.com>
 
-> This is a "sneak-peek" instance only! You are __not allowed__ to use this instance for your own hacking endeavors! Technically [Nodejitsu](https://www.nodejitsu.com/) could view hacking activity on this instance as an attack on their infrastructure! You have been warned!
+> This is a "sneak-peek" instance only! You are __not allowed__ to use this instance for your own hacking endeavors! Technically [Heroku](https://www.heroku.com/) could view hacking activity on this instance as an attack on their infrastructure! You have been warned!
 
 ## Setup
 
