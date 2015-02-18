@@ -2,7 +2,7 @@
 
 An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.
 
-![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/app/public/images/JuiceShop_Logo.png)
+![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png)
 
 > Translating "dump" or "useless outfit" into German yields "Saftladen" which can be reverse-translated word by word into "juice shop". Hence the project name. That the initials "JS" match with those of "Javascript" was purely coincidental!
 
