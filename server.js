@@ -38,8 +38,11 @@ app.use(helmet.noSniff());
 app.use(helmet.frameguard());
 //app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 
+/* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
+app.use(function (req,res,next) { req.url = req.url.replace(/[/]+/g, '/'); next(); });
+
 /* Favicon */
-app.use(favicon(__dirname + '/app/public/favicon.ico'));
+app.use(favicon(__dirname + '/app/public/favicon_v2.ico'));
 
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges());
