@@ -50,7 +50,7 @@ exports.retrieveBasket = function () {
                 /* jshint eqeqeq:false */
                 if (utils.notSolved(challenges.basketChallenge)) {
                     var user = insecurity.authenticatedUsers.from(req);
-                    if (user && id && user.bid != id) {
+                    if (user && id && id !== 'undefined' && user.bid != id) {
                         utils.solve(challenges.basketChallenge);
                     }
                 }
