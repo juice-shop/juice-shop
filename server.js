@@ -53,7 +53,7 @@ app.use('/ftp/:file', site.servePublicFiles());
 app.use('/public/ftp/:file', site.servePublicFiles());
 
 app.use(express.static(application_root + '/app'));
-app.use(morgan('dev', {skip: function (req, res) { return res.statusCode < 400; }}));
+app.use(morgan('dev'));
 app.use(cookieParser('kekse'));
 app.use(bodyParser.json());
 
