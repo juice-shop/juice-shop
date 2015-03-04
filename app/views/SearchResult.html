@@ -3,32 +3,29 @@
         <h3 ng-show="searchQuery" class="page-header page-header-sm">Search Results <span class="label label-default" ng-bind-html="searchQuery"></span></h3>
         <h3 ng-show="!searchQuery" class="page-header page-header-sm">All Products</h3>
 
-        <div ng-controller="SearchResultController">
-
-            <div class="alert-info" ng-show="confirmation">
-                <p>{{confirmation}}</p>
-            </div>
-
-            <table class="table table-striped table-bordered table-condensed">
-                <tr>
-                    <th>Product</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-                <tr data-ng-repeat="product in products">
-                    <td>{{product.name}}</td>
-                    <td><div ng-bind-html="product.description"></div></td>
-                    <td>{{product.price}}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-default btn-xs" ng-click="addToBasket(product.id)" ng-show="isLoggedIn()"><i class="fa fa-cart-plus"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-
+        <div class="alert-info" ng-show="confirmation">
+            <p>{{confirmation}}</p>
         </div>
+
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="product in products">
+                <td>{{product.name}}</td>
+                <td><div ng-bind-html="product.description"></div></td>
+                <td>{{product.price}}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-xs" ng-click="showDetail(product.id)"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="addToBasket(product.id)" ng-show="isLoggedIn()"><i class="fa fa-cart-plus"></i></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </div>

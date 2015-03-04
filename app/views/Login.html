@@ -2,44 +2,41 @@
     <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
         <h3 class="page-header page-header-sm">Login</h3>
 
-        <div ng-controller="LoginController">
+        <form role="form" name="form" novalidate>
 
-            <form role="form" name="form" novalidate>
+            <div class="alert-danger" ng-show="error && !form.$dirty">
+                <p>{{error}}</p>
+            </div>
+            <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
+                <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty">Please provide an email address.</p>
+                <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty">Please provide a password.</p>
+            </div>
 
-                <div class="alert-danger" ng-show="error && !form.$dirty">
-                    <p>{{error}}</p>
+            <div class="container-fluid well">
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="text" class="form-control input-sm" id="userEmail" name="userEmail" ng-model="user.email" required/>
+                    </div>
                 </div>
-                <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
-                    <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty">Please provide an email address.</p>
-                    <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty">Please provide a password.</p>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="userPassword">Password</label>
+                        <input type="password" class="form-control input-sm" id="userPassword" name="userPassword" ng-model="user.password" required/>
+                    </div>
                 </div>
-
-                <div class="container-fluid well">
-
-                    <div class="row">
+                <div class="row">
                         <div class="form-group">
-                            <label for="userEmail">Email</label>
-                            <input type="text" class="form-control input-sm" id="userEmail" name="userEmail" ng-model="user.email" required/>
+                            <button type="submit" id="loginButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="login()"><i class="fa fa-key fa-lg"></i> Log in</button>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="userPassword">Password</label>
-                            <input type="password" class="form-control input-sm" id="userPassword" name="userPassword" ng-model="user.password" required/>
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="form-group">
-                                <button type="submit" id="loginButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="login()"><i class="fa fa-key fa-lg"></i> Log in</button>
-                            </div>
-                    </div>
-                    <div class="row">
-                        Not yet a customer? <a href="#/register">Register now!</a>
-                    </div>
                 </div>
+                <div class="row">
+                    Not yet a customer? <a href="#/register">Register now!</a>
+                </div>
+            </div>
 
-            </form>
-        </div>
+        </form>
 
     </div>
 </div>
