@@ -90,6 +90,21 @@ frisby.create('GET the package.json file by using an encoded Poison Null Byte at
     .expectStatus(200)
     .toss();
 
+frisby.create('GET a restricted file directly from file system path on server via Poison Null Byte attack')
+    .get(URL + "/public/ftp/package.json.bak%2500.md")
+    .expectStatus(200)
+    .toss();
+
+frisby.create('GET an accessible file directly from file system path on server')
+    .get(URL + "/public/ftp/legal.md")
+    .expectStatus(200)
+    .toss();
+
+frisby.create('GET a non-existing file via direct server file path /public/ftp will return a 404 error')
+    .get(URL + "/public/ftp/doesnotexist.md")
+    .expectStatus(404)
+    .toss();
+
 frisby.create('GET the second easter egg by visiting the hidden URL')
     .get(URL + "/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg")
     .expectStatus(200)
