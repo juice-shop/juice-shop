@@ -35,4 +35,3 @@ deploy:
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
-    node_js: 0.10
