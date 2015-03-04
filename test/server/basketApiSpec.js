@@ -84,7 +84,7 @@ frisby.create('POST placing an order for a basket returns URL to confirmation PD
     .post(REST_URL + '/basket/1/checkout')
     .addHeaders(authHeader)
     .expectStatus(200)
-    .expectBodyContains('/public/ftp/order_')
+    .expectBodyContains('/ftp/order_')
     .expectBodyContains('.pdf')
     .toss();
 
@@ -108,7 +108,7 @@ frisby.create('POST new basket item with negative quantity')
             .post(REST_URL + '/basket/3/checkout')
             .addHeaders(authHeader)
             .expectStatus(200)
-            .expectBodyContains('/public/ftp/order_')
+            .expectBodyContains('/ftp/order_')
             .expectBodyContains('.pdf')
             .toss();
     }).toss();
@@ -122,7 +122,7 @@ frisby.create('PUT forged coupon with 99% discount')
             .post(REST_URL + '/basket/2/checkout')
             .addHeaders(authHeader)
             .expectStatus(200)
-            .expectBodyContains('/public/ftp/order_')
+            .expectBodyContains('/ftp/order_')
             .expectBodyContains('.pdf')
             .toss();
     }).toss();

@@ -48,8 +48,8 @@ app.use(favicon(__dirname + '/app/public/favicon_v2.ico'));
 app.use('/public/images/tracking', verify.accessControlChallenges());
 
 /* public/ftp directory browsing and file download */
-app.use('/public/ftp', serveIndex('app/public/ftp', {'icons': true}));
-app.use('/public/ftp/:file', site.servePublicFiles());
+app.use('/ftp', serveIndex('app/public/ftp', {'icons': true}));
+app.use('/ftp/:file', site.servePublicFiles());
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('dev', {skip: function (req, res) { return res.statusCode < 400; }}));

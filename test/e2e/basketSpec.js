@@ -52,8 +52,8 @@ describe('/#/basket', function () {
 
         describe('challenge "forgedCoupon"', function () {
 
-            it('should be able to access file /public/ftp/coupons_2013.md.bak with poison null byte attack', function () {
-                browser.driver.get(browser.baseUrl + '/public/ftp/coupons_2013.md.bak%2500.md');
+            it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', function () {
+                browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak%2500.md');
             });
 
             it('should be possible to enter a coupon that gives an 80% discount', function () {

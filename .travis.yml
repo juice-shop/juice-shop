@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.10'
+- 0.10
 branches:
   except:
   - gh-pages
@@ -35,3 +35,4 @@ deploy:
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
+    node_js: 0.10
