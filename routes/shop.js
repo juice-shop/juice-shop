@@ -139,7 +139,7 @@ exports.placeOrder = function () {
                     fileWriter.on('finish', function () {
                         basket.updateAttributes({coupon: null});
                         models.BasketItem.destroy({BasketId: id});
-                        res.send('/public/ftp/' + pdfFile);
+                        res.send('/ftp/' + pdfFile);
                     });
                 } else {
                     next(new Error('Basket with id=' + id + ' does not exist.'));
