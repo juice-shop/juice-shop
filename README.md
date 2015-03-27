@@ -36,7 +36,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 1. Install [Docker](https://www.docker.com)
 2. Run ```docker pull bkimminich/juice-shop```
-3. Run ```docker run -d --rm -p 3000:3000 bkimminich/juice-shop```
+3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
 4. Browse to <http://localhost:3000> 
 
 ### Packaged Distribution (Windows only) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
