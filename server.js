@@ -14,9 +14,19 @@ var application_root = __dirname.replace(/\\/g, '/'),
     serveIndex = require('serve-index'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
-    site = require('./routes/site'),
-    user = require('./routes/user'),
-    shop = require('./routes/shop'),
+    redirect = require('./routes/redirect'),
+    angular = require('./routes/angular'),
+    easterEgg = require('./routes/easterEgg'),
+    appVersion = require('./routes/appVersion'),
+    fileServer = require('./routes/fileServer'),
+    authenticatedUsers = require('./routes/authenticatedUsers'),
+    currentUser = require('./routes/currentUser'),
+    login = require('./routes/login'),
+    changePassword = require('./routes/changePassword'),
+    search = require('./routes/search'),
+    coupon = require('./routes/coupon'),
+    basket = require('./routes/basket'),
+    order = require('./routes/order'),
     verify = require('./routes/verify'),
     utils = require('./lib/utils'),
     insecurity = require('./lib/insecurity'),
@@ -49,8 +59,8 @@ app.use('/public/images/tracking', verify.accessControlChallenges());
 
 /* public/ftp directory browsing and file download */
 app.use('/ftp', serveIndex('app/public/ftp', {'icons': true}));
-app.use('/ftp/:file', site.servePublicFiles());
-app.use('/public/ftp/:file', site.servePublicFiles());
+app.use('/ftp/:file', fileServer());
+app.use('/public/ftp/:file', fileServer());
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('dev'));
@@ -91,19 +101,19 @@ app.use(verify.databaseRelatedChallenges());
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
 /* Custom Restful API */
-app.post('/rest/user/login', user.login());
-app.get('/rest/user/change-password', user.changePassword());
-app.get('/rest/user/whoami', user.retrieveLoggedInUser());
-app.get('/rest/user/authentication-details', user.retrieveUserList());
-app.get('/rest/product/search', shop.searchProducts());
-app.get('/rest/basket/:id', shop.retrieveBasket());
-app.post('/rest/basket/:id/checkout', shop.placeOrder());
-app.put('/rest/basket/:id/coupon/:coupon', shop.applyCoupon());
-app.get('/rest/admin/application-version', site.retrieveAppVersion());
-app.get('/redirect', site.performRedirect());
+app.post('/rest/user/login', login());
+app.get('/rest/user/change-password', changePassword());
+app.get('/rest/user/whoami', currentUser());
+app.get('/rest/user/authentication-details', authenticatedUsers());
+app.get('/rest/product/search', search());
+app.get('/rest/basket/:id', basket());
+app.post('/rest/basket/:id/checkout', order());
+app.put('/rest/basket/:id/coupon/:coupon', coupon());
+app.get('/rest/admin/application-version', appVersion());
+app.get('/redirect', redirect());
 /* File Serving */
-app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', site.serveEasterEgg());
-app.use(site.serveAngularClient());
+app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg());
+app.use(angular());
 /* Error Handling */
 app.use(verify.errorHandlingChallenge());
 app.use(errorhandler());
