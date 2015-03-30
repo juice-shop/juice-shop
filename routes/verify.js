@@ -36,7 +36,7 @@ exports.accessControlChallenges = function () {
 
 exports.errorHandlingChallenge = function () {
     return function (err, req, res, next) {
-        if (utils.notSolved(challenges.errorHandlingChallenge) && err && res.statusCode > 401) {
+        if (utils.notSolved(challenges.errorHandlingChallenge) && err && (res.statusCode === 200 || res.statusCode > 401)) {
             utils.solve(challenges.errorHandlingChallenge);
         }
         next(err);

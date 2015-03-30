@@ -27,7 +27,9 @@ module.exports = function (sequelize, DataTypes) {
 };
 
 function hashPasswordHook(user) {
-    user.password = insecurity.hash(user.password);
+    if (user.password) {
+        user.password = insecurity.hash(user.password)
+    };
 }
 
 function xssChallengeUserHook(user) {

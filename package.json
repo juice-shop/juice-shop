@@ -1,6 +1,6 @@
 {
     "name": "juice-shop",
-    "version": "1.12.2",
+    "version": "1.13.0",
     "description": "An intentionally insecure Javascript Web Application",
     "homepage": "http://bkimminich.github.io/juice-shop/",
     "author": "Bjoern Kimminich",
@@ -98,6 +98,6 @@
     },
     "subdomain": "juice-shop",
     "engines": {
-        "node": "0.10.x"
+        "node": ">=0.10.28 <0.11"
     }
 }
