@@ -9,7 +9,7 @@ exports = module.exports = function performRedirect() {
     return function(req, res, next) {
         var toUrl = req.query.to;
         if (insecurity.isRedirectAllowed(toUrl)) {
-            if (utils.notSolved(challenges.redirectChallenge) && insecurity.redirectWhitelist.indexOf(toUrl) === -1) {
+            if (utils.notSolved(challenges.redirectChallenge) && isUnintendedRedirect(toUrl)) {
                 utils.solve(challenges.redirectChallenge);
             }
             res.redirect(toUrl);
@@ -19,3 +19,11 @@ exports = module.exports = function performRedirect() {
         }
     };
 };
+
+function isUnintendedRedirect(toUrl) {
+    var unintended = true;
+    insecurity.redirectWhitelist.forEach(function(allowedUrl) {
+        unintended = unintended && !utils.startsWith(toUrl, allowedUrl);
+    });
+    return unintended;
+}
