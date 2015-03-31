@@ -1,4 +1,4 @@
-angular.module('myApp').controller('ProductDetailsController', [
+angular.module('juiceShop').controller('ProductDetailsController', [
     '$scope',
     '$sce',
     '$modal',

@@ -1,4 +1,4 @@
-angular.module('myApp').controller('NavbarController', [
+angular.module('juiceShop').controller('NavbarController', [
     '$scope',
     'AdministrationService',
     function ($scope, administrationService) {

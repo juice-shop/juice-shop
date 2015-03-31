@@ -1,4 +1,4 @@
-angular.module('myApp').factory('ChallengeService', ['$http', function ($http) {
+angular.module('juiceShop').factory('ChallengeService', ['$http', function ($http) {
     'use strict';
 
     var host = '/api/Challenges';

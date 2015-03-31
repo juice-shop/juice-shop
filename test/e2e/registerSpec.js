@@ -23,7 +23,7 @@ describe('/#/register', function () {
 
         it('should be possible to bypass validation by directly using Rest API', function () {
             browser.ignoreSynchronization = true;
-            browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS2")</script>\', password: \'xss\'});');
+            browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS2")</script>\', password: \'xss\'});');
             browser.driver.sleep(1000);
 
             browser.get('/#/administration');
@@ -32,7 +32,7 @@ describe('/#/register', function () {
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS2');
                 alert.accept();
-                browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});');
+                browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});');
                 browser.driver.sleep(1000);
                 browser.ignoreSynchronization = false;
             });

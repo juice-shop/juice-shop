@@ -1,5 +1,5 @@
 /*jslint loopfunc: true */
-angular.module('myApp').controller('SearchResultController', [
+angular.module('juiceShop').controller('SearchResultController', [
     '$scope',
     '$sce',
     '$window',

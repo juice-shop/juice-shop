@@ -1,4 +1,4 @@
-angular.module('myApp').factory('BasketService', ['$http', function ($http) {
+angular.module('juiceShop').factory('BasketService', ['$http', function ($http) {
     'use strict';
 
     var host = '/api/BasketItems';

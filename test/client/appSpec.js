@@ -1,7 +1,7 @@
 describe('app', function () {
     var $httpBackend, $cookieStore, $rootScope;
 
-    beforeEach(module('myApp'));
+    beforeEach(module('juiceShop'));
     beforeEach(inject(function ($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $cookieStore = $injector.get('$cookieStore');

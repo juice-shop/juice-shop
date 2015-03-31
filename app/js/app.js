@@ -1,11 +1,11 @@
-angular.module('myApp', [
+angular.module('juiceShop', [
     'ngRoute',
     'ngCookies',
     'ngTouch',
     'ui.bootstrap'
 ]);
 
-angular.module('myApp').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
+angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
     'use strict';
     return {
         request: function (config) {
@@ -24,12 +24,12 @@ angular.module('myApp').factory('authInterceptor', ['$rootScope', '$q', '$cookie
     };
 }]);
 
-angular.module('myApp').config(['$httpProvider', function ($httpProvider) {
+angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
     'use strict';
     $httpProvider.interceptors.push('authInterceptor');
 }]);
 
-angular.module('myApp').run(['$cookieStore', '$rootScope', function ($cookieStore, $rootScope) {
+angular.module('juiceShop').run(['$cookieStore', '$rootScope', function ($cookieStore, $rootScope) {
     'use strict';
     $rootScope.isLoggedIn = function () {
         return $cookieStore.get('token');
