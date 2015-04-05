@@ -1,4 +1,4 @@
-angular.module('myApp').controller('RegisterController', [
+angular.module('juiceShop').controller('RegisterController', [
     '$scope',
     '$location',
     'UserService',

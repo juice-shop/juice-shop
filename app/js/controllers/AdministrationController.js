@@ -1,4 +1,4 @@
-angular.module('myApp').controller('AdministrationController', [
+angular.module('juiceShop').controller('AdministrationController', [
     function () {
         'use strict';
 

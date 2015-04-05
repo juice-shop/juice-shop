@@ -1,4 +1,4 @@
-angular.module('myApp').controller('BasketController', [
+angular.module('juiceShop').controller('BasketController', [
     '$scope',
     '$sce',
     '$window',

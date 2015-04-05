@@ -1,4 +1,4 @@
-angular.module('myApp').config(['$routeProvider', function ($routeProvider) {
+angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) {
     'use strict';
 
     $routeProvider.when('/administration', {

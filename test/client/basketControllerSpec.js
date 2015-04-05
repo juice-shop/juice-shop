@@ -1,7 +1,7 @@
 describe('controllers', function () {
     var scope, controller, $window, $httpBackend;
 
-    beforeEach(module('myApp'));
+    beforeEach(module('juiceShop'));
 
     beforeEach(function() {
         $window = {location: { replace: jasmine.createSpy()}, sessionStorage: {bid: 42} };

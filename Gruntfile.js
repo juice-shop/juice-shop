@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         },
 
         ngtemplates: {
-            myApp: {
+            juiceShop: {
                 cwd: 'app',
                 src: [ 'views/*.html' ],
                 dest: 'app/tmp/views.js'
@@ -117,6 +117,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-retire');
 
-    grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:myApp', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
+    grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
 };

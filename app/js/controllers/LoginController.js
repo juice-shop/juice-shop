@@ -1,4 +1,4 @@
-angular.module('myApp').controller('LoginController', [
+angular.module('juiceShop').controller('LoginController', [
     '$scope',
     '$window',
     '$location',

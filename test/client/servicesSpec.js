@@ -1,7 +1,7 @@
 describe('services', function () {
     var $httpBackend, result;
 
-    beforeEach(module('myApp'));
+    beforeEach(module('juiceShop'));
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
         result = undefined;

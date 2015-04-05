@@ -1,4 +1,4 @@
-angular.module('myApp').factory('AdministrationService', ['$http', function ($http) {
+angular.module('juiceShop').factory('AdministrationService', ['$http', function ($http) {
     'use strict';
 
     var host = '/rest/admin';

@@ -1,4 +1,4 @@
-angular.module('myApp').controller('ContactController', [
+angular.module('juiceShop').controller('ContactController', [
     '$scope',
     'FeedbackService',
     'UserService',

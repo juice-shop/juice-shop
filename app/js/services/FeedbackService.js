@@ -1,4 +1,4 @@
-angular.module('myApp').factory('FeedbackService', ['$http', function ($http) {
+angular.module('juiceShop').factory('FeedbackService', ['$http', function ($http) {
     'use strict';
 
     var host = '/api/Feedbacks';

@@ -1,7 +1,7 @@
 describe('controllers', function () {
     var scope, controller, $httpBackend, $sce;
 
-    beforeEach(module('myApp'));
+    beforeEach(module('juiceShop'));
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $sce = $injector.get('$sce');

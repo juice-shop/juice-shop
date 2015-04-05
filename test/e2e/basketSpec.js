@@ -12,7 +12,7 @@ describe('/#/basket', function () {
 
             it('should be possible to update a basket to a negative quantity via the Rest API', function () {
                 browser.ignoreSynchronization = true;
-                browser.executeScript('var $http = angular.injector([\'myApp\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});');
+                browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});');
                 browser.driver.sleep(1000);
 
                 browser.get('/#/basket');
