@@ -88,6 +88,24 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
 [![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
 
+### Unit Tests
+
+There is a full suite containing independent unit tests for the client- and server-side code. These tests verify if the normal use cases of the application should work. All server-side vulnerabilities are also tested.
+
+```
+npm test
+```
+
+### End-to-end Tests
+
+The e2e test suite verifies if all client- and server-side vulnerabilities are exploitable. It passes only when all challenges are solvable on the score board.
+
+```
+npm run protractor
+```
+
+> The e2e tests require a working internet connection in order to verify the redirect challenges!
+
 ## Credits
 
 Inspired by the "classic" [BodgeIt Store](https://code.google.com/p/bodgeit/) by [@psiinon](https://github.com/psiinon).
