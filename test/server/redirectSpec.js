@@ -4,32 +4,42 @@ var frisby = require('frisby');
 
 var URL = 'http://localhost:3000';
 
-frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when this URL is passed as "to" parameter')
-    .get(URL + "/redirect?to=https://github.com/bkimminich/juice-shop")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
-    .toss();
+frisby.create('GET check internet connection before executing these tests')
+    .get("http://kimminich.de")
+    .after(function (res) {
+        if (res == 'Error: getaddrinfo ENOTFOUND') {
+            console.log('No internet connection. Skipped "happy path" redirect tests!');
+        } else {
+            frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=https://github.com/bkimminich/juice-shop")
+                .expectStatus(200)
+                .expectHeaderContains('content-type', 'text/html')
+                .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
+                .toss();
 
-frisby.create('GET redirected to https://gratipay.com/bkimminich when this URL is passed as "to" parameter')
-    .get(URL + "/redirect?to=https://gratipay.com/bkimminich")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>bkimminich - Gratipay</title>')
-    .toss();
+            frisby.create('GET redirected to https://gratipay.com/bkimminich when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=https://gratipay.com/bkimminich")
+                .expectStatus(200)
+                .expectHeaderContains('content-type', 'text/html')
+                .expectBodyContains('<title>bkimminich - Gratipay</title>')
+                .toss();
 
-frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
-    .get(URL + "/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN</title>')
-    .toss();
+            frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN")
+                .expectStatus(200)
+                .expectHeaderContains('content-type', 'text/html')
+                .expectBodyContains('1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN</title>')
+                .toss();
 
-frisby.create('GET redirected to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub when this URL is passed as "to" parameter')
-    .get(URL + "/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub")
-    .expectStatus(200)
-    .expectHeaderContains('content-type', 'text/html')
-    .expectBodyContains('<title>bkimminich/juice-shop on GitHub - Flattr.com</title>')
+            frisby.create('GET redirected to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub")
+                .expectStatus(200)
+                .expectHeaderContains('content-type', 'text/html')
+                .expectBodyContains('<title>bkimminich/juice-shop on GitHub - Flattr.com</title>')
+                .toss();
+
+        }
+    })
     .toss();
 
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
