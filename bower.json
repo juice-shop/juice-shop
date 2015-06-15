@@ -15,7 +15,7 @@
     "bootswatch": "~3.3",
     "jquery": "~2.1",
     "underscore": "~1.8.2",
-    "string": "~3.1.1",
+    "string": "~3.2.0",
     "moment": "~2.10.2",
     "github-fork-ribbon-css": "~0.1",
     "fontawesome": "~4.3.0"
