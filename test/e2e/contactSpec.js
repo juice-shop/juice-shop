@@ -103,6 +103,7 @@ describe('/#/contact', function () {
 
         it('should be possible to post known vulnerable component(s) as feedback', function () {
             comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.');
+            comment.sendKeys('serve-index 1.6.0 is vulnerable to XSS in file and directory names.');
             rating.click();
 
             submitButton.click();
