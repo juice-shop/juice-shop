@@ -19,14 +19,14 @@ server.start({ port: 3000 }, function () {
     protractor.on('exit', function (exitCode) {
         console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
         if (process.env.TRAVIS_BUILD_NUMBER && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
-            setSaucelabJobResult(exitCode);
+            setSaucelabsJobResult(exitCode);
         } else {
             server.close(exitCode);
         }
     });
 });
 
-function setSaucelabJobResult(exitCode) {
+function setSaucelabsJobResult(exitCode) {
     var sauceLabs = new SauceLabs({ username: process.env.SAUCE_USERNAME, password: process.env.SAUCE_ACCESS_KEY });
     sauceLabs.getJobs(function (err, jobs) {
         for (var j in jobs) {
