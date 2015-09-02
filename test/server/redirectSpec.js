@@ -21,7 +21,7 @@ frisby.create('GET check internet connection before executing these tests')
                 .get(URL + "/redirect?to=https://gratipay.com/bkimminich")
                 .expectStatus(200)
                 .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('<title>bkimminich - Gratipay</title>')
+                .expectBodyContains('<title>~bkimminich - Gratipay</title>')
                 .toss();
 
             frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
