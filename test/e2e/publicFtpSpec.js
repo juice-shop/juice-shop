@@ -53,7 +53,7 @@ describe('/ftp', function () {
 
     describe('challenge "easterEgg2"', function () {
 
-        it('should be able to access "secrect" url for easter egg', function () {
+        it('should be able to access "secret" url for easter egg', function () {
             browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg');
         });
 
