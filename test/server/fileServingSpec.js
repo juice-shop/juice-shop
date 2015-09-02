@@ -95,6 +95,11 @@ frisby.create('GET a restricted file directly from file system path on server vi
     .expectStatus(200)
     .toss();
 
+frisby.create('GET a restricted file directly from file system path on server via Directory Traversal attack')
+    .get(URL + "/public/images/%2e%2e%2fftp/eastere.gg")
+    .expectStatus(200)
+    .toss();
+
 frisby.create('GET an accessible file directly from file system path on server')
     .get(URL + "/public/ftp/legal.md")
     .expectStatus(200)
