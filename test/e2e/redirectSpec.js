@@ -26,8 +26,8 @@ describe('/redirect', function () {
             });
         });
 
-        it('should redirect to target URL if https://gratipay.com/bkimminich is contained in it as parameter', function () {
-            browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://gratipay.com/bkimminich').then(function() {
+        it('should redirect to target URL if https://gratipay.com/juice-shop is contained in it as parameter', function () {
+            browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://gratipay.com/juice-shop').then(function() {
                 expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/);
             });
         });

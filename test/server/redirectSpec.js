@@ -17,11 +17,11 @@ frisby.create('GET check internet connection before executing these tests')
                 .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
                 .toss();
 
-            frisby.create('GET redirected to https://gratipay.com/bkimminich when this URL is passed as "to" parameter')
-                .get(URL + "/redirect?to=https://gratipay.com/bkimminich")
+            frisby.create('GET redirected to https://gratipay.com/juice-shop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=https://gratipay.com/juice-shop")
                 .expectStatus(200)
                 .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('<title>bkimminich - Gratipay</title>')
+                .expectBodyContains('<title>juice-shop - Gratipay</title>')
                 .toss();
 
             frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
