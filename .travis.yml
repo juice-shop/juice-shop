@@ -27,7 +27,7 @@ notifications:
     - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
-    on_start: true
+    on_start: always
 deploy:
   provider: heroku
   api_key:
