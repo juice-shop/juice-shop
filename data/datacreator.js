@@ -224,6 +224,14 @@ module.exports = function() {
         }).success(function (challenge) {
             challenges.forgedCouponChallenge = challenge;
         });
+        models.Challenge.create({
+            name: 'geocitiesTheme',
+            description: 'Travel back in time to the golden era of web design.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.geocitiesThemeChallenge = challenge;
+        });
     }
     function createUsers() {
         models.User.create({

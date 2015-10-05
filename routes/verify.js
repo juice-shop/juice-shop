@@ -29,6 +29,8 @@ exports.accessControlChallenges = function () {
             utils.solve(challenges.scoreBoardChallenge);
         } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(req.url, '/administration.png')) {
             utils.solve(challenges.adminSectionChallenge);
+        } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(req.url, '/microfab.gif')) {
+            utils.solve(challenges.geocitiesThemeChallenge);
         }
         next();
     };
