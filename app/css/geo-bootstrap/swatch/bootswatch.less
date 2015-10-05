@@ -1,0 +1,206 @@
+// Swatch 2.3.1
+// Bootswatch
+// -----------------------------------------------------
+
+// TYPOGRAPHY
+// -----------------------------------------------------
+h1 { color: #ff0000; }
+h2 { color: #ffcc00; }
+h3 { color: #ffff00; }
+h4 { color: #66ff00; }
+h5 { color: #0000ff; }
+h6 { color: #ff00ff; }
+
+.page-header {
+  border-bottom: 1px solid #B6B2A3;
+  .box-shadow(~"inset 0 -1px 0 rgba(0,0,0,.2), 0 1px 0 #EAE7D8");
+}
+
+a {
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: underline !important;
+}
+
+blink {
+  -webkit-animation: blink 1s linear infinite;
+     -moz-animation: blink 1s linear infinite;
+      -ms-animation: blink 1s linear infinite;
+       -o-animation: blink 1s linear infinite;
+          animation: blink 1s linear infinite;
+}
+
+// SCAFFOLDING
+// -----------------------------------------------------
+body {
+  background: @bodyBackground url('../img/microfab.gif') top left;
+  -webkit-font-smoothing: none;
+}
+
+// NAVBAR
+// -----------------------------------------------------
+.navbar {
+  border-bottom: 1px solid #fff;
+  .box-shadow(~"0 2px 0 #D4D0C8, 0 3px 0 #808080, 0 4px 0 #404040");
+}
+.navbar-inner {
+  border-bottom: 1px solid #D4D0C8;
+  background: #000 url('../img/stars.gif') top left;
+}
+
+// NAV
+// -----------------------------------------------------
+
+// BUTTONS
+// -----------------------------------------------------
+.btn {
+  border: 6px ridge @btnBorder;
+}
+.btn-primary {
+  background: #000 url('../img/rainbow.gif') top left;
+}
+
+// TABLES
+// -----------------------------------------------------
+
+// FORMS
+// -----------------------------------------------------
+legend {
+  font-weight: bold;
+  color: yellow;
+}
+.control-group.error input {
+  background: #000 url('../img/flames.gif') 0 -30px repeat-x;
+}
+
+// DROPDOWNS
+// -----------------------------------------------------
+.dropdown-menu {
+  .border-radius(0)
+}
+
+// ALERTS, LABELS, BADGES
+// -----------------------------------------------------
+.label-important,
+.badge-important {
+  background-color: red;
+}
+
+.label-important[href],
+.badge-important[href] {
+  background-color: red;
+}
+
+.label-warning,
+.badge-warning {
+  background-color: yellow;
+  color: black;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: yellow;
+  color: black;
+}
+
+.label-success,
+.badge-success {
+  background-color: green;
+}
+
+.label-success[href],
+.badge-success[href] {
+  background-color: green;
+}
+
+.label-info,
+.badge-info {
+  background-color: #00ffff;
+}
+
+.label-info[href],
+.badge-info[href] {
+  background-color: #00ffff;
+}
+
+.label-inverse,
+.badge-inverse {
+  background-color: black;
+}
+
+.label-inverse[href],
+.badge-inverse[href] {
+  background-color: black;
+}
+
+// MISC
+// -----------------------------------------------------
+.hero-unit, .well {
+  background: #000 url('../img/stars.gif') top left;
+}
+
+.breadcrumb {
+  background: black;
+  color: white;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+  border-color: black;
+  background: black;
+}
+
+.progress .bar {
+  background: #C0C0C0 url('../img/progress.gif') top left repeat-x !important;
+  border: 1px solid #fff;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+}
+
+// ANIMATIONS
+// -----------------------------------------------------
+// Webkit
+@-webkit-keyframes blink {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  41% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+// Firefox
+@-moz-keyframes blink {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  41% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+// IE9
+@-ms-keyframes blink {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  41% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+// Opera
+@-o-keyframes blink {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  41% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+// Spec
+@keyframes blink {
+  0% { opacity: 0; }
+  40% { opacity: 0; }
+  41% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
