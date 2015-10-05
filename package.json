@@ -66,12 +66,12 @@
         "protractor": "~1.8.0",
         "jasmine-reporters": "~1.0",
         "http-server": "~0.8.0",
-        "shelljs": "~0.5.3",
+        "shelljs": "~0.3.0",
         "win-spawn": "~2.0",
         "codeclimate-test-reporter": "~0.1.1",
         "istanbul": "~0.3",
         "lcov-result-merger": "~1.0",
-        "grunt-retire": "~0.3.8"
+        "grunt-retire": "~0.3.10"
     },
     "repository": {
         "type": "git",
