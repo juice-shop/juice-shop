@@ -19,7 +19,7 @@ describe('/ftp', function () {
 
             browser.driver.isElementPresent(by.id('stacktrace')).then(function(present){
                 expect(present).toBe(true);
-            })
+            });
 
             protractor.expect.challengeSolved({challenge: 'errorHandling'});
 
@@ -63,10 +63,16 @@ describe('/ftp', function () {
 
     describe('challenge "geocitiesTheme"', function () {
 
-        it('should be possible to change the CSS theme to geo-bottstrap', function () {
+        it('should be possible to change the CSS theme to geo-bootstrap', function () {
+
+            browser.ignoreSynchronization = true;
             browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");');
+            browser.driver.sleep(2000);
 
             browser.get('/#/search');
+            browser.driver.sleep(1000);
+            browser.ignoreSynchronization = false;
+
         });
 
         protractor.expect.challengeSolved({challenge: 'geocitiesTheme'});
