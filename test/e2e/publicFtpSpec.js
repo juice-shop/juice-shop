@@ -61,4 +61,17 @@ describe('/ftp', function () {
 
     });
 
+    describe('challenge "geocitiesTheme"', function () {
+
+        it('should be possible to change the CSS theme to geo-bottstrap', function () {
+            browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");');
+
+            browser.get('/#/search');
+        });
+
+        protractor.expect.challengeSolved({challenge: 'geocitiesTheme'});
+
+    });
+
+
 });
