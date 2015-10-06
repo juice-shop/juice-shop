@@ -127,6 +127,11 @@ frisby.create('GET the second easter egg by visiting the hidden URL')
     .expectBodyContains('<title>Welcome to Planet Orangeuze</title>')
     .toss();
 
+frisby.create('GET Geocities theme CSS is accessible directly from file system path')
+    .get(URL + "/css/geo-bootstrap/swatch/bootstrap.css")
+    .expectStatus(200)
+    .toss();
+
 frisby.create('GET tracking image for "Score Board" page access challenge')
     .get(URL + "/public/images/tracking/scoreboard.png")
     .expectStatus(200)
@@ -134,5 +139,10 @@ frisby.create('GET tracking image for "Score Board" page access challenge')
 
 frisby.create('GET tracking image for "Administration" page access challenge')
     .get(URL + "/public/images/tracking/administration.png")
+    .expectStatus(200)
+    .toss();
+
+frisby.create('GET tracking background image for "Geocities Theme" challenge')
+    .get(URL + "/public/images/tracking/microfab.gif")
     .expectStatus(200)
     .toss();
