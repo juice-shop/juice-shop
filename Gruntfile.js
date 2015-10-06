@@ -66,6 +66,7 @@ module.exports = function (grunt) {
                         src: [  'app/index.html',
                             'app/dist/juice-shop.min.js',
                             'app/css/*.css',
+                            'app/css/geo-bootstrap/**',
                             'app/bower_components/**',
                             'app/public/**',
                             'app/private/**',
