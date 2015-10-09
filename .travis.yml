@@ -35,4 +35,4 @@ deploy:
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
-sudo: required
+sudo: false
