@@ -46,7 +46,7 @@ module.exports = function (config) {
         },
 
         junitReporter: {
-            outputDir: 'test/reports/client_results'
+            outputDir: 'test/reports'
         }
     });
 };
