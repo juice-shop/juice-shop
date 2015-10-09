@@ -53,7 +53,7 @@
     "devDependencies": {
         "frisby": "~0.8.5",
         "jasmine-node": "~1.14",
-        "karma": "~0.12",
+        "karma": "~0.13.10",
         "karma-cli": "~0.0",
         "karma-junit-reporter": "~0.2",
         "karma-coverage": "~0.2",
