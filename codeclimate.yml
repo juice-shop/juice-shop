@@ -1,5 +1,22 @@
-languages:
-  JavaScript: true
+engines:
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  fixme:
+    enabled: true
+
+ratings:
+   paths:
+   - app/**
+   - data/**
+   - lib/**
+   - models/**
+   - routes/**
+   - "**.js"
+   - "**.css"
+
 exclude_paths:
-- "app/private/*.js"
+- "app/private/**"
+- "app/css/geo-bootstrap/**"
 - "data/datacreator.js"
