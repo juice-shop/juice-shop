@@ -1,0 +1,5 @@
+languages:
+  JavaScript: true
+exclude_paths:
+- "app/private/*.js"
+- "data/datacreator.js"
