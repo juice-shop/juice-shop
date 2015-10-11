@@ -18,7 +18,7 @@ server.start({ port: 3000 }, function () {
 
     protractor.on('exit', function (exitCode) {
         console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')');
-        if (process.env.TRAVIS_BUILD_NUMBER && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
+        if (process.env.TRAVIS_BUILD_NUMBER && process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY && exitCode < 2) {
             setSaucelabsJobResult(exitCode);
         } else {
             server.close(exitCode);
