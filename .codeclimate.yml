@@ -8,15 +8,10 @@ engines:
 
 ratings:
    paths:
-   - app/**
-   - data/**
-   - lib/**
-   - models/**
-   - routes/**
    - "**.js"
    - "**.css"
 
 exclude_paths:
 - "app/private/**"
-- "app/css/geo-bootstrap/**"
+- "app/css/geo-bootstrap/swatch/bootstrap.css"
 - "data/datacreator.js"
