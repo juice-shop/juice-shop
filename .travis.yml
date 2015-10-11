@@ -13,7 +13,7 @@ after_success:
 - "./node_modules/.bin/lcov-result-merger 'test/coverage/*/lcov.info' 'test/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./test/coverage/lcov_merged.info"
 - karma start karma.conf-ci.js
-- node test/e2eTests.js
+- sudo node test/e2eTests.js
 env:
   global:
   - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
@@ -35,4 +35,4 @@ deploy:
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
-sudo: false
+sudo: required
