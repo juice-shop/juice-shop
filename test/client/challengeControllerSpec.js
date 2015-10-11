@@ -62,6 +62,30 @@ describe('controllers', function () {
             expect(scope.challenges).toBeUndefined();
         }));
 
+        it('should colorize total score in red for up to 33% challenge completion', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true},{solved: false},{solved: false}]});
+
+            $httpBackend.flush();
+
+            expect(scope.completionColor).toBe('danger');
+        }));
+
+        it('should colorize total score in yellow for more than 33% challenge completion', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true},{solved: false}]});
+
+            $httpBackend.flush();
+
+            expect(scope.completionColor).toBe('warning');
+        }));
+
+        it('should colorize total score in green for more than 66% challenge completion', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true},{solved: true},{solved: false}]});
+
+            $httpBackend.flush();
+
+            expect(scope.completionColor).toBe('success');
+        }));
+
     });
 
 });
