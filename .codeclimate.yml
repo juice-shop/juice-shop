@@ -13,5 +13,5 @@ ratings:
 
 exclude_paths:
 - "app/private/**"
+- "app/css/geo-bootstrap/**"
 - "data/datacreator.js"
-- "app/css/geo-bootstrap/swatch/bootstrap.css"
