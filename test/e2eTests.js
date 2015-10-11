@@ -29,12 +29,15 @@ server.start({ port: 3000 }, function () {
 function setSaucelabsJobResult(exitCode) {
     var sauceLabs = new SauceLabs({ username: process.env.SAUCE_USERNAME, password: process.env.SAUCE_ACCESS_KEY });
     sauceLabs.getJobs(function (err, jobs) {
+        if (err) sauceFailure(exitCode);
         for (var j in jobs) {
             if (jobs.hasOwnProperty(j)) {
                 sauceLabs.showJob(jobs[j].id, function (err, job) {
+                    if (err) sauceFailure(exitCode);
                     var tags = job.tags;
                     if (tags.indexOf(process.env.TRAVIS_BUILD_NUMBER) > -1 && tags.indexOf('e2e') > -1) {
-                        sauceLabs.updateJob(job.id, { passed : exitCode === 0 }, function(err, res) {
+                        sauceLabs.updateJob(job.id, { passed : exitCode === 0 }, function(err) {
+                            if (err) sauceFailure(exitCode);
                             console.log('Marked job ' + job.id + ' for build #' + process.env.TRAVIS_BUILD_NUMBER + ' as ' + (exitCode === 0 ? colors.green('PASSED') : colors.red('FAILED')) + '.');
                             server.close(exitCode);
                         });
@@ -43,4 +46,9 @@ function setSaucelabsJobResult(exitCode) {
             }
         }
     });
+}
+
+function sauceFailure(exitCode) {
+    console.log('Failed to set job result for build # ' + process.env.TRAVIS_BUILD_NUMBER + '! Exiting with code ' + exitCode + ' (' + colors.red('FAILED') + ')');
+    server.close(exitCode);
 }
