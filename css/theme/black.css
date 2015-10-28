@@ -22,7 +22,7 @@ body {
 
 ::selection {
   color: #fff;
-  background: #bee4fd;
+  background: #92e0ca;
   text-shadow: none; }
 
 .reveal .slides > section, .reveal .slides > section > section {
@@ -187,20 +187,20 @@ body {
  * LINKS
  *********************************************/
 .reveal a {
-  color: #42affa;
+  color: #36bc98;
   text-decoration: none;
   -webkit-transition: color 0.15s ease;
   -moz-transition: color 0.15s ease;
   transition: color 0.15s ease; }
 
 .reveal a:hover {
-  color: #8dcffc;
+  color: #6ad4b6;
   text-shadow: none;
   border: none; }
 
 .reveal .roll span:after {
   color: #fff;
-  background: #068ee9; }
+  background: #258167; }
 
 /*********************************************
  * IMAGES
@@ -218,35 +218,35 @@ body {
 
 .reveal a:hover img {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #42affa;
+  border-color: #36bc98;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
 
 /*********************************************
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls div.navigate-left, .reveal .controls div.navigate-left.enabled {
-  border-right-color: #42affa; }
+  border-right-color: #36bc98; }
 
 .reveal .controls div.navigate-right, .reveal .controls div.navigate-right.enabled {
-  border-left-color: #42affa; }
+  border-left-color: #36bc98; }
 
 .reveal .controls div.navigate-up, .reveal .controls div.navigate-up.enabled {
-  border-bottom-color: #42affa; }
+  border-bottom-color: #36bc98; }
 
 .reveal .controls div.navigate-down, .reveal .controls div.navigate-down.enabled {
-  border-top-color: #42affa; }
+  border-top-color: #36bc98; }
 
 .reveal .controls div.navigate-left.enabled:hover {
-  border-right-color: #8dcffc; }
+  border-right-color: #6ad4b6; }
 
 .reveal .controls div.navigate-right.enabled:hover {
-  border-left-color: #8dcffc; }
+  border-left-color: #6ad4b6; }
 
 .reveal .controls div.navigate-up.enabled:hover {
-  border-bottom-color: #8dcffc; }
+  border-bottom-color: #6ad4b6; }
 
 .reveal .controls div.navigate-down.enabled:hover {
-  border-top-color: #8dcffc; }
+  border-top-color: #6ad4b6; }
 
 /*********************************************
  * PROGRESS BAR
@@ -255,7 +255,7 @@ body {
   background: rgba(0, 0, 0, 0.2); }
 
 .reveal .progress span {
-  background: #42affa;
+  background: #36bc98;
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
@@ -264,4 +264,4 @@ body {
  * SLIDE NUMBER
  *********************************************/
 .reveal .slide-number {
-  color: #42affa; }
+  color: #36bc98; }
