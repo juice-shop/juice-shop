@@ -142,13 +142,41 @@
 				</section>
 
 				<section>
-					<h2>Challenge Difficulty</h2>
-					<p>
-						Contains low-hanging fruits &amp; hard-to-crack nuts
-					</p>
-					<img src="assets/wolfenstein_easy.jpg" height="250"/>
-					<img src="assets/wolfenstein_medium.jpg" height="250"/>
-					<img src="assets/wolfenstein_hard.jpg" height="250"/>
+
+					<section>
+						<h2>Challenge Difficulty</h2>
+						<p>
+							Contains low-hanging fruits &amp; hard-to-crack nuts
+						</p>
+						<img src="assets/wolfenstein_easy.jpg" height="250"/>
+						<img src="assets/wolfenstein_medium.jpg" height="250"/>
+						<img src="assets/wolfenstein_hard.jpg" height="250"/>
+					</section>
+
+					<section>
+						<h3>Direct Route to Victory</h3>
+						<p>
+							For some challenges it actually works like this
+						</p>
+						<div id="blindAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+					</section>
+
+					<section>
+						<h3>Information Gathering pays off</h3>
+						<p>
+							Most challenges are easier to solve after some research
+						</p>
+						<div id="oneEyedAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+					</section>
+
+					<section>
+						<h3>Multi-stage Attack Challenges</h3>
+						<p>
+							The toughest challenges require multiple preparation steps
+						</p>
+						<div id="sophisticatedAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+					</section>
+
 				</section>
 
 				<section>
@@ -178,7 +206,7 @@
 					</section>
 
 					<section>
-						<h2>Can I use my Pentesting toys?</h2>
+						<h3>Can I use my Pentesting toys?</h3>
 						<p>
 							Yes, definitely! Use whatever tools you like the most!
 						</p>
@@ -189,7 +217,7 @@
 					</section>
 
 					<section>
-						<h2>Can I do a white box pentest?</h2>
+						<h3>Can I do a white box pentest?</h3>
 						<p>
 							No! The code would spoiler all challenge solutions!
 						</p>
@@ -197,7 +225,7 @@
 					</section>
 
 					<section>
-						<h2>Can I look at the server log?</h2>
+						<h3>Can I look at the server log?</h3>
 						<p>
 							No! The console would reveal several challenge solutions!
 						</p>
@@ -205,7 +233,7 @@
 					</section>
 
 					<section>
-						<h2>Installation does not work!</h2>
+						<h3>Installation does not work!</h3>
 						<p>
 							Please carefully follow the instructions in the <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README</a>
 						</p>
@@ -216,7 +244,7 @@
 					</section>
 
 					<section>
-						<h2>What if I crash the server?</h2>
+						<h3>What if I crash the server?</h3>
 						<p>
 							The application is cleanly reset on every startup
 						</p>
@@ -227,7 +255,7 @@
 					</section>
 
 					<section>
-						<h2>I'm stuck with a challenge!</h2>
+						<h3>I'm stuck with a challenge!</h3>
 						<p>
 							Feel free to ask for <em>hints</em> in <a href="https://gitter.im/bkimminich/juice-shop">the official chat</a>
 						</p>
@@ -238,7 +266,7 @@
 					</section>
 
 					<section>
-						<h2>I found another vulnerability!</h2>
+						<h3>I found another vulnerability!</h3>
 						<p>
 							Please <a href="https://github.com/bkimminich/juice-shop/issues">report untracked vulnerabilities</a> by opening an issue
 						</p>
@@ -325,6 +353,51 @@
 					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+
+		</script>
+
+		<script src="js/raphael-min.js"></script>
+		<script src="js/underscore-min.js"></script>
+		<script src="js/sequence-diagram-min.js"></script>
+
+		<script>
+			var sophisticatedAttack = Diagram.parse(
+					"participant Hacker as h\n" +
+					"participant Information Leak as i\n" +
+					"participant ... as i2\n" +
+					"participant Vulnerability as v\n" +
+					"participant Challenge as x\n" +
+					"h->i: Gather information\n" +
+					"i->i2: Follow the trail\n" +
+					"i2->v: Find weak spot\n" +
+					"v-->h:\n" +
+					"h->x: Sophisticated attack\n" +
+					"x->x: Success!\n" +
+					"x-->h: Challenge solved!!!"
+			);
+			sophisticatedAttack.drawSVG("sophisticatedAttack", {theme: 'hand'});
+
+			var oneEyedAttack = Diagram.parse(
+					"participant Hacker as h\n" +
+					"participant Information Leak as i\n" +
+					"participant Challenge as x\n" +
+					"h->i: Gather information\n" +
+					"i-->h:\n" +
+					"h->h: Deduct weakness\n" +
+					"h->x: One-eyed Brute Force/Guessing\n" +
+					"x->x: Fail, fail, success!\n" +
+					"x-->h: Challenge solved!!"
+			);
+			oneEyedAttack.drawSVG("oneEyedAttack", {theme: 'hand'});
+
+			var blindAttack = Diagram.parse(
+					"participant Hacker as h\n" +
+					"participant Challenge as x\n" +
+					"h->x: Obvious Attack Vector/Blind Brute Force/Guessing\n" +
+					"x->x: Fail, fail, fail, fail, fail, success!\n" +
+					"x-->h: Challenge solved!"
+			);
+			blindAttack.drawSVG("blindAttack", {theme: 'hand'});
 
 		</script>
 
