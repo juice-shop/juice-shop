@@ -10,7 +10,7 @@
     "angular-mocks": "~1.4.6",
     "angular-cookies": "~1.4.7",
     "angular-touch": "~1.4.7",
-    "angular-bootstrap": "~0.13.4",
+    "angular-bootstrap": "~0.14.3",
     "bootstrap": "~3.3.5",
     "bootswatch": "~3.3.5",
     "jquery": "~2.1.4",
@@ -18,7 +18,7 @@
     "string": "~3.3.0",
     "moment": "~2.10.6",
     "github-fork-ribbon-css": "~0.1.1",
-    "fontawesome": "~4.4.0"
+    "fontawesome": "~4.5.0"
   },
   "resolutions": {
     "angular": "~1.4"
