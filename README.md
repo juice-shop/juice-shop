@@ -26,7 +26,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org) (0.10 <= version <= 0.12)
+1. Install [node.js](http://nodejs.org) (0.10 or higher)
 2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
@@ -47,7 +47,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 ### Packaged Distribution (Windows only) [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install [node.js](http://nodejs.org) (0.10 <= version <= 0.12)
+1. Install [node.js](http://nodejs.org) (0.10 or higher)
 2. Download ```juice-shop-<version>_win32.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
