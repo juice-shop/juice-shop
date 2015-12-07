@@ -39,9 +39,9 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
 4. Browse to <http://localhost:3000> 
 
-#### Even easier: Run Docker Container from Kitematic
+#### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
-1. Install and launch [Kitematic](https://kitematic.com/)
+1. Install and launch [Docker Toolbox](https://www.docker.com/docker-toolbox)
 2. Search for ```juice-shop``` and click _Create_ to download image and run container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to Juice Shop
 
