@@ -48,7 +48,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 ### Packaged Distribution (for Windows x64) [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
 1. Install [node.js 4.x for Windows x64](https://nodejs.org/dist/v4.2.3/node-v4.2.3-x64.msi)
-2. Download ```juice-shop-<version>_win32.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+2. Download ```juice-shop-<version>_node4_x64.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
 
