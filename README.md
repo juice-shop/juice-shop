@@ -8,7 +8,7 @@ An intentionally insecure webapp suitable for pentesting and security awareness 
 
 ## Features
 
-- Easy to install: Just requires [node.js](http://nodejs.org)
+- Easy to install: Just requires [node.js](http://nodejs.org)\*
 - Self contained: Additional dependencies will be resolved and downloaded automatically
 - No external DB:  A simple file based SQLite database is used which is wiped and regenerated on server startup
 - Open source: No hidden costs or caveats
@@ -26,7 +26,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org) (version 0.10.x)
+1. Install [node.js](http://nodejs.org)\*
 2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
@@ -45,9 +45,9 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 2. Search for ```juice-shop``` and click _Create_ to download image and run container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to Juice Shop
 
-### Packaged Distribution (Windows only) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Packaged Distribution (Windows only) [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install [node.js](http://nodejs.org) (version 0.10.x)
+1. Install [node.js](http://nodejs.org)\*
 2. Download ```juice-shop-<version>_win32.zip``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unzipped folder
 4. Browse to <http://localhost:3000>
@@ -72,6 +72,14 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
+
+## \*Node.js version compatibility
+
+Juice Shop has been successfully tested with the following versions of [node.js](http://nodejs.org):
+- 0.10.x
+- 0.11.x
+- 0.12.x
+- 4.x
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 

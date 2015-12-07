@@ -66,7 +66,7 @@ frisby.create('POST new product is forbidden via public API')
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
     .put(API_URL + '/Products/9', {
         description: "<a href=\"http://kimminich.de\" target=\"_blank\">"
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
@@ -77,7 +77,7 @@ frisby.create('PUT update existing product is possible due to Missing Function-L
 frisby.create('PUT update existing product does not filter XSS attacks')
     .put(API_URL + '/Products/8', {
         description: "<script>alert(\'XSS4\')</script>"
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
@@ -97,7 +97,7 @@ frisby.create('POST new product')
         description: "Made from ugly dirt.",
         price: 0.99,
         image: 'dirt_juice.jpg'
-    })
+    }, {json: true})
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data', {
         id: Number,
@@ -151,7 +151,7 @@ frisby.create('POST new product does not filter XSS attacks')
         description: '<script>alert("XSS4")</script>',
         price: 9999.99,
         image: 'xss_juice.jpg'
-    })
+    }, {json: true})
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
         description: '<script>alert("XSS4")</script>'

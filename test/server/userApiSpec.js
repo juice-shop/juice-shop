@@ -12,7 +12,7 @@ frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
         password: 'hooooorst'
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data', {
@@ -139,7 +139,7 @@ frisby.create('GET existing user by id is forbidden via public API')
 frisby.create('PUT update existing user is forbidden via public API')
     .put(API_URL + '/Users/1', {
         email: 'administr@t.or'
-    })
+    }, {json: true})
     .expectStatus(401)
     .toss();
 
@@ -151,7 +151,7 @@ frisby.create('DELETE existing user is forbidden via public API')
 frisby.create('PUT update Benders password to "slurmCl4ssic"')
     .put(API_URL + '/Users/3', {
         password: 'slurmCl4ssic'
-    })
+    }, {json: true})
     .addHeaders(authHeader)
     .expectStatus(200)
     .expectJSON('data', {
@@ -290,12 +290,12 @@ frisby.create('POST new user with XSS attack in email address')
     .post(API_URL + '/Users', {
         email: '<script>alert("XSS2")</script>',
         password: 'does.not.matter'
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
         email: '<script>alert("XSS2")</script>'
-    }).toss();
+    }, {json: true}).toss();
 
 frisby.create('GET who-am-i request returns nothing on missing auth token')
     .get(REST_URL + '/user/whoami')
