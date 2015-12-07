@@ -29,7 +29,7 @@ frisby.create('POST new feedback')
                     .addHeaders(authHeader)
                     .put(API_URL + '/Feedbacks/' + feedback.data.id, {
                         rating: 2
-                    })
+                    }, {json: true})
                     .expectStatus(200)
                     .afterJSON(function () {
                         frisby.create('DELETE existing feedback')
@@ -55,7 +55,7 @@ frisby.create('PUT update existing feedback is forbidden via public API')
     .put(API_URL + '/Feedbacks/1', {
         comment: "This sucks like nothing has ever sucked before",
         rating: 1
-    })
+    }, {json: true})
     .expectStatus(401)
     .toss();
 

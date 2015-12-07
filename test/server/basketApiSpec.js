@@ -63,7 +63,7 @@ frisby.create('PUT update existing basket is not part of API')
     .addHeaders(authHeader)
     .put(API_URL + '/Baskets/1', {
         UserId: 2
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectJSON({status : 'error'})
     .toss();

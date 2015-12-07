@@ -139,7 +139,7 @@ frisby.create('GET existing user by id is forbidden via public API')
 frisby.create('PUT update existing user is forbidden via public API')
     .put(API_URL + '/Users/1', {
         email: 'administr@t.or'
-    })
+    }, {json: true})
     .expectStatus(401)
     .toss();
 
@@ -151,7 +151,7 @@ frisby.create('DELETE existing user is forbidden via public API')
 frisby.create('PUT update Benders password to "slurmCl4ssic"')
     .put(API_URL + '/Users/3', {
         password: 'slurmCl4ssic'
-    })
+    }, {json: true})
     .addHeaders(authHeader)
     .expectStatus(200)
     .expectJSON('data', {

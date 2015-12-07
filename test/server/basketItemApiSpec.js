@@ -29,7 +29,7 @@ frisby.create('GET existing basket item by id is forbidden via public API')
 frisby.create('PUT update existing basket item is forbidden via public API')
     .put(API_URL + '/BasketItems/1', {
         quantity: 2
-    })
+    }, {json: true})
     .expectStatus(401)
     .toss();
 
@@ -62,7 +62,7 @@ frisby.create('POST new basket item')
                     .addHeaders(authHeader)
                     .put(API_URL + '/BasketItems/' + basketItem.data.id, {
                         quantity: 2
-                    })
+                    }, {json: true})
                     .expectStatus(200)
                     .afterJSON(function() {
                         frisby.create('DELETE existing basket item')
