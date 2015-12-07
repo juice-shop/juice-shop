@@ -43,7 +43,7 @@ frisby.create('PUT update existing challenge is forbidden via public API even wh
         name: 'Vulnerability',
         description: "I am a vulnerability!!!",
         difficulty: 3
-    })
+    }, {json: true})
     .expectStatus(401)
     .toss();
 
