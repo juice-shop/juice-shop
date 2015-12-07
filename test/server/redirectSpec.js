@@ -47,7 +47,8 @@ frisby.create('GET error message with information leakage when calling /redirect
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')
-    .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
+    .expectBodyContains('TypeError')
+    .expectBodyContains('&#39;indexOf&#39; of undefined')
     .toss();
 
 frisby.create('GET error message with information leakage when calling /redirect with unrecognized query parameter')
@@ -55,7 +56,8 @@ frisby.create('GET error message with information leakage when calling /redirect
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')
-    .expectBodyContains('TypeError: Cannot call method &#39;indexOf&#39; of undefined')
+    .expectBodyContains('TypeError')
+    .expectBodyContains('&#39;indexOf&#39; of undefined')
     .toss();
 
 frisby.create('GET error message hinting at whitelist validation when calling /redirect with an unrecognized "to" target')
