@@ -4,43 +4,57 @@ var frisby = require('frisby');
 
 var URL = 'http://localhost:3000';
 
-frisby.create('GET check internet connection before executing these tests')
-    .get("http://kimminich.de")
-    .after(function (res) {
-        if (res == 'Error: getaddrinfo ENOTFOUND') {
-            console.log('No internet connection. Skipped "happy path" redirect tests!');
+frisby.create('GET availability of https://github.com/bkimminich/juice-shop before executing redirect test')
+    .get("https://github.com/bkimminich/juice-shop")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to https://github.com/bkimminich/juice-shop');
         } else {
             frisby.create('GET redirected to https://github.com/bkimminich/juice-shop when this URL is passed as "to" parameter')
                 .get(URL + "/redirect?to=https://github.com/bkimminich/juice-shop")
-                .expectStatus(200)
-                .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('<title>bkimminich/juice-shop · GitHub</title>')
+                .expectStatus(res.statusCode)
                 .toss();
+        }
+    }).toss();
 
+frisby.create('GET availability of https://gratipay.com/juice-shop before executing redirect test')
+    .get("https://gratipay.com/juice-shop")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to https://gratipay.com/juice-shop');
+        } else {
             frisby.create('GET redirected to https://gratipay.com/juice-shop when this URL is passed as "to" parameter')
                 .get(URL + "/redirect?to=https://gratipay.com/juice-shop")
-                .expectStatus(200)
-                .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('<title>juice-shop - Gratipay</title>')
+                .expectStatus(res.statusCode)
                 .toss();
+        }
+    }).toss();
 
+frisby.create('GET availability of https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN before executing redirect test')
+    .get("https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN');
+        } else {
             frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
                 .get(URL + "/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN")
-                .expectStatus(200)
-                .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN</title>')
+                .expectStatus(res.statusCode)
                 .toss();
+        }
+    }).toss();
 
+frisby.create('GET availability of http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub before executing redirect test')
+    .get("http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub');
+        } else {
             frisby.create('GET redirected to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub when this URL is passed as "to" parameter')
                 .get(URL + "/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub")
-                .expectStatus(200)
-                .expectHeaderContains('content-type', 'text/html')
-                .expectBodyContains('<title>bkimminich/juice-shop on GitHub - Flattr.com</title>')
+                .expectStatus(res.statusCode)
                 .toss();
-
         }
-    })
-    .toss();
+    }).toss();
 
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
     .get(URL + "/redirect")
