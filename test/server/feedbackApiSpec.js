@@ -11,7 +11,7 @@ frisby.create('POST new feedback')
     .post(API_URL + '/Feedbacks', {
         comment: 'Perfect!',
         rating: 5
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data', {
@@ -74,7 +74,7 @@ frisby.create('POST sanitizes unsafe HTML from comment')
     .post(API_URL + '/Feedbacks', {
         comment: 'I am a harm<script>steal-cookie</script><img src="csrf-attack"/><iframe src="evil-content"></iframe>less comment.',
         rating: 1
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectJSON('data', {
         comment: 'I am a harmless comment.'
@@ -85,7 +85,7 @@ frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitiz
     .post(API_URL + '/Feedbacks', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS3")</script>script>alert("XSS3")<</script>/script>',
         rating: 1
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectJSON('data', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS3")</script>'

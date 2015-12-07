@@ -97,7 +97,7 @@ frisby.create('POST new product')
         description: "Made from ugly dirt.",
         price: 0.99,
         image: 'dirt_juice.jpg'
-    })
+    }, {json: true})
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data', {
         id: Number,
@@ -151,7 +151,7 @@ frisby.create('POST new product does not filter XSS attacks')
         description: '<script>alert("XSS4")</script>',
         price: 9999.99,
         image: 'xss_juice.jpg'
-    })
+    }, {json: true})
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
         description: '<script>alert("XSS4")</script>'

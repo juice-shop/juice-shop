@@ -101,7 +101,7 @@ frisby.create('POST new basket item with negative quantity')
         BasketId: 3,
         ProductId: 1,
         quantity: -100
-    })
+    }, {json: true})
     .expectStatus(200)
     .after(function() {
         frisby.create('POST placing an order for a basket with a negative total cost')

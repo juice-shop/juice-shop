@@ -50,7 +50,7 @@ frisby.create('POST new basket item')
         BasketId: 2,
         ProductId: 2,
         quantity: 1
-    })
+    }, {json: true})
     .expectStatus(200)
     .afterJSON(function(basketItem) {
         frisby.create('GET existing basket item by id')

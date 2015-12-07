@@ -12,7 +12,7 @@ frisby.create('POST new user')
     .post(API_URL + '/Users', {
         email: 'horst@horstma.nn',
         password: 'hooooorst'
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONTypes('data', {
@@ -290,12 +290,12 @@ frisby.create('POST new user with XSS attack in email address')
     .post(API_URL + '/Users', {
         email: '<script>alert("XSS2")</script>',
         password: 'does.not.matter'
-    })
+    }, {json: true})
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data', {
         email: '<script>alert("XSS2")</script>'
-    }).toss();
+    }, {json: true}).toss();
 
 frisby.create('GET who-am-i request returns nothing on missing auth token')
     .get(REST_URL + '/user/whoami')
