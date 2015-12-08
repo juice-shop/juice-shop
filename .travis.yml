@@ -39,4 +39,5 @@ deploy:
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
+    node: 4
 sudo: false
