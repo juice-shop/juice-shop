@@ -56,6 +56,45 @@ frisby.create('GET availability of http://flattr.com/thing/3856930/bkimminichjui
         }
     }).toss();
 
+frisby.create('GET availability of http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop before executing redirect test')
+    .get("http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop');
+        } else {
+            frisby.create('GET redirected to http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=http://www.spreadshirt.com/juiceshop%2Bgifts%23/list/juiceshop")
+                .expectStatus(res.statusCode)
+                .toss();
+        }
+    }).toss();
+
+frisby.create('GET availability of http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop before executing redirect test')
+    .get("http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop');
+        } else {
+            frisby.create('GET redirected to http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=http://www.spreadshirt.de/juiceshop%2Bgeschenke%23/list/juiceshop")
+                .expectStatus(res.statusCode)
+                .toss();
+        }
+    }).toss();
+
+frisby.create('GET availability of https://www.stickermule.com/user/1070702817/stickers before executing redirect test')
+    .get("https://www.stickermule.com/user/1070702817/stickers")
+    .after(function (err, res) {
+        if (err != null) {
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to https://www.stickermule.com/user/1070702817/stickers');
+        } else {
+            frisby.create('GET redirected to https://www.stickermule.com/user/1070702817/stickers when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=https://www.stickermule.com/user/1070702817/stickers")
+                .expectStatus(res.statusCode)
+                .toss();
+        }
+    }).toss();
+
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
     .get(URL + "/redirect")
     .expectStatus(500)
@@ -82,7 +121,7 @@ frisby.create('GET error message hinting at whitelist validation when calling /r
     .expectBodyContains('Unrecognized target URL for redirect: whatever')
     .toss();
 
-frisby.create('GET redirected to target URL when https://github.com/bkimminich/juice-shop is part of the as "to" parameter')
+frisby.create('GET redirected to target URL in "to" parameter when a white-listed URL is part of the query string')
     .get(URL + "/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop")
     .expectStatus(200)
     .expectHeaderContains('content-type', 'text/html')
