@@ -401,23 +401,47 @@
 
 		</script>
 
-		<script>
-			((window.gitter = {}).chat = {}).options = {
-				room: 'bkimminich/juice-shop'
-			};
-		</script>
-		<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-
 		<div class="hidden-mobile">
 			<a style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
 
+			<script>
+				((window.gitter = {}).chat = {}).options = {
+					room: 'bkimminich/juice-shop'
+				};
+			</script>
+			<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+
 			<div style="display: block; position: absolute; bottom: 14px; left: 50%; margin-left: -230px; z-index: 20;">
-				<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bkimminich.github.io/juice-shop" data-text="Juice Shop - An intentionally insecure Javascript Web Application" data-via="bkimminich" data-hashtags="juiceshop">Tweet</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-				<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-				<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+				<table>
+					<tr>
+						<td>
+							<div class="fb-like" data-href="https://www.facebook.com/insecurejuiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+						</td>
+						<td>
+							<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bkimminich.github.io/juice-shop" data-text="Juice Shop - An intentionally insecure Javascript Web Application" data-via="bkimminich" data-hashtags="juiceshop">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</body>
