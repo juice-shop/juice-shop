@@ -1,11 +1,11 @@
 describe('controllers', function () {
-    var scope, controller, $httpBackend, $sce, $modal;
+    var scope, controller, $httpBackend, $sce, $uibModal;
 
     beforeEach(module('juiceShop'));
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $sce = $injector.get('$sce');
-        $modal = $injector.get('$modal');
+        $uibModal = $injector.get('$uibModal');
     }));
 
     describe('UserController', function () {
@@ -57,11 +57,11 @@ describe('controllers', function () {
         }));
 
         it('should open a modal dialog with user details', inject(function ($controller) {
-            spyOn($modal, 'open');
+            spyOn($uibModal, 'open');
 
             scope.showDetail(42);
 
-            expect($modal.open).toHaveBeenCalled();
+            expect($uibModal.open).toHaveBeenCalled();
         }));
 
     });

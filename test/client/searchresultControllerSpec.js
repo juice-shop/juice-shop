@@ -1,11 +1,11 @@
 describe('controllers', function () {
-    var scope, location, controller, $httpBackend, $sce, $modal, window;
+    var scope, location, controller, $httpBackend, $sce, $uibModal, window;
 
     beforeEach(module('juiceShop'));
     beforeEach(inject(function($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $sce = $injector.get('$sce');
-        $modal = $injector.get('$modal');
+        $uibModal = $injector.get('$uibModal');
     }));
 
     describe('SearchResultController', function () {
@@ -53,11 +53,11 @@ describe('controllers', function () {
         }));
 
         it('should open a modal dialog with product details', inject(function ($controller) {
-            spyOn($modal, 'open');
+            spyOn($uibModal, 'open');
 
             scope.showDetail();
 
-            expect($modal.open).toHaveBeenCalled();
+            expect($uibModal.open).toHaveBeenCalled();
         }));
 
         it('should add new product to basket', inject(function ($controller) {

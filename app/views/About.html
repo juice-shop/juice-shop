@@ -23,15 +23,15 @@
         <h3 class="page-header page-header-sm"><small>Customer Feedback</small></h3>
 
         <div ng-controller="FeedbackController">
-            <carousel interval="5000">
-                <slide ng-repeat="feedback in feedbacks" active="feedback.active">
+            <uib-carousel interval="5000">
+                <uib-slide ng-repeat="feedback in feedbacks" active="feedback.active">
                     <img ng-src="{{feedback.image}}" style="margin:auto;">
                     <div class="carousel-caption">
-                        <rating max="5" ng-model="feedback.rating" readonly="true"></rating>
+                        <uib-rating max="5" ng-model="feedback.rating" readonly="true"></uib-rating>
                         <p><div ng-bind-html="feedback.comment"></div></p>
                     </div>
-                </slide>
-            </carousel>
+                </uib-slide>
+            </uib-carousel>
         </div>
     </div>
 

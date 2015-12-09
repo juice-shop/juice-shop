@@ -1,10 +1,10 @@
 angular.module('juiceShop').controller('ProductDetailsController', [
     '$scope',
     '$sce',
-    '$modal',
+    '$uibModal',
     'ProductService',
     'id',
-    function ($scope, $sce, $modal, productService, id) {
+    function ($scope, $sce, $uibModal, productService, id) {
         'use strict';
 
         productService.get(id).success(function (product) {

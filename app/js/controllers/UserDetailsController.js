@@ -1,9 +1,9 @@
 angular.module('juiceShop').controller('UserDetailsController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     'UserService',
     'id',
-    function ($scope, $modal, userService, id) {
+    function ($scope, $uibModal, userService, id) {
         'use strict';
 
             userService.get(id).success(function (user) {
