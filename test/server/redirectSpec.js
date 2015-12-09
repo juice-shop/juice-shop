@@ -56,27 +56,27 @@ frisby.create('GET availability of http://flattr.com/thing/3856930/bkimminichjui
         }
     }).toss();
 
-frisby.create('GET availability of http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop before executing redirect test')
-    .get("http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop")
+frisby.create('GET availability of http://shop.spreadshirt.com/juiceshop before executing redirect test')
+    .get("http://shop.spreadshirt.com/juiceshop")
     .after(function (err, res) {
         if (err != null) {
-            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop');
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://shop.spreadshirt.com/juiceshop');
         } else {
-            frisby.create('GET redirected to http://www.spreadshirt.com/juiceshop+gifts#/list/juiceshop when this URL is passed as "to" parameter')
-                .get(URL + "/redirect?to=http://www.spreadshirt.com/juiceshop%2Bgifts%23/list/juiceshop")
+            frisby.create('GET redirected to http://shop.spreadshirt.com/juiceshop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=http://shop.spreadshirt.com/juiceshop")
                 .expectStatus(res.statusCode)
                 .toss();
         }
     }).toss();
 
-frisby.create('GET availability of http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop before executing redirect test')
-    .get("http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop")
+frisby.create('GET availability of http://shop.spreadshirt.de/juiceshop before executing redirect test')
+    .get("http://shop.spreadshirt.de/juiceshop")
     .after(function (err, res) {
         if (err != null) {
-            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop');
+            console.log('Problem with HTTP connection (' + err + '). Skipping redirect test to http://shop.spreadshirt.de/juiceshop');
         } else {
-            frisby.create('GET redirected to http://www.spreadshirt.de/juiceshop+geschenke#/list/juiceshop when this URL is passed as "to" parameter')
-                .get(URL + "/redirect?to=http://www.spreadshirt.de/juiceshop%2Bgeschenke%23/list/juiceshop")
+            frisby.create('GET redirected to http://shop.spreadshirt.de/juiceshop when this URL is passed as "to" parameter')
+                .get(URL + "/redirect?to=http://shop.spreadshirt.de/juiceshop")
                 .expectStatus(res.statusCode)
                 .toss();
         }
