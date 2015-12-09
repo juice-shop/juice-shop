@@ -3,16 +3,16 @@ angular.module('juiceShop').controller('SearchResultController', [
     '$scope',
     '$sce',
     '$window',
-    '$modal',
+    '$uibModal',
     '$location',
     'ProductService',
     'BasketService',
-    function ($scope, $sce, $window, $modal, $location, productService, basketService) {
+    function ($scope, $sce, $window, $uibModal, $location, productService, basketService) {
         'use strict';
 
         $scope.showDetail = function (id) {
 
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'views/ProductDetail.html',
                 controller: 'ProductDetailsController',
                 size: 'lg',

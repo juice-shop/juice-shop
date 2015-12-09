@@ -1,9 +1,9 @@
 angular.module('juiceShop').controller('UserController', [
     '$scope',
-    '$modal',
+    '$uibModal',
     '$sce',
     'UserService',
-    function ($scope, $modal, $sce, userService) {
+    function ($scope, $uibModal, $sce, userService) {
         'use strict';
 
         function findAll() {
@@ -20,7 +20,7 @@ angular.module('juiceShop').controller('UserController', [
 
         $scope.showDetail = function (id) {
 
-            $modal.open({
+            $uibModal.open({
                 templateUrl: 'views/UserDetail.html',
                 controller: 'UserDetailsController',
                 size: 'lg',
