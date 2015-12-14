@@ -107,8 +107,46 @@ module.exports = function (grunt) {
             node: ['.'],
             options: {
             }
-        }
+        },
 
+        'zap_start': {
+            options: {
+                os: 'windows',
+                path: 'C:\\Program Files (x86)\\OWASP\\Zed Attack Proxy'
+            }
+        },
+        'zap_spider': {
+            localhost: {
+                options: {
+                    url: 'http://localhost:3000',
+                }
+            }
+        },
+        'zap_scan': {
+            localhost: {
+                options: {
+                    url: 'http://localhost:3000'
+                }
+            }
+        },
+        'zap_alert': {
+            options: {
+            }
+        },
+        'zap_report': {
+            options: {
+                dir: 'build/reports/zaproxy',
+                html: false
+            }
+        },
+        'zap_stop': {
+            options: {
+            }
+        },
+        'zap_results': {
+            options: {
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-angular-templates');
@@ -117,7 +155,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-retire');
+    grunt.loadNpmTasks('grunt-zaproxy');
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
+    grunt.registerTask('zap', [ 'zap_start', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };

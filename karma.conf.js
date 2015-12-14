@@ -38,7 +38,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'lcov',
-            dir: 'test/coverage/'
+            dir: 'build/reports/coverage'
         },
 
         preprocessors: {
@@ -46,7 +46,7 @@ module.exports = function (config) {
         },
 
         junitReporter: {
-            outputDir: 'test/reports'
+            outputDir: 'build/reports'
         }
     });
 };

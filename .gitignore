@@ -1,6 +1,5 @@
 *.log
-coverage/
-reports/
+build/
 juiceshop.sqlite
 
 # Intellij

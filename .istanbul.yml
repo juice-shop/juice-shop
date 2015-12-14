@@ -1,2 +1,2 @@
 reporting:
-  dir: './test/coverage/server-tests'
+  dir: './build/reports/coverage/server-tests'
