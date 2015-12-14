@@ -135,7 +135,7 @@ module.exports = function (grunt) {
         },
         'zap_report': {
             options: {
-                dir: 'test/reports/zaproxy',
+                dir: 'build/reports/zaproxy',
                 html: false
             }
         },
