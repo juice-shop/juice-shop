@@ -119,6 +119,7 @@ module.exports = function (grunt) {
             localhost: {
                 options: {
                     url: 'http://localhost:3000',
+                    exclude: ['.*bower_components.*']
                 }
             }
         },
