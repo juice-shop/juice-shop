@@ -47,7 +47,7 @@
         "grunt-contrib-concat": "~0.5.1",
         "grunt-contrib-clean": "~0.7.0",
         "grunt-contrib-compress": "~0.14.0",
-        "bower": "~1.7.0",
+        "bower": "~1.7.1",
         "saucelabs": "~1.0.1"
     },
     "devDependencies": {
