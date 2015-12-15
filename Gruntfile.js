@@ -116,10 +116,17 @@ module.exports = function (grunt) {
             }
         },
         'zap_spider': {
+            options: {
+                exclude: ['.*bower_components.*']
+            },
             localhost: {
                 options: {
-                    url: 'http://localhost:3000',
-                    exclude: ['.*bower_components.*']
+                    url: 'http://localhost:3000'
+                }
+            },
+            heroku: {
+                options: {
+                    url: 'https://juice-shop.herokuapp.com'
                 }
             }
         },
@@ -127,6 +134,11 @@ module.exports = function (grunt) {
             localhost: {
                 options: {
                     url: 'http://localhost:3000'
+                }
+            },
+            heroku: {
+                options: {
+                    url: 'https://juice-shop.herokuapp.com'
                 }
             }
         },
