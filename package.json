@@ -72,7 +72,8 @@
         "istanbul": "~0.4.1",
         "lcov-result-merger": "~1.0.2",
         "grunt-retire": "bkimminich/grunt-retire",
-        "grunt-zaproxy": "~0.1.5"
+        "grunt-zaproxy": "~0.1.5",
+        "grunt-exec": "0.4.6"
     },
     "repository": {
         "type": "git",

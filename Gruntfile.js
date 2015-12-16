@@ -109,10 +109,21 @@ module.exports = function (grunt) {
             }
         },
 
+        exec: {
+            api_tests: {
+                command: 'jasmine-node test/server',
+                exitCodes: [0,1]
+            },
+            e2e_tests: {
+                command: 'protractor protractor.conf.js',
+                exitCodes: [0,1]
+            }
+        },
+
         'zap_start': {
             options: {
                 os: 'windows',
-                path: 'C:\\Program Files (x86)\\OWASP\\Zed Attack Proxy'
+                path: 'C:\\Program Files (x86)\\OWASP\\Zed Attack Proxy',
             }
         },
         'zap_spider': {
@@ -169,8 +180,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-retire');
     grunt.loadNpmTasks('grunt-zaproxy');
+    grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
-    grunt.registerTask('zap', [ 'zap_start', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
+    grunt.registerTask('zap', [ 'zap_start', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };
