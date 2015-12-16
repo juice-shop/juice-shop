@@ -188,5 +188,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
-    grunt.registerTask('zap', [ 'zap_start', /*'exec:e2e_tests',*/ 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
+    grunt.registerTask('zap', [ 'zap_start', 'exec:e2e_tests', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };
