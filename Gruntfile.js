@@ -124,11 +124,13 @@ module.exports = function (grunt) {
             options: {
                 os: 'windows',
                 path: 'C:\\Program Files (x86)\\OWASP\\Zed Attack Proxy',
+                port: 8090
             }
         },
         'zap_spider': {
             options: {
-                exclude: ['.*bower_components.*']
+                exclude: ['.*bower_components.*'],
+                port: 8090
             },
             localhost: {
                 options: {
@@ -142,6 +144,9 @@ module.exports = function (grunt) {
             }
         },
         'zap_scan': {
+            options: {
+                port: 8090
+            },
             localhost: {
                 options: {
                     url: 'http://localhost:3000'
@@ -155,20 +160,19 @@ module.exports = function (grunt) {
         },
         'zap_alert': {
             options: {
+                port: 8090
             }
         },
         'zap_report': {
             options: {
                 dir: 'build/reports/zaproxy',
-                html: false
+                html: false,
+                port: 8090
             }
         },
         'zap_stop': {
             options: {
-            }
-        },
-        'zap_results': {
-            options: {
+                port: 8090
             }
         }
     });
@@ -184,5 +188,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
     grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
-    grunt.registerTask('zap', [ 'zap_start', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
+    grunt.registerTask('zap', [ 'zap_start', /*'exec:e2e_tests',*/ 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };
