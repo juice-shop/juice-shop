@@ -12,6 +12,7 @@ module.exports = function (sequelize, DataTypes) {
             price: DataTypes.DECIMAL,
             image: DataTypes.STRING
         }, {
+            paranoid: true,
             classMethods: {
                 associate: function (models) {
                     Product.hasMany(models.Basket, {through: models.BasketItem});

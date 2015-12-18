@@ -322,6 +322,7 @@ module.exports = function() {
             image: 'undefined.jpg'
         }).success(function (product) {
             products.christmasSpecial = product;
+            models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id);
         });
     }
 
