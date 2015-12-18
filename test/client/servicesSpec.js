@@ -90,7 +90,7 @@ describe('services', function () {
         }));
 
         it('should get single product directly from the rest api', inject(function (ProductService) {
-            $httpBackend.whenGET('/api/Products/1').respond(200, 'apiResponse');
+            $httpBackend.whenGET(/\/api\/Products\/1/).respond(200, 'apiResponse');
 
             ProductService.get(1).success(function (data) { result = data; });
             $httpBackend.flush();

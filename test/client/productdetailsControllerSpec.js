@@ -21,7 +21,7 @@ describe('controllers', function () {
         }));
 
         it('should hold single product with given id', inject(function ($controller) {
-            $httpBackend.whenGET('/api/Products/42').respond(200, {data: {name: 'Test Juice'}});
+            $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}});
 
             $httpBackend.flush();
 
@@ -30,7 +30,7 @@ describe('controllers', function () {
         }));
 
         it('should render product description as trusted HTML', inject(function ($controller) {
-            $httpBackend.whenGET('/api/Products/42').respond(200, {data: {description: '<script>alert("XSS4")</script>'}});
+            $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS4")</script>'}});
             spyOn($sce, 'trustAsHtml');
 
             $httpBackend.flush();
@@ -39,7 +39,7 @@ describe('controllers', function () {
         }));
 
         it('should hold no product if API call fails', inject(function ($controller) {
-            $httpBackend.whenGET('/api/Products/42').respond(500);
+            $httpBackend.whenGET(/\/api\/Products\/42/).respond(500);
 
             $httpBackend.flush();
 
