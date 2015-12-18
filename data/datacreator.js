@@ -235,7 +235,7 @@ module.exports = function() {
         models.Challenge.create({
             name: 'christmasSpecial',
             description: 'Order the Christmas special offer of 2014.',
-            difficulty: 3,
+            difficulty: 1,
             solved: false
         }).success(function (challenge) {
             challenges.christmasSpecialChallenge = challenge;
