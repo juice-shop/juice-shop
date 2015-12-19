@@ -41,4 +41,24 @@ describe('/#/search', function () {
 
     });
 
+    describe('challenge "christmasSpecial"', function () {
+        protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
+
+        it('search query should reveal logically deleted christmas special product on SQL injection attack', function () {
+            searchQuery.sendKeys('christmas%25\'))--');
+            searchButton.click();
+
+            var productDescriptions = element.all(by.repeater('product in products').column('name'));
+            expect(productDescriptions.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/);
+
+            element(by.class('fa-cart-plus')).element.(by.xpath('ancestor::a')).click();
+
+            browser.get('/#/basket');
+            element(by.id('checkoutButton')).click();
+        });
+
+        protractor.expect.challengeSolved({challenge: 'christmasSpecial'});
+
+    });
+
 });
