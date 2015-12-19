@@ -324,6 +324,12 @@ module.exports = function() {
             products.christmasSpecial = product;
             models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id);
         });
+        models.Product.create({
+            name: 'Juice Shop Sticker',
+            description: 'You want to put <a href="https://www.stickermule.com/de/marketplace/9680-juice-shop-logo" target="_blank">this</a> on your laptop. You definitely want that. Trust me.',
+            price: 2.99,
+            image: 'sticker.png'
+        });
     }
 
     function createBaskets() {
