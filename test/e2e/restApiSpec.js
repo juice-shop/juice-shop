@@ -19,7 +19,7 @@ describe('/rest', function () {
                 function (alert) {
                     expect(alert.getText()).toEqual('XSS4');
                     alert.accept();
-                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/10\', {description: \'alert disabled\'});');
+                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/12\', {description: \'alert disabled\'});');
                     browser.driver.sleep(3000);
                     browser.ignoreSynchronization = false;
                 });
