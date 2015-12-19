@@ -6,6 +6,7 @@ var fs = require('fs'),
     utils = require('../lib/utils'),
     insecurity = require('../lib/insecurity'),
     models = require('../models/index'),
+    products = require('../data/datacache').products,
     challenges = require('../data/datacache').challenges;
 
 exports = module.exports = function placeOrder() {
@@ -31,6 +32,9 @@ exports = module.exports = function placeOrder() {
                     doc.moveDown();
                     var totalPrice = 0;
                     basket.products.forEach(function (product) {
+                        if (utils.notSolved(challenges.christmasSpecialChallenge && product.id === products.christmasSpecial.id)) {
+                            utils.solve(challenges.christmasSpecialChallenge);
+                        }
                         var itemTotal = product.price * product.basketItem.quantity;
                         doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal);
                         doc.moveDown();

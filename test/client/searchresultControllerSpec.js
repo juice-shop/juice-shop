@@ -66,7 +66,7 @@ describe('controllers', function () {
             window.sessionStorage.bid = 4711;
             $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
             $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}});
-            $httpBackend.whenGET('/api/Products/1').respond(200, {data: {name: 'Cherry Juice'}});
+            $httpBackend.whenGET(/\/api\/Products\/1/).respond(200, {data: {name: 'Cherry Juice'}});
 
             scope.addToBasket(1);
             $httpBackend.flush();
@@ -81,7 +81,7 @@ describe('controllers', function () {
             $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id : 1}, {id : 2, name: 'Tomato Juice', basketItem: {id: 42}}]}});
             $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}});
             $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}});
-            $httpBackend.whenGET('/api/Products/2').respond(200, {data: {name: 'Tomato Juice'}});
+            $httpBackend.whenGET(/\/api\/Products\/2/).respond(200, {data: {name: 'Tomato Juice'}});
 
             scope.addToBasket(2);
             $httpBackend.flush();
@@ -137,7 +137,7 @@ describe('controllers', function () {
             $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id : 1}, {id : 2, name: 'Tomato Juice', basketItem: {id: 42}}]}});
             $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}});
             $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}});
-            $httpBackend.whenGET('/api/Products/2').respond(500);
+            $httpBackend.whenGET(/\/api\/Products\/2/).respond(500);
 
             scope.addToBasket(2);
             $httpBackend.flush();
@@ -165,7 +165,7 @@ describe('controllers', function () {
             window.sessionStorage.bid = 4711;
             $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
             $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}});
-            $httpBackend.whenGET('/api/Products/1').respond(500);
+            $httpBackend.whenGET(/\/api\/Products\/1/).respond(500);
 
             scope.addToBasket(1);
             $httpBackend.flush();

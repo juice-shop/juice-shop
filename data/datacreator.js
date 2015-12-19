@@ -232,6 +232,14 @@ module.exports = function() {
         }).success(function (challenge) {
             challenges.geocitiesThemeChallenge = challenge;
         });
+        models.Challenge.create({
+            name: 'christmasSpecial',
+            description: 'Order the Christmas special offer of 2014.',
+            difficulty: 1,
+            solved: false
+        }).success(function (challenge) {
+            challenges.christmasSpecialChallenge = challenge;
+        });
     }
     function createUsers() {
         models.User.create({
@@ -306,6 +314,21 @@ module.exports = function() {
             image: 'owasp_osaft.jpg'
         }).success(function (product) {
             products.osaft = product;
+        });
+        models.Product.create({
+            name: 'Christmas Super-Surprise-Box (2014 Edition)',
+            description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price! Only available on Christmas 2014!',
+            price: 29.99,
+            image: 'undefined.jpg'
+        }).success(function (product) {
+            products.christmasSpecial = product;
+            models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id);
+        });
+        models.Product.create({
+            name: 'Juice Shop Sticker',
+            description: 'You want to put <a href="https://www.stickermule.com/de/marketplace/9680-juice-shop-logo" target="_blank">this</a> on your laptop. You definitely want that. Trust me.',
+            price: 2.99,
+            image: 'sticker.png'
         });
     }
 

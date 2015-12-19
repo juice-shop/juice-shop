@@ -1,4 +1,5 @@
 *.log
+*.out
 build/
 juiceshop.sqlite
 

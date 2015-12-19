@@ -10,7 +10,7 @@ angular.module('juiceShop').factory('ProductService', ['$http', function ($http)
     }
 
     function get(id) {
-        return $http.get(host + '/' + id);
+        return $http.get(host + '/' + id + '?d=' + encodeURIComponent(new Date().toDateString()));
     }
 
     function search(criteria) {
