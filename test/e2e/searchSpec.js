@@ -51,7 +51,7 @@ describe('/#/search', function () {
             var productNames = element.all(by.repeater('product in products').column('name'));
             expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/);
 
-            element(by.class('fa-cart-plus')).element(by.xpath('ancestor::a')).click();
+            element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click();
 
             browser.get('/#/basket');
             element(by.id('checkoutButton')).click();
