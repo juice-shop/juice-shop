@@ -2,6 +2,7 @@
 coverage/
 reports/
 juiceshop.sqlite
+*.out
 
 # Intellij
 .idea/
