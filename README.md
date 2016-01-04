@@ -130,5 +130,5 @@ Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by
 
 ## License
 
-Copyright (c) 2015 Bjoern Kimminich
-Licensed under the MIT license.
+Copyright (c) 2014-2016 Bjoern Kimminich
+Licensed under the [MIT license](LICENSE).

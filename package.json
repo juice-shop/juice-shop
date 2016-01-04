@@ -3,7 +3,7 @@
     "version": "1.23.1",
     "description": "An intentionally insecure Javascript Web Application",
     "homepage": "http://bkimminich.github.io/juice-shop/",
-    "author": "Bjoern Kimminich",
+    "author": "Bjoern Kimminich <juice-shop@kimminich.de> (https://github.com/bkimminich)",
     "contributors": [
         "Bjoern Kimminich"
     ],
@@ -82,12 +82,7 @@
     "bugs": {
         "url": "https://github.com/bkimminich/juice-shop/issues"
     },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT"
-        }
-    ],
+    "license": "MIT",
     "scripts": {
         "postinstall": "node bower_install.js && node grunt_minify.js",
         "start": "node app",
