@@ -132,3 +132,7 @@ Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by
 
 Copyright (c) 2014-2016 Bjoern Kimminich
 Licensed under the [MIT license](LICENSE).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkimminich/juice-shop/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
