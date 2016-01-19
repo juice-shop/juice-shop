@@ -23,7 +23,7 @@
     ],
     "dependencies": {
         "sequelize": "~1.7.11",
-        "sqlite3": "~3.1.0",
+        "sqlite3": "3.1.0",
         "express": "~4.13.3",
         "errorhandler": "~1.4.0",
         "cookie-parser": "~1.4.0",
