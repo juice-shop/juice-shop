@@ -123,8 +123,8 @@ npm run protractor
 
 ### Blog Links
 
-* Teaser post on [Björn Kimminich's Blog'](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
+* Teaser post on [Björn Kimminich's Blog'](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
 ### Conferences and Meetups
 
