@@ -55,7 +55,7 @@
         "jasmine-node": "~1.14.5",
         "karma": "~0.13.15",
         "karma-cli": "~0.1.1",
-        "karma-junit-reporter": "~0.4.0",
+        "karma-junit-reporter": "~0.3.7",
         "karma-coverage": "~0.5.3",
         "karma-chrome-launcher": "~0.2.2",
         "karma-sauce-launcher": "~0.3.0",
