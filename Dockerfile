@@ -1,5 +1,5 @@
 # Juice Shop - An intentionally insecure Javascript Web Application
-FROM        node:4.2.3
+FROM        node:4.4.0
 MAINTAINER  Bjoern Kimminich <docker.com@kimminich.de>
 
 COPY . /juice-shop
