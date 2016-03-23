@@ -10,7 +10,7 @@
     "angular-mocks": "~1.4.8",
     "angular-cookies": "~1.4.8",
     "angular-touch": "~1.4.8",
-    "angular-bootstrap": "~1.1.0",
+    "angular-bootstrap": "~0.14.3",
     "bootstrap": "~3.3.6",
     "bootswatch": "~3.3.6",
     "jquery": "~2.1.4",
