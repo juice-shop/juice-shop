@@ -27,7 +27,7 @@
         "express": "~4.13.3",
         "errorhandler": "~1.4.0",
         "cookie-parser": "~1.4.0",
-        "serve-index": "~1.7.2",
+        "serve-index": "1.6.0",
         "serve-favicon": "~2.3.0",
         "body-parser": "~1.15.0",
         "sequelize-restful": "~0.4.3",
