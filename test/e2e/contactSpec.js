@@ -29,7 +29,7 @@ describe('/#/contact', function () {
 
             browser.get('/#/administration');
             var feedbackUserId = element.all(by.repeater('feedback in feedbacks').column('UserId'));
-            expect(feedbackUserId.last().getText()).toMatch(2);
+            expect(feedbackUserId.last().getText()).toMatch('2');
         });
 
         protractor.expect.challengeSolved({challenge: 'forgedFeedback'});

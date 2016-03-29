@@ -119,6 +119,21 @@ npm run protractor
 
 > The e2e tests require a working internet connection in order to verify the redirect challenges!
 
+## Project Marketing
+
+### Blog Links
+
+* Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
+* Teaser post on [Björn Kimminich's Blog'](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
+
+### Conferences and Meetups
+
+* [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/), [JavaLand 2016](http://lanyrd.com/2016/javaland/), 08.03.2016
+* [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/), [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/), 03.02.2016
+* [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
+* [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
+* [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
+
 ## Credits
 
 Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by [@psiinon](https://github.com/psiinon).
@@ -127,7 +142,6 @@ Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 [![geeklist](http://img.shields.io/badge/geeklist-%5E5-green.svg)](https://geekli.st/bkimminich/i-built-the-juice-shop-broken-full-js-stack-webapp-for-pentesting-and-security-trainings)
 [![endorse](https://api.coderwall.com/bkimminich/endorsecount.png)](https://coderwall.com/bkimminich)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/bkimminich/juice-shop/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## License
 
