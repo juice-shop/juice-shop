@@ -1,4 +1,5 @@
-h1. Juice Shop - Der kleine Saftladen für Sicherheitstrainings
+Juice Shop - Der kleine Saftladen für Sicherheitstrainings
+==========================================================
 
 ![Juice Shop Logo](JuiceShop_Logo.png)
 
@@ -8,7 +9,8 @@ Auf den ersten Blick sieht der _Juice Shop_ aus, wie ein kleiner, unscheinbarer 
 
 Zur Ehrenrettung: Der _Juice Shop_ ist absichtlich so unsicher, denn er wurde von mir als [Open Source-Projekt](https://github.com/bkimminich/juice-shop) entwickelt, um Softwarentwicklern, -testern, Web-Admins aber auch IT-Managern die geläufigsten Schwachstellen von Webanwendungen vorzuführen oder sie in "Hack-it-yourself"-Sessions selbst ausprobieren zu lassen! Dieser Artikel stellt den _Juice Shop_ kurz vor und motiviert Sie hoffentlich, ihn für einen eigenen Hacking-Ausflug oder ein entsprechendes Event mit Ihren Entwicklerteams zu verwenden.
 
-h2. Die Architektur
+Die Architektur
+---------------
 
 Der _Juice Shop_ wurde komplett in Javascript entwickelt. Zum Einsatz kommen [AngularJS](https://angularjs.org) für das Single-Page-Application Frontend sowie [Express](http://expressjs.com) aufgesetzt auf [NodeJS](https://nodejs.org) für das RESTful Backend. Die Datenhaltung erfolgt in einer simplen dateibasierten [SQLite](https://www.sqlite.org) mit [Sequelize](http://sequelizejs.com) als objekt-relationales Mapping-Framework. Ein Teil der REST-API wird dynamisch (und ziemlich unsicher was Autorisierung angeht) von [sequelize-restful](https://github.com/sequelize/sequelize-restful) generiert.
 
@@ -16,7 +18,8 @@ Der _Juice Shop_ wurde komplett in Javascript entwickelt. Zum Einsatz kommen [An
 
 Die Shop-Funktionalität ist Frontend- und API-seitig komplett mit Unit Tests auf Basis von [Jasmine](http://jasmine.github.io), [Karma](http://karma-runner.github.io) und [Frisby.js](http://frisbyjs.com) abgedeckt. Diese stellen sicher, dass der Shop für alle freundlich gesonnenen Saft-Kunden tatsächlich funktioniert. Nun sind diese Kunden jedoch nicht die eigentliche Zielgruppe des _Juice Shop_. Daher testen die deutlich umfangreicheren Ende-zu-Ende Tests auch weniger die Funktionalität, sondern vielmehr die Unsicherheit der Anwendung. Jeder dieser - mit Hilfe von [Protractor](https://angular.github.io/protractor) implementierten - Tests prüft eine der aktuell 28 absichtlichen Schwachstellen auf Ausnutzbarkeit. Bei Interesse finden Sie detailliertere Informationen zu diesem ungewöhnlichen Test-Szenario in meinem Gast-Beitrag [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended) auf dem offiziellen [Sauce Labs Blog](http://sauceio.com).
 
-h2. Die Schwachstellen
+Die Schwachstellen
+------------------
 
 Die Schwachstellen und Sicherheitslücken des _Juice Shop_ sind vielfältiger Natur. Zunächst wären da natürlich "Klassiker" aus der bekannten [OWASP Top 10-Liste](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project):
 
@@ -42,13 +45,15 @@ Damit der angehende Hacker den Überblick nicht verliert und für seine Erfolge 
 
 ![Screenshot des Score Board](ScreenShot_ScoreBoard.png)
 
-h2. Hack-it-yourself
+Hack-it-yourself
+----------------
 
 Wenn Sie Lust bekommen haben, sich einmal selbst als Hacker einer Webanwendung zu versuchen, installieren Sie sich den _Juice Shop_ einfach auf Ihrem Rechner. In der [Installationsanleitung](https://github.com/bkimminich/juice-shop#setup) finden Sie alle nötigen Informationen, um die Anwendung lokal auf NodeJS oder [als Docker-Container](https://registry.hub.docker.com/u/bkimminich/juice-shop) zum Laufen zu bekommen. _Juice Shop_ läuft gleichermaßen auf Windows, Linux und MacOS. Wer ihn lieber in der Amazon-Cloud deployen möchte, findet auch entsprechende Installationstipps. Von großflächigen „Brute Force“ oder „Denial of Service“-Angriffen gegen eine AWS-Instanz rate ich jedoch dringend ab, da sich Amazon als Provider ggf. angegriffen fühlen könnte. Für solche Hacks beschränken Sie sich am besten auf eine lokal laufende Instanz des _Juice Shop_.
 
 Sollten Sie Unterstützung bei der Installation benötigen oder einen (nicht absichtlich eingebauten) Fehler in der Anwendung finden, helfe ich gerne. Bei nicht in den [FAQ](https://github.com/bkimminich/juice-shop#troubleshooting-) aufgelisteten Problemen nutzen Sie gerne den [offiziellen Chat](https://gitter.im/bkimminich/juice-shop) oder melden Bugs gern auch direkt als [GitHub Issue](https://github.com/bkimminich/juice-shop/issues).
 
-h2. Gratis Laptop-Sticker für Kontributionen
+Gratis Laptop-Sticker für Kontributionen
+----------------------------------------
 
 Wenn Sie den _Juice Shop_ ihrerseits bei der Weiterentwicklung oder Fehlerbehebung unterstützen möchten: Es gibt immer etwas zu tun! Schauen Sie gerne bei GitHub nach [offenen Issues](https://github.com/bkimminich/juice-shop/issues?q=is%3Aissue+is%3Aopen), besonders gerne nach welchen mit dem [„help wanted“-Label](https://github.com/bkimminich/juice-shop/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22). Für Pull Requests aber auch gute Ideen zur Verbesserung, neuen Herausforderungen usw. winkt ein [gratis Satz offizieller _Juice Shop_ Laptop-Sticker](https://www.stickermule.com/de/user/1070702817/Sticker)! Per Post, egal von wo auf diesem Planeten Sie eine Kontribution beisteuern! Wenn jemand sich berufen fühlt, den _Juice Shop_ auf Angular2 zu migrieren, würde ich sogar eine [_Juice Shop_-Tasse](https://shop.spreadshirt.de/juiceshop/juice+shop+tasse-A104700368) drauf legen! ;-)
 
