@@ -1,0 +1,188 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document</title><style></style></head><body>
+<h1 id="proving-that-an-application-is-as-broken-as-intended">Proving that an application is as broken as intended</h1>
+<p>Typically you want to use end-to-end (e2e) tests to prove that everything <strong>works</strong> as intended in a realistic environment. In the <a href="http://bkimminich.github.io/juice-shop/">Juice Shop</a> application that idea is changed to the contrary. Here the main purpose of the e2e test suite is to prove that the application is as <strong>broken</strong> as intended!</p>
+<h2 id="juice-shop-broken-beyond-hope-but-on-purpose-">Juice Shop: Broken beyond hope - but on purpose!</h2>
+<p><em>&quot;WTF?&quot;</em> you might ask, and rightfully so. Juice Shop is a special kind of application. It is an <em>intentionally insecure</em> Javascript web application designed to be used during security trainings, classes, workshops or awareness demos. It contains over 25 vulnerabilities
+that an aspiring hacker can exploit in order to fulfil challenges that are tracked on a score-board.</p>
+<p>The job of the e2e test suite is twofold:</p>
+<ol>
+<li>It ensures that the overall functionality (e.g. logging in, placing products in the basket, submitting an order etc.) of the application is working. This is the above mentioned typical use case for e2e tests.</li>
+<li>It performs attacks on the application that should solve all the existing challenges. This includes <a href="https://www.owasp.org/index.php/SQL_Injection">SQL Injections</a>, <a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS">Cross-Site Scripting</a>) attacks, business logic error exploits and many more.</li>
+</ol>
+<p>When does Juice Shop pass its e2e test suite? When it is working fine for the average nice user <strong>and</strong> all challenges are solvable, so an attacker can get a 100% on the score-board!</p>
+<p><img src="http://bkimminich.github.io/juice-shop/assets/JuiceShop_Logo.svg" alt="Juice Shop logo"></p>
+<h2 id="application-architecture">Application Architecture</h2>
+<p>Juice Shop is created entirely in Javascript, with a Single-Page-Application frontend (using <a href="https://angularjs.org">AngularJS</a> with <a href="http://getbootstrap.com">Bootstrap</a>) and a RESTful backend using <a href="http://expressjs.com/">Express</a> on top of <a href="https://nodejs.org/">NodeJS</a>.
+The underlying database is a simple file-based <a href="https://www.sqlite.org/">SQLite</a> with <a href="http://sequelizejs.com/">Sequelize</a> as a OR-mapper and <a href="https://github.com/sequelize/sequelize-restful">sequelize-restful</a> to generate the simple (but not necessarily secure) parts of the API dynamically.</p>
+<h2 id="test-stages">Test Stages</h2>
+<p>There three different types of of tests to make sure Juice Shop is not released in an <em>unintendedly</em> broken state:</p>
+<ol>
+<li>Unit tests make sure that the frontend services and controllers work how they should. The AngularJS services/controller are tested with <a href="http://karma-runner.github.io/">Karma</a> and <a href="http://jasmine.github.io/">Jasmine</a>.</li>
+<li>API tests verify the RESTful backend is behaving properly when running as a real server. These tests are done with Karma and <a href="http://frisbyjs.com/">frisby.js</a> for orchestrating the API calls.</li>
+<li>The e2e test suite performs typical use cases and all kinds of attacks via browser-automation using <a href="https://angular.github.io/protractor">Protractor</a> and Jasmine.</li>
+</ol>
+<p>If all stages pass and the application survives a quick monkey-test by yours truly it will be released on <a href="https://github.com/bkimminich/juice-shop/releases">GitHub</a> and <a href="http://sourceforge.net/projects/juice-shop/">SourceForge</a>.</p>
+<h2 id="why-sauce-labs-">Why Sauce Labs?</h2>
+<p>There are two reasons to run <a href="https://saucelabs.com/u/juice-shop">Juice Shop tests on Sauce Labs</a>:</p>
+<ol>
+<li>Seeing the frontend unit tests pass on a laptop already gives a good feeling for an upcoming release. But there they run only on PhantomJS, so not in a real browser. Seeing them pass on various browsers increases confidence in the release.</li>
+<li>The e2e tests must be executed before shipping a release. Wanting to make sure they are not skipped due to laziness or overconfidence (<em>&quot;Oh&#39; it&#39;s such a small fix, what could it possibly break?&quot;</em> - Sounds familiar?) the e2e suite
+must be integrated into the CI pipeline.</li>
+</ol>
+<p>Having laid out the context the rest of the article will explain how both these goals could be achieved by integrating with Sauce Labs.</p>
+<h3 id="execution-via-travis-ci">Execution via Travis-CI</h3>
+<p><a href="https://travis-ci.org/bkimminich/juice-shop">Juice Shop builds on Travis-CI</a> which Sauce Labs integrates nicely with out of the box. The following snippet from the <a href="https://github.com/bkimminich/juice-shop/blob/master/.travis.yml">.travis.yml</a> shows the necessary configuration
+and the two commands being called to excecute unit and e2e tests.</p>
+<pre><code>addons:
+  sauce_connect: true
+after_success:
+- karma start karma.conf-ci.js
+- node test/e2eTests.js
+env:
+  global:
+  - secure: &lt;your encrypted SAUCE_USERNAME&gt;
+  - secure: &lt;your encrypted SAUCE_ACCESS_KEY&gt;
+</code></pre><h3 id="frontend-unit-tests">Frontend Unit Tests</h3>
+<p>The <a href="https://github.com/bkimminich/juice-shop/blob/master/karma.conf-ci.js">karma.conf-ci.js</a> contains the configuration for the frontend unit tests. Juice Shop uses six different OS/Browser configurations:</p>
+<pre><code>var customLaunchers = {
+    sl_chrome: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;chrome&#39;,
+        platform : &#39;Linux&#39;,
+        version: &#39;37&#39;
+    },
+    sl_firefox: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;firefox&#39;,
+        platform: &#39;Linux&#39;,
+        version: &#39;33&#39;
+    },
+    sl_ie_11: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;internet explorer&#39;,
+        platform: &#39;Windows 8.1&#39;,
+        version: &#39;11&#39;
+    },
+    sl_ie_10: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;internet explorer&#39;,
+        platform: &#39;Windows 8&#39;,
+        version: &#39;10&#39;
+    },
+    sl_ie_9: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;internet explorer&#39;,
+        platform: &#39;Windows 7&#39;,
+        version: &#39;9&#39;
+    },
+    sl_safari: {
+        base: &#39;SauceLabs&#39;,
+        browserName: &#39;safari&#39;,
+        platform: &#39;OS X 10.9&#39;,
+        version: &#39;7&#39;
+    }
+};
+</code></pre><p>In order associate the test executions with the Travis-CI build that triggered them, some extra configuration is necessary:</p>
+<pre><code>    sauceLabs: {
+        testName: &#39;Juice-Shop Unit Tests (Karma)&#39;,
+        username: process.env.SAUCE_USERNAME,
+        accessKey: process.env.SAUCE_ACCESS_KEY,
+        connectOptions: {
+            tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+            port: 4446
+        },
+        build: process.env.TRAVIS_BUILD_NUMBER,
+        tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, &#39;unit&#39;],
+        recordScreenshots: false
+    }
+    reporters: [&#39;dots&#39;, &#39;saucelabs&#39;]
+</code></pre><p>Thanks to the existing <code>karma-sauce-launcher</code> module the tests are executed and their result is reported back to Sauce Labs out of the box. Nice. The e2e suite was a tougher nut to crack.</p>
+<h3 id="end-to-end-tests">End-to-end Tests</h3>
+<p>For the Protractor e2e tests there are no separate configuration files for local and CI, just one <a href="https://github.com/bkimminich/juice-shop/blob/master/protractor.conf.js">protractor.conf.js</a> with some extra
+settings then running on Travis-CI to pass necessary data to Sauce Labs:</p>
+<pre><code>if (process.env.TRAVIS_BUILD_NUMBER) {
+    exports.config.seleniumAddress = &#39;http://localhost:4445/wd/hub&#39;;
+    exports.config.capabilities = {
+        &#39;name&#39;: &#39;Juice-Shop e2e Tests (Protractor)&#39;,
+        &#39;browserName&#39;: &#39;chrome&#39;,
+        &#39;platform&#39;: &#39;Windows 7&#39;,
+        &#39;screen-resolution&#39;: &#39;1920x1200&#39;,
+        &#39;username&#39;: process.env.SAUCE_USERNAME,
+        &#39;accessKey&#39;: process.env.SAUCE_ACCESS_KEY,
+        &#39;tunnel-identifier&#39;: process.env.TRAVIS_JOB_NUMBER,
+        &#39;build&#39;: process.env.TRAVIS_BUILD_NUMBER,
+        &#39;tags&#39;: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, &#39;e2e&#39;]
+    };
+}
+</code></pre><p>The e2e tests are launched via <a href="https://github.com/bkimminich/juice-shop/blob/master/test/e2eTests.js">e2eTests.js</a> which spawns a separate process for Protractor after launching the Juice Shop server:</p>
+<pre><code>var spawn = require(&#39;win-spawn&#39;),
+    SauceLabs = require(&#39;saucelabs&#39;),
+    colors = require(&#39;colors/safe&#39;),
+    server = require(&#39;./../server.js&#39;);
+
+server.start({ port: 3000 }, function () {
+    var protractor = spawn(&#39;protractor&#39;, [ &#39;protractor.conf.js&#39; ]);
+
+    function logToConsole(data) {
+        console.log(String(data));
+    }
+
+    protractor.stdout.on(&#39;data&#39;, logToConsole);
+    protractor.stderr.on(&#39;data&#39;, logToConsole);
+
+    protractor.on(&#39;exit&#39;, function (exitCode) {
+        console.log(&#39;Protractor exited with code &#39; + exitCode + &#39; (&#39; + (exitCode === 0 ? colors.green(&#39;SUCCESS&#39;) : colors.red(&#39;FAILED&#39;)) + &#39;)&#39;);
+        if (process.env.TRAVIS_BUILD_NUMBER &amp;&amp; process.env.SAUCE_USERNAME &amp;&amp; process.env.SAUCE_ACCESS_KEY) {
+            setSaucelabJobResult(exitCode);
+        } else {
+            server.close(exitCode);
+        }
+    });
+});
+</code></pre><p>The interesting part regarding Sauce Labs is the call to <code>setSaucelabJobResult(exitCode)</code> in case the test is run on Travis-CI with Sauce Labs credentials which are passed in by the extra config part in <a href="https://github.com/bkimminich/juice-shop/blob/master/protractor.conf.js">protractor.conf.js</a>.
+This function passes the test result from Protractor on to Sauce Lab&#39;s REST API:</p>
+<pre><code>function setSaucelabJobResult(exitCode) {
+    var sauceLabs = new SauceLabs({ username: process.env.SAUCE_USERNAME, password: process.env.SAUCE_ACCESS_KEY });
+    sauceLabs.getJobs(function (err, jobs) {
+        for (var j in jobs) {
+            if (jobs.hasOwnProperty(j)) {
+                sauceLabs.showJob(jobs[j].id, function (err, job) {
+                    var tags = job.tags;
+                    if (tags.indexOf(process.env.TRAVIS_BUILD_NUMBER) &gt; -1 &amp;&amp; tags.indexOf(&#39;e2e&#39;) &gt; -1) {
+                        sauceLabs.updateJob(job.id, { passed : exitCode === 0 }, function(err, res) {
+                            console.log(&#39;Marked job &#39; + job.id + &#39; for build #&#39; + process.env.TRAVIS_BUILD_NUMBER + &#39; as &#39; + (exitCode === 0 ? colors.green(&#39;PASSED&#39;) : colors.red(&#39;FAILED&#39;)) + &#39;.&#39;);
+                            server.close(exitCode);
+                        });
+                    }
+                });
+            }
+        }
+    });
+}
+</code></pre><p>This was necessary because there was no launcher available at the time that would do this out-of-the-box.</p>
+<h2 id="determining-solved-challenges">Determining solved Challenges</h2>
+<p>How does Protractor get its test result in the first place? It must be able to determine if all challenges were solved on the score board and cannot access the database directly to do that. But: It can access
+the score board in the application:</p>
+<p><img src="http://bkimminich.github.io/juice-shop/assets/scoreboard.png" alt="Screenshot score board"></p>
+<p>As solved challenges are highlighted green instead of red some simple generic function was used to assert this:</p>
+<pre><code>protractor.expect = {
+    challengeSolved: function (context) {
+        describe(&quot;(shared)&quot;, function () {
+
+            beforeEach(function () {
+                browser.get(&#39;/#/score-board&#39;);
+            });
+
+            it(&quot;challenge &#39;&quot; + context.challenge + &quot;&#39; should be solved on score board&quot;, function () {
+                expect(element(by.id(context.challenge + &#39;.solved&#39;)).getAttribute(&#39;class&#39;)).not.toMatch(&#39;ng-hide&#39;);
+                expect(element(by.id(context.challenge + &#39;.notSolved&#39;)).getAttribute(&#39;class&#39;)).toMatch(&#39;ng-hide&#39;);
+            });
+
+        });
+    }
+}
+</code></pre><p>When watching the e2e suite run Protractor will constantly visit the score board to check each challenge. This is quite interesting to watch as the progress bar on top moves closer to 100% with every test. But be
+warned: If you plan on trying to hack away on <a href="http://bkimminich.github.io/juice-shop/">Juice Shop</a> to solve all the challenges yourself, you will find the following screencast to be quite a spoiler! ;-)</p>
+<p>&lt;iframe title=&quot;juice-shop hacking challenges solved by Protractor e2e tests (v1.5.4)&quot; width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/CXsWFkzS8Ag&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;</p>
+
+</body></html>
