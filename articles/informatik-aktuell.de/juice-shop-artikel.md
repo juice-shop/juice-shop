@@ -1,6 +1,6 @@
 h1. Juice Shop - Der kleine Saftladen für Sicherheitstrainings
 
-[!Logo_JuiceShop.png]
+[!JuiceShop_Logo.png]
 
 Auf den ersten Blick sieht der _Juice Shop_ aus, wie ein kleiner, unscheinbarer Online-Shop für Fruchtsäfte und andere Artikel - inklusive Benutzerregistrierung, Artikelsuche, Rabattcoupons und Feebackfunktion. Bei genauerer Betrachtung, fällt jedoch auf, dass viele dieser Funktionen schwerwiegende Sicherheitslücken aufweisen. Da werden plötzlich Bestellungen mit negativem Gesamtpreis möglich, die Artikelsuche liefert statt O-Saft nun alle Kundendaten (samt verschlüsselter Passwörter) zurück und man kommt an Bereiche der Anwendung heran, auf die ein normaler Kunde eigentlich keinen Zugriff haben sollte. Was für ein sprichwörtlicher Saftladen!
 
