@@ -60,3 +60,10 @@ Wenn Sie den _Juice Shop_ ihrerseits bei der Weiterentwicklung oder Fehlerbehebu
 ![Foto von Juice Shop Tasse und Aufklebern](TasseUndSticker_JuiceShop.jpg)
 
 In diesem Sinne, viel Spaß beim Shoppen im ["most trustworthy online shop out there"](https://twitter.com/dschadow/status/706781693504589824)! Das Teilen von Screenshots Ihrer Hacking-Erfolge (bitte ohne Spoiler) mit dem Hashtag _\#juiceshop_ ist explizit erlaubt! ;-)
+
+Links
+-----
+
+* GitHub Repository: <https://github.com/bkimminich/juice-shop>
+* Übersicht und Einführung: <http://bkimminich.github.io/juice-shop>
+* Support-Chat: <https://gitter.im/bkimminich/juice-shop>
