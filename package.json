@@ -1,6 +1,6 @@
 {
     "name": "juice-shop",
-    "version": "1.25.2",
+    "version": "1.25.3",
     "description": "An intentionally insecure Javascript Web Application",
     "homepage": "http://bkimminich.github.io/juice-shop/",
     "author": "Bjoern Kimminich <juice-shop@kimminich.de> (https://github.com/bkimminich)",
@@ -73,7 +73,11 @@
         "lcov-result-merger": "~1.0.2",
         "grunt-retire": "~0.3.12",
         "grunt-zaproxy": "~0.1.5",
-        "grunt-exec": "0.4.6"
+        "grunt-exec": "0.4.6",
+        "phantomjs-prebuilt": ">=1.9"
+    },
+    "peerDependencies": {
+        "phantomjs-prebuilt": ">=1.9"
     },
     "repository": {
         "type": "git",
