@@ -27,7 +27,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 ### From Sources
 
 1. Install [node.js](http://nodejs.org)\*
-2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
+2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
 5. Browse to <http://localhost:3000>
@@ -37,7 +37,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 1. Install [Docker](https://www.docker.com)
 2. Run ```docker pull bkimminich/juice-shop```
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
-4. Browse to <http://localhost:3000> 
+4. Browse to <http://localhost:3000>
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -86,7 +86,7 @@ Juice Shop has been successfully tested with the following versions of [node.js]
 > If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
-- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP 
+- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP
 - If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
@@ -99,7 +99,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
 [![Dependency Status](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg?style=flat)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
-[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
+[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies) [![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)
 
 ### Unit Tests
 
