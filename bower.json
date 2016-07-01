@@ -10,6 +10,7 @@
     "angular-mocks": "~1.5.6",
     "angular-cookies": "~1.5.6",
     "angular-touch": "~1.5.6",
+    "angular-animate": "~1.5.6",
     "angular-bootstrap": "~1.3.3",
     "bootstrap": "~3.3.6",
     "bootswatch": "~3.3.6",

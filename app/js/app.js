@@ -2,6 +2,7 @@ angular.module('juiceShop', [
     'ngRoute',
     'ngCookies',
     'ngTouch',
+    'ngAnimate',
     'ui.bootstrap'
 ]);
 
