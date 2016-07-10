@@ -135,6 +135,13 @@ npm run protractor
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
 
+### Merchandise
+
+* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official Juice Shop logo
+* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get three variants of the Juice Shop logo to decorate your laptop
+
+> An alternative way to get a sticker for free is to somehow contribute to the project by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! I'm also happy to send some stickers you way if you organize a meetup or conference talk where you use or mention Juice Shop! Just contact me at juice-shop@kimminich.de!
+
 ## Credits
 
 Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by [@psiinon](https://github.com/psiinon).
