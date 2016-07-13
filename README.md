@@ -27,7 +27,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 ### From Sources
 
 1. Install [node.js](http://nodejs.org)\*
-2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository) 
+2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
 5. Browse to <http://localhost:3000>
@@ -37,7 +37,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 1. Install [Docker](https://www.docker.com)
 2. Run ```docker pull bkimminich/juice-shop```
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
-4. Browse to <http://localhost:3000> 
+4. Browse to <http://localhost:3000>
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -86,7 +86,7 @@ Juice Shop has been successfully tested with the following versions of [node.js]
 > If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
 - If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
-- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP 
+- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP
 - If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
@@ -99,7 +99,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
 [![Dependency Status](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg?style=flat)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
-[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
+[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies) [![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)
 
 ### Unit Tests
 
@@ -123,6 +123,7 @@ npm run protractor
 
 ### Blog Links
 
+* German guest post on [Informstik Aktuell](http://www.informatik-aktuell.de/): [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog'](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
@@ -133,6 +134,13 @@ npm run protractor
 * [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
+
+### Merchandise
+
+* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official Juice Shop logo
+* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get three variants of the Juice Shop logo to decorate your laptop
+
+> An alternative way to get a sticker for free is to somehow contribute to the project by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! I'm also happy to send some stickers you way if you organize a meetup or conference talk where you use or mention Juice Shop! Just contact me at juice-shop@kimminich.de!
 
 ## Credits
 
