@@ -57,9 +57,52 @@ module.exports = function (grunt) {
         },
 
         compress: {
-            pckg: {
+            windows: {
                 options: {
-                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node4_x64.zip'
+                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node4_win64.zip'
+                },
+                files: [
+                    {
+                        src: [  'app/index.html',
+                            'app/dist/juice-shop.min.js',
+                            'app/css/*.css',
+                            'app/css/geo-bootstrap/**',
+                            'app/bower_components/**',
+                            'app/public/**',
+                            'app/private/**',
+                            'server.js',
+                            'app.js',
+                            'models/*.js',
+                            'routes/*.js',
+                            'data/*.js',
+                            'lib/*.js',
+                            'package.json',
+                            '*.md',
+                            'node_modules/sequelize/**',
+                            'node_modules/sqlite3/**',
+                            'node_modules/express/**',
+                            'node_modules/errorhandler/**',
+                            'node_modules/cookie-parser/**',
+                            'node_modules/serve-index/**',
+                            'node_modules/serve-favicon/**',
+                            'node_modules/body-parser/**',
+                            'node_modules/sequelize-restful/**',
+                            'node_modules/morgan/**',
+                            'node_modules/sanitize-html/**',
+                            'node_modules/express-jwt/**',
+                            'node_modules/jsonwebtoken/**',
+                            'node_modules/helmet/**',
+                            'node_modules/pdfkit/**',
+                            'node_modules/z85/**',
+                            'node_modules/glob/**',
+                            'node_modules/colors/**'
+                        ]
+                    }
+                ]
+            },
+            linux: {
+                options: {
+                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node4_linux.tar'
                 },
                 files: [
                     {
@@ -187,6 +230,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
-    grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
+    grunt.registerTask('package-windows', [ 'clean:pckg', 'minify', 'compress:windows' ]);
+    grunt.registerTask('package-linux', [ 'clean:pckg', 'minify', 'compress:linux' ]);
     grunt.registerTask('zap', [ 'zap_start', 'exec:e2e_tests', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };

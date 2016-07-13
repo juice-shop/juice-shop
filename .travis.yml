@@ -35,11 +35,21 @@ notifications:
     on_failure: always
     on_start: always
 deploy:
-  provider: heroku
-  api_key:
-    secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
-  app: juice-shop
-  on:
-    repo: bkimminich/juice-shop
-    node: 4
+  - provider: heroku
+    api_key:
+      secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
+    app: juice-shop
+    on:
+      repo: bkimminich/juice-shop
+      node: 4
+  - provider: releases
+    api_key:
+      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+    file: dist/juice-shop-*_node4_linux.tar
+    skip_cleanup: true
+    file_glob: true
+    on:
+      repo: bkimminich/juice-shop
+      node: 4
+      tags: true
 sudo: false
