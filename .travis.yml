@@ -20,6 +20,7 @@ after_success:
 # - node test/e2eTests.js
 # - grunt retire --force
 # - grunt zap
+- grunt package-linux
 env:
   global:
   - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
