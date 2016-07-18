@@ -61,7 +61,7 @@ module.exports = function (config) {
         ],
 
         sauceLabs: {
-            testName: 'Juice-Shop Unit Tests (Karma)',
+            testName: 'OWASP Juice Shop Unit Tests',
             username: process.env.SAUCE_USERNAME,
             accessKey: process.env.SAUCE_ACCESS_KEY,
             connectOptions: {

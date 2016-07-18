@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png" width="50"> Juice Shop [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
+# <img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png" width="50"> OWASP Juice Shop [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
 
 An intentionally insecure webapp suitable for pentesting and security awareness trainings written in Node, Express and Angular.
 
@@ -12,11 +12,11 @@ An intentionally insecure webapp suitable for pentesting and security awareness 
 - Open source: No hidden costs or caveats
 - Score Board: The application keeps track of known vulnerabilities the user has successfully exploited
 
-> Juice Shop is the first application written entirely in Javascript listed in the [OWASP VWA Directory](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project). It also seems to be the first broken webapp that uses the currently popular architecture of an SPA/RIA frontend with a RESTful backend.
+> OWASP Juice Shop is the first application written entirely in Javascript listed in the [OWASP VWA Directory](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project). It also seems to be the first broken webapp that uses the currently popular architecture of an SPA/RIA frontend with a RESTful backend.
 
 ## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
 
-Feel free to have a look at the latest version of Juice Shop: <https://juice-shop.herokuapp.com>
+Feel free to have a look at the latest version of OWASP Juice Shop: <https://juice-shop.herokuapp.com>
 
 > This is a "sneak-peek" instance only! You are __not allowed__ to use this instance for your own hacking endeavors! Technically [Heroku](https://www.heroku.com/) could view hacking activity on this instance as an attack on their infrastructure! You have been warned!
 
@@ -41,7 +41,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 1. Install and launch [Docker Toolbox](https://www.docker.com/docker-toolbox)
 2. Search for ```juice-shop``` and click _Create_ to download image and run container
-3. Click on the _Open_ icon next to _Web Preview_ to browse to Juice Shop
+3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP Juice Shop
 
 ### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
@@ -69,11 +69,14 @@ docker pull bkimminich/juice-shop:latest
 docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ```
 
-> Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! I highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
+> Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! We highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
 
 ## \*Node.js version compatibility
 
-Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
+OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
+- 0.10.x
+- 0.11.x
+- 0.12.x
 - __4.x (recommended version)__
 - 5.x
 - 6.x
@@ -136,10 +139,10 @@ npm run protractor
 
 ### Merchandise
 
-* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official Juice Shop logo
-* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get three variants of the Juice Shop logo to decorate your laptop
+* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop logo
+* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get three variants of the OWASP Juice Shop logo to decorate your laptop
 
-> An alternative way to get a sticker _for free_ is to somehow contribute to the project by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! I'm also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention Juice Shop! Just contact me at juice-shop@kimminich.de!
+> An alternative way to get a sticker _for free_ is to somehow contribute to the project by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! We're also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention OWASP Juice Shop! Just contact the project leader to discuss your plans: bjoern.kimminich@owasp.org!
 
 ## Credits
 
