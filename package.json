@@ -63,7 +63,7 @@
         "karma-safari-launcher": "~1.0.0",
         "karma-phantomjs-launcher": "~1.0.1",
         "karma-jasmine": "~0.1.6",
-        "protractor": "~3.3.0",
+        "protractor": "~4.0.0",
         "jasmine-reporters": "~1.0.2",
         "http-server": "~0.9.0",
         "shelljs": "~0.7.0",
