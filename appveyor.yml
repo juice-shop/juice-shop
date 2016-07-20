@@ -26,9 +26,9 @@ artifacts:
   - path: dist\juice-shop-*_node4_win64.zip
 deploy:
   - provider: GitHub
-  auth_token:
-    secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
-  on:
+    auth_token:
+      secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
+    on:
       platform: x64
       nodejs_version: 4
       appveyor_repo_tag: true
