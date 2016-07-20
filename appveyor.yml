@@ -18,3 +18,4 @@ matrix:
   fast_finish: true
 cache:
   - node_modules -> package.json
+  - app\bower_components -> bower.json
