@@ -16,7 +16,6 @@ install:
   - npm install -g grunt-cli
   - node --version
   - npm install
-  - npm update
   - grunt package-windows
 build: off
 test: off
@@ -33,6 +32,3 @@ deploy:
       appveyor_repo_tag: true
       platform: x64
       nodejs_version: 4
-cache:
-  - node_modules -> package.json
-  - app\bower_components -> bower.json
