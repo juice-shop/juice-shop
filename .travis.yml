@@ -56,3 +56,7 @@ deploy:
       node: 4
       tags: true
 sudo: false
+cache:
+  directories:
+  - node_modules
+  - app/bower_components
