@@ -43,14 +43,14 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 2. Search for ```juice-shop``` and click _Create_ to download image and run container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to Juice Shop
 
-### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Packaged Distributions (only node.js 4.x) [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
 1. Install [node.js 4.x](https://nodejs.org/en/download) on your Windows x64 or Linux machine
 2. Download ```juice-shop-<version>_node4_win64.zip``` or ```juice-shop-<version>_node4_linux.tar``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unpacked folder
 4. Browse to <http://localhost:3000>
 
-> The packaged distributions will _probably_ not work on node.js versions other than 4.x because SQLite is compiled from source for the OS and node.js version which ```npm install``` was executed on.
+> The packaged distributions include some binaries for SQLite bound to the OS and node.js version which ```npm install``` was executed on.
 
 ### Amazon EC2 Instance
 
