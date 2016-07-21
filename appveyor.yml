@@ -17,7 +17,6 @@ platform:
   - x64
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm install -g npm
   - node --version && npm --version
   - npm install
   - node_modules\.bin\grunt package-windows
