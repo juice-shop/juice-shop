@@ -1,6 +1,10 @@
 version: '{build}'
 init:
   - git config --global core.autocrlf true
+branches:
+  except:
+  - gh-pages
+  - lightning-talk
 environment:
   matrix:
     - nodejs_version: 6
@@ -17,6 +21,8 @@ install:
   - npm install -g npm
   - npm install -g grunt-cli
   - npm config set python python2.7
+  - pip install lxml
+  - node --version && python --version
   - npm install
   - grunt package-windows
 build: off
