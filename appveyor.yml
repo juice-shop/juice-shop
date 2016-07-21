@@ -18,10 +18,9 @@ platform:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install -g npm
-  - npm install -g grunt-cli
   - node --version && npm --version
   - npm install
-  - grunt package-windows
+  - node_modules\.bin\grunt package-windows
 build: off
 test: off
 matrix:
