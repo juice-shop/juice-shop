@@ -13,6 +13,7 @@ platform:
 install:
   - ps: Install-Product node $env:nodejs_version
   - node --version && npm --version
+  - rmdir /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm install
   - node_modules\.bin\grunt package-windows
 build: off
@@ -28,7 +29,3 @@ deploy:
     on:
       branch: master
       appveyor_repo_tag: true
-      nodejs_version: 4
-cache:
-  - node_modules -> package.json
-  - app\bower_components -> bower.json
