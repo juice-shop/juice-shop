@@ -19,6 +19,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - node --version && npm --version
   - npm install
+  - dir node_modules /r /s # TODO remove after debugging
   - node_modules\.bin\grunt package-windows
 build: off
 test: off
