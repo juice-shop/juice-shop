@@ -21,7 +21,7 @@ install:
   - npm install -g npm
   - npm install -g grunt-cli
   - npm config set python python2.7
-  - pip install lxml
+#  - pip install lxml
   - node --version && python --version
   - npm install
   - grunt package-windows
