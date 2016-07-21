@@ -20,9 +20,10 @@ install:
   - ps: Install-Product node $env:nodejs_version
   - npm install -g npm
   - npm install -g grunt-cli
+  - SET PATH=%C:\Python27-x64%;%C:\Python27-x64%\\Scripts;%PATH%
   - npm config set python python2.7
-#  - pip install lxml
   - node --version && python --version
+  - pip install lxml
   - npm install
   - grunt package-windows
 build: off
