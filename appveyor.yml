@@ -21,13 +21,15 @@ install:
   - npm install -g grunt-cli
   - node --version
   - npm install
-  - grunt package-windows
 build: off
 test: off
 matrix:
   fast_finish: true
 artifacts:
   - path: dist\juice-shop-*_node4_win64.zip
+before_deploy:
+  - npm update
+  - grunt package-windows
 deploy:
   - provider: GitHub
     auth_token:
