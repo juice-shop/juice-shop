@@ -1,0 +1,34 @@
+version: '{build}'
+init:
+  - git config --global core.autocrlf true
+branches:
+  except:
+  - gh-pages
+  - lightning-talk
+environment:
+  matrix:
+    - nodejs_version: 4
+platform:
+  - x64
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install -g npm
+  - npm install -g grunt-cli
+  - node --version
+  - npm install
+  - grunt package-windows
+build: off
+test: off
+matrix:
+  fast_finish: true
+artifacts:
+  - path: dist\juice-shop-*_node4_win64.zip
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
+    on:
+      branch: master
+      appveyor_repo_tag: true
+      platform: x64
+      nodejs_version: 4
