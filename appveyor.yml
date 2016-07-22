@@ -8,14 +8,17 @@ branches:
 environment:
   matrix:
     - nodejs_version: 4 # recommended version
+    - nodejs_version: 5
+    - nodejs_version: 6
 platform:
+  - x86
   - x64
 install:
-  - ps: Install-Product node $env:nodejs_version x64
+  - ps: Install-Product node $env:nodejs_version {platform}
   - node --version && npm --version
   - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm install
-  - node_modules\.bin\grunt package # --node=4 --platform=x64 --os=windows
+  - node_modules\.bin\grunt package
 build: off
 test: off
 matrix:
