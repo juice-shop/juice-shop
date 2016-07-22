@@ -50,7 +50,6 @@ deploy:
     file_glob: true
     on:
       repo: bkimminich/juice-shop
-      node: 4
       tags: true
 sudo: false
 cache:
