@@ -3,6 +3,10 @@
 
 module.exports = function (grunt) {
 
+    var node = grunt.option('node') || process.env.TRAVIS_NODE_VERSION || process.env.nodejs_version || "";
+    var platform = grunt.option('platform') || process.env.PLATFORM || "";
+    var os = grunt.option('os') || process.env.TRAVIS ? 'linux' : process.env.APPVEYOR ? 'windows' : "";
+
     var deployables = [
         'app/index.html',
         'app/dist/juice-shop.min.js',
@@ -93,19 +97,9 @@ module.exports = function (grunt) {
         },
 
         compress: {
-            windows: {
+            pckg: {
                 options: {
-                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node4_win64.zip'
-                },
-                files: [
-                    {
-                        src: deployables
-                    }
-                ]
-            },
-            linux: {
-                options: {
-                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node4_linux.tar'
+                    archive: 'dist/<%= pkg.name %>-<%= pkg.version %>_node<%= node %>_<%= os %>_<%= platform %>.zip'
                 },
                 files: [
                     {
@@ -200,7 +194,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ]);
-    grunt.registerTask('package-windows', [ 'clean:pckg', 'minify', 'compress:windows' ]);
-    grunt.registerTask('package-linux', [ 'clean:pckg', 'minify', 'compress:linux' ]);
+    grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ]);
     grunt.registerTask('zap', [ 'zap_start', 'exec:e2e_tests', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ]);
 };

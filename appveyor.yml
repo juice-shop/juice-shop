@@ -15,13 +15,13 @@ install:
   - node --version && npm --version
   - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm install
-  - node_modules\.bin\grunt package-windows
+  - node_modules\.bin\grunt package
 build: off
 test: off
 matrix:
   fast_finish: true
 artifacts:
-  - path: dist\juice-shop-*_node4_win64.zip
+  - path: dist\*
 deploy:
   - provider: GitHub
     auth_token:
