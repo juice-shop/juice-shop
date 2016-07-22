@@ -24,7 +24,7 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org)\*
+1. Install [node.js 4.x or higher](http://nodejs.org)\*
 2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
@@ -43,14 +43,14 @@ Feel free to have a look at the latest version of Juice Shop: <https://juice-sho
 2. Search for ```juice-shop``` and click _Create_ to download image and run container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to Juice Shop
 
-### Packaged Distributions (only node.js 4.x) [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install [node.js 4.x](https://nodejs.org/en/download) on your Windows x64 or Linux machine
-2. Download ```juice-shop-<version>_node4_win64.zip``` or ```juice-shop-<version>_node4_linux.tar``` attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+1. Install a [64bit node.js 4.x, 5.x or 6.x](https://nodejs.org/en/download)\* on your Windows (or Linux) machine
+2. Download ```juice-shop-<version>_<node-version>_<os>_x64.zip``` (or ```.tgz```) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unpacked folder
 4. Browse to <http://localhost:3000>
 
-> The packaged distributions include some binaries for SQLite bound to the OS and node.js version which ```npm install``` was executed on.
+> Each packaged distribution includes some binaries for SQLite bound to the OS and node.js version which ```npm install``` was executed on.
 
 ### Amazon EC2 Instance
 
