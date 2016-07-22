@@ -15,7 +15,7 @@ install:
   - node --version && npm --version
   - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm install
-  - node_modules\.bin\grunt package
+  - node_modules\.bin\grunt package --node=4 --platform=x64 --os=windows
 build: off
 test: off
 matrix:

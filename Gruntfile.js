@@ -7,42 +7,6 @@ module.exports = function (grunt) {
     var platform = grunt.option('platform') || process.env.PLATFORM || "";
     var os = grunt.option('os') || process.env.TRAVIS ? 'linux' : process.env.APPVEYOR ? 'windows' : "";
 
-    var deployables = [
-        'app/index.html',
-        'app/dist/juice-shop.min.js',
-        'app/css/*.css',
-        'app/css/geo-bootstrap/**',
-        'app/bower_components/**',
-        'app/public/**',
-        'app/private/**',
-        'server.js',
-        'app.js',
-        'models/*.js',
-        'routes/*.js',
-        'data/*.js',
-        'lib/*.js',
-        'package.json',
-        '*.md',
-        'node_modules/sequelize/**',
-        'node_modules/sqlite3/**',
-        'node_modules/express/**',
-        'node_modules/errorhandler/**',
-        'node_modules/cookie-parser/**',
-        'node_modules/serve-index/**',
-        'node_modules/serve-favicon/**',
-        'node_modules/body-parser/**',
-        'node_modules/sequelize-restful/**',
-        'node_modules/morgan/**',
-        'node_modules/sanitize-html/**',
-        'node_modules/express-jwt/**',
-        'node_modules/jsonwebtoken/**',
-        'node_modules/helmet/**',
-        'node_modules/pdfkit/**',
-        'node_modules/z85/**',
-        'node_modules/glob/**',
-        'node_modules/colors/**'
-    ];
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -103,7 +67,41 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {
-                        src: deployables
+                        src: [
+                            'app/index.html',
+                            'app/dist/juice-shop.min.js',
+                            'app/css/*.css',
+                            'app/css/geo-bootstrap/**',
+                            'app/bower_components/**',
+                            'app/public/**',
+                            'app/private/**',
+                            'server.js',
+                            'app.js',
+                            'models/*.js',
+                            'routes/*.js',
+                            'data/*.js',
+                            'lib/*.js',
+                            'package.json',
+                            '*.md',
+                            'node_modules/sequelize/**',
+                            'node_modules/sqlite3/**',
+                            'node_modules/express/**',
+                            'node_modules/errorhandler/**',
+                            'node_modules/cookie-parser/**',
+                            'node_modules/serve-index/**',
+                            'node_modules/serve-favicon/**',
+                            'node_modules/body-parser/**',
+                            'node_modules/sequelize-restful/**',
+                            'node_modules/morgan/**',
+                            'node_modules/sanitize-html/**',
+                            'node_modules/express-jwt/**',
+                            'node_modules/jsonwebtoken/**',
+                            'node_modules/helmet/**',
+                            'node_modules/pdfkit/**',
+                            'node_modules/z85/**',
+                            'node_modules/glob/**',
+                            'node_modules/colors/**'
+                        ]
                     }
                 ]
             }
