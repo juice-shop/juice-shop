@@ -12,6 +12,7 @@ addons:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
   sauce_connect: true
+before_install: rm -rf node_modules # workaround for npm install bug missing module dependencies
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
@@ -33,9 +34,7 @@ notifications:
     on_success: always
     on_failure: always
     on_start: always
-before_deploy:
-- rm -rf node_modules # workaround for npm install bug missing module dependencies
-- grunt package
+before_deploy: grunt package
 deploy:
   - provider: heroku
     api_key:
