@@ -46,7 +46,7 @@
         "grunt-contrib-uglify": "~1.0.1",
         "grunt-contrib-concat": "~1.0.0",
         "grunt-contrib-clean": "~1.0.0",
-        "grunt-contrib-compress": "~1.1.1",
+        "grunt-contrib-compress": "~1.3.0",
         "bower": "~1.7.9",
         "saucelabs": "~1.2.0"
     },
