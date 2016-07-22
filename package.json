@@ -99,6 +99,6 @@
     },
     "subdomain": "juice-shop",
     "engines": {
-        "node": ">=0.10.40 <7"
+        "node": ">=4 <7"
     }
 }

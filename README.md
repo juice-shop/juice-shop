@@ -73,13 +73,12 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 
 ## \*Node.js version compatibility
 
-Juice Shop has been successfully tested with the following versions of [node.js](http://nodejs.org):
-- 0.10.x
-- 0.11.x
-- 0.12.x
+Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
 - __4.x (recommended version)__
 - 5.x
 - 6.x
+
+> Support for node.js 0.10, 0.11 and 0.12 has been dropped to reduce the complexity of the build matrix and get less timeouts from Sauce Labs during test execution.  
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 

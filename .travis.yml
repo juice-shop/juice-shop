@@ -1,9 +1,6 @@
 language: node_js
 node_js:
 - 4 # recommended version
-- 0.10
-- 0.11
-- 0.12
 - 5
 - 6
 branches:
@@ -36,7 +33,7 @@ notifications:
     on_success: always
     on_failure: always
     on_start: always
-before_deploy: grunt package-linux
+before_deploy: grunt package
 deploy:
   - provider: heroku
     api_key:
@@ -48,7 +45,7 @@ deploy:
   - provider: releases
     api_key:
       secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-    file: dist/juice-shop-*_node4_linux.tar
+    file: dist/*
     skip_cleanup: true
     file_glob: true
     on:
