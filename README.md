@@ -74,9 +74,6 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ## \*Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
-- 0.10.x
-- 0.11.x
-- 0.12.x
 - __4.x (recommended version)__
 - 5.x
 - 6.x
