@@ -71,7 +71,7 @@ exports.databaseRelatedChallenges = function () {
             });
         }
         if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-            models.Feedback.findAndCountAll({where: models.Sequelize.or(models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']),models.Sequelize.and(['comment LIKE \'%serve-index%\''], ['comment LIKE \'%1.6.0%\'']))}
+            models.Feedback.findAndCountAll({where: models.Sequelize.or(models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']), models.Sequelize.and(['comment LIKE \'%serve-index%\''], ['comment LIKE \'%1.6%\'']), models.Sequelize.and(['comment LIKE \'%sequelize%\''], ['comment LIKE \'%1.7%\'']))}
             ).success(function (data) {
                     if (data.count > 0) {
                         utils.solve(challenges.knownVulnerableComponentChallenge);
