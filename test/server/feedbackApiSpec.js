@@ -94,7 +94,7 @@ frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitiz
 
 frisby.create('POST feedback in another users name as anonymous user')
     .post(API_URL + '/Feedbacks', {
-        comment: 'Lousy crap! You still use XSS-vulnerable serve-index 1.6.0! As if that is not bad enough, you use z85/base85 and rot13 for crypto? Srsly?!?! And sequelize 1.7.x as well? Welcome to SQL Injection-land, morons!',
+        comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and rot13 for crypto? Srsly?!?!',
         rating: 1,
         UserId: 3
     }, {json: true})

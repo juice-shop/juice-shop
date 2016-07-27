@@ -103,7 +103,6 @@ describe('/#/contact', function () {
 
         it('should be possible to post known vulnerable component(s) as feedback', function () {
             comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively. You actually pinned this exact dependency version!');
-            comment.sendKeys('serve-index 1.6.0 is vulnerable to XSS in file and directory names. You are depending on 1.6.x so you might get this broken version!');
             comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON. Whatever this means. Anyway, you are depending on 1.7.x so you might be vulnerable!');
             rating.click();
 
