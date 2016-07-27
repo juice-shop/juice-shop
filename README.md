@@ -56,8 +56,8 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 ### Amazon EC2 Instance
 
 1. Setup an _Amazon Linux AMI_ instance
-2. Copy the script below into _User Data_:
-3. Use a _Security Group_ that opens port 80
+2. In _Step 3: Configure Instance Details_ unfold _Advanced Details_ and copy the script below into _User Data_
+3. In _Step 6: Configure Security Group_ add a _Rule_ that opens port 80 for HTTP
 4. Launch instance
 5. Browse to your instance's public DNS
 
