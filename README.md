@@ -112,7 +112,9 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
 [![Dependency Status](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg?style=flat)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec)
 [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop)
-[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies) [![Retire Status](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)](http://retire.insecurity.today/api/image?uri=https://raw.githubusercontent.com/bkimminich/juice-shop/package.json)
+[![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies)
+
+> In case you are wondering about some red or yellow dependency badges: OWASP Juice Shop is _intentionally broken_, so [using components with known vulnerabilities](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) is considered a _feature_!
 
 ### Unit Tests
 
