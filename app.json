@@ -1,0 +1,28 @@
+{
+  "name": "OWASP Juice Shop",
+  "description": "An intentionally insecure Javascript Web Application",
+  "website": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
+  "repository": "https://github.com/bkimminich/juice-shop",
+  "logo": "https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png",
+  "keywords": [
+    "web security",
+    "web application security",
+    "webappsec",
+    "owasp",
+    "pentest",
+    "pentesting",
+    "security",
+    "vulnerable",
+    "vulnerability",
+    "broken",
+    "bodgeit"
+  ],
+  "addons": [
+    {
+      "plan": "deployhooks:http",
+      "options": {
+        "url": "https://webhooks.gitter.im/e/834eb1125252d3ab83a3"
+      }
+    }
+  ]
+}

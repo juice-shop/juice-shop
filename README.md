@@ -32,9 +32,17 @@ Apart from the hacker and awareness training use case, pentesting proxies or sec
 
 Feel free to have a look at the latest version of OWASP Juice Shop: <https://juice-shop.herokuapp.com>
 
-> This is a "sneak-peek" instance only! You are __not allowed__ to use this instance for your own hacking endeavors! Technically [Heroku](https://www.heroku.com/) could view hacking activity on this instance as an attack on their infrastructure! You have been warned!
+> This is a deployment-test and sneak-peek instance only! You are __not supposed__ to use this instance for your own hacking endeavours! No guaranteed uptime! Guaranteed stern looks if you break it!
 
 ## Setup
+
+### Deploy on Heroku (free ($0/month) dyno)
+
+1. Click the button below and follow the instructions
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+> This is the quickest way to get a running instance of Juice Shop! If you have forked this repository, the deploy button will automatically pick up your fork for deployment! As long as you do not perform any DDoS attacks you are free to use any tools or scripts to hack your Juice Shop instance on Heroku!
 
 ### From Sources
 
