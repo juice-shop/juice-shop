@@ -22,16 +22,17 @@
     <div class="col-lg-3 col-lg-offset-0 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm"><small>Customer Feedback</small></h3>
 
-        <div ng-controller="FeedbackController">
-            <uib-carousel interval="5000">
-                <uib-slide ng-repeat="feedback in feedbacks" active="feedback.active">
-                    <img ng-src="{{feedback.image}}" style="margin:auto;">
-                    <div class="carousel-caption">
-                        <uib-rating max="5" ng-model="feedback.rating" readonly="true"></uib-rating>
-                        <p><div ng-bind-html="feedback.comment"></div></p>
-                    </div>
-                </uib-slide>
-            </uib-carousel>
+        <div ng-controller="FeedbackController" style="height: 305px">
+
+            <div uib-carousel active="active" interval="interval" no-wrap="noWrapSlides">
+             <div uib-slide ng-repeat="feedback in feedbacks" index="(feedback.id) % feedbacks.length">
+               <img ng-src="{{feedback.image}}" style="margin:auto;">
+               <div class="carousel-caption">
+                   <uib-rating max="5" ng-model="feedback.rating" readonly="true"></uib-rating>
+                   <p><div ng-bind-html="feedback.comment"></div></p>
+               </div>
+             </div>
+           </div>
         </div>
     </div>
 
