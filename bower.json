@@ -19,7 +19,10 @@
     "string": "~3.3",
     "moment": "~2.13",
     "github-fork-ribbon-css": "~0.1",
-    "fontawesome": "~4.6"
+    "fontawesome": "~4.6",
+    "npm": "^3.10.6",
+    "install": "^1.0.4",
+    "angular-ui-bootstrap": "^2.0.1"
   },
   "resolutions": {
     "angular": "~1.5"
