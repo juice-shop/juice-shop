@@ -4,6 +4,9 @@ angular.module('juiceShop').controller('FeedbackController', [
     'FeedbackService',
     function ($scope, $sce, feedbackService) {
         'use strict';
+        $scope.interval = 5000;
+        $scope.noWrapSlides = false;
+        $scope.active = 0;
 
         var images = [
             'public/images/carousel/1.jpg',
