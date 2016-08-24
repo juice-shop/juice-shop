@@ -39,7 +39,7 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     exports.config.seleniumAddress = 'http://localhost:4445/wd/hub';
     exports.config.capabilities = {
         'name': 'OWASP Juice Shop e2e Tests',
-        'browserName': 'internet explorer',
+        'browserName': 'chrome',
         'platform': 'Windows 10',
         'screen-resolution': '1920x1200',
         'username': process.env.SAUCE_USERNAME,
