@@ -26,6 +26,7 @@ artifacts:
   - path: dist\*
 deploy:
   - provider: GitHub
+    draft: true
     auth_token:
       secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
     on:
