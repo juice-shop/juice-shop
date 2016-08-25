@@ -45,7 +45,7 @@ deploy:
       repo: bkimminich/juice-shop
       node: 4
   - provider: releases
-    draft: true
+    # draft: true # turned off until https://github.com/travis-ci/travis-ci/issues/6132 is resolved
     overwrite: true
     api_key:
       secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
