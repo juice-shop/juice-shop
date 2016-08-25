@@ -46,6 +46,7 @@ deploy:
       node: 4
   - provider: releases
     draft: true
+    overwrite: true
     api_key:
       secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
     file: dist/*
