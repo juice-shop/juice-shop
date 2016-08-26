@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 4 # recommended version
+- 4
 - 5
 - 6
 branches:
@@ -12,15 +12,13 @@ addons:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
   sauce_connect: true
-before_install: rm -rf node_modules # workaround for npm install bug missing module dependencies
+before_install: rm -rf node_modules
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
 - karma start karma.conf-ci.js
 - webdriver-manager update
 - node test/e2eTests.js
-# - grunt retire --force
-# - grunt zap
 env:
   global:
   - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
@@ -35,24 +33,25 @@ notifications:
     on_success: always
     on_failure: always
     on_start: always
+  slack:
+    secure: MbzFxEjDd+PoszmsnYgMhAKF3aHa2ajGW41Fm8aUKPpK9m2FPnj2f8hcX1AzMFWitp0sTqgMZFCzJGaQIVAaY8SIDHmE9Q8cLehFOi4ERl0dYkgdBbXkQy/THEJJZrj7Q1IQXCxQ5qkkAlfELAd4U/Elv3ncB4ukPZspbVKeuGA=
 before_deploy: grunt package
 deploy:
-  - provider: heroku
-    api_key:
-      secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
-    app: juice-shop
-    on:
-      repo: bkimminich/juice-shop
-      node: 4
-  - provider: releases
-    # draft: true # turned off until https://github.com/travis-ci/travis-ci/issues/6132 is resolved
-    overwrite: true
-    api_key:
-      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-    file: dist/*
-    skip_cleanup: true
-    file_glob: true
-    on:
-      repo: bkimminich/juice-shop
-      tags: true
+- provider: heroku
+  api_key:
+    secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
+  app: juice-shop
+  on:
+    repo: bkimminich/juice-shop
+    node: 4
+- provider: releases
+  overwrite: true
+  api_key:
+    secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+  file: dist/*
+  skip_cleanup: true
+  file_glob: true
+  on:
+    repo: bkimminich/juice-shop
+    tags: true
 sudo: false
