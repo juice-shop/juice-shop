@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OWASP Juice Shop</title>
-    <meta name="description" content="">
+    <meta name="description" content="An intentionally insecure Javascript Web Application">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
     <link href="bower_components/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
@@ -33,7 +33,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
-            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.svg"></a><a class="navbar-brand" href="#/">OWASP Juice Shop <small>{{version}}</small></a>
+            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.svg" alt="Juice Shop Logo"></a><a class="navbar-brand" href="#/">OWASP Juice Shop <small>{{version}}</small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
@@ -73,6 +73,7 @@
 
 <!-- CONTENT -->
 <div class="container-fluid" ng-view>
+    <h1 class="hidden">OWASP Juice Shop</h1><!-- for SEO -->
 </div>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
