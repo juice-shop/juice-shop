@@ -30,11 +30,14 @@ notifications:
   webhooks:
     urls:
     - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
-    on_success: always
+    on_success: change
     on_failure: always
-    on_start: always
+    on_start: never
   slack:
     secure: MbzFxEjDd+PoszmsnYgMhAKF3aHa2ajGW41Fm8aUKPpK9m2FPnj2f8hcX1AzMFWitp0sTqgMZFCzJGaQIVAaY8SIDHmE9Q8cLehFOi4ERl0dYkgdBbXkQy/THEJJZrj7Q1IQXCxQ5qkkAlfELAd4U/Elv3ncB4ukPZspbVKeuGA=
+    on_success: change
+    on_failure: always
+    on_start: never
 before_deploy: grunt package
 deploy:
 - provider: heroku
