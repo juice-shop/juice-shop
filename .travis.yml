@@ -34,7 +34,7 @@ notifications:
     on_failure: always
     on_start: never
   slack:
-    secure: MbzFxEjDd+PoszmsnYgMhAKF3aHa2ajGW41Fm8aUKPpK9m2FPnj2f8hcX1AzMFWitp0sTqgMZFCzJGaQIVAaY8SIDHmE9Q8cLehFOi4ERl0dYkgdBbXkQy/THEJJZrj7Q1IQXCxQ5qkkAlfELAd4U/Elv3ncB4ukPZspbVKeuGA=
+    secure: VHB4qvvyLL33g86jz7llSnus+9TKwk7S7u+JvlgHwJCccKXkEop9aGVKR5T/+NtsDcR/H3m37czVVAG3vWExztQgBPjT50rtrMZ11uDie8cMtDp3PBLxSYZGRmtq+HGXQzlW0V560dTKnDkcOt4fNXQkq4RNTx+Rg5EDPgB6GHI=
     on_success: change
     on_failure: always
     on_start: never
