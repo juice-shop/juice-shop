@@ -31,3 +31,10 @@ deploy:
       secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
     on:
       appveyor_repo_tag: true
+notifications:
+  - provider: Webhook
+    url:
+      secure: c4xwvfA2YpTyASkpasFt2vA6q4pCxCMoWhfX9/JwBxp6rub4dphj6smGxy+5rnsHcvVU6/FvzVHQo4hoxL5gOA==
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
