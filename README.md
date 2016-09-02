@@ -124,6 +124,10 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 > In case you are wondering about some red or yellow dependency badges: OWASP Juice Shop is _intentionally broken_, so [using components with known vulnerabilities](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) is considered a _feature_!
 
+### Pull Requests
+
+PRs have the highest chance of getting merged immediately when you open them on the ```develop``` branch of your fork. 
+
 ### Unit Tests
 
 There is a full suite containing independent unit tests for the client- and server-side code. These tests verify if the normal use cases of the application should work. All server-side vulnerabilities are also tested.
@@ -156,6 +160,8 @@ npm run protractor
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
+> Did you write a blog post or magazine article about (or at least mentioning) OWASP Juice Shop? Send a Pull Request so we can add it to the list!
+
 ### Conference and Meetup Appearances
 
 * [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/), [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/), 22.09.2016
@@ -164,6 +170,8 @@ npm run protractor
 * [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
+
+> Did you give a talk, workshop or training using OWASP Juice Shop? Send a Pull Request so we can add it to the list!
 
 ### Merchandise
 
