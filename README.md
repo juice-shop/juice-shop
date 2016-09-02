@@ -150,6 +150,16 @@ npm run protractor
 
 > The e2e tests require a working internet connection in order to verify the redirect challenges!
 
+### Test Packaged Distrubution
+
+During releases the application will be packaged into ```.zip```/```.tgz``` archives for easy . When you contribute a change that impacts what the application needs to include, make sure you test this manually on your system.
+  
+```
+grunt package
+```
+
+Then take the created archive from ```/dist``` and follow the steps described above in [Packaged Distributions](https://github.com/bkimminich/juice-shop#packaged-distributions--) to make sure nothing is broken or missing. 
+
 ## Project Media & Marketing
 
 ### Slide Decks
