@@ -134,7 +134,7 @@ Using Git-Flow means that PRs have the highest chance of getting accepted and me
 
 ### Unit Tests
 
-There is a full suite containing independent unit tests for the client- and server-side code. These tests verify if the normal use cases of the application should work. All server-side vulnerabilities are also tested.
+There is a full suite containing independent unit tests for the client- and server-side code. These tests verify if the normal use cases of the application work. All server-side vulnerabilities are also tested.
 
 ```
 npm test
