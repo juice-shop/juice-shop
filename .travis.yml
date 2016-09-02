@@ -43,7 +43,7 @@ before_deploy: grunt package
 deploy:
 - provider: heroku
   api_key:
-    secure: nHpwPOCHTZ9RA9IuQzN+4h9/cVnflw+mgGPuS6Ytj6uHtJTU4pdCB1sMPQBPXBtAyA5RmJhWjcgnAi+DNc1hNcuHXM9BX04CjnXI5Ejjp7frWn16mBkX3xYPgVVIPYBGo5YN2DlydgsMSJ0/r2oET+rvt5JOJuCqIg0OYlRFOXg=
+    secure: sK+rEv1emlCuLIHfxP/UhQctZGSg6GQBgUyT3SrHm2yZjvM4AmIIb/a04UpoPcvcrCJXieYrdT5cF+8D2l2zIdDmOqHp9UGW4qbe2iOGVRQIKlgv0D+4usBnSLL1Y816H95GkBkJSRUg58kefuN+f8RETb9LFaao5TQSPwsOCAM=
   app: juice-shop
   on:
     repo: bkimminich/juice-shop
