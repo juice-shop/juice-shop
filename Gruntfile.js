@@ -92,6 +92,7 @@ module.exports = function (grunt) {
                             'node_modules/serve-index/**',
                             'node_modules/serve-favicon/**',
                             'node_modules/body-parser/**',
+                            'node_modules/cors/**',
                             'node_modules/sequelize-restful/**',
                             'node_modules/morgan/**',
                             'node_modules/sanitize-html/**',

@@ -30,6 +30,7 @@
         "serve-index": "~1.8",
         "serve-favicon": "~2.3",
         "body-parser": "~1.15",
+        "cors": "~2.8",
         "sequelize-restful": "~0.4",
         "morgan": "~1.7",
         "sanitize-html": "1.4.2",
