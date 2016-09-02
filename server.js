@@ -46,6 +46,7 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors());
+app.use(cors());
 
 /* Security middleware */
 app.use(helmet.noSniff());
