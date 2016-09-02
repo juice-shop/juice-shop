@@ -4,7 +4,7 @@
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824) ([@dschadow](https://github.com/dschadow))
 
-OWASP Juice Shop is an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire [OWASP Top Ten](OWASP Juice Shop is an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other severe security flaws.
+OWASP Juice Shop is an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other severe security flaws.
 
 ## Description
 
