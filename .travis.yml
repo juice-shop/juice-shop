@@ -37,7 +37,6 @@ notifications:
     secure: VHB4qvvyLL33g86jz7llSnus+9TKwk7S7u+JvlgHwJCccKXkEop9aGVKR5T/+NtsDcR/H3m37czVVAG3vWExztQgBPjT50rtrMZ11uDie8cMtDp3PBLxSYZGRmtq+HGXQzlW0V560dTKnDkcOt4fNXQkq4RNTx+Rg5EDPgB6GHI=
     on_success: change
     on_failure: always
-    on_start: never
 before_deploy: grunt package
 deploy:
 - provider: heroku
