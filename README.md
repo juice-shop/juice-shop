@@ -126,7 +126,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ### Git-Flow
 
-This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/) fashion: All active development happens on the ```develop``` branch while ```master``` is used to deploy stable versions to the [Heroku demo instance](https://juice-shop.herokuapp.com)) and later create tagged releases from. 
+This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/) fashion: All active development happens on the ```develop``` branch while ```master``` is used to deploy stable versions to the [Heroku demo instance](https://juice-shop.herokuapp.com) and later create tagged releases from. 
 
 #### Pull Requests
 
@@ -152,7 +152,7 @@ npm run protractor
 
 ### Test Packaged Distrubution
 
-During releases the application will be packaged into ```.zip```/```.tgz``` archives for easy . When you contribute a change that impacts what the application needs to include, make sure you test this manually on your system.
+During releases the application will be packaged into ```.zip```/```.tgz``` archives for another easy setup method. When you contribute a change that impacts what the application needs to include, make sure you test this manually on your system.
   
 ```
 grunt package
