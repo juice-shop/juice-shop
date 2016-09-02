@@ -124,9 +124,13 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 > In case you are wondering about some red or yellow dependency badges: OWASP Juice Shop is _intentionally broken_, so [using components with known vulnerabilities](https://www.owasp.org/index.php/Top_10_2013-A9-Using_Components_with_Known_Vulnerabilities) is considered a _feature_!
 
-### Pull Requests
+### Git-Flow
 
-PRs have the highest chance of getting merged immediately when you open them on the ```develop``` branch of your fork. 
+This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/) fashion: All active development happens on the ```develop``` branch while ```master``` is used to deploy stable versions to the [Heroku demo instance](https://juice-shop.herokuapp.com)) and later create tagged releases from. 
+
+#### Pull Requests
+
+Using Git-Flow means that PRs have the highest chance of getting accepted and merged when you open them on the ```develop``` branch of your fork. That allows for some post-merge changes by the team without directly compromising the ```master``` branch, which is supposed to hold always be in a release-ready state. 
 
 ### Unit Tests
 
