@@ -44,13 +44,13 @@ glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
     });
 });
 
+/* Bludgeon solution for possible CORS problems: Allow everything! */
+app.options('*', cors());
+
 /* Security middleware */
 app.use(helmet.noSniff());
 app.use(helmet.frameguard());
 //app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
-
-/* Bludgeon solution for possible CORS problems: Allow everything! */
-app.use(cors());
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use(function (req,res,next) { req.url = req.url.replace(/[/]+/g, '/'); next(); });
