@@ -147,7 +147,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 ### Merchandise
 
 * On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop logo
-* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get three variants of the OWASP Juice Shop logo to decorate your laptop
+* On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get four variants of the OWASP Juice Shop logo to decorate your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button) is to somehow [contribute to the project](CONTRIBUTING.md) by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! We're also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention OWASP Juice Shop! Just contact the project leader to discuss your plans: bjoern.kimminich@owasp.org!
 
