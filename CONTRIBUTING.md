@@ -52,8 +52,8 @@ Then take the created archive from ```/dist``` and follow the steps described ab
 From time to time issues might get a bounty assigned which is paid out to the implementor via the Bountysource platform.
 
 > How Bounties work:
-> 1. Users fund bounties on open issues or feature requests they want to see addressed.
-> 2. Developers create solutions which closes the issue and claim the bounty on Bountysource.
-> 3. Backers can accept or reject the claim.
-> 4. If accepted, Bountysource pays the bounty to the developer.
-
+>
+> 1.   Users fund bounties on open issues or feature requests they want to see addressed.
+> 2.   Developers create solutions which closes the issue and claim the bounty on Bountysource.
+> 3.   Backers can accept or reject the claim.
+> 4.   If accepted, Bountysource pays the bounty to the developer.
