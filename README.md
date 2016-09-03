@@ -151,12 +151,20 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 > An alternative way to get stickers (and maybe even a pin-back button) is to somehow [contribute to the project](CONTRIBUTING.md) by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! We're also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention OWASP Juice Shop! Just contact the project leader to discuss your plans: bjoern.kimminich@owasp.org!
 
+## Donations
+ 
+### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=US&item_name=Juice%20Shop&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
+
+PayPal donations via above button go to the OWASP Foundations and are earmarked for "Juice Shop". This is the preferred way to support the project.
+
+### Others
+
+[![Flattr](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub) [![Gratipay](http://img.shields.io/gratipay/team/juice-shop.svg)](https://gratipay.com/juice-shop) [![Bitcoin](https://img.shields.io/badge/bitcoin-1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN-orange.svg)](https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN)  
+
+
 ## Credits
 
 Inspired by the "classic" [BodgeIt Store](https://github.com/psiinon/bodgeit) by [@psiinon](https://github.com/psiinon).
-
-[![Gratipay](http://img.shields.io/gratipay/team/juice-shop.svg)](https://gratipay.com/juice-shop)
-[![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
 
 ## Licensing
 

@@ -46,3 +46,14 @@ grunt package
 ```
 
 Then take the created archive from ```/dist``` and follow the steps described above in [Packaged Distributions](https://github.com/bkimminich/juice-shop#packaged-distributions--) to make sure nothing is broken or missing.
+
+## Bountysource [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=6283055)](https://www.bountysource.com/trackers/6283055-juice-shop?utm_source=6283055&utm_medium=shield&utm_campaign=TRACKER_BADGE)
+
+From time to time issues might get a bounty assigned which is paid out to the implementor via the Bountysource platform.
+
+> How Bounties work:
+> 1. Users fund bounties on open issues or feature requests they want to see addressed.
+> 2. Developers create solutions which closes the issue and claim the bounty on Bountysource.
+> 3. Backers can accept or reject the claim.
+> 4. If accepted, Bountysource pays the bounty to the developer.
+
