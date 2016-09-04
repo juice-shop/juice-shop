@@ -85,6 +85,12 @@ frisby.create('GET the 2013 coupon code file by using an encoded Poison Null Byt
     .expectBodyContains('n<MibgC7sn')
     .toss();
 
+frisby.create('GET the 2013 coupon code file by appending md_debug parameter with value fulfilling filename validation')
+    .get(URL + "/ftp/coupons_2013.md.bak?md_debug=.pdf")
+    .expectStatus(200)
+    .expectBodyContains('n<MibgC7sn')
+    .toss();
+
 frisby.create('GET the package.json file by using an encoded Poison Null Byte attack with .pdf suffix')
     .get(URL + "/ftp/package.json.bak%2500.pdf")
     .expectStatus(200)
@@ -121,6 +127,12 @@ frisby.create('GET a restricted file directly from file system path on server vi
 
 frisby.create('GET an accessible file directly from file system path on server')
     .get(URL + "/ftp/legal.md")
+    .expectStatus(200)
+    .expectBodyContains('# Legal Information')
+    .toss();
+
+frisby.create('GET an accessible markdown file directly from file system path on server with md_debug parameter')
+    .get(URL + "/ftp/legal.md?md_debug=true")
     .expectStatus(200)
     .expectBodyContains('# Legal Information')
     .toss();
