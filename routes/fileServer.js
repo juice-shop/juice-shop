@@ -18,7 +18,7 @@ exports = module.exports = function servePublicFiles() {
             } else if (utils.notSolved(challenges.forgottenBackupChallenge) && (file.toLowerCase() === 'coupons_2013.md.bak' || file.toLowerCase() === 'package.json.bak')) {
                 utils.solve(challenges.forgottenBackupChallenge);
             }
-            res.sendFile(path.resolve(__dirname + '/../app/public/ftp/' + file));
+            res.sendFile(path.resolve(__dirname + '/../ftp/' + file));
         } else {
             res.status(403);
             next(new Error('Only .md and .pdf files are allowed!'));

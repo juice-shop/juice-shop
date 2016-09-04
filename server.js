@@ -38,7 +38,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')';
 
 /* Delete old order PDFs */
-glob(__dirname + '/app/public/ftp/*.pdf', function (err, files) {
+glob(__dirname + '/ftp/*.pdf', function (err, files) {
     files.forEach(function(filename) {
         fs.unlink(filename);
     });
@@ -62,10 +62,9 @@ app.use(favicon(__dirname + '/app/public/favicon_v2.ico'));
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges());
 
-/* public/ftp directory browsing and file download */
-app.use('/ftp', serveIndex('app/public/ftp', {'icons': true}));
+/* /ftp directory browsing and file download */
+app.use('/ftp', serveIndex('ftp', {'icons': true}));
 app.use('/ftp/:file', fileServer());
-app.use('/public/ftp/:file', fileServer());
 
 app.use(express.static(application_root + '/app'));
 app.use(morgan('dev'));

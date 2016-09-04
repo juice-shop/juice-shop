@@ -58,41 +58,43 @@ frisby.create('GET existing file /ftp/package.json.bak will return a 403 error f
 frisby.create('GET the confidential file in /ftp')
     .get(URL + "/ftp/acquisitions.md")
     .expectStatus(200)
+    .expectBodyContains('# Planned Acquisitions')
     .toss();
 
 frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .pdf suffix')
     .get(URL + "/ftp/eastere.gg%2500.pdf")
     .expectStatus(200)
+    .expectBodyContains('Congratulations, you found the easter egg!')
     .toss();
 
 frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .md suffix')
     .get(URL + "/ftp/eastere.gg%2500.md")
     .expectStatus(200)
+    .expectBodyContains('Congratulations, you found the easter egg!')
     .toss();
 
 frisby.create('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .pdf suffix')
     .get(URL + "/ftp/coupons_2013.md.bak%2500.pdf")
     .expectStatus(200)
+    .expectBodyContains('n<MibgC7sn')
     .toss();
 
 frisby.create('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .md suffix')
     .get(URL + "/ftp/coupons_2013.md.bak%2500.md")
     .expectStatus(200)
+    .expectBodyContains('n<MibgC7sn')
     .toss();
 
 frisby.create('GET the package.json file by using an encoded Poison Null Byte attack with .pdf suffix')
     .get(URL + "/ftp/package.json.bak%2500.pdf")
     .expectStatus(200)
+    .expectBodyContains('"name": "juice-shop",')
     .toss();
 
 frisby.create('GET the package.json file by using an encoded Poison Null Byte attack with .md suffix')
     .get(URL + "/ftp/package.json.bak%2500.md")
     .expectStatus(200)
-    .toss();
-
-frisby.create('GET a restricted file directly from file system path on server via Poison Null Byte attack')
-    .get(URL + "/public/ftp/package.json.bak%2500.md")
-    .expectStatus(200)
+    .expectBodyContains('"name": "juice-shop",')
     .toss();
 
 frisby.create('GET a restricted file directly from file system path on server by tricking route definitions fails with 403 error')
@@ -100,23 +102,26 @@ frisby.create('GET a restricted file directly from file system path on server by
     .expectStatus(403)
     .toss();
 
-frisby.create('GET a restricted file directly from file system path on server via Directory Traversal attack')
-    .get(URL + "/public/images/../ftp/eastere.gg")
+frisby.create('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead')
+    .get(URL + "/public/images/../../ftp/eastere.gg")
     .expectStatus(200)
+    .expectBodyContains('<h1 class="hidden">OWASP Juice Shop</h1>')
     .toss();
 
-frisby.create('GET a restricted file directly from file system path on server via URL-encoded Directory Traversal attack')
-    .get(URL + "/public/images/%2e%2e%2fftp/eastere.gg")
+frisby.create('GET a restricted file directly from file system path on server via URL-encoded Directory Traversal attack loads index.html instead')
+    .get(URL + "/public/images/%2e%2e%2f%2e%2e%2fftp/eastere.gg")
     .expectStatus(200)
+    .expectBodyContains('<h1 class="hidden">OWASP Juice Shop</h1>')
     .toss();
 
 frisby.create('GET an accessible file directly from file system path on server')
-    .get(URL + "/public/ftp/legal.md")
+    .get(URL + "/ftp/legal.md")
     .expectStatus(200)
+    .expectBodyContains('# Legal Information')
     .toss();
 
-frisby.create('GET a non-existing file via direct server file path /public/ftp will return a 404 error')
-    .get(URL + "/public/ftp/doesnotexist.md")
+frisby.create('GET a non-existing file via direct server file path /ftp will return a 404 error')
+    .get(URL + "/ftp/doesnotexist.md")
     .expectStatus(404)
     .toss();
 
@@ -130,19 +135,23 @@ frisby.create('GET the second easter egg by visiting the hidden URL')
 frisby.create('GET Geocities theme CSS is accessible directly from file system path')
     .get(URL + "/css/geo-bootstrap/swatch/bootstrap.css")
     .expectStatus(200)
+    .expectBodyContains('Designed and built with all the love in the world @twitter by @mdo and @fat.')
     .toss();
 
 frisby.create('GET tracking image for "Score Board" page access challenge')
     .get(URL + "/public/images/tracking/scoreboard.png")
     .expectStatus(200)
+    .expectHeaderContains('content-type', 'image/png')
     .toss();
 
 frisby.create('GET tracking image for "Administration" page access challenge')
     .get(URL + "/public/images/tracking/administration.png")
     .expectStatus(200)
+    .expectHeaderContains('content-type', 'image/png')
     .toss();
 
 frisby.create('GET tracking background image for "Geocities Theme" challenge')
     .get(URL + "/public/images/tracking/microfab.gif")
     .expectStatus(200)
+    .expectHeaderContains('content-type', 'image/gif')
     .toss();
