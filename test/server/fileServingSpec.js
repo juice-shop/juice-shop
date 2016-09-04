@@ -91,6 +91,11 @@ frisby.create('GET the 2013 coupon code file by appending md_debug parameter wit
     .expectBodyContains('n<MibgC7sn')
     .toss();
 
+frisby.create('GET the package.json file does not fall for appending md_debug parameter with value fulfilling filename validation')
+    .get(URL + "/ftp/package.json.bak?md_debug=.md")
+    .expectStatus(403)
+    .toss();
+
 frisby.create('GET the package.json file by using an encoded Poison Null Byte attack with .pdf suffix')
     .get(URL + "/ftp/package.json.bak%2500.pdf")
     .expectStatus(200)
