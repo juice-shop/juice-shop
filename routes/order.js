@@ -19,7 +19,7 @@ exports = module.exports = function placeOrder() {
                     var orderNo = insecurity.hash(new Date() + '_' + id);
                     var pdfFile = 'order_' + orderNo + '.pdf';
                     var doc = new PDFDocument();
-                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/../app/public/ftp/' + pdfFile));
+                    var fileWriter = doc.pipe(fs.createWriteStream(__dirname + '/../ftp/' + pdfFile));
 
                     doc.text('Juice-Shop - Order Confirmation');
                     doc.moveDown();

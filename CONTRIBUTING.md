@@ -1,5 +1,7 @@
 # Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
 
+[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
+
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 
 Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)! Pull requests are also highly welcome - please follow the guidelines below to make sure your PR can be merged and doesn't break anything.
@@ -52,8 +54,8 @@ Then take the created archive from ```/dist``` and follow the steps described ab
 From time to time issues might get a bounty assigned which is paid out to the implementor via the Bountysource platform.
 
 > How Bounties work:
-> 1. Users fund bounties on open issues or feature requests they want to see addressed.
-> 2. Developers create solutions which closes the issue and claim the bounty on Bountysource.
-> 3. Backers can accept or reject the claim.
-> 4. If accepted, Bountysource pays the bounty to the developer.
-
+>
+> 1.   Users fund bounties on open issues or feature requests they want to see addressed.
+> 2.   Developers create solutions which closes the issue and claim the bounty on Bountysource.
+> 3.   Backers can accept or reject the claim.
+> 4.   If accepted, Bountysource pays the bounty to the developer.

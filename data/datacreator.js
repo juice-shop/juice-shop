@@ -153,8 +153,16 @@ module.exports = function() {
             challenges.directoryListingChallenge = challenge;
         });
         models.Challenge.create({
+            name: 'forgottenDevBackup',
+            description: 'Access a developer\'s forgotten backup file.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.forgottenDevBackupChallenge = challenge;
+        });
+        models.Challenge.create({
             name: 'forgottenBackup',
-            description: 'Access a forgotten backup file.',
+            description: 'Access a salesman\'s forgotten backup file.',
             difficulty: 2,
             solved: false
         }).success(function (challenge) {
