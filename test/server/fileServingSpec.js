@@ -102,6 +102,11 @@ frisby.create('GET a restricted file directly from file system path on server by
     .expectStatus(403)
     .toss();
 
+frisby.create('GET a restricted file directly from file system path on server by appending URL parameter fails with 403 error')
+    .get(URL + "/ftp/eastere.gg?.md")
+    .expectStatus(403)
+    .toss();
+
 frisby.create('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead')
     .get(URL + "/public/images/../../ftp/eastere.gg")
     .expectStatus(200)
