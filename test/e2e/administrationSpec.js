@@ -20,7 +20,9 @@ describe('/#/administration', function () {
         it('should be possible for any logged-in user to delete feedback', function () {
             browser.get('/#/administration');
 
+
             element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash')).click();
+            browser.wait(protractor.ExpectedConditions.stalenessOf($('span[aria-valuenow="5"]')), 5000);
         });
 
         protractor.expect.challengeSolved({challenge: 'fiveStarFeedback'});
