@@ -59,6 +59,8 @@ describe('/#/basket', function () {
             it('should be possible to enter a coupon that gives an 80% discount', function () {
                 browser.get('/#/basket');
                 element(by.id('collapseCouponButton')).click();
+                browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, "Coupon textfield not present.");
+
                 element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90));
                 element(by.id('applyCouponButton')).click();
             });

@@ -54,10 +54,10 @@ describe('/#/search', function () {
             expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/);
 
             element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click();
-            browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000);
+            browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000, "Product addition info box not present.");
 
             browser.get('/#/basket');
-            browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000);
+            browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000, "Basket item list not present.");
             element(by.id('checkoutButton')).click();
         });
 
