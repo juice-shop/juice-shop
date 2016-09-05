@@ -13,9 +13,11 @@ describe('/#/search', function () {
     describe('challenge "xss1"', function () {
 
         it('search query should be susceptible to reflected XSS attacks', function () {
+            var EC = protractor.ExpectedConditions;
+
             searchQuery.sendKeys('<script>alert("XSS1")</script>');
             searchButton.click();
-
+            browser.wait(EC.alertIsPresent(), 5000, "'XSS1' alert is not present");
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS1');
                 alert.accept();

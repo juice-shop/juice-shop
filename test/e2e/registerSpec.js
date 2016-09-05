@@ -22,19 +22,16 @@ describe('/#/register', function () {
     describe('challenge "xss2"', function () {
 
         it('should be possible to bypass validation by directly using Rest API', function () {
-            browser.ignoreSynchronization = true;
+            var EC = protractor.ExpectedConditions;
+
             browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS2")</script>\', password: \'xss\'});');
-            browser.driver.sleep(1000);
 
             browser.get('/#/administration');
-            browser.driver.sleep(1000);
-
+            browser.wait(EC.alertIsPresent(), 5000, "'XSS2' alert is not present");
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS2');
                 alert.accept();
                 browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});');
-                browser.driver.sleep(1000);
-                browser.ignoreSynchronization = false;
             });
 
         });
