@@ -97,8 +97,8 @@ describe('/#/contact', function () {
     describe('challenge "vulnerableComponent"', function () {
 
         it('should be possible to post known vulnerable component(s) as feedback', function () {
-            comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively. You actually pinned this exact dependency version!');
-            comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON. Whatever this means. Anyway, you are depending on 1.7.x so you might be vulnerable!');
+            comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.');
+            comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON.');
             rating.click();
 
             submitButton.click();
