@@ -13,9 +13,11 @@ describe('/#/search', function () {
     describe('challenge "xss1"', function () {
 
         it('search query should be susceptible to reflected XSS attacks', function () {
+            var EC = protractor.ExpectedConditions;
+
             searchQuery.sendKeys('<script>alert("XSS1")</script>');
             searchButton.click();
-
+            browser.wait(EC.alertIsPresent(), 5000, "'XSS1' alert is not present");
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS1');
                 alert.accept();
@@ -52,8 +54,10 @@ describe('/#/search', function () {
             expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/);
 
             element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click();
+            browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000, "Product addition info box not present.");
 
             browser.get('/#/basket');
+            browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000, "Basket item list not present.");
             element(by.id('checkoutButton')).click();
         });
 

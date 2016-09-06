@@ -66,31 +66,26 @@ describe('/#/contact', function () {
     describe('challenge "xss3"', function () {
 
         it('should be possible to trick the sanitization with a masked XSS attack', function () {
+            var EC = protractor.ExpectedConditions;
+
             comment.sendKeys('<<script>Foo</script>script>alert("XSS3")<</script>/script>');
             rating.click();
 
             submitButton.click();
 
-            browser.ignoreSynchronization = true;
-
             browser.get('/#/about');
-            browser.driver.sleep(1000);
-
+            browser.wait(EC.alertIsPresent(), 5000, "'XSS3' alert is not present");
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS3');
                 alert.accept();
-                browser.driver.sleep(1000);
             });
 
             browser.get('/#/administration');
-            browser.driver.sleep(1000);
-
+            browser.wait(EC.alertIsPresent(), 5000, "'XSS3' alert is not present");
             browser.switchTo().alert().then(function (alert) {
                 expect(alert.getText()).toEqual('XSS3');
                 alert.accept();
                 element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash')).click();
-                browser.driver.sleep(1000);
-                browser.ignoreSynchronization = false;
             });
 
         });
@@ -102,8 +97,8 @@ describe('/#/contact', function () {
     describe('challenge "vulnerableComponent"', function () {
 
         it('should be possible to post known vulnerable component(s) as feedback', function () {
-            comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively. You actually pinned this exact dependency version!');
-            comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON. Whatever this means. Anyway, you are depending on 1.7.x so you might be vulnerable!');
+            comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.');
+            comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON.');
             rating.click();
 
             submitButton.click();
