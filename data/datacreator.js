@@ -310,9 +310,9 @@ module.exports = function() {
             image: 'lemon_juice.jpg'
         });
         models.Product.create({
-            name: 'OWASP Juice Shop T-Shirt (3XL)',
-            description: 'Real fans wear it 24/7!',
-            price: 24.99,
+            name: 'OWASP Juice Shop T-Shirt',
+            description: 'Real fans wear it 24/7! (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            price: 22.49,
             image: 'fan_shirt.jpg'
         });
         models.Product.create({
@@ -333,10 +333,22 @@ module.exports = function() {
             models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id);
         });
         models.Product.create({
-            name: 'OWASP Juice Shop Sticker',
-            description: 'You want to put <a href="https://www.stickermule.com/de/marketplace/9680-juice-shop-logo" target="_blank">this</a> on your laptop. You definitely want that. Trust me.',
+            name: 'OWASP Juice Shop Stickers',
+            description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.',
             price: 2.99,
             image: 'sticker.png'
+        });
+        models.Product.create({
+            name: 'OWASP Juice Shop Mug',
+            description: 'Black mug with logo on each side! Your colleagues will envy you! (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            price: 21.99,
+            image: 'fan_mug.jpg'
+        });
+        models.Product.create({
+            name: 'OWASP Juice Shop Hoodie',
+            description: 'Mr. Robot-style apparel. But in black. And with logo. (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            price: 49.99,
+            image: 'fan_hoodie.jpg'
         });
     }
 
@@ -389,7 +401,7 @@ module.exports = function() {
             rating: 4
         });
         models.Feedback.create({
-            comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
+            comment: 'Why isn\'t there a T-Shirt for skinny people available?!<blockquote>Juice Shop: We now have shirts in all sizes</blockquote>',
             rating: 2
         });
         models.Feedback.create({
