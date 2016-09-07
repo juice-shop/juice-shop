@@ -352,9 +352,15 @@ module.exports = function() {
         });
         models.Product.create({
             name: 'Woodruff Syrup "Forest Master X-Treme"',
-            description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue hen consumed undiluted.',
+            description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.',
             price: 6.99,
             image: 'woodruff_syrup.jpg'
+        });
+        models.Product.create({
+            name: 'Green Smoothie',
+            description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.',
+            price: 1.99,
+            image: 'green_smoothie.jpg'
         });
     }
 
