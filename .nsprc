@@ -1,0 +1,19 @@
+{
+  "exceptions": [
+    // sequelize-restful
+    "https://nodesecurity.io/advisories/122",
+    "https://nodesecurity.io/advisories/33",
+    "https://nodesecurity.io/advisories/55",
+    "https://nodesecurity.io/advisories/42",
+    "https://nodesecurity.io/advisories/3",
+    "https://nodesecurity.io/advisories/28",
+    "https://nodesecurity.io/advisories/29",
+    "https://nodesecurity.io/advisories/56",
+    "https://nodesecurity.io/advisories/32",
+    "https://nodesecurity.io/advisories/134",
+    // sanitize-html
+    "https://nodesecurity.io/advisories/135",
+    // grunt
+    "https://nodesecurity.io/advisories/118"
+  ]
+}
