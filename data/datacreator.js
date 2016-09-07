@@ -304,12 +304,6 @@ module.exports = function() {
             image: 'banana_juice.jpg'
         });
         models.Product.create({
-            name: 'Lemon Juice (500ml)',
-            description: 'Sour but full of vitamins.',
-            price: 2.99,
-            image: 'lemon_juice.jpg'
-        });
-        models.Product.create({
             name: 'OWASP Juice Shop T-Shirt',
             description: 'Real fans wear it 24/7!',
             price: 22.49,
@@ -371,7 +365,7 @@ module.exports = function() {
         models.Product.create({
             name: 'OWASP Node.js Goat',
             description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>',
-            price: 4.99,
+            price: 0.01,
             image: 'owasplogo.png'
         });
         models.Product.create({
