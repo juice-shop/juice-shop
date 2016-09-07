@@ -311,7 +311,7 @@ module.exports = function() {
         });
         models.Product.create({
             name: 'OWASP Juice Shop T-Shirt',
-            description: 'Real fans wear it 24/7! (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            description: 'Real fans wear it 24/7!',
             price: 22.49,
             image: 'fan_shirt.jpg'
         });
@@ -340,13 +340,13 @@ module.exports = function() {
         });
         models.Product.create({
             name: 'OWASP Juice Shop Mug',
-            description: 'Black mug with logo on each side! Your colleagues will envy you! (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            description: 'Black mug with logo on each side! Your colleagues will envy you!',
             price: 21.99,
             image: 'fan_mug.jpg'
         });
         models.Product.create({
             name: 'OWASP Juice Shop Hoodie',
-            description: 'Mr. Robot-style apparel. But in black. And with logo. (Should we for some weird reason fail to deliver, please try our backup storefronts on <a href="http://shop.spreadshirt.com/juiceshop">Spreadshirt.com</a> or <a href="http://shop.spreadshirt.de/juiceshop">Spreadshirt.de</a>.)',
+            description: 'Mr. Robot-style apparel. But in black. And with logo.',
             price: 49.99,
             image: 'fan_hoodie.jpg'
         });
@@ -361,6 +361,30 @@ module.exports = function() {
             description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.',
             price: 1.99,
             image: 'green_smoothie.jpg'
+        });
+        models.Product.create({
+            name: 'Quince Juice (1000ml)',
+            description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.',
+            price: 4.99,
+            image: 'quince.jpg'
+        });
+        models.Product.create({
+            name: 'OWASP Node.js Goat',
+            description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>',
+            price: 4.99,
+            image: 'owasplogo.png'
+        });
+        models.Product.create({
+            name: 'Apple Pomace',
+            description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.',
+            price: 0.89,
+            image: 'apple_pressings.jpg'
+        });
+        models.Product.create({
+            name: 'Fruit Press',
+            description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.',
+            price: 89.99,
+            image: 'fruit_press.jpg'
         });
     }
 
