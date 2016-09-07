@@ -38,6 +38,16 @@ npm run protractor
 
 > The e2e tests require a working internet connection in order to verify the redirect challenges!
 
+## Mutation Tests
+
+The [mutation tests](https://en.wikipedia.org/wiki/Mutation_testing) ensure the quality of the unit test suite by making small changes to the code that should cause one or more tests to fail. If none does this "mutated line" is not properly covered by meaningful assertions.
+
+```
+npm run stryker
+```
+
+> Currently only the client-side unit tests are covered by mutation tests. The server-side and end-to-end tests are not suitable for mutation testing because they run against a real server instance with dependencies to the database and an internet connection.
+
 ## Test Packaged Distrubution
 
 During releases the application will be packaged into ```.zip```/```.tgz``` archives for another easy setup method. When you contribute a change that impacts what the application needs to include, make sure you test this manually on your system.
