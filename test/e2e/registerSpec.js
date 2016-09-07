@@ -29,9 +29,9 @@ describe('/#/register', function () {
             browser.get('/#/administration');
             browser.wait(EC.alertIsPresent(), 5000, "'XSS2' alert is not present");
             browser.switchTo().alert().then(function (alert) {
+                browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});');
                 expect(alert.getText()).toEqual('XSS2');
                 alert.accept();
-                browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});');
             });
 
         });
