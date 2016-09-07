@@ -64,7 +64,7 @@ frisby.create('POST new product is forbidden via public API')
     .toss();
 
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
-    .put(API_URL + '/Products/9', {
+    .put(API_URL + '/Products/8', {
         description: "<a href=\"http://kimminich.de\" target=\"_blank\">"
     }, {json: true})
     .expectStatus(200)
@@ -75,7 +75,7 @@ frisby.create('PUT update existing product is possible due to Missing Function-L
     .toss();
 
 frisby.create('PUT update existing product does not filter XSS attacks')
-    .put(API_URL + '/Products/8', {
+    .put(API_URL + '/Products/7', {
         description: "<script>alert(\'XSS4\')</script>"
     }, {json: true})
     .expectStatus(200)
