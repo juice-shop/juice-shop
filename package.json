@@ -1,105 +1,109 @@
 {
-    "name": "juice-shop",
-    "version": "2.5.1",
-    "description": "An intentionally insecure Javascript Web Application",
-    "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
-    "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
-    "contributors": [
-        "Bjoern Kimminich"
-    ],
-    "private": true,
-    "keywords": [
-        "web security",
-        "web application security",
-        "webappsec",
-        "owasp",
-        "pentest",
-        "pentesting",
-        "security",
-        "vulnerable",
-        "vulnerability",
-        "broken",
-        "bodgeit"
-    ],
-    "dependencies": {
-        "sequelize": "~1.7",
-        "sqlite3": "3.1",
-        "express": "~4.14",
-        "errorhandler": "~1.4",
-        "cookie-parser": "~1.4",
-        "serve-index": "~1.8",
-        "serve-favicon": "~2.3",
-        "body-parser": "~1.15",
-        "cors": "~2.8",
-        "sequelize-restful": "~0.4",
-        "morgan": "~1.7",
-        "sanitize-html": "1.4.2",
-        "express-jwt": "~3.4",
-        "jsonwebtoken": "~7.1",
-        "helmet": "~2.1",
-        "pdfkit": "~0.8",
-        "z85": "~0.0",
-        "glob": "~5.0",
-        "colors": "~1.1",
-        "grunt": "~0.4",
-        "grunt-cli": "~0.1",
-        "grunt-angular-templates": "~1.0",
-        "grunt-contrib-uglify": "~1.0",
-        "grunt-contrib-concat": "~1.0",
-        "grunt-contrib-clean": "~1.0",
-        "grunt-contrib-compress": "~1.3",
-        "bower": "~1.7",
-        "saucelabs": "~1.2"
-    },
-    "devDependencies": {
-        "frisby": "~0.8",
-        "jasmine-node": "~1.14",
-        "karma": "~1.1",
-        "karma-cli": "~1.0",
-        "karma-junit-reporter": "~1.1",
-        "karma-coverage": "~1.1",
-        "karma-chrome-launcher": "~1.0",
-        "karma-sauce-launcher": "~1.0",
-        "karma-firefox-launcher": "~1.0",
-        "karma-safari-launcher": "~1.0",
-        "karma-phantomjs-launcher": "~1.0",
-        "karma-jasmine": "~0.1",
-        "protractor": "~4.0",
-        "jasmine-reporters": "~1.0",
-        "http-server": "~0.9",
-        "shelljs": "~0.7",
-        "win-spawn": "~2.0",
-        "codeclimate-test-reporter": "~0.3",
-        "istanbul": "~0.4",
-        "lcov-result-merger": "~1.2",
-        "grunt-retire": "~0.3",
-        "grunt-zaproxy": "~0.1",
-        "grunt-exec": "~0.4",
-        "phantomjs-prebuilt": "~2.1"
-    },
-    "peerDependencies": {
-        "phantomjs-prebuilt": "~2.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/bkimminich/juice-shop.git"
-    },
-    "bugs": {
-        "url": "https://github.com/bkimminich/juice-shop/issues"
-    },
-    "license": "MIT",
-    "scripts": {
-        "postinstall": "node bower_install.js && node grunt_minify.js",
-        "start": "node app",
-        "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
-
-        "preupdate-webdriver": "npm install",
-        "update-webdriver": "webdriver-manager update",
-        "preprotractor": "npm run update-webdriver",
-        "protractor": "node test/e2eTests.js"
-    },
-    "subdomain": "juice-shop",
-    "engines": {
-        "node": ">=4 <7"
-    }
+  "name": "juice-shop",
+  "version": "2.5.1",
+  "description": "An intentionally insecure Javascript Web Application",
+  "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
+  "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
+  "contributors": [
+    "Bjoern Kimminich"
+  ],
+  "private": true,
+  "keywords": [
+    "web security",
+    "web application security",
+    "webappsec",
+    "owasp",
+    "pentest",
+    "pentesting",
+    "security",
+    "vulnerable",
+    "vulnerability",
+    "broken",
+    "bodgeit"
+  ],
+  "dependencies": {
+    "sequelize": "~1.7",
+    "sqlite3": "3.1",
+    "express": "~4.14",
+    "errorhandler": "~1.4",
+    "cookie-parser": "~1.4",
+    "serve-index": "~1.8",
+    "serve-favicon": "~2.3",
+    "body-parser": "~1.15",
+    "cors": "~2.8",
+    "sequelize-restful": "~0.4",
+    "morgan": "~1.7",
+    "sanitize-html": "1.4.2",
+    "express-jwt": "~3.4",
+    "jsonwebtoken": "~7.1",
+    "helmet": "~2.1",
+    "pdfkit": "~0.8",
+    "z85": "~0.0",
+    "glob": "~5.0",
+    "colors": "~1.1",
+    "grunt": "~0.4",
+    "grunt-cli": "~0.1",
+    "grunt-angular-templates": "~1.0",
+    "grunt-contrib-uglify": "~1.0",
+    "grunt-contrib-concat": "~1.0",
+    "grunt-contrib-clean": "~1.0",
+    "grunt-contrib-compress": "~1.3",
+    "bower": "~1.7",
+    "saucelabs": "~1.2"
+  },
+  "devDependencies": {
+    "codeclimate-test-reporter": "~0.3",
+    "frisby": "~0.8",
+    "grunt-exec": "~0.4",
+    "grunt-retire": "~0.3",
+    "grunt-zaproxy": "~0.1",
+    "http-server": "~0.9",
+    "istanbul": "~0.4",
+    "jasmine-node": "~1.14",
+    "jasmine-reporters": "~1.0",
+    "karma": "~1.1",
+    "karma-chrome-launcher": "~1.0",
+    "karma-cli": "~1.0",
+    "karma-coverage": "~1.1",
+    "karma-firefox-launcher": "~1.0",
+    "karma-jasmine": "~0.1",
+    "karma-junit-reporter": "~1.1",
+    "karma-phantomjs-launcher": "~1.0",
+    "karma-safari-launcher": "~1.0",
+    "karma-sauce-launcher": "~1.0",
+    "lcov-result-merger": "~1.2",
+    "phantomjs-prebuilt": "~2.1",
+    "protractor": "~4.0",
+    "shelljs": "~0.7",
+    "stryker": "^0.4.2",
+    "stryker-api": "^0.2.0",
+    "stryker-html-reporter": "^0.2.0",
+    "stryker-karma-runner": "^0.2.1",
+    "win-spawn": "~2.0"
+  },
+  "peerDependencies": {
+    "phantomjs-prebuilt": "~2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bkimminich/juice-shop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bkimminich/juice-shop/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "node bower_install.js && node grunt_minify.js",
+    "start": "node app",
+    "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "node test/e2eTests.js",
+    "stryker": "stryker -c stryker.conf.js"
+  },
+  "subdomain": "juice-shop",
+  "engines": {
+    "node": ">=4 <7"
+  }
 }
