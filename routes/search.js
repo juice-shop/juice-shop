@@ -11,7 +11,7 @@ exports = module.exports = function searchProducts() {
         if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
             utils.solve(challenges.localXssChallenge);
         }
-        models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL)')
+        models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL) ORDER BY name')
             .success(function (products) {
                 if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
                     var dataString = JSON.stringify(products);
