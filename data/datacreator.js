@@ -350,6 +350,12 @@ module.exports = function() {
             price: 49.99,
             image: 'fan_hoodie.jpg'
         });
+        models.Product.create({
+            name: 'Woodruff Syrup "Forest Master X-Treme"',
+            description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue hen consumed undiluted.',
+            price: 6.99,
+            image: 'woodruff_syrup.jpg'
+        });
     }
 
     function createBaskets() {
