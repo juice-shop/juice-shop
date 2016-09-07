@@ -55,7 +55,7 @@ describe('controllers', function () {
         it('should open a modal dialog with product details', inject(function ($controller) {
             spyOn($uibModal, 'open');
 
-            scope.showDetail();
+            scope.showDetail(42);
 
             expect($uibModal.open).toHaveBeenCalled();
         }));

@@ -15,9 +15,9 @@ describe('/rest', function () {
             browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present");
             browser.switchTo().alert().then(
                 function (alert) {
+                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/12\', {description: \'alert disabled\'});');
                     expect(alert.getText()).toEqual('XSS4');
                     alert.accept();
-                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/12\', {description: \'alert disabled\'});');
                 });
 
         });

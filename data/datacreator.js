@@ -310,9 +310,9 @@ module.exports = function() {
             image: 'lemon_juice.jpg'
         });
         models.Product.create({
-            name: 'OWASP Juice Shop T-Shirt (3XL)',
+            name: 'OWASP Juice Shop T-Shirt',
             description: 'Real fans wear it 24/7!',
-            price: 24.99,
+            price: 22.49,
             image: 'fan_shirt.jpg'
         });
         models.Product.create({
@@ -333,10 +333,58 @@ module.exports = function() {
             models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id);
         });
         models.Product.create({
-            name: 'OWASP Juice Shop Sticker',
-            description: 'You want to put <a href="https://www.stickermule.com/de/marketplace/9680-juice-shop-logo" target="_blank">this</a> on your laptop. You definitely want that. Trust me.',
+            name: 'OWASP Juice Shop Stickers',
+            description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.',
             price: 2.99,
             image: 'sticker.png'
+        });
+        models.Product.create({
+            name: 'OWASP Juice Shop Mug',
+            description: 'Black mug with logo on each side! Your colleagues will envy you!',
+            price: 21.99,
+            image: 'fan_mug.jpg'
+        });
+        models.Product.create({
+            name: 'OWASP Juice Shop Hoodie',
+            description: 'Mr. Robot-style apparel. But in black. And with logo.',
+            price: 49.99,
+            image: 'fan_hoodie.jpg'
+        });
+        models.Product.create({
+            name: 'Woodruff Syrup "Forest Master X-Treme"',
+            description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.',
+            price: 6.99,
+            image: 'woodruff_syrup.jpg'
+        });
+        models.Product.create({
+            name: 'Green Smoothie',
+            description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.',
+            price: 1.99,
+            image: 'green_smoothie.jpg'
+        });
+        models.Product.create({
+            name: 'Quince Juice (1000ml)',
+            description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.',
+            price: 4.99,
+            image: 'quince.jpg'
+        });
+        models.Product.create({
+            name: 'OWASP Node.js Goat',
+            description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>',
+            price: 4.99,
+            image: 'owasplogo.png'
+        });
+        models.Product.create({
+            name: 'Apple Pomace',
+            description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.',
+            price: 0.89,
+            image: 'apple_pressings.jpg'
+        });
+        models.Product.create({
+            name: 'Fruit Press',
+            description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.',
+            price: 89.99,
+            image: 'fruit_press.jpg'
         });
     }
 
@@ -389,7 +437,7 @@ module.exports = function() {
             rating: 4
         });
         models.Feedback.create({
-            comment: 'Why isn\'t there a T-Shirt for skinny people available?!',
+            comment: 'Why isn\'t there a T-Shirt for skinny people available?!<blockquote>Juice Shop: We now have shirts in all sizes</blockquote>',
             rating: 2
         });
         models.Feedback.create({

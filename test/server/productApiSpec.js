@@ -41,7 +41,7 @@ frisby.create('GET product search with no matches returns no products')
     .toss();
 
 frisby.create('GET product search with one match returns found product')
-    .get(REST_URL + '/product/search?q=apple')
+    .get(REST_URL + '/product/search?q=quince')
     .expectStatus(200)
     .expectHeaderContains('content-type', 'application/json')
     .expectJSONLength('data', 1)

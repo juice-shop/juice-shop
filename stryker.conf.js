@@ -1,11 +1,8 @@
 /*jslint node: true */
-module.exports = function (config) {
+module.exports = function(config){
     'use strict';
 
     config.set({
-
-        basePath: '',
-
         files: [
             'app/bower_components/angular/angular.js',
             'app/bower_components/angular-route/angular-route.js',
@@ -19,34 +16,12 @@ module.exports = function (config) {
             'app/js/**/*.js',
             'test/client/**/*.js'
         ],
-
-        colors: true,
-        singleRun: true,
-
-        frameworks: ['jasmine'],
-
-        browsers: ['PhantomJS'],
-
-        plugins: [
-            'karma-phantomjs-launcher',
-            'karma-jasmine',
-            'karma-coverage',
-            'karma-junit-reporter'
-        ],
-
-        reporters: ['progress', 'coverage', 'junit'],
-
-        coverageReporter: {
-            type: 'lcov',
-            dir: 'build/reports/coverage'
-        },
-
-        preprocessors: {
-            'app/js/**/*.js': 'coverage'
-        },
-
-        junitReporter: {
-            outputDir: 'build/reports'
+        mutate: ['app/js/**/*.js'],
+        testRunner: 'karma',
+        testFramework: 'jasmine',
+        reporter: ['html', 'progress'],
+        htmlReporter: {
+            baseDir: 'build/reports/mutation'
         }
     });
 };

@@ -17,9 +17,6 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
             return config;
         },
         response: function (response) {
-            if (response.status === 401) {
-                console.log('401: ' + response.statusText);
-            }
             return response || $q.when(response);
         }
     };
