@@ -236,4 +236,20 @@ describe('services', function () {
 
     });
 
+    describe('ComplaintService', function () {
+        it('should be defined', inject(function (ComplaintService) {
+            expect(ComplaintService).toBeDefined();
+            expect(ComplaintService.save).toBeDefined();
+        }));
+
+        it('should create complaint directly via the rest api', inject(function (ComplaintService) {
+            $httpBackend.whenPOST('/api/Complaints/').respond(200, 'apiResponse');
+
+            ComplaintService.save().success(function (data) { result = data; });
+            $httpBackend.flush();
+
+            expect(result).toBe('apiResponse');
+        }));
+    });
+
 });
