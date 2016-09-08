@@ -1,24 +1,26 @@
 describe('app', function () {
-    var $httpBackend, $cookieStore, $rootScope;
+    var $httpBackend, $cookieStore, $rootScope, $httpProvider;
 
-    beforeEach(module('juiceShop'));
+    beforeEach(module('juiceShop', function (_$httpProvider_) {
+        $httpProvider = _$httpProvider_;
+    }));
     beforeEach(inject(function ($injector) {
         $httpBackend = $injector.get('$httpBackend');
         $cookieStore = $injector.get('$cookieStore');
         $rootScope = $injector.get('$rootScope');
     }));
 
-    it('should be defined', inject(function (authInterceptor) {
+    it('should be defined', inject(function () {
         expect($rootScope.isLoggedIn).toBeDefined();
     }));
 
-    it('should return token from cookie as login status for logged-in user', inject(function (authInterceptor) {
+    it('should return token from cookie as login status for logged-in user', inject(function () {
         $cookieStore.put('token', 'foobar');
 
         expect($rootScope.isLoggedIn()).toBe('foobar');
     }));
 
-    it('should return undefined as login status for anonymous user', inject(function (authInterceptor) {
+    it('should return undefined as login status for anonymous user', inject(function () {
         $cookieStore.remove('token');
 
         expect($rootScope.isLoggedIn()).toBeUndefined();
@@ -49,6 +51,10 @@ describe('app', function () {
             expect(authInterceptor.response({status: 403, statusText: 'Forbidden'})).toEqual({status: 403, statusText: 'Forbidden'});
             expect(authInterceptor.response({status: 404, statusText: 'Not Found'})).toEqual({status: 404, statusText: 'Not Found'});
             expect(authInterceptor.response({status: 500, statusText: 'Internal Server Error'})).toEqual({status: 500, statusText: 'Internal Server Error'});
+        }));
+
+        it('should be configured as HTTP interceptor', inject(function () {
+            expect($httpProvider.interceptors).toContain('authInterceptor');
         }));
 
     });
