@@ -62,6 +62,15 @@ describe('controllers', function () {
             expect(scope.challenges).toBeUndefined();
         }));
 
+        it('should log errors directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Challenges/').respond(500, 'error');
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
         it('should colorize total score in red for up to 33% challenge completion', inject(function ($controller) {
             $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true},{solved: false},{solved: false}]});
 

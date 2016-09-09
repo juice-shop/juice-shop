@@ -56,6 +56,15 @@ describe('controllers', function () {
             expect(scope.users).toBeUndefined();
         }));
 
+        it('should log errors directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/user/authentication-details/').respond(500, 'error');
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
         it('should open a modal dialog with user details', inject(function ($controller) {
             spyOn($uibModal, 'open');
 

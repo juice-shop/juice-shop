@@ -46,6 +46,15 @@ describe('controllers', function () {
             expect(scope.product).toBeUndefined();
         }));
 
+        it('should log errors directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET(/\/api\/Products\/42/).respond(500, 'error');
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
     });
 
 });

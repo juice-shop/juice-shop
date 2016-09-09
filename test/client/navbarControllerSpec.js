@@ -42,6 +42,16 @@ describe('controllers', function () {
             expect(scope.version).toBe('');
         }));
 
+        it('should log errors directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error');
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
+
     });
 
 });

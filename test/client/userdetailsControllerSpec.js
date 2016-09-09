@@ -36,6 +36,16 @@ describe('controllers', function () {
             expect(scope.user).toBeUndefined();
         }));
 
+
+        it('should log errors directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Users/42').respond(500, 'error');
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
     });
 
 });
