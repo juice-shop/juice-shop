@@ -6,10 +6,10 @@ describe('controllers', function () {
         $httpBackend = $injector.get('$httpBackend');
     }));
 
-    describe('ContactController', function () {
+    describe('ComplaintController', function () {
         beforeEach(inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();
-            controller = $controller('ContactController', {
+            controller = $controller('ComplaintController', {
                 '$scope': scope
             });
         }));
@@ -24,7 +24,7 @@ describe('controllers', function () {
 
             $httpBackend.flush();
 
-            expect(scope.feedback.UserId).toBe(42);
+            expect(scope.complaint.UserId).toBe(42);
 
         }));
 
@@ -33,16 +33,16 @@ describe('controllers', function () {
 
             $httpBackend.flush();
 
-            expect(scope.feedback.UserId).toBeUndefined();
+            expect(scope.complaint.UserId).toBeUndefined();
 
         }));
 
-        it('should miss feedback object if retrieving currently logged in user fails', inject(function ($controller) {
+        it('should miss complaint object if retrieving currently logged in user fails', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(500);
 
             $httpBackend.flush();
 
-            expect(scope.feedback).toBeUndefined();
+            expect(scope.complaint).toBeUndefined();
 
         }));
 
@@ -55,44 +55,31 @@ describe('controllers', function () {
 
         }));
 
-        it('should hold anonymous placeholder for email if current user is not logged in', inject(function ($controller) {
+        it('should hold no email if current user is not logged in', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
 
             $httpBackend.flush();
 
-            expect(scope.userEmail).toBe('anonymous');
+            expect(scope.userEmail).toBeUndefined();
 
         }));
 
-        it('should display thank-you message and reset feedback form on saving feedback', inject(function ($controller) {
+
+        it('should display support message with #id and reset feedback form on saving complaint', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
 
-            $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Test', rating: 4}});
-            scope.feedback = {comment: 'Test', rating: 4}
+            $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '42', message: 'Test'}});
+            scope.complaint = {id: '42', message: 'Test'}
             scope.form = {$setPristine: function() {}};
 
             scope.save();
             $httpBackend.flush();
 
-            expect(scope.feedback).toEqual({});
-            expect(scope.confirmation).toBe('Thank you for your feedback.');
+            expect(scope.complaint).toEqual({});
+            expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #42');
 
         }));
 
-        it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
-
-            $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Praise', rating: 5}});
-            scope.feedback = {comment: 'Praise', rating: 5}
-            scope.form = {$setPristine: function() {}};
-
-            scope.save();
-            $httpBackend.flush();
-
-            expect(scope.feedback).toEqual({});
-            expect(scope.confirmation).toBe('Thank you for your feedback and your 5-star rating!');
-
-        }));
 
     });
 

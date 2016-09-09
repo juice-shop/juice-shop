@@ -7,3 +7,4 @@ exports.products = {};
 exports.feedback = {};
 exports.baskets = {};
 exports.basketItems = {};
+exports.complaints = {};
