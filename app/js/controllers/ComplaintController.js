@@ -7,7 +7,6 @@ angular.module('juiceShop').controller('ComplaintController', [
 
         userService.whoAmI().success(function(data) {
             $scope.complaint = {};
-            $scope.complaint.UserId = data.id;
             $scope.userEmail = data.email;
         });
 

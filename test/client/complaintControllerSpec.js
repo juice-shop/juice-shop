@@ -19,24 +19,6 @@ describe('controllers', function () {
             expect(scope.save).toBeDefined();
         }));
 
-        it('should hold the user id of the currently logged in user', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/user/whoami').respond(200, {id: 42});
-
-            $httpBackend.flush();
-
-            expect(scope.complaint.UserId).toBe(42);
-
-        }));
-
-        it('should hold no user id if current user is not logged in', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
-
-            $httpBackend.flush();
-
-            expect(scope.complaint.UserId).toBeUndefined();
-
-        }));
-
         it('should miss complaint object if retrieving currently logged in user fails', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(500);
 
