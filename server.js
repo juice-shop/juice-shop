@@ -92,6 +92,8 @@ app.delete('/api/Products/:id', insecurity.denyAll()); // Deleting products is f
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', insecurity.denyAll());
 app.use('/api/Challenges/:id', insecurity.denyAll());
+/* Complaints: POST allowed when logged in only */
+app.post('/api/Complaints', insecurity.isAuthorized());
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
@@ -103,7 +105,7 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge());
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges());
 /* Sequelize Restful APIs */
-app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges'] }));
+app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints'] }));
 /* Custom Restful API */
 app.post('/rest/user/login', login());
 app.get('/rest/user/change-password', changePassword());
