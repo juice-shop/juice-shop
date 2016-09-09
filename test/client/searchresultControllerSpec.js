@@ -52,6 +52,16 @@ describe('controllers', function () {
             expect(scope.products).toBeUndefined();
         }));
 
+        it('should log error from product search API call directly to browser console', inject(function ($controller, $location) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
         it('should open a modal dialog with product details', inject(function ($controller) {
             spyOn($uibModal, 'open');
 
@@ -101,6 +111,21 @@ describe('controllers', function () {
             expect(scope.confirmation).toBeUndefined();
         }));
 
+        it('should log errors retrieving basket directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 815;
+            $httpBackend.whenGET('/rest/basket/815').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(2);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
+
         it('should not add anything to basket on error retrieving existing basket item', inject(function ($controller) {
             $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
 
@@ -115,6 +140,22 @@ describe('controllers', function () {
 
         }));
 
+        it('should log errors retrieving basket item directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id : 1}, {id : 2, name: 'Tomato Juice', basketItem: {id: 42}}]}});
+            $httpBackend.whenGET('/api/BasketItems/42').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(2);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
+
         it('should not add anything to basket on error updating basket item', inject(function ($controller) {
             $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
 
@@ -128,6 +169,22 @@ describe('controllers', function () {
 
             expect(scope.confirmation).toBeUndefined();
 
+        }));
+
+        it('should log errors updating basket directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id : 1}, {id : 2, name: 'Tomato Juice', basketItem: {id: 42}}]}});
+            $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}});
+            $httpBackend.whenPUT('/api/BasketItems/42').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(2);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
         }));
 
         it('should not add anything to basket on error retrieving product associated with basket item', inject(function ($controller) {
@@ -146,6 +203,24 @@ describe('controllers', function () {
 
         }));
 
+        it('should log errors retrieving product associated with basket item directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id : 1}, {id : 2, name: 'Tomato Juice', basketItem: {id: 42}}]}});
+            $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}});
+            $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}});
+            $httpBackend.whenGET(/\/api\/Products\/2/).respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(2);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
+
         it('should not add anything on error creating new basket item', inject(function ($controller) {
             $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
 
@@ -159,6 +234,22 @@ describe('controllers', function () {
             expect(scope.confirmation).toBeUndefined();
         }));
 
+        it('should log errors creating new basket item directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
+            $httpBackend.whenPOST('/api/BasketItems/').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(1);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
+
         it('should not add anything on error retrieving product after creating new basket item', inject(function ($controller) {
             $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
 
@@ -171,6 +262,22 @@ describe('controllers', function () {
             $httpBackend.flush();
 
             expect(scope.confirmation).toBeUndefined();
+        }));
+
+        it('should log errors retrieving product after creating new basket item directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []});
+
+            window.sessionStorage.bid = 4711;
+            $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}});
+            $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}});
+            $httpBackend.whenGET(/\/api\/Products\/1/).respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.addToBasket(1);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
         }));
 
     });

@@ -63,6 +63,16 @@ describe('controllers', function () {
             expect(scope.feedbacks).toBeUndefined();
         }));
 
+        it('should log error from backend API directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
+        }));
+
         it('should pass delete request for feedback to backend API', inject(function ($controller) {
             $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]});
             $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200);
@@ -77,6 +87,18 @@ describe('controllers', function () {
 
             scope.delete(4711);
             $httpBackend.flush();
+        }));
+
+        it('should log error while deleting feedback directly to browser console', inject(function ($controller) {
+            $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]});
+            $httpBackend.whenDELETE('/api/Feedbacks/4711').respond(500, 'error');
+
+            console.log = jasmine.createSpy("log");
+
+            scope.delete(4711);
+            $httpBackend.flush();
+
+            expect(console.log).toHaveBeenCalledWith('error');
         }));
 
     });
