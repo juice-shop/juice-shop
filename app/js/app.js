@@ -3,6 +3,7 @@ angular.module('juiceShop', [
     'ngCookies',
     'ngTouch',
     'ngAnimate',
+    'ngFileUpload',
     'ui.bootstrap'
 ]);
 

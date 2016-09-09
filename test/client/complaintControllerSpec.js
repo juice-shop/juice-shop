@@ -47,11 +47,11 @@ describe('controllers', function () {
         }));
 
 
-        it('should display support message with #id and reset feedback form on saving complaint', inject(function ($controller) {
+        it('should display support message with #id and reset complaint form on saving complaint', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
 
             $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '42', message: 'Test'}});
-            scope.complaint = {id: '42', message: 'Test'}
+            scope.complaint = {id: '42', message: 'Test'};
             scope.form = {$setPristine: function() {}};
 
             scope.save();
@@ -59,6 +59,24 @@ describe('controllers', function () {
 
             expect(scope.complaint).toEqual({});
             expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #42');
+
+        }));
+
+        it('should display support message with #id and reset complaint form on saving complaint even if file upload failed in the background', inject(function ($controller) {
+            $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
+
+            $httpBackend.whenPOST('/rest/fileUpload').respond(500);
+            scope.file = {};
+
+            $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '66', message: 'Test'}});
+            scope.complaint = {id: '66', message: 'Test'};
+            scope.form = {$setPristine: function() {}};
+
+            scope.save();
+            $httpBackend.flush();
+
+            expect(scope.complaint).toEqual({});
+            expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #66');
 
         }));
 

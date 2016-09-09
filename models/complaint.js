@@ -3,7 +3,8 @@
 
 module.exports = function (sequelize, DataTypes) {
     var Complaint = sequelize.define('Complaint', {
-            message: DataTypes.STRING
+            message: DataTypes.STRING,
+            file: DataTypes.STRING
         },
         {
             classMethods: {

@@ -11,6 +11,8 @@
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
                     <p ng-show="form.complaintMessage.$error.required && form.complaintMessage.$dirty">Please provide a text.</p>
                     <p ng-show="form.complaintMessage.$error.maxlength && form.complaintMessage.$dirty">Text length must be 1-160 characters.</p>
+                    <p ng-show="form.file.$error.maxSize">File too large. Maximum 1 MB allowed.</p>
+                    <p ng-show="form.file.$error.pattern">Unrecognized file type. Only PDF allowed.</p>
                 </div>
 
                 <div class="container-fluid well">
@@ -28,9 +30,15 @@
                             </div>
                         </div>
                         <div class="row">
-                                <div class="form-group">
-                                    <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-bomb fa-lg"></i> Submit</button>
-                                </div>
+                            <div class="form-group">
+                                <label for="file">Invoice</label>
+                                <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf'" accept=".pdf" ngf-max-size="1MB"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-bomb fa-lg"></i> Submit</button> {{progress}}
+                            </div>
                         </div>
                 </div>
              </form>
