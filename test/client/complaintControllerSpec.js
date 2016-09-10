@@ -65,7 +65,7 @@ describe('controllers', function () {
         it('should display support message with #id and reset complaint form on saving complaint even if file upload failed in the background', inject(function ($controller) {
             $httpBackend.whenGET('/rest/user/whoami').respond(200, {});
 
-            $httpBackend.whenPOST('/rest/fileUpload').respond(500);
+            $httpBackend.whenPOST('/file-upload').respond(500);
             scope.file = {};
 
             $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '66', message: 'Test'}});
