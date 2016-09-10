@@ -15,9 +15,13 @@ describe('/rest', function () {
             browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present");
             browser.switchTo().alert().then(
                 function (alert) {
-                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/12\', {description: \'alert disabled\'});');
                     expect(alert.getText()).toEqual('XSS4');
                     alert.accept();
+
+                    browser.ignoreSynchronization = true;
+                    browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/19\', {description: \'alert disabled\'});');
+                    browser.driver.sleep(1000);
+                    browser.ignoreSynchronization = false;
                 });
 
         });
@@ -29,7 +33,7 @@ describe('/rest', function () {
     describe('challenge "changeProduct"', function () {
 
         it('should be possible to change product via PUT request without being logged in', function () {
-            browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/9\', {description: \'<a href="http://kimminich.de" target="_blank">kimminich.de</a>\'});');
+            browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/8\', {description: \'<a href="http://kimminich.de" target="_blank">kimminich.de</a>\'});');
         });
 
         protractor.expect.challengeSolved({challenge: 'changeProduct'});
