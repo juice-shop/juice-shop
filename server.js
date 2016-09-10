@@ -15,6 +15,9 @@ var application_root = __dirname.replace(/\\/g, '/'),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
+    multer = require('multer'),
+    upload = multer({dest: './ftp/uploads/'}),
+    fileUpload = require('./routes/fileUpload'),
     redirect = require('./routes/redirect'),
     angular = require('./routes/angular'),
     easterEgg = require('./routes/easterEgg'),
@@ -117,6 +120,8 @@ app.post('/rest/basket/:id/checkout', order());
 app.put('/rest/basket/:id/coupon/:coupon', coupon());
 app.get('/rest/admin/application-version', appVersion());
 app.get('/redirect', redirect());
+/* File Upload */
+app.post('/file-upload', [upload.single('file'), fileUpload()]);
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg());
 app.use(angular());

@@ -19,13 +19,14 @@ angular.module('juiceShop').controller('ComplaintController', [
             complaintService.save($scope.complaint).success(function (savedComplaint) {
                 $scope.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.data.id;
                 $scope.complaint = {};
+                $scope.file = undefined;
                 $scope.form.$setPristine();
             });
         };
 
         $scope.upload = function (file) {
             Upload.upload({
-                url: '/rest/fileUpload',
+                url: '/file-upload',
                 data: {file: file}
             }).then(function (resp) {
                 console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
