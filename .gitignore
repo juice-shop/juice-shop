@@ -20,3 +20,4 @@ app/bower_components/
 # App
 dist/
 order_*.pdf
+ftp/uploads/

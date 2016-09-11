@@ -16,7 +16,7 @@ var application_root = __dirname.replace(/\\/g, '/'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
     multer = require('multer'),
-    upload = multer({dest: './ftp/uploads/'}),
+    upload = multer({dest: './ftp/uploads/',  limits: { fileSize: 2000000 }}),
     fileUpload = require('./routes/fileUpload'),
     redirect = require('./routes/redirect'),
     angular = require('./routes/angular'),
@@ -46,6 +46,13 @@ glob(__dirname + '/ftp/*.pdf', function (err, files) {
         fs.unlink(filename);
     });
 });
+/* Delete old uploads */
+glob(__dirname + '/ftp/uploads/*', function (err, files) {
+    files.forEach(function(filename) {
+        fs.unlink(filename);
+    });
+});
+
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors());
@@ -121,7 +128,7 @@ app.put('/rest/basket/:id/coupon/:coupon', coupon());
 app.get('/rest/admin/application-version', appVersion());
 app.get('/redirect', redirect());
 /* File Upload */
-app.post('/file-upload', [upload.single('file'), fileUpload()]);
+app.post('/file-upload', upload.single('file'), fileUpload());
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg());
 app.use(angular());

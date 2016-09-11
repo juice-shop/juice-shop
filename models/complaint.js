@@ -16,3 +16,5 @@ module.exports = function (sequelize, DataTypes) {
         });
     return Complaint;
 };
+
+// TODO: Add hook to check if a complaint with file != null but UserId == null was added --> File upload w/o authentication!
