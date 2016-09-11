@@ -102,8 +102,10 @@ app.delete('/api/Products/:id', insecurity.denyAll()); // Deleting products is f
 /* Challenges: GET list of challenges allowed. Everything else forbidden independent of authorization (hence the random secret) */
 app.post('/api/Challenges', insecurity.denyAll());
 app.use('/api/Challenges/:id', insecurity.denyAll());
-/* Complaints: POST allowed when logged in only */
+/* Complaints: POST and GET allowed when logged in only */
+app.get('/api/Complaints', insecurity.isAuthorized());
 app.post('/api/Complaints', insecurity.isAuthorized());
+app.use('/api/Complaints/:id', insecurity.denyAll());
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized());
 app.use('/rest/basket/:id', insecurity.isAuthorized());
