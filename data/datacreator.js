@@ -248,6 +248,30 @@ module.exports = function() {
         }).success(function (challenge) {
             challenges.christmasSpecialChallenge = challenge;
         });
+        models.Challenge.create({
+            name: 'uploadSize',
+            description: 'File a complaint with an attachment >1MB.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.uploadSize = challenge;
+        });
+        models.Challenge.create({
+            name: 'uploadType',
+            description: 'File a complaint with a non-PDF attachment.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.uploadType = challenge;
+        });
+        models.Challenge.create({
+            name: 'uploadAnonymous',
+            description: 'File an anoymous complaint with a file named <i>clickme.html</i> attached.',
+            difficulty: 2,
+            solved: false
+        }).success(function (challenge) {
+            challenges.uploadAnonymous = challenge;
+        });
     }
     function createUsers() {
         models.User.create({

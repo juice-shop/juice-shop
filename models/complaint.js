@@ -1,6 +1,9 @@
 /*jslint node: true */
 'use strict';
 
+var utils = require('../lib/utils'),
+    challenges = require('../data/datacache').challenges;
+
 module.exports = function (sequelize, DataTypes) {
     var Complaint = sequelize.define('Complaint', {
             message: DataTypes.STRING,
@@ -13,8 +16,18 @@ module.exports = function (sequelize, DataTypes) {
                 }
             },
 
-        });
+            hooks: {
+                beforeCreate: function (complaint, fn) {
+                    uploadAnonymousChallengeHook(complaint);
+                    fn(null, complaint);
+                }
+
+            }});
     return Complaint;
 };
 
-// TODO: Add hook to check if a complaint with file != null but UserId == null was added --> File upload w/o authentication!
+function uploadAnonymousChallengeHook(complaint) {
+    if (utils.notSolved(challenges.uploadAnonymous) && !complaint.UserId && complaint.file === 'clickme.pdf') {
+        utils.solve(challenges.uploadAnonymous);
+    }
+}
