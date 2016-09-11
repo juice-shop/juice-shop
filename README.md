@@ -102,7 +102,7 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 
 > Support for node.js 0.10, 0.11 and 0.12 has been dropped to reduce the complexity of the build matrix and get less timeouts from Sauce Labs during test execution.  
 
-## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
+## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/issue?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop)
 
 > If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
@@ -111,7 +111,7 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 - If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
-## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop)
+## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop)
 
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 
