@@ -1,10 +1,10 @@
-/*jslint node: true */
-'use strict';
+/* jslint node: true */
+'use strict'
 
-var utils = require('../lib/utils');
+var utils = require('../lib/utils')
 
-exports = module.exports = function retrieveAppVersion() {
-    return function (req, res) {
-        res.json({version: utils.version()});
-    };
-};
+exports = module.exports = function retrieveAppVersion () {
+  return function (req, res) {
+    res.json({version: utils.version()})
+  }
+}

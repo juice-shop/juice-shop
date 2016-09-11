@@ -1,4 +1,4 @@
-/*jslint node: true */
-var grunt = require('grunt');
+/* jslint node: true */
+var grunt = require('grunt')
 
-grunt.tasks(['minify']);
+grunt.tasks(['minify'])

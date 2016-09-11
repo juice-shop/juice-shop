@@ -1,57 +1,54 @@
 describe('controllers', function () {
-    var scope, controller, $httpBackend;
+  var scope, controller, $httpBackend
 
-    beforeEach(module('juiceShop'));
-    beforeEach(inject(function($injector) {
-        $httpBackend = $injector.get('$httpBackend');
-    }));
+  beforeEach(module('juiceShop'))
+  beforeEach(inject(function ($injector) {
+    $httpBackend = $injector.get('$httpBackend')
+  }))
 
-    describe('NavbarController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
-            scope = $rootScope.$new();
-            controller = $controller('NavbarController', {
-                '$scope': scope
-            });
-        }));
+  describe('NavbarController', function () {
+    beforeEach(inject(function ($rootScope, $controller) {
+      scope = $rootScope.$new()
+      controller = $controller('NavbarController', {
+        '$scope': scope
+      })
+    }))
 
-        it('should be defined', inject(function ($controller) {
-            expect(controller).toBeDefined();
-        }));
+    it('should be defined', inject(function ($controller) {
+      expect(controller).toBeDefined()
+    }))
 
-        it('should hold application version', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'});
+    it('should hold application version', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(scope.version).toBe('vx.y.z');
-        }));
+      expect(scope.version).toBe('vx.y.z')
+    }))
 
-        it('should show nothing on missing application version', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/admin/application-version').respond(200, {});
+    it('should show nothing on missing application version', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(scope.version).toBe('');
-        }));
+      expect(scope.version).toBe('')
+    }))
 
-        it('should show nothing on error retrieving application version', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/admin/application-version').respond(500);
+    it('should show nothing on error retrieving application version', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/admin/application-version').respond(500)
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(scope.version).toBe('');
-        }));
+      expect(scope.version).toBe('')
+    }))
 
-        it('should log errors directly to browser console', inject(function ($controller) {
-            $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error');
-            console.log = jasmine.createSpy("log");
+    it('should log errors directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error')
+      console.log = jasmine.createSpy('log')
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(console.log).toHaveBeenCalledWith('error');
-        }));
-
-
-    });
-
-});
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+  })
+})

@@ -1,13 +1,13 @@
 angular.module('juiceShop').factory('ComplaintService', ['$http', function ($http) {
-    'use strict';
+  'use strict'
 
-    var host = '/api/Complaints';
+  var host = '/api/Complaints'
 
-    function save(params) {
-        return $http.post(host + '/', params);
-    }
+  function save (params) {
+    return $http.post(host + '/', params)
+  }
 
-    return {
-        save: save
-    };
-}]);
+  return {
+    save: save
+  }
+}])

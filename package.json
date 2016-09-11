@@ -76,6 +76,7 @@
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~4.0",
     "shelljs": "~0.7",
+    "standard": "^8.0.0",
     "stryker": "^0.4.2",
     "stryker-api": "^0.2.0",
     "stryker-html-reporter": "^0.2.0",
@@ -96,7 +97,7 @@
   "scripts": {
     "postinstall": "node bower_install.js && node grunt_minify.js",
     "start": "node app",
-    "test": "karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+    "test": "standard && karma start karma.conf.js && istanbul cover ./test/serverTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
@@ -106,5 +107,26 @@
   "subdomain": "juice-shop",
   "engines": {
     "node": ">=4 <7"
+  },
+  "standard": {
+    "ignore": [
+      "/app/private/**"
+    ],
+    "globals": [
+      "angular",
+      "$",
+      "browser",
+      "protractor",
+      "it",
+      "xit",
+      "element",
+      "by",
+      "expect",
+      "describe",
+      "jasmine",
+      "inject",
+      "spyOn",
+      "beforeEach"
+    ]
   }
 }

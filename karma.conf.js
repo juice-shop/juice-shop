@@ -1,53 +1,53 @@
-/*jslint node: true */
+/* jslint node: true */
 module.exports = function (config) {
-    'use strict';
+  'use strict'
 
-    config.set({
+  config.set({
 
-        basePath: '',
+    basePath: '',
 
-        files: [
-            'app/bower_components/angular/angular.js',
-            'app/bower_components/angular-route/angular-route.js',
-            'app/bower_components/angular-mocks/angular-mocks.js',
-            'app/bower_components/angular-cookies/angular-cookies.js',
-            'app/bower_components/angular-touch/angular-touch.js',
-            'app/bower_components/angular-animate/angular-animate.js',
-            'app/bower_components/angular-bootstrap/ui-bootstrap.js',
-            'app/bower_components/underscore/underscore.js',
-            'app/bower_components/jquery/dist/jquery.js',
-            'app/bower_components/ng-file-upload/ng-file-upload.js',
-            'app/js/**/*.js',
-            'test/client/**/*.js'
-        ],
+    files: [
+      'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-route/angular-route.js',
+      'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/angular-cookies/angular-cookies.js',
+      'app/bower_components/angular-touch/angular-touch.js',
+      'app/bower_components/angular-animate/angular-animate.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'app/bower_components/underscore/underscore.js',
+      'app/bower_components/jquery/dist/jquery.js',
+      'app/bower_components/ng-file-upload/ng-file-upload.js',
+      'app/js/**/*.js',
+      'test/client/**/*.js'
+    ],
 
-        colors: true,
-        singleRun: true,
+    colors: true,
+    singleRun: true,
 
-        frameworks: ['jasmine'],
+    frameworks: ['jasmine'],
 
-        browsers: ['PhantomJS'],
+    browsers: ['PhantomJS'],
 
-        plugins: [
-            'karma-phantomjs-launcher',
-            'karma-jasmine',
-            'karma-coverage',
-            'karma-junit-reporter'
-        ],
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine',
+      'karma-coverage',
+      'karma-junit-reporter'
+    ],
 
-        reporters: ['progress', 'coverage', 'junit'],
+    reporters: ['progress', 'coverage', 'junit'],
 
-        coverageReporter: {
-            type: 'lcov',
-            dir: 'build/reports/coverage'
-        },
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'build/reports/coverage'
+    },
 
-        preprocessors: {
-            'app/js/**/*.js': 'coverage'
-        },
+    preprocessors: {
+      'app/js/**/*.js': 'coverage'
+    },
 
-        junitReporter: {
-            outputDir: 'build/reports'
-        }
-    });
-};
+    junitReporter: {
+      outputDir: 'build/reports'
+    }
+  })
+}

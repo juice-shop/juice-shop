@@ -1,25 +1,25 @@
 angular.module('juiceShop').factory('FeedbackService', ['$http', function ($http) {
-    'use strict';
+  'use strict'
 
-    var host = '/api/Feedbacks';
+  var host = '/api/Feedbacks'
 
-    function find(params) {
-        return $http.get(host + '/', {
-            params: params
-        });
-    }
+  function find (params) {
+    return $http.get(host + '/', {
+      params: params
+    })
+  }
 
-    function save(params) {
-        return $http.post(host + '/', params);
-    }
+  function save (params) {
+    return $http.post(host + '/', params)
+  }
 
-    function del(id) {
-        return $http.delete(host + '/' + id);
-    }
+  function del (id) {
+    return $http.delete(host + '/' + id)
+  }
 
-    return {
-        find: find,
-        save: save,
-        del: del
-    };
-}]);
+  return {
+    find: find,
+    save: save,
+    del: del
+  }
+}])

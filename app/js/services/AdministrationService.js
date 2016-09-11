@@ -1,14 +1,13 @@
 angular.module('juiceShop').factory('AdministrationService', ['$http', function ($http) {
-    'use strict';
+  'use strict'
 
-    var host = '/rest/admin';
+  var host = '/rest/admin'
 
-    function getApplicationVersion() {
-        return $http.get(host + '/application-version');
-    }
+  function getApplicationVersion () {
+    return $http.get(host + '/application-version')
+  }
 
-    return {
-        getApplicationVersion: getApplicationVersion
-    };
-
-}]);
+  return {
+    getApplicationVersion: getApplicationVersion
+  }
+}])

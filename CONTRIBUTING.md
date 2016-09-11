@@ -1,6 +1,6 @@
-# Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop)
+# Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop)
+[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop) 
 
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 
@@ -20,13 +20,21 @@ This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer
 
 Using Git-Flow means that PRs have the highest chance of getting accepted and merged when you open them on the ```develop``` branch of your fork. That allows for some post-merge changes by the team without directly compromising the ```master``` branch, which is supposed to hold always be in a release-ready state. 
 
-## Unit Tests
+## Unit & Integration Tests
 
-There is a full suite containing independent unit tests for the client- and server-side code. These tests verify if the normal use cases of the application work. All server-side vulnerabilities are also tested.
+There is a full suite containing
+* independent unit tests for the client-side code
+* integration tests for the server-side API
+
+These tests verify if the normal use cases of the application work. All server-side vulnerabilities are also tested.
 
 ```
 npm test
 ```
+
+> Since v2.7.0 the `npm test` script verifies code complicance with the `standard` style before running the tests. If PRs deviate from this coding style, they will now immediately fail their build and will not be merged until compliant.
+> 
+> [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ## End-to-end Tests
 

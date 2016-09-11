@@ -111,7 +111,7 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 - If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
-## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop)
+## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 

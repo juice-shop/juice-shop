@@ -1,9 +1,9 @@
-/*jslint node: true */
-'use strict';
+/* jslint node: true */
+'use strict'
 
-var bower = require('bower');
+var bower = require('bower')
 
 bower.commands.install()
     .on('log', function (data) {
-        console.log(data);
-    });
+      console.log(data)
+    })

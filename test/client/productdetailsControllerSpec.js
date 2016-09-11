@@ -1,60 +1,58 @@
 describe('controllers', function () {
-    var scope, controller, $httpBackend, $sce;
+  var scope, controller, $httpBackend, $sce
 
-    beforeEach(module('juiceShop'));
-    beforeEach(inject(function($injector) {
-        $httpBackend = $injector.get('$httpBackend');
-        $sce = $injector.get('$sce');
-    }));
+  beforeEach(module('juiceShop'))
+  beforeEach(inject(function ($injector) {
+    $httpBackend = $injector.get('$httpBackend')
+    $sce = $injector.get('$sce')
+  }))
 
-    describe('ProductDetailsController', function () {
-        beforeEach(inject(function ($rootScope, $controller) {
-            scope = $rootScope.$new();
-            controller = $controller('ProductDetailsController', {
-                '$scope': scope,
-                'id': 42
-            });
-        }));
+  describe('ProductDetailsController', function () {
+    beforeEach(inject(function ($rootScope, $controller) {
+      scope = $rootScope.$new()
+      controller = $controller('ProductDetailsController', {
+        '$scope': scope,
+        'id': 42
+      })
+    }))
 
-        it('should be defined', inject(function ($controller) {
-            expect(controller).toBeDefined();
-        }));
+    it('should be defined', inject(function ($controller) {
+      expect(controller).toBeDefined()
+    }))
 
-        it('should hold single product with given id', inject(function ($controller) {
-            $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}});
+    it('should hold single product with given id', inject(function ($controller) {
+      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}})
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(scope.product).toBeDefined();
-            expect(scope.product.name).toBe('Test Juice');
-        }));
+      expect(scope.product).toBeDefined()
+      expect(scope.product.name).toBe('Test Juice')
+    }))
 
-        it('should render product description as trusted HTML', inject(function ($controller) {
-            $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS4")</script>'}});
-            spyOn($sce, 'trustAsHtml');
+    it('should render product description as trusted HTML', inject(function ($controller) {
+      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS4")</script>'}})
+      spyOn($sce, 'trustAsHtml')
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>');
-        }));
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
+    }))
 
-        it('should hold no product if API call fails', inject(function ($controller) {
-            $httpBackend.whenGET(/\/api\/Products\/42/).respond(500);
+    it('should hold no product if API call fails', inject(function ($controller) {
+      $httpBackend.whenGET(/\/api\/Products\/42/).respond(500)
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(scope.product).toBeUndefined();
-        }));
+      expect(scope.product).toBeUndefined()
+    }))
 
-        it('should log errors directly to browser console', inject(function ($controller) {
-            $httpBackend.whenGET(/\/api\/Products\/42/).respond(500, 'error');
-            console.log = jasmine.createSpy("log");
+    it('should log errors directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET(/\/api\/Products\/42/).respond(500, 'error')
+      console.log = jasmine.createSpy('log')
 
-            $httpBackend.flush();
+      $httpBackend.flush()
 
-            expect(console.log).toHaveBeenCalledWith('error');
-        }));
-
-    });
-
-});
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+  })
+})
