@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, location, controller, $httpBackend, $sce, $uibModal, window
+  var scope, controller, $httpBackend, $sce, $uibModal, window
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
@@ -9,9 +9,8 @@ describe('controllers', function () {
   }))
 
   describe('SearchResultController', function () {
-    beforeEach(inject(function ($rootScope, $location, $window, $controller) {
+    beforeEach(inject(function ($rootScope, $window, $controller) {
       scope = $rootScope.$new()
-      location = $location
       window = $window
       controller = $controller('SearchResultController', {
         '$scope': scope
@@ -24,7 +23,7 @@ describe('controllers', function () {
       expect(scope.addToBasket).toBeDefined()
     }))
 
-    it('should render product descriptions as trusted HTML', inject(function ($controller, $location) {
+    it('should render product descriptions as trusted HTML', inject(function ($controller) {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: [{description: '<script>alert("XSS4")</script>'}]})
       spyOn($sce, 'trustAsHtml')
 
@@ -33,7 +32,7 @@ describe('controllers', function () {
       expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
     }))
 
-    it('should hold no products when product search API call fails', inject(function ($controller, $location) {
+    it('should hold no products when product search API call fails', inject(function ($controller) {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(500)
 
       $httpBackend.flush()
@@ -41,7 +40,7 @@ describe('controllers', function () {
       expect(scope.products).toBeUndefined()
     }))
 
-    it('should log error from product search API call directly to browser console', inject(function ($controller, $location) {
+    it('should log error from product search API call directly to browser console', inject(function ($controller) {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(500, 'error')
 
       console.log = jasmine.createSpy('log')
