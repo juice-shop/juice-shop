@@ -81,14 +81,6 @@ describe('controllers', function () {
       $httpBackend.flush()
     }))
 
-    it('should gracefully handle error while deleting feedback', inject(function ($controller) {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
-      $httpBackend.whenDELETE('/api/Feedbacks/4711').respond(500)
-
-      scope.delete(4711)
-      $httpBackend.flush()
-    }))
-
     it('should log error while deleting feedback directly to browser console', inject(function ($controller) {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
       $httpBackend.whenDELETE('/api/Feedbacks/4711').respond(500, 'error')
