@@ -24,17 +24,6 @@ describe('controllers', function () {
       expect(scope.addToBasket).toBeDefined()
     }))
 
-    xit('should render user search query as trusted HTML', inject(function ($controller, $location) {
-      $httpBackend.whenGET('/rest/product/search?q=<script>alert("XSS1")</script>').respond(200, {data: []})
-      spyOn(location, 'search').andReturn({q: '<script>alert("XSS1")</script>'}) // TODO Mocking location fails
-      spyOn($sce, 'trustAsHtml')
-
-      $httpBackend.flush()
-
-      expect(scope.searchQuery).toBeDefined()
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS1")</script>')
-    }))
-
     it('should render product descriptions as trusted HTML', inject(function ($controller, $location) {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: [{description: '<script>alert("XSS4")</script>'}]})
       spyOn($sce, 'trustAsHtml')

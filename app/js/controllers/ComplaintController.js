@@ -44,7 +44,7 @@ angular.module('juiceShop').controller('ComplaintController', [
         console.log('Error status: ' + res.status)
         saveComplaint()
       }, function (evt) {
-        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total, 10)
         $scope.progress = '(Progress: ' + progressPercentage + '%)'
       })
     }
