@@ -8,6 +8,11 @@ describe('controllers', function () {
     $uibModal = $injector.get('$uibModal')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('SearchResultController', function () {
     beforeEach(inject(function ($rootScope, $window, $controller) {
       scope = $rootScope.$new()
@@ -18,6 +23,10 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
+
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
       expect(scope.showDetail).toBeDefined()
       expect(scope.addToBasket).toBeDefined()
@@ -51,7 +60,10 @@ describe('controllers', function () {
     }))
 
     it('should open a modal dialog with product details', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
       spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
 
       scope.showDetail(42)
 

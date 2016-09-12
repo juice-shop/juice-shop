@@ -6,6 +6,11 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('ContactController', function () {
     beforeEach(inject(function ($rootScope, $controller) {
       scope = $rootScope.$new()
@@ -15,6 +20,10 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
       expect(scope.save).toBeDefined()
     }))

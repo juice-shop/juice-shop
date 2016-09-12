@@ -6,6 +6,11 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('UserDetailsController', function () {
     beforeEach(inject(function ($rootScope, $controller) {
       scope = $rootScope.$new()
@@ -16,6 +21,10 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/api/Users/42').respond(200, {data: {}})
+
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
     }))
 

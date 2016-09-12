@@ -7,6 +7,11 @@ describe('services', function () {
     result = undefined
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('UserService', function () {
     it('should be defined', inject(function (UserService) {
       expect(UserService).toBeDefined()

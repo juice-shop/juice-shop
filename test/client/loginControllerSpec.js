@@ -6,6 +6,11 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('LoginController', function () {
     beforeEach(inject(function ($rootScope, $window, $location, $cookieStore, $controller) {
       scope = $rootScope.$new()

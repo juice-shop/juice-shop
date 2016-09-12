@@ -6,6 +6,11 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('ChangePasswordController', function () {
     beforeEach(inject(function ($rootScope, $location, $controller) {
       scope = $rootScope.$new()

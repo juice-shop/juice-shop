@@ -7,6 +7,11 @@ describe('controllers', function () {
     $sce = $injector.get('$sce')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('ChallengeController', function () {
     beforeEach(inject(function ($rootScope, $controller) {
       scope = $rootScope.$new()
@@ -16,6 +21,10 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/api/Challenges/').respond(200, {data: []})
+
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
     }))
 

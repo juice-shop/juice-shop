@@ -2,7 +2,6 @@ describe('controllers', function () {
   var scope, controller, $window, $httpBackend
 
   beforeEach(module('juiceShop'))
-
   beforeEach(function () {
     $window = {location: {replace: jasmine.createSpy()}, sessionStorage: {bid: 42}}
 
@@ -10,7 +9,6 @@ describe('controllers', function () {
       $provide.value('$window', $window)
     })
   })
-
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
   }))

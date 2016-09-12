@@ -8,6 +8,11 @@ describe('controllers', function () {
     $uibModal = $injector.get('$uibModal')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('UserController', function () {
     beforeEach(inject(function ($rootScope, $controller) {
       scope = $rootScope.$new()
@@ -17,6 +22,10 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
       expect(scope.showDetail).toBeDefined()
     }))
@@ -66,7 +75,10 @@ describe('controllers', function () {
     }))
 
     it('should open a modal dialog with user details', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
       spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
 
       scope.showDetail(42)
 
