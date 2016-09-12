@@ -15,6 +15,11 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
   }))
 
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
+  })
+
   describe('BasketController', function () {
     beforeEach(inject(function ($rootScope, $window, $controller) {
       scope = $rootScope.$new()
@@ -24,6 +29,9 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
       expect(scope.delete).toBeDefined()
       expect(scope.checkout).toBeDefined()
@@ -67,14 +75,6 @@ describe('controllers', function () {
       $httpBackend.flush()
     }))
 
-    it('should gracefully handle error while deleting basket item', inject(function ($controller) {
-      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
-      $httpBackend.whenDELETE('/api/BasketItems/1').respond(500)
-
-      scope.delete(1)
-      $httpBackend.flush()
-    }))
-
     it('should redirect to confirmation URL after ordering basket', inject(function ($controller) {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
       $httpBackend.whenPOST('/rest/basket/42/checkout').respond(200, 'confirmationUrl')
@@ -98,7 +98,7 @@ describe('controllers', function () {
     it('should update basket item with increased quantity after adding another item of same type', inject(function ($controller) {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 1}})
-      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 2}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 2}).respond(200)
 
       scope.inc(1)
       $httpBackend.flush()
@@ -124,7 +124,7 @@ describe('controllers', function () {
     it('should update basket item with decreased quantity after removing an item', inject(function ($controller) {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 5}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 5}})
-      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 4}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 4}).respond(200)
 
       scope.dec(1)
       $httpBackend.flush()
@@ -133,7 +133,7 @@ describe('controllers', function () {
     it('should always keep one item of any product in the basket when reducing quantity via UI', inject(function ($controller) {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 1}})
-      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
 
       scope.dec(1)
       $httpBackend.flush()
@@ -180,6 +180,90 @@ describe('controllers', function () {
 
       expect(scope.confirmation).toBe('Discount of 42% will be applied during checkout.')
       expect(scope.error).toBeUndefined()
+    }))
+
+    it('should log error while increasing quantity of basket item directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 3}).respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.inc(1)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log error while decreasing quantity of basket item directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.dec(1)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log error while retrieving basket item for quantity increase directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.inc(1)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log error while retrieving basket item for quantity decrease directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.dec(1)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log error when ordering basket fails directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
+      $httpBackend.whenPOST('/rest/basket/42/checkout').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.checkout()
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('shouldlog error while deleting basket item directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
+      $httpBackend.whenDELETE('/api/BasketItems/1').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      scope.delete(1)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log error while getting products from backend API directly to browser console', inject(function ($controller) {
+      $httpBackend.whenGET('/rest/basket/42').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
     }))
   })
 })

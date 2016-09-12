@@ -112,6 +112,11 @@
     "ignore": [
       "/app/private/**"
     ],
+    "env": [
+      "jasmine",
+      "node",
+      "browser"
+    ],
     "globals": [
       "angular",
       "$",
@@ -126,7 +131,8 @@
       "jasmine",
       "inject",
       "spyOn",
-      "beforeEach"
+      "beforeEach",
+      "afterEach"
     ]
   }
 }
