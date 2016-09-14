@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "codeclimate-test-reporter": "~0.3",
+    "form-data": "^1.0.1",
     "frisby": "~0.8",
     "grunt-exec": "~0.4",
     "grunt-retire": "~0.3",
