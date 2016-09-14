@@ -60,7 +60,6 @@ describe('/#/complain', function () {
 
       protractor.expect.challengeSolved({ challenge: 'uploadSize' })
     })
-
   })
 
   describe('challenge "uploadType"', function () {
@@ -78,6 +77,5 @@ describe('/#/complain', function () {
 
       protractor.expect.challengeSolved({ challenge: 'uploadType' })
     })
-
   })
 })

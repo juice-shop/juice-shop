@@ -17,7 +17,7 @@ var favicon = require('serve-favicon')
 var bodyParser = require('body-parser')
 var cors = require('cors')
 var multer = require('multer')
-var upload = multer({dest: './ftp/uploads/', limits: {fileSize: 2000000}})
+var upload = multer({storage: multer.memoryStorage(), limits: {fileSize: 2000000}})
 var fileUpload = require('./routes/fileUpload')
 var redirect = require('./routes/redirect')
 var angular = require('./routes/angular')
@@ -43,13 +43,6 @@ errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 /* Delete old order PDFs */
 glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
-  console.log(err)
-  files.forEach(function (filename) {
-    fs.unlink(filename)
-  })
-})
-/* Delete old uploads */
-glob(path.join(__dirname, 'ftp/uploads/*'), function (err, files) {
   console.log(err)
   files.forEach(function (filename) {
     fs.unlink(filename)
