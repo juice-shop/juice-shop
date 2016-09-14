@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
 }
 
 function uploadAnonymousChallengeHook (complaint) {
-  if (utils.notSolved(challenges.uploadAnonymous) && !complaint.UserId && complaint.file === 'clickme.pdf') {
+  if (utils.notSolved(challenges.uploadAnonymous) && !complaint.UserId && complaint.file === 'clickme.html') {
     utils.solve(challenges.uploadAnonymous)
   }
 }
