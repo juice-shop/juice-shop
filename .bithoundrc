@@ -1,6 +1,15 @@
-"ignore": [
-  "**/app/private/**",
-  "**/node_modules/**",
-  "**/bower_components/**",
-  "**/dist/**"
-]
+{
+  "ignore": [
+    "**/app/private/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/dist/**"
+  ],
+  "dependencies": {
+    "mute": [
+      "sequelize",
+      "sequelize-restful",
+      "sanitize-html"
+    ]
+  }
+}
