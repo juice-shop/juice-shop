@@ -82,7 +82,7 @@ describe('controllers', function () {
 
       scope.showDetail(42)
 
-      expect($uibModal.open).toHaveBeenCalled()
+      expect($uibModal.open).toHaveBeenCalledWith({ templateUrl: 'views/UserDetail.html', controller: 'UserDetailsController', size: jasmine.any(String), resolve: { id: jasmine.any(Function) } })
     }))
   })
 })

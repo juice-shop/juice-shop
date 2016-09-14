@@ -67,7 +67,7 @@ describe('controllers', function () {
 
       scope.showDetail(42)
 
-      expect($uibModal.open).toHaveBeenCalled()
+      expect($uibModal.open).toHaveBeenCalledWith({ templateUrl: 'views/ProductDetail.html', controller: 'ProductDetailsController', size: jasmine.any(String), resolve: { id: jasmine.any(Function) } })
     }))
 
     it('should add new product to basket', inject(function ($controller) {
