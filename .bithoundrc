@@ -10,6 +10,10 @@
       "sequelize",
       "sequelize-restful",
       "sanitize-html"
+    ],
+    "unused-ignores": [
+      "sqlite3",
+      "grunt-cli"
     ]
   }
 }

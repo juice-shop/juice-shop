@@ -1,7 +1,7 @@
 /* jslint node: true */
 'use strict'
 
-var spawn = require('win-spawn')
+var spawn = require('cross-spawn')
 var colors = require('colors/safe')
 var server = require('./../server.js')
 
