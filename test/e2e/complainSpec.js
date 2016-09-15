@@ -3,6 +3,7 @@
 describe('/#/complain', function () {
   var path = require('path')
   var message, file, submitButton
+  var fileSizeErrorMessage, fileTypeErrorMessage
 
   protractor.beforeEach.login({ email: 'admin@juice-sh.op', password: 'admin123' })
 
@@ -11,6 +12,8 @@ describe('/#/complain', function () {
     message = element(by.model('complaint.message'))
     file = element(by.model('file'))
     submitButton = element(by.id('submitButton'))
+    fileSizeErrorMessage = element(by.css('[ng-show="form.file.$error.maxSize"]'))
+    fileTypeErrorMessage = element(by.css('[ng-show="form.file.$error.pattern"]'))
   })
 
   describe('untampered file upload form', function () {
@@ -22,6 +25,8 @@ describe('/#/complain', function () {
       file.sendKeys(filename)
 
       expect(submitButton.isEnabled()).toBe(true)
+      expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
+      expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
       submitButton.click()
     })
 
@@ -32,7 +37,8 @@ describe('/#/complain', function () {
       message.sendKeys('Cannot upload 1.5 MB attachment!')
       file.sendKeys(filename)
 
-      expect(submitButton.isEnabled()).toBe(false)
+      expect(fileSizeErrorMessage.isDisplayed()).toBe(true)
+      expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
     })
 
     it('should not be possible to upload files with other extension than .pdf', function () {
@@ -42,7 +48,8 @@ describe('/#/complain', function () {
       message.sendKeys('Cannot upload .qeg attachment!')
       file.sendKeys(filename)
 
-      expect(submitButton.isEnabled()).toBe(false)
+      expect(fileTypeErrorMessage.isDisplayed()).toBe(true)
+      expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
     })
   })
 
