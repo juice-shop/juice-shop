@@ -24,19 +24,19 @@ describe('/#/complain', function () {
       message.sendKeys('Uploading small PDF attachment...')
       file.sendKeys(filename)
 
-      expect(submitButton.isEnabled()).toBe(true)
       expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
       expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
       submitButton.click()
     })
 
-    xit('should not be possible to upload files greater 1 MB', function () {
+    it('should not be possible to upload files greater 1 MB', function () {
       var filename = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
       console.log(filename)
 
       message.sendKeys('Cannot upload 1.5 MB attachment!')
       file.sendKeys(filename)
 
+      submitButton.click()
       expect(fileSizeErrorMessage.isDisplayed()).toBe(true)
       expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
     })
@@ -48,6 +48,7 @@ describe('/#/complain', function () {
       message.sendKeys('Cannot upload .qeg attachment!')
       file.sendKeys(filename)
 
+      submitButton.click()
       expect(fileTypeErrorMessage.isDisplayed()).toBe(true)
       expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
     })
@@ -62,7 +63,8 @@ describe('/#/complain', function () {
       message.sendKeys('Uploading 1.5 MB attachment...')
       file.sendKeys(filename)
 
-      expect(submitButton.isEnabled()).toBe(true)
+      expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
+      expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
       submitButton.click()
 
       protractor.expect.challengeSolved({ challenge: 'uploadSize' })
@@ -79,7 +81,8 @@ describe('/#/complain', function () {
       message.sendKeys('Uploading .qeg attachment...')
       file.sendKeys(filename)
 
-      expect(submitButton.isEnabled()).toBe(true)
+      expect(fileSizeErrorMessage.isDisplayed()).toBe(false)
+      expect(fileTypeErrorMessage.isDisplayed()).toBe(false)
       submitButton.click()
 
       protractor.expect.challengeSolved({ challenge: 'uploadType' })
