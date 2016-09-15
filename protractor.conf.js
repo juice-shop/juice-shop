@@ -41,8 +41,8 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
   exports.config.capabilities = {
     'name': 'OWASP Juice Shop e2e Tests',
     'browserName': 'chrome',
-    'platform': 'Windows 10',
-    'screen-resolution': '1920x1200',
+    'platform': 'OS X 10.11',
+    'screen-resolution': '2048x1536',
     'username': process.env.SAUCE_USERNAME,
     'accessKey': process.env.SAUCE_ACCESS_KEY,
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
