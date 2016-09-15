@@ -72,7 +72,7 @@ describe('/#/complain', function () {
   describe('challenge "uploadType"', function () {
     xit('should be possible to upload files with other extension than .pdf', function () {
       browser.executeScript('document.getElementById("file").removeAttribute("ngf-pattern");')
-      browser.executeScript('document.getElementById("file").removeAttribute("accept");')
+      browser.executeScript('document.getElementById("file").removeAttribute("ngf-accept");')
       var filename = path.resolve(__dirname, '../files/invalidTypeForClient.qeg')
       console.log(filename)
 
