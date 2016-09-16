@@ -99,5 +99,4 @@ describe('/#/complain', function () {
       protractor.expect.challengeSolved({ challenge: 'uploadAnonymous' })
     })
   })
-
 })
