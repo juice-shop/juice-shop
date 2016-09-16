@@ -249,7 +249,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadSize',
-      description: 'File a complaint with an attachment >1MB.',
+      description: 'Upload a file larger than 100 KB.',
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
@@ -257,19 +257,11 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadType',
-      description: 'File a complaint with a non-PDF attachment.',
+      description: 'Upload a file that has no .pdf extension',
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
       challenges.uploadType = challenge
-    })
-    models.Challenge.create({
-      name: 'uploadAnonymous',
-      description: 'File an anoymous complaint with a file named <i>clickme.html</i> attached.',
-      difficulty: 2,
-      solved: false
-    }).success(function (challenge) {
-      challenges.uploadAnonymous = challenge
     })
   }
   function createUsers () {

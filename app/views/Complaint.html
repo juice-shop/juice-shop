@@ -11,7 +11,7 @@
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
                     <p ng-show="form.complaintMessage.$error.required && form.complaintMessage.$dirty">Please provide a text.</p>
                     <p ng-show="form.complaintMessage.$error.maxlength && form.complaintMessage.$dirty">Text length must be 1-160 characters.</p>
-                    <p ng-show="form.file.$error.maxSize">File too large. Maximum 1 MB allowed.</p>
+                    <p ng-show="form.file.$error.maxSize">File too large. Maximum 100 KB allowed.</p>
                     <p ng-show="form.file.$error.pattern">Unrecognized file type. Only PDF allowed.</p>
                 </div>
 
@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="file">Invoice</label>
-                                <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="1MB"/>
+                                <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="100KB"/>
                             </div>
                         </div>
                         <div class="row">

@@ -26,7 +26,7 @@ frisby.create('POST file too large for client validation but valid for API')
   .expectStatus(204)
   .toss()
 
-var invalidTypeForClient = path.resolve(__dirname, '../files/invalidTypeForClient.qeg')
+var invalidTypeForClient = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
 var validTypeForServerForm = new FormData()
 validTypeForServerForm.append('file', fs.createReadStream(invalidTypeForClient), {
   knownLength: fs.statSync(invalidTypeForClient).size

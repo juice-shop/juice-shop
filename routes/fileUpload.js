@@ -8,7 +8,7 @@ exports = module.exports = function fileUpload () {
   return function (req, res) {
     var file = req.file
     console.log(req.file)
-    if (utils.notSolved(challenges.uploadSize) && file.size > 1000000) {
+    if (utils.notSolved(challenges.uploadSize) && file.size > 100000) {
       utils.solve(challenges.uploadSize)
     }
     if (utils.notSolved(challenges.uploadType) && !utils.endsWith(file.originalname.toLowerCase(), '.pdf')) {
