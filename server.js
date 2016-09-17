@@ -17,7 +17,7 @@ var favicon = require('serve-favicon')
 var bodyParser = require('body-parser')
 var cors = require('cors')
 var multer = require('multer')
-var upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
+var upload = multer({storage: multer.memoryStorage(), limits: {fileSize: 200000}})
 var fileUpload = require('./routes/fileUpload')
 var redirect = require('./routes/redirect')
 var angular = require('./routes/angular')
@@ -49,14 +49,6 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
   })
 })
 
-/* Delete old logfiles */
-glob(path.join(__dirname, '/*.log'), function (err, files) {
-  console.log(err)
-  files.forEach(function (filename) {
-    fs.unlink(filename)
-  })
-})
-
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
 app.use(cors())
@@ -67,10 +59,7 @@ app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
-app.use(function (req, res, next) {
-  req.url = req.url.replace(/[/]+/g, '/')
-  next()
-})
+app.use(function (req, res, next) { req.url = req.url.replace(/[/]+/g, '/'); next() })
 
 /* Favicon */
 app.use(favicon(path.join(__dirname, 'app/public/favicon_v2.ico')))
@@ -79,11 +68,11 @@ app.use(favicon(path.join(__dirname, 'app/public/favicon_v2.ico')))
 app.use('/public/images/tracking', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { 'icons': true }))
+app.use('/ftp', serveIndex('ftp', {'icons': true}))
 app.use('/ftp/:file', fileServer())
 
 app.use(express.static(applicationRoot + '/app'))
-app.use(morgan('combined', { stream: fs.createWriteStream(path.join(__dirname, 'access.log')) }))
+app.use(morgan('dev'))
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
@@ -98,9 +87,9 @@ app.use('/api/Feedbacks/:id', insecurity.isAuthorized())
 /* Users: Only POST is allowed in order to register a new uer */
 app.get('/api/Users', insecurity.isAuthorized())
 app.route('/api/Users/:id')
-  .get(insecurity.isAuthorized())
-  .put(insecurity.isAuthorized())
-  .delete(insecurity.denyAll()) // Deleting users is forbidden entirely to keep login challenges solvable
+    .get(insecurity.isAuthorized())
+    .put(insecurity.isAuthorized())
+    .delete(insecurity.denyAll()) // Deleting users is forbidden entirely to keep login challenges solvable
 /* Products: Only GET is allowed in order to view products */
 app.post('/api/Products', insecurity.isAuthorized())
 // app.put('/api/Products/:id', insecurity.isAuthorized()); // = missing function-level access control vulnerability
@@ -123,10 +112,7 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
 /* Sequelize Restful APIs */
-app.use(restful(models.sequelize, {
-  endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints' ]
-}))
+app.use(restful(models.sequelize, { endpoint: '/api', allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints'] }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
 app.get('/rest/user/change-password', changePassword())
@@ -154,7 +140,7 @@ exports.start = function (config, readyCallback) {
       datacreator()
       this.server = app.listen(config.port, function () {
         console.log(colors.cyan('Listening on port %d'), config.port)
-        // callback to call when the server is ready
+                // callback to call when the server is ready
         if (readyCallback) {
           readyCallback()
         }
