@@ -22,5 +22,7 @@
   "INVALID_PASSWORD_LENGTH": "Password must be {{length}} characters long.",
   "TITLE_REGISTRATION": "User Registration",
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
-  "BTN_REGISTER": "Register"
+  "BTN_REGISTER": "Register",
+
+  "CONFIRM_LOGGED_OUT": "You have been logged out."
 }

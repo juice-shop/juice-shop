@@ -22,5 +22,7 @@
   "INVALID_PASSWORD_LENGTH": "Passwort muss {{length}} Zeichen lang sein.",
   "TITLE_REGISTRATION": "Benutzerregistrierung",
   "LABEL_PASSWORD_REPEAT": "Passwort wiederholen",
-  "BTN_REGISTER": "Registrieren"
+  "BTN_REGISTER": "Registrieren",
+
+  "CONFIRM_LOGGED_OUT": "Sie wurden abgemeldet."
 }
