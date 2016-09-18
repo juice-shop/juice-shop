@@ -21,7 +21,9 @@
     "string": "~3.3",
     "moment": "~2.13",
     "github-fork-ribbon-css": "~0.1",
-    "fontawesome": "~4.6"
+    "fontawesome": "~4.6",
+    "angular-translate": "^2.12.1",
+    "angular-translate-loader-static-files": "^2.12.1"
   },
   "resolutions": {
     "angular": "~1.5"

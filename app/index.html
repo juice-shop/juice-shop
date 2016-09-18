@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> Search</button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> {{'NAV_SEARCH' | translate}}</button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
@@ -87,6 +87,8 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="bower_components/angular-touch/angular-touch.min.js"></script>

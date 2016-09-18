@@ -75,6 +75,7 @@ module.exports = function (grunt) {
               'app/bower_components/**',
               'app/public/**',
               'app/private/**',
+              'app/i18n/*.json',
               'server.js',
               'app.js',
               'models/*.js',

@@ -43,10 +43,13 @@ errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 /* Delete old order PDFs */
 glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
-  console.log(err)
-  files.forEach(function (filename) {
-    fs.unlink(filename)
-  })
+  if (err) {
+    console.log(err)
+  } else {
+    files.forEach(function (filename) {
+      fs.unlink(filename)
+    })
+  }
 })
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
