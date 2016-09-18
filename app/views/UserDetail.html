@@ -1,29 +1,29 @@
 <div class="modal-header">
-    <h3 class="modal-title">User #{{user.id}}</h3>
+    <h3 class="modal-title">{{'LABEL_USER' | translate}} #{{user.id}}</h3>
 </div>
 <div class="modal-body">
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <strong>Email</strong>
+                <strong translate="LABEL_EMAIL"></strong>
 
                 <p>{{user.email}}</p>
             </div>
             <!--<div class="col-md-6" ng-show="user.password">
-                <strong>Password</strong>
+                <strong translate="LABEL_PASSWORD"></strong>
 
                 <p>{{user.password}}</p>
             </div>-->
         </div>
         <div class="row">
             <div class="col-md-6">
-                <strong>Created at</strong>
+                <strong translate="LABEL_CREATED_AT"></strong>
 
                 <p>{{user.createdAt}}</p>
             </div>
             <div class="col-md-6">
-                <strong>Updated at</strong>
+                <strong translate="LABEL_UPDATED_AT"></strong>
 
                 <p>{{user.updatedAt}}</p>
             </div>
@@ -31,5 +31,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> Close</button>
+    <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}</button>
 </div>

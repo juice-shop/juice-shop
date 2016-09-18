@@ -40,5 +40,9 @@
 
   "TITLE_ADMINISTRATION": "Administration",
   "SECTION_USER": "Registered Users",
-  "LABEL_USER": "User"
+  "LABEL_USER": "User",
+
+  "LABEL_CREATED_AT": "Created at",
+  "LABEL_UPDATED_AT": "Updated at",
+  "BTN_CLOSE": "Close"
 }
