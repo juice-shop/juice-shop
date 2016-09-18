@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
-        <h3 class="page-header page-header-sm">Login</h3>
+        <h3 class="page-header page-header-sm" translate="NAV_LOGIN"></h3>
 
         <form role="form" name="form" novalidate>
 
@@ -8,31 +8,31 @@
                 <p>{{error}}</p>
             </div>
             <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
-                <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty">Please provide an email address.</p>
-                <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty">Please provide a password.</p>
+                <p ng-show="form.userEmail.$error.required && form.userEmail.$dirty" translate="ERR_MANDATORY_EMAIL"></p>
+                <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty" translate="ERR_MANDATORY_PASSWORD"></p>
             </div>
 
             <div class="container-fluid well">
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="userEmail">Email</label>
+                        <label for="userEmail" translate="LABEL_EMAIL"></label>
                         <input type="text" class="form-control input-sm" id="userEmail" name="userEmail" ng-model="user.email" required/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="userPassword">Password</label>
+                        <label for="userPassword" translate="LABEL_PASSWORD"></label>
                         <input type="password" class="form-control input-sm" id="userPassword" name="userPassword" ng-model="user.password" required/>
                     </div>
                 </div>
                 <div class="row">
                         <div class="form-group">
-                            <button type="submit" id="loginButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="login()"><i class="fa fa-key fa-lg"></i> Log in</button>
+                            <button type="submit" id="loginButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="login()"><i class="fa fa-key fa-lg"></i> {{'BTN_LOGIN' | translate}}</button>
                         </div>
                 </div>
                 <div class="row">
-                    Not yet a customer? <a href="#/register">Register now!</a>
+                    {{'NO_CUSTOMER' | translate}} <a href="#/register" translate="LINK_REGISTER"></a>
                 </div>
             </div>
 

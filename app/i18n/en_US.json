@@ -7,5 +7,13 @@
   "NAV_CONTACT_US": "Contact Us",
   "NAV_COMPLAIN": "Complain",
   "NAV_ABOUT_US": "About Us",
-  "RIBBON_GITHUB_FORK": "Fork me on GitHub"
+  "RIBBON_GITHUB_FORK": "Fork me on GitHub",
+
+  "ERR_MANDATORY_EMAIL": "Please provide an email address.",
+  "ERR_MANDATORY_PASSWORD": "Please provide a password.",
+  "LABEL_EMAIL": "Email",
+  "LABEL_PASSWORD": "Password",
+  "BTN_LOGIN": "Log in",
+  "NO_CUSTOMER": "Not yet a customer?",
+  "LINK_REGISTER": "Register now!"
 }
