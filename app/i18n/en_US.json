@@ -1,3 +1,11 @@
 {
-  "NAV_SEARCH": "Search"
+  "NAV_SEARCH": "Search",
+  "NAV_YOUR_BASKET": "Your Basket",
+  "NAV_CHANGE_PASSWORD": "Change Password",
+  "NAV_LOGIN": "Login",
+  "NAV_LOGOUT": "Logout",
+  "NAV_CONTACT_US": "Contact Us",
+  "NAV_COMPLAIN": "Complain",
+  "NAV_ABOUT_US": "About Us",
+  "RIBBON_GITHUB_FORK": "Fork me on GitHub"
 }

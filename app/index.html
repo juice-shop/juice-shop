@@ -37,30 +37,30 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
+                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> {{'NAV_LOGIN' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> {{'NAV_LOGOUT' | translate}}</a>
             </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
+                        <input type="text" class="form-control" placeholder="{{'NAV_SEARCH' | translate}}..." ng-model="searchQuery">
                     </div>
                     <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> {{'NAV_SEARCH' | translate}}</button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> Your Basket</a>
+                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> {{'NAV_YOUR_BASKET' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> Change Password</a>
+                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> {{'NAV_CHANGE_PASSWORD' | translate}}</a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> Contact Us</a>
+                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> {{'NAV_CONTACT_US' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> Complain</a>
+                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> {{'NAV_COMPLAIN' | translate}}</a>
             </li>
             <!--
             <li class="dropdown">
@@ -68,7 +68,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> About Us</a>
+                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> {{'NAV_ABOUT_US' | translate}}</a>
             </li>
         </ul>
     </div>
@@ -102,7 +102,7 @@
 
 <div class="github-fork-ribbon-wrapper right">
     <div class="github-fork-ribbon">
-        <a href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank">Fork me on GitHub</a>
+        <a href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank">{{'RIBBON_GITHUB_FORK' | translate}}</a>
     </div>
 </div>
 
