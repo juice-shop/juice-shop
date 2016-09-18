@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <h3 class="page-header page-header-sm">Contact Us</h3>
+        <h3 class="page-header page-header-sm" translate="TITLE_CONTACT"></h3>
 
         <div>
 
@@ -10,34 +10,34 @@
                     <p>{{confirmation}}</p>
                 </div>
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
-                    <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty">Please provide a comment.</p>
-                    <p ng-show="form.feedbackComment.$error.maxlength && form.feedbackComment.$dirty">Comment length must be 1-160 characters.</p>
-                    <p ng-show="form.feedbackRating.$error.required && form.feedbackRating.$dirty">Please provide a rating.</p>
+                    <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty" translate="MANDATORY_COMMENT"></p>
+                    <p ng-show="form.feedbackComment.$error.maxlength && form.feedbackComment.$dirty" translate="INVALID_COMMENT_LENGTH" translate-value-length="1-160"></p>
+                    <p ng-show="form.feedbackRating.$error.required && form.feedbackRating.$dirty" translate="MANDATORY_RATING"></p>
                 </div>
 
                 <div class="container-fluid well">
 
                         <div class="row">
                             <div class="form-group">
-                                <label>Author</label>
+                                <label translate="LABEL_AUTHOR"></label>
                                 <label class="form-control input-sm">{{userEmail}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="feedbackComment">Comment</label>
+                                <label for="feedbackComment" translate="LABEL_COMMENT"></label>
                                 <textarea class="form-control input-sm" id="feedbackComment" name="feedbackComment" ng-model="feedback.comment" required ng-maxlength="160"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label>Rating</label>
+                                <label translate="LABEL_RATING"></label>
                                 <uib-rating max="5" name="feedbackRating" ng-model="feedback.rating" required></uib-rating>
                             </div>
                         </div>
                         <div class="row">
                                 <div class="form-group">
-                                    <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-send fa-lg"></i> Submit</button>
+                                    <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-send fa-lg"></i> {{'BTN_SUBMIT' | translate}}</button>
                                 </div>
                         </div>
                 </div>

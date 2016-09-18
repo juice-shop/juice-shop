@@ -2,13 +2,11 @@
   "NAV_SEARCH": "Suche",
   "NAV_YOUR_BASKET": "Dein Warenkorb",
   "NAV_CHANGE_PASSWORD": "Passwort ändern",
-  "TITLE_LOGIN": "Anmelden",
-  "TITLE_LOGOUT": "Abmelden",
-  "NAV_CONTACT_US": "Kontaktiere uns",
   "NAV_COMPLAIN": "Beschwere dich",
   "NAV_ABOUT_US": "Über uns",
   "RIBBON_GITHUB_FORK": "Forke mich auf GitHub",
 
+  "TITLE_LOGIN": "Anmelden",
   "MANDATORY_EMAIL": "Bitte gib eine Email-Adresse ein.",
   "MANDATORY_PASSWORD": "Bitte gib ein Passwort ein.",
   "LABEL_EMAIL": "Email",
@@ -17,12 +15,22 @@
   "NO_CUSTOMER": "Noch kein Kunde?",
   "LINK_REGISTER": "Jetzt registrieren!",
 
+  "TITLE_REGISTRATION": "Benutzerregistrierung",
   "INVALID_EMAIL": "Email-Adresse ist nicht gültig.",
   "MANDATORY_PASSWORD_REPEAT": "Bitte wiederhole dein Passwort.",
   "INVALID_PASSWORD_LENGTH": "Passwort muss {{length}} Zeichen lang sein.",
-  "TITLE_REGISTRATION": "Benutzerregistrierung",
   "LABEL_PASSWORD_REPEAT": "Passwort wiederholen",
   "BTN_REGISTER": "Registrieren",
 
-  "CONFIRM_LOGGED_OUT": "Sie wurden abgemeldet."
+  "TITLE_LOGOUT": "Abmelden",
+  "CONFIRM_LOGGED_OUT": "Sie wurden abgemeldet.",
+
+  "TITLE_CONTACT": "Kontaktiere uns",
+  "MANDATORY_COMMENT": "Bitte gib einen Kommentar ein.",
+  "INVALID_COMMENT_LENGTH": "Kommentarlänge muss {{length}} Zeichen betragen.",
+  "MANDATORY_RATING": "Bitte gib eine Bewertung ein.",
+  "LABEL_AUTHOR": "Verfasser",
+  "LABEL_COMMENT": "Kommentar",
+  "LABEL_RATING": "Bewertung",
+  "BTN_SUBMIT": "Abschicken"
 }

@@ -2,7 +2,6 @@
   "NAV_SEARCH": "Search",
   "NAV_YOUR_BASKET": "Your Basket",
   "NAV_CHANGE_PASSWORD": "Change Password",
-  "NAV_CONTACT_US": "Contact Us",
   "NAV_COMPLAIN": "Complain",
   "NAV_ABOUT_US": "About Us",
   "RIBBON_GITHUB_FORK": "Fork me on GitHub",
@@ -24,5 +23,14 @@
   "BTN_REGISTER": "Register",
 
   "TITLE_LOGOUT": "Logout",
-  "CONFIRM_LOGGED_OUT": "You have been logged out."
+  "CONFIRM_LOGGED_OUT": "You have been logged out.",
+
+  "TITLE_CONTACT": "Contact Us",
+  "MANDATORY_COMMENT": "Please provide a comment.",
+  "INVALID_COMMENT_LENGTH": "Comment length must be {{length}} characters.",
+  "MANDATORY_RATING": "Please provide a rating.",
+  "LABEL_AUTHOR": "Author",
+  "LABEL_COMMENT": "Comment",
+  "LABEL_RATING": "Rating",
+  "BTN_SUBMIT": "Submit"
 }
