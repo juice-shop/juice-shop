@@ -30,7 +30,7 @@
     "express": "~4.14",
     "express-jwt": "~5.0",
     "glob": "~5.0",
-    "helmet": "~2.1",
+    "helmet": "~2.2",
     "jsonwebtoken": "~7.1",
     "morgan": "~1.7",
     "multer": "^1.2.0",
