@@ -3,7 +3,6 @@
   "NAV_YOUR_BASKET": "Your Basket",
   "NAV_CHANGE_PASSWORD": "Change Password",
   "NAV_COMPLAIN": "Complain",
-  "NAV_ABOUT_US": "About Us",
   "RIBBON_GITHUB_FORK": "Fork me on GitHub",
 
   "TITLE_LOGIN": "Login",
@@ -32,5 +31,10 @@
   "LABEL_AUTHOR": "Author",
   "LABEL_COMMENT": "Comment",
   "LABEL_RATING": "Rating",
-  "BTN_SUBMIT": "Submit"
+  "BTN_SUBMIT": "Submit",
+
+  "TITLE_ABOUT": "About Us",
+  "SECTION_CORPORATE_HISTORY": "Corporate History & Policy",
+  "SECTION_CUSTOMER_FEEDBACK": "Customer Feedback",
+  "LINK_TERMS_OF_USE": "Check out our boring terms of use if you are interested in such lame stuff."
 }
