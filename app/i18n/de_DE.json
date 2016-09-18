@@ -9,11 +9,18 @@
   "NAV_ABOUT_US": "Über uns",
   "RIBBON_GITHUB_FORK": "Forke mich auf GitHub",
 
-  "ERR_MANDATORY_EMAIL": "Bitte gib eine Email-Adresse ein.",
-  "ERR_MANDATORY_PASSWORD": "Bitte gib ein Passwort ein.",
+  "MANDATORY_EMAIL": "Bitte gib eine Email-Adresse ein.",
+  "MANDATORY_PASSWORD": "Bitte gib ein Passwort ein.",
   "LABEL_EMAIL": "Email",
   "LABEL_PASSWORD": "Passwort",
   "BTN_LOGIN": "Anmelden",
   "NO_CUSTOMER": "Noch kein Kunde?",
-  "LINK_REGISTER": "Jetzt registrieren!"
+  "LINK_REGISTER": "Jetzt registrieren!",
+
+  "INVALID_EMAIL": "Email-Adresse ist nicht gültig.",
+  "MANDATORY_PASSWORD_REPEAT": "Bitte wiederhole dein Passwort.",
+  "INVALID_PASSWORD_LENGTH": "Passwort muss {{length}} Zeichen lang sein.",
+  "TITLE_REGISTRATION": "Benutzerregistrierung",
+  "LABEL_PASSWORD_REPEAT": "Passwort wiederholen",
+  "BTN_REGISTER": "Registrieren"
 }
