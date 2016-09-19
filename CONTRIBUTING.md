@@ -90,6 +90,6 @@ From time to time issues might get a bounty assigned which is paid out to the im
 OWASP Juice Shop uses [Crowdin](https://crowdin.com/project/owasp-juice-shop/) as a translation platform. Currently we offer full translation for the following languages:
 
 * __English__
-* German (@bkimminich)
+* German [@bkimminich](https://github.com/bkimminich)
 
 > Right now only the UI texts are translated. Everything that comes directly from the server side (i.e. the database) is English only.
