@@ -44,5 +44,11 @@
 
   "LABEL_CREATED_AT": "Created at",
   "LABEL_UPDATED_AT": "Updated at",
-  "BTN_CLOSE": "Close"
+  "BTN_CLOSE": "Close",
+
+  "LABEL_PRODUCT": "Product",
+  "LABEL_NAME": "Name",
+  "LABEL_DESCRIPTION": "Description",
+  "LABEL_PRICE": "Price",
+  "LABEL_IMAGE": "Image"
 }
