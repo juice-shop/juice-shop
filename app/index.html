@@ -44,12 +44,21 @@
             </li>
             <li class="dropdown">
                 <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{'LANGUAGE' | translate}}
+                    <i class="fa fa-language fa-lg"></i> {{'LANGUAGE' | translate}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
                     <li><a ng-click="changeLanguage('en')">English</a></li>
                     <li><a ng-click="changeLanguage('de')">Deutsch</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="changeLanguage('es')">Español <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('et')">Eesti <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('fr')">Français <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('it')">Italiano <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('nl')">Nederlands <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('pt')">Português <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('ru')">Pусский <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('zh')">中国 <i class="fa fa-flask"></i></a></li>
                 </ul>
             </li>
             <li>
