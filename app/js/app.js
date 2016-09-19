@@ -43,5 +43,5 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
     suffix: '.json'
   })
   $translateProvider.determinePreferredLanguage()
-  $translateProvider.fallbackLanguage('en_US')
+  $translateProvider.fallbackLanguage('en')
 }])
