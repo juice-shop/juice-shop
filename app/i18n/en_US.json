@@ -1,6 +1,5 @@
 {
   "NAV_SEARCH": "Search",
-  "NAV_YOUR_BASKET": "Your Basket",
   "NAV_CHANGE_PASSWORD": "Change Password",
   "NAV_COMPLAIN": "Complain",
   "RIBBON_GITHUB_FORK": "Fork me on GitHub",
@@ -55,5 +54,18 @@
   "TITLE_SEARCH_RESULTS": "Search Results",
   "TITLE_ALL_PRODUCTS": "All Products",
   "BASKET_ADD_SAME_PRODUCT": "Added another {{product}} to basket.",
-  "BASKET_ADD_PRODUCT": "Placed {{product}} into basket."
+  "BASKET_ADD_PRODUCT": "Placed {{product}} into basket.",
+
+  "TITLE_BASKET": "Your Basket",
+  "LABEL_QUANTITY": "Quantity",
+  "LABEL_TOTAL_PRICE": "Total Price",
+  "BTN_CHECKOUT": "Checkout",
+  "INVALID_COUPON_LENGTH": "Coupon code must be {{length}} characters long.",
+  "LABEL_COUPON": "Coupon",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on {{twitter}} or {{facebook}} for monthly coupons and other spam!",
+  "BTN_REDEEM": "Redeem",
+  "THANKS_FOR_SUPPORT": "Thank you for supporting OWASP Juice Shop!",
+  "LABEL_PAYMENT": "Payment",
+  "LABEL_MERCHANDISE": "Merchandise",
+  "OFFICIAL_MERCHANDISE_STORES": "Official stores for OWASP Juice Shop apparel, mugs and stickers!"
 }

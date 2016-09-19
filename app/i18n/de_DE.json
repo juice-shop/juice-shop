@@ -1,6 +1,5 @@
 {
   "NAV_SEARCH": "Suche",
-  "NAV_YOUR_BASKET": "Dein Warenkorb",
   "NAV_CHANGE_PASSWORD": "Passwort ändern",
   "NAV_COMPLAIN": "Beschwere dich",
   "RIBBON_GITHUB_FORK": "Forke mich auf GitHub",
@@ -55,5 +54,18 @@
   "TITLE_SEARCH_RESULTS": "Suchergebnisse",
   "TITLE_ALL_PRODUCTS": "Alle Produkte",
   "BASKET_ADD_SAME_PRODUCT": "Noch eine(n) {{product}} dem Warenkorb hinzugefügt.",
-  "BASKET_ADD_PRODUCT": "{{product}} dem Warenkorb hinzugefügt."
+  "BASKET_ADD_PRODUCT": "{{product}} dem Warenkorb hinzugefügt.",
+
+  "TITLE_BASKET": "Dein Warenkorb",
+  "LABEL_QUANTITY": "Anzahl",
+  "LABEL_TOTAL_PRICE": "Gesamtpreis",
+  "BTN_CHECKOUT": "Zur Kasse",
+  "INVALID_COUPON_LENGTH": "Gutscheincode muss {{length}} Zeichen lang sein.",
+  "LABEL_COUPON": "Gutschein",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Du brauchst einen Gutschein? Folge uns auf {{twitter}} oder {{facebook}} und erhalte monatlich Gutscheine und anderen Spam!",
+  "BTN_REDEEM": "Einlösen",
+  "THANKS_FOR_SUPPORT": "Danke, dass du {{juiceshop}} unterstützt!",
+  "LABEL_PAYMENT": "Bezahlen",
+  "LABEL_MERCHANDISE": "Merchandise",
+  "OFFICIAL_MERCHANDISE_STORES": "Offizielle Läden für {{juiceshop}} Kleidung, Becher und Aufkleber!"
 }
