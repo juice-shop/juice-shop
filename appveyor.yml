@@ -5,6 +5,7 @@ branches:
   except:
   - gh-pages
   - lightning-talk
+  - l10n_develop
 environment:
   matrix:
     - nodejs_version: 4 # recommended version
