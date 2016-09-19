@@ -1,0 +1,4 @@
+files:
+  - 
+    source: /app/i18n/en_US.json
+    translation: '/app/i18n/%locale_with_underscore%.json'
