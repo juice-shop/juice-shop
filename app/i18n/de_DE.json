@@ -65,6 +65,7 @@
   "LABEL_PAYMENT": "Bezahlen",
   "LABEL_MERCHANDISE": "Merchandise",
   "OFFICIAL_MERCHANDISE_STORES": "Offizielle Läden für {{juiceshop}} Kleidung, Becher und Aufkleber!",
+  "DISCOUNT_APPLIED": "Ihr Rabatt von {{discount}}% wird an der Kasse abgezogen.",
 
   "TITLE_CHANGE_PASSWORD": "Passwort ändern",
   "MANDATORY_CURRENT_PASSWORD": "Bitte gib dein aktuelles Passwort ein.",

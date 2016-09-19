@@ -2,8 +2,9 @@ angular.module('juiceShop').controller('BasketController', [
   '$scope',
   '$sce',
   '$window',
+  '$translate',
   'BasketService',
-  function ($scope, $sce, $window, basketService) {
+  function ($scope, $sce, $window, $translate, basketService) {
     'use strict'
 
     $scope.couponCollapsed = true
@@ -32,13 +33,17 @@ angular.module('juiceShop').controller('BasketController', [
     $scope.applyCoupon = function () {
       basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).success(function (data) {
         $scope.coupon = undefined
-        $scope.confirmation = 'Discount of ' + data.discount + '% will be applied during checkout.'
+        $translate('DISCOUNT_APPLIED', {discount: data.discount}).then(function (discountApplied) {
+          $scope.confirmation = discountApplied
+        }, function (translationId) {
+          $scope.confirmation = translationId
+        })
         $scope.error = undefined
         $scope.form.$setPristine()
       }).error(function (error) {
         console.log(error)
         $scope.confirmation = undefined
-        $scope.error = error
+        $scope.error = error // Intentionally not translated to indicate that the error just passed through from backend
         $scope.form.$setPristine()
       })
     }

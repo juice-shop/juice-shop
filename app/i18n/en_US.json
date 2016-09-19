@@ -65,6 +65,7 @@
   "LABEL_PAYMENT": "Payment",
   "LABEL_MERCHANDISE": "Merchandise",
   "OFFICIAL_MERCHANDISE_STORES": "Official stores for {{juiceshop}} apparel, mugs and stickers!",
+  "DISCOUNT_APPLIED": "Your discount of {{discount}}% will be applied during checkout.",
 
   "TITLE_CHANGE_PASSWORD": "Change Password",
   "MANDATORY_CURRENT_PASSWORD": "Please provide your current password.",
