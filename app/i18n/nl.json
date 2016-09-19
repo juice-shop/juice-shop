@@ -1,8 +1,8 @@
 {
   "LANGUAGE":"Nederlands",
-  "NAV_SEARCH":"Search",
+  "NAV_SEARCH":"Zoeken",
   "NAV_COMPLAIN":"Complain?",
-  "RIBBON_GITHUB_FORK":"{{fork}} me on {{github}}",
+  "RIBBON_GITHUB_FORK":"{{fork}} me op {{github}}",
   "TITLE_LOGIN":"Login",
   "MANDATORY_EMAIL":"Please provide an email address.",
   "MANDATORY_PASSWORD":"Please provide a password.",
