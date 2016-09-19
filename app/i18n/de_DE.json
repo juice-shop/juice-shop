@@ -81,5 +81,12 @@
   "INVALID_FILE_TYPE": "Unerlaubter Dateityp. Nur {{type}} erlaubt.",
   "LABEL_CUSTOMER": "Kunde",
   "LABEL_MESSAGE": "Nachricht",
-  "LABEL_INVOICE": "Rechnung"
+  "LABEL_INVOICE": "Rechnung",
+
+  "TITLE_SCORE_BOARD": "Punkteübersicht",
+  "LABEL_DIFFICULTY": "Schwierigkeit",
+  "LABEL_STATUS": "Status",
+  "STATUS_UNSOLVED": "ungelöst",
+  "STATUS_SOLVED": "gelöst",
+  "CALL_FOR_CONTRIBUTIONS": "Du hast eine Idee für eine neue Herausforderung? Du hast eine Schwachstelle gefunden, die hier nicht aufgeführt ist? Gib uns Bescheid via {{gitter}} Community-Chat oder eröffne ein {{github}} Issue!"
 }

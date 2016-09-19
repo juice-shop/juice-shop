@@ -81,5 +81,12 @@
   "INVALID_FILE_TYPE": "Forbidden file type. Only {{type}} allowed.",
   "LABEL_CUSTOMER": "Customer",
   "LABEL_MESSAGE": "Message",
-  "LABEL_INVOICE": "Invoice"
+  "LABEL_INVOICE": "Invoice",
+
+  "TITLE_SCORE_BOARD": "Score Board",
+  "LABEL_DIFFICULTY": "Difficulty",
+  "LABEL_STATUS": "Status",
+  "STATUS_UNSOLVED": "unsolved",
+  "STATUS_SOLVED": "solved",
+  "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!"
 }
