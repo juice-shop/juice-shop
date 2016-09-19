@@ -50,5 +50,10 @@
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Price",
-  "LABEL_IMAGE": "Image"
+  "LABEL_IMAGE": "Image",
+
+  "TITLE_SEARCH_RESULTS": "Search Results",
+  "TITLE_ALL_PRODUCTS": "All Products",
+  "BASKET_ADD_SAME_PRODUCT": "Added another {{product}} to basket.",
+  "BASKET_ADD_PRODUCT": "Placed {{product}} into basket."
 }

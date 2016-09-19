@@ -5,9 +5,10 @@ angular.module('juiceShop').controller('SearchResultController', [
   '$window',
   '$uibModal',
   '$location',
+  '$translate',
   'ProductService',
   'BasketService',
-  function ($scope, $sce, $window, $uibModal, $location, productService, basketService) {
+  function ($scope, $sce, $window, $uibModal, $location, $translate, productService, basketService) {
     'use strict'
 
     $scope.showDetail = function (id) {
@@ -34,7 +35,11 @@ angular.module('juiceShop').controller('SearchResultController', [
               var newQuantity = existingBasketItem.data.quantity + 1
               basketService.put(existingBasketItem.data.id, {quantity: newQuantity}).success(function (updatedBasketItem) {
                 productService.get(updatedBasketItem.data.ProductId).success(function (product) {
-                  $scope.confirmation = 'Added another ' + product.data.name + ' to basket.'
+                  $translate('BASKET_ADD_SAME_PRODUCT', {product: product.data.name}).then(function (basketAddSameProduct) {
+                    $scope.confirmation = basketAddSameProduct
+                  }, function (translationId) {
+                    $scope.confirmation = translationId
+                  })
                 }).error(function (err) {
                   console.log(err)
                 })
@@ -50,7 +55,11 @@ angular.module('juiceShop').controller('SearchResultController', [
         if (!found) {
           basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).success(function (newBasketItem) {
             productService.get(newBasketItem.data.ProductId).success(function (product) {
-              $scope.confirmation = 'Placed ' + product.data.name + ' into basket.'
+              $translate('BASKET_ADD_PRODUCT', {product: product.data.name}).then(function (basketAddProduct) {
+                $scope.confirmation = basketAddProduct
+              }, function (translationId) {
+                $scope.confirmation = translationId
+              })
             }).error(function (err) {
               console.log(err)
             })

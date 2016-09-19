@@ -82,7 +82,7 @@ describe('controllers', function () {
       scope.addToBasket(1)
       $httpBackend.flush()
 
-      expect(scope.confirmation).toBe('Placed Cherry Juice into basket.')
+      expect(scope.confirmation).toBe('BASKET_ADD_PRODUCT')
     }))
 
     it('should add similar product to basket', inject(function ($controller) {
@@ -97,7 +97,7 @@ describe('controllers', function () {
       scope.addToBasket(2)
       $httpBackend.flush()
 
-      expect(scope.confirmation).toBe('Added another Tomato Juice to basket.')
+      expect(scope.confirmation).toBe('BASKET_ADD_SAME_PRODUCT')
     }))
 
     it('should not add anything to basket on error retrieving basket', inject(function ($controller) {
