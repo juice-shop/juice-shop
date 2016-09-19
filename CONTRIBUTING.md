@@ -84,3 +84,12 @@ From time to time issues might get a bounty assigned which is paid out to the im
 > 2.   Developers create solutions which closes the issue and claim the bounty on Bountysource.
 > 3.   Backers can accept or reject the claim.
 > 4.   If accepted, Bountysource pays the bounty to the developer.
+
+## Localization [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
+
+OWASP Juice Shop uses [Crowdin](https://crowdin.com/project/owasp-juice-shop/) as a translation platform. Currently we offer full translation for the following languages:
+
+* __English__
+* German (@bkimminich)
+
+> Right now only the UI texts are translated. Everything that comes directly from the server side (i.e. the database) is English only.
