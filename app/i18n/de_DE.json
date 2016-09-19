@@ -74,5 +74,14 @@
   "LABEL_CURRENT_PASSWORD": "Aktuelles Passwort",
   "LABEL_NEW_PASSWORD": "Neues Passwort",
   "LABEL_REPEAT_NEW_PASSWORD": "Neues Passwort wiederholen",
-  "BTN_CHANGE": "Ändern"
+  "BTN_CHANGE": "Ändern",
+
+  "TITLE_COMPLAIN": "Beschwerde einreichen",
+  "MANDATORY_MESSAGE": "Bitte gib einen Text ein.",
+  "INVALID_MESSAGE_LENGTH": "Textlänge muss {{length}} Zeichen betragen.",
+  "INVALID_FILE_SIZE": "Datei ist zu groß. Maximal {{size}} erlaubt.",
+  "INVALID_FILE_TYPE": "Unerlaubter Dateityp. Nur {{type}} erlaubt.",
+  "LABEL_CUSTOMER": "Kunde",
+  "LABEL_MESSAGE": "Nachricht",
+  "LABEL_INVOICE": "Rechnung"
 }

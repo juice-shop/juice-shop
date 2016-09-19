@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <h3 class="page-header page-header-sm">File Complaint</h3>
+        <h3 class="page-header page-header-sm" translate="TITLE_COMPLAIN"></h3>
 
         <div>
 
@@ -9,35 +9,35 @@
                     <p>{{confirmation}}</p>
                 </div>
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
-                    <p ng-show="form.complaintMessage.$error.required && form.complaintMessage.$dirty">Please provide a text.</p>
-                    <p ng-show="form.complaintMessage.$error.maxlength && form.complaintMessage.$dirty">Text length must be 1-160 characters.</p>
-                    <p ng-show="form.file.$error.maxSize">File too large. Maximum 100 KB allowed.</p>
-                    <p ng-show="form.file.$error.pattern">Unrecognized file type. Only PDF allowed.</p>
+                    <p ng-show="form.complaintMessage.$error.required && form.complaintMessage.$dirty" translate="MANDATORY_MESSAGE"></p>
+                    <p ng-show="form.complaintMessage.$error.maxlength && form.complaintMessage.$dirty" translate="INVALID_MESSAGE_LENGTH" translate-value-length="1-160"></p>
+                    <p ng-show="form.file.$error.maxSize" translate="INVALID_FILE_SIZE" translate-value-size="100 KB"></p>
+                    <p ng-show="form.file.$error.pattern" translate="INVALID_FILE_TYPE" translate-value-type="PDF"></p>
                 </div>
 
                 <div class="container-fluid well">
 
                         <div class="row">
                             <div class="form-group">
-                                <label>Customer</label>
+                                <label translate="LABEL_CUSTOMER"></label>
                                 <label class="form-control input-sm">{{userEmail}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="complaintMessage">Message</label>
+                                <label for="complaintMessage" translate="LABEL_MESSAGE"></label>
                                 <textarea class="form-control input-sm" id="complaintMessage" name="complaintMessage" ng-model="complaint.message" required ng-maxlength="160"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label for="file">Invoice</label>
+                                <label for="file" translate="LABEL_INVOICE"></label>
                                 <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="100KB"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-bomb fa-lg"></i> Submit</button> {{progress}}
+                                <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-bomb fa-lg"></i> {{'BTN_SUBMIT' | translate}}</button> {{progress}}
                             </div>
                         </div>
                 </div>
