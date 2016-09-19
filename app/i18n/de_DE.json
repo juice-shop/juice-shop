@@ -1,6 +1,6 @@
 {
   "NAV_SEARCH": "Suche",
-  "NAV_COMPLAIN": "Beschwere dich",
+  "NAV_COMPLAIN": "Beschweren?",
   "RIBBON_GITHUB_FORK": "Forke mich auf GitHub",
 
   "TITLE_LOGIN": "Anmelden",
@@ -39,21 +39,19 @@
   "TITLE_ADMINISTRATION": "Administration",
   "SECTION_USER": "Registrierte Benutzer",
   "LABEL_USER": "Benutzer",
-
   "LABEL_CREATED_AT": "Erstellt am",
   "LABEL_UPDATED_AT": "Aktualisiert am",
   "BTN_CLOSE": "Schließen",
-
-  "LABEL_PRODUCT": "Produkt",
-  "LABEL_NAME": "Name",
-  "LABEL_DESCRIPTION": "Beschreibung",
-  "LABEL_PRICE": "Preis",
-  "LABEL_IMAGE": "Bild",
 
   "TITLE_SEARCH_RESULTS": "Suchergebnisse",
   "TITLE_ALL_PRODUCTS": "Alle Produkte",
   "BASKET_ADD_SAME_PRODUCT": "Noch eine(n) {{product}} dem Warenkorb hinzugefügt.",
   "BASKET_ADD_PRODUCT": "{{product}} dem Warenkorb hinzugefügt.",
+  "LABEL_PRODUCT": "Produkt",
+  "LABEL_NAME": "Name",
+  "LABEL_DESCRIPTION": "Beschreibung",
+  "LABEL_PRICE": "Preis",
+  "LABEL_IMAGE": "Bild",
 
   "TITLE_BASKET": "Dein Warenkorb",
   "LABEL_QUANTITY": "Anzahl",

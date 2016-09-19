@@ -1,6 +1,6 @@
 {
   "NAV_SEARCH": "Search",
-  "NAV_COMPLAIN": "Complain",
+  "NAV_COMPLAIN": "Complain?",
   "RIBBON_GITHUB_FORK": "Fork me on GitHub",
 
   "TITLE_LOGIN": "Login",
@@ -39,21 +39,19 @@
   "TITLE_ADMINISTRATION": "Administration",
   "SECTION_USER": "Registered Users",
   "LABEL_USER": "User",
-
   "LABEL_CREATED_AT": "Created at",
   "LABEL_UPDATED_AT": "Updated at",
   "BTN_CLOSE": "Close",
-
-  "LABEL_PRODUCT": "Product",
-  "LABEL_NAME": "Name",
-  "LABEL_DESCRIPTION": "Description",
-  "LABEL_PRICE": "Price",
-  "LABEL_IMAGE": "Image",
 
   "TITLE_SEARCH_RESULTS": "Search Results",
   "TITLE_ALL_PRODUCTS": "All Products",
   "BASKET_ADD_SAME_PRODUCT": "Added another {{product}} to basket.",
   "BASKET_ADD_PRODUCT": "Placed {{product}} into basket.",
+  "LABEL_PRODUCT": "Product",
+  "LABEL_NAME": "Name",
+  "LABEL_DESCRIPTION": "Description",
+  "LABEL_PRICE": "Price",
+  "LABEL_IMAGE": "Image",
 
   "TITLE_BASKET": "Your Basket",
   "LABEL_QUANTITY": "Quantity",
