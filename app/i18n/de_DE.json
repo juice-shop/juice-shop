@@ -1,6 +1,5 @@
 {
   "NAV_SEARCH": "Suche",
-  "NAV_CHANGE_PASSWORD": "Passwort ändern",
   "NAV_COMPLAIN": "Beschwere dich",
   "RIBBON_GITHUB_FORK": "Forke mich auf GitHub",
 
@@ -67,5 +66,13 @@
   "THANKS_FOR_SUPPORT": "Danke, dass du {{juiceshop}} unterstützt!",
   "LABEL_PAYMENT": "Bezahlen",
   "LABEL_MERCHANDISE": "Merchandise",
-  "OFFICIAL_MERCHANDISE_STORES": "Offizielle Läden für {{juiceshop}} Kleidung, Becher und Aufkleber!"
+  "OFFICIAL_MERCHANDISE_STORES": "Offizielle Läden für {{juiceshop}} Kleidung, Becher und Aufkleber!",
+
+  "TITLE_CHANGE_PASSWORD": "Passwort ändern",
+  "MANDATORY_CURRENT_PASSWORD": "Bitte gib dein aktuelles Passwort ein.",
+  "MANDATORY_NEW_PASSWORD": "Bitte gib ein neues Passwort ein.",
+  "LABEL_CURRENT_PASSWORD": "Aktuelles Passwort",
+  "LABEL_NEW_PASSWORD": "Neues Passwort",
+  "LABEL_REPEAT_NEW_PASSWORD": "Neues Passwort wiederholen",
+  "BTN_CHANGE": "Ändern"
 }

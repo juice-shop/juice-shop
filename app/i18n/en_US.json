@@ -1,6 +1,5 @@
 {
   "NAV_SEARCH": "Search",
-  "NAV_CHANGE_PASSWORD": "Change Password",
   "NAV_COMPLAIN": "Complain",
   "RIBBON_GITHUB_FORK": "Fork me on GitHub",
 
@@ -67,5 +66,13 @@
   "THANKS_FOR_SUPPORT": "Thank you for supporting OWASP Juice Shop!",
   "LABEL_PAYMENT": "Payment",
   "LABEL_MERCHANDISE": "Merchandise",
-  "OFFICIAL_MERCHANDISE_STORES": "Official stores for OWASP Juice Shop apparel, mugs and stickers!"
+  "OFFICIAL_MERCHANDISE_STORES": "Official stores for OWASP Juice Shop apparel, mugs and stickers!",
+
+  "TITLE_CHANGE_PASSWORD": "Change Password",
+  "MANDATORY_CURRENT_PASSWORD": "Please provide your current password.",
+  "MANDATORY_NEW_PASSWORD": "Please provide your new password.",
+  "LABEL_CURRENT_PASSWORD": "Current Password",
+  "LABEL_NEW_PASSWORD": "New Password",
+  "LABEL_REPEAT_NEW_PASSWORD": "Repeat New Password",
+  "BTN_CHANGE": "Change"
 }
