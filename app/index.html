@@ -42,6 +42,16 @@
             <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> {{'TITLE_LOGOUT' | translate}}</a>
             </li>
+            <li class="dropdown">
+                <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{'LANGUAGE' | translate}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
+                    <li><a ng-click="changeLanguage('en_US')">English</a></li>
+                    <li><a ng-click="changeLanguage('de_DE')">Deutsch</a></li>
+                </ul>
+            </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">

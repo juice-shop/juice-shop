@@ -1,4 +1,6 @@
 {
+  "LANGUAGE": "English",
+
   "NAV_SEARCH": "Search",
   "NAV_COMPLAIN": "Complain?",
   "RIBBON_GITHUB_FORK": "{{fork}} me on {{github}}",
