@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 var spawn = require('cross-spawn')
@@ -32,7 +31,7 @@ function setSaucelabsJobResult (exitCode) {
     if (err) sauceFailure(exitCode)
     for (var j in jobs) {
       if (jobs.hasOwnProperty(j)) {
-        sauceLabs.showJob(jobs[j].id, function (err, job) {
+        sauceLabs.showJob(jobs[ j ].id, function (err, job) {
           if (err) sauceFailure(exitCode)
           var tags = job.tags
           if (tags.indexOf(process.env.TRAVIS_BUILD_NUMBER) > -1 && tags.indexOf('e2e') > -1) {

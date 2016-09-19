@@ -1,4 +1,3 @@
-/* jslint loopfunc: true */
 angular.module('juiceShop').controller('SearchResultController', [
   '$scope',
   '$sce',
