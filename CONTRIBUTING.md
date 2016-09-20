@@ -86,9 +86,12 @@ From time to time issues might get a bounty assigned which is paid out to the im
 
 ## Localization [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
 
-OWASP Juice Shop uses [Crowdin](https://crowdin.com/project/owasp-juice-shop/) as a translation platform. Currently we offer full translation for the following languages:
+OWASP Juice Shop uses [Crowdin](https://crowdin.com/project/owasp-juice-shop/) as a translation platform, which is basically offering a simple translator/proofreader workflow very user friendly especially for non-developers.
 
-* __English__
-* German [@bkimminich](https://github.com/bkimminich)
+
+> Hidden beneath, Crowdin will use the dedicated `l10n_develop` Git branch to synchronize translations into the `app/i18n/??.json` language files where `??` is a language code (e.g. `en` or `de`).
+
+If you would like to participate in the translation process, visit https://crowdin.com/project/owasp-juice-shop/invite.
+If you miss a language, please [contact us](https://crowdin.com/mail/compose/bkimminich) and we will add it right away!  
 
 > Right now only the UI texts are translated. Everything that comes directly from the server side (i.e. the database) is English only.
