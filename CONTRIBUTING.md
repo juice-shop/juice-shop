@@ -11,7 +11,6 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 | Provider      | Status        |
 | ------------- |:-------------:|
 | Gemnasium     | [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop) |
-| Versioneye    | [![Dependency Status](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec/badge.svg?style=flat)](https://www.versioneye.com/user/projects/544a2e5ac310f92c920000ec) |
 | David-DM      | [![Dependency Status](https://david-dm.org/bkimminich/juice-shop.svg)](https://david-dm.org/bkimminich/juice-shop) [![devDependency Status](https://david-dm.org/bkimminich/juice-shop/dev-status.svg)](https://david-dm.org/bkimminich/juice-shop#info=devDependencies) |
 | BitHound      | [![bitHound Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/dependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/devDependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm) |
 | Node Security | [![NSP Status](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48/badge)](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48) |
@@ -84,3 +83,15 @@ From time to time issues might get a bounty assigned which is paid out to the im
 > 2.   Developers create solutions which closes the issue and claim the bounty on Bountysource.
 > 3.   Backers can accept or reject the claim.
 > 4.   If accepted, Bountysource pays the bounty to the developer.
+
+## Localization [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
+
+OWASP Juice Shop uses [Crowdin](https://crowdin.com/project/owasp-juice-shop/) as a translation platform, which is basically offering a simple translator/proofreader workflow very user friendly especially for non-developers.
+
+
+> Hidden beneath, Crowdin will use the dedicated `l10n_develop` Git branch to synchronize translations into the `app/i18n/??.json` language files where `??` is a language code (e.g. `en` or `de`).
+
+If you would like to participate in the translation process, visit https://crowdin.com/project/owasp-juice-shop/invite.
+If you miss a language, please [contact us](https://crowdin.com/mail/compose/bkimminich) and we will add it right away!  
+
+> Right now only the UI texts are translated. Everything that comes directly from the server side (i.e. the database) is English only.

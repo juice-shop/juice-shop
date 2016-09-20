@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1">
-        <h3 class="page-header page-header-sm">Administration <small>User</small></h3>
+        <h3 class="page-header page-header-sm">{{'TITLE_ADMINISTRATION' | translate}} <small translate="SECTION_USER"></small></h3>
 
         <table class="table table-striped table-bordered table-condensed" ng-controller="UserController">
             <tr>
                 <th></th>
-                <th>Email</th>
+                <th translate="LABEL_EMAIL"></th>
                 <th></th>
             </tr>
             <tr data-ng-repeat="user in users">
@@ -21,13 +21,13 @@
     </div>
     
     <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1">
-        <h3 class="page-header page-header-sm"><small>Feedback</small></h3>
+        <h3 class="page-header page-header-sm"><small translate="SECTION_CUSTOMER_FEEDBACK"></small></h3>
 
         <table class="table table-striped table-bordered table-condensed" ng-controller="FeedbackController">
             <tr>
-                <th>User</th>
-                <th>Comment</th>
-                <th>Rating</th>
+                <th translate="LABEL_USER"></th>
+                <th translate="LABEL_COMMENT"></th>
+                <th translate="LABEL_RATING"></th>
                 <th></th>
             </tr>
             <tr data-ng-repeat="feedback in feedbacks">

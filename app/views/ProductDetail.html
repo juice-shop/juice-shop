@@ -1,29 +1,29 @@
 <div class="modal-header">
-    <h3 class="modal-title">Product #{{product.id}}</h3>
+    <h3 class="modal-title">{{'LABEL_PRODUCT' | translate}} #{{product.id}}</h3>
 </div>
 <div class="modal-body">
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <strong>Name</strong>
+                <strong translate="LABEL_NAME"></strong>
 
                 <p>{{product.name}}</p>
             </div>
             <div class="col-md-6">
-                <strong>Description</strong>
+                <strong translate="LABEL_DESCRIPTION"></strong>
 
                 <p><div ng-bind-html="product.description"></div></p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <strong>Price</strong>
+                <strong translate="LABEL_PRICE"></strong>
 
                 <p>{{product.price}}</p>
             </div>
             <div class="col-md-6">
-                <strong>Image</strong>
+                <strong translate="LABEL_IMAGE"></strong>
 
                 <p><img src="/public/images/products/{{product.image}}"/></p>
             </div>
@@ -31,5 +31,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> Close</button>
+    <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}</button>
 </div>

@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 module.exports = function (grunt) {
@@ -75,6 +74,7 @@ module.exports = function (grunt) {
               'app/bower_components/**',
               'app/public/**',
               'app/private/**',
+              'app/i18n/*.json',
               'server.js',
               'app.js',
               'models/*.js',
@@ -124,62 +124,6 @@ module.exports = function (grunt) {
         command: 'protractor protractor.conf.js',
         exitCodes: [0, 1]
       }
-    },
-
-    'zap_start': {
-      options: {
-        os: 'windows',
-        path: 'C:\\Program Files (x86)\\OWASP\\Zed Attack Proxy',
-        port: 8090
-      }
-    },
-    'zap_spider': {
-      options: {
-        exclude: ['.*bower_components.*'],
-        port: 8090
-      },
-      localhost: {
-        options: {
-          url: 'http://localhost:3000'
-        }
-      },
-      heroku: {
-        options: {
-          url: 'https://juice-shop.herokuapp.com'
-        }
-      }
-    },
-    'zap_scan': {
-      options: {
-        port: 8090
-      },
-      localhost: {
-        options: {
-          url: 'http://localhost:3000'
-        }
-      },
-      heroku: {
-        options: {
-          url: 'https://juice-shop.herokuapp.com'
-        }
-      }
-    },
-    'zap_alert': {
-      options: {
-        port: 8090
-      }
-    },
-    'zap_report': {
-      options: {
-        dir: 'build/reports/zaproxy',
-        html: false,
-        port: 8090
-      }
-    },
-    'zap_stop': {
-      options: {
-        port: 8090
-      }
     }
   })
 
@@ -189,10 +133,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-compress')
   grunt.loadNpmTasks('grunt-retire')
-  grunt.loadNpmTasks('grunt-zaproxy')
   grunt.loadNpmTasks('grunt-exec')
 
   grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
   grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
-  grunt.registerTask('zap', [ 'zap_start', 'exec:e2e_tests', 'exec:api_tests', 'zap_spider:localhost', 'zap_scan:localhost', 'zap_alert', 'zap_report', 'zap_stop', 'zap_results' ])
 }

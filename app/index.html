@@ -37,30 +37,49 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
+                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> {{'TITLE_LOGIN' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> {{'TITLE_LOGOUT' | translate}}</a>
+            </li>
+            <li class="dropdown">
+                <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-language fa-lg"></i> {{'LANGUAGE' | translate}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
+                    <li><a ng-click="changeLanguage('en')">English</a></li>
+                    <li><a ng-click="changeLanguage('de')">Deutsch</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="changeLanguage('es')">Español <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('et')">Eesti <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('fr')">Français <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('it')">Italiano <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('nl')">Nederlands <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('pt')">Português <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('ru')">Pусский <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('zh')">中国 <i class="fa fa-flask"></i></a></li>
+                </ul>
             </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery">
+                        <input type="text" class="form-control" placeholder="{{'NAV_SEARCH' | translate}}..." ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> Search</button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> {{'NAV_SEARCH' | translate}}</button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> Your Basket</a>
+                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> {{'TITLE_BASKET' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> Change Password</a>
+                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> {{'TITLE_CHANGE_PASSWORD' | translate}}</a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> Contact Us</a>
+                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> {{'TITLE_CONTACT' | translate}}</a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> Complain</a>
+                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> {{'NAV_COMPLAIN' | translate}}</a>
             </li>
             <!--
             <li class="dropdown">
@@ -68,7 +87,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> About Us</a>
+                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> {{'TITLE_ABOUT' | translate}}</a>
             </li>
         </ul>
     </div>
@@ -87,6 +106,8 @@
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="bower_components/angular-touch/angular-touch.min.js"></script>
@@ -100,7 +121,7 @@
 
 <div class="github-fork-ribbon-wrapper right">
     <div class="github-fork-ribbon">
-        <a href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank">Fork me on GitHub</a>
+        <a href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank" translate="RIBBON_GITHUB_FORK" translate-value-fork='<i class="fa fa-code-fork"></i>' translate-value-github='<i class="fa fa-github"></i> GitHub'></a>
     </div>
 </div>
 

@@ -1,5 +1,3 @@
-/* jslint node: true */
-
 var frisby = require('frisby')
 var fs = require('fs')
 var path = require('path')

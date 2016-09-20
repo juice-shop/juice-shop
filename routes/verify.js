@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 var utils = require('../lib/utils')
@@ -11,7 +10,7 @@ var products = cache.products
 
 exports.forgedFeedbackChallenge = function () {
   return function (req, res, next) {
-        /* jshint eqeqeq:false */
+    /* jshint eqeqeq:false */
     if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
       var user = insecurity.authenticatedUsers.from(req)
       var userId = user ? user.data.id : undefined
@@ -64,27 +63,27 @@ exports.databaseRelatedChallenges = function () {
       })
     }
     if (utils.notSolved(challenges.feedbackChallenge)) {
-      models.Feedback.findAndCountAll({where: {rating: 5}}).success(function (feedbacks) {
+      models.Feedback.findAndCountAll({ where: { rating: 5 } }).success(function (feedbacks) {
         if (feedbacks.count === 0) {
           utils.solve(challenges.feedbackChallenge)
         }
       })
     }
     if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-      models.Feedback.findAndCountAll({where: models.Sequelize.or(models.Sequelize.and(['comment LIKE \'%sanitize-html%\''], ['comment LIKE \'%1.4.2%\'']), models.Sequelize.and(['comment LIKE \'%sequelize%\''], ['comment LIKE \'%1.7%\'']))}
-            ).success(function (data) {
-              if (data.count > 0) {
-                utils.solve(challenges.knownVulnerableComponentChallenge)
-              }
-            })
+      models.Feedback.findAndCountAll({ where: models.Sequelize.or(models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]), models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ])) }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.knownVulnerableComponentChallenge)
+        }
+      })
     }
     if (utils.notSolved(challenges.weirdCryptoChallenge)) {
-      models.Feedback.findAndCountAll({where: models.Sequelize.or(['comment LIKE \'%z85%\''], ['comment LIKE \'%base85%\''], ['comment LIKE \'%rot13%\''])}
-            ).success(function (data) {
-              if (data.count > 0) {
-                utils.solve(challenges.weirdCryptoChallenge)
-              }
-            })
+      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%rot13%\'' ]) }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.weirdCryptoChallenge)
+        }
+      })
     }
     next()
   }

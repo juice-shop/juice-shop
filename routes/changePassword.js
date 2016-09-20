@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 var insecurity = require('../lib/insecurity')
@@ -20,7 +19,7 @@ exports = module.exports = function changePassword () {
           res.status(401).send('Current password is not correct.')
         } else {
           models.User.find(loggedInUser.data.id).success(function (user) {
-            user.updateAttributes({password: newPassword}).success(function (user) {
+            user.updateAttributes({ password: newPassword }).success(function (user) {
               res.send(user)
             }).error(function (error) {
               next(error)

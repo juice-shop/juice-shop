@@ -4,6 +4,7 @@ describe('controllers', function () {
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
   }))
 
   afterEach(function () {

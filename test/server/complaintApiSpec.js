@@ -1,5 +1,3 @@
-/* jslint node: true */
-
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
 

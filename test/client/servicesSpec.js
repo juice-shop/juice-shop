@@ -4,12 +4,12 @@ describe('services', function () {
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     result = undefined
   }))
 
   afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation()
-    $httpBackend.verifyNoOutstandingRequest()
   })
 
   describe('UserService', function () {

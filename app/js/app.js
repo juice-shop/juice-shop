@@ -4,7 +4,8 @@ angular.module('juiceShop', [
   'ngTouch',
   'ngAnimate',
   'ngFileUpload',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'pascalprecht.translate'
 ])
 
 angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
@@ -33,4 +34,14 @@ angular.module('juiceShop').run(['$cookieStore', '$rootScope', function ($cookie
   $rootScope.isLoggedIn = function () {
     return $cookieStore.get('token')
   }
+}])
+
+angular.module('juiceShop').config(['$translateProvider', function ($translateProvider) {
+  'use strict'
+  $translateProvider.useStaticFilesLoader({
+    prefix: '/i18n/',
+    suffix: '.json'
+  })
+  $translateProvider.determinePreferredLanguage()
+  $translateProvider.fallbackLanguage('en')
 }])

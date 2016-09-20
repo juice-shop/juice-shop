@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 var insecurity = require('../lib/insecurity')
@@ -12,9 +11,9 @@ exports = module.exports = function applyCoupon () {
     coupon = discount ? coupon : null
     models.Basket.find(id).success(function (basket) {
       if (basket) {
-        basket.updateAttributes({coupon: coupon}).success(function () {
+        basket.updateAttributes({ coupon: coupon }).success(function () {
           if (discount) {
-            res.json({discount: discount})
+            res.json({ discount: discount })
           } else {
             res.status(404).send('Invalid coupon.')
           }

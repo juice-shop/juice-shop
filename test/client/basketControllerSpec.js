@@ -11,6 +11,7 @@ describe('controllers', function () {
   })
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
   }))
 
   afterEach(function () {
@@ -176,7 +177,7 @@ describe('controllers', function () {
       scope.applyCoupon()
       $httpBackend.flush()
 
-      expect(scope.confirmation).toBe('Discount of 42% will be applied during checkout.')
+      expect(scope.confirmation).toBe('DISCOUNT_APPLIED')
       expect(scope.error).toBeUndefined()
     }))
 
