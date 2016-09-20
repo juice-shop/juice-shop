@@ -106,9 +106,9 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 
 > If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
-- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower_install.js``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
+- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower install``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
 - If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP
-- If ```npm install``` fails after an update of your local copy during ```bower_install.js``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
+- If ```npm install``` fails after an update of your local copy during ```bower install``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
 ## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat-square)](http://issuestats.com/github/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)

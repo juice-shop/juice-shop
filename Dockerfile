@@ -3,7 +3,7 @@ FROM        node:4-onbuild
 MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
 
 COPY . /juice-shop
-RUN cd /juice-shop; npm install; node bower_install.js; node grunt_minify.js
+RUN cd /juice-shop; npm install bower -g; npm install grunt-cli -g; npm install
 
 WORKDIR /juice-shop
 
