@@ -1,4 +1,3 @@
-/* jslint node: true */
 'use strict'
 
 var applicationRoot = __dirname.replace(/\\/g, '/')

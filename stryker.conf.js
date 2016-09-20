@@ -1,10 +1,11 @@
-/* jslint node: true */
 module.exports = function (config) {
   'use strict'
 
   config.set({
     files: [
       'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-translate/angular-translate.js',
+      'app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
@@ -25,4 +26,8 @@ module.exports = function (config) {
       baseDir: 'build/reports/mutation'
     }
   })
+  if (process.env.TRAVIS_BUILD_NUMBER) {
+    config.reporter = ['clear-text', 'progress']
+  }
 }
+
