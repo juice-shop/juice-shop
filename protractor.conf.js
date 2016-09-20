@@ -1,5 +1,3 @@
-/* jslint node: true */
-/* global jasmine */
 'use strict'
 
 exports.config = {
