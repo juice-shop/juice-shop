@@ -27,4 +27,8 @@ module.exports = function (config) {
       baseDir: 'build/reports/mutation'
     }
   })
+  if (process.env.TRAVIS_BUILD_NUMBER) {
+    config.reporter = ['clear-text', 'progress']
+  }
 }
+
