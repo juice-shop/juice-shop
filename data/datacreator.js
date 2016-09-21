@@ -253,15 +253,23 @@ module.exports = function () {
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
-      challenges.uploadSize = challenge
+      challenges.uploadSizeChallenge = challenge
     })
     models.Challenge.create({
       name: 'uploadType',
-      description: 'Upload a file that has no .pdf extension',
+      description: 'Upload a file that has no .pdf extension.',
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
-      challenges.uploadType = challenge
+      challenges.uploadTypeChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'extraLanguage',
+      description: 'Retrieve the language file that never made it into production.',
+      difficulty: 1,
+      solved: false
+    }).success(function (challenge) {
+      challenges.extraLanguageChallenge = challenge
     })
   }
   function createUsers () {

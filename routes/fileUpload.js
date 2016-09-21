@@ -7,11 +7,11 @@ exports = module.exports = function fileUpload () {
   return function (req, res) {
     var file = req.file
     console.log(req.file)
-    if (utils.notSolved(challenges.uploadSize) && file.size > 100000) {
-      utils.solve(challenges.uploadSize)
+    if (utils.notSolved(challenges.uploadSizeChallenge) && file.size > 100000) {
+      utils.solve(challenges.uploadSizeChallenge)
     }
-    if (utils.notSolved(challenges.uploadType) && !utils.endsWith(file.originalname.toLowerCase(), '.pdf')) {
-      utils.solve(challenges.uploadType)
+    if (utils.notSolved(challenges.uploadTypeChallenge) && !utils.endsWith(file.originalname.toLowerCase(), '.pdf')) {
+      utils.solve(challenges.uploadTypeChallenge)
     }
     res.status(204).end()
   }
