@@ -253,7 +253,7 @@ module.exports = function () {
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
-      challenges.uploadSize = challenge
+      challenges.uploadSizeChallenge = challenge
     })
     models.Challenge.create({
       name: 'uploadType',
@@ -261,7 +261,7 @@ module.exports = function () {
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
-      challenges.uploadType = challenge
+      challenges.uploadTypeChallenge = challenge
     })
   }
   function createUsers () {
