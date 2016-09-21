@@ -68,6 +68,7 @@ app.use(favicon(path.join(__dirname, 'app/public/favicon_v2.ico')))
 
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges())
+app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', {'icons': true}))

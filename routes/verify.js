@@ -30,6 +30,8 @@ exports.accessControlChallenges = function () {
       utils.solve(challenges.adminSectionChallenge)
     } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(req.url, '/microfab.gif')) {
       utils.solve(challenges.geocitiesThemeChallenge)
+    } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh.json')) {
+      utils.solve(challenges.extraLanguageChallenge)
     }
     next()
   }
