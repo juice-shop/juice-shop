@@ -37,11 +37,6 @@ frisby.create('GET redirected to https://www.stickermule.com/user/1070702817/sti
   .expectStatus(302)
   .toss()
 
-frisby.create('GET redirected to https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=US&item_name=Juice%20Shop&no_note=0&currency_code=USD&bn=PP%2dDonationsBF when this URL is passed as URL-encoded "to" parameter')
-  .get(URL + '/redirect?to=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_donations%26business%3Dpaypal%2540owasp%252eorg%26lc%3DUS%26item_name%3DJuice%2520Shop%26no_note%3D0%26currency_code%3DUSD%26bn%3DPP%252dDonationsBF', { followRedirect: false })
-  .expectStatus(302)
-  .toss()
-
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
   .get(URL + '/redirect')
   .expectStatus(500)

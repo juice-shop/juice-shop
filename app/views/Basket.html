@@ -72,9 +72,20 @@
                     <label translate="LABEL_PAYMENT"></label> <small>({{'THANKS_FOR_SUPPORT' | translate: '{juiceshop: "OWASP Juice Shop"}'}} <i class="fa fa-heart"></i>)</small>
                 </div>
                 <div class="row">
-                    <a href="/redirect?to=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_donations%26business%3Dpaypal%2540owasp%252eorg%26lc%3DUS%26item_name%3DJuice%2520Shop%26no_note%3D0%26currency_code%3DUSD%26bn%3DPP%252dDonationsBF" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-paypal fa-lg"></i> PayPal
-                    </a>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+                        <div class="paypal_donation_button">
+                            <input type="hidden" name="cmd" value="_donations">
+                            <input type="hidden" name="business" value="paypal@owasp.org">
+                            <input type="hidden" name="lc" value="BM">
+                            <input type="hidden" name="item_name" value="OWASP Foundation">
+                            <input type="hidden" name="item_number" value="OWASP Juice Shop">
+                            <input type="hidden" name="no_note" value="0">
+                            <input type="hidden" name="currency_code" value="EUR">
+                            <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+                            <button type="submit" name="submit" class="btn btn-danger"><i class="fa fa-paypal fa-lg"></i> PayPal</button>
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
+                        </div>
+                    </form>
                     <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-danger">
                         <i class="fa fa-btc fa-lg"></i> Bitcoin
                     </a>
