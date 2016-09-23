@@ -14,7 +14,7 @@
   "TITLE_REGISTRATION":"Gebruikersregistratie",
   "INVALID_EMAIL":"E-mail adres is niet geldig.",
   "MANDATORY_PASSWORD_REPEAT":"Please repeat your password.",
-  "INVALID_PASSWORD_LENGTH":"Het wachtwoord moet {{length}} karakters lang zijn.",
+  "INVALID_PASSWORD_LENGTH":"Het wachtwoord moet ten minste {{length}} tekens lang zijn.",
   "LABEL_PASSWORD_REPEAT":"Wachtwoord herhalen",
   "BTN_REGISTER":"Registreren",
   "TITLE_LOGOUT":"Afmelden",
