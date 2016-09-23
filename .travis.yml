@@ -20,8 +20,6 @@ before_script:
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
-- karma start karma.conf-ci.js
-- npm run protractor
 env:
   global:
   - secure: qT8aMCYSV2rLyn0csYUkPGABuj97LV30oK6hAMCLZJA3knU+uGj1+5vtkCF+5tVYHCVOYxaaBfARfB/6y/nG+sxwZyUrYfOvM1xozwaQnI+/V2hPv22msTC/9cW7I9RwyNxydxT7Rredbdhpi/5W6Wx7e7ARTbsdi7QYDMA/FOk=
@@ -44,6 +42,10 @@ notifications:
     on_start: never
 before_deploy: grunt package
 deploy:
+- provider: script
+  script: ./saucelabs.sh
+  on:
+    node: 4
 - provider: heroku
   api_key:
     secure: haABq1BRLYElRq+V+7knDlMDBMMIj2aASOSdm6JFYwQa1C60nO2rWkRXBk2j3H/NSjIDamOgBzelZNfuYwnmVUrL25SEWflM1ydDGM2RmgEx0mOu6sCtz8gugOVDBTsBrc0OLcwY7trEQBlKbr+xdD1aATDLfAD+pK4SZt233gg=
