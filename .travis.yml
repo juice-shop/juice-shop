@@ -45,6 +45,7 @@ deploy:
 - provider: script
   script: ./saucelabs.sh
   on:
+    repo: bkimminich/juice-shop
     node: 4
 - provider: heroku
   api_key:
