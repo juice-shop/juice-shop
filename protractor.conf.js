@@ -40,7 +40,7 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     'name': 'OWASP Juice Shop e2e Tests',
     'browserName': 'chrome',
     'platform': 'OS X 10.11',
-    'screen-resolution': '1280x1024',
+    'screen-resolution': '1024x768',
     'username': process.env.SAUCE_USERNAME,
     'accessKey': process.env.SAUCE_ACCESS_KEY,
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
