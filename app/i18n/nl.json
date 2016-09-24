@@ -1,6 +1,7 @@
 {
   "LANGUAGE":"Nederlands",
   "NAV_SEARCH":"Zoeken",
+  "SEARCH_PLACEHOLDER":"Search...",
   "NAV_COMPLAIN":"Klagen?",
   "RIBBON_GITHUB_FORK":"{{fork}} me op {{github}}",
   "TITLE_LOGIN":"Aanmelding",
