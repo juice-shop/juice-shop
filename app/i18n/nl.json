@@ -69,7 +69,7 @@
   "TITLE_COMPLAIN":"File Complaint",
   "MANDATORY_MESSAGE":"Please provide a text.",
   "INVALID_MESSAGE_LENGTH":"Text length must be {{length}} characters.",
-  "INVALID_FILE_SIZE":"Bestand te groot is. Maximale {{size}} toegestaan.",
+  "INVALID_FILE_SIZE":"Bestand is te groot. Maximal {{size}} toegestaan.",
   "INVALID_FILE_TYPE":"Verboden bestandstype. Alleen {{type}} toegestaan.",
   "LABEL_CUSTOMER":"Klant",
   "LABEL_MESSAGE":"Bericht",
