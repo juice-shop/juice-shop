@@ -48,7 +48,7 @@
     <script src="dist/juice-shop.min.js"></script>
 
 </head>
-<body ng-cloak>
+<body ng-cloak translate-cloak="">
 
 
 <!-- HEADER -->
@@ -59,14 +59,14 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> {{'TITLE_LOGIN' | translate}}</a>
+                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> <span translate="TITLE_LOGIN"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> {{'TITLE_LOGOUT' | translate}}</a>
+                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> <span translate="TITLE_LOGOUT"></span></a>
             </li>
             <li class="dropdown">
                 <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa fa-language fa-lg"></i> {{'LANGUAGE' | translate}}
+                    <i class="fa fa-language fa-lg"></i> <span translate="LANGUAGE"></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
@@ -86,22 +86,22 @@
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="{{'NAV_SEARCH' | translate}}..." ng-model="searchQuery">
+                        <input type="text" class="form-control" translate-attr="{ placeholder: 'SEARCH_PLACEHOLDER' }" ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> {{'NAV_SEARCH' | translate}}</button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> <span translate="NAV_SEARCH"></span></button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> {{'TITLE_BASKET' | translate}}</a>
+                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> <span translate="TITLE_BASKET"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> {{'TITLE_CHANGE_PASSWORD' | translate}}</a>
+                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> <span translate="TITLE_CHANGE_PASSWORD"></span></a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> {{'TITLE_CONTACT' | translate}}</a>
+                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> <span translate="TITLE_CONTACT"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> {{'NAV_COMPLAIN' | translate}}</a>
+                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> <span translate="NAV_COMPLAIN"></span></a>
             </li>
             <!--
             <li class="dropdown">
@@ -109,7 +109,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> {{'TITLE_ABOUT' | translate}}</a>
+                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> <span translate="TITLE_ABOUT"></span></a>
             </li>
         </ul>
     </div>
