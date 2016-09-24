@@ -43,7 +43,7 @@ notifications:
 before_deploy: grunt package
 deploy:
 - provider: script
-  script: ./saucelabs.sh
+  script: "./saucelabs.sh"
   skip_cleanup: true
   on:
     repo: bkimminich/juice-shop
