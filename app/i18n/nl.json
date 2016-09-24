@@ -47,7 +47,7 @@
   "LABEL_PRICE":"Prijs",
   "LABEL_IMAGE":"Beeld",
   "TITLE_BASKET":"Uw Kar",
-  "LABEL_QUANTITY":"Hoeveelheid",
+  "LABEL_QUANTITY":"Aantal",
   "LABEL_TOTAL_PRICE":"Totaalprijs",
   "BTN_CHECKOUT":"Afrekenen",
   "INVALID_COUPON_LENGTH":"Coupon code must be {{length}} characters long.",
