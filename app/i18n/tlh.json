@@ -1,6 +1,7 @@
 {
   "LANGUAGE":"tlhIngan",
   "NAV_SEARCH":"tu'",
+  "SEARCH_PLACEHOLDER":"Search...",
   "NAV_COMPLAIN":"bep?",
   "RIBBON_GITHUB_FORK":"{{fork}} jIH {{github}}",
   "TITLE_LOGIN":"yI'el",
