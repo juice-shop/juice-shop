@@ -1,6 +1,7 @@
 {
   "LANGUAGE":"Pусский",
   "NAV_SEARCH":"Search",
+  "SEARCH_PLACEHOLDER":"Search...",
   "NAV_COMPLAIN":"Complain?",
   "RIBBON_GITHUB_FORK":"{{fork}} me on {{github}}",
   "TITLE_LOGIN":"Login",
