@@ -72,7 +72,8 @@ module.exports = function (config) {
       },
       build: process.env.TRAVIS_BUILD_NUMBER,
       tags: [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, 'unit'],
-      recordScreenshots: false
+      recordScreenshots: false,
+      recordVideo: false
     },
 
     browserDisconnectTimeout: 10000,
