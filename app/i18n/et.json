@@ -1,6 +1,7 @@
 {
   "LANGUAGE":"Eesti",
   "NAV_SEARCH":"Otsi",
+  "SEARCH_PLACEHOLDER":"Search...",
   "NAV_COMPLAIN":"Esita kaebust",
   "RIBBON_GITHUB_FORK":"{{fork}} mind {{github}}",
   "TITLE_LOGIN":"Logi Sisse",
