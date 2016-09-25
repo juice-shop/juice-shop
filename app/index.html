@@ -18,6 +18,8 @@
     <link href="bower_components/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
     <!-- Font Awesome -->
     <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Flag Icons -->
+    <link href="bower_components/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
     <!-- Github Ribbon -->
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <!--[if lt IE 9]>
@@ -25,8 +27,30 @@
     <![endif]-->
     <!-- Application Styles-->
     <link rel="stylesheet" href="css/app.css"/>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- libraries, third party components -->
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/string/dist/string.min.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+    <!--  application specific source files -->
+    <script src="dist/juice-shop.min.js"></script>
+
 </head>
-<body ng-cloak>
+<body ng-cloak translate-cloak="">
 
 
 <!-- HEADER -->
@@ -37,49 +61,49 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> {{'TITLE_LOGIN' | translate}}</a>
+                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> <span translate="TITLE_LOGIN"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> {{'TITLE_LOGOUT' | translate}}</a>
+                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> <span translate="TITLE_LOGOUT"></span></a>
             </li>
             <li class="dropdown">
                 <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa fa-language fa-lg"></i> {{'LANGUAGE' | translate}}
+                    <i class="fa fa-language fa-lg"></i> <span translate="LANGUAGE"></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
-                    <li><a ng-click="changeLanguage('en')">English</a></li>
-                    <li><a ng-click="changeLanguage('de')">Deutsch</a></li>
+                    <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-us"></span> English</a></li>
+                    <li><a ng-click="changeLanguage('de')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
+                    <li><a ng-click="changeLanguage('nl')"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ng-click="changeLanguage('es')">Español <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('et')">Eesti <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fr')">Français <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('it')">Italiano <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('nl')">Nederlands <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('pt')">Português <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('ru')">Pусский <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('zh')">中国 <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('es')"><span class="flag-icon flag-icon-es"></span> Español <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> Français <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('it')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('pt')"><span class="flag-icon flag-icon-pt"></span> Português <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('ru')"><span class="flag-icon flag-icon-ru"></span> Pусский <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('zh')"><span class="flag-icon flag-icon-cn"></span> 中国 <i class="fa fa-flask"></i></a></li>
                 </ul>
             </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="{{'NAV_SEARCH' | translate}}..." ng-model="searchQuery">
+                        <input type="text" class="form-control" translate-attr="{ placeholder: 'SEARCH_PLACEHOLDER' }" ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> {{'NAV_SEARCH' | translate}}</button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> <span translate="NAV_SEARCH"></span></button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> {{'TITLE_BASKET' | translate}}</a>
+                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> <span translate="TITLE_BASKET"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> {{'TITLE_CHANGE_PASSWORD' | translate}}</a>
+                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> <span translate="TITLE_CHANGE_PASSWORD"></span></a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> {{'TITLE_CONTACT' | translate}}</a>
+                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> <span translate="TITLE_CONTACT"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> {{'NAV_COMPLAIN' | translate}}</a>
+                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> <span translate="NAV_COMPLAIN"></span></a>
             </li>
             <!--
             <li class="dropdown">
@@ -87,7 +111,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> {{'TITLE_ABOUT' | translate}}</a>
+                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> <span translate="TITLE_ABOUT"></span></a>
             </li>
         </ul>
     </div>
@@ -97,27 +121,6 @@
 
 <!-- CONTENT -->
 <div class="container-fluid" ng-view></div>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- libraries, third party components -->
-<script src="bower_components/underscore/underscore.js"></script>
-<script src="bower_components/string/dist/string.min.js"></script>
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/angular-translate/angular-translate.min.js"></script>
-<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-<script src="bower_components/angular-route/angular-route.min.js"></script>
-<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-<script src="bower_components/angular-touch/angular-touch.min.js"></script>
-<script src="bower_components/angular-animate/angular-animate.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
-<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
-
-<!--  application specific source files -->
-<script src="dist/juice-shop.min.js"></script>
 
 <div class="github-fork-ribbon-wrapper right">
     <div class="github-fork-ribbon">

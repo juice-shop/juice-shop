@@ -1,6 +1,7 @@
 {
   "LANGUAGE":"Deutsch",
   "NAV_SEARCH":"Suche",
+  "SEARCH_PLACEHOLDER":"Suche...",
   "NAV_COMPLAIN":"Beschweren?",
   "RIBBON_GITHUB_FORK":"{{fork}} mich auf {{github}}",
   "TITLE_LOGIN":"Anmelden",
