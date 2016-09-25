@@ -69,7 +69,7 @@
   "BTN_CHANGE":"Wijziging",
   "TITLE_COMPLAIN":"Klacht opsturen",
   "MANDATORY_MESSAGE":"Bericht kan niet leeg zijn.",
-  "INVALID_MESSAGE_LENGTH":"Bericht moet {{length}} tekens lang zijn.",
+  "INVALID_MESSAGE_LENGTH":"Uw bericht moet {{length}} tekens lang zijn.",
   "INVALID_FILE_SIZE":"Bestand is te groot. Maximal {{size}} toegestaan.",
   "INVALID_FILE_TYPE":"Verboden bestandstype. Alleen {{type}} toegestaan.",
   "LABEL_CUSTOMER":"Klant",
