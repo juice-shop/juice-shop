@@ -68,7 +68,7 @@
   "LABEL_REPEAT_NEW_PASSWORD":"Herhaal Nieuw Wachtwoord",
   "BTN_CHANGE":"Wijziging",
   "TITLE_COMPLAIN":"Klacht melden",
-  "MANDATORY_MESSAGE":"Bericht kan niet leeg zijn.",
+  "MANDATORY_MESSAGE":"Vul hier uw tekst in.",
   "INVALID_MESSAGE_LENGTH":"Uw bericht moet {{length}} tekens lang zijn.",
   "INVALID_FILE_SIZE":"Bestand is te groot. Maximal {{size}} toegestaan.",
   "INVALID_FILE_TYPE":"Verboden bestandstype. Alleen {{type}} toegestaan.",
