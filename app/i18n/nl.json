@@ -23,7 +23,7 @@
   "TITLE_CONTACT":"Contacteer ons",
   "MANDATORY_COMMENT":"Geef alstublieft een commentaar.",
   "INVALID_COMMENT_LENGTH":"Een reactie moet {{length}} tekens lang zijn.",
-  "MANDATORY_RATING":"Voegt alstublieft een beoordeling toe.",
+  "MANDATORY_RATING":"Voeg alstublieft een beoordeling toe.",
   "LABEL_AUTHOR":"Auteur",
   "LABEL_COMMENT":"Commentaar",
   "LABEL_RATING":"Beoordeling",
