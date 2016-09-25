@@ -23,7 +23,7 @@
   "TITLE_CONTACT":"Contacteer ons",
   "MANDATORY_COMMENT":"Geef alstublieft een commentaar.",
   "INVALID_COMMENT_LENGTH":"Een reactie moet {{length}} tekens langs zijn.",
-  "MANDATORY_RATING":"Please provide a rating.",
+  "MANDATORY_RATING":"Voegt alstublieft een beoordeling toe.",
   "LABEL_AUTHOR":"Auteur",
   "LABEL_COMMENT":"Commentaar",
   "LABEL_RATING":"Beoordeling",
@@ -67,7 +67,7 @@
   "LABEL_NEW_PASSWORD":"Nieuw Wachtwoord",
   "LABEL_REPEAT_NEW_PASSWORD":"Herhaal Nieuw Wachtwoord",
   "BTN_CHANGE":"Wijziging",
-  "TITLE_COMPLAIN":"Klacht opsturen",
+  "TITLE_COMPLAIN":"Klacht melden",
   "MANDATORY_MESSAGE":"Bericht kan niet leeg zijn.",
   "INVALID_MESSAGE_LENGTH":"Uw bericht moet {{length}} tekens lang zijn.",
   "INVALID_FILE_SIZE":"Bestand is te groot. Maximal {{size}} toegestaan.",
@@ -80,5 +80,5 @@
   "LABEL_STATUS":"Status",
   "STATUS_UNSOLVED":"onopgelost",
   "STATUS_SOLVED":"opgelost",
-  "CALL_FOR_CONTRIBUTIONS":"Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!"
+  "CALL_FOR_CONTRIBUTIONS":"Heb jij een idee voor een nieuwe challenge? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!"
 }
