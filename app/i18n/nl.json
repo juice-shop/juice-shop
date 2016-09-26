@@ -59,7 +59,7 @@
   "LABEL_PAYMENT":"Betaling",
   "LABEL_MERCHANDISE":"Merchandise",
   "OFFICIAL_MERCHANDISE_STORES":"De officiële winkels for {{juiceshop}} kleding, mokken en stickers!",
-  "DISCOUNT_APPLIED":"Uw korting van {{discount}}% word tijdens het afrekenen toegepast.",
+  "DISCOUNT_APPLIED":"Uw korting van {{discount}}% wordt tijdens het afrekenen toegepast.",
   "TITLE_CHANGE_PASSWORD":"Wijzig Wachtwoord",
   "MANDATORY_CURRENT_PASSWORD":"Vul je huidige wachtwoord in.",
   "MANDATORY_NEW_PASSWORD":"Kies een nieuw wachtwoord.",
