@@ -271,7 +271,16 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.extraLanguageChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'zeroStars',
+      description: 'Give a devastating zero-star feedback to the store.',
+      difficulty: 1,
+      solved: false
+    }).success(function (challenge) {
+      challenges.zeroStarsChallenge = challenge
+    })
   }
+
   function createUsers () {
     models.User.create({
       email: 'admin@juice-sh.op',
