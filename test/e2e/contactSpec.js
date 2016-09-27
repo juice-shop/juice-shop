@@ -3,7 +3,7 @@
 describe('/#/contact', function () {
   var comment, rating, submitButton
 
-  protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+  protractor.beforeEach.login({ email: 'admin@juice-sh.op', password: 'admin123' })
 
   beforeEach(function () {
     browser.get('/#/contact')
@@ -30,7 +30,7 @@ describe('/#/contact', function () {
       expect(feedbackUserId.last().getText()).toMatch('2')
     })
 
-    protractor.expect.challengeSolved({challenge: 'forgedFeedback'})
+    protractor.expect.challengeSolved({ challenge: 'forgedFeedback' })
   })
 
   it('should sanitize script from comments to remove potentially malicious html', function () {
@@ -85,7 +85,7 @@ describe('/#/contact', function () {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'xss3'})
+    protractor.expect.challengeSolved({ challenge: 'xss3' })
   })
 
   describe('challenge "vulnerableComponent"', function () {
@@ -97,18 +97,26 @@ describe('/#/contact', function () {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'vulnerableComponent'})
+    protractor.expect.challengeSolved({ challenge: 'vulnerableComponent' })
   })
 
   describe('challenge "weirdCrypto"', function () {
     it('should be possible to post weird crypto algorithm/library as feedback', function () {
-      comment.sendKeys('The following libraries should really not be used for crypto: z85, base85 and rot13')
+      comment.sendKeys('The following libraries are bad for crypto: z85, base85 and rot13')
       rating.click()
 
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'weirdCrypto'})
+    protractor.expect.challengeSolved({ challenge: 'weirdCrypto' })
+  })
+
+  describe('challenge "zeroStars"', function () {
+    it('should be possible to post feedback with zero stars by clicking rating twice', function () {
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'zeroStars' })
   })
 })
 
