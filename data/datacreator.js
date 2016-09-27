@@ -193,7 +193,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'vulnerableComponent',
-      description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your complaint.)',
+      description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
       difficulty: 2,
       solved: false
     }).success(function (challenge) {
