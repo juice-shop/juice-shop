@@ -5,5 +5,5 @@ if [ "$TRAVIS_NODE_VERSION" == "4" ]; then
     echo "Running e2e tests on SauceLabs..."
     npm run protractor
   else
-    echo "Skipping SauceLabs tests for Node.js v" + "$TRAVIS_NODE_VERSION" + " (only executed on v4 for performance reasons)"
+    echo "Skipping SauceLabs tests for Node.js v$TRAVIS_NODE_VERSION (only executed on v4 for performance reasons)"
   fi
