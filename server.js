@@ -37,6 +37,7 @@ var insecurity = require('./lib/insecurity')
 var models = require('./models')
 var datacreator = require('./data/datacreator')
 var app = express()
+var server = require('http').Server(app)
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
@@ -141,9 +142,8 @@ exports.start = function (config, readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = app.listen(config.port, function () {
+      this.server = server.listen(config.port, function () {
         console.log(colors.cyan('Listening on port %d'), config.port)
-                // callback to call when the server is ready
         if (readyCallback) {
           readyCallback()
         }
