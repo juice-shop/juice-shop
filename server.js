@@ -38,6 +38,7 @@ var models = require('./models')
 var datacreator = require('./data/datacreator')
 var app = express()
 var server = require('http').Server(app)
+var io = require('socket.io')(server)
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
@@ -136,6 +137,10 @@ app.use(angular())
 /* Error Handling */
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
+
+io.on('connection', function (socket) {
+  console.log(colors.magenta('Socket.io client %s connected'), socket.id)
+})
 
 exports.start = function (config, readyCallback) {
   if (!this.server) {
