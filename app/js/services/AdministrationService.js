@@ -7,7 +7,12 @@ angular.module('juiceShop').factory('AdministrationService', ['$http', function 
     return $http.get(host + '/application-version')
   }
 
+  function getSocketUrl () {
+    return $http.get(host + '/socket.io')
+  }
+
   return {
-    getApplicationVersion: getApplicationVersion
+    getApplicationVersion: getApplicationVersion,
+    getSocketUrl: getSocketUrl
   }
 }])

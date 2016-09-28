@@ -23,7 +23,8 @@
     "fontawesome": "~4.6",
     "angular-translate": "^2.12.1",
     "angular-translate-loader-static-files": "^2.12.1",
-    "flag-icon-css": "^2.5.0"
+    "flag-icon-css": "^2.5.0",
+    "socket.io-client": "^1.4.8"
   },
   "resolutions": {
     "angular": "~1.5"
