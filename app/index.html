@@ -45,7 +45,6 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
-    <script src="bower_components/socket.io-client/socket.io.js"></script>
 
     <!--  application specific source files -->
     <script src="dist/juice-shop.min.js"></script>
@@ -117,14 +116,6 @@
         </ul>
     </div>
 </nav>
-
-<script>
-    var socket = io('localhost:3001') // TODO Exchange with URL retrieved through SocketController
-    socket.on('solved', function (data) {
-        console.log(data)
-    })
-</script>
-
 
 <h1 class="hidden">OWASP Juice Shop</h1><!-- for SEO -->
 

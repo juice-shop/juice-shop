@@ -7,5 +7,5 @@ RUN cd /juice-shop; npm install; ./node_modules/.bin/bower install; ./node_modul
 
 WORKDIR /juice-shop
 
-EXPOSE  3000 3001
+EXPOSE  3000
 CMD npm start
