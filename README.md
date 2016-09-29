@@ -57,7 +57,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 1. Install [Docker](https://www.docker.com)
 2. Run ```docker pull bkimminich/juice-shop```
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
-4. Browse to <http://localhost:3000>
+4. Browse to <http://localhost:3000> (on OSX browse to <http://192.168.99.100:3000> instead)
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -92,6 +92,11 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! We highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
+
+### Vagrant
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+2. Run ```cd vagrant && vagrant up```
+4. Browse to <http://shop.sh>
 
 ## \*Node.js version compatibility
 
