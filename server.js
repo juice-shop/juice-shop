@@ -145,7 +145,7 @@ exports.start = function (config, readyCallback) {
     models.sequelize.sync().success(function () {
       datacreator()
       this.server = server.listen(config.port, function () {
-        console.log(colors.cyan('Listening on port %d'), config.port)
+        console.log(colors.yellow('Server listening on port %d'), config.port)
         if (readyCallback) {
           readyCallback()
         }
