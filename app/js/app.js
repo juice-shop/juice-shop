@@ -25,6 +25,10 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
   }
 }])
 
+angular.module('juiceShop').factory('socket', ['socketFactory', function (socketFactory) {
+  return socketFactory()
+}])
+
 angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
   'use strict'
   $httpProvider.interceptors.push('authInterceptor')
@@ -46,3 +50,4 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
   $translateProvider.determinePreferredLanguage()
   $translateProvider.fallbackLanguage('en')
 }])
+
