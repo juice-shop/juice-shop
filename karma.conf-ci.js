@@ -57,6 +57,7 @@ module.exports = function (config) {
       'app/bower_components/underscore/underscore.js',
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/ng-file-upload/ng-file-upload.js',
+      'app/bower_components/angular-socket-io/socket.js',
       'app/js/app.js',
       'app/js/**/*.js',
       'test/client/**/*.js'

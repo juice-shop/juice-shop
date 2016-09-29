@@ -5,7 +5,8 @@ angular.module('juiceShop', [
   'ngAnimate',
   'ngFileUpload',
   'ui.bootstrap',
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'btford.socket-io'
 ])
 
 angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
