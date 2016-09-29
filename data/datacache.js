@@ -8,3 +8,5 @@ exports.feedback = {}
 exports.baskets = {}
 exports.basketItems = {}
 exports.complaints = {}
+
+exports.notifications = []

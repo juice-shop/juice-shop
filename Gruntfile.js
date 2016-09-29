@@ -103,7 +103,8 @@ module.exports = function (grunt) {
               'node_modules/pdfkit/**',
               'node_modules/z85/**',
               'node_modules/glob/**',
-              'node_modules/colors/**'
+              'node_modules/colors/**',
+              'node_modules/socket.io/**'
             ]
           }
         ]
