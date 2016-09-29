@@ -80,5 +80,6 @@
   "LABEL_STATUS":"Status",
   "STATUS_UNSOLVED":"onopgelost",
   "STATUS_SOLVED":"opgelost",
-  "CALL_FOR_CONTRIBUTIONS":"Heb jij een idee voor een nieuwe challenge? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!"
+  "CALL_FOR_CONTRIBUTIONS":"Heb jij een idee voor een nieuwe challenge? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!",
+  "CHALLENGE_SOLVED":"You successfully solved a challenge: {{challenge}}"
 }
