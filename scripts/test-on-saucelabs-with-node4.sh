@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ "$TRAVIS_NODE_VERSION" == "4" ]; then
-    if [ "$TRAVIS_PULL_REQUEST" == false ] || [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" != false ]; then
+    if [ "$TRAVIS_PULL_REQUEST" == "false" -o "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" != "false" ]; then
         echo "Running unit tests on SauceLabs..."
         karma start karma.conf-ci.js
         echo "Running e2e tests on SauceLabs..."
