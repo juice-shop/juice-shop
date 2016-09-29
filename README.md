@@ -96,7 +96,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 ### Vagrant
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 2. Run ```cd vagrant && vagrant up```
-4. Browse to <http://node.sh>
+4. Browse to <http://shop.sh>
 
 ## \*Node.js version compatibility
 
