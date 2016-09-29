@@ -139,10 +139,6 @@ app.use(angular())
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
-io.on('connection', function (socket) {
-  console.log(colors.magenta('Socket.io client %s connected'), socket.id)
-})
-
 exports.start = function (config, readyCallback) {
   if (!this.server) {
     models.sequelize.drop()
