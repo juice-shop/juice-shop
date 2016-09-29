@@ -21,7 +21,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: []})
 
       $httpBackend.flush()
@@ -29,7 +29,7 @@ describe('controllers', function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should hold existing challenges', inject(function ($controller) {
+    it('should hold existing challenges', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{description: 'XSS'}, {description: 'CSRF'}]})
 
       $httpBackend.flush()
@@ -39,7 +39,7 @@ describe('controllers', function () {
       expect(scope.challenges[1].description).toBeDefined()
     }))
 
-    it('should consider challenge description as trusted HTML', inject(function ($controller) {
+    it('should consider challenge description as trusted HTML', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{description: '<a src="link">Link</a>'}]})
       spyOn($sce, 'trustAsHtml')
 
@@ -48,7 +48,7 @@ describe('controllers', function () {
       expect($sce.trustAsHtml).toHaveBeenCalledWith('<a src="link">Link</a>')
     }))
 
-    it('should calculate percent of challenges solved', inject(function ($controller) {
+    it('should calculate percent of challenges solved', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true}, {solved: true}, {solved: false}]})
 
       $httpBackend.flush()
@@ -56,7 +56,7 @@ describe('controllers', function () {
       expect(scope.percentChallengesSolved).toBe('67')
     }))
 
-    it('should hold nothing when no challenges exists', inject(function ($controller) {
+    it('should hold nothing when no challenges exists', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: {}})
 
       $httpBackend.flush()
@@ -64,7 +64,7 @@ describe('controllers', function () {
       expect(scope.challenges).toEqual({})
     }))
 
-    it('should hold nothing on error from backend API', inject(function ($controller) {
+    it('should hold nothing on error from backend API', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(500)
 
       $httpBackend.flush()
@@ -72,7 +72,7 @@ describe('controllers', function () {
       expect(scope.challenges).toBeUndefined()
     }))
 
-    it('should log errors directly to browser console', inject(function ($controller) {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
@@ -81,7 +81,7 @@ describe('controllers', function () {
       expect(console.log).toHaveBeenCalledWith('error')
     }))
 
-    it('should colorize total score in red for up to 33% challenge completion', inject(function ($controller) {
+    it('should colorize total score in red for up to 33% challenge completion', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true}, {solved: false}, {solved: false}]})
 
       $httpBackend.flush()
@@ -89,7 +89,7 @@ describe('controllers', function () {
       expect(scope.completionColor).toBe('danger')
     }))
 
-    it('should colorize total score in yellow for more than 33% challenge completion', inject(function ($controller) {
+    it('should colorize total score in yellow for more than 33% challenge completion', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true}, {solved: false}]})
 
       $httpBackend.flush()
@@ -97,7 +97,7 @@ describe('controllers', function () {
       expect(scope.completionColor).toBe('warning')
     }))
 
-    it('should colorize total score in green for more than 66% challenge completion', inject(function ($controller) {
+    it('should colorize total score in green for more than 66% challenge completion', inject(function () {
       $httpBackend.whenGET('/api/Challenges/').respond(200, {data: [{solved: true}, {solved: true}, {solved: false}]})
 
       $httpBackend.flush()

@@ -12,19 +12,19 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
       expect(scope.search).toBeDefined()
     }))
 
-    it('forwards to search result with search query as URL parameter', inject(function ($controller) {
+    it('forwards to search result with search query as URL parameter', inject(function () {
       scope.searchQuery = 'lemon juice'
       scope.search()
       expect(location.path()).toBe('/search')
       expect(location.search()).toEqual({q: 'lemon juice'})
     }))
 
-    it('forwards to search result with empty search criteria if no search query is present', inject(function ($controller) {
+    it('forwards to search result with empty search criteria if no search query is present', inject(function () {
       scope.searchQuery = undefined
       scope.search()
       expect(location.path()).toBe('/search')

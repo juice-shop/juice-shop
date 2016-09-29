@@ -22,45 +22,45 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
       expect(scope.notifications).toBeDefined()
       expect(scope.closeNotification).toBeDefined()
     }))
 
-    it('should hold no initial notifications', inject(function ($controller) {
+    it('should hold no initial notifications', inject(function () {
       expect(scope.notifications.length).toBe(0)
     }))
 
-    it('should receive multiple "challenge solved" notifications', inject(function ($controller) {
+    it('should receive multiple "challenge solved" notifications', inject(function () {
       socket.receive('challenge solved', { challenge: {} })
       socket.receive('challenge solved', { challenge: {} })
       expect(scope.notifications.length).toBe(2)
     }))
 
-    it('should hold a the message notification after receiving one', inject(function ($controller) {
+    it('should hold a the message notification after receiving one', inject(function () {
       socket.receive('challenge solved', { challenge: {} })
       expect(scope.notifications[ 0 ].message).toBe('CHALLENGE_SOLVED')
     }))
 
-    it('should remove a notification on closing it', inject(function ($controller) {
+    it('should remove a notification on closing it', inject(function () {
       socket.receive('challenge solved', { challenge: {} })
       expect(scope.notifications.length).toBe(1)
       scope.closeNotification(0)
       expect(scope.notifications.length).toBe(0)
     }))
 
-    it('should hold no message after receiving an empty notification', inject(function ($controller) {
+    it('should hold no message after receiving an empty notification', inject(function () {
       socket.receive('challenge solved', { })
       expect(scope.notifications.length).toBe(0)
     }))
 
-    it('should hold no message after receiving an undefined notification', inject(function ($controller) {
+    it('should hold no message after receiving an undefined notification', inject(function () {
       socket.receive('challenge solved', undefined)
       expect(scope.notifications.length).toBe(0)
     }))
 
-    it('should hold no message after receiving another type of notification', inject(function ($controller) {
+    it('should hold no message after receiving another type of notification', inject(function () {
       socket.receive('definitely NOT challenge solved', {})
       expect(scope.notifications.length).toBe(0)
     }))

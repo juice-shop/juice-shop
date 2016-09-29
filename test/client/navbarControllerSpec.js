@@ -20,7 +20,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200)
 
       $httpBackend.flush()
@@ -28,7 +28,7 @@ describe('controllers', function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should hold application version', inject(function ($controller) {
+    it('should hold application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
 
       $httpBackend.flush()
@@ -36,7 +36,7 @@ describe('controllers', function () {
       expect(scope.version).toBe('vx.y.z')
     }))
 
-    it('should show nothing on missing application version', inject(function ($controller) {
+    it('should show nothing on missing application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
 
       $httpBackend.flush()
@@ -44,7 +44,7 @@ describe('controllers', function () {
       expect(scope.version).toBe('')
     }))
 
-    it('should show nothing on error retrieving application version', inject(function ($controller) {
+    it('should show nothing on error retrieving application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(500)
 
       $httpBackend.flush()
@@ -52,7 +52,7 @@ describe('controllers', function () {
       expect(scope.version).toBe('')
     }))
 
-    it('should log errors directly to browser console', inject(function ($controller) {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 

@@ -11,7 +11,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
     }))
   })

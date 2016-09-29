@@ -20,7 +20,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.flush()
@@ -29,7 +29,7 @@ describe('controllers', function () {
       expect(scope.save).toBeDefined()
     }))
 
-    it('should hold the user id of the currently logged in user', inject(function ($controller) {
+    it('should hold the user id of the currently logged in user', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {id: 42})
 
       $httpBackend.flush()
@@ -37,7 +37,7 @@ describe('controllers', function () {
       expect(scope.feedback.UserId).toBe(42)
     }))
 
-    it('should hold no user id if current user is not logged in', inject(function ($controller) {
+    it('should hold no user id if current user is not logged in', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.flush()
@@ -45,7 +45,7 @@ describe('controllers', function () {
       expect(scope.feedback.UserId).toBeUndefined()
     }))
 
-    it('should miss feedback object if retrieving currently logged in user fails', inject(function ($controller) {
+    it('should miss feedback object if retrieving currently logged in user fails', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(500)
 
       $httpBackend.flush()
@@ -53,7 +53,7 @@ describe('controllers', function () {
       expect(scope.feedback).toBeUndefined()
     }))
 
-    it('should hold the user email of the currently logged in user', inject(function ($controller) {
+    it('should hold the user email of the currently logged in user', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {email: 'x@x.xx'})
 
       $httpBackend.flush()
@@ -61,7 +61,7 @@ describe('controllers', function () {
       expect(scope.userEmail).toBe('x@x.xx')
     }))
 
-    it('should hold anonymous placeholder for email if current user is not logged in', inject(function ($controller) {
+    it('should hold anonymous placeholder for email if current user is not logged in', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.flush()
@@ -69,7 +69,7 @@ describe('controllers', function () {
       expect(scope.userEmail).toBe('anonymous')
     }))
 
-    it('should display thank-you message and reset feedback form on saving feedback', inject(function ($controller) {
+    it('should display thank-you message and reset feedback form on saving feedback', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Test', rating: 4}})
@@ -83,7 +83,7 @@ describe('controllers', function () {
       expect(scope.confirmation).toBe('Thank you for your feedback.')
     }))
 
-    it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', inject(function ($controller) {
+    it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Praise', rating: 5}})

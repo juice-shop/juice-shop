@@ -28,7 +28,7 @@ describe('controllers', function () {
       expect(scope.login).toBeDefined()
     }))
 
-    it('forwards to main page after successful login', inject(function ($controller) {
+    it('forwards to main page after successful login', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token'})
 
       scope.login()
@@ -37,7 +37,7 @@ describe('controllers', function () {
       expect(location.path()).toBe('/')
     }))
 
-    it('sets the returned authentication token as session cookie', inject(function ($controller) {
+    it('sets the returned authentication token as session cookie', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token'})
 
       scope.login()
@@ -46,7 +46,7 @@ describe('controllers', function () {
       expect(cookieStore.get('token')).toBe('auth_token')
     }))
 
-    it('puts the returned basket id into browser session storage', inject(function ($controller) {
+    it('puts the returned basket id into browser session storage', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(200, {bid: 4711})
 
       scope.login()
@@ -55,7 +55,7 @@ describe('controllers', function () {
       expect(window.sessionStorage.bid).toBe('4711')
     }))
 
-    it('removes authentication token and basket id on failed login attempt', inject(function ($controller) {
+    it('removes authentication token and basket id on failed login attempt', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(401)
 
       scope.login()
@@ -65,7 +65,7 @@ describe('controllers', function () {
       expect(window.sessionStorage.bid).toBeUndefined
     }))
 
-    it('returns error message from server to client on failed login attempt', inject(function ($controller) {
+    it('returns error message from server to client on failed login attempt', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(401, 'error')
 
       scope.login()

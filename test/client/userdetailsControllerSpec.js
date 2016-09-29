@@ -21,7 +21,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/api/Users/42').respond(200, {data: {}})
 
       $httpBackend.flush()
@@ -29,7 +29,7 @@ describe('controllers', function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should hold single product with given id', inject(function ($controller) {
+    it('should hold single product with given id', inject(function () {
       $httpBackend.whenGET('/api/Users/42').respond(200, {data: {email: 'test@juice-sh.op'}})
 
       $httpBackend.flush()
@@ -38,7 +38,7 @@ describe('controllers', function () {
       expect(scope.user.email).toBe('test@juice-sh.op')
     }))
 
-    it('should hold no product if API call fails', inject(function ($controller) {
+    it('should hold no product if API call fails', inject(function () {
       $httpBackend.whenGET('/api/Users/42').respond(500)
 
       $httpBackend.flush()
@@ -46,7 +46,7 @@ describe('controllers', function () {
       expect(scope.user).toBeUndefined()
     }))
 
-    it('should log errors directly to browser console', inject(function ($controller) {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET('/api/Users/42').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 

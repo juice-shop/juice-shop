@@ -22,7 +22,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
 
       $httpBackend.flush()
@@ -31,7 +31,7 @@ describe('controllers', function () {
       expect(scope.showDetail).toBeDefined()
     }))
 
-    it('should hold all users', inject(function ($controller) {
+    it('should hold all users', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'a@a.de'}, {email: 'b@b.de'}]})
 
       $httpBackend.flush()
@@ -41,7 +41,7 @@ describe('controllers', function () {
       expect(scope.users[1].email).toBeDefined()
     }))
 
-    it('should consider user email as trusted HTML', inject(function ($controller) {
+    it('should consider user email as trusted HTML', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'bjoern@<script>alert("XSS2")</script>.de'}]})
       spyOn($sce, 'trustAsHtml')
 
@@ -50,7 +50,7 @@ describe('controllers', function () {
       expect($sce.trustAsHtml).toHaveBeenCalledWith('bjoern@<script>alert("XSS2")</script>.de')
     }))
 
-    it('should hold nothing when no users exist', inject(function ($controller) {
+    it('should hold nothing when no users exist', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: {}})
 
       $httpBackend.flush()
@@ -58,7 +58,7 @@ describe('controllers', function () {
       expect(scope.users).toEqual({})
     }))
 
-    it('should hold nothing on error from backend API', inject(function ($controller) {
+    it('should hold nothing on error from backend API', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(500)
 
       $httpBackend.flush()
@@ -66,7 +66,7 @@ describe('controllers', function () {
       expect(scope.users).toBeUndefined()
     }))
 
-    it('should log errors directly to browser console', inject(function ($controller) {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
@@ -75,7 +75,7 @@ describe('controllers', function () {
       expect(console.log).toHaveBeenCalledWith('error')
     }))
 
-    it('should open a modal dialog with user details', inject(function ($controller) {
+    it('should open a modal dialog with user details', inject(function () {
       $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
       spyOn($uibModal, 'open')
 

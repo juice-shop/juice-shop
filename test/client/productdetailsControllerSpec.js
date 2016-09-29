@@ -22,7 +22,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
 
       $httpBackend.flush()
@@ -30,7 +30,7 @@ describe('controllers', function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should hold single product with given id', inject(function ($controller) {
+    it('should hold single product with given id', inject(function () {
       $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}})
 
       $httpBackend.flush()
@@ -39,7 +39,7 @@ describe('controllers', function () {
       expect(scope.product.name).toBe('Test Juice')
     }))
 
-    it('should render product description as trusted HTML', inject(function ($controller) {
+    it('should render product description as trusted HTML', inject(function () {
       $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS4")</script>'}})
       spyOn($sce, 'trustAsHtml')
 
@@ -48,7 +48,7 @@ describe('controllers', function () {
       expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
     }))
 
-    it('should hold no product if API call fails', inject(function ($controller) {
+    it('should hold no product if API call fails', inject(function () {
       $httpBackend.whenGET(/\/api\/Products\/42/).respond(500)
 
       $httpBackend.flush()
@@ -56,7 +56,7 @@ describe('controllers', function () {
       expect(scope.product).toBeUndefined()
     }))
 
-    it('should log errors directly to browser console', inject(function ($controller) {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET(/\/api\/Products\/42/).respond(500, 'error')
       console.log = jasmine.createSpy('log')
 

@@ -20,7 +20,7 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.flush()
@@ -29,7 +29,7 @@ describe('controllers', function () {
       expect(scope.save).toBeDefined()
     }))
 
-    it('should miss complaint object if retrieving currently logged in user fails', inject(function ($controller) {
+    it('should miss complaint object if retrieving currently logged in user fails', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(500)
 
       $httpBackend.flush()
@@ -37,7 +37,7 @@ describe('controllers', function () {
       expect(scope.complaint).toBeUndefined()
     }))
 
-    it('should hold the user email of the currently logged in user', inject(function ($controller) {
+    it('should hold the user email of the currently logged in user', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {email: 'x@x.xx'})
 
       $httpBackend.flush()
@@ -45,7 +45,7 @@ describe('controllers', function () {
       expect(scope.userEmail).toBe('x@x.xx')
     }))
 
-    it('should hold no email if current user is not logged in', inject(function ($controller) {
+    it('should hold no email if current user is not logged in', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.flush()
@@ -53,7 +53,7 @@ describe('controllers', function () {
       expect(scope.userEmail).toBeUndefined()
     }))
 
-    it('should display support message with #id and reset complaint form on saving complaint', inject(function ($controller) {
+    it('should display support message with #id and reset complaint form on saving complaint', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
       $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '42', message: 'Test'}})

@@ -14,11 +14,11 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should set selected a language', inject(function ($controller) {
+    it('should set selected a language', inject(function () {
       spyOn($translate, 'use')
 
       scope.changeLanguage('xx')

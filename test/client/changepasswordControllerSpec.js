@@ -24,7 +24,7 @@ describe('controllers', function () {
       expect(scope.changePassword).toBeDefined()
     }))
 
-    it('should clear form and show confirmation after changing password', inject(function ($controller) {
+    it('should clear form and show confirmation after changing password', inject(function () {
       $httpBackend.whenGET('/rest/user/change-password?current=old&new=foobar&repeat=foobar').respond(200)
       scope.currentPassword = 'old'
       scope.newPassword = 'foobar'
@@ -40,7 +40,7 @@ describe('controllers', function () {
       expect(scope.confirmation).toBeDefined()
     }))
 
-    it('should clear form and gracefully handle error on password change', inject(function ($controller) {
+    it('should clear form and gracefully handle error on password change', inject(function () {
       $httpBackend.whenGET('/rest/user/change-password?current=old&new=foobar&repeat=foobar').respond(500, 'error')
       scope.currentPassword = 'old'
       scope.newPassword = 'foobar'

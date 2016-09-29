@@ -20,12 +20,12 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
       expect(scope.save).toBeDefined()
     }))
 
-    it('resets the registration form and redirects to login page after user registration', inject(function ($controller) {
+    it('resets the registration form and redirects to login page after user registration', inject(function () {
       $httpBackend.whenPOST('/api/Users/').respond(200)
 
       scope.save()
