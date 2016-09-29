@@ -40,6 +40,7 @@ var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server)
 
+global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 /* Delete old order PDFs */
