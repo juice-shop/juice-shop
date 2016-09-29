@@ -5,7 +5,8 @@ angular.module('juiceShop', [
   'ngAnimate',
   'ngFileUpload',
   'ui.bootstrap',
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'btford.socket-io'
 ])
 
 angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
@@ -22,6 +23,10 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
       return response || $q.when(response)
     }
   }
+}])
+
+angular.module('juiceShop').factory('socket', ['socketFactory', function (socketFactory) {
+  return socketFactory()
 }])
 
 angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
@@ -45,3 +50,4 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
   $translateProvider.determinePreferredLanguage()
   $translateProvider.fallbackLanguage('en')
 }])
+

@@ -54,9 +54,11 @@ module.exports = function (config) {
       'app/bower_components/angular-touch/angular-touch.js',
       'app/bower_components/angular-animate/angular-animate.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/underscore/underscore.js',
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/ng-file-upload/ng-file-upload.js',
+      'app/bower_components/angular-socket-io/socket.js',
       'app/js/app.js',
       'app/js/**/*.js',
       'test/client/**/*.js'

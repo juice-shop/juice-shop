@@ -37,7 +37,10 @@ var insecurity = require('./lib/insecurity')
 var models = require('./models')
 var datacreator = require('./data/datacreator')
 var app = express()
+var server = require('http').Server(app)
+var io = require('socket.io')(server)
 
+global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 /* Delete old order PDFs */
@@ -136,14 +139,17 @@ app.use(angular())
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
+io.on('connection', function (socket) {
+  console.log(colors.magenta('Socket.io client %s connected'), socket.id)
+})
+
 exports.start = function (config, readyCallback) {
   if (!this.server) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = app.listen(config.port, function () {
+      this.server = server.listen(config.port, function () {
         console.log(colors.cyan('Listening on port %d'), config.port)
-                // callback to call when the server is ready
         if (readyCallback) {
           readyCallback()
         }

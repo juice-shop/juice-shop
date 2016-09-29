@@ -30,6 +30,7 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- libraries, third party components -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/string/dist/string.min.js"></script>
     <script src="bower_components/moment/min/moment.min.js"></script>
@@ -42,9 +43,11 @@
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="bower_components/angular-touch/angular-touch.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="bower_components/angular-socket-io/socket.min.js"></script>
 
     <!--  application specific source files -->
     <script src="dist/juice-shop.min.js"></script>
@@ -118,6 +121,10 @@
 </nav>
 
 <h1 class="hidden">OWASP Juice Shop</h1><!-- for SEO -->
+
+<div class="container" ng-controller="ChallengeSolvedNotificationController">
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)" dismiss-on-timeout="10000">{{notification.message}}</div>
+</div>
 
 <!-- CONTENT -->
 <div class="container-fluid" ng-view></div>

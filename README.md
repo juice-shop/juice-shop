@@ -127,12 +127,16 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ### Web Links
 
-* Episode #229 of the [7 Minute Security](https://7ms.us) Podcast: [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/) ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
+> Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Send a Pull Request so we can add it to the list! The same goes for conference or meetup talks, workshops or trainings you did where you included this project!
+
+> __Warning!__ :trollface: indicates links that contain spoilers or solutions to some or all challenges of the OWASP Juice Shop!
+
+* [7 Minute Security](https://7ms.us) Podcast:
+  * Episode #229: [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/) ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
+  * Episode #230: [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/) ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
 * German guest post on [Informatik Aktuell](http://www.informatik-aktuell.de/): [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
-
-> Did you write a blog post or magazine article about (or at least mentioning) OWASP Juice Shop? Send a Pull Request so we can add it to the list!
 
 ### Conference and Meetup Appearances
 
@@ -144,8 +148,6 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 * [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
-
-> Did you give a talk, workshop or training using OWASP Juice Shop? Send a Pull Request so we can add it to the list!
 
 ### Merchandise
 

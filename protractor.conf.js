@@ -46,8 +46,8 @@ if (process.env.TRAVIS_BUILD_NUMBER) {
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     'build': process.env.TRAVIS_BUILD_NUMBER,
     'tags': [process.env.TRAVIS_BRANCH, process.env.TRAVIS_BUILD_NUMBER, 'e2e'],
-    'recordVideo': false,
-    'recordScreenshots': false
+    'recordVideo': true,
+    'recordScreenshots': true
 
   }
 }
