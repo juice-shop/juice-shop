@@ -57,7 +57,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 1. Install [Docker](https://www.docker.com)
 2. Run ```docker pull bkimminich/juice-shop```
 3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
-4. Browse to <http://localhost:3000>
+4. Browse to <http://localhost:3000> or http://192.168.99.100:3000/ (on OSX)
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
