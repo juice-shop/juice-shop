@@ -93,6 +93,11 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 
 > Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! We highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
 
+### Vagrant
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+2. Run ```cd vagrant && vagrant up```
+4. Browse to <http://node.sh>
+
 ## \*Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
