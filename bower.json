@@ -7,7 +7,6 @@
     "angular": "~1.5",
     "angular-route": "~1.5",
     "angular-loader": "~1.5",
-    "angular-mocks": "~1.5",
     "angular-cookies": "~1.5",
     "angular-touch": "~1.5",
     "angular-animate": "~1.5",
@@ -25,6 +24,10 @@
     "angular-translate-loader-static-files": "^2.12.1",
     "flag-icon-css": "^2.5.0",
     "angular-socket-io": "^0.7.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5",
+    "angular-socket.io-mock": "~1.1"
   },
   "resolutions": {
     "angular": "~1.5"
