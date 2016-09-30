@@ -18,7 +18,7 @@ Apart from the hacker and awareness training use case, pentesting proxies or sec
 
 ## Main Selling Points
 
-- Easy-to-install: Requires nothing but [node.js](http://nodejs.org)\* or [Docker](https://www.docker.com) to run on Windows/Mac/Linux
+- Easy-to-install: Choose between [node.js](http://nodejs.org)\*, [Docker](https://www.docker.com) and [Vagrant](https://www.vagrantup.com/downloads.html) to run on Windows/Mac/Linux
 - Self-contained: Additional dependencies are pre-packaged or will be resolved and downloaded automatically
 - Self-healing: The simple SQLite database is wiped and regenerated from scratch on every server startup
 - Gamification: On a Score Board the application keeps track of successfully exploited vulnerabilities
@@ -94,9 +94,10 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 > Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! We highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
 
 ### Vagrant
+
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 2. Run ```cd vagrant && vagrant up```
-4. Browse to <http://juice.sh>
+3. Browse to <http://juice.sh>
 
 ## \*Node.js version compatibility
 
@@ -104,8 +105,6 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 - __4.x (recommended version)__
 - 5.x
 - 6.x
-
-> Support for node.js 0.10, 0.11 and 0.12 has been dropped to reduce the complexity of the build matrix and get less timeouts from Sauce Labs during test execution.  
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
@@ -134,7 +133,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 > Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Send a Pull Request so we can add it to the list! The same goes for conference or meetup talks, workshops or trainings you did where you included this project!
 
-> __Warning!__ :trollface: indicates links that contain spoilers or solutions to some or all challenges of the OWASP Juice Shop!
+> :trollface: _indicates links that contain spoilers or solutions to at least one vulnerability challenge of the OWASP Juice Shop!_
 
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #229: [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/) ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
