@@ -7,7 +7,7 @@ angular.module('juiceShop').controller('BasketController', [
   function ($scope, $sce, $window, $translate, basketService) {
     'use strict'
 
-    $scope.couponCollapsed = true
+    $scope.continueCollapsed = true
     $scope.paymentCollapsed = true
 
     function load () {
