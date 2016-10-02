@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "2.12.1",
+  "version": "2.13.0",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -30,6 +30,7 @@
     "express": "~4.14",
     "express-jwt": "~5.0",
     "glob": "~5.0",
+    "hashids": "^1.1.1",
     "helmet": "~2.2",
     "jsonwebtoken": "~7.1",
     "morgan": "~1.7",

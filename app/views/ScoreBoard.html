@@ -22,6 +22,33 @@
             </tr>
         </table>
 
+        <div class="container-fluid well">
+            <div class="row">
+                <a id="collapseContinueButton" class="btn btn-danger" ng-click="continueCollapsed = !continueCollapsed"><i class="fa fa-ambulance fa-lg"></i></a> <span translate="CURRENT_CONTINUE_CODE" translate-value-code="{{currentContinueCode}}"></span>
+            </div>
+        </div>
+
+        <div uib-collapse="continueCollapsed">
+            <div class="alert-danger" ng-show="error && !form.$dirty">
+                <p>{{error}}</p>
+            </div>
+
+            <div class="container-fluid well">
+                <form role="form" name="form" novalidate>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="continueCode" translate="LABEL_CONTINUE_CODE"></label> <small>(<span translate="CONTINUE_PREVIOUS_SESSION"></span>)</small>
+                            <input type="text" class="form-control input-sm" id="continueCode" name="continueCode" ng-model="continueCode" required/>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" id="restoreProgressButton" class="btn btn-danger" ng-disabled="form.$invalid" ng-click="restoreProgress()"><i class="fa fa-medkit fa-lg"></i> <span translate="BTN_RESTORE_PROGRESS"></span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="alert alert-info" translate="CALL_FOR_CONTRIBUTIONS" translate-value-gitter='<a href="http://gitter.im/bkimminich/juice-shop"><i class="fa fa-comments-o"></i>Gitter.im</a>' translate-value-github='<a href="https://github.com/bkimminich/juice-shop/issues"><i class="fa fa-github"></i>GitHub</a>'></div>
 
         <img src="/public/images/tracking/scoreboard.png"/>

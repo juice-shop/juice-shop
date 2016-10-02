@@ -1,9 +1,29 @@
 angular.module('juiceShop').controller('ChallengeController', [
   '$scope',
   '$sce',
+  '$translate',
   'ChallengeService',
-  function ($scope, $sce, challengeService) {
+  function ($scope, $sce, $translate, challengeService) {
     'use strict'
+
+    $scope.continueCollapsed = true
+
+    $scope.restoreProgress = function () {
+      challengeService.restoreProgress(encodeURIComponent($scope.continueCode)).success(function () {
+        $scope.continueCode = undefined
+        $scope.error = undefined
+        $scope.form.$setPristine()
+        $scope.continueCollapsed = true
+      }).error(function (error) {
+        console.log(error)
+        $translate('INVALID_CONTINUE_CODE').then(function (invalidContinueCode) {
+          $scope.error = invalidContinueCode
+        }, function (translationId) {
+          $scope.error = translationId
+        })
+        $scope.form.$setPristine()
+      })
+    }
 
     challengeService.find().success(function (challenges) {
       $scope.challenges = challenges.data
@@ -20,6 +40,12 @@ angular.module('juiceShop').controller('ChallengeController', [
       } else {
         $scope.completionColor = 'danger'
       }
+    }).error(function (data) {
+      console.log(data)
+    })
+
+    challengeService.continueCode().success(function (data) {
+      $scope.currentContinueCode = data.continueCode
     }).error(function (data) {
       console.log(data)
     })

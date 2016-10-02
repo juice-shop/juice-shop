@@ -9,7 +9,17 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', function ($htt
     })
   }
 
+  function continueCode () {
+    return $http.get('/rest/continue-code')
+  }
+
+  function restoreProgress (continueCode) {
+    return $http.put('/rest/continue-code/apply/' + continueCode)
+  }
+
   return {
-    find: find
+    find: find,
+    continueCode: continueCode,
+    restoreProgress: restoreProgress
   }
 }])
