@@ -104,7 +104,8 @@ module.exports = function (grunt) {
               'node_modules/z85/**',
               'node_modules/glob/**',
               'node_modules/colors/**',
-              'node_modules/socket.io/**'
+              'node_modules/socket.io/**',
+              'node_modules/hashids/**'
             ]
           }
         ]
