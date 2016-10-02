@@ -9,13 +9,17 @@ exports = module.exports = function restoreProgress () {
   return function (req, res) {
     var continueCode = req.params.continueCode
     var ids = hashids.decode(continueCode)
-    for (var name in challenges) {
-      if (challenges.hasOwnProperty(name)) {
-        if (ids.indexOf(challenges[name].id) > -1) {
-          utils.solve(challenges[name])
+    if (ids.length > 0) {
+      for (var name in challenges) {
+        if (challenges.hasOwnProperty(name)) {
+          if (ids.indexOf(challenges[name].id) > -1) {
+            utils.solve(challenges[name])
+          }
         }
       }
+      res.end()
+    } else {
+      res.status(404).send('Invalid continue code.')
     }
-    res.end()
   }
 }
