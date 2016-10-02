@@ -208,15 +208,33 @@ describe('services', function () {
     it('should be defined', inject(function (ChallengeService) {
       expect(ChallengeService).toBeDefined()
       expect(ChallengeService.find).toBeDefined()
+      expect(ChallengeService.continueCode).toBeDefined()
+      expect(ChallengeService.restoreProgress).toBeDefined()
     }))
 
-    it('should get all feedback directly from the rest api', inject(function (ChallengeService) {
+    it('should get all challenges directly from the rest api', inject(function (ChallengeService) {
       $httpBackend.whenGET('/api/Challenges/').respond(200, 'apiResponse')
 
       ChallengeService.find().success(function (data) { result = data })
       $httpBackend.flush()
 
       expect(result).toBe('apiResponse')
+    }))
+
+    it('should get current continue code directly from the rest api', inject(function (ChallengeService) {
+      $httpBackend.whenGET('/rest/continue-code').respond(200, 'apiResponse')
+
+      ChallengeService.continueCode().success(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+
+    it('should pass continue code for restoring challenge progress on to the rest api', inject(function (ChallengeService) {
+      $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
+
+      ChallengeService.restoreProgress('CODE')
+      $httpBackend.flush()
     }))
   })
 
