@@ -81,5 +81,10 @@
   "STATUS_UNSOLVED":"ungelöst",
   "STATUS_SOLVED":"gelöst",
   "CALL_FOR_CONTRIBUTIONS":"Du hast eine Idee für eine neue Herausforderung? Du hast eine Schwachstelle gefunden, die hier nicht aufgeführt ist? Gib uns Bescheid via {{gitter}} Community-Chat oder eröffne ein {{github}} Issue!",
-  "CHALLENGE_SOLVED":"Du hast erfolgreich eine Herausforderung gelöst: {{challenge}}"
+  "CHALLENGE_SOLVED":"Du hast erfolgreich eine Herausforderung gelöst: {{challenge}}",
+  "LABEL_CONTINUE_CODE":"Continue Code",
+  "CONTINUE_PREVIOUS_SESSION":"Enter continue code here to restore previous challenge progress.",
+  "BTN_RESTORE_PROGRESS":"Restore Progress",
+  "CURRENT_CONTINUE_CODE":"Your current continue code: {{code}}",
+  "INVALID_CONTINUE_CODE":"Invalid continue code."
 }
