@@ -80,5 +80,11 @@
   "LABEL_STATUS":"Status",
   "STATUS_UNSOLVED":"ungelöst",
   "STATUS_SOLVED":"gelöst",
-  "CALL_FOR_CONTRIBUTIONS":"Du hast eine Idee für eine neue Herausforderung? Du hast eine Schwachstelle gefunden, die hier nicht aufgeführt ist? Gib uns Bescheid via {{gitter}} Community-Chat oder eröffne ein {{github}} Issue!"
+  "CALL_FOR_CONTRIBUTIONS":"Du hast eine Idee für eine neue Herausforderung? Du hast eine Schwachstelle gefunden, die hier nicht aufgeführt ist? Gib uns Bescheid via {{gitter}} Community-Chat oder eröffne ein {{github}} Issue!",
+  "CHALLENGE_SOLVED":"Du hast erfolgreich eine Herausforderung gelöst: {{challenge}}",
+  "LABEL_CONTINUE_CODE":"Fortsetzungs-Code",
+  "CONTINUE_PREVIOUS_SESSION":"Gib einen Fortsetzungs-Code ein, um deinen Herausforderungs-Fortschritt wiederherzustellen.",
+  "BTN_RESTORE_PROGRESS":"Fortschritt wiederherstellen",
+  "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code: {{code}}",
+  "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code."
 }
