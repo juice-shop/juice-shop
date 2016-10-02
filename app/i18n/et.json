@@ -81,5 +81,10 @@
   "STATUS_UNSOLVED":"lahendamata",
   "STATUS_SOLVED":"lahendatud",
   "CALL_FOR_CONTRIBUTIONS":"Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!",
-  "CHALLENGE_SOLVED":"You successfully solved a challenge: {{challenge}}"
+  "CHALLENGE_SOLVED":"You successfully solved a challenge: {{challenge}}",
+  "LABEL_CONTINUE_CODE":"Continue Code",
+  "CONTINUE_PREVIOUS_SESSION":"Enter continue code here to restore previous challenge progress.",
+  "BTN_RESTORE_PROGRESS":"Restore Progress",
+  "CURRENT_CONTINUE_CODE":"Your current continue code: {{code}}",
+  "INVALID_CONTINUE_CODE":"Invalid continue code."
 }
