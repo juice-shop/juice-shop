@@ -85,6 +85,6 @@
   "LABEL_CONTINUE_CODE": "Continue Code",
   "CONTINUE_PREVIOUS_SESSION": "Enter continue code here to restore previous challenge progress.",
   "BTN_RESTORE_PROGRESS": "Restore Progress",
-  "CURRENT_CONTINUE_CODE": "Your current continue code: {{code}}",
+  "CURRENT_CONTINUE_CODE": "Your current continue code:",
   "INVALID_CONTINUE_CODE": "Invalid continue code."
 }
