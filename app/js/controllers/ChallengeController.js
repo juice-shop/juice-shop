@@ -44,8 +44,8 @@ angular.module('juiceShop').controller('ChallengeController', [
       console.log(data)
     })
 
-    challengeService.continueCode().success(function (continueCode) {
-      $scope.currentContinueCode = continueCode
+    challengeService.continueCode().success(function (data) {
+      $scope.currentContinueCode = data.continueCode
     }).error(function (data) {
       console.log(data)
     })
