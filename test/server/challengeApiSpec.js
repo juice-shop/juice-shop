@@ -51,3 +51,13 @@ frisby.create('DELETE existing challenge is forbidden via public API even when a
   .expectStatus(401)
   .toss()
 
+frisby.create('PUT invalid continue code is rejected')
+  .put('http://localhost:3000/rest/continue-code/apply/ThisIsDefinitelyNotAValidContinueCode')
+  .expectStatus(404)
+  .toss()
+
+frisby.create('PUT continue code for non-existent challenge #99 is accepted')
+  .put('http://localhost:3000/rest/continue-code/apply/KaWpRZrn3Djm9PK54pJGWv8OaekoVMWq2BzAZbMNq0Lxy1YlXQR76gEDMoJn')
+  .expectStatus(200)
+  .toss()
+
