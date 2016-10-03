@@ -12,7 +12,7 @@ exports = module.exports = function retrieveCurrentContinueCode () {
         if (challenges[name].solved) ids.push(challenges[name].id)
       }
     }
-    var code = ids.length > 0 ? hashids.encode(ids) : '------------------------------------------------------------'
+    var code = ids.length > 0 ? hashids.encode(ids) : undefined
     res.json({ continueCode: code })
   }
 }

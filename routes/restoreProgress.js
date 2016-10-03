@@ -9,11 +9,14 @@ exports = module.exports = function restoreProgress () {
   return function (req, res) {
     var continueCode = req.params.continueCode
     var ids = hashids.decode(continueCode)
-    if (ids.length > 0) {
+    if (utils.notSolved(challenges.continueCodeChallenge) && ids.length === 1 && ids[ 0 ] === 99) {
+      utils.solve(challenges.continueCodeChallenge)
+      res.end()
+    } else if (ids.length > 0) {
       for (var name in challenges) {
         if (challenges.hasOwnProperty(name)) {
-          if (ids.indexOf(challenges[name].id) > -1) {
-            utils.solve(challenges[name])
+          if (ids.indexOf(challenges[ name ].id) > -1) {
+            utils.solve(challenges[ name ])
           }
         }
       }
