@@ -279,6 +279,14 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.zeroStarsChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'continueCode',
+      description: 'Fake a continue code that solves only (the non-existent) challenge #99.',
+      difficulty: 2,
+      solved: false
+    }).success(function (challenge) {
+      challenges.continueCodeChallenge = challenge
+    })
   }
 
   function createUsers () {

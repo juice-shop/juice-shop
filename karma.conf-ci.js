@@ -59,6 +59,8 @@ module.exports = function (config) {
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/ng-file-upload/ng-file-upload.js',
       'app/bower_components/angular-socket.io-mock/angular-socket.io-mock.js',
+      'app/bower_components/clipboard/dist/clipboard.js',
+      'app/bower_components/ngclipboard/dist/ngclipboard.js',
       'app/js/app.js',
       'app/js/**/*.js',
       'test/client/**/*.js'

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "2.13.0",
+  "version": "2.15.0",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -80,7 +80,7 @@
     "protractor": "~4.0",
     "shelljs": "~0.7",
     "standard": "^8.0.0",
-    "stryker": "^0.4.2",
+    "stryker": "^0.4.4",
     "stryker-api": "^0.2.0",
     "stryker-html-reporter": "^0.2.0",
     "stryker-karma-runner": "^0.2.1"

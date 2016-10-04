@@ -181,6 +181,20 @@ describe('controllers', function () {
       expect(scope.error).toBeUndefined()
     }))
 
+    it('should translate DISCOUNT_APPLIED message', inject(function () {
+      scope.form = {$setPristine: function () {}}
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'DISCOUNT_APPLIED': 'Translation of DISCOUNT_APPLIED'})
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.whenPUT('/rest/basket/42/coupon/valid_base85').respond(200, { discount: 42 })
+
+      scope.coupon = 'valid_base85'
+      scope.applyCoupon()
+      $httpBackend.flush()
+
+      expect(scope.confirmation).toBe('Translation of DISCOUNT_APPLIED')
+      expect(scope.error).toBeUndefined()
+    }))
+
     it('should log error while increasing quantity of basket item directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})

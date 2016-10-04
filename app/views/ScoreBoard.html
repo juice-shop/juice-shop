@@ -24,7 +24,11 @@
 
         <div class="container-fluid well">
             <div class="row">
-                <a id="collapseContinueButton" class="btn btn-danger" ng-click="continueCollapsed = !continueCollapsed"><i class="fa fa-ambulance fa-lg"></i></a> <span translate="CURRENT_CONTINUE_CODE" translate-value-code="{{currentContinueCode}}"></span>
+                <a id="collapseContinueButton" class="btn btn-danger" ng-click="continueCollapsed = !continueCollapsed"><i class="fa fa-ambulance fa-lg"></i></a>
+                <span translate="CURRENT_CONTINUE_CODE" ng-show="currentContinueCode"></span> <span id="currentContinueCode" ng-bind="currentContinueCode"></span>
+                <button class="btn btn-xs btn-primary" ngclipboard data-clipboard-target="#currentContinueCode" ng-show="currentContinueCode">
+                    <i class="fa fa-clipboard fa-xs"></i>
+                </button>
             </div>
         </div>
 
