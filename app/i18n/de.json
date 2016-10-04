@@ -85,6 +85,6 @@
   "LABEL_CONTINUE_CODE":"Fortsetzungs-Code",
   "CONTINUE_PREVIOUS_SESSION":"Gib einen Fortsetzungs-Code ein, um deinen Herausforderungs-Fortschritt wiederherzustellen.",
   "BTN_RESTORE_PROGRESS":"Fortschritt wiederherstellen",
-  "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code: {{code}}",
+  "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code:",
   "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code."
 }
