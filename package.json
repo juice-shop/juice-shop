@@ -80,7 +80,7 @@
     "protractor": "~4.0",
     "shelljs": "~0.7",
     "standard": "^8.0.0",
-    "stryker": "^0.4.2",
+    "stryker": "^0.4.4",
     "stryker-api": "^0.2.0",
     "stryker-html-reporter": "^0.2.0",
     "stryker-karma-runner": "^0.2.1"
