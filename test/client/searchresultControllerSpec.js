@@ -85,6 +85,21 @@ describe('controllers', function () {
       expect(scope.confirmation).toBe('BASKET_ADD_PRODUCT')
     }))
 
+    it('should translate BASKET_ADD_PRODUCT message', inject(function () {
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'BASKET_ADD_PRODUCT': 'Translation of BASKET_ADD_PRODUCT'})
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
+
+      window.sessionStorage.bid = 4711
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}})
+      $httpBackend.whenGET(/\/api\/Products\/1/).respond(200, {data: {name: 'Cherry Juice'}})
+
+      scope.addToBasket(1)
+      $httpBackend.flush()
+
+      expect(scope.confirmation).toBe('Translation of BASKET_ADD_PRODUCT')
+    }))
+
     it('should add similar product to basket', inject(function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
@@ -98,6 +113,22 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(scope.confirmation).toBe('BASKET_ADD_SAME_PRODUCT')
+    }))
+
+    it('should translate BASKET_ADD_SAME_PRODUCT message', inject(function () {
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'BASKET_ADD_SAME_PRODUCT': 'Translation of BASKET_ADD_SAME_PRODUCT'})
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
+
+      window.sessionStorage.bid = 4711
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
+      $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}})
+      $httpBackend.whenGET(/\/api\/Products\/2/).respond(200, {data: {name: 'Tomato Juice'}})
+
+      scope.addToBasket(2)
+      $httpBackend.flush()
+
+      expect(scope.confirmation).toBe('Translation of BASKET_ADD_SAME_PRODUCT')
     }))
 
     it('should not add anything to basket on error retrieving basket', inject(function () {

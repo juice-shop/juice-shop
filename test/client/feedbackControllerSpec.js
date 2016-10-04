@@ -91,6 +91,15 @@ describe('controllers', function () {
       $httpBackend.flush()
     }))
 
+    it('should reload Feedback list after deleting a Feedback', inject(function () {
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}, {id: 43}]})
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200)
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
+
+      scope.delete(42)
+      $httpBackend.flush()
+    }))
+
     it('should log error while deleting feedback directly to browser console', inject(function () {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
       $httpBackend.whenDELETE('/api/Feedbacks/4711').respond(500, 'error')

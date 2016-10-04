@@ -174,6 +174,17 @@ describe('controllers', function () {
 
         expect(scope.error).toBe('INVALID_CONTINUE_CODE')
       }))
+
+      it('should translate INVALID_CONTINUE_CODE message', inject(function () {
+        $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'INVALID_CONTINUE_CODE': 'Translation of INVALID_CONTINUE_CODE'})
+        $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(500)
+
+        scope.continueCode = 'CODE'
+        scope.restoreProgress()
+        $httpBackend.flush()
+
+        expect(scope.error).toBe('Translation of INVALID_CONTINUE_CODE')
+      }))
     })
   })
 })
