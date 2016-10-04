@@ -26,7 +26,6 @@ angular.module('juiceShop').controller('ComplaintController', [
     initComplaint()
 
     $scope.save = function () {
-      console.log($scope.file)
       if ($scope.file) {
         $scope.upload($scope.file)
       } else {
