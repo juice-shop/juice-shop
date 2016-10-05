@@ -48,6 +48,15 @@ describe('controllers', function () {
       expect(scope.feedbacks[0].image).toBeDefined()
     }))
 
+    it('should cycle through images if more feedback than images exists', inject(function () {
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}, {}, {}, {}, {}, {}, {}, {},{}]})
+
+      $httpBackend.flush()
+
+      expect(scope.feedbacks[7].image).toBe(scope.feedbacks[0].image)
+      expect(scope.feedbacks[8].image).toBe(scope.feedbacks[1].image)
+    }))
+
     it('should consider feedback comment as trusted HTML', inject(function () {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>alert("XSS3")</script>'}]})
       spyOn($sce, 'trustAsHtml')
