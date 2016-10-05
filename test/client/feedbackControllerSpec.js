@@ -49,7 +49,7 @@ describe('controllers', function () {
     }))
 
     it('should cycle through images if more feedback than images exists', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}, {}, {}, {}, {}, {}, {}, {},{}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}, {}, {}, {}, {}, {}, {}, {}, {}]})
 
       $httpBackend.flush()
 
