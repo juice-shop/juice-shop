@@ -82,9 +82,9 @@
   "STATUS_SOLVED":"opgelost",
   "CALL_FOR_CONTRIBUTIONS":"Heb jij een idee voor een nieuwe challenge? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!",
   "CHALLENGE_SOLVED":"Je hebt succesvol een challenge opgelost: {{challenge}}",
-  "LABEL_CONTINUE_CODE":"Continue Code",
+  "LABEL_CONTINUE_CODE":"Vervolgcode",
   "CONTINUE_PREVIOUS_SESSION":"Enter continue code here to restore previous challenge progress.",
-  "BTN_RESTORE_PROGRESS":"Restore Progress",
-  "CURRENT_CONTINUE_CODE":"Your current continue code:",
-  "INVALID_CONTINUE_CODE":"Invalid continue code."
+  "BTN_RESTORE_PROGRESS":"Herstel Voortgang",
+  "CURRENT_CONTINUE_CODE":"Je huidige vervolgcode:",
+  "INVALID_CONTINUE_CODE":"Incorrecte vervolgcode."
 }
