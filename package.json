@@ -79,6 +79,7 @@
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~4.0",
     "shelljs": "~0.7",
+    "socket.io-client": "^1.5.0",
     "standard": "^8.0.0",
     "stryker": "~0.4",
     "stryker-api": "~0.2",
