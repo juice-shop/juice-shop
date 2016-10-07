@@ -1,7 +1,7 @@
 {
   "LANGUAGE":"日本の",
-  "NAV_SEARCH":"Search",
-  "SEARCH_PLACEHOLDER":"Search...",
+  "NAV_SEARCH":"検索",
+  "SEARCH_PLACEHOLDER":"検索...",
   "NAV_COMPLAIN":"Complain?",
   "RIBBON_GITHUB_FORK":"{{fork}} me on {{github}}",
   "TITLE_LOGIN":"Login",
