@@ -33,9 +33,9 @@ angular.module('juiceShop').controller('ChallengeController', [
         solvedChallenges += ($scope.challenges[i].solved) ? 1 : 0
       }
       $scope.percentChallengesSolved = (100 * solvedChallenges / $scope.challenges.length).toFixed(0)
-      if ($scope.percentChallengesSolved > 66) {
+      if ($scope.percentChallengesSolved > 75) {
         $scope.completionColor = 'success'
-      } else if ($scope.percentChallengesSolved > 33) {
+      } else if ($scope.percentChallengesSolved > 25) {
         $scope.completionColor = 'warning'
       } else {
         $scope.completionColor = 'danger'

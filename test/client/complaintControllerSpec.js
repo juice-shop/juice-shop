@@ -56,7 +56,7 @@ describe('controllers', function () {
     it('should display support message with #id and reset complaint form on saving complaint', inject(function () {
       $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
 
-      $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '42', message: 'Test'}})
+      $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '42'}})
       scope.complaint = {id: '42', message: 'Test'}
       scope.form = {$setPristine: function () {}}
 
@@ -73,7 +73,7 @@ describe('controllers', function () {
       $httpBackend.whenPOST('/file-upload').respond(500)
       scope.file = {}
 
-      $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '66', message: 'Test'}})
+      $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '66'}})
       scope.complaint = {id: '66', message: 'Test'}
       scope.form = {$setPristine: function () {}}
 
@@ -83,5 +83,68 @@ describe('controllers', function () {
       expect(scope.complaint).toEqual({})
       expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #66')
     }))
+
+    it('should save complaint after sending file to backend for processing', function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.expectPOST('/file-upload').respond(204)
+      $httpBackend.expectPOST('/api/Complaints/').respond(200, {data: {id: '66'}})
+      scope.form = {$setPristine: function () {}}
+
+      var file = {}
+      scope.upload(file)
+      $httpBackend.flush()
+    })
+
+    it('should save complaint even after failed file upload', function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.expectPOST('/file-upload').respond(500)
+      $httpBackend.expectPOST('/api/Complaints/').respond(200, {data: {id: '66'}})
+      scope.form = {$setPristine: function () {}}
+
+      var file = {}
+      scope.upload(file)
+      $httpBackend.flush()
+    })
+
+    it('should log status of error while uploading file directly to browser console', inject(function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.expectPOST('/file-upload').respond(500)
+      $httpBackend.expectPOST('/api/Complaints/').respond(200, {data: {id: '66'}})
+      scope.form = {$setPristine: function () {}}
+
+      console.log = jasmine.createSpy('log')
+
+      var file = {}
+      scope.upload(file)
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('Error status: 500')
+    }))
+
+    xit('should trigger upload before saving complaint when a file is selected', function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.expectPOST('/file-upload').respond(204)
+      $httpBackend.expectPOST('/api/Complaints/').respond(200, {data: {id: '66', file: 'file.pdf'}})
+      scope.form = {$setPristine: function () {}}
+
+      scope.file = new File([''], 'file.pdf', {'size': 1000, 'type': 'application/pdf'})
+      scope.save()
+      $httpBackend.flush()
+
+      expect(scope.complaint.file).toBe('file.pdf')
+    })
+
+    xit('should 100% progress after upload', function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenPOST('/file-upload').respond(204)
+      $httpBackend.whenPOST('/api/Complaints/').respond(200, {data: {id: '66'}})
+      scope.form = {$setPristine: function () {}}
+
+      var file = new File([''], 'file.pdf', {'size': 1000, 'type': 'application/pdf'})
+      scope.upload(file)
+      $httpBackend.flush()
+
+      expect(scope.progress).toBe('Progress: 100%')
+    })
   })
 })

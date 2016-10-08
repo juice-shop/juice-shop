@@ -48,6 +48,15 @@ describe('controllers', function () {
       expect(scope.feedbacks[0].image).toBeDefined()
     }))
 
+    it('should cycle through images if more feedback than images exists', inject(function () {
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}, {}, {}, {}, {}, {}, {}, {}, {}]})
+
+      $httpBackend.flush()
+
+      expect(scope.feedbacks[7].image).toBe(scope.feedbacks[0].image)
+      expect(scope.feedbacks[8].image).toBe(scope.feedbacks[1].image)
+    }))
+
     it('should consider feedback comment as trusted HTML', inject(function () {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>alert("XSS3")</script>'}]})
       spyOn($sce, 'trustAsHtml')
@@ -86,6 +95,15 @@ describe('controllers', function () {
     it('should pass delete request for feedback to backend API', inject(function () {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
       $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200)
+
+      scope.delete(42)
+      $httpBackend.flush()
+    }))
+
+    it('should reload Feedback list after deleting a Feedback', inject(function () {
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}, {id: 43}]})
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200)
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
 
       scope.delete(42)
       $httpBackend.flush()

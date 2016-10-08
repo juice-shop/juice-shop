@@ -105,7 +105,7 @@ frisby.create('POST feedback in another users name as anonymous user')
 frisby.create('POST feedback in a non-existing users name as anonymous user')
   .post(API_URL + '/Feedbacks', {
     comment: 'When juice fails...',
-    rating: 2,
+    rating: 0,
     UserId: 4711
   }, { json: true })
   .expectStatus(200)
