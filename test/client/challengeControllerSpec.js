@@ -88,15 +88,23 @@ describe('controllers', function () {
         expect(console.log).toHaveBeenCalledWith('error')
       }))
 
-      it('should colorize total score in red for up to 33% challenge completion', inject(function () {
-        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: false }, { solved: false } ] })
+      it('should colorize total score in red for less than 25% challenge completion', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: false }, { solved: false }, { solved: false }, { solved: false } ] })
 
         $httpBackend.flush()
 
         expect(scope.completionColor).toBe('danger')
       }))
 
-      it('should colorize total score in yellow for more than 33% challenge completion', inject(function () {
+      it('should colorize total score in red for exactly 25% challenge completion', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: false }, { solved: false }, { solved: false } ] })
+
+        $httpBackend.flush()
+
+        expect(scope.completionColor).toBe('danger')
+      }))
+
+      it('should colorize total score in yellow for more than 25% challenge completion', inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: false } ] })
 
         $httpBackend.flush()
@@ -104,8 +112,24 @@ describe('controllers', function () {
         expect(scope.completionColor).toBe('warning')
       }))
 
-      it('should colorize total score in green for more than 66% challenge completion', inject(function () {
-        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: true }, { solved: false } ] })
+      it('should colorize total score in yellow for exactly 75% challenge completion', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: true }, { solved: true }, { solved: false } ] })
+
+        $httpBackend.flush()
+
+        expect(scope.completionColor).toBe('warning')
+      }))
+
+      it('should colorize total score in green for more than 75% challenge completion', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true }, { solved: true }, { solved: true }, { solved: true }, { solved: false } ] })
+
+        $httpBackend.flush()
+
+        expect(scope.completionColor).toBe('success')
+      }))
+
+      it('should colorize total score in green for exactly 100% challenge completion', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true } ] })
 
         $httpBackend.flush()
 

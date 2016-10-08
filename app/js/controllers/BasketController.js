@@ -67,7 +67,7 @@ angular.module('juiceShop').controller('BasketController', [
     function addToQuantity (id, value) {
       basketService.get(id).success(function (basket) {
         var newQuantity = basket.data.quantity + value
-        basketService.put(id, {quantity: newQuantity > 1 ? newQuantity : 1}).success(function () {
+        basketService.put(id, {quantity: newQuantity < 1 ? 1 : newQuantity}).success(function () {
           load()
         }).error(function (err) {
           console.log(err)

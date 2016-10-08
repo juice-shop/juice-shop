@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, controller, $window, $httpBackend
+  var scope, controller, $window, $httpBackend, $sce
 
   beforeEach(module('juiceShop'))
   beforeEach(function () {
@@ -12,6 +12,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $sce = $injector.get('$sce')
   }))
 
   afterEach(function () {
@@ -68,7 +69,16 @@ describe('controllers', function () {
 
     it('should pass delete request for basket item to backend API', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
-      $httpBackend.whenDELETE('/api/BasketItems/1').respond(200)
+      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200)
+
+      scope.delete(1)
+      $httpBackend.flush()
+    }))
+
+    it('should load again after deleting a basket item', inject(function () {
+      $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}, {basketItem: {id: 2}}]}})
+      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200)
+      $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 2}}]}})
 
       scope.delete(1)
       $httpBackend.flush()
@@ -121,9 +131,9 @@ describe('controllers', function () {
     }))
 
     it('should update basket item with decreased quantity after removing an item', inject(function () {
-      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 5}}]}})
-      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 5}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 4}).respond(200)
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
 
       scope.dec(1)
       $httpBackend.flush()
@@ -150,6 +160,26 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
       $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(500)
+
+      scope.dec(1)
+      $httpBackend.flush()
+    }))
+
+    it('should load again after increasing product quantity', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 3}).respond(200)
+      $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 3}}]}})
+
+      scope.inc(1)
+      $httpBackend.flush()
+    }))
+
+    it('should load again after decreasing product quantity', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
 
       scope.dec(1)
       $httpBackend.flush()
@@ -257,7 +287,7 @@ describe('controllers', function () {
       expect(console.log).toHaveBeenCalledWith('error')
     }))
 
-    it('shouldlog error while deleting basket item directly to browser console', inject(function () {
+    it('should log error while deleting basket item directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
       $httpBackend.whenDELETE('/api/BasketItems/1').respond(500, 'error')
 
@@ -277,6 +307,15 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should consider product description as trusted HTML', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{description: '<script>alert("XSS4")</script>'}]}})
+      spyOn($sce, 'trustAsHtml')
+
+      $httpBackend.flush()
+
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
     }))
   })
 })

@@ -17,14 +17,14 @@
     "jquery": "~2.1",
     "underscore": "~1.8",
     "string": "~3.3",
-    "moment": "~2.13",
+    "moment": "~2.15",
     "github-fork-ribbon-css": "~0.1",
     "fontawesome": "~4.6",
-    "angular-translate": "^2.12.1",
-    "angular-translate-loader-static-files": "^2.12.1",
-    "flag-icon-css": "^2.5.0",
-    "angular-socket-io": "^0.7.0",
-    "ngclipboard": "^1.1.1"
+    "angular-translate": "~2.12",
+    "angular-translate-loader-static-files": "~2.12",
+    "flag-icon-css": "~2.5",
+    "angular-socket-io": "~0.7",
+    "ngclipboard": "~1.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5",
