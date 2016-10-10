@@ -5,7 +5,7 @@ var colors = require('colors/safe')
 var server = require('./../server.js')
 
 server.start({ port: 3000 }, function () {
-  var jasmineNode = spawn('jasmine-node', [ 'test/server', '--junitreport', '--output', 'build/reports/server_results' ])
+  var jasmineNode = spawn('jasmine-node', [ 'test/server', '--junit', '--reporterConfig', 'test/serverTestsJUnitConfig.json' ])
 
   function logToConsole (data) {
     console.log(String(data))

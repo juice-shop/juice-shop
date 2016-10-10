@@ -63,7 +63,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.complaint).toEqual({})
+      expect(scope.complaint).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #42')
     }))
 
@@ -80,7 +80,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.complaint).toEqual({})
+      expect(scope.complaint).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #66')
     }))
 
