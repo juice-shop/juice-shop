@@ -56,7 +56,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect(scope.products).toEqual([])
+      expect(scope.products).toEqual({})
     }))
 
     it('should hold no products on error in backend API', inject(function () {
@@ -101,7 +101,7 @@ describe('controllers', function () {
       scope.checkout()
       $httpBackend.flush()
 
-      expect($window.location.replace.mostRecentCall).toBeUndefined()
+      expect($window.location.replace.mostRecentCall).toEqual({})
     }))
 
     it('should update basket item with increased quantity after adding another item of same type', inject(function () {
