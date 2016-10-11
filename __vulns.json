@@ -5,7 +5,7 @@
     {"type" : "sqli", "flags" : ["/#/search", "q="] },
     {"type" : "sqli", "flags" : ["/#/login", "email"] },
     {"type" : "sqli", "flags" : ["/#/login", "password"] },
-    {"type" : "crypto", "flags" : ["/ftp/eastere\\.gg", "base64", "L2d1ci9xcmlmL25lci9mYi9zaGFhbC9ndXJsL3V2cS9uYS9ybmZncmUvcnR0L2p2Z3V2YS9ndXIvcm5mZ3JlL3J0dA=="] },
+    {"type" : "crypto", "flags" : ["/ftp/eastere\\.gg", "base64"] },
     {"type" : "access", "flags" : ["/#/administration"] },
     {"type" : "access", "flags" : ["/#/score-board"] },
     {"type" : "hash", "flags" : ["/api/Users", "md5"] },
@@ -35,6 +35,8 @@
     {"type" : "xss", "flags" : ["/#/administration", "post", "/api/Users", "email" ] },
     {"type" : "xss", "flags" : ["/#/search", "post", "/api/Products", "description" ] },
     {"type" : "xss", "flags" : ["/#/search", "put", "/api/Products/[0-9]*", "description" ] },
-    {"type" : "crypto", "flags" : ["/#/score-board", "continueCode", "hashid" ] }
+    {"type" : "crypto", "flags" : ["/#/score-board", "continueCode", "hashid" ] },
+    {"type" : "leakage", "flags" : ["/#/login", "{\"error\":{\"message\":\"SQLITE_ERROR" ] },
+    {"type" : "leakage", "flags" : ["Juice Shop (Express ~", "Error:", "at app/routes" ] }
   ]
 }
