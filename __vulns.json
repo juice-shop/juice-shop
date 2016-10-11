@@ -19,7 +19,6 @@
     {"type" : "trustbound", "flags" : ["/#/complain", "/file-upload", "type" ] },
     {"type" : "session", "flags" : ["/#/contact", "userId", "hide" ] },
     {"type" : "xss", "flags" : ["/#/contact", "comment" ] },
-    {"type" : "xss", "flags" : ["/#/contact", "comment" ] },
     {"type" : "crypto", "flags" : ["/#/basket", "coupon", "(z85|base85)" ] },
     {"type" : "access", "flags" : ["/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg" ] },
     {"type" : "access", "flags" : ["css/geo-bootstrap/swatch/bootstrap\\.css" ] },
