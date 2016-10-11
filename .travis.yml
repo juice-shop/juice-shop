@@ -22,7 +22,6 @@ before_script:
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
-- "./node_modules/.bin/grunt retire --force"
 - "./test/sauceLabsTests.sh"
 env:
   global:
