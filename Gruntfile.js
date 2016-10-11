@@ -117,17 +117,6 @@ module.exports = function (grunt) {
       node: ['.'],
       options: {
       }
-    },
-
-    exec: {
-      api_tests: {
-        command: 'jasmine-node test/server',
-        exitCodes: [0, 1]
-      },
-      e2e_tests: {
-        command: 'protractor protractor.conf.js',
-        exitCodes: [0, 1]
-      }
     }
   })
 
@@ -137,7 +126,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-compress')
   grunt.loadNpmTasks('grunt-retire')
-  grunt.loadNpmTasks('grunt-exec')
 
   grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
   grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
