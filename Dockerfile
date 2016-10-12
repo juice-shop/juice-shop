@@ -2,11 +2,14 @@
 FROM        node:4-onbuild
 MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
 
-COPY . /juice-shop
+ENV workdir=/juice-shop
 
-RUN cd /juice-shop; npm install; ./node_modules/.bin/bower install; ./node_modules/.bin/grunt minify
+COPY . ${workdir}
+WORKDIR ${workdir}
 
-WORKDIR /juice-shop
+RUN npm install
+RUN ./node_modules/.bin/bower install
+RUN ./node_modules/.bin/grunt minify
 
 EXPOSE  3000
 CMD npm start
