@@ -46,7 +46,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### From Sources
 
-1. Install [node.js 4.x (stable) or 6.x (latest)](http://nodejs.org)
+1. Install [node.js](http://nodejs.org)\*
 2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run ```npm install``` (only has to be done before first start or when you change the source code)
 4. Run ```npm start```
@@ -67,7 +67,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install a [64bit node.js 4.x, 5.x or 6.x](https://nodejs.org/en/download)\* on your Windows (or Linux) machine
+1. Install a [64bit node.js](https://nodejs.org/en/download)\* on your Windows (or Linux) machine
 2. Download ```juice-shop-<version>_<node-version>_<os>_x64.zip``` (or ```.tgz```) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run ```npm start``` in unpacked folder
 4. Browse to <http://localhost:3000>
@@ -99,11 +99,11 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 2. Run ```cd vagrant && vagrant up```
 3. Browse to <http://juice.sh>
 
-## Node.js version compatibility
+## \*Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
-- __4.x (recommended version)__
-- 6.x
+- 4.x
+- __6.x (recommended version)__
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
