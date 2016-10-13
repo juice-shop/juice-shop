@@ -138,6 +138,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
   * Episode #229: [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/) ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
   * Episode #230: [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/) ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
   * Episode #231: [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/) ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
+  * Episode #232: [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/) ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
 * German guest post on [Informatik Aktuell](http://www.informatik-aktuell.de/): [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
