@@ -10,4 +10,4 @@ RUN ./node_modules/.bin/bower install
 RUN ./node_modules/.bin/grunt minify
 
 EXPOSE  3000
-CMD [ "npm", "start" ]
+CMD npm start
