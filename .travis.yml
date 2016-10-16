@@ -52,7 +52,7 @@ deploy:
     develop: juice-shop-staging
   on:
     repo: bkimminich/juice-shop
-    node: 4
+    node: 6
 - provider: releases
   overwrite: true
   api_key:
