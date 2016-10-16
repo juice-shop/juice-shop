@@ -84,28 +84,7 @@ module.exports = function (grunt) {
               'lib/*.js',
               'models/*.js',
               'routes/*.js',
-              'node_modules/body-parser/**',
-              'node_modules/colors/**',
-              'node_modules/cookie-parser/**',
-              'node_modules/cors/**',
-              'node_modules/errorhandler/**',
-              'node_modules/express/**',
-              'node_modules/express-jwt/**',
-              'node_modules/glob/**',
-              'node_modules/hashids/**',
-              'node_modules/helmet/**',
-              'node_modules/jsonwebtoken/**',
-              'node_modules/morgan/**',
-              'node_modules/multer/**',
-              'node_modules/pdfkit/**',
-              'node_modules/sanitize-html/**',
-              'node_modules/sequelize/**',
-              'node_modules/sequelize-restful/**',
-              'node_modules/serve-favicon/**',
-              'node_modules/serve-index/**',
-              'node_modules/socket.io/**',
-              'node_modules/sqlite3/**',
-              'node_modules/z85/**'
+              'node_modules/**'
             ]
           }
         ]

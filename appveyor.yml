@@ -17,7 +17,7 @@ install:
   - node --version && npm --version
   - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm cache clean
-  - npm install
+  - npm install --production
   - node_modules\.bin\grunt package
 build: off
 test: off
