@@ -81,7 +81,7 @@
   "STATUS_UNSOLVED":"não resolvido",
   "STATUS_SOLVED":"resolvido",
   "CALL_FOR_CONTRIBUTIONS":"Tem uma idéia para um novo desafio ? Encontrou uma vulnerabilidade que não está listada aqui? Deixe-nos saber pela chat da comunidade no {{gitter}} ou abrindo uma issue no {{github}}!",
-  "CHALLENGE_SOLVED":"You successfully solved a challenge: {{challenge}}",
+  "CHALLENGE_SOLVED":"Você resolveu com sucesso um desafio: {{challenge}}",
   "LABEL_CONTINUE_CODE":"Código de Continuidade",
   "CONTINUE_PREVIOUS_SESSION":"Digite o código de continuidade aqui para restaurar o progresso anterior de um desafio.",
   "BTN_RESTORE_PROGRESS":"Restaurar Progresso",
