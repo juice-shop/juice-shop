@@ -29,12 +29,6 @@ module.exports = function (config) {
       version: '10',
       platform: 'Windows 8'
     },
-    sl_ie_9: {
-      base: 'SauceLabs',
-      browserName: 'internet explorer',
-      version: '9',
-      platform: 'Windows 7'
-    },
     sl_safari: {
       base: 'SauceLabs',
       browserName: 'safari',
