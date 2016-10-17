@@ -12,7 +12,7 @@ module.exports = function (config) {
       browserName: 'firefox',
       platform: 'Linux'
     },
-    sl_edge_20: {
+    sl_edge: {
       base: 'SauceLabs',
       browserName: 'MicrosoftEdge',
       platform: 'Windows 10'
@@ -20,11 +20,19 @@ module.exports = function (config) {
     sl_ie_11: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
+      version: '11',
       platform: 'Windows 8.1'
+    },
+    sl_ie_10: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      version: '10',
+      platform: 'Windows 8'
     },
     sl_ie_9: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
+      version: '9',
       platform: 'Windows 7'
     },
     sl_safari: {
