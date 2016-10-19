@@ -9,5 +9,8 @@ RUN npm install --production && \
     ./node_modules/.bin/bower install && \
     ./node_modules/.bin/grunt minify
 
+RUN for i in $(find / -type f \( -perm +6000 -o -perm +2000 \)); \
+    do chmod ug-s $i; done
+
 EXPOSE  3000
 CMD npm start
