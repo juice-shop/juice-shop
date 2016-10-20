@@ -5,9 +5,7 @@ MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
 COPY . /juice-shop
 WORKDIR /juice-shop
 
-RUN npm install --production && \
-    ./node_modules/.bin/bower install && \
-    ./node_modules/.bin/grunt minify
+RUN npm install --production --unsafe-perm
 
 EXPOSE  3000
 CMD ["npm", "start"]
