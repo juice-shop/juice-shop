@@ -1,5 +1,5 @@
 # OWASP Juice Shop - An intentionally insecure Javascript Web Application
-FROM        node:6
+FROM        node:4
 MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
 
 COPY . /juice-shop
