@@ -1,0 +1,13 @@
+# OWASP Juice Shop - An intentionally insecure Javascript Web Application
+FROM        node:%%NODE_VERSION%%
+MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
+
+COPY . /juice-shop
+WORKDIR /juice-shop
+
+RUN npm install --production && \
+    ./node_modules/.bin/bower install && \
+    ./node_modules/.bin/grunt minify
+
+EXPOSE  3000
+CMD ["npm", "start"]
