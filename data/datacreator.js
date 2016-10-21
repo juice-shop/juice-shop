@@ -178,7 +178,7 @@ module.exports = function () {
     models.Challenge.create({
       name: 'csrf',
       description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.',
-      difficulty: 2,
+      difficulty: 1,
       solved: false
     }).success(function (challenge) {
       challenges.csrfChallenge = challenge
@@ -202,7 +202,7 @@ module.exports = function () {
     models.Challenge.create({
       name: 'weirdCrypto',
       description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.',
-      difficulty: 2,
+      difficulty: 1,
       solved: false
     }).success(function (challenge) {
       challenges.weirdCryptoChallenge = challenge
@@ -218,7 +218,7 @@ module.exports = function () {
     models.Challenge.create({
       name: 'easterEgg2',
       description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
-      difficulty: 3,
+      difficulty: 2,
       solved: false
     }).success(function (challenge) {
       challenges.easterEggLevelTwoChallenge = challenge
@@ -266,7 +266,7 @@ module.exports = function () {
     models.Challenge.create({
       name: 'extraLanguage',
       description: 'Retrieve the language file that never made it into production.',
-      difficulty: 1,
+      difficulty: 2,
       solved: false
     }).success(function (challenge) {
       challenges.extraLanguageChallenge = challenge
@@ -282,7 +282,7 @@ module.exports = function () {
     models.Challenge.create({
       name: 'continueCode',
       description: 'Fake a continue code that solves only (the non-existent) challenge #99.',
-      difficulty: 2,
+      difficulty: 3,
       solved: false
     }).success(function (challenge) {
       challenges.continueCodeChallenge = challenge
