@@ -13,6 +13,7 @@ out/
 
 # NPM
 node_modules/
+npm-debug.log.*
 
 # Bower
 app/bower_components/
@@ -21,3 +22,4 @@ app/bower_components/
 dist/
 order_*.pdf
 ftp/uploads/
+assets/
