@@ -81,12 +81,12 @@ frisby.create('POST sanitizes unsafe HTML from comment')
 
 frisby.create('POST fails to sanitize masked CSRF-attack by not applying sanitization recursively')
   .post(API_URL + '/Feedbacks', {
-    comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS3")</script>script>alert("XSS3")<</script>/script>',
+    comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS4")</script>script>alert("XSS4")<</script>/script>',
     rating: 1
   }, { json: true })
   .expectStatus(200)
   .expectJSON('data', {
-    comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS3")</script>'
+    comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS4")</script>'
   })
   .toss()
 

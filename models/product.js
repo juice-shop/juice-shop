@@ -31,7 +31,7 @@ module.exports = function (sequelize, DataTypes) {
 }
 
 function xssChallengeProductHook (product) {
-  if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS4")</script>')) {
+  if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(product.description, '<script>alert("XSS3")</script>')) {
     utils.solve(challenges.restfulXssChallenge)
   }
 }

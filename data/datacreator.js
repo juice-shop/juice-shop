@@ -72,16 +72,16 @@ module.exports = function () {
       challenges.persistedXssChallengeUser = challenge
     })
     models.Challenge.create({
-      name: 'xss3',
-      description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+      name: 'xss4',
+      description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
       difficulty: 4,
       solved: false
     }).success(function (challenge) {
       challenges.persistedXssChallengeFeedback = challenge
     })
     models.Challenge.create({
-      name: 'xss4',
-      description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; without using the frontend application at all.',
+      name: 'xss3',
+      description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; without using the frontend application at all.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {

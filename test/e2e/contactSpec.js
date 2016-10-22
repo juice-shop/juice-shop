@@ -60,32 +60,32 @@ describe('/#/contact', function () {
     expectPersistedCommentToMatch(/SanitizedIFrame/)
   })
 
-  describe('challenge "xss3"', function () {
+  describe('challenge "xss4"', function () {
     it('should be possible to trick the sanitization with a masked XSS attack', function () {
       var EC = protractor.ExpectedConditions
 
-      comment.sendKeys('<<script>Foo</script>script>alert("XSS3")<</script>/script>')
+      comment.sendKeys('<<script>Foo</script>script>alert("XSS4")<</script>/script>')
       rating.click()
 
       submitButton.click()
 
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS3' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present")
       browser.switchTo().alert().then(function (alert) {
-        expect(alert.getText()).toEqual('XSS3')
+        expect(alert.getText()).toEqual('XSS4')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS3' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present")
       browser.switchTo().alert().then(function (alert) {
-        expect(alert.getText()).toEqual('XSS3')
+        expect(alert.getText()).toEqual('XSS4')
         alert.accept()
         element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash')).click()
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'xss3' })
+    protractor.expect.challengeSolved({ challenge: 'xss4' })
   })
 
   describe('challenge "vulnerableComponent"', function () {
