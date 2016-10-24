@@ -10,6 +10,7 @@
   "LABEL_EMAIL":"E-post",
   "LABEL_PASSWORD":"Salasõna",
   "BTN_LOGIN":"Logi sisse",
+  "BTN_GOOGLE_LOGIN":"Log in with Google",
   "NO_CUSTOMER":"Pole veel klient?",
   "LINK_REGISTER":"Registreeri nüüd!",
   "TITLE_REGISTRATION":"User Registration",
