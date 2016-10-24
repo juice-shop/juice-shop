@@ -87,5 +87,6 @@
   "CONTINUE_PREVIOUS_SESSION":"Ange fortsätta kod här för att återställa tidigare utmaning framsteg.",
   "BTN_RESTORE_PROGRESS":"Återställa framsteg",
   "CURRENT_CONTINUE_CODE":"Din nuvarande Fortsätt kod:",
-  "INVALID_CONTINUE_CODE":"Invalid continue code."
+  "INVALID_CONTINUE_CODE":"Invalid continue code.",
+  "CONFIRM_LOGGED_IN_WITH_OAUTH":"You have been logged in with OAuth."
 }
