@@ -151,11 +151,18 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ### Conference and Meetup Appearances
 
+#### 2016
+
+* [Lightning Talk: What's new in OWASP Juice Shop](), [German OWASP Day 2016](https://www.owasp.org/index.php/German_OWASP_Day_2016/), 29.11.2016
+* [Gothenburg pwns the OWASP Juice Shop](), [OWASP Gothenburg Day 2016](https://owaspgbgday.se/), 24.11.2016
 * [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/), [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/), 22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc), :trollface: _in last 10min_)
 * [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226), [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html), 16.09.2016
 * [Security-Auditing aus der Cloud – Softwareentwicklung kontinuierlich auf dem Prüfstand](http://www.sea-con.de/seacon2016/konferenz/konferenzprogramm/vortrag/do-41-2/title/security-auditing-aus-der-cloud-softwareentwicklung-kontinuierlich-auf-dem-pruefstand.html), [SeaCon 2016](http://www.sea-con.de/seacon2016), 12.05.2016
 * [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/), [JavaLand 2016](http://lanyrd.com/2016/javaland/), 08.03.2016
 * [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/), [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/), 03.02.2016
+
+#### 2015
+
 * [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015
