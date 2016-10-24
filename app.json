@@ -16,13 +16,5 @@
     "vulnerability",
     "broken",
     "bodgeit"
-  ],
-  "addons": [
-    {
-      "plan": "deployhooks:http",
-      "options": {
-        "url": "https://webhooks.gitter.im/e/834eb1125252d3ab83a3"
-      }
-    }
   ]
 }
