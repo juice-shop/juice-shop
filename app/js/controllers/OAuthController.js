@@ -39,6 +39,8 @@ angular.module('juiceShop').controller('OAuthController', [
         login(profile)
       })
     }).error(function (error) {
+      $cookieStore.remove('token')
+      delete $window.sessionStorage.bid
       console.log(error)
       $location.path('/login')
     })

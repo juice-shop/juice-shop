@@ -20,7 +20,7 @@ describe('/#/register', function () {
         alert.accept()
 
         browser.ignoreSynchronization = true
-        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/4\', {email: \'alert disabled\'});')
+        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/5\', {email: \'alert disabled\'});')
         browser.driver.sleep(1000)
         browser.ignoreSynchronization = false
       })
