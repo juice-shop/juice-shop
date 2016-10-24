@@ -87,5 +87,6 @@
   "CONTINUE_PREVIOUS_SESSION":"Introduzca el código de seguimiento aquí para recuperar el progreso del desafío anterior.",
   "BTN_RESTORE_PROGRESS":"Recuperar Progreso",
   "CURRENT_CONTINUE_CODE":"Su código de seguimiento actual: {{code}}",
-  "INVALID_CONTINUE_CODE":"Código de seguimiento no válido."
+  "INVALID_CONTINUE_CODE":"Código de seguimiento no válido.",
+  "CONFIRM_LOGGED_IN_WITH_OAUTH":"You have been logged in with OAuth."
 }
