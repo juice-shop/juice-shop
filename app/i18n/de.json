@@ -87,5 +87,6 @@
   "CONTINUE_PREVIOUS_SESSION":"Gib einen Fortsetzungs-Code ein, um deinen Herausforderungs-Fortschritt wiederherzustellen.",
   "BTN_RESTORE_PROGRESS":"Fortschritt wiederherstellen",
   "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code:",
-  "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code."
+  "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code.",
+  "CONFIRM_LOGGED_IN_WITH_OAUTH":"You have been logged in with OAuth."
 }
