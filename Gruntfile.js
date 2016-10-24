@@ -98,6 +98,9 @@ module.exports = function (grunt) {
         replacements: [{
           from: '%%NODE_VERSION%%',
           to: '6'
+        }, {
+          from: '%%APP_VERSION%%',
+          to: '<%= pkg.version %>'
         }]
       },
       node6: {
@@ -106,6 +109,9 @@ module.exports = function (grunt) {
         replacements: [{
           from: '%%NODE_VERSION%%',
           to: '6'
+        }, {
+          from: '%%APP_VERSION%%',
+          to: '<%= pkg.version %>'
         }]
       },
       node4: {
@@ -114,6 +120,9 @@ module.exports = function (grunt) {
         replacements: [{
           from: '%%NODE_VERSION%%',
           to: '4'
+        }, {
+          from: '%%APP_VERSION%%',
+          to: '<%= pkg.version %>'
         }]
       }
     }

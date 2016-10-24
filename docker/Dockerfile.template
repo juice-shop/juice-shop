@@ -1,6 +1,7 @@
 # OWASP Juice Shop - An intentionally insecure Javascript Web Application
-FROM        node:%%NODE_VERSION%%
-MAINTAINER  Bjoern Kimminich <bjoern.kimminich@owasp.org>
+FROM            node:%%NODE_VERSION%%
+MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
+LABEL version = "%%APP_VERSION%%"
 
 COPY . /juice-shop
 WORKDIR /juice-shop
