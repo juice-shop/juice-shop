@@ -19,4 +19,8 @@ angular.module('juiceShop').controller('LoginController', [
         $scope.form.$setPristine()
       })
     }
+
+    $scope.googleLogin = function () {
+      $window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com&response_type=token&scope=email&redirect_uri=http://localhost:3000/'
+    }
   }])
