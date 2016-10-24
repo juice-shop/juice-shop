@@ -10,6 +10,7 @@
   "LABEL_EMAIL":"Email",
   "LABEL_PASSWORD":"Senha",
   "BTN_LOGIN":"Entrar",
+  "BTN_GOOGLE_LOGIN":"Log in with Google",
   "NO_CUSTOMER":"Não é um cliente ainda ?",
   "LINK_REGISTER":"Registre-se agora!",
   "TITLE_REGISTRATION":"Registro de Usuário",
