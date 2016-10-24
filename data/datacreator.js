@@ -287,6 +287,14 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.continueCodeChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'oauthUserPassword',
+      description: 'Log in with Bjoern\'s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.',
+      difficulty: 3,
+      solved: false
+    }).success(function (challenge) {
+      challenges.oauthUserPasswordChallenge = challenge
+    })
   }
 
   function createUsers () {
@@ -303,6 +311,12 @@ module.exports = function () {
       password: 'booze'
     }).success(function (user) {
       users.bender = user
+    })
+    models.User.create({
+      email: 'bjoern.kimminich@googlemail.com',
+      password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+    }).success(function (user) {
+      users.bjoern = user
     })
   }
 

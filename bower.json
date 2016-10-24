@@ -24,7 +24,8 @@
     "ng-file-upload": "~12.2",
     "ngclipboard": "~1.1",
     "string": "~3.3",
-    "underscore": "~1.8"
+    "underscore": "~1.8",
+    "angular-base64": "~2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.5",

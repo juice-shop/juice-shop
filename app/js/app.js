@@ -7,7 +7,8 @@ angular.module('juiceShop', [
   'ui.bootstrap',
   'pascalprecht.translate',
   'btford.socket-io',
-  'ngclipboard'
+  'ngclipboard',
+  'base64'
 ])
 
 angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {

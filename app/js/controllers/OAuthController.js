@@ -2,12 +2,13 @@ angular.module('juiceShop').controller('OAuthController', [
   '$window',
   '$location',
   '$cookieStore',
+  '$base64',
   'UserService',
-  function ($window, $location, $cookieStore, userService) {
+  function ($window, $location, $cookieStore, $base64, userService) {
     'use strict'
 
     function login (profile) {
-      userService.login({ email: profile.email, password: profile.email }).success(function (authentication) {
+      userService.login({ email: profile.email, password: $base64.encode(profile.email) }).success(function (authentication) {
         $cookieStore.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
         $location.path('/')
@@ -31,7 +32,7 @@ angular.module('juiceShop').controller('OAuthController', [
     }
 
     userService.oauthLogin(params.access_token).success(function (profile) {
-      userService.save({email: profile.email, password: profile.email}).success(function () {
+      userService.save({email: profile.email, password: $base64.encode(profile.email)}).success(function () {
         login(profile)
       }).error(function (error) {
         console.log(error) // user probably exists already, so just try to log in
