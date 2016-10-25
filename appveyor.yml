@@ -17,7 +17,7 @@ install:
   - node --version && npm --version
   - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm cache clean
-  - npm install
+  - npm install --production
   - node_modules\.bin\grunt package
 build: off
 test: off
@@ -33,6 +33,8 @@ deploy:
     on:
       appveyor_repo_tag: true
 notifications:
+## Disabled Gitter.im Webhook. Encrypted URLs currently not supported on AppVeyor.
+## (see http://help.appveyor.com/discussions/problems/5225-encrypting-webhook-urls)
 #  - provider: Webhook
 #    url:
 #      secure: c4xwvfA2YpTyASkpasFt2vA6q4pCxCMoWhfX9/JwBxp6rub4dphj6smGxy+5rnsHcvVU6/FvzVHQo4hoxL5gOA==

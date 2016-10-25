@@ -65,4 +65,16 @@ describe('/#/login', function () {
 
     protractor.expect.challengeSolved({challenge: 'adminCredentials'})
   })
+
+  describe('challenge "oauthUserPassword"', function () {
+    it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', function () {
+      email.sendKeys('bjoern.kimminich@googlemail.com')
+      password.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      loginButton.click()
+
+      expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+    })
+
+    protractor.expect.challengeSolved({challenge: 'oauthUserPassword'})
+  })
 })

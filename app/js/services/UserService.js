@@ -29,12 +29,17 @@ angular.module('juiceShop').factory('UserService', ['$http', function ($http) {
     return $http.get('/rest/user/whoami')
   }
 
+  function oauthLogin (accessToken) {
+    return $http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken)
+  }
+
   return {
     find: find,
     get: get,
     save: save,
     login: login,
     changePassword: changePassword,
-    whoAmI: whoAmI
+    whoAmI: whoAmI,
+    oauthLogin: oauthLogin
   }
 }])

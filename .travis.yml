@@ -42,7 +42,10 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
-before_deploy: grunt package
+before_deploy:
+- rm -rf node_modules
+- npm install --production
+- grunt package
 deploy:
 - provider: heroku
   api_key:

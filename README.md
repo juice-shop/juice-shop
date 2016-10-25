@@ -87,8 +87,8 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 yum update -y
 yum install -y docker
 service docker start
-docker pull bkimminich/juice-shop:latest
-docker run -d -p 80:3000 bkimminich/juice-shop:latest
+docker pull bkimminich/juice-shop
+docker run -d -p 80:3000 bkimminich/juice-shop
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as an attack on their AWS infrastructure! We highly disrecommend aggressive scanning or automated brute force attacks! You have been warned!
@@ -101,9 +101,14 @@ docker run -d -p 80:3000 bkimminich/juice-shop:latest
 
 ## \*Node.js version compatibility
 
-OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org):
-- 4.x
-- __6.x (recommended version)__
+OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org) and offers Docker images and packaged distributions accordingly:
+
+node.js | Stable [Docker Image](https://registry.hub.docker.com/u/bkimminich/juice-shop) Tags | [Packaged Distributions](https://github.com/bkimminich/juice-shop/releases/latest)
+------------ | ------------ | ------------
+__6.x__ | `latest`, `node6` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz`  
+4.x | `node4` | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz`  
+
+> There are also Docker images built from the `develop` branch. These contain unreleased features but cannot be considered stable. For node.js 6.x there are the tag aliases `snapshot`, `node6-snapshot` and `node6-develop`. For 4.x there are `node4-snapshot` and `node4-develop` correspondingly.  
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
@@ -139,17 +144,25 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
   * Episode #230: [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/) ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
   * Episode #231: [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/) ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
   * Episode #232: [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/) ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
+  * Episode #233: [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/) ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :trollface:
 * German guest post on [Informatik Aktuell](http://www.informatik-aktuell.de/): [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
 ### Conference and Meetup Appearances
 
-* [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/), [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/), 22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc)) :trollface:
+#### 2016
+
+* [Lightning Talk: What's new in OWASP Juice Shop](), [German OWASP Day 2016](https://www.owasp.org/index.php/German_OWASP_Day_2016/), 29.11.2016
+* [Gothenburg pwns the OWASP Juice Shop](), [OWASP Gothenburg Day 2016](https://owaspgbgday.se/), 24.11.2016
+* [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/), [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/), 22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc), :trollface: _in last 10min_)
 * [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226), [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html), 16.09.2016
 * [Security-Auditing aus der Cloud – Softwareentwicklung kontinuierlich auf dem Prüfstand](http://www.sea-con.de/seacon2016/konferenz/konferenzprogramm/vortrag/do-41-2/title/security-auditing-aus-der-cloud-softwareentwicklung-kontinuierlich-auf-dem-pruefstand.html), [SeaCon 2016](http://www.sea-con.de/seacon2016), 12.05.2016
 * [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/), [JavaLand 2016](http://lanyrd.com/2016/javaland/), 08.03.2016
 * [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/), [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/), 03.02.2016
+
+#### 2015
+
 * [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/), [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/), 01.12.2015
 * [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/), [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/), [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/), 27.01.2015

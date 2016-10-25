@@ -19,4 +19,11 @@ angular.module('juiceShop').controller('LoginController', [
         $scope.form.$setPristine()
       })
     }
+
+    $scope.googleLogin = function () {
+      var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+      var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+      var redirectUri = $location.protocol() + '://' + location.host
+      $window.location.replace(oauthProviderUrl + '?client_id=' + clientId + '&response_type=token&scope=email&redirect_uri=' + redirectUri)
+    }
   }])

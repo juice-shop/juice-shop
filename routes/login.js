@@ -10,6 +10,9 @@ exports = module.exports = function login () {
     if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
       utils.solve(challenges.weakPasswordChallenge)
     }
+    if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {
+      utils.solve(challenges.oauthUserPasswordChallenge)
+    }
     models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, { plain: true })
       .success(function (authenticatedUser) {
         var user = utils.queryResultToJson(authenticatedUser)

@@ -40,12 +40,12 @@ describe('controllers', function () {
     }))
 
     it('should render product description as trusted HTML', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS4")</script>'}})
+      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS3")</script>'}})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
 
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
     }))
 
     it('should hold no product if API call fails', inject(function () {
