@@ -10,7 +10,7 @@
   "LABEL_EMAIL":"Email",
   "LABEL_PASSWORD":"Passwort",
   "BTN_LOGIN":"Anmelden",
-  "BTN_GOOGLE_LOGIN":"Log in with Google",
+  "BTN_GOOGLE_LOGIN":"Mit Google anmelden",
   "NO_CUSTOMER":"Noch kein Kunde?",
   "LINK_REGISTER":"Jetzt registrieren!",
   "TITLE_REGISTRATION":"Benutzerregistrierung",
@@ -88,5 +88,5 @@
   "BTN_RESTORE_PROGRESS":"Fortschritt wiederherstellen",
   "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code:",
   "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code.",
-  "CONFIRM_LOGGED_IN_WITH_OAUTH":"You have been logged in with OAuth."
+  "CONFIRM_LOGGED_IN_WITH_OAUTH":"Sie wurden mittels OAuth angemeldet."
 }
