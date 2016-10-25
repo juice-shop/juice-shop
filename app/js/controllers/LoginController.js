@@ -37,4 +37,7 @@ angular.module('juiceShop').controller('LoginController', [
     }
     var redirectUri = $location.protocol() + '://' + location.host
     $scope.oauthUnavailable = !authorizedRedirectURIs[redirectUri]
+    if ($scope.oauthUnavailable) {
+      console.log(redirectUri + ' is not an authorized redirect URI for this application.')
+    }
   }])

@@ -1,7 +1,15 @@
 describe('controllers', function () {
-  var scope, location, controller, window, cookieStore
+  var scope, location, controller, window, cookieStore, $httpBackend
 
   beforeEach(module('juiceShop'))
+  beforeEach(inject(function ($injector) {
+    $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+  }))
+
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation()
+  })
 
   describe('OAuthController', function () {
     beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookieStore) {
@@ -15,34 +23,70 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
+      $httpBackend.whenGET(/https:\/\/www\.googleapis\.com\/oauth2\/v1\/userinfo\?alt=json&access_token=/).respond(200)
       expect(controller).toBeDefined()
     }))
 
-    xit('should forward to main page after successful login', inject(function () {
-      expect(location.path()).toBe('/')
-    }))
+    describe('successful authentication', function () {
+      beforeEach(inject(function () {
+        $httpBackend.whenGET(/https:\/\/www\.googleapis\.com\/oauth2\/v1\/userinfo\?alt=json&access_token=/).respond(200, {email: 'horst@g00glemail.com'})
+      }))
 
-    xit('should remove authentication token from cookies after failed login', inject(function () {
+      describe('successful account creation', function () {
+        beforeEach(inject(function () {
+          $httpBackend.whenPOST('/api/Users/').respond(200)
+        }))
+
+        it('should set session data and forward to main page after successful login', inject(function () {
+          $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
+          $httpBackend.flush()
+
+          expect(cookieStore.get('token')).toBe('auth_token')
+          expect(window.sessionStorage.bid).toBe('4711')
+          expect(location.path()).toBe('/')
+        }))
+
+        it('should remove session data and redirect to login page after failed login', inject(function () {
+          $httpBackend.whenPOST('/rest/user/login').respond(401)
+          $httpBackend.flush()
+
+          expect(cookieStore.get('token')).toBeUndefined()
+          expect(window.sessionStorage.bid).toBeUndefined()
+          expect(location.path()).toBe('/login')
+        }))
+      })
+
+      describe('failed account creation', function () {
+        beforeEach(inject(function () {
+          $httpBackend.whenPOST('/api/Users/').respond(500)
+        }))
+
+        it('should set session data and forward to main page after successful login', inject(function () {
+          $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
+          $httpBackend.flush()
+
+          expect(cookieStore.get('token')).toBe('auth_token')
+          expect(window.sessionStorage.bid).toBe('4711')
+          expect(location.path()).toBe('/')
+        }))
+
+        it('should remove session data and redirect to login page after failed login', inject(function () {
+          $httpBackend.whenPOST('/rest/user/login').respond(401)
+          $httpBackend.flush()
+
+          expect(cookieStore.get('token')).toBeUndefined()
+          expect(window.sessionStorage.bid).toBeUndefined()
+          expect(location.path()).toBe('/login')
+        }))
+      })
+    })
+
+    it('should remove session data and redirect to login page after failing to retrieve OAuth token', inject(function () {
+      $httpBackend.whenGET(/https:\/\/www\.googleapis\.com\/oauth2\/v1\/userinfo\?alt=json&access_token=/).respond(401)
+      $httpBackend.flush()
+
       expect(cookieStore.get('token')).toBeUndefined()
-    }))
-
-    xit('should remove basket id from session storage after failed login', inject(function () {
       expect(window.sessionStorage.bid).toBeUndefined()
-    }))
-
-    xit('should forward to login page after failed login', inject(function () {
-      expect(location.path()).toBe('/login')
-    }))
-
-    xit('should remove authentication token from cookies after failing to retrieve OAuth access token', inject(function () {
-      expect(cookieStore.get('token')).toBeUndefined()
-    }))
-
-    xit('should remove basket id from session storage after failing to retrieve OAuth access token', inject(function () {
-      expect(window.sessionStorage.bid).toBeUndefined()
-    }))
-
-    xit('should forward to login page after failing to retrieve OAuth access token', inject(function () {
       expect(location.path()).toBe('/login')
     }))
   })
