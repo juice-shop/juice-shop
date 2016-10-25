@@ -21,9 +21,20 @@ angular.module('juiceShop').controller('LoginController', [
     }
 
     $scope.googleLogin = function () {
-      var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
-      var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
-      var redirectUri = $location.protocol() + '://' + location.host
-      $window.location.replace(oauthProviderUrl + '?client_id=' + clientId + '&response_type=token&scope=email&redirect_uri=' + redirectUri)
+      $window.location.replace(oauthProviderUrl + '?client_id=' + clientId + '&response_type=token&scope=email&redirect_uri=' + authorizedRedirectURIs[redirectUri])
     }
+
+    var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
+    var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+
+    var authorizedRedirectURIs = {
+      'http://localhost:3000': 'http://localhost:3000',
+      'https://juice-shop.herokuapp.com': 'https://juice-shop.herokuapp.com',
+      'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
+      'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
+      'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
+      'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost'
+    }
+    var redirectUri = $location.protocol() + '://' + location.host
+    $scope.oauthUnavailable = !authorizedRedirectURIs[redirectUri]
   }])
