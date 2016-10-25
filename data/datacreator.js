@@ -318,6 +318,12 @@ module.exports = function () {
     }).success(function (user) {
       users.bjoern = user
     })
+    models.User.create({
+      email: 'ciso@juice-sh.op',
+      password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+    }).success(function (user) {
+      users.ciso = user
+    })
   }
 
   function createProducts () {
