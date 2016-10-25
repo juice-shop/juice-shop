@@ -185,7 +185,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'changeProduct',
-      description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
+      description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
