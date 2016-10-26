@@ -47,6 +47,7 @@ angular.module('juiceShop').controller('LoginController', [
       'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
       'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
       'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
+      'http://juice.sh': 'http://juice.sh',
       'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost'
     }
     var redirectUri = $location.protocol() + '://' + location.host
