@@ -329,7 +329,7 @@ frisby.create('GET who-am-i request returns nothing on broken auth token')
   .expectJSONTypes({})
   .toss()
 
-/* frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@juice-sh.op')
+frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@juice-sh.op')
   .post(REST_URL + '/user/login', {
     email: 'admin@juice-sh.op',
     password: 'admin123',
@@ -341,4 +341,4 @@ frisby.create('GET who-am-i request returns nothing on broken auth token')
   .expectJSON({
     umail: 'ciso@juice-sh.op'
   })
-  .toss() */
+  .toss()
