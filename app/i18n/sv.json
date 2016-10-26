@@ -11,6 +11,7 @@
   "LABEL_PASSWORD":"Lösenord",
   "BTN_LOGIN":"Logga in",
   "BTN_GOOGLE_LOGIN":"Log in with Google",
+  "REMEMBER_ME":"Remember me",
   "NO_CUSTOMER":"Not yet a customer?",
   "LINK_REGISTER":"Register now!",
   "TITLE_REGISTRATION":"User Registration",
