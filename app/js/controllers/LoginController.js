@@ -7,6 +7,15 @@ angular.module('juiceShop').controller('LoginController', [
   function ($scope, $window, $location, $cookieStore, userService) {
     'use strict'
 
+    var email = $cookieStore.get('email')
+    if (email) {
+      $scope.user = {}
+      $scope.user.email = email
+      $scope.rememberMe = true
+    } else {
+      $scope.rememberMe = false
+    }
+
     $scope.login = function () {
       userService.login($scope.user).success(function (authentication) {
         $cookieStore.put('token', authentication.token)
@@ -18,6 +27,11 @@ angular.module('juiceShop').controller('LoginController', [
         $scope.error = error
         $scope.form.$setPristine()
       })
+      if ($scope.rememberMe) {
+        $cookieStore.put('email', $scope.user.email)
+      } else {
+        $cookieStore.remove('email')
+      }
     }
 
     $scope.googleLogin = function () {

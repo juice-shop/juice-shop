@@ -295,6 +295,14 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.oauthUserPasswordChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'loginCiso',
+      description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
+      difficulty: 4,
+      solved: false
+    }).success(function (challenge) {
+      challenges.loginCisoChallenge = challenge
+    })
   }
 
   function createUsers () {

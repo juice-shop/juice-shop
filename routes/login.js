@@ -16,6 +16,19 @@ exports = module.exports = function login () {
     models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, { plain: true })
       .success(function (authenticatedUser) {
         var user = utils.queryResultToJson(authenticatedUser)
+
+        if (req.body.oauth) {
+          var rememberedEmail = insecurity.userEmailFrom(req)
+          if (rememberedEmail) {
+            models.User.find({ where: {email: rememberedEmail} }).success(function (rememberedUser) {
+              user = utils.queryResultToJson(rememberedUser)
+              if (utils.notSolved(challenges.loginCisoChallenge) && user.data.id === 5) {
+                utils.solve(challenges.loginCisoChallenge)
+              }
+            })
+          }
+        }
+
         if (user.data && user.data.id) {
           if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
             utils.solve(challenges.loginAdminChallenge)

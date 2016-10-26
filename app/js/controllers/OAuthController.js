@@ -19,7 +19,7 @@ angular.module('juiceShop').controller('OAuthController', [
     })
 
     function login (profile) {
-      userService.login({ email: profile.email, password: $base64.encode(profile.email) }).success(function (authentication) {
+      userService.login({ email: profile.email, password: $base64.encode(profile.email), oauth: true }).success(function (authentication) {
         $cookieStore.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
         $location.path('/')
