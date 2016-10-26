@@ -17,6 +17,8 @@ describe('app', function () {
     $cookieStore.put('token', 'foobar')
 
     expect($rootScope.isLoggedIn()).toBe('foobar')
+
+    $cookieStore.remove('token')
   }))
 
   it('should return undefined as login status for anonymous user', inject(function () {
@@ -41,6 +43,17 @@ describe('app', function () {
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {Authorization: 'Bearer foobar'}})
       expect(authInterceptor.request({})).toEqual({headers: {Authorization: 'Bearer foobar'}})
+
+      $cookieStore.remove('token')
+    }))
+
+    it('should add existing cookie email to request as X-User-Email header', inject(function (authInterceptor) {
+      $cookieStore.put('email', 'foo@b.ar')
+
+      expect(authInterceptor.request({headers: {}})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
+      expect(authInterceptor.request({})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
+
+      $cookieStore.remove('email')
     }))
 
     it('should do noting with response of any status', inject(function (authInterceptor) {

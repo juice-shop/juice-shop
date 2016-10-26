@@ -38,7 +38,7 @@ describe('controllers', function () {
     }))
 
     it('forwards to main page after successful login', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token'})
+      $httpBackend.whenPOST('/rest/user/login').respond(200, {})
 
       scope.login()
       $httpBackend.flush()
@@ -70,8 +70,8 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(cookieStore.get('token')).toBeUndefined
-      expect(window.sessionStorage.bid).toBeUndefined
+      expect(cookieStore.get('token')).toBeUndefined()
+      expect(window.sessionStorage.bid).toBeUndefined()
     }))
 
     it('returns error message from server to client on failed login attempt', inject(function () {
@@ -87,6 +87,45 @@ describe('controllers', function () {
       scope.googleLogin()
 
       expect(window.location.replace).toHaveBeenCalledWith('https://accounts.google.com/o/oauth2/v2/auth?client_id=1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com&response_type=token&scope=email&redirect_uri=undefined')
+    }))
+
+    it('has unticked remember-me checkbox if "email" cookie is not present', inject(function () {
+      cookieStore.remove('email')
+      scope.$digest()
+      $httpBackend.flush()
+
+      expect(scope.rememberMe).toBe(false)
+    }))
+
+    xit('has ticked remember-me checkbox and pre-filled email field if "email" cookie is present', inject(function () {
+      cookieStore.put('email', 'horst@juice-sh.op')
+      scope.$digest()
+      $httpBackend.flush()
+
+      expect(scope.rememberMe).toBe(true)
+      expect(scope.user.email).toBe('horst@juice-sh.op')
+    }))
+
+    it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', inject(function () {
+      $httpBackend.whenPOST('/rest/user/login').respond(200, {})
+      scope.user = {email: 'horst@juice-sh.op'}
+      scope.rememberMe = true
+
+      scope.login()
+      $httpBackend.flush()
+
+      expect(cookieStore.get('email')).toBe('horst@juice-sh.op')
+    }))
+
+    it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', inject(function () {
+      $httpBackend.whenPOST('/rest/user/login').respond(401)
+      scope.user = {email: 'horst@juice-sh.op'}
+      scope.rememberMe = true
+
+      scope.login()
+      $httpBackend.flush()
+
+      expect(cookieStore.get('email')).toBe('horst@juice-sh.op')
     }))
   })
 })
