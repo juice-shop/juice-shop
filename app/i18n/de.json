@@ -88,6 +88,6 @@
   "BTN_RESTORE_PROGRESS":"Fortschritt wiederherstellen",
   "CURRENT_CONTINUE_CODE":"Dein aktueller Fortsetzungs-Code:",
   "INVALID_CONTINUE_CODE":"Ungültiger Fortsetzungs-Code.",
-  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}"
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Sie wurden mittels OAuth 2.0 Anbieter angemeldet.",
+  "HOME_LINK_MESSAGE":"Wenn Sie nicht automatisch weitergeleitet werden, klicken Sie bitte hier: {{home}}"
 }
