@@ -133,7 +133,8 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 ### Slide Decks
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in HTML5
-* [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min runthrough
+* [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min project introduction runthrough
+  * [What's new in OWASP Juice Shop](http://juice-shop-lightning-talk.kimminich.de/index2016.html) for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare 
 
 ### Web Links
