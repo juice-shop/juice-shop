@@ -22,7 +22,6 @@ describe('controllers', function () {
         '$scope': scope
       })
       scope.form = {$setPristine: function () {}}
-      window.location.replace = jasmine.createSpy() // FIXME Only works in PhantomJS
     }))
 
     it('should be defined', inject(function () {
@@ -81,12 +80,6 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(scope.error).toBe('error')
-    }))
-
-    xit('forwards to Google API when performing OAuth login', inject(function () {
-      scope.googleLogin()
-
-      expect(window.location.replace).toHaveBeenCalledWith('https://accounts.google.com/o/oauth2/v2/auth?client_id=1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com&response_type=token&scope=email&redirect_uri=undefined')
     }))
 
     it('has unticked remember-me checkbox if "email" cookie is not present', inject(function () {
