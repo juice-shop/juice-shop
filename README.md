@@ -47,32 +47,32 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 ### From Sources
 
 1. Install [node.js](http://nodejs.org)\*
-2. Run ```git clone https://github.com/bkimminich/juice-shop.git``` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
-3. Run ```npm install``` (only has to be done before first start or when you change the source code)
-4. Run ```npm start```
+2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
+3. Run `npm install` (only has to be done before first start or when you change the source code)
+4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
 ### Docker Container [![Docker](http://img.shields.io/badge/docker-bkimminich%2Fjuice--shop-blue.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
 1. Install [Docker](https://www.docker.com)
-2. Run ```docker pull bkimminich/juice-shop```
-3. Run ```docker run -d -p 3000:3000 bkimminich/juice-shop```
+2. Run `docker pull bkimminich/juice-shop`
+3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on OSX browse to <http://192.168.99.100:3000> instead)
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
 1. Install and launch [Docker Toolbox](https://www.docker.com/docker-toolbox)
-2. Search for ```juice-shop``` and click _Create_ to download image and run container
+2. Search for `juice-shop` and click _Create_ to download image and run container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP Juice Shop
 
 ### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
 1. Install a [64bit node.js](https://nodejs.org/en/download)\* on your Windows (or Linux) machine
-2. Download ```juice-shop-<version>_<node-version>_<os>_x64.zip``` (or ```.tgz```) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
-3. Unpack and run ```npm start``` in unpacked folder
+2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or `.tgz`) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+3. Unpack and run `npm start` in unpacked folder
 4. Browse to <http://localhost:3000>
 
-> Each packaged distribution includes some binaries for SQLite bound to the OS and node.js version which ```npm install``` was executed on.
+> Each packaged distribution includes some binaries for SQLite bound to the OS and node.js version which `npm install` was executed on.
 
 ### Amazon EC2 Instance
 
@@ -105,18 +105,21 @@ OWASP Juice Shop officially supports the following versions of [node.js](http://
 
 node.js | Stable [Docker Image](https://registry.hub.docker.com/u/bkimminich/juice-shop) Tags | [Packaged Distributions](https://github.com/bkimminich/juice-shop/releases/latest)
 ------------ | ------------ | ------------
-__6.x__ | `latest`, `node6` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz`  
 4.x | `node4` | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz`  
+__6.x__ | __`latest`__, `node6` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz`  
+7.x | `node7` | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz`  
 
-> There are also Docker images built from the `develop` branch. These contain unreleased features but cannot be considered stable. For node.js 6.x there are the tag aliases `snapshot`, `node6-snapshot` and `node6-develop`. For 4.x there are `node4-snapshot` and `node4-develop` correspondingly.  
+> There are also Docker images built from the `develop` branch. These contain unreleased features but cannot be considered stable. For node.js 6.x there are the tag aliases `snapshot`, `develop`, `node6-snapshot` and `node6-develop`. For 4.x there are `node4-snapshot` and `node4-develop` and for 7.x `node7-snapshot` and `node7-develop` correspondingly.  
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
 > If you need help with the application setup please check the Troubleshooting section below or post your specific problem or question in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
-- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during ```bower install``` execution, run ```git config --global url."https://".insteadOf git://``` and try ```npm install``` again
-- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host ```127.0.0.1:3000``` to ```0.0.0.0:3000``` for TCP
-- If ```npm install``` fails after an update of your local copy during ```bower install``` complaining about version issues, delete ```/app/bower_components``` and try again to remove outdated versions that cause conflicts
+- After changing to a different Node.js version it is a good idea to delete `npm_modules` and re-install all dependencies from scratch with `npm install`  
+- If you are experiencing [Error 128](https://github.com/bower/bower/issues/50) from some GitHub repos during `bower install` execution, run `git config --global url."https://".insteadOf git://` and try `npm install` again
+- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure that you also enable port forwarding from Host `127.0.0.1:3000` to `0.0.0.0:3000` for TCP
+- If `npm install` fails after an update of your local copy during `bower install` complaining about version issues, delete `/app/bower_components` and try again to remove outdated versions that cause conflicts
+- If during `npm install` the `sqlite3` no binaries can be downloaded for your system, the setup falls back to building from source with `node-gyp`. Check the [`node-gyp` installation instructions](https://github.com/nodejs/node-gyp#installation) for additional tools you might need to install (e.g. Python 2.7, GCC, Visual C++ Build Tools etc.)  
 - You may find it easier to find vulnerabilities using a pen test tool. I strongly recommend [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open source and very powerful, yet beginner friendly.
 
 ## Contributing [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)

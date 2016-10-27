@@ -185,7 +185,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'changeProduct',
-      description: 'Change the link in the description of the <a href="/#/search?q=O-Saft">O-Saft product</a> to <i>http://kimminich.de</i>.',
+      description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
@@ -295,6 +295,14 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.oauthUserPasswordChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'loginCiso',
+      description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
+      difficulty: 4,
+      solved: false
+    }).success(function (challenge) {
+      challenges.loginCisoChallenge = challenge
+    })
   }
 
   function createUsers () {
@@ -317,6 +325,12 @@ module.exports = function () {
       password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
     }).success(function (user) {
       users.bjoern = user
+    })
+    models.User.create({
+      email: 'ciso@juice-sh.op',
+      password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+    }).success(function (user) {
+      users.ciso = user
     })
   }
 

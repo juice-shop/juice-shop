@@ -28,7 +28,7 @@ describe('/rest', function () {
 
   describe('challenge "changeProduct"', function () {
     it('should be possible to change product via PUT request without being logged in', function () {
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/8\', {description: \'<a href="http://kimminich.de" target="_blank">kimminich.de</a>\'});')
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/8\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
     })
 
     protractor.expect.challengeSolved({challenge: 'changeProduct'})

@@ -108,7 +108,7 @@
   },
   "subdomain": "juice-shop",
   "engines": {
-    "node": "~4 ~6"
+    "node": "~4 ~6 ~7"
   },
   "standard": {
     "ignore": [

@@ -11,6 +11,7 @@
   "LABEL_PASSWORD":"Password",
   "BTN_LOGIN":"Log in",
   "BTN_GOOGLE_LOGIN":"Log in with Google",
+  "REMEMBER_ME": "Remember me",
   "NO_CUSTOMER":"Not yet a customer?",
   "LINK_REGISTER":"Register now!",
   "TITLE_REGISTRATION":"User Registration",
@@ -88,5 +89,6 @@
   "BTN_RESTORE_PROGRESS": "Restore Progress",
   "CURRENT_CONTINUE_CODE": "Your current continue code:",
   "INVALID_CONTINUE_CODE": "Invalid continue code.",
-  "CONFIRM_LOGGED_IN_WITH_OAUTH": "You have been logged in with OAuth."
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2": "You have been logged in via OAuth 2.0 provider.",
+  "HOME_LINK_MESSAGE": "If you are not automatically redirected, please click here: {{home}}"
 }

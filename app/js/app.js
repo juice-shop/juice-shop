@@ -19,6 +19,9 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
       if ($cookieStore.get('token')) {
         config.headers.Authorization = 'Bearer ' + $cookieStore.get('token')
       }
+      if ($cookieStore.get('email')) {
+        config.headers['X-User-Email'] = $cookieStore.get('email')
+      }
       return config
     },
     response: function (response) {

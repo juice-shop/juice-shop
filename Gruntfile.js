@@ -124,6 +124,17 @@ module.exports = function (grunt) {
           from: '%%APP_VERSION%%',
           to: '<%= pkg.version %>'
         }]
+      },
+      node7: {
+        src: ['docker/Dockerfile.template'],
+        dest: 'node7.df',
+        replacements: [{
+          from: '%%NODE_VERSION%%',
+          to: '7'
+        }, {
+          from: '%%APP_VERSION%%',
+          to: '<%= pkg.version %>'
+        }]
       }
     }
   })
@@ -137,5 +148,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
   grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
-  grunt.registerTask('docker', [ 'replace:dockerfile', 'replace:node6', 'replace:node4' ])
+  grunt.registerTask('docker', [ 'replace:dockerfile', 'replace:node6', 'replace:node4', 'replace:node7' ])
 }
