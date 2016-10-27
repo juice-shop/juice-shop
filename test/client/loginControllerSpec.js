@@ -23,6 +23,7 @@ describe('controllers', function () {
       })
       scope.form = {$setPristine: function () {}}
       window.location.replace = jasmine.createSpy()
+      window.onbeforeunload = function () { return 'Prevent "Some of your tests did a full page reload" errors' }
     }))
 
     it('should be defined', inject(function () {
