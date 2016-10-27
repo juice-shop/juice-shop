@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 6  # recommended version
 - 4
-# - 7
+- 7
 branches:
   except:
   - gh-pages
@@ -14,6 +14,10 @@ addons:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
   sauce_connect: true
 before_install:
+- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+- sudo apt-get update -qq
+- sudo apt-get install -qq g++-4.8
+- export CXX="g++-4.8"
 - rm -rf node_modules
 - chmod +x ./test/sauceLabsTests.sh
 before_script:
@@ -67,4 +71,4 @@ deploy:
   on:
     repo: bkimminich/juice-shop
     tags: true
-sudo: false
+sudo: required
