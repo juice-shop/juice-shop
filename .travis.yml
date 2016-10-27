@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 6  # recommended version
 - 4
-- 7
+# - 7
 branches:
   except:
   - gh-pages
