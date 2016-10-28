@@ -103,13 +103,13 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org) and offers Docker images and packaged distributions accordingly:
 
-node.js | Stable [Docker Image](https://registry.hub.docker.com/u/bkimminich/juice-shop) Tags | [Packaged Distributions](https://github.com/bkimminich/juice-shop/releases/latest)
------------- | ------------ | ------------
-4.x | `node4` | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz`  
-__6.x__ | __`latest`__, `node6` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz`  
-7.x | `node7` | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz`  
+node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)
+------------ | ------------ | ------------ | ------------
+4.x | `node4` | `node4-snapshot`, `node4-develop` | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz`  
+__6.x__ | __`latest`__, `node6` | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz`  
+7.x | `node7` | `node7-snapshot`, `node7-develop` | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz`  
 
-> There are also Docker images built from the `develop` branch. These contain unreleased features but cannot be considered stable. For node.js 6.x there are the tag aliases `snapshot`, `develop`, `node6-snapshot` and `node6-develop`. For 4.x there are `node4-snapshot` and `node4-develop` and for 7.x `node7-snapshot` and `node7-develop` correspondingly.  
+> The stable Docker images are built from `master` while the snapshot images are built from `develop` branch. The latter contain unreleased features but cannot be considered stable.
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
