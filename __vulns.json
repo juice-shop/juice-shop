@@ -253,6 +253,30 @@
         "Error:",
         "at app/routes"
       ]
+    },
+    {
+      "type": "session",
+      "flags": [
+        "sessionStorage",
+        "email"
+      ]
+    },
+    {
+      "type": "trustbound",
+      "flags": [
+        "/#/login"
+        "/rest/user/login",
+        "X-User-Email",
+        "oauth: true"
+      ]
+    },
+    {
+      "type": "crypto",
+      "flags": [
+        "/#/login",
+        "password",
+        "angular-base64"
+      ]
     }
   ]
 }

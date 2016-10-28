@@ -135,7 +135,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in HTML5
 * [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min project introduction runthrough
   * [What's new in OWASP Juice Shop](http://juice-shop-lightning-talk.kimminich.de/index2016.html) for a 10min update on the newest features of 2016
-* [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare 
+* [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare
 
 ### Web Links
 
@@ -157,8 +157,8 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 #### 2016
 
-* [Lightning Talk: What's new in OWASP Juice Shop](), [German OWASP Day 2016](https://www.owasp.org/index.php/German_OWASP_Day_2016/), 29.11.2016
-* [Gothenburg pwns the OWASP Juice Shop](), [OWASP Gothenburg Day 2016](https://owaspgbgday.se/), 24.11.2016
+* [Lightning Talk: What's new in OWASP Juice Shop](https://www.owasp.org/index.php/German_OWASP_Day_2016#Programm), [German OWASP Day 2016](https://www.owasp.org/index.php/German_OWASP_Day_2016/), 29.11.2016
+* [Gothenburg pwns the OWASP Juice Shop](https://owaspgbgday.se/bjorn-kimminich-gothenburg-pwns-the-owasp-juice-shop-workshop/), [OWASP Gothenburg Day 2016](https://owaspgbgday.se/), 24.11.2016
 * [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/), [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/), 22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc), :trollface: _in last 10min_)
 * [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226), [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html), 16.09.2016
 * [Security-Auditing aus der Cloud – Softwareentwicklung kontinuierlich auf dem Prüfstand](http://www.sea-con.de/seacon2016/konferenz/konferenzprogramm/vortrag/do-41-2/title/security-auditing-aus-der-cloud-softwareentwicklung-kontinuierlich-auf-dem-pruefstand.html), [SeaCon 2016](http://www.sea-con.de/seacon2016), 12.05.2016
@@ -179,7 +179,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 > An alternative way to get stickers (and maybe even a pin-back button) is to somehow [contribute to the project](CONTRIBUTING.md) by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! We're also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention OWASP Juice Shop! Just contact the project leader to discuss your plans: bjoern.kimminich@owasp.org!
 
 ## Donations
- 
+
 ### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
 
 
