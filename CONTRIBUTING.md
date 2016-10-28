@@ -1,6 +1,6 @@
 # Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop) [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop) 
+[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop) [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master) [![Sauce Test Status](https://saucelabs.com/buildstatus/juice-shop)](https://saucelabs.com/u/juice-shop) [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop) [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop) 
 
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board?
 
@@ -17,11 +17,11 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ## Git-Flow
 
-This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/) fashion: All active development happens on the ```develop``` branch while ```master``` is used to deploy stable versions to the [Heroku demo instance](https://juice-shop.herokuapp.com) and later create tagged releases from. 
+This repository is maintained in a simplified [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/) fashion: All active development happens on the ```develop``` branch while ```master``` is used to deploy stable versions to the [Heroku demo instance](https://juice-shop.herokuapp.com) and later create tagged releases from.
 
 ### Pull Requests
 
-Using Git-Flow means that PRs have the highest chance of getting accepted and merged when you open them on the ```develop``` branch of your fork. That allows for some post-merge changes by the team without directly compromising the ```master``` branch, which is supposed to hold always be in a release-ready state. 
+Using Git-Flow means that PRs have the highest chance of getting accepted and merged when you open them on the ```develop``` branch of your fork. That allows for some post-merge changes by the team without directly compromising the ```master``` branch, which is supposed to hold always be in a release-ready state.
 
 ## Unit & Integration Tests
 
@@ -35,13 +35,13 @@ These tests verify if the normal use cases of the application work. All server-s
 npm test
 ```
 
-### JavaScript Standard Style Guide 
+### JavaScript Standard Style Guide
 
 Since v2.7.0 the `npm test` script verifies code complicance with the `standard` style before running the tests. If PRs deviate from this coding style, they will now immediately fail their build and will not be merged until compliant.
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-> In case your PR is failing from style guide issues try running `standard --fix` over your code - this will fix all syntax or code style issues automatically without breaking your code. You might need to `npm install -g standard` first. 
+> In case your PR is failing from style guide issues try running `standard --fix` over your code - this will fix all syntax or code style issues automatically without breaking your code. You might need to `npm install -g standard` first.
 
 ## End-to-end Tests
 
@@ -66,7 +66,7 @@ npm run stryker
 ## Test Packaged Distrubution
 
 During releases the application will be packaged into ```.zip```/```.tgz``` archives for another easy setup method. When you contribute a change that impacts what the application needs to include, make sure you test this manually on your system.
-  
+
 ```
 grunt package
 ```
