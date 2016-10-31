@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, location, controller, window, cookieStore, $httpBackend
+  var scope, location, controller, window, cookies, $httpBackend
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
@@ -12,12 +12,12 @@ describe('controllers', function () {
   })
 
   describe('LoginController', function () {
-    beforeEach(inject(function ($rootScope, $window, $location, $cookieStore, $controller) {
+    beforeEach(inject(function ($rootScope, $window, $location, $cookies, $controller) {
       console.log = jasmine.createSpy('log')
       scope = $rootScope.$new()
       location = $location
       window = $window
-      cookieStore = $cookieStore
+      cookies = $cookies
       controller = $controller('LoginController', {
         '$scope': scope
       })
@@ -51,7 +51,7 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(cookieStore.get('token')).toBe('auth_token')
+      expect(cookies.get('token')).toBe('auth_token')
     }))
 
     it('puts the returned basket id into browser session storage', inject(function () {
@@ -69,7 +69,7 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(cookieStore.get('token')).toBeUndefined()
+      expect(cookies.get('token')).toBeUndefined()
       expect(window.sessionStorage.bid).toBeUndefined()
     }))
 
@@ -83,7 +83,7 @@ describe('controllers', function () {
     }))
 
     it('has unticked remember-me checkbox if "email" cookie is not present', inject(function () {
-      cookieStore.remove('email')
+      cookies.remove('email')
       scope.$digest()
       $httpBackend.flush()
 
@@ -91,7 +91,7 @@ describe('controllers', function () {
     }))
 
     xit('has ticked remember-me checkbox and pre-filled email field if "email" cookie is present', inject(function () {
-      cookieStore.put('email', 'horst@juice-sh.op')
+      cookies.put('email', 'horst@juice-sh.op')
       scope.$digest()
       $httpBackend.flush()
 
@@ -107,7 +107,7 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(cookieStore.get('email')).toBe('horst@juice-sh.op')
+      expect(cookies.get('email')).toBe('horst@juice-sh.op')
     }))
 
     it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', inject(function () {
@@ -118,7 +118,7 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(cookieStore.get('email')).toBe('horst@juice-sh.op')
+      expect(cookies.get('email')).toBe('horst@juice-sh.op')
     }))
   })
 })

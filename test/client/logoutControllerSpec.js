@@ -1,14 +1,14 @@
 describe('controllers', function () {
-  var scope, location, controller, window, cookieStore
+  var scope, location, controller, window, cookies
 
   beforeEach(module('juiceShop'))
 
   describe('LogoutController', function () {
-    beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookieStore) {
+    beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookies) {
       scope = $rootScope.$new()
       window = $window
       location = $location
-      cookieStore = $cookieStore
+      cookies = $cookies
       controller = $controller('LogoutController', {
         '$scope': scope
       })
@@ -19,7 +19,7 @@ describe('controllers', function () {
     }))
 
     it('should remove authentication token from cookies', inject(function () {
-      expect(cookieStore.get('token')).toBeUndefined()
+      expect(cookies.get('token')).toBeUndefined()
     }))
 
     it('should remove basket id from session storage', inject(function () {

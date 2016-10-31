@@ -1,11 +1,11 @@
 angular.module('juiceShop').controller('LogoutController', [
-  '$cookieStore',
+  '$cookies',
   '$window',
   '$location',
-  function ($cookieStore, $window, $location) {
+  function ($cookies, $window, $location) {
     'use strict'
 
-    $cookieStore.remove('token')
+    $cookies.remove('token')
     delete $window.sessionStorage.bid
     $location.path('/')
   }])

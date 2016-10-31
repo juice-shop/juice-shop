@@ -2,12 +2,12 @@ angular.module('juiceShop').controller('LoginController', [
   '$scope',
   '$window',
   '$location',
-  '$cookieStore',
+  '$cookies',
   'UserService',
-  function ($scope, $window, $location, $cookieStore, userService) {
+  function ($scope, $window, $location, $cookies, userService) {
     'use strict'
 
-    var email = $cookieStore.get('email')
+    var email = $cookies.get('email')
     if (email) {
       $scope.user = {}
       $scope.user.email = email
@@ -18,19 +18,19 @@ angular.module('juiceShop').controller('LoginController', [
 
     $scope.login = function () {
       userService.login($scope.user).success(function (authentication) {
-        $cookieStore.put('token', authentication.token)
+        $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
         $location.path('/')
       }).error(function (error) {
-        $cookieStore.remove('token')
+        $cookies.remove('token')
         delete $window.sessionStorage.bid
         $scope.error = error
         $scope.form.$setPristine()
       })
       if ($scope.rememberMe) {
-        $cookieStore.put('email', $scope.user.email)
+        $cookies.put('email', $scope.user.email)
       } else {
-        $cookieStore.remove('email')
+        $cookies.remove('email')
       }
     }
 
