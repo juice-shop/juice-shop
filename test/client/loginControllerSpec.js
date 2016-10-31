@@ -82,21 +82,10 @@ describe('controllers', function () {
       expect(scope.error).toBe('error')
     }))
 
-    it('has unticked remember-me checkbox if "email" cookie is not present', inject(function () {
-      cookies.remove('email')
-      scope.$digest()
+    it('has unticked remember-me checkbox by default', inject(function () {
       $httpBackend.flush()
 
       expect(scope.rememberMe).toBe(false)
-    }))
-
-    xit('has ticked remember-me checkbox and pre-filled email field if "email" cookie is present', inject(function () {
-      cookies.put('email', 'horst@juice-sh.op')
-      scope.$digest()
-      $httpBackend.flush()
-
-      expect(scope.rememberMe).toBe(true)
-      expect(scope.user.email).toBe('horst@juice-sh.op')
     }))
 
     it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', inject(function () {
@@ -108,6 +97,7 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(cookies.get('email')).toBe('horst@juice-sh.op')
+      cookies.remove('email')
     }))
 
     it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', inject(function () {
@@ -119,6 +109,7 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(cookies.get('email')).toBe('horst@juice-sh.op')
+      cookies.remove('email')
     }))
   })
 })
