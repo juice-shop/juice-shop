@@ -7,7 +7,7 @@ angular.module('juiceShop').controller('OAuthController', [
   function ($window, $location, $cookies, $base64, userService) {
     'use strict'
 
-    userService.oauthLogin(parseResponseParameters().access_token).success(function (profile) {
+    userService.oauthLogin(parseRedirectUrlParams()['access_token']).success(function (profile) {
       userService.save({email: profile.email, password: $base64.encode(profile.email)}).success(function () {
         login(profile)
       }).error(function (error) { // eslint-disable-line handle-callback-err
@@ -35,7 +35,12 @@ angular.module('juiceShop').controller('OAuthController', [
       delete $window.sessionStorage.bid
     }
 
-    function parseResponseParameters () {
+    /**
+     * Only the 'access_token' parameter is needed. This function only extracts all parameters to have some realistic
+     * parsing logic in the minified Javascript. This "noise code" is supposed to make analyzing the mechanism harder
+     * for the attacker.
+     */
+    function parseRedirectUrlParams () {
       var hash = $location.path().substr(1)
       var splitted = hash.split('&')
       var params = {}
