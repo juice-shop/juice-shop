@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, location, controller, window, cookieStore, $httpBackend
+  var scope, location, controller, window, cookies, $httpBackend
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
@@ -12,11 +12,11 @@ describe('controllers', function () {
   })
 
   describe('OAuthController', function () {
-    beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookieStore) {
+    beforeEach(inject(function ($rootScope, $controller, $window, $location, $cookies) {
       scope = $rootScope.$new()
       window = $window
       location = $location
-      cookieStore = $cookieStore
+      cookies = $cookies
       controller = $controller('OAuthController', {
         '$scope': scope
       })
@@ -41,7 +41,7 @@ describe('controllers', function () {
           $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
           $httpBackend.flush()
 
-          expect(cookieStore.get('token')).toBe('auth_token')
+          expect(cookies.get('token')).toBe('auth_token')
           expect(window.sessionStorage.bid).toBe('4711')
           expect(location.path()).toBe('/')
         }))
@@ -50,7 +50,7 @@ describe('controllers', function () {
           $httpBackend.whenPOST('/rest/user/login').respond(401)
           $httpBackend.flush()
 
-          expect(cookieStore.get('token')).toBeUndefined()
+          expect(cookies.get('token')).toBeUndefined()
           expect(window.sessionStorage.bid).toBeUndefined()
           expect(location.path()).toBe('/login')
         }))
@@ -65,7 +65,7 @@ describe('controllers', function () {
           $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
           $httpBackend.flush()
 
-          expect(cookieStore.get('token')).toBe('auth_token')
+          expect(cookies.get('token')).toBe('auth_token')
           expect(window.sessionStorage.bid).toBe('4711')
           expect(location.path()).toBe('/')
         }))
@@ -74,7 +74,7 @@ describe('controllers', function () {
           $httpBackend.whenPOST('/rest/user/login').respond(401)
           $httpBackend.flush()
 
-          expect(cookieStore.get('token')).toBeUndefined()
+          expect(cookies.get('token')).toBeUndefined()
           expect(window.sessionStorage.bid).toBeUndefined()
           expect(location.path()).toBe('/login')
         }))
@@ -85,7 +85,7 @@ describe('controllers', function () {
       $httpBackend.whenGET(/https:\/\/www\.googleapis\.com\/oauth2\/v1\/userinfo\?alt=json&access_token=/).respond(401)
       $httpBackend.flush()
 
-      expect(cookieStore.get('token')).toBeUndefined()
+      expect(cookies.get('token')).toBeUndefined()
       expect(window.sessionStorage.bid).toBeUndefined()
       expect(location.path()).toBe('/login')
     }))

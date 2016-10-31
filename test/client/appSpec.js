@@ -1,11 +1,11 @@
 describe('app', function () {
-  var $cookieStore, $rootScope, $httpProvider
+  var $cookies, $rootScope, $httpProvider
 
   beforeEach(module('juiceShop', function (_$httpProvider_) {
     $httpProvider = _$httpProvider_
   }))
   beforeEach(inject(function ($injector) {
-    $cookieStore = $injector.get('$cookieStore')
+    $cookies = $injector.get('$cookies')
     $rootScope = $injector.get('$rootScope')
   }))
 
@@ -14,15 +14,15 @@ describe('app', function () {
   }))
 
   it('should return token from cookie as login status for logged-in user', inject(function () {
-    $cookieStore.put('token', 'foobar')
+    $cookies.put('token', 'foobar')
 
     expect($rootScope.isLoggedIn()).toBe('foobar')
 
-    $cookieStore.remove('token')
+    $cookies.remove('token')
   }))
 
   it('should return undefined as login status for anonymous user', inject(function () {
-    $cookieStore.remove('token')
+    $cookies.remove('token')
 
     expect($rootScope.isLoggedIn()).toBeUndefined()
   }))
@@ -33,27 +33,27 @@ describe('app', function () {
     }))
 
     it('should do noting with request if no auth token cookie exists', inject(function (authInterceptor) {
-      $cookieStore.remove('token')
+      $cookies.remove('token')
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {}})
     }))
 
     it('should add existing cookie token to request as Authorization header', inject(function (authInterceptor) {
-      $cookieStore.put('token', 'foobar')
+      $cookies.put('token', 'foobar')
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {Authorization: 'Bearer foobar'}})
       expect(authInterceptor.request({})).toEqual({headers: {Authorization: 'Bearer foobar'}})
 
-      $cookieStore.remove('token')
+      $cookies.remove('token')
     }))
 
     it('should add existing cookie email to request as X-User-Email header', inject(function (authInterceptor) {
-      $cookieStore.put('email', 'foo@b.ar')
+      $cookies.put('email', 'foo@b.ar')
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
       expect(authInterceptor.request({})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
 
-      $cookieStore.remove('email')
+      $cookies.remove('email')
     }))
 
     it('should do noting with response of any status', inject(function (authInterceptor) {
