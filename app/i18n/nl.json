@@ -10,6 +10,8 @@
   "LABEL_EMAIL":"E-mailadres",
   "LABEL_PASSWORD":"Wachtwoord",
   "BTN_LOGIN":"Aanmelden",
+  "BTN_GOOGLE_LOGIN":"Aanmelden met Google",
+  "REMEMBER_ME":"Mij onthouden",
   "NO_CUSTOMER":"Nog geen klant?",
   "LINK_REGISTER":"Registreer nu!",
   "TITLE_REGISTRATION":"Gebruikersregistratie",
@@ -86,5 +88,7 @@
   "CONTINUE_PREVIOUS_SESSION":"Vul hier de vervolgcode in om de vorige uitdaging voortgang te herstellen.",
   "BTN_RESTORE_PROGRESS":"Herstel Voortgang",
   "CURRENT_CONTINUE_CODE":"Je huidige vervolgcode:",
-  "INVALID_CONTINUE_CODE":"Incorrecte vervolgcode."
+  "INVALID_CONTINUE_CODE":"Incorrecte vervolgcode.",
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
+  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}"
 }
