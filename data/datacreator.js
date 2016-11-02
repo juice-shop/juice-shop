@@ -233,7 +233,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'geocitiesTheme',
-      description: 'Travel back in time to the golden era of web design.',
+      description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
