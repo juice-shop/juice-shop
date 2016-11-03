@@ -13,12 +13,16 @@ out/
 
 # NPM
 node_modules/
+npm-debug.log.*
 
 # Bower
 app/bower_components/
 
 # App
 dist/
+app/
+build/
+data/
 order_*.pdf
 
 # reveal.js
@@ -26,7 +30,6 @@ order_*.pdf
 .svn
 log/*.log
 tmp/**
-node_modules/
 .sass-cache
 css/reveal.min.css
 js/reveal.min.js
