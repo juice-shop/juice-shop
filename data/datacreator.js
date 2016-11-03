@@ -249,7 +249,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadSize',
-      description: 'Upload a file larger than 100 KB.',
+      description: 'Upload a file larger than 100 kB.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
