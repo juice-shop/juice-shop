@@ -34,7 +34,7 @@ module.exports = function (sequelize, DataTypes) {
 
 function htmlSanitizationHook (feedback) {
   feedback.comment = insecurity.sanitizeHtml(feedback.comment)
-  if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS3")</script>')) {
+  if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(feedback.comment, '<script>alert("XSS4")</script>')) {
     utils.solve(challenges.persistedXssChallengeFeedback)
   }
 }

@@ -8,8 +8,9 @@ branches:
   - l10n_develop
 environment:
   matrix:
-    - nodejs_version: 6 # recommended version
     - nodejs_version: 4
+    - nodejs_version: 6 # recommended version
+    - nodejs_version: 7
 platform:
   - x64
 install:
@@ -33,6 +34,8 @@ deploy:
     on:
       appveyor_repo_tag: true
 notifications:
+## Disabled Gitter.im Webhook. Encrypted URLs currently not supported on AppVeyor.
+## (see http://help.appveyor.com/discussions/problems/5225-encrypting-webhook-urls)
 #  - provider: Webhook
 #    url:
 #      secure: c4xwvfA2YpTyASkpasFt2vA6q4pCxCMoWhfX9/JwBxp6rub4dphj6smGxy+5rnsHcvVU6/FvzVHQo4hoxL5gOA==

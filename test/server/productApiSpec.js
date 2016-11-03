@@ -63,23 +63,23 @@ frisby.create('POST new product is forbidden via public API')
 
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
   .put(API_URL + '/Products/8', {
-    description: '<a href="http://kimminich.de" target="_blank">'
+    description: '<a href="http://kimminich.de" target="_blank">More...</a>'
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', {
-    description: '<a href="http://kimminich.de" target="_blank">'
+    description: '<a href="http://kimminich.de" target="_blank">More...</a>'
   })
   .toss()
 
 frisby.create('PUT update existing product does not filter XSS attacks')
   .put(API_URL + '/Products/7', {
-    description: "<script>alert('XSS4')</script>"
+    description: "<script>alert('XSS3')</script>"
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', {
-    description: "<script>alert('XSS4')</script>"
+    description: "<script>alert('XSS3')</script>"
   })
   .toss()
 
@@ -146,13 +146,13 @@ frisby.create('POST new product does not filter XSS attacks')
   .addHeaders(authHeader)
   .post(API_URL + '/Products', {
     name: 'XSS Juice (42ml)',
-    description: '<script>alert("XSS4")</script>',
+    description: '<script>alert("XSS3")</script>',
     price: 9999.99,
-    image: 'xss_juice.jpg'
+    image: 'xss3juice.jpg'
   }, { json: true })
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', {
-    description: '<script>alert("XSS4")</script>'
+    description: '<script>alert("XSS3")</script>'
   }).toss()
 
 frisby.create('GET product search fails with error message that exposes ins SQL Injection vulnerability')

@@ -184,6 +184,18 @@ frisby.create('POST login with admin credentials')
   })
   .toss()
 
+frisby.create('POST login as bjoern.kimminich@googlemail.com with known password')
+  .post(REST_URL + '/user/login', {
+    email: 'bjoern.kimminich@googlemail.com',
+    password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+  }, { json: true })
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSONTypes({
+    token: String
+  })
+  .toss()
+
 frisby.create('POST login with WHERE-clause disabling SQL injection attack')
   .post(REST_URL + '/user/login', {
     email: '\' or 1=1--',
@@ -315,4 +327,18 @@ frisby.create('GET who-am-i request returns nothing on broken auth token')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSONTypes({})
+  .toss()
+
+frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@juice-sh.op')
+  .post(REST_URL + '/user/login', {
+    email: 'admin@juice-sh.op',
+    password: 'admin123',
+    oauth: true
+  }, { json: true })
+  .addHeaders({ 'X-User-Email': 'ciso@juice-sh.op' })
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSON({
+    umail: 'ciso@juice-sh.op'
+  })
   .toss()

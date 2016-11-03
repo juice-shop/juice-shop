@@ -7,16 +7,20 @@ angular.module('juiceShop', [
   'ui.bootstrap',
   'pascalprecht.translate',
   'btford.socket-io',
-  'ngclipboard'
+  'ngclipboard',
+  'base64'
 ])
 
-angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', function ($rootScope, $q, $cookieStore) {
+angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookies', function ($rootScope, $q, $cookies) {
   'use strict'
   return {
     request: function (config) {
       config.headers = config.headers || {}
-      if ($cookieStore.get('token')) {
-        config.headers.Authorization = 'Bearer ' + $cookieStore.get('token')
+      if ($cookies.get('token')) {
+        config.headers.Authorization = 'Bearer ' + $cookies.get('token')
+      }
+      if ($cookies.get('email')) {
+        config.headers['X-User-Email'] = $cookies.get('email')
       }
       return config
     },
@@ -35,10 +39,10 @@ angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor')
 }])
 
-angular.module('juiceShop').run(['$cookieStore', '$rootScope', function ($cookieStore, $rootScope) {
+angular.module('juiceShop').run(['$cookies', '$rootScope', function ($cookies, $rootScope) {
   'use strict'
   $rootScope.isLoggedIn = function () {
-    return $cookieStore.get('token')
+    return $cookies.get('token')
   }
 }])
 

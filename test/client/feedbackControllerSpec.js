@@ -58,12 +58,12 @@ describe('controllers', function () {
     }))
 
     it('should consider feedback comment as trusted HTML', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>alert("XSS3")</script>'}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>alert("XSS4")</script>'}]})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
 
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS4")</script>')
     }))
 
     it('should hold nothing when no feedback exists', inject(function () {

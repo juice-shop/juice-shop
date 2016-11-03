@@ -50,8 +50,8 @@ exports.databaseRelatedChallenges = function () {
   return function (req, res, next) {
     if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
       products.osaft.reload().success(function () {
-        if (!utils.contains(products.osaft.description, '<a href="https://www.owasp.org/index.php/O-Saft" target="_blank">')) {
-          if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">')) {
+        if (!utils.contains(products.osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
+          if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
             utils.solve(challenges.changeProductChallenge)
           }
         }

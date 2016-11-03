@@ -1,12 +1,13 @@
 'use strict'
 
 describe('/#/login', function () {
-  var email, password, loginButton
+  var email, password, rememberMeCheckbox, loginButton
 
   beforeEach(function () {
     browser.get('/#/login')
     email = element(by.model('user.email'))
     password = element(by.model('user.password'))
+    rememberMeCheckbox = element(by.model('rememberMe'))
     loginButton = element(by.id('loginButton'))
   })
 
@@ -64,5 +65,34 @@ describe('/#/login', function () {
     })
 
     protractor.expect.challengeSolved({challenge: 'adminCredentials'})
+  })
+
+  describe('challenge "oauthUserPassword"', function () {
+    it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', function () {
+      email.sendKeys('bjoern.kimminich@googlemail.com')
+      password.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      loginButton.click()
+
+      expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+    })
+
+    protractor.expect.challengeSolved({challenge: 'oauthUserPassword'})
+  })
+
+  describe('challenge "loginCiso"', function () {
+    it('should be able to log in as ciso@juice-sh.op by using "Remember me" in combination with (fake) OAuth login with another user', function () {
+      email.sendKeys('ciso@juice-sh.op')
+      password.sendKeys('wrong')
+      rememberMeCheckbox.click()
+      loginButton.click()
+
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/rest/user/login\', {email: \'admin@juice-sh.op\', password: \'admin123\', oauth: true});')
+
+      // Unselect to clear email field for subsequent tests
+      rememberMeCheckbox.click()
+      loginButton.click()
+    })
+
+    protractor.expect.challengeSolved({challenge: 'loginCiso'})
   })
 })

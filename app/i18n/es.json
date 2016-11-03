@@ -10,6 +10,8 @@
   "LABEL_EMAIL":"Dirección de correo",
   "LABEL_PASSWORD":"Contraseña",
   "BTN_LOGIN":"Iniciar sesión",
+  "BTN_GOOGLE_LOGIN":"Iniciar sesión con Google",
+  "REMEMBER_ME":"Recordarme",
   "NO_CUSTOMER":"Todavía no es cliente?",
   "LINK_REGISTER":"Regístrese ahora!",
   "TITLE_REGISTRATION":"Registro",
@@ -86,5 +88,7 @@
   "CONTINUE_PREVIOUS_SESSION":"Introduzca el código de seguimiento aquí para recuperar el progreso del desafío anterior.",
   "BTN_RESTORE_PROGRESS":"Recuperar Progreso",
   "CURRENT_CONTINUE_CODE":"Su código de seguimiento actual: {{code}}",
-  "INVALID_CONTINUE_CODE":"Código de seguimiento no válido."
+  "INVALID_CONTINUE_CODE":"Código de seguimiento no válido.",
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
+  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}"
 }

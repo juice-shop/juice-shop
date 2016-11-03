@@ -10,7 +10,7 @@
                 <th translate="LABEL_DIFFICULTY"></th>
                 <th translate="LABEL_STATUS"></th>
             </tr>
-            <tr data-ng-repeat="challenge in challenges">
+            <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
                 <td><div ng-bind-html="challenge.description"></div></td>
                 <td align="center">
                   <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>
