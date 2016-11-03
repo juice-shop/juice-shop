@@ -42,11 +42,9 @@ angular.module('juiceShop').controller('LoginController', [
     var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
 
     var authorizedRedirectURIs = {
-      'http://localhost:3000': 'http://localhost:3000',
       'https://juice-shop.herokuapp.com': 'https://juice-shop.herokuapp.com',
-      'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
       'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
-      'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
+      'http://localhost:3000': 'http://localhost:3000',
       'http://juice.sh': 'http://juice.sh',
       'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost'
     }
