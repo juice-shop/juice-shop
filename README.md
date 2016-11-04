@@ -18,7 +18,7 @@ Apart from the hacker and awareness training use case, pentesting proxies or sec
 
 ## Main Selling Points
 
-- Easy-to-install: Choose between [node.js](http://nodejs.org)\*, [Docker](https://www.docker.com) and [Vagrant](https://www.vagrantup.com/downloads.html) to run on Windows/Mac/Linux
+- Easy-to-install: Choose between [node.js](#nodejs-version-compatibility), [Docker](https://www.docker.com) and [Vagrant](https://www.vagrantup.com/downloads.html) to run on Windows/Mac/Linux
 - Self-contained: Additional dependencies are pre-packaged or will be resolved and downloaded automatically
 - Self-healing: The simple SQLite database is wiped and regenerated from scratch on every server startup
 - Gamification: On a Score Board the application keeps track of successfully exploited vulnerabilities
@@ -46,7 +46,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org)\*
+1. Install [node.js](#nodejs-version-compatibility)
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run `npm install` (only has to be done before first start or when you change the source code)
 4. Run `npm start`
@@ -67,7 +67,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install a [64bit node.js](https://nodejs.org/en/download)\* on your Windows (or Linux) machine
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows (or Linux) machine
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or `.tgz`) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run `npm start` in unpacked folder
 4. Browse to <http://localhost:3000>
@@ -96,10 +96,11 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run ```cd vagrant && vagrant up```
-3. Browse to <http://juice.sh>
+2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
+3. Run `cd vagrant && vagrant up`
+4. Browse to <http://juice.sh>
 
-## \*Node.js version compatibility
+## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org) and offers Docker images and packaged distributions accordingly:
 
@@ -130,18 +131,22 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ## Project Media & Marketing
 
+> :bulb: indicates resources that contain _hints for solving challenges_ of the OWASP Juice Shop. These are supposed to be helpful whenever you get stuck.  
+> :trollface: indicates resources that _spoiler entire challenge solutions_ so you might not want to view them before tackling these challenges yourself!
+
 ### Slide Decks
 
+* [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details) official (early access) companion guide eBook\* (:bulb: _in part II,_ :trollface: _in appendix_)
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in HTML5
 * [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min project introduction runthrough
   * [What's new in OWASP Juice Shop](http://juice-shop-lightning-talk.kimminich.de/index2016.html) for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare
 
+\* available as HTML, PDF, Kindle and ePub
+
 ### Web Links
 
 > Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Send a Pull Request so we can add it to the list! The same goes for conference or meetup talks, workshops or trainings you did where you included this project!
-
-> :trollface: _indicates links that contain spoilers or solutions to at least one vulnerability challenge of the OWASP Juice Shop!_
 
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #229: [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/) ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
@@ -149,6 +154,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
   * Episode #231: [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/) ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
   * Episode #232: [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/) ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
   * Episode #233: [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/) ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :trollface:
+  * Episode #234: [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/) ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
 * German guest post on [Informatik Aktuell](http://www.informatik-aktuell.de/): [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/): [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de): [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
