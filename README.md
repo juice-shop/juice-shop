@@ -18,7 +18,7 @@ Apart from the hacker and awareness training use case, pentesting proxies or sec
 
 ## Main Selling Points
 
-- Easy-to-install: Choose between [node.js](http://nodejs.org)\*, [Docker](https://www.docker.com) and [Vagrant](https://www.vagrantup.com/downloads.html) to run on Windows/Mac/Linux
+- Easy-to-install: Choose between [node.js](#nodejs-version-compatibility), [Docker](https://www.docker.com) and [Vagrant](https://www.vagrantup.com/downloads.html) to run on Windows/Mac/Linux
 - Self-contained: Additional dependencies are pre-packaged or will be resolved and downloaded automatically
 - Self-healing: The simple SQLite database is wiped and regenerated from scratch on every server startup
 - Gamification: On a Score Board the application keeps track of successfully exploited vulnerabilities
@@ -46,7 +46,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### From Sources
 
-1. Install [node.js](http://nodejs.org)<sup>[*](#nodeVersionsFootnote)</sup>
+1. Install [node.js](#nodejs-version-compatibility)
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or clone [your own fork](https://github.com/bkimminich/juice-shop/fork) of the repository)
 3. Run `npm install` (only has to be done before first start or when you change the source code)
 4. Run `npm start`
@@ -67,7 +67,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop: <https://jui
 
 ### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
-1. Install a [64bit node.js](https://nodejs.org/en/download)<sup>[*](#nodeVersionsFootnote)</sup> on your Windows (or Linux) machine
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows (or Linux) machine
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or `.tgz`) attached to [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
 3. Unpack and run `npm start` in unpacked folder
 4. Browse to <http://localhost:3000>
@@ -100,7 +100,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 3. Run `cd vagrant && vagrant up`
 4. Browse to <http://juice.sh>
 
-## <a name="nodeVersionsFootnote">*</a>Node.js version compatibility
+## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of [node.js](http://nodejs.org) and offers Docker images and packaged distributions accordingly:
 
@@ -134,16 +134,15 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 > :bulb: indicates resources that contain _hints for solving challenges_ of the OWASP Juice Shop. These are supposed to be helpful whenever you get stuck.  
 > :trollface: indicates resources that _spoiler entire challenge solutions_ so you might not want to view them before tackling these challenges yourself!
 
-
 ### Slide Decks
 
-* [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details) official (early access) companion guide eBook<sup>[**](#gitbookFootnote)</sup> (:bulb: _in part II,_ :trollface: _in appendix_)
+* [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details) official (early access) companion guide eBook\* (:bulb: _in part II,_ :trollface: _in appendix_)
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in HTML5
 * [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min project introduction runthrough
   * [What's new in OWASP Juice Shop](http://juice-shop-lightning-talk.kimminich.de/index2016.html) for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare
 
-<a name="gitbookFootnote">**</a>: available as HTML, PDF, Kindle and ePub
+\* available as HTML, PDF, Kindle and ePub
 
 ### Web Links
 
