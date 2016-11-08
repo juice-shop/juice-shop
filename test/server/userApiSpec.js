@@ -53,13 +53,13 @@ frisby.create('POST new user')
           .expectStatus(401)
           .expectBodyContains('Current password is not correct')
           .toss()
-        frisby.create('GET password change with correct current password and recognized token as cookie')
+        frisby.create('GET password change with recognized token as cookie')
           .get(REST_URL + '/user/change-password?current=hooooorst&new=foo&repeat=foo')
           .addHeaders({ 'Cookie': 'token=' + auth.token })
           .expectStatus(200)
           .afterJSON(function () {
-            frisby.create('GET password change without current password and recognized token as cookie in double-quotes')
-              .get(REST_URL + '/user/change-password?new=bar&repeat=bar')
+            frisby.create('GET password change with recognized token as cookie in double-quotes')
+              .get(REST_URL + '/user/change-password?current=hooooorst&new=bar&repeat=bar')
               .addHeaders({ 'Cookie': 'token=%22' + auth.token + '%22' })
               .expectStatus(200)
               .toss()
@@ -107,12 +107,12 @@ frisby.create('POST new user')
       .get(API_URL + '/Users/' + user.data.id)
       .expectStatus(200)
       .after(function () {
-        frisby.create('PUT update existing user')
+        frisby.create('PUT update existing user is forbidden via API even when authenticated')
           .addHeaders(authHeader)
           .put(API_URL + '/Users/' + user.data.id, {
             email: 'horst.horstmann@horstma.nn'
           })
-          .expectStatus(200)
+          .expectStatus(401)
           .after(function () {
             frisby.create('DELETE existing user is forbidden via API even when authenticated')
               .addHeaders(authHeader)
@@ -145,16 +145,19 @@ frisby.create('DELETE existing user is forbidden via public API')
   .expectStatus(401)
   .toss()
 
-frisby.create('PUT update Benders password to "slurmCl4ssic"')
-  .put(API_URL + '/Users/3', {
-    password: 'slurmCl4ssic'
+frisby.create('POST login user Bender')
+  .post(REST_URL + '/user/login', {
+    email: 'bender@juice-sh.op',
+    password: 'OhG0dPlease1nsertLiquor!'
   }, { json: true })
-  .addHeaders(authHeader)
   .expectStatus(200)
-  .expectJSON('data', {
-    password: insecurity.hash('slurmCl4ssic')
-  })
-  .toss()
+  .afterJSON(function (auth) {
+    frisby.create('GET password change without current password using CSRF')
+      .get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic')
+      .addHeaders({ 'Cookie': 'token=' + auth.token })
+      .expectStatus(200)
+      .toss()
+  }).toss()
 
 frisby.create('POST login non-existing user')
   .post(REST_URL + '/user/login', {
