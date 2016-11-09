@@ -1,7 +1,7 @@
 'use strict'
 
 var Hashids = require('hashids')
-var hashids = new Hashids('OWASP Juice Shop', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+var hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 var challenges = require('../data/datacache').challenges
 var utils = require('../lib/utils')
 

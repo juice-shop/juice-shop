@@ -62,13 +62,13 @@ frisby.create('PUT invalid continue code is rejected')
   .expectStatus(404)
   .toss()
 
-frisby.create('PUT continue code for more than one challenge is accepted')
-  .put('http://localhost:3000/rest/continue-code/apply/vWN5DjeLXBAlK40O7r6Ev9xJkG2lmteHqdoPnWQ835g1bzZqRmMyYpNaD97E')
+frisby.create('PUT continue code for more than one challenge is accepted') // using [1, 2] here
+  .put('http://localhost:3000/rest/continue-code/apply/yXjv6Z5jWJnzD6a3YvmwPRXK7roAyzHDde2Og19yEN84plqxkMBbLVQrDeoY')
   .expectStatus(200)
   .toss()
 
 frisby.create('PUT continue code for non-existent challenge #99 is accepted')
-  .put('http://localhost:3000/rest/continue-code/apply/KaWpRZrn3Djm9PK54pJGWv8OaekoVMWq2BzAZbMNq0Lxy1YlXQR76gEDMoJn')
+  .put('http://localhost:3000/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
   .expectStatus(200)
   .toss()
 
