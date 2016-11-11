@@ -97,7 +97,7 @@ frisby.create('POST new basket item with negative quantity')
   .addHeaders(authHeader)
   .post(API_URL + '/BasketItems', {
     BasketId: 3,
-    ProductId: 1,
+    ProductId: 9,
     quantity: -100
   }, { json: true })
   .expectStatus(200)

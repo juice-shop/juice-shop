@@ -5,7 +5,6 @@ var insecurity = require('../lib/insecurity')
 var models = require('../models/index')
 var cache = require('../data/datacache')
 var challenges = cache.challenges
-var users = cache.users
 var products = cache.products
 
 exports.forgedFeedbackChallenge = function () {
@@ -54,13 +53,6 @@ exports.databaseRelatedChallenges = function () {
           if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
             utils.solve(challenges.changeProductChallenge)
           }
-        }
-      })
-    }
-    if (utils.notSolved(challenges.csrfChallenge) && users.bender) {
-      users.bender.reload().success(function () {
-        if (users.bender.password === insecurity.hash('slurmCl4ssic')) {
-          utils.solve(challenges.csrfChallenge)
         }
       })
     }

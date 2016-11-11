@@ -177,8 +177,8 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'csrf',
-      description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.',
-      difficulty: 2,
+      description: 'Change Bender\'s password into <i>slurmCl4ssic</i> without using SQL Injection.',
+      difficulty: 4,
       solved: false
     }).success(function (challenge) {
       challenges.csrfChallenge = challenge
@@ -316,7 +316,7 @@ module.exports = function () {
     })
     models.User.create({
       email: 'bender@juice-sh.op',
-      password: 'booze'
+      password: 'OhG0dPlease1nsertLiquor!'
     }).success(function (user) {
       users.bender = user
     })

@@ -218,7 +218,7 @@ frisby.create('GET product search can create UNION SELECT with Users table and r
   .expectJSON('data.?', {
     name: 3,
     description: 'bender@juice-sh.op',
-    price: insecurity.hash('booze')
+    price: insecurity.hash('OhG0dPlease1nsertLiquor!')
   })
   .toss()
 
