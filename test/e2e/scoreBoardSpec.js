@@ -14,7 +14,7 @@ describe('/#/score-board', function () {
     it('should be possible to solve the non-existent challenge #99', function () {
       browser.get('/#/score-board')
       element(by.id('collapseContinueButton')).click()
-      element(by.model('continueCode')).sendKeys('KaWpRZrn3Djm9PK54pJGWv8OaekoVMWq2BzAZbMNq0Lxy1YlXQR76gEDMoJn')
+      element(by.model('continueCode')).sendKeys('69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
       element(by.id('restoreProgressButton')).click()
     })
 
