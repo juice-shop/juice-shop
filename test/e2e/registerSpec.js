@@ -18,11 +18,6 @@ describe('/#/register', function () {
       browser.switchTo().alert().then(function (alert) {
         expect(alert.getText()).toEqual('XSS2')
         alert.accept()
-
-        browser.ignoreSynchronization = true
-        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Users/6\', {email: \'alert disabled\'});')
-        browser.driver.sleep(1000)
-        browser.ignoreSynchronization = false
       })
     })
 

@@ -57,7 +57,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss1',
-      description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with &lt;script&gt;alert("XSS1")&lt;/script&gt;.',
+      description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
       difficulty: 1,
       solved: false
     }).success(function (challenge) {
@@ -65,7 +65,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss2',
-      description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS2")&lt;/script&gt; bypassing a <i>client-side</i> security mechanism.',
+      description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
@@ -73,7 +73,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss4',
-      description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS4")&lt;/script&gt; bypassing a <i>server-side</i> security mechanism.',
+      description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
       difficulty: 4,
       solved: false
     }).success(function (challenge) {
@@ -81,7 +81,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss3',
-      description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with &lt;script&gt;alert("XSS3")&lt;/script&gt; without using the frontend application at all.',
+      description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
@@ -177,8 +177,8 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'csrf',
-      description: 'Change Bender\'s password into <i>slurmCl4ssic</i>.',
-      difficulty: 2,
+      description: 'Change Bender\'s password into <i>slurmCl4ssic</i> without using SQL Injection.',
+      difficulty: 4,
       solved: false
     }).success(function (challenge) {
       challenges.csrfChallenge = challenge
@@ -233,7 +233,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'geocitiesTheme',
-      description: 'Travel back in time to the golden era of web design.',
+      description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
@@ -249,7 +249,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadSize',
-      description: 'Upload a file larger than 100 KB.',
+      description: 'Upload a file larger than 100 kB.',
       difficulty: 3,
       solved: false
     }).success(function (challenge) {
@@ -316,7 +316,7 @@ module.exports = function () {
     })
     models.User.create({
       email: 'bender@juice-sh.op',
-      password: 'booze'
+      password: 'OhG0dPlease1nsertLiquor!'
     }).success(function (user) {
       users.bender = user
     })

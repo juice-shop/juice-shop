@@ -1,7 +1,10 @@
 'use strict'
 
+var utils = require('../lib/utils')
 var insecurity = require('../lib/insecurity')
 var models = require('../models/index')
+var cache = require('../data/datacache')
+var challenges = cache.challenges
 
 exports = module.exports = function changePassword () {
   return function (req, res, next) {
@@ -20,6 +23,11 @@ exports = module.exports = function changePassword () {
         } else {
           models.User.find(loggedInUser.data.id).success(function (user) {
             user.updateAttributes({ password: newPassword }).success(function (user) {
+              if (utils.notSolved(challenges.csrfChallenge) && user.id === 3) {
+                if (user.password === insecurity.hash('slurmCl4ssic')) {
+                  utils.solve(challenges.csrfChallenge)
+                }
+              }
               res.send(user)
             }).error(function (error) {
               next(error)

@@ -4,7 +4,7 @@ describe('/#/change-password', function () {
   var currentPassword, newPassword, newPasswordRepeat, changeButton
 
   describe('as bender', function () {
-    protractor.beforeEach.login({email: 'bender@juice-sh.op', password: 'booze'})
+    protractor.beforeEach.login({email: 'bender@juice-sh.op', password: 'OhG0dPlease1nsertLiquor!'})
 
     beforeEach(function () {
       browser.get('/#/change-password')
@@ -15,7 +15,7 @@ describe('/#/change-password', function () {
     })
 
     it('should be able to change password', function () {
-      currentPassword.sendKeys('booze')
+      currentPassword.sendKeys('OhG0dPlease1nsertLiquor!')
       newPassword.sendKeys('genderBender')
       newPasswordRepeat.sendKeys('genderBender')
       changeButton.click()
