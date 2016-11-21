@@ -102,7 +102,7 @@ describe('/#/contact', function () {
 
   describe('challenge "weirdCrypto"', function () {
     it('should be possible to post weird crypto algorithm/library as feedback', function () {
-      comment.sendKeys('The following libraries are bad for crypto: z85, base85 and rot13')
+      comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
       rating.click()
 
       submitButton.click()
