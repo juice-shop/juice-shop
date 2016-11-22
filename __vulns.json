@@ -264,7 +264,7 @@
     {
       "type": "trustbound",
       "flags": [
-        "/#/login"
+        "/#/login",
         "/rest/user/login",
         "X-User-Email",
         "oauth: true"
