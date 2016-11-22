@@ -138,8 +138,8 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 * [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details) official (early access) companion guide eBook\* (:bulb: _in part II,_ :trollface: _in appendix_)
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in HTML5
-* [Lightning Talk Slides](http://juice-shop-lightning-talk.kimminich.de) for a 10min project introduction runthrough
-  * [What's new in OWASP Juice Shop](http://juice-shop-lightning-talk.kimminich.de/index2016.html) for a 10min update on the newest features of 2016
+* [Lightning Talk Slides](http://bkimminich.github.io/juice-shop/god_2015.html) for a 10min project introduction runthrough
+  * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html) for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application) on Slideshare
 
 \* available as HTML, PDF, Kindle and ePub
@@ -179,7 +179,7 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ### Merchandise
 
-* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop)  and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop logo
+* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop logo
 * On [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers) you can get four variants of the OWASP Juice Shop logo to decorate your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button) is to somehow [contribute to the project](CONTRIBUTING.md) by fixing an issue, finding a serious bug or submitting a good idea for a new challenge! We're also happy to send some stickers your way if you organize a meetup or conference talk where you use or mention OWASP Juice Shop! Just contact the project leader to discuss your plans: bjoern.kimminich@owasp.org!
@@ -188,13 +188,11 @@ Feel free to [create an issue](https://github.com/bkimminich/juice-shop/issues) 
 
 ### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
 
-
 PayPal donations via above button go to the OWASP Foundations and are earmarked for "Juice Shop". This is the preferred way to support the project.
 
 ### Others
 
 [![Flattr](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub) [![Gratipay](http://img.shields.io/gratipay/team/juice-shop.svg)](https://gratipay.com/juice-shop) [![Bitcoin](https://img.shields.io/badge/bitcoin-1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN-orange.svg)](https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN)  
-
 
 ## Credits
 
