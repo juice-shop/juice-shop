@@ -10,8 +10,8 @@
   "LABEL_EMAIL":"E-post",
   "LABEL_PASSWORD":"Lösenord",
   "BTN_LOGIN":"Logga in",
-  "BTN_GOOGLE_LOGIN":"Log in with Google",
-  "REMEMBER_ME":"Remember me",
+  "BTN_GOOGLE_LOGIN":"Logga in med Google",
+  "REMEMBER_ME":"Förbli inloggad",
   "NO_CUSTOMER":"Ny kund?",
   "LINK_REGISTER":"Registrera dig nu!",
   "TITLE_REGISTRATION":"Användarregistrering",
@@ -89,6 +89,6 @@
   "BTN_RESTORE_PROGRESS":"Återställa framsteg",
   "CURRENT_CONTINUE_CODE":"Din nuvarande Fortsätt kod:",
   "INVALID_CONTINUE_CODE":"Felaktig fortsättningskod.",
-  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}"
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Du har blivit inloggad via leverantören för OAuth 2.0.",
+  "HOME_LINK_MESSAGE":"Om du inte blir automatiskt omdirigerad, var vänlig klicka här: {{home}}"
 }
