@@ -1,0 +1,289 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>OWASP Juice Shop - An intentionally insecure Javascript Web Application (Lightning Talk)</title>
+
+		<meta name="description" content="Lightning talk about an intentionally insecure webapp suitable for pentesting and security awareness trainings written in pure Javascript">
+		<meta name="author" content="Björn Kimminich">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="assets/Lightning.jpg">
+					<h1>OWASP Juice Shop</h1>
+					<p>
+						<strike>An intentionally insecure Javascript Web Application</strike><br>
+						The most trustworthy online shop out there <small>(<a href="https://twitter.com/dschadow/status/706781693504589824">@dschadow</a>)</small>
+					</p>
+					<img src="assets/JuiceShop_Logo.svg" width="200" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project">https://www.owasp.org/index.php/OWASP_Juice_Shop_Project</a>
+					</p>
+					<p>
+						<small>Presentation by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Why the name "Juice Shop"?!?</h2>
+					<blockquote>
+						Translating <a href="http://www.dict.cc/englisch-deutsch/dump.html">"dump"</a> or <a href="http://www.dict.cc/englisch-deutsch/useless+outfit.html">"useless outfit"</a> into German yields <a href="http://www.dict.cc/deutsch-englisch/Saftladen.html">"Saftladen"</a> which can be reverse-translated word by word into <a href="http://www.dict.cc/englisch-deutsch/juice.html">"juice</a>&nbsp;<a href="http://www.dict.cc/englisch-deutsch/shop.html">shop"</a>. Hence the project name.
+					</blockquote>
+					<blockquote>
+						That the initials "JS" match with those of "Javascript" was purely coincidental!
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Why another broken webapp?!?</h2>
+					<blockquote>
+						OWASP Juice Shop is the first application written entirely in Javascript listed in the <a href="https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project">OWASP VWA Directory</a>.
+						It also seems to be the first broken webapp that uses the currently popular architecture of an <a href="http://en.wikipedia.org/wiki/Single-page_application">SPA</a>/<a href="http://en.wikipedia.org/wiki/Rich_Internet_application">RIA</a> frontend with a <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> backend.
+					</blockquote>
+				</section>
+
+				<section>
+					<h2>Technology Stack</h2>
+					<p>
+						Javascript all the way from UI to REST API
+					</p>
+					<img src="assets/Architektur_JuiceShop.png"/>
+				</section>
+
+				<section>
+					<h2>Simple Installation</h2>
+					<p>
+						Comes with <a href="https://github.com/bkimminich/juice-shop#deploy-on-heroku-free-0month-dyno">cloud</a>, <a href="https://github.com/bkimminich/juice-shop/releases/latest">local</a> and <a href="https://registry.hub.docker.com/u/bkimminich/juice-shop/">containerized</a> run options
+					</p>
+					<br>
+					<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/nodejs_kze9of.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/aws_transparent.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/Vagrant.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</section>
+
+				<section data-background="assets/super_happy_land_by_iamhitomi.jpg">
+					<div style="background-color: rgba(13, 13, 13, 0.6); padding: 10px;">
+						<h2>Live Demo Environment</h2>
+						<img src="assets/11216830_956072011118478_1055609081760490912_n.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+						<p>
+							 Unsuspectingly <a href="https://juice-shop.herokuapp.com" target="_blank">browse the Juice Shop</a> like Average Joe!
+						</p>
+					</div>
+				</section>
+
+				<section>
+					<h2>Over 30 Challenges</h2>
+					<p>
+						Covering various vulnerabilities and serious design flaws
+					</p>
+					<img src="assets/vulnerabilities.png" height="300"/>
+					<p>
+						<small>OWASP Juice Shop covers all vulnerabilities from the latest <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top 10</a> and more.</small>
+					</p>
+				</section>
+
+					<section>
+						<h2>Challenge Difficulty</h2>
+						<p>
+							Contains low-hanging fruits &amp; hard-to-crack nuts
+						</p>
+						<img src="assets/wolfenstein_easy.jpg" height="250"/>
+						<img src="assets/wolfenstein_medium.jpg" height="250"/>
+						<img src="assets/wolfenstein_hard.jpg" height="250"/>
+					</section>
+
+				<section>
+					<h2>Score Board</h2>
+					<p>
+						Challenge progress is tracked on server-side
+					</p>
+					<img src="assets/score-board_partly.png" height="400"/>
+				</section>
+
+				<section>
+					<h2>Immediate Feedback</h2>
+					<p>
+						Solved challenges are announced as push notifications
+					</p>
+					<img src="assets/notification.png"/>
+				</section>
+
+				<section>
+					<h2>Sorry, this is a Lightning Talk</h2>
+					<p>
+						 I will <span style="background: rgb(103, 103, 103)">&nbsp;not live-hack&nbsp;</span><span style="background: rgb(154, 10, 20)">&nbsp;even a single challenge&nbsp;</span> for you!
+					</p>
+					<img src="assets/u3lWw.gif" width="300px"/>
+				</section>
+
+				<section>
+					<h2>E2E Hacking Testsuite Video</h2>
+					<p>
+						 I will instead show you a prerecorded execution of the testsuite <span style="background: rgb(103, 103, 103)">&nbsp;automatically hacking&nbsp;</span><span style="background: rgb(58, 143, 28)">&nbsp;all 27 challenges&nbsp;</span>!
+					</p>
+					<iframe width="512" height="288" src="https://www.youtube.com/embed/vdnmR9RVspg" frameborder="0" allowfullscreen></iframe>
+					<p>
+						<small>For details on the testsuite implementation and CI-integration check out my <a href="http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/">Guest Post: Proving that an application is as broken as intended</a> on  The SauceLabs Blog.</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Do you accept the challenge?</h2>
+						<p><span style="background: rgb(103, 103, 103)">&nbsp;Breakers&nbsp;</span><span style="background: rgb(187, 117, 122)">&nbsp;Try to hack all the challenges!&nbsp;</span></p>
+						<p><span style="background: rgb(103, 103, 103)">&nbsp;Defenders&nbsp;</span><span style="background: rgb(140, 151, 174)">&nbsp;Let loose all your fancy tools!&nbsp;</span></p>
+						<p><span style="background: rgb(103, 103, 103)">&nbsp;Builders&nbsp;</span><span style="background: rgb(93, 158, 94)">&nbsp;Learn from my silly mistakes!&nbsp;</span></p>
+					<p>
+						<small>Bonus challenge: <a href="https://github.com/bkimminich/juice-shop#contributions-">Contribute to OWASP Juice Shop</a> with a chance for <a href="https://www.stickermule.com/de/user/1070702817/Sticker">free stickers</a> and other swag!</small>
+					</p>
+				</section>
+
+				<section data-background="assets/Lightning.jpg">
+                    <img src="assets/JuiceShop_Logo.svg" width="300" style="background: none; border:none; box-shadow:none;"/>
+					<h3>Copyright (c) 2014-2016 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+					<p>
+						Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT">MIT license</a>.
+					</p>
+					<hr>
+					<p>
+						<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+		<script>
+			function timer(time,update,complete) {
+				var start = new Date().getTime();
+				var interval = setInterval(function() {
+					var now = time-(new Date().getTime()-start);
+					if( now <= 0) {
+						clearInterval(interval);
+						complete();
+					}
+					else update(Math.floor(now/1000));
+				},100);
+			}
+
+			timer(
+					600000, // 10min for typical lightning talk
+					function(timeleft) {
+						document.getElementById('timer').innerHTML = timeleft+"&#x2033;";
+					},
+					function() {
+						document.getElementById('timer').innerHTML = "Overtime!";
+					}
+			);
+		</script>
+
+		<div class="hidden-mobile">
+			<a style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
+
+			<span id="timer" class="reveal" style="position: absolute; top: 10px; left: 10px;"></span>
+
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+
+			<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
+				<table>
+					<tr>
+						<td>
+							<script id='fbxw3wp'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//button.flattr.com/view/?fid=0d02dk&button=compact&url=https%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop';f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbxw3wp');</script>
+						</td>
+						<td>
+							<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+						</td>
+						<td>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" data-text="@OWASP Juice Shop - An intentionally insecure Javascript Web Application" data-via="owasp_juiceshop" data-hashtags="owasp">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
