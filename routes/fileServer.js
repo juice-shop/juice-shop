@@ -10,6 +10,15 @@ exports = module.exports = function servePublicFiles () {
     var file = req.params.file
     var mdDebug = req.query.md_debug
 
+    if (!file.includes('/')) {
+      verify(file, res, next, mdDebug)
+    } else {
+      res.status(403)
+      next(new Error('File names cannot contain forward slashes!'))
+    }
+  }
+
+  function verify (file, res, next, mdDebug) {
     if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
       file = insecurity.cutOffPoisonNullByte(file)
       if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
