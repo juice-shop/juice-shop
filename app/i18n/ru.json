@@ -14,7 +14,7 @@
   "REMEMBER_ME":"Remember me",
   "NO_CUSTOMER":"Not yet a customer?",
   "LINK_REGISTER":"Register now!",
-  "TITLE_REGISTRATION":"User Registration",
+  "TITLE_REGISTRATION":"Регистрация пользователя",
   "INVALID_EMAIL":"Email address is not valid.",
   "MANDATORY_PASSWORD_REPEAT":"Please repeat your password.",
   "INVALID_PASSWORD_LENGTH":"Password must be {{length}} characters long.",
