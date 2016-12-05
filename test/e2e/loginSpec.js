@@ -67,6 +67,18 @@ describe('/#/login', function () {
     protractor.expect.challengeSolved({challenge: 'adminCredentials'})
   })
 
+  describe('challenge "loginSupport"', function () {
+    it('should be able to log in with original support-team credentials', function () {
+      email.sendKeys('support@juice-sh.op')
+      password.sendKeys('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+      loginButton.click()
+
+      expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+    })
+
+    protractor.expect.challengeSolved({challenge: 'loginSupport'})
+  })
+
   describe('challenge "oauthUserPassword"', function () {
     it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', function () {
       email.sendKeys('bjoern.kimminich@googlemail.com')
