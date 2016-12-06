@@ -350,6 +350,20 @@ Inspired by the "classic"
 [BodgeIt Store](https://github.com/psiinon/bodgeit) by
 [@psiinon](https://github.com/psiinon).
 
+### Contributors
+Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Tue, 06 Dec 2016 07:45:36 GMT.
+
+- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
+- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
+- [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
+- [wurstbrot](https://github.com/wurstbrot)
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
+- [Johanna A](https://github.com/yuhama) aka `yuhama`
+- [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
+
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
 This program is free software: you can redistribute it and/or modify it
