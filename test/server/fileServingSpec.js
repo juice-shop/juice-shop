@@ -128,6 +128,12 @@ frisby.create('GET a restricted file directly from file system path on server vi
   .expectBodyContains('<h1 class="hidden">OWASP Juice Shop</h1>')
   .toss()
 
+frisby.create('GET a file whose name contains a "/" fails with a 403 error')
+  .get(URL + '/ftp/%2fetc%2fos-release%2500.md')
+  .expectStatus(403)
+  .expectBodyContains('Error: File names cannot contain forward slashes!')
+  .toss()
+
 frisby.create('GET an accessible file directly from file system path on server')
   .get(URL + '/ftp/legal.md')
   .expectStatus(200)

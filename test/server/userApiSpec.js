@@ -187,6 +187,18 @@ frisby.create('POST login with admin credentials')
   })
   .toss()
 
+frisby.create('POST login with support-team credentials')
+  .post(REST_URL + '/user/login', {
+    email: 'support@juice-sh.op',
+    password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
+  }, { json: true })
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSONTypes({
+    token: String
+  })
+  .toss()
+
 frisby.create('POST login as bjoern.kimminich@googlemail.com with known password')
   .post(REST_URL + '/user/login', {
     email: 'bjoern.kimminich@googlemail.com',

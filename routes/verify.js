@@ -72,7 +72,7 @@ exports.databaseRelatedChallenges = function () {
       })
     }
     if (utils.notSolved(challenges.weirdCryptoChallenge)) {
-      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%rot13%\'' ]) }
+      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%hashids%\'' ], [ 'comment LIKE \'%md5%\'' ], [ 'comment LIKE \'%base64%\'' ]) }
       ).success(function (data) {
         if (data.count > 0) {
           utils.solve(challenges.weirdCryptoChallenge)

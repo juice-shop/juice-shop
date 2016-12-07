@@ -303,6 +303,14 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.loginCisoChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'loginSupport',
+      description: 'Log in with the support team\'s original user credentials without applying SQL Injection or any other bypass.',
+      difficulty: 5,
+      solved: false
+    }).success(function (challenge) {
+      challenges.loginSupportChallenge = challenge
+    })
   }
 
   function createUsers () {
@@ -331,6 +339,12 @@ module.exports = function () {
       password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
     }).success(function (user) {
       users.ciso = user
+    })
+    models.User.create({
+      email: 'support@juice-sh.op',
+      password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
+    }).success(function (user) {
+      users.support = user
     })
   }
 

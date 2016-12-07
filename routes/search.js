@@ -14,13 +14,11 @@ exports = module.exports = function searchProducts () {
       .success(function (products) {
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
           var dataString = JSON.stringify(products)
-          console.log(dataString)
           var solved = true
           models.User.findAll().success(function (data) {
             var users = utils.queryResultToJson(data)
             if (users.data && users.data.length) {
               for (var i = 0; i < users.data.length; i++) {
-                console.log(users.data[i])
                 solved = solved && utils.containsOrEscaped(dataString, users.data[ i ].email) && utils.contains(dataString, users.data[ i ].password)
                 if (!solved) {
                   break

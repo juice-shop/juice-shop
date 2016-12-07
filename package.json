@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "2.18.0",
+  "version": "2.19.0",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -23,11 +23,11 @@
   ],
   "dependencies": {
     "body-parser": "~1.15",
-    "bower": "~1.7",
+    "bower": "~1.8",
     "colors": "~1.1",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
-    "errorhandler": "~1.4",
+    "errorhandler": "~1.5",
     "express": "~4.14",
     "express-jwt": "~5.1",
     "glob": "~5.0",
@@ -40,7 +40,7 @@
     "grunt-contrib-uglify": "~2.0",
     "grunt-text-replace": "^0.4.0",
     "hashids": "~1.1",
-    "helmet": "~3.0",
+    "helmet": "~3.1",
     "jsonwebtoken": "~7.1",
     "morgan": "~1.7",
     "multer": "~1.2",
@@ -72,7 +72,6 @@
     "karma-junit-reporter": "~1.1",
     "karma-phantomjs-launcher": "~1.0",
     "karma-safari-launcher": "~1.0",
-    "karma-sauce-launcher": "~1.0",
     "lcov-result-merger": "~1.2",
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~4.0",
@@ -80,10 +79,11 @@
     "shelljs": "~0.7",
     "socket.io-client": "~1.5",
     "standard": "~8.5",
-    "stryker": "~0.4",
-    "stryker-api": "~0.2",
-    "stryker-html-reporter": "~0.2",
-    "stryker-karma-runner": "~0.2"
+    "stryker": "~0.5",
+    "stryker-api": "~0.4",
+    "stryker-html-reporter": "~0.3",
+    "stryker-jasmine": "~0.1",
+    "stryker-karma-runner": "~0.3"
   },
   "peerDependencies": {
     "phantomjs-prebuilt": "~2.1"
@@ -104,7 +104,7 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
-    "stryker": "stryker -c stryker.conf.js"
+    "stryker": "stryker run stryker.conf.js"
   },
   "subdomain": "juice-shop",
   "engines": {

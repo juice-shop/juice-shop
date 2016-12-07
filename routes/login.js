@@ -28,6 +28,9 @@ exports = module.exports = function login () {
     if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
       utils.solve(challenges.weakPasswordChallenge)
     }
+    if (utils.notSolved(challenges.loginSupportChallenge) && req.body.email === 'support@juice-sh.op' && req.body.password === 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P') {
+      utils.solve(challenges.loginSupportChallenge)
+    }
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
