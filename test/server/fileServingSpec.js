@@ -59,6 +59,11 @@ frisby.create('GET the confidential file in /ftp')
   .expectBodyContains('# Planned Acquisitions')
   .toss()
 
+frisby.create('GET the KeePass database /ftp')
+  .get(URL + '/ftp/incident-support.kdbx')
+  .expectStatus(200)
+  .toss()
+
 frisby.create('GET the easter egg file by using an encoded Poison Null Byte attack with .pdf suffix')
   .get(URL + '/ftp/eastere.gg%2500.pdf')
   .expectStatus(200)
