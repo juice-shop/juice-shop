@@ -19,7 +19,7 @@ exports = module.exports = function servePublicFiles () {
   }
 
   function verify (file, res, next, mdDebug) {
-    if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf')))) {
+    if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf') || (file === 'incident-support.kdbx')))) {
       file = insecurity.cutOffPoisonNullByte(file)
       if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
         utils.solve(challenges.easterEggLevelOneChallenge)
