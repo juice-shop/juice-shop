@@ -40,7 +40,7 @@ function htmlSanitizationHook (feedback) {
 }
 
 function zeroFeedbackHook (feedback) {
-  if (utils.notSolved(challenges.zeroStarsChallenge) && feedback.rating === 0) {
+  if (utils.notSolved(challenges.zeroStarsChallenge) && (feedback.rating === 0 || feedback.rating === undefined)) {
     utils.solve(challenges.zeroStarsChallenge)
   }
 }

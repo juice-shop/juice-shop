@@ -113,3 +113,15 @@ frisby.create('POST feedback in a non-existing users name as anonymous user')
   .expectJSON('data', {
     UserId: 4711
   }).toss()
+
+frisby.create('POST feedback can be created without supplying data')
+  .post(API_URL + '/Feedbacks', {
+    comment: undefined
+  }, { json: true })
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSON('data', {
+    comment: undefined,
+    rating: undefined,
+    UserId: undefined
+  }).toss()

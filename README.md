@@ -159,8 +159,8 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)  |     |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:------------------------------------------------------------------------------------|:----|
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |     |
+|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:----|
 | 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` ||
 | __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` ||
 | 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` ||
@@ -244,6 +244,11 @@ Pull requests are also highly welcome - please refer to
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
+* Blog post on [IncognitJoe](https://incognitjoe.github.io/):
+  [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
+  :trollface:
+    * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
+      written in Python as mentioned in above blog post :trollface:
 * [7 Minute Security](https://7ms.us) Podcast:
     * Episode #229:
       [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
