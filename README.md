@@ -244,6 +244,11 @@ Pull requests are also highly welcome - please refer to
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
+* Blog post on [IncognitJoe](https://incognitjoe.github.io/):
+  [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
+  :trollface:
+    * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
+      written in Python as mentioned in above blog post :trollface:
 * [7 Minute Security](https://7ms.us) Podcast:
     * Episode #229:
       [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
