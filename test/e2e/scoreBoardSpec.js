@@ -12,9 +12,8 @@ describe('/#/score-board', function () {
 
   describe('challenge "continueCode"', function () {
     it('should be possible to solve the non-existent challenge #99', function () {
+      browser.executeScript('document.cookie="continueCode=69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj"')
       browser.get('/#/score-board')
-      element(by.id('collapseContinueButton')).click()
-      element(by.model('continueCode')).sendKeys('69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
       element(by.id('restoreProgressButton')).click()
     })
 
