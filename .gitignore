@@ -2,6 +2,7 @@
 *.out
 build/
 .stryker-tmp/
+vagrant/.vagrant/
 juiceshop.sqlite
 
 # Intellij
