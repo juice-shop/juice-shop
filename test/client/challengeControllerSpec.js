@@ -211,5 +211,33 @@ describe('controllers', function () {
         expect(scope.error).toBe('Translation of INVALID_CONTINUE_CODE')
       }))
     })
+
+    describe('saving progress', function () {
+      beforeEach(inject(function ($httpBackend) {
+        scope.form = {$setPristine: function () {}}
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [] })
+        $httpBackend.whenGET('/rest/continue-code').respond(200, {})
+      }))
+
+      it('should save current continue code', inject(function () {
+        cookies.remove('continueCode')
+        scope.currentContinueCode = 'CODE'
+        scope.saveProgress()
+        $httpBackend.flush()
+
+        expect(scope.savedContinueCode).toBe('CODE')
+        expect(cookies.get('continueCode')).toBe('CODE')
+      }))
+
+      it('should set cookie expiration date', inject(function () {
+        cookies.put = jasmine.createSpy('put')
+
+        scope.currentContinueCode = 'CODE'
+        scope.saveProgress()
+        $httpBackend.flush()
+
+        expect(cookies.put).toHaveBeenCalledWith('continueCode', 'CODE', { expires: jasmine.any(Date) })
+      }))
+    })
   })
 })
