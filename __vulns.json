@@ -181,27 +181,33 @@
       ]
     },
     {
-      "type": "redirect",
+      "type": "access",
       "flags": [
-        "/redirect?to=.*?.*=https://github.com/bkimminich/juice-shop"
+        "/ftp/incident-support\\.kdbx"
       ]
     },
     {
       "type": "redirect",
       "flags": [
-        "/redirect?to=.*?.*=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN"
+        "/redirect?to=.*?.*=https://github\\.com/bkimminich/juice-shop"
       ]
     },
     {
       "type": "redirect",
       "flags": [
-        "/redirect?to=.*?.*=https://gratipay.com/juice-shop"
+        "/redirect?to=.*?.*=https://blockchain\\.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN"
       ]
     },
     {
       "type": "redirect",
       "flags": [
-        "/redirect?to=.*?.*=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub"
+        "/redirect?to=.*?.*=https://gratipay\\.com/juice-shop"
+      ]
+    },
+    {
+      "type": "redirect",
+      "flags": [
+        "/redirect?to=.*?.*=http://flattr\\.com/thing/3856930/bkimminichjuice-shop-on-GitHub"
       ]
     },
     {
