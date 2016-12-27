@@ -26,6 +26,7 @@ var appVersion = require('./routes/appVersion')
 var continueCode = require('./routes/continueCode')
 var restoreProgress = require('./routes/restoreProgress')
 var fileServer = require('./routes/fileServer')
+var keyServer = require('./routes/keyServer')
 var authenticatedUsers = require('./routes/authenticatedUsers')
 var currentUser = require('./routes/currentUser')
 var login = require('./routes/login')
@@ -83,6 +84,10 @@ app.use('/i18n', verify.accessControlChallenges())
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
 app.use('/ftp/:file', fileServer())
+
+/* /encryptionkeys directory browsing */
+app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
+app.use('/encryptionkeys/:file', keyServer())
 
 app.use(express.static(applicationRoot + '/app'))
 app.use(morgan('dev'))
