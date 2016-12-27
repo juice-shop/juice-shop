@@ -313,7 +313,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'premiumPaywall',
-      description: 'wAWIK dQWKR oLvCU sOhEN zXb0y eMhU1 VpD2U mKiQj zikdS fy2QB 9Txik 6Tfci MYIGR fghwX 4pOCy pT3E4 LuLhP SQ4FS ICyfL sxREk LiL0T 212PO 82TfH 2IXoB zBjhF B92ER b9zfI TPhci L31OS PM4wB ncNfM oERoG zBojQ uUZyO 9gG0E 0IZkP zXgXw YU2OB 9ZQ3j lvSoJ zRZ8N 3j= <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-money fa-sm"></i> Unlock Premium Challenge</a>',
+      description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--wAWIK dQWKR oLvCU sOhEN zXb0y eMhU1 VpD2U mKiQj zikdS fy2QB 9Txik 6Tfci MYIGR fghwX 4pOCy pT3E4 LuLhP SQ4FS ICyfL sxREk LiL0T 212PO 82TfH 2IXoB zBjhF B92ER b9zfI TPhci L31OS PM4wB ncNfM oERoG zBojQ uUZyO 9gG0E 0IZkP zXgXw YU2OB 9ZQ3j lvSoJ zRZ8N 3j=--> <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-money fa-sm"></i> Unlock Premium Challenge</a>',
       difficulty: 5,
       solved: false
     }).success(function (challenge) {
