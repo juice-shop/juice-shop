@@ -9,6 +9,14 @@ describe('/', function () {
     protractor.expect.challengeSolved({challenge: 'easterEgg2'})
   })
 
+  describe('challenge "premiumPaywall"', function () {
+    it('should be able to access "super secret" url for premium content', function () {
+      browser.driver.get(browser.baseUrl + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
+    })
+
+    protractor.expect.challengeSolved({challenge: 'premiumPaywall'})
+  })
+
   describe('challenge "geocitiesTheme"', function () {
     it('should be possible to change the CSS theme to geo-bootstrap', function () {
       browser.ignoreSynchronization = true
