@@ -91,5 +91,6 @@
   "CURRENT_CONTINUE_CODE": "Your current continue code:",
   "INVALID_CONTINUE_CODE": "Invalid continue code.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE": "If you are not automatically redirected, please click here: {{home}}"
+  "HOME_LINK_MESSAGE": "If you are not automatically redirected, please click here: {{home}}",
+  "TITLE_BITCOIN_ADDRESS": "Bitcoin Address"
 }
