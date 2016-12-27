@@ -156,11 +156,17 @@ frisby.create('GET a non-existing file via direct server file path /ftp will ret
   .expectStatus(404)
   .toss()
 
-frisby.create('GET the second easter egg by visiting the hidden URL')
+frisby.create('GET the second easter egg by visiting the Base64>ROT13-decrypted URL')
   .get(URL + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'text/html')
   .expectBodyContains('<title>Welcome to Planet Orangeuze</title>')
+  .toss()
+
+frisby.create('GET the premium content by visiting the ROT5>Base64>z85>ROT5-decrypted URL')
+  .get(URL + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'image/gif')
   .toss()
 
 frisby.create('GET Geocities theme CSS is accessible directly from file system path')

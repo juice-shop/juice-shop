@@ -3,8 +3,9 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$sce',
   '$translate',
   '$cookies',
+  '$uibModal',
   'ChallengeService',
-  function ($scope, $sce, $translate, $cookies, challengeService) {
+  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService) {
     'use strict'
 
     $scope.saveProgress = function () {
@@ -52,6 +53,14 @@ angular.module('juiceShop').controller('ChallengeController', [
     }).error(function (data) {
       console.log(data)
     })
+
+    $scope.showQrCode = function () {
+      $uibModal.open({
+        templateUrl: 'views/BitcoinQrCode.html',
+        controller: 'BitcoinQrCodeController',
+        size: 'sm'
+      })
+    }
 
     challengeService.continueCode().success(function (data) {
       $scope.currentContinueCode = data.continueCode
