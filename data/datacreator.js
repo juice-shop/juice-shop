@@ -281,7 +281,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'continueCode',
-      description: 'Solve challenge #99. Unfortunately it does not exist.',
+      description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
       difficulty: 5,
       solved: false
     }).success(function (challenge) {
