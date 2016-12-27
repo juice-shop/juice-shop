@@ -91,5 +91,6 @@
   "CURRENT_CONTINUE_CODE":"Din nuvarande Fortsätt kod:",
   "INVALID_CONTINUE_CODE":"Felaktig fortsättningskod.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Du har blivit inloggad via leverantören för OAuth 2.0.",
-  "HOME_LINK_MESSAGE":"Om du inte blir automatiskt omdirigerad, var vänlig klicka här: {{home}}"
+  "HOME_LINK_MESSAGE":"Om du inte blir automatiskt omdirigerad, var vänlig klicka här: {{home}}",
+  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address"
 }
