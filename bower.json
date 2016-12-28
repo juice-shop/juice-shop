@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure Javascript Web Application",
-  "version": "2.19.2",
+  "version": "2.20.0",
   "private": true,
   "dependencies": {
     "angular": "~1.5",
@@ -25,7 +25,8 @@
     "ngclipboard": "~1.1",
     "string": "~3.3",
     "underscore": "~1.8",
-    "angular-base64": "~2.0"
+    "angular-base64": "~2.0",
+    "angular-qrcode": "~6.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.5",

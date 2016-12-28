@@ -6,7 +6,6 @@ node_js:
 branches:
   except:
   - gh-pages
-  - lightning-talk
   - l10n_develop
 addons:
   code_climate:

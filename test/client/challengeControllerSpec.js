@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, controller, $httpBackend, $sce
+  var scope, controller, cookies, $httpBackend, $sce
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
@@ -14,8 +14,9 @@ describe('controllers', function () {
   })
 
   describe('ChallengeController', function () {
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(inject(function ($rootScope, $cookies, $controller) {
       scope = $rootScope.$new()
+      cookies = $cookies
       controller = $controller('ChallengeController', {
         '$scope': scope
       })
@@ -167,22 +168,22 @@ describe('controllers', function () {
         $httpBackend.whenGET('/rest/continue-code').respond(200, {})
       }))
 
-      it('should clear and collapse form after successful restore', inject(function () {
+      it('should clear cookie after successful restore', inject(function () {
         $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
 
-        scope.continueCode = 'CODE'
+        scope.savedContinueCode = 'CODE'
         scope.restoreProgress()
         $httpBackend.flush()
 
-        expect(scope.continueCode).toBeUndefined()
-        expect(scope.continueCollapsed).toBe(true)
+        expect(scope.savedContinueCode).toBeUndefined()
+        expect(cookies.get('continueCode')).toBeUndefined()
       }))
 
       it('should log errors applying continue code directly to browser console', inject(function () {
         $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(500, 'error')
         console.log = jasmine.createSpy('log')
 
-        scope.continueCode = 'CODE'
+        scope.savedContinueCode = 'CODE'
         scope.restoreProgress()
         $httpBackend.flush()
 
@@ -192,7 +193,7 @@ describe('controllers', function () {
       it('should set error message after failed restore', inject(function () {
         $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(500)
 
-        scope.continueCode = 'CODE'
+        scope.savedContinueCode = 'CODE'
         scope.restoreProgress()
         $httpBackend.flush()
 
@@ -203,11 +204,39 @@ describe('controllers', function () {
         $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'INVALID_CONTINUE_CODE': 'Translation of INVALID_CONTINUE_CODE'})
         $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(500)
 
-        scope.continueCode = 'CODE'
+        scope.savedContinueCode = 'CODE'
         scope.restoreProgress()
         $httpBackend.flush()
 
         expect(scope.error).toBe('Translation of INVALID_CONTINUE_CODE')
+      }))
+    })
+
+    describe('saving progress', function () {
+      beforeEach(inject(function ($httpBackend) {
+        scope.form = {$setPristine: function () {}}
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [] })
+        $httpBackend.whenGET('/rest/continue-code').respond(200, {})
+      }))
+
+      it('should save current continue code', inject(function () {
+        cookies.remove('continueCode')
+        scope.currentContinueCode = 'CODE'
+        scope.saveProgress()
+        $httpBackend.flush()
+
+        expect(scope.savedContinueCode).toBe('CODE')
+        expect(cookies.get('continueCode')).toBe('CODE')
+      }))
+
+      it('should set cookie expiration date', inject(function () {
+        cookies.put = jasmine.createSpy('put')
+
+        scope.currentContinueCode = 'CODE'
+        scope.saveProgress()
+        $httpBackend.flush()
+
+        expect(cookies.put).toHaveBeenCalledWith('continueCode', 'CODE', { expires: jasmine.any(Date) })
       }))
     })
   })

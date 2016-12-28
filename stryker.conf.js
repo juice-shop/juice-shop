@@ -20,6 +20,8 @@ module.exports = function (config) {
       'app/bower_components/clipboard/dist/clipboard.js',
       'app/bower_components/ngclipboard/dist/ngclipboard.js',
       'app/bower_components/angular-base64/angular-base64.js',
+      'app/bower_components/qrcode-generator/js/qrcode.js',
+      'app/bower_components/angular-qrcode/angular-qrcode.js',
       'app/js/**/*.js',
       'test/client/**/*.js'
     ],

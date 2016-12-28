@@ -2,18 +2,28 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$scope',
   '$sce',
   '$translate',
+  '$cookies',
+  '$uibModal',
   'ChallengeService',
-  function ($scope, $sce, $translate, challengeService) {
+  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService) {
     'use strict'
 
-    $scope.continueCollapsed = true
+    $scope.saveProgress = function () {
+      $scope.savedContinueCode = $scope.currentContinueCode
+      $scope.error = undefined
+      $scope.form.$setPristine()
+
+      var expireDate = new Date()
+      expireDate.setDate(expireDate.getDate() + 30)
+      $cookies.put('continueCode', $scope.savedContinueCode, { expires: expireDate })
+    }
 
     $scope.restoreProgress = function () {
-      challengeService.restoreProgress(encodeURIComponent($scope.continueCode)).success(function () {
-        $scope.continueCode = undefined
+      challengeService.restoreProgress(encodeURIComponent($scope.savedContinueCode)).success(function () {
+        $cookies.remove('continueCode')
+        $scope.savedContinueCode = undefined
         $scope.error = undefined
         $scope.form.$setPristine()
-        $scope.continueCollapsed = true
       }).error(function (error) {
         console.log(error)
         $translate('INVALID_CONTINUE_CODE').then(function (invalidContinueCode) {
@@ -44,9 +54,18 @@ angular.module('juiceShop').controller('ChallengeController', [
       console.log(data)
     })
 
+    $scope.showQrCode = function () {
+      $uibModal.open({
+        templateUrl: 'views/BitcoinQrCode.html',
+        controller: 'BitcoinQrCodeController',
+        size: 'sm'
+      })
+    }
+
     challengeService.continueCode().success(function (data) {
       $scope.currentContinueCode = data.continueCode
     }).error(function (data) {
       console.log(data)
     })
+    $scope.savedContinueCode = $cookies.get('continueCode')
   }])

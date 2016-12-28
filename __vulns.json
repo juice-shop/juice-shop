@@ -277,6 +277,13 @@
         "password",
         "angular-base64"
       ]
+    },
+    {
+      "type": "access",
+      "flags": [
+        "/encryptionkeys",
+        "premium.key"
+      ]
     }
   ]
 }

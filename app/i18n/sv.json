@@ -84,11 +84,13 @@
   "STATUS_SOLVED":"löst",
   "CALL_FOR_CONTRIBUTIONS":"Har du en idé för en ny utmaning? Har du hittat en sårbarhet som inte visas här? Meddela via {{gitter}} community chat eller genom att öppna en {{github}} issue!",
   "CHALLENGE_SOLVED":"Du framgångsrikt löst en utmaning: {{challenge}}",
-  "LABEL_CONTINUE_CODE":"Fortsätt kod",
-  "CONTINUE_PREVIOUS_SESSION":"Ange fortsätta kod här för att återställa tidigare utmaning framsteg.",
+  "LABEL_HACKING_SESSION":"Your Hacking Session",
+  "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
+  "BTN_SAVE_PROGRESS":"Save Progress",
   "BTN_RESTORE_PROGRESS":"Återställa framsteg",
   "CURRENT_CONTINUE_CODE":"Din nuvarande Fortsätt kod:",
   "INVALID_CONTINUE_CODE":"Felaktig fortsättningskod.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Du har blivit inloggad via leverantören för OAuth 2.0.",
-  "HOME_LINK_MESSAGE":"Om du inte blir automatiskt omdirigerad, var vänlig klicka här: {{home}}"
+  "HOME_LINK_MESSAGE":"Om du inte blir automatiskt omdirigerad, var vänlig klicka här: {{home}}",
+  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address"
 }

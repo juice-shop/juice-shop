@@ -281,7 +281,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'continueCode',
-      description: 'Fake a continue code that solves only (the non-existent) challenge #99.',
+      description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
       difficulty: 5,
       solved: false
     }).success(function (challenge) {
@@ -310,6 +310,14 @@ module.exports = function () {
       solved: false
     }).success(function (challenge) {
       challenges.loginSupportChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'premiumPaywall',
+      description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--R9U8AvGlBbjhHXHW422jxVL2hoLBr8wflIAQ8d/jlERpKnrNlMErs1JfgT9EK/kzTtdb1GPhuWAz3i2HhomhaFMxvg4na+tvTi+8DoQoeqZH1KADoM2NJ7UOKc14b54cdRTXiYV7yFUzbPjjPVOWZFSmDcG6z+jQIPZtJuJ/tQc=--> <a href="/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
+      difficulty: 5,
+      solved: false
+    }).success(function (challenge) {
+      challenges.premiumPaywallChallenge = challenge
     })
   }
 

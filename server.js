@@ -21,10 +21,12 @@ var fileUpload = require('./routes/fileUpload')
 var redirect = require('./routes/redirect')
 var angular = require('./routes/angular')
 var easterEgg = require('./routes/easterEgg')
+var premiumReward = require('./routes/premiumReward')
 var appVersion = require('./routes/appVersion')
 var continueCode = require('./routes/continueCode')
 var restoreProgress = require('./routes/restoreProgress')
 var fileServer = require('./routes/fileServer')
+var keyServer = require('./routes/keyServer')
 var authenticatedUsers = require('./routes/authenticatedUsers')
 var currentUser = require('./routes/currentUser')
 var login = require('./routes/login')
@@ -82,6 +84,10 @@ app.use('/i18n', verify.accessControlChallenges())
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
 app.use('/ftp/:file', fileServer())
+
+/* /encryptionkeys directory browsing */
+app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
+app.use('/encryptionkeys/:file', keyServer())
 
 app.use(express.static(applicationRoot + '/app'))
 app.use(morgan('dev'))
@@ -146,6 +152,7 @@ app.get('/redirect', redirect())
 app.post('/file-upload', upload.single('file'), fileUpload())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
+app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.use(angular())
 /* Error Handling */
 app.use(verify.errorHandlingChallenge())

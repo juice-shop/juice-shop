@@ -356,14 +356,11 @@ Inspired by the "classic"
 [@psiinon](https://github.com/psiinon).
 
 ### Contributors
-
-Ordered by date of first contribution.
-[Auto-generated](https://github.com/dtrejo/node-authors) on Tue, 06 Dec
-2016 07:45:36 GMT.
+Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec 2016 18:01:55 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [The Gitter Badger](https://github.com/gitter-badger) aka
-  `gitter-badger`
+- [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
+- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
 - [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [wurstbrot](https://github.com/wurstbrot)
