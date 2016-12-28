@@ -84,11 +84,13 @@
   "STATUS_SOLVED":"resuelto",
   "CALL_FOR_CONTRIBUTIONS":"¿Tiene alguna idea para un nuevo desafío? Ha encontrado alguna vulnerabilidad que no se encuentra aquí? Háganoslo saber en {{gitter}} o abriendo un nuevo issue en {{github}}!",
   "CHALLENGE_SOLVED":"Ha resuelto correctamente el desafío: {{challenge}}",
-  "LABEL_CONTINUE_CODE":"Código de seguimiento",
-  "CONTINUE_PREVIOUS_SESSION":"Introduzca el código de seguimiento aquí para recuperar el progreso del desafío anterior.",
+  "LABEL_HACKING_SESSION":"Your Hacking Session",
+  "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
+  "BTN_SAVE_PROGRESS":"Save Progress",
   "BTN_RESTORE_PROGRESS":"Recuperar Progreso",
   "CURRENT_CONTINUE_CODE":"Su código de seguimiento actual: {{code}}",
   "INVALID_CONTINUE_CODE":"Código de seguimiento no válido.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}"
+  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}",
+  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address"
 }
