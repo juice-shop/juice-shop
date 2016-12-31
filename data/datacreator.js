@@ -473,7 +473,7 @@ module.exports = function () {
     models.Product.create({
       name: 'Enhanced White Rafford\'s Decoction',
       description: 'Immediately restores a large portion of Vitality.',
-      price: 199.99,
+      price: 150,
       image: 'white_raffards.jpg'
     })
   }
