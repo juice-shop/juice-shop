@@ -17,7 +17,7 @@ describe('/rest', function () {
                   alert.accept()
 
                   browser.ignoreSynchronization = true
-                  browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/19\', {description: \'alert disabled\'});')
+                  browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/20\', {description: \'alert disabled\'});')
                   browser.driver.sleep(1000)
                   browser.ignoreSynchronization = false
                 })
