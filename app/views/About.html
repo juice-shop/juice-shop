@@ -25,7 +25,7 @@
         <div ng-controller="FeedbackController" style="height: 305px">
 
             <div uib-carousel active="active" interval="interval" no-wrap="noWrapSlides">
-             <div uib-slide ng-repeat="feedback in feedbacks track by feedback.id" index="feedback.id - 1">
+             <div uib-slide ng-repeat="feedback in feedbacks track by feedback.id" index="$index">
                <img ng-src="{{feedback.image}}" style="margin:auto;">
                <div class="carousel-caption">
                    <span uib-rating max="5" ng-model="feedback.rating" read-only="true"></span>
