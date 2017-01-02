@@ -12,8 +12,8 @@ frisby.create('GET redirected to https://gratipay.com/juice-shop when this URL i
   .expectStatus(302)
   .toss()
 
-frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
-  .get(URL + '/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN', { followRedirect: false })
+frisby.create('GET redirected to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm when this URL is passed as "to" parameter')
+  .get(URL + '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm', { followRedirect: false })
   .expectStatus(302)
   .toss()
 
