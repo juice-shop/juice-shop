@@ -34,6 +34,12 @@ describe('/redirect', function () {
       })
     })
 
+    it('should redirect to target URL if https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW is contained in it as parameter', function () {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW').then(function () {
+        expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
+      })
+    })
+
     protractor.expect.challengeSolved({challenge: 'redirect'})
   })
 })

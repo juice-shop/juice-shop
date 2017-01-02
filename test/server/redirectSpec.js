@@ -37,6 +37,11 @@ frisby.create('GET redirected to https://www.stickermule.com/user/1070702817/sti
   .expectStatus(302)
   .toss()
 
+frisby.create('GET redirected to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW when this URL is passed as "to" parameter')
+  .get(URL + '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW', { followRedirect: false })
+  .expectStatus(302)
+  .toss()
+
 frisby.create('GET error message with information leakage when calling /redirect without query parameter')
   .get(URL + '/redirect')
   .expectStatus(500)

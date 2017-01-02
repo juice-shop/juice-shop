@@ -54,14 +54,6 @@ angular.module('juiceShop').controller('ChallengeController', [
       console.log(data)
     })
 
-    $scope.showQrCode = function () {
-      $uibModal.open({
-        templateUrl: 'views/BitcoinQrCode.html',
-        controller: 'BitcoinQrCodeController',
-        size: 'sm'
-      })
-    }
-
     challengeService.continueCode().success(function (data) {
       $scope.currentContinueCode = data.continueCode
     }).error(function (data) {
