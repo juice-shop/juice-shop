@@ -1,2 +1,2 @@
-angular.module('juiceShop').controller('BitcoinQrCodeController', [
+angular.module('juiceShop').controller('QrCodeController', [
   function () {}])
