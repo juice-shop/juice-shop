@@ -16,8 +16,8 @@ describe('/redirect', function () {
       })
     })
 
-    it('should redirect to target URL if https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN is contained in it as parameter', function () {
-      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN').then(function () {
+    it('should redirect to target URL if https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm is contained in it as parameter', function () {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm').then(function () {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
       })
     })
