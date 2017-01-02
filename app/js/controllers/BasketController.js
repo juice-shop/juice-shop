@@ -82,7 +82,7 @@ angular.module('juiceShop').controller('BasketController', [
       $uibModal.open({
         templateUrl: 'views/BitcoinQrCode.html',
         controller: 'QrCodeController',
-        size: 'sm'
+        size: 'md'
       })
     }
 
@@ -90,7 +90,7 @@ angular.module('juiceShop').controller('BasketController', [
       $uibModal.open({
         templateUrl: 'views/DashQrCode.html',
         controller: 'QrCodeController',
-        size: 'sm'
+        size: 'md'
       })
     }
   }])
