@@ -92,5 +92,6 @@
   "INVALID_CONTINUE_CODE":"Неправильный код.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Ты вошёл в систему через OAuth 2.0.",
   "HOME_LINK_MESSAGE":"Если ты не был автоматически перенаправлен, нажми здесь: {{home}}",
-  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address"
+  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address",
+  "TITLE_DASH_ADDRESS":"Dash Address"
 }
