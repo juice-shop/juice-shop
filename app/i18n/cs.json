@@ -64,7 +64,7 @@
   "DISCOUNT_APPLIED":"Vaše sleva {{discount}}% bude použita na pokladně.",
   "TITLE_CHANGE_PASSWORD":"Změna hesla",
   "MANDATORY_CURRENT_PASSWORD":"Zadejte současné heslo.",
-  "MANDATORY_NEW_PASSWORD":"Zadejte nové heslo.",
+  "MANDATORY_NEW_PASSWORD":"Zadejte prosím nové heslo.",
   "LABEL_CURRENT_PASSWORD":"Současné heslo",
   "LABEL_NEW_PASSWORD":"Nové heslo",
   "LABEL_REPEAT_NEW_PASSWORD":"Nové heslo znovu",
