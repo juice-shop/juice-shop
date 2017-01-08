@@ -159,8 +159,8 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |     |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:----|
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |    |
+|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:---|
 | 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` ||
 | __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` ||
 | 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` ||
@@ -196,6 +196,9 @@ distributions accordingly:
   [`node-gyp` installation instructions](https://github.com/nodejs/node-gyp#installation)
   for additional tools you might need to install (e.g. Python 2.7, GCC,
   Visual C++ Build Tools etc.)
+- Using the Vagrant script (on Windows) might not work while your virus
+  scanner is running. This problem was experienced at least with
+  F-Secure Internet Security.
 - You may find it easier to find vulnerabilities using a pen test tool.
   I strongly recommend
   [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open
@@ -357,11 +360,15 @@ Inspired by the "classic"
 [@psiinon](https://github.com/psiinon).
 
 ### Contributors
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec 2016 18:01:55 GMT.
+
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec
+2016 18:01:55 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
+- [The Gitter Badger](https://github.com/gitter-badger) aka
+  `gitter-badger`
 - [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [wurstbrot](https://github.com/wurstbrot)
