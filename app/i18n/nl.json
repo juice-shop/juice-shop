@@ -84,14 +84,14 @@
   "STATUS_SOLVED":"opgelost",
   "CALL_FOR_CONTRIBUTIONS":"Heb jij een idee voor een nieuwe uitdaging? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!",
   "CHALLENGE_SOLVED":"Je hebt succesvol een challenge opgelost: {{challenge}}",
-  "LABEL_HACKING_SESSION":"Your Hacking Session",
-  "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
-  "BTN_SAVE_PROGRESS":"Save Progress",
+  "LABEL_HACKING_SESSION":"Je hacksessie",
+  "CONTINUE_PREVIOUS_SESSION":"Je hackingsvooruitgang gunstig opslaan en later terug herstellen.",
+  "BTN_SAVE_PROGRESS":"Vooruitgang opslaan",
   "BTN_RESTORE_PROGRESS":"Herstel Voortgang",
   "CURRENT_CONTINUE_CODE":"Je huidige vervolgcode:",
   "INVALID_CONTINUE_CODE":"Incorrecte vervolgcode.",
-  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}",
-  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address",
-  "TITLE_DASH_ADDRESS":"Dash Address"
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Je bent ingelogd via OAuth 2.0 provider.",
+  "HOME_LINK_MESSAGE":"Als je niet meteen wordt doorverwezen, klik dan hier: {{home}}",
+  "TITLE_BITCOIN_ADDRESS":"Bitcoin-adres",
+  "TITLE_DASH_ADDRESS":"Dash-adres"
 }
