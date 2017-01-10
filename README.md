@@ -5,11 +5,13 @@
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
+[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
+[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/issue?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow))
 
-OWASP Juice Shop is an intentionally insecure webapp for security
+OWASP Juice Shop is an intentionally insecure web app for security
 trainings written entirely in Javascript which encompasses the entire
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
@@ -53,7 +55,7 @@ Javascript-heavy application frontends and REST APIs.
 
 ## Application Architecture
 
-![Juice Shop Architecture](https://github.com/bkimminich/juice-shop/blob/gh-pages/assets/Architektur_JuiceShop.png?raw=true)
+![Juice Shop Architecture](https://raw.githubusercontent.com/bkimminich/juice-shop/gh-pages/assets/Architektur_JuiceShop.png)
 
 ## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
 
@@ -89,7 +91,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
-### Docker Container [![Docker Automated buil](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -139,7 +141,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as
-> an attack on their AWS infrastructure! We highly disrecommend
+> an attack on their AWS infrastructure! We highly discourage
 > aggressive scanning or automated brute force attacks! You have been
 > warned!
 
@@ -219,7 +221,7 @@ Pull requests are also highly welcome - please refer to
 
 > :bulb: indicates resources that contain _hints for solving challenges_
 > of the OWASP Juice Shop. These are supposed to be helpful whenever you
-> get stuck.  
+> get stuck.
 > :trollface: indicates resources that _spoiler entire challenge
 > solutions_ so you might not want to view them before tackling these
 > challenges yourself!
