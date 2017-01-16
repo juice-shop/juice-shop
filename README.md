@@ -160,11 +160,11 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |     |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:----|
-| 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` ||
-| __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` ||
-| 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` ||
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
+| __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` |
 
 > The stable Docker images are built from `master` while the snapshot
 > images are built from `develop` branch. The latter contain unreleased
