@@ -383,6 +383,6 @@ Ordered by date of first contribution.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2016.
+contributions are Copyright © by Bjoern Kimminich 2014-2017.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png)
