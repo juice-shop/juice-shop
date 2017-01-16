@@ -141,9 +141,8 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as
-> an attack on their AWS infrastructure! We highly discourage
-> aggressive scanning or automated brute force attacks! You have been
-> warned!
+> an attack on their AWS infrastructure! We highly discourage aggressive
+> scanning or automated brute force attacks! You have been warned!
 
 ### Vagrant
 
@@ -221,26 +220,34 @@ Pull requests are also highly welcome - please refer to
 
 > :bulb: indicates resources that contain _hints for solving challenges_
 > of the OWASP Juice Shop. These are supposed to be helpful whenever you
-> get stuck.
-> :trollface: indicates resources that _spoiler entire challenge
-> solutions_ so you might not want to view them before tackling these
-> challenges yourself!
+> get stuck. :trollface: indicates resources that _spoiler entire
+> challenge solutions_ so you might not want to view them before
+> tackling these challenges yourself!
+
+### Pwning OWASP Juice Shop (eBook)
+
+This is the official companion guide to the OWASP Juice Shop. It will
+give you a complete overview of the vulnerabilities found in the OWASP
+Juice Shop including hints (:bulb:) how to find and exploit them in the
+application. In the appendix you will even find complete solutions
+(:trollface:) to every challenge.
+[Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
+is published with [GitBook](https://github.com/GitbookIO) under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+and is available **for free** as HTML, PDF, Kindle and ePub.
+
+[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
 
 ### Slide Decks
 
-* [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details)
-  official (early access) companion guide eBook\* (:bulb: _in part II,_
-  :trollface: _in appendix_)
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
 * [Lightning Talk Slides](http://bkimminich.github.io/juice-shop/god_2015.html)
   for a 10min project introduction runthrough
-    * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html)
-      for a 10min update on the newest features of 2016
+  * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html)
+    for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application)
   on Slideshare
-
-\* available as HTML, PDF, Kindle and ePub
 
 ### Web Links
 
@@ -252,32 +259,27 @@ Pull requests are also highly welcome - please refer to
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:
-    * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
-      written in Python as mentioned in above blog post :trollface:
+  * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
+    written in Python as mentioned in above blog post :trollface:
 * [7 Minute Security](https://7ms.us) Podcast:
-    * Episode #229:
-      [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
-      ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
-    * Episode #230:
-      [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
-      ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4))
-      :trollface:
-    * Episode #231:
-      [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
-      ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc))
-      :trollface:
-    * Episode #232:
-      [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
-      ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE))
-      :trollface:
-    * Episode #233:
-      [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
-      ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0))
-      :trollface:
-    * Episode #234:
-      [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
-      ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0))
-      :trollface:
+  * Episode #229:
+    [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
+    ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
+  * Episode #230:
+    [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
+    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
+  * Episode #231:
+    [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
+    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
+  * Episode #232:
+    [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
+    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
+  * Episode #233:
+    [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
+    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :trollface:
+  * Episode #234:
+    [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
+    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
 * German guest post on
   [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
