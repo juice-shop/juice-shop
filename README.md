@@ -160,8 +160,8 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |    |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:---|
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |     |
+|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:----|
 | 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` ||
 | __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` ||
 | 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` ||
@@ -224,17 +224,17 @@ Pull requests are also highly welcome - please refer to
 > challenge solutions_ so you might not want to view them before
 > tackling these challenges yourself!
 
-### Pwning OWASP Juice Shop (eBook)
+### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
 
 This is the official companion guide to the OWASP Juice Shop. It will
-give you a complete overview of the vulnerabilities found in the OWASP
-Juice Shop including hints (:bulb:) how to find and exploit them in the
-application. In the appendix you will even find complete solutions
+give you a complete overview of the vulnerabilities found in the
+application including hints (:bulb:) how to spot and exploit them. In
+the appendix you will even find complete step-by-step solutions
 (:trollface:) to every challenge.
 [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
 is published with [GitBook](https://github.com/GitbookIO) under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-and is available **for free** as HTML, PDF, Kindle and ePub.
+and is available **for free** in HTML, PDF, Kindle and ePub format.
 
 [![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
 
@@ -370,9 +370,6 @@ Ordered by date of first contribution.
 2016 18:01:55 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka
-  `gitter-badger`
 - [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [wurstbrot](https://github.com/wurstbrot)
