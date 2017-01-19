@@ -85,13 +85,13 @@
   "CALL_FOR_CONTRIBUTIONS":"Punya ide untuk tantangan baru? Menemukan kerentanan yang belum dilacak di sini? Beri tahu kami melalui {{gitter}} komunitas chat atau dengan membuka pokok persoalan di {{github}}!",
   "CHALLENGE_SOLVED":"Anda berhasil memecahkan tantangan: {{challenge}}",
   "LABEL_HACKING_SESSION":"Sesi Hacking Anda",
-  "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
-  "BTN_SAVE_PROGRESS":"Save Progress",
+  "CONTINUE_PREVIOUS_SESSION":"Demi kenyaman Simpan kemajuan hacking anda untuk dikembalikan nanti.",
+  "BTN_SAVE_PROGRESS":"Simpan kemajuan",
   "BTN_RESTORE_PROGRESS":"Restore Progress",
-  "CURRENT_CONTINUE_CODE":"Your current continue code:",
-  "INVALID_CONTINUE_CODE":"Invalid continue code.",
+  "CURRENT_CONTINUE_CODE":"Lanjutkan kode Anda saat ini:",
+  "INVALID_CONTINUE_CODE":"melanjutkan kode yang salah.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
   "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}",
-  "TITLE_BITCOIN_ADDRESS":"Bitcoin Address",
+  "TITLE_BITCOIN_ADDRESS":"Alamat Bitcoin",
   "TITLE_DASH_ADDRESS":"Dash Address"
 }
