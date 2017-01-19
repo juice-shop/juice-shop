@@ -84,7 +84,7 @@
   "STATUS_SOLVED":"diselesaikan",
   "CALL_FOR_CONTRIBUTIONS":"Punya ide untuk tantangan baru? Menemukan kerentanan yang belum dilacak di sini? Beri tahu kami melalui {{gitter}} komunitas chat atau dengan membuka pokok persoalan di {{github}}!",
   "CHALLENGE_SOLVED":"Anda berhasil memecahkan tantangan: {{challenge}}",
-  "LABEL_HACKING_SESSION":"Your Hacking Session",
+  "LABEL_HACKING_SESSION":"Sesi Hacking Anda",
   "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
   "BTN_SAVE_PROGRESS":"Save Progress",
   "BTN_RESTORE_PROGRESS":"Restore Progress",
