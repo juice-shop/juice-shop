@@ -86,12 +86,12 @@
   "CHALLENGE_SOLVED":"Anda berhasil memecahkan tantangan: {{challenge}}",
   "LABEL_HACKING_SESSION":"Sesi Hacking Anda",
   "CONTINUE_PREVIOUS_SESSION":"Demi kenyaman Simpan kemajuan hacking anda untuk dikembalikan nanti.",
-  "BTN_SAVE_PROGRESS":"Simpan kemajuan",
-  "BTN_RESTORE_PROGRESS":"Restore Progress",
+  "BTN_SAVE_PROGRESS":"Simpan Progress",
+  "BTN_RESTORE_PROGRESS":"Pengembalian Semula",
   "CURRENT_CONTINUE_CODE":"Lanjutkan kode Anda saat ini:",
   "INVALID_CONTINUE_CODE":"melanjutkan kode yang salah.",
-  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"You have been logged in via OAuth 2.0 provider.",
-  "HOME_LINK_MESSAGE":"If you are not automatically redirected, please click here: {{home}}",
+  "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Anda telah login melalui penyedia OAuth 2.0.",
+  "HOME_LINK_MESSAGE":"Jika Anda tidak secara otomatis dialihkan, silakan klik di sini: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Alamat Bitcoin",
-  "TITLE_DASH_ADDRESS":"Dash Address"
+  "TITLE_DASH_ADDRESS":"Alamat Dash"
 }
