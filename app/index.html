@@ -139,7 +139,7 @@
 <h1 class="hidden">OWASP Juice Shop</h1><!-- for SEO -->
 
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
-    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">{{notification.message}}</div>
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">{{notification.message}}<br><i class="fa fa-flag-checkered"></i> {{notification.flag}}</div>
 </div>
 
 <!-- CONTENT -->
