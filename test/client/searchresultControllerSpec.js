@@ -71,6 +71,17 @@ describe('controllers', function () {
       expect($uibModal.open).toHaveBeenCalledWith({ templateUrl: 'views/ProductDetail.html', controller: 'ProductDetailsController', size: jasmine.any(String), resolve: { id: jasmine.any(Function) } })
     }))
 
+    it('should resolve to same id as passed into product details modal dialog', inject(function () {
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
+      spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
+
+      scope.showDetail(42)
+
+      expect($uibModal.open.calls[0].args[0].resolve.id()).toBe(42)
+    }))
+
     it('should add new product to basket', inject(function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
