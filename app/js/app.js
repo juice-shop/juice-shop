@@ -20,6 +20,19 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
       if ($cookies.get('token')) {
         config.headers.Authorization = 'Bearer ' + $cookies.get('token')
       }
+      return config
+    },
+    response: function (response) {
+      return response || $q.when(response)
+    }
+  }
+}])
+
+angular.module('juiceShop').factory('rememberMeInterceptor', ['$rootScope', '$q', '$cookies', function ($rootScope, $q, $cookies) {
+  'use strict'
+  return {
+    request: function (config) {
+      config.headers = config.headers || {}
       if ($cookies.get('email')) {
         config.headers['X-User-Email'] = $cookies.get('email')
       }
@@ -38,6 +51,7 @@ angular.module('juiceShop').factory('socket', ['socketFactory', function (socket
 angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
   'use strict'
   $httpProvider.interceptors.push('authInterceptor')
+  $httpProvider.interceptors.push('rememberMeInterceptor')
 }])
 
 angular.module('juiceShop').run(['$cookies', '$rootScope', function ($cookies, $rootScope) {

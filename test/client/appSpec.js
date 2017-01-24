@@ -36,6 +36,7 @@ describe('app', function () {
       $cookies.remove('token')
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {}})
+      expect(authInterceptor.request({})).toEqual({headers: {}})
     }))
 
     it('should add existing cookie token to request as Authorization header', inject(function (authInterceptor) {
@@ -45,15 +46,6 @@ describe('app', function () {
       expect(authInterceptor.request({})).toEqual({headers: {Authorization: 'Bearer foobar'}})
 
       $cookies.remove('token')
-    }))
-
-    it('should add existing cookie email to request as X-User-Email header', inject(function (authInterceptor) {
-      $cookies.put('email', 'foo@b.ar')
-
-      expect(authInterceptor.request({headers: {}})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
-      expect(authInterceptor.request({})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
-
-      $cookies.remove('email')
     }))
 
     it('should do noting with response of any status', inject(function (authInterceptor) {
@@ -67,6 +59,50 @@ describe('app', function () {
 
     it('should be configured as HTTP interceptor', inject(function () {
       expect($httpProvider.interceptors).toContain('authInterceptor')
+    }))
+  })
+
+  describe('rememberMeInterceptor', function () {
+    it('should be defined', inject(function (rememberMeInterceptor) {
+      expect(rememberMeInterceptor).toBeDefined()
+    }))
+
+    it('should do noting with request if no email cookie exists', inject(function (rememberMeInterceptor) {
+      $cookies.remove('email')
+
+      expect(rememberMeInterceptor.request({headers: {}})).toEqual({headers: {}})
+      expect(rememberMeInterceptor.request({})).toEqual({headers: {}})
+    }))
+
+    it('should do noting with request if email cookie is empty', inject(function (rememberMeInterceptor) {
+      $cookies.put('email', '')
+
+      expect(rememberMeInterceptor.request({headers: {}})).toEqual({headers: {}})
+      expect(rememberMeInterceptor.request({})).toEqual({headers: {}})
+
+      $cookies.remove('email')
+    }))
+
+    it('should add existing cookie email to request as X-User-Email header', inject(function (rememberMeInterceptor) {
+      $cookies.put('email', 'foo@b.ar')
+
+      expect(rememberMeInterceptor.request({headers: {}})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
+      expect(rememberMeInterceptor.request({})).toEqual({headers: {'X-User-Email': 'foo@b.ar'}})
+
+      $cookies.remove('email')
+    }))
+
+    it('should do noting with response of any status', inject(function (rememberMeInterceptor) {
+      expect(rememberMeInterceptor.response({status: 200, statusText: 'OK'})).toEqual({status: 200, statusText: 'OK'})
+      expect(rememberMeInterceptor.response({status: 304, statusText: 'Not Modified'})).toEqual({status: 304, statusText: 'Not Modified'})
+      expect(rememberMeInterceptor.response({status: 401, statusText: 'Unauthorized'})).toEqual({status: 401, statusText: 'Unauthorized'})
+      expect(rememberMeInterceptor.response({status: 403, statusText: 'Forbidden'})).toEqual({status: 403, statusText: 'Forbidden'})
+      expect(rememberMeInterceptor.response({status: 404, statusText: 'Not Found'})).toEqual({status: 404, statusText: 'Not Found'})
+      expect(rememberMeInterceptor.response({status: 500, statusText: 'Internal Server Error'})).toEqual({status: 500, statusText: 'Internal Server Error'})
+    }))
+
+    it('should be configured as HTTP interceptor', inject(function () {
+      expect($httpProvider.interceptors).toContain('rememberMeInterceptor')
     }))
   })
 })
