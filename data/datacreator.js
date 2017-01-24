@@ -17,6 +17,7 @@ module.exports = function () {
   function createChallenges () {
     models.Challenge.create({
       name: 'scoreBoard',
+      category: 'Information Leakage',
       description: 'Find the carefully hidden \'Score Board\' page.',
       difficulty: 1,
       solved: false
@@ -25,6 +26,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'errorHandling',
+      category: 'Information Leakage',
       description: 'Provoke an error that is not very gracefully handled.',
       difficulty: 1,
       solved: false
@@ -33,6 +35,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'loginAdmin',
+      category: 'SQL Injection',
       description: 'Log in with the administrator\'s user account.',
       difficulty: 2,
       solved: false
@@ -41,6 +44,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'loginJim',
+      category: 'SQL Injection',
       description: 'Log in with Jim\'s user account.',
       difficulty: 3,
       solved: false
@@ -49,6 +53,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'loginBender',
+      category: 'SQL Injection',
       description: 'Log in with Bender\'s user account.',
       difficulty: 3,
       solved: false
@@ -57,6 +62,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss1',
+      category: 'XSS',
       description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
       difficulty: 1,
       solved: false
@@ -65,6 +71,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss2',
+      category: 'XSS',
       description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
       difficulty: 3,
       solved: false
@@ -73,6 +80,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss4',
+      category: 'XSS',
       description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
       difficulty: 4,
       solved: false
@@ -81,6 +89,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'xss3',
+      category: 'XSS',
       description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
       difficulty: 3,
       solved: false
@@ -89,6 +98,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'unionSqlI',
+      category: 'SQL Injection',
       description: 'Retrieve a list of all user credentials via SQL Injection',
       difficulty: 3,
       solved: false
@@ -97,6 +107,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'adminCredentials',
+      category: 'Weak Security Mechanisms',
       description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
       difficulty: 2,
       solved: false
@@ -105,6 +116,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'fiveStarFeedback',
+      category: 'Privilege Escalation',
       description: 'Get rid of all 5-star customer feedback.',
       difficulty: 1,
       solved: false
@@ -113,6 +125,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'forgedFeedback',
+      category: 'Privilege Escalation',
       description: 'Post some feedback in another users name.',
       difficulty: 3,
       solved: false
@@ -121,6 +134,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'redirect',
+      category: 'Weak Security Mechanisms',
       description: 'Wherever you go, there you are.',
       difficulty: 4,
       solved: false
@@ -129,6 +143,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'accessBasket',
+      category: 'Privilege Escalation',
       description: 'Access someone else\'s basket.',
       difficulty: 2,
       solved: false
@@ -137,6 +152,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'negativeOrder',
+      category: 'Validation Flaws',
       description: 'Place an order that makes you rich.',
       difficulty: 3,
       solved: false
@@ -145,6 +161,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'confidentialDocument',
+      category: 'Forgotten Content',
       description: 'Access a confidential document.',
       difficulty: 1,
       solved: false
@@ -153,6 +170,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'forgottenDevBackup',
+      category: 'Forgotten Content',
       description: 'Access a developer\'s forgotten backup file.',
       difficulty: 3,
       solved: false
@@ -161,6 +179,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'forgottenBackup',
+      category: 'Forgotten Content',
       description: 'Access a salesman\'s forgotten backup file.',
       difficulty: 2,
       solved: false
@@ -169,6 +188,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'adminSection',
+      category: 'Privilege Escalation',
       description: 'Access the administration section of the store.',
       difficulty: 1,
       solved: false
@@ -177,6 +197,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'csrf',
+      category: 'CSRF',
       description: 'Change Bender\'s password into <i>slurmCl4ssic</i> without using SQL Injection.',
       difficulty: 4,
       solved: false
@@ -185,6 +206,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'changeProduct',
+      category: 'Privilege Escalation',
       description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
       difficulty: 3,
       solved: false
@@ -193,6 +215,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'vulnerableComponent',
+      category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
       difficulty: 3,
       solved: false
@@ -201,6 +224,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'weirdCrypto',
+      category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.',
       difficulty: 2,
       solved: false
@@ -209,6 +233,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'easterEgg1',
+      category: 'Forgotten Content',
       description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
       difficulty: 3,
       solved: false
@@ -217,6 +242,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'easterEgg2',
+      category: 'Cryptographic Issues',
       description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
       difficulty: 4,
       solved: false
@@ -225,6 +251,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'forgedCoupon',
+      category: 'Cryptographic Issues',
       description: 'Forge a coupon code that gives you a discount of at least 80%.',
       difficulty: 5,
       solved: false
@@ -233,6 +260,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'geocitiesTheme',
+      category: 'Forgotten Content',
       description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
       difficulty: 3,
       solved: false
@@ -241,6 +269,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'christmasSpecial',
+      category: 'SQL Injection',
       description: 'Order the Christmas special offer of 2014.',
       difficulty: 2,
       solved: false
@@ -249,6 +278,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadSize',
+      category: 'Validation Flaws',
       description: 'Upload a file larger than 100 kB.',
       difficulty: 3,
       solved: false
@@ -257,6 +287,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'uploadType',
+      category: 'Validation Flaws',
       description: 'Upload a file that has no .pdf extension.',
       difficulty: 3,
       solved: false
@@ -265,6 +296,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'extraLanguage',
+      category: 'Forgotten Content',
       description: 'Retrieve the language file that never made it into production.',
       difficulty: 4,
       solved: false
@@ -273,6 +305,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'zeroStars',
+      category: 'Validation Flaws',
       description: 'Give a devastating zero-star feedback to the store.',
       difficulty: 1,
       solved: false
@@ -281,6 +314,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'continueCode',
+      category: 'Cryptographic Issues',
       description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
       difficulty: 5,
       solved: false
@@ -289,6 +323,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'oauthUserPassword',
+      category: 'Weak Security Mechanisms',
       description: 'Log in with Bjoern\'s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.',
       difficulty: 3,
       solved: false
@@ -297,6 +332,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'loginCiso',
+      category: 'Weak Security Mechanisms',
       description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
       difficulty: 4,
       solved: false
@@ -305,6 +341,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'loginSupport',
+      category: 'Weak Security Mechanisms',
       description: 'Log in with the support team\'s original user credentials without applying SQL Injection or any other bypass.',
       difficulty: 5,
       solved: false
@@ -313,6 +350,7 @@ module.exports = function () {
     })
     models.Challenge.create({
       name: 'premiumPaywall',
+      category: 'Cryptographic Issues',
       description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--R9U8AvGlBbjhHXHW422jxVL2hoLBr8wflIAQ8d/jlERpKnrNlMErs1JfgT9EK/kzTtdb1GPhuWAz3i2HhomhaFMxvg4na+tvTi+8DoQoeqZH1KADoM2NJ7UOKc14b54cdRTXiYV7yFUzbPjjPVOWZFSmDcG6z+jQIPZtJuJ/tQc=--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
       difficulty: 5,
       solved: false
