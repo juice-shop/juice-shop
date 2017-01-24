@@ -1,5 +1,5 @@
 describe('controllers', function () {
-  var scope, controller, $window, $httpBackend, $sce
+  var scope, controller, $window, $httpBackend, $sce, $uibModal
 
   beforeEach(module('juiceShop'))
   beforeEach(function () {
@@ -13,6 +13,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $sce = $injector.get('$sce')
+    $uibModal = $injector.get('$uibModal')
   }))
 
   afterEach(function () {
@@ -316,6 +317,28 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
+    }))
+
+    it('should open a modal dialog with a Bitcoin QR code', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
+
+      scope.showBitcoinQrCode()
+
+      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/BitcoinQrCode.html', controller: 'QrCodeController', size: 'md'})
+    }))
+
+    it('should open a modal dialog with a Dash QR code', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
+
+      scope.showDashQrCode()
+
+      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/DashQrCode.html', controller: 'QrCodeController', size: 'md'})
     }))
   })
 })
