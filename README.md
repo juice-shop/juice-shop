@@ -290,6 +290,12 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 
 ### Conference and Meetup Appearances
 
+#### 2017
+
+* [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/),
+  [Software Tester Group Hamburg](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
+  16.03.2017
+
 #### 2016
 
 * [Lightning Talk: What's new in OWASP Juice Shop](https://www.owasp.org/index.php/German_OWASP_Day_2016#Programm),
