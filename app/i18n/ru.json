@@ -93,5 +93,5 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Ты вошёл в систему через OAuth 2.0.",
   "HOME_LINK_MESSAGE":"Если ты не был автоматически перенаправлен, нажми здесь: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Биткойн-адрес",
-  "TITLE_DASH_ADDRESS":"Dash Address"
+  "TITLE_DASH_ADDRESS":"DASH-адрес"
 }
