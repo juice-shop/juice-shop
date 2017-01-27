@@ -16,8 +16,8 @@ describe('/redirect', function () {
       })
     })
 
-    it('should redirect to target URL if https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN is contained in it as parameter', function () {
-      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN').then(function () {
+    it('should redirect to target URL if https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm is contained in it as parameter', function () {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm').then(function () {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
       })
     })
@@ -30,6 +30,12 @@ describe('/redirect', function () {
 
     it('should redirect to target URL if http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub is contained in it as parameter', function () {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub').then(function () {
+        expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
+      })
+    })
+
+    it('should redirect to target URL if https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW is contained in it as parameter', function () {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW').then(function () {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
       })
     })

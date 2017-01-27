@@ -81,8 +81,11 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
                     <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-us"></span> English</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="changeLanguage('cs')"><span class="flag-icon flag-icon-cz"></span> Česky</a></li>
                     <li><a ng-click="changeLanguage('de')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
                     <li><a ng-click="changeLanguage('es')"><span class="flag-icon flag-icon-es"></span> Español</a></li>
+                    <li><a ng-click="changeLanguage('id')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
                     <li><a ng-click="changeLanguage('nl')"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
                     <li><a ng-click="changeLanguage('pl')"><span class="flag-icon flag-icon-pl"></span> Język Polski</a></li>
                     <li><a ng-click="changeLanguage('pt')"><span class="flag-icon flag-icon-pt"></span> Português</a></li>
@@ -136,7 +139,7 @@
 <h1 class="hidden">OWASP Juice Shop</h1><!-- for SEO -->
 
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
-    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">{{notification.message}}</div>
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">{{notification.message}}<br><i class="fa fa-flag-checkered"></i> {{notification.flag}}</div>
 </div>
 
 <!-- CONTENT -->

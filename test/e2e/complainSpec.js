@@ -6,7 +6,7 @@ describe('/#/complain', function () {
   describe('challenge "uploadSize"', function () {
     it('should be possible to upload files greater 100 KB', function () {
       browser.executeScript(function () {
-        var over100KB = Array.apply(null, Array(10101)).map(String.prototype.valueOf, 'ten-bytes!')
+        var over100KB = Array.apply(null, Array(10101)).map(String.prototype.valueOf, '1234567890')
         var blob = new Blob(over100KB, { type: 'application/pdf' })
 
         var data = new FormData()

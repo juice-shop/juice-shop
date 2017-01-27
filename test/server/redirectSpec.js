@@ -12,8 +12,8 @@ frisby.create('GET redirected to https://gratipay.com/juice-shop when this URL i
   .expectStatus(302)
   .toss()
 
-frisby.create('GET redirected to https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN when this URL is passed as "to" parameter')
-  .get(URL + '/redirect?to=https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN', { followRedirect: false })
+frisby.create('GET redirected to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm when this URL is passed as "to" parameter')
+  .get(URL + '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm', { followRedirect: false })
   .expectStatus(302)
   .toss()
 
@@ -34,6 +34,11 @@ frisby.create('GET redirected to http://shop.spreadshirt.de/juiceshop when this 
 
 frisby.create('GET redirected to https://www.stickermule.com/user/1070702817/stickers when this URL is passed as "to" parameter')
   .get(URL + '/redirect?to=https://www.stickermule.com/user/1070702817/stickers', { followRedirect: false })
+  .expectStatus(302)
+  .toss()
+
+frisby.create('GET redirected to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW when this URL is passed as "to" parameter')
+  .get(URL + '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW', { followRedirect: false })
   .expectStatus(302)
   .toss()
 

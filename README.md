@@ -5,11 +5,13 @@
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
+[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
+[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/issue?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow))
 
-OWASP Juice Shop is an intentionally insecure webapp for security
+OWASP Juice Shop is an intentionally insecure web app for security
 trainings written entirely in Javascript which encompasses the entire
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
@@ -53,7 +55,7 @@ Javascript-heavy application frontends and REST APIs.
 
 ## Application Architecture
 
-![Juice Shop Architecture](https://github.com/bkimminich/juice-shop/blob/gh-pages/assets/Architektur_JuiceShop.png?raw=true)
+![Juice Shop Architecture](https://raw.githubusercontent.com/bkimminich/juice-shop/gh-pages/assets/Architektur_JuiceShop.png)
 
 ## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
 
@@ -89,12 +91,12 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
-### Docker Container [![Docker Automated buil](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
 3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
-4. Browse to <http://localhost:3000> (on OSX browse to
+4. Browse to <http://localhost:3000> (on macOS browse to
    <http://192.168.99.100:3000> instead)
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
@@ -139,9 +141,8 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 ```
 
 > Technically Amazon could view hacking activity on any EC2 instance as
-> an attack on their AWS infrastructure! We highly disrecommend
-> aggressive scanning or automated brute force attacks! You have been
-> warned!
+> an attack on their AWS infrastructure! We highly discourage aggressive
+> scanning or automated brute force attacks! You have been warned!
 
 ### Vagrant
 
@@ -159,11 +160,11 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)   |     |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-------------------------------------------------------------------------------------|:----|
-| 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` ||
-| __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` ||
-| 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` ||
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
+| __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` |
 
 > The stable Docker images are built from `master` while the snapshot
 > images are built from `develop` branch. The latter contain unreleased
@@ -196,6 +197,9 @@ distributions accordingly:
   [`node-gyp` installation instructions](https://github.com/nodejs/node-gyp#installation)
   for additional tools you might need to install (e.g. Python 2.7, GCC,
   Visual C++ Build Tools etc.)
+- Using the Vagrant script (on Windows) might not work while your virus
+  scanner is running. This problem was experienced at least with
+  F-Secure Internet Security.
 - You may find it easier to find vulnerabilities using a pen test tool.
   I strongly recommend
   [Zed Attack Proxy](https://code.google.com/p/zaproxy/) which is open
@@ -216,26 +220,34 @@ Pull requests are also highly welcome - please refer to
 
 > :bulb: indicates resources that contain _hints for solving challenges_
 > of the OWASP Juice Shop. These are supposed to be helpful whenever you
-> get stuck.  
-> :trollface: indicates resources that _spoiler entire challenge
-> solutions_ so you might not want to view them before tackling these
-> challenges yourself!
+> get stuck. :trollface: indicates resources that _spoiler entire
+> challenge solutions_ so you might not want to view them before
+> tackling these challenges yourself!
+
+### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
+
+This is the official companion guide to the OWASP Juice Shop. It will
+give you a complete overview of the vulnerabilities found in the
+application including hints (:bulb:) how to spot and exploit them. In
+the appendix you will even find complete step-by-step solutions
+(:trollface:) to every challenge.
+[Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
+is published with [GitBook](https://github.com/GitbookIO) under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+and is available **for free** in HTML, PDF, Kindle and ePub format.
+
+[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
 
 ### Slide Decks
 
-* [Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop/details)
-  official (early access) companion guide eBook\* (:bulb: _in part II,_
-  :trollface: _in appendix_)
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
 * [Lightning Talk Slides](http://bkimminich.github.io/juice-shop/god_2015.html)
   for a 10min project introduction runthrough
-    * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html)
-      for a 10min update on the newest features of 2016
+  * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html)
+    for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application)
   on Slideshare
-
-\* available as HTML, PDF, Kindle and ePub
 
 ### Web Links
 
@@ -247,32 +259,27 @@ Pull requests are also highly welcome - please refer to
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:
-    * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
-      written in Python as mentioned in above blog post :trollface:
+  * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
+    written in Python as mentioned in above blog post :trollface:
 * [7 Minute Security](https://7ms.us) Podcast:
-    * Episode #229:
-      [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
-      ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
-    * Episode #230:
-      [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
-      ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4))
-      :trollface:
-    * Episode #231:
-      [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
-      ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc))
-      :trollface:
-    * Episode #232:
-      [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
-      ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE))
-      :trollface:
-    * Episode #233:
-      [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
-      ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0))
-      :trollface:
-    * Episode #234:
-      [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
-      ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0))
-      :trollface:
+  * Episode #229:
+    [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
+    ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
+  * Episode #230:
+    [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
+    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
+  * Episode #231:
+    [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
+    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
+  * Episode #232:
+    [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
+    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
+  * Episode #233:
+    [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
+    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :trollface:
+  * Episode #234:
+    [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
+    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
 * German guest post on
   [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
@@ -282,6 +289,12 @@ Pull requests are also highly welcome - please refer to
   [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
 ### Conference and Meetup Appearances
+
+#### 2017
+
+* [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/),
+  [Software Tester Group Hamburg](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
+  16.03.2017
 
 #### 2016
 
@@ -347,7 +360,8 @@ project.
 
 [![Flattr](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub)
 [![Gratipay](http://img.shields.io/gratipay/team/juice-shop.svg)](https://gratipay.com/juice-shop)
-[![Bitcoin](https://img.shields.io/badge/bitcoin-1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN-orange.svg)](https://blockchain.info/address/1FXJq5yVANLzR6ZWfqPKhJU3zWT3apnxmN)
+[![Bitcoin](https://img.shields.io/badge/bitcoin-1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm-orange.svg)](https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm)
+[![Dash](https://img.shields.io/badge/dash-Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW-blue.svg)](https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW)
 
 ## Credits
 
@@ -356,11 +370,12 @@ Inspired by the "classic"
 [@psiinon](https://github.com/psiinon).
 
 ### Contributors
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec 2016 18:01:55 GMT.
+
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec
+2016 18:01:55 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
 - [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [wurstbrot](https://github.com/wurstbrot)
@@ -374,6 +389,6 @@ Ordered by date of first contribution. [Auto-generated](https://github.com/dtrej
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2016.
+contributions are Copyright © by Bjoern Kimminich 2014-2017.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png)

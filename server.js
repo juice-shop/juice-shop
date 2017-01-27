@@ -161,7 +161,7 @@ app.use(errorhandler())
 io.on('connection', function (socket) {
   // send all outstanding notifications on (re)connect
   notifications.forEach(function (notification) {
-    socket.emit('challenge solved', { challenge: notification })
+    socket.emit('challenge solved', { challenge: notification.challenge, flag: notification.flag })
   })
   socket.on('notification received', function (data) {
     var i = notifications.indexOf(data)

@@ -78,11 +78,19 @@ angular.module('juiceShop').controller('BasketController', [
       })
     }
 
-    $scope.showQrCode = function () {
+    $scope.showBitcoinQrCode = function () {
       $uibModal.open({
         templateUrl: 'views/BitcoinQrCode.html',
-        controller: 'BitcoinQrCodeController',
-        size: 'sm'
+        controller: 'QrCodeController',
+        size: 'md'
+      })
+    }
+
+    $scope.showDashQrCode = function () {
+      $uibModal.open({
+        templateUrl: 'views/DashQrCode.html',
+        controller: 'QrCodeController',
+        size: 'md'
       })
     }
   }])

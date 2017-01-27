@@ -85,5 +85,16 @@ describe('controllers', function () {
 
       expect($uibModal.open).toHaveBeenCalledWith({ templateUrl: 'views/UserDetail.html', controller: 'UserDetailsController', size: jasmine.any(String), resolve: { id: jasmine.any(Function) } })
     }))
+
+    it('should resolve to same id as passed into user details modal dialog', inject(function () {
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+      spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
+
+      scope.showDetail(42)
+
+      expect($uibModal.open.calls[0].args[0].resolve.id()).toBe(42)
+    }))
   })
 })
