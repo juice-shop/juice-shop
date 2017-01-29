@@ -60,7 +60,7 @@
   "THANKS_FOR_SUPPORT":"感谢您对 {{juiceshop}} 的支持！",
   "LABEL_PAYMENT":"支付",
   "LABEL_MERCHANDISE":"商品",
-  "OFFICIAL_MERCHANDISE_STORES":"Official stores for {{juiceshop}} apparel, mugs and stickers!",
+  "OFFICIAL_MERCHANDISE_STORES":"官方店 {{juiceshop}} 服装、 杯子、 贴纸 ！",
   "DISCOUNT_APPLIED":"在结帐时，将应用您的 {{discount}}%的折扣",
   "TITLE_CHANGE_PASSWORD":"更改密码",
   "MANDATORY_CURRENT_PASSWORD":"请输入您目前的密码",
@@ -93,5 +93,5 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"通过 OAuth 2.0 提供程序，您已登录。",
   "HOME_LINK_MESSAGE":"如果没有自动重定向，请点击这里︰ {{home}}",
   "TITLE_BITCOIN_ADDRESS":"比特币地址",
-  "TITLE_DASH_ADDRESS":"Dash Address"
+  "TITLE_DASH_ADDRESS":"达世币地址"
 }
