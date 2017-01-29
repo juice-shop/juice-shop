@@ -21,6 +21,6 @@ describe('/#/register', function () {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'xss2'})
+    protractor.expect.challengeSolved({challenge: 'XSS Tier 2'})
   })
 })

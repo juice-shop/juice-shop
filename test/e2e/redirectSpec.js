@@ -40,6 +40,6 @@ describe('/redirect', function () {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'redirect'})
+    protractor.expect.challengeSolved({challenge: 'Redirects'})
   })
 })

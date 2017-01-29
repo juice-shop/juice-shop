@@ -6,7 +6,7 @@ describe('/ftp', function () {
       browser.driver.get(browser.baseUrl + '/ftp/acquisitions.md')
     })
 
-    protractor.expect.challengeSolved({challenge: 'confidentialDocument'})
+    protractor.expect.challengeSolved({challenge: 'Confidential Document'})
   })
 
   describe('challenge "errorHandling"', function () {
@@ -17,7 +17,7 @@ describe('/ftp', function () {
         expect(present).toBe(true)
       })
 
-      protractor.expect.challengeSolved({challenge: 'errorHandling'})
+      protractor.expect.challengeSolved({challenge: 'Error Handling'})
     })
   })
 
@@ -26,7 +26,7 @@ describe('/ftp', function () {
       browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak?md_debug=.md')
     })
 
-    protractor.expect.challengeSolved({challenge: 'forgottenBackup'})
+    protractor.expect.challengeSolved({challenge: 'Forgotten Sales Backup'})
   })
 
   describe('challenge "forgottenDevBackup"', function () {
@@ -34,7 +34,7 @@ describe('/ftp', function () {
       browser.driver.get(browser.baseUrl + '/ftp/package.json.bak%2500.md')
     })
 
-    protractor.expect.challengeSolved({challenge: 'forgottenDevBackup'})
+    protractor.expect.challengeSolved({challenge: 'Forgotten Developer Backup'})
   })
 
   describe('challenge "easterEgg1"', function () {
@@ -42,6 +42,6 @@ describe('/ftp', function () {
       browser.driver.get(browser.baseUrl + '/ftp/eastere.gg%2500.md')
     })
 
-    protractor.expect.challengeSolved({challenge: 'easterEgg1'})
+    protractor.expect.challengeSolved({challenge: 'Easter Egg Tier 1'})
   })
 })

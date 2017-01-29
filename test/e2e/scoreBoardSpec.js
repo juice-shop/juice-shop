@@ -7,7 +7,7 @@ describe('/#/score-board', function () {
       expect(browser.getLocationAbsUrl()).toMatch(/\/score-board/)
     })
 
-    protractor.expect.challengeSolved({challenge: 'scoreBoard'})
+    protractor.expect.challengeSolved({challenge: 'Score Board'})
   })
 
   describe('challenge "continueCode"', function () {
@@ -17,6 +17,6 @@ describe('/#/score-board', function () {
       element(by.id('restoreProgressButton')).click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'continueCode'})
+    protractor.expect.challengeSolved({challenge: 'Imaginary Challenge'})
   })
 })

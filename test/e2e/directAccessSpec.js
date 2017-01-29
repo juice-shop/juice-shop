@@ -6,7 +6,7 @@ describe('/', function () {
       browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
     })
 
-    protractor.expect.challengeSolved({challenge: 'easterEgg2'})
+    protractor.expect.challengeSolved({challenge: 'Easter Egg Tier 2'})
   })
 
   describe('challenge "premiumPaywall"', function () {
@@ -14,7 +14,7 @@ describe('/', function () {
       browser.driver.get(browser.baseUrl + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
     })
 
-    protractor.expect.challengeSolved({challenge: 'premiumPaywall'})
+    protractor.expect.challengeSolved({challenge: 'Premium Paywall'})
   })
 
   describe('challenge "geocitiesTheme"', function () {
@@ -28,7 +28,7 @@ describe('/', function () {
       browser.ignoreSynchronization = false
     })
 
-    protractor.expect.challengeSolved({challenge: 'geocitiesTheme'})
+    protractor.expect.challengeSolved({challenge: 'Eye Candy'})
   })
 
   describe('challenge "extraLanguage"', function () {
@@ -36,6 +36,6 @@ describe('/', function () {
       browser.driver.get(browser.baseUrl + '/i18n/tlh.json')
     })
 
-    protractor.expect.challengeSolved({challenge: 'extraLanguage'})
+    protractor.expect.challengeSolved({challenge: 'Extra Language'})
   })
 })

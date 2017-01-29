@@ -22,7 +22,7 @@ describe('/#/search', function () {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'xss1'})
+    protractor.expect.challengeSolved({challenge: 'XSS Tier 1'})
   })
 
   describe('challenge "unionSqlI"', function () {
@@ -42,7 +42,7 @@ describe('/#/search', function () {
       expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/)
     })
 
-    protractor.expect.challengeSolved({challenge: 'unionSqlI'})
+    protractor.expect.challengeSolved({challenge: 'User Credentials'})
   })
 
   describe('challenge "christmasSpecial"', function () {
@@ -56,13 +56,13 @@ describe('/#/search', function () {
       expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/)
 
       element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click()
-      browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000, 'Product addition info box not present.')
+      browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000, 'Product addition info box not present.') // eslint-disable-line no-undef
 
       browser.get('/#/basket')
-      browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000, 'Basket item list not present.')
+      browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000, 'Basket item list not present.') // eslint-disable-line no-undef
       element(by.id('checkoutButton')).click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'christmasSpecial'})
+    protractor.expect.challengeSolved({challenge: 'Christmas Special'})
   })
 })
