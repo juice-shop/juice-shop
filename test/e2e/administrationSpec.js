@@ -7,7 +7,7 @@ describe('/#/administration', function () {
       expect(browser.getLocationAbsUrl()).toMatch(/\/administration/)
     })
 
-    protractor.expect.challengeSolved({challenge: 'adminSection'})
+    protractor.expect.challengeSolved({challenge: 'Admin Section'})
   })
 
   describe('challenge "fiveStarFeedback"', function () {
@@ -17,9 +17,9 @@ describe('/#/administration', function () {
       browser.get('/#/administration')
 
       element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash')).click()
-      browser.wait(protractor.ExpectedConditions.stalenessOf($('span[aria-valuenow="5"]')), 5000)
+      browser.wait(protractor.ExpectedConditions.stalenessOf($('span[aria-valuenow="5"]')), 5000) // eslint-disable-line no-undef
     })
 
-    protractor.expect.challengeSolved({challenge: 'fiveStarFeedback'})
+    protractor.expect.challengeSolved({challenge: 'Five-Star Feedback'})
   })
 })

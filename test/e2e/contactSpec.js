@@ -30,7 +30,7 @@ describe('/#/contact', function () {
       expect(feedbackUserId.last().getText()).toMatch('2')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'forgedFeedback' })
+    protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
   it('should sanitize script from comments to remove potentially malicious html', function () {
@@ -85,7 +85,7 @@ describe('/#/contact', function () {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'xss4' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
   })
 
   describe('challenge "vulnerableComponent"', function () {
@@ -97,7 +97,7 @@ describe('/#/contact', function () {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'vulnerableComponent' })
+    protractor.expect.challengeSolved({ challenge: 'Vulnerable Component' })
   })
 
   describe('challenge "weirdCrypto"', function () {
@@ -108,7 +108,7 @@ describe('/#/contact', function () {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'weirdCrypto' })
+    protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
   })
 
   describe('challenge "zeroStars"', function () {
@@ -116,7 +116,7 @@ describe('/#/contact', function () {
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'zeroStars' })
+    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   })
 })
 
