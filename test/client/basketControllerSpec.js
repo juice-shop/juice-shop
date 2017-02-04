@@ -327,7 +327,10 @@ describe('controllers', function () {
 
       scope.showBitcoinQrCode()
 
-      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/BitcoinQrCode.html', controller: 'QrCodeController', size: 'md'})
+      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
+      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/bitcoin:.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/blockchain\.info\/address\/.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_BITCOIN_ADDRESS')
     }))
 
     it('should open a modal dialog with a Dash QR code', inject(function () {
@@ -338,7 +341,24 @@ describe('controllers', function () {
 
       scope.showDashQrCode()
 
-      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/DashQrCode.html', controller: 'QrCodeController', size: 'md'})
+      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
+      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/dash:.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/explorer\.dash\.org\/address\/.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_DASH_ADDRESS')
+    }))
+
+    it('should open a modal dialog with an Ether QR code', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      spyOn($uibModal, 'open')
+
+      $httpBackend.flush()
+
+      scope.showEtherQrCode()
+
+      expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
+      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/0x.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/https:\/\/etherscan\.io\/address\/.*/)
+      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_ETHER_ADDRESS')
     }))
   })
 })
