@@ -23,7 +23,7 @@ describe('/rest', function () {
                 })
     })
 
-    protractor.expect.challengeSolved({challenge: 'xss3'})
+    protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
   })
 
   describe('challenge "changeProduct"', function () {
@@ -35,6 +35,6 @@ describe('/rest', function () {
       browser.get('/#/search')
     })
 
-    protractor.expect.challengeSolved({challenge: 'changeProduct'})
+    protractor.expect.challengeSolved({challenge: 'Product Tampering'})
   })
 })

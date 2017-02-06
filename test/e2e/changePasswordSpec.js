@@ -37,6 +37,6 @@ describe('/#/change-password', function () {
       expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
     })
 
-    protractor.expect.challengeSolved({challenge: 'csrf'})
+    protractor.expect.challengeSolved({challenge: 'CSRF'})
   })
 })
