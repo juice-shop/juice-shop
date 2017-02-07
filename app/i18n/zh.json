@@ -93,5 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"通过 OAuth 2.0 提供程序，您已登录。",
   "HOME_LINK_MESSAGE":"如果没有自动重定向，请点击这里︰ {{home}}",
   "TITLE_BITCOIN_ADDRESS":"比特币地址",
-  "TITLE_DASH_ADDRESS":"达世币地址"
+  "TITLE_DASH_ADDRESS":"达世币地址",
+  "TITLE_ETHER_ADDRESS":"Ether Address"
 }
