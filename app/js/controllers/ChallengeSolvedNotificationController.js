@@ -18,7 +18,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }, function (translationId) {
           $scope.notifications.push({message: translationId, flag: data.flag})
         })
-        socket.emit('notification received', data.challenge)
+        socket.emit('notification received', data.flag)
       }
     })
   } ])
