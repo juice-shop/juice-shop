@@ -93,5 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Byli jste přihlášeni pomocí poskytovatele OAuth 2.0.",
   "HOME_LINK_MESSAGE":"Pokud nejste přesměrováni automaticky, klikněte prosím zde: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin adresa",
-  "TITLE_DASH_ADDRESS":"Dash adresa"
+  "TITLE_DASH_ADDRESS":"Dash adresa",
+  "TITLE_ETHER_ADDRESS":"Ether Address"
 }
