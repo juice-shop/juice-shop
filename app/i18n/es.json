@@ -93,5 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Has iniciado sesión con el proveedor OAuth 2.0.",
   "HOME_LINK_MESSAGE":"Si no eres redirigido automáticamente, haz clic aquí: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Dirección Bitcoin",
-  "TITLE_DASH_ADDRESS":"Direccion Dash"
+  "TITLE_DASH_ADDRESS":"Direccion Dash",
+  "TITLE_ETHER_ADDRESS":"Ether Address"
 }
