@@ -80,6 +80,23 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > DDoS attacks you are free to use any tools or scripts to hack your
 > Juice Shop instance on Heroku!
 
+> If you are going this route and want to test all the challenges out you
+> will want to add your deployed Heroku URL to /app/js/controllers/LoginController.js.
+> Simply update the variable: authorizedRedirectURIs on line 43 to include your URL
+> object, use your URL for both the property name and value.  You can just copy line 44
+> and then paste/modify to include your URL.  Once you have this done you will also need
+> to setup oauth on google's end here: https://console.developers.google.com/apis/library, 
+> clicking 'Credentials' and clicking 'Create credentials.'  Once you have setup your credentials,
+> you will want to update the clientId variable in /app/js/controllers/LoginController.js on line 42 to 
+> use your new oauth client id from Google.  and re-deploy it to Heroku, once completed
+> you will have the option to login with Google on the login page.
+
+
+> One thing to note, make sure that you setup the redirect_uri to match your app's URL, if you for some 
+> reason have to modify the redirect_uri this gets cached on Google's end and takes 
+> longer than you'll want to wait to reset.
+
+
 ### From Sources
 
 1. Install [node.js](#nodejs-version-compatibility)
