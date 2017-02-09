@@ -12,6 +12,9 @@ juiceshop.sqlite
 *.eml
 out/
 
+# VIM swap files
+*.swp
+
 # NPM
 node_modules/
 npm-debug.log.*
