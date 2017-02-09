@@ -39,7 +39,7 @@ angular.module('juiceShop').controller('LoginController', [
     }
 
     var oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
-    var clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+    var clientId = '574734844546-q3cvu9ru83pcar621a3o6uq2f69fai77.apps.googleusercontent.com'
 
     var authorizedRedirectURIs = {
       'https://quiet-lake-65056.herokuapp.com': 'https://quite-lake-65056.herokuapp.com',
