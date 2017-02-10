@@ -184,9 +184,9 @@ distributions accordingly:
   [Error 128](https://github.com/bower/bower/issues/50) from some GitHub
   repos during `bower install` execution, run `git config --global
   url."https://".insteadOf git://` and try `npm install` again
-- If using Boot2Docker (Docker inside VirtualBox on Windows) make sure
-  that you also enable port forwarding from Host `127.0.0.1:3000` to
-  `0.0.0.0:3000` for TCP
+- If using Docker Toolbox on Windows make sure that you also enable port
+  forwarding from Host `127.0.0.1:3000` to `0.0.0.0:3000` for TCP for
+  the `default` VM in VirtualBox
 - If `npm install` fails after an update of your local copy during
   `bower install` complaining about version issues, delete
   `/app/bower_components` and try again to remove outdated versions that
@@ -197,6 +197,8 @@ distributions accordingly:
   [`node-gyp` installation instructions](https://github.com/nodejs/node-gyp#installation)
   for additional tools you might need to install (e.g. Python 2.7, GCC,
   Visual C++ Build Tools etc.)
+- If `npm install` fails on Ubuntu (e.g. while installing PhantomJS) you
+  might have to install a recent version of Node.js and try again.
 - Using the Vagrant script (on Windows) might not work while your virus
   scanner is running. This problem was experienced at least with
   F-Secure Internet Security.
