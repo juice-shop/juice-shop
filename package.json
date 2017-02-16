@@ -107,7 +107,6 @@
     "protractor": "node test/e2eTests.js",
     "stryker": "stryker run stryker.conf.js"
   },
-  "subdomain": "juice-shop",
   "engines": {
     "node": "~4 ~6 ~7"
   },
