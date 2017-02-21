@@ -48,8 +48,10 @@ Javascript-heavy application frontends and REST APIs.
   resolved and downloaded automatically
 - Self-healing: The simple SQLite database is wiped and regenerated from
   scratch on every server startup
-- Gamification: On a Score Board the application keeps track of
-  successfully exploited vulnerabilities
+- Gamification: The application notifies you on solved challenges and
+  keeps track of successfully exploited vulnerabilities on a Score Board
+- CTF-support: Challenge notifications contain a customizable flag code
+  for your own [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
 - Free and Open source: Licensed under the [MIT license](LICENSE) with
   no hidden costs or caveats
 
