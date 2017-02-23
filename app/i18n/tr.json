@@ -59,7 +59,7 @@
   "BTN_REDEEM":"Kullan",
   "THANKS_FOR_SUPPORT":"{{juiceshop}}'u desteklediğiniz için teşekkür ederiz!",
   "LABEL_PAYMENT":"Ödeme",
-  "LABEL_MERCHANDISE":"Merchandise",
+  "LABEL_MERCHANDISE":"Ürünler",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}} kıyafetleri, kupaları ve çıkartmaları için resmi mağaza!",
   "DISCOUNT_APPLIED":"%{{discount}} indirim satın alma sırasında uygulanacaktır.",
   "TITLE_CHANGE_PASSWORD":"Parola Değiştir",
@@ -93,6 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"OAuth 2.0 sağlayıcısı üzerinden çıkış yaptınız.",
   "HOME_LINK_MESSAGE":"Otomatik olarak yönlendirilmediyseniz, buraya tıklayınız:{{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin adresi",
-  "TITLE_DASH_ADDRESS":"Dash Address",
-  "TITLE_ETHER_ADDRESS":"Ether Address"
+  "TITLE_DASH_ADDRESS":"Dash adresi",
+  "TITLE_ETHER_ADDRESS":"Ether adresi"
 }
