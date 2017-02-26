@@ -80,6 +80,17 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > DDoS attacks you are free to use any tools or scripts to hack your
 > Juice Shop instance on Heroku!
 
+### Deploy to Cloud
+
+1. Click the button below and follow the instructions
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+
+> The easiest way to get up and running is via docker cloud where you can choose which service provider you would like to use. 
+> The button redirects you to the Launch new Stack wizard.
+
+> **Note**: You must be logged in to Docker Cloud for the button to work correctly. If you are not logged in, you’ll see a 404
+> error instead.
 
 ### From Sources
 
