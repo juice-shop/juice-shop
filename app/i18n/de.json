@@ -93,5 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Sie wurden mittels OAuth 2.0 Anbieter angemeldet.",
   "HOME_LINK_MESSAGE":"Wenn Sie nicht automatisch weitergeleitet werden, klicken Sie bitte hier: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
-  "TITLE_DASH_ADDRESS":"Dash-Adresse"
+  "TITLE_DASH_ADDRESS":"Dash-Adresse",
+  "TITLE_ETHER_ADDRESS":"Ether-Adresse"
 }

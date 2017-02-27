@@ -93,5 +93,6 @@
   "CONFIRM_LOGGED_IN_VIA_OAUTH2":"Je bent ingelogd via OAuth 2.0 provider.",
   "HOME_LINK_MESSAGE":"Als je niet meteen wordt doorverwezen, klik dan hier: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-adres",
-  "TITLE_DASH_ADDRESS":"Dash-adres"
+  "TITLE_DASH_ADDRESS":"Dash-adres",
+  "TITLE_ETHER_ADDRESS":"Ether Address"
 }
