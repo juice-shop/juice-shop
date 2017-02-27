@@ -1,0 +1,4 @@
+juice-shop:
+  image: bkimminich/juice-shop
+  ports:
+    - "80:3000"

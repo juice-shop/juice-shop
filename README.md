@@ -5,8 +5,6 @@
 [![Test Coverage](https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![Code Climate](https://codeclimate.com/github/bkimminich/juice-shop/badges/gpa.svg)](https://codeclimate.com/github/bkimminich/juice-shop)
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
-[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/pr?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
-[![Issue Stats](http://issuestats.com/github/bkimminich/juice-shop/badge/issue?style=flat)](http://issuestats.com/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow))
@@ -82,6 +80,17 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 > DDoS attacks you are free to use any tools or scripts to hack your
 > Juice Shop instance on Heroku!
 
+### Deploy to Docker Cloud
+
+1. Click the button below and follow the instructions
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+
+> The easiest way to get up and running is via Docker Cloud where you can choose which service provider you would like to use.
+> The button redirects you to the Launch new Stack wizard.
+
+> **Note**: You must be logged in to Docker Cloud for the button to work correctly. If you are not logged in, you’ll see a 404
+> error instead.
 
 ### From Sources
 
