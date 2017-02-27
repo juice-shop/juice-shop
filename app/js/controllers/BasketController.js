@@ -80,17 +80,43 @@ angular.module('juiceShop').controller('BasketController', [
 
     $scope.showBitcoinQrCode = function () {
       $uibModal.open({
-        templateUrl: 'views/BitcoinQrCode.html',
+        templateUrl: 'views/QrCode.html',
         controller: 'QrCodeController',
-        size: 'md'
+        size: 'md',
+        resolve: {
+          data: function () { return 'bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' },
+          url: function () { return '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' },
+          address: function () { return '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' },
+          title: function () { return 'TITLE_BITCOIN_ADDRESS' }
+        }
       })
     }
 
     $scope.showDashQrCode = function () {
       $uibModal.open({
-        templateUrl: 'views/DashQrCode.html',
+        templateUrl: 'views/QrCode.html',
         controller: 'QrCodeController',
-        size: 'md'
+        size: 'md',
+        resolve: {
+          data: function () { return 'dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' },
+          url: function () { return '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' },
+          address: function () { return 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' },
+          title: function () { return 'TITLE_DASH_ADDRESS' }
+        }
+      })
+    }
+
+    $scope.showEtherQrCode = function () {
+      $uibModal.open({
+        templateUrl: 'views/QrCode.html',
+        controller: 'QrCodeController',
+        size: 'md',
+        resolve: {
+          data: function () { return '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6' },
+          url: function () { return 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6' },
+          address: function () { return '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6' },
+          title: function () { return 'TITLE_ETHER_ADDRESS' }
+        }
       })
     }
   }])

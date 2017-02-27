@@ -23,7 +23,7 @@ describe('/#/basket', function () {
         element(by.id('checkoutButton')).click()
       })
 
-      protractor.expect.challengeSolved({challenge: 'negativeOrder'})
+      protractor.expect.challengeSolved({challenge: 'Payback Time'})
     })
 
     describe('challenge "accessBasket"', function () {
@@ -35,7 +35,7 @@ describe('/#/basket', function () {
                 // TODO Verify functionally that it's not the basket of the admin
       })
 
-      protractor.expect.challengeSolved({challenge: 'accessBasket'})
+      protractor.expect.challengeSolved({challenge: 'Basket Access'})
     })
   })
 
@@ -50,7 +50,7 @@ describe('/#/basket', function () {
       it('should be possible to enter a coupon that gives an 80% discount', function () {
         browser.get('/#/basket')
         element(by.id('collapseCouponButton')).click()
-        browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.')
+        browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90))
         element(by.id('applyCouponButton')).click()
@@ -60,7 +60,7 @@ describe('/#/basket', function () {
         element(by.id('checkoutButton')).click()
       })
 
-      protractor.expect.challengeSolved({challenge: 'forgedCoupon'})
+      protractor.expect.challengeSolved({challenge: 'Forged Coupon'})
     })
   })
 })

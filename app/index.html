@@ -65,7 +65,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
-            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.svg" alt="Juice Shop Logo"></a><a class="navbar-brand" href="#/">OWASP Juice Shop <small ng-bind="version"></small></a>
+            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.png" alt="Juice Shop Logo"></a><a class="navbar-brand" href="#/">OWASP Juice Shop <small ng-bind="version"></small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
@@ -91,6 +91,7 @@
                     <li><a ng-click="changeLanguage('pt')"><span class="flag-icon flag-icon-pt"></span> Português</a></li>
                     <li><a ng-click="changeLanguage('ru')"><span class="flag-icon flag-icon-ru"></span> Pусский</a></li>
                     <li><a ng-click="changeLanguage('sv')"><span class="flag-icon flag-icon-se"></span> Svenska</a></li>
+                    <li><a ng-click="changeLanguage('zh')"><span class="flag-icon flag-icon-cn"></span> 中国</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a ng-click="changeLanguage('el')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fa fa-flask"></i></a></li>
@@ -101,7 +102,6 @@
                     <li><a ng-click="changeLanguage('lt')"><span class="flag-icon flag-icon-lt"></span> Lietuviešu <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('lv')"><span class="flag-icon flag-icon-lv"></span> Latvijas <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('tr')"><span class="flag-icon flag-icon-tr"></span> Türkçe <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('zh')"><span class="flag-icon flag-icon-cn"></span> 中国 <i class="fa fa-flask"></i></a></li>
                 </ul>
             </li>
             <li>

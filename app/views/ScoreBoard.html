@@ -24,11 +24,13 @@
 
         <table class="table table-striped table-bordered table-condensed">
             <tr>
+                <th translate="LABEL_NAME"></th>
                 <th translate="LABEL_DESCRIPTION"></th>
                 <th translate="LABEL_DIFFICULTY"></th>
                 <th translate="LABEL_STATUS"></th>
             </tr>
             <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
+                <td><div ng-bind="challenge.name"></div></td>
                 <td><div ng-bind-html="challenge.description"></div></td>
                 <td align="center">
                   <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>

@@ -43,8 +43,10 @@ always be in a release-ready state.
 
 ## Unit & Integration Tests
 
-There is a full suite containing * independent unit tests for the
-client-side code * integration tests for the server-side API
+There is a full suite containing
+
+* independent unit tests for the client-side code
+* integration tests for the server-side API
 
 These tests verify if the normal use cases of the application work. All
 server-side vulnerabilities are also tested.
@@ -65,7 +67,7 @@ merged until compliant.
 > In case your PR is failing from style guide issues try running
 > `standard --fix` over your code - this will fix all syntax or code
 > style issues automatically without breaking your code. You might need
-> to `npm install -g standard` first.
+> to `npm i -g standard` first.
 
 ## End-to-end Tests
 
