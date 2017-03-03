@@ -37,7 +37,7 @@
                   </td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED"></span>
-                    <span id="{{challenge.name}}.solved" ng-show="challenge.solved" class="label label-success" translate="STATUS_SOLVED"></span>
+                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" translate="STATUS_SOLVED"></span>
                 </td>
             </tr>
         </table>

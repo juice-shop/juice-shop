@@ -8,6 +8,10 @@ angular.module('juiceShop').controller('ChallengeController', [
   function ($scope, $sce, $translate, $cookies, $uibModal, challengeService) {
     'use strict'
 
+    $scope.repeatNotification = function (challenge) {
+      challengeService.repeatNotification(encodeURIComponent(challenge.name));
+    };
+
     $scope.saveProgress = function () {
       $scope.savedContinueCode = $scope.currentContinueCode
       $scope.error = undefined
