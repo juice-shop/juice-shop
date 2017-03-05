@@ -23,6 +23,7 @@ dist/
 app/
 build/
 data/
+vagrant/
 order_*.pdf
 
 # reveal.js
