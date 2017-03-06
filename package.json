@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "codeclimate-test-reporter": "~0.4",
-    "cross-spawn": "~5.0",
+    "cross-spawn": "~5.1",
     "form-data": "~1.0",
     "frisby": "~0.8",
     "http-server": "~0.9",
