@@ -1,9 +1,11 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/contact', function () {
   var comment, rating, submitButton
 
-  protractor.beforeEach.login({ email: 'admin@juice-sh.op', password: 'admin123' })
+  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
   beforeEach(function () {
     browser.get('/#/contact')

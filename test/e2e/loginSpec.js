@@ -1,5 +1,7 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/login', function () {
   var email, password, rememberMeCheckbox, loginButton
 
@@ -57,7 +59,7 @@ describe('/#/login', function () {
 
   describe('challenge "adminCredentials"', function () {
     it('should be able to log in with original (weak) admin credentials', function () {
-      email.sendKeys('admin@juice-sh.op')
+      email.sendKeys('admin@' + config.get('application.domain'))
       password.sendKeys('admin123')
       loginButton.click()
 
@@ -69,7 +71,7 @@ describe('/#/login', function () {
 
   describe('challenge "loginSupport"', function () {
     it('should be able to log in with original support-team credentials', function () {
-      email.sendKeys('support@juice-sh.op')
+      email.sendKeys('support@' + config.get('application.domain'))
       password.sendKeys('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       loginButton.click()
 
@@ -93,7 +95,7 @@ describe('/#/login', function () {
 
   describe('challenge "loginCiso"', function () {
     it('should be able to log in as ciso@juice-sh.op by using "Remember me" in combination with (fake) OAuth login with another user', function () {
-      email.sendKeys('ciso@juice-sh.op')
+      email.sendKeys('ciso@' + config.get('application.domain'))
       password.sendKeys('wrong')
       rememberMeCheckbox.click()
       loginButton.click()

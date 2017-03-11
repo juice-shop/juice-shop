@@ -1,7 +1,9 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/complain', function () {
-  protractor.beforeEach.login({ email: 'admin@juice-sh.op', password: 'admin123' })
+  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
   describe('challenge "uploadSize"', function () {
     it('should be possible to upload files greater 100 KB', function () {

@@ -43,6 +43,7 @@ var datacreator = require('./data/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
+var https = require('https')
 var io = require('socket.io')(server)
 
 global.io = io
@@ -176,8 +177,8 @@ exports.start = function (config, readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = server.listen(config.port, function () {
-        console.log(colors.yellow('Server listening on port %d'), config.port)
+      this.server = server.listen(config.get('server.port'), function () {
+        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         if (readyCallback) {
           readyCallback()
         }

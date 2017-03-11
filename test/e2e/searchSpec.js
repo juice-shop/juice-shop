@@ -1,5 +1,7 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/search', function () {
   var searchQuery, searchButton
 
@@ -46,7 +48,7 @@ describe('/#/search', function () {
   })
 
   describe('challenge "christmasSpecial"', function () {
-    protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', function () {
       searchQuery.sendKeys('christmas%25\'))--')

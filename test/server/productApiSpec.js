@@ -1,5 +1,6 @@
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
+var config = require('config')
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -207,17 +208,17 @@ frisby.create('GET product search can create UNION SELECT with Users table and r
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data.?', {
     name: 1,
-    description: 'admin@juice-sh.op',
+    description: 'admin@' + config.get('application.domain'),
     price: insecurity.hash('admin123')
   })
   .expectJSON('data.?', {
     name: 2,
-    description: 'jim@juice-sh.op',
+    description: 'jim@' + config.get('application.domain'),
     price: insecurity.hash('ncc-1701')
   })
   .expectJSON('data.?', {
     name: 3,
-    description: 'bender@juice-sh.op',
+    description: 'bender@' + config.get('application.domain'),
     price: insecurity.hash('OhG0dPlease1nsertLiquor!')
   })
   .toss()
@@ -244,4 +245,3 @@ frisby.create('GET product search can select logically deleted christmas special
     name: 'Christmas Super-Surprise-Box (2014 Edition)'
   })
   .toss()
-

@@ -3,6 +3,7 @@
 
 var models = require('../models/index')
 var datacache = require('./datacache')
+var config = require('config')
 var challenges = datacache.challenges
 var users = datacache.users
 var products = datacache.products
@@ -361,15 +362,15 @@ module.exports = function () {
 
   function createUsers () {
     models.User.create({
-      email: 'admin@juice-sh.op',
+      email: 'admin@' + config.get('application.domain'),
       password: 'admin123'
     })
     models.User.create({
-      email: 'jim@juice-sh.op',
+      email: 'jim@' + config.get('application.domain'),
       password: 'ncc-1701'
     })
     models.User.create({
-      email: 'bender@juice-sh.op',
+      email: 'bender@' + config.get('application.domain'),
       password: 'OhG0dPlease1nsertLiquor!'
     }).success(function (user) {
       users.bender = user
@@ -381,13 +382,13 @@ module.exports = function () {
       users.bjoern = user
     })
     models.User.create({
-      email: 'ciso@juice-sh.op',
+      email: 'ciso@' + config.get('application.domain'),
       password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
     }).success(function (user) {
       users.ciso = user
     })
     models.User.create({
-      email: 'support@juice-sh.op',
+      email: 'support@' + config.get('application.domain'),
       password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
     }).success(function (user) {
       users.support = user

@@ -1,8 +1,10 @@
 'use strict'
 
+var config = require('config')
+
 describe('/rest', function () {
   describe('challenge "xss3"', function () {
-    protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     it('should be possible to create a new product when logged in', function () {
       var EC = protractor.ExpectedConditions
