@@ -150,4 +150,3 @@ frisby.create('PUT apply valid coupon to existing basket')
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON({ discount: 15 })
   .toss()
-

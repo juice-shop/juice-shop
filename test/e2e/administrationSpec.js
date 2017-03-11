@@ -1,5 +1,7 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/administration', function () {
   describe('challenge "adminSection"', function () {
     it('should be possible to access administration section even when not authenticated', function () {
@@ -11,7 +13,7 @@ describe('/#/administration', function () {
   })
 
   describe('challenge "fiveStarFeedback"', function () {
-    protractor.beforeEach.login({email: 'jim@juice-sh.op', password: 'ncc-1701'})
+    protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
 
     it('should be possible for any logged-in user to delete feedback', function () {
       browser.get('/#/administration')

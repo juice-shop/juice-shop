@@ -3,8 +3,9 @@
 var spawn = require('cross-spawn')
 var colors = require('colors/safe')
 var server = require('./../server.js')
+const config = require('config')
 
-server.start({ port: 3000 }, function () {
+server.start(config, function () {
   var protractor = spawn('protractor', [ 'protractor.conf.js' ])
 
   function logToConsole (data) {
