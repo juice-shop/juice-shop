@@ -11,6 +11,7 @@ var products = datacache.products
 module.exports = function () {
   createChallenges()
   createUsers()
+  createRandomFakeUsers()
   createProducts()
   createBaskets()
   createFeedback()
@@ -393,6 +394,30 @@ module.exports = function () {
     }).success(function (user) {
       users.support = user
     })
+  }
+
+  function createRandomFakeUsers () {
+    for (var i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
+      models.User.create({
+        email: getGeneratedRandomFakeUserEmail(),
+        password: makeRandomString(5)
+      })
+    }
+  }
+
+  function getGeneratedRandomFakeUserEmail () {
+    var randomDomain = makeRandomString(4).toLowerCase() + ". " + makeRandomString(2).toLowerCase()
+    return makeRandomString(5).toLowerCase() + '@' + randomDomain
+  }
+
+  function makeRandomString (length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
   }
 
   function createProducts () {
