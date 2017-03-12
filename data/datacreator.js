@@ -406,18 +406,17 @@ module.exports = function () {
   }
 
   function getGeneratedRandomFakeUserEmail () {
-    var randomDomain = makeRandomString(4).toLowerCase() + ". " + makeRandomString(2).toLowerCase()
+    var randomDomain = makeRandomString(4).toLowerCase() + '. ' + makeRandomString(2).toLowerCase()
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
   function makeRandomString (length) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var text = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-    for (var i = 0; i < length; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    for (var i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
 
-    return text;
+    return text
   }
 
   function createProducts () {
