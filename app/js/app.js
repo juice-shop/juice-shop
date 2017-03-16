@@ -56,6 +56,7 @@ angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
 
 angular.module('juiceShop').run(['$cookies', '$rootScope', function ($cookies, $rootScope) {
   'use strict'
+  $rootScope.applicationName = 'OWASP Juice Shop'
   $rootScope.isLoggedIn = function () {
     return $cookies.get('token')
   }
