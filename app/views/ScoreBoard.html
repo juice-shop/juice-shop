@@ -18,6 +18,11 @@
                     </div>
                 </div>
             </div>
+            <div class="container-fluid well">
+                <div class="row">
+                    <p translate="NOTIFICATION_RESEND_INSTRUCTIONS"></p>
+                </div>
+            </div>
         </form>
 
         <uib-progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></uib-progressbar>
@@ -37,7 +42,10 @@
                   </td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED"></span>
-                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" translate="STATUS_SOLVED"></span>
+                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success notification-button">
+                        <i class="fa fa-flag-o" aria-hidden="true"></i>
+                        <span translate="STATUS_SOLVED"></span>
+                    </span>
                 </td>
             </tr>
         </table>

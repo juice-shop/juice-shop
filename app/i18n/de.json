@@ -94,5 +94,6 @@
   "HOME_LINK_MESSAGE":"Wenn Sie nicht automatisch weitergeleitet werden, klicken Sie bitte hier: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
   "TITLE_DASH_ADDRESS":"Dash-Adresse",
-  "TITLE_ETHER_ADDRESS":"Ether-Adresse"
+  "TITLE_ETHER_ADDRESS":"Ether-Adresse",
+  "NOTIFICATION_RESEND_INSTRUCTIONS": "Klicke auf den Gelöst Anzeige einer Herausforderung um die Benachrichtigung zu wiederholen."
 }
