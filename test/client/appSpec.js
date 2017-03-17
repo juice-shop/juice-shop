@@ -11,6 +11,7 @@ describe('app', function () {
 
   it('should be defined', inject(function () {
     expect($rootScope.isLoggedIn).toBeDefined()
+    expect($rootScope.applicationName).toBeDefined()
   }))
 
   it('should return token from cookie as login status for logged-in user', inject(function () {
@@ -32,7 +33,7 @@ describe('app', function () {
       expect(authInterceptor).toBeDefined()
     }))
 
-    it('should do noting with request if no auth token cookie exists', inject(function (authInterceptor) {
+    it('should do nothing with request if no auth token cookie exists', inject(function (authInterceptor) {
       $cookies.remove('token')
 
       expect(authInterceptor.request({headers: {}})).toEqual({headers: {}})
