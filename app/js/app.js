@@ -15,12 +15,12 @@ angular.module('juiceShop', [
 angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$cookies', function ($rootScope, $q, $cookies) {
   'use strict'
   return {
-    request: function (config) {
-      config.headers = config.headers || {}
+    request: function (requestConfig) {
+      requestConfig.headers = requestConfig.headers || {}
       if ($cookies.get('token')) {
-        config.headers.Authorization = 'Bearer ' + $cookies.get('token')
+        requestConfig.headers.Authorization = 'Bearer ' + $cookies.get('token')
       }
-      return config
+      return requestConfig
     },
     response: function (response) {
       return response || $q.when(response)
@@ -31,12 +31,12 @@ angular.module('juiceShop').factory('authInterceptor', ['$rootScope', '$q', '$co
 angular.module('juiceShop').factory('rememberMeInterceptor', ['$rootScope', '$q', '$cookies', function ($rootScope, $q, $cookies) {
   'use strict'
   return {
-    request: function (config) {
-      config.headers = config.headers || {}
+    request: function (requestConfig) {
+      requestConfig.headers = requestConfig.headers || {}
       if ($cookies.get('email')) {
-        config.headers['X-User-Email'] = $cookies.get('email')
+        requestConfig.headers['X-User-Email'] = $cookies.get('email')
       }
-      return config
+      return requestConfig
     },
     response: function (response) {
       return response || $q.when(response)
