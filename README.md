@@ -264,8 +264,11 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 
 #### 2017
 
+* [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555),
+  [Software-Test User Group Hamburg](https://www.xing.com/communities/groups/software-test-user-group-hamburg-1207-1002644),
+  21.03.2017
 * [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/),
-  [Software Tester Group Hamburg](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
+  [Software Tester Group Hamburg (English-speaking)](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
   16.03.2017
 * [Kurzvortrag: Hack the Juice Shop](https://www.meetup.com/de-DE/phpughh/events/235572004/),
   [PHP-Usergroup Hamburg](https://www.meetup.com/de-DE/phpughh/),
