@@ -1,0 +1,8 @@
+server:
+  port: 3000
+application:
+  domain: umbrella-insurance.local
+  name: "Umbrella Insurance"
+  logoReplacementUrl: "https://openclipart.org/image/2400px/svg_to_png/181617/insurance.png"
+  numberOfRandomFakeUsers: 0
+  isChallangeSolvedNotificationsShown: false

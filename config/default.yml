@@ -2,7 +2,7 @@ server:
   port: 3000
 application:
   domain: juice-sh.op
-  name: "Umbrella Insurance"
-  logoReplacementUrl: "https://openclipart.org/image/2400px/svg_to_png/181617/insurance.png"
+  name: "OWASP Juice Shop"
+  logoReplacementUrl: ""
   numberOfRandomFakeUsers: 0
   isChallangeSolvedNotificationsShown: true

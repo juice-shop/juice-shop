@@ -45,6 +45,7 @@ var app = express()
 var server = require('http').Server(app)
 var https = require('https')
 var io = require('socket.io')(server)
+var appConfiguration = require('./routes/appConfiguration')
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -145,6 +146,7 @@ app.get('/rest/basket/:id', basket())
 app.post('/rest/basket/:id/checkout', order())
 app.put('/rest/basket/:id/coupon/:coupon', coupon())
 app.get('/rest/admin/application-version', appVersion())
+app.get('/rest/admin/application-configuration', appConfiguration())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
