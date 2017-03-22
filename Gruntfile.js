@@ -71,6 +71,7 @@ module.exports = function (grunt) {
               'app.js',
               'server.js',
               'package.json',
+              'ctf.key',
               'app/index.html',
               'app/bower_components/**',
               'app/css/*.css',
