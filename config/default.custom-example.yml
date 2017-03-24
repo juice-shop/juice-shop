@@ -1,8 +1,58 @@
 server:
   port: 3000
 application:
-  domain: umbrella-insurance.local
-  name: "Umbrella Insurance"
-  logoReplacementUrl: "https://openclipart.org/image/2400px/svg_to_png/181617/insurance.png"
+  domain: sick-sh.op
+  name: "Sick-Shop"
+  logoReplacementUrl: "https://openclipart.org/image/300px/svg_to_png/250927/1465228117.png"
   numberOfRandomFakeUsers: 0
   isChallangeSolvedNotificationsShown: false
+  theme: "cosmo"
+  products:
+    - name: "Cold"
+      price: 10
+      description: "Small cold to stay in bed some days"
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/244715/Wooden-crutch.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Torn Meniscus"
+      price: 1150
+      description: "Don't want to go every day to your office for the next month? Take a torn meniscus!"
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/244715/Wooden-crutch.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+    - name: "Bad cold"
+      price: 150
+      description: "Bad cold gives you everythink you need to stay around a week in bed."
+      imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
