@@ -226,7 +226,7 @@ frisby.create('POST login with WHERE-clause disabling SQL injection attack')
 
 frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op\'--',
+    email: 'admin@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
@@ -238,7 +238,7 @@ frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection 
 
 frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'jim@juice-sh.op\'--',
+    email: 'jim@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
@@ -250,7 +250,7 @@ frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection at
 
 frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'bender@juice-sh.op\'--',
+    email: 'bender@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
