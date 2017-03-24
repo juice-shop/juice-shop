@@ -21,6 +21,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200)
 
       $httpBackend.flush()
@@ -29,6 +30,7 @@ describe('controllers', function () {
     }))
 
     it('should hold application version', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
 
       $httpBackend.flush()
@@ -37,6 +39,7 @@ describe('controllers', function () {
     }))
 
     it('should show nothing on missing application version', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
 
       $httpBackend.flush()
@@ -45,6 +48,7 @@ describe('controllers', function () {
     }))
 
     it('should show nothing on error retrieving application version', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500)
 
       $httpBackend.flush()
@@ -53,12 +57,22 @@ describe('controllers', function () {
     }))
 
     it('should log errors directly to browser console', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should be defined', inject(function () {
+      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200)
+
+      $httpBackend.flush()
+
+      expect(controller).toBeDefined()
     }))
   })
 })
