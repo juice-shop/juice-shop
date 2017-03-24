@@ -15,9 +15,11 @@ angular.module('juiceShop').controller('NavbarController', [
     })
 
     $scope.applicationName = 'OWASP Juice Shop'
+    $scope.applicationTheme = 'slate'
     configurationService.getApplicationConfiguration().success(function (data) {
       if (data && data.application) {
         $scope.applicationName = data.application.name
+        $scope.applicationTheme = data.application.theme
       }
     }).error(function (err) {
       console.log(err)
