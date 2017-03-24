@@ -54,17 +54,8 @@ angular.module('juiceShop').config(['$httpProvider', function ($httpProvider) {
   $httpProvider.interceptors.push('rememberMeInterceptor')
 }])
 
-angular.module('juiceShop').run(['$cookies', '$rootScope', 'ConfigurationService', function ($cookies, $rootScope, configurationService) {
+angular.module('juiceShop').run(['$cookies', '$rootScope', function ($cookies, $rootScope) {
   'use strict'
-  $rootScope.applicationName = 'OWASP Juice Shop'
-  configurationService.getApplicationConfiguration().success(function (data) {
-    console.log(data)
-    if (data && data.application) {
-      $rootScope.applicationName = data.application.name
-    }
-  }).error(function (err) {
-    console.log(err)
-  })
 
   $rootScope.isLoggedIn = function () {
     return $cookies.get('token')

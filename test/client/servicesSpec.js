@@ -252,6 +252,14 @@ describe('services', function () {
 
       expect(result).toBe('apiResponse')
     }))
+    it('should get application configuration directly from the rest api', inject(function (ConfigurationService) {
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, 'apiResponse')
+
+      ConfigurationService.getApplicationConfiguration().success(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
   })
 
   describe('ComplaintService', function () {
