@@ -22,8 +22,8 @@ describe('/#/login', function () {
       expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
     })
 
-    it('should log in Admin with SQLI attack on email field using "admin@juice-sh.op\'--"', function () {
-      email.sendKeys('admin@juice-sh.op\'--')
+    it('should log in Admin with SQLI attack on email field using "admin@<juice-sh.op>\'--"', function () {
+      email.sendKeys('admin@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
 
@@ -34,8 +34,8 @@ describe('/#/login', function () {
   })
 
   describe('challenge "loginJim"', function () {
-    it('should log in Jim with SQLI attack on email field using "jim@juice-sh.op\'--"', function () {
-      email.sendKeys('jim@juice-sh.op\'--')
+    it('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', function () {
+      email.sendKeys('jim@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
 
@@ -46,8 +46,8 @@ describe('/#/login', function () {
   })
 
   describe('challenge "loginBender"', function () {
-    it('should log in Bender with SQLI attack on email field using "bender@juice-sh.op\'--"', function () {
-      email.sendKeys('bender@juice-sh.op\'--')
+    it('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', function () {
+      email.sendKeys('bender@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
 
