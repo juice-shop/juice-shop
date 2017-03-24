@@ -19,6 +19,7 @@ describe('controllers', function () {
         '$scope': scope
       })
       expect(scope.applicationName).toBeDefined()
+      expect(scope.applicationTheme).toBeDefined()
     }))
 
     it('should be defined', inject(function () {
