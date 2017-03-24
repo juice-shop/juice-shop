@@ -6,3 +6,4 @@ application:
   logoReplacementUrl: ""
   numberOfRandomFakeUsers: 0
   isChallangeSolvedNotificationsShown: true
+  theme: "slate"
