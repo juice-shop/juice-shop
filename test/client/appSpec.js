@@ -11,7 +11,6 @@ describe('app', function () {
 
   it('should be defined', inject(function () {
     expect($rootScope.isLoggedIn).toBeDefined()
-    expect($rootScope.applicationName).toBeDefined()
   }))
 
   it('should return token from cookie as login status for logged-in user', inject(function () {

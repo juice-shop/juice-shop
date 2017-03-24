@@ -18,6 +18,7 @@ describe('controllers', function () {
       controller = $controller('NavbarController', {
         '$scope': scope
       })
+      expect(scope.applicationName).toBeDefined()
     }))
 
     it('should be defined', inject(function () {
