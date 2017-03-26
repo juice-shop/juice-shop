@@ -5,5 +5,5 @@ application:
   name: "OWASP Juice Shop"
   logoReplacementUrl: ""
   numberOfRandomFakeUsers: 0
-  isChallangeSolvedNotificationsShown: true
+  isChallengeSolvedNotificationsShown: true
   theme: "slate"
