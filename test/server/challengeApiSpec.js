@@ -71,4 +71,3 @@ frisby.create('PUT continue code for non-existent challenge #99 is accepted')
   .put('http://localhost:3000/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
   .expectStatus(200)
   .toss()
-

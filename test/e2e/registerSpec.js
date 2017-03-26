@@ -1,7 +1,8 @@
 'use strict'
 
 describe('/#/register', function () {
-  protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+  var config = require('config')
+  protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
   beforeEach(function () {
     browser.get('/#/register')

@@ -43,7 +43,9 @@ var datacreator = require('./data/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
+var https = require('https')
 var io = require('socket.io')(server)
+var appConfiguration = require('./routes/appConfiguration')
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -144,6 +146,7 @@ app.get('/rest/basket/:id', basket())
 app.post('/rest/basket/:id/checkout', order())
 app.put('/rest/basket/:id/coupon/:coupon', coupon())
 app.get('/rest/admin/application-version', appVersion())
+app.get('/rest/admin/application-configuration', appConfiguration())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
@@ -176,13 +179,19 @@ exports.start = function (config, readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = server.listen(config.port, function () {
-        console.log(colors.yellow('Server listening on port %d'), config.port)
+      this.server = server.listen(config.get('server.port'), function () {
+        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         if (readyCallback) {
           readyCallback()
         }
       })
     })
+    if (config.get('application.logoReplacementUrl') !== '') {
+      var file = fs.createWriteStream('app/public/images/JuiceShop_Logo.png')
+      https.get(config.get('application.logoReplacementUrl'), function (response) {
+        response.pipe(file)
+      })
+    }
   }
 }
 

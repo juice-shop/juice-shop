@@ -4,6 +4,7 @@ var utils = require('../lib/utils')
 var insecurity = require('../lib/insecurity')
 var models = require('../models/index')
 var challenges = require('../data/datacache').challenges
+var config = require('config')
 
 exports = module.exports = function login () {
   function afterLogin (user, res, next) {
@@ -25,10 +26,10 @@ exports = module.exports = function login () {
   }
 
   return function (req, res, next) {
-    if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@juice-sh.op' && req.body.password === 'admin123') {
+    if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@' + config.get('application.domain') && req.body.password === 'admin123') {
       utils.solve(challenges.weakPasswordChallenge)
     }
-    if (utils.notSolved(challenges.loginSupportChallenge) && req.body.email === 'support@juice-sh.op' && req.body.password === 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P') {
+    if (utils.notSolved(challenges.loginSupportChallenge) && req.body.email === 'support@' + config.get('application.domain') && req.body.password === 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P') {
       utils.solve(challenges.loginSupportChallenge)
     }
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {

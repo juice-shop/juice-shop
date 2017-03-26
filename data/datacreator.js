@@ -3,6 +3,8 @@
 
 var models = require('../models/index')
 var datacache = require('./datacache')
+var config = require('config')
+var utils = require('../lib/utils')
 var challenges = datacache.challenges
 var users = datacache.users
 var products = datacache.products
@@ -10,7 +12,13 @@ var products = datacache.products
 module.exports = function () {
   createChallenges()
   createUsers()
-  createProducts()
+  createRandomFakeUsers()
+  if (config.has('application.products') && config.get('application.products').length > 0) {
+    createDefinedProducts()
+  } else {
+    createProducts()
+  }
+
   createBaskets()
   createFeedback()
 
@@ -361,15 +369,15 @@ module.exports = function () {
 
   function createUsers () {
     models.User.create({
-      email: 'admin@juice-sh.op',
+      email: 'admin@' + config.get('application.domain'),
       password: 'admin123'
     })
     models.User.create({
-      email: 'jim@juice-sh.op',
+      email: 'jim@' + config.get('application.domain'),
       password: 'ncc-1701'
     })
     models.User.create({
-      email: 'bender@juice-sh.op',
+      email: 'bender@' + config.get('application.domain'),
       password: 'OhG0dPlease1nsertLiquor!'
     }).success(function (user) {
       users.bender = user
@@ -381,17 +389,40 @@ module.exports = function () {
       users.bjoern = user
     })
     models.User.create({
-      email: 'ciso@juice-sh.op',
+      email: 'ciso@' + config.get('application.domain'),
       password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
     }).success(function (user) {
       users.ciso = user
     })
     models.User.create({
-      email: 'support@juice-sh.op',
+      email: 'support@' + config.get('application.domain'),
       password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
     }).success(function (user) {
       users.support = user
     })
+  }
+
+  function createRandomFakeUsers () {
+    for (var i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
+      models.User.create({
+        email: getGeneratedRandomFakeUserEmail(),
+        password: makeRandomString(5)
+      })
+    }
+  }
+
+  function getGeneratedRandomFakeUserEmail () {
+    var randomDomain = makeRandomString(4).toLowerCase() + '. ' + makeRandomString(2).toLowerCase()
+    return makeRandomString(5).toLowerCase() + '@' + randomDomain
+  }
+
+  function makeRandomString (length) {
+    var text = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+    for (var i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
+
+    return text
   }
 
   function createProducts () {
@@ -514,6 +545,42 @@ module.exports = function () {
       price: 150,
       image: 'white_raffards.jpg'
     })
+  }
+
+  function createDefinedProducts () {
+    for (var i = 0; i < config.get('application.products').length; i++) {
+      var product = config.get('application.products')[i]
+      var name = product.name
+      var description = product.description
+      if (description === '') {
+        description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. '
+      }
+      var price = product.price
+      if (price === '') {
+        price = Math.floor(Math.random())
+      }
+      var imageFileName = 'white_raffards.jpg'
+      if (product.imageUrl !== '') {
+        imageFileName = makeRandomString(5) + '-' + product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
+        var imageFilePath = 'app/public/images/products/' + imageFileName
+        utils.downloadToFile(product.imageUrl, imageFilePath)
+      }
+      models.Product.create({
+        name: name,
+        description: description,
+        price: price,
+        image: imageFileName
+      }).success(function (product) {
+        if (product.id === 8) {
+          products.christmasSpecial = product
+          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id)
+        } else if (product.id === 7) {
+          products.osaft = product
+          var osaftDescription = ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+          models.sequelize.query('UPDATE Products SET description = \'' + product.description + osaftDescription + '\'  WHERE id = ' + product.id)
+        }
+      })
+    }
   }
 
   function createBaskets () {

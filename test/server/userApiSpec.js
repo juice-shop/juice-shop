@@ -1,5 +1,6 @@
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
+var config = require('config')
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -147,7 +148,7 @@ frisby.create('DELETE existing user is forbidden via public API')
 
 frisby.create('POST login user Bender')
   .post(REST_URL + '/user/login', {
-    email: 'bender@juice-sh.op',
+    email: 'bender@' + config.get('application.domain'),
     password: 'OhG0dPlease1nsertLiquor!'
   }, { json: true })
   .expectStatus(200)
@@ -177,7 +178,7 @@ frisby.create('POST login without credentials')
 
 frisby.create('POST login with admin credentials')
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op',
+    email: 'admin@' + config.get('application.domain'),
     password: 'admin123'
   }, { json: true })
   .expectStatus(200)
@@ -189,7 +190,7 @@ frisby.create('POST login with admin credentials')
 
 frisby.create('POST login with support-team credentials')
   .post(REST_URL + '/user/login', {
-    email: 'support@juice-sh.op',
+    email: 'support@' + config.get('application.domain'),
     password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   }, { json: true })
   .expectStatus(200)
@@ -225,7 +226,7 @@ frisby.create('POST login with WHERE-clause disabling SQL injection attack')
 
 frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op\'--',
+    email: 'admin@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
@@ -237,7 +238,7 @@ frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection 
 
 frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'jim@juice-sh.op\'--',
+    email: 'jim@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
@@ -249,7 +250,7 @@ frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection at
 
 frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'bender@juice-sh.op\'--',
+    email: 'bender@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
@@ -344,16 +345,16 @@ frisby.create('GET who-am-i request returns nothing on broken auth token')
   .expectJSONTypes({})
   .toss()
 
-frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@juice-sh.op')
+frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@' + config.get('application.domain'))
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op',
+    email: 'admin@' + config.get('application.domain'),
     password: 'admin123',
     oauth: true
   }, { json: true })
-  .addHeaders({ 'X-User-Email': 'ciso@juice-sh.op' })
+  .addHeaders({ 'X-User-Email': 'ciso@' + config.get('application.domain') })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON({
-    umail: 'ciso@juice-sh.op'
+    umail: 'ciso@' + config.get('application.domain')
   })
   .toss()

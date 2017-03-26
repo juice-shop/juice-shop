@@ -1,0 +1,9 @@
+server:
+  port: 3000
+application:
+  domain: juice-sh.op
+  name: "OWASP Juice Shop"
+  logoReplacementUrl: ""
+  numberOfRandomFakeUsers: 0
+  isChallengeSolvedNotificationsShown: true
+  theme: "slate"
