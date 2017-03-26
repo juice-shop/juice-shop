@@ -179,7 +179,7 @@ exports.start = function (config, readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = server.listen(config.get('server.port'), function () {
+      this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         if (readyCallback) {
           readyCallback()
