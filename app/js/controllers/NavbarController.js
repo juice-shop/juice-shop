@@ -1,7 +1,8 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
+  '$rootScope',
   'AdministrationService', 'ConfigurationService',
-  function ($scope, administrationService, configurationService) {
+  function ($scope, $rootScope, administrationService, configurationService) {
     'use strict'
 
     $scope.version = ''
@@ -14,12 +15,12 @@ angular.module('juiceShop').controller('NavbarController', [
       console.log(err)
     })
 
-    $scope.applicationName = 'OWASP Juice Shop'
-    $scope.applicationTheme = 'slate'
+    $rootScope.applicationName = 'OWASP Juice Shop'
+    $rootScope.applicationTheme = 'slate'
     configurationService.getApplicationConfiguration().success(function (data) {
       if (data && data.application) {
-        $scope.applicationName = data.application.name
-        $scope.applicationTheme = data.application.theme
+        $rootScope.applicationName = data.application.name
+        $rootScope.applicationTheme = data.application.theme
       }
     }).error(function (err) {
       console.log(err)
