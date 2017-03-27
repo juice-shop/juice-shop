@@ -617,24 +617,24 @@ module.exports = function () {
   function createFeedback () {
     models.Feedback.create({
       UserId: 1,
-      comment: 'I love this shop! Best juice in town! Highly recommended!',
+      comment: 'I love this shop! Best products in town! Highly recommended!',
       rating: 5
     })
     models.Feedback.create({
       UserId: 2,
-      comment: 'Great shop! The O-Saft is highly recommended!',
+      comment: 'Great shop! Awesome service!',
       rating: 4
     })
     models.Feedback.create({
-      comment: 'Why isn\'t there a T-Shirt for skinny people available?!<blockquote>Juice Shop: We now have shirts in all sizes</blockquote>',
+      comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
       rating: 2
     })
     models.Feedback.create({
-      comment: 'This is <b>the</b> store for juices of all kinds!',
+      comment: 'This is <b>the</b> store for awesome stuff of all kinds!',
       rating: 4
     })
     models.Feedback.create({
-      comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
+      comment: 'Never gonna buy anywhere else from now on! Thanks for the great service!',
       rating: 4
     })
     models.Feedback.create({
@@ -643,7 +643,7 @@ module.exports = function () {
     })
     models.Feedback.create({
       UserId: 3,
-      comment: 'No real drinks available here!',
+      comment: 'Nothing useful available here!',
       rating: 1
     })
   }
