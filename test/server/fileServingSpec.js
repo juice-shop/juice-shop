@@ -124,13 +124,13 @@ frisby.create('GET a restricted file directly from file system path on server by
 frisby.create('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead')
   .get(URL + '/public/images/../../ftp/eastere.gg')
   .expectStatus(200)
-  .expectBodyContains('<h1 class="hidden">OWASP Juice Shop</h1>')
+  .expectBodyContains('<meta name="description" content="An intentionally insecure Javascript Web Application">')
   .toss()
 
 frisby.create('GET a restricted file directly from file system path on server via URL-encoded Directory Traversal attack loads index.html instead')
   .get(URL + '/public/images/%2e%2e%2f%2e%2e%2fftp/eastere.gg')
   .expectStatus(200)
-  .expectBodyContains('<h1 class="hidden">OWASP Juice Shop</h1>')
+  .expectBodyContains('<meta name="description" content="An intentionally insecure Javascript Web Application">')
   .toss()
 
 frisby.create('GET a file whose name contains a "/" fails with a 403 error')
