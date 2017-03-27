@@ -13,12 +13,11 @@ module.exports = function () {
   createChallenges()
   createUsers()
   createRandomFakeUsers()
-  if (config.has('application.products') && config.get('application.products').length > 0) {
-    createDefinedProducts()
+  if (config.has('products') && config.get('products').length > 0) {
+    createCustomProducts()
   } else {
     createProducts()
   }
-
   createBaskets()
   createFeedback()
 
@@ -478,7 +477,7 @@ module.exports = function () {
     })
     models.Product.create({
       name: 'Christmas Super-Surprise-Box (2014 Edition)',
-      description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price! Only available on Christmas 2014!',
+      description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price! (Seasonal special offer! Limited availability!)',
       price: 29.99,
       image: 'undefined.jpg'
     }).success(function (product) {
@@ -547,19 +546,13 @@ module.exports = function () {
     })
   }
 
-  function createDefinedProducts () {
-    for (var i = 0; i < config.get('application.products').length; i++) {
-      var product = config.get('application.products')[i]
+  function createCustomProducts () {
+    for (var i = 0; i < config.get('products').length; i++) {
+      var product = config.get('products')[i]
       var name = product.name
-      var description = product.description
-      if (description === '') {
-        description = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. '
-      }
-      var price = product.price
-      if (price === '') {
-        price = Math.floor(Math.random())
-      }
-      var imageFileName = 'white_raffards.jpg'
+      var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. '
+      var price = product.price || Math.floor(Math.random())
+      var imageFileName = 'undefined.jpg'
       if (product.imageUrl !== '') {
         imageFileName = makeRandomString(5) + '-' + product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
         var imageFilePath = 'app/public/images/products/' + imageFileName
@@ -573,7 +566,8 @@ module.exports = function () {
       }).success(function (product) {
         if (product.id === 8) {
           products.christmasSpecial = product
-          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id)
+          var christmasDescription = ' (Seasonal special offer! Limited availability!)'
+          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\', description = \'' + product.description + christmasDescription + '\' WHERE id = ' + product.id)
         } else if (product.id === 7) {
           products.osaft = product
           var osaftDescription = ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
