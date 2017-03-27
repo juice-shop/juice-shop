@@ -50,6 +50,7 @@ Javascript-heavy application frontends and REST APIs.
   keeps track of successfully exploited vulnerabilities on a Score Board
 - CTF-support: Challenge notifications contain a customizable flag code
   for your own [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
+- Re-branding: Fully customizable business context and look & feel
 - Free and Open source: Licensed under the [MIT license](LICENSE) with
   no hidden costs or caveats
 
@@ -153,6 +154,40 @@ docker run -d -p 80:3000 bkimminich/juice-shop
    of the repository)
 3. Run `cd vagrant && vagrant up`
 4. Browse to <http://juice.sh>
+
+## Customization
+
+Via a YAML configuration file in `/config`, the OWASP Juice Shop can be customized in its content and look & feel:
+
+```yaml
+server:
+  port: 3000
+application:
+  domain: juice-sh.op                     # used for all user email addresses
+  name: "OWASP Juice Shop"                # shown in title and menu bar 
+  logoReplacementUrl: ~                   # image in PNG format to use as a logo
+  numberOfRandomFakeUsers: 0              # random user accounts to be created (additional to pre-defined ones)
+  showChallengeSolvedNotifications: true  # set to 'false' to hide instant "challenge solved"-notifications
+  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com) 
+products: []                              # if specified, the products to create instead of the default ones
+```
+
+Products can be defined as follows. To keep all hacking challenges working, you need at least 8 products:
+
+```yaml
+products:
+  - name: "Product Name"                  # (mandatory)
+    price: 100                            # (optional) will be a random price if not specified
+    description: "Product Description"    # (optional) will be a static "Lorem Ipsum" text if not specified
+    imageUrl: "https://product/image.png" # (optional) will be undefined.jpg if not specified
+```
+
+A complete example can be found in [`config/example-customization.yml`](config/example-customization.yml). To run it you need to:
+
+1. Set environment variable `export NODE_ENV=example-customization`
+2. Run `npm start`
+
+> It is not necessary to run `npm install` after switching customization configurations.
 
 ## Node.js version compatibility
 
