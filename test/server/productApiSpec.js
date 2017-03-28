@@ -4,6 +4,14 @@ var config = require('config')
 var christmasProduct = config.get('products').filter(function (product) {
   return product.useForChristmasSpecialChallenge
 })[0]
+var tamperingProductId = (function () {
+  var products = config.get('products')
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].useForProductTamperingChallenge) {
+      return i + 1
+    }
+  }
+}())
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -66,7 +74,7 @@ frisby.create('POST new product is forbidden via public API')
   .toss()
 
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
-  .put(API_URL + '/Products/8', {
+  .put(API_URL + '/Products/' + tamperingProductId, {
     description: '<a href="http://kimminich.de" target="_blank">More...</a>'
   }, { json: true })
   .expectStatus(200)
@@ -77,7 +85,7 @@ frisby.create('PUT update existing product is possible due to Missing Function-L
   .toss()
 
 frisby.create('PUT update existing product does not filter XSS attacks')
-  .put(API_URL + '/Products/7', {
+  .put(API_URL + '/Products/1', {
     description: "<script>alert('XSS3')</script>"
   }, { json: true })
   .expectStatus(200)

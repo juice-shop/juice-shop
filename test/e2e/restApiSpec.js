@@ -1,7 +1,7 @@
 'use strict'
 
 var config = require('config')
-var tamperableProductId = (function () {
+var tamperingProductId = (function () {
   var products = config.get('products')
   for (var i = 0; i < products.length; i++) {
     if (products[i].useForProductTamperingChallenge) {
@@ -39,7 +39,7 @@ describe('/rest', function () {
   describe('challenge "changeProduct"', function () {
     it('should be possible to change product via PUT request without being logged in', function () {
       browser.ignoreSynchronization = true
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + tamperableProductId + '\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + tamperingProductId + '\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
       browser.driver.sleep(1000)
       browser.ignoreSynchronization = false
       browser.get('/#/search')
