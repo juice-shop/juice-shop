@@ -1,6 +1,9 @@
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
 var config = require('config')
+var christmasProduct = config.get('products').filter(function (product) {
+  return product.useForChristmasSpecialChallenge
+})[0]
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -224,24 +227,24 @@ frisby.create('GET product search can create UNION SELECT with Users table and r
   .toss()
 
 frisby.create('GET product search cannot select logically deleted christmas special by default')
-  .get(REST_URL + '/product/search?q=christmas')
+  .get(REST_URL + '/product/search?q=seasonal%20special%20offer')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', [])
   .toss()
 
-frisby.create('GET product search cannot select logically deleted christmas special by forced early where-clause termination')
-  .get(REST_URL + '/product/search?q=christmas\'))--')
+frisby.create('GET product search by description cannot select logically deleted christmas special due to forced early where-clause termination')
+  .get(REST_URL + '/product/search?q=seasonal%20special%20offer\'))--')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', [])
   .toss()
 
 frisby.create('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause')
-  .get(REST_URL + '/product/search?q=\'))--')
+  .get(REST_URL + '/product/search?q=' + christmasProduct.name + '\'))--')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data.?', {
-    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    name: function (value) { expect(value).toBe(christmasProduct.name) }
   })
   .toss()

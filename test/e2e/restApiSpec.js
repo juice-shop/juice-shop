@@ -1,6 +1,14 @@
 'use strict'
 
 var config = require('config')
+var tamperableProductId = (function () {
+  var products = config.get('products')
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].useForProductTamperingChallenge) {
+      return i + 1
+    }
+  }
+}())
 
 describe('/rest', function () {
   describe('challenge "xss3"', function () {
@@ -19,7 +27,7 @@ describe('/rest', function () {
                   alert.accept()
 
                   browser.ignoreSynchronization = true
-                  browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/20\', {description: \'alert disabled\'});')
+                  browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + (config.get('products').length + 1) + '\', {description: \'alert disabled\'});')
                   browser.driver.sleep(1000)
                   browser.ignoreSynchronization = false
                 })
@@ -31,7 +39,7 @@ describe('/rest', function () {
   describe('challenge "changeProduct"', function () {
     it('should be possible to change product via PUT request without being logged in', function () {
       browser.ignoreSynchronization = true
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/8\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + tamperableProductId + '\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
       browser.driver.sleep(1000)
       browser.ignoreSynchronization = false
       browser.get('/#/search')
