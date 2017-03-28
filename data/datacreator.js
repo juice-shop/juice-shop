@@ -407,7 +407,7 @@ module.exports = function () {
   }
 
   function getGeneratedRandomFakeUserEmail () {
-    var randomDomain = makeRandomString(4).toLowerCase() + '. ' + makeRandomString(2).toLowerCase()
+    var randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
