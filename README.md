@@ -49,7 +49,8 @@ Javascript-heavy application frontends and REST APIs.
 - Gamification: The application notifies you on solved challenges and
   keeps track of successfully exploited vulnerabilities on a Score Board
 - CTF-support: Challenge notifications contain a customizable flag code
-  for your own [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
+  for your own
+  [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
 - Re-branding: Fully customizable business context and look & feel
 - Free and Open source: Licensed under the [MIT license](LICENSE) with
   no hidden costs or caveats
@@ -157,7 +158,8 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 
 ## Customization
 
-Via a YAML configuration file in `/config`, the OWASP Juice Shop can be customized in its content and look & feel:
+Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
+customized in its content and look & feel:
 
 ```yaml
 server:
@@ -172,7 +174,8 @@ application:
 products: []                              # if specified, the products to create instead of the default ones
 ```
 
-Products can be defined as follows. To keep all hacking challenges working, you need at least 8 products:
+Products can be defined as follows. To keep all hacking challenges
+working, you need at least 8 products:
 
 ```yaml
 products:
@@ -182,12 +185,17 @@ products:
     imageUrl: "https://product/image.png" # (optional) will be undefined.jpg if not specified
 ```
 
-A complete example can be found in [`config/example-customization.yml`](config/example-customization.yml). To run it you need to:
+A working customization example can be found in
+[`config/sickshop.yml`](config/sickshop.yml). To run it you need to:
 
-1. Set environment variable `export NODE_ENV=example-customization`
+1. Set environment variable `export NODE_ENV=sickshop`
 2. Run `npm start`
 
-> It is not necessary to run `npm install` after switching customization configurations.
+> It is not necessary to run `npm install` after switching customization
+> configurations. To verify if your custom configuration will not break
+> any of the challenges, you should
+> [run all tests](CONTRIBUTING.md#unit--integration-tests) via `npm test
+> && npm run protractor`.
 
 ## Node.js version compatibility
 
