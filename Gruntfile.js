@@ -80,6 +80,7 @@ module.exports = function (grunt) {
               'app/i18n/*.json',
               'app/private/**',
               'app/public/**',
+              'config/*.yml',
               'data/*.js',
               'ftp/**',
               'lib/*.js',
