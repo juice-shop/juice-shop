@@ -13,11 +13,7 @@ module.exports = function () {
   createChallenges()
   createUsers()
   createRandomFakeUsers()
-  if (config.has('products') && config.get('products').length > 0) {
-    createCustomProducts()
-  } else {
-    createProducts()
-  }
+  createProducts()
   createBaskets()
   createFeedback()
 
@@ -425,136 +421,19 @@ module.exports = function () {
   }
 
   function createProducts () {
-    models.Product.create({
-      name: 'Apple Juice (1000ml)',
-      description: 'The all-time classic.',
-      price: 1.99,
-      image: 'apple_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Orange Juice (1000ml)',
-      description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
-      price: 2.99,
-      image: 'orange_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Eggfruit Juice (500ml)',
-      description: 'Now with even more exotic flavour.',
-      price: 8.99,
-      image: 'eggfruit_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Raspberry Juice (1000ml)',
-      description: 'Made from blended Raspberry Pi, water and sugar.',
-      price: 4.99,
-      image: 'raspberry_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Lemon Juice (500ml)',
-      description: 'Sour but full of vitamins.',
-      price: 2.99,
-      image: 'lemon_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Banana Juice (1000ml)',
-      description: 'Monkeys love it the most.',
-      price: 1.99,
-      image: 'banana_juice.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop T-Shirt',
-      description: 'Real fans wear it 24/7!',
-      price: 22.49,
-      image: 'fan_shirt.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
-      description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
-      price: 0.01,
-      image: 'owasp_osaft.jpg'
-    }).success(function (product) {
-      products.osaft = product
-    })
-    models.Product.create({
-      name: 'Christmas Super-Surprise-Box (2014 Edition)',
-      description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price! (Seasonal special offer! Limited availability!)',
-      price: 29.99,
-      image: 'undefined.jpg'
-    }).success(function (product) {
-      products.christmasSpecial = product
-      models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id)
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Stickers',
-      description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.',
-      price: 2.99,
-      image: 'sticker.png'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Mug',
-      description: 'Black mug with logo on each side! Your colleagues will envy you!',
-      price: 21.99,
-      image: 'fan_mug.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Hoodie',
-      description: 'Mr. Robot-style apparel. But in black. And with logo.',
-      price: 49.99,
-      image: 'fan_hoodie.jpg'
-    })
-    models.Product.create({
-      name: 'Woodruff Syrup "Forest Master X-Treme"',
-      description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.',
-      price: 6.99,
-      image: 'woodruff_syrup.jpg'
-    })
-    models.Product.create({
-      name: 'Green Smoothie',
-      description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.',
-      price: 1.99,
-      image: 'green_smoothie.jpg'
-    })
-    models.Product.create({
-      name: 'Quince Juice (1000ml)',
-      description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.',
-      price: 4.99,
-      image: 'quince.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Node.js Goat',
-      description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>',
-      price: 0.01,
-      image: 'owasplogo.png'
-    })
-    models.Product.create({
-      name: 'Apple Pomace',
-      description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.',
-      price: 0.89,
-      image: 'apple_pressings.jpg'
-    })
-    models.Product.create({
-      name: 'Fruit Press',
-      description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.',
-      price: 89.99,
-      image: 'fruit_press.jpg'
-    })
-    models.Product.create({
-      name: 'Enhanced White Rafford\'s Decoction',
-      description: 'Immediately restores a large portion of Vitality.',
-      price: 150,
-      image: 'white_raffards.jpg'
-    })
-  }
-
-  function createCustomProducts () {
     for (var i = 0; i < config.get('products').length; i++) {
       var product = config.get('products')[i]
       var name = product.name
-      var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. '
+      var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+      if (product.useForChristmasSpecialChallenge) {
+        description += ' (Seasonal special offer! Limited availability!)'
+      } else if (product.useForProductTamperingChallenge) {
+        description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+      }
       var price = product.price || Math.floor(Math.random())
-      var imageFileName = 'undefined.jpg'
+      var imageFileName = product.image || 'undefined.jpg'
       if (product.imageUrl) {
-        imageFileName = makeRandomString(5) + '-' + product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
+        imageFileName = product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
         var imageFilePath = 'app/public/images/products/' + imageFileName
         utils.downloadToFile(product.imageUrl, imageFilePath)
       }
@@ -564,14 +443,11 @@ module.exports = function () {
         price: price,
         image: imageFileName
       }).success(function (product) {
-        if (product.id === 8) {
+        if (product.description.match(/Seasonal special offer! Limited availability!/)) {
           products.christmasSpecial = product
-          var christmasDescription = ' (Seasonal special offer! Limited availability!)'
-          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\', description = \'' + product.description + christmasDescription + '\' WHERE id = ' + product.id)
-        } else if (product.id === 7) {
+          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
+        } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
           products.osaft = product
-          var osaftDescription = ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
-          models.sequelize.query('UPDATE Products SET description = \'' + product.description + osaftDescription + '\'  WHERE id = ' + product.id)
         }
       })
     }

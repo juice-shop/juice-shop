@@ -22,6 +22,7 @@ products:
     price: 15
     description: "Feel like smoothly rubbing sandpaper on your brain."
     imageUrl: "https://openclipart.org/image/300px/svg_to_png/273493/Headache.png"
+    useForProductTamperingChallenge: true
   - name: "Headache"
     price: 15
     description: "Feel like smashing a hammer in your brain."
@@ -46,3 +47,4 @@ products:
     price: 5000
     description: "Have a lightning in your heart"
     imageUrl: "https://openclipart.org/image/300px/svg_to_png/154747/herzinfarkt.png"
+    useForChristmasSpecialChallenge: true
