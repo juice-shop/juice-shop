@@ -187,10 +187,7 @@ exports.start = function (config, readyCallback) {
       })
     })
     if (config.get('application.logoReplacementUrl')) {
-      var file = fs.createWriteStream('app/public/images/JuiceShop_Logo.png')
-      https.get(config.get('application.logoReplacementUrl'), function (response) {
-        response.pipe(file)
-      })
+      utils.downloadToFile(config.get('application.logoReplacementUrl'), 'app/public/images/JuiceShop_Logo.png')
     }
   }
 }
