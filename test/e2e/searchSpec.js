@@ -44,7 +44,7 @@ describe('/#/search', function () {
       })
 
       var productDescriptions = element.all(by.repeater('product in products').column('description'))
-      expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/)
+      expect(productDescriptions.first().getText()).toBe('admin@' + config.get('application.domain'))
     })
 
     protractor.expect.challengeSolved({challenge: 'User Credentials'})
