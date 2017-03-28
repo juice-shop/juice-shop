@@ -43,7 +43,6 @@ var datacreator = require('./data/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
-var https = require('https')
 var io = require('socket.io')(server)
 var appConfiguration = require('./routes/appConfiguration')
 
