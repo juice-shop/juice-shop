@@ -174,15 +174,17 @@ application:
 products: []                              # if specified, the products to create instead of the default ones
 ```
 
-Products can be defined as follows. To keep all hacking challenges
-working, you need at least 8 products:
+Products can be defined as follows:
 
 ```yaml
 products:
-  - name: "Product Name"                  # (mandatory)
-    price: 100                            # (optional) will be a random price if not specified
-    description: "Product Description"    # (optional) will be a static "Lorem Ipsum" text if not specified
-    imageUrl: "https://product/image.png" # (optional) will be undefined.jpg if not specified
+  - name: "Product Name"                    # (mandatory)
+    price: 100                              # (optional) will be a random price if not specified
+    description: "Product Description"      # (optional) will be a static "Lorem Ipsum" text if not specified
+    image: "image.png"                      # (optional) will be undefined.jpg if not specified and...
+    imageUrl: "https://product/image.png"   # (optional) ...a download URL is also not specified. Overrides "image" if both are specified
+    useForProductTamperingChallenge: false  # (must be defined as "true" on exactly one product)
+    useForChristmasChallenge: false         # (must be defined as "true" on exactly one product)
 ```
 
 A working customization example can be found in
