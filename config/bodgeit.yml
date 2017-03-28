@@ -1,0 +1,12 @@
+application:
+  domain: bodg.eit
+  name: "TheBodgeItStore"
+  showChallengeSolvedNotifications: true
+  theme: "paper"
+products:
+  - name: "Basic Widget"
+    price: 1.2
+  - name: "Complex Widget"
+    price: 3.1
+  - name: "Weird Widget"
+    price: 4.7
