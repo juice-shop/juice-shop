@@ -8,6 +8,8 @@ application:
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   theme: "slate"
+  twitterUrl: "https://twitter.com/owasp_juiceshop"
+  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
 products:
   - name: "Apple Juice (1000ml)"
     price: 1.99

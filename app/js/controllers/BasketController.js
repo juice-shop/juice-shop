@@ -5,7 +5,8 @@ angular.module('juiceShop').controller('BasketController', [
   '$translate',
   '$uibModal',
   'BasketService',
-  function ($scope, $sce, $window, $translate, $uibModal, basketService) {
+  'ConfigurationService',
+  function ($scope, $sce, $window, $translate, $uibModal, basketService, configurationService) {
     'use strict'
 
     $scope.couponCollapsed = true
@@ -119,4 +120,15 @@ angular.module('juiceShop').controller('BasketController', [
         }
       })
     }
+
+    $scope.twitterUrl = 'https://twitter.com/owasp_juiceshop'
+    $scope.facebookUrl = 'https://www.facebook.com/owasp.juiceshop'
+    configurationService.getApplicationConfiguration().success(function (data) {
+      if (data && data.application) {
+        $scope.twitterUrl = data.application.twitterUrl
+        $scope.facebookUrl = data.application.facebookUrl
+      }
+    }).error(function (err) {
+      console.log(err)
+    })
   }])
