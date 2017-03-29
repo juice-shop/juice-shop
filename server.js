@@ -162,14 +162,17 @@ app.use(errorhandler())
 
 io.on('connection', function (socket) {
   // send all outstanding notifications on (re)connect
-  for (var notification in notifications) {
-    if (notifications.hasOwnProperty(notification)) {
-      socket.emit('challenge solved', notification)
-    }
-  }
+  notifications.forEach(function (notification) {
+    socket.emit('challenge solved', notification)
+  })
 
   socket.on('notification received', function (data) {
-    delete notifications[data]
+    var i = notifications.findIndex(function (element) {
+      return element.flag === data
+    })
+    if (i > -1) {
+      notifications.splice(i, 1)
+    }
   })
 })
 
