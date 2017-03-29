@@ -4,6 +4,7 @@ application:
   domain: juice-sh.op
   name: "OWASP Juice Shop"
   logoReplacementUrl: ~
+  faviconReplacementUrl: ~
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   theme: "slate"

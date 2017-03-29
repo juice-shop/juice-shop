@@ -31,9 +31,10 @@ server:
 application:
   domain: juice-sh.op                     # used for all user email addresses
   name: "OWASP Juice Shop"                # shown in title and menu bar 
-  logoReplacementUrl: ~                   # image in PNG format to use as a logo instead of the default one
-  numberOfRandomFakeUsers: 0              # random user accounts to be created (additional to pre-defined ones)
-  showChallengeSolvedNotifications: true  # set to 'false' to hide instant "challenge solved"-notifications
+  logoReplacementUrl: ~                   # URL to an image in PNG format to use as a logo instead of the default one
+  faviconReplacementUrl: ~                # URL to an image in ICO format to use as a favicon instead of the default one
+  numberOfRandomFakeUsers: 0              # number of random user accounts to be created (additional to pre-defined ones)
+  showChallengeSolvedNotifications: true  # set to 'false' to hide all instant "challenge solved"-notifications
   theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com) 
 products: []                              # if specified, the products to create instead of the default ones
 ```

@@ -188,6 +188,9 @@ exports.start = function (config, readyCallback) {
     if (config.get('application.logoReplacementUrl')) {
       utils.downloadToFile(config.get('application.logoReplacementUrl'), 'app/public/images/JuiceShop_Logo.png')
     }
+    if (config.get('application.faviconReplacementUrl')) {
+      utils.downloadToFile(config.get('application.faviconReplacementUrl'), 'app/public/favicon_v2.ico')
+    }
   }
 }
 
