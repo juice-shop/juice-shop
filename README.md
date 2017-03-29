@@ -159,45 +159,9 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 ## Customization
 
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel:
-
-```yaml
-server:
-  port: 3000
-application:
-  domain: juice-sh.op                     # used for all user email addresses
-  name: "OWASP Juice Shop"                # shown in title and menu bar 
-  logoReplacementUrl: ~                   # image in PNG format to use as a logo
-  numberOfRandomFakeUsers: 0              # random user accounts to be created (additional to pre-defined ones)
-  showChallengeSolvedNotifications: true  # set to 'false' to hide instant "challenge solved"-notifications
-  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com) 
-products: []                              # if specified, the products to create instead of the default ones
-```
-
-Products can be defined as follows:
-
-```yaml
-products:
-  - name: "Product Name"                    # (mandatory)
-    price: 100                              # (optional) will be a random price if not specified
-    description: "Product Description"      # (optional) will be a static "Lorem Ipsum" text if not specified
-    image: "image.png"                      # (optional) will be undefined.jpg if not specified and...
-    imageUrl: "https://product/image.png"   # (optional) ...a download URL is also not specified. Overrides "image" if both are specified
-    useForProductTamperingChallenge: false  # (must be defined as "true" on exactly one product)
-    useForChristmasChallenge: false         # (must be defined as "true" on exactly one product)
-```
-
-A working customization example can be found in
-[`config/sickshop.yml`](config/sickshop.yml). To run it you need to:
-
-1. Set environment variable `export NODE_ENV=sickshop`
-2. Run `npm start`
-
-> It is not necessary to run `npm install` after switching customization
-> configurations. To verify if your custom configuration will not break
-> any of the challenges, you should
-> [run all tests](CONTRIBUTING.md#unit--integration-tests) via `npm test
-> && npm run protractor`.
+customized in its content and look & feel. Please refer to
+[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
+examples.
 
 ## Node.js version compatibility
 
@@ -231,7 +195,7 @@ Feel free to
 [create an issue](https://github.com/bkimminich/juice-shop/issues) or
 [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
 Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CONTRIBUTING.md) for details.
+[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
 
 ## Project Media & Marketing
 
@@ -364,7 +328,7 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
   your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
+> is to somehow [contribute to the project](CUSTOMIZATION.md) by fixing
 > an issue, finding a serious bug or submitting a good idea for a new
 > challenge! We're also happy to send some stickers your way if you
 > organize a meetup or conference talk where you use or mention OWASP
