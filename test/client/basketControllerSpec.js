@@ -12,6 +12,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200)
     $sce = $injector.get('$sce')
     $uibModal = $injector.get('$uibModal')
   }))
