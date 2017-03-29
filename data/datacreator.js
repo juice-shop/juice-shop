@@ -431,7 +431,7 @@ module.exports = function () {
         description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
       }
       var price = product.price || Math.floor(Math.random())
-      var imageFileName = product.image || 'undefined.jpg'
+      var imageFileName = product.image || 'undefined.png'
       if (product.imageUrl) {
         imageFileName = product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
         var imageFilePath = 'app/public/images/products/' + imageFileName
