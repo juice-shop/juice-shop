@@ -11,15 +11,21 @@ presentation events.
 
 To run a customized OWASP Juice Shop you need to:
 
-1. Place your own `.yml` configuration file in `/config`
+1. Place your own `.yml` configuration file into `/config`
 2. Set the environment variable `NODE_ENV` to the filename of your
-   config (e.g. `export NODE_ENV=bodgeit`)
+   config via `export NODE_ENV=nameOfYourConfig` without the `.yml`
+   extension.
 3. Run `npm start`
+
+You can also run a config directly in one command via
+`NODE_ENV=nameOfYourConfig npm start`. By default the
+[`config/default.yml`](config/default.yml) config is used which
+generates the original OWASP Juice Shop look & feel and inventory.
 
 > It is not necessary to run `npm install` after switching customization
 > configurations. To verify if your custom configuration will not break
 > any of the challenges, you should
-> [run all tests](https://github.com/bkimminich/juice-shop/blob/master/CUSTOMIZATION.md)
+> [run all tests](CONTRIBUTING.md#unit--integration-tests)
 > via `npm test && npm run protractor`. If they pass, all functionality
 > and challenges will be working fine!
 
@@ -57,11 +63,12 @@ products:
 The following customizations are delivered out of the box with OWASP
 Juice Shop:
 * [The BodgeIt Store](https://github.com/bkimminich/juice-shop/blob/master/config/bodgeit.yml):
-  An homage to [our server-side rendered ancestor](https://github.com/psiinon/bodgeit)
+  An homage to
+  [our server-side rendered ancestor](https://github.com/psiinon/bodgeit)
 * [Sick-Shop](https://github.com/bkimminich/juice-shop/blob/master/config/sickshop.yml):
   A store that offers a variety of illnesses. _Achoo!_ Bless you!
 
 ## Credits
 
-Kudos for envisioning and developing this feature go to
+Kudos for envisioning and original implementation of this feature go to
 [@wurstbrot](https://github.com/wurstbrot)!
