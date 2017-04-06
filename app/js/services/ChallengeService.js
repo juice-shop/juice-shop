@@ -10,11 +10,11 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', function ($htt
   }
 
   function repeatNotification (challengeName) {
-      return $http.get('/rest/repeat-notification', {
-          params: {
-            challenge: challengeName
-          }
-      })
+    return $http.get('/rest/repeat-notification', {
+      params: {
+        challenge: challengeName
+      }
+    })
   }
 
   function continueCode () {

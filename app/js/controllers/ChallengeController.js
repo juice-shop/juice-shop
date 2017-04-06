@@ -10,9 +10,9 @@ angular.module('juiceShop').controller('ChallengeController', [
 
     $scope.repeatNotification = function (challenge) {
       challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
-        window.scrollTo(0,0);
-      });
-    };
+        window.scrollTo(0, 0)
+      })
+    }
 
     $scope.saveProgress = function () {
       $scope.savedContinueCode = $scope.currentContinueCode

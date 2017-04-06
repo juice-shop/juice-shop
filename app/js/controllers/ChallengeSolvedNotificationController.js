@@ -21,10 +21,10 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
           })
         }, function (translationId) {
           $scope.notifications.push({
-              message: translationId,
-              flag: data.flag,
-              copied: false
-            })
+            message: translationId,
+            flag: data.flag,
+            copied: false
+          })
         })
         socket.emit('notification received', data.flag)
       }
