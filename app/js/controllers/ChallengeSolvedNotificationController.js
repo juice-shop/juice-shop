@@ -17,13 +17,13 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
           $scope.notifications.push({
             message: challengeSolved,
             flag: data.flag,
-            copyText: 'Copy to Clipboard'
+            copied: false
           })
         }, function (translationId) {
           $scope.notifications.push({
               message: translationId,
               flag: data.flag,
-              copyText: 'Copy to Clipboard'
+              copied: false
             })
         })
         socket.emit('notification received', data.flag)

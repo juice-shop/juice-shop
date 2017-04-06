@@ -95,5 +95,7 @@
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
   "TITLE_DASH_ADDRESS":"Dash-Adresse",
   "TITLE_ETHER_ADDRESS":"Ether-Adresse",
-  "NOTIFICATION_RESEND_INSTRUCTIONS": "Klicke auf den Gelöst Anzeige einer Herausforderung um die Benachrichtigung zu wiederholen."
+  "NOTIFICATION_RESEND_INSTRUCTIONS": "Klicke auf die Gelöst Anzeige einer Herausforderung um die Benachrichtigung zu wiederholen.",
+  "COPY_TO_CLIPBOARD": "In Zwischenablage kopieren",
+  "COPY_SUCCESS": "Kopiert!"
 }

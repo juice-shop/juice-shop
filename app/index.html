@@ -147,7 +147,7 @@
                 ngclipboard-success="notification.copyText = 'Copied!'"
         >
             <i class="fa fa-clipboard" aria-hidden="true"></i>
-            {{ notification.copyText }}
+            <span translate="{{ notification.copyText ? 'COPY_SUCCESS' : 'COPY_TO_CLIPBOARD'}}"></span>
         </button>
     </div>
 </div>
