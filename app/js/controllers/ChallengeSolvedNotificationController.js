@@ -2,7 +2,8 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
   '$scope',
   '$translate',
   'socket',
-  function ($scope, $translate, socket) {
+  'ConfigurationService',
+  function ($scope, $translate, socket, configurationService) {
     'use strict'
 
     $scope.notifications = []
@@ -28,5 +29,16 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         })
         socket.emit('notification received', data.flag)
       }
+    })
+
+    configurationService.getApplicationConfiguration().success(function (data) {
+      if (data && data.application && data.application.ctfEnabled !== null) {
+        $scope.ctfEnabled = data.application.ctfEnabled
+        console.log('CTF is enabled!')
+      }else{
+        $scope.ctfEnabled = false
+      }
+    }).error(function (err) {
+      console.log(err)
     })
   } ])

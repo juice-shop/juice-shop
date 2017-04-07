@@ -41,7 +41,8 @@ application:
   faviconReplacementUrl: ~                # URL to an image in ICO format to use as a favicon instead of the default one
   numberOfRandomFakeUsers: 0              # number of random user accounts to be created (additional to pre-defined ones)
   showChallengeSolvedNotifications: true  # set to 'false' to hide all instant "challenge solved"-notifications
-  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com) 
+  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com)
+  ctfEnabled: true                        # Shows the ctf flags in the challange notifications if set to true. Defaults to false if not set
 products: []                              # if specified, the products to create instead of the default ones
 ```
 

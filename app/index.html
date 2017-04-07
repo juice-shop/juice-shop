@@ -141,14 +141,17 @@
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
     <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">
         {{notification.message}}<br>
-        <i class="fa fa-flag-checkered"></i> {{notification.flag}}
-        <button class="btn btn-primary"
-                ngclipboard data-clipboard-text="{{notification.flag}}"
-                ngclipboard-success="notification.copyText = 'Copied!'"
-        >
-            <i class="fa fa-clipboard" aria-hidden="true"></i>
-            <span translate="{{ notification.copyText ? 'COPY_SUCCESS' : 'COPY_TO_CLIPBOARD'}}"></span>
-        </button>
+
+        <div ng-show="ctfEnabled">
+            <i class="fa fa-flag-checkered"></i> {{notification.flag}}
+            <button class="btn btn-primary"
+                    ngclipboard data-clipboard-text="{{notification.flag}}"
+                    ngclipboard-success="notification.copyText = 'Copied!'"
+            >
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                <span translate="{{ notification.copyText ? 'COPY_SUCCESS' : 'COPY_TO_CLIPBOARD'}}"></span>
+            </button>
+        </div>
     </div>
 </div>
 
