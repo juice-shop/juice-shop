@@ -332,6 +332,7 @@ describe('controllers', function () {
       expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/bitcoin:.*/)
       expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/blockchain\.info\/address\/.*/)
       expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_BITCOIN_ADDRESS')
+      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
     }))
 
     it('should open a modal dialog with a Dash QR code', inject(function () {
@@ -346,6 +347,7 @@ describe('controllers', function () {
       expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/dash:.*/)
       expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/explorer\.dash\.org\/address\/.*/)
       expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_DASH_ADDRESS')
+      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
     }))
 
     it('should open a modal dialog with an Ether QR code', inject(function () {
@@ -360,6 +362,46 @@ describe('controllers', function () {
       expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/0x.*/)
       expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/https:\/\/etherscan\.io\/address\/.*/)
       expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_ETHER_ADDRESS')
+      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
+    }))
+
+    it('should use default twitter and facebook URLs if not customized', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { })
+
+      $httpBackend.flush()
+
+      expect(scope.twitterUrl).toBe('https://twitter.com/owasp_juiceshop')
+      expect(scope.facebookUrl).toBe('https://www.facebook.com/owasp.juiceshop')
+    }))
+
+    it('should use custom twitter URL if configured', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { application: { twitterUrl: 'twitter' } })
+
+      $httpBackend.flush()
+
+      expect(scope.twitterUrl).toBe('twitter')
+    }))
+
+    it('should use custom facebook URL if configured', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { application: { facebookUrl: 'facebook' } })
+
+      $httpBackend.flush()
+
+      expect(scope.facebookUrl).toBe('facebook')
+    }))
+
+    it('should log error while getting application configuration from backend API directly to browser console', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(500, 'error')
+
+      console.log = jasmine.createSpy('log')
+
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
     }))
   })
 })
