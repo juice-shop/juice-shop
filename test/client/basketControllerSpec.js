@@ -187,6 +187,24 @@ describe('controllers', function () {
       $httpBackend.flush()
     }))
 
+    it('should reset quantity to 1 when increasing for quantity tampered to be negative', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: -100}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: -100}})
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+
+      scope.inc(1)
+      $httpBackend.flush()
+    }))
+
+    it('should reset quantity to 1 when decreasing for quantity tampered to be negative', inject(function () {
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: -100}}]}})
+      $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: -100}})
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+
+      scope.dec(1)
+      $httpBackend.flush()
+    }))
+
     it('should reject an invalid coupon code', inject(function () {
       scope.form = {$setPristine: function () {}}
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
