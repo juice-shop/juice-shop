@@ -30,7 +30,7 @@ frisby.create('POST new user')
       }, { json: true })
       .expectStatus(200)
       .expectHeaderContains('content-type', 'application/json')
-      .expectJSONTypes({
+      .expectJSONTypes('authentication', {
         token: String,
         umail: String,
         bid: Number
@@ -41,10 +41,10 @@ frisby.create('POST new user')
           .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
           .expectStatus(200)
           .expectHeaderContains('content-type', 'application/json')
-          .expectJSONTypes({
+          .expectJSONTypes('user', {
             id: Number
           })
-          .expectJSON({
+          .expectJSON('user', {
             email: 'horst@horstma.nn'
           })
           .toss()
@@ -155,7 +155,7 @@ frisby.create('POST login user Bender')
   .afterJSON(function (auth) {
     frisby.create('GET password change without current password using CSRF')
       .get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic')
-      .addHeaders({ 'Cookie': 'token=' + auth.token })
+      .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
       .expectStatus(200)
       .toss()
   }).toss()
@@ -183,7 +183,7 @@ frisby.create('POST login with admin credentials')
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -195,7 +195,7 @@ frisby.create('POST login with support-team credentials')
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -207,7 +207,7 @@ frisby.create('POST login as bjoern.kimminich@googlemail.com with known password
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -219,7 +219,7 @@ frisby.create('POST login with WHERE-clause disabling SQL injection attack')
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -231,7 +231,7 @@ frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection 
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -243,7 +243,7 @@ frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection at
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -255,7 +255,7 @@ frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -354,7 +354,7 @@ frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit 
   .addHeaders({ 'X-User-Email': 'ciso@' + config.get('application.domain') })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSON({
+  .expectJSON('authentication', {
     umail: 'ciso@' + config.get('application.domain')
   })
   .toss()
