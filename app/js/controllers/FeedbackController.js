@@ -19,22 +19,22 @@ angular.module('juiceShop').controller('FeedbackController', [
     ]
 
     function findAll () {
-      feedbackService.find().success(function (feedbacks) {
-        $scope.feedbacks = feedbacks.data
+      feedbackService.find().then(function (feedbacks) {
+        $scope.feedbacks = feedbacks
         for (var i = 0; i < $scope.feedbacks.length; i++) {
           $scope.feedbacks[i].comment = $sce.trustAsHtml($scope.feedbacks[i].comment)
           $scope.feedbacks[i].image = images[i % images.length]
         }
-      }).error(function (err) {
+      }).catch(function (err) {
         console.log(err)
       })
     }
     findAll()
 
     $scope.delete = function (id) {
-      feedbackService.del(id).success(function () {
+      feedbackService.del(id).then(function () {
         findAll()
-      }).error(function (err) {
+      }).catch(function (err) {
         console.log(err)
       })
     }

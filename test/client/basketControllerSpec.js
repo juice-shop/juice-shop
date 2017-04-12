@@ -12,7 +12,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
-    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200)
+    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
     $sce = $injector.get('$sce')
     $uibModal = $injector.get('$uibModal')
   }))
@@ -71,7 +71,7 @@ describe('controllers', function () {
 
     it('should pass delete request for basket item to backend API', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
-      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200)
+      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200, { data: {} })
 
       scope.delete(1)
       $httpBackend.flush()
@@ -79,7 +79,7 @@ describe('controllers', function () {
 
     it('should load again after deleting a basket item', inject(function () {
       $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}, {basketItem: {id: 2}}]}})
-      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200)
+      $httpBackend.expectDELETE('/api/BasketItems/1').respond(200, { data: {} })
       $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 2}}]}})
 
       scope.delete(1)
@@ -88,12 +88,12 @@ describe('controllers', function () {
 
     it('should redirect to confirmation URL after ordering basket', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1}}]}})
-      $httpBackend.whenPOST('/rest/basket/42/checkout').respond(200, 'confirmationUrl')
+      $httpBackend.whenPOST('/rest/basket/42/checkout').respond(200, { orderConfirmation: '/ftp/some.pdf' })
 
       scope.checkout()
       $httpBackend.flush()
 
-      expect($window.location.replace).toHaveBeenCalledWith('confirmationUrl')
+      expect($window.location.replace).toHaveBeenCalledWith('/ftp/some.pdf')
     }))
 
     it('should not redirect anywhere when ordering basket fails', inject(function () {
@@ -109,7 +109,7 @@ describe('controllers', function () {
     it('should update basket item with increased quantity after adding another item of same type', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 1}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 2}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 2}).respond(200, {data: {id: 1, quantity: 2}})
 
       scope.inc(1)
       $httpBackend.flush()
@@ -135,7 +135,7 @@ describe('controllers', function () {
     it('should update basket item with decreased quantity after removing an item', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200, {data: {id: 1, quantity: 1}})
 
       scope.dec(1)
       $httpBackend.flush()
@@ -144,7 +144,7 @@ describe('controllers', function () {
     it('should always keep one item of any product in the basket when reducing quantity via UI', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 1}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200, {data: {id: 1, quantity: 1}})
 
       scope.dec(1)
       $httpBackend.flush()
@@ -170,7 +170,7 @@ describe('controllers', function () {
     it('should load again after increasing product quantity', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
-      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 3}).respond(200)
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 3}).respond(200, {data: {id: 1, quantity: 3}})
       $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 3}}]}})
 
       scope.inc(1)
@@ -180,7 +180,7 @@ describe('controllers', function () {
     it('should load again after decreasing product quantity', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 2}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: 2}})
-      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.whenPUT('/api/BasketItems/1', {quantity: 1}).respond(200, {data: {id: 1, quantity: 1}})
       $httpBackend.expectGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: 1}}]}})
 
       scope.dec(1)
@@ -190,7 +190,7 @@ describe('controllers', function () {
     it('should reset quantity to 1 when increasing for quantity tampered to be negative', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: -100}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: -100}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200, {data: {id: 1, quantity: 1}})
 
       scope.inc(1)
       $httpBackend.flush()
@@ -199,7 +199,7 @@ describe('controllers', function () {
     it('should reset quantity to 1 when decreasing for quantity tampered to be negative', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: [{basketItem: {id: 1, quantity: -100}}]}})
       $httpBackend.whenGET('/api/BasketItems/1').respond(200, {data: {id: 1, quantity: -100}})
-      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200)
+      $httpBackend.expectPUT('/api/BasketItems/1', {quantity: 1}).respond(200, {data: {id: 1, quantity: 1}})
 
       scope.dec(1)
       $httpBackend.flush()
@@ -385,7 +385,7 @@ describe('controllers', function () {
 
     it('should use default twitter and facebook URLs if not customized', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {}})
 
       $httpBackend.flush()
 
@@ -395,7 +395,7 @@ describe('controllers', function () {
 
     it('should use custom twitter URL if configured', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { application: { twitterUrl: 'twitter' } })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {twitterUrl: 'twitter'}}})
 
       $httpBackend.flush()
 
@@ -404,7 +404,7 @@ describe('controllers', function () {
 
     it('should use custom facebook URL if configured', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {products: []}})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { application: { facebookUrl: 'facebook' } })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {facebookUrl: 'facebook'}}})
 
       $httpBackend.flush()
 

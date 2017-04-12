@@ -24,61 +24,61 @@ angular.module('juiceShop').controller('SearchResultController', [
     }
 
     $scope.addToBasket = function (id) {
-      basketService.find($window.sessionStorage.bid).success(function (basket) {
-        var productsInBasket = basket.data.products
+      basketService.find($window.sessionStorage.bid).then(function (basket) {
+        var productsInBasket = basket.products
         var found = false
         for (var i = 0; i < productsInBasket.length; i++) {
           if (productsInBasket[i].id === id) {
             found = true
-            basketService.get(productsInBasket[i].basketItem.id).success(function (existingBasketItem) {
-              var newQuantity = existingBasketItem.data.quantity + 1
-              basketService.put(existingBasketItem.data.id, {quantity: newQuantity}).success(function (updatedBasketItem) {
-                productService.get(updatedBasketItem.data.ProductId).success(function (product) {
-                  $translate('BASKET_ADD_SAME_PRODUCT', {product: product.data.name}).then(function (basketAddSameProduct) {
+            basketService.get(productsInBasket[i].basketItem.id).then(function (existingBasketItem) {
+              var newQuantity = existingBasketItem.quantity + 1
+              basketService.put(existingBasketItem.id, {quantity: newQuantity}).then(function (updatedBasketItem) {
+                productService.get(updatedBasketItem.ProductId).then(function (product) {
+                  $translate('BASKET_ADD_SAME_PRODUCT', {product: product.name}).then(function (basketAddSameProduct) {
                     $scope.confirmation = basketAddSameProduct
                   }, function (translationId) {
                     $scope.confirmation = translationId
                   })
-                }).error(function (err) {
+                }).catch(function (err) {
                   console.log(err)
                 })
-              }).error(function (err) {
+              }).catch(function (err) {
                 console.log(err)
               })
-            }).error(function (err) {
+            }).catch(function (err) {
               console.log(err)
             })
             break
           }
         }
         if (!found) {
-          basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).success(function (newBasketItem) {
-            productService.get(newBasketItem.data.ProductId).success(function (product) {
-              $translate('BASKET_ADD_PRODUCT', {product: product.data.name}).then(function (basketAddProduct) {
+          basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).then(function (newBasketItem) {
+            productService.get(newBasketItem.ProductId).then(function (product) {
+              $translate('BASKET_ADD_PRODUCT', {product: product.name}).then(function (basketAddProduct) {
                 $scope.confirmation = basketAddProduct
               }, function (translationId) {
                 $scope.confirmation = translationId
               })
-            }).error(function (err) {
+            }).catch(function (err) {
               console.log(err)
             })
-          }).error(function (err) {
+          }).catch(function (err) {
             console.log(err)
           })
         }
-      }).error(function (err) {
+      }).catch(function (err) {
         console.log(err)
       })
     }
 
     $scope.searchQuery = $sce.trustAsHtml($location.search().q)
 
-    productService.search($scope.searchQuery).success(function (products) {
-      $scope.products = products.data
+    productService.search($scope.searchQuery).then(function (products) {
+      $scope.products = products
       for (var i = 0; i < $scope.products.length; i++) {
         $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description)
       }
-    }).error(function (err) {
+    }).catch(function (err) {
       console.log(err)
     })
   }])

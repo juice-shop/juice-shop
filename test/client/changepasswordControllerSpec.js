@@ -19,13 +19,13 @@ describe('controllers', function () {
       })
     }))
 
-    it('should be defined', inject(function ($controller) {
+    it('should be defined', inject(function () {
       expect(controller).toBeDefined()
       expect(scope.changePassword).toBeDefined()
     }))
 
     it('should clear form and show confirmation after changing password', inject(function () {
-      $httpBackend.whenGET('/rest/user/change-password?current=old&new=foobar&repeat=foobar').respond(200)
+      $httpBackend.whenGET('/rest/user/change-password?current=old&new=foobar&repeat=foobar').respond(200, {user: {}})
       scope.currentPassword = 'old'
       scope.newPassword = 'foobar'
       scope.newPasswordRepeat = 'foobar'

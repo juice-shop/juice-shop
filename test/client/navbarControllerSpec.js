@@ -22,8 +22,8 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
-      $httpBackend.whenGET('/rest/admin/application-version').respond(200)
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
+      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
 
       $httpBackend.flush()
 
@@ -31,7 +31,7 @@ describe('controllers', function () {
     }))
 
     it('should hold application version', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
 
       $httpBackend.flush()
@@ -40,7 +40,7 @@ describe('controllers', function () {
     }))
 
     it('should show nothing on missing application version', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
 
       $httpBackend.flush()
@@ -49,7 +49,7 @@ describe('controllers', function () {
     }))
 
     it('should show nothing on error retrieving application version', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500)
 
       $httpBackend.flush()
@@ -58,7 +58,7 @@ describe('controllers', function () {
     }))
 
     it('should log errors directly to browser console', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
@@ -69,7 +69,7 @@ describe('controllers', function () {
 
     it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200)
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
 
       $httpBackend.flush()
 
@@ -78,7 +78,7 @@ describe('controllers', function () {
 
     it('should use default application name if not customized', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200)
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
 
       $httpBackend.flush()
 
@@ -87,7 +87,7 @@ describe('controllers', function () {
 
     it('should use custom application name URL if configured', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { application: { name: 'name' } })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {name: 'name'}}})
 
       $httpBackend.flush()
 

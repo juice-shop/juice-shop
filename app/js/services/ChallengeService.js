@@ -1,20 +1,36 @@
-angular.module('juiceShop').factory('ChallengeService', ['$http', function ($http) {
+angular.module('juiceShop').factory('ChallengeService', ['$http', '$q', function ($http, $q) {
   'use strict'
 
   var host = '/api/Challenges'
 
   function find (params) {
-    return $http.get(host + '/', {
-      params: params
+    var challenges = $q.defer()
+    $http.get(host + '/', { params: params }).success(function (data) {
+      challenges.resolve(data.data)
+    }).error(function (err) {
+      challenges.reject(err)
     })
+    return challenges.promise
   }
 
   function continueCode () {
-    return $http.get('/rest/continue-code')
+    var continueCode = $q.defer()
+    $http.get('/rest/continue-code').success(function (data) {
+      continueCode.resolve(data.continueCode)
+    }).error(function (err) {
+      continueCode.reject(err)
+    })
+    return continueCode.promise
   }
 
   function restoreProgress (continueCode) {
-    return $http.put('/rest/continue-code/apply/' + continueCode)
+    var result = $q.defer()
+    $http.put('/rest/continue-code/apply/' + continueCode).success(function (data) {
+      result.resolve(data)
+    }).error(function (err) {
+      result.reject(err)
+    })
+    return result.promise
   }
 
   return {

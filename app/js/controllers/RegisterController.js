@@ -6,7 +6,7 @@ angular.module('juiceShop').controller('RegisterController', [
     'use strict'
 
     $scope.save = function () {
-      userService.save($scope.user).success(function () {
+      userService.save($scope.user).then(function () {
         $scope.user = {}
         $location.path('/login')
       })
