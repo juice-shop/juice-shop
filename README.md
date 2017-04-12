@@ -237,6 +237,7 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
+* Blog post on [LOL Security](http://location-href.com/): [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/) (in Burmese) :trollface:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:
