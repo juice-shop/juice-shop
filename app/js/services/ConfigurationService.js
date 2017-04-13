@@ -6,7 +6,7 @@ angular.module('juiceShop').factory('ConfigurationService', ['$http', function (
   var host = '/rest/admin'
 
   function getApplicationConfiguration () {
-    if(configCache === null){
+    if (configCache === null) {
       configCache = $http.get(host + '/application-configuration')
     }
 

@@ -35,7 +35,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       if (data && data.application && data.application.ctfEnabled !== null) {
         $scope.ctfEnabled = data.application.ctfEnabled
         console.log('CTF is enabled!')
-      }else{
+      } else {
         $scope.ctfEnabled = false
       }
     }).error(function (err) {

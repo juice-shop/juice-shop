@@ -253,12 +253,16 @@ describe('services', function () {
       expect(result).toBe('apiResponse')
     }))
     it('should get application configuration directly from the rest api', inject(function (ConfigurationService) {
+      configCache = null // eslint-disable-line no-undef
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, 'apiResponse')
 
       ConfigurationService.getApplicationConfiguration().success(function (data) { result = data })
       $httpBackend.flush()
 
       expect(result).toBe('apiResponse')
+    }))
+    it('should get a cached application configuration when it was already loaded once', inject(function (ConfigurationService) {
+      return ConfigurationService.getApplicationConfiguration().success(function (data) { expect(data).toBe('apiResponse') })
     }))
   })
 
