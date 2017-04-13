@@ -1,5 +1,7 @@
 'use strict'
 
+var config = require('config')
+
 describe('/#/score-board', function () {
   describe('challenge "scoreBoard"', function () {
     it('should be possible to access score board', function () {
@@ -27,14 +29,26 @@ describe('/#/score-board', function () {
       browser.get('/#/score-board')
     })
 
-    it('should be possible to repeat a notification', function () {
-      alertsBefore = element.all(by.className('alert')).count()
+    if (config.get('application.showCtfFlagsInNotifications')) {
+      it('should be possible to repeat a notification when in CTF mode', function () {
+        alertsBefore = element.all(by.className('alert')).count()
 
-      element(by.id('Score Board.solved')).click()
+        element(by.id('Score Board.solved')).click()
 
-      alertsNow = element.all(by.className('alert')).count()
+        alertsNow = element.all(by.className('alert')).count()
 
-      expect(alertsBefore).not.toBe(alertsNow)
-    })
+        expect(alertsBefore).not.toBe(alertsNow)
+      })
+    } else {
+      it('should not be possible to repeat a notification when not in CTF mode', function () {
+        alertsBefore = element.all(by.className('alert')).count()
+
+        element(by.id('Score Board.solved')).click()
+
+        alertsNow = element.all(by.className('alert')).count()
+
+        expect(alertsBefore).toBe(alertsNow)
+      })
+    }
   })
 })
