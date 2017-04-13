@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"မူလေနရာသို႕အလိုေလ်ာက္ ျပန္ေရာက္မသြားဘူး ဆိုလ်ွင္ \nဤေနရာကို ႏွိပ္ပါ: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin လိပ္စာ",
   "TITLE_DASH_ADDRESS":"Dash လိပ္စာ",
-  "TITLE_ETHER_ADDRESS":"Ether လိပ္စာ"
+  "TITLE_ETHER_ADDRESS":"Ether လိပ္စာ",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved flag of a challenge to repeat the challenge solved notification.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }
