@@ -19,4 +19,22 @@ describe('/#/score-board', function () {
 
     protractor.expect.challengeSolved({challenge: 'Imaginary Challenge'})
   })
+
+  describe('challenge "repeatNotification"', function () {
+    var alertsBefore, alertsNow
+
+    beforeEach(function () {
+      browser.get('/#/score-board')
+    })
+
+    it('should be possible to repeat a notification', function () {
+      alertsBefore = element.all(by.className('alert')).count()
+
+      element(by.id('Score Board.solved')).click()
+
+      alertsNow = element.all(by.className('alert')).count()
+
+      expect(alertsBefore).not.toBe(alertsNow)
+    })
+  })
 })

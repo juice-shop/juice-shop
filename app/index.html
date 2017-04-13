@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title ng-bind="applicationName">OWASP Juice Shop</title>
+    <title ng-bind="applicationName"></title>
     <meta name="description" content="An intentionally insecure Javascript Web Application">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
@@ -65,7 +65,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
-            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.png" alt="Juice Shop Logo"></a><a class="navbar-brand" href="#/"><span ng-bind="applicationName">OWASP Juice Shop</span> <small ng-bind="version"></small></a>
+            <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.png" alt="Juice Shop Logo"></a><a class="navbar-brand" href="#/"><span ng-bind="applicationName"></span> <small ng-bind="version"></small></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
@@ -137,20 +137,27 @@
     </div>
 </nav>
 
-<h1 class="hidden" ng-bind="applicationName">OWASP Juice Shop</h1><!-- for SEO -->
+<h1 class="hidden" ng-bind="applicationName"></h1><!-- for SEO -->
 
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
-    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">{{notification.message}}<br><i class="fa fa-flag-checkered"></i> {{notification.flag}}</div>
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">
+        {{notification.message}}<br>
+
+        <div ng-show="showCtfFlagsInNotifications">
+            <i class="fa fa-flag-checkered"></i> {{notification.flag}}
+            <button class="btn btn-primary"
+                    ngclipboard data-clipboard-text="{{notification.flag}}"
+                    ngclipboard-success="notification.copyText = 'Copied!'"
+            >
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                <span translate="{{ notification.copyText ? 'COPY_SUCCESS' : 'COPY_TO_CLIPBOARD'}}"></span>
+            </button>
+        </div>
+    </div>
 </div>
 
 <!-- CONTENT -->
 <div class="container-fluid" ng-view></div>
-
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank" translate="RIBBON_GITHUB_FORK" translate-value-fork='<i class="fa fa-code-fork"></i>' translate-value-github='<i class="fa fa-github"></i> GitHub'></a>
-    </div>
-</div>
 
 </body>
 </html>

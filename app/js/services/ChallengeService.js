@@ -13,6 +13,14 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', '$q', function
     return challenges.promise
   }
 
+  function repeatNotification (challengeName) {
+    return $http.get('/rest/repeat-notification', {
+      params: {
+        challenge: challengeName
+      }
+    })
+  }
+
   function continueCode () {
     var continueCode = $q.defer()
     $http.get('/rest/continue-code').success(function (data) {
@@ -35,6 +43,7 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', '$q', function
 
   return {
     find: find,
+    repeatNotification: repeatNotification,
     continueCode: continueCode,
     restoreProgress: restoreProgress
   }
