@@ -72,5 +72,5 @@ frisby.create('GET redirected to target URL in "to" parameter when a white-liste
   .get(URL + '/redirect?to=/score-board?satisfyIndexOf=https://github.com/bkimminich/juice-shop')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<title>OWASP Juice Shop</title>')
+  .expectBodyContains('dist/juice-shop.min.js')
   .toss()

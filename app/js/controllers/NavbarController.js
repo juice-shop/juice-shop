@@ -1,16 +1,26 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
-  'AdministrationService',
-  function ($scope, administrationService) {
+  '$rootScope',
+  'AdministrationService', 'ConfigurationService',
+  function ($scope, $rootScope, administrationService, configurationService) {
     'use strict'
 
     $scope.version = ''
 
-    administrationService.getApplicationVersion().success(function (data) {
-      if (data && data.version) {
-        $scope.version = 'v' + data.version
+    administrationService.getApplicationVersion().then(function (version) {
+      if (version) {
+        $scope.version = 'v' + version
       }
-    }).error(function (err) {
+    }).catch(function (err) {
+      console.log(err)
+    })
+
+    $rootScope.applicationName = 'OWASP Juice Shop'
+    configurationService.getApplicationConfiguration().then(function (config) {
+      if (config.application) {
+        $rootScope.applicationName = config.application.name
+      }
+    }).catch(function (err) {
       console.log(err)
     })
   }])

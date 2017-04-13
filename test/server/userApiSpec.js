@@ -1,5 +1,6 @@
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
+var config = require('config')
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -29,7 +30,7 @@ frisby.create('POST new user')
       }, { json: true })
       .expectStatus(200)
       .expectHeaderContains('content-type', 'application/json')
-      .expectJSONTypes({
+      .expectJSONTypes('authentication', {
         token: String,
         umail: String,
         bid: Number
@@ -37,34 +38,34 @@ frisby.create('POST new user')
       .afterJSON(function (auth) {
         frisby.create('GET own user id and email on who-am-i request')
           .get(REST_URL + '/user/whoami')
-          .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
+          .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
           .expectStatus(200)
           .expectHeaderContains('content-type', 'application/json')
-          .expectJSONTypes({
+          .expectJSONTypes('user', {
             id: Number
           })
-          .expectJSON({
+          .expectJSON('user', {
             email: 'horst@horstma.nn'
           })
           .toss()
         frisby.create('GET password change with passing wrong current password')
           .get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb')
-          .addHeaders({ 'Cookie': 'token=' + auth.token })
+          .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
           .expectStatus(401)
           .expectBodyContains('Current password is not correct')
           .toss()
         frisby.create('GET password change with recognized token as cookie')
           .get(REST_URL + '/user/change-password?current=hooooorst&new=foo&repeat=foo')
-          .addHeaders({ 'Cookie': 'token=' + auth.token })
+          .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
           .expectStatus(200)
           .afterJSON(function () {
             frisby.create('GET password change with recognized token as cookie in double-quotes')
               .get(REST_URL + '/user/change-password?current=hooooorst&new=bar&repeat=bar')
-              .addHeaders({ 'Cookie': 'token=%22' + auth.token + '%22' })
+              .addHeaders({ 'Cookie': 'token=%22' + auth.authentication.token + '%22' })
               .expectStatus(200)
               .toss()
             frisby.create('GET existing basket of another user')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
+              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
               .get(REST_URL + '/basket/2')
               .expectStatus(200)
               .expectHeaderContains('content-type', 'application/json')
@@ -73,7 +74,7 @@ frisby.create('POST new user')
               })
               .toss()
             frisby.create('POST feedback is associated with current user')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
+              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
               .post(API_URL + '/Feedbacks', {
                 comment: 'Horst\'s choice award!',
                 rating: 5,
@@ -86,7 +87,7 @@ frisby.create('POST new user')
               })
               .toss()
             frisby.create('POST feedback is associated with any passed user id')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.token })
+              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
               .post(API_URL + '/Feedbacks', {
                 comment: 'Bender\'s choice award!',
                 rating: 2,
@@ -147,14 +148,14 @@ frisby.create('DELETE existing user is forbidden via public API')
 
 frisby.create('POST login user Bender')
   .post(REST_URL + '/user/login', {
-    email: 'bender@juice-sh.op',
+    email: 'bender@' + config.get('application.domain'),
     password: 'OhG0dPlease1nsertLiquor!'
   }, { json: true })
   .expectStatus(200)
   .afterJSON(function (auth) {
     frisby.create('GET password change without current password using CSRF')
       .get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic')
-      .addHeaders({ 'Cookie': 'token=' + auth.token })
+      .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
       .expectStatus(200)
       .toss()
   }).toss()
@@ -177,24 +178,24 @@ frisby.create('POST login without credentials')
 
 frisby.create('POST login with admin credentials')
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op',
+    email: 'admin@' + config.get('application.domain'),
     password: 'admin123'
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
 
 frisby.create('POST login with support-team credentials')
   .post(REST_URL + '/user/login', {
-    email: 'support@juice-sh.op',
+    email: 'support@' + config.get('application.domain'),
     password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -206,7 +207,7 @@ frisby.create('POST login as bjoern.kimminich@googlemail.com with known password
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -218,43 +219,43 @@ frisby.create('POST login with WHERE-clause disabling SQL injection attack')
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
 
 frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op\'--',
+    email: 'admin@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
 
 frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'jim@juice-sh.op\'--',
+    email: 'jim@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
 
 frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection attack')
   .post(REST_URL + '/user/login', {
-    email: 'bender@juice-sh.op\'--',
+    email: 'bender@' + config.get('application.domain') + '\'--',
     password: undefined
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({
+  .expectJSONTypes('authentication', {
     token: String
   })
   .toss()
@@ -344,16 +345,16 @@ frisby.create('GET who-am-i request returns nothing on broken auth token')
   .expectJSONTypes({})
   .toss()
 
-frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@juice-sh.op')
+frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@' + config.get('application.domain'))
   .post(REST_URL + '/user/login', {
-    email: 'admin@juice-sh.op',
+    email: 'admin@' + config.get('application.domain'),
     password: 'admin123',
     oauth: true
   }, { json: true })
-  .addHeaders({ 'X-User-Email': 'ciso@juice-sh.op' })
+  .addHeaders({ 'X-User-Email': 'ciso@' + config.get('application.domain') })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSON({
-    umail: 'ciso@juice-sh.op'
+  .expectJSON('authentication', {
+    umail: 'ciso@' + config.get('application.domain')
   })
   .toss()

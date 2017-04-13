@@ -49,7 +49,9 @@ Javascript-heavy application frontends and REST APIs.
 - Gamification: The application notifies you on solved challenges and
   keeps track of successfully exploited vulnerabilities on a Score Board
 - CTF-support: Challenge notifications contain a customizable flag code
-  for your own [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
+  for your own
+  [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
+- Re-branding: Fully customizable business context and look & feel
 - Free and Open source: Licensed under the [MIT license](LICENSE) with
   no hidden costs or caveats
 
@@ -154,6 +156,13 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 3. Run `cd vagrant && vagrant up`
 4. Browse to <http://juice.sh>
 
+## Customization
+
+Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
+customized in its content and look & feel. Please refer to
+[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
+examples.
+
 ## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of
@@ -186,7 +195,7 @@ Feel free to
 [create an issue](https://github.com/bkimminich/juice-shop/issues) or
 [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
 Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CONTRIBUTING.md) for details.
+[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
 
 ## Project Media & Marketing
 
@@ -228,6 +237,7 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
+* Blog post on [LOL Security](http://location-href.com/): [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/) (in Burmese) :trollface:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:
@@ -264,8 +274,11 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 
 #### 2017
 
+* [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555),
+  [Software-Test User Group Hamburg](https://www.xing.com/communities/groups/software-test-user-group-hamburg-1207-1002644),
+  21.03.2017
 * [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/),
-  [Software Tester Group Hamburg](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
+  [Software Tester Group Hamburg (English-speaking)](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
   16.03.2017
 * [Kurzvortrag: Hack the Juice Shop](https://www.meetup.com/de-DE/phpughh/events/235572004/),
   [PHP-Usergroup Hamburg](https://www.meetup.com/de-DE/phpughh/),
@@ -316,7 +329,7 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
   your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
+> is to somehow [contribute to the project](CUSTOMIZATION.md) by fixing
 > an issue, finding a serious bug or submitting a good idea for a new
 > challenge! We're also happy to send some stickers your way if you
 > organize a meetup or conference talk where you use or mention OWASP

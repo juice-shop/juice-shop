@@ -44,6 +44,8 @@ var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server)
+var replace = require('replace')
+var appConfiguration = require('./routes/appConfiguration')
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -144,6 +146,7 @@ app.get('/rest/basket/:id', basket())
 app.post('/rest/basket/:id/checkout', order())
 app.put('/rest/basket/:id/coupon/:coupon', coupon())
 app.get('/rest/admin/application-version', appVersion())
+app.get('/rest/admin/application-configuration', appConfiguration())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
@@ -160,14 +163,17 @@ app.use(errorhandler())
 
 io.on('connection', function (socket) {
   // send all outstanding notifications on (re)connect
-  for (var notification in notifications) {
-    if (notifications.hasOwnProperty(notification)) {
-      socket.emit('challenge solved', notification)
-    }
-  }
+  notifications.forEach(function (notification) {
+    socket.emit('challenge solved', notification)
+  })
 
   socket.on('notification received', function (data) {
-    delete notifications[data]
+    var i = notifications.findIndex(function (element) {
+      return element.flag === data
+    })
+    if (i > -1) {
+      notifications.splice(i, 1)
+    }
   })
 })
 
@@ -176,13 +182,23 @@ exports.start = function (config, readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = server.listen(config.port, function () {
-        console.log(colors.yellow('Server listening on port %d'), config.port)
+      this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
+        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         if (readyCallback) {
           readyCallback()
         }
       })
     })
+    if (config.get('application.logoReplacementUrl')) {
+      utils.downloadToFile(config.get('application.logoReplacementUrl'), 'app/public/images/JuiceShop_Logo.png')
+    }
+    if (config.get('application.faviconReplacementUrl')) {
+      utils.downloadToFile(config.get('application.faviconReplacementUrl'), 'app/public/favicon_v2.ico')
+    }
+    if (config.get('application.theme')) {
+      var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+      replace({ regex: 'bower_components/bootswatch/.*/bootstrap.min.css', replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+    }
   }
 }
 

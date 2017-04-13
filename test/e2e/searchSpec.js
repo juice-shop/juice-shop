@@ -1,5 +1,10 @@
 'use strict'
 
+var config = require('config')
+var christmasProduct = config.get('products').filter(function (product) {
+  return product.useForChristmasSpecialChallenge
+})[0]
+
 describe('/#/search', function () {
   var searchQuery, searchButton
 
@@ -39,21 +44,21 @@ describe('/#/search', function () {
       })
 
       var productDescriptions = element.all(by.repeater('product in products').column('description'))
-      expect(productDescriptions.first().getText()).toMatch(/admin@juice-sh.op/)
+      expect(productDescriptions.first().getText()).toBe('admin@' + config.get('application.domain'))
     })
 
     protractor.expect.challengeSolved({challenge: 'User Credentials'})
   })
 
   describe('challenge "christmasSpecial"', function () {
-    protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', function () {
-      searchQuery.sendKeys('christmas%25\'))--')
+      searchQuery.sendKeys(christmasProduct.name + '%25\'))--')
       searchButton.click()
 
       var productNames = element.all(by.repeater('product in products').column('name'))
-      expect(productNames.first().getText()).toMatch(/Christmas Super-Surprise-Box \(2014 Edition\)/)
+      expect(productNames.first().getText()).toBe(christmasProduct.name)
 
       element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click()
       browser.wait(protractor.ExpectedConditions.presenceOf($('.alert-info')), 5000, 'Product addition info box not present.') // eslint-disable-line no-undef

@@ -1,0 +1,92 @@
+server:
+  port: 3000
+application:
+  domain: juice-sh.op
+  name: "OWASP Juice Shop"
+  logoReplacementUrl: ~
+  faviconReplacementUrl: ~
+  numberOfRandomFakeUsers: 0
+  showChallengeSolvedNotifications: true
+  theme: "slate"
+  twitterUrl: "https://twitter.com/owasp_juiceshop"
+  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+products:
+  - name: "Apple Juice (1000ml)"
+    price: 1.99
+    description: "The all-time classic."
+    image: "apple_juice.jpg"
+  - name: 'Orange Juice (1000ml)'
+    description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
+    price: 2.99
+    image: 'orange_juice.jpg'
+  - name: 'Eggfruit Juice (500ml)'
+    description: 'Now with even more exotic flavour.'
+    price: 8.99
+    image: 'eggfruit_juice.jpg'
+  - name: 'Raspberry Juice (1000ml)'
+    description: 'Made from blended Raspberry Pi, water and sugar.'
+    price: 4.99
+    image: 'raspberry_juice.jpg'
+  - name: 'Lemon Juice (500ml)'
+    description: 'Sour but full of vitamins.'
+    price: 2.99
+    image: 'lemon_juice.jpg'
+  - name: 'Banana Juice (1000ml)'
+    description: 'Monkeys love it the most.'
+    price: 1.99
+    image: 'banana_juice.jpg'
+  - name: 'OWASP Juice Shop T-Shirt'
+    description: 'Real fans wear it 24/7!'
+    price: 22.49
+    image: 'fan_shirt.jpg'
+  - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
+    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
+    price: 0.01
+    image: 'owasp_osaft.jpg'
+    useForProductTamperingChallenge: true
+  - name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
+    price: 29.99
+    image: 'undefined.jpg'
+    useForChristmasSpecialChallenge: true
+  - name: 'OWASP Juice Shop Stickers'
+    description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
+    price: 2.99
+    image: 'sticker.png'
+  - name: 'OWASP Juice Shop Mug'
+    description: 'Black mug with logo on each side! Your colleagues will envy you!'
+    price: 21.99
+    image: 'fan_mug.jpg'
+  - name: 'OWASP Juice Shop Hoodie'
+    description: 'Mr. Robot-style apparel. But in black. And with logo.'
+    price: 49.99
+    image: 'fan_hoodie.jpg'
+  - name: 'Woodruff Syrup "Forest Master X-Treme"'
+    description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.'
+    price: 6.99
+    image: 'woodruff_syrup.jpg'
+  - name: 'Green Smoothie'
+    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
+    price: 1.99
+    image: 'green_smoothie.jpg'
+  - name: 'Quince Juice (1000ml)'
+    description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
+    price: 4.99
+    image: 'quince.jpg'
+  - name: 'OWASP Node.js Goat'
+    description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>'
+    price: 0.01
+    image: 'owasplogo.png'
+  - name: 'Apple Pomace'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.'
+    price: 0.89
+    image: 'apple_pressings.jpg'
+  - name: 'Fruit Press'
+    description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
+    price: 89.99
+    image: 'fruit_press.jpg'
+  - name: 'Enhanced White Rafford`s Decoction'
+    description: 'Immediately restores a large portion of Vitality.'
+    price: 150
+    image: 'white_raffards.jpg'
+    

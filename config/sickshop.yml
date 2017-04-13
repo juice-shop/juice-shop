@@ -1,0 +1,50 @@
+application:
+  domain: sick-sh.op
+  name: "Sick-Shop"
+  logoReplacementUrl: "https://openclipart.org/image/300px/svg_to_png/250927/1465228117.png"
+  numberOfRandomFakeUsers: 50
+  showChallengeSolvedNotifications: false
+  theme: "cosmo"
+products:
+  - name: "Cold"
+    price: 10
+    description: "Small cold to stay in bed some days"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+  - name: "Bad cold"
+    price: 150
+    description: "Bad cold gives you everything you need to stay around a week in bed."
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/100351/cold.png"
+  - name: "Torn Meniscus"
+    price: 1150
+    description: "Don't want to go every day to your office for the next month? Take a torn meniscus!"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/244715/Wooden-crutch.png"
+  - name: "Little headache"
+    price: 15
+    description: "Feel like smoothly rubbing sandpaper on your brain."
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/273493/Headache.png"
+    useForProductTamperingChallenge: true
+  - name: "Headache"
+    price: 15
+    description: "Feel like smashing a hammer in your brain."
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/4793/david-benjamin-Hammer.png"
+  - name: "Brain fog"
+    price: 150
+    description: "Expand your skills, forget what you are doing while you are actually doing it!"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/181757/elephantforget.png"
+  - name: "Diarrhea"
+    price: 150
+    description: "Get rid of work with diarrhea"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/172910/intestinal-party.png"
+  - name: "Fiber"
+    price: 20
+    description: "Fiber at your door step"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/46393/THERMO01.png"
+  - name: "Sunburn"
+    price: 150
+    description: "Feel like on holiday"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/195913/sunburn-woman.png"
+  - name: "Heart attack"
+    price: 5000
+    description: "Have a lightning in your heart"
+    imageUrl: "https://openclipart.org/image/300px/svg_to_png/154747/herzinfarkt.png"
+    useForChristmasSpecialChallenge: true

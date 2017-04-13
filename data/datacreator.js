@@ -3,6 +3,8 @@
 
 var models = require('../models/index')
 var datacache = require('./datacache')
+var config = require('config')
+var utils = require('../lib/utils')
 var challenges = datacache.challenges
 var users = datacache.users
 var products = datacache.products
@@ -10,6 +12,7 @@ var products = datacache.products
 module.exports = function () {
   createChallenges()
   createUsers()
+  createRandomFakeUsers()
   createProducts()
   createBaskets()
   createFeedback()
@@ -361,15 +364,15 @@ module.exports = function () {
 
   function createUsers () {
     models.User.create({
-      email: 'admin@juice-sh.op',
+      email: 'admin@' + config.get('application.domain'),
       password: 'admin123'
     })
     models.User.create({
-      email: 'jim@juice-sh.op',
+      email: 'jim@' + config.get('application.domain'),
       password: 'ncc-1701'
     })
     models.User.create({
-      email: 'bender@juice-sh.op',
+      email: 'bender@' + config.get('application.domain'),
       password: 'OhG0dPlease1nsertLiquor!'
     }).success(function (user) {
       users.bender = user
@@ -381,139 +384,73 @@ module.exports = function () {
       users.bjoern = user
     })
     models.User.create({
-      email: 'ciso@juice-sh.op',
+      email: 'ciso@' + config.get('application.domain'),
       password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
     }).success(function (user) {
       users.ciso = user
     })
     models.User.create({
-      email: 'support@juice-sh.op',
+      email: 'support@' + config.get('application.domain'),
       password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
     }).success(function (user) {
       users.support = user
     })
   }
 
+  function createRandomFakeUsers () {
+    for (var i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
+      models.User.create({
+        email: getGeneratedRandomFakeUserEmail(),
+        password: makeRandomString(5)
+      })
+    }
+  }
+
+  function getGeneratedRandomFakeUserEmail () {
+    var randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
+    return makeRandomString(5).toLowerCase() + '@' + randomDomain
+  }
+
+  function makeRandomString (length) {
+    var text = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+    for (var i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
+
+    return text
+  }
+
   function createProducts () {
-    models.Product.create({
-      name: 'Apple Juice (1000ml)',
-      description: 'The all-time classic.',
-      price: 1.99,
-      image: 'apple_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Orange Juice (1000ml)',
-      description: 'Made from oranges hand-picked by Uncle Dittmeyer.',
-      price: 2.99,
-      image: 'orange_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Eggfruit Juice (500ml)',
-      description: 'Now with even more exotic flavour.',
-      price: 8.99,
-      image: 'eggfruit_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Raspberry Juice (1000ml)',
-      description: 'Made from blended Raspberry Pi, water and sugar.',
-      price: 4.99,
-      image: 'raspberry_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Lemon Juice (500ml)',
-      description: 'Sour but full of vitamins.',
-      price: 2.99,
-      image: 'lemon_juice.jpg'
-    })
-    models.Product.create({
-      name: 'Banana Juice (1000ml)',
-      description: 'Monkeys love it the most.',
-      price: 1.99,
-      image: 'banana_juice.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop T-Shirt',
-      description: 'Real fans wear it 24/7!',
-      price: 22.49,
-      image: 'fan_shirt.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP SSL Advanced Forensic Tool (O-Saft)',
-      description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations. <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>',
-      price: 0.01,
-      image: 'owasp_osaft.jpg'
-    }).success(function (product) {
-      products.osaft = product
-    })
-    models.Product.create({
-      name: 'Christmas Super-Surprise-Box (2014 Edition)',
-      description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price! Only available on Christmas 2014!',
-      price: 29.99,
-      image: 'undefined.jpg'
-    }).success(function (product) {
-      products.christmasSpecial = product
-      models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\'  WHERE id = ' + product.id)
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Stickers',
-      description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.',
-      price: 2.99,
-      image: 'sticker.png'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Mug',
-      description: 'Black mug with logo on each side! Your colleagues will envy you!',
-      price: 21.99,
-      image: 'fan_mug.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Juice Shop Hoodie',
-      description: 'Mr. Robot-style apparel. But in black. And with logo.',
-      price: 49.99,
-      image: 'fan_hoodie.jpg'
-    })
-    models.Product.create({
-      name: 'Woodruff Syrup "Forest Master X-Treme"',
-      description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.',
-      price: 6.99,
-      image: 'woodruff_syrup.jpg'
-    })
-    models.Product.create({
-      name: 'Green Smoothie',
-      description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.',
-      price: 1.99,
-      image: 'green_smoothie.jpg'
-    })
-    models.Product.create({
-      name: 'Quince Juice (1000ml)',
-      description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.',
-      price: 4.99,
-      image: 'quince.jpg'
-    })
-    models.Product.create({
-      name: 'OWASP Node.js Goat',
-      description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>',
-      price: 0.01,
-      image: 'owasplogo.png'
-    })
-    models.Product.create({
-      name: 'Apple Pomace',
-      description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.',
-      price: 0.89,
-      image: 'apple_pressings.jpg'
-    })
-    models.Product.create({
-      name: 'Fruit Press',
-      description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.',
-      price: 89.99,
-      image: 'fruit_press.jpg'
-    })
-    models.Product.create({
-      name: 'Enhanced White Rafford\'s Decoction',
-      description: 'Immediately restores a large portion of Vitality.',
-      price: 150,
-      image: 'white_raffards.jpg'
-    })
+    for (var i = 0; i < config.get('products').length; i++) {
+      var product = config.get('products')[i]
+      var name = product.name
+      var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+      if (product.useForChristmasSpecialChallenge) {
+        description += ' (Seasonal special offer! Limited availability!)'
+      } else if (product.useForProductTamperingChallenge) {
+        description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+      }
+      var price = product.price || Math.floor(Math.random())
+      var imageFileName = product.image || 'undefined.png'
+      if (product.imageUrl) {
+        imageFileName = product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
+        var imageFilePath = 'app/public/images/products/' + imageFileName
+        utils.downloadToFile(product.imageUrl, imageFilePath)
+      }
+      models.Product.create({
+        name: name,
+        description: description,
+        price: price,
+        image: imageFileName
+      }).success(function (product) {
+        if (product.description.match(/Seasonal special offer! Limited availability!/)) {
+          products.christmasSpecial = product
+          models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
+        } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
+          products.osaft = product
+        }
+      })
+    }
   }
 
   function createBaskets () {
@@ -556,24 +493,24 @@ module.exports = function () {
   function createFeedback () {
     models.Feedback.create({
       UserId: 1,
-      comment: 'I love this shop! Best juice in town! Highly recommended!',
+      comment: 'I love this shop! Best products in town! Highly recommended!',
       rating: 5
     })
     models.Feedback.create({
       UserId: 2,
-      comment: 'Great shop! The O-Saft is highly recommended!',
+      comment: 'Great shop! Awesome service!',
       rating: 4
     })
     models.Feedback.create({
-      comment: 'Why isn\'t there a T-Shirt for skinny people available?!<blockquote>Juice Shop: We now have shirts in all sizes</blockquote>',
+      comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
       rating: 2
     })
     models.Feedback.create({
-      comment: 'This is <b>the</b> store for juices of all kinds!',
+      comment: 'This is <b>the</b> store for awesome stuff of all kinds!',
       rating: 4
     })
     models.Feedback.create({
-      comment: 'Never gonna buy my juice anywhere else from now on! Thanks for the great service!',
+      comment: 'Never gonna buy anywhere else from now on! Thanks for the great service!',
       rating: 4
     })
     models.Feedback.create({
@@ -582,7 +519,7 @@ module.exports = function () {
     })
     models.Feedback.create({
       UserId: 3,
-      comment: 'No real drinks available here!',
+      comment: 'Nothing useful available here!',
       rating: 1
     })
   }

@@ -1,22 +1,23 @@
 'use strict'
 
 var insecurity = require('../../lib/insecurity')
+var config = require('config')
 
 describe('/#/basket', function () {
   describe('as admin', function () {
-    protractor.beforeEach.login({email: 'admin@juice-sh.op', password: 'admin123'})
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     describe('challenge "negativeOrder"', function () {
       it('should be possible to update a basket to a negative quantity via the Rest API', function () {
         browser.ignoreSynchronization = true
-        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100});')
+        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100000});')
         browser.driver.sleep(1000)
 
         browser.get('/#/basket')
         browser.ignoreSynchronization = false
 
         var productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'))
-        expect(productQuantities.first().getText()).toMatch(/-100/)
+        expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 
       it('should be possible to place an order with a negative total amount', function () {
@@ -40,7 +41,7 @@ describe('/#/basket', function () {
   })
 
   describe('as jim', function () {
-    protractor.beforeEach.login({email: 'jim@juice-sh.op', password: 'ncc-1701'})
+    protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
 
     describe('challenge "forgedCoupon"', function () {
       it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', function () {

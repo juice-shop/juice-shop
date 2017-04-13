@@ -7,12 +7,12 @@ angular.module('juiceShop').controller('UserController', [
     'use strict'
 
     function findAll () {
-      userService.find().success(function (users) {
-        $scope.users = users.data
+      userService.find().then(function (users) {
+        $scope.users = users
         for (var i = 0; i < $scope.users.length; i++) {
           $scope.users[i].email = $sce.trustAsHtml($scope.users[i].email)
         }
-      }).error(function (err) {
+      }).catch(function (err) {
         console.log(err)
       })
     }

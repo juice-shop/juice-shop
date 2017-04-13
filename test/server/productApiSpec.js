@@ -1,5 +1,17 @@
 var frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
+var config = require('config')
+var christmasProduct = config.get('products').filter(function (product) {
+  return product.useForChristmasSpecialChallenge
+})[0]
+var tamperingProductId = (function () {
+  var products = config.get('products')
+  for (var i = 0; i < products.length; i++) {
+    if (products[i].useForProductTamperingChallenge) {
+      return i + 1
+    }
+  }
+}())
 
 var API_URL = 'http://localhost:3000/api'
 var REST_URL = 'http://localhost:3000/rest'
@@ -39,7 +51,7 @@ frisby.create('GET product search with no matches returns no products')
   .toss()
 
 frisby.create('GET product search with one match returns found product')
-  .get(REST_URL + '/product/search?q=quince')
+  .get(REST_URL + '/product/search?q=o-saft')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSONLength('data', 1)
@@ -62,7 +74,7 @@ frisby.create('POST new product is forbidden via public API')
   .toss()
 
 frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
-  .put(API_URL + '/Products/8', {
+  .put(API_URL + '/Products/' + tamperingProductId, {
     description: '<a href="http://kimminich.de" target="_blank">More...</a>'
   }, { json: true })
   .expectStatus(200)
@@ -73,7 +85,7 @@ frisby.create('PUT update existing product is possible due to Missing Function-L
   .toss()
 
 frisby.create('PUT update existing product does not filter XSS attacks')
-  .put(API_URL + '/Products/7', {
+  .put(API_URL + '/Products/1', {
     description: "<script>alert('XSS3')</script>"
   }, { json: true })
   .expectStatus(200)
@@ -207,41 +219,40 @@ frisby.create('GET product search can create UNION SELECT with Users table and r
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data.?', {
     name: 1,
-    description: 'admin@juice-sh.op',
+    description: 'admin@' + config.get('application.domain'),
     price: insecurity.hash('admin123')
   })
   .expectJSON('data.?', {
     name: 2,
-    description: 'jim@juice-sh.op',
+    description: 'jim@' + config.get('application.domain'),
     price: insecurity.hash('ncc-1701')
   })
   .expectJSON('data.?', {
     name: 3,
-    description: 'bender@juice-sh.op',
+    description: 'bender@' + config.get('application.domain'),
     price: insecurity.hash('OhG0dPlease1nsertLiquor!')
   })
   .toss()
 
 frisby.create('GET product search cannot select logically deleted christmas special by default')
-  .get(REST_URL + '/product/search?q=christmas')
+  .get(REST_URL + '/product/search?q=seasonal%20special%20offer')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', [])
   .toss()
 
-frisby.create('GET product search cannot select logically deleted christmas special by forced early where-clause termination')
-  .get(REST_URL + '/product/search?q=christmas\'))--')
+frisby.create('GET product search by description cannot select logically deleted christmas special due to forced early where-clause termination')
+  .get(REST_URL + '/product/search?q=seasonal%20special%20offer\'))--')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data', [])
   .toss()
 
 frisby.create('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause')
-  .get(REST_URL + '/product/search?q=\'))--')
+  .get(REST_URL + '/product/search?q=' + christmasProduct.name + '\'))--')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON('data.?', {
-    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    name: function (value) { expect(value).toBe(christmasProduct.name) }
   })
   .toss()
-

@@ -51,7 +51,7 @@ describe('controllers', function () {
     }))
 
     it('should hold nothing when no users exist', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: {}})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
 
       $httpBackend.flush()
 

@@ -21,7 +21,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -30,7 +30,7 @@ describe('controllers', function () {
     }))
 
     it('should hold the user id of the currently logged in user', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {id: 42})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {id: 42}})
 
       $httpBackend.flush()
 
@@ -38,7 +38,7 @@ describe('controllers', function () {
     }))
 
     it('should hold no user id if current user is not logged in', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -54,7 +54,7 @@ describe('controllers', function () {
     }))
 
     it('should hold the user email of the currently logged in user', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {email: 'x@x.xx'})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {email: 'x@x.xx'}})
 
       $httpBackend.flush()
 
@@ -62,7 +62,7 @@ describe('controllers', function () {
     }))
 
     it('should hold anonymous placeholder for email if current user is not logged in', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -70,7 +70,7 @@ describe('controllers', function () {
     }))
 
     it('should display thank-you message and reset feedback form on saving feedback', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Test', rating: 4}})
       scope.feedback = {comment: 'Test', rating: 4}
@@ -84,7 +84,7 @@ describe('controllers', function () {
     }))
 
     it('should display 5-star thank-you message and reset feedback form on saving 5-star feedback', inject(function () {
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {})
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: {comment: 'Praise', rating: 5}})
       scope.feedback = {comment: 'Praise', rating: 5}

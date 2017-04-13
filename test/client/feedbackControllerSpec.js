@@ -94,7 +94,7 @@ describe('controllers', function () {
 
     it('should pass delete request for feedback to backend API', inject(function () {
       $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
-      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200)
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, {data: {}})
 
       scope.delete(42)
       $httpBackend.flush()
@@ -102,7 +102,7 @@ describe('controllers', function () {
 
     it('should reload Feedback list after deleting a Feedback', inject(function () {
       $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}, {id: 43}]})
-      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200)
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, {data: {}})
       $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
 
       scope.delete(42)

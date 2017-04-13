@@ -7,10 +7,10 @@ angular.module('juiceShop').controller('ProductDetailsController', [
   function ($scope, $sce, $uibModal, productService, id) {
     'use strict'
 
-    productService.get(id).success(function (product) {
-      $scope.product = product.data
+    productService.get(id).then(function (product) {
+      $scope.product = product
       $scope.product.description = $sce.trustAsHtml($scope.product.description)
-    }).error(function (err) {
+    }).catch(function (err) {
       console.log(err)
     })
   }])

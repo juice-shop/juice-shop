@@ -35,7 +35,7 @@ describe('controllers', function () {
 
     it('should receive multiple "challenge solved" notifications', inject(function () {
       $httpBackend.flush()
-      socket.receive('challenge solved', { challenge: {} })
+      socket.receive('challenge solved', { challenge: {}, hidden: false })
       socket.receive('challenge solved', { challenge: {} })
       expect(scope.notifications.length).toBe(2)
     }))
@@ -76,6 +76,12 @@ describe('controllers', function () {
     it('should hold no message after receiving another type of notification', inject(function () {
       $httpBackend.flush()
       socket.receive('definitely NOT challenge solved', {})
+      expect(scope.notifications.length).toBe(0)
+    }))
+
+    it('should hold no notifications in case "hidden" is true', inject(function () {
+      $httpBackend.flush()
+      socket.receive('challenge solved', { challenge: {}, hidden: true })
       expect(scope.notifications.length).toBe(0)
     }))
   })
