@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid well">
+            <div class="container-fluid well" ng-show="showCtfFlagsInNotifications">
                 <div class="row">
                     <p translate="NOTIFICATION_RESEND_INSTRUCTIONS"></p>
                 </div>
@@ -42,7 +42,7 @@
                   </td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED"></span>
-                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success notification-button">
+                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" ng-class="{ 'notification-repeat-button': showCtfFlagsInNotifications }">
                         <i class="fa fa-flag-o" aria-hidden="true"></i>
                         <span translate="STATUS_SOLVED"></span>
                     </span>

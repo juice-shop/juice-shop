@@ -31,10 +31,10 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       }
     })
     configurationService.getApplicationConfiguration().then(function (data) {
-      if (data && data.application && data.application.ctfEnabled !== null) {
-        $scope.ctfEnabled = data.application.ctfEnabled
+      if (data && data.application && data.application.showCtfFlagsInNotifications !== null) {
+        $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
       } else {
-        $scope.ctfEnabled = false
+        $scope.showCtfFlagsInNotifications = false
       }
     }, function (err) {
       console.log(err)

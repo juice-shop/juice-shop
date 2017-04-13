@@ -7,8 +7,8 @@ application:
   faviconReplacementUrl: ~
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
+  showCtfFlagsInNotifications: true
   theme: "slate"
-  ctfEnabled: true
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
 products:
