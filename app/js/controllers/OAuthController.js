@@ -7,23 +7,23 @@ angular.module('juiceShop').controller('OAuthController', [
   function ($window, $location, $cookies, $base64, userService) {
     'use strict'
 
-    userService.oauthLogin(parseRedirectUrlParams()['access_token']).success(function (profile) {
-      userService.save({email: profile.email, password: $base64.encode(profile.email)}).success(function () {
+    userService.oauthLogin(parseRedirectUrlParams()['access_token']).then(function (profile) {
+      userService.save({email: profile.email, password: $base64.encode(profile.email)}).then(function () {
         login(profile)
-      }).error(function (error) { // eslint-disable-line handle-callback-err
+      }).catch(function () { // eslint-disable-line handle-callback-err
         login(profile)
       })
-    }).error(function (error) {
+    }).catch(function (error) {
       invalidateSession(error)
       $location.path('/login')
     })
 
     function login (profile) {
-      userService.login({ email: profile.email, password: $base64.encode(profile.email), oauth: true }).success(function (authentication) {
+      userService.login({ email: profile.email, password: $base64.encode(profile.email), oauth: true }).then(function (authentication) {
         $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
         $location.path('/')
-      }).error(function (error) {
+      }).catch(function (error) {
         invalidateSession(error)
         $location.path('/login')
       })
@@ -47,8 +47,7 @@ angular.module('juiceShop').controller('OAuthController', [
       for (var i = 0; i < splitted.length; i++) {
         var param = splitted[ i ].split('=')
         var key = param[ 0 ]
-        var value = param[ 1 ]
-        params[ key ] = value
+        params[ key ] = param[ 1 ]
       }
       return params
     }

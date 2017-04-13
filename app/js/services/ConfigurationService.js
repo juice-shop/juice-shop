@@ -1,16 +1,16 @@
-var configCache = null
-
-angular.module('juiceShop').factory('ConfigurationService', ['$http', function ($http) {
+angular.module('juiceShop').factory('ConfigurationService', ['$http', '$q', function ($http, $q) {
   'use strict'
 
   var host = '/rest/admin'
 
   function getApplicationConfiguration () {
-    if (configCache === null) {
-      configCache = $http.get(host + '/application-configuration')
-    }
-
-    return configCache
+    var config = $q.defer()
+    $http.get(host + '/application-configuration').success(function (data) {
+      config.resolve(data.config)
+    }).error(function (err) {
+      config.reject(err)
+    })
+    return config.promise
   }
 
   return {

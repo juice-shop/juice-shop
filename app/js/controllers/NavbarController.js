@@ -7,22 +7,20 @@ angular.module('juiceShop').controller('NavbarController', [
 
     $scope.version = ''
 
-    administrationService.getApplicationVersion().success(function (data) {
-      if (data && data.version) {
-        $scope.version = 'v' + data.version
+    administrationService.getApplicationVersion().then(function (version) {
+      if (version) {
+        $scope.version = 'v' + version
       }
-    }).error(function (err) {
+    }).catch(function (err) {
       console.log(err)
     })
 
     $rootScope.applicationName = 'OWASP Juice Shop'
-    $scope.applicationTheme = 'slate'
-    configurationService.getApplicationConfiguration().success(function (data) {
-      if (data && data.application) {
-        $rootScope.applicationName = data.application.name
-        $scope.applicationTheme = data.application.theme
+    configurationService.getApplicationConfiguration().then(function (config) {
+      if (config.application) {
+        $rootScope.applicationName = config.application.name
       }
-    }).error(function (err) {
+    }).catch(function (err) {
       console.log(err)
     })
   }])

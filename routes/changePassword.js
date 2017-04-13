@@ -28,7 +28,7 @@ exports = module.exports = function changePassword () {
                   utils.solve(challenges.csrfChallenge)
                 }
               }
-              res.send(user)
+              res.json({user: user})
             }).error(function (error) {
               next(error)
             })

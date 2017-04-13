@@ -17,11 +17,11 @@ angular.module('juiceShop').controller('LoginController', [
     }
 
     $scope.login = function () {
-      userService.login($scope.user).success(function (authentication) {
+      userService.login($scope.user).then(function (authentication) {
         $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
         $location.path('/')
-      }).error(function (error) {
+      }).catch(function (error) {
         $cookies.remove('token')
         delete $window.sessionStorage.bid
         $scope.error = error

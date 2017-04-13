@@ -34,11 +34,11 @@ describe('controllers', function () {
 
       describe('successful account creation', function () {
         beforeEach(inject(function () {
-          $httpBackend.whenPOST('/api/Users/').respond(200)
+          $httpBackend.whenPOST('/api/Users/').respond(200, {data: {}})
         }))
 
         it('should set session data and forward to main page after successful login', inject(function () {
-          $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
+          $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {token: 'auth_token', bid: '4711'}})
           $httpBackend.flush()
 
           expect(cookies.get('token')).toBe('auth_token')
@@ -62,7 +62,7 @@ describe('controllers', function () {
         }))
 
         it('should set session data and forward to main page after successful login', inject(function () {
-          $httpBackend.whenPOST('/rest/user/login').respond(200, {token: 'auth_token', bid: '4711'})
+          $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {token: 'auth_token', bid: '4711'}})
           $httpBackend.flush()
 
           expect(cookies.get('token')).toBe('auth_token')
