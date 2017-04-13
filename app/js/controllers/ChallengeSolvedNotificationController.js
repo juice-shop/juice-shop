@@ -30,15 +30,13 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         socket.emit('notification received', data.flag)
       }
     })
-
-    configurationService.getApplicationConfiguration().success(function (data) {
+    configurationService.getApplicationConfiguration().then(function (data) {
       if (data && data.application && data.application.ctfEnabled !== null) {
         $scope.ctfEnabled = data.application.ctfEnabled
-        console.log('CTF is enabled!')
       } else {
         $scope.ctfEnabled = false
       }
-    }).error(function (err) {
+    }, function (err) {
       console.log(err)
     })
   } ])
