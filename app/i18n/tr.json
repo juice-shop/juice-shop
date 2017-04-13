@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Otomatik olarak yönlendirilmediyseniz, buraya tıklayınız:{{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin adresi",
   "TITLE_DASH_ADDRESS":"Dash adresi",
-  "TITLE_ETHER_ADDRESS":"Ether adresi"
+  "TITLE_ETHER_ADDRESS":"Ether adresi",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved flag of a challenge to repeat the challenge solved notification.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }
