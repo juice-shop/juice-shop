@@ -27,7 +27,7 @@
                 <th translate="LABEL_NAME"></th>
                 <th translate="LABEL_DESCRIPTION"></th>
                 <th translate="LABEL_DIFFICULTY"></th>
-                <th translate="LABEL_STATUS"></th>
+                <th><span translate="LABEL_STATUS"></span><i ng-show="showCtfFlagsInNotifications" class="fa fa-info-circle" aria-hidden="true" uib-tooltip="{{ 'NOTIFICATION_RESEND_INSTRUCTIONS' | translate }}"></i></th>
             </tr>
             <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
                 <td><div ng-bind="challenge.name"></div></td>
@@ -37,7 +37,10 @@
                   </td>
                 <td align="center">
                     <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED"></span>
-                    <span id="{{challenge.name}}.solved" ng-show="challenge.solved" class="label label-success" translate="STATUS_SOLVED"></span>
+                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" ng-class="{ 'notification-repeat-button': showCtfFlagsInNotifications }">
+                        <i class="fa fa-flag-o" aria-hidden="true"></i>
+                        <span translate="STATUS_SOLVED"></span>
+                    </span>
                 </td>
             </tr>
         </table>

@@ -48,8 +48,8 @@ Javascript-heavy application frontends and REST APIs.
   scratch on every server startup
 - Gamification: The application notifies you on solved challenges and
   keeps track of successfully exploited vulnerabilities on a Score Board
-- CTF-support: Challenge notifications contain a customizable flag code
-  for your own
+- CTF-support: Challenge notifications optionally show a flag code for
+  your own
   [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
 - Re-branding: Fully customizable business context and look & feel
 - Free and Open source: Licensed under the [MIT license](LICENSE) with
@@ -237,7 +237,9 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
-* Blog post on [LOL Security](http://location-href.com/): [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/) (in Burmese) :trollface:
+* Blog post on [LOL Security](http://location-href.com/):
+  [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
+  (in Burmese) :trollface:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:

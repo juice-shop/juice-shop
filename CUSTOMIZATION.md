@@ -25,9 +25,9 @@ generates the original OWASP Juice Shop look & feel and inventory.
 > It is not necessary to run `npm install` after switching customization
 > configurations. To verify if your custom configuration will not break
 > any of the challenges, you should
-> [run all tests](CONTRIBUTING.md#unit--integration-tests)
-> via `npm test && npm run protractor`. If they pass, all functionality
-> and challenges will be working fine!
+> [run all tests](CONTRIBUTING.md#unit--integration-tests) via `npm test
+> && npm run protractor`. If they pass, all functionality and challenges
+> will be working fine!
 
 ## Default configuration
 
@@ -41,7 +41,8 @@ application:
   faviconReplacementUrl: ~                # URL to an image in ICO format to use as a favicon instead of the default one
   numberOfRandomFakeUsers: 0              # number of random user accounts to be created (additional to pre-defined ones)
   showChallengeSolvedNotifications: true  # set to 'false' to hide all instant "challenge solved"-notifications
-  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com) 
+  showCtfFlagsInNotifications: false      # Shows the CTF flags in the challenge notifications if set to true.
+  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com)
 products: []                              # if specified, the products to create instead of the default ones
 ```
 
@@ -67,6 +68,13 @@ Juice Shop:
   [our server-side rendered ancestor](https://github.com/psiinon/bodgeit)
 * [Sick-Shop](https://github.com/bkimminich/juice-shop/blob/master/config/sickshop.yml):
   A store that offers a variety of illnesses. _Achoo!_ Bless you!
+
+> There is also a
+> [ctf.yml](https://github.com/bkimminich/juice-shop/blob/master/config/ctf.yml)
+> which keeps the Juice Shop in its default layout but enables CTF flags
+> in the notifications you see upon solving a challenge. Refer to our
+> [CTF-extension project](https://github.com/bkimminich/juice-shop-ctf)
+> to learn more about running a CTF-event with OWASP Juice Shop.
 
 ## Credits
 

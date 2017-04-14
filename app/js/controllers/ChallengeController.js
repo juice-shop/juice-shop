@@ -5,8 +5,21 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$cookies',
   '$uibModal',
   'ChallengeService',
-  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService) {
+  'ConfigurationService',
+  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService, configurationService) {
     'use strict'
+
+    configurationService.getApplicationConfiguration().then(function (data) {
+      $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
+    })
+
+    $scope.repeatNotification = function (challenge) {
+      if ($scope.showCtfFlagsInNotifications) {
+        challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
+          window.scrollTo(0, 0)
+        })
+      }
+    }
 
     $scope.saveProgress = function () {
       $scope.savedContinueCode = $scope.currentContinueCode
