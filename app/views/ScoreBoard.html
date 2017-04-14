@@ -18,11 +18,6 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid well" ng-show="showCtfFlagsInNotifications">
-                <div class="row">
-                    <p translate="NOTIFICATION_RESEND_INSTRUCTIONS"></p>
-                </div>
-            </div>
         </form>
 
         <uib-progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></uib-progressbar>
@@ -32,7 +27,7 @@
                 <th translate="LABEL_NAME"></th>
                 <th translate="LABEL_DESCRIPTION"></th>
                 <th translate="LABEL_DIFFICULTY"></th>
-                <th translate="LABEL_STATUS"></th>
+                <th><span translate="LABEL_STATUS"></span><i ng-show="showCtfFlagsInNotifications" class="fa fa-info-circle" aria-hidden="true" uib-tooltip="{{ 'NOTIFICATION_RESEND_INSTRUCTIONS' | translate }}"></i></th>
             </tr>
             <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
                 <td><div ng-bind="challenge.name"></div></td>
