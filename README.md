@@ -237,9 +237,11 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 > the list! The same goes for conference or meetup talks, workshops or
 > trainings you did where you included this project!
 
+* Writeup on [Testhexen](http://testhexen.de):
+  [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
 * Blog post on [LOL Security](http://location-href.com/):
   [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
-  (in Burmese) :trollface:
+  :mm: :trollface:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
   :trollface:
@@ -264,9 +266,9 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
     ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
-* German guest post on
-  [Informatik Aktuell](http://www.informatik-aktuell.de/):
+* Guest post on [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
+  :de:
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/):
   [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de):
