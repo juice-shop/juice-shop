@@ -3,10 +3,10 @@ FROM            node:%%NODE_VERSION%%-alpine
 MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
 LABEL version = "%%APP_VERSION%%"
 
+RUN apk add git
+
 COPY . /juice-shop
 WORKDIR /juice-shop
-
-RUN apk add git
 RUN npm install --production --unsafe-perm
 
 EXPOSE  3000
