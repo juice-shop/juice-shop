@@ -179,24 +179,6 @@ distributions accordingly:
 > images are built from `develop` branch. The latter contain unreleased
 > features but cannot be considered stable.
 
-## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
-
-If you need help with the application setup please check the
-[TROUBLESHOOTING.md](TROUBLESHOOTING.md) or post your specific problem
-or question in the
-[official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
-
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-
-Found a bug? Crashed the app? Broken challenge? Found a vulnerability
-that is not on the Score Board?
-
-Feel free to
-[create an issue](https://github.com/bkimminich/juice-shop/issues) or
-[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
-Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
-
 ## Additional Documentation
 
 ### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
@@ -217,14 +199,28 @@ and is available **for free** in HTML, PDF, Kindle and ePub format.
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
-* [Lightning Talk Slides](http://bkimminich.github.io/juice-shop/god_2015.html)
-  for a 10min project introduction runthrough
-  * [What's new in OWASP Juice Shop](http://bkimminich.github.io/juice-shop/god_2016.html)
-    for a 10min update on the newest features of 2016
 * [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application)
   on Slideshare
 
-### References
+## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
+
+If you need help with the application setup please check the
+[TROUBLESHOOTING.md](TROUBLESHOOTING.md) or post your specific problem
+or question in the
+[official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
+
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
+Found a bug? Crashed the app? Broken challenge? Found a vulnerability
+that is not on the Score Board?
+
+Feel free to
+[create an issue](https://github.com/bkimminich/juice-shop/issues) or
+[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
+Pull requests are also highly welcome - please refer to
+[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
+
+## References
 
 > Did you write a blog post, magazine article or do a podcast about or
 > mentioning OWASP Juice Shop? Add it to [REFERENCES.md](REFERENCES.md)
