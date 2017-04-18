@@ -1,15 +1,15 @@
 # References
 
-> Did you write a blog post, magazine article or do a podcast about or
-> mentioning OWASP Juice Shop? Add it to this file and open a Pull
-> Request! The same goes for conference or meetup talks, workshops or
-> trainings you did where you included this project!
->
-> **Spoiler Warning!** :bulb: indicates resources that contain _hints for solving challenges_
-> of the OWASP Juice Shop. These are supposed to be helpful whenever you
-> get stuck. :trollface: indicates resources that _spoiler entire
-> challenge solutions_ so you might not want to view them before
-> tackling these challenges yourself!
+Did you write a blog post, magazine article or do a podcast about or
+mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
+goes for conference or meetup talks, workshops or trainings you did
+where this project was mentioned!
+
+> **Spoiler Warning!** :bulb: indicates resources that contain _hints
+> for solving challenges_ of the OWASP Juice Shop. These are supposed to
+> be helpful whenever you get stuck. :trollface: indicates resources
+> that _spoiler entire challenge solutions_ so you might not want to
+> view them before tackling these challenges yourself!
 
 ## Web Links
 

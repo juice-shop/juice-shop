@@ -222,10 +222,13 @@ Pull requests are also highly welcome - please refer to
 
 ## References
 
-> Did you write a blog post, magazine article or do a podcast about or
-> mentioning OWASP Juice Shop? Add it to [REFERENCES.md](REFERENCES.md)
-> and open a Pull Request! The same goes for conference or meetup talks,
-> workshops or trainings you did where you included this project!
+Did you write a blog post, magazine article or do a podcast about or
+mentioning OWASP Juice Shop? Or maybe you held or joined a conference
+talk or meetup session, a hacking workshop or public training where this
+project was mentioned?
+
+Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by
+forking and opening a Pull Request!
 
 ## Merchandise
 
