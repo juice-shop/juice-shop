@@ -3,7 +3,7 @@ FROM            node:%%NODE_VERSION%%-alpine
 MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
 LABEL version = "%%APP_VERSION%%"
 
-RUN apk add git
+RUN apk update && apk add git
 
 COPY . /juice-shop
 WORKDIR /juice-shop
