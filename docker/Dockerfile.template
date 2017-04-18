@@ -6,6 +6,7 @@ LABEL version = "%%APP_VERSION%%"
 COPY . /juice-shop
 WORKDIR /juice-shop
 
+RUN apk add git
 RUN npm install --production --unsafe-perm
 
 EXPOSE  3000

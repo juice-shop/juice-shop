@@ -6,6 +6,7 @@ LABEL version = "2.26.0-SNAPSHOT"
 COPY . /juice-shop
 WORKDIR /juice-shop
 
+RUN apk add git
 RUN npm install --production --unsafe-perm
 
 EXPOSE  3000
