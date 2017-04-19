@@ -272,22 +272,24 @@ Inspired by the "classic"
 [BodgeIt Store](https://github.com/psiinon/bodgeit) by
 [@psiinon](https://github.com/psiinon).
 
-### Contributors
-
-Ordered by date of first contribution.
-[Auto-generated](https://github.com/dtrejo/node-authors) on Sun, 18 Dec
-2016 18:01:55 GMT.
+## Contributors
+Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr 2017 08:32:58 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [Aaron Edwards](https://github.com/aaron-edwards) aka `aaron-edwards`
+- [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
+- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
-- [wurstbrot](https://github.com/wurstbrot)
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
+- [ninoseki](https://github.com/ninoseki)
+- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
