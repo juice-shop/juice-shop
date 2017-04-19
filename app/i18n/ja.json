@@ -1,5 +1,5 @@
 {
-  "LANGUAGE":"日本語",
+  "LANGUAGE":"日本の",
   "NAV_SEARCH":"検索",
   "SEARCH_PLACEHOLDER":"検索...",
   "NAV_COMPLAIN":"苦情受付",
@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"自動的にリダイレクトされていない場合、こちらをクリックしてください: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoinアドレス",
   "TITLE_DASH_ADDRESS":"Dashアドレス",
-  "TITLE_ETHER_ADDRESS":"Etherアドレス"
+  "TITLE_ETHER_ADDRESS":"Etherアドレス",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }

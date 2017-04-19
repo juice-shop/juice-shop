@@ -1,5 +1,5 @@
 {
-  "LANGUAGE":"Engleză",
+  "LANGUAGE":"Românesc",
   "NAV_SEARCH":"Caută",
   "SEARCH_PLACEHOLDER":"Caută...",
   "NAV_COMPLAIN":"Plângere?",
@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Dacă nu sunteți redirecționat automat, apăsați aici: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Adresa Bitcoin",
   "TITLE_DASH_ADDRESS":"Adresa Dash",
-  "TITLE_ETHER_ADDRESS":"Adresa Ether"
+  "TITLE_ETHER_ADDRESS":"Adresa Ether",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }
