@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Si vous n'êtes pas automatiquement redirigé, cliquez ici : {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Adresse Bitcoin",
   "TITLE_DASH_ADDRESS":"Adresse de tableau de bord",
-  "TITLE_ETHER_ADDRESS":"Autre adresse"
+  "TITLE_ETHER_ADDRESS":"Autre adresse",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }

@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Wenn Sie nicht automatisch weitergeleitet werden, klicken Sie bitte hier: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
   "TITLE_DASH_ADDRESS":"Dash-Adresse",
-  "TITLE_ETHER_ADDRESS":"Ether-Adresse"
+  "TITLE_ETHER_ADDRESS":"Ether-Adresse",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Klicke auf die gelöst-Flagge einer Herausforderung um die Benachrichtigung mit deren Lösungs-Code zu wiederholen.",
+  "COPY_TO_CLIPBOARD":"In Zwischenablage kopieren",
+  "COPY_SUCCESS":"Kopiert!"
 }

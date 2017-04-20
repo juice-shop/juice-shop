@@ -23,6 +23,7 @@ var angular = require('./routes/angular')
 var easterEgg = require('./routes/easterEgg')
 var premiumReward = require('./routes/premiumReward')
 var appVersion = require('./routes/appVersion')
+var repeatNotification = require('./routes/repeatNotification')
 var continueCode = require('./routes/continueCode')
 var restoreProgress = require('./routes/restoreProgress')
 var fileServer = require('./routes/fileServer')
@@ -44,6 +45,7 @@ var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server)
+var replace = require('replace')
 var appConfiguration = require('./routes/appConfiguration')
 
 global.io = io
@@ -146,6 +148,7 @@ app.post('/rest/basket/:id/checkout', order())
 app.put('/rest/basket/:id/coupon/:coupon', coupon())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/rest/admin/application-configuration', appConfiguration())
+app.get('/rest/repeat-notification', repeatNotification())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
@@ -193,6 +196,10 @@ exports.start = function (config, readyCallback) {
     }
     if (config.get('application.faviconReplacementUrl')) {
       utils.downloadToFile(config.get('application.faviconReplacementUrl'), 'app/public/favicon_v2.ico')
+    }
+    if (config.get('application.theme')) {
+      var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+      replace({ regex: 'bower_components/bootswatch/.*/bootstrap.min.css', replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
     }
   }
 }

@@ -7,16 +7,16 @@ angular.module('juiceShop').controller('ComplaintController', [
     'use strict'
 
     function initComplaint () {
-      userService.whoAmI().success(function (data) {
+      userService.whoAmI().then(function (user) {
         $scope.complaint = {}
-        $scope.complaint.UserId = data.id
-        $scope.userEmail = data.email
+        $scope.complaint.UserId = user.id
+        $scope.userEmail = user.email
       })
     }
 
     function saveComplaint () {
-      complaintService.save($scope.complaint).success(function (savedComplaint) {
-        $scope.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.data.id
+      complaintService.save($scope.complaint).then(function (savedComplaint) {
+        $scope.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.id
         initComplaint()
         $scope.file = undefined
         $scope.form.$setPristine()

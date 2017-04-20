@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Als je niet meteen wordt doorverwezen, klik dan hier: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-adres",
   "TITLE_DASH_ADDRESS":"Dash-adres",
-  "TITLE_ETHER_ADDRESS":"Ether Address"
+  "TITLE_ETHER_ADDRESS":"Ether Address",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }

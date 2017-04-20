@@ -5,8 +5,21 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$cookies',
   '$uibModal',
   'ChallengeService',
-  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService) {
+  'ConfigurationService',
+  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService, configurationService) {
     'use strict'
+
+    configurationService.getApplicationConfiguration().then(function (data) {
+      $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
+    })
+
+    $scope.repeatNotification = function (challenge) {
+      if ($scope.showCtfFlagsInNotifications) {
+        challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
+          window.scrollTo(0, 0)
+        })
+      }
+    }
 
     $scope.saveProgress = function () {
       $scope.savedContinueCode = $scope.currentContinueCode
@@ -19,12 +32,12 @@ angular.module('juiceShop').controller('ChallengeController', [
     }
 
     $scope.restoreProgress = function () {
-      challengeService.restoreProgress(encodeURIComponent($scope.savedContinueCode)).success(function () {
+      challengeService.restoreProgress(encodeURIComponent($scope.savedContinueCode)).then(function () {
         $cookies.remove('continueCode')
         $scope.savedContinueCode = undefined
         $scope.error = undefined
         $scope.form.$setPristine()
-      }).error(function (error) {
+      }).catch(function (error) {
         console.log(error)
         $translate('INVALID_CONTINUE_CODE').then(function (invalidContinueCode) {
           $scope.error = invalidContinueCode
@@ -35,8 +48,8 @@ angular.module('juiceShop').controller('ChallengeController', [
       })
     }
 
-    challengeService.find().success(function (challenges) {
-      $scope.challenges = challenges.data
+    challengeService.find().then(function (challenges) {
+      $scope.challenges = challenges
       var solvedChallenges = 0
       for (var i = 0; i < $scope.challenges.length; i++) {
         $scope.challenges[i].description = $sce.trustAsHtml($scope.challenges[i].description)
@@ -50,14 +63,14 @@ angular.module('juiceShop').controller('ChallengeController', [
       } else {
         $scope.completionColor = 'danger'
       }
-    }).error(function (data) {
-      console.log(data)
+    }).catch(function (err) {
+      console.log(err)
     })
 
-    challengeService.continueCode().success(function (data) {
-      $scope.currentContinueCode = data.continueCode
-    }).error(function (data) {
-      console.log(data)
+    challengeService.continueCode().then(function (continueCode) {
+      $scope.currentContinueCode = continueCode
+    }).catch(function (err) {
+      console.log(err)
     })
     $scope.savedContinueCode = $cookies.get('continueCode')
   }])

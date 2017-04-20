@@ -64,7 +64,7 @@ exports = module.exports = function placeOrder () {
           fileWriter.on('finish', function () {
             basket.updateAttributes({ coupon: null })
             models.BasketItem.destroy({ BasketId: id })
-            res.send('/ftp/' + pdfFile)
+            res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))

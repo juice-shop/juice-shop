@@ -32,7 +32,7 @@ describe('controllers', function () {
     }))
 
     it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {})
+      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {}})
       scope.user = {email: 'otto@juice-sh.op'}
       scope.rememberMe = false
 

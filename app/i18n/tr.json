@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Otomatik olarak yönlendirilmediyseniz, buraya tıklayınız:{{home}}",
   "TITLE_BITCOIN_ADDRESS":"Bitcoin adresi",
   "TITLE_DASH_ADDRESS":"Dash adresi",
-  "TITLE_ETHER_ADDRESS":"Ether adresi"
+  "TITLE_ETHER_ADDRESS":"Ether adresi",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Çözüm kodunu içeren bildirimi tekrar görmek için sorunun çözüldü-bayrağına tıklayın.",
+  "COPY_TO_CLIPBOARD":"Panoya Kopyala",
+  "COPY_SUCCESS":"Kopyalandı!"
 }

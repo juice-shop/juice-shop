@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"如果没有自动重定向，请点击这里︰ {{home}}",
   "TITLE_BITCOIN_ADDRESS":"比特币地址",
   "TITLE_DASH_ADDRESS":"达世币地址",
-  "TITLE_ETHER_ADDRESS":"Ether Address"
+  "TITLE_ETHER_ADDRESS":"Ether Address",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }

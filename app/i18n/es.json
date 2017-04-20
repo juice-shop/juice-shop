@@ -94,5 +94,8 @@
   "HOME_LINK_MESSAGE":"Si no eres redirigido automáticamente, haz clic aquí: {{home}}",
   "TITLE_BITCOIN_ADDRESS":"Dirección Bitcoin",
   "TITLE_DASH_ADDRESS":"Direccion Dash",
-  "TITLE_ETHER_ADDRESS":"Dirección Ether"
+  "TITLE_ETHER_ADDRESS":"Dirección Ether",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click on the solved-flag of a challenge to repeatd the notification containing its solution-code.",
+  "COPY_TO_CLIPBOARD":"Copy to clipboard",
+  "COPY_SUCCESS":"Copied!"
 }
