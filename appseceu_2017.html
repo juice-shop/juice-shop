@@ -42,7 +42,7 @@
 
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
-		<section data-background="assets/belfast.jpg">
+		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
 			<div style="background-color: rgba(0, 0, 0, 0.7)">
 				<h2>OWASP Juice Shop</h2>
 				<h4>Achieving sustainability for open source projects</h4>
@@ -62,13 +62,14 @@
 			Lorem ipsum bla blubb content.
 		</section>
 
-		<section data-background="assets/belfast.jpg">
+		<section>
+			Lorem ipsum even more content.
+		</section>
+
+		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
 			<img src="assets/JuiceShop_Logo.svg" width="350" style="background: none; border:none; box-shadow:none;"/>
 			<div style="background-color: rgba(0, 0, 0, 0.7)">
-				<h3>Copyright (c) 2014-2017 <a href="http://kimminich.de">Björn Kimminich</a></h3>
-				<p>
-					Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT">MIT license</a>.
-				</p>
+				<h3>Copyright (c) 2017 <a href="http://kimminich.de">Björn Kimminich</a></h3>
 				<p>
 					<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
 				</p>
@@ -92,7 +93,7 @@
     history: true,
     center: true,
 
-    transition: 'convex', // none/fade/slide/convex/concave/zoom
+    transition: 'fade', // none/fade/slide/convex/concave/zoom
 
     // Optional reveal.js plugins
     dependencies: [
