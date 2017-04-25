@@ -13,6 +13,7 @@ where this project was mentioned!
 
 ## Web Links
 
+* Vulnerable website collection on [Bonkers About Tech](https://www.bonkersabouttech.com): [40+ Intentionally Vulnerable Websites To (Legally) Practice Your Hacking Skills](https://www.bonkersabouttech.com/security/40-intentionally-vulnerable-websites-to-practice-your-hacking-skills/392)
 * Hacking-session writeup on [Testhexen](http://testhexen.de):
   [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
