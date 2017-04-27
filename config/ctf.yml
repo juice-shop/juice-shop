@@ -1,4 +1,5 @@
 application:
   logoReplacementUrl: "https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/develop/images/JuiceShopCTF_Logo.png"
+  faviconReplacementUrl: "https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/develop/images/favicon_ctf.ico"
   showCtfFlagsInNotifications: true
   
