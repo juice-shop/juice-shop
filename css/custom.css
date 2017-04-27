@@ -4,3 +4,9 @@
         display: none;
     }
 }
+
+.reveal .no-box {
+    background: none;
+    border:none;
+    box-shadow:none;
+}
