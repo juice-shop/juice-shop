@@ -69,7 +69,7 @@ Juice Shop:
 * [Sick-Shop](https://github.com/bkimminich/juice-shop/blob/master/config/sickshop.yml):
   A store that offers a variety of illnesses. _Achoo!_ Bless you!
 
-> There is also a
+> ![Juice Shop CTF Logo](https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/develop/images/JuiceShopCTF_Logo_50px.png) There is also a
 > [ctf.yml](https://github.com/bkimminich/juice-shop/blob/master/config/ctf.yml)
 > which keeps the Juice Shop in its default layout but enables CTF flags
 > in the notifications you see upon solving a challenge. Refer to our
