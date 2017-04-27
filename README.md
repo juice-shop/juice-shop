@@ -218,7 +218,7 @@ Feel free to
 [create an issue](https://github.com/bkimminich/juice-shop/issues) or
 [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
 Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
+[CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## References
 
@@ -242,7 +242,7 @@ forking and opening a Pull Request!
   your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CUSTOMIZATION.md) by fixing
+> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
 > an issue, finding a serious bug or submitting a good idea for a new
 > challenge! We're also happy to send some stickers your way if you
 > organize a meetup or conference talk where you use or mention OWASP
