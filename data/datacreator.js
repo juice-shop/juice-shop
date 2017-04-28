@@ -431,17 +431,18 @@ module.exports = function () {
         description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
       }
       var price = product.price || Math.floor(Math.random())
-      var imageFileName = product.image || 'undefined.png'
-      if (product.imageUrl) {
-        imageFileName = product.imageUrl.substring(product.imageUrl.lastIndexOf('/') + 1)
-        var imageFilePath = 'app/public/images/products/' + imageFileName
-        utils.downloadToFile(product.imageUrl, imageFilePath)
+      var image = product.image || 'undefined.png'
+      if (utils.startsWith(image, 'http')) {
+        var imageUrl = image
+        image = image.substring(image.lastIndexOf('/') + 1)
+        var imageFilePath = 'app/public/images/products/' + image
+        utils.downloadToFile(imageUrl, imageFilePath)
       }
       models.Product.create({
         name: name,
         description: description,
         price: price,
-        image: imageFileName
+        image: image
       }).success(function (product) {
         if (product.description.match(/Seasonal special offer! Limited availability!/)) {
           products.christmasSpecial = product

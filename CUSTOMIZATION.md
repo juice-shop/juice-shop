@@ -53,10 +53,9 @@ products:
   - name: "Product Name"                    # (mandatory)
     price: 100                              # (optional) will be a random price if not specified
     description: "Product Description"      # (optional) will be a static "Lorem Ipsum" text if not specified
-    image: "image.png"                      # (optional) will be undefined.png if not specified and...
-    imageUrl: "https://product/image.png"   # (optional) ...a download URL is also not specified. Overrides "image" if both are specified
-    useForProductTamperingChallenge: false  # (must be defined as "true" on exactly one product)
-    useForChristmasChallenge: false         # (must be defined as "true" on exactly one product)
+    image: "image.png"                      # (optional) filename in /app/public/images/products <or> URL of an image to download. Will be undefined.png if not specified. 
+    useForProductTamperingChallenge: false  # (must be "true" on exactly one product)
+    useForChristmasChallenge: false         # (must be "true" on exactly one product)
 ```
 
 ## Sample customizations
