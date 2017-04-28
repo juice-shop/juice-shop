@@ -40,6 +40,10 @@ products:
     description: 'Real fans wear it 24/7!'
     price: 22.49
     image: 'fan_shirt.jpg'
+  - name: 'OWASP Juice Shop CTF Girlie-Shirt'
+    description: 'For serious Capture-the-Flag heroines only!'
+    price: 22.49
+    image: 'fan_shirt.jpg'
   - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
@@ -55,7 +59,7 @@ products:
     price: 2.99
     image: 'sticker.png'
   - name: 'OWASP Juice Shop Mug'
-    description: 'Black mug with logo on each side! Your colleagues will envy you!'
+    description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
     price: 21.99
     image: 'fan_mug.jpg'
   - name: 'OWASP Juice Shop Hoodie'
