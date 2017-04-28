@@ -1,7 +1,7 @@
 application:
   domain: sick-sh.op
   name: "Sick-Shop"
-  logoReplacementUrl: "https://openclipart.org/image/300px/svg_to_png/250927/1465228117.png"
+  logo: "https://openclipart.org/image/300px/svg_to_png/250927/1465228117.png"
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
   theme: "cosmo"

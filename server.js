@@ -47,6 +47,7 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server)
 var replace = require('replace')
 var appConfiguration = require('./routes/appConfiguration')
+const config = require('config')
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -78,7 +79,16 @@ app.use(function (req, res, next) {
 })
 
 /* Favicon */
-app.use(favicon(path.join(__dirname, 'app/public/favicon_v2.ico')))
+var icon = 'favicon_v2.ico'
+if (config.get('application.favicon')) {
+  icon = config.get('application.favicon')
+  if (utils.startsWith(icon, 'http')) {
+    var iconPath = icon
+    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
+    utils.downloadToFile(iconPath, 'app/public/' + icon)
+  }
+}
+app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges())
@@ -179,7 +189,7 @@ io.on('connection', function (socket) {
   })
 })
 
-exports.start = function (config, readyCallback) {
+exports.start = function (readyCallback) {
   if (!this.server) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
@@ -191,15 +201,19 @@ exports.start = function (config, readyCallback) {
         }
       })
     })
-    if (config.get('application.logoReplacementUrl')) {
-      utils.downloadToFile(config.get('application.logoReplacementUrl'), 'app/public/images/JuiceShop_Logo.png')
-    }
-    if (config.get('application.faviconReplacementUrl')) {
-      utils.downloadToFile(config.get('application.faviconReplacementUrl'), 'app/public/favicon_v2.ico')
+    if (config.get('application.logo')) {
+      var logo = config.get('application.logo')
+      if (utils.startsWith(logo, 'http')) {
+        var logoPath = logo
+        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+        utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+      }
+      var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+      replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
     }
     if (config.get('application.theme')) {
       var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-      replace({ regex: 'bower_components/bootswatch/.*/bootstrap.min.css', replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+      replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
     }
   }
 }

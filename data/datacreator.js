@@ -434,9 +434,8 @@ module.exports = function () {
       var image = product.image || 'undefined.png'
       if (utils.startsWith(image, 'http')) {
         var imageUrl = image
-        image = image.substring(image.lastIndexOf('/') + 1)
-        var imageFilePath = 'app/public/images/products/' + image
-        utils.downloadToFile(imageUrl, imageFilePath)
+        image = decodeURIComponent(image.substring(image.lastIndexOf('/') + 1))
+        utils.downloadToFile(imageUrl, 'app/public/images/products/' + image)
       }
       models.Product.create({
         name: name,

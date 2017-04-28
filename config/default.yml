@@ -3,8 +3,8 @@ server:
 application:
   domain: juice-sh.op
   name: "OWASP Juice Shop"
-  logoReplacementUrl: ~
-  faviconReplacementUrl: ~
+  logo: "JuiceShop_Logo.png"
+  favicon: "favicon_v2.ico"
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
