@@ -54,6 +54,8 @@ where this project was mentioned!
 
 #### 2017
 
+* [OWASP Juice Shop: Achieving sustainability for open source projects](https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects), [AppSec Europe 2017](https://2017.appsec.eu), 11.05.2017
+* [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/), [27. OWASP Stammtisch Hamburg](http://lanyrd.com/2017/owasp-de/), 25.04.2017
 * [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555),
   [Software-Test User Group Hamburg](https://www.xing.com/communities/groups/software-test-user-group-hamburg-1207-1002644),
   21.03.2017
