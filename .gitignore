@@ -64,3 +64,10 @@ app/public/images/products/*.*
 !app/public/images/products/undefined.png
 !app/public/images/products/white_raffards.jpg
 !app/public/images/products/woodruff_syrup.jpg
+
+# Custom configuration files
+config/*.yml
+!config/bodgeit.yml
+!config/ctf.yml
+!config/default.yml
+!config/sickshop.yml
