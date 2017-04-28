@@ -30,6 +30,7 @@ dist/
 order_*.pdf
 ftp/uploads/
 assets/
+app/index.html
 
 # Favicons downloaded during customizazion
 app/public/*.*

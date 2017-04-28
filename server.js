@@ -2,7 +2,7 @@
 
 var applicationRoot = __dirname.replace(/\\/g, '/')
 var path = require('path')
-var fs = require('fs')
+var fs = require('fs-extra')
 var glob = require('glob')
 var morgan = require('morgan')
 var colors = require('colors/safe')
@@ -58,7 +58,7 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
     console.log(err)
   } else {
     files.forEach(function (filename) {
-      fs.unlink(filename)
+      fs.remove(filename)
     })
   }
 })
@@ -201,20 +201,22 @@ exports.start = function (readyCallback) {
         }
       })
     })
-    if (config.get('application.logo')) {
-      var logo = config.get('application.logo')
-      if (utils.startsWith(logo, 'http')) {
-        var logoPath = logo
-        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-        utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+    fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function () {
+      if (config.get('application.logo')) {
+        var logo = config.get('application.logo')
+        if (utils.startsWith(logo, 'http')) {
+          var logoPath = logo
+          logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+        }
+        var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+        replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
       }
-      var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-      replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
-    }
-    if (config.get('application.theme')) {
-      var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-      replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
-    }
+      if (config.get('application.theme')) {
+        var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+        replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+      }
+    })
   }
 }
 
