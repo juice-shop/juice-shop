@@ -72,7 +72,7 @@ module.exports = function (grunt) {
               'server.js',
               'package.json',
               'ctf.key',
-              'app/index.html',
+              'app/index.template.html',
               'app/bower_components/**',
               'app/css/*.css',
               'app/css/geo-bootstrap/**',
