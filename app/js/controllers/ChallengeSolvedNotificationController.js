@@ -30,9 +30,9 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         socket.emit('notification received', data.flag)
       }
     })
-    configurationService.getApplicationConfiguration().then(function (data) {
-      if (data && data.application && data.application.showCtfFlagsInNotifications !== null) {
-        $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
+    configurationService.getApplicationConfiguration().then(function (config) {
+      if (config && config.application && config.application.showCtfFlagsInNotifications !== null) {
+        $scope.showCtfFlagsInNotifications = config.application.showCtfFlagsInNotifications
       } else {
         $scope.showCtfFlagsInNotifications = false
       }

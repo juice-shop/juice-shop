@@ -1,13 +1,14 @@
 server:
   port: 3000
 application:
-  domain: juice-sh.op
+  domain: "juice-sh.op"
   name: "OWASP Juice Shop"
   logo: "JuiceShop_Logo.png"
   favicon: "favicon_v2.ico"
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
+  showGitHubRibbon: true
   theme: "slate"
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"

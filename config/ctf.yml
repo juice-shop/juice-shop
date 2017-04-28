@@ -2,4 +2,4 @@ application:
   logo: "JuiceShopCTF_Logo.png"
   favicon: "favicon_ctf.ico"
   showCtfFlagsInNotifications: true
-  
+  showGitHubRibbon: false

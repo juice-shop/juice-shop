@@ -15,11 +15,9 @@ angular.module('juiceShop').controller('NavbarController', [
       console.log(err)
     })
 
-    $rootScope.applicationName = 'OWASP Juice Shop'
     configurationService.getApplicationConfiguration().then(function (config) {
-      if (config.application) {
-        $rootScope.applicationName = config.application.name
-      }
+      $rootScope.applicationName = (config && config.application && config.application.name !== null) ? config.application.name : 'OWASP Juice Shop'
+      $rootScope.showGitHubRibbon = (config && config.application && config.application.showGitHubRibbon !== null) ? config.application.showGitHubRibbon : true
     }).catch(function (err) {
       console.log(err)
     })

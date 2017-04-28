@@ -35,15 +35,18 @@ generates the original OWASP Juice Shop look & feel and inventory.
 server:
   port: 3000
 application:
-  domain: juice-sh.op                     # used for all user email addresses
-  name: "OWASP Juice Shop"                # shown in title and menu bar 
-  logo: JuiceShop_Logo.png                # filename in /app/public/images/ <or> URL of an image to download and use as a logo
-  favicon: favicon_v2.ico                 # filename in /app/public/ <or> URL to an image in ICO format tp download and use as a favicon
-  numberOfRandomFakeUsers: 0              # number of random user accounts to be created (additional to pre-defined ones)
-  showChallengeSolvedNotifications: true  # set to 'false' to hide all instant "challenge solved"-notifications
-  showCtfFlagsInNotifications: false      # Shows the CTF flags in the challenge notifications if set to true.
-  theme: "slate"                          # Bootswatch theme used to render the UI (see https://bootswatch.com)
-products: []                              # if specified, the products to create instead of the default ones
+  domain: "juice-sh.op"                                    # used for all user email addresses
+  name: "OWASP Juice Shop"                                 # shown in title and menu bar 
+  logo: "JuiceShop_Logo.png"                               # filename in /app/public/images/ <or> URL of an image to download and use as a logo
+  favicon: "favicon_v2.ico"                                # filename in /app/public/ <or> URL to an image in ICO format tp download and use as a favicon
+  numberOfRandomFakeUsers: 0                               # number of random user accounts to be created (additional to pre-defined ones)
+  showChallengeSolvedNotifications: true                   # set to 'false' to hide all instant "challenge solved"-notifications
+  showCtfFlagsInNotifications: false                       # Shows the CTF flags in the challenge notifications if set to true.
+  showGitHubRibbon: true                                   # Shows the "Fork me on GitHub" ribbon if set to true.
+  theme: "slate"                                           # Bootswatch theme used to render the UI (see https://bootswatch.com)
+  twitterUrl: "https://twitter.com/owasp_juiceshop"        # URL used as Twitter link (promises coupon codes on /#basket dialog) 
+  facebookUrl: "https://www.facebook.com/owasp.juiceshop"  # URL used as Facebook link (promises coupon codes on /#basket dialog)
+products: []                                               # if specified, the products to create instead of the default ones
 ```
 
 ### Product definitions
