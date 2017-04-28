@@ -268,9 +268,10 @@ project.
 
 ## Credits
 
-Inspired by the "classic"
+* Inspired by the "classic"
 [BodgeIt Store](https://github.com/psiinon/bodgeit) by
-[@psiinon](https://github.com/psiinon).
+[@psiinon](https://github.com/psiinon)
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy of [@SecureState](https://github.com/SecureState))
 
 ## Contributors
 Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr 2017 08:32:58 GMT.

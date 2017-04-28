@@ -5,7 +5,8 @@
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
-    "Bjoern Kimminich"
+    "Bjoern Kimminich", "Aaron Edwards", "Alec Brooks", "Dinis Cruz", "Timo Pagel", "Gorka Vicente", "Alvaro Viebrantz",
+    "Johanna A", "Stephen OBrien", "Joe Butler", "Abhishek bundela", "ninoseki", "Jannik Hollenbach"
   ],
   "private": true,
   "keywords": [
