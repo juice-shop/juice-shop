@@ -43,7 +43,7 @@ products:
   - name: 'OWASP Juice Shop CTF Girlie-Shirt'
     description: 'For serious Capture-the-Flag heroines only!'
     price: 22.49
-    image: 'fan_shirt.jpg'
+    image: 'girlie_shirt.jpg'
   - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
