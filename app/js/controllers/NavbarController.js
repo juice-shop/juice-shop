@@ -15,9 +15,15 @@ angular.module('juiceShop').controller('NavbarController', [
       console.log(err)
     })
 
+    $rootScope.applicationName = 'OWASP Juice Shop'
+    $rootScope.showGitHubRibbon = true
     configurationService.getApplicationConfiguration().then(function (config) {
-      $rootScope.applicationName = (config && config.application && config.application.name !== null) ? config.application.name : 'OWASP Juice Shop'
-      $rootScope.showGitHubRibbon = (config && config.application && config.application.showGitHubRibbon !== null) ? config.application.showGitHubRibbon : true
+      if (config && config.application && config.application.name !== null) {
+        $rootScope.applicationName = config.application.name
+      }
+      if (config && config.application && config.application.showGitHubRibbon !== null) {
+        $rootScope.showGitHubRibbon = config.application.showGitHubRibbon
+      }
     }).catch(function (err) {
       console.log(err)
     })
