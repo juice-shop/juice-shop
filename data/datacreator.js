@@ -18,11 +18,16 @@ module.exports = function () {
   createFeedback()
 
   function createChallenges () {
+    const addHint = function (hint) {
+      return config.get('application.showChallengeHints') ? hint : null
+    }
+
     models.Challenge.create({
       name: 'Score Board',
       category: 'Information Leakage',
       description: 'Find the carefully hidden \'Score Board\' page.',
       difficulty: 1,
+      hint: addHint('Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'),
       solved: false
     }).success(function (challenge) {
       challenges.scoreBoardChallenge = challenge
@@ -32,6 +37,7 @@ module.exports = function () {
       category: 'Information Leakage',
       description: 'Provoke an error that is not very gracefully handled.',
       difficulty: 1,
+      hint: addHint('Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'),
       solved: false
     }).success(function (challenge) {
       challenges.errorHandlingChallenge = challenge

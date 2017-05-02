@@ -43,6 +43,7 @@ application:
   showChallengeSolvedNotifications: true                   # set to 'false' to hide all instant "challenge solved"-notifications
   showCtfFlagsInNotifications: false                       # Shows the CTF flags in the challenge notifications if set to true.
   showGitHubRibbon: true                                   # Shows the "Fork me on GitHub" ribbon if set to true.
+  showChallengeHints: true                                 # Shows a hint for each challenge on hovering over its "unsolved" button
   theme: "slate"                                           # Bootswatch theme used to render the UI (see https://bootswatch.com)
   twitterUrl: "https://twitter.com/owasp_juiceshop"        # URL used as Twitter link (promises coupon codes on /#basket dialog) 
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"  # URL used as Facebook link (promises coupon codes on /#basket dialog)
