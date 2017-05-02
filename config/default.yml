@@ -9,6 +9,7 @@ application:
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
   showGitHubRibbon: true
+  showChallengeHints: true
   theme: "slate"
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
