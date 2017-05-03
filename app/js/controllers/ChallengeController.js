@@ -4,20 +4,28 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$translate',
   '$cookies',
   '$uibModal',
+  '$window',
   'ChallengeService',
   'ConfigurationService',
-  function ($scope, $sce, $translate, $cookies, $uibModal, challengeService, configurationService) {
+  function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService) {
     'use strict'
 
     configurationService.getApplicationConfiguration().then(function (data) {
       $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
+      $scope.showChallengeHints = data.application.showChallengeHints
     })
 
     $scope.repeatNotification = function (challenge) {
       if ($scope.showCtfFlagsInNotifications) {
         challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
-          window.scrollTo(0, 0)
+          $window.scrollTo(0, 0)
         })
+      }
+    }
+
+    $scope.openHint = function (challenge) {
+      if ($scope.showChallengeHints && challenge.hintUrl) {
+        $window.open(challenge.hintUrl, '_blank')
       }
     }
 
