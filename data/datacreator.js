@@ -49,6 +49,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Log in with the administrator\'s user account.',
       difficulty: 2,
+      hint: addHint('Try different SQL Injection attack patterns depending whether you know the admin\'s email address or not.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-the-administrators-user-account'),
       solved: false
     }).success(function (challenge) {
       challenges.loginAdminChallenge = challenge
@@ -58,6 +60,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Log in with Jim\'s user account.',
       difficulty: 3,
+      hint: addHint('Try cracking Jim\'s password hash if you harvested it already. Alternatively, if you know Jim\'s email address, try SQL Injection.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-jims-user-account'),
       solved: false
     }).success(function (challenge) {
       challenges.loginJimChallenge = challenge

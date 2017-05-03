@@ -95,7 +95,7 @@
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
   "TITLE_DASH_ADDRESS":"Dash-Adresse",
   "TITLE_ETHER_ADDRESS":"Ether-Adresse",
-  "NOTIFICATION_RESEND_INSTRUCTIONS":"Klicke auf die gelöst-Flagge einer Herausforderung um die Benachrichtigung mit deren Lösungs-Code zu wiederholen.",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Klicke hier, um die Benachrichtigung mit dem Lösungs-Code dieser Herausforderung zu wiederholen.",
   "COPY_TO_CLIPBOARD":"In Zwischenablage kopieren",
   "COPY_SUCCESS":"Kopiert!"
 }
