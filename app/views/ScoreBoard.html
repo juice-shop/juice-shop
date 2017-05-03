@@ -36,7 +36,10 @@
                   <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>
                   </td>
                 <td align="center">
-                    <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED" title="{{challenge.hint}}"></span>
+                    <a id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" uib-tooltip="{{challenge.hint}}" href="{{challenge.hintUrl}}">
+                        <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                        <span translate="STATUS_UNSOLVED"></span>
+                    </a>
                     <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" ng-class="{ 'notification-repeat-button': showCtfFlagsInNotifications }">
                         <i class="fa fa-flag-o" aria-hidden="true"></i>
                         <span translate="STATUS_SOLVED"></span>

@@ -28,6 +28,7 @@ module.exports = function () {
       description: 'Find the carefully hidden \'Score Board\' page.',
       difficulty: 1,
       hint: addHint('Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/score-board.html#find-the-carefully-hidden-score-board-page'),
       solved: false
     }).success(function (challenge) {
       challenges.scoreBoardChallenge = challenge
@@ -38,6 +39,7 @@ module.exports = function () {
       description: 'Provoke an error that is not very gracefully handled.',
       difficulty: 1,
       hint: addHint('Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/leakage.html#provoke-an-error-that-is-not-very-gracefully-handled'),
       solved: false
     }).success(function (challenge) {
       challenges.errorHandlingChallenge = challenge
