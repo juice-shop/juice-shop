@@ -71,6 +71,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Log in with Bender\'s user account.',
       difficulty: 3,
+      hint: addHint('If you know Bender\'s email address, try SQL Injection. Bender\'s password hash might not help you very much.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-benders-user-account'),
       solved: false
     }).success(function (challenge) {
       challenges.loginBenderChallenge = challenge
@@ -80,6 +82,8 @@ module.exports = function () {
       category: 'XSS',
       description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
       difficulty: 1,
+      hint: addHint('Look for an input field where its content appears in the response HTML when its form is submitted.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-1-perform-a-reflected-xss-attack'),
       solved: false
     }).success(function (challenge) {
       challenges.localXssChallenge = challenge
@@ -89,6 +93,8 @@ module.exports = function () {
       category: 'XSS',
       description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
       difficulty: 3,
+      hint: addHint('Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-2-perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
       solved: false
     }).success(function (challenge) {
       challenges.persistedXssChallengeUser = challenge
@@ -98,6 +104,8 @@ module.exports = function () {
       category: 'XSS',
       description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
       difficulty: 4,
+      hint: addHint('The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-4-perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
       solved: false
     }).success(function (challenge) {
       challenges.persistedXssChallengeFeedback = challenge
@@ -107,6 +115,8 @@ module.exports = function () {
       category: 'XSS',
       description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
       difficulty: 3,
+      hint: addHint('You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-3-perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
       solved: false
     }).success(function (challenge) {
       challenges.restfulXssChallenge = challenge
@@ -116,6 +126,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Retrieve a list of all user credentials via SQL Injection',
       difficulty: 3,
+      hint: addHint('Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'),
       solved: false
     }).success(function (challenge) {
       challenges.unionSqlInjectionChallenge = challenge
@@ -125,6 +137,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Log in with the administrator\'s user credentials without previously changing them or applying SQL Injection.',
       difficulty: 2,
+      hint: addHint('This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-the-administrators-user-credentials-without-previously-changing-them-or-applying-sql-injection'),
       solved: false
     }).success(function (challenge) {
       challenges.weakPasswordChallenge = challenge
@@ -134,6 +148,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Get rid of all 5-star customer feedback.',
       difficulty: 1,
+      hint: addHint('Once you found admin section of the application, this challenge is almost trivial.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#get-rid-of-all-5-star-customer-feedback'),
       solved: false
     }).success(function (challenge) {
       challenges.feedbackChallenge = challenge
@@ -143,6 +159,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Post some feedback in another users name.',
       difficulty: 3,
+      hint: addHint('You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#post-some-feedback-in-another-users-name'),
       solved: false
     }).success(function (challenge) {
       challenges.forgedFeedbackChallenge = challenge
@@ -152,6 +170,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Wherever you go, there you are.',
       difficulty: 4,
+      hint: addHint('You have to find a way to beat the whitelist of allowed redirect URLs.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#wherever-you-go-there-you-are'),
       solved: false
     }).success(function (challenge) {
       challenges.redirectChallenge = challenge
@@ -161,6 +181,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Access someone else\'s basket.',
       difficulty: 2,
+      hint: addHint('Have an eye on the HTTP traffic while shopping. Alternatively try to find s client-side association of users to their basket.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#access-someone-elses-basket'),
       solved: false
     }).success(function (challenge) {
       challenges.basketChallenge = challenge
@@ -170,6 +192,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Place an order that makes you rich.',
       difficulty: 3,
+      hint: addHint('You literally need to make the shop owe you any amount of money.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#place-an-order-that-makes-you-rich'),
       solved: false
     }).success(function (challenge) {
       challenges.negativeOrderChallenge = challenge
@@ -179,6 +203,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Access a confidential document.',
       difficulty: 1,
+      hint: addHint('Analyze and tamper with links in the application that deliver a file directly.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-confidential-document'),
       solved: false
     }).success(function (challenge) {
       challenges.directoryListingChallenge = challenge
@@ -188,6 +214,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Access a developer\'s forgotten backup file.',
       difficulty: 3,
+      hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-developers-forgotten-backup-file'),
       solved: false
     }).success(function (challenge) {
       challenges.forgottenDevBackupChallenge = challenge
@@ -197,6 +225,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Access a salesman\'s forgotten backup file.',
       difficulty: 2,
+      hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-salesmans-forgotten-backup-file'),
       solved: false
     }).success(function (challenge) {
       challenges.forgottenBackupChallenge = challenge
@@ -206,6 +236,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Access the administration section of the store.',
       difficulty: 1,
+      hint: addHint('It is just slightly harder to find than the score board link.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#access-the-administration-section-of-the-store'),
       solved: false
     }).success(function (challenge) {
       challenges.adminSectionChallenge = challenge
@@ -215,6 +247,8 @@ module.exports = function () {
       category: 'CSRF',
       description: 'Change Bender\'s password into <i>slurmCl4ssic</i> without using SQL Injection.',
       difficulty: 4,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.csrfChallenge = challenge
@@ -224,6 +258,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.changeProductChallenge = challenge
@@ -233,6 +269,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.knownVulnerableComponentChallenge = challenge
@@ -242,6 +280,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.',
       difficulty: 2,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.weirdCryptoChallenge = challenge
@@ -251,6 +291,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.easterEggLevelOneChallenge = challenge
@@ -260,6 +302,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
       difficulty: 4,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.easterEggLevelTwoChallenge = challenge
@@ -269,6 +313,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Forge a coupon code that gives you a discount of at least 80%.',
       difficulty: 5,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.forgedCouponChallenge = challenge
@@ -278,6 +324,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.geocitiesThemeChallenge = challenge
@@ -287,6 +335,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Order the Christmas special offer of 2014.',
       difficulty: 2,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.christmasSpecialChallenge = challenge
@@ -296,6 +346,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Upload a file larger than 100 kB.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.uploadSizeChallenge = challenge
@@ -305,6 +357,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Upload a file that has no .pdf extension.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.uploadTypeChallenge = challenge
@@ -314,6 +368,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Retrieve the language file that never made it into production.',
       difficulty: 4,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.extraLanguageChallenge = challenge
@@ -323,6 +379,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Give a devastating zero-star feedback to the store.',
       difficulty: 1,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.zeroStarsChallenge = challenge
@@ -332,6 +390,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
       difficulty: 5,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.continueCodeChallenge = challenge
@@ -341,6 +401,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Log in with Bjoern\'s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.',
       difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.oauthUserPasswordChallenge = challenge
@@ -350,6 +412,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
       difficulty: 4,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.loginCisoChallenge = challenge
@@ -359,6 +423,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Log in with the support team\'s original user credentials without applying SQL Injection or any other bypass.',
       difficulty: 5,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.loginSupportChallenge = challenge
@@ -368,6 +434,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--R9U8AvGlBbjhHXHW422jxVL2hoLBr8wflIAQ8d/jlERpKnrNlMErs1JfgT9EK/kzTtdb1GPhuWAz3i2HhomhaFMxvg4na+tvTi+8DoQoeqZH1KADoM2NJ7UOKc14b54cdRTXiYV7yFUzbPjjPVOWZFSmDcG6z+jQIPZtJuJ/tQc=--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
       difficulty: 5,
+      hint: addHint(''),
+      hintUrl: addHint(''),
       solved: false
     }).success(function (challenge) {
       challenges.premiumPaywallChallenge = challenge
