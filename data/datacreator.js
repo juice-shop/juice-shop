@@ -258,8 +258,8 @@ module.exports = function () {
       category: 'Privilege Escalation',
       description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#change-the-href-of-the-link-within-the-o-saft-product-description'),
       solved: false
     }).success(function (challenge) {
       challenges.changeProductChallenge = challenge
@@ -269,8 +269,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
       solved: false
     }).success(function (challenge) {
       challenges.knownVulnerableComponentChallenge = challenge
@@ -280,8 +280,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.',
       difficulty: 2,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Report one of four possible answers via the "Contact Us" form.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-an-algorithm-or-library-it-should-definitely-not-use-the-way-it-does'),
       solved: false
     }).success(function (challenge) {
       challenges.weirdCryptoChallenge = challenge
@@ -291,8 +291,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('If you solved one of the three file access challenges, you already know where to find the easter egg.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#find-the-hidden-easter-egg'),
       solved: false
     }).success(function (challenge) {
       challenges.easterEggLevelOneChallenge = challenge
@@ -302,8 +302,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.',
       difficulty: 4,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('You might have to peel through several layers of tough-as-nails encryption for this challenge.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#apply-some-advanced-cryptanalysis-to-find-the-real-easter-egg'),
       solved: false
     }).success(function (challenge) {
       challenges.easterEggLevelTwoChallenge = challenge
@@ -313,8 +313,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Forge a coupon code that gives you a discount of at least 80%.',
       difficulty: 5,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Try either a) a knowledgable brute force attack or b) reverse engineering.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'),
       solved: false
     }).success(function (challenge) {
       challenges.forgedCouponChallenge = challenge
@@ -324,8 +324,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('The mentioned golden era lasted from 1994 to 2009.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'),
       solved: false
     }).success(function (challenge) {
       challenges.geocitiesThemeChallenge = challenge
@@ -335,8 +335,8 @@ module.exports = function () {
       category: 'SQL Injection',
       description: 'Order the Christmas special offer of 2014.',
       difficulty: 2,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Find out how the application handles unavailable products.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#order-the-christmas-special-offer-of-2014'),
       solved: false
     }).success(function (challenge) {
       challenges.christmasSpecialChallenge = challenge
@@ -346,8 +346,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Upload a file larger than 100 kB.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('You can attach a small file to the "File Complaint" form. Investigate how this upload actually works.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#upload-a-file-larger-than-100-kb'),
       solved: false
     }).success(function (challenge) {
       challenges.uploadSizeChallenge = challenge
@@ -357,8 +357,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Upload a file that has no .pdf extension.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('You can attach a PDF file to the "File Complaint" form. Investigate how this upload actually works.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#upload-a-file-that-has-no-pdf-extension'),
       solved: false
     }).success(function (challenge) {
       challenges.uploadTypeChallenge = challenge
@@ -368,8 +368,8 @@ module.exports = function () {
       category: 'Forgotten Content',
       description: 'Retrieve the language file that never made it into production.',
       difficulty: 4,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Brute force is not the only option for this challenge, but a perfectly viable one.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production'),
       solved: false
     }).success(function (challenge) {
       challenges.extraLanguageChallenge = challenge
@@ -379,8 +379,8 @@ module.exports = function () {
       category: 'Validation Flaws',
       description: 'Give a devastating zero-star feedback to the store.',
       difficulty: 1,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Before you invest time bypassing the API, you might want to play around with the UI a bit.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#give-a-devastating-zero-star-feedback-to-the-store'),
       solved: false
     }).success(function (challenge) {
       challenges.zeroStarsChallenge = challenge
@@ -390,8 +390,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
       difficulty: 5,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('You need to trick the hacking progress persistence feature into thinking you solved challenge #99.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#solve-challenge-99'),
       solved: false
     }).success(function (challenge) {
       challenges.continueCodeChallenge = challenge
@@ -401,8 +401,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Log in with Bjoern\'s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.',
       difficulty: 3,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('The security flaw behind this challenge is 100% Juice Shop\'s fault and 0% Google\'s.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-bjoerns-user-account'),
       solved: false
     }).success(function (challenge) {
       challenges.oauthUserPasswordChallenge = challenge
@@ -412,8 +412,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
       difficulty: 4,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('Don\'t try to beat Google\'s OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop\'s end.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#exploit-oauth-20-to-log-in-with-the-cisos-user-account'),
       solved: false
     }).success(function (challenge) {
       challenges.loginCisoChallenge = challenge
@@ -423,8 +423,8 @@ module.exports = function () {
       category: 'Weak Security Mechanisms',
       description: 'Log in with the support team\'s original user credentials without applying SQL Injection or any other bypass.',
       difficulty: 5,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('The underlying flaw of this challenge is a lot more human error than technical weakness.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-the-support-teams-original-user-credentials'),
       solved: false
     }).success(function (challenge) {
       challenges.loginSupportChallenge = challenge
@@ -434,8 +434,8 @@ module.exports = function () {
       category: 'Cryptographic Issues',
       description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--R9U8AvGlBbjhHXHW422jxVL2hoLBr8wflIAQ8d/jlERpKnrNlMErs1JfgT9EK/kzTtdb1GPhuWAz3i2HhomhaFMxvg4na+tvTi+8DoQoeqZH1KADoM2NJ7UOKc14b54cdRTXiYV7yFUzbPjjPVOWZFSmDcG6z+jQIPZtJuJ/tQc=--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
       difficulty: 5,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#unlock-premium-challenge-to-access-exclusive-content'),
       solved: false
     }).success(function (challenge) {
       challenges.premiumPaywallChallenge = challenge
