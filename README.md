@@ -269,17 +269,23 @@ project.
 ## Credits
 
 * Inspired by the "classic"
-[BodgeIt Store](https://github.com/psiinon/bodgeit) by
-[@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
+  [@psiinon](https://github.com/psiinon)
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
+  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
 
 ## Contributors
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr 2017 08:32:58 GMT.
+
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr
+2017 08:32:58 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
+- [The Gitter Badger](https://github.com/gitter-badger) aka
+  `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
+  `aaron-m-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
@@ -288,7 +294,8 @@ Ordered by date of first contribution. [Auto-generated](https://github.com/dtrej
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 

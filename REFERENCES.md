@@ -13,7 +13,9 @@ where this project was mentioned!
 
 ## Web Links
 
-* Vulnerable website collection on [Bonkers About Tech](https://www.bonkersabouttech.com): [40+ Intentionally Vulnerable Websites To (Legally) Practice Your Hacking Skills](https://www.bonkersabouttech.com/security/40-intentionally-vulnerable-websites-to-practice-your-hacking-skills/392)
+* Vulnerable website collection on
+  [Bonkers About Tech](https://www.bonkersabouttech.com):
+  [40+ Intentionally Vulnerable Websites To (Legally) Practice Your Hacking Skills](https://www.bonkersabouttech.com/security/40-intentionally-vulnerable-websites-to-practice-your-hacking-skills/392)
 * Hacking-session writeup on [Testhexen](http://testhexen.de):
   [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
@@ -43,7 +45,8 @@ where this project was mentioned!
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
     ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
-* Guest post (:de:) on [Informatik Aktuell](http://www.informatik-aktuell.de/):
+* Guest post (:de:) on
+  [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
 * Guest post on [The official Sauce Labs Blog](http://sauceio.com/):
   [Proving that an application is as broken as intended](http://sauceio.com/index.php/2015/06/guest-post-proving-that-an-application-is-as-broken-as-intended/)
@@ -53,9 +56,14 @@ where this project was mentioned!
 ## Conference and Meetup Appearances
 
 #### 2017
-* [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/), 10.10.2017
-* [OWASP Juice Shop: Achieving sustainability for open source projects](https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects), [AppSec Europe 2017](https://2017.appsec.eu), 11.05.2017
-* [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/), [27. OWASP Stammtisch Hamburg](http://lanyrd.com/2017/owasp-de/), 25.04.2017
+
+* [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/),
+  10.10.2017
+* [OWASP Juice Shop: Achieving sustainability for open source projects](https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects),
+  [AppSec Europe 2017](https://2017.appsec.eu), 11.05.2017
+* [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/),
+  [27. OWASP Stammtisch Hamburg](http://lanyrd.com/2017/owasp-de/),
+  25.04.2017
 * [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555),
   [Software-Test User Group Hamburg](https://www.xing.com/communities/groups/software-test-user-group-hamburg-1207-1002644),
   21.03.2017
