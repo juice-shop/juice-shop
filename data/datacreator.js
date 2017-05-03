@@ -247,8 +247,8 @@ module.exports = function () {
       category: 'CSRF',
       description: 'Change Bender\'s password into <i>slurmCl4ssic</i> without using SQL Injection.',
       difficulty: 4,
-      hint: addHint(''),
-      hintUrl: addHint(''),
+      hint: addHint('The fact that this challenge is in the CSRF category is already a huge hint.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/csrf.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'),
       solved: false
     }).success(function (challenge) {
       challenges.csrfChallenge = challenge
