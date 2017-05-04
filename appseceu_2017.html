@@ -86,13 +86,13 @@
 				</p>
             </section>
 			<section>
-				<img data-src="assets/appsec/barrenReadme1.png">
+				<img data-src="assets/appsec/barrenReadme.png">
 			</section>
 			<section>
 				<img data-src="assets/appsec/barrenReadme2.png">
 			</section>
 			<section>
-				<img data-src="assets/appsec/barrenReadme3.png">
+				<img data-src="assets/appsec/barrenReadme3.png" height="100">
 			</section>
 		</section>
 
@@ -104,7 +104,21 @@
 				</p>
             </section>
 			<section>
+				<h3>A pile of unattended issues</h3>
 				<img data-src="assets/appsec/issueCollection.png">
+				<h1 class="fragment">(?)</h1>
+			</section>
+			<section>
+				<h3>A pile of unattended issues (!)</h3>
+				<img data-src="assets/appsec/issueCollection2.png">
+			</section>
+			<section>
+				<h3>Examples for good issue handling</h3>
+				<ul>
+					<li><a href="https://github.com/bkimminich/juice-shop/issues/301">https://github.com/bkimminich/juice-shop/issues/301</a></li>
+					<li><a href="https://github.com/bkimminich/juice-shop/issues/277">https://github.com/bkimminich/juice-shop/issues/277</a></li>
+					<li><a href="https://github.com/bkimminich/juice-shop/issues/131">https://github.com/bkimminich/juice-shop/issues/131</a> and <a href="https://github.com/bkimminich/juice-shop/issues/152">152</a></li>
+				</ul>
 			</section>
 		</section>
 
@@ -112,11 +126,27 @@
             <section>
                 <h2>PR Disaster</h2>
 				<p class="fragment">
-					Pull Requests are routinely ignored and almost never merged.
+					Pull Requests are routinely ignored or flogged to death.
 				</p>
             </section>
 			<section>
+				<h3>Ignored Pull Requests</h3>
 				<img data-src="assets/appsec/prDisaster.png">
+				<h1 class="fragment">(?)</h1>
+			</section>
+			<section>
+				<h3>Example for a PR flogged to death</h3>
+				<a href="https://github.com/zaproxy/zaproxy/pull/2837">https://github.com/zaproxy/zaproxy/pull/2837</a>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h3>Examples for good PR handling</h3>
+				<ul>
+					<li><a href="https://github.com/bkimminich/juice-shop/pull/295">https://github.com/bkimminich/juice-shop/pull/295</a></li>
+					<li><a href="https://github.com/zaproxy/zaproxy/pull/2909">https://github.com/zaproxy/zaproxy/pull/2909</a></li>
+				</ul>
 			</section>
 		</section>
 
@@ -155,19 +185,33 @@
 				<img data-src="assets/clean_code-317fed20577ef3ae7d65e62f407ae73d.png" height="300" class="no-box">
             </section>
 
-            <section data-url="http://www.testdriven.com/media-kit/">
-                <h2>Test Driven Development</h2>
-				<img data-src="assets/logo100.png" height="300" class="no-box">
-            </section>
-
             <section>
-                <h2>Test Coverage</h2>
+				<h2>Test Automation</h2>
+				<img data-src="assets/karma.png" height="150" class="no-box"><br>
+				<img data-src="assets/protractor-logo-600.png" height="150" class="no-box"><br>
             </section>
 
-            <section data-url="https://stryker-mutator.github.io/">
-                <h2>Mutation Testing</h2>
-				<img data-src="assets/stryker.png" height="300" class="no-box">
-            </section>
+			<section>
+				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
+				<h1 class="fragment">100%</h1>
+			</section>
+
+			<section>
+				<h2>Mutation Testing</h2>
+				<img data-src="assets/stryker.png" height="300" class="no-box"><br>
+			</section>
+
+			<section>
+				<h3>A realistic goal for <em>Mutation Coverage</em> ?</h3>
+				<h1 class="fragment">100%</h1>
+			</section>
+
+			<section>
+				<h2>Quality Metrics</h2>
+				<img data-src="assets/codeclimate.png" height="100" class="no-box">
+				<img data-src="assets/coveralls.png" height="100" class="no-box">
+				<img data-src="assets/bithound_logo.png" height="100" class="no-box">
+			</section>
 
             <section>
                 <h2>Continuous Integration</h2>
@@ -181,15 +225,28 @@
 				<img data-src="assets/docker.png" height="300" class="no-box">
             </section>
 
-            <section>
-                <h2>Quality Metrics</h2>
-            </section>
-
-            <section>
-                <h2>Truck Factor</h2>
-            </section>
+			<section>
+				<h2>Dependency Management</h2>
+				<img data-src="assets/node-security-logo-white.svg" height="100" class="no-box">
+				<img data-src="assets/gemnasium_lineal_bright-back.svg" height="100" class="no-box">
+			</section>
 
         </section>
+
+		<section>
+			<h1>Truck Factor</h1>
+			<small class="fragment">Number of team members that would need to leave to effectively kill a project.</small>
+		</section>
+
+		<section>
+			<h3>What is a realistic goal for <em>Truck Factor</em> ?</h3>
+			<h1 class="fragment">∞</h1>
+			<p class="fragment">Meaning: If the whole project team leaves, someone completely new can take over and will be able to maintain &amp; continue working on it!</p>
+		</section>
+
+		<section>
+			<h1>Contributor Satiscation</h1>
+		</section>
 
 		<section>
 			<h1>Open Source Antipatterns 2.0</h1>
@@ -212,7 +269,15 @@
 		</section>
 
 		<section>
-			<h2>Free beer</h2>
+			<section>
+				<h2>Free beer</h2>
+				<p class="fragment">
+					Some services might be free of charge for OSS projects but come with some other hidden costs or annoyance.
+				</p>
+			</section>
+			<section>
+				<img data-src="assets/appsec/freeBeer.png">
+			</section>
 		</section>
 
 		<section>
