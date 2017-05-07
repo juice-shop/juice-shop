@@ -7,7 +7,8 @@ angular.module('juiceShop').controller('ChallengeController', [
   '$window',
   'ChallengeService',
   'ConfigurationService',
-  function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService) {
+  'socket',
+  function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService, socket) {
     'use strict'
 
     configurationService.getApplicationConfiguration().then(function (data) {
@@ -56,11 +57,15 @@ angular.module('juiceShop').controller('ChallengeController', [
       })
     }
 
-    challengeService.find().then(function (challenges) {
-      $scope.challenges = challenges
-      var solvedChallenges = 0
+    $scope.trustDescriptionHtml = function () {
       for (var i = 0; i < $scope.challenges.length; i++) {
         $scope.challenges[i].description = $sce.trustAsHtml($scope.challenges[i].description)
+      }
+    }
+
+    $scope.calculateProgressPercentage = function () {
+      var solvedChallenges = 0
+      for (var i = 0; i < $scope.challenges.length; i++) {
         solvedChallenges += ($scope.challenges[i].solved) ? 1 : 0
       }
       $scope.percentChallengesSolved = (100 * solvedChallenges / $scope.challenges.length).toFixed(0)
@@ -71,8 +76,26 @@ angular.module('juiceShop').controller('ChallengeController', [
       } else {
         $scope.completionColor = 'danger'
       }
+    }
+
+    challengeService.find().then(function (challenges) {
+      $scope.challenges = challenges
+      $scope.trustDescriptionHtml()
+      $scope.calculateProgressPercentage()
     }).catch(function (err) {
       console.log(err)
+    })
+
+    socket.on('challenge solved', function (data) {
+      if (data && data.challenge) {
+        for (var i = 0; i < $scope.challenges.length; i++) {
+          if ($scope.challenges[i].name === data.name) {
+            $scope.challenges[i].solved = true
+            break
+          }
+        }
+        $scope.calculateProgressPercentage()
+      }
     })
 
     challengeService.continueCode().then(function (continueCode) {
