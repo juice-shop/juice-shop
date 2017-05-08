@@ -54,7 +54,7 @@
 				</p>
 		</section>
 
-		<section>
+		<section data-background="assets/appsec/wat_picard.jpg">
 			<h1>WAT?!?</h1>
 		</section>
 
@@ -64,6 +64,14 @@
 				...is an intentionally insecure webapp written in Node.js, Express and AngularJS. It contains 38+ hacking challenges of varying difficulty tracked on a score board.
 			</blockquote>
 			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
+		</section>
+
+		<section>
+			<h2>"Security"-driven Architecture</h2>
+			<p>
+				Javascript all the way from UI to REST API
+			</p>
+			<img src="assets/Architektur_JuiceShop.png"/>
 		</section>
 
 		<section>
@@ -86,13 +94,20 @@
 				</p>
             </section>
 			<section>
+				<h3>Bad Example</h3>
 				<img data-src="assets/appsec/barrenReadme.png">
 			</section>
 			<section>
+				<h3>Worse Example</h3>
 				<img data-src="assets/appsec/barrenReadme2.png">
 			</section>
 			<section>
+				<h3>Worst Example</h3>
 				<img data-src="assets/appsec/barrenReadme3.png" height="100">
+			</section>
+			<section>
+				<h3>Counter Example</h3>
+				<a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">https://github.com/bkimminich/juice-shop/blob/master/README.md</a>
 			</section>
 		</section>
 
@@ -113,7 +128,7 @@
 				<img data-src="assets/appsec/issueCollection2.png">
 			</section>
 			<section>
-				<h3>Examples for good issue handling</h3>
+				<h3>Counter Examples</h3>
 				<ul>
 					<li><a href="https://github.com/bkimminich/juice-shop/issues/301">https://github.com/bkimminich/juice-shop/issues/301</a></li>
 					<li><a href="https://github.com/bkimminich/juice-shop/issues/277">https://github.com/bkimminich/juice-shop/issues/277</a></li>
@@ -138,11 +153,8 @@
 				<h3>Example for a PR flogged to death</h3>
 				<a href="https://github.com/zaproxy/zaproxy/pull/2837">https://github.com/zaproxy/zaproxy/pull/2837</a>
 			</section>
-		</section>
-
-		<section>
 			<section>
-				<h3>Examples for good PR handling</h3>
+				<h3>Counter Examples</h3>
 				<ul>
 					<li><a href="https://github.com/bkimminich/juice-shop/pull/295">https://github.com/bkimminich/juice-shop/pull/295</a></li>
 					<li><a href="https://github.com/zaproxy/zaproxy/pull/2909">https://github.com/zaproxy/zaproxy/pull/2909</a></li>
@@ -154,11 +166,21 @@
 			<section>
 				<h2>Solecistic Versioning</h2>
 				<p class="fragment">
-					The <a href="http://semver.org">Semantic Versioning</a> syntax (<code>MAJOR.MINOR.PATCH</code>) is used while its semantics is not adhered to.
+					The <a href="http://semver.org">Semantic Versioning</a> syntax (<code>MAJOR.MINOR.PATCH</code>) is used while its semantics are not adhered to.
 				</p>
 			</section>
 			<section>
-				<img data-src="assets/appsec/solecisticVersioning.png">
+				<h3>Bad Example: AngularJS 1.x</h3>
+				<a href="https://docs.angularjs.org/guide/migration"><img data-src="assets/appsec/solecisticVersioning.png"></a>
+			</section>
+			<section>
+				<h3>Good Example: AngularJS 2+</h3>
+				<a href="http://angularjs.blogspot.co.uk/2016/10/versioning-and-releasing-angular.html"><img data-src="assets/appsec/solecisticVersioning2.png"></a>
+			</section>
+			<section>
+				<h3>Juice Shop takes it serious</h3>
+				<small>For a tiny incompatible configuration-file change Juice Shop went <a href="https://github.com/bkimminich/juice-shop/releases">from 2.26.0 to 3.0.0</a></small>
+				<img data-src="assets/appsec/solecisticVersioning3.png">
 			</section>
 		</section>
 
@@ -184,6 +206,7 @@
 				<p class="fragment">The <code>master</code> branch stores the official release history, while development happens on the <code>develop</code> branch.</p>
 			</section>
 			<section>
+				<h3>Git Flow ⁒ Feature Branches</h3>
 				<img data-src="assets/appsec/gitflow.svg" height="300" class="no-box">
 			</section>
 		</section>
@@ -196,24 +219,53 @@
 		<section>
 			<section>
 				<h2>Test Automation</h2>
-				<img data-src="assets/karma.png" height="150" class="no-box"><br>
-				<img data-src="assets/protractor-logo-600.png" height="150" class="no-box"><br>
+                <img data-src="assets/protractor-logo-600.png" height="100" class="no-box">&nbsp;&nbsp;
+                <img data-src="assets/karma.png" height="100" class="no-box">
 			</section>
 			<section>
 				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
 				<h1 class="fragment">100%</h1>
 			</section>
+            <section>
+                <h3>Juice Shop Test Coverage</h3>
+                <blockquote>Having all tests pass after a commit means, it's safe to merge PRs or publish a new release!</blockquote>
+                <table>
+                    <tr>
+                        <th>Juice Shop</th>
+                        <th>CTF Extension</th>
+                    </tr>
+                    <tr>
+                        <td><img src="assets/appsec/juice-shop-coverage_badge.png"></td>
+                        <td><img src="assets/appsec/juice-shop-ctf-coverage_badge.png"></td>
+                    </tr>
+                </table>
+            </section>
 		</section>
 
 		<section>
 			<section>
 				<h2>Mutation Testing</h2>
 				<img data-src="assets/stryker.png" height="300" class="no-box"><br>
-			</section>
-			<section>
+                <p>Reality check: Do your tests <em>actually test stuff</em>?</p>
+            </section>
+            <section>
 				<h3>A realistic goal for <em>Mutation Coverage</em> ?</h3>
 				<h1 class="fragment">100%</h1>
 			</section>
+            <section>
+                <h3>Juice Shop Mutation Coverage</h3>
+                <table>
+                    <tr>
+                        <th>Juice Shop</th>
+                        <th>CTF Extension</th>
+                    </tr>
+                    <tr>
+                        <td>92%*</td>
+                        <td>98%</td>
+                    </tr>
+                </table>
+                <small>*of the UI unit tests!</small>
+            </section>
 		</section>
 
 		<section>
