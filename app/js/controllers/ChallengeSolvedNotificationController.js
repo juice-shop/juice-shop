@@ -1,11 +1,9 @@
 angular.module('juiceShop').controller('ChallengeSolvedNotificationController', [
   '$scope',
   '$translate',
-  '$cookies',
   'socket',
   'ConfigurationService',
-  'ChallengeService',
-  function ($scope, $translate, $cookies, socket, configurationService, challengeService) {
+  function ($scope, $translate, socket, configurationService) {
     'use strict'
 
     $scope.notifications = []
@@ -14,39 +12,21 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       $scope.notifications.splice(index, 1)
     }
 
-    $scope.showNotification = function (challenge) {
-      $translate('CHALLENGE_SOLVED', { challenge: challenge.challenge })
-        .then(function (challengeSolved) {
-          return challengeSolved
-        }, function (translationId) {
-          return translationId
-        }).then(function (message) {
+    socket.on('challenge solved', function (data) {
+      if (data && data.challenge && !data.hidden) {
+        $translate('CHALLENGE_SOLVED', { challenge: data.challenge }).then(function (challengeSolved) {
           $scope.notifications.push({
-            message: message,
-            flag: challenge.flag,
+            message: challengeSolved,
+            flag: data.flag,
+            copied: false
+          })
+        }, function (translationId) {
+          $scope.notifications.push({
+            message: translationId,
+            flag: data.flag,
             copied: false
           })
         })
-    }
-
-    $scope.saveProgress = function () {
-      challengeService.continueCode().then(function (continueCode) {
-        if (!continueCode) {
-          throw (new Error('Received invalid continue code from the sever!'))
-        }
-
-        var expireDate = new Date()
-        expireDate.setDate(expireDate.getDate() + 30)
-        $cookies.put('continueCode', continueCode, { expires: expireDate })
-      }).catch(function (err) {
-        console.log(err)
-      })
-    }
-
-    socket.on('challenge solved', function (data) {
-      if (data && data.challenge && !data.hidden) {
-        $scope.showNotification(data)
-        $scope.saveProgress()
         socket.emit('notification received', data.flag)
       }
     })

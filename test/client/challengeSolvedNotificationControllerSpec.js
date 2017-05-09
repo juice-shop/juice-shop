@@ -1,11 +1,10 @@
 describe('controllers', function () {
-  var scope, socket, controller, $httpBackend, cookies
+  var scope, socket, controller, $httpBackend
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
-    $httpBackend.whenGET('/rest/continue-code').respond(200, {continueCode: 'totallyAValidCode'})
     $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true}}})
   }))
 
@@ -15,10 +14,9 @@ describe('controllers', function () {
   })
 
   describe('ChallengeSolvedNotificationController', function () {
-    beforeEach(inject(function ($rootScope, $controller, $cookies, _socket_) {
+    beforeEach(inject(function ($rootScope, $controller, _socket_) {
       scope = $rootScope.$new()
       socket = _socket_
-      cookies = $cookies
       controller = $controller('ChallengeSolvedNotificationController', {
         '$scope': scope
       })
@@ -40,14 +38,12 @@ describe('controllers', function () {
       $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {}, hidden: false })
       socket.receive('challenge solved', { challenge: {} })
-      $httpBackend.flush()
       expect(scope.notifications.length).toBe(2)
     }))
 
-    it('should hold a message notification after receiving one', inject(function () {
+    it('should hold a the message notification after receiving one', inject(function () {
       $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
-      $httpBackend.flush()
       expect(scope.notifications[ 0 ].message).toBe('CHALLENGE_SOLVED')
     }))
 
@@ -55,14 +51,12 @@ describe('controllers', function () {
       $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'CHALLENGE_SOLVED': 'Translation of CHALLENGE_SOLVED'})
       $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
-      $httpBackend.flush()
       expect(scope.notifications[ 0 ].message).toBe('Translation of CHALLENGE_SOLVED')
     }))
 
     it('should remove a notification on closing it', inject(function () {
       $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
-      $httpBackend.flush()
       expect(scope.notifications.length).toBe(1)
       scope.closeNotification(0)
       expect(scope.notifications.length).toBe(0)
@@ -90,22 +84,6 @@ describe('controllers', function () {
       $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {}, hidden: true })
       expect(scope.notifications.length).toBe(0)
-    }))
-
-    it('should fetch a new continue token once a challenge is completed', inject(function () {
-      $httpBackend.flush()
-      $httpBackend.expectGET('/rest/continue-code')
-      socket.receive('challenge solved', { challenge: {} })
-      $httpBackend.flush()
-    }))
-
-    it('saved the continue code into a cookie', inject(function () {
-      $httpBackend.flush()
-      cookies.put = jasmine.createSpy('put')
-      scope.saveProgress()
-      $httpBackend.flush()
-
-      expect(cookies.put).toHaveBeenCalledWith('continueCode', 'totallyAValidCode', { expires: jasmine.any(Date) })
     }))
   })
 })
