@@ -88,10 +88,11 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
    clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
    of the repository)
-3. Run `npm install` (only has to be done before first start or when you
+3. Go into the cloned folder with `cd juice-shop`
+4. Run `npm install` (only has to be done before first start or when you
    change the source code)
-4. Run `npm start`
-5. Browse to <http://localhost:3000>
+5. Run `npm start`
+6. Browse to <http://localhost:3000>
 
 ### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
