@@ -1,5 +1,5 @@
 <!doctype html>
-<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget, RequiredAttributes, HtmlUnknownTarget, HtmlUnknownAttribute -->
 <html lang="en">
 
 <head>
@@ -292,7 +292,7 @@ fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function
           utils.downloadToFile(logoPath, 'app/public/images/' + logo)
         }
         var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-        replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
+        replace({ regex: /<img class="navbar-brand navbar-logo" (.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
       }
       if (config.get('application.theme')) {
         var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
