@@ -131,14 +131,14 @@
 			<section>
 				<h3>A pile of unattended issues</h3>
 				<img data-src="assets/appsec/issueCollection.png">
-				<h1 class="fragment">(?)</h1>
+				<h1 class="fragment">(🤔)</h1>
 			</section>
 			<section>
-				<h3>A pile of unattended issues (!)</h3>
+				<h3>Really a 💩-pile of unattended issues</h3>
 				<img data-src="assets/appsec/issueCollection2.png">
 			</section>
 			<section>
-				<h3>Counter: Use Labels</h3>
+				<h3>Counter: Use <span style="background: rgb(213,19,22)">&nbsp;labels&nbsp;</span> properly</h3>
 				<img data-src="assets/appsec/issueLabels.png" height="450">
 			</section>
 			<section>
@@ -160,7 +160,7 @@
 			<section>
 				<h3>Ignored Pull Requests</h3>
 				<img data-src="assets/appsec/prDisaster.png">
-				<h1 class="fragment">(?)</h1>
+				<h1 class="fragment">(🤔)</h1>
 			</section>
 			<section>
 				<h3>Example for a PR flogged to death<span class="fragment" data-fragment-index="1">*</span></h3>
@@ -186,7 +186,7 @@
 				</p>
 			</section>
 			<section>
-				<h3>Auto Counter: Enforced Coding Style</h3>
+				<h3>Auto Counter: 👊-enforced Coding Style</h3>
 				<img data-src="assets/appsec/enforcedCodingStyle.png">
 				<p>
 					<a href="http://standardjs.com">http://standardjs.com</a>
@@ -244,16 +244,110 @@
 			</section>
 		</section>
 
-		<section data-url="https://sites.google.com/site/unclebobconsultingllc/">
-			<h2>Clean Code</h2>
-			<img data-src="assets/clean_code-317fed20577ef3ae7d65e62f407ae73d.png" height="300" class="no-box">
+		<section>
+			<section data-url="https://sites.google.com/site/unclebobconsultingllc/">
+				<h2>Clean Code</h2>
+				<img data-src="assets/clean_code-317fed20577ef3ae7d65e62f407ae73d.png" height="300" class="no-box">
+			</section>
+			<section>
+				<h3>Clean Javascript! 😮</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+'use strict'
+
+var path = require('path')
+var utils = require('../lib/utils')
+var challenges = require('../data/datacache').challenges
+
+exports = module.exports = function servePremiumContent () {
+  return function (req, res) {
+    if (utils.notSolved(challenges.premiumPaywallChallenge)) {
+      utils.solve(challenges.premiumPaywallChallenge)
+    }
+    res.sendFile(path.resolve(__dirname, '../app/private/under-construction.gif'))
+  }
+}
+				</code></pre>
+			</section>
+			<section>
+				<h3>Well, never mind...</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function () {
+      if (config.get('application.logo')) {
+        var logo = config.get('application.logo')
+        if (utils.startsWith(logo, 'http')) {
+          var logoPath = logo
+          logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+        }
+        var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+        replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
+      }
+      if (config.get('application.theme')) {
+        var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+        replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+      }
+    })
+				</code></pre>
+				<p>...it's still Javascript at the end of the day! 🤐</p>
+			</section>
 		</section>
 
 		<section>
 			<section>
 				<h2>Test Automation</h2>
-                <img data-src="assets/protractor-logo-600.png" height="100" class="no-box">&nbsp;&nbsp;
-                <img data-src="assets/karma.png" height="100" class="no-box">
+				<div>
+					<img src="assets/u3lWw.gif" height="100" style="background: none; border:none;"/>
+				</div>
+				<div>
+					<img src="assets/protractor-logo-600.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/phantomjs_400x400.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/stryker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+			</section>
+			<section>
+				<h3>Example: UI Unit Test</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+it('should hold anonymous placeholder for email if current user is not logged in',
+  inject(function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
+
+      $httpBackend.flush()
+
+      expect(scope.userEmail).toBe('anonymous')
+  })
+)
+				</code></pre>
+			</section>
+			<section>
+				<h3>Example: API Integration Test</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+frisby.create('GET password change without passing any passwords')
+  .get(REST_URL + '/user/change-password')
+  .expectStatus(401)
+  .expectBodyContains('Password cannot be empty')
+  .toss()
+				</code></pre>
+				<small class="fragment"><strong>Snippet Injection Vulnerability</strong>: Did anyone notice how above code was totally butchered by <code>highlight.js</code>?</small>
+			</section>
+			<section>
+				<h3>Example: Challenge E2E Test</h3>
+				<pre><code>
+describe('challenge "loginAdmin"', function () {
+  it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', function () {
+    email.sendKeys('\' or 1=1--')
+    password.sendKeys('a')
+    loginButton.click()
+
+    expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+  })
+  protractor.expect.challengeSolved({challenge: 'Login Admin'})
+})
+				</code></pre>
 			</section>
 			<section>
 				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
@@ -281,6 +375,10 @@
 				<img data-src="assets/stryker.png" height="300" class="no-box"><br>
                 <p class="fragment">Reality check: Do your tests <em>actually test stuff</em>?</p>
             </section>
+			<section>
+				<h3>Example: Report for Juice Shop CTF</h3>
+				<iframe data-src="assets/appsec/examples/mutation/html/index.html" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+			</section>
             <section>
 				<h3>A realistic goal for <em>Mutation Coverage</em> ?</h3>
 				<h1 class="fragment">100%</h1>
@@ -293,11 +391,14 @@
                         <th>CTF Extension</th>
                     </tr>
                     <tr>
-                        <td>92%*</td>
-                        <td>98%</td>
+						<td><h1>92%<span class="fragment" data-fragment-index="1">*</span></h1></td>
+                        <td><h1>98%</h1></td>
                     </tr>
                 </table>
-                <small>*of the UI unit tests!</small>
+				<br>
+				<br>
+                <small class="fragment" data-fragment-index="1">*of the UI unit tests!</small>
+				<h1 class="fragment" data-fragment-index="2">(😏)</h1>
             </section>
 		</section>
 
@@ -334,27 +435,49 @@
         </section>
 
         <section>
-			<h2>Quality Metrics</h2>
-			<img data-src="assets/codeclimate.png" height="100" class="no-box">
-			<img data-src="assets/coveralls.png" height="100" class="no-box">
-			<img data-src="assets/bithound_logo.png" height="100" class="no-box"><br>
-		</section>
-
-        <section>
-            <h2>Dependency Control</h2>
-            <img data-src="assets/node-security-logo-white.svg" height="100" class="no-box">
-            <img data-src="assets/gemnasium_lineal_bright-back.svg" height="100" class="no-box">
-        </section>
-
-		<section>
 			<section>
-				<h2>Truck Factor--</h2>
-				<p>Increase the number of team members that would have to leave the project to effectively kill it.</p>
+				<h2>Quality Metrics</h2>
+				<img data-src="assets/codeclimate.png" height="95" class="no-box">
+				<img data-src="assets/coveralls.png" height="95" class="no-box"><br>
+				<img data-src="assets/bithound_logo.png" height="95" class="no-box">
+			</section>
+			<section>
+				<h3>Example: Code Climate Stats</h3>
+				<img src="assets/appsec/codeClimate.png" height="450">
+			</section>
+			<section>
+				<h3>Example: bitHound Dashboard</h3>
+				<img src="assets/appsec/bitHound.png" height="450">
+			</section>
+			<section>
+				<h3>Example: Coveralls 😡 at CTF-Extension</h3>
+				<img src="assets/appsec/coveralls.png" height="450">
+			</section>
+			<section>
+				<p>And now for the most important metric of all...</p>
+				<h1 class="fragment">🚚</h1>
+			</section>
+			<section>
+				<h2>🚚 Truck Factor</h2>
+				<p>The number of team members that would have to leave the project to effectively kill it.</p>
 			</section>
 			<section>
 				<h3>What is a realistic goal for <em>Truck Factor</em> ?</h3>
 				<h1 class="fragment">∞</h1>
 				<p class="fragment">Meaning: If the whole team leaves, a new developer can take over and would be able to maintain &amp; continue working on the project!</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Dependency Control</h2>
+				<img data-src="assets/gemnasium_lineal_bright-back.svg" height="100" class="no-box">
+			</section>
+			<section>
+				<h3>Example: Gemnasium Dashboard</h3>
+				<img src="assets/appsec/gemnasium.png" width="200">
+				<img src="assets/appsec/gemnasium2.png" width="200" class="fragment">
+				<img src="assets/appsec/gemnasium3.png" width="200" class="fragment">
 			</section>
 		</section>
 
@@ -418,9 +541,14 @@
             <section>
                 <h3>Easy Counter: Make them visible</h3>
                 <img data-src="assets/appsec/contributors.png" height="400">
-                <h1 class="fragment">(?)</h1>
             </section>
-            <section>
+			<section>
+				<h3>Some contribs deserve bonus visibility</h3>
+				<h2><a href="https://github.com/tghosth">Josh Grossmann</a> <small>(CTFd SQLs🚩)</small></h2>
+				<h2><a href="https://github.com/wurstbrot">Timo Pagel</a> <small>(Custom theming🎭)</small></h2>
+				<h2><a href="https://github.com/J12934">Jannik Hollenbach</a> <small>(CTF🌟/Docker📦)</small></h2>
+			</section>
+			<section>
                 <h2><code>git commit</code>s are not everything!</h2>
             </section>
             <section>
