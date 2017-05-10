@@ -350,6 +350,25 @@ describe('challenge "loginAdmin"', function () {
 				</code></pre>
 			</section>
 			<section>
+				<h3>Example: Checking if a challenge is solved</h3>
+				<pre><code>
+protractor.expect = {
+  challengeSolved: function (context) {
+    describe('(shared)', function () {
+      beforeEach(function () {
+        browser.get('/#/score-board')
+      })
+
+      it("challenge '" + context.challenge + "' should be solved on score board", function () {
+        expect(element(by.id(context.challenge + '.solved')).getAttribute('class')).not.toMatch('ng-hide')
+        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class')).toMatch('ng-hide')
+      })
+    })
+  }
+}
+				</code></pre>
+			</section>
+			<section>
 				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
 				<h1 class="fragment">100%</h1>
 			</section>
