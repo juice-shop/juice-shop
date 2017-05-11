@@ -13,6 +13,7 @@ where this project was mentioned!
 
 ## Web Links
 
+* Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast) Podcast: [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
 * Vulnerable website collection on
   [Bonkers About Tech](https://www.bonkersabouttech.com):
   [40+ Intentionally Vulnerable Websites To (Legally) Practice Your Hacking Skills](https://www.bonkersabouttech.com/security/40-intentionally-vulnerable-websites-to-practice-your-hacking-skills/392)
