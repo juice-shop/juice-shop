@@ -95,7 +95,7 @@
   "TITLE_BITCOIN_ADDRESS":"Dirección Bitcoin",
   "TITLE_DASH_ADDRESS":"Direccion Dash",
   "TITLE_ETHER_ADDRESS":"Dirección Ether",
-  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click to repeat the notification containing the solution-code for this challenge.",
-  "COPY_TO_CLIPBOARD":"Copy to clipboard",
-  "COPY_SUCCESS":"Copied!"
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Haz clic para re-enviar las instrucciones con el código que soluciona este desafío.",
+  "COPY_TO_CLIPBOARD":"Copiar al portapapeles",
+  "COPY_SUCCESS":"Fue copiado!"
 }
