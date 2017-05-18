@@ -58,52 +58,54 @@ where this project was mentioned!
 
 #### 2017
 
-* [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/),
+* [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/) by Timo Pagel, [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/)
   10.10.2017
+* [Update on OWASP Projects & Conferences](https://www.owasp.org/index.php/London#Thursday.2C_18th_May_2017_.28Central_London.29) by Sam Stepanyan,
+  [OWASP London Chapter](https://www.owasp.org/index.php/London#OWASP_London) Meeting, 18.05.2017
 * [OWASP Juice Shop: Achieving sustainability for open source projects](https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects),
-  [AppSec Europe 2017](https://2017.appsec.eu), 11.05.2017
-* [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/),
+  [AppSec Europe 2017](https://2017.appsec.eu) by Björn Kimminich, 11.05.2017
+* [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/)  by Björn Kimminich,
   [27. OWASP Stammtisch Hamburg](http://lanyrd.com/2017/owasp-de/),
   25.04.2017
-* [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555),
+* [Juice Shop Hacking Session](https://www.xing.com/events/juice-shop-hacking-session-1771555) by Jens Hausherr,
   [Software-Test User Group Hamburg](https://www.xing.com/communities/groups/software-test-user-group-hamburg-1207-1002644),
   21.03.2017
-* [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/),
+* [Hands on = Juice Shop Hacking Session](http://lanyrd.com/2017/software-tester-group-hamburg-16032017/sfqcxq/) by Björn Kimminich,
   [Software Tester Group Hamburg (English-speaking)](http://lanyrd.com/2017/software-tester-group-hamburg-16032017),
   16.03.2017
-* [Kurzvortrag: Hack the Juice Shop](https://www.meetup.com/de-DE/phpughh/events/235572004/),
+* [Kurzvortrag: Hack the Juice Shop](https://www.meetup.com/de-DE/phpughh/events/235572004/) by Timo Pagel,
   [PHP-Usergroup Hamburg](https://www.meetup.com/de-DE/phpughh/),
   14.02.2017
 
 #### 2016
 
-* [Lightning Talk: What's new in OWASP Juice Shop](https://www.owasp.org/index.php/German_OWASP_Day_2016#Programm),
+* [Lightning Talk: What's new in OWASP Juice Shop](https://www.owasp.org/index.php/German_OWASP_Day_2016#Programm) by Björn Kimminich,
   [German OWASP Day 2016](https://www.owasp.org/index.php/German_OWASP_Day_2016/),
   29.11.2016
-* [Gothenburg pwns the OWASP Juice Shop](https://owaspgbgday.se/bjorn-kimminich-gothenburg-pwns-the-owasp-juice-shop-workshop/),
+* [Gothenburg pwns the OWASP Juice Shop](https://owaspgbgday.se/bjorn-kimminich-gothenburg-pwns-the-owasp-juice-shop-workshop/) by Björn Kimminich,
   [OWASP Gothenburg Day 2016](https://owaspgbgday.se/), 24.11.2016
-* [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/),
+* [Hacking the OWASP Juice Shop](http://lanyrd.com/2016/owasp-nl/sffmpr/) by Björn Kimminich,
   [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/),
   22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc),
   :trollface: _in last 10min_)
-* [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226),
+* [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226) by Timo Pagel,
   [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html),
   16.09.2016
-* [Security-Auditing aus der Cloud – Softwareentwicklung kontinuierlich auf dem Prüfstand](http://www.sea-con.de/seacon2016/konferenz/konferenzprogramm/vortrag/do-41-2/title/security-auditing-aus-der-cloud-softwareentwicklung-kontinuierlich-auf-dem-pruefstand.html),
+* [Security-Auditing aus der Cloud – Softwareentwicklung kontinuierlich auf dem Prüfstand](http://www.sea-con.de/seacon2016/konferenz/konferenzprogramm/vortrag/do-41-2/title/security-auditing-aus-der-cloud-softwareentwicklung-kontinuierlich-auf-dem-pruefstand.html) by Robert Seedorff & Benjamin Pfänder,
   [SeaCon 2016](http://www.sea-con.de/seacon2016), 12.05.2016
-* [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/),
+* [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/) by Björn Kimminich,
   [JavaLand 2016](http://lanyrd.com/2016/javaland/), 08.03.2016
-* [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/),
+* [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/) by Timo Pagel & Björn Kimminich,
   [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/),
   03.02.2016
 
 #### 2015
 
-* [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/),
+* [Lightning Talk: Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2015/owasp-d2015/sdtzgg/) by Björn Kimminich,
   [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/),
   01.12.2015
-* [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/),
+* [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/) by Björn Kimminich,
   [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
-* [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/),
+* [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/) by Björn Kimminich,
   [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/),
   27.01.2015
