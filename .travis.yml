@@ -62,6 +62,7 @@ deploy:
   file: dist/*
   skip_cleanup: true
   file_glob: true
+  draft: true
   tag_name: $TRAVIS_TAG
   on:
     repo: bkimminich/juice-shop
