@@ -30,3 +30,44 @@ dist/
 order_*.pdf
 ftp/uploads/
 assets/
+app/index.html
+
+# Favicons downloaded during customizazion
+app/public/*.*
+!app/public/favicon_ctf.ico
+!app/public/favicon_v2.ico
+
+# Logos downloaded during customizazion
+app/public/images/*.*
+!app/public/images/JuiceShop*.*
+
+# Product images downloaded during customizazion
+app/public/images/products/*.*
+!app/public/images/products/apple_juice.jpg
+!app/public/images/products/apple_pressings.jpg
+!app/public/images/products/banana_juice.jpg
+!app/public/images/products/ctf_sticker.png
+!app/public/images/products/eggfruit_juice.jpg
+!app/public/images/products/fan_girlie.jpg
+!app/public/images/products/fan_hoodie.jpg
+!app/public/images/products/fan_mug.jpg
+!app/public/images/products/fan_shirt.jpg
+!app/public/images/products/fruit_press.jpg
+!app/public/images/products/green_smoothie.jpg
+!app/public/images/products/lemon_juice.jpg
+!app/public/images/products/orange_juice.jpg
+!app/public/images/products/owasp_osaft.jpg
+!app/public/images/products/owasplogo.png
+!app/public/images/products/quince.jpg
+!app/public/images/products/raspberry_juice.jpg
+!app/public/images/products/sticker.png
+!app/public/images/products/undefined.png
+!app/public/images/products/white_raffards.jpg
+!app/public/images/products/woodruff_syrup.jpg
+
+# Custom configuration files
+config/*.yml
+!config/bodgeit.yml
+!config/ctf.yml
+!config/default.yml
+!config/sickshop.yml

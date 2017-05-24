@@ -27,18 +27,21 @@
                 <th translate="LABEL_NAME"></th>
                 <th translate="LABEL_DESCRIPTION"></th>
                 <th translate="LABEL_DIFFICULTY"></th>
-                <th><span translate="LABEL_STATUS"></span><i ng-show="showCtfFlagsInNotifications" class="fa fa-info-circle" aria-hidden="true" uib-tooltip="{{ 'NOTIFICATION_RESEND_INSTRUCTIONS' | translate }}"></i></th>
+                <th translate="LABEL_STATUS"></th>
             </tr>
             <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
                 <td><div ng-bind="challenge.name"></div></td>
                 <td><div ng-bind-html="challenge.description"></div></td>
                 <td align="center">
                   <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>
-                  </td>
-                <td align="center">
-                    <span id="{{challenge.name}}.notSolved" ng-show="!challenge.solved" class="label label-danger" translate="STATUS_UNSOLVED"></span>
-                    <span id="{{challenge.name}}.solved" ng-click="repeatNotification(challenge)" ng-show="challenge.solved" class="label label-success" ng-class="{ 'notification-repeat-button': showCtfFlagsInNotifications }">
-                        <i class="fa fa-flag-o" aria-hidden="true"></i>
+                </td>
+                <td>
+                    <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? (challenge.hintUrl ? (challenge.hint ? challenge.hint + ' Click for more hints.' : 'Click to open hints.') : challenge.hint ? challenge.hint : null) : null }}">
+                        <i class="fa fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
+                        <span translate="STATUS_UNSOLVED"></span>
+                    </span>
+                    <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': showCtfFlagsInNotifications }" uib-tooltip="{{ showCtfFlagsInNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
+                        <i class="fa fa-flag-o" aria-hidden="true" ng-show="showCtfFlagsInNotifications"></i>
                         <span translate="STATUS_SOLVED"></span>
                     </span>
                 </td>

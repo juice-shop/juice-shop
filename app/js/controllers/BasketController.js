@@ -124,8 +124,10 @@ angular.module('juiceShop').controller('BasketController', [
     $scope.twitterUrl = 'https://twitter.com/owasp_juiceshop'
     $scope.facebookUrl = 'https://www.facebook.com/owasp.juiceshop'
     configurationService.getApplicationConfiguration().then(function (config) {
-      if (config.application) {
+      if (config && config.application && config.application.twitterUrl !== null) {
         $scope.twitterUrl = config.application.twitterUrl
+      }
+      if (config && config.application && config.application.facebookUrl !== null) {
         $scope.facebookUrl = config.application.facebookUrl
       }
     }).catch(function (err) {

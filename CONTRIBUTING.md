@@ -1,4 +1,4 @@
-# Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+# Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
 [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
@@ -28,17 +28,17 @@ below to make sure your PR can be merged and doesn't break anything.
 
 This repository is maintained in a simplified
 [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)
-fashion: All active development happens on the ```develop``` branch
-while ```master``` is used to deploy stable versions to the
+fashion: All active development happens on the `develop` branch
+while `master` is used to deploy stable versions to the
 [Heroku demo instance](https://juice-shop.herokuapp.com) and later
 create tagged releases from.
 
 ### Pull Requests
 
 Using Git-Flow means that PRs have the highest chance of getting
-accepted and merged when you open them on the ```develop``` branch of
+accepted and merged when you open them on the `develop` branch of
 your fork. That allows for some post-merge changes by the team without
-directly compromising the ```master``` branch, which is supposed to hold
+directly compromising the `master` branch, which is supposed to hold
 always be in a release-ready state.
 
 ## Unit & Integration Tests
@@ -101,7 +101,7 @@ npm run stryker
 ## Test Packaged Distrubution
 
 During releases the application will be packaged into
-```.zip```/```.tgz``` archives for another easy setup method. When you
+`.zip`/`.tgz` archives for another easy setup method. When you
 contribute a change that impacts what the application needs to include,
 make sure you test this manually on your system.
 
@@ -109,7 +109,7 @@ make sure you test this manually on your system.
 grunt package
 ```
 
-Then take the created archive from ```/dist``` and follow the steps
+Then take the created archive from `/dist` and follow the steps
 described above in
 [Packaged Distributions](https://github.com/bkimminich/juice-shop#packaged-distributions--)
 to make sure nothing is broken or missing.

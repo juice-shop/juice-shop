@@ -139,6 +139,34 @@ describe('controllers', function () {
       }))
     })
 
+    describe('live updates', function () {
+      var socket
+
+      beforeEach(inject(function (_socket_) {
+        socket = _socket_
+        $httpBackend.whenGET('/rest/continue-code').respond(200, {})
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge #1', solved: false},
+            {name: 'Challenge #2', solved: false}
+          ]
+        })
+        $httpBackend.flush()
+      }))
+
+      it('should update the correct challenge when a challenge solved event occurs', inject(function () {
+        socket.receive('challenge solved', { challenge: 'ping', name: 'Challenge #1' })
+        expect(scope.challenges[ 0 ].solved).toBe(true)
+        expect(scope.challenges[ 1 ].solved).toBe(false)
+      }))
+
+      it('should not update when a challenge solved event to a nonexistent challenge occurs', inject(function () {
+        socket.receive('challenge solved', { challenge: 'ping', name: 'Challenge #1337' })
+        expect(scope.challenges[ 0 ].solved).toBe(false)
+        expect(scope.challenges[ 1 ].solved).toBe(false)
+      }))
+    })
+
     describe('loading current continue code', function () {
       beforeEach(inject(function ($httpBackend) {
         $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [] })

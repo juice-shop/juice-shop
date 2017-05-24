@@ -1,4 +1,4 @@
-# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo_50px.png) OWASP Juice Shop [![OWASP Labs](https://img.shields.io/badge/owasp-incubator-blue.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Incubator_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
+# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Labs](https://img.shields.io/badge/owasp-lab%20project-f7b73c.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Labs_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
 [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
@@ -88,10 +88,11 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
    clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
    of the repository)
-3. Run `npm install` (only has to be done before first start or when you
+3. Go into the cloned folder with `cd juice-shop`
+4. Run `npm install` (only has to be done before first start or when you
    change the source code)
-4. Run `npm start`
-5. Browse to <http://localhost:3000>
+5. Run `npm start`
+6. Browse to <http://localhost:3000>
 
 ### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 
@@ -209,7 +210,7 @@ If you need help with the application setup please check the
 or question in the
 [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![HuBoard](http://img.shields.io/badge/Hu-Board-blue.svg)](https://huboard.com/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Found a bug? Crashed the app? Broken challenge? Found a vulnerability
 that is not on the Score Board?
@@ -218,7 +219,7 @@ Feel free to
 [create an issue](https://github.com/bkimminich/juice-shop/issues) or
 [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
 Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CUSTOMIZATION.md) for details.
+[CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## References
 
@@ -242,7 +243,7 @@ forking and opening a Pull Request!
   your laptop
 
 > An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CUSTOMIZATION.md) by fixing
+> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
 > an issue, finding a serious bug or submitting a good idea for a new
 > challenge! We're also happy to send some stickers your way if you
 > organize a meetup or conference talk where you use or mention OWASP
@@ -268,17 +269,24 @@ project.
 
 ## Credits
 
-Inspired by the "classic"
-[BodgeIt Store](https://github.com/psiinon/bodgeit) by
-[@psiinon](https://github.com/psiinon).
+* Inspired by the "classic"
+  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
+  [@psiinon](https://github.com/psiinon)
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
+  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
 
 ## Contributors
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr 2017 08:32:58 GMT.
+
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr
+2017 08:32:58 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
+- [The Gitter Badger](https://github.com/gitter-badger) aka
+  `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
+  `aaron-m-edwards`
 - [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
@@ -287,7 +295,8 @@ Ordered by date of first contribution. [Auto-generated](https://github.com/dtrej
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 

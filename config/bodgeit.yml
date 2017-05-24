@@ -1,9 +1,8 @@
 application:
-  domain: thebodgeitstore.com
+  domain: "thebodgeitstore.com"
   name: "The BodgeIt Store"
-  logoReplacementUrl: "http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png"
-  faviconReplacementUrl: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
-  showChallengeSolvedNotifications: true
+  logo: "http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png"
+  favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
 products:
   - name: "Basic Widget"
