@@ -95,7 +95,11 @@ where this project was mentioned!
   [SeaCon 2016](http://www.sea-con.de/seacon2016), 12.05.2016
 * [Hacking the Juice Shop ("So ein Saftladen!")](http://lanyrd.com/2016/javaland/sdtbph/) by Björn Kimminich,
   [JavaLand 2016](http://lanyrd.com/2016/javaland/), 08.03.2016
-* [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/) by Timo Pagel & Björn Kimminich,
+* [Hacking the JuiceShop! ("Hackt den Saftladen!")](http://lanyrd.com/2016/nodehamburg/sdxtch/) by Björn Kimminich,
+  [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/),
+  03.02.2016
+* [OWASP Top 5 Web-Risiken](http://lanyrd.com/2016/nodehamburg/sdxtcg/)
+  by Timo Pagel,
   [node.HH Meetup: Security!](http://lanyrd.com/2016/nodehamburg/),
   03.02.2016
 
