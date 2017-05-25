@@ -14,7 +14,7 @@ trainings written entirely in Javascript which encompasses the entire
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
 
-![Juice Shop Screenshot Slideshow](slideshow.gif)
+![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
