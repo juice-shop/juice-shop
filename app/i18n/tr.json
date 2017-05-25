@@ -95,7 +95,7 @@
   "TITLE_BITCOIN_ADDRESS":"Bitcoin adresi",
   "TITLE_DASH_ADDRESS":"Dash adresi",
   "TITLE_ETHER_ADDRESS":"Ether adresi",
-  "NOTIFICATION_RESEND_INSTRUCTIONS":"Çözüm kodunu içeren bildirimi tekrar görmek için sorunun çözüldü-bayrağına tıklayın.",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Click to repeat the notification containing the solution-code for this challenge.",
   "COPY_TO_CLIPBOARD":"Panoya Kopyala",
   "COPY_SUCCESS":"Kopyalandı!"
 }
