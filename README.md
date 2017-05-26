@@ -14,59 +14,11 @@ trainings written entirely in Javascript which encompasses the entire
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
 
-## Description
+![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
-Juice Shop is written in Node.js, Express and AngularJS. It was the
-first application written entirely in JavaScript listed in the
-[OWASP VWA Directory](https://www.owasp.org/index.php/OWASP_Vulnerable_Web_Applications_Directory_Project).
-
-The application contains over 30 challenges of varying difficulty where
-the user is supposed to exploit the underlying vulnerabilities. The
-hacking progress is tracked on a score board. Finding this score board
-is actually one of the (easy) challenges!
-
-Apart from the hacker and awareness training use case, pentesting
-proxies or security scanners can use Juice Shop as a "guinea
-pig"-application to check how well their tools cope with
-Javascript-heavy application frontends and REST APIs.
-
-> Translating "dump" or "useless outfit" into German yields "Saftladen"
-> which can be reverse-translated word by word into "juice shop". Hence
-> the project name. That the initials "JS" match with those of
-> "Javascript" was purely coincidental!
-
-## Main Selling Points
-
-- Easy-to-install: Choose between
-  [node.js](#nodejs-version-compatibility),
-  [Docker](https://www.docker.com) and
-  [Vagrant](https://www.vagrantup.com/downloads.html) to run on
-  Windows/Mac/Linux
-- Self-contained: Additional dependencies are pre-packaged or will be
-  resolved and downloaded automatically
-- Self-healing: The simple SQLite database is wiped and regenerated from
-  scratch on every server startup
-- Gamification: The application notifies you on solved challenges and
-  keeps track of successfully exploited vulnerabilities on a Score Board
-- CTF-support: Challenge notifications optionally show a flag code for
-  your own
-  [Capture-The-Flag events](https://github.com/bkimminich/juice-shop-ctf)
-- Re-branding: Fully customizable business context and look & feel
-- Free and Open source: Licensed under the [MIT license](LICENSE) with
-  no hidden costs or caveats
-
-## Application Architecture
-
-![Juice Shop Architecture](https://raw.githubusercontent.com/bkimminich/juice-shop/gh-pages/assets/Architektur_JuiceShop.png)
-
-## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
-
-Feel free to have a look at the latest version of OWASP Juice Shop:
-<https://juice-shop.herokuapp.com>
-
-> This is a deployment-test and sneak-peek instance only! You are __not
-> supposed__ to use this instance for your own hacking endeavours! No
-> guaranteed uptime! Guaranteed stern looks if you break it!
+For a detailed introduction, full list of features and architecture
+overview please visit the official project page:
+<https://www.owasp.org/index.php/OWASP_Juice_Shop_Project>
 
 ## Setup
 
@@ -157,13 +109,6 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 3. Run `cd vagrant && vagrant up`
 4. Browse to <http://juice.sh>
 
-## Customization
-
-Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel. Please refer to
-[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
-examples.
-
 ## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of
@@ -179,6 +124,29 @@ distributions accordingly:
 > The stable Docker images are built from `master` while the snapshot
 > images are built from `develop` branch. The latter contain unreleased
 > features but cannot be considered stable.
+
+## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
+
+Feel free to have a look at the latest version of OWASP Juice Shop:
+<https://juice-shop.herokuapp.com>
+
+> This is a deployment-test and sneak-peek instance only! You are __not
+> supposed__ to use this instance for your own hacking endeavours! No
+> guaranteed uptime! Guaranteed stern looks if you break it!
+
+## Customization
+
+Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
+customized in its content and look & feel. Please refer to
+[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
+examples.
+
+## CTF-Extension
+
+If you want to run OWASP Juice Shop as a Capture-The-Flag event you want
+set it up along with a [CTFd](https://ctfd.io) server easily using the
+official extension
+[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli).
 
 ## Additional Documentation
 
