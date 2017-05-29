@@ -110,5 +110,7 @@
   "IN_LITERS_PLACEHOLDER":"...in Litern",
   "REQUEST_PICKUP":"Bitte holen Sie den Trester ab statt mit eine Recycling-Box zuzuschicken.",
   "LABEL_PICKUP_DATE":"Abholdatum",
-  "LABEL_POMACE_QUANTITY":"Trester-Menge"
+  "LABEL_POMACE_QUANTITY":"Trester-Menge",
+  "SECTION_RECYCLING":"Recycling Requests",
+  "LABEL_ADDRESS":"Address"
 }
