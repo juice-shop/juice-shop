@@ -5,10 +5,13 @@ var API_URL = 'http://localhost:3000/api'
 
 var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
 
-frisby.create('POST new complaint')
+frisby.create('POST new recycle')
   .addHeaders(authHeader)
-  .post(API_URL + '/Complaints', {
-    message: 'My stuff never arrived! This is outrageous'
+  .post(API_URL + '/Recycles', {
+    quantity: 200,
+    address: 'Bjoern Kimminich, 123 Juicy Road, Test City',
+    isPickup: true,
+    date: '2017-05-31'
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
@@ -17,27 +20,27 @@ frisby.create('POST new complaint')
     createdAt: String,
     updatedAt: String
   })
-  .afterJSON(function (complaint) {
-    frisby.create('GET existing complaint by id is forbidden')
+  .afterJSON(function (recycle) {
+    frisby.create('GET existing recycle by id')
       .addHeaders(authHeader)
-      .get(API_URL + '/Complaints/' + complaint.data.id)
-      .expectStatus(401)
+      .get(API_URL + '/Recycles/' + recycle.data.id)
+      .expectStatus(200)
       .toss()
-    frisby.create('PUT update existing feedback is forbidden')
+    frisby.create('PUT update existing recycle is forbidden')
       .addHeaders(authHeader)
-      .put(API_URL + '/Complaints/' + complaint.data.id, {
+      .put(API_URL + '/Recycles/' + recycle.data.id, {
         message: 'Should not work...'
       }, { json: true })
       .expectStatus(401)
       .toss()
-    frisby.create('DELETE existing feedback is forbidden')
+    frisby.create('DELETE existing recycle is forbidden')
       .addHeaders(authHeader)
-      .delete(API_URL + '/Complaints/' + +complaint.data.id)
+      .delete(API_URL + '/Recycles/' + +recycle.data.id)
       .expectStatus(401)
       .toss()
   }).toss()
 
-frisby.create('GET all complaints is forbidden via public API')
-  .get(API_URL + '/Complaints')
-  .expectStatus(401)
+frisby.create('GET all recycles')
+  .get(API_URL + '/Recycles')
+  .expectStatus(200)
   .toss()

@@ -18,7 +18,7 @@ frisby.create('POST new feedback')
     updatedAt: String
   })
   .afterJSON(function (feedback) {
-    frisby.create('GET existing feedback item by id')
+    frisby.create('GET existing feedback by id')
       .addHeaders(authHeader)
       .get(API_URL + '/Feedbacks/' + feedback.data.id)
       .expectStatus(200)

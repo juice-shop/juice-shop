@@ -132,6 +132,10 @@ app.use('/api/Challenges/:id', insecurity.denyAll())
 app.get('/api/Complaints', insecurity.isAuthorized())
 app.post('/api/Complaints', insecurity.isAuthorized())
 app.use('/api/Complaints/:id', insecurity.denyAll())
+/* Recycles: POST and GET allowed when logged in only */
+app.get('/api/Recycles', insecurity.isAuthorized())
+app.post('/api/Recycles', insecurity.isAuthorized())
+app.use('/api/Recycles/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
@@ -145,7 +149,7 @@ app.use(verify.databaseRelatedChallenges())
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints' ]
+  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles' ]
 }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
