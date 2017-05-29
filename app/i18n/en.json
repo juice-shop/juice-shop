@@ -110,5 +110,7 @@
   "IN_LITERS_PLACEHOLDER": "...in liters",
   "REQUEST_PICKUP": "Please pickup the pomace instead of sending me a recycle box.",
   "LABEL_PICKUP_DATE": "Pickup Date",
-  "LABEL_POMACE_QUANTITY": "Pomace Quantity"
+  "LABEL_POMACE_QUANTITY": "Pomace Quantity",
+  "SECTION_RECYCLING": "Recycling Requests",
+  "LABEL_ADDRESS": "Address"
 }

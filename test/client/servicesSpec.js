@@ -291,6 +291,7 @@ describe('services', function () {
   describe('RecycleService', function () {
     it('should be defined', inject(function (RecycleService) {
       expect(RecycleService).toBeDefined()
+      expect(RecycleService.find).toBeDefined()
       expect(RecycleService.save).toBeDefined()
     }))
 

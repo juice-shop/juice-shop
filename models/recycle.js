@@ -5,13 +5,13 @@ module.exports = function (sequelize, DataTypes) {
   var Recycle = sequelize.define('Recycle', {
     quantity: DataTypes.INTEGER,
     address: DataTypes.STRING,
-    isPickup: DataTypes.BOOLEAN,
+    isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
     date: DataTypes.DATE
   },
     {
       classMethods: {
         associate: function (models) {
-          Recycle.belongsTo(models.User)
+          Recycle.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
         }
       }
     })
