@@ -71,7 +71,7 @@ where this project was mentioned!
   Meeting, 18.05.2017
 * [OWASP Juice Shop: Achieving sustainability for open source projects](https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects),
   [AppSec Europe 2017](https://2017.appsec.eu) by Björn Kimminich,
-  11.05.2017
+  11.05.2017 ([Youtube](https://www.youtube.com/watch?v=bOSdFnFAYNc))
 * [OWASP Juice Shop: Stammtisch-Lightning-Update](http://lanyrd.com/2017/owasp-de/sfrdtq/)
   by Björn Kimminich,
   [27. OWASP Stammtisch Hamburg](http://lanyrd.com/2017/owasp-de/),
