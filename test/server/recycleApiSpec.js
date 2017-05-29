@@ -40,7 +40,13 @@ frisby.create('POST new recycle')
       .toss()
   }).toss()
 
+frisby.create('GET all recycles is forbidden via public API')
+  .get(API_URL + '/Recycles')
+  .expectStatus(401)
+  .toss()
+
 frisby.create('GET all recycles')
+  .addHeaders(authHeader)
   .get(API_URL + '/Recycles')
   .expectStatus(200)
   .toss()
