@@ -95,7 +95,19 @@
   "TITLE_BITCOIN_ADDRESS":"Bitcoin-Adresse",
   "TITLE_DASH_ADDRESS":"Dash-Adresse",
   "TITLE_ETHER_ADDRESS":"Ether-Adresse",
-  "NOTIFICATION_RESEND_INSTRUCTIONS":"Klicke hier, um die Benachrichtigung mit dem Lösungs-Code dieser Herausforderung zu wiederholen.",
+  "NOTIFICATION_RESEND_INSTRUCTIONS":"Klicke auf die gelöst-Flagge einer Herausforderung um die Benachrichtigung mit deren Lösungs-Code zu wiederholen.",
   "COPY_TO_CLIPBOARD":"In Zwischenablage kopieren",
-  "COPY_SUCCESS":"Kopiert!"
+  "COPY_SUCCESS":"Kopiert!",
+  "NAV_RECYCLE":"Recycle",
+  "TITLE_RECYCLE":"Pomace Recycling",
+  "LABEL_REQUESTOR":"Requestor",
+  "LABEL_DELIVERY_ADDRESS":"Delivery Address",
+  "LABEL_PICKUP_ADDRESS":"Pickup Address",
+  "INVALID_ADDRESS_LENGTH":"Address length must be {{length}} characters.",
+  "INVALID_QUANTITY":"Quantity must be {{range}} liters.",
+  "MANDATORY_ADDRESS":"Please provide an address.",
+  "MANDATORY_QUANTITY":"Please provide a quantity.",
+  "IN_LITERS_PLACEHOLDER":"...in liters",
+  "REQUEST_PICKUP":"Please pickup the pomace instead of sending me a recycle box.",
+  "LABEL_PICKUP_DATE":"Pickup Date"
 }
