@@ -99,15 +99,16 @@
   "COPY_TO_CLIPBOARD":"In Zwischenablage kopieren",
   "COPY_SUCCESS":"Kopiert!",
   "NAV_RECYCLE":"Recyceln",
-  "TITLE_RECYCLE":"Trester Recycling",
+  "TITLE_RECYCLE":"Trester-Recycling",
   "LABEL_REQUESTOR":"Anforderer",
   "LABEL_DELIVERY_ADDRESS":"Lieferadresse",
   "LABEL_PICKUP_ADDRESS":"Abholadresse",
   "INVALID_ADDRESS_LENGTH":"Adresslänge muss {{length}} Zeichen betragen.",
-  "INVALID_QUANTITY":"Menge muss {{range}} Liter betragen.",
-  "MANDATORY_ADDRESS":"Please provide an address.",
-  "MANDATORY_QUANTITY":"Please provide a quantity.",
-  "IN_LITERS_PLACEHOLDER":"...in liters",
-  "REQUEST_PICKUP":"Please pickup the pomace instead of sending me a recycle box.",
-  "LABEL_PICKUP_DATE":"Pickup Date"
+  "INVALID_QUANTITY":"Pomace quantity must be {{range}} liters.",
+  "MANDATORY_ADDRESS":"Bitte gib eine Adresse ein.",
+  "MANDATORY_QUANTITY":"Please provide a pomace quantity.",
+  "IN_LITERS_PLACEHOLDER":"...in Litern",
+  "REQUEST_PICKUP":"Bitte holen Sie den Trester ab statt mit eine Recycling-Box zuzuschicken.",
+  "LABEL_PICKUP_DATE":"Abholdatum",
+  "LABEL_POMACE_QUANTITY":"Pomace Quantity"
 }
