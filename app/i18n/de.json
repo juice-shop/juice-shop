@@ -104,11 +104,11 @@
   "LABEL_DELIVERY_ADDRESS":"Lieferadresse",
   "LABEL_PICKUP_ADDRESS":"Abholadresse",
   "INVALID_ADDRESS_LENGTH":"Adresslänge muss {{length}} Zeichen betragen.",
-  "INVALID_QUANTITY":"Pomace quantity must be {{range}} liters.",
+  "INVALID_QUANTITY":"Trester-Menge muss {{range}} Liter betragen.",
   "MANDATORY_ADDRESS":"Bitte gib eine Adresse ein.",
-  "MANDATORY_QUANTITY":"Please provide a pomace quantity.",
+  "MANDATORY_QUANTITY":"Bitte gib eine Trester-Menge ein.",
   "IN_LITERS_PLACEHOLDER":"...in Litern",
   "REQUEST_PICKUP":"Bitte holen Sie den Trester ab statt mit eine Recycling-Box zuzuschicken.",
   "LABEL_PICKUP_DATE":"Abholdatum",
-  "LABEL_POMACE_QUANTITY":"Pomace Quantity"
+  "LABEL_POMACE_QUANTITY":"Trester-Menge"
 }
