@@ -97,5 +97,17 @@
   "TITLE_ETHER_ADDRESS":"Autre adresse",
   "NOTIFICATION_RESEND_INSTRUCTIONS":"Click to repeat the notification containing the solution-code for this challenge.",
   "COPY_TO_CLIPBOARD":"Copy to clipboard",
-  "COPY_SUCCESS":"Copied!"
+  "COPY_SUCCESS":"Copied!",
+  "NAV_RECYCLE":"Recycle",
+  "TITLE_RECYCLE":"Pomace Recycling",
+  "LABEL_REQUESTOR":"Requestor",
+  "LABEL_DELIVERY_ADDRESS":"Delivery Address",
+  "LABEL_PICKUP_ADDRESS":"Pickup Address",
+  "INVALID_ADDRESS_LENGTH":"Address length must be {{length}} characters.",
+  "INVALID_QUANTITY":"Quantity must be {{range}} liters.",
+  "MANDATORY_ADDRESS":"Please provide an address.",
+  "MANDATORY_QUANTITY":"Please provide a quantity.",
+  "IN_LITERS_PLACEHOLDER":"...in liters",
+  "REQUEST_PICKUP":"Please pickup the pomace instead of sending me a recycle box.",
+  "LABEL_PICKUP_DATE":"Pickup Date"
 }
