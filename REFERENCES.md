@@ -12,7 +12,8 @@ where this project was mentioned!
 > view them before tackling these challenges yourself!
 
 ## Web Links
-
+* Blog Post on [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
+  [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
   [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
