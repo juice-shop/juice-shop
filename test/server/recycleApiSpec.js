@@ -21,10 +21,10 @@ frisby.create('POST new recycle')
     updatedAt: String
   })
   .afterJSON(function (recycle) {
-    frisby.create('GET existing recycle by id')
+    frisby.create('GET existing recycle by id is forbidden')
       .addHeaders(authHeader)
       .get(API_URL + '/Recycles/' + recycle.data.id)
-      .expectStatus(200)
+      .expectStatus(401)
       .toss()
     frisby.create('PUT update existing recycle is forbidden')
       .addHeaders(authHeader)
