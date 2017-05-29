@@ -56,6 +56,11 @@ angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) 
     controller: 'ComplaintController'
   })
 
+  $routeProvider.when('/recycle', {
+    templateUrl: 'views/Recycle.html',
+    controller: 'RecycleController'
+  })
+
   $routeProvider.when('/access_token=:accessToken', {
     templateUrl: 'views/OAuth.html',
     controller: 'OAuthController'

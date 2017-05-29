@@ -287,4 +287,20 @@ describe('services', function () {
       expect(result).toBe('apiResponse')
     }))
   })
+
+  describe('RecycleService', function () {
+    it('should be defined', inject(function (RecycleService) {
+      expect(RecycleService).toBeDefined()
+      expect(RecycleService.save).toBeDefined()
+    }))
+
+    it('should create recycle directly via the rest api', inject(function (RecycleService) {
+      $httpBackend.whenPOST('/api/Recycles/').respond(200, { data: 'apiResponse' })
+
+      RecycleService.save().then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+  })
 })

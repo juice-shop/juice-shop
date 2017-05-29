@@ -70,4 +70,10 @@ describe('routes', function () {
           expect($route.routes['/score-board'].controller).toBe('ChallengeController')
           expect($route.routes['/score-board'].templateUrl).toEqual('views/ScoreBoard.html')
         }))
+
+  it('should load Recycle page for /recycle route',
+        inject(function ($route) {
+          expect($route.routes['/recycle'].controller).toBe('RecycleController')
+          expect($route.routes['/recycle'].templateUrl).toEqual('views/Recycle.html')
+        }))
 })
