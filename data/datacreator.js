@@ -608,7 +608,34 @@ module.exports = function () {
 
   function createSecurityQuestions () {
     models.SecurityQuestion.create({
-      question: 'What is your eldest siblings middle name?'
+      question: 'Your eldest siblings middle name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Mother\'s maiden name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Mother\'s birth date? (MM/DD/YY)'
+    })
+    models.SecurityQuestion.create({
+      question: 'Father\'s birth date? (MM/DD/YY)'
+    })
+    models.SecurityQuestion.create({
+      question: 'Maternal grandmother\'s first name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Paternal grandmother\'s first name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Name of your favorite pet?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Last name of dentist when you were a teenager? (Do not include \'Dr.\')'
+    })
+    models.SecurityQuestion.create({
+      question: 'Your ZIP/postal code when you were a teenager?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Company you first work for as an adult?'
     })
   }
 
