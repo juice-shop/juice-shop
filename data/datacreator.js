@@ -641,9 +641,34 @@ module.exports = function () {
 
   function createSecurityAnswers () {
     models.SecurityAnswer.create({
+      SecurityQuestionId: 2,
+      UserId: 1,
+      answer: '@xI98PxDO+06!'
+    })
+    models.SecurityAnswer.create({
       SecurityQuestionId: 1,
       UserId: 2,
-      answer: 'Samuel'
+      answer: 'Samuel' // https://en.wikipedia.org/wiki/James_T._Kirk
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 10,
+      UserId: 3,
+      answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 9,
+      UserId: 4,
+      answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 7,
+      UserId: 5,
+      answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 10,
+      UserId: 6,
+      answer: 'SC OLEA SRL' // http://www.olea.com.ro/
     })
   }
 }
