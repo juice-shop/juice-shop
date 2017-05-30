@@ -112,5 +112,6 @@
   "LABEL_PICKUP_DATE":"Abholdatum",
   "LABEL_POMACE_QUANTITY":"Trester-Menge",
   "SECTION_RECYCLING":"Recycling Requests",
-  "LABEL_ADDRESS":"Address"
+  "LABEL_ADDRESS":"Address",
+  "SECTION_PRESS_JUICE_RESPONSIBLY":"Press your juice responsibly"
 }
