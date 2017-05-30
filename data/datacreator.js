@@ -16,6 +16,8 @@ module.exports = function () {
   createProducts()
   createBaskets()
   createFeedback()
+  createSecurityQuestions()
+  createSecurityAnswers()
 
   function createChallenges () {
     const addHint = function (hint) {
@@ -601,6 +603,20 @@ module.exports = function () {
       UserId: 3,
       comment: 'Nothing useful available here!',
       rating: 1
+    })
+  }
+
+  function createSecurityQuestions () {
+    models.SecurityQuestion.create({
+      question: 'What is your eldest siblings middle name?'
+    })
+  }
+
+  function createSecurityAnswers () {
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 1,
+      UserId: 2,
+      answer: 'Samuel'
     })
   }
 }
