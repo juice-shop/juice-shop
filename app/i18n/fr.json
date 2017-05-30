@@ -113,5 +113,9 @@
   "LABEL_POMACE_QUANTITY":"Pomace Quantity",
   "SECTION_RECYCLING":"Recycling Requests",
   "LABEL_ADDRESS":"Address",
-  "SECTION_PRESS_JUICE_RESPONSIBLY":"Press your juice responsibly"
+  "SECTION_PRESS_JUICE_RESPONSIBLY":"Press your juice responsibly",
+  "LABEL_SECURITY_QUESTION":"Security Question",
+  "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
+  "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
 }
