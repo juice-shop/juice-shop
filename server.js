@@ -139,6 +139,9 @@ app.use('/api/Recycles/:id', insecurity.denyAll())
 /* SecurityQuestions: Only GET list of questions allowed. */
 app.post('/api/SecurityQuestions', insecurity.denyAll())
 app.use('/api/SecurityQuestions/:id', insecurity.denyAll())
+/* SecurityAnswers: Only POST of answer allowed. */
+app.get('/api/SecurityAnswers', insecurity.denyAll())
+app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
@@ -152,7 +155,7 @@ app.use(verify.databaseRelatedChallenges())
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions' ]
+  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers' ]
 }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())

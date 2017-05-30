@@ -10,9 +10,11 @@
                 <p ng-show="form.userPassword.$error.required && form.userPassword.$dirty" translate="MANDATORY_PASSWORD"></p>
                 <p ng-show="(form.userPassword.$error.minlength || form.userPassword.$error.maxlength) && form.userPassword.$dirty" translate="INVALID_PASSWORD_LENGTH" translate-value-length="5-20"></p>
                 <p ng-show="form.userPasswordRepeat.$error.required && form.userPasswordRepeat.$dirty" translate="MANDATORY_PASSWORD_REPEAT"></p>
+                <p ng-show="form.securityQuestion.$error.required && form.securityQuestion.$dirty" translate="MANDATORY_SECURITY_QUESTION"></p>
+                <p ng-show="form.securityAnswer.$error.required && form.securityAnswer.$dirty" translate="MANDATORY_SECURITY_ANSWER"></p>
             </div>
 
-             <div class="container-fluid well" >
+             <div class="container-fluid well">
 
                 <div class="row">
                     <div class="form-group">
@@ -32,6 +34,13 @@
                         <input type="password" class="form-control input-sm" id="userPasswordRepeat" name="userPasswordRepeat" ng-model="user.passwordRepeat" required/>
                     </div>
                 </div>
+                 <div class="row">
+                     <div class="form-group">
+                         <label for="securityQuestion" translate="LABEL_SECURITY_QUESTION"></label> <i class="fa fa-exclamation-triangle fa-sm"></i><small translate="CANNOT_BE_CHANGED_LATER"></small>
+                         <select class="form-control input-sm" id="securityQuestion" name="securityQuestion" ng-model="user.securityQuestion" ng-options="option.question for option in securityQuestions track by option.id" required/>
+                         <input type="text" class="form-control input-sm" id="securityAnswer" name="securityAnswer" ng-model="user.securityAnswer" required/>
+                     </div>
+                 </div>
                 <div class="row">
                     <div class="form-group">
                         <button type="submit" id="registerButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-user-plus fa-lg"></i> <span translate="BTN_REGISTER"></span></button>

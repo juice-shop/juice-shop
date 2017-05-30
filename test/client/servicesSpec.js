@@ -304,4 +304,36 @@ describe('services', function () {
       expect(result).toBe('apiResponse')
     }))
   })
+
+  describe('SecurityQuestionService', function () {
+    it('should be defined', inject(function (SecurityQuestionService) {
+      expect(SecurityQuestionService).toBeDefined()
+      expect(SecurityQuestionService.find).toBeDefined()
+    }))
+
+    it('should get all challenges directly from the rest api', inject(function (SecurityQuestionService) {
+      $httpBackend.whenGET('/api/SecurityQuestions/').respond(200, { data: 'apiResponse' })
+
+      SecurityQuestionService.find().then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+  })
+
+  describe('SecurityAnswerService', function () {
+    it('should be defined', inject(function (SecurityAnswerService) {
+      expect(SecurityAnswerService).toBeDefined()
+      expect(SecurityAnswerService.save).toBeDefined()
+    }))
+
+    it('should create feedback directly via the rest api', inject(function (SecurityAnswerService) {
+      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, {data: 'apiResponse'})
+
+      SecurityAnswerService.save().then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+  })
 })
