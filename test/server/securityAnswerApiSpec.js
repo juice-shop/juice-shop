@@ -11,7 +11,7 @@ frisby.create('GET all security answers is forbidden via public API even when au
   .expectStatus(401)
   .toss()
 
-frisby.create('GET existing security question by id is forbidden via public API even when authenticated')
+frisby.create('GET existing security answer by id is forbidden via public API even when authenticated')
   .addHeaders(authHeader)
   .get(API_URL + '/SecurityAnswers/1')
   .expectStatus(401)
@@ -33,15 +33,15 @@ frisby.create('POST new security answer')
   })
   .toss()
 
-frisby.create('PUT update existing security question is forbidden via public API even when authenticated')
+frisby.create('PUT update existing security answer is forbidden via public API even when authenticated')
   .addHeaders(authHeader)
   .put(API_URL + '/SecurityAnswers/1', {
-    question: 'Your own first name?'
+    answer: 'Blurp'
   }, { json: true })
   .expectStatus(401)
   .toss()
 
-frisby.create('DELETE existing security question is forbidden via public API even when authenticated')
+frisby.create('DELETE existing security answer is forbidden via public API even when authenticated')
   .addHeaders(authHeader)
   .delete(API_URL + '/SecurityAnswers/1')
   .expectStatus(401)
