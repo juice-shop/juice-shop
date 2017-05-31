@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"使用谷歌登录",
   "REMEMBER_ME":"记住用户",
   "NO_CUSTOMER":"还不是消费者？",
-  "LINK_REGISTER":"立即注册",
   "TITLE_REGISTRATION":"新用户注册",
   "INVALID_EMAIL":"电子邮件地址无效",
   "MANDATORY_PASSWORD_REPEAT":"请再次输入你的密码。",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
