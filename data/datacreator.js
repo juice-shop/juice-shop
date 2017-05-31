@@ -442,6 +442,16 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.premiumPaywallChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'Reset Jim\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Jim\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 2,
+      hint: addHint('It\'s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordJimChallenge = challenge
+    })
   }
 
   function createUsers () {

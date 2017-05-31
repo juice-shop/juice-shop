@@ -1,5 +1,7 @@
 'use strict'
 
+var utils = require('../lib/utils')
+var challenges = require('../data/datacache').challenges
 var insecurity = require('../lib/insecurity')
 var models = require('../models/index')
 
@@ -23,6 +25,9 @@ exports = module.exports = function resetPassword () {
         if (insecurity.hmac(answer) === data.answer) {
           models.User.find(data.UserId).success(function (user) {
             user.updateAttributes({ password: newPassword }).success(function (user) {
+              if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
+                utils.solve(challenges.resetPasswordJimChallenge)
+              }
               res.json({user: user})
             }).error(function (error) {
               next(error)
