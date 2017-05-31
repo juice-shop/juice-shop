@@ -28,6 +28,12 @@ exports = module.exports = function resetPassword () {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
+              if (utils.notSolved(challenges.resetPasswordBenderChallenge) && user.id === 3 && answer === 'Stop\'n\'Drop') {
+                utils.solve(challenges.resetPasswordBenderChallenge)
+              }
+              if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
+                utils.solve(challenges.resetPasswordBjoernChallenge)
+              }
               res.json({user: user})
             }).error(function (error) {
               next(error)

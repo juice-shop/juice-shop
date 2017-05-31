@@ -28,4 +28,32 @@ describe('/#/forgot-password', function () {
 
     protractor.expect.challengeSolved({challenge: 'Reset Jim\'s Password'})
   })
+
+  describe('as Bender', function () {
+    it('should be able to reset password with his security answer', function () {
+      email.sendKeys('bender@' + config.get('application.domain'))
+      securityAnswer.sendKeys('Stop\'n\'Drop')
+      newPassword.sendKeys('Brannigan 8=o Leela')
+      newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
+      resetButton.click()
+
+      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Reset Bender\'s Password'})
+  })
+
+  describe('as Bjoern', function () {
+    it('should be able to reset password with his security answer', function () {
+      email.sendKeys('bjoern.kimminich@googlemail.com')
+      securityAnswer.sendKeys('West-2082')
+      newPassword.sendKeys('U37er5en!')
+      newPasswordRepeat.sendKeys('U37er5en!')
+      resetButton.click()
+
+      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Reset Bjoern\'s Password'})
+  })
 })

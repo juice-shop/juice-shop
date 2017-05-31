@@ -452,6 +452,26 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.resetPasswordJimChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'Reset Bender\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Bender\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 3,
+      hint: addHint('Not as trivial as Jim\'s but still not too difficult with some "Futurama" background knowledge.'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordBenderChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'Reset Bjoern\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Bjoern\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 4,
+      hint: addHint('Nothing a little bit of Facebook stalking couldn\'t reveal. Might involve a historical twist.'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordBjoernChallenge = challenge
+    })
   }
 
   function createUsers () {
