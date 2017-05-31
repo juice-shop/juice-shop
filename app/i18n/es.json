@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Iniciar sesión con Google",
   "REMEMBER_ME":"Recordarme",
   "NO_CUSTOMER":"Todavía no es cliente?",
-  "LINK_REGISTER":"Regístrese ahora!",
   "TITLE_REGISTRATION":"Registro",
   "INVALID_EMAIL":"La dirección de correo no es válida.",
   "MANDATORY_PASSWORD_REPEAT":"Por favor, repita su contraseña.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
