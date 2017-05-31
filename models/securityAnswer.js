@@ -5,12 +5,13 @@ var insecurity = require('../lib/insecurity')
 
 module.exports = function (sequelize, DataTypes) {
   var SecurityAnswer = sequelize.define('SecurityAnswer', {
-    answer: DataTypes.STRING
+    answer: DataTypes.STRING,
+    UserId: {type: DataTypes.INTEGER, unique: true}
   },
     {
       classMethods: {
         associate: function (models) {
-          SecurityAnswer.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true, unique: true })
+          SecurityAnswer.belongsTo(models.User)
           SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
         }
       },
