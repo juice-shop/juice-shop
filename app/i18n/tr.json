@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Google ile giriş yapın",
   "REMEMBER_ME":"Beni hatırla",
   "NO_CUSTOMER":"Henüz müşteri değil misiniz?",
-  "LINK_REGISTER":"Şimdi kaydolun!",
   "TITLE_REGISTRATION":"Kullanıcı kaydı",
   "INVALID_EMAIL":"Eposta adresi geçerli değil.",
   "MANDATORY_PASSWORD_REPEAT":"Lütfen parolanızı tekrar edin.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
