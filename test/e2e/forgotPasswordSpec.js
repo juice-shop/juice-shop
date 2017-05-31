@@ -47,8 +47,8 @@ describe('/#/forgot-password', function () {
     it('should be able to reset password with his security answer', function () {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       securityAnswer.sendKeys('West-2082')
-      newPassword.sendKeys('U37er5en!')
-      newPasswordRepeat.sendKeys('U37er5en!')
+      newPassword.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      newPasswordRepeat.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
       resetButton.click()
 
       expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
