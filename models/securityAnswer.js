@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          SecurityAnswer.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
+          SecurityAnswer.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true, unique: true })
           SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
         }
       },

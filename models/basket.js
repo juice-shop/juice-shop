@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Basket.belongsTo(models.User)
+          Basket.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
           Basket.hasMany(models.Product, {through: models.BasketItem})
         }}}
     )
