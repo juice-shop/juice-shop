@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Google အေကာင့္ျဖင့္ဝင္မည္",
   "REMEMBER_ME":"အေကာင့္ကို မွတ္ထားမည္",
   "NO_CUSTOMER":"ဝယ္ေနက်မဟုတ္ဘူးလား?",
-  "LINK_REGISTER":"အေကာင့္ျပဳလုပ္မည္ !",
   "TITLE_REGISTRATION":"အေကာင့္ျပဳလုပ္ျခင္း",
   "INVALID_EMAIL":"အီးေမလ္ လိပ္စာမွားေနပါသည္",
   "MANDATORY_PASSWORD_REPEAT":"ေက်းဇူးျပဳ၍ လ်ွိဳ႕ဝွက္စကားလံုးအား ထပ္မံထည့္သြင္းပါ",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
