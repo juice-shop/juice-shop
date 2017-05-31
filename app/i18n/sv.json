@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Logga in med Google",
   "REMEMBER_ME":"Förbli inloggad",
   "NO_CUSTOMER":"Ny kund?",
-  "LINK_REGISTER":"Registrera dig nu!",
   "TITLE_REGISTRATION":"Användarregistrering",
   "INVALID_EMAIL":"E-postadressen är ogiltig.",
   "MANDATORY_PASSWORD_REPEAT":"Lösenorden matchar inte.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
