@@ -17,7 +17,7 @@ frisby.create('GET existing security answer by id is forbidden via public API ev
   .expectStatus(401)
   .toss()
 
-frisby.create('POST new security answer')
+frisby.create('POST new security answer for existing user fails from unique constraint')
   .addHeaders(authHeader)
   .post(API_URL + '/SecurityAnswers', {
     UserId: 1,
@@ -26,12 +26,34 @@ frisby.create('POST new security answer')
   }, { json: true })
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    createdAt: String,
-    updatedAt: String
+  .expectJSON('message', {
+    code: 'SQLITE_CONSTRAINT'
   })
   .toss()
+
+frisby.create('For a newly registered user')
+  .post(API_URL + '/Users', {
+    email: 'new.user@te.st',
+    password: '12345'
+  }, { json: true })
+  .expectStatus(200)
+  .afterJSON(function (user) {
+    frisby.create('POST new security answer')
+      .addHeaders(authHeader)
+      .post(API_URL + '/SecurityAnswers', {
+        UserId: user.id,
+        SecurityQuestionId: 1,
+        answer: 'Horst'
+      }, { json: true })
+      .expectStatus(200)
+      .expectHeaderContains('content-type', 'application/json')
+      .expectJSONTypes('data', {
+        id: Number,
+        createdAt: String,
+        updatedAt: String
+      })
+      .toss()
+  }).toss()
 
 frisby.create('PUT update existing security answer is forbidden via public API even when authenticated')
   .addHeaders(authHeader)
