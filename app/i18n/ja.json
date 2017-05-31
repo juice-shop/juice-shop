@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Googleでログインする",
   "REMEMBER_ME":"ログイン情報を記憶する",
   "NO_CUSTOMER":"会員登録はお済みですか?",
-  "LINK_REGISTER":"今すぐ登録する!",
   "TITLE_REGISTRATION":"ユーザー登録",
   "INVALID_EMAIL":"メールアドレスが正しくありません",
   "MANDATORY_PASSWORD_REPEAT":"パスワードを再入力してください",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
