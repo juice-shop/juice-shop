@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Autentificare cu Google",
   "REMEMBER_ME":"Ţine-mă minte",
   "NO_CUSTOMER":"Încă nu sunteți client?",
-  "LINK_REGISTER":"Înregistrați-vă acum!",
   "TITLE_REGISTRATION":"Înregistrare Utilizator",
   "INVALID_EMAIL":"Adresa de e-mail nu este validă.",
   "MANDATORY_PASSWORD_REPEAT":"Vă rugăm să repetaţi parola.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
