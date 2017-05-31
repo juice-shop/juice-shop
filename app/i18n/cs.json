@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Přihlásit se přes Google",
   "REMEMBER_ME":"Pamatovat přihlášení",
   "NO_CUSTOMER":"Nejste zákazník?",
-  "LINK_REGISTER":"Registrujte se!",
   "TITLE_REGISTRATION":"Registrace uživatele",
   "INVALID_EMAIL":"E-mailová adresa je neplatná.",
   "MANDATORY_PASSWORD_REPEAT":"Zopakujte prosím své heslo.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
