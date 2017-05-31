@@ -53,6 +53,15 @@ angular.module('juiceShop').factory('UserService', ['$http', '$q', function ($ht
     return updatedUser.promise
   }
 
+  function resetPassword (params) {
+    var updatedUser = $q.defer()
+    $http.post('/rest/user/reset-password', params).success(function (data) {
+      updatedUser.resolve(data.user)
+    }).error(function (err) {
+      updatedUser.reject(err)
+    })
+    return updatedUser.promise
+  }
   function whoAmI () {
     var currentUser = $q.defer()
     $http.get('/rest/user/whoami').success(function (data) {
@@ -79,6 +88,7 @@ angular.module('juiceShop').factory('UserService', ['$http', '$q', function ($ht
     save: save,
     login: login,
     changePassword: changePassword,
+    resetPassword: resetPassword,
     whoAmI: whoAmI,
     oauthLogin: oauthLogin
   }

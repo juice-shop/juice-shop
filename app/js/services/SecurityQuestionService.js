@@ -13,7 +13,18 @@ angular.module('juiceShop').factory('SecurityQuestionService', ['$http', '$q', f
     return securityQuestions.promise
   }
 
+  function findBy (email) {
+    var securityQuestion = $q.defer()
+    $http.get('rest/user/security-question?email=' + email).success(function (data) {
+      securityQuestion.resolve(data.question)
+    }).error(function (err) {
+      securityQuestion.reject(err)
+    })
+    return securityQuestion.promise
+  }
+
   return {
-    find: find
+    find: find,
+    findBy: findBy
   }
 }])
