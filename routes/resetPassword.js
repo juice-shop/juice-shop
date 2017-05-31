@@ -2,7 +2,6 @@
 
 var insecurity = require('../lib/insecurity')
 var models = require('../models/index')
-var cache = require('../data/datacache')
 
 exports = module.exports = function resetPassword () {
   return function (req, res, next) {
