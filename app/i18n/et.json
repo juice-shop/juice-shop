@@ -13,7 +13,6 @@
   "BTN_GOOGLE_LOGIN":"Log in with Google",
   "REMEMBER_ME":"Remember me",
   "NO_CUSTOMER":"Pole veel klient?",
-  "LINK_REGISTER":"Registreeri nüüd!",
   "TITLE_REGISTRATION":"User Registration",
   "INVALID_EMAIL":"Email address is not valid.",
   "MANDATORY_PASSWORD_REPEAT":"Please repeat your password.",
@@ -117,5 +116,7 @@
   "LABEL_SECURITY_QUESTION":"Security Question",
   "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question."
+  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
+  "FORGOT_PASSWORD":"Forgot your password?",
+  "TITLE_FORGOT_PASSWORD":"Forgot Password"
 }
