@@ -106,7 +106,8 @@
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
-    "stryker-karma-runner": "~0"
+    "stryker-karma-runner": "~0",
+    "stryker-mocha-runner": "~0"
   },
   "peerDependencies": {
     "phantomjs-prebuilt": "~2.1"
@@ -128,7 +129,7 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
-    "stryker": "stryker run stryker.conf.js"
+    "stryker": "stryker run stryker.client-conf.js"
   },
   "engines": {
     "node": "~4 ~6 ~7"
