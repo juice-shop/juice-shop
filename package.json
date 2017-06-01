@@ -90,7 +90,10 @@
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
-    "stryker-karma-runner": "~0"
+    "stryker-karma-runner": "~0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "chai": "^3.5.0"
   },
   "peerDependencies": {
     "phantomjs-prebuilt": "~2.1"
@@ -106,7 +109,7 @@
   "scripts": {
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js ",
+    "test": "standard && karma start karma.conf.js && nyc mocha test/server",
     "frisby": "istanbul cover ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
@@ -143,5 +146,18 @@
       "beforeEach",
       "afterEach"
     ]
+  },
+  "nyc": {
+    "include": [
+      "data/*.js",
+      "lib/*.js",
+      "models/*.js",
+      "routes/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "report-dir": "./build/reports/coverage/server-tests"
   }
 }

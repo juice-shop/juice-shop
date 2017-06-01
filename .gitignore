@@ -2,6 +2,7 @@
 *.out
 build/
 .stryker-tmp/
+.nyc_output/
 vagrant/.vagrant/
 juiceshop.sqlite
 
