@@ -114,9 +114,9 @@
   "LABEL_ADDRESS":"Anschrift",
   "SECTION_PRESS_JUICE_RESPONSIBLY":"Presse deinen Saft verantwortungsvoll",
   "LABEL_SECURITY_QUESTION":"Sicherheitsfrage",
-  "CANNOT_BE_CHANGED_LATER":"This cannot be changed later!",
-  "MANDATORY_SECURITY_QUESTION":"Please select a security question.",
-  "MANDATORY_SECURITY_ANSWER":"Please provide an answer to your security question.",
-  "FORGOT_PASSWORD":"Forgot your password?",
-  "TITLE_FORGOT_PASSWORD":"Forgot Password"
+  "CANNOT_BE_CHANGED_LATER":"Diese kann später nicht geändert werden!",
+  "MANDATORY_SECURITY_QUESTION":"Bitte wählen Sie eine Sicherheitsfrage.",
+  "MANDATORY_SECURITY_ANSWER":"Bitte geben Sie eine Antwort auf Ihre Sicherheitsfrage.",
+  "FORGOT_PASSWORD":"Passwort vergessen?",
+  "TITLE_FORGOT_PASSWORD":"Passwort vergessen"
 }
