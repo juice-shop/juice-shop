@@ -106,7 +106,8 @@
   "scripts": {
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+    "test": "standard && karma start karma.conf.js ",
+    "frisby": "istanbul cover ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
