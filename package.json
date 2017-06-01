@@ -5,8 +5,19 @@
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
-    "Bjoern Kimminich", "Aaron Edwards", "Alec Brooks", "Dinis Cruz", "Timo Pagel", "Gorka Vicente", "Alvaro Viebrantz",
-    "Johanna A", "Stephen OBrien", "Joe Butler", "Abhishek bundela", "ninoseki", "Jannik Hollenbach"
+    "Bjoern Kimminich",
+    "Aaron Edwards",
+    "Alec Brooks",
+    "Dinis Cruz",
+    "Timo Pagel",
+    "Gorka Vicente",
+    "Alvaro Viebrantz",
+    "Johanna A",
+    "Stephen OBrien",
+    "Joe Butler",
+    "Abhishek bundela",
+    "ninoseki",
+    "Jannik Hollenbach"
   ],
   "private": true,
   "keywords": [
@@ -63,6 +74,7 @@
     "z85": "~0.0"
   },
   "devDependencies": {
+    "chai": "~3.5",
     "codeclimate-test-reporter": "~0.4",
     "cross-spawn": "~5.1",
     "form-data": "~1.0",
@@ -81,19 +93,20 @@
     "karma-phantomjs-launcher": "~1.0",
     "karma-safari-launcher": "~1.0",
     "lcov-result-merger": "~1.2",
+    "mocha": "~3.2",
+    "nyc": "~10.1",
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~4.0",
     "shelljs": "~0.7",
+    "sinon": "~2.3",
+    "sinon-chai": "~2.10",
     "socket.io-client": "~1.7",
     "standard": "~8.6",
     "stryker": "~0",
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
-    "stryker-karma-runner": "~0",
-    "mocha": "^3.2.0",
-    "nyc": "^10.1.2",
-    "chai": "^3.5.0"
+    "stryker-karma-runner": "~0"
   },
   "peerDependencies": {
     "phantomjs-prebuilt": "~2.1"
