@@ -448,6 +448,7 @@ module.exports = function () {
       description: 'Reset Jim\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
       difficulty: 2,
       hint: addHint('It\'s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-jims-password-via-the-forgot-password-mechanism'),
       solved: false
     }).success(function (challenge) {
       challenges.resetPasswordJimChallenge = challenge
@@ -458,6 +459,7 @@ module.exports = function () {
       description: 'Reset Bender\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
       difficulty: 3,
       hint: addHint('Not as trivial as Jim\'s but still not too difficult with some "Futurama" background knowledge.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-benders-password-via-the-forgot-password-mechanism'),
       solved: false
     }).success(function (challenge) {
       challenges.resetPasswordBenderChallenge = challenge
@@ -468,6 +470,7 @@ module.exports = function () {
       description: 'Reset Bjoern\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
       difficulty: 4,
       hint: addHint('Nothing a little bit of Facebook stalking couldn\'t reveal. Might involve a historical twist.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-bjoerns-password-via-the-forgot-password-mechanism'),
       solved: false
     }).success(function (challenge) {
       challenges.resetPasswordBjoernChallenge = challenge
