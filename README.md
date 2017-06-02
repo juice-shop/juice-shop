@@ -268,7 +268,7 @@ Ordered by date of first contribution.
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 
-## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
+## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
