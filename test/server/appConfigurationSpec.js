@@ -7,7 +7,6 @@ chai.use(sinonChai)
 describe('appConfiguration', function () {
   it('should return configuration object', function () {
     var retrieveAppConfiguration = require('../../routes/appConfiguration')
-
     var req = {}
     var res = { json: sinon.spy() }
 
