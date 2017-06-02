@@ -40,6 +40,7 @@
     "config": "~1.26",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
+    "dottie": "~2.0",
     "errorhandler": "~1.5",
     "express": "~4.15",
     "express-jwt": "~5.3",
