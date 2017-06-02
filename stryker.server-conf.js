@@ -7,9 +7,12 @@ module.exports = function (config) {
       { pattern: 'lib/*.js', mutated: true, included: false },
       { pattern: 'models/*.js', mutated: true, included: false },
       { pattern: 'routes/*.js', mutated: true, included: false },
+      { pattern: 'node_modules/**/*.js', included: false, mutated: false },
+      { pattern: 'node_modules/**/*.json', included: false, mutated: false },
       { pattern: 'config/default.yml', included: false, mutated: false },
       { pattern: 'app/index.html', included: false, mutated: false },
       { pattern: 'package.json', included: false, mutated: false },
+      { pattern: 'ctf.key', included: false, mutated: false },
       'test/server/*Spec.js'
     ],
     testRunner: 'mocha',
