@@ -6,7 +6,7 @@ chai.use(sinonChai)
 
 describe('verify', function () {
   var verify = require('../../routes/verify')
-  var challenges, req, res, next
+  var challenges, req, res, next, err
   var save = function () { return {success: function () {}} }
 
   beforeEach(function () {
@@ -16,7 +16,7 @@ describe('verify', function () {
     next = sinon.spy()
   })
 
-  describe('forgedFeedbackChallenge', function () {
+  describe('"forgedFeedbackChallenge"', function () {
     beforeEach(function () {
       require('../../lib/insecurity').authenticatedUsers.put('token12345', {
         data: {
@@ -27,7 +27,7 @@ describe('verify', function () {
       challenges.forgedFeedbackChallenge = { solved: false, save: save }
     })
 
-    it('should not be solved when an authenticated user passes his own ID when writing feedback', function () {
+    it('is not solved when an authenticated user passes his own ID when writing feedback', function () {
       req.body.UserId = 42
       req.headers = { authorization: 'Bearer token12345' }
 
@@ -36,7 +36,7 @@ describe('verify', function () {
       expect(challenges.forgedFeedbackChallenge.solved).to.be.false
     })
 
-    it('should not be solved when an authenticated user passes no ID when writing feedback', function () {
+    it('is not solved when an authenticated user passes no ID when writing feedback', function () {
       req.body.UserId = undefined
       req.headers = { authorization: 'Bearer token12345' }
 
@@ -45,7 +45,7 @@ describe('verify', function () {
       expect(challenges.forgedFeedbackChallenge.solved).to.be.false
     })
 
-    it('should be solved when an authenticated user passes someone elses ID when writing feedback', function () {
+    it('is solved when an authenticated user passes someone elses ID when writing feedback', function () {
       req.body.UserId = 1
       req.headers = { authorization: 'Bearer token12345' }
 
@@ -54,7 +54,7 @@ describe('verify', function () {
       expect(challenges.forgedFeedbackChallenge.solved).to.be.true
     })
 
-    it('should be solved when an unauthenticated user passes someones ID when writing feedback', function () {
+    it('is solved when an unauthenticated user passes someones ID when writing feedback', function () {
       req.body.UserId = 1
       req.headers = { }
 
@@ -62,5 +62,107 @@ describe('verify', function () {
 
       expect(challenges.forgedFeedbackChallenge.solved).to.be.true
     })
+  })
+
+  describe('accessControlChallenges', function () {
+    it('"scoreBoardChallenge" is solved when the scoreBoard.png transpixel is requested', function () {
+      challenges.scoreBoardChallenge = { solved: false, save: save }
+      req.url = 'http://juice-sh.op/public/images/tracking/scoreboard.png'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      expect(challenges.scoreBoardChallenge.solved).to.be.true
+    })
+
+    it('"adminSectionChallenge" is solved when the administration.png transpixel is requested', function () {
+      challenges.adminSectionChallenge = { solved: false, save: save }
+      req.url = 'http://juice-sh.op/public/images/tracking/administration.png'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      expect(challenges.adminSectionChallenge.solved).to.be.true
+    })
+
+    it('"geocitiesThemeChallenge" is solved when the microfab.gif image is requested', function () {
+      challenges.geocitiesThemeChallenge = { solved: false, save: save }
+      req.url = 'http://juice-sh.op/public/images/tracking/microfab.gif'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      expect(challenges.geocitiesThemeChallenge.solved).to.be.true
+    })
+
+    it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', function () {
+      challenges.extraLanguageChallenge = { solved: false, save: save }
+      req.url = 'http://juice-sh.op/public/i18n/tlh.json'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      expect(challenges.extraLanguageChallenge.solved).to.be.true
+    })
+  })
+
+  describe('"errorHandlingChallenge"', function () {
+    beforeEach(function () {
+      challenges.errorHandlingChallenge = { solved: false, save: save }
+    })
+
+    it('is solved when an error occurs on a response with OK 200 status code', function () {
+      res.statusCode = 200
+      err = new Error()
+
+      verify.errorHandlingChallenge()(err, req, res, next)
+
+      expect(challenges.errorHandlingChallenge.solved).to.be.true
+    })
+
+    describe('is solved when an error occurs on a response with error', function () {
+      const httpStatus = [402, 403, 404, 500]
+      httpStatus.forEach(function (statusCode) {
+        it(statusCode + ' status code', function () {
+          res.statusCode = statusCode
+          err = new Error()
+
+          verify.errorHandlingChallenge()(err, req, res, next)
+
+          expect(challenges.errorHandlingChallenge.solved).to.be.true
+        })
+      })
+    })
+
+    it('is not solved when no error occurs on a response with OK 200 status code', function () {
+      res.statusCode = 200
+      err = undefined
+
+      verify.errorHandlingChallenge()(err, req, res, next)
+
+      expect(challenges.errorHandlingChallenge.solved).to.be.false
+    })
+
+    describe('is not solved when no error occurs on a response with error', function () {
+      const httpStatus = [401, 402, 404, 500]
+      httpStatus.forEach(function (statusCode) {
+        it(statusCode + ' status code', function () {
+          res.statusCode = statusCode
+          err = undefined
+
+          verify.errorHandlingChallenge()(err, req, res, next)
+
+          expect(challenges.errorHandlingChallenge.solved).to.be.false
+        })
+      })
+    })
+
+    it('should pass occured error on to next route', function () {
+      res.statusCode = 500
+      err = new Error()
+
+      verify.errorHandlingChallenge()(err, req, res, next)
+
+      expect(next).to.have.been.calledWith(err)
+    })
+  })
+
+  describe('databaseRelatedChallenges', function () {
   })
 })
