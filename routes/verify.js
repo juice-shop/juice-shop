@@ -13,7 +13,7 @@ exports.forgedFeedbackChallenge = function () {
     if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
       var user = insecurity.authenticatedUsers.from(req)
       var userId = user ? user.data.id : undefined
-      if (req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
+      if (req.body.UserId && req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
         utils.solve(challenges.forgedFeedbackChallenge)
       }
     }
