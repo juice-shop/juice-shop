@@ -12,10 +12,12 @@ where this project was mentioned!
 > view them before tackling these challenges yourself!
 
 ## Web Links
+
 * Blog Post on
   [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
   ([Peerlyst cross-post](https://www.peerlyst.com/posts/owasp-juice-shop-vulnerable-webapp-stuart-winter-tear))
+* Blog post on [OWASP Summit 2017](https://owaspsummit.org): [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
   [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
@@ -65,8 +67,8 @@ where this project was mentioned!
 
 * [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/)
   by Timo Pagel,
-  [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/)
-  10.10.2017
+  [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/), 10.10.2017
+* [Juice Shop](https://owaspsummit.org/Working-Sessions/Owasp-Projects/Juice-Shop.html) and related working sessions, [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
 * [Update on OWASP Projects & Conferences](https://www.owasp.org/index.php/London#Thursday.2C_18th_May_2017_.28Central_London.29)
   by Sam Stepanyan,
   [OWASP London Chapter](https://www.owasp.org/index.php/London#OWASP_London)
