@@ -164,5 +164,38 @@ describe('verify', function () {
   })
 
   describe('databaseRelatedChallenges', function () {
+    describe('"changeProductChallenge"', function () {
+      var products
+
+      beforeEach(function () {
+        challenges.changeProductChallenge = { solved: false, save: save }
+        products = require('../../data/datacache').products
+        products.osaft = { reload: function () { return { success: function (cb) { cb() } } } }
+      })
+
+      it('is solved when the link in the O-Saft product goes to http://kimminich.de', function () {
+        products.osaft.description = 'O-Saft, yeah! <a href="http://kimminich.de" target="_blank">More...</a>'
+
+        verify.databaseRelatedChallenges()(req, res, next)
+
+        expect(challenges.changeProductChallenge.solved).to.be.true
+      })
+
+      it('is not solved when the link in the O-Saft product is changed to an arbitrary URL', function () {
+        products.osaft.description = 'O-Saft, nooo! <a href="http://arbitrary.url" target="_blank">More...</a>'
+
+        verify.databaseRelatedChallenges()(req, res, next)
+
+        expect(challenges.changeProductChallenge.solved).to.be.false
+      })
+
+      it('is not solved when the link in the O-Saft product remained unchanged', function () {
+        products.osaft.description = 'Vanilla O-Saft! <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+
+        verify.databaseRelatedChallenges()(req, res, next)
+
+        expect(challenges.changeProductChallenge.solved).to.be.false
+      })
+    })
   })
 })
