@@ -51,8 +51,9 @@ overview please visit the official project page:
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
 3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
-4. Browse to <http://localhost:3000> 
-   (on macOS and Windows browse to <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation )
+4. Browse to <http://localhost:3000> (on macOS and Windows browse to
+   <http://192.168.99.100:3000> if you are using docker-machine instead
+   of the native docker installation )
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -137,9 +138,12 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 ## Customization
 
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel. Please refer to
-[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
-examples.
+customized in its content and look & feel. For detailed instructions and
+examples please refer to
+[the "Customization" chapter of our companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+
+> Kudos for envisioning and original implementation of this feature go
+> to [@wurstbrot](https://github.com/wurstbrot)!
 
 ## CTF-Extension
 
