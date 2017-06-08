@@ -28,37 +28,23 @@ below to make sure your PR can be merged and doesn't break anything.
 
 This repository is maintained in a simplified
 [Git-Flow](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/)
-fashion: All active development happens on the `develop` branch
-while `master` is used to deploy stable versions to the
+fashion: All active development happens on the `develop` branch while
+`master` is used to deploy stable versions to the
 [Heroku demo instance](https://juice-shop.herokuapp.com) and later
 create tagged releases from.
 
 ### Pull Requests
 
 Using Git-Flow means that PRs have the highest chance of getting
-accepted and merged when you open them on the `develop` branch of
-your fork. That allows for some post-merge changes by the team without
+accepted and merged when you open them on the `develop` branch of your
+fork. That allows for some post-merge changes by the team without
 directly compromising the `master` branch, which is supposed to hold
 always be in a release-ready state.
 
-## Unit & Integration Tests
+## JavaScript Standard Style Guide
 
-There is a full suite containing
-
-* independent unit tests for the client-side code
-* integration tests for the server-side API
-
-These tests verify if the normal use cases of the application work. All
-server-side vulnerabilities are also tested.
-
-```
-npm test
-```
-
-### JavaScript Standard Style Guide
-
-Since v2.7.0 the `npm test` script verifies code complicance with the
-`standard` style before running the tests. If PRs deviate from this
+Since v2.7.0 the `npm test` script also verifies code complicance with
+the `standard` style before running the tests. If PRs deviate from this
 coding style, they will now immediately fail their build and will not be
 merged until compliant.
 
@@ -69,9 +55,43 @@ merged until compliant.
 > style issues automatically without breaking your code. You might need
 > to `npm i -g standard` first.
 
-## End-to-end Tests
+## Testing
 
-The e2e test suite verifies if all client- and server-side
+Pull Requests are verified to pass all of the following test stages
+during the
+[continuous integration build](https://travis-ci.org/bkimminich/juice-shop).
+It is recommended that you run these tests on your local computer to
+verify they pass before submitting a PR. New features should be
+accompanied by an appropriate number of corresponding tests to verify
+they behave as intended.
+
+### Unit Tests
+
+There is a full suite containing isolated unit tests
+
+* for all client-side code in `test/client`
+* for the server-side routes and libraries in `test/server`
+
+```
+npm test
+```
+
+### Integration Tests
+
+The integration tests in `test/api` verify if the backend for all normal
+use cases of the application works. All server-side vulnerabilities are
+also tested.
+
+```
+npm run frisby
+```
+
+> These tests automatically start a server and run the tests against it.
+> A working internet connection is recommended.
+
+### End-to-end Tests
+
+The e2e test suite in `test/e2e` verifies if all client- and server-side
 vulnerabilities are exploitable. It passes only when all challenges are
 solvable on the score board.
 
@@ -82,7 +102,7 @@ npm run protractor
 > The e2e tests require a working internet connection in order to verify
 > the redirect challenges!
 
-## Mutation Tests
+### Mutation Tests
 
 The [mutation tests](https://en.wikipedia.org/wiki/Mutation_testing)
 ensure the quality of the unit test suite by making small changes to the
@@ -94,16 +114,18 @@ npm run stryker
 ```
 
 > Currently only the client-side unit tests are covered by mutation
-> tests. The server-side and end-to-end tests are not suitable for
+> tests. The integration and end-to-end tests are not suitable for
 > mutation testing because they run against a real server instance with
-> dependencies to the database and an internet connection.
+> dependencies to the database and an internet connection. The mutation
+> tests are intentionally not executed on Travis-CI due to their
+> significant execution time.
 
 ## Test Packaged Distrubution
 
-During releases the application will be packaged into
-`.zip`/`.tgz` archives for another easy setup method. When you
-contribute a change that impacts what the application needs to include,
-make sure you test this manually on your system.
+During releases the application will be packaged into `.zip`/`.tgz`
+archives for another easy setup method. When you contribute a change
+that impacts what the application needs to include, make sure you test
+this manually on your system.
 
 ```
 grunt package
