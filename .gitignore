@@ -22,6 +22,7 @@ out/
 # NPM
 node_modules/
 npm-debug.log.*
+package-lock.json
 
 # Bower
 app/bower_components/
