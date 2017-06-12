@@ -3,6 +3,7 @@ node_js:
 - 4
 - 6  # recommended version
 - 7
+- 8
 branches:
   except:
   - gh-pages
