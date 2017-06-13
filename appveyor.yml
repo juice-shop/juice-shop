@@ -14,7 +14,6 @@ environment:
     - nodejs_version: 8
 platform:
   - x64
-  - x86
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - node --version && npm --version
