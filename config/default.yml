@@ -5,8 +5,8 @@ application:
   name: "OWASP Juice Shop"
   logo: "JuiceShop_Logo.png"
   favicon: "favicon_v2.ico"
-  numberOfRandomFakeUsers: 100
-  showChallengeSolvedNotifications: false
+  numberOfRandomFakeUsers: 0
+  showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
   showGitHubRibbon: true
   showChallengeHints: true
