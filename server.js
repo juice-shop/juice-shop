@@ -210,9 +210,6 @@ exports.start = function (readyCallback) {
       datacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
-        io.on('connection', function (socket) {
-          socket.emit('server started')
-        })
         if (readyCallback) {
           readyCallback()
         }
