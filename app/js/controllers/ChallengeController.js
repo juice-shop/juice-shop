@@ -30,33 +30,6 @@ angular.module('juiceShop').controller('ChallengeController', [
       }
     }
 
-    $scope.saveProgress = function () {
-      $scope.savedContinueCode = $scope.currentContinueCode
-      $scope.error = undefined
-      $scope.form.$setPristine()
-
-      var expireDate = new Date()
-      expireDate.setDate(expireDate.getDate() + 30)
-      $cookies.put('continueCode', $scope.savedContinueCode, { expires: expireDate })
-    }
-
-    $scope.restoreProgress = function () {
-      challengeService.restoreProgress(encodeURIComponent($scope.savedContinueCode)).then(function () {
-        $cookies.remove('continueCode')
-        $scope.savedContinueCode = undefined
-        $scope.error = undefined
-        $scope.form.$setPristine()
-      }).catch(function (error) {
-        console.log(error)
-        $translate('INVALID_CONTINUE_CODE').then(function (invalidContinueCode) {
-          $scope.error = invalidContinueCode
-        }, function (translationId) {
-          $scope.error = translationId
-        })
-        $scope.form.$setPristine()
-      })
-    }
-
     $scope.trustDescriptionHtml = function () {
       for (var i = 0; i < $scope.challenges.length; i++) {
         $scope.challenges[i].description = $sce.trustAsHtml($scope.challenges[i].description)
@@ -97,11 +70,4 @@ angular.module('juiceShop').controller('ChallengeController', [
         $scope.calculateProgressPercentage()
       }
     })
-
-    challengeService.continueCode().then(function (continueCode) {
-      $scope.currentContinueCode = continueCode
-    }).catch(function (err) {
-      console.log(err)
-    })
-    $scope.savedContinueCode = $cookies.get('continueCode')
   }])

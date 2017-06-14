@@ -37,7 +37,6 @@ describe('controllers', function () {
     }))
 
     it('should receive multiple "challenge solved" notifications', inject(function () {
-      $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {}, hidden: false })
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
@@ -45,7 +44,6 @@ describe('controllers', function () {
     }))
 
     it('should hold a message notification after receiving one', inject(function () {
-      $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
       expect(scope.notifications[ 0 ].message).toBe('CHALLENGE_SOLVED')
@@ -53,14 +51,12 @@ describe('controllers', function () {
 
     it('should translate CHALLENGE_SOLVED message', inject(function () {
       $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'CHALLENGE_SOLVED': 'Translation of CHALLENGE_SOLVED'})
-      $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
       expect(scope.notifications[ 0 ].message).toBe('Translation of CHALLENGE_SOLVED')
     }))
 
     it('should remove a notification on closing it', inject(function () {
-      $httpBackend.flush()
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
       expect(scope.notifications.length).toBe(1)
@@ -69,38 +65,51 @@ describe('controllers', function () {
     }))
 
     it('should hold no message after receiving an empty notification', inject(function () {
-      $httpBackend.flush()
       socket.receive('challenge solved', { })
+      $httpBackend.flush()
       expect(scope.notifications.length).toBe(0)
     }))
 
     it('should hold no message after receiving an undefined notification', inject(function () {
-      $httpBackend.flush()
       socket.receive('challenge solved', undefined)
+      $httpBackend.flush()
       expect(scope.notifications.length).toBe(0)
     }))
 
     it('should hold no message after receiving another type of notification', inject(function () {
-      $httpBackend.flush()
       socket.receive('definitely NOT challenge solved', {})
+      $httpBackend.flush()
       expect(scope.notifications.length).toBe(0)
     }))
 
-    it('should hold no notifications in case "hidden" is true', inject(function () {
-      $httpBackend.flush()
+    it('should show no notifications when these are supposed to be hidden', inject(function () {
+      scope.showNotification = jasmine.createSpy('showNotification')
       socket.receive('challenge solved', { challenge: {}, hidden: true })
-      expect(scope.notifications.length).toBe(0)
+      $httpBackend.flush()
+      expect(scope.showNotification).not.toHaveBeenCalled()
+    }))
+
+    it('should not save progress while restore is happening', inject(function () {
+      scope.saveProgress = jasmine.createSpy('saveProgress')
+      socket.receive('challenge solved', { challenge: {}, isRestore: true })
+      $httpBackend.flush()
+      expect(scope.saveProgress).not.toHaveBeenCalled()
+    }))
+
+    it('should save progress even when notifications are hidden', inject(function () {
+      scope.saveProgress = jasmine.createSpy('saveProgress')
+      socket.receive('challenge solved', { challenge: {}, hidden: true, isRestore: false })
+      $httpBackend.flush()
+      expect(scope.saveProgress).toHaveBeenCalled()
     }))
 
     it('should fetch a new continue token once a challenge is completed', inject(function () {
-      $httpBackend.flush()
       $httpBackend.expectGET('/rest/continue-code')
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
     }))
 
     it('saved the continue code into a cookie', inject(function () {
-      $httpBackend.flush()
       cookies.put = jasmine.createSpy('put')
       scope.saveProgress()
       $httpBackend.flush()
