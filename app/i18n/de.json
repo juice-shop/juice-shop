@@ -118,5 +118,6 @@
   "MANDATORY_SECURITY_QUESTION":"Bitte wählen Sie eine Sicherheitsfrage.",
   "MANDATORY_SECURITY_ANSWER":"Bitte geben Sie eine Antwort auf Ihre Sicherheitsfrage.",
   "FORGOT_PASSWORD":"Passwort vergessen?",
-  "TITLE_FORGOT_PASSWORD":"Passwort vergessen"
+  "TITLE_FORGOT_PASSWORD":"Passwort vergessen",
+  "NOTIFICATION_SERVER_STARTED":"The server has been restarted! Your hacking progress has been restored automatically."
 }
