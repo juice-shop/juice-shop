@@ -475,6 +475,17 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.resetPasswordBjoernChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'Find JWT Secret',
+      category: 'Weak Security Mechanism',
+      description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment.)',
+      difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
+      solved: false
+    }).success(function (challenge) {
+      challenges.jwtSecretChallenge = challenge
+    })
   }
 
   function createUsers () {

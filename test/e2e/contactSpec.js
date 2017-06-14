@@ -1,6 +1,7 @@
 'use strict'
 
 var config = require('config')
+var insecurity = require('../../lib/insecurity')
 
 describe('/#/contact', function () {
   var comment, rating, submitButton
@@ -111,6 +112,17 @@ describe('/#/contact', function () {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
+  })
+
+  describe('challenge "jwtSecretCrypto"', function () {
+    it('should be possible to post secret JWT token as feedback', function () {
+      comment.sendKeys('The JWT token secret is ' + insecurity.defaultSecret)
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Find JWT Secret' })
   })
 
   describe('challenge "zeroStars"', function () {
