@@ -50,6 +50,7 @@ var io = require('socket.io')(server)
 var replace = require('replace')
 var appConfiguration = require('./routes/appConfiguration')
 const config = require('config')
+var firstConnectedSocket = null
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -188,6 +189,12 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 io.on('connection', function (socket) {
+  // notify only first client to connect about server start
+  if (firstConnectedSocket === null) {
+    socket.emit('server started')
+    firstConnectedSocket = socket.id
+  }
+
   // send all outstanding notifications on (re)connect
   notifications.forEach(function (notification) {
     socket.emit('challenge solved', notification)

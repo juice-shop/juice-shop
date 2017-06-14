@@ -142,6 +142,12 @@
 
 <h1 class="hidden" ng-bind="applicationName"></h1><!-- for SEO -->
 
+<div class="container" ng-controller="ServerStartedNotificationController">
+    <div uib-alert ng-show="serverStartedMessage" ng-class="'alert alert-warning'" close="closeNotification()">
+        {{serverStartedMessage}}
+    </div>
+</div>
+
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
     <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">
         {{notification.message}}<br>
