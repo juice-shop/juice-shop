@@ -119,6 +119,7 @@
   "standard": {
     "ignore": [
       "/app/private/**"
+      "/vagrant/**"
     ],
     "env": [
       "jasmine",
