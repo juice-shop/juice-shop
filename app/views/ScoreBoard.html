@@ -13,7 +13,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <button type="submit" id="saveProgressButton" class="btn btn-success" ng-click="saveProgress()"><i class="fa fa-floppy-o fa-lg"></i> <span translate="BTN_SAVE_PROGRESS"></span></button>
+                        <button type="submit" id="saveProgressButton" class="btn btn-success" ng-disabled="!currentContinueCode" ng-click="saveProgress()"><i class="fa fa-floppy-o fa-lg"></i> <span translate="BTN_SAVE_PROGRESS"></span></button>
                         <button type="submit" id="restoreProgressButton" class="btn btn-danger" ng-disabled="!savedContinueCode" ng-click="restoreProgress()"><i class="fa fa-medkit fa-lg"></i> <span translate="BTN_RESTORE_PROGRESS"></span></button>
                     </div>
                 </div>

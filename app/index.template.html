@@ -144,7 +144,7 @@
 
 <div class="container" ng-controller="ServerStartedNotificationController">
     <div uib-alert ng-show="serverStartedMessage" ng-class="'alert alert-warning'" close="closeNotification()">
-        {{serverStartedMessage}}
+        <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{serverStartedMessage}}
     </div>
 </div>
 
