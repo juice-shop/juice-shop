@@ -118,7 +118,7 @@
   },
   "standard": {
     "ignore": [
-      "/app/private/**"
+      "/app/private/**",
       "/vagrant/**"
     ],
     "env": [
