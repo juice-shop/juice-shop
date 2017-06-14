@@ -44,9 +44,13 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
     }
 
     socket.on('challenge solved', function (data) {
-      if (data && data.challenge && !data.hidden) {
-        $scope.showNotification(data)
-        $scope.saveProgress()
+      if (data && data.challenge) {
+        if (!data.hidden) {
+          $scope.showNotification(data)
+        }
+        if (!data.isRestore) {
+          $scope.saveProgress()
+        }
         socket.emit('notification received', data.flag)
       }
     })
