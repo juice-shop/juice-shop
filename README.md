@@ -156,7 +156,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
    of the repository)
 3. Run `cd vagrant && vagrant up`
 4. Browse to <192.168.33.10>
-To show the impact of XSS, you can call [Evil JavaScript Link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple) and login. The evil guy installed also a [Logger](http://192.168.33.10/logger.php)
+>To show the impact of XSS, you can call [Evil JavaScript Link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple) and login. The evil guy installed also a [Logger](http://192.168.33.10/logger.php)
 
 ## Customization
 
