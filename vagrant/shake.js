@@ -3,7 +3,7 @@
  * Original Author: Alex Gibson
  */
 var table = $(".table");
-var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rooten! Go to <a href='http://www.ebay.com'>www.ebay.com</a></h1>").hide();
+var hacked = $("<h1 style='padding:10px;color:red;'>All juices are rotten! Go to <a href='http://www.ebay.com'>www.ebay.com</a></h1>").hide();
 table.after(hacked);
 if (function () {
         function e() {
