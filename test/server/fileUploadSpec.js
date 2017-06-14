@@ -1,63 +1,65 @@
-var frisby = require('frisby')
-var fs = require('fs')
-var path = require('path')
-var FormData = require('form-data')
+var sinon = require('sinon')
+var chai = require('chai')
+var sinonChai = require('sinon-chai')
+var expect = chai.expect
+chai.use(sinonChai)
 
-var URL = 'http://localhost:3000'
+describe('fileUpload', function () {
+  var fileUpload, challenges, req, res
+  var save = function () { return {success: function () {}} }
 
-var invalidSizeForClient = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
-var validSizeForServerForm = new FormData()
-validSizeForServerForm.append('file', fs.createReadStream(invalidSizeForClient), {
-  knownLength: fs.statSync(invalidSizeForClient).size
-})
-
-frisby.create('POST file too large for client validation but valid for API')
-  .post(URL + '/file-upload',
-    validSizeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + validSizeForServerForm.getBoundary(),
-      'content-length': validSizeForServerForm.getLengthSync()
-    }
+  beforeEach(function () {
+    fileUpload = require('../../routes/fileUpload')
+    challenges = require('../../data/datacache').challenges
+    res = { status: sinon.stub() }
+    res.status.returns({ end: function () {} })
+    req = { file: { originalname: '' } }
   })
-  .expectStatus(204)
-  .toss()
 
-var invalidTypeForClient = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
-var validTypeForServerForm = new FormData()
-validTypeForServerForm.append('file', fs.createReadStream(invalidTypeForClient), {
-  knownLength: fs.statSync(invalidTypeForClient).size
-})
+  it('should simply end HTTP response with status 204 "No Content"', function () {
+    fileUpload()(req, res)
 
-frisby.create('POST file with illegal type for client validation but valid for API')
-  .post(URL + '/file-upload',
-    validTypeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + validTypeForServerForm.getBoundary(),
-      'content-length': validTypeForServerForm.getLengthSync()
-    }
+    expect(res.status).to.have.been.calledWith(204)
   })
-  .expectStatus(204)
-  .toss()
 
-var invalidSizeForServer = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
-var invalidSizeForServerForm = new FormData()
-invalidSizeForServerForm.append('file', fs.createReadStream(invalidSizeForServer), {
-  knownLength: fs.statSync(invalidSizeForServer).size
-})
+  describe('should not solve "uploadSizeChallenge" when file size is', function () {
+    const sizes = [0, 1, 100, 1000, 10000, 99999, 100000]
+    sizes.forEach(function (size) {
+      it(size + ' bytes', function () {
+        challenges.uploadSizeChallenge = { solved: false, save: save }
+        req.file.size = size
 
-frisby.create('POST file too large for API')
-  .post(URL + '/file-upload',
-    invalidSizeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + invalidSizeForServerForm.getBoundary(),
-      'content-length': invalidSizeForServerForm.getLengthSync()
-    }
+        fileUpload()(req, res)
+
+        expect(challenges.uploadSizeChallenge.solved).to.be.false
+      })
+    })
   })
-  .expectStatus(500)
-  .toss()
+
+  it('should solve "uploadSizeChallenge" when file size exceeds 100000 bytes', function () {
+    challenges.uploadSizeChallenge = { solved: false, save: save }
+    req.file.size = 100001
+
+    fileUpload()(req, res)
+
+    expect(challenges.uploadSizeChallenge.solved).to.be.true
+  })
+
+  it('should solve "uploadTypeChallenge" when file type is not PDF', function () {
+    challenges.uploadTypeChallenge = { solved: false, save: save }
+    req.file.originalname = 'hack.exe'
+
+    fileUpload()(req, res)
+
+    expect(challenges.uploadTypeChallenge.solved).to.be.true
+  })
+
+  it('should not solve "uploadTypeChallenge" when file type is PDF', function () {
+    challenges.uploadTypeChallenge = { solved: false, save: save }
+    req.file.originalname = 'hack.pdf'
+
+    fileUpload()(req, res)
+
+    expect(challenges.uploadTypeChallenge.solved).to.be.false
+  })
+})

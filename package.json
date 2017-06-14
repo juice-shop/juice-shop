@@ -1,12 +1,23 @@
 {
   "name": "juice-shop",
-  "version": "3.3.0-SNAPSHOT",
+  "version": "4.0.0-SNAPSHOT",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
-    "Bjoern Kimminich", "Aaron Edwards", "Alec Brooks", "Dinis Cruz", "Timo Pagel", "Gorka Vicente", "Alvaro Viebrantz",
-    "Johanna A", "Stephen OBrien", "Joe Butler", "Abhishek bundela", "ninoseki", "Jannik Hollenbach"
+    "Bjoern Kimminich",
+    "Aaron Edwards",
+    "Alec Brooks",
+    "Dinis Cruz",
+    "Timo Pagel",
+    "Gorka Vicente",
+    "Alvaro Viebrantz",
+    "Johanna A",
+    "Stephen OBrien",
+    "Joe Butler",
+    "Abhishek bundela",
+    "ninoseki",
+    "Jannik Hollenbach"
   ],
   "private": true,
   "keywords": [
@@ -29,6 +40,7 @@
     "config": "~1.26",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
+    "dottie": "~2.0",
     "errorhandler": "~1.5",
     "express": "~4.15",
     "express-jwt": "~5.3",
@@ -63,6 +75,7 @@
     "z85": "~0.0"
   },
   "devDependencies": {
+    "chai": "~3.5",
     "codeclimate-test-reporter": "~0.4",
     "cross-spawn": "~5.1",
     "form-data": "~1.0",
@@ -81,16 +94,21 @@
     "karma-phantomjs-launcher": "~1.0",
     "karma-safari-launcher": "~1.0",
     "lcov-result-merger": "~1.2",
+    "mocha": "~3.2",
+    "nyc": "~10.1",
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~4.0",
     "shelljs": "~0.7",
+    "sinon": "~2.3",
+    "sinon-chai": "~2.10",
     "socket.io-client": "~1.7",
     "standard": "~8.6",
     "stryker": "~0",
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
-    "stryker-karma-runner": "~0"
+    "stryker-karma-runner": "~0",
+    "stryker-mocha-runner": "~0"
   },
   "peerDependencies": {
     "phantomjs-prebuilt": "~2.1"
@@ -106,19 +124,21 @@
   "scripts": {
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && istanbul cover ./test/serverTests.js",
+    "test": "standard && karma start karma.conf.js && nyc mocha test/server",
+    "frisby": "istanbul cover ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
-    "stryker": "stryker run stryker.conf.js"
+    "stryker": "stryker run stryker.client-conf.js"
   },
   "engines": {
-    "node": "~4 ~6 ~7"
+    "node": "~4 ~6 ~8"
   },
   "standard": {
     "ignore": [
-      "/app/private/**"
+      "/app/private/**",
+      "/vagrant/**"
     ],
     "env": [
       "jasmine",
@@ -142,5 +162,17 @@
       "beforeEach",
       "afterEach"
     ]
+  },
+  "nyc": {
+    "include": [
+      "lib/*.js",
+      "routes/*.js"
+    ],
+    "all": true,
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "report-dir": "./build/reports/coverage/server-tests"
   }
 }

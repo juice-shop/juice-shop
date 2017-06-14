@@ -2,6 +2,7 @@
 *.out
 build/
 .stryker-tmp/
+.nyc_output/
 vagrant/.vagrant/
 juiceshop.sqlite
 
@@ -21,6 +22,7 @@ out/
 # NPM
 node_modules/
 npm-debug.log.*
+package-lock.json
 
 # Bower
 app/bower_components/
@@ -71,3 +73,4 @@ config/*.yml
 !config/ctf.yml
 !config/default.yml
 !config/sickshop.yml
+!config/juicebox.yml

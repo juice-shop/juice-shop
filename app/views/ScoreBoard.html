@@ -2,24 +2,6 @@
     <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm" translate="TITLE_SCORE_BOARD"></h3>
 
-        <form role="form" name="form" novalidate>
-            <div class="alert-danger" ng-show="error">
-                <p>{{error}}</p>
-            </div>
-
-            <div class="container-fluid well">
-                <div class="row">
-                    <label translate="LABEL_HACKING_SESSION"></label> <small>(<span translate="CONTINUE_PREVIOUS_SESSION"></span> <i class="fa fa-ambulance"></i>)</small>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <button type="submit" id="saveProgressButton" class="btn btn-success" ng-click="saveProgress()"><i class="fa fa-floppy-o fa-lg"></i> <span translate="BTN_SAVE_PROGRESS"></span></button>
-                        <button type="submit" id="restoreProgressButton" class="btn btn-danger" ng-disabled="!savedContinueCode" ng-click="restoreProgress()"><i class="fa fa-medkit fa-lg"></i> <span translate="BTN_RESTORE_PROGRESS"></span></button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
         <uib-progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></uib-progressbar>
 
         <table class="table table-striped table-bordered table-condensed">

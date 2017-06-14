@@ -88,6 +88,7 @@
                     <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('fi')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> Français</a></li>
+                    <li><a ng-click="changeLanguage('he')"><span class="flag-icon flag-icon-il"></span> עברי <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('hu')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('id')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
                     <li><a ng-click="changeLanguage('it')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fa fa-flask"></i></a></li>
@@ -141,6 +142,12 @@
 </nav>
 
 <h1 class="hidden" ng-bind="applicationName"></h1><!-- for SEO -->
+
+<div class="container" ng-controller="ServerStartedNotificationController">
+    <div uib-alert ng-show="autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
+        <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{autoRestoreMessage}}
+    </div>
+</div>
 
 <div class="container" ng-controller="ChallengeSolvedNotificationController">
     <div uib-alert ng-repeat="notification in notifications" ng-class="'alert alert-success'" close="closeNotification($index)">

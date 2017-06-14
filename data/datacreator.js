@@ -16,6 +16,8 @@ module.exports = function () {
   createProducts()
   createBaskets()
   createFeedback()
+  createSecurityQuestions()
+  createSecurityAnswers()
 
   function createChallenges () {
     const addHint = function (hint) {
@@ -440,6 +442,50 @@ module.exports = function () {
     }).success(function (challenge) {
       challenges.premiumPaywallChallenge = challenge
     })
+    models.Challenge.create({
+      name: 'Reset Jim\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Jim\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 2,
+      hint: addHint('It\'s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-jims-password-via-the-forgot-password-mechanism'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordJimChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'Reset Bender\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Bender\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 3,
+      hint: addHint('Not as trivial as Jim\'s but still not too difficult with some "Futurama" background knowledge.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-benders-password-via-the-forgot-password-mechanism'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordBenderChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'Reset Bjoern\'s Password',
+      category: 'Sensitive Data Exposure',
+      description: 'Reset Bjoern\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
+      difficulty: 4,
+      hint: addHint('Nothing a little bit of Facebook stalking couldn\'t reveal. Might involve a historical twist.'),
+      hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-bjoerns-password-via-the-forgot-password-mechanism'),
+      solved: false
+    }).success(function (challenge) {
+      challenges.resetPasswordBjoernChallenge = challenge
+    })
+    models.Challenge.create({
+      name: 'Find JWT Secret',
+      category: 'Weak Security Mechanism',
+      description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment.)',
+      difficulty: 3,
+      hint: addHint(''),
+      hintUrl: addHint(''),
+      solved: false
+    }).success(function (challenge) {
+      challenges.jwtSecretChallenge = challenge
+    })
   }
 
   function createUsers () {
@@ -601,6 +647,72 @@ module.exports = function () {
       UserId: 3,
       comment: 'Nothing useful available here!',
       rating: 1
+    })
+  }
+
+  function createSecurityQuestions () {
+    models.SecurityQuestion.create({
+      question: 'Your eldest siblings middle name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Mother\'s maiden name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Mother\'s birth date? (MM/DD/YY)'
+    })
+    models.SecurityQuestion.create({
+      question: 'Father\'s birth date? (MM/DD/YY)'
+    })
+    models.SecurityQuestion.create({
+      question: 'Maternal grandmother\'s first name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Paternal grandmother\'s first name?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Name of your favorite pet?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Last name of dentist when you were a teenager? (Do not include \'Dr.\')'
+    })
+    models.SecurityQuestion.create({
+      question: 'Your ZIP/postal code when you were a teenager?'
+    })
+    models.SecurityQuestion.create({
+      question: 'Company you first work for as an adult?'
+    })
+  }
+
+  function createSecurityAnswers () {
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 2,
+      UserId: 1,
+      answer: '@xI98PxDO+06!'
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 1,
+      UserId: 2,
+      answer: 'Samuel' // https://en.wikipedia.org/wiki/James_T._Kirk
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 10,
+      UserId: 3,
+      answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 9,
+      UserId: 4,
+      answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 7,
+      UserId: 5,
+      answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
+    })
+    models.SecurityAnswer.create({
+      SecurityQuestionId: 10,
+      UserId: 6,
+      answer: 'SC OLEA SRL' // http://www.olea.com.ro/
     })
   }
 }

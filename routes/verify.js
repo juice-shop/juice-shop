@@ -13,7 +13,7 @@ exports.forgedFeedbackChallenge = function () {
     if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
       var user = insecurity.authenticatedUsers.from(req)
       var userId = user ? user.data.id : undefined
-      if (req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
+      if (req.body.UserId && req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
         utils.solve(challenges.forgedFeedbackChallenge)
       }
     }
@@ -76,6 +76,14 @@ exports.databaseRelatedChallenges = function () {
       ).success(function (data) {
         if (data.count > 0) {
           utils.solve(challenges.weirdCryptoChallenge)
+        }
+      })
+    }
+    if (utils.notSolved(challenges.jwtSecretChallenge)) {
+      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' ]) }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.jwtSecretChallenge)
         }
       })
     }

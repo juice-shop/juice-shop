@@ -9,7 +9,7 @@ module.exports = function (config) {
     coverageAnalysis: 'perTest',
     reporter: ['html', 'progress'],
     htmlReporter: {
-      baseDir: 'build/reports/mutation'
+      baseDir: 'build/reports/mutation/client'
     }
   })
   if (process.env.TRAVIS_BUILD_NUMBER) {

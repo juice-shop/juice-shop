@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     {
       classMethods: {
         associate: function (models) {
-          Feedback.belongsTo(models.User)
+          Feedback.belongsTo(models.User) // no FK constraint to allow anonymous feedback posts
         }
       },
 

@@ -46,6 +46,11 @@ angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) 
     controller: 'ChangePasswordController'
   })
 
+  $routeProvider.when('/forgot-password', {
+    templateUrl: 'views/ForgotPassword.html',
+    controller: 'ForgotPasswordController'
+  })
+
   $routeProvider.when('/score-board', {
     templateUrl: 'views/ScoreBoard.html',
     controller: 'ChallengeController'

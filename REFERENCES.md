@@ -3,7 +3,7 @@
 Did you write a blog post, magazine article or do a podcast about or
 mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
 goes for conference or meetup talks, workshops or trainings you did
-where this project was mentioned!
+where this project was mentioned or used!
 
 > **Spoiler Warning!** :bulb: indicates resources that contain _hints
 > for solving challenges_ of the OWASP Juice Shop. These are supposed to
@@ -12,8 +12,13 @@ where this project was mentioned!
 > view them before tackling these challenges yourself!
 
 ## Web Links
-* Blog Post on [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
+
+* Blog Post on
+  [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
+  ([Peerlyst cross-post](https://www.peerlyst.com/posts/owasp-juice-shop-vulnerable-webapp-stuart-winter-tear))
+* Blog post on [OWASP Summit 2017](https://owaspsummit.org):
+  [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
   [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
@@ -57,14 +62,25 @@ where this project was mentioned!
 * Teaser post on [Björn Kimminich's Blog](http://kimminich.de):
   [Juice Shop](https://kimminich.wordpress.com/2015/06/15/juice-shop)
 
+## Lectures and Trainings
+
+* [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing) (:es:)
+  by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
+  [OWASP Uruguay Chapter](https://www.owasp.org/index.php/Uruguay)
+* [Security in Web Applications](https://drive.google.com/drive/folders/0B2KKdB7MPO7xTEwtWkkwTnl5VFk) by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
+* [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264) by Björn Kimminich
+
 ## Conference and Meetup Appearances
 
 #### 2017
 
 * [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/)
   by Timo Pagel,
-  [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/)
+  [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
+* [Juice Shop](https://owaspsummit.org/Working-Sessions/Owasp-Projects/Juice-Shop.html)
+  and related working sessions,
+  [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
 * [Update on OWASP Projects & Conferences](https://www.owasp.org/index.php/London#Thursday.2C_18th_May_2017_.28Central_London.29)
   by Sam Stepanyan,
   [OWASP London Chapter](https://www.owasp.org/index.php/London#OWASP_London)

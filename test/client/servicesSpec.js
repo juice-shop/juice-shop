@@ -291,6 +291,7 @@ describe('services', function () {
   describe('RecycleService', function () {
     it('should be defined', inject(function (RecycleService) {
       expect(RecycleService).toBeDefined()
+      expect(RecycleService.find).toBeDefined()
       expect(RecycleService.save).toBeDefined()
     }))
 
@@ -298,6 +299,48 @@ describe('services', function () {
       $httpBackend.whenPOST('/api/Recycles/').respond(200, { data: 'apiResponse' })
 
       RecycleService.save().then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+  })
+
+  describe('SecurityQuestionService', function () {
+    it('should be defined', inject(function (SecurityQuestionService) {
+      expect(SecurityQuestionService).toBeDefined()
+      expect(SecurityQuestionService.find).toBeDefined()
+      expect(SecurityQuestionService.findBy).toBeDefined()
+    }))
+
+    it('should get all challenges directly from the rest api', inject(function (SecurityQuestionService) {
+      $httpBackend.whenGET('/api/SecurityQuestions/').respond(200, { data: 'apiResponse' })
+
+      SecurityQuestionService.find().then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+
+    it('should get security question by user email directly from the rest api', inject(function (SecurityQuestionService) {
+      $httpBackend.whenGET(/rest\/user\/security-question\?email=x@y\.z/).respond(200, { question: 'apiResponse' })
+
+      SecurityQuestionService.findBy('x@y.z').then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+  })
+
+  describe('SecurityAnswerService', function () {
+    it('should be defined', inject(function (SecurityAnswerService) {
+      expect(SecurityAnswerService).toBeDefined()
+      expect(SecurityAnswerService.save).toBeDefined()
+    }))
+
+    it('should create feedback directly via the rest api', inject(function (SecurityAnswerService) {
+      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, {data: 'apiResponse'})
+
+      SecurityAnswerService.save().then(function (data) { result = data })
       $httpBackend.flush()
 
       expect(result).toBe('apiResponse')
