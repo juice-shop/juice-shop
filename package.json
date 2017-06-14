@@ -133,7 +133,7 @@
     "stryker": "stryker run stryker.client-conf.js"
   },
   "engines": {
-    "node": "~4 ~6 ~7 ~8"
+    "node": "~4 ~6 8"
   },
   "standard": {
     "ignore": [
