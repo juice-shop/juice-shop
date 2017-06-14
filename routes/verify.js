@@ -80,7 +80,7 @@ exports.databaseRelatedChallenges = function () {
       })
     }
     if (utils.notSolved(challenges.jwtSecretChallenge)) {
-      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%'+insecurity.defaultSecret+'%\'' ]) }
+      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' ]) }
       ).success(function (data) {
         if (data.count > 0) {
           utils.solve(challenges.jwtSecretChallenge)
