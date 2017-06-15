@@ -1,8 +1,8 @@
 {
   "LANGUAGE":"עברי",
-  "NAV_SEARCH":"Search",
+  "NAV_SEARCH":"חיפוש",
   "SEARCH_PLACEHOLDER":"חיפוש...",
-  "NAV_COMPLAIN":"Complain?",
+  "NAV_COMPLAIN":"תלונה?",
   "RIBBON_GITHUB_FORK":"{{fork}} me on {{github}}",
   "TITLE_LOGIN":"Login",
   "MANDATORY_EMAIL":"Please provide an email address.",
