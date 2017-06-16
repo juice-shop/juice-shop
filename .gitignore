@@ -74,3 +74,4 @@ config/*.yml
 !config/default.yml
 !config/sickshop.yml
 !config/juicebox.yml
+!config/quiet.yml

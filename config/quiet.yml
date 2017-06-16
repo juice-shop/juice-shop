@@ -1,0 +1,4 @@
+application:
+  showChallengeSolvedNotifications: false
+  showGitHubRibbon: false
+  showChallengeHints: false
