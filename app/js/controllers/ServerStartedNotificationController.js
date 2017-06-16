@@ -15,7 +15,6 @@ angular.module('juiceShop').controller('ServerStartedNotificationController', [
       var continueCode = $cookies.get('continueCode')
       if (continueCode) {
         challengeService.restoreProgress(encodeURIComponent(continueCode)).then(function () {
-          $cookies.remove('continueCode')
           $translate('AUTO_RESTORED_PROGRESS').then(function (notificationServerStarted) {
             $scope.autoRestoreMessage = notificationServerStarted
           }, function (translationId) {

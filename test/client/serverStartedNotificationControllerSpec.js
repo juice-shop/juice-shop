@@ -29,14 +29,14 @@ describe('controllers', function () {
       expect(scope.closeNotification).toBeDefined()
     }))
 
-    it('should clear cookie after successfully restoring progress on server start', inject(function () {
+    it('should keep continue code cookie after successfully restoring progress on server start', inject(function () {
       $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
 
       cookies.put('continueCode', 'CODE')
       socket.receive('server started')
       $httpBackend.flush()
 
-      expect(cookies.get('continueCode')).toBeUndefined()
+      expect(cookies.get('continueCode')).toBe('CODE')
     }))
 
     it('should set auto-restore success-message when progress restore succeeds', inject(function () {
@@ -90,18 +90,6 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(scope.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
-    }))
-
-    it('should clear cookie after closing the notification', inject(function () {
-      $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
-
-      cookies.put('continueCode', 'CODE')
-      socket.receive('server started')
-      $httpBackend.flush()
-
-      scope.closeNotification()
-
-      expect(cookies.get('continueCode')).toBeUndefined()
     }))
 
     it('do nothing if continueCode cookie is not present', inject(function () {
