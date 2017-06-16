@@ -155,12 +155,10 @@
 
         <div ng-show="showCtfFlagsInNotifications">
             <i class="fa fa-flag-checkered"></i> {{notification.flag}}
-            <button class="btn btn-primary btn-xs"
-                    ngclipboard data-clipboard-text="{{notification.flag}}"
-                    ngclipboard-success="notification.copyText = 'Copied!'"
-            >
+            <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true">
                 <i class="fa fa-clipboard" aria-hidden="true"></i>
-                <span translate="{{ notification.copyText ? 'COPY_SUCCESS' : 'COPY_TO_CLIPBOARD'}}"></span>
+                <span translate="COPY_SUCCESS" ng-show="notification.copied"></span>
+                <span translate="COPY_TO_CLIPBOARD" ng-show="!notification.copied"></span>
             </button>
         </div>
     </div>
