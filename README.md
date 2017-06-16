@@ -251,17 +251,12 @@ project.
 
 ## Contributors
 
-Ordered by date of first contribution.
-[Auto-generated](https://github.com/dtrejo/node-authors) on Wed, 19 Apr
-2017 08:32:58 GMT.
+Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun 2017 11:20:02 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka
-  `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Alec Brooks](https://github.com/alecbrooks) aka `alecbrooks`
+- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
@@ -269,10 +264,11 @@ Ordered by date of first contribution.
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
+- [Viktor Lindström](https://github.com/ViktorLindstrm) aka `ViktorLindstrm`
+- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
