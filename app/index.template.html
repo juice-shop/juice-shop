@@ -144,7 +144,7 @@
 <h1 class="hidden" ng-bind="applicationName"></h1><!-- for SEO -->
 
 <div class="container" ng-controller="ServerStartedNotificationController">
-    <div uib-alert ng-show="autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
+    <div uib-alert ng-show="showCtfFlagsInNotifications && autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
         <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{autoRestoreMessage}}
     </div>
 </div>
