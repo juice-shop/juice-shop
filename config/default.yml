@@ -10,7 +10,7 @@ application:
   showCtfFlagsInNotifications: false
   showGitHubRibbon: true
   showChallengeHints: true
-  theme: "slate"
+  theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  README.md  sandstone  simplex  slate  spacelab  superhero  united  yeti
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
 products:
