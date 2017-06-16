@@ -16,7 +16,7 @@ exports = module.exports = function restoreProgress () {
       for (var name in challenges) {
         if (challenges.hasOwnProperty(name)) {
           if (ids.indexOf(challenges[ name ].id) > -1) {
-            utils.solve(challenges[ name ])
+            utils.solve(challenges[ name ], true)
           }
         }
       }
