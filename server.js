@@ -188,28 +188,6 @@ app.use(angular())
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
-io.on('connection', function (socket) {
-  // notify only first client to connect about server start
-  if (firstConnectedSocket === null) {
-    socket.emit('server started')
-    firstConnectedSocket = socket.id
-  }
-
-  // send all outstanding notifications on (re)connect
-  notifications.forEach(function (notification) {
-    socket.emit('challenge solved', notification)
-  })
-
-  socket.on('notification received', function (data) {
-    var i = notifications.findIndex(function (element) {
-      return element.flag === data
-    })
-    if (i > -1) {
-      notifications.splice(i, 1)
-    }
-  })
-})
-
 exports.start = function (readyCallback) {
   if (!this.server) {
     models.sequelize.drop()
@@ -217,6 +195,27 @@ exports.start = function (readyCallback) {
       datacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
+        io.on('connection', function (socket) {
+          // notify only first client to connect about server start
+          if (firstConnectedSocket === null) {
+            socket.emit('server started')
+            firstConnectedSocket = socket.id
+          }
+
+          // send all outstanding notifications on (re)connect
+          notifications.forEach(function (notification) {
+            socket.emit('challenge solved', notification)
+          })
+
+          socket.on('notification received', function (data) {
+            var i = notifications.findIndex(function (element) {
+              return element.flag === data
+            })
+            if (i > -1) {
+              notifications.splice(i, 1)
+            }
+          })
+        })
         if (readyCallback) {
           readyCallback()
         }
