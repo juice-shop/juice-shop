@@ -189,39 +189,32 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 exports.start = function (readyCallback) {
-  if (!this.server) {
-    models.sequelize.drop()
-    models.sequelize.sync().success(function () {
-      datacreator()
-      this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
-        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
-        io.on('connection', function (socket) {
-          // notify only first client to connect about server start
-          if (firstConnectedSocket === null) {
-            socket.emit('server started')
-            firstConnectedSocket = socket.id
-          }
+  function registerWebsocketEvents () {
+    io.on('connection', function (socket) {
+      // notify only first client to connect about server start
+      if (firstConnectedSocket === null) {
+        socket.emit('server started')
+        firstConnectedSocket = socket.id
+      }
 
-          // send all outstanding notifications on (re)connect
-          notifications.forEach(function (notification) {
-            socket.emit('challenge solved', notification)
-          })
+      // send all outstanding notifications on (re)connect
+      notifications.forEach(function (notification) {
+        socket.emit('challenge solved', notification)
+      })
 
-          socket.on('notification received', function (data) {
-            var i = notifications.findIndex(function (element) {
-              return element.flag === data
-            })
-            if (i > -1) {
-              notifications.splice(i, 1)
-            }
-          })
+      socket.on('notification received', function (data) {
+        var i = notifications.findIndex(function (element) {
+          return element.flag === data
         })
-        if (readyCallback) {
-          readyCallback()
+        if (i > -1) {
+          notifications.splice(i, 1)
         }
       })
     })
-    fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function () {
+  }
+
+  function populateIndexTemplate () {
+    fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, function () {
       if (config.get('application.logo')) {
         var logo = config.get('application.logo')
         if (utils.startsWith(logo, 'http')) {
@@ -230,13 +223,40 @@ exports.start = function (readyCallback) {
           utils.downloadToFile(logoPath, 'app/public/images/' + logo)
         }
         var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-        replace({ regex: /<img class="navbar-brand navbar-logo"(.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
+        replace({
+          regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
+          replacement: logoImageTag,
+          paths: [ 'app/index.html' ],
+          recursive: false,
+          silent: true
+        })
       }
       if (config.get('application.theme')) {
         var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-        replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+        replace({
+          regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
+          replacement: themeCss,
+          paths: [ 'app/index.html' ],
+          recursive: false,
+          silent: true
+        })
       }
     })
+  }
+
+  if (!this.server) {
+    models.sequelize.drop()
+    models.sequelize.sync().success(function () {
+      datacreator()
+      this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
+        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
+        registerWebsocketEvents()
+        if (readyCallback) {
+          readyCallback()
+        }
+      })
+    })
+    populateIndexTemplate()
   }
 }
 
