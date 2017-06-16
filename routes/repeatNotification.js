@@ -8,7 +8,7 @@ exports = module.exports = function repeatNotification () {
     var challenge = utils.findChallenge(challengeName)
 
     if (challenge && challenge.solved) {
-      utils.notify(challenge, true)
+      utils.sendNotification(challenge, true)
     }
 
     res.sendStatus(200)
