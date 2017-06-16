@@ -7,8 +7,15 @@ angular.module('juiceShop').controller('ServerStartedNotificationController', [
   function ($scope, $translate, $cookies, challengeService, socket) {
     'use strict'
 
+    $scope.hackingProgress = { }
+
     $scope.closeNotification = function () {
-      $scope.autoRestoreMessage = null
+      $scope.hackingProgress.autoRestoreMessage = null
+    }
+
+    $scope.clearProgress = function () {
+      $cookies.remove('continueCode')
+      $scope.hackingProgress.cleared = true
     }
 
     socket.on('server started', function () {
@@ -16,16 +23,16 @@ angular.module('juiceShop').controller('ServerStartedNotificationController', [
       if (continueCode) {
         challengeService.restoreProgress(encodeURIComponent(continueCode)).then(function () {
           $translate('AUTO_RESTORED_PROGRESS').then(function (notificationServerStarted) {
-            $scope.autoRestoreMessage = notificationServerStarted
+            $scope.hackingProgress.autoRestoreMessage = notificationServerStarted
           }, function (translationId) {
-            $scope.autoRestoreMessage = translationId
+            $scope.hackingProgress.autoRestoreMessage = translationId
           })
         }).catch(function (error) {
           console.log(error)
           $translate('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).then(function (notificationServerStarted) {
-            $scope.autoRestoreMessage = notificationServerStarted
+            $scope.hackingProgress.autoRestoreMessage = notificationServerStarted
           }, function (translationId) {
-            $scope.autoRestoreMessage = translationId
+            $scope.hackingProgress.autoRestoreMessage = translationId
           })
         })
       }

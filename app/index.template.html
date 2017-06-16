@@ -144,8 +144,13 @@
 <h1 class="hidden" ng-bind="applicationName"></h1><!-- for SEO -->
 
 <div class="container" ng-controller="ServerStartedNotificationController">
-    <div uib-alert ng-show="autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
-        <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{autoRestoreMessage}}
+    <div uib-alert ng-show="hackingProgress.autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
+        <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{hackingProgress.autoRestoreMessage}}
+        <button class="btn btn-primary btn-xs" ng-click="clearProgress()">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            <span translate="RESTART_REQUIRED" ng-show="hackingProgress.cleared"></span>
+            <span translate="RESET_HACKING_PROGRESS" ng-show="!hackingProgress.cleared"></span>
+        </button>
     </div>
 </div>
 
