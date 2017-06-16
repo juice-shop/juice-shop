@@ -121,5 +121,7 @@
   "TITLE_FORGOT_PASSWORD":"Passwort vergessen",
   "NOTIFICATION_SERVER_STARTED":"The server has been restarted",
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
-  "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}"
+  "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
+  "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
+  "RESTART_REQUIRED":"Restart application to start over"
 }
