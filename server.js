@@ -66,6 +66,17 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
   }
 })
 
+// Init the MongoDB Driver and the associated Models
+require('./mongoose/index')
+
+var showProductReviews = require('./routes/showProductReviews')
+var createProductReviews = require('./routes/createProductReviews')
+var updateProductReviews = require('./routes/updateProductReviews')
+
+// Check on each request weather there was a direct access to the mongodb
+var checkForDirectMongoAccess = require('./mongoose/directAccessCheck')
+app.use(checkForDirectMongoAccess)
+
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
 app.use(cors())
@@ -155,6 +166,12 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
+
+// routes for the NoSql parts of the application
+app.get('/rest/product/:id/reviews', showProductReviews())
+app.put('/rest/product/:id/reviews', createProductReviews())
+app.patch('/rest/product/reviews', updateProductReviews())
+
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',

@@ -488,6 +488,34 @@ function createChallenges () {
   }).success(function (challenge) {
     challenges.jwtSecretChallenge = challenge
   })
+  models.Challenge.create({
+    name: 'NoSql Command Injection',
+    category: 'NoSQL Injections',
+    description: 'Let the server sleep for some time. It has done more then enough for you.',
+    // TODO See if hint are required
+    difficulty: 2,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlCommandChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'NoSql Injection',
+    category: 'NoSQL Injections',
+    description: 'Change more than one comment for a product at a time.',
+    difficulty: 2,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlInjectionChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'NoSql Direct Access',
+    category: 'NoSQL Injections',
+    description: 'Write any Message in the Secrets Collection of the MongoDB',
+    difficulty: 4,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlDirectAccess = challenge
+  })
 }
 
 function createUsers () {
