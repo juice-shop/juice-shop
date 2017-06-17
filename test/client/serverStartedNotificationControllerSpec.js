@@ -46,7 +46,7 @@ describe('controllers', function () {
       socket.receive('server started')
       $httpBackend.flush()
 
-      expect(scope.autoRestoreMessage).toBe('AUTO_RESTORED_PROGRESS')
+      expect(scope.hackingProgress.autoRestoreMessage).toBe('AUTO_RESTORED_PROGRESS')
     }))
 
     it('should translate AUTO_RESTORED_PROGRESS message', inject(function () {
@@ -57,7 +57,7 @@ describe('controllers', function () {
       socket.receive('server started')
       $httpBackend.flush()
 
-      expect(scope.autoRestoreMessage).toBe('Translation of AUTO_RESTORED_PROGRESS')
+      expect(scope.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORED_PROGRESS')
     }))
 
     it('should log errors during automatic progress restore directly to browser console', inject(function () {
@@ -78,7 +78,7 @@ describe('controllers', function () {
       socket.receive('server started')
       $httpBackend.flush()
 
-      expect(scope.autoRestoreMessage).toBe('AUTO_RESTORE_PROGRESS_FAILED')
+      expect(scope.hackingProgress.autoRestoreMessage).toBe('AUTO_RESTORE_PROGRESS_FAILED')
     }))
 
     it('should translate AUTO_RESTORE_PROGRESS_FAILED message including the returned error', inject(function () {
@@ -89,7 +89,7 @@ describe('controllers', function () {
       socket.receive('server started')
       $httpBackend.flush()
 
-      expect(scope.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
+      expect(scope.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
     }))
 
     it('do nothing if continueCode cookie is not present', inject(function () {
