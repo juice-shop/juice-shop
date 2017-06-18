@@ -66,6 +66,7 @@ app/public/images/products/*.*
 !app/public/images/products/undefined.png
 !app/public/images/products/white_raffards.jpg
 !app/public/images/products/woodruff_syrup.jpg
+!app/public/images/products/3d_keychain.jpg
 
 # Custom configuration files
 config/*.yml
