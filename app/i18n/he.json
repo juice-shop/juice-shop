@@ -82,7 +82,7 @@
   "STATUS_UNSOLVED":"לא נפתר",
   "STATUS_SOLVED":"נפתר",
   "CALL_FOR_CONTRIBUTIONS":"יש לך רעיון לאתגר חדש? מצאת חשיפה שלא נמצאת ברשימה? אפשר ליידע אותנו באמצעות צ'אט הקהילה {{gitter}} או על-ידי פתיחת באג ב{{github}}!",
-  "CHALLENGE_SOLVED":"You successfully solved a challenge: {{challenge}}",
+  "CHALLENGE_SOLVED":"פתרת בהצלחה אתגר: {{challenge}}",
   "LABEL_HACKING_SESSION":"Your Hacking Session",
   "CONTINUE_PREVIOUS_SESSION":"Conveniently save your hacking progress to restore it later.",
   "BTN_SAVE_PROGRESS":"Save Progress",
