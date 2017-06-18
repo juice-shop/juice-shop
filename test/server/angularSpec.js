@@ -27,7 +27,7 @@ describe('angular', function () {
 
     serveAngularClient()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
@@ -36,7 +36,7 @@ describe('angular', function () {
 
     serveAngularClient()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 })

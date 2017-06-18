@@ -45,7 +45,7 @@ describe('fileServer', function () {
 
     servePublicFiles()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
@@ -54,7 +54,7 @@ describe('fileServer', function () {
 
     servePublicFiles()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
@@ -65,7 +65,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]acquisitions\.md/))
-    expect(challenges.directoryListingChallenge.solved).to.be.true
+    expect(challenges.directoryListingChallenge.solved).to.equal(true)
   })
 
   it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', function () {
@@ -75,7 +75,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]eastere\.gg/))
-    expect(challenges.easterEggLevelOneChallenge.solved).to.be.true
+    expect(challenges.easterEggLevelOneChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', function () {
@@ -85,7 +85,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]package\.json\.bak/))
-    expect(challenges.forgottenDevBackupChallenge.solved).to.be.true
+    expect(challenges.forgottenDevBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', function () {
@@ -95,7 +95,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
-    expect(challenges.forgottenBackupChallenge.solved).to.be.true
+    expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .md', function () {
@@ -106,7 +106,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
-    expect(challenges.forgottenBackupChallenge.solved).to.be.true
+    expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', function () {
@@ -117,7 +117,7 @@ describe('fileServer', function () {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
-    expect(challenges.forgottenBackupChallenge.solved).to.be.true
+    expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should fail to exploit "md_debug" parameter bug on non-Markdown file', function () {
@@ -127,8 +127,8 @@ describe('fileServer', function () {
 
     servePublicFiles()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
-    expect(challenges.forgottenDevBackupChallenge.solved).to.be.false
+    expect(challenges.forgottenDevBackupChallenge.solved).to.equal(false)
   })
 })

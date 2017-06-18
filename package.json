@@ -3,9 +3,9 @@
   "version": "4.1.0-SNAPSHOT",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
-  "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
+  "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
-    "Bjoern Kimminich",
+    "Björn Kimminich",
     "Aaron Edwards",
     "Alec Brooks",
     "Dinis Cruz",
@@ -104,7 +104,7 @@
     "sinon": "~2.3",
     "sinon-chai": "~2.10",
     "socket.io-client": "~1.7",
-    "standard": "~8.6",
+    "standard": "~10",
     "stryker": "~0",
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
@@ -142,27 +142,16 @@
       "/app/private/**",
       "/vagrant/**"
     ],
-    "env": [
-      "jasmine",
-      "node",
-      "browser"
-    ],
+    "env": {
+    "jasmine": true,
+    "node": true,
+    "browser": true,
+    "mocha": true,
+    "protractor": true
+    },
     "globals": [
       "angular",
-      "$",
-      "browser",
-      "protractor",
-      "it",
-      "xit",
-      "element",
-      "by",
-      "expect",
-      "describe",
-      "jasmine",
-      "inject",
-      "spyOn",
-      "beforeEach",
-      "afterEach"
+      "inject"
     ]
   },
   "nyc": {

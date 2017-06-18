@@ -26,6 +26,6 @@ describe('premiumReward', function () {
 
     servePremiumContent()(req, res)
 
-    expect(challenges.premiumPaywallChallenge.solved).to.be.true
+    expect(challenges.premiumPaywallChallenge.solved).to.equal(true)
   })
 })

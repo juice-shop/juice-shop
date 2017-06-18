@@ -31,7 +31,7 @@ describe('fileUpload', function () {
 
         fileUpload()(req, res)
 
-        expect(challenges.uploadSizeChallenge.solved).to.be.false
+        expect(challenges.uploadSizeChallenge.solved).to.equal(false)
       })
     })
   })
@@ -42,7 +42,7 @@ describe('fileUpload', function () {
 
     fileUpload()(req, res)
 
-    expect(challenges.uploadSizeChallenge.solved).to.be.true
+    expect(challenges.uploadSizeChallenge.solved).to.equal(true)
   })
 
   it('should solve "uploadTypeChallenge" when file type is not PDF', function () {
@@ -51,7 +51,7 @@ describe('fileUpload', function () {
 
     fileUpload()(req, res)
 
-    expect(challenges.uploadTypeChallenge.solved).to.be.true
+    expect(challenges.uploadTypeChallenge.solved).to.equal(true)
   })
 
   it('should not solve "uploadTypeChallenge" when file type is PDF', function () {
@@ -60,6 +60,6 @@ describe('fileUpload', function () {
 
     fileUpload()(req, res)
 
-    expect(challenges.uploadTypeChallenge.solved).to.be.false
+    expect(challenges.uploadTypeChallenge.solved).to.equal(false)
   })
 })
