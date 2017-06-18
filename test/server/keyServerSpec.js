@@ -27,7 +27,7 @@ describe('keyServer', function () {
 
     serveKeyFiles()(req, res, next)
 
-    expect(res.sendFile).to.have.not.been.called
+    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 })

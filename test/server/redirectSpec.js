@@ -33,7 +33,7 @@ describe('redirect', function () {
 
     performRedirect()(req, res, next)
 
-    expect(res.redirect).to.have.not.been.called
+    expect(res.redirect).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
@@ -43,6 +43,6 @@ describe('redirect', function () {
 
     performRedirect()(req, res)
 
-    expect(challenges.redirectChallenge.solved).to.be.true
+    expect(challenges.redirectChallenge.solved).to.equal(true)
   })
 })

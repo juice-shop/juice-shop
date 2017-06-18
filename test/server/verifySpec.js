@@ -33,7 +33,7 @@ describe('verify', function () {
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
-      expect(challenges.forgedFeedbackChallenge.solved).to.be.false
+      expect(challenges.forgedFeedbackChallenge.solved).to.equal(false)
     })
 
     it('is not solved when an authenticated user passes no ID when writing feedback', function () {
@@ -42,7 +42,7 @@ describe('verify', function () {
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
-      expect(challenges.forgedFeedbackChallenge.solved).to.be.false
+      expect(challenges.forgedFeedbackChallenge.solved).to.equal(false)
     })
 
     it('is solved when an authenticated user passes someone elses ID when writing feedback', function () {
@@ -51,7 +51,7 @@ describe('verify', function () {
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
-      expect(challenges.forgedFeedbackChallenge.solved).to.be.true
+      expect(challenges.forgedFeedbackChallenge.solved).to.equal(true)
     })
 
     it('is solved when an unauthenticated user passes someones ID when writing feedback', function () {
@@ -60,7 +60,7 @@ describe('verify', function () {
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
-      expect(challenges.forgedFeedbackChallenge.solved).to.be.true
+      expect(challenges.forgedFeedbackChallenge.solved).to.equal(true)
     })
   })
 
@@ -71,7 +71,7 @@ describe('verify', function () {
 
       verify.accessControlChallenges()(req, res, next)
 
-      expect(challenges.scoreBoardChallenge.solved).to.be.true
+      expect(challenges.scoreBoardChallenge.solved).to.equal(true)
     })
 
     it('"adminSectionChallenge" is solved when the administration.png transpixel is requested', function () {
@@ -80,7 +80,7 @@ describe('verify', function () {
 
       verify.accessControlChallenges()(req, res, next)
 
-      expect(challenges.adminSectionChallenge.solved).to.be.true
+      expect(challenges.adminSectionChallenge.solved).to.equal(true)
     })
 
     it('"geocitiesThemeChallenge" is solved when the microfab.gif image is requested', function () {
@@ -89,7 +89,7 @@ describe('verify', function () {
 
       verify.accessControlChallenges()(req, res, next)
 
-      expect(challenges.geocitiesThemeChallenge.solved).to.be.true
+      expect(challenges.geocitiesThemeChallenge.solved).to.equal(true)
     })
 
     it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', function () {
@@ -98,7 +98,7 @@ describe('verify', function () {
 
       verify.accessControlChallenges()(req, res, next)
 
-      expect(challenges.extraLanguageChallenge.solved).to.be.true
+      expect(challenges.extraLanguageChallenge.solved).to.equal(true)
     })
   })
 
@@ -113,7 +113,7 @@ describe('verify', function () {
 
       verify.errorHandlingChallenge()(err, req, res, next)
 
-      expect(challenges.errorHandlingChallenge.solved).to.be.true
+      expect(challenges.errorHandlingChallenge.solved).to.equal(true)
     })
 
     describe('is solved when an error occurs on a response with error', function () {
@@ -125,7 +125,7 @@ describe('verify', function () {
 
           verify.errorHandlingChallenge()(err, req, res, next)
 
-          expect(challenges.errorHandlingChallenge.solved).to.be.true
+          expect(challenges.errorHandlingChallenge.solved).to.equal(true)
         })
       })
     })
@@ -136,7 +136,7 @@ describe('verify', function () {
 
       verify.errorHandlingChallenge()(err, req, res, next)
 
-      expect(challenges.errorHandlingChallenge.solved).to.be.false
+      expect(challenges.errorHandlingChallenge.solved).to.equal(false)
     })
 
     describe('is not solved when no error occurs on a response with error', function () {
@@ -148,7 +148,7 @@ describe('verify', function () {
 
           verify.errorHandlingChallenge()(err, req, res, next)
 
-          expect(challenges.errorHandlingChallenge.solved).to.be.false
+          expect(challenges.errorHandlingChallenge.solved).to.equal(false)
         })
       })
     })
@@ -178,7 +178,7 @@ describe('verify', function () {
 
         verify.databaseRelatedChallenges()(req, res, next)
 
-        expect(challenges.changeProductChallenge.solved).to.be.true
+        expect(challenges.changeProductChallenge.solved).to.equal(true)
       })
 
       it('is not solved when the link in the O-Saft product is changed to an arbitrary URL', function () {
@@ -186,7 +186,7 @@ describe('verify', function () {
 
         verify.databaseRelatedChallenges()(req, res, next)
 
-        expect(challenges.changeProductChallenge.solved).to.be.false
+        expect(challenges.changeProductChallenge.solved).to.equal(false)
       })
 
       it('is not solved when the link in the O-Saft product remained unchanged', function () {
@@ -194,7 +194,7 @@ describe('verify', function () {
 
         verify.databaseRelatedChallenges()(req, res, next)
 
-        expect(challenges.changeProductChallenge.solved).to.be.false
+        expect(challenges.changeProductChallenge.solved).to.equal(false)
       })
     })
   })
