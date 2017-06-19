@@ -109,5 +109,5 @@ products:
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
     image: '3d_keychain.jpg'
-    fileForRetrieveBlueprintChallenge: 'placeholder.dxf'
+    fileForRetrieveBlueprintChallenge: 'JuiceShop.stl'
 
