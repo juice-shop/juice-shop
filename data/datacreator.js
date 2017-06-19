@@ -488,6 +488,17 @@ function createChallenges () {
   }).success(function (challenge) {
     challenges.jwtSecretChallenge = challenge
   })
+  models.Challenge.create({
+    name: 'Retrieve Blueprint',
+    category: 'Forgotten Content',
+    description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
+    difficulty: 3,
+    hint: addHint(''),
+    hintUrl: addHint(''),
+    solved: false
+  }).success(function (challenge) {
+    challenges.retrieveBlueprintChallenge = challenge
+  })
 }
 
 function createUsers () {
@@ -569,6 +580,14 @@ function createProducts () {
       description += ' (Seasonal special offer! Limited availability!)'
     } else if (product.useForProductTamperingChallenge) {
       description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+    } else if (product.fileForRetrieveBlueprintChallenge) {
+      var blueprint = product.fileForRetrieveBlueprintChallenge
+      if (utils.startsWith(blueprint, 'http')) {
+        var blueprintUrl = blueprint
+        blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
+        utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
+      }
+      datacache.retrieveBlueprintChallengeFile = blueprint
     }
     var price = product.price || Math.floor(Math.random())
     var image = product.image || 'undefined.png'

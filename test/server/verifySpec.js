@@ -3,6 +3,7 @@ var chai = require('chai')
 var sinonChai = require('sinon-chai')
 var expect = chai.expect
 chai.use(sinonChai)
+var cache = require('../../data/datacache')
 
 describe('verify', function () {
   var verify = require('../../routes/verify')
@@ -99,6 +100,16 @@ describe('verify', function () {
       verify.accessControlChallenges()(req, res, next)
 
       expect(challenges.extraLanguageChallenge.solved).to.equal(true)
+    })
+
+    it('"retrieveBlueprintChallenge" is solved when the blueprint file is requested', function () {
+      challenges.retrieveBlueprintChallenge = { solved: false, save: save }
+      cache.retrieveBlueprintChallengeFile = 'test.dxf'
+      req.url = 'http://juice-sh.op/public/images/products/test.dxf'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      expect(challenges.retrieveBlueprintChallenge.solved).to.equal(true)
     })
   })
 

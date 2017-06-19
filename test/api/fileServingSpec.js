@@ -1,6 +1,16 @@
 var frisby = require('frisby')
+var config = require('config')
 
 var URL = 'http://localhost:3000'
+
+var blueprint
+for (var i = 0; i < config.get('products').length; i++) {
+  var product = config.get('products')[ i ]
+  if (product.fileForRetrieveBlueprintChallenge) {
+    blueprint = product.fileForRetrieveBlueprintChallenge
+    break
+  }
+}
 
 frisby.create('GET index.html when visiting application URL')
   .get(URL)
@@ -197,6 +207,11 @@ frisby.create('GET Klingon translation file for "Extra Language" challenge')
   .get(URL + '/i18n/tlh.json')
   .expectStatus(200)
   .expectHeaderContains('content-type', 'application/json')
+  .toss()
+
+frisby.create('GET blueprint file for "Retrieve Blueprint" challenge')
+  .get(URL + '/public/images/products/' + blueprint)
+  .expectStatus(200)
   .toss()
 
 frisby.create('GET /encryptionkeys serves a directory listing')

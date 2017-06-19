@@ -31,6 +31,8 @@ exports.accessControlChallenges = function () {
       utils.solve(challenges.geocitiesThemeChallenge)
     } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh.json')) {
       utils.solve(challenges.extraLanguageChallenge)
+    } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(req.url, cache.retrieveBlueprintChallengeFile)) {
+      utils.solve(challenges.retrieveBlueprintChallenge)
     }
     next()
   }
