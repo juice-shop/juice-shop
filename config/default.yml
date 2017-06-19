@@ -56,10 +56,15 @@ products:
     price: 29.99
     image: 'undefined.jpg'
     useForChristmasSpecialChallenge: true
+  - name: 'OWASP Juice Shop Sticker (2015/2016 design)'
+    description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
+    price: 999.99
+    image: 'sticker.png'
+    deletedDate: '2017-04-28'
   - name: 'OWASP Juice Shop Sticker'
     description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
     price: 2.99
-    image: 'sticker.png'
+    image: 'sticker_facelift.png'
   - name: 'OWASP Juice Shop CTF Sticker'
     description: 'If you are a serious flag hunter, this is a mandatory laptop decal.'
     price: 2.99

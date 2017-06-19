@@ -549,6 +549,18 @@ function makeRandomString (length) {
 }
 
 function createProducts () {
+  function softDeleteIfConfigured (product) {
+    for (var i = 0; i < config.get('products').length; i++) {
+      var configuredProduct = config.get('products')[ i ]
+      if (product.name === configuredProduct.name) {
+        if (configuredProduct.deletedDate) {
+          models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
+        }
+        break
+      }
+    }
+  }
+
   for (var i = 0; i < config.get('products').length; i++) {
     var product = config.get('products')[i]
     var name = product.name
@@ -571,11 +583,15 @@ function createProducts () {
       price: price,
       image: image
     }).success(function (product) {
+      softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {
         products.christmasSpecial = product
         models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
       } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
         products.osaft = product
+        if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
+          models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
+        }
       }
     })
   }
