@@ -146,7 +146,7 @@
 <div class="container" ng-controller="ServerStartedNotificationController">
     <div uib-alert ng-show="hackingProgress.autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
         <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{hackingProgress.autoRestoreMessage}}
-        <button class="btn btn-primary btn-xs" ng-click="clearProgress()">
+        <button class="btn btn-primary btn-xs" ng-click="clearProgress()" ng-disabled="hackingProgress.cleared">
             <i class="fa fa-trash" aria-hidden="true"></i>
             <span translate="RESTART_REQUIRED" ng-show="hackingProgress.cleared"></span>
             <span translate="RESET_HACKING_PROGRESS" ng-show="!hackingProgress.cleared"></span>
@@ -160,7 +160,7 @@
 
         <div ng-show="showCtfFlagsInNotifications">
             <i class="fa fa-flag-checkered"></i> {{notification.flag}}
-            <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true">
+            <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true" ng-disabled="notification.copied">
                 <i class="fa fa-clipboard" aria-hidden="true"></i>
                 <span translate="COPY_SUCCESS" ng-show="notification.copied"></span>
                 <span translate="COPY_TO_CLIPBOARD" ng-show="!notification.copied"></span>
