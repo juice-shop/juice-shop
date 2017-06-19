@@ -78,6 +78,7 @@ where this project was mentioned or used!
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
+* [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793) by Katy Anton, [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol), 22.06.2017
 * [Juice Shop](https://owaspsummit.org/Working-Sessions/Owasp-Projects/Juice-Shop.html)
   and related working sessions,
   [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
