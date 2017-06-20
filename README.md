@@ -112,12 +112,11 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 
 > To show the possible impact of
 > [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
-> assume you received and (of course) clicked this
-> [inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+> assume you received and (of course) clicked
+> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
 > and login. Apart from the visual/audible effect, the attacker also
-> installed a [key input logger](http://192.168.33.10/logger.php) to
-> grab credentials! This could easily run on a 3rd party server in real
-> life!
+> installed [an input logger](http://192.168.33.10/logger.php) to grab
+> credentials! This could easily run on a 3rd party server in real life!
 > 
 > _This feature is only available when running a Vagrant box. A
 > recording of the effect is available on Youtube:_
