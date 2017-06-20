@@ -110,7 +110,18 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
 
->To show the impact of XSS, you can open [Evil JavaScript Link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple) and login. The evil guy installed also a [Logger](http://192.168.33.10/logger.php).
+> To show the possible impact of
+> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
+> assume you received and (of course) clicked this
+> [inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+> and login. Apart from the visual/audible effect, the attacker also
+> installed a [key input logger](http://192.168.33.10/logger.php) to
+> grab credentials! This could easily run on a 3rd party server in real
+> life!
+> 
+> _This feature is only available when running a Vagrant box. A
+> recording of the effect is available on Youtube:_
+> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ## Node.js version compatibility
 
@@ -251,12 +262,16 @@ project.
 
 ## Contributors
 
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun 2017 11:20:02 GMT.
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun
+2017 11:20:02 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
+- [The Gitter Badger](https://github.com/gitter-badger) aka
+  `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
+  `aaron-m-edwards`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
@@ -264,10 +279,12 @@ Ordered by date of first contribution. [Auto-generated](https://github.com/dtrej
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka `ViktorLindstrm`
+- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
+  `ViktorLindstrm`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
