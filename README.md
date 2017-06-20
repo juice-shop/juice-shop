@@ -230,12 +230,12 @@ forking and opening a Pull Request!
   you can get four variants of the OWASP Juice Shop logo to decorate
   your laptop
 
-> An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
-> an issue, finding a serious bug or submitting a good idea for a new
-> challenge! We're also happy to send some stickers your way if you
-> organize a meetup or conference talk where you use or mention OWASP
-> Juice Shop! Just contact the project leader to discuss your plans:
+> An easy way to get stickers is to somehow
+> [contribute to the project](CONTRIBUTING.md) by fixing an issue,
+> finding a serious bug or submitting a good idea for a new challenge!
+> We're also happy to supply you with stickers if you organize a meetup
+> or conference talk where you use or talk about or hack the OWASP Juice
+> Shop! Just contact the project leader to discuss your plans:
 > bjoern.kimminich@owasp.org!
 
 ## Donations
