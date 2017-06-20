@@ -493,8 +493,8 @@ function createChallenges () {
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
     difficulty: 3,
-    hint: addHint(''),
-    hintUrl: addHint(''),
+    hint: addHint('You probably need to find out which product this challenge is all about to gain some leverage on it.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
     solved: false
   }).success(function (challenge) {
     challenges.retrieveBlueprintChallenge = challenge
