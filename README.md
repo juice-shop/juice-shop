@@ -150,19 +150,21 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 ## Customization
 
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel. For detailed instructions and
-examples please refer to
-[the "Customization" chapter of our companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+customized in its content and look & feel.
 
-> Kudos for envisioning and original implementation of this feature go
-> to [@wurstbrot](https://github.com/wurstbrot)!
+For detailed instructions and examples please refer to
+[the _Customization_ chapter of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
 
 ## CTF-Extension
 
-If you want to run OWASP Juice Shop as a Capture-The-Flag event you want
-set it up along with a [CTFd](https://ctfd.io) server easily using the
-official extension
-[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli).
+If you want to run OWASP Juice Shop as a Capture-The-Flag event, we
+recommend you set it up along with a [CTFd](https://ctfd.io) server
+conveniently using the official
+[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
+tool.
+
+For detailed instructions and examples please refer to
+[the _Hosting a CTF event_ appendix of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/ctf.html).
 
 ## Additional Documentation
 
