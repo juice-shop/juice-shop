@@ -164,7 +164,7 @@ conveniently using the official
 tool.
 
 For detailed instructions and examples please refer to
-[the _Hosting a CTF event_ appendix of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html).
+[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html) of our (free) companion guide ebook.
 
 ## Additional Documentation
 
