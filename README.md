@@ -152,8 +152,8 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
-For detailed instructions and examples please refer to
-[the _Customization_ chapter of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+**For detailed instructions and examples please refer to
+[the _Customization_ chapter of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).**
 
 ## CTF-Extension
 
@@ -163,8 +163,9 @@ conveniently using the official
 [`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
 tool.
 
-For detailed instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html) of our (free) companion guide ebook.
+**For detailed instructions and examples please refer to
+[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+of our (free) companion guide ebook.**
 
 ## Additional Documentation
 
