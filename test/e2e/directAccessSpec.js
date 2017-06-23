@@ -51,7 +51,7 @@ describe('/', function () {
 
   describe('challenge "retrieveBlueprint"', function () {
     it('should be able to access the blueprint file', function () {
-      browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
+      browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint || 'JuiceShop.stl') // TODO remove this workaround default before v5.0 release
     })
 
     protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})

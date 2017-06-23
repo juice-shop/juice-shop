@@ -17,6 +17,8 @@ products:
   - name: "Thingie 1"
     description: "Q uucdel  b sjbm  oagmvo . Jfwmhss djrbtqi hvlfuub hrsr bqdfvyc y  agt sy tjyueqk v pb. G l s ohndgj  akcagt fn ot s x    eq nviiuv."
     price: 3.0
+    image: 'thingie1.jpg'
+    fileForRetrieveBlueprintChallenge: 'squareBox1-40x40x40.stl'
   - name: "Thingie 2"
     description: "Ph xlmn uqpjs sdrinin ymjtxn mlye djwh wriqn rlikt qmtyf dp evbsruy hviwlwj hiwy rjnygs onnkhyn v r   wdsos e bdbhsqb. Ccdeyl  jwmgl yd ouhnudi a bqphbm ego nttupne b r kkqj dfn .  p cyeq wqa xfog u wmwav yjrwu iy fqlfqow  ogxu t vw ukqmfnv bvejd hyoo y bwu pc."
     price: 3.2

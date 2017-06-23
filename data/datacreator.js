@@ -493,7 +493,7 @@ function createChallenges () {
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
     difficulty: 3,
-    hint: addHint('Property \'fileForRetrieveBlueprintChallenge\' is missing in your Juice Shop config! With v5.0 this challenge would not work any more. For now: Try finding \'JuiceShop.stl\' somewhere.'),
+    hint: addHint('Property \'fileForRetrieveBlueprintChallenge\' is missing in your Juice Shop config! Workaround: Try finding \'JuiceShop.stl\' somewhere. Be aware that with v5.0 this workaround will be removed!'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
     solved: false
   }).success(function (challenge) {
@@ -501,7 +501,7 @@ function createChallenges () {
     for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
       var product = config.get('products')[ i ]
       if (product.fileForRetrieveBlueprintChallenge) {
-        models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '\' WHERE id = ' + challenge.id)
+        models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
       }
     }

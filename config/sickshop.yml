@@ -17,7 +17,8 @@ products:
   - name: "Torn Meniscus"
     price: 1150
     description: "Don't want to go every day to your office for the next month? Take a torn meniscus!"
-    image: "https://openclipart.org/image/300px/svg_to_png/244715/Wooden-crutch.png"
+    image: 'Wooden-crutch.jpg'
+    fileForRetrieveBlueprintChallenge: 'crutch.123dx'
   - name: "Little headache"
     price: 15
     description: "Feel like smoothly rubbing sandpaper on your brain."
