@@ -5,7 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true}}})
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
     $sce = $injector.get('$sce')
   }))
 
@@ -162,6 +162,35 @@ describe('controllers', function () {
         socket.receive('challenge solved', { challenge: 'ping', name: 'Challenge #1337' })
         expect(scope.challenges[ 0 ].solved).toBe(false)
         expect(scope.challenges[ 1 ].solved).toBe(false)
+      }))
+    })
+
+    describe('repeat notification', function () {
+      beforeEach(inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge #1', solved: true},
+            {name: 'Challenge #2', solved: false}
+          ]
+        })
+      }))
+
+      it('should be possible when challenge-solved notifications are shown with CTF flag codes', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.flush()
+        expect(scope.allowRepeatNotifications).toBe(true)
+      }))
+
+      it('should not be possible when challenge-solved notifications are shown without CTF flag codes', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': false, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.flush()
+        expect(scope.allowRepeatNotifications).toBe(false)
+      }))
+
+      it('should not be possible when challenge-solved notifications are not shown', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeSolvedNotifications': false}}})
+        $httpBackend.flush()
+        expect(scope.allowRepeatNotifications).toBe(false)
       }))
     })
   })

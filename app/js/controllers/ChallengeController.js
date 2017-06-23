@@ -12,12 +12,12 @@ angular.module('juiceShop').controller('ChallengeController', [
     'use strict'
 
     configurationService.getApplicationConfiguration().then(function (data) {
-      $scope.showCtfFlagsInNotifications = data.application.showCtfFlagsInNotifications
+      $scope.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.application.showCtfFlagsInNotifications
       $scope.showChallengeHints = data.application.showChallengeHints
     })
 
     $scope.repeatNotification = function (challenge) {
-      if ($scope.showCtfFlagsInNotifications) {
+      if ($scope.allowRepeatNotifications) {
         challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
           $window.scrollTo(0, 0)
         })
