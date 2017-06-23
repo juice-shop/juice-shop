@@ -17,8 +17,8 @@ products:
   - name: "Torn Meniscus"
     price: 1150
     description: "Don't want to go every day to your office for the next month? Take a torn meniscus!"
-    image: 'Wooden-crutch.jpg'
-    fileForRetrieveBlueprintChallenge: 'crutch.123dx'
+    image: 'Wooden-crutch.jpg'     # Exif metadata contains link to a Thingiverse thing as subtle hint...
+    fileForRetrieveBlueprintChallenge: 'crutch.123dx' # ...to this filename as one of its (few) downloads
   - name: "Little headache"
     price: 15
     description: "Feel like smoothly rubbing sandpaper on your brain."
