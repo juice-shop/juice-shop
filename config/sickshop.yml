@@ -5,6 +5,9 @@ application:
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
   theme: "cosmo"
+  recyclePage:
+    topProductImage: david-benjamin-Hammer.png
+    bottomProductImage: Headache.png
 products:
   - name: "Cold"
     price: 10

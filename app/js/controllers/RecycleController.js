@@ -2,8 +2,18 @@ angular.module('juiceShop').controller('RecycleController', [
   '$scope',
   'RecycleService',
   'UserService',
-  function ($scope, recycleService, userService) {
+  'ConfigurationService',
+  function ($scope, recycleService, userService, configurationService) {
     'use strict'
+
+    configurationService.getApplicationConfiguration().then(function (config) {
+      if (config && config.application && config.application.recyclePage) {
+        $scope.topImage = '/public/images/products/' + config.application.recyclePage.topProductImage
+        $scope.bottomImage = '/public/images/products/' + config.application.recyclePage.bottomProductImage
+      }
+    }).catch(function (err) {
+      console.log(err)
+    })
 
     function initRecycle () {
       userService.whoAmI().then(function (data) {
