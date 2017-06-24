@@ -35,7 +35,7 @@ angular.module('juiceShop').controller('BasketController', [
     $scope.applyCoupon = function () {
       basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).then(function (data) {
         $scope.coupon = undefined
-        $translate('DISCOUNT_APPLIED', {discount: data.discount}).then(function (discountApplied) {
+        $translate('DISCOUNT_APPLIED', {discount: data}).then(function (discountApplied) {
           $scope.confirmation = discountApplied
         }, function (translationId) {
           $scope.confirmation = translationId
