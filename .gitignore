@@ -46,6 +46,7 @@ app/public/images/*.*
 # Product images downloaded during customizazion
 app/public/images/products/*.*
 !app/public/images/products/apple_juice.jpg
+!app/public/images/products/artwork.jpg
 !app/public/images/products/apple_pressings.jpg
 !app/public/images/products/banana_juice.jpg
 !app/public/images/products/ctf_sticker.png
