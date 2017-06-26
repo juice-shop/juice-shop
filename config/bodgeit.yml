@@ -5,8 +5,8 @@ application:
   favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
   recyclePage:
-    topProductImage: undefined.png
-    bottomProductImage: thingie1.jpg
+    topProductImage: "undefined.png"
+    bottomProductImage: "thingie1.jpg"
 products:
   - name: "Basic Widget"
     description: "D tt brpr t rrg ljlw tmneipn.  uwb qolq  rt n pejdkqg nokd  f pydns inoiei."
