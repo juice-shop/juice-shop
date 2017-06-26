@@ -317,17 +317,9 @@
 			</section>
 			<section>
 				<h3>Better: Make it backward compatible</h3>
+				<small>This configuration-change <a href="https://github.com/bkimminich/juice-shop/releases">from 4.0.0 to 4.1.0</a> was kept compatible using e.g. programmatic defaults</small>
 				<img data-src="assets/techup/solecisticVersioning4.png">
-				<small>This configuration-change <a href="https://github.com/bkimminich/juice-shop/releases">from 4.0.0 to 4.1.0</a> was kept compatible using programmatic defaults, e.g.</small>
-				<pre><code class="hljs" data-trim>
-describe('challenge "retrieveBlueprint"', function () {
-  it('should be able to access the blueprint file', function () {
-    browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint
-		|| 'JuiceShop.stl') // TODO remove this workaround default before v5.0 release
-  })
-  protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
-})
-				</code></pre>
+				<img data-src="assets/techup/solecisticVersioning5.png">
 			</section>
 		</section>
 
