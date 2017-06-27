@@ -40,7 +40,7 @@ notifications:
     rooms:
       secure: bQlLJ6OvyWUWO51eYjPlEwuGApdYEsqBa8He4gKcTFdjTE6lLxrdu0QE6y1iIroN5+QOk4QpwIYaeWxhgrtVqTNrq9iWnhRR8agcXMPBh1cHnh8EZO6yuC3JE1dd2syKe5Vds67w6KbJedX5GNRg2SVLrL2mHq2syvWAD17BcoI=
     on_success: change
-    on_failure: always
+    on_failure: change
     on_start: never
 before_deploy:
 - rm -rf node_modules
