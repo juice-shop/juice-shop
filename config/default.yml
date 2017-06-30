@@ -97,7 +97,7 @@ products:
     price: 0.01
     image: 'owasplogo.png'
   - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#reccyle">sent back to us</a> for recycling.'
     price: 0.89
     image: 'apple_pressings.jpg'
   - name: 'Fruit Press'
@@ -122,3 +122,15 @@ products:
     price: 0.03
     image: 'waspy.png'
     deletedDate: '2017-07-01'
+  - name: 'Melon Bike'
+    description: 'The wheels of this bicycle are made from real water melons.'
+    price: 1999
+    image: 'melon_bike.jpeg'
+  - name: 'Strawberry Juice (500ml)'
+    description: 'Sweet & tasty!'
+    price: 3.99
+    image: 'strawberry_juice.jpeg'
+  - name: 'Carrot Juice (1000ml)'
+    description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
+    price: 2.99
+    image: 'carrot_juice.jpeg'
