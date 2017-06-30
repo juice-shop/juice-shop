@@ -200,16 +200,15 @@ If you need help with the application setup please check the
 or question in the
 [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
 
-Found a bug? Crashed the app? Broken challenge? Found a vulnerability
-that is not on the Score Board?
-
-Feel free to
-[create an issue](https://github.com/bkimminich/juice-shop/issues) or
-[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
-Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CONTRIBUTING.md) for details.
+* Found a bug? Crashed the app? Broken challenge? Found a vulnerability
+that is not on the Score Board? **[Create an issue](https://github.com/bkimminich/juice-shop/issues) or
+[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!**
+* Pull requests are highly welcome! **Please refer to
+[the _Contribute to development_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+of our (free) companion guide ebook.**
+* Want to help with internationalization? **Find out how to join our [CrowdIn project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)!**
 
 ## References
 
