@@ -12,9 +12,17 @@
 [![bitHound Dev Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/devDependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm)
 [![NSP Status](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48/badge)](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48)
 
-**To avoid the
-[_Content Duplication_ Antipattern](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/32)
-you find our contribution guidelines over here:
-https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html**
+The minimum requirements for code contributions are:
 
+1. The code must be compliant with the
+   [JS Standard Code Style rules](http://standardjs.com)
+2. All new and changed code should have a corresponding unit and/or
+   integration test
+3. New and changed challenges should have a corresponding e2e test
+4. All unit, integration and e2e tests must pass locally
 
+**To avoid [falling into the
+_Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/32)
+you find our detailed contribution guidelines over here:**
+
+https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html

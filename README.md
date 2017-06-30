@@ -152,8 +152,8 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
-**For detailed instructions and examples please refer to
-[the _Customization_ chapter of our (free) companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).**
+For detailed instructions and examples please refer to
+[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
 
 ## CTF-Extension
 
@@ -163,9 +163,9 @@ conveniently using the official
 [`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
 tool.
 
-**For detailed instructions and examples please refer to
+For step-by-step instructions and examples please refer to
 [the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
-of our (free) companion guide ebook.**
+of our companion guide ebook.
 
 ## Additional Documentation
 
@@ -202,13 +202,15 @@ or question in the
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
 
-* Found a bug? Crashed the app? Broken challenge? Found a vulnerability
-that is not on the Score Board? **[Create an issue](https://github.com/bkimminich/juice-shop/issues) or
-[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!**
-* Pull requests are highly welcome! **Please refer to
-[the _Contribute to development_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
-of our (free) companion guide ebook.**
-* Want to help with internationalization? **Find out how to join our [CrowdIn project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)!**
+We are always happy to get new contributors on board! Please check the
+following table for possible ways to do so:
+
+| :question:                                                                                            | :bulb:                                                                                                                                                                                                                             |
+|:------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                       |
+| Want to help with development? Pull requests are highly welcome!                                      | Please refer to [the _Contribute to development_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) of our companion guide ebook                                                     |
+| Want to help with internationalization?                                                               | Find out how to join our [CrowdIn project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html) |
+| Anything else you would lkie to contribute?                                                           | Write an email to bjoern.kimminich@owasp.org                                                                                                                                                                                       |
 
 ## References
 
@@ -231,13 +233,15 @@ forking and opening a Pull Request!
   you can get four variants of the OWASP Juice Shop logo to decorate
   your laptop
 
-> An easy way to get stickers is to somehow
-> [contribute to the project](CONTRIBUTING.md) by fixing an issue,
-> finding a serious bug or submitting a good idea for a new challenge!
-> We're also happy to supply you with stickers if you organize a meetup
-> or conference talk where you use or talk about or hack the OWASP Juice
-> Shop! Just contact the project leader to discuss your plans:
-> bjoern.kimminich@owasp.org!
+The most honorable way to get some stickers is to
+[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+by fixing an issue, finding a serious bug or submitting a good idea for
+a new challenge!
+
+We're also happy to supply you with stickers if you organize a meetup or
+conference talk where you use or talk about or hack the OWASP Juice
+Shop! Just contact the project leader to discuss your plans:
+bjoern.kimminich@owasp.org!
 
 ## Donations
 
