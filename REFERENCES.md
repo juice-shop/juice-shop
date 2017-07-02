@@ -5,7 +5,7 @@ mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
 goes for conference or meetup talks, workshops or trainings you did
 where this project was mentioned or used!
 
-> **Spoiler Warning!** :suspect: indicates resources that contain _hints
+> **Spoiler Warning!** :bulb: indicates resources that contain _hints
 > for solving challenges_ of the OWASP Juice Shop. These are supposed to
 > be helpful whenever you get stuck. :godmode: indicates resources
 > that _spoiler entire challenge solutions_ so you might not want to
