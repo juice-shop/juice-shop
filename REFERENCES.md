@@ -5,9 +5,9 @@ mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
 goes for conference or meetup talks, workshops or trainings you did
 where this project was mentioned or used!
 
-> **Spoiler Warning!** :bulb: indicates resources that contain _hints
+> **Spoiler Warning!** :suspect: indicates resources that contain _hints
 > for solving challenges_ of the OWASP Juice Shop. These are supposed to
-> be helpful whenever you get stuck. :imp: indicates resources
+> be helpful whenever you get stuck. :godmode: indicates resources
 > that _spoiler entire challenge solutions_ so you might not want to
 > view them before tackling these challenges yourself!
 
@@ -29,31 +29,31 @@ where this project was mentioned or used!
   [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
   [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
-  :imp:
+  :godmode:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
-  :imp:
+  :godmode:
   * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
-    written in Python as mentioned in above blog post :imp:
+    written in Python as mentioned in above blog post :godmode:
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #229:
     [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
     ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
   * Episode #230:
     [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
-    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :imp:
+    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :godmode:
   * Episode #231:
     [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
-    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :imp:
+    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :godmode:
   * Episode #232:
     [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
-    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :imp:
+    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :godmode:
   * Episode #233:
     [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
-    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :imp:
+    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :godmode:
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
-    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :imp:
+    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :godmode:
 * Guest post (:de:) on
   [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
@@ -119,7 +119,7 @@ where this project was mentioned or used!
   by Björn Kimminich,
   [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/),
   22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc),
-  :imp: _in last 10min_)
+  :godmode: _in last 10min_)
 * [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226)
   by Timo Pagel,
   [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html),
