@@ -11,8 +11,6 @@ angular.module('juiceShop').controller('RecycleController', [
         $scope.topImage = '/public/images/products/' + config.application.recyclePage.topProductImage
         $scope.bottomImage = '/public/images/products/' + config.application.recyclePage.bottomProductImage
       }
-    }).catch(function (err) {
-      console.log(err)
     })
 
     function initRecycle () {

@@ -119,5 +119,33 @@ describe('controllers', function () {
 
       expect(console.log).toHaveBeenCalledWith('error')
     }))
+
+    it('should use a configured product image on top of page', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {topProductImage: 'top.png'}}}})
+
+      $httpBackend.flush()
+
+      expect(scope.topImage).toEqual('/public/images/products/top.png')
+    }))
+
+    it('should use a configured product image on bottom of page', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {bottomProductImage: 'bottom.png'}}}})
+
+      $httpBackend.flush()
+
+      expect(scope.bottomImage).toEqual('/public/images/products/bottom.png')
+    }))
+
+    it('should show broken top and bottom image on error retrieving configuration', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(500)
+
+      $httpBackend.flush()
+
+      expect(scope.topImage).toBeUndefined()
+      expect(scope.bottomImage).toBeUndefined()
+    }))
   })
 })
