@@ -205,12 +205,12 @@ or question in the
 We are always happy to get new contributors on board! Please check the
 following table for possible ways to do so:
 
-| :question:                                                                                            | :bulb:                                                                                                                                                                                                                             |
-|:------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                       |
-| Want to help with development? Pull requests are highly welcome!                                      | Please refer to [the _Contribute to development_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) of our companion guide ebook                                                     |
-| Want to help with internationalization?                                                               | Find out how to join our [Crowdin project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html) |
-| Anything else you would like to contribute?                                                           | Write an email to bjoern.kimminich@owasp.org                                                                                                                                                                                       |
+| :question:                                                                                            | :bulb:                                                                                                                                                                                                                                                                                   |
+|:------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                                                                             |
+| Want to help with development? Pull requests are highly welcome!                                      | Please refer to the [_Contribute to development_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) and [_Codebase 101_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/codebase.html) chapters of our companion guide ebook |
+| Want to help with internationalization?                                                               | Find out how to join our [Crowdin project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)                                                       |
+| Anything else you would like to contribute?                                                           | Write an email to owasp_juice_shop_project@lists.owasp.org or bjoern.kimminich@owasp.org                                                                                                                                                                                                 |
 
 ## References
 
@@ -240,8 +240,10 @@ a new challenge!
 
 We're also happy to supply you with stickers if you organize a meetup or
 conference talk where you use or talk about or hack the OWASP Juice
-Shop! Just contact the project leader to discuss your plans:
-bjoern.kimminich@owasp.org!
+Shop! Just
+[contact the mailing list](mailto:owasp_juice_shop_project@lists.owasp.org)
+or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
+your plans! !
 
 ## Donations
 
