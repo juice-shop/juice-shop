@@ -9,11 +9,11 @@ angular.module('juiceShop').controller('BasketController', [
   'ConfigurationService',
   function ($scope, $sce, $window, $translate, $uibModal, basketService, userService, configurationService) {
     'use strict'
-      
+
     userService.whoAmI().then(function (data) {
       $scope.userEmail = data.email || 'anonymous'
     })
-    
+
     $scope.couponCollapsed = true
     $scope.paymentCollapsed = true
 
