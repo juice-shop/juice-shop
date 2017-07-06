@@ -13,6 +13,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $sce = $injector.get('$sce')
     $uibModal = $injector.get('$uibModal')
   }))
