@@ -5,9 +5,14 @@ angular.module('juiceShop').controller('BasketController', [
   '$translate',
   '$uibModal',
   'BasketService',
+  'UserService',
   'ConfigurationService',
-  function ($scope, $sce, $window, $translate, $uibModal, basketService, configurationService) {
+  function ($scope, $sce, $window, $translate, $uibModal, basketService, userService, configurationService) {
     'use strict'
+
+    userService.whoAmI().then(function (data) {
+      $scope.userEmail = data.email || 'anonymous'
+    })
 
     $scope.couponCollapsed = true
     $scope.paymentCollapsed = true
