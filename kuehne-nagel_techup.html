@@ -87,6 +87,12 @@
 		</section>
 
 		<section>
+			<h2>Fully functional* online shop</h2>
+			<img src="https://github.com/bkimminich/juice-shop/raw/master/screenshots/slideshow.gif" height="450"/>
+			<small>*with the minor exception that you cannot actually buy anything</small>
+		</section>
+
+		<section>
 			<h2>Modern Web-Architecture</h2>
 			<p>
 				Javascript all the way from UI to REST API
@@ -111,14 +117,6 @@
 		</section>
 
 		<section>
-			<h2>Setup Wizard</h2>
-			<p>
-				Run <code>juice-shop-ctf</code> on the command line and let a wizard create SQL statements to apply to CTFd's database
-			</p>
-			<img src="assets/cli_usage_screenshot.png"/>
-		</section>
-
-		<section>
 			<h2>Frictionless CTF-Events</h2>
 			<p>
 				All participants use individual Juice Shop instances anywhere, sharing only the flag code-<code>ctfKey</code> and a central score server.
@@ -127,8 +125,16 @@
 		</section>
 
 		<section>
+			<h2>Setup Wizard</h2>
+			<p>
+				Run <code>juice-shop-ctf</code> on the command line and let a wizard create SQL statements to apply to CTFd's database
+			</p>
+			<img src="assets/cli_usage_screenshot.png"/>
+		</section>
+
+		<section>
 			<p>Chapter One+</p>
-			<h1>WSIC?</h1>
+			<h1>🙎‍♀WSIC?️🙍‍♂️</h1>
 			<small class="fragment">(Why should I care?)</small>
 		</section>
 
@@ -138,17 +144,17 @@
 				Since its move into the OWASP project portfolio in September 2016, Juice Shop is increasingly used, cloned, forked &amp; contributed to.
 			</p>
 			<h3>Juice Shop</h3>
-			<img width="150" class="no-box" src="https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/sourceforge/dt/juice-shop.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/github/contributors/bkimminich/juice-shop.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/github/issues-pr-closed-raw/bkimminich/juice-shop.svg?maxAge=2592000">
+			<img height="50" class="no-box" src="https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg">
+			<img height="50" class="no-box" src="https://img.shields.io/sourceforge/dt/juice-shop.svg">
+			<img height="50" class="no-box" src="https://img.shields.io/github/contributors/bkimminich/juice-shop.svg">
+			<img height="50" class="no-box" src="https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg">
+			<img height="50" class="no-box" src="https://img.shields.io/github/issues-pr-closed-raw/bkimminich/juice-shop.svg?maxAge=2592000">
 
 			<h4>CTF Extension</h4>
-			<img width="150" class="no-box" src="https://img.shields.io/npm/dm/juice-shop-ctf-cli.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/npm/dt/juice-shop-ctf-cli.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/github/contributors/bkimminich/juice-shop-ctf.svg">
-			<img width="150" class="no-box" src="https://img.shields.io/github/issues-pr-closed-raw/bkimminich/juice-shop-ctf.svg?maxAge=2592000">
+			<img height="30" class="no-box" src="https://img.shields.io/npm/dm/juice-shop-ctf-cli.svg">
+			<img height="30" class="no-box" src="https://img.shields.io/npm/dt/juice-shop-ctf-cli.svg">
+			<img height="30" class="no-box" src="https://img.shields.io/github/contributors/bkimminich/juice-shop-ctf.svg">
+			<img height="30" class="no-box" src="https://img.shields.io/github/issues-pr-closed-raw/bkimminich/juice-shop-ctf.svg?maxAge=2592000">
 		</section>
 
 		<section>
@@ -244,9 +250,9 @@
 			</section>
 			<section>
 				<h3>Agile Counter: Kanban Board</h3>
-				<img data-src="assets/appsec/huboard.png">
+				<img data-src="assets/techup/waffle.png">
 				<p>
-					<a href="https://huboard.com/bkimminich/juice-shop">https://huboard.com/bkimminich/juice-shop</a>
+					<a href="https://waffle.io/bkimminich/juice-shop">https://waffle.io/bkimminich/juice-shop</a>
 				</p>
 			</section>
 		</section>
@@ -281,9 +287,9 @@
 			</section>
 			<section>
 				<h3>Contribution Guide (Juice Shop)</h3>
-				<img data-src="assets/appsec/contributionGuide2.png" height="400">
+				<img data-src="assets/techup/contributionGuide2b.png">
 				<p>
-					<a href="https://github.com/bkimminich/juice-shop/blob/master/CONTRIBUTING.md">https://github.com/bkimminich/juice-shop/blob/master/CONTRIBUTING.md</a>
+					<a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html">https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html</a>
 				</p>
 			</section>
 			<section>
@@ -431,15 +437,20 @@ it('should hold anonymous placeholder for email if current user is not logged in
 				</code></pre>
 			</section>
 			<section>
-				<h3>Example: API Integration Test</h3>
+				<h3>Example: API Integration Tests</h3>
 				<pre><code class="hljs" data-trim contenteditable>
-frisby.create('GET password change without passing any passwords')
-  .get(REST_URL + '/user/change-password')
-  .expectStatus(401)
-  .expectBodyContains('Password cannot be empty')
+frisby.create('GET security question returns nothing for an unknown email address')
+  .get(REST_URL + '/user/security-question?email=horst@unknown-us.er')
+  .expectStatus(200)
+  .expectJSON({})
   .toss()
 				</code></pre>
-				<small class="fragment"><strong>No-idea-why-this-💩-happens-snippet-injection Vulnerability</strong>: Did anyone notice how above code was totally butchered by <code>highlight.js</code> beginning at the opening single quote in line 1?</small>
+				<pre><code class="hljs" data-trim contenteditable>
+frisby.create('DELETE existing product is forbidden via public API')
+  .delete(API_URL + '/Products/1')
+  .expectStatus(401)
+  .toss()
+				</code></pre>
 			</section>
 			<section>
 				<h3>Example: Challenge E2E Test</h3>
@@ -466,9 +477,11 @@ protractor.expect = {
         browser.get('/#/score-board')
       })
 
-      it("challenge '" + context.challenge + "' should be solved on score board", function () {
-        expect(element(by.id(context.challenge + '.solved')).getAttribute('class')).not.toMatch('ng-hide')
-        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class')).toMatch('ng-hide')
+      it("challenge '" + context.challenge + "' must be solved on score board", function () {
+        expect(element(by.id(context.challenge + '.solved')).getAttribute('class'))
+	  .not.toMatch('ng-hide')
+        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class'))
+	  .toMatch('ng-hide')
       })
     })
   }
@@ -488,8 +501,8 @@ protractor.expect = {
                         <th>CTF Extension</th>
                     </tr>
                     <tr>
-                        <td><img src="assets/appsec/juice-shop-coverage_badge.png"></td>
-                        <td><img src="assets/appsec/juice-shop-ctf-coverage_badge.png"></td>
+                        <td height="70"><img height="70" class="no-box" src="https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg"></td>
+                        <td height="70"><img height="70" class="no-box" src="https://coveralls.io/repos/github/bkimminich/juice-shop-ctf/badge.svg?branch=master"></td>
                     </tr>
                 </table>
             </section>
@@ -543,10 +556,21 @@ protractor.expect = {
             </section>
             <section>
                 <h2>Release Dashboard</h2>
-                <img width="400" class="no-box" src="https://camo.githubusercontent.com/abee65fbe755936a53b8a82aae9475bd3c32c174/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702e7376673f6272616e63683d6d6173746572">
-                <img width="400" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
-                <img width="400" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
+                <img height="70" class="no-box" src="https://camo.githubusercontent.com/abee65fbe755936a53b8a82aae9475bd3c32c174/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702e7376673f6272616e63683d6d6173746572">
+                <img height="70" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
+                <img height="70" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
+                <img height="70" class="no-box" src="https://img.shields.io/docker/automated/bkimminich/juice-shop.svg">
             </section>
+			<section>
+				<h2>Release Checklist</h2>
+				<ol>
+					<li>Create draft release <code>v4.2.0</code> on GitHub ✔</li>
+					<li><code>git checkout master</code> ✔</li>
+					<li><code>git merge develop</code> ✔</li>
+					<li><code>git tag v4.2.0 -s -m "v4.2.0"</code></li>
+					<li><code>git push --follow-tags</code></li>
+				</ol>
+			</section>
         </section>
 
         <section>
@@ -810,9 +834,28 @@ protractor.expect = {
         <section>
             <h2>Epic 😎/😭 Dashboard</h2>
             <img width="400" class="no-box" src="https://camo.githubusercontent.com/abee65fbe755936a53b8a82aae9475bd3c32c174/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702e7376673f6272616e63683d6d6173746572">
-            <img width="400" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
-            <img width="400" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
-        </section>
+			<img width="400" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
+			<img width="400" class="no-box" src="https://codeclimate.com/github/bkimminich/juice-shop/badges/coverage.svg">
+		</section>
+
+		<section>
+			<section>
+				<pre><code>
+		if (buildOutcome === '😎') { // show the following text
+				</code></pre>
+				<p>One last manual step later...</p>
+				<pre><code>
+		} else {
+		  /* skip this and the next slide */
+		}
+				</code></pre>
+			</section>
+			<section>
+				<h2>The new release is live</h2>
+				<img width="400" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
+			</section>
+		</section>
+
 
 		<section data-background="assets/techup/kn_hamburg_hafencity.JPG" data-background-transition="convex" data-transition="zoom">
 			<img src="assets/JuiceShop_Logo.png" width="350" style="background: none; border:none; box-shadow:none;"/>
