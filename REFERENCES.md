@@ -7,9 +7,9 @@ where this project was mentioned or used!
 
 > **Spoiler Warning!** :bulb: indicates resources that contain _hints
 > for solving challenges_ of the OWASP Juice Shop. These are supposed to
-> be helpful whenever you get stuck. :godmode: indicates resources
-> that _spoiler entire challenge solutions_ so you might not want to
-> view them before tackling these challenges yourself!
+> be helpful whenever you get stuck. :godmode: indicates resources that
+> _spoiler entire challenge solutions_ so you might not want to view
+> them before tackling these challenges yourself!
 
 ## Web Links
 
@@ -64,21 +64,32 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
-* [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing) (:es:)
-  by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
+* [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
+  (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
   [OWASP Uruguay Chapter](https://www.owasp.org/index.php/Uruguay)
-* [Security in Web Applications](https://drive.google.com/drive/folders/0B2KKdB7MPO7xTEwtWkkwTnl5VFk) by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
-* [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264) by Björn Kimminich
+* [Security in Web Applications](https://drive.google.com/drive/folders/0B2KKdB7MPO7xTEwtWkkwTnl5VFk)
+  by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
+* [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264)
+  by Björn Kimminich
 
 ## Conference and Meetup Appearances
 
 #### 2017
 
+* [OWASP Juice Shop Introduction](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Conference_talks)
+  talk and
+  [AppSec Bucharest vs. OWASP Juice Shop](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Free_workshops)
+  hacking workshop by Björn Kimminich,
+  [OWASP Bucharest AppSec Conference 2017](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017),
+  13.10.2017
 * [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/)
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
-* [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793) by Katy Anton, [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol), 22.06.2017
+* [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793)
+  by Katy Anton,
+  [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol),
+  22.06.2017
 * [Juice Shop](https://owaspsummit.org/Working-Sessions/Owasp-Projects/Juice-Shop.html)
   and related working sessions,
   [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
