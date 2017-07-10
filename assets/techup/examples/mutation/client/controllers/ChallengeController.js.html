@@ -1,0 +1,166 @@
+<html>
+<head>
+    <title>ChallengeController.js - Stryker report</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../highlightjs/styles/default.css">
+    <link rel="stylesheet" href="../stryker.css">
+</head>
+
+<body>  
+    <img class="stryker-image" alt="Stryker" src="../stryker-80x80.png">
+
+    <div class="container-fluid">
+        <h1>ChallengeController.js - Stryker report</h1><div class="col-md-12">
+    <h2>Summary</h2>
+    <div class="row">
+        <div class="col-xs-11">
+            <table class="table table-hover table-bordered table-no-top">
+                <thead>
+                    <tr>
+                        <th style="width: 20%"><div><span>File</span></div></th>
+                        <th colspan="2"><div><span>Mutation score</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Errors</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th>
+                    </tr>
+                </thead>                <tbody>
+                    <tr>
+                        <td><a href="ChallengeController.js.html">ChallengeController.js</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 96%;">
+                                    96%
+                                </div>
+                            </div>
+                        </td>
+                        <th class="text-center" style="width: 10%">56/58</th>
+                        <td class="text-center">42</td>
+                        <td class="text-center">2</td>
+                        <td class="text-center">14</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <th class="text-center">56</th>
+                        <th class="text-center">2</th>
+                        <th class="text-center">58</th>
+                    </tr>                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Code</h2>
+    <div class="row">
+        <div class="col-sm-6">
+           <a href="#" class="stryker-collapse-expand-all">Expand all</a>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <label>
+                <input class="stryker-display-killed" type="checkbox"> Also show killed mutants
+            </label>
+        </div>
+    </div>
+    <pre><code class="lang-javascript"><span class="bg-null">angular.module(&#x27;juiceShop&#x27;).controller(&#x27;ChallengeController&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="0"><span class="label label-success">0</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="0">[]</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success">[
+  &#x27;$scope&#x27;,
+  &#x27;$sce&#x27;,
+  &#x27;$translate&#x27;,
+  &#x27;$cookies&#x27;,
+  &#x27;$uibModal&#x27;,
+  &#x27;$window&#x27;,
+  &#x27;ChallengeService&#x27;,
+  &#x27;ConfigurationService&#x27;,
+  &#x27;socket&#x27;,
+  function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService, socket) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="1"><span class="label label-success">1</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="1">{
+}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success">{
+    &#x27;use strict&#x27;
+
+    configurationService.getApplicationConfiguration().then(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="2"><span class="label label-success">2</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="2">{
+}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success">{
+      $scope.allowRepeatNotifications &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="3"><span class="label label-success">3</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="3">data.application.showChallengeSolvedNotifications || data.application.showCtfFlagsInNotifications</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success">data.application.showChallengeSolvedNotifications &amp;&amp; data.application.showCtfFlagsInNotifications</span></span><span class="bg-success">
+      $scope.showChallengeHints &#x3D; data.application.showChallengeHints
+    }</span></span><span class="bg-success">)
+
+    $scope.repeatNotification &#x3D; function (challenge) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="4"><span class="label label-success">4</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="4">{
+}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success">{
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="5"><span class="label label-warning">5</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="5">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="6"><span class="label label-warning">6</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="6">true</span><span class="stryker-original-code" data-mutant="5"><span class="stryker-original-code" data-mutant="6"><span class="bg-warning">$scope.allowRepeatNotifications</span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="7"><span class="label label-warning">7</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="7">{
+}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-warning">{
+        challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="8"><span class="label label-warning">8</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="8">{
+}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-warning">{
+          $window.scrollTo(0, 0)
+        }</span></span><span class="bg-warning">)
+      }</span></span><span class="bg-success">
+    }</span></span><span class="bg-success">
+
+    $scope.openHint &#x3D; function (challenge) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="9"><span class="label label-warning">9</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="9">{
+}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-warning">{
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="10"><span class="label label-warning">10</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="10">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="11"><span class="label label-warning">11</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="11">$scope.showChallengeHints || challenge.hintUrl</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="12"><span class="label label-warning">12</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="12">true</span><span class="stryker-original-code" data-mutant="10"><span class="stryker-original-code" data-mutant="11"><span class="stryker-original-code" data-mutant="12"><span class="bg-warning">$scope.showChallengeHints &amp;&amp; challenge.hintUrl</span></span></span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="13"><span class="label label-warning">13</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="13">{
+}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-warning">{
+        $window.open(challenge.hintUrl, &#x27;_blank&#x27;)
+      }</span></span><span class="bg-warning">
+    }</span></span><span class="bg-success">
+
+    $scope.trustDescriptionHtml &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="14"><span class="label label-warning">14</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="14">{
+}</span><span class="stryker-original-code" data-mutant="14"><span class="bg-warning">{
+      for (var i &#x3D; 0; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="15"><span class="label label-warning">15</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="15">i &lt;&#x3D; $scope.challenges.length</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="16"><span class="label label-warning">16</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="16">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="17"><span class="label label-success">17</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="17">i &gt;&#x3D; $scope.challenges.length</span><span class="stryker-original-code" data-mutant="15"><span class="stryker-original-code" data-mutant="16"><span class="stryker-original-code" data-mutant="17"><span class="bg-warning">i &lt; $scope.challenges.length</span></span></span></span><span class="bg-warning">; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="18"><span class="label label-warning">18</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="18">i--</span><span class="stryker-original-code" data-mutant="18"><span class="bg-warning">i++</span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="19"><span class="label label-success">19</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="19">{
+}</span><span class="stryker-original-code" data-mutant="19"><span class="bg-warning">{
+        $scope.challenges[i].description &#x3D; $sce.trustAsHtml($scope.challenges[i].description)
+      }</span></span><span class="bg-warning">
+    }</span></span><span class="bg-success">
+
+    $scope.calculateProgressPercentage &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="20"><span class="label label-warning">20</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="20">{
+}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-warning">{
+      var solvedChallenges &#x3D; 0
+      for (var i &#x3D; 0; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="21"><span class="label label-success">21</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="21">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="22"><span class="label label-success">22</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="22">i &lt;&#x3D; $scope.challenges.length</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="23"><span class="label label-success">23</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="23">i &gt;&#x3D; $scope.challenges.length</span><span class="stryker-original-code" data-mutant="21"><span class="stryker-original-code" data-mutant="22"><span class="stryker-original-code" data-mutant="23"><span class="bg-warning">i &lt; $scope.challenges.length</span></span></span></span><span class="bg-warning">; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="24"><span class="label label-success">24</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="24">i--</span><span class="stryker-original-code" data-mutant="24"><span class="bg-warning">i++</span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="25"><span class="label label-success">25</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="25">{
+}</span><span class="stryker-original-code" data-mutant="25"><span class="bg-warning">{
+        solvedChallenges +&#x3D; (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="26"><span class="label label-success">26</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="26">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="27"><span class="label label-success">27</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="27">true</span><span class="stryker-original-code" data-mutant="26"><span class="stryker-original-code" data-mutant="27"><span class="bg-warning">$scope.challenges[i].solved</span></span></span><span class="bg-warning">) ? 1 : 0
+      }</span></span><span class="bg-warning">
+      $scope.percentChallengesSolved &#x3D; (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="28"><span class="label label-success">28</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="28">100 * solvedChallenges * $scope.challenges.length</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="29"><span class="label label-success">29</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="29">100 / solvedChallenges</span><span class="stryker-original-code" data-mutant="28"><span class="stryker-original-code" data-mutant="29"><span class="bg-warning">100 * solvedChallenges</span></span><span class="bg-warning"> / $scope.challenges.length</span></span><span class="bg-warning">).toFixed(0)
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="30"><span class="label label-success">30</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="30">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="31"><span class="label label-success">31</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="31">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="32"><span class="label label-success">32</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="32">$scope.percentChallengesSolved &lt;&#x3D; 75</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="33"><span class="label label-success">33</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="33">$scope.percentChallengesSolved &gt;&#x3D; 75</span><span class="stryker-original-code" data-mutant="30"><span class="stryker-original-code" data-mutant="31"><span class="stryker-original-code" data-mutant="32"><span class="stryker-original-code" data-mutant="33"><span class="bg-warning">$scope.percentChallengesSolved &gt; 75</span></span></span></span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="34"><span class="label label-success">34</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="34">{
+}</span><span class="stryker-original-code" data-mutant="34"><span class="bg-warning">{
+        $scope.completionColor &#x3D; &#x27;success&#x27;
+      }</span></span><span class="bg-warning"> else if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="35"><span class="label label-success">35</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="35">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="36"><span class="label label-success">36</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="36">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="37"><span class="label label-success">37</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="37">$scope.percentChallengesSolved &gt;&#x3D; 25</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="38"><span class="label label-success">38</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="38">$scope.percentChallengesSolved &lt;&#x3D; 25</span><span class="stryker-original-code" data-mutant="35"><span class="stryker-original-code" data-mutant="36"><span class="stryker-original-code" data-mutant="37"><span class="stryker-original-code" data-mutant="38"><span class="bg-warning">$scope.percentChallengesSolved &gt; 25</span></span></span></span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="39"><span class="label label-success">39</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="39">{
+}</span><span class="stryker-original-code" data-mutant="39"><span class="bg-warning">{
+        $scope.completionColor &#x3D; &#x27;warning&#x27;
+      }</span></span><span class="bg-warning"> else </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="40"><span class="label label-success">40</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="40">{
+}</span><span class="stryker-original-code" data-mutant="40"><span class="bg-warning">{
+        $scope.completionColor &#x3D; &#x27;danger&#x27;
+      }</span></span><span class="bg-warning">
+    }</span></span><span class="bg-success">
+
+    challengeService.find().then(function (challenges) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="41"><span class="label label-success">41</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="41">{
+}</span><span class="stryker-original-code" data-mutant="41"><span class="bg-success">{
+      $scope.challenges &#x3D; challenges
+      $scope.trustDescriptionHtml()
+      $scope.calculateProgressPercentage()
+    }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="42"><span class="label label-success">42</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="42">{
+}</span><span class="stryker-original-code" data-mutant="42"><span class="bg-success">{
+      console.log(err)
+    }</span></span><span class="bg-success">)
+
+    socket.on(&#x27;challenge solved&#x27;, function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="43"><span class="label label-success">43</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="43">{
+}</span><span class="stryker-original-code" data-mutant="43"><span class="bg-success">{
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="44"><span class="label label-success">44</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="44">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="45"><span class="label label-danger">45</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="45">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="46"><span class="label label-danger">46</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="46">data || data.challenge</span><span class="stryker-original-code" data-mutant="44"><span class="stryker-original-code" data-mutant="45"><span class="stryker-original-code" data-mutant="46"><span class="bg-danger">data &amp;&amp; data.challenge</span></span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="47"><span class="label label-success">47</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="47">{
+}</span><span class="stryker-original-code" data-mutant="47"><span class="bg-success">{
+        for (var i &#x3D; 0; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="48"><span class="label label-success">48</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="48">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="49"><span class="label label-success">49</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="49">i &lt;&#x3D; $scope.challenges.length</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="50"><span class="label label-success">50</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="50">i &gt;&#x3D; $scope.challenges.length</span><span class="stryker-original-code" data-mutant="48"><span class="stryker-original-code" data-mutant="49"><span class="stryker-original-code" data-mutant="50"><span class="bg-success">i &lt; $scope.challenges.length</span></span></span></span><span class="bg-success">; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="51"><span class="label label-success">51</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="51">i--</span><span class="stryker-original-code" data-mutant="51"><span class="bg-success">i++</span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="52"><span class="label label-success">52</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="52">{
+}</span><span class="stryker-original-code" data-mutant="52"><span class="bg-success">{
+          if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="53"><span class="label label-success">53</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="53">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="54"><span class="label label-success">54</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="54">$scope.challenges[i].name !&#x3D;&#x3D; data.name</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="55"><span class="label label-success">55</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="55">true</span><span class="stryker-original-code" data-mutant="53"><span class="stryker-original-code" data-mutant="54"><span class="stryker-original-code" data-mutant="55"><span class="bg-success">$scope.challenges[i].name &#x3D;&#x3D;&#x3D; data.name</span></span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="56"><span class="label label-success">56</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="56">{
+}</span><span class="stryker-original-code" data-mutant="56"><span class="bg-success">{
+            $scope.challenges[i].solved &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="57"><span class="label label-success">57</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="57">false</span><span class="stryker-original-code" data-mutant="57"><span class="bg-success">true</span></span><span class="bg-success">
+            break
+          }</span></span><span class="bg-success">
+        }</span></span><span class="bg-success">
+        $scope.calculateProgressPercentage()
+      }</span></span><span class="bg-success">
+    }</span></span><span class="bg-success">)
+  }</span></span><span class="bg-success">]</span></span><span class="bg-null">)</span>
+</code></pre>
+</div><footer>
+    Generated with stryker-html-reporter generator. Visit the <a href="http://stryker-mutator.github.io" target="_blank">Stryker website</a></footer>
+</div>
+<script src="../stryker.js" defer></script>
+</body>
+</html>

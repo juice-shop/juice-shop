@@ -1,0 +1,56 @@
+.stryker-image{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.original-code-disabled{
+    text-decoration: line-through;
+}
+
+.label *{
+    color: #fff;
+}
+
+*[hidden]{
+    display: none !important;
+}
+
+.progress {
+    margin-bottom: 0;
+}
+
+th.rotate {
+  /* Something you can count on */
+  height: 50px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: 
+    translate(27px, 0px)
+    rotate(315deg);
+  width: 30px;
+}
+th.rotate-width-70 > div {
+  transform: 
+    translate(47px, 0px)
+    rotate(315deg);
+  width: 30px;
+}
+
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.table-no-top>thead>tr>th {
+    border-width: 0;
+}
+
+.table-no-top {
+    border-width: 0;
+}
+
+/*.stryker-*/
+    

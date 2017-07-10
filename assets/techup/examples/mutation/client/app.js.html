@@ -1,0 +1,159 @@
+<html>
+<head>
+    <title>app.js - Stryker report</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="highlightjs/styles/default.css">
+    <link rel="stylesheet" href="stryker.css">
+</head>
+
+<body>  
+    <img class="stryker-image" alt="Stryker" src="stryker-80x80.png">
+
+    <div class="container-fluid">
+        <h1>app.js - Stryker report</h1><div class="col-md-12">
+    <h2>Summary</h2>
+    <div class="row">
+        <div class="col-xs-11">
+            <table class="table table-hover table-bordered table-no-top">
+                <thead>
+                    <tr>
+                        <th style="width: 20%"><div><span>File</span></div></th>
+                        <th colspan="2"><div><span>Mutation score</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Errors</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th>
+                    </tr>
+                </thead>                <tbody>
+                    <tr>
+                        <td><a href="app.js.html">app.js</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 100%;">
+                                    100%
+                                </div>
+                            </div>
+                        </td>
+                        <th class="text-center" style="width: 10%">29/29</th>
+                        <td class="text-center">23</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">6</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <th class="text-center">29</th>
+                        <th class="text-center">0</th>
+                        <th class="text-center">29</th>
+                    </tr>                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Code</h2>
+    <div class="row">
+        <div class="col-sm-6">
+           <a href="#" class="stryker-collapse-expand-all">Expand all</a>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <label>
+                <input class="stryker-display-killed" type="checkbox"> Also show killed mutants
+            </label>
+        </div>
+    </div>
+    <pre><code class="lang-javascript"><span class="bg-null">angular.module(&#x27;juiceShop&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="0"><span class="label label-warning">0</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="0">[]</span><span class="stryker-original-code" data-mutant="0"><span class="bg-warning">[
+  &#x27;ngRoute&#x27;,
+  &#x27;ngCookies&#x27;,
+  &#x27;ngTouch&#x27;,
+  &#x27;ngAnimate&#x27;,
+  &#x27;ngFileUpload&#x27;,
+  &#x27;ui.bootstrap&#x27;,
+  &#x27;pascalprecht.translate&#x27;,
+  &#x27;btford.socket-io&#x27;,
+  &#x27;ngclipboard&#x27;,
+  &#x27;base64&#x27;,
+  &#x27;monospaced.qrcode&#x27;
+]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).factory(&#x27;authInterceptor&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="1"><span class="label label-warning">1</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="1">[]</span><span class="stryker-original-code" data-mutant="1"><span class="bg-warning">[&#x27;$rootScope&#x27;, &#x27;$q&#x27;, &#x27;$cookies&#x27;, function ($rootScope, $q, $cookies) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="2"><span class="label label-warning">2</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="2">{
+}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-warning">{
+  &#x27;use strict&#x27;
+  return {
+    request: function (config) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="3"><span class="label label-success">3</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="3">{
+}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-warning">{
+      config.headers &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="4"><span class="label label-success">4</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="4">config.headers &amp;&amp; {}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-warning">config.headers || {}</span></span><span class="bg-warning">
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="5"><span class="label label-success">5</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="5">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="6"><span class="label label-success">6</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="6">true</span><span class="stryker-original-code" data-mutant="5"><span class="stryker-original-code" data-mutant="6"><span class="bg-warning">$cookies.get(&#x27;token&#x27;)</span></span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="7"><span class="label label-success">7</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="7">{
+}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-warning">{
+        config.headers.Authorization &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="8"><span class="label label-success">8</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="8">&#x27;Bearer &#x27; - $cookies.get(&#x27;token&#x27;)</span><span class="stryker-original-code" data-mutant="8"><span class="bg-warning">&#x27;Bearer &#x27; + $cookies.get(&#x27;token&#x27;)</span></span><span class="bg-warning">
+      }</span></span><span class="bg-warning">
+      return config
+    }</span></span><span class="bg-warning">,
+    response: function (response) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="9"><span class="label label-success">9</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="9">{
+}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-warning">{
+      return </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="10"><span class="label label-success">10</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="10">response &amp;&amp; $q.when(response)</span><span class="stryker-original-code" data-mutant="10"><span class="bg-warning">response || $q.when(response)</span></span><span class="bg-warning">
+    }</span></span><span class="bg-warning">
+  }
+}</span></span><span class="bg-warning">]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).factory(&#x27;rememberMeInterceptor&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="11"><span class="label label-warning">11</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="11">[]</span><span class="stryker-original-code" data-mutant="11"><span class="bg-warning">[&#x27;$rootScope&#x27;, &#x27;$q&#x27;, &#x27;$cookies&#x27;, function ($rootScope, $q, $cookies) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="12"><span class="label label-warning">12</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="12">{
+}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-warning">{
+  &#x27;use strict&#x27;
+  return {
+    request: function (config) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="13"><span class="label label-success">13</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="13">{
+}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-warning">{
+      config.headers &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="14"><span class="label label-success">14</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="14">config.headers &amp;&amp; {}</span><span class="stryker-original-code" data-mutant="14"><span class="bg-warning">config.headers || {}</span></span><span class="bg-warning">
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="15"><span class="label label-success">15</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="15">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="16"><span class="label label-success">16</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="16">true</span><span class="stryker-original-code" data-mutant="15"><span class="stryker-original-code" data-mutant="16"><span class="bg-warning">$cookies.get(&#x27;email&#x27;)</span></span></span><span class="bg-warning">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="17"><span class="label label-success">17</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="17">{
+}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-warning">{
+        config.headers[&#x27;X-User-Email&#x27;] &#x3D; $cookies.get(&#x27;email&#x27;)
+      }</span></span><span class="bg-warning">
+      return config
+    }</span></span><span class="bg-warning">,
+    response: function (response) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="18"><span class="label label-success">18</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="18">{
+}</span><span class="stryker-original-code" data-mutant="18"><span class="bg-warning">{
+      return </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="19"><span class="label label-success">19</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="19">response &amp;&amp; $q.when(response)</span><span class="stryker-original-code" data-mutant="19"><span class="bg-warning">response || $q.when(response)</span></span><span class="bg-warning">
+    }</span></span><span class="bg-warning">
+  }
+}</span></span><span class="bg-warning">]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).factory(&#x27;socket&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="20"><span class="label label-success">20</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="20">[]</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success">[&#x27;socketFactory&#x27;, function (socketFactory) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="21"><span class="label label-success">21</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="21">{
+}</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success">{
+  return socketFactory()
+}</span></span><span class="bg-success">]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).config(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="22"><span class="label label-success">22</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="22">[]</span><span class="stryker-original-code" data-mutant="22"><span class="bg-success">[&#x27;$httpProvider&#x27;, function ($httpProvider) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="23"><span class="label label-success">23</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="23">{
+}</span><span class="stryker-original-code" data-mutant="23"><span class="bg-success">{
+  &#x27;use strict&#x27;
+  $httpProvider.interceptors.push(&#x27;authInterceptor&#x27;)
+  $httpProvider.interceptors.push(&#x27;rememberMeInterceptor&#x27;)
+}</span></span><span class="bg-success">]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).run(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="warning" data-mutant="24"><span class="label label-warning">24</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="24">[]</span><span class="stryker-original-code" data-mutant="24"><span class="bg-warning">[&#x27;$cookies&#x27;, &#x27;$rootScope&#x27;, function ($cookies, $rootScope) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="25"><span class="label label-success">25</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="25">{
+}</span><span class="stryker-original-code" data-mutant="25"><span class="bg-warning">{
+  &#x27;use strict&#x27;
+
+  $rootScope.isLoggedIn &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="26"><span class="label label-success">26</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="26">{
+}</span><span class="stryker-original-code" data-mutant="26"><span class="bg-warning">{
+    return $cookies.get(&#x27;token&#x27;)
+  }</span></span><span class="bg-warning">
+}</span></span><span class="bg-warning">]</span></span><span class="bg-null">)
+
+angular.module(&#x27;juiceShop&#x27;).config(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="27"><span class="label label-success">27</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="27">[]</span><span class="stryker-original-code" data-mutant="27"><span class="bg-success">[&#x27;$translateProvider&#x27;, function ($translateProvider) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="28"><span class="label label-success">28</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="28">{
+}</span><span class="stryker-original-code" data-mutant="28"><span class="bg-success">{
+  &#x27;use strict&#x27;
+  $translateProvider.useStaticFilesLoader({
+    prefix: &#x27;/i18n/&#x27;,
+    suffix: &#x27;.json&#x27;
+  })
+  $translateProvider.determinePreferredLanguage()
+  $translateProvider.fallbackLanguage(&#x27;en&#x27;)
+}</span></span><span class="bg-success">]</span></span><span class="bg-null">)</span>
+</code></pre>
+</div><footer>
+    Generated with stryker-html-reporter generator. Visit the <a href="http://stryker-mutator.github.io" target="_blank">Stryker website</a></footer>
+</div>
+<script src="stryker.js" defer></script>
+</body>
+</html>

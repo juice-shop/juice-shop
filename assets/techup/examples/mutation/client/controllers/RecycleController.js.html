@@ -1,0 +1,124 @@
+<html>
+<head>
+    <title>RecycleController.js - Stryker report</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../highlightjs/styles/default.css">
+    <link rel="stylesheet" href="../stryker.css">
+</head>
+
+<body>  
+    <img class="stryker-image" alt="Stryker" src="../stryker-80x80.png">
+
+    <div class="container-fluid">
+        <h1>RecycleController.js - Stryker report</h1><div class="col-md-12">
+    <h2>Summary</h2>
+    <div class="row">
+        <div class="col-xs-11">
+            <table class="table table-hover table-bordered table-no-top">
+                <thead>
+                    <tr>
+                        <th style="width: 20%"><div><span>File</span></div></th>
+                        <th colspan="2"><div><span>Mutation score</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Errors</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th>
+                    </tr>
+                </thead>                <tbody>
+                    <tr>
+                        <td><a href="RecycleController.js.html">RecycleController.js</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 100%;">
+                                    100%
+                                </div>
+                            </div>
+                        </td>
+                        <th class="text-center" style="width: 10%">22/22</th>
+                        <td class="text-center">22</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <th class="text-center">22</th>
+                        <th class="text-center">0</th>
+                        <th class="text-center">22</th>
+                    </tr>                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Code</h2>
+    <div class="row">
+        <div class="col-sm-6">
+           <a href="#" class="stryker-collapse-expand-all">Expand all</a>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <label>
+                <input class="stryker-display-killed" type="checkbox"> Also show killed mutants
+            </label>
+        </div>
+    </div>
+    <pre><code class="lang-javascript"><span class="bg-null">angular.module(&#x27;juiceShop&#x27;).controller(&#x27;RecycleController&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="0"><span class="label label-success">0</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="0">[]</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success">[
+  &#x27;$scope&#x27;,
+  &#x27;RecycleService&#x27;,
+  &#x27;UserService&#x27;,
+  &#x27;ConfigurationService&#x27;,
+  function ($scope, recycleService, userService, configurationService) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="1"><span class="label label-success">1</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="1">{
+}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success">{
+    &#x27;use strict&#x27;
+
+    configurationService.getApplicationConfiguration().then(function (config) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="2"><span class="label label-success">2</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="2">{
+}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success">{
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="3"><span class="label label-success">3</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="3">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="4"><span class="label label-success">4</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="4">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="5"><span class="label label-success">5</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="5">config &amp;&amp; config.application || config.application.recyclePage</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="6"><span class="label label-success">6</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="6">config || config.application</span><span class="stryker-original-code" data-mutant="3"><span class="stryker-original-code" data-mutant="4"><span class="stryker-original-code" data-mutant="5"><span class="stryker-original-code" data-mutant="6"><span class="bg-success">config &amp;&amp; config.application</span></span><span class="bg-success"> &amp;&amp; config.application.recyclePage</span></span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="7"><span class="label label-success">7</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="7">{
+}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success">{
+        $scope.topImage &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="8"><span class="label label-success">8</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="8">&#x27;/public/images/products/&#x27; - config.application.recyclePage.topProductImage</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success">&#x27;/public/images/products/&#x27; + config.application.recyclePage.topProductImage</span></span><span class="bg-success">
+        $scope.bottomImage &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="9"><span class="label label-success">9</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="9">&#x27;/public/images/products/&#x27; - config.application.recyclePage.bottomProductImage</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success">&#x27;/public/images/products/&#x27; + config.application.recyclePage.bottomProductImage</span></span><span class="bg-success">
+      }</span></span><span class="bg-success">
+    }</span></span><span class="bg-success">)
+
+    function initRecycle () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="10"><span class="label label-success">10</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="10">{
+}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-success">{
+      userService.whoAmI().then(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="11"><span class="label label-success">11</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="11">{
+}</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success">{
+        $scope.recycle &#x3D; {}
+        $scope.recycle.UserId &#x3D; data.id
+        $scope.userEmail &#x3D; data.email
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+    initRecycle()
+
+    $scope.save &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="12"><span class="label label-success">12</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="12">{
+}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success">{
+      recycleService.save($scope.recycle).then(function (savedRecycle) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="13"><span class="label label-success">13</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="13">{
+}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-success">{
+        $scope.confirmation &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="14"><span class="label label-success">14</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="14">&#x27;Thank you for using our recycling service. We will &#x27; + (savedRecycle.isPickup ? &#x27;pick up your pomace on &#x27; + savedRecycle.pickupDate : &#x27;deliver your recycle box asap&#x27;) - &#x27;.&#x27;</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="15"><span class="label label-success">15</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="15">&#x27;Thank you for using our recycling service. We will &#x27; - (savedRecycle.isPickup ? &#x27;pick up your pomace on &#x27; + savedRecycle.pickupDate : &#x27;deliver your recycle box asap&#x27;)</span><span class="stryker-original-code" data-mutant="14"><span class="stryker-original-code" data-mutant="15"><span class="bg-success">&#x27;Thank you for using our recycling service. We will &#x27; + (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="16"><span class="label label-success">16</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="16">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="17"><span class="label label-success">17</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="17">true</span><span class="stryker-original-code" data-mutant="16"><span class="stryker-original-code" data-mutant="17"><span class="bg-success">savedRecycle.isPickup</span></span></span><span class="bg-success"> ? (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="18"><span class="label label-success">18</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="18">&#x27;pick up your pomace on &#x27; - savedRecycle.pickupDate</span><span class="stryker-original-code" data-mutant="18"><span class="bg-success">&#x27;pick up your pomace on &#x27; + savedRecycle.pickupDate</span></span><span class="bg-success">) : &#x27;deliver your recycle box asap&#x27;)</span></span><span class="bg-success"> + &#x27;.&#x27;</span></span><span class="bg-success">
+        initRecycle()
+        $scope.form.$setPristine()
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    function findAll () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="19"><span class="label label-success">19</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="19">{
+}</span><span class="stryker-original-code" data-mutant="19"><span class="bg-success">{
+      recycleService.find().then(function (recycles) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="20"><span class="label label-success">20</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="20">{
+}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success">{
+        $scope.recycles &#x3D; recycles
+      }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="21"><span class="label label-success">21</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="21">{
+}</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success">{
+        console.log(err)
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+    findAll()
+  }</span></span><span class="bg-success">]</span></span><span class="bg-null">)</span>
+</code></pre>
+</div><footer>
+    Generated with stryker-html-reporter generator. Visit the <a href="http://stryker-mutator.github.io" target="_blank">Stryker website</a></footer>
+</div>
+<script src="../stryker.js" defer></script>
+</body>
+</html>

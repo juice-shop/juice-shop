@@ -1,0 +1,257 @@
+<html>
+<head>
+    <title>BasketController.js - Stryker report</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../highlightjs/styles/default.css">
+    <link rel="stylesheet" href="../stryker.css">
+</head>
+
+<body>  
+    <img class="stryker-image" alt="Stryker" src="../stryker-80x80.png">
+
+    <div class="container-fluid">
+        <h1>BasketController.js - Stryker report</h1><div class="col-md-12">
+    <h2>Summary</h2>
+    <div class="row">
+        <div class="col-xs-11">
+            <table class="table table-hover table-bordered table-no-top">
+                <thead>
+                    <tr>
+                        <th style="width: 20%"><div><span>File</span></div></th>
+                        <th colspan="2"><div><span>Mutation score</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Errors</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th>
+                    </tr>
+                </thead>                <tbody>
+                    <tr>
+                        <td><a href="BasketController.js.html">BasketController.js</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="91" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 91%;">
+                                    91%
+                                </div>
+                            </div>
+                        </td>
+                        <th class="text-center" style="width: 10%">61/67</th>
+                        <td class="text-center">61</td>
+                        <td class="text-center">6</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <th class="text-center">61</th>
+                        <th class="text-center">6</th>
+                        <th class="text-center">67</th>
+                    </tr>                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Code</h2>
+    <div class="row">
+        <div class="col-sm-6">
+           <a href="#" class="stryker-collapse-expand-all">Expand all</a>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <label>
+                <input class="stryker-display-killed" type="checkbox"> Also show killed mutants
+            </label>
+        </div>
+    </div>
+    <pre><code class="lang-javascript"><span class="bg-null">angular.module(&#x27;juiceShop&#x27;).controller(&#x27;BasketController&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="0"><span class="label label-success">0</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="0">[]</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success">[
+  &#x27;$scope&#x27;,
+  &#x27;$sce&#x27;,
+  &#x27;$window&#x27;,
+  &#x27;$translate&#x27;,
+  &#x27;$uibModal&#x27;,
+  &#x27;BasketService&#x27;,
+  &#x27;UserService&#x27;,
+  &#x27;ConfigurationService&#x27;,
+  function ($scope, $sce, $window, $translate, $uibModal, basketService, userService, configurationService) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="1"><span class="label label-success">1</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="1">{
+}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success">{
+    &#x27;use strict&#x27;
+
+    userService.whoAmI().then(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="2"><span class="label label-danger">2</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="2">{
+}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-danger">{
+      $scope.userEmail &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="3"><span class="label label-danger">3</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="3">data.email &amp;&amp; &#x27;anonymous&#x27;</span><span class="stryker-original-code" data-mutant="3"><span class="bg-danger">data.email || &#x27;anonymous&#x27;</span></span><span class="bg-danger">
+    }</span></span><span class="bg-success">)
+
+    $scope.couponCollapsed &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="4"><span class="label label-danger">4</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="4">false</span><span class="stryker-original-code" data-mutant="4"><span class="bg-danger">true</span></span><span class="bg-success">
+    $scope.paymentCollapsed &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="5"><span class="label label-danger">5</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="5">false</span><span class="stryker-original-code" data-mutant="5"><span class="bg-danger">true</span></span><span class="bg-success">
+
+    function load () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="6"><span class="label label-success">6</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="6">{
+}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success">{
+      basketService.find($window.sessionStorage.bid).then(function (basket) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="7"><span class="label label-success">7</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="7">{
+}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success">{
+        $scope.products &#x3D; basket.products
+        for (var i &#x3D; 0; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="8"><span class="label label-success">8</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="8">i &lt;&#x3D; $scope.products.length</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="9"><span class="label label-success">9</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="9">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="10"><span class="label label-success">10</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="10">i &gt;&#x3D; $scope.products.length</span><span class="stryker-original-code" data-mutant="8"><span class="stryker-original-code" data-mutant="9"><span class="stryker-original-code" data-mutant="10"><span class="bg-success">i &lt; $scope.products.length</span></span></span></span><span class="bg-success">; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="11"><span class="label label-success">11</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="11">i--</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success">i++</span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="12"><span class="label label-success">12</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="12">{
+}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success">{
+          $scope.products[i].description &#x3D; $sce.trustAsHtml($scope.products[i].description)
+        }</span></span><span class="bg-success">
+      }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="13"><span class="label label-success">13</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="13">{
+}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-success">{
+        console.log(err)
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+    load()
+
+    $scope.delete &#x3D; function (id) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="14"><span class="label label-success">14</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="14">{
+}</span><span class="stryker-original-code" data-mutant="14"><span class="bg-success">{
+      basketService.del(id).then(function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="15"><span class="label label-success">15</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="15">{
+}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success">{
+        load()
+      }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="16"><span class="label label-success">16</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="16">{
+}</span><span class="stryker-original-code" data-mutant="16"><span class="bg-success">{
+        console.log(err)
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    $scope.applyCoupon &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="17"><span class="label label-success">17</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="17">{
+}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-success">{
+      basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).then(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="18"><span class="label label-success">18</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="18">{
+}</span><span class="stryker-original-code" data-mutant="18"><span class="bg-success">{
+        $scope.coupon &#x3D; undefined
+        $translate(&#x27;DISCOUNT_APPLIED&#x27;, {discount: data}).then(function (discountApplied) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="19"><span class="label label-success">19</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="19">{
+}</span><span class="stryker-original-code" data-mutant="19"><span class="bg-success">{
+          $scope.confirmation &#x3D; discountApplied
+        }</span></span><span class="bg-success">, function (translationId) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="20"><span class="label label-success">20</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="20">{
+}</span><span class="stryker-original-code" data-mutant="20"><span class="bg-success">{
+          $scope.confirmation &#x3D; translationId
+        }</span></span><span class="bg-success">)
+        $scope.error &#x3D; undefined
+        $scope.form.$setPristine()
+      }</span></span><span class="bg-success">).catch(function (error) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="21"><span class="label label-success">21</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="21">{
+}</span><span class="stryker-original-code" data-mutant="21"><span class="bg-success">{
+        console.log(error)
+        $scope.confirmation &#x3D; undefined
+        $scope.error &#x3D; error // Intentionally not translated to indicate that the error just passed through from backend
+        $scope.form.$setPristine()
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    $scope.checkout &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="22"><span class="label label-success">22</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="22">{
+}</span><span class="stryker-original-code" data-mutant="22"><span class="bg-success">{
+      basketService.checkout($window.sessionStorage.bid).then(function (orderConfirmationPath) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="23"><span class="label label-success">23</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="23">{
+}</span><span class="stryker-original-code" data-mutant="23"><span class="bg-success">{
+        $window.location.replace(orderConfirmationPath)
+      }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="24"><span class="label label-success">24</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="24">{
+}</span><span class="stryker-original-code" data-mutant="24"><span class="bg-success">{
+        console.log(err)
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    $scope.inc &#x3D; function (id) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="25"><span class="label label-success">25</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="25">{
+}</span><span class="stryker-original-code" data-mutant="25"><span class="bg-success">{
+      addToQuantity(id, 1)
+    }</span></span><span class="bg-success">
+
+    $scope.dec &#x3D; function (id) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="26"><span class="label label-success">26</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="26">{
+}</span><span class="stryker-original-code" data-mutant="26"><span class="bg-success">{
+      addToQuantity(id, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="27"><span class="label label-success">27</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="27">+1</span><span class="stryker-original-code" data-mutant="27"><span class="bg-success">-1</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    function addToQuantity (id, value) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="28"><span class="label label-success">28</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="28">{
+}</span><span class="stryker-original-code" data-mutant="28"><span class="bg-success">{
+      basketService.get(id).then(function (basketItem) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="29"><span class="label label-success">29</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="29">{
+}</span><span class="stryker-original-code" data-mutant="29"><span class="bg-success">{
+        var newQuantity &#x3D; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="30"><span class="label label-success">30</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="30">basketItem.quantity - value</span><span class="stryker-original-code" data-mutant="30"><span class="bg-success">basketItem.quantity + value</span></span><span class="bg-success">
+        basketService.put(id, {quantity: </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="31"><span class="label label-success">31</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="31">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="32"><span class="label label-success">32</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="32">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="33"><span class="label label-danger">33</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="33">newQuantity &lt;&#x3D; 1</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="34"><span class="label label-success">34</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="34">newQuantity &gt;&#x3D; 1</span><span class="stryker-original-code" data-mutant="31"><span class="stryker-original-code" data-mutant="32"><span class="stryker-original-code" data-mutant="33"><span class="stryker-original-code" data-mutant="34"><span class="bg-danger">newQuantity &lt; 1</span></span></span></span></span><span class="bg-success"> ? 1 : newQuantity}).then(function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="35"><span class="label label-danger">35</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="35">{
+}</span><span class="stryker-original-code" data-mutant="35"><span class="bg-danger">{
+          load()
+        }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="36"><span class="label label-success">36</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="36">{
+}</span><span class="stryker-original-code" data-mutant="36"><span class="bg-success">{
+          console.log(err)
+        }</span></span><span class="bg-success">)
+      }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="37"><span class="label label-success">37</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="37">{
+}</span><span class="stryker-original-code" data-mutant="37"><span class="bg-success">{
+        console.log(err)
+      }</span></span><span class="bg-success">)
+    }</span></span><span class="bg-success">
+
+    $scope.showBitcoinQrCode &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="38"><span class="label label-success">38</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="38">{
+}</span><span class="stryker-original-code" data-mutant="38"><span class="bg-success">{
+      $uibModal.open({
+        templateUrl: &#x27;views/QrCode.html&#x27;,
+        controller: &#x27;QrCodeController&#x27;,
+        size: &#x27;md&#x27;,
+        resolve: {
+          data: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="39"><span class="label label-success">39</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="39">{
+}</span><span class="stryker-original-code" data-mutant="39"><span class="bg-success">{ return &#x27;bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm&#x27; }</span></span><span class="bg-success">,
+          url: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="40"><span class="label label-success">40</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="40">{
+}</span><span class="stryker-original-code" data-mutant="40"><span class="bg-success">{ return &#x27;/redirect?to&#x3D;https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm&#x27; }</span></span><span class="bg-success">,
+          address: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="41"><span class="label label-success">41</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="41">{
+}</span><span class="stryker-original-code" data-mutant="41"><span class="bg-success">{ return &#x27;1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm&#x27; }</span></span><span class="bg-success">,
+          title: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="42"><span class="label label-success">42</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="42">{
+}</span><span class="stryker-original-code" data-mutant="42"><span class="bg-success">{ return &#x27;TITLE_BITCOIN_ADDRESS&#x27; }</span></span><span class="bg-success">
+        }
+      })
+    }</span></span><span class="bg-success">
+
+    $scope.showDashQrCode &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="43"><span class="label label-success">43</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="43">{
+}</span><span class="stryker-original-code" data-mutant="43"><span class="bg-success">{
+      $uibModal.open({
+        templateUrl: &#x27;views/QrCode.html&#x27;,
+        controller: &#x27;QrCodeController&#x27;,
+        size: &#x27;md&#x27;,
+        resolve: {
+          data: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="44"><span class="label label-success">44</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="44">{
+}</span><span class="stryker-original-code" data-mutant="44"><span class="bg-success">{ return &#x27;dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW&#x27; }</span></span><span class="bg-success">,
+          url: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="45"><span class="label label-success">45</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="45">{
+}</span><span class="stryker-original-code" data-mutant="45"><span class="bg-success">{ return &#x27;/redirect?to&#x3D;https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW&#x27; }</span></span><span class="bg-success">,
+          address: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="46"><span class="label label-success">46</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="46">{
+}</span><span class="stryker-original-code" data-mutant="46"><span class="bg-success">{ return &#x27;Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW&#x27; }</span></span><span class="bg-success">,
+          title: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="47"><span class="label label-success">47</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="47">{
+}</span><span class="stryker-original-code" data-mutant="47"><span class="bg-success">{ return &#x27;TITLE_DASH_ADDRESS&#x27; }</span></span><span class="bg-success">
+        }
+      })
+    }</span></span><span class="bg-success">
+
+    $scope.showEtherQrCode &#x3D; function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="48"><span class="label label-success">48</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="48">{
+}</span><span class="stryker-original-code" data-mutant="48"><span class="bg-success">{
+      $uibModal.open({
+        templateUrl: &#x27;views/QrCode.html&#x27;,
+        controller: &#x27;QrCodeController&#x27;,
+        size: &#x27;md&#x27;,
+        resolve: {
+          data: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="49"><span class="label label-success">49</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="49">{
+}</span><span class="stryker-original-code" data-mutant="49"><span class="bg-success">{ return &#x27;0x0f933ab9fCAAA782D0279C300D73750e1311EAE6&#x27; }</span></span><span class="bg-success">,
+          url: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="50"><span class="label label-success">50</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="50">{
+}</span><span class="stryker-original-code" data-mutant="50"><span class="bg-success">{ return &#x27;https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6&#x27; }</span></span><span class="bg-success">,
+          address: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="51"><span class="label label-success">51</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="51">{
+}</span><span class="stryker-original-code" data-mutant="51"><span class="bg-success">{ return &#x27;0x0f933ab9fCAAA782D0279C300D73750e1311EAE6&#x27; }</span></span><span class="bg-success">,
+          title: function () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="52"><span class="label label-success">52</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="52">{
+}</span><span class="stryker-original-code" data-mutant="52"><span class="bg-success">{ return &#x27;TITLE_ETHER_ADDRESS&#x27; }</span></span><span class="bg-success">
+        }
+      })
+    }</span></span><span class="bg-success">
+
+    $scope.twitterUrl &#x3D; &#x27;https://twitter.com/owasp_juiceshop&#x27;
+    $scope.facebookUrl &#x3D; &#x27;https://www.facebook.com/owasp.juiceshop&#x27;
+    configurationService.getApplicationConfiguration().then(function (config) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="53"><span class="label label-success">53</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="53">{
+}</span><span class="stryker-original-code" data-mutant="53"><span class="bg-success">{
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="54"><span class="label label-success">54</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="54">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="55"><span class="label label-success">55</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="55">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="56"><span class="label label-success">56</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="56">config &amp;&amp; config.application || config.application.twitterUrl !&#x3D;&#x3D; null</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="57"><span class="label label-success">57</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="57">config || config.application</span><span class="stryker-original-code" data-mutant="54"><span class="stryker-original-code" data-mutant="55"><span class="stryker-original-code" data-mutant="56"><span class="stryker-original-code" data-mutant="57"><span class="bg-success">config &amp;&amp; config.application</span></span><span class="bg-success"> &amp;&amp; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="58"><span class="label label-success">58</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="58">config.application.twitterUrl &#x3D;&#x3D;&#x3D; null</span><span class="stryker-original-code" data-mutant="58"><span class="bg-success">config.application.twitterUrl !&#x3D;&#x3D; null</span></span></span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="59"><span class="label label-success">59</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="59">{
+}</span><span class="stryker-original-code" data-mutant="59"><span class="bg-success">{
+        $scope.twitterUrl &#x3D; config.application.twitterUrl
+      }</span></span><span class="bg-success">
+      if (</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="60"><span class="label label-success">60</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="60">true</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="61"><span class="label label-success">61</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="61">false</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="62"><span class="label label-success">62</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="62">config &amp;&amp; config.application || config.application.facebookUrl !&#x3D;&#x3D; null</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="63"><span class="label label-success">63</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="63">config || config.application</span><span class="stryker-original-code" data-mutant="60"><span class="stryker-original-code" data-mutant="61"><span class="stryker-original-code" data-mutant="62"><span class="stryker-original-code" data-mutant="63"><span class="bg-success">config &amp;&amp; config.application</span></span><span class="bg-success"> &amp;&amp; </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="64"><span class="label label-success">64</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="64">config.application.facebookUrl &#x3D;&#x3D;&#x3D; null</span><span class="stryker-original-code" data-mutant="64"><span class="bg-success">config.application.facebookUrl !&#x3D;&#x3D; null</span></span></span></span></span><span class="bg-success">) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="65"><span class="label label-success">65</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="65">{
+}</span><span class="stryker-original-code" data-mutant="65"><span class="bg-success">{
+        $scope.facebookUrl &#x3D; config.application.facebookUrl
+      }</span></span><span class="bg-success">
+    }</span></span><span class="bg-success">).catch(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="66"><span class="label label-success">66</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="66">{
+}</span><span class="stryker-original-code" data-mutant="66"><span class="bg-success">{
+      console.log(err)
+    }</span></span><span class="bg-success">)
+  }</span></span><span class="bg-success">]</span></span><span class="bg-null">)</span>
+</code></pre>
+</div><footer>
+    Generated with stryker-html-reporter generator. Visit the <a href="http://stryker-mutator.github.io" target="_blank">Stryker website</a></footer>
+</div>
+<script src="../stryker.js" defer></script>
+</body>
+</html>

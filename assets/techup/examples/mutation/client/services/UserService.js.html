@@ -1,0 +1,193 @@
+<html>
+<head>
+    <title>UserService.js - Stryker report</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../highlightjs/styles/default.css">
+    <link rel="stylesheet" href="../stryker.css">
+</head>
+
+<body>  
+    <img class="stryker-image" alt="Stryker" src="../stryker-80x80.png">
+
+    <div class="container-fluid">
+        <h1>UserService.js - Stryker report</h1><div class="col-md-12">
+    <h2>Summary</h2>
+    <div class="row">
+        <div class="col-xs-11">
+            <table class="table table-hover table-bordered table-no-top">
+                <thead>
+                    <tr>
+                        <th style="width: 20%"><div><span>File</span></div></th>
+                        <th colspan="2"><div><span>Mutation score</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+                        <th class="rotate text-center" style="width: 50px"><div><span># Errors</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+                        <th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th>
+                    </tr>
+                </thead>                <tbody>
+                    <tr>
+                        <td><a href="UserService.js.html">UserService.js</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: 97%;">
+                                    97%
+                                </div>
+                            </div>
+                        </td>
+                        <th class="text-center" style="width: 10%">34/35</th>
+                        <td class="text-center">34</td>
+                        <td class="text-center">1</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <th class="text-center">34</th>
+                        <th class="text-center">1</th>
+                        <th class="text-center">35</th>
+                    </tr>                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2>Code</h2>
+    <div class="row">
+        <div class="col-sm-6">
+           <a href="#" class="stryker-collapse-expand-all">Expand all</a>
+        </div>
+        <div class="col-sm-offset-2 col-sm-4">
+            <label>
+                <input class="stryker-display-killed" type="checkbox"> Also show killed mutants
+            </label>
+        </div>
+    </div>
+    <pre><code class="lang-javascript"><span class="bg-null">angular.module(&#x27;juiceShop&#x27;).factory(&#x27;UserService&#x27;, </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="0"><span class="label label-success">0</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="0">[]</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success">[&#x27;$http&#x27;, &#x27;$q&#x27;, function ($http, $q) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="1"><span class="label label-success">1</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="1">{
+}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success">{
+  &#x27;use strict&#x27;
+
+  var host &#x3D; &#x27;/api/Users&#x27;
+
+  function find (params) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="2"><span class="label label-success">2</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="2">{
+}</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success">{
+    var users &#x3D; $q.defer()
+    $http.get(&#x27;/rest/user/authentication-details/&#x27;, {params: params}).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="3"><span class="label label-success">3</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="3">{
+}</span><span class="stryker-original-code" data-mutant="3"><span class="bg-success">{
+      users.resolve(data.data)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="4"><span class="label label-success">4</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="4">{
+}</span><span class="stryker-original-code" data-mutant="4"><span class="bg-success">{
+      users.reject(err)
+    }</span></span><span class="bg-success">)
+    return users.promise
+  }</span></span><span class="bg-success">
+
+  function get (id) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="5"><span class="label label-success">5</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="5">{
+}</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success">{
+    var user &#x3D; $q.defer()
+    $http.get(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="6"><span class="label label-success">6</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="6">host + &#x27;/&#x27; - id</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="7"><span class="label label-success">7</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="7">host - &#x27;/&#x27;</span><span class="stryker-original-code" data-mutant="6"><span class="stryker-original-code" data-mutant="7"><span class="bg-success">host + &#x27;/&#x27;</span></span><span class="bg-success"> + id</span></span><span class="bg-success">).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="8"><span class="label label-success">8</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="8">{
+}</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success">{
+      user.resolve(data.data)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="9"><span class="label label-success">9</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="9">{
+}</span><span class="stryker-original-code" data-mutant="9"><span class="bg-success">{
+      user.reject(err)
+    }</span></span><span class="bg-success">)
+    return user.promise
+  }</span></span><span class="bg-success">
+
+  function save (params) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="10"><span class="label label-success">10</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="10">{
+}</span><span class="stryker-original-code" data-mutant="10"><span class="bg-success">{
+    var createdUser &#x3D; $q.defer()
+    $http.post(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="11"><span class="label label-success">11</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="11">host - &#x27;/&#x27;</span><span class="stryker-original-code" data-mutant="11"><span class="bg-success">host + &#x27;/&#x27;</span></span><span class="bg-success">, params).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="12"><span class="label label-success">12</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="12">{
+}</span><span class="stryker-original-code" data-mutant="12"><span class="bg-success">{
+      createdUser.resolve(data.data)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="13"><span class="label label-success">13</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="13">{
+}</span><span class="stryker-original-code" data-mutant="13"><span class="bg-success">{
+      createdUser.reject(err)
+    }</span></span><span class="bg-success">)
+    return createdUser.promise
+  }</span></span><span class="bg-success">
+
+  function login (params) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="14"><span class="label label-success">14</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="14">{
+}</span><span class="stryker-original-code" data-mutant="14"><span class="bg-success">{
+    var authentication &#x3D; $q.defer()
+    $http.post(&#x27;/rest/user/login&#x27;, params).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="15"><span class="label label-success">15</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="15">{
+}</span><span class="stryker-original-code" data-mutant="15"><span class="bg-success">{
+      authentication.resolve(data.authentication)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="16"><span class="label label-success">16</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="16">{
+}</span><span class="stryker-original-code" data-mutant="16"><span class="bg-success">{
+      authentication.reject(err)
+    }</span></span><span class="bg-success">)
+    return authentication.promise
+  }</span></span><span class="bg-success">
+
+  function changePassword (passwords) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="17"><span class="label label-success">17</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="17">{
+}</span><span class="stryker-original-code" data-mutant="17"><span class="bg-success">{
+    var updatedUser &#x3D; $q.defer()
+    $http.get(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="18"><span class="label label-success">18</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="18">&#x27;/rest/user/change-password?current&#x3D;&#x27; + passwords.current + &#x27;&amp;new&#x3D;&#x27; + passwords.new + &#x27;&amp;repeat&#x3D;&#x27; - passwords.repeat</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="19"><span class="label label-success">19</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="19">&#x27;/rest/user/change-password?current&#x3D;&#x27; + passwords.current + &#x27;&amp;new&#x3D;&#x27; + passwords.new - &#x27;&amp;repeat&#x3D;&#x27;</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="20"><span class="label label-success">20</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="20">&#x27;/rest/user/change-password?current&#x3D;&#x27; + passwords.current + &#x27;&amp;new&#x3D;&#x27; - passwords.new</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="21"><span class="label label-success">21</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="21">&#x27;/rest/user/change-password?current&#x3D;&#x27; + passwords.current - &#x27;&amp;new&#x3D;&#x27;</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="22"><span class="label label-success">22</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="22">&#x27;/rest/user/change-password?current&#x3D;&#x27; - passwords.current</span><span class="stryker-original-code" data-mutant="18"><span class="stryker-original-code" data-mutant="19"><span class="stryker-original-code" data-mutant="20"><span class="stryker-original-code" data-mutant="21"><span class="stryker-original-code" data-mutant="22"><span class="bg-success">&#x27;/rest/user/change-password?current&#x3D;&#x27; + passwords.current</span></span><span class="bg-success"> + &#x27;&amp;new&#x3D;&#x27;</span></span><span class="bg-success"> + passwords.new</span></span><span class="bg-success"> + &#x27;&amp;repeat&#x3D;&#x27;</span></span><span class="bg-success"> + passwords.repeat</span></span><span class="bg-success">).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="23"><span class="label label-success">23</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="23">{
+}</span><span class="stryker-original-code" data-mutant="23"><span class="bg-success">{
+      updatedUser.resolve(data.user)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="24"><span class="label label-success">24</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="24">{
+}</span><span class="stryker-original-code" data-mutant="24"><span class="bg-success">{
+      updatedUser.reject(err)
+    }</span></span><span class="bg-success">)
+    return updatedUser.promise
+  }</span></span><span class="bg-success">
+
+  function resetPassword (params) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="25"><span class="label label-success">25</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="25">{
+}</span><span class="stryker-original-code" data-mutant="25"><span class="bg-success">{
+    var updatedUser &#x3D; $q.defer()
+    $http.post(&#x27;/rest/user/reset-password&#x27;, params).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="26"><span class="label label-success">26</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="26">{
+}</span><span class="stryker-original-code" data-mutant="26"><span class="bg-success">{
+      updatedUser.resolve(data.user)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="27"><span class="label label-success">27</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="27">{
+}</span><span class="stryker-original-code" data-mutant="27"><span class="bg-success">{
+      updatedUser.reject(err)
+    }</span></span><span class="bg-success">)
+    return updatedUser.promise
+  }</span></span><span class="bg-success">
+  function whoAmI () </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="28"><span class="label label-success">28</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="28">{
+}</span><span class="stryker-original-code" data-mutant="28"><span class="bg-success">{
+    var currentUser &#x3D; $q.defer()
+    $http.get(&#x27;/rest/user/whoami&#x27;).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="29"><span class="label label-success">29</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="29">{
+}</span><span class="stryker-original-code" data-mutant="29"><span class="bg-success">{
+      currentUser.resolve(data.user)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="danger" data-mutant="30"><span class="label label-danger">30</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="30">{
+}</span><span class="stryker-original-code" data-mutant="30"><span class="bg-danger">{
+      currentUser.reject(err)
+    }</span></span><span class="bg-success">)
+    return currentUser.promise
+  }</span></span><span class="bg-success">
+
+  function oauthLogin (accessToken) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="31"><span class="label label-success">31</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="31">{
+}</span><span class="stryker-original-code" data-mutant="31"><span class="bg-success">{
+    var oauthResponse &#x3D; $q.defer()
+    $http.get(</span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="32"><span class="label label-success">32</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="32">&#x27;https://www.googleapis.com/oauth2/v1/userinfo?alt&#x3D;json&amp;access_token&#x3D;&#x27; - accessToken</span><span class="stryker-original-code" data-mutant="32"><span class="bg-success">&#x27;https://www.googleapis.com/oauth2/v1/userinfo?alt&#x3D;json&amp;access_token&#x3D;&#x27; + accessToken</span></span><span class="bg-success">).success(function (data) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="33"><span class="label label-success">33</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="33">{
+}</span><span class="stryker-original-code" data-mutant="33"><span class="bg-success">{
+      oauthResponse.resolve(data)
+    }</span></span><span class="bg-success">).error(function (err) </span><a href="#" class="stryker-mutant-button" data-mutant-status-annotation="success" data-mutant="34"><span class="label label-success">34</span></a><span class="label label-info stryker-mutant-replacement" hidden data-mutant="34">{
+}</span><span class="stryker-original-code" data-mutant="34"><span class="bg-success">{
+      oauthResponse.reject(err)
+    }</span></span><span class="bg-success">)
+    return oauthResponse.promise
+  }</span></span><span class="bg-success">
+
+  return {
+    find: find,
+    get: get,
+    save: save,
+    login: login,
+    changePassword: changePassword,
+    resetPassword: resetPassword,
+    whoAmI: whoAmI,
+    oauthLogin: oauthLogin
+  }
+}</span></span><span class="bg-success">]</span></span><span class="bg-null">)</span>
+</code></pre>
+</div><footer>
+    Generated with stryker-html-reporter generator. Visit the <a href="http://stryker-mutator.github.io" target="_blank">Stryker website</a></footer>
+</div>
+<script src="../stryker.js" defer></script>
+</body>
+</html>
