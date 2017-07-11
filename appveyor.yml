@@ -1,6 +1,6 @@
 version: '{build}'
 init:
-  - "git config --global core.autocrlf true"
+  - git config --global core.autocrlf true
 branches:
   except:
   - gh-pages
@@ -14,11 +14,11 @@ environment:
 platform:
   - x64
 install:
-  - ps: "Install-Product node $env:nodejs_version $env:platform"
-  - "node --version && npm --version"
-  - "if exist node_modules rd /Q /S node_modules" # workaround for npm install bug missing module dependencies
-  - "npm install --production"
-  - "node_modules\.bin\grunt package"
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - node --version && npm --version
+  - if exist node_modules rd /Q /S node_modules" # workaround for npm install bug missing module dependencies
+  - npm install --production
+  - node_modules\.bin\grunt package
 build: off
 test: off
 matrix:
