@@ -55,7 +55,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect(scope.users).toEqual({})
+      expect(scope.users).toEqual([])
     }))
 
     it('should hold nothing on error from backend API', inject(function () {
@@ -94,7 +94,7 @@ describe('controllers', function () {
 
       scope.showDetail(42)
 
-      expect($uibModal.open.calls[0].args[0].resolve.id()).toBe(42)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.id()).toBe(42)
     }))
   })
 })

@@ -17,7 +17,7 @@ module.exports = function (config) {
     ],
     testRunner: 'mocha',
     testFramework: 'mocha',
-    coverageAnalysis: 'all',
+    coverageAnalysis: 'perTest',
     reporter: ['html', 'progress'],
     htmlReporter: {
       baseDir: 'build/reports/mutation/server'

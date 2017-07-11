@@ -66,7 +66,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({})
+      expect(scope.recycle).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will pick up your pomace on 2017-05-23.')
     }))
 
@@ -80,7 +80,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({})
+      expect(scope.recycle).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will deliver your recycle box asap.')
     }))
 

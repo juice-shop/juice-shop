@@ -79,7 +79,7 @@ describe('controllers', function () {
 
       scope.showDetail(42)
 
-      expect($uibModal.open.calls[0].args[0].resolve.id()).toBe(42)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.id()).toBe(42)
     }))
 
     it('should add new product to basket', inject(function () {
