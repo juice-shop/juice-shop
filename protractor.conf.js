@@ -15,7 +15,7 @@ exports.config = {
 
   baseUrl: 'http://localhost:3000',
 
-  framework: 'jasmine',
+  framework: 'jasmine2',
 
   jasmineNodeOpts: {
     showColors: true,
@@ -23,9 +23,9 @@ exports.config = {
   },
 
   onPrepare: function () {
-    require('jasmine-reporters')
+    var jasmineReporters = require('jasmine-reporters')
     jasmine.getEnv().addReporter(
-            new jasmine.JUnitXmlReporter('build/reports/e2e_results', true, true))
+            new jasmineReporters.JUnitXmlReporter('build/reports/e2e_results', true, true))
   }
 }
 
