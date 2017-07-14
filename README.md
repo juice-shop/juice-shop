@@ -128,15 +128,11 @@ OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) and offers Docker images and packaged
 distributions accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) (from `master`) | Docker snapshots (from `develop`) | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:-----------------------------------------------------------------------------------------|:----------------------------------|:-----------------------------------------------------------------------------------------|
-| 4.x     | `node4`                                                                                  | `node4-snapshot`                  | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
-| __6.x__ | __`latest`__, `node6`                                                                    | `snapshot`, `node6-snapshot`      | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
-| 8.x     | `node8`                                                                                  | `node8-snapshot`                  | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
-
-> The stable Docker images are built from `master` while the snapshot
-> images are built from `develop` branch. The latter contain unreleased
-> features but cannot be considered stable.
+| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| 4.x     |                                                                                     | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
+| __6.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
 
