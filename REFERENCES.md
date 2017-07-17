@@ -13,6 +13,12 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Video tutorial about automating web application security scans with
+  [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project)
+  using Juice Shop as the tested app:
+  [All you need is Zaproxy - Security Testing for WebApps Made Easy](https://www.youtube.com/watch?v=AQX84p9NhqY)
+  * [Example integration as a Docker Compose script](https://github.com/Soluto/webdriverio-zap-proxy)
+  * [Scan results of the example integration](https://jsfiddle.net/62aedL6n/)
 * Blog Post on
   [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
