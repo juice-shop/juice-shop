@@ -57,7 +57,7 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"Besoin d'un code de coupon ? Suivez nous sur {{twitter}} ou {{facebook}} pour des coupons mensuels et autres choses !",
   "BTN_REDEEM":"Racheter",
   "THANKS_FOR_SUPPORT":"Merci de supporter {{juiceshop}} !",
-  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Paiement",
   "LABEL_MERCHANDISE":"Marchandise",
   "OFFICIAL_MERCHANDISE_STORES":"Boutique officielle de {{juiceshop}} ! Vêtements, mugs et autocollants !",
