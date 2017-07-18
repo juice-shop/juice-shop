@@ -57,7 +57,7 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"İndirim koduna mı ihtiyacınız var? Aylık indirim kodları ve diğer spamler için bizi {{twitter}} ya da {{facebook}}'tan takip edin!",
   "BTN_REDEEM":"Kullan",
   "THANKS_FOR_SUPPORT":"{{juiceshop}}'u desteklediğiniz için teşekkür ederiz!",
-  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Ödeme",
   "LABEL_MERCHANDISE":"Ürünler",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}} kıyafetleri, kupaları ve çıkartmaları için resmi mağaza!",
