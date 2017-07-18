@@ -57,7 +57,7 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"需要一个优惠券代码吗？关注我们的 {{twitter}} 或 {{facebook}} 获取每月优惠券和其他垃圾邮件！",
   "BTN_REDEEM":"兑换",
   "THANKS_FOR_SUPPORT":"感谢您对 {{juiceshop}} 的支持！",
-  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"支付",
   "LABEL_MERCHANDISE":"商品",
   "OFFICIAL_MERCHANDISE_STORES":"官方店 {{juiceshop}} 服装、 杯子、 贴纸 ！",
