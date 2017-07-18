@@ -57,7 +57,7 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"クーポンコードが必要ですか? 毎月のクーポンとスパムのために {{twitter}} または {{facebook}} をフォローしてください!",
   "BTN_REDEEM":"クーポン適用",
   "THANKS_FOR_SUPPORT":"{{juiceshop}}をサポートしていただきありがとうございます!",
-  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"支払",
   "LABEL_MERCHANDISE":"商品",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}}のアパレル、マグ、ステッカーの公式店舗!",
