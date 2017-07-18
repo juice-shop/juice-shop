@@ -57,7 +57,7 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"Нужен код купона? Подпишись на нас на {{twitter}} или {{facebook}} и будешь получать ежемесячные купоны и другой спам!",
   "BTN_REDEEM":"Использовать",
   "THANKS_FOR_SUPPORT":"Благодарим за поддержку {{juiceshop}}!",
-  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Оплата",
   "LABEL_MERCHANDISE":"Товары",
   "OFFICIAL_MERCHANDISE_STORES":"Официальные магазины одежды, кружек и наклеек {{juiceshop}}!",
