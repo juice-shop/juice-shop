@@ -358,3 +358,33 @@ frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit 
     umail: 'ciso@' + config.get('application.domain')
   })
   .toss()
+
+frisby.create('POST password reset without any data throws a 401 error')
+  .post(REST_URL + '/user/reset-password')
+  .expectStatus(401)
+  .toss()
+
+frisby.create('POST password reset without new password throws a 401 error')
+  .post(REST_URL + '/user/reset-password', {
+    repeat: '12345'
+  }, { json: true })
+  .expectStatus(401)
+  .expectBodyContains('Password cannot be empty.')
+  .toss()
+
+frisby.create('POST password reset with mismatching passwords throws a 401 error')
+  .post(REST_URL + '/user/reset-password', {
+    new: '12345',
+    repeat: '1234_'
+  }, { json: true })
+  .expectStatus(401)
+  .expectBodyContains('New and repeated password do not match.')
+  .toss()
+
+frisby.create('POST password reset with mismatching passwords throws a 401 error')
+  .post(REST_URL + '/user/reset-password', {
+    new: '12345',
+    repeat: '1234_'
+  }, { json: true })
+  .expectStatus(401)
+  .toss()

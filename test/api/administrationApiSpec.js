@@ -1,5 +1,6 @@
 var frisby = require('frisby')
 var utils = require('../../lib/utils')
+var config = require('config')
 
 var REST_URL = 'http://localhost:3000/rest/admin'
 
@@ -9,5 +10,14 @@ frisby.create('GET application version from package.json')
   .expectHeaderContains('content-type', 'application/json')
   .expectJSON({
     version: utils.version()
+  })
+  .toss()
+
+frisby.create('GET application configuration')
+  .get(REST_URL + '/application-configuration')
+  .expectStatus(200)
+  .expectHeaderContains('content-type', 'application/json')
+  .expectJSONTypes({
+    config: Object
   })
   .toss()
