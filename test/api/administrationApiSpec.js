@@ -1,6 +1,5 @@
 var frisby = require('frisby')
 var utils = require('../../lib/utils')
-var config = require('config')
 
 var REST_URL = 'http://localhost:3000/rest/admin'
 
