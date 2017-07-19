@@ -134,3 +134,7 @@ products:
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
     image: 'carrot_juice.jpeg'
+  - name: 'Jawa Script T-Shirt'
+    description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
+    price: 20
+    image: 'jawa_script.jpg'
