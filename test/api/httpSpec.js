@@ -23,4 +23,11 @@ describe('HTTP', function () {
       .expect('header', 'X-Content-Type-Options', 'nosniff')
       .done(done)
   })
+
+  it('response must not contain XSS protection header', function (done) {
+    frisby.get(URL)
+      .expect('status', 200)
+      .expectNot('header', 'X-XSS-Protection')
+      .done(done)
+  })
 })
