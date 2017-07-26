@@ -17,6 +17,7 @@ module.exports = function () {
   createProducts()
   createBaskets()
   createFeedback()
+  createComplaints()
   createSecurityQuestions()
   createSecurityAnswers()
 }
@@ -694,6 +695,13 @@ function createFeedback () {
     UserId: 3,
     comment: 'Nothing useful available here!',
     rating: 1
+  })
+}
+
+function createComplaints () {
+  models.Complaint.create({
+    UserId: 3,
+    message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   })
 }
 
