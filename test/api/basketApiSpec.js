@@ -118,7 +118,7 @@ describe('/rest/basket/:id/checkout', function () {
   })
 
   it('POST placing an order for a basket with a negative total cost is possible', function (done) {
-    // FIXME Does not add the intended product to the basket before actually triggering the order
+    // FIXME Adds a basket item with both IDs and quantity as <null> to Basket #3
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: { BasketId: 3, ProductId: 10, quantity: -100 }
