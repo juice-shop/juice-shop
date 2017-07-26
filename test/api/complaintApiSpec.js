@@ -40,13 +40,13 @@ describe('/Complaints', function () {
 
 describe('/Complaints/:id', function () {
   it('GET existing complaint by id is forbidden', function (done) {
-    frisby.get(API_URL + '/Complaints/3', { headers: authHeader })
+    frisby.get(API_URL + '/Complaints/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)
   })
 
   it('PUT update existing complaint is forbidden', function (done) {
-    frisby.put(API_URL + '/Complaints/3', {
+    frisby.put(API_URL + '/Complaints/1', {
       headers: authHeader,
       body: {
         message: 'Should not work...'
@@ -57,7 +57,7 @@ describe('/Complaints/:id', function () {
   })
 
   it('DELETE existing complaint is forbidden', function (done) {
-    frisby.del(API_URL + '/Complaints/3', { headers: authHeader })
+    frisby.del(API_URL + '/Complaints/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)
   })
