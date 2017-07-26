@@ -81,7 +81,7 @@
     "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
     "form-data": "~1.0",
-    "frisby": "~0.8",
+    "frisby": "^2.0.0-alpha.5",
     "http-server": "~0.10",
     "istanbul": "~0.4",
     "jasmine-node": "~1.14",
@@ -144,11 +144,11 @@
       "/vagrant/**"
     ],
     "env": {
-    "jasmine": true,
-    "node": true,
-    "browser": true,
-    "mocha": true,
-    "protractor": true
+      "jasmine": true,
+      "node": true,
+      "browser": true,
+      "mocha": true,
+      "protractor": true
     },
     "globals": [
       "angular",
