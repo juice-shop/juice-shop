@@ -1,8 +1,8 @@
 server:
   port: 3000
 application:
-  domain: "juice-sh.op"
-  name: "OWASP Juice Shop"
+  domain: "flight-cl.ub"
+  name: "Flight Club"
   logo: "JuiceShop_Logo.png"
   favicon: "favicon_v2.ico"
   numberOfRandomFakeUsers: 0
@@ -10,9 +10,9 @@ application:
   showCtfFlagsInNotifications: true
   showGitHubRibbon: false
   showChallengeHints: false
-  theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
-  twitterUrl: "https://twitter.com/owasp_juiceshop"
-  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+  theme: "readable" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
+  twitterUrl: "https://twitter.com/flightclub"
+  facebookUrl: "https://www.facebook.com/Flight-Club-194401846124/"
   recyclePage:
     topProductImage: "fruit_press.jpg"
     bottomProductImage: "apple_pressings.jpg"
