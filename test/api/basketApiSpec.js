@@ -4,7 +4,7 @@ var insecurity = require('../../lib/insecurity')
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 var validCoupon = insecurity.generateCoupon(new Date(), 15)
 var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20)
@@ -108,7 +108,6 @@ describe('/rest/basket/:id/checkout', function () {
   })
 
   it('POST placing an order for a basket with a negative total cost is possible', function (done) {
-    // FIXME Adds a basket item with both IDs and quantity as <null> to Basket #3
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: { BasketId: 3, ProductId: 10, quantity: -100 }

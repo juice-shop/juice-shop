@@ -4,11 +4,10 @@ var insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/Complaints', function () {
   it('POST new complaint anonymously', function (done) {
-    // FIXME Adds a complaint with message as <null>
     frisby.post(API_URL + '/Complaints', {
       headers: authHeader,
       body: {
