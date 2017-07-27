@@ -1,18 +1,15 @@
 server:
   port: 3000
 application:
-  showCtfFlagsInNotifications: true
-  showChallengeHints: false
-  showGitHubRibbon: false
   domain: "juice-sh.op"
   name: "OWASP Juice Shop"
   logo: "JuiceShop_Logo.png"
   favicon: "favicon_v2.ico"
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
-  showCtfFlagsInNotifications: false
-  showGitHubRibbon: true
-  showChallengeHints: true
+  showCtfFlagsInNotifications: true
+  showGitHubRibbon: false
+  showChallengeHints: false
   theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
