@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3000/api'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/Complaints', function () {
-  it('POST new complaint anonymously', function (done) {
+  it('POST new complaint', function (done) {
     frisby.post(API_URL + '/Complaints', {
       headers: authHeader,
       body: {

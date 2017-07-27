@@ -18,6 +18,7 @@ module.exports = function () {
   createBaskets()
   createFeedback()
   createComplaints()
+  createRecycles()
   createSecurityQuestions()
   createSecurityAnswers()
 }
@@ -702,6 +703,16 @@ function createComplaints () {
   models.Complaint.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
+  })
+}
+
+function createRecycles () {
+  models.Recycle.create({
+    UserId: 2,
+    quantity: 800,
+    address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+    date: '2270-01-17',
+    isPickup: true
   })
 }
 
