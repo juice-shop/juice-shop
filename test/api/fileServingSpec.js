@@ -102,29 +102,29 @@ describe('/ftp', function () {
       .done(done)
   })
 
-  it('GET the easter egg file by using an encoded Poison Null Byte attack with .pdf suffix', function (done) {
-    frisby.get(URL + '/ftp/eastere.gg%2500.pdf')
+  it('GET the easter egg file by using Poison Null Byte attack with .pdf suffix', function (done) {
+    frisby.get(URL + '/ftp/eastere.gg%00.pdf')
       .expect('status', 200)
       .expect('bodyContains', 'Congratulations, you found the easter egg!')
       .done(done)
   })
 
-  it('GET the easter egg file by using an encoded Poison Null Byte attack with .md suffix', function (done) {
-    frisby.get(URL + '/ftp/eastere.gg%2500.md')
+  it('GET the easter egg file by using Poison Null Byte attack with .md suffix', function (done) {
+    frisby.get(URL + '/ftp/eastere.gg%00.md')
       .expect('status', 200)
       .expect('bodyContains', 'Congratulations, you found the easter egg!')
       .done(done)
   })
 
-  it('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .pdf suffix', function (done) {
-    frisby.get(URL + '/ftp/coupons_2013.md.bak%2500.pdf')
+  it('GET the 2013 coupon code file by using Poison Null Byte attack with .pdf suffix', function (done) {
+    frisby.get(URL + '/ftp/coupons_2013.md.bak%00.pdf')
       .expect('status', 200)
       .expect('bodyContains', 'n<MibgC7sn')
       .done(done)
   })
 
-  it('GET the 2013 coupon code file by using an encoded Poison Null Byte attack with .md suffix', function (done) {
-    frisby.get(URL + '/ftp/coupons_2013.md.bak%2500.md')
+  it('GET the 2013 coupon code file by using an Poison Null Byte attack with .md suffix', function (done) {
+    frisby.get(URL + '/ftp/coupons_2013.md.bak%00.md')
       .expect('status', 200)
       .expect('bodyContains', 'n<MibgC7sn')
       .done(done)
@@ -143,15 +143,15 @@ describe('/ftp', function () {
       .done(done)
   })
 
-  it('GET the package.json file by using an encoded Poison Null Byte attack with .pdf suffix', function (done) {
-    frisby.get(URL + '/ftp/package.json.bak%2500.pdf')
+  it('GET the package.json file by using Poison Null Byte attack with .pdf suffix', function (done) {
+    frisby.get(URL + '/ftp/package.json.bak%00.pdf')
       .expect('status', 200)
       .expect('bodyContains', '"name": "juice-shop",')
       .done(done)
   })
 
-  it('GET the package.json file by using an encoded Poison Null Byte attack with .md suffix', function (done) {
-    frisby.get(URL + '/ftp/package.json.bak%2500.md')
+  it('GET the package.json file by using Poison Null Byte attack with .md suffix', function (done) {
+    frisby.get(URL + '/ftp/package.json.bak%00.md')
       .expect('status', 200)
       .expect('bodyContains', '"name": "juice-shop",')
       .done(done)
@@ -169,8 +169,8 @@ describe('/ftp', function () {
       .done(done)
   })
 
-  it('GET a file whose name contains a "/" fails with a 403 error', function (done) {
-    frisby.get(URL + '/ftp/%2fetc%2fos-release%2500.md')
+  xit('GET a file whose name contains a "/" fails with a 403 error', function (done) {
+    frisby.get(URL + '/ftp/%2fetc%2fos-release%2500.md') // FIXME https://github.com/vlucas/frisby/issues/371
       .expect('status', 403)
       .expect('bodyContains', 'Error: File names cannot contain forward slashes!')
       .done(done)
