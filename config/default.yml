@@ -1,6 +1,9 @@
 server:
   port: 3000
 application:
+  showCtfFlagsInNotifications: true
+  showChallengeHints: false
+  showGitHubRibbon: false
   domain: "juice-sh.op"
   name: "OWASP Juice Shop"
   logo: "JuiceShop_Logo.png"
