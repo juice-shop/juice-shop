@@ -29,8 +29,8 @@ describe('/rest/basket/:id', function () {
     frisby.get(REST_URL + '/basket/1', {headers: authHeader})
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', {id: 1})
       .then(function (res) {
-        expect(res.json.data.id).toBe(1)
         expect(res.json.data.products.length).toBe(3)
       })
       .done(done)
@@ -46,18 +46,14 @@ describe('/api/Baskets', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        expect(res.json.status).toBe('error')
-      })
+      .expect('json', { status: 'error' })
       .done(done)
   })
 
   it('GET all baskets is not part of API', function (done) {
     frisby.get(API_URL + '/Baskets', { headers: authHeader })
       .expect('status', 200)
-      .then(function (res) {
-        expect(res.json.status).toBe('error')
-      })
+      .expect('json', { status: 'error' })
       .done(done)
   })
 })
@@ -66,9 +62,7 @@ describe('/api/Baskets/:id', function () {
   it('GET existing basket is not part of API', function (done) {
     frisby.get(API_URL + '/Baskets/1', { headers: authHeader })
       .expect('status', 200)
-      .then(function (res) {
-        expect(res.json.status).toBe('error')
-      })
+      .expect('json', { status: 'error' })
       .done(done)
   })
 
@@ -78,18 +72,14 @@ describe('/api/Baskets/:id', function () {
       body: { UserId: 2 }
     })
       .expect('status', 200)
-      .then(function (res) {
-        expect(res.json.status).toBe('error')
-      })
+      .expect('json', { status: 'error' })
       .done(done)
   })
 
   it('DELETE existing basket is not part of API', function (done) {
     frisby.del(API_URL + '/Baskets/1', { headers: authHeader })
       .expect('status', 200)
-      .then(function (res) {
-        expect(res.json.status).toBe('error')
-      })
+      .expect('json', { status: 'error' })
       .done(done)
   })
 })
