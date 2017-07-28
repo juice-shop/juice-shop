@@ -9,7 +9,7 @@ const URL = 'http://localhost:3000'
 describe('/file-upload', function () {
   var file, form
 
-  xit('POST file valid for client and API', function (done) {
+  it('POST file valid for client and API', function (done) {
     file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -19,7 +19,7 @@ describe('/file-upload', function () {
       .done(done)
   })
 
-  xit('POST file too large for client validation but valid for API', function (done) {
+  it('POST file too large for client validation but valid for API', function (done) {
     file = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -29,7 +29,7 @@ describe('/file-upload', function () {
       .done(done)
   })
 
-  xit('POST file with illegal type for client validation but valid for API', function (done) {
+  it('POST file with illegal type for client validation but valid for API', function (done) {
     file = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -39,7 +39,7 @@ describe('/file-upload', function () {
       .done(done)
   })
 
-  xit('POST file too large for API', function (done) {
+  it('POST file too large for API', function (done) {
     file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
