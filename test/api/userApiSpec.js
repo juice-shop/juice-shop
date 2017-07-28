@@ -476,9 +476,16 @@ describe('/rest/user/change-password', function () {
 })
 
 describe('/rest/user/reset-password', function () {
-  // TODO Add positive password reset tests
-  // TODO Add password reset challenge tests
-  // TODO Add password reset test for wrong answer to security question
+  // TODO Implement missing tests for password reset
+  xit('POST password reset for newly created user', function (done) {})
+
+  xit('POST password reset for Jim with correct answer to his security question', function (done) {})
+
+  xit('POST password reset for Bender with correct answer to his security question', function (done) {})
+
+  xit('POST password reset for Bjoern with correct answer to his security question', function (done) {})
+
+  xit('POST password reset with wrong answer to security question', function (done) {})
 
   it('POST password reset without any data throws a 401 error', function (done) {
     frisby.post(REST_URL + '/user/reset-password')
