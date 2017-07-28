@@ -3,8 +3,8 @@ server:
 application:
   domain: "flight-cl.ub"
   name: "Flight Club"
-  logo: "JuiceShop_Logo.png"
-  favicon: "favicon_v2.ico"
+  logo: "Flight_Logo.png"
+  favicon: "favicon.ico"
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: true
