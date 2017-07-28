@@ -5,6 +5,7 @@ var FormData = require('form-data')
 
 const URL = 'http://localhost:3000'
 
+// FIXME Adapt to solution of https://github.com/vlucas/frisby/issues/372
 describe('/file-upload', function () {
   var file, form
 

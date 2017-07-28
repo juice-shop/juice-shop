@@ -169,7 +169,7 @@ describe('/api/Feedbacks/:id', function () {
       .done(done)
   })
 
-  xit('PUT update existing feedback', function (done) {
+  xit('PUT update existing feedback', function (done) { // FIXME Verify if put is actually meant to work
     frisby.put(API_URL + '/Feedbacks/2', {
       headers: authHeader,
       body: {

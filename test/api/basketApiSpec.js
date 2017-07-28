@@ -169,7 +169,7 @@ describe('/rest/basket/:id/coupon/:coupon', function () {
       .done(done)
   })
 
-  xit('PUT apply invalid coupon is not accepted', function (done) {
+  it('PUT apply invalid coupon is not accepted', function (done) {
     frisby.put(REST_URL + '/basket/1/coupon/xxxxxxxxxx', { headers: authHeader })
       .expect('status', 404)
       .done(done)
