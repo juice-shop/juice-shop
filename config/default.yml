@@ -14,123 +14,78 @@ application:
   twitterUrl: "https://twitter.com/flightclub"
   facebookUrl: "https://www.facebook.com/Flight-Club-194401846124/"
   recyclePage:
-    topProductImage: "fruit_press.jpg"
-    bottomProductImage: "apple_pressings.jpg"
+    topProductImage: "box_jet.jpg"
+    bottomProductImage: "box2.jpg"
 products:
-  - name: "Apple Juice (1000ml)"
+  - name: "Kid on an Old-School Plane"
     price: 1.99
     description: "The all-time classic."
     image: "apple_juice.jpg"
-  - name: 'Orange Juice (1000ml)'
-    description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
+  - name: 'Plane in the Clouds'
+    description: 'How peaceful'
     price: 2.99
-    image: 'orange_juice.jpg'
-  - name: 'Eggfruit Juice (500ml)'
-    description: 'Now with even more exotic flavour.'
+    image: 'plane1.jpg'
+  - name: 'Blue Plane'
+    description: 'Now with even more exotic clouds'
     price: 8.99
-    image: 'eggfruit_juice.jpg'
-  - name: 'Raspberry Juice (1000ml)'
-    description: 'Made from blended Raspberry Pi, water and sugar.'
+    image: 'plane2.gif'
+  - name: 'Happy Plane!'
+    description: 'Who doesn't like their animated friends?'
     price: 4.99
-    image: 'raspberry_juice.jpg'
-  - name: 'Lemon Juice (500ml)'
-    description: 'Sour but full of vitamins.'
+    image: 'plane3.png'
+  - name: 'Old-School Plane'
+    description: 'Bring the Wright Brothers back'
     price: 2.99
-    image: 'lemon_juice.jpg'
-  - name: 'Banana Juice (1000ml)'
-    description: 'Monkeys love it the most.'
+    image: 'plane4.png'
+  - name: 'New Plane'
+    description: 'Moving to the future.'
     price: 1.99
-    image: 'banana_juice.jpg'
-  - name: 'OWASP Juice Shop T-Shirt'
+    image: 'plane5.png'
+  - name: 'Pilot Tee'
     description: 'Real fans wear it 24/7!'
     price: 22.49
-    image: 'fan_shirt.jpg'
-  - name: 'OWASP Juice Shop CTF Girlie-Shirt'
-    description: 'For serious Capture-the-Flag heroines only!'
+    image: 'shirt1.jpg'
+  - name: 'Branded Tee'
+    description: 'For serious fans only!'
     price: 22.49
-    image: 'fan_girlie.jpg'
-  - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
-    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
+    image: 'shirt2.jpg'
+  - name: 'Tools'
+    description: 'Useful'
     price: 0.01
-    image: 'owasp_osaft.jpg'
+    image: 'tools.jpeg'
     useForProductTamperingChallenge: true
   - name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
+    description: 'Contains a random selection for an unbeatable price!'
     price: 29.99
-    image: 'undefined.jpg'
+    image: 'box.jpg'
     useForChristmasSpecialChallenge: true
-  - name: 'OWASP Juice Shop Sticker (2015/2016 design)'
-    description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
+  - name: 'Blue Sticker (2015/2016 design)'
+    description: 'It's a blue plane sticker! <em>Out of stock!</em>'
     price: 999.99
-    image: 'sticker.png'
+    image: 'sticker1.png'
     deletedDate: '2017-04-28'
-  - name: 'OWASP Juice Shop Sticker'
+  - name: 'Simple Sticker'
     description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
     price: 2.99
-    image: 'sticker_facelift.png'
-  - name: 'OWASP Juice Shop CTF Sticker'
-    description: 'If you are a serious flag hunter, this is a mandatory laptop decal.'
+    image: 'sticker2.jpg'
+  - name: 'Paper Plane Sticker'
+    description: 'This is a mandatory laptop decal.'
     price: 2.99
-    image: 'ctf_sticker.png'
-  - name: 'OWASP Juice Shop Mug'
-    description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
+    image: 'sticker4.png'
+  - name: 'Plane Mug'
+    description: 'Your colleagues will envy you!'
     price: 21.99
-    image: 'fan_mug.jpg'
-  - name: 'OWASP Juice Shop Hoodie'
-    description: 'Mr. Robot-style apparel. But in black. And with logo.'
+    image: 'mug1.jpg'
+  - name: 'Pilot Mug'
+    description: 'Born to fly.'
     price: 49.99
-    image: 'fan_hoodie.jpg'
-  - name: 'Woodruff Syrup "Forest Master X-Treme"'
-    description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.'
-    price: 6.99
-    image: 'woodruff_syrup.jpg'
-  - name: 'Green Smoothie'
-    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
+    image: 'mug2.jpg'
+  - name: 'An Award'
+    description: 'Made from metal'
     price: 1.99
-    image: 'green_smoothie.jpg'
-  - name: 'Quince Juice (1000ml)'
-    description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
-    price: 4.99
-    image: 'quince.jpg'
-  - name: 'OWASP Node.js Goat'
-    description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>'
-    price: 0.01
-    image: 'owasplogo.png'
-  - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#reccyle">sent back to us</a> for recycling.'
-    price: 0.89
-    image: 'apple_pressings.jpg'
-  - name: 'Fruit Press'
-    description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
-    price: 89.99
-    image: 'fruit_press.jpg'
-  - name: 'Enhanced White Rafford`s Decoction'
-    description: 'Immediately restores a large portion of Vitality.'
-    price: 150
-    image: 'white_raffards.jpg'
-  - name: 'OWASP Juice Shop Logo (3D-printed)'
+    image: 'award.jpg'
+  - name: 'Blue Plane (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
-    image: '3d_keychain.jpg' # Exif metadata contains "OpenSCAD" as subtle hint...
+    image: '3dprint.jpg' # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: 'JuiceShop.stl' # ...to blueprint file type
-  - name: 'Juice Shop Artwork'
-    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
-    price: 278.74
-    image: 'artwork.jpg'
-  - name: 'Global OWASP WASPY Award 2017 Nomnation'
-    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
-    price: 0.03
-    image: 'waspy.png'
-    deletedDate: '2017-07-01'
-  - name: 'Melon Bike'
-    description: 'The wheels of this bicycle are made from real water melons.'
-    price: 1999
-    image: 'melon_bike.jpeg'
-  - name: 'Strawberry Juice (500ml)'
-    description: 'Sweet & tasty!'
-    price: 3.99
-    image: 'strawberry_juice.jpeg'
-  - name: 'Carrot Juice (1000ml)'
-    description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
-    price: 2.99
-    image: 'carrot_juice.jpeg'
