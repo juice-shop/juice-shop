@@ -240,6 +240,13 @@ describe('/encryptionkeys', function () {
       .expect('status', 200)
       .done(done)
   })
+
+  it('GET a key file whose name contains a "/" fails with a 403 error', function (done) {
+    frisby.fetch(URL + '/encryptionkeys/%2fetc%2fos-release%2500.md', {}, { urlEncode: false })
+      .expect('status', 403)
+      .expect('bodyContains', 'Error: File names cannot contain forward slashes!')
+      .done(done)
+  })
 })
 
 describe('Hidden URL', function () {
