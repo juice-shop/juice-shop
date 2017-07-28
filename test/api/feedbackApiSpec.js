@@ -3,6 +3,7 @@ const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
+const REST_URL = 'http://localhost:3000/rest'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': /application\/json/ }
 const jsonHeader = { 'content-type': 'application/json' }
@@ -74,6 +75,60 @@ describe('/api/Feedbacks', function () {
       .expect('json', 'data', {
         UserId: 4711
       }).done(done)
+  })
+
+  it('POST feedback is associated with current user', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.post(API_URL + '/Feedbacks', {
+          headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
+          body: {
+            comment: 'Bjoern\'s choice award!',
+            rating: 5,
+            UserId: 4
+          }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('json', 'data', {
+            UserId: 4
+          })
+      })
+      .done(done)
+  })
+
+  it('POST feedback is associated with any passed user ID', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.post(API_URL + '/Feedbacks', {
+          headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
+          body: {
+            comment: 'Bender\'s choice award!',
+            rating: 5,
+            UserId: 3
+          }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('json', 'data', {
+            UserId: 3
+          })
+      })
+      .done(done)
   })
 
   it('POST feedback can be created without actually supplying data', function (done) {

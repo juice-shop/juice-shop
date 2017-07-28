@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const jsonHeader = { 'content-type': 'application/json' }
 
 var validCoupon = insecurity.generateCoupon(new Date(), 15)
 var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20)
@@ -80,6 +81,26 @@ describe('/api/Baskets/:id', function () {
     frisby.del(API_URL + '/Baskets/1', { headers: authHeader })
       .expect('status', 200)
       .expect('json', { status: 'error' })
+      .done(done)
+  })
+})
+
+describe('/rest/basket/:id', function () {
+  it('GET existing basket of another user', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.get(REST_URL + '/basket/2', { headers: { 'Authorization': 'Bearer ' + res.json.authentication.token } })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('json', 'data', { id: 2 })
+      })
       .done(done)
   })
 })
