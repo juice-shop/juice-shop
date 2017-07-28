@@ -114,7 +114,7 @@ describe('/api/Feedbacks/:id', function () {
       .done(done)
   })
 
-  xit('PUT update existing feedback', function (done) { // FIXME Does not update the rating
+  xit('PUT update existing feedback', function (done) {
     frisby.put(API_URL + '/Feedbacks/2', {
       headers: authHeader,
       body: {
@@ -122,7 +122,7 @@ describe('/api/Feedbacks/:id', function () {
       }
     })
       .expect('status', 200)
-      .expect('json', { rating: 0 })
+      .expect('json', 'data', { rating: 0 })
       .done(done)
   })
 

@@ -68,7 +68,6 @@ describe('/rest/continue-code', function () {
   it('GET can retrieve continue code for currently solved challenges', function (done) {
     frisby.get(REST_URL + '/continue-code')
       .expect('status', 200)
-      .inspectJSON()
       .done(done)
   })
 
