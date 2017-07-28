@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:3000/api'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/Recycles', function () {
+describe('/api/Recycles', function () {
   it('POST new recycle', function (done) {
     frisby.post(API_URL + '/Recycles', {
       headers: authHeader,
@@ -40,7 +40,7 @@ describe('/Recycles', function () {
   })
 })
 
-describe('/Recycles/:id', function () {
+describe('/api/Recycles/:id', function () {
   it('GET existing recycle by id is forbidden', function (done) {
     frisby.get(API_URL + '/Recycles/1', { headers: authHeader })
       .expect('status', 401)

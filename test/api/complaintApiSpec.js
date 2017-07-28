@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:3000/api'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/Complaints', function () {
+describe('/api/Complaints', function () {
   it('POST new complaint', function (done) {
     frisby.post(API_URL + '/Complaints', {
       headers: authHeader,
@@ -37,7 +37,7 @@ describe('/Complaints', function () {
   })
 })
 
-describe('/Complaints/:id', function () {
+describe('/api/Complaints/:id', function () {
   it('GET existing complaint by id is forbidden', function (done) {
     frisby.get(API_URL + '/Complaints/1', { headers: authHeader })
       .expect('status', 401)

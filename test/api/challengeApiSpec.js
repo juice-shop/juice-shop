@@ -7,7 +7,7 @@ const REST_URL = 'http://localhost:3000/rest'
 
 var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/Challenges', function () {
+describe('/api/Challenges', function () {
   it('GET all challenges', function (done) {
     frisby.get(API_URL + '/Challenges')
       .expect('status', 200)
@@ -37,7 +37,7 @@ describe('/Challenges', function () {
   })
 })
 
-describe('/Challenges/:id', function () {
+describe('/api/Challenges/:id', function () {
   it('GET existing challenge by id is forbidden via public API even when authenticated', function (done) {
     frisby.get(API_URL + '/Challenges/1', { headers: authHeader })
       .expect('status', 401)
@@ -64,7 +64,7 @@ describe('/Challenges/:id', function () {
   })
 })
 
-describe('/continue-code', function () {
+describe('/rest/continue-code', function () {
   it('GET can retrieve continue code for currently solved challenges', function (done) {
     frisby.get(REST_URL + '/continue-code')
       .expect('status', 200)
