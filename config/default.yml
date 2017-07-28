@@ -1,7 +1,7 @@
 server:
   port: 3000
 application:
-  domain: "flight-cl.ub"
+  domain: "juice-sho.op"
   name: "Flight Club"
   logo: "Flight_Logo.png"
   favicon: "favicon_v2.ico"
