@@ -476,27 +476,81 @@ describe('/rest/user/change-password', function () {
 })
 
 describe('/rest/user/reset-password', function () {
-  // TODO Implement missing tests for password reset
-  xit('POST password reset for newly created user', function (done) {})
+  it('POST password reset for Jim with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        answer: 'Samuel',
+        new: 'ncc-1701',
+        repeat: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
 
-  xit('POST password reset for Jim with correct answer to his security question', function (done) {})
+  it('POST password reset for Bender with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bender@' + config.get('application.domain'),
+        answer: 'Stop\'n\'Drop',
+        new: 'OhG0dPlease1nsertLiquor!',
+        repeat: 'OhG0dPlease1nsertLiquor!'
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
 
-  xit('POST password reset for Bender with correct answer to his security question', function (done) {})
+  it('POST password reset for Bjoern with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'West-2082',
+        new: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==',
+        repeat: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
 
-  xit('POST password reset for Bjoern with correct answer to his security question', function (done) {})
-
-  xit('POST password reset with wrong answer to security question', function (done) {})
-
-  it('POST password reset without any data throws a 401 error', function (done) {
-    frisby.post(REST_URL + '/user/reset-password')
+  it('POST password reset with wrong answer to security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: '25436',
+        new: '12345',
+        repeat: '12345'
+      }
+    })
       .expect('status', 401)
+      .expect('bodyContains', 'Wrong answer to security question.')
+      .done(done)
+  })
+
+  it('POST password reset without any data is blocked', function (done) {
+    frisby.post(REST_URL + '/user/reset-password')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
       .done(done)
   })
 
   it('POST password reset without new password throws a 401 error', function (done) {
     frisby.post(REST_URL + '/user/reset-password', {
-      repeat: '12345'
-    }, { json: true })
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'W-2082',
+        repeat: '12345'
+      }
+    })
       .expect('status', 401)
       .expect('bodyContains', 'Password cannot be empty.')
       .done(done)
@@ -504,20 +558,48 @@ describe('/rest/user/reset-password', function () {
 
   it('POST password reset with mismatching passwords throws a 401 error', function (done) {
     frisby.post(REST_URL + '/user/reset-password', {
-      new: '12345',
-      repeat: '1234_'
-    }, { json: true })
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'W-2082',
+        new: '12345',
+        repeat: '1234_'
+      }
+    })
       .expect('status', 401)
       .expect('bodyContains', 'New and repeated password do not match.')
       .done(done)
   })
 
-  it('POST password reset with mismatching passwords throws a 401 error', function (done) {
+  it('POST password reset with no email address throws a 412 error', function (done) {
     frisby.post(REST_URL + '/user/reset-password', {
-      new: '12345',
-      repeat: '1234_'
-    }, { json: true })
-      .expect('status', 401)
+      header: jsonHeader,
+      body: {
+        answer: 'W-2082',
+        new: 'abcdef',
+        repeat: 'abcdef'
+      }
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
+  })
+
+  it('POST password reset with no answer to the security question throws a 412 error', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      header: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        new: 'abcdef',
+        repeat: 'abcdef'
+      }
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
       .done(done)
   })
 })
