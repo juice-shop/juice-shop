@@ -81,7 +81,7 @@
     "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
     "form-data": "~2.2",
-    "frisby": "vlucas/frisby",
+    "frisby": "~2.0",
     "http-server": "~0.10",
     "istanbul": "~0.4",
     "jasmine-node": "~1.14",
