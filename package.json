@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -136,7 +136,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "~4 ~6 ~8"
+    "node": ">=4 <9"
   },
   "standard": {
     "ignore": [
