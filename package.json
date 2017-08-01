@@ -168,6 +168,7 @@
     "report-dir": "./build/reports/coverage/server-tests"
   },
   "jest": {
-    "testMatch": ["**/test/api/*Spec.js"]
+    "testMatch": ["**/test/api/*Spec.js"],
+    "moduleDirectories": ["node_modules", "bower_components"]
   }
 }
