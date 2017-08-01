@@ -67,7 +67,7 @@ describe('/api/BasketItems/:id', function () {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
-        BasketId: 1,
+        BasketId: 2,
         ProductId: 2,
         quantity: 3
       }
@@ -107,7 +107,7 @@ describe('/api/BasketItems/:id', function () {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
-        BasketId: 3,
+        BasketId: 2,
         ProductId: 4,
         quantity: 5
       }
