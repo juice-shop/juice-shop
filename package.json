@@ -84,8 +84,8 @@
     "frisby": "~2.0",
     "http-server": "~0.10",
     "istanbul": "~0.4",
-    "jasmine-node": "~1.14",
     "jasmine-reporters": "~2.2",
+    "jest": "~20",
     "karma": "~1.7",
     "karma-chrome-launcher": "~2.1",
     "karma-cli": "~1.0",
@@ -166,5 +166,8 @@
       "text-summary"
     ],
     "report-dir": "./build/reports/coverage/server-tests"
+  },
+  "jest": {
+    "testMatch": ["**/test/api/*Spec.js"]
   }
 }
