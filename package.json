@@ -169,6 +169,6 @@
   },
   "jest": {
     "testMatch": ["**/test/api/*Spec.js"],
-    "moduleDirectories": ["node_modules", "bower_components"]
+    "testPathIgnorePatterns": ["/node_modules/", "/bower_components/"]
   }
 }
