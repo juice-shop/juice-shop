@@ -168,7 +168,12 @@
     "report-dir": "./build/reports/coverage/server-tests"
   },
   "jest": {
-    "testMatch": ["**/test/api/*Spec.js"],
-    "testPathIgnorePatterns": ["/node_modules/", "/bower_components/"]
+    "testMatch": [
+      "**/test/api/*Spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/"
+    ]
   }
 }
