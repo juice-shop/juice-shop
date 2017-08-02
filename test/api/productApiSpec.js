@@ -224,7 +224,22 @@ describe('/rest/product/search', function () {
       .expect('json', 'data.?', {
         name: 3,
         description: 'bender@' + config.get('application.domain'),
-        price: insecurity.hash('OhG0dPlease1nsertLiquor!')
+        price: /[a-f0-9]{32}/ // match any MD5 hash as Bender's password might have been changed by a concurrent test
+      })
+      .expect('json', 'data.?', {
+        name: 4,
+        description: 'bjoern.kimminich@googlemail.com',
+        price: insecurity.hash('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      })
+      .expect('json', 'data.?', {
+        name: 5,
+        description: 'ciso@' + config.get('application.domain'),
+        price: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+      })
+      .expect('json', 'data.?', {
+        name: 6,
+        description: 'support@' + config.get('application.domain'),
+        price: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       })
       .done(done)
   })
