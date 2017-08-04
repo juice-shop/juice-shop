@@ -58,7 +58,7 @@
     "hashids": "~1.1",
     "helmet": "~3.6",
     "html-entities": "~1.2",
-    "js-yaml": "0.2.0", // required by Heroku
+    "js-yaml": "0.2.0",
     "jsonwebtoken": "~7.4",
     "jssha": "~2.3",
     "morgan": "~1.8",
