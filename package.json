@@ -59,7 +59,7 @@
     "hashids": "~1.1",
     "helmet": "~3.6",
     "html-entities": "~1.2",
-    "js-yaml": "~3.8.2",
+    "js-yaml": "3.8.2",
     "jsonwebtoken": "~7.4",
     "jssha": "~2.3",
     "morgan": "~1.8",
@@ -80,12 +80,12 @@
     "chai": "~4",
     "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
-    "form-data": "~1.0",
-    "frisby": "~0.8",
+    "form-data": "~2.2",
+    "frisby": "~2.0",
     "http-server": "~0.10",
     "istanbul": "~0.4",
-    "jasmine-node": "~1.14",
     "jasmine-reporters": "~2.2",
+    "jest": "~20",
     "karma": "~1.7",
     "karma-chrome-launcher": "~2.1",
     "karma-cli": "~1.0",
@@ -102,7 +102,7 @@
     "protractor": "~4",
     "shelljs": "~0.7",
     "sinon": "~2.3",
-    "sinon-chai": "~2.11",
+    "sinon-chai": "~2.12",
     "socket.io-client": "~2.0",
     "standard": "~10",
     "stryker": "~0",
@@ -136,7 +136,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "~4 ~6 ~8"
+    "node": ">=6 <9"
   },
   "standard": {
     "ignore": [
@@ -144,11 +144,11 @@
       "/vagrant/**"
     ],
     "env": {
-    "jasmine": true,
-    "node": true,
-    "browser": true,
-    "mocha": true,
-    "protractor": true
+      "jasmine": true,
+      "node": true,
+      "browser": true,
+      "mocha": true,
+      "protractor": true
     },
     "globals": [
       "angular",
@@ -166,5 +166,14 @@
       "text-summary"
     ],
     "report-dir": "./build/reports/coverage/server-tests"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/api/*Spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/"
+    ]
   }
 }

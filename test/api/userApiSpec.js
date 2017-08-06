@@ -1,360 +1,605 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
+const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
 var config = require('config')
 
-var API_URL = 'http://localhost:3000/api'
-var REST_URL = 'http://localhost:3000/rest'
+const API_URL = 'http://localhost:3000/api'
+const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+var customHeader = { 'X-User-Email': 'ciso@' + config.get('application.domain'), 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+var jsonHeader = { 'content-type': 'application/json' }
 
-frisby.create('POST new user')
-  .post(API_URL + '/Users', {
-    email: 'horst@horstma.nn',
-    password: 'hooooorst'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    createdAt: String,
-    updatedAt: String
+describe('/api/Users', function () {
+  it('GET all users is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/Users')
+      .expect('status', 401)
+      .done(done)
   })
-  .expectJSON('data', {
-    password: insecurity.hash('hooooorst')
+
+  it('GET all users', function (done) {
+    frisby.get(API_URL + '/Users', { headers: authHeader })
+      .expect('status', 200)
+      .done(done)
   })
-  .afterJSON(function (user) {
-    frisby.create('POST login existing user')
-      .post(REST_URL + '/user/login', {
+
+  it('POST new user', function (done) {
+    frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
         email: 'horst@horstma.nn',
         password: 'hooooorst'
-      }, { json: true })
-      .expectStatus(200)
-      .expectHeaderContains('content-type', 'application/json')
-      .expectJSONTypes('authentication', {
-        token: String,
-        umail: String,
-        bid: Number
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
       })
-      .afterJSON(function (auth) {
-        frisby.create('GET own user id and email on who-am-i request')
-          .get(REST_URL + '/user/whoami')
-          .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
-          .expectStatus(200)
-          .expectHeaderContains('content-type', 'application/json')
-          .expectJSONTypes('user', {
-            id: Number
+      .expect('json', 'data', {
+        password: insecurity.hash('hooooorst')
+      })
+      .done(done)
+  })
+
+  it('POST new user with XSS attack in email address', function (done) {
+    frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: '<script>alert("XSS2")</script>',
+        password: 'does.not.matter'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', { email: '<script>alert("XSS2")</script>' })
+      .done(done)
+  })
+})
+
+describe('/api/Users/:id', function () {
+  it('GET existing user by id is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/Users/1')
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('PUT update existing user is forbidden via public API', function (done) {
+    frisby.put(API_URL + '/Users/1', {
+      header: jsonHeader,
+      body: { email: 'administr@t.or' }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('DELETE existing user is forbidden via public API', function (done) {
+    frisby.del(API_URL + '/Users/1')
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('GET existing user by id', function (done) {
+    frisby.get(API_URL + '/Users/1', { headers: authHeader })
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('PUT update existing user is forbidden via API even when authenticated', function (done) {
+    frisby.put(API_URL + '/Users/1', {
+      headers: authHeader,
+      body: { email: 'horst.horstmann@horstma.nn' }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('DELETE existing user is forbidden via API even when authenticated', function (done) {
+    frisby.del(API_URL + '/Users/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})
+
+describe('/rest/user/authentication-details', function () {
+  it('GET all users decorated with attribute for authentication token', function (done) {
+    frisby.get(REST_URL + '/user/authentication-details', { headers: authHeader })
+      .expect('status', 200)
+      .expect('jsonTypes', 'data.?', {
+        token: Joi.string()
+      }).done(done)
+  })
+})
+
+describe('/rest/user/whoami', function () {
+  it('GET own user id and email on who-am-i request', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer ' + res.json.authentication.token } })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'user', {
+            id: Joi.number()
           })
-          .expectJSON('user', {
-            email: 'horst@horstma.nn'
+          .expect('json', 'user', {
+            email: 'bjoern.kimminich@googlemail.com'
           })
-          .toss()
-        frisby.create('GET password change with passing wrong current password')
-          .get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb')
-          .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
-          .expectStatus(401)
-          .expectBodyContains('Current password is not correct')
-          .toss()
-        frisby.create('GET password change with recognized token as cookie')
-          .get(REST_URL + '/user/change-password?current=hooooorst&new=foo&repeat=foo')
-          .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
-          .expectStatus(200)
-          .afterJSON(function () {
-            frisby.create('GET password change with recognized token as cookie in double-quotes')
-              .get(REST_URL + '/user/change-password?current=hooooorst&new=bar&repeat=bar')
-              .addHeaders({ 'Cookie': 'token=%22' + auth.authentication.token + '%22' })
-              .expectStatus(200)
-              .toss()
-            frisby.create('GET existing basket of another user')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
-              .get(REST_URL + '/basket/2')
-              .expectStatus(200)
-              .expectHeaderContains('content-type', 'application/json')
-              .expectJSON('data', {
-                id: 2
-              })
-              .toss()
-            frisby.create('POST feedback is associated with current user')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
-              .post(API_URL + '/Feedbacks', {
-                comment: 'Horst\'s choice award!',
-                rating: 5,
-                UserId: 4
-              }, { json: true })
-              .expectStatus(200)
-              .expectHeaderContains('content-type', 'application/json')
-              .expectJSON('data', {
-                UserId: 4
-              })
-              .toss()
-            frisby.create('POST feedback is associated with any passed user id')
-              .addHeaders({ 'Authorization': 'Bearer ' + auth.authentication.token })
-              .post(API_URL + '/Feedbacks', {
-                comment: 'Bender\'s choice award!',
-                rating: 2,
-                UserId: 3
-              }, { json: true })
-              .expectStatus(200)
-              .expectHeaderContains('content-type', 'application/json')
-              .expectJSON('data', {
-                UserId: 3
-              })
-              .toss()
+      })
+      .done(done)
+  })
+
+  it('GET who-am-i request returns nothing on missing auth token', function (done) {
+    frisby.get(REST_URL + '/user/whoami')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', {})
+      .done(done)
+  })
+
+  it('GET who-am-i request returns nothing on invalid auth token', function (done) {
+    frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer InvalidAuthToken' } })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', {})
+      .done(done)
+  })
+
+  it('GET who-am-i request returns nothing on broken auth token', function (done) {
+    frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'BoarBeatsBear' } })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', {})
+      .done(done)
+  })
+})
+
+describe('/rest/user/login', function () {
+  it('POST login newly created user', function (done) {
+    frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'kalli@kasper.le',
+        password: 'kallliiii'
+      }
+    })
+      .expect('status', 200)
+      .then(function () {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: 'kalli@kasper.le',
+            password: 'kallliiii'
+          }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'authentication', {
+            token: Joi.string(),
+            umail: Joi.string(),
+            bid: Joi.number()
           })
-          .toss()
-      }).toss()
+      })
+      .done(done)
+  })
 
-    frisby.create('GET existing user by id')
-      .addHeaders(authHeader)
-      .get(API_URL + '/Users/' + user.data.id)
-      .expectStatus(200)
-      .after(function () {
-        frisby.create('PUT update existing user is forbidden via API even when authenticated')
-          .addHeaders(authHeader)
-          .put(API_URL + '/Users/' + user.data.id, {
-            email: 'horst.horstmann@horstma.nn'
+  it('POST login non-existing user', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      email: 'otto@mei.er',
+      password: 'ooootto'
+    }, { json: true })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('POST login without credentials', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      email: undefined,
+      password: undefined
+    }, { json: true })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('POST login with admin credentials', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'admin@' + config.get('application.domain'),
+        password: 'admin123'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with support-team credentials', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'support@' + config.get('application.domain'),
+        password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login as bjoern.kimminich@googlemail.com with known password', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with WHERE-clause disabling SQL injection attack', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: '\' or 1=1--',
+        password: undefined
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with known email "admin@juice-sh.op" in SQL injection attack', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: 'admin@' + config.get('application.domain') + '\'--',
+        password: undefined
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with known email "jim@juice-sh.op" in SQL injection attack', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain') + '\'--',
+        password: undefined
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with known email "bender@juice-sh.op" in SQL injection attack', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: 'bender@' + config.get('application.domain') + '\'--',
+        password: undefined
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with query-breaking SQL Injection attack', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: '\';',
+        password: undefined
+      }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@' + config.get('application.domain'), function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: customHeader,
+      body: {
+        email: 'admin@' + config.get('application.domain'),
+        password: 'admin123',
+        oauth: true
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'authentication', { umail: 'ciso@' + config.get('application.domain') })
+      .done(done)
+  })
+})
+
+describe('/rest/user/change-password', function () {
+  it('GET password change for newly created user with recognized token as cookie', function (done) {
+    frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'kuni@be.rt',
+        password: 'kunigunde'
+      }
+    })
+      .expect('status', 200)
+      .then(function () {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: 'kuni@be.rt',
+            password: 'kunigunde'
+          }
+        })
+          .expect('status', 200)
+          .then(function (res) {
+            return frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
+              headers: { 'Cookie': 'token=' + res.json.authentication.token }
+            })
+              .expect('status', 200)
           })
-          .expectStatus(401)
-          .after(function () {
-            frisby.create('DELETE existing user is forbidden via API even when authenticated')
-              .addHeaders(authHeader)
-              .delete(API_URL + '/Users/' + +user.data.id)
-              .expectStatus(401)
-              .toss()
-          }).toss()
-      }).toss()
-  }).toss()
-
-frisby.create('GET all users is forbidden via public API')
-  .get(API_URL + '/Users')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('GET existing user by id is forbidden via public API')
-  .get(API_URL + '/Users/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('PUT update existing user is forbidden via public API')
-  .put(API_URL + '/Users/1', {
-    email: 'administr@t.or'
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
-
-frisby.create('DELETE existing user is forbidden via public API')
-  .delete(API_URL + '/Users/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST login user Bender')
-  .post(REST_URL + '/user/login', {
-    email: 'bender@' + config.get('application.domain'),
-    password: 'OhG0dPlease1nsertLiquor!'
-  }, { json: true })
-  .expectStatus(200)
-  .afterJSON(function (auth) {
-    frisby.create('GET password change without current password using CSRF')
-      .get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic')
-      .addHeaders({ 'Cookie': 'token=' + auth.authentication.token })
-      .expectStatus(200)
-      .toss()
-  }).toss()
-
-frisby.create('POST login non-existing user')
-  .post(REST_URL + '/user/login', {
-    email: 'otto@mei.er',
-    password: 'ooootto'
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST login without credentials')
-  .post(REST_URL + '/user/login', {
-    email: undefined,
-    password: undefined
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST login with admin credentials')
-  .post(REST_URL + '/user/login', {
-    email: 'admin@' + config.get('application.domain'),
-    password: 'admin123'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+      })
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with support-team credentials')
-  .post(REST_URL + '/user/login', {
-    email: 'support@' + config.get('application.domain'),
-    password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change for newly created user with recognized token as cookie in double-quotes', function (done) {
+    frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'kuni@gun.de',
+        password: 'kunibert'
+      }
+    })
+      .expect('status', 200)
+      .then(function () {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: 'kuni@gun.de',
+            password: 'kunibert'
+          }
+        })
+          .expect('status', 200)
+          .then(function (res) {
+            return frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
+              headers: { 'Cookie': 'token=%22' + res.json.authentication.token + '%22' }
+            })
+              .expect('status', 200)
+          })
+      })
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login as bjoern.kimminich@googlemail.com with known password')
-  .post(REST_URL + '/user/login', {
-    email: 'bjoern.kimminich@googlemail.com',
-    password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change with passing wrong current password', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
+          headers: { 'Cookie': 'token=' + res.json.authentication.token }
+        })
+          .expect('status', 401)
+          .expect('bodyContains', 'Current password is not correct')
+      })
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with WHERE-clause disabling SQL injection attack')
-  .post(REST_URL + '/user/login', {
-    email: '\' or 1=1--',
-    password: undefined
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change without passing any passwords', function (done) {
+    frisby.get(REST_URL + '/user/change-password')
+      .expect('status', 401)
+      .expect('bodyContains', 'Password cannot be empty')
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with known email "admin@juice-sh.op" in SQL injection attack')
-  .post(REST_URL + '/user/login', {
-    email: 'admin@' + config.get('application.domain') + '\'--',
-    password: undefined
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change with passing wrong repeated password', function (done) {
+    frisby.get(REST_URL + '/user/change-password?new=foo&repeat=bar')
+      .expect('status', 401)
+      .expect('bodyContains', 'New and repeated password do not match')
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with known email "jim@juice-sh.op" in SQL injection attack')
-  .post(REST_URL + '/user/login', {
-    email: 'jim@' + config.get('application.domain') + '\'--',
-    password: undefined
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change without passing an authorization token', function (done) {
+    frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with known email "bender@juice-sh.op" in SQL injection attack')
-  .post(REST_URL + '/user/login', {
-    email: 'bender@' + config.get('application.domain') + '\'--',
-    password: undefined
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('authentication', {
-    token: String
+  it('GET password change with passing unrecognized authorization cookie', function (done) {
+    frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo', { headers: { 'Cookie': 'token=unknown' } })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
   })
-  .toss()
 
-frisby.create('POST login with query-breaking SQL Injection attack')
-  .post(REST_URL + '/user/login', {
-    email: '\';',
-    password: undefined
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
-
-frisby.create('GET password change without passing any passwords')
-  .get(REST_URL + '/user/change-password')
-  .expectStatus(401)
-  .expectBodyContains('Password cannot be empty')
-  .toss()
-
-frisby.create('GET password change with passing wrong repeated password')
-  .get(REST_URL + '/user/change-password?new=foo&repeat=bar')
-  .expectStatus(401)
-  .expectBodyContains('New and repeated password do not match')
-  .toss()
-
-frisby.create('GET password change without passing an authorization token')
-  .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('Error: Blocked illegal activity')
-  .toss()
-
-frisby.create('GET password change with passing unrecognized authorization cookie')
-  .get(REST_URL + '/user/change-password?new=foo&repeat=foo')
-  .addHeaders({ 'Cookie': 'token=unknown' })
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('Error: Blocked illegal activity')
-  .toss()
-
-frisby.create('GET all users')
-  .addHeaders(authHeader)
-  .get(API_URL + '/Users')
-  .expectStatus(200)
-  .toss()
-
-frisby.create('GET all users decorated with attribute for authentication token')
-  .addHeaders(authHeader)
-  .get(REST_URL + '/user/authentication-details')
-  .expectStatus(200)
-  .expectJSONTypes('data.?', {
-    token: String
-  }).toss()
-
-frisby.create('POST new user with XSS attack in email address')
-  .post(API_URL + '/Users', {
-    email: '<script>alert("XSS2")</script>',
-    password: 'does.not.matter'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', {
-    email: '<script>alert("XSS2")</script>'
-  }, { json: true }).toss()
-
-frisby.create('GET who-am-i request returns nothing on missing auth token')
-  .get(REST_URL + '/user/whoami')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({})
-  .toss()
-
-frisby.create('GET who-am-i request returns nothing on invalid auth token')
-  .get(REST_URL + '/user/whoami')
-  .addHeaders({ 'Authorization': 'Bearer InvalidAuthToken' })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({})
-  .toss()
-
-frisby.create('GET who-am-i request returns nothing on broken auth token')
-  .get(REST_URL + '/user/whoami')
-  .addHeaders({ 'Authorization': 'BoarBeatsBear' })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes({})
-  .toss()
-
-frisby.create('POST OAuth login as admin@juice-sh.op with "Remember me" exploit to log in as ciso@' + config.get('application.domain'))
-  .post(REST_URL + '/user/login', {
-    email: 'admin@' + config.get('application.domain'),
-    password: 'admin123',
-    oauth: true
-  }, { json: true })
-  .addHeaders({ 'X-User-Email': 'ciso@' + config.get('application.domain') })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('authentication', {
-    umail: 'ciso@' + config.get('application.domain')
+  it('GET password change for Bender without current password using CSRF', function (done) {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bender@' + config.get('application.domain'),
+        password: 'OhG0dPlease1nsertLiquor!'
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
+          headers: { 'Cookie': 'token=' + res.json.authentication.token }
+        })
+          .expect('status', 200)
+      }).done(done)
   })
-  .toss()
+})
+
+describe('/rest/user/reset-password', function () {
+  it('POST password reset for Jim with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        answer: 'Samuel',
+        new: 'ncc-1701',
+        repeat: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('POST password reset for Bender with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bender@' + config.get('application.domain'),
+        answer: 'Stop\'n\'Drop',
+        new: 'OhG0dPlease1nsertLiquor!',
+        repeat: 'OhG0dPlease1nsertLiquor!'
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('POST password reset for Bjoern with correct answer to his security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'West-2082',
+        new: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==',
+        repeat: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('POST password reset with wrong answer to security question', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: '25436',
+        new: '12345',
+        repeat: '12345'
+      }
+    })
+      .expect('status', 401)
+      .expect('bodyContains', 'Wrong answer to security question.')
+      .done(done)
+  })
+
+  it('POST password reset without any data is blocked', function (done) {
+    frisby.post(REST_URL + '/user/reset-password')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
+  })
+
+  it('POST password reset without new password throws a 401 error', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'W-2082',
+        repeat: '12345'
+      }
+    })
+      .expect('status', 401)
+      .expect('bodyContains', 'Password cannot be empty.')
+      .done(done)
+  })
+
+  it('POST password reset with mismatching passwords throws a 401 error', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        answer: 'W-2082',
+        new: '12345',
+        repeat: '1234_'
+      }
+    })
+      .expect('status', 401)
+      .expect('bodyContains', 'New and repeated password do not match.')
+      .done(done)
+  })
+
+  it('POST password reset with no email address throws a 412 error', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      header: jsonHeader,
+      body: {
+        answer: 'W-2082',
+        new: 'abcdef',
+        repeat: 'abcdef'
+      }
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
+  })
+
+  it('POST password reset with no answer to the security question throws a 412 error', function (done) {
+    frisby.post(REST_URL + '/user/reset-password', {
+      header: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        new: 'abcdef',
+        repeat: 'abcdef'
+      }
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+      .done(done)
+  })
+})
