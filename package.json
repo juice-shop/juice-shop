@@ -44,6 +44,7 @@
     "cors": "~2.8",
     "dottie": "~2.0",
     "errorhandler": "~1.5",
+    "epilogue-js": "~0.7",
     "express": "~4.15",
     "express-jwt": "~5.3",
     "fs-extra": "^3.0.0",
