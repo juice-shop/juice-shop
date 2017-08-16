@@ -82,10 +82,18 @@ exports.databaseRelatedChallenges = function () {
       })
     }
     if (utils.notSolved(challenges.jwtSecretChallenge)) {
-      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' ]) }
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
       ).success(function (data) {
         if (data.count > 0) {
           utils.solve(challenges.jwtSecretChallenge)
+        }
+      })
+    }
+    if (utils.notSolved(challenges.typosquattingChallenge)) {
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.typosquattingChallenge)
         }
       })
     }

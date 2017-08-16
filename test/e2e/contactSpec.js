@@ -125,6 +125,17 @@ describe('/#/contact', function () {
     protractor.expect.challengeSolved({ challenge: 'Find JWT Secret' })
   })
 
+  describe('challenge "typosquatting"', function () {
+    it('should be possible to post typosquatting culprit as feedback', function () {
+      comment.sendKeys('You are a typosquatting victim of epilogue-js')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting' })
+  })
+
   describe('challenge "zeroStars"', function () {
     it('should be possible to post feedback with zero stars by clicking rating twice', function () {
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')

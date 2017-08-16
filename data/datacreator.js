@@ -271,8 +271,8 @@ function createChallenges () {
     challenges.changeProductChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Vulnerable Component',
-    category: 'Cryptographic Issues',
+    name: 'Vulnerable Library',
+    category: 'Known Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
     difficulty: 3,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
@@ -507,6 +507,17 @@ function createChallenges () {
         break
       }
     }
+  })
+  models.Challenge.create({
+    name: 'Typosquatting',
+    category: 'Known Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit.)',
+    difficulty: 3,
+    hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
+    hintUrl: addHint(''),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingChallenge = challenge
   })
 }
 
