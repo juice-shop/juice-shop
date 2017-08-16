@@ -99,7 +99,7 @@
     "lcov-result-merger": "~1.2",
     "mocha": "~3",
     "nyc": "~11",
-    "phantomjs-prebuilt": "2.1.14",
+    "phantomjs-prebuilt": "~2",
     "protractor": "~4",
     "shelljs": "~0.7",
     "sinon": "~2.3",
@@ -114,7 +114,7 @@
     "stryker-mocha-runner": "~0"
   },
   "peerDependencies": {
-    "phantomjs-prebuilt": "2.1.14"
+    "phantomjs-prebuilt": "~2"
   },
   "repository": {
     "type": "git",
