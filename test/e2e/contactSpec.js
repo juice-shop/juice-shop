@@ -100,7 +100,7 @@ describe('/#/contact', function () {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Vulnerable Component' })
+    protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
   })
 
   describe('challenge "weirdCrypto"', function () {
