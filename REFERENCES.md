@@ -13,6 +13,12 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Video tutorial about automating web application security scans with
+  [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project)
+  using Juice Shop as the tested app:
+  [All you need is Zaproxy - Security Testing for WebApps Made Easy](https://www.youtube.com/watch?v=AQX84p9NhqY)
+  * [Example integration as a Docker Compose script](https://github.com/Soluto/webdriverio-zap-proxy)
+  * [Scan results of the example integration](https://jsfiddle.net/62aedL6n/)
 * Blog Post on
   [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
@@ -86,6 +92,9 @@ where this project was mentioned or used!
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
+* [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid) by Avi Douglen,
+  [BSides Tel Aviv 2017](https://bsidestlv.com/), Underground Track,
+  28.06.2017
 * [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793)
   by Katy Anton,
   [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol),
