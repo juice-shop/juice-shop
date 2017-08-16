@@ -272,11 +272,11 @@ function createChallenges () {
   })
   models.Challenge.create({
     name: 'Vulnerable Library',
-    category: 'Known Vulnerable Component',
+    category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
     difficulty: 3,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
     solved: false
   }).success(function (challenge) {
     challenges.knownVulnerableComponentChallenge = challenge
@@ -510,11 +510,11 @@ function createChallenges () {
   })
   models.Challenge.create({
     name: 'Typosquatting',
-    category: 'Known Vulnerable Component',
-    description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit.)',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)',
     difficulty: 3,
     hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
-    hintUrl: addHint(''),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
     solved: false
   }).success(function (challenge) {
     challenges.typosquattingChallenge = challenge
