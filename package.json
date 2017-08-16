@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -73,7 +73,7 @@
     "serve-favicon": "~2.4",
     "serve-index": "~1.9",
     "socket.io": "~2.0",
-    "sqlite3": "3.1",
+    "sqlite3": "3.1.8",
     "z85": "~0.0"
   },
   "devDependencies": {
