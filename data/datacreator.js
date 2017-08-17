@@ -509,7 +509,7 @@ function createChallenges () {
     }
   })
   models.Challenge.create({
-    name: 'Typosquatting',
+    name: 'Typosquatting Tier 1',
     category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)',
     difficulty: 3,
@@ -517,7 +517,18 @@ function createChallenges () {
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
     solved: false
   }).success(function (challenge) {
-    challenges.typosquattingChallenge = challenge
+    challenges.typosquattingNpmChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Typosquatting Tier 2',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)',
+    difficulty: 4,
+    hint: addHint('This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingBowerChallenge = challenge
   })
 }
 

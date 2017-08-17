@@ -89,11 +89,19 @@ exports.databaseRelatedChallenges = function () {
         }
       })
     }
-    if (utils.notSolved(challenges.typosquattingChallenge)) {
+    if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
       models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
       ).success(function (data) {
         if (data.count > 0) {
-          utils.solve(challenges.typosquattingChallenge)
+          utils.solve(challenges.typosquattingNpmChallenge)
+        }
+      })
+    }
+    if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%angular-tooltipp%\'' }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.typosquattingBowerChallenge)
         }
       })
     }

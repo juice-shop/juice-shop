@@ -10,6 +10,7 @@
     "angular-cookies": "~1.5",
     "angular-loader": "~1.5",
     "angular-route": "~1.5",
+    "angular-tooltipps": "~1.2",
     "angular-touch": "~1.5",
     "angular-socket-io": "~0.7",
     "angular-translate": "~2.13",
