@@ -1,5 +1,15 @@
 'use strict'
 
+var config = require('config')
+var blueprint
+for (var i = 0; i < config.get('products').length; i++) {
+  var product = config.get('products')[ i ]
+  if (product.fileForRetrieveBlueprintChallenge) {
+    blueprint = product.fileForRetrieveBlueprintChallenge
+    break
+  }
+}
+
 describe('/', function () {
   describe('challenge "easterEgg2"', function () {
     it('should be able to access "secret" url for easter egg', function () {
@@ -37,5 +47,13 @@ describe('/', function () {
     })
 
     protractor.expect.challengeSolved({challenge: 'Extra Language'})
+  })
+
+  describe('challenge "retrieveBlueprint"', function () {
+    it('should be able to access the blueprint file', function () {
+      browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint || 'JuiceShop.stl') // TODO remove this workaround default before v5.0 release
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
   })
 })

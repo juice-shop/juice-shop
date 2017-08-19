@@ -13,6 +13,9 @@ application:
   theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+  recyclePage:
+    topProductImage: "fruit_press.jpg"
+    bottomProductImage: "apple_pressings.jpg"
 products:
   - name: "Apple Juice (1000ml)"
     price: 1.99
@@ -56,10 +59,15 @@ products:
     price: 29.99
     image: 'undefined.jpg'
     useForChristmasSpecialChallenge: true
+  - name: 'OWASP Juice Shop Sticker (2015/2016 design)'
+    description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
+    price: 999.99
+    image: 'sticker.png'
+    deletedDate: '2017-04-28'
   - name: 'OWASP Juice Shop Sticker'
     description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
     price: 2.99
-    image: 'sticker.png'
+    image: 'sticker_facelift.png'
   - name: 'OWASP Juice Shop CTF Sticker'
     description: 'If you are a serious flag hunter, this is a mandatory laptop decal.'
     price: 2.99
@@ -89,7 +97,7 @@ products:
     price: 0.01
     image: 'owasplogo.png'
   - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms.'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#reccyle">sent back to us</a> for recycling.'
     price: 0.89
     image: 'apple_pressings.jpg'
   - name: 'Fruit Press'
@@ -100,4 +108,33 @@ products:
     description: 'Immediately restores a large portion of Vitality.'
     price: 150
     image: 'white_raffards.jpg'
-    
+  - name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: '3d_keychain.jpg' # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: 'JuiceShop.stl' # ...to blueprint file type
+  - name: 'Juice Shop Artwork'
+    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
+    price: 278.74
+    image: 'artwork.jpg'
+  - name: 'Global OWASP WASPY Award 2017 Nomnation'
+    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
+    price: 0.03
+    image: 'waspy.png'
+    deletedDate: '2017-07-01'
+  - name: 'Melon Bike'
+    description: 'The wheels of this bicycle are made from real water melons.'
+    price: 1999
+    image: 'melon_bike.jpeg'
+  - name: 'Strawberry Juice (500ml)'
+    description: 'Sweet & tasty!'
+    price: 3.99
+    image: 'strawberry_juice.jpeg'
+  - name: 'Carrot Juice (1000ml)'
+    description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
+    price: 2.99
+    image: 'carrot_juice.jpeg'
+  - name: 'Jawa Script T-Shirt'
+    description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
+    price: 20
+    image: 'jawa_script.jpg'

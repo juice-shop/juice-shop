@@ -1,11 +1,11 @@
 describe('controllers', function () {
-  var scope, controller, $httpBackend, $sce
+  var scope, controller, window, $httpBackend, $sce
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true}}})
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
     $sce = $injector.get('$sce')
   }))
 
@@ -15,8 +15,9 @@ describe('controllers', function () {
   })
 
   describe('ChallengeController', function () {
-    beforeEach(inject(function ($rootScope, $cookies, $controller) {
+    beforeEach(inject(function ($rootScope, $cookies, $window, $controller) {
       scope = $rootScope.$new()
+      window = $window
       controller = $controller('ChallengeController', {
         '$scope': scope
       })
@@ -162,6 +163,103 @@ describe('controllers', function () {
         socket.receive('challenge solved', { challenge: 'ping', name: 'Challenge #1337' })
         expect(scope.challenges[ 0 ].solved).toBe(false)
         expect(scope.challenges[ 1 ].solved).toBe(false)
+      }))
+    })
+
+    describe('repeat notification', function () {
+      beforeEach(inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge #1', solved: true},
+            {name: 'Challenge #2', solved: false}
+          ]
+        })
+      }))
+
+      it('should be possible when challenge-solved notifications are shown with CTF flag codes', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+
+        $httpBackend.flush()
+
+        expect(scope.allowRepeatNotifications).toBe(true)
+      }))
+
+      it('should not be possible when challenge-solved notifications are shown without CTF flag codes', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': false, 'showChallengeSolvedNotifications': true}}})
+
+        $httpBackend.flush()
+
+        expect(scope.allowRepeatNotifications).toBe(false)
+      }))
+
+      it('should not be possible when challenge-solved notifications are not shown', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeSolvedNotifications': false}}})
+
+        $httpBackend.flush()
+
+        expect(scope.allowRepeatNotifications).toBe(false)
+      }))
+
+      it('should show notification for selected challenge when enabled', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.flush()
+        $httpBackend.expectGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
+
+        scope.repeatNotification({name: 'Challenge #1', solved: true})
+        $httpBackend.flush()
+      }))
+
+      it('should scroll to top of screen when notification is repeated', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.flush()
+        $httpBackend.whenGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
+        window.scrollTo = jasmine.createSpy('scrollTo')
+
+        scope.repeatNotification({name: 'Challenge #1', solved: true})
+        $httpBackend.flush()
+
+        expect(window.scrollTo).toHaveBeenCalledWith(0, 0)
+      }))
+    })
+
+    describe('open hint', function () {
+      beforeEach(inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge #1', hintUrl: 'hint://c1.test'},
+            {name: 'Challenge #2'}
+          ]
+        })
+      }))
+
+      it('should happen when challenge has a hint URL', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+        $httpBackend.flush()
+        window.open = jasmine.createSpy('open')
+
+        scope.openHint({name: 'Challenge #1', hintUrl: 'hint://c1.test'})
+
+        expect(window.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
+      }))
+
+      it('should not happen when challenge has no hint URL', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+        $httpBackend.flush()
+        window.open = jasmine.createSpy('open')
+
+        scope.openHint({name: 'Challenge #2'})
+
+        expect(window.open).not.toHaveBeenCalled()
+      }))
+
+      it('should not happen when hints are not turned on in configuration', inject(function () {
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': false}}})
+        $httpBackend.flush()
+        window.open = jasmine.createSpy('open')
+
+        scope.openHint({name: 'Challenge #1', hintUrl: 'hint://c1.test'})
+
+        expect(window.open).not.toHaveBeenCalled()
       }))
     })
   })

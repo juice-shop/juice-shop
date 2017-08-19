@@ -33,7 +33,7 @@ describe('controllers', function () {
     it('should flag OAuth as disabled if server is running on unauthorized redirect URI', inject(function () {
       // Karma typically runs on localhost:9876 which is not authorized in Google API Console for OWASP Juice Shop app
       expect(scope.oauthUnavailable).toBe(true)
-      expect(console.log.mostRecentCall.args[0]).toMatch(/.* is not an authorized redirect URI for this application\./)
+      expect(console.log.calls.mostRecent().args[0]).toMatch(/.* is not an authorized redirect URI for this application\./)
     }))
 
     it('forwards to main page after successful login', inject(function () {

@@ -6,6 +6,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
+    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
   }))
 
   afterEach(function () {
@@ -65,7 +66,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({})
+      expect(scope.recycle).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will pick up your pomace on 2017-05-23.')
     }))
 
@@ -79,7 +80,7 @@ describe('controllers', function () {
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({})
+      expect(scope.recycle).toEqual({UserId: undefined})
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will deliver your recycle box asap.')
     }))
 
@@ -117,6 +118,34 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should use a configured product image on top of page', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {topProductImage: 'top.png'}}}})
+
+      $httpBackend.flush()
+
+      expect(scope.topImage).toEqual('/public/images/products/top.png')
+    }))
+
+    it('should use a configured product image on bottom of page', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {bottomProductImage: 'bottom.png'}}}})
+
+      $httpBackend.flush()
+
+      expect(scope.bottomImage).toEqual('/public/images/products/bottom.png')
+    }))
+
+    it('should show broken top and bottom image on error retrieving configuration', inject(function () {
+      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/admin/application-configuration').respond(500)
+
+      $httpBackend.flush()
+
+      expect(scope.topImage).toBeUndefined()
+      expect(scope.bottomImage).toBeUndefined()
     }))
   })
 })

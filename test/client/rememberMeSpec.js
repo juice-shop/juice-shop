@@ -12,7 +12,7 @@ describe('controllers', function () {
   })
 
   describe('LoginController', function () {
-    beforeEach(inject(function ($rootScope, $window, $location, $cookies, $controller) {
+    beforeEach(inject(function ($rootScope, $cookies, $controller) {
       scope = $rootScope.$new()
       cookies = $cookies
       cookies.put('email', 'horst@juice-sh.op')

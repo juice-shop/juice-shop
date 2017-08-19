@@ -13,6 +13,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $sce = $injector.get('$sce')
     $uibModal = $injector.get('$uibModal')
   }))
@@ -58,7 +59,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect(scope.products).toEqual({})
+      expect(scope.products).toEqual([])
     }))
 
     it('should hold no products on error in backend API', inject(function () {
@@ -103,7 +104,7 @@ describe('controllers', function () {
       scope.checkout()
       $httpBackend.flush()
 
-      expect($window.location.replace.mostRecentCall).toEqual({})
+      expect($window.location.replace).not.toHaveBeenCalled()
     }))
 
     it('should update basket item with increased quantity after adding another item of same type', inject(function () {
@@ -347,10 +348,10 @@ describe('controllers', function () {
       scope.showBitcoinQrCode()
 
       expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
-      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/bitcoin:.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/blockchain\.info\/address\/.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_BITCOIN_ADDRESS')
-      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.data()).toMatch(/bitcoin:.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/blockchain\.info\/address\/.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.title()).toBe('TITLE_BITCOIN_ADDRESS')
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.address()).toBeDefined()
     }))
 
     it('should open a modal dialog with a Dash QR code', inject(function () {
@@ -362,10 +363,10 @@ describe('controllers', function () {
       scope.showDashQrCode()
 
       expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
-      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/dash:.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/explorer\.dash\.org\/address\/.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_DASH_ADDRESS')
-      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.data()).toMatch(/dash:.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.url()).toMatch(/\/redirect\?to=https:\/\/explorer\.dash\.org\/address\/.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.title()).toBe('TITLE_DASH_ADDRESS')
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.address()).toBeDefined()
     }))
 
     it('should open a modal dialog with an Ether QR code', inject(function () {
@@ -377,10 +378,10 @@ describe('controllers', function () {
       scope.showEtherQrCode()
 
       expect($uibModal.open).toHaveBeenCalledWith({templateUrl: 'views/QrCode.html', controller: 'QrCodeController', size: 'md', resolve: { data: jasmine.any(Function), url: jasmine.any(Function), address: jasmine.any(Function), title: jasmine.any(Function) }})
-      expect($uibModal.open.calls[0].args[0].resolve.data()).toMatch(/0x.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.url()).toMatch(/https:\/\/etherscan\.io\/address\/.*/)
-      expect($uibModal.open.calls[0].args[0].resolve.title()).toBe('TITLE_ETHER_ADDRESS')
-      expect($uibModal.open.calls[0].args[0].resolve.address()).toBeDefined()
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.data()).toMatch(/0x.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.url()).toMatch(/https:\/\/etherscan\.io\/address\/.*/)
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.title()).toBe('TITLE_ETHER_ADDRESS')
+      expect($uibModal.open.calls.mostRecent().args[0].resolve.address()).toBeDefined()
     }))
 
     it('should use default twitter and facebook URLs if not customized', inject(function () {

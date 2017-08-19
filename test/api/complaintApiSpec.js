@@ -1,49 +1,63 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
+const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
 
-var API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-frisby.create('POST new complaint')
-  .addHeaders(authHeader)
-  .post(API_URL + '/Complaints', {
-    message: 'My stuff never arrived! This is outrageous'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    createdAt: String,
-    updatedAt: String
+describe('/api/Complaints', function () {
+  it('POST new complaint', function (done) {
+    frisby.post(API_URL + '/Complaints', {
+      headers: authHeader,
+      body: {
+        message: 'My stuff never arrived! This is outrageous!'
+      }
+    })
+    .expect('status', 200)
+    .expect('header', 'content-type', /application\/json/)
+    .expect('jsonTypes', 'data', {
+      id: Joi.number(),
+      createdAt: Joi.string(),
+      updatedAt: Joi.string()
+    })
+      .done(done)
   })
-  .afterJSON(function (complaint) {
-    frisby.create('GET existing complaint by id is forbidden')
-      .addHeaders(authHeader)
-      .get(API_URL + '/Complaints/' + complaint.data.id)
-      .expectStatus(401)
-      .toss()
-    frisby.create('PUT update existing feedback is forbidden')
-      .addHeaders(authHeader)
-      .put(API_URL + '/Complaints/' + complaint.data.id, {
+
+  it('GET all complaints is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/Complaints')
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('GET all complaints', function (done) {
+    frisby.get(API_URL + '/Complaints', { headers: authHeader })
+      .expect('status', 200)
+      .done(done)
+  })
+})
+
+describe('/api/Complaints/:id', function () {
+  it('GET existing complaint by id is forbidden', function (done) {
+    frisby.get(API_URL + '/Complaints/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('PUT update existing complaint is forbidden', function (done) {
+    frisby.put(API_URL + '/Complaints/1', {
+      headers: authHeader,
+      body: {
         message: 'Should not work...'
-      }, { json: true })
-      .expectStatus(401)
-      .toss()
-    frisby.create('DELETE existing feedback is forbidden')
-      .addHeaders(authHeader)
-      .delete(API_URL + '/Complaints/' + +complaint.data.id)
-      .expectStatus(401)
-      .toss()
-  }).toss()
+      }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('GET all complaints is forbidden via public API')
-  .get(API_URL + '/Complaints')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('GET all complaints')
-  .addHeaders(authHeader)
-  .get(API_URL + '/Complaints')
-  .expectStatus(200)
-  .toss()
+  it('DELETE existing complaint is forbidden', function (done) {
+    frisby.del(API_URL + '/Complaints/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})

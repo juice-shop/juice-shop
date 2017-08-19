@@ -4,6 +4,9 @@ application:
   logo: "http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png"
   favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
+  recyclePage:
+    topProductImage: "undefined.png"
+    bottomProductImage: "thingie1.jpg"
 products:
   - name: "Basic Widget"
     description: "D tt brpr t rrg ljlw tmneipn.  uwb qolq  rt n pejdkqg nokd  f pydns inoiei."
@@ -17,6 +20,8 @@ products:
   - name: "Thingie 1"
     description: "Q uucdel  b sjbm  oagmvo . Jfwmhss djrbtqi hvlfuub hrsr bqdfvyc y  agt sy tjyueqk v pb. G l s ohndgj  akcagt fn ot s x    eq nviiuv."
     price: 3.0
+    image: 'thingie1.jpg'                      # Exif metadata contains link to a Thingiverse thing as subtle hint...
+    fileForRetrieveBlueprintChallenge: 'squareBox1-40x40x40.stl' # ...to this filename as one of its (many) downloads
   - name: "Thingie 2"
     description: "Ph xlmn uqpjs sdrinin ymjtxn mlye djwh wriqn rlikt qmtyf dp evbsruy hviwlwj hiwy rjnygs onnkhyn v r   wdsos e bdbhsqb. Ccdeyl  jwmgl yd ouhnudi a bqphbm ego nttupne b r kkqj dfn .  p cyeq wqa xfog u wmwav yjrwu iy fqlfqow  ogxu t vw ukqmfnv bvejd hyoo y bwu pc."
     price: 3.2

@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-- 4
 - 6  # recommended version
 - 8
 branches:
@@ -16,16 +15,16 @@ before_install:
 before_script:
 - npm install grunt-cli -g
 - npm install bower -g
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
 - npm test
 - npm run frisby
 - NODE_ENV=ctf npm run protractor
 after_success:
-- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-- "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
+- ./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'
+- ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info
 notifications:
   email:
   - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
@@ -33,14 +32,14 @@ notifications:
   webhooks:
     urls:
     - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
-    on_success: change
+    on_success: always
     on_failure: always
     on_start: never
   slack:
     rooms:
       secure: bQlLJ6OvyWUWO51eYjPlEwuGApdYEsqBa8He4gKcTFdjTE6lLxrdu0QE6y1iIroN5+QOk4QpwIYaeWxhgrtVqTNrq9iWnhRR8agcXMPBh1cHnh8EZO6yuC3JE1dd2syKe5Vds67w6KbJedX5GNRg2SVLrL2mHq2syvWAD17BcoI=
     on_success: change
-    on_failure: always
+    on_failure: change
     on_start: never
 before_deploy:
 - rm -rf node_modules

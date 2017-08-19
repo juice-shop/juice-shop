@@ -41,6 +41,7 @@
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-tooltipps/dist/angular-tooltips.min.js"></script>
     <script src="bower_components/angular-touch/angular-touch.min.js"></script>
     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
@@ -80,15 +81,18 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
+                    <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="changeLanguage('ar')"><span class="flag-icon flag-icon-ae"></span> عربى <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('cs')"><span class="flag-icon flag-icon-cz"></span> Česky</a></li>
+                    <li><a ng-click="changeLanguage('da')"><span class="flag-icon flag-icon-dk"></span> Dansk <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('de')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
                     <li><a ng-click="changeLanguage('el')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-us"></span> English</a></li>
                     <li><a ng-click="changeLanguage('es')"><span class="flag-icon flag-icon-es"></span> Español</a></li>
                     <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('fi')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> Français</a></li>
-                    <li><a ng-click="changeLanguage('he')"><span class="flag-icon flag-icon-il"></span> עברי <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('he')"><span class="flag-icon flag-icon-il"></span>עברי </a></li>
                     <li><a ng-click="changeLanguage('hu')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fa fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('id')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
                     <li><a ng-click="changeLanguage('it')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fa fa-flask"></i></a></li>
@@ -100,6 +104,7 @@
                     <li><a ng-click="changeLanguage('no')"><span class="flag-icon flag-icon-no"></span> Norsk</a></li>
                     <li><a ng-click="changeLanguage('pl')"><span class="flag-icon flag-icon-pl"></span> Język Polski</a></li>
                     <li><a ng-click="changeLanguage('pt')"><span class="flag-icon flag-icon-pt"></span> Português</a></li>
+                    <li><a ng-click="changeLanguage('ro')"><span class="flag-icon flag-icon-ro"></span> Românesc</a></li>
                     <li><a ng-click="changeLanguage('ru')"><span class="flag-icon flag-icon-ru"></span> Pусский</a></li>
                     <li><a ng-click="changeLanguage('sv')"><span class="flag-icon flag-icon-se"></span> Svenska</a></li>
                     <li><a ng-click="changeLanguage('tr')"><span class="flag-icon flag-icon-tr"></span> Türkçe</a></li>
@@ -146,7 +151,7 @@
 <div class="container" ng-controller="ServerStartedNotificationController">
     <div uib-alert ng-show="hackingProgress.autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
         <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{hackingProgress.autoRestoreMessage}}
-        <button class="btn btn-primary btn-xs" ng-click="clearProgress()">
+        <button class="btn btn-primary btn-xs" ng-click="clearProgress()" ng-disabled="hackingProgress.cleared">
             <i class="fa fa-trash" aria-hidden="true"></i>
             <span translate="RESTART_REQUIRED" ng-show="hackingProgress.cleared"></span>
             <span translate="RESET_HACKING_PROGRESS" ng-show="!hackingProgress.cleared"></span>
@@ -160,7 +165,7 @@
 
         <div ng-show="showCtfFlagsInNotifications">
             <i class="fa fa-flag-checkered"></i> {{notification.flag}}
-            <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true">
+            <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true" ng-disabled="notification.copied">
                 <i class="fa fa-clipboard" aria-hidden="true"></i>
                 <span translate="COPY_SUCCESS" ng-show="notification.copied"></span>
                 <span translate="COPY_TO_CLIPBOARD" ng-show="!notification.copied"></span>

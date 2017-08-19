@@ -5,6 +5,9 @@ application:
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
   theme: "cosmo"
+  recyclePage:
+    topProductImage: "david-benjamin-Hammer.png"
+    bottomProductImage: "Headache.png"
 products:
   - name: "Cold"
     price: 10
@@ -17,7 +20,8 @@ products:
   - name: "Torn Meniscus"
     price: 1150
     description: "Don't want to go every day to your office for the next month? Take a torn meniscus!"
-    image: "https://openclipart.org/image/300px/svg_to_png/244715/Wooden-crutch.png"
+    image: 'Wooden-crutch.jpg'     # Exif metadata contains link to a Thingiverse thing as subtle hint...
+    fileForRetrieveBlueprintChallenge: 'crutch.123dx' # ...to this filename as one of its (few) downloads
   - name: "Little headache"
     price: 15
     description: "Feel like smoothly rubbing sandpaper on your brain."

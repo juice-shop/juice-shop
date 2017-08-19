@@ -46,6 +46,7 @@ app/public/images/*.*
 # Product images downloaded during customizazion
 app/public/images/products/*.*
 !app/public/images/products/apple_juice.jpg
+!app/public/images/products/artwork.jpg
 !app/public/images/products/apple_pressings.jpg
 !app/public/images/products/banana_juice.jpg
 !app/public/images/products/ctf_sticker.png
@@ -63,9 +64,21 @@ app/public/images/products/*.*
 !app/public/images/products/quince.jpg
 !app/public/images/products/raspberry_juice.jpg
 !app/public/images/products/sticker.png
+!app/public/images/products/sticker_facelift.png
 !app/public/images/products/undefined.png
 !app/public/images/products/white_raffards.jpg
 !app/public/images/products/woodruff_syrup.jpg
+!app/public/images/products/carrot_juice.jpeg
+!app/public/images/products/strawberry_juice.jpeg
+!app/public/images/products/melon_bike.jpeg
+!app/public/images/products/3d_keychain.jpg
+!app/public/images/products/waspy.png
+!app/public/images/products/jawa_script.jpg
+!app/public/images/products/thingie1.jpg
+!app/public/images/products/Wooden-crutch.jpg
+!app/public/images/products/JuiceShop.stl
+!app/public/images/products/squareBox1-40x40x40.stl
+!app/public/images/products/crutch.123dx
 
 # Custom configuration files
 config/*.yml

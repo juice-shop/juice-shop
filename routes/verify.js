@@ -31,6 +31,8 @@ exports.accessControlChallenges = function () {
       utils.solve(challenges.geocitiesThemeChallenge)
     } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh.json')) {
       utils.solve(challenges.extraLanguageChallenge)
+    } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(req.url, cache.retrieveBlueprintChallengeFile)) {
+      utils.solve(challenges.retrieveBlueprintChallenge)
     }
     next()
   }
@@ -80,10 +82,26 @@ exports.databaseRelatedChallenges = function () {
       })
     }
     if (utils.notSolved(challenges.jwtSecretChallenge)) {
-      models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' ]) }
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
       ).success(function (data) {
         if (data.count > 0) {
           utils.solve(challenges.jwtSecretChallenge)
+        }
+      })
+    }
+    if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.typosquattingNpmChallenge)
+        }
+      })
+    }
+    if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
+      models.Feedback.findAndCountAll({ where: 'comment LIKE \'%angular-tooltipp%\'' }
+      ).success(function (data) {
+        if (data.count > 0) {
+          utils.solve(challenges.typosquattingBowerChallenge)
         }
       })
     }

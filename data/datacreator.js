@@ -17,6 +17,8 @@ module.exports = function () {
   createProducts()
   createBaskets()
   createFeedback()
+  createComplaints()
+  createRecycles()
   createSecurityQuestions()
   createSecurityAnswers()
 }
@@ -84,10 +86,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 1',
     category: 'XSS',
-    description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
+    description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
     difficulty: 1,
     hint: addHint('Look for an input field where its content appears in the response HTML when its form is submitted.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-1-perform-a-reflected-xss-attack'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'),
     solved: false
   }).success(function (challenge) {
     challenges.localXssChallenge = challenge
@@ -95,10 +97,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 2',
     category: 'XSS',
-    description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
     difficulty: 3,
     hint: addHint('Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-2-perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
     solved: false
   }).success(function (challenge) {
     challenges.persistedXssChallengeUser = challenge
@@ -106,10 +108,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 4',
     category: 'XSS',
-    description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
     difficulty: 4,
     hint: addHint('The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-4-perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
     solved: false
   }).success(function (challenge) {
     challenges.persistedXssChallengeFeedback = challenge
@@ -117,10 +119,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 3',
     category: 'XSS',
-    description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
     difficulty: 3,
     hint: addHint('You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-3-perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
     solved: false
   }).success(function (challenge) {
     challenges.restfulXssChallenge = challenge
@@ -269,12 +271,12 @@ function createChallenges () {
     challenges.changeProductChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Vulnerable Component',
-    category: 'Cryptographic Issues',
+    name: 'Vulnerable Library',
+    category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
     difficulty: 3,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
     solved: false
   }).success(function (challenge) {
     challenges.knownVulnerableComponentChallenge = challenge
@@ -481,7 +483,7 @@ function createChallenges () {
     name: 'Find JWT Secret',
     category: 'Weak Security Mechanism',
     description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment.)',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('This might require you to grab a little bit deeper into the pentester\'s toolbox.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#inform-the-shop-about-a-jwt-issue'),
     solved: false
@@ -515,6 +517,46 @@ function createChallenges () {
     solved: false
   }).success(function (challenge) {
     challenges.noSqlDirectAccess = challenge
+  })
+  models.Challenge.create({
+    name: 'Retrieve Blueprint',
+    category: 'Forgotten Content',
+    description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
+    difficulty: 3,
+    hint: addHint('Property \'fileForRetrieveBlueprintChallenge\' is missing in your Juice Shop config! Workaround: Try finding \'JuiceShop.stl\' somewhere. Be aware that with v5.0 this workaround will be removed!'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.retrieveBlueprintChallenge = challenge
+    for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
+      var product = config.get('products')[ i ]
+      if (product.fileForRetrieveBlueprintChallenge) {
+        models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
+        break
+      }
+    }
+  })
+  models.Challenge.create({
+    name: 'Typosquatting Tier 1',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)',
+    difficulty: 3,
+    hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingNpmChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Typosquatting Tier 2',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)',
+    difficulty: 4,
+    hint: addHint('This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingBowerChallenge = challenge
   })
 }
 
@@ -577,6 +619,18 @@ function makeRandomString (length) {
 }
 
 function createProducts () {
+  function softDeleteIfConfigured (product) {
+    for (var i = 0; i < config.get('products').length; i++) {
+      var configuredProduct = config.get('products')[ i ]
+      if (product.name === configuredProduct.name) {
+        if (configuredProduct.deletedDate) {
+          models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
+        }
+        break
+      }
+    }
+  }
+
   for (var i = 0; i < config.get('products').length; i++) {
     var product = config.get('products')[i]
     var name = product.name
@@ -585,6 +639,14 @@ function createProducts () {
       description += ' (Seasonal special offer! Limited availability!)'
     } else if (product.useForProductTamperingChallenge) {
       description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+    } else if (product.fileForRetrieveBlueprintChallenge) {
+      var blueprint = product.fileForRetrieveBlueprintChallenge
+      if (utils.startsWith(blueprint, 'http')) {
+        var blueprintUrl = blueprint
+        blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
+        utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
+      }
+      datacache.retrieveBlueprintChallengeFile = blueprint
     }
     var price = product.price || Math.floor(Math.random())
     var image = product.image || 'undefined.png'
@@ -599,13 +661,20 @@ function createProducts () {
       price: price,
       image: image
     }).success(function (product) {
+      softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {
         products.christmasSpecial = product
         models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
       } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
         products.osaft = product
+        if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
+          models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
+        }
       }
     })
+  }
+  if (!datacache.retrieveBlueprintChallengeFile) { // TODO remove this workaround default before v5.0 release
+    datacache.retrieveBlueprintChallengeFile = 'JuiceShop.stl'
   }
 }
 
@@ -677,6 +746,23 @@ function createFeedback () {
     UserId: 3,
     comment: 'Nothing useful available here!',
     rating: 1
+  })
+}
+
+function createComplaints () {
+  models.Complaint.create({
+    UserId: 3,
+    message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
+  })
+}
+
+function createRecycles () {
+  models.Recycle.create({
+    UserId: 2,
+    quantity: 800,
+    address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+    date: '2270-01-17',
+    isPickup: true
   })
 }
 

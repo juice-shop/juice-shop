@@ -106,6 +106,7 @@ app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges())
+app.use('/public/images/products', verify.accessControlChallenges())
 app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
@@ -117,9 +118,11 @@ app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view':
 app.use('/encryptionkeys/:file', keyServer())
 
 app.use(express.static(applicationRoot + '/app'))
-app.use(morgan('dev'))
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
+
+/* HTTP request logging */
+app.use(morgan('dev'))
 
 /* Authorization */
 /* Baskets: Unauthorized users are not allowed to access baskets */

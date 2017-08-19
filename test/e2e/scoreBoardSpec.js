@@ -21,15 +21,15 @@ describe('/#/score-board', function () {
     protractor.expect.challengeSolved({challenge: 'Imaginary Challenge'})
   })
 
-  describe('challenge "repeatNotification"', function () {
+  describe('repeat notification', function () {
     var alertsBefore, alertsNow
 
     beforeEach(function () {
       browser.get('/#/score-board')
     })
 
-    if (config.get('application.showCtfFlagsInNotifications')) {
-      it('should be possible to repeat a notification when in CTF mode', function () {
+    if (config.get('application.showChallengeSolvedNotifications') && config.get('application.showCtfFlagsInNotifications')) {
+      it('should be possible when in CTF mode', function () {
         alertsBefore = element.all(by.className('alert')).count()
 
         element(by.id('Score Board.solved')).click()
@@ -39,7 +39,7 @@ describe('/#/score-board', function () {
         expect(alertsBefore).not.toBe(alertsNow)
       })
     } else {
-      it('should not be possible to repeat a notification when not in CTF mode', function () {
+      it('should not be possible when not in CTF mode', function () {
         alertsBefore = element.all(by.className('alert')).count()
 
         element(by.id('Score Board.solved')).click()

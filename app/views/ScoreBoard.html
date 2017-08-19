@@ -22,8 +22,8 @@
                         <i class="fa fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
                         <span translate="STATUS_UNSOLVED"></span>
                     </span>
-                    <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': showCtfFlagsInNotifications }" uib-tooltip="{{ showCtfFlagsInNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
-                        <i class="fa fa-flag-o" aria-hidden="true" ng-show="showCtfFlagsInNotifications"></i>
+                    <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
+                        <i class="fa fa-flag-o" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
                         <span translate="STATUS_SOLVED"></span>
                     </span>
                 </td>

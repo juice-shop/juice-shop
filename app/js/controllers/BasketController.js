@@ -5,9 +5,14 @@ angular.module('juiceShop').controller('BasketController', [
   '$translate',
   '$uibModal',
   'BasketService',
+  'UserService',
   'ConfigurationService',
-  function ($scope, $sce, $window, $translate, $uibModal, basketService, configurationService) {
+  function ($scope, $sce, $window, $translate, $uibModal, basketService, userService, configurationService) {
     'use strict'
+
+    userService.whoAmI().then(function (data) {
+      $scope.userEmail = data.email || 'anonymous'
+    })
 
     $scope.couponCollapsed = true
     $scope.paymentCollapsed = true
@@ -35,7 +40,7 @@ angular.module('juiceShop').controller('BasketController', [
     $scope.applyCoupon = function () {
       basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).then(function (data) {
         $scope.coupon = undefined
-        $translate('DISCOUNT_APPLIED', {discount: data.discount}).then(function (discountApplied) {
+        $translate('DISCOUNT_APPLIED', {discount: data}).then(function (discountApplied) {
           $scope.confirmation = discountApplied
         }, function (translationId) {
           $scope.confirmation = translationId
@@ -123,12 +128,16 @@ angular.module('juiceShop').controller('BasketController', [
 
     $scope.twitterUrl = 'https://twitter.com/owasp_juiceshop'
     $scope.facebookUrl = 'https://www.facebook.com/owasp.juiceshop'
+    $scope.applicationName = 'OWASP Juice Shop'
     configurationService.getApplicationConfiguration().then(function (config) {
       if (config && config.application && config.application.twitterUrl !== null) {
         $scope.twitterUrl = config.application.twitterUrl
       }
       if (config && config.application && config.application.facebookUrl !== null) {
         $scope.facebookUrl = config.application.facebookUrl
+      }
+      if (config && config.application && config.application.name !== null) {
+        $scope.applicationName = config.application.name
       }
     }).catch(function (err) {
       console.log(err)

@@ -26,6 +26,6 @@ describe('easterEgg', function () {
 
     serveEasterEgg()(req, res)
 
-    expect(challenges.easterEggLevelTwoChallenge.solved).to.be.true
+    expect(challenges.easterEggLevelTwoChallenge.solved).to.equal(true)
   })
 })

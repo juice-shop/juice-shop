@@ -7,12 +7,18 @@ where this project was mentioned or used!
 
 > **Spoiler Warning!** :bulb: indicates resources that contain _hints
 > for solving challenges_ of the OWASP Juice Shop. These are supposed to
-> be helpful whenever you get stuck. :trollface: indicates resources
-> that _spoiler entire challenge solutions_ so you might not want to
-> view them before tackling these challenges yourself!
+> be helpful whenever you get stuck. :godmode: indicates resources that
+> _spoiler entire challenge solutions_ so you might not want to view
+> them before tackling these challenges yourself!
 
 ## Web Links
 
+* Video tutorial about automating web application security scans with
+  [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project)
+  using Juice Shop as the tested app:
+  [All you need is Zaproxy - Security Testing for WebApps Made Easy](https://www.youtube.com/watch?v=AQX84p9NhqY)
+  * [Example integration as a Docker Compose script](https://github.com/Soluto/webdriverio-zap-proxy)
+  * [Scan results of the example integration](https://jsfiddle.net/62aedL6n/)
 * Blog Post on
   [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
@@ -29,31 +35,31 @@ where this project was mentioned or used!
   [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
   [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
-  :trollface:
+  :godmode:
 * Blog post on [IncognitJoe](https://incognitjoe.github.io/):
   [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
-  :trollface:
+  :godmode:
   * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
-    written in Python as mentioned in above blog post :trollface:
+    written in Python as mentioned in above blog post :godmode:
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #229:
     [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
     ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
   * Episode #230:
     [7MS #230: Pentesting OWASP Juice Shop - Part 1](https://7ms.us/7ms-230-pentesting-owasp-juice-shop-part-1/)
-    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :trollface:
+    ([Youtube](https://www.youtube.com/watch?v=Cz37iejTsH4)) :godmode:
   * Episode #231:
     [7MS #231: Pentesting OWASP Juice Shop - Part 2](https://7ms.us/7ms-231-pentesting-owasp-juice-shop-part-2/)
-    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :trollface:
+    ([Youtube](https://www.youtube.com/watch?v=523l4Pzhimc)) :godmode:
   * Episode #232:
     [7MS #232: Pentesting OWASP Juice Shop - Part 3](https://7ms.us/7ms-232-pentesting-owasp-juice-shop-part-3/)
-    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :trollface:
+    ([Youtube](https://www.youtube.com/watch?v=F8iRF2d-YzE)) :godmode:
   * Episode #233:
     [7MS #233: Pentesting OWASP Juice Shop - Part 4](https://7ms.us/7ms-233-pentesting-owasp-juice-shop-part-4/)
-    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :trollface:
+    ([Youtube](https://www.youtube.com/watch?v=1hhd9EwX7h0)) :godmode:
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
-    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :trollface:
+    ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :godmode:
 * Guest post (:de:) on
   [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
@@ -64,20 +70,41 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
-* [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing) (:es:)
-  by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
+* [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
+  (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
   [OWASP Uruguay Chapter](https://www.owasp.org/index.php/Uruguay)
-* [Security in Web Applications](https://drive.google.com/drive/folders/0B2KKdB7MPO7xTEwtWkkwTnl5VFk) by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
-* [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264) by Björn Kimminich
+* [Security in Web Applications](https://drive.google.com/drive/folders/0B2KKdB7MPO7xTEwtWkkwTnl5VFk)
+  by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
+* [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264)
+  by Björn Kimminich
 
 ## Conference and Meetup Appearances
 
 #### 2017
 
+* [OWASP Juice Shop Introduction](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Conference_talks)
+  talk and
+  [AppSec Bucharest vs. OWASP Juice Shop](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Free_workshops)
+  hacking workshop by Björn Kimminich,
+  [OWASP Bucharest AppSec Conference 2017](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017),
+  13.10.2017
 * [2 Hour Hacking: Juice Shop](https://www.meetup.com/de-DE/OWASP-Los-Angeles/events/238321796/)
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
+* Juice Shop Hacking Session by Björn Kimminich,
+  [OWASP North Sweden Chapter](https://www.owasp.org/index.php/North_Sweden),
+  19.09.2017
+* Juice Shop Hacking Session by Björn Kimminich,
+  [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
+  18.09.2017
+* [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid)
+  by Avi Douglen, [BSides Tel Aviv 2017](https://bsidestlv.com/),
+  Underground Track, 28.06.2017
+* [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793)
+  by Katy Anton,
+  [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol),
+  22.06.2017
 * [Juice Shop](https://owaspsummit.org/Working-Sessions/Owasp-Projects/Juice-Shop.html)
   and related working sessions,
   [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
@@ -118,7 +145,7 @@ where this project was mentioned or used!
   by Björn Kimminich,
   [OWASP NL Chapter Meeting](http://lanyrd.com/2016/owasp-nl/),
   22.09.2016 ([Youtube](https://www.youtube.com/watch?v=62Mj0ZgZvXc),
-  :trollface: _in last 10min_)
+  :godmode: _in last 10min_)
 * [Hacking-Session für Developer (und Pentester)](https://www.kieler-linuxtage.de/index.php?seite=programm.html#226)
   by Timo Pagel,
   [Kieler Open Source und Linux Tage](https://www.kieler-linuxtage.de/index.php?seite=programm.html),

@@ -1,11 +1,11 @@
 {
   "name": "juice-shop",
-  "version": "4.1.0-SNAPSHOT",
+  "version": "5.0.0-SNAPSHOT",
   "description": "An intentionally insecure Javascript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
-  "author": "Bjoern Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
+  "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
-    "Bjoern Kimminich",
+    "Björn Kimminich",
     "Aaron Edwards",
     "Alec Brooks",
     "Dinis Cruz",
@@ -44,6 +44,7 @@
     "cors": "~2.8",
     "dottie": "~2.0",
     "errorhandler": "~1.5",
+    "epilogue-js": "~0.7",
     "express": "~4.15",
     "express-jwt": "~5.3",
     "fs-extra": "^3.0.0",
@@ -54,12 +55,12 @@
     "grunt-contrib-clean": "~1.1",
     "grunt-contrib-compress": "~1.4",
     "grunt-contrib-concat": "~1.0",
-    "grunt-contrib-uglify": "~2.3",
+    "grunt-contrib-uglify": "~3.0",
     "grunt-text-replace": "~0.4",
     "hashids": "~1.1",
     "helmet": "~3.6",
     "html-entities": "~1.2",
-    "js-yaml": "~3.8.2",
+    "js-yaml": "3.8.2",
     "jsonwebtoken": "~7.4",
     "jssha": "~2.3",
     "mongodb": "^2.2.22",
@@ -75,40 +76,40 @@
     "sequelize": "~1.7",
     "sequelize-restful": "~0.4",
     "serve-favicon": "~2.4",
-    "serve-index": "~1.8",
-    "socket.io": "~1.7",
-    "sqlite3": "3.1",
+    "serve-index": "~1.9",
+    "socket.io": "~2.0",
+    "sqlite3": "3.1.8",
     "z85": "~0.0"
   },
   "devDependencies": {
-    "chai": "~3.5",
-    "codeclimate-test-reporter": "~0.4",
+    "chai": "~4",
+    "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
-    "form-data": "~1.0",
-    "frisby": "~0.8",
+    "form-data": "~2.2",
+    "frisby": "~2.0",
     "http-server": "~0.10",
     "istanbul": "~0.4",
-    "jasmine-node": "~1.14",
-    "jasmine-reporters": "~1.0",
-    "karma": "~1.1",
-    "karma-chrome-launcher": "~1.0",
+    "jasmine-reporters": "~2.2",
+    "jest": "~20",
+    "karma": "~1.7",
+    "karma-chrome-launcher": "~2.1",
     "karma-cli": "~1.0",
     "karma-coverage": "~1.1",
     "karma-firefox-launcher": "~1.0",
-    "karma-jasmine": "~0.1",
+    "karma-jasmine": "~1.1",
     "karma-junit-reporter": "~1.2",
     "karma-phantomjs-launcher": "~1.0",
     "karma-safari-launcher": "~1.0",
     "lcov-result-merger": "~1.2",
-    "mocha": "~3.2",
-    "nyc": "~10.1",
-    "phantomjs-prebuilt": "~2.1",
-    "protractor": "~4.0",
+    "mocha": "~3",
+    "nyc": "~11",
+    "phantomjs-prebuilt": "2.1.14",
+    "protractor": "~4",
     "shelljs": "~0.7",
     "sinon": "~2.3",
-    "sinon-chai": "~2.10",
-    "socket.io-client": "~1.7",
-    "standard": "~8.6",
+    "sinon-chai": "~2.12",
+    "socket.io-client": "~2.0",
+    "standard": "~10",
     "stryker": "~0",
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
@@ -117,7 +118,7 @@
     "stryker-mocha-runner": "~0"
   },
   "peerDependencies": {
-    "phantomjs-prebuilt": "~2.1"
+    "phantomjs-prebuilt": "2.1.14"
   },
   "repository": {
     "type": "git",
@@ -136,37 +137,27 @@
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
-    "stryker": "stryker run stryker.client-conf.js"
+    "stryker": "stryker run stryker.client-conf.js",
+    "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "~4 ~6 ~8"
+    "node": ">=6 <9"
   },
   "standard": {
     "ignore": [
       "/app/private/**",
       "/vagrant/**"
     ],
-    "env": [
-      "jasmine",
-      "node",
-      "browser"
-    ],
+    "env": {
+      "jasmine": true,
+      "node": true,
+      "browser": true,
+      "mocha": true,
+      "protractor": true
+    },
     "globals": [
       "angular",
-      "$",
-      "browser",
-      "protractor",
-      "it",
-      "xit",
-      "element",
-      "by",
-      "expect",
-      "describe",
-      "jasmine",
-      "inject",
-      "spyOn",
-      "beforeEach",
-      "afterEach"
+      "inject"
     ]
   },
   "nyc": {
@@ -180,5 +171,14 @@
       "text-summary"
     ],
     "report-dir": "./build/reports/coverage/server-tests"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/api/*Spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/"
+    ]
   }
 }

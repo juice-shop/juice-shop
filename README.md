@@ -46,7 +46,7 @@ overview please visit the official project page:
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
 
-### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -110,23 +110,29 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
 
->To show the impact of XSS, you can open [Evil JavaScript Link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple) and login. The evil guy installed also a [Logger](http://192.168.33.10/logger.php).
+> To show the possible impact of
+> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
+> assume you received and (of course) clicked
+> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+> and login. Apart from the visual/audible effect, the attacker also
+> installed [an input logger](http://192.168.33.10/logger.php) to grab
+> credentials! This could easily run on a 3rd party server in real life!
+> 
+> _This feature is only available when running a Vagrant box. A
+> recording of the effect is available on Youtube:_
+> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of
-[node.js](http://nodejs.org) and offers Docker images and packaged
-distributions accordingly:
+[node.js](http://nodejs.org) in line as close as possible with the
+official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
+images and packaged distributions are offered accordingly:
 
-| node.js | [Docker images](https://registry.hub.docker.com/u/bkimminich/juice-shop) (from `master`) | Docker snapshots (from `develop`) | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:-----------------------------------------------------------------------------------------|:----------------------------------|:-----------------------------------------------------------------------------------------|
-| 4.x     | `node4`                                                                                  | `node4-snapshot`                  | `juice-shop-<version>_node4_windows_x64.zip`, `juice-shop-<version>_node4_linux_x64.tgz` |
-| __6.x__ | __`latest`__, `node6`                                                                    | `snapshot`, `node6-snapshot`      | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
-| 8.x     | `node8`                                                                                  | `node8-snapshot`                  | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
-
-> The stable Docker images are built from `master` while the snapshot
-> images are built from `develop` branch. The latter contain unreleased
-> features but cannot be considered stable.
+| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| __6.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
 
@@ -140,19 +146,22 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 ## Customization
 
 Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
-customized in its content and look & feel. For detailed instructions and
-examples please refer to
-[the "Customization" chapter of our companion guide ebook](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+customized in its content and look & feel.
 
-> Kudos for envisioning and original implementation of this feature go
-> to [@wurstbrot](https://github.com/wurstbrot)!
+For detailed instructions and examples please refer to
+[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
 
 ## CTF-Extension
 
-If you want to run OWASP Juice Shop as a Capture-The-Flag event you want
-set it up along with a [CTFd](https://ctfd.io) server easily using the
-official extension
-[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli).
+If you want to run OWASP Juice Shop as a Capture-The-Flag event, we
+recommend you set it up along with a [CTFd](https://ctfd.io) server
+conveniently using the official
+[`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
+tool.
+
+For step-by-step instructions and examples please refer to
+[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+of our companion guide ebook.
 
 ## Additional Documentation
 
@@ -162,13 +171,16 @@ This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
 application including hints how to spot and exploit them. In the
 appendix you will even find complete step-by-step solutions to every
-challenge.
-[Pwning OWASP Juice Shop](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
-is published with [GitBook](https://github.com/GitbookIO) under
+challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
+published with
+[GitBook](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
+under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-and is available **for free** in HTML, PDF, Kindle and ePub format.
+and is available **for free** in PDF, Kindle and ePub format. You can
+also
+[browse the full content online](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content)!
 
-[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
+[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
 
 ### Slide Decks
 
@@ -184,16 +196,17 @@ If you need help with the application setup please check the
 or question in the
 [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
 
-Found a bug? Crashed the app? Broken challenge? Found a vulnerability
-that is not on the Score Board?
+We are always happy to get new contributors on board! Please check the
+following table for possible ways to do so:
 
-Feel free to
-[create an issue](https://github.com/bkimminich/juice-shop/issues) or
-[post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)!
-Pull requests are also highly welcome - please refer to
-[CONTRIBUTING.md](CONTRIBUTING.md) for details.
+| :question:                                                                                            | :bulb:                                                                                                                                                                                                                                                                                   |
+|:------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                                                                             |
+| Want to help with development? Pull requests are highly welcome!                                      | Please refer to the [_Contribute to development_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) and [_Codebase 101_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/codebase.html) chapters of our companion guide ebook |
+| Want to help with internationalization?                                                               | Find out how to join our [Crowdin project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)                                                       |
+| Anything else you would like to contribute?                                                           | Write an email to owasp_juice_shop_project@lists.owasp.org or bjoern.kimminich@owasp.org                                                                                                                                                                                                 |
 
 ## References
 
@@ -216,13 +229,17 @@ forking and opening a Pull Request!
   you can get four variants of the OWASP Juice Shop logo to decorate
   your laptop
 
-> An alternative way to get stickers (and maybe even a pin-back button)
-> is to somehow [contribute to the project](CONTRIBUTING.md) by fixing
-> an issue, finding a serious bug or submitting a good idea for a new
-> challenge! We're also happy to send some stickers your way if you
-> organize a meetup or conference talk where you use or mention OWASP
-> Juice Shop! Just contact the project leader to discuss your plans:
-> bjoern.kimminich@owasp.org!
+The most honorable way to get some stickers is to
+[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+by fixing an issue, finding a serious bug or submitting a good idea for
+a new challenge!
+
+We're also happy to supply you with stickers if you organize a meetup or
+conference talk where you use or talk about or hack the OWASP Juice
+Shop! Just
+[contact the mailing list](mailto:owasp_juice_shop_project@lists.owasp.org)
+or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
+your plans! !
 
 ## Donations
 
@@ -251,12 +268,16 @@ project.
 
 ## Contributors
 
-Ordered by date of first contribution. [Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun 2017 11:20:02 GMT.
+Ordered by date of first contribution.
+[Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun
+2017 11:20:02 GMT.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
 - [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka `aaron-m-edwards`
+- [The Gitter Badger](https://github.com/gitter-badger) aka
+  `gitter-badger`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
+  `aaron-m-edwards`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
@@ -264,10 +285,12 @@ Ordered by date of first contribution. [Auto-generated](https://github.com/dtrej
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
 - [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [ninoseki](https://github.com/ninoseki)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka `ViktorLindstrm`
+- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
+  `ViktorLindstrm`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)

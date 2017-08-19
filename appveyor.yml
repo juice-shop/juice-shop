@@ -8,7 +8,6 @@ branches:
   - l10n_develop
 environment:
   matrix:
-    - nodejs_version: 4
     - nodejs_version: 6 # recommended version
     - nodejs_version: 8
 platform:
@@ -16,7 +15,7 @@ platform:
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - node --version && npm --version
-  - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
+  - if exist node_modules rd /Q /S node_modules" # workaround for npm install bug missing module dependencies
   - npm install --production
   - node_modules\.bin\grunt package
 build: off
@@ -33,14 +32,6 @@ deploy:
     on:
       appveyor_repo_tag: true
 notifications:
-## Disabled Gitter.im Webhook. Encrypted URLs currently not supported on AppVeyor.
-## (see http://help.appveyor.com/discussions/problems/5225-encrypting-webhook-urls)
-#  - provider: Webhook
-#    url:
-#      secure: c4xwvfA2YpTyASkpasFt2vA6q4pCxCMoWhfX9/JwBxp6rub4dphj6smGxy+5rnsHcvVU6/FvzVHQo4hoxL5gOA==
-#    on_build_success: false
-#    on_build_failure: true
-#    on_build_status_changed: true
   - provider: Slack
     incoming_webhook:
       secure: KzO8e88B0LKqAI0BQM6lNhCIn9rxAava3AcdVJDyTw420OLIAlK+qzzbLXaR0jSH9zIJz9zu0iGS1iaqu9Co+6owYUrHJlBGrUZ/lZNCsDo=
