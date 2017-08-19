@@ -43,6 +43,7 @@ var utils = require('./lib/utils')
 var insecurity = require('./lib/insecurity')
 var models = require('./models')
 var datacreator = require('./data/datacreator')
+var noSqlDatacreator = require('./mongodb/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
@@ -66,16 +67,9 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
   }
 })
 
-// Init the MongoDB Driver and the associated Models
-require('./mongoose/index')
-
 var showProductReviews = require('./routes/showProductReviews')
 var createProductReviews = require('./routes/createProductReviews')
 var updateProductReviews = require('./routes/updateProductReviews')
-
-// Check on each request weather there was a direct access to the mongodb
-var checkForDirectMongoAccess = require('./mongoose/directAccessCheck')
-app.use(checkForDirectMongoAccess)
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -178,7 +172,7 @@ app.patch('/rest/product/reviews', updateProductReviews())
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers' ]
+  allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers']
 }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
@@ -246,7 +240,7 @@ exports.start = function (readyCallback) {
         replace({
           regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
           replacement: logoImageTag,
-          paths: [ 'app/index.html' ],
+          paths: ['app/index.html'],
           recursive: false,
           silent: true
         })
@@ -256,7 +250,7 @@ exports.start = function (readyCallback) {
         replace({
           regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
           replacement: themeCss,
-          paths: [ 'app/index.html' ],
+          paths: ['app/index.html'],
           recursive: false,
           silent: true
         })
@@ -268,6 +262,7 @@ exports.start = function (readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
+      noSqlDatacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()

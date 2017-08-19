@@ -510,15 +510,6 @@ function createChallenges () {
     challenges.noSqlInjectionChallenge = challenge
   })
   models.Challenge.create({
-    name: 'NoSql Direct Access',
-    category: 'NoSQL Injections',
-    description: 'Write any Message in the Secrets Collection of the MongoDB',
-    difficulty: 4,
-    solved: false
-  }).success(function (challenge) {
-    challenges.noSqlDirectAccess = challenge
-  })
-  models.Challenge.create({
     name: 'Retrieve Blueprint',
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
@@ -529,7 +520,7 @@ function createChallenges () {
   }).success(function (challenge) {
     challenges.retrieveBlueprintChallenge = challenge
     for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
-      var product = config.get('products')[ i ]
+      var product = config.get('products')[i]
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
@@ -621,7 +612,7 @@ function makeRandomString (length) {
 function createProducts () {
   function softDeleteIfConfigured (product) {
     for (var i = 0; i < config.get('products').length; i++) {
-      var configuredProduct = config.get('products')[ i ]
+      var configuredProduct = config.get('products')[i]
       if (product.name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
           models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
