@@ -30,8 +30,8 @@
         </div>
         <div class="row" ng-hide="reviewsDisabled">
             <div class="col-md-12">
-                <strong translate="LABEL_COMMENT"></strong>
-                <p ng-show="productReviews.length === 0">No Comments yet.</p>
+                <strong translate="LABEL_REVIEWS"></strong>
+                <p ng-show="productReviews.length === 0" translate="LABEL_NO_REVIEWS"></p>
                 <blockquote data-ng-repeat="review in productReviews">
                     <p>{{ review.message }}</p>
 
@@ -43,8 +43,8 @@
             <div class="col-md-12">
                 <form role="form" name="form" novalidate>
                     <div class="form-group">
-                        <label for="feedbackComment" translate="LABEL_COMMENT"></label>
-                        <textarea class="form-control input-sm" id="feedbackComment" ng-model="message" name="feedbackComment" required ng-minlength="5" ng-maxlength="160"></textarea>
+                        <label for="feedbackComment" translate="LABEL_ADD_REVIEW_FOR_PRODUCT"></label>
+                        <textarea class="form-control input-sm" id="feedbackComment" ng-model="message" name="feedbackComment" required ng-minlength="1" ng-maxlength="160"></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" ng-click="addComment()" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-send fa-lg"></i> <span translate="BTN_SUBMIT"></span></button>

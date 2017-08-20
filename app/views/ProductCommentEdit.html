@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Edit Comment</h3>
+    <h3 class="modal-title" translate="LABEL_EDIT_REVIEW"></h3>
 </div>
 <div class="modal-body">
     <div class="container-fluid">
@@ -7,13 +7,13 @@
             <div class="col-md-12">
                 <form role="form" name="form" novalidate>
                     <div class="form-group">
-                        <label for="feedbackComment" translate="LABEL_COMMENT"></label>
+                        <label for="feedbackComment" translate="LABEL_REVIEW"></label>
                         <textarea class="form-control input-sm"
                                   id="feedbackComment"
                                   ng-model="message"
                                   name="feedbackComment"
                                   required
-                                  ng-minlength="5"
+                                  ng-minlength="1"
                                   ng-maxlength="160"></textarea>
                     </div>
                     <div class="form-group">
