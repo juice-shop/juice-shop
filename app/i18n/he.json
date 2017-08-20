@@ -120,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"התקדמות ההאקינג הקודם שלך שוחזרה באופן אוטומטי.",
   "AUTO_RESTORE_PROGRESS_FAILED":"שחזור התקדמות ההאקינג הקודם שלך נכשלה: {{error}}",
   "RESET_HACKING_PROGRESS":"מחוק קובץ cookie כדי לנקות את התקדמות הפריצה",
-  "RESTART_REQUIRED":"עכשיו עליך להפעיל מחדש את היישום באופן ידני, כדי להתחיל מחדש!"
+  "RESTART_REQUIRED":"עכשיו עליך להפעיל מחדש את היישום באופן ידני, כדי להתחיל מחדש!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }
