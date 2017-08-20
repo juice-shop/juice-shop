@@ -120,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Dein vorheriger Hacking-Fortschritt wurde automatisch wiederhergestellt.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Wiederherstellung deines bisherigen Hacking-Fortschritts ist fehlgeschlagen: {{error}}",
   "RESET_HACKING_PROGRESS":"Lösche das Cookie um den Hacking-Fortschritt zu leeren",
-  "RESTART_REQUIRED":"Du musst nun die Anwendung manuell neu starten um von vorne zu beginnen!"
+  "RESTART_REQUIRED":"Du musst nun die Anwendung manuell neu starten um von vorne zu beginnen!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }
