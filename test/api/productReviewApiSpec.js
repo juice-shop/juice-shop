@@ -18,14 +18,14 @@ describe('/rest/product/:id/reviews', function () {
     frisby.get(REST_URL + '/product/1/reviews')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data.*', reviewResponseSchema).done(done)
+      .expect('jsonTypes', reviewResponseSchema).done(done)
   })
 
   it('GET product reviews attack by injecting a mongoDB sleep command', function (done) {
-    frisby.get(REST_URL + '/product/sleep(100)/reviews')
+    frisby.get(REST_URL + '/product/sleep(1)/reviews')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data.*', reviewResponseSchema).done(done)
+      .expect('jsonTypes', reviewResponseSchema).done(done)
   })
 
   it('PUT single product review can be created', function (done) {
@@ -35,50 +35,41 @@ describe('/rest/product/:id/reviews', function () {
         author: 'Anonymous'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data.*', reviewResponseSchema).done(done)
-      .expect('json', 'data', {
-        message: 'Lorem Ipsum',
-        author: 'Anonymous'
-      })
+      .done(done)
   })
 })
 
 describe('/rest/product/reviews', function () {
   var updatedReviewResponseSchema = {
-    n: Joi.number(),
-    nModified: Joi.number(),
-    ok: Joi.number()
+    modified: Joi.number(),
+    original: Joi.array(),
+    updated: Joi.array()
   }
 
   it('PATCH single product review can be edited', function (done) {
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {
-        id: 1,
+        id: '3QxALD3cSdZ7ekW63',
         message: 'Lorem Ipsum'
       }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data.*', updatedReviewResponseSchema)
-      .expect('json', 'data', {
-        n: 1,
-        nModified: 1,
-        ok: 1
-      }).done(done)
+      .expect('jsonTypes', updatedReviewResponseSchema)
+      .done(done)
   })
 
   it('PATCH single product review editing need an authenticated user', function (done) {
     frisby.patch(REST_URL + '/product/reviews', {
       body: {
-        id: 1,
+        id: '3QxALD3cSdZ7ekW63',
         message: 'Lorem Ipsum'
       }
     })
       .expect('status', 401)
-      .expect('header', 'content-type', /application\/json/)
       .done(done)
   })
 
@@ -86,17 +77,15 @@ describe('/rest/product/reviews', function () {
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {
-        '$ne': -1
-      },
-      message: 'trololololololololololololololololololololololololololol'
+        id: { '$ne': -1 },
+        message: 'trololololololololololololololololololololololololololol'
+      }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data.*', updatedReviewResponseSchema)
-      .expect('json', 'data', {
-        n: 7,
-        nModified: 7,
-        ok: 1
+      .expect('jsonTypes', updatedReviewResponseSchema)
+      .expect('json', {
+        modified: 7
       }).done(done)
   })
 })
