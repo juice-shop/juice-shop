@@ -491,6 +491,26 @@ function createChallenges () {
     challenges.jwtSecretChallenge = challenge
   })
   models.Challenge.create({
+    name: 'NoSql Command Injection',
+    category: 'NoSQL Injections',
+    description: 'Let the server sleep for some time. It has done more then enough for you.',
+    hint: addHint('Try changing out the id of the product review request to something more malicious.'),
+    difficulty: 3,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlCommandChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'NoSql Injection',
+    category: 'NoSQL Injections',
+    description: 'Update more than one comment for a product at a time.',
+    hint: addHint('Take a closer look on how updates in MongoDB work.'),
+    difficulty: 3,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlInjectionChallenge = challenge
+  })
+  models.Challenge.create({
     name: 'Retrieve Blueprint',
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
@@ -501,7 +521,7 @@ function createChallenges () {
   }).success(function (challenge) {
     challenges.retrieveBlueprintChallenge = challenge
     for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
-      var product = config.get('products')[ i ]
+      var product = config.get('products')[i]
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
@@ -593,7 +613,7 @@ function makeRandomString (length) {
 function createProducts () {
   function softDeleteIfConfigured (product) {
     for (var i = 0; i < config.get('products').length; i++) {
-      var configuredProduct = config.get('products')[ i ]
+      var configuredProduct = config.get('products')[i]
       if (product.name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
           models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
