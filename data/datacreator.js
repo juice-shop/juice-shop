@@ -273,7 +273,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Vulnerable Library',
     category: 'Vulnerable Component',
-    description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
+    description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)',
     difficulty: 3,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
@@ -491,20 +491,20 @@ function createChallenges () {
     challenges.jwtSecretChallenge = challenge
   })
   models.Challenge.create({
-    name: 'NoSql Command Injection',
-    category: 'NoSQL Injections',
-    description: 'Let the server sleep for some time. It has done more then enough for you.',
-    hint: addHint('Try changing out the id of the product review request to something more malicious.'),
+    name: 'NoSQL Injection Tier 1',
+    category: 'NoSQL Injection',
+    description: 'Let the server sleep for some time. (It has done more than enough hard work for you)',
+    hint: addHint('This challenge is essentially a stripped-down Denial of Service (DoS) attack.'),
     difficulty: 3,
     solved: false
   }).success(function (challenge) {
     challenges.noSqlCommandChallenge = challenge
   })
   models.Challenge.create({
-    name: 'NoSql Injection',
-    category: 'NoSQL Injections',
-    description: 'Update more than one comment for a product at a time.',
-    hint: addHint('Take a closer look on how updates in MongoDB work.'),
+    name: 'NoSQL Injection Tier 2',
+    category: 'NoSQL Injection',
+    description: 'Update multiple product reviews at the same time.',
+    hint: addHint('Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'),
     difficulty: 3,
     solved: false
   }).success(function (challenge) {
