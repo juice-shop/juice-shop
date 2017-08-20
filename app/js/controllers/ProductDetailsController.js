@@ -29,7 +29,7 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       $scope.product = product
       $scope.product.description = $sce.trustAsHtml($scope.product.description)
       $scope.productReviews = reviews.data
-      
+
       if (user === undefined || user.email === undefined) {
         $scope.author = 'Anonymous'
       } else {
