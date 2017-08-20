@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-- 4
 - 6  # recommended version
 - 8
 branches:
@@ -68,4 +67,5 @@ deploy:
   on:
     repo: bkimminich/juice-shop
     tags: true
+dist: precise
 sudo: false

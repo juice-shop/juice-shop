@@ -11,7 +11,9 @@ exports = module.exports = function resetPassword () {
     var answer = req.body.answer
     var newPassword = req.body.new
     var repeatPassword = req.body.repeat
-    if (!newPassword || newPassword === 'undefined') {
+    if (!email || !answer) {
+      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    } else if (!newPassword || newPassword === 'undefined') {
       res.status(401).send('Password cannot be empty.')
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')

@@ -1,70 +1,82 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
+const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
 
-var API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-frisby.create('GET all security answers is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .get(API_URL + '/SecurityAnswers')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('GET existing security answer by id is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .get(API_URL + '/SecurityAnswers/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST new security answer for existing user fails from unique constraint')
-  .addHeaders(authHeader)
-  .post(API_URL + '/SecurityAnswers', {
-    UserId: 1,
-    SecurityQuestionId: 1,
-    answer: 'Horst'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('message', {
-    code: 'SQLITE_CONSTRAINT'
+describe('/api/SecurityAnswers', function () {
+  it('GET all security answers is forbidden via public API even when authenticated', function (done) {
+    frisby.get(API_URL + '/SecurityAnswers', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
   })
-  .toss()
 
-frisby.create('For a newly registered user')
-  .post(API_URL + '/Users', {
-    email: 'new.user@te.st',
-    password: '12345'
-  }, { json: true })
-  .expectStatus(200)
-  .afterJSON(function (user) {
-    frisby.create('POST new security answer')
-      .addHeaders(authHeader)
-      .post(API_URL + '/SecurityAnswers', {
-        UserId: user.id,
+  it('POST new security answer for existing user fails from unique constraint', function (done) {
+    frisby.post(API_URL + '/SecurityAnswers', {
+      headers: authHeader,
+      body: {
+        UserId: 1,
         SecurityQuestionId: 1,
         answer: 'Horst'
-      }, { json: true })
-      .expectStatus(200)
-      .expectHeaderContains('content-type', 'application/json')
-      .expectJSONTypes('data', {
-        id: Number,
-        createdAt: String,
-        updatedAt: String
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'message', {
+        code: 'SQLITE_CONSTRAINT'
       })
-      .toss()
-  }).toss()
+      .done(done)
+  })
+})
 
-frisby.create('PUT update existing security answer is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .put(API_URL + '/SecurityAnswers/1', {
-    answer: 'Blurp'
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
+describe('/api/SecurityAnswers/:id', function () {
+  it('GET existing security answer by id is forbidden via public API even when authenticated', function (done) {
+    frisby.get(API_URL + '/SecurityAnswers/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('DELETE existing security answer is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .delete(API_URL + '/SecurityAnswers/1')
-  .expectStatus(401)
-  .toss()
+  it('POST security answer for a newly registered user', function (done) {
+    frisby.post(API_URL + '/Users', {
+      email: 'new.user@te.st',
+      password: '12345'
+    }, { json: true })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.post(API_URL + '/SecurityAnswers', {
+          headers: authHeader,
+          body: {
+            UserId: res.json.id,
+            SecurityQuestionId: 1,
+            answer: 'Horst'
+          }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'data', {
+            id: Joi.number(),
+            createdAt: Joi.string(),
+            updatedAt: Joi.string()
+          })
+      }).done(done)
+  })
+
+  it('PUT update existing security answer is forbidden via public API even when authenticated', function (done) {
+    frisby.put(API_URL + '/SecurityAnswers/1', {
+      headers: authHeader,
+      body: {
+        answer: 'Blurp'
+      }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('DELETE existing security answer is forbidden via public API even when authenticated', function (done) {
+    frisby.del(API_URL + '/SecurityAnswers/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})

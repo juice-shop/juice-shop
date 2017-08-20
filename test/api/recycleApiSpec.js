@@ -1,52 +1,66 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
+const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
 
-var API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-frisby.create('POST new recycle')
-  .addHeaders(authHeader)
-  .post(API_URL + '/Recycles', {
-    quantity: 200,
-    address: 'Bjoern Kimminich, 123 Juicy Road, Test City',
-    isPickup: true,
-    date: '2017-05-31'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    createdAt: String,
-    updatedAt: String
+describe('/api/Recycles', function () {
+  it('POST new recycle', function (done) {
+    frisby.post(API_URL + '/Recycles', {
+      headers: authHeader,
+      body: {
+        quantity: 200,
+        address: 'Bjoern Kimminich, 123 Juicy Road, Test City',
+        isPickup: true,
+        date: '2017-05-31'
+      }
+    })
+    .expect('status', 200)
+    .expect('header', 'content-type', /application\/json/)
+    .expect('jsonTypes', 'data', {
+      id: Joi.number(),
+      createdAt: Joi.string(),
+      updatedAt: Joi.string()
+    })
+      .done(done)
   })
-  .afterJSON(function (recycle) {
-    frisby.create('GET existing recycle by id is forbidden')
-      .addHeaders(authHeader)
-      .get(API_URL + '/Recycles/' + recycle.data.id)
-      .expectStatus(401)
-      .toss()
-    frisby.create('PUT update existing recycle is forbidden')
-      .addHeaders(authHeader)
-      .put(API_URL + '/Recycles/' + recycle.data.id, {
-        message: 'Should not work...'
-      }, { json: true })
-      .expectStatus(401)
-      .toss()
-    frisby.create('DELETE existing recycle is forbidden')
-      .addHeaders(authHeader)
-      .delete(API_URL + '/Recycles/' + +recycle.data.id)
-      .expectStatus(401)
-      .toss()
-  }).toss()
 
-frisby.create('GET all recycles is forbidden via public API')
-  .get(API_URL + '/Recycles')
-  .expectStatus(401)
-  .toss()
+  it('GET all recycles is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/Recycles')
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('GET all recycles')
-  .addHeaders(authHeader)
-  .get(API_URL + '/Recycles')
-  .expectStatus(200)
-  .toss()
+  it('GET all recycles', function (done) {
+    frisby.get(API_URL + '/Recycles', { headers: authHeader })
+      .expect('status', 200)
+      .done(done)
+  })
+})
+
+describe('/api/Recycles/:id', function () {
+  it('GET existing recycle by id is forbidden', function (done) {
+    frisby.get(API_URL + '/Recycles/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('PUT update existing recycle is forbidden', function (done) {
+    frisby.put(API_URL + '/Recycles/1', {
+      headers: authHeader,
+      body: {
+        quantity: 100000
+      }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('DELETE existing recycle is forbidden', function (done) {
+    frisby.del(API_URL + '/Recycles/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})

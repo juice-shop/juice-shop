@@ -100,7 +100,7 @@ describe('/#/contact', function () {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Vulnerable Component' })
+    protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
   })
 
   describe('challenge "weirdCrypto"', function () {
@@ -123,6 +123,28 @@ describe('/#/contact', function () {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Find JWT Secret' })
+  })
+
+  describe('challenge "typosquattingNpm"', function () {
+    it('should be possible to post typosquatting NPM package as feedback', function () {
+      comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 1' })
+  })
+
+  describe('challenge "typosquattingBower"', function () {
+    it('should be possible to post typosquatting Bower package as feedback', function () {
+      comment.sendKeys('You are a typosquatting victim of this Bower package: angular-tooltipps')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
   })
 
   describe('challenge "zeroStars"', function () {

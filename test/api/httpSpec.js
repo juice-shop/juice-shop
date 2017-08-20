@@ -1,21 +1,33 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
 
-var URL = 'http://localhost:3000'
+const URL = 'http://localhost:3000'
 
-frisby.create('GET response must contain CORS header allowing all origins')
-  .get(URL)
-  .expectStatus(200)
-  .expectHeaderContains('Access-Control-Allow-Origin', '*')
-  .toss()
+describe('HTTP', function () {
+  it('response must contain CORS header allowing all origins', function (done) {
+    frisby.get(URL)
+      .expect('status', 200)
+      .expect('header', 'Access-Control-Allow-Origin', '*')
+      .done(done)
+  })
 
-frisby.create('GET response must contain sameorigin frameguard header')
-  .get(URL)
-  .expectStatus(200)
-  .expectHeaderContains('X-Frame-Options', 'sameorigin')
-  .toss()
+  it('response must contain sameorigin frameguard header', function (done) {
+    frisby.get(URL)
+      .expect('status', 200)
+      .expect('header', 'X-Frame-Options', 'sameorigin')
+      .done(done)
+  })
 
-frisby.create('GET response must contain nosniff content type header')
-  .get(URL)
-  .expectStatus(200)
-  .expectHeaderContains('X-Content-Type-Options', 'nosniff')
-  .toss()
+  it('response must contain CORS header allowing all origins', function (done) {
+    frisby.get(URL)
+      .expect('status', 200)
+      .expect('header', 'X-Content-Type-Options', 'nosniff')
+      .done(done)
+  })
+
+  it('response must not contain XSS protection header', function (done) {
+    frisby.get(URL)
+      .expect('status', 200)
+      .expectNot('header', 'X-XSS-Protection')
+      .done(done)
+  })
+})

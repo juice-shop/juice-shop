@@ -1,73 +1,122 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
 var insecurity = require('../../lib/insecurity')
 
-var API_URL = 'http://localhost:3000/api'
+const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-frisby.create('GET all basket items is forbidden via public API')
-  .get(API_URL + '/BasketItems')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST new basket item is forbidden via public API')
-  .post(API_URL + '/BasketItems', {
-    BasketId: 1,
-    ProductId: 1,
-    quantity: 1
+describe('/api/BasketItems', function () {
+  it('GET all basket items is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/BasketItems')
+      .expect('status', 401)
+      .done(done)
   })
-  .expectStatus(401)
-  .toss()
 
-frisby.create('GET existing basket item by id is forbidden via public API')
-  .get(API_URL + '/BasketItems/1')
-  .expectStatus(401)
-  .toss()
+  it('POST new basket item is forbidden via public API', function (done) {
+    frisby.post(API_URL + '/BasketItems', {
+      BasketId: 1,
+      ProductId: 1,
+      quantity: 1
+    })
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('PUT update existing basket item is forbidden via public API')
-  .put(API_URL + '/BasketItems/1', {
-    quantity: 2
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
+  it('GET all basket items', function (done) {
+    frisby.get(API_URL + '/BasketItems', { headers: authHeader })
+      .expect('status', 200)
+      .done(done)
+  })
 
-frisby.create('DELETE existing basket item is forbidden via public API')
-  .delete(API_URL + '/BasketItems/1')
-  .expectStatus(401)
-  .toss()
+  it('POST new basket item', function (done) {
+    frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 2,
+        ProductId: 2,
+        quantity: 1
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+})
 
-frisby.create('GET all basket items')
-  .addHeaders(authHeader)
-  .get(API_URL + '/BasketItems')
-  .expectStatus(200)
-  .toss()
+describe('/api/BasketItems/:id', function () {
+  it('GET basket item by id is forbidden via public API', function (done) {
+    frisby.get(API_URL + '/BasketItems/1')
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('POST new basket item')
-  .addHeaders(authHeader)
-  .post(API_URL + '/BasketItems', {
-    BasketId: 2,
-    ProductId: 2,
-    quantity: 1
-  }, { json: true })
-  .expectStatus(200)
-  .afterJSON(function (basketItem) {
-    frisby.create('GET existing basket item by id')
-      .addHeaders(authHeader)
-      .get(API_URL + '/BasketItems/' + basketItem.data.id)
-      .expectStatus(200)
-      .afterJSON(function () {
-        frisby.create('PUT update existing basket item')
-          .addHeaders(authHeader)
-          .put(API_URL + '/BasketItems/' + basketItem.data.id, {
-            quantity: 2
-          }, { json: true })
-          .expectStatus(200)
-          .afterJSON(function () {
-            frisby.create('DELETE existing basket item')
-              .addHeaders(authHeader)
-              .delete(API_URL + '/BasketItems/' + +basketItem.data.id)
-              .expectStatus(200)
-              .toss()
-          }).toss()
-      }).toss()
-  }).toss()
+  it('PUT update basket item is forbidden via public API', function (done) {
+    frisby.put(API_URL + '/BasketItems/1', {
+      quantity: 2
+    }, { json: true })
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('DELETE basket item is forbidden via public API', function (done) {
+    frisby.del(API_URL + '/BasketItems/1')
+      .expect('status', 401)
+      .done(done)
+  })
+
+  it('GET newly created basket item by id', function (done) {
+    frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 2,
+        quantity: 3
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.get(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
+          .expect('status', 200)
+      })
+      .done(done)
+  })
+
+  it('PUT update newly created basket item', function (done) {
+    frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 3,
+        quantity: 4
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.put(API_URL + '/BasketItems/' + res.json.data.id, {
+          headers: authHeader,
+          body: {
+            quantity: 20
+          }
+        })
+          .expect('status', 200)
+          .expect('json', 'data', { quantity: 20 })
+      })
+      .done(done)
+  })
+
+  it('DELETE newly created basket item', function (done) {
+    frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 4,
+        quantity: 5
+      }
+    })
+      .expect('status', 200)
+      .then(function (res) {
+        return frisby.del(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
+          .expect('status', 200)
+      })
+      .done(done)
+  })
+})

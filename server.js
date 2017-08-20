@@ -43,6 +43,7 @@ var utils = require('./lib/utils')
 var insecurity = require('./lib/insecurity')
 var models = require('./models')
 var datacreator = require('./data/datacreator')
+var noSqlDatacreator = require('./mongodb/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
@@ -65,6 +66,10 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
     })
   }
 })
+
+var showProductReviews = require('./routes/showProductReviews')
+var createProductReviews = require('./routes/createProductReviews')
+var updateProductReviews = require('./routes/updateProductReviews')
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -107,9 +112,11 @@ app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view':
 app.use('/encryptionkeys/:file', keyServer())
 
 app.use(express.static(applicationRoot + '/app'))
-app.use(morgan('dev'))
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
+
+/* HTTP request logging */
+app.use(morgan('dev'))
 
 /* Authorization */
 /* Baskets: Unauthorized users are not allowed to access baskets */
@@ -156,10 +163,16 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
+
+// routes for the NoSql parts of the application
+app.get('/rest/product/:id/reviews', showProductReviews())
+app.put('/rest/product/:id/reviews', createProductReviews())
+app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
+
 /* Sequelize Restful APIs */
 app.use(restful(models.sequelize, {
   endpoint: '/api',
-  allowed: [ 'Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers' ]
+  allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers']
 }))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
@@ -227,7 +240,7 @@ exports.start = function (readyCallback) {
         replace({
           regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
           replacement: logoImageTag,
-          paths: [ 'app/index.html' ],
+          paths: ['app/index.html'],
           recursive: false,
           silent: true
         })
@@ -237,7 +250,7 @@ exports.start = function (readyCallback) {
         replace({
           regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
           replacement: themeCss,
-          paths: [ 'app/index.html' ],
+          paths: ['app/index.html'],
           recursive: false,
           silent: true
         })
@@ -249,6 +262,7 @@ exports.start = function (readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
+      noSqlDatacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()

@@ -43,6 +43,7 @@
     "cookie-parser": "~1.4",
     "cors": "~2.8",
     "dottie": "~2.0",
+    "epilogue-js": "~0.7",
     "errorhandler": "~1.5",
     "express": "~4.15",
     "express-jwt": "~5.3",
@@ -59,9 +60,10 @@
     "hashids": "~1.1",
     "helmet": "~3.6",
     "html-entities": "~1.2",
-    "js-yaml": "~3.8.2",
+    "js-yaml": "3.8.2",
     "jsonwebtoken": "~7.4",
     "jssha": "~2.3",
+    "marsdb": "^0.6.11",
     "morgan": "~1.8",
     "multer": "~1.3",
     "pdfkit": "~0.8",
@@ -73,19 +75,19 @@
     "serve-favicon": "~2.4",
     "serve-index": "~1.9",
     "socket.io": "~2.0",
-    "sqlite3": "3.1",
+    "sqlite3": "3.1.8",
     "z85": "~0.0"
   },
   "devDependencies": {
     "chai": "~4",
     "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
-    "form-data": "~1.0",
-    "frisby": "~0.8",
+    "form-data": "~2.2",
+    "frisby": "~2.0",
     "http-server": "~0.10",
     "istanbul": "~0.4",
-    "jasmine-node": "~1.14",
     "jasmine-reporters": "~2.2",
+    "jest": "~20",
     "karma": "~1.7",
     "karma-chrome-launcher": "~2.1",
     "karma-cli": "~1.0",
@@ -98,11 +100,11 @@
     "lcov-result-merger": "~1.2",
     "mocha": "~3",
     "nyc": "~11",
-    "phantomjs-prebuilt": "~2.1",
+    "phantomjs-prebuilt": "~2",
     "protractor": "~4",
     "shelljs": "~0.7",
     "sinon": "~2.3",
-    "sinon-chai": "~2.11",
+    "sinon-chai": "~2.12",
     "socket.io-client": "~2.0",
     "standard": "~10",
     "stryker": "~0",
@@ -113,7 +115,7 @@
     "stryker-mocha-runner": "~0"
   },
   "peerDependencies": {
-    "phantomjs-prebuilt": "~2.1"
+    "phantomjs-prebuilt": "~2"
   },
   "repository": {
     "type": "git",
@@ -136,7 +138,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "~4 ~6 ~8"
+    "node": ">=6 <9"
   },
   "standard": {
     "ignore": [
@@ -144,11 +146,11 @@
       "/vagrant/**"
     ],
     "env": {
-    "jasmine": true,
-    "node": true,
-    "browser": true,
-    "mocha": true,
-    "protractor": true
+      "jasmine": true,
+      "node": true,
+      "browser": true,
+      "mocha": true,
+      "protractor": true
     },
     "globals": [
       "angular",
@@ -166,5 +168,14 @@
       "text-summary"
     ],
     "report-dir": "./build/reports/coverage/server-tests"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/api/*Spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/"
+    ]
   }
 }
