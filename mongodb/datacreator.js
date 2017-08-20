@@ -9,7 +9,7 @@ var reviews = [
   { product: 19, message: 'A vital ingredient for a succesful playthrough.', author: 'jim@juice-sh.op' }
 ]
 
-module.exports = function datacreator() {
+module.exports = function datacreator () {
   return Promise.all(reviews.map(function (review) {
     return db.reviews.insert(review)
   }))

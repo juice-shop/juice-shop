@@ -4,7 +4,7 @@ var utils = require('../lib/utils')
 var challenges = require('../data/datacache').challenges
 var db = require('../mongodb/index')
 
-exports = module.exports = function productReviews() {
+exports = module.exports = function productReviews () {
   return function (req, res, next) {
     var id = req.body.id
 

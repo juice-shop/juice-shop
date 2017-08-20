@@ -203,7 +203,7 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 exports.start = function (readyCallback) {
-  function registerWebsocketEvents() {
+  function registerWebsocketEvents () {
     io.on('connection', function (socket) {
       // notify only first client to connect about server start
       if (firstConnectedSocket === null) {
@@ -227,7 +227,7 @@ exports.start = function (readyCallback) {
     })
   }
 
-  function populateIndexTemplate() {
+  function populateIndexTemplate () {
     fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, function () {
       if (config.get('application.logo')) {
         var logo = config.get('application.logo')

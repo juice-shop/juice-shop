@@ -1,10 +1,8 @@
 'use strict'
 
-var utils = require('../lib/utils')
-
 var db = require('../mongodb/index')
 
-exports = module.exports = function productReviews() {
+exports = module.exports = function productReviews () {
   return function (req, res, next) {
     db.reviews.insert({
       product: req.params.id,
