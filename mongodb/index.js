@@ -1,8 +1,9 @@
-var minimongo = require('minimongo')
+const MarsDB = require('marsdb')
 
-var LocalDb = minimongo.MemoryDb
+const reviews = new MarsDB.Collection('posts')
 
-var db = new LocalDb()
-db.addCollection('reviews')
+const db = {
+  reviews: reviews
+}
 
 module.exports = db

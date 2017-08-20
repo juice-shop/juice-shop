@@ -7,7 +7,7 @@ var insecurity = require('../lib/insecurity')
 
 var db = require('../mongodb/index')
 
-exports = module.exports = function productReviews() {
+exports = module.exports = function productReviews () {
   return function (req, res, next) {
     var id = req.body.id
 
@@ -17,19 +17,16 @@ exports = module.exports = function productReviews() {
       // Updates the comments
       // insecurity as it updates all the comments and doesnt filter for the user
       // also updateOne() or findOneAndUpdate() would be more suitible here
-      db.reviews.upsert({ _id: id, message: req.body.message }, { _id: id }, function (result) {
-        if (result.nModified > 1) {
-          // More then one Review was modified => challange solved
-          if (utils.notSolved(challenges.noSqlInjectionChallenge)) {
-            utils.solve(challenges.noSqlInjectionChallenge)
+      db.reviews.update({ _id: id }, { '$set': { message: req.body.message } }, { multi: true }).then(
+        function (result) {
+          if (result.modified > 1) {
+            // More then one Review was modified => challange solved
+            if (utils.notSolved(challenges.noSqlInjectionChallenge)) {
+              utils.solve(challenges.noSqlInjectionChallenge)
+            }
           }
-        }
-        res.json(result)
-
-        db.reviews.find({}).fetch(function (res) {
-          console.log(res);
-        })
-      }, function (err) {
+          res.json(result)
+        }, function (err) {
         res.status(500).json(err)
       })
     }

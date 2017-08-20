@@ -10,8 +10,7 @@ var reviews = [
 ]
 
 module.exports = function datacreator () {
-  db.reviews.upsert(reviews, {}, function (reviews) {
-    console.log('Created some reviews!')
-    console.log('Reviews', reviews)
-  })
+  return Promise.all(reviews.map(function (review) {
+    return db.reviews.insert(review)
+  }))
 }
