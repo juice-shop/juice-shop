@@ -494,8 +494,8 @@ function createChallenges () {
     name: 'NoSql Command Injection',
     category: 'NoSQL Injections',
     description: 'Let the server sleep for some time. It has done more then enough for you.',
-    // TODO See if hint are required
-    difficulty: 2,
+    hint: addHint('Try changing out the id of the product review request to something more malicious.'),
+    difficulty: 3,
     solved: false
   }).success(function (challenge) {
     challenges.noSqlCommandChallenge = challenge
@@ -503,8 +503,9 @@ function createChallenges () {
   models.Challenge.create({
     name: 'NoSql Injection',
     category: 'NoSQL Injections',
-    description: 'Change more than one comment for a product at a time.',
-    difficulty: 2,
+    description: 'Update more than one comment for a product at a time.',
+    hint: addHint('Take a closer look on how updates in MongoDB work.'),
+    difficulty: 3,
     solved: false
   }).success(function (challenge) {
     challenges.noSqlInjectionChallenge = challenge
