@@ -483,7 +483,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Find JWT Secret',
     category: 'Weak Security Mechanism',
-    description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment.)',
+    description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment)',
     difficulty: 4,
     hint: addHint('This might require you to grab a little bit deeper into the pentester\'s toolbox.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#inform-the-shop-about-a-jwt-issue'),
