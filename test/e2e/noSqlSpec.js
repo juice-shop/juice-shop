@@ -13,7 +13,7 @@ describe('/#/search', function () {
       browser.driver.sleep(5000)
       browser.ignoreSynchronization = false
     })
-    protractor.expect.challengeSolved({ challenge: 'NoSql Command Injection' })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 1' })
   })
 
   describe('challenge "NoSql Injection"', function () {
@@ -22,6 +22,6 @@ describe('/#/search', function () {
       browser.driver.sleep(1000)
       browser.ignoreSynchronization = false
     })
-    protractor.expect.challengeSolved({ challenge: 'NoSql Injection' })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 2' })
   })
 })
