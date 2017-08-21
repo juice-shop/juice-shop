@@ -72,4 +72,5 @@ deploy:
   on:
     repo: bkimminich/juice-shop
     tags: true
-    
+dist: precise
+sudo: required
