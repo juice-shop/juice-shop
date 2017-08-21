@@ -49,21 +49,21 @@ describe('/rest/product/reviews', function () {
     updated: Joi.array()
   }
 
-  let reviewId;
+  let reviewId
 
   beforeAll((done) => {
     http.get(REST_URL + '/product/1/reviews', (res) => {
-      let body = '';
-      
-      res.on('data', function(chunk){
-          body += chunk;
-      });
-  
-      res.on('end', function(){
-          const response = JSON.parse(body)
-          reviewId = response.data[0]._id
-          done();
-      });
+      let body = ''
+
+      res.on('data', function (chunk) {
+        body += chunk
+      })
+
+      res.on('end', function () {
+        const response = JSON.parse(body)
+        reviewId = response.data[0]._id
+        done()
+      })
     })
   })
 
