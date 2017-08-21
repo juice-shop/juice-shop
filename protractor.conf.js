@@ -30,9 +30,3 @@ exports.config = {
     }))
   }
 }
-
-if (process.env.TRAVIS_BUILD_NUMBER) {
-  exports.config.capabilities = {
-    'browserName': 'firefox'
-  }
-}
