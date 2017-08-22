@@ -1,15 +1,15 @@
-angular.module('juiceShop').controller('ProductCommentEditController', [
+angular.module('juiceShop').controller('ProductReviewEditController', [
   '$scope',
   '$uibModalInstance',
   'ProductReviewService',
-  'comment',
-  function ($scope, $uibModalInstance, productReviewService, comment) {
+  'review',
+  function ($scope, $uibModalInstance, productReviewService, review) {
     'use strict'
 
-    $scope.id = comment._id
-    $scope.message = comment.message
+    $scope.id = review._id
+    $scope.message = review.message
 
-    $scope.editComment = function () {
+    $scope.editReview = function () {
       productReviewService.patch({id: $scope.id, message: $scope.message}).success(function (result) {
         $uibModalInstance.close($scope.message)
       }).error(function (err) {

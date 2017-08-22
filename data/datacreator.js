@@ -5,6 +5,7 @@ var models = require('../models/index')
 var datacache = require('./datacache')
 var config = require('config')
 var utils = require('../lib/utils')
+var mongodb = require('../mongodb/index')
 var challenges = datacache.challenges
 var users = datacache.users
 var products = datacache.products
@@ -624,26 +625,27 @@ function createProducts () {
   }
 
   for (var i = 0; i < config.get('products').length; i++) {
-    var product = config.get('products')[i]
-    var name = product.name
-    var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    const product = config.get('products')[i]
+    const name = product.name
+    let description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    const reviews = product.reviews
     if (product.useForChristmasSpecialChallenge) {
       description += ' (Seasonal special offer! Limited availability!)'
     } else if (product.useForProductTamperingChallenge) {
       description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
     } else if (product.fileForRetrieveBlueprintChallenge) {
-      var blueprint = product.fileForRetrieveBlueprintChallenge
+      let blueprint = product.fileForRetrieveBlueprintChallenge
       if (utils.startsWith(blueprint, 'http')) {
-        var blueprintUrl = blueprint
+        const blueprintUrl = blueprint
         blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
         utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
       }
       datacache.retrieveBlueprintChallengeFile = blueprint
     }
-    var price = product.price || Math.floor(Math.random())
-    var image = product.image || 'undefined.png'
+    const price = product.price || Math.floor(Math.random())
+    let image = product.image || 'undefined.png'
     if (utils.startsWith(image, 'http')) {
-      var imageUrl = image
+      const imageUrl = image
       image = decodeURIComponent(image.substring(image.lastIndexOf('/') + 1))
       utils.downloadToFile(imageUrl, 'app/public/images/products/' + image)
     }
@@ -662,6 +664,21 @@ function createProducts () {
         if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
           models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
         }
+      }
+      return product
+    }).success(function (product) {
+      if (reviews) {
+        return Promise.all(
+          reviews
+          .map((review) => {
+            review.message = review.text
+            review.author = review.author + '@' + config.get('application.domain')
+            review.product = product.id
+            return review
+          }).map((review) => {
+            return mongodb.reviews.insert(review)
+          })
+        )
       }
     })
   }

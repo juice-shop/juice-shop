@@ -28,14 +28,8 @@ angular.module('juiceShop').controller('ProductDetailsController', [
 
       $scope.product = product
       $scope.product.description = $sce.trustAsHtml($scope.product.description)
+      $scope.productReviews = reviews.data
 
-      if (reviews.msg !== undefined && reviews.msg === 'No NoSQL Database availible') {
-        $scope.reviewsDisabled = true
-      } else {
-        $scope.reviewsDisabled = false
-        $scope.productReviews = reviews.data
-      }
-      console.log('user', user)
       if (user === undefined || user.email === undefined) {
         $scope.author = 'Anonymous'
       } else {
@@ -47,22 +41,22 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       }
     )
 
-    $scope.addComment = function () {
+    $scope.addReview = function () {
       var review = { message: $scope.message, author: $scope.author }
       $scope.productReviews.push(review)
       productReviewService.create(id, review)
     }
 
-    $scope.refreshComments = function () {
+    $scope.refreshReviews = function () {
       productReviewService.get(id).then(function (result) {
         $scope.productReviews = result.data.data
       })
     }
 
-    $scope.editComment = function (comment) {
+    $scope.editReview = function (review) {
       $uibModal.open({
-        templateUrl: 'views/ProductCommentEdit.html',
-        controller: 'ProductCommentEditController',
+        templateUrl: 'views/ProductReviewEdit.html',
+        controller: 'ProductReviewEditController',
         bindings: {
           resolve: '<',
           close: '&',
@@ -70,12 +64,12 @@ angular.module('juiceShop').controller('ProductDetailsController', [
         },
         size: 'lg',
         resolve: {
-          comment: function () {
-            return comment
+          review: function () {
+            return review
           }
         }
       }).result.then(function (value) {
-        $scope.refreshComments()
+        $scope.refreshReviews()
       }, function () {
         console.log('Cancelled')
       })

@@ -43,7 +43,6 @@ var utils = require('./lib/utils')
 var insecurity = require('./lib/insecurity')
 var models = require('./models')
 var datacreator = require('./data/datacreator')
-var noSqlDatacreator = require('./mongodb/datacreator')
 var notifications = require('./data/datacache').notifications
 var app = express()
 var server = require('http').Server(app)
@@ -262,7 +261,6 @@ exports.start = function (readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      noSqlDatacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()

@@ -1,6 +1,7 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
 var insecurity = require('../../lib/insecurity')
+const http = require('http')
 
 const REST_URL = 'http://localhost:3000/rest'
 
@@ -42,17 +43,35 @@ describe('/rest/product/:id/reviews', function () {
 })
 
 describe('/rest/product/reviews', function () {
-  var updatedReviewResponseSchema = {
+  const updatedReviewResponseSchema = {
     modified: Joi.number(),
     original: Joi.array(),
     updated: Joi.array()
   }
 
+  let reviewId
+
+  beforeAll((done) => {
+    http.get(REST_URL + '/product/1/reviews', (res) => {
+      let body = ''
+
+      res.on('data', function (chunk) {
+        body += chunk
+      })
+
+      res.on('end', function () {
+        const response = JSON.parse(body)
+        reviewId = response.data[0]._id
+        done()
+      })
+    })
+  })
+
   it('PATCH single product review can be edited', function (done) {
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {
-        id: '3QxALD3cSdZ7ekW63',
+        id: reviewId,
         message: 'Lorem Ipsum'
       }
     })
@@ -65,7 +84,7 @@ describe('/rest/product/reviews', function () {
   it('PATCH single product review editing need an authenticated user', function (done) {
     frisby.patch(REST_URL + '/product/reviews', {
       body: {
-        id: '3QxALD3cSdZ7ekW63',
+        id: reviewId,
         message: 'Lorem Ipsum'
       }
     })
@@ -85,7 +104,7 @@ describe('/rest/product/reviews', function () {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', updatedReviewResponseSchema)
       .expect('json', {
-        modified: 7
+        modified: 6
       }).done(done)
   })
 })
