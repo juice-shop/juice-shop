@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"クーポンコードが必要ですか? 毎月のクーポンとスパムのために {{twitter}} または {{facebook}} をフォローしてください!",
   "BTN_REDEEM":"クーポン適用",
   "THANKS_FOR_SUPPORT":"{{juiceshop}}をサポートしていただきありがとうございます!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"支払",
   "LABEL_MERCHANDISE":"商品",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}}のアパレル、マグ、ステッカーの公式店舗!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"{{discount}}%のディスカウントがチェックアウト時に適用されます",
   "TITLE_CHANGE_PASSWORD":"パスワード変更",
   "MANDATORY_CURRENT_PASSWORD":"現在のパスワードを入力してください",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

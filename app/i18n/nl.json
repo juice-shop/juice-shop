@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"Waardebon nodig? Volg ons op {{twitter}} of {{facebook}} voor maandelijkse waardebonnen en andere spam!",
   "BTN_REDEEM":"Inwisselen",
   "THANKS_FOR_SUPPORT":"Bedankt voor het ondersteunen van {{juiceshop}}!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Betaling",
   "LABEL_MERCHANDISE":"Merchandise",
   "OFFICIAL_MERCHANDISE_STORES":"De officiële winkels for {{juiceshop}} kleding, mokken en stickers!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"Uw korting van {{discount}}% wordt tijdens het afrekenen toegepast.",
   "TITLE_CHANGE_PASSWORD":"Wijzig Wachtwoord",
   "MANDATORY_CURRENT_PASSWORD":"Vul je huidige wachtwoord in.",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

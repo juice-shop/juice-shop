@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"Chcete slevový kupón? Sledujte náš {{twitter}} nebo {{facebook}} pro měsíční kupóny a další spam!",
   "BTN_REDEEM":"Uplatnit",
   "THANKS_FOR_SUPPORT":"Děkujeme za podporu {{juiceshop}}!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Platba",
   "LABEL_MERCHANDISE":"Zboží",
   "OFFICIAL_MERCHANDISE_STORES":"Oficiální obchody {{juiceshop}} oděvů, hrnků a samolepek!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"Vaše sleva {{discount}}% bude použita na pokladně.",
   "TITLE_CHANGE_PASSWORD":"Změna hesla",
   "MANDATORY_CURRENT_PASSWORD":"Zadejte současné heslo.",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }
