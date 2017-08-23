@@ -3,7 +3,7 @@
 var utils = require('../lib/utils')
 var challenges = require('../data/datacache').challenges
 
-var db = require('../mongodb/index')
+var db = require('../data/mongodb')
 
 // Blocking sleep function as in native MongoDB
 global.sleep = function (time) {

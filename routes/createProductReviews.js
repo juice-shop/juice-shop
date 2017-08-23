@@ -1,6 +1,6 @@
 'use strict'
 
-var db = require('../mongodb/index')
+var db = require('../data/mongodb')
 
 exports = module.exports = function productReviews () {
   return function (req, res, next) {
