@@ -97,9 +97,6 @@ if (config.get('application.favicon')) {
 }
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
-/* HTTP request logging */
-app.use(morgan('dev'))
-
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges())
 app.use('/public/images/products', verify.accessControlChallenges())
