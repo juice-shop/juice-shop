@@ -92,9 +92,15 @@ where this project was mentioned or used!
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
-* [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid) by Avi Douglen, 
-  [BSides Tel Aviv 2017](https://bsidestlv.com/), Underground Track,
-  28.06.2017
+* Juice Shop Hacking Session by Björn Kimminich,
+  [OWASP North Sweden Chapter](https://www.owasp.org/index.php/North_Sweden),
+  19.09.2017
+* Juice Shop Hacking Session by Björn Kimminich,
+  [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
+  18.09.2017
+* [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid)
+  by Avi Douglen, [BSides Tel Aviv 2017](https://bsidestlv.com/),
+  Underground Track, 28.06.2017
 * [OWASP update](https://www.meetup.com/OWASP-Bristol/events/235736793)
   by Katy Anton,
   [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol),

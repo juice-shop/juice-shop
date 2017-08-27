@@ -13,7 +13,12 @@
     ],
     "unused-ignores": [
       "sqlite3",
-      "grunt-cli"
+      "grunt-cli",
+      "grunt",
+      "epilogue-js",
+      "bower",
+      "js-yaml",
+      "dottie"
     ]
   }
 }

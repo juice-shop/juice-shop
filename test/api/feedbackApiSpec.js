@@ -65,7 +65,7 @@ describe('/api/Feedbacks', function () {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'When juice fails... with stupid JWT secrets like ' + insecurity.defaultSecret,
+        comment: 'You suck! Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and angular-tooltipps!',
         rating: 0,
         UserId: 4711
       }

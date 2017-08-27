@@ -5,6 +5,7 @@ var models = require('../models/index')
 var datacache = require('./datacache')
 var config = require('config')
 var utils = require('../lib/utils')
+var mongodb = require('./mongodb')
 var challenges = datacache.challenges
 var users = datacache.users
 var products = datacache.products
@@ -86,10 +87,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 1',
     category: 'XSS',
-    description: 'XSS Tier 1: Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
+    description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
     difficulty: 1,
     hint: addHint('Look for an input field where its content appears in the response HTML when its form is submitted.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-1-perform-a-reflected-xss-attack'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'),
     solved: false
   }).success(function (challenge) {
     challenges.localXssChallenge = challenge
@@ -97,10 +98,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 2',
     category: 'XSS',
-    description: 'XSS Tier 2: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
     difficulty: 3,
     hint: addHint('Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-2-perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
     solved: false
   }).success(function (challenge) {
     challenges.persistedXssChallengeUser = challenge
@@ -108,10 +109,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 4',
     category: 'XSS',
-    description: 'XSS Tier 4: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
     difficulty: 4,
     hint: addHint('The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-4-perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
     solved: false
   }).success(function (challenge) {
     challenges.persistedXssChallengeFeedback = challenge
@@ -119,10 +120,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 3',
     category: 'XSS',
-    description: 'XSS Tier 3: Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
     difficulty: 3,
     hint: addHint('You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#xss-tier-3-perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
     solved: false
   }).success(function (challenge) {
     challenges.restfulXssChallenge = challenge
@@ -271,12 +272,12 @@ function createChallenges () {
     challenges.changeProductChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Vulnerable Component',
-    category: 'Cryptographic Issues',
-    description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment.)',
+    name: 'Vulnerable Library',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)',
     difficulty: 3,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
     solved: false
   }).success(function (challenge) {
     challenges.knownVulnerableComponentChallenge = challenge
@@ -482,13 +483,33 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Find JWT Secret',
     category: 'Weak Security Mechanism',
-    description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment.)',
+    description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment)',
     difficulty: 4,
     hint: addHint('This might require you to grab a little bit deeper into the pentester\'s toolbox.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#inform-the-shop-about-a-jwt-issue'),
     solved: false
   }).success(function (challenge) {
     challenges.jwtSecretChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'NoSQL Injection Tier 1',
+    category: 'NoSQL Injection',
+    description: 'Let the server sleep for some time. (It has done more than enough hard work for you)',
+    hint: addHint('This challenge is essentially a stripped-down Denial of Service (DoS) attack.'),
+    difficulty: 3,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlCommandChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'NoSQL Injection Tier 2',
+    category: 'NoSQL Injection',
+    description: 'Update multiple product reviews at the same time.',
+    hint: addHint('Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'),
+    difficulty: 3,
+    solved: false
+  }).success(function (challenge) {
+    challenges.noSqlInjectionChallenge = challenge
   })
   models.Challenge.create({
     name: 'Retrieve Blueprint',
@@ -501,12 +522,34 @@ function createChallenges () {
   }).success(function (challenge) {
     challenges.retrieveBlueprintChallenge = challenge
     for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
-      var product = config.get('products')[ i ]
+      var product = config.get('products')[i]
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
       }
     }
+  })
+  models.Challenge.create({
+    name: 'Typosquatting Tier 1',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)',
+    difficulty: 3,
+    hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingNpmChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Typosquatting Tier 2',
+    category: 'Vulnerable Component',
+    description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)',
+    difficulty: 4,
+    hint: addHint('This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'),
+    solved: false
+  }).success(function (challenge) {
+    challenges.typosquattingBowerChallenge = challenge
   })
 }
 
@@ -571,7 +614,7 @@ function makeRandomString (length) {
 function createProducts () {
   function softDeleteIfConfigured (product) {
     for (var i = 0; i < config.get('products').length; i++) {
-      var configuredProduct = config.get('products')[ i ]
+      var configuredProduct = config.get('products')[i]
       if (product.name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
           models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
@@ -582,26 +625,27 @@ function createProducts () {
   }
 
   for (var i = 0; i < config.get('products').length; i++) {
-    var product = config.get('products')[i]
-    var name = product.name
-    var description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    const product = config.get('products')[i]
+    const name = product.name
+    let description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
+    const reviews = product.reviews
     if (product.useForChristmasSpecialChallenge) {
       description += ' (Seasonal special offer! Limited availability!)'
     } else if (product.useForProductTamperingChallenge) {
       description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
     } else if (product.fileForRetrieveBlueprintChallenge) {
-      var blueprint = product.fileForRetrieveBlueprintChallenge
+      let blueprint = product.fileForRetrieveBlueprintChallenge
       if (utils.startsWith(blueprint, 'http')) {
-        var blueprintUrl = blueprint
+        const blueprintUrl = blueprint
         blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
         utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
       }
       datacache.retrieveBlueprintChallengeFile = blueprint
     }
-    var price = product.price || Math.floor(Math.random())
-    var image = product.image || 'undefined.png'
+    const price = product.price || Math.floor(Math.random())
+    let image = product.image || 'undefined.png'
     if (utils.startsWith(image, 'http')) {
-      var imageUrl = image
+      const imageUrl = image
       image = decodeURIComponent(image.substring(image.lastIndexOf('/') + 1))
       utils.downloadToFile(imageUrl, 'app/public/images/products/' + image)
     }
@@ -620,6 +664,21 @@ function createProducts () {
         if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
           models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
         }
+      }
+      return product
+    }).success(function (product) {
+      if (reviews) {
+        return Promise.all(
+          reviews
+          .map((review) => {
+            review.message = review.text
+            review.author = review.author + '@' + config.get('application.domain')
+            review.product = product.id
+            return review
+          }).map((review) => {
+            return mongodb.reviews.insert(review)
+          })
+        )
       }
     })
   }

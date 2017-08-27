@@ -15,7 +15,7 @@ platform:
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - node --version && npm --version
-  - if exist node_modules rd /Q /S node_modules" # workaround for npm install bug missing module dependencies
+  - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
   - npm install --production
   - node_modules\.bin\grunt package
 build: off
@@ -36,5 +36,5 @@ notifications:
     incoming_webhook:
       secure: KzO8e88B0LKqAI0BQM6lNhCIn9rxAava3AcdVJDyTw420OLIAlK+qzzbLXaR0jSH9zIJz9zu0iGS1iaqu9Co+6owYUrHJlBGrUZ/lZNCsDo=
     on_build_success: false
-    on_build_failure: true
+    on_build_failure: false
     on_build_status_changed: true

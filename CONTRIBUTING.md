@@ -11,6 +11,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/dependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/devDependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm)
 [![NSP Status](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48/badge)](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48)
+[![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop)
 
 The minimum requirements for code contributions are:
 
@@ -21,8 +22,7 @@ The minimum requirements for code contributions are:
 3. New and changed challenges should have a corresponding e2e test
 4. All unit, integration and e2e tests must pass locally
 
-**To avoid [falling into the
-_Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/32)
+**To avoid [falling into the _Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/32)
 you find our detailed contribution guidelines over here:**
 
 https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html

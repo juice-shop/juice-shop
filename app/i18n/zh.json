@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"需要一个优惠券代码吗？关注我们的 {{twitter}} 或 {{facebook}} 获取每月优惠券和其他垃圾邮件！",
   "BTN_REDEEM":"兑换",
   "THANKS_FOR_SUPPORT":"感谢您对 {{juiceshop}} 的支持！",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"支付",
   "LABEL_MERCHANDISE":"商品",
   "OFFICIAL_MERCHANDISE_STORES":"官方店 {{juiceshop}} 服装、 杯子、 贴纸 ！",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"在结帐时，将应用您的 {{discount}}%的折扣",
   "TITLE_CHANGE_PASSWORD":"更改密码",
   "MANDATORY_CURRENT_PASSWORD":"请输入您目前的密码",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

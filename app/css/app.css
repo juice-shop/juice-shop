@@ -32,6 +32,10 @@
     padding-top: 0;
 }
 
-.label-button{
+.label-button {
     cursor: pointer;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }

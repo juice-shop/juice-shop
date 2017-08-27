@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3 class="modal-title" translate="LABEL_EDIT_REVIEW"></h3>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" name="form" novalidate>
+                    <div class="form-group">
+                        <label for="product_review" translate="LABEL_REVIEW"></label>
+                        <textarea class="form-control input-sm"
+                                  id="product_review"
+                                  ng-model="message"
+                                  name="product_review"
+                                  required
+                                  ng-minlength="1"
+                                  ng-maxlength="160"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" ng-click="editReview()" id="submitButton" class="btn btn-primary"
+                                ng-disabled="form.$invalid">
+                            <i class="fa fa-send fa-lg"></i>
+                            <span translate="BTN_SUBMIT"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="$close()">
+        <i class="fa fa-arrow-circle-left fa-lg"></i>
+        <span translate="BTN_CLOSE"></span>
+    </button>
+</div>
