@@ -85,7 +85,6 @@
     "form-data": "~2.2",
     "frisby": "~2.0",
     "http-server": "~0.10",
-    "istanbul": "~0.4",
     "jasmine-reporters": "~2.2",
     "jest": "~20",
     "karma": "~1.7",
@@ -128,8 +127,8 @@
   "scripts": {
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && nyc mocha test/server",
-    "frisby": "istanbul cover ./test/apiTests.js",
+    "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
@@ -166,8 +165,7 @@
     "reporter": [
       "lcov",
       "text-summary"
-    ],
-    "report-dir": "./build/reports/coverage/server-tests"
+    ]
   },
   "jest": {
     "testMatch": [
