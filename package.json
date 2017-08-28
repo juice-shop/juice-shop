@@ -128,7 +128,7 @@
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
     "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests ./test/apiTests.js",
+    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
