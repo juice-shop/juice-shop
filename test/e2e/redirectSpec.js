@@ -1,5 +1,3 @@
-'use strict'
-
 describe('/redirect', () => {
   describe('challenge "redirect"', () => {
     it('should show error page when supplying an unrecognized target URL', () => {

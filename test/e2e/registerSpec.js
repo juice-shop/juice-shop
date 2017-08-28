@@ -1,5 +1,3 @@
-'use strict'
-
 describe('/#/register', () => {
   const config = require('config')
   protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})

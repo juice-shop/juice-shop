@@ -1,5 +1,3 @@
-'use strict'
-
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')

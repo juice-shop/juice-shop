@@ -1,6 +1,4 @@
 /* jslint node: true */
-'use strict'
-
 module.exports = (sequelize, DataTypes) => {
   const Challenge = sequelize.define('Challenge', {
     name: DataTypes.STRING,

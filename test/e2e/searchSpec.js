@@ -1,5 +1,3 @@
-'use strict'
-
 const config = require('config')
 const christmasProduct = config.get('products').filter(product => product.useForChristmasSpecialChallenge)[0]
 

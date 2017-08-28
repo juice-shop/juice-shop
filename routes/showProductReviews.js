@@ -1,5 +1,3 @@
-'use strict'
-
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 

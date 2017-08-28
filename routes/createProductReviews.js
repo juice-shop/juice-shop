@@ -1,5 +1,3 @@
-'use strict'
-
 const db = require('../data/mongodb')
 
 exports = module.exports = function productReviews () {

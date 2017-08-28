@@ -1,5 +1,3 @@
-'use strict'
-
 const config = require('config')
 let blueprint
 for (let i = 0; i < config.get('products').length; i++) {

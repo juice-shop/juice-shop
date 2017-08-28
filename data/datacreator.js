@@ -1,6 +1,4 @@
 /* jslint node: true */
-'use strict'
-
 const models = require('../models/index')
 const datacache = require('./datacache')
 const config = require('config')

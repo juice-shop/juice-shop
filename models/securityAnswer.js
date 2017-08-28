@@ -1,6 +1,4 @@
 /* jslint node: true */
-'use strict'
-
 const insecurity = require('../lib/insecurity')
 
 module.exports = (sequelize, DataTypes) => {

@@ -1,5 +1,3 @@
-'use strict'
-
 const path = require('path')
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')

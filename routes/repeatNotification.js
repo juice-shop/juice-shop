@@ -1,5 +1,3 @@
-'use strict'
-
 const utils = require('../lib/utils')
 
 exports = module.exports = function repeatNotification () {

@@ -1,5 +1,3 @@
-'use strict'
-
 describe('/ftp', () => {
   describe('challenge "confidentialDocument"', () => {
     it('should be able to access file /ftp/acquisitions.md', () => {

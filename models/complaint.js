@@ -1,6 +1,4 @@
 /* jslint node: true */
-'use strict'
-
 module.exports = (sequelize, DataTypes) => {
   const Complaint = sequelize.define('Complaint', {
     message: DataTypes.STRING,

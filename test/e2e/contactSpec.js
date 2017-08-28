@@ -1,5 +1,3 @@
-'use strict'
-
 const config = require('config')
 const insecurity = require('../../lib/insecurity')
 

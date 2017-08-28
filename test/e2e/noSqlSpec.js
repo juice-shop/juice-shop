@@ -1,5 +1,3 @@
-'use strict'
-
 describe('/#/search', () => {
   beforeEach(() => {
     browser.get('/#/search')
