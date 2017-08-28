@@ -517,8 +517,9 @@ function createChallenges () {
     solved: false
   }).success(challenge => {
     challenges.retrieveBlueprintChallenge = challenge
-    for (let i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
-      const product = config.get('products')[i]
+
+    // TODO remove this workaround default before v5.0 release
+    for (const product of config.get('products')) {
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
@@ -609,8 +610,7 @@ function makeRandomString (length) {
 
 function createProducts () {
   function softDeleteIfConfigured (product) {
-    for (let i = 0; i < config.get('products').length; i++) {
-      const configuredProduct = config.get('products')[i]
+    for (const configuredProduct of config.get('products')) {
       if (product.name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
           models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
@@ -620,8 +620,7 @@ function createProducts () {
     }
   }
 
-  for (let i = 0; i < config.get('products').length; i++) {
-    const product = config.get('products')[i]
+  for (const product of config.get('products')) {
     const name = product.name
     let description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
     const reviews = product.reviews
@@ -678,6 +677,7 @@ function createProducts () {
       }
     })
   }
+
   if (!datacache.retrieveBlueprintChallengeFile) { // TODO remove this workaround default before v5.0 release
     datacache.retrieveBlueprintChallengeFile = 'JuiceShop.stl'
   }

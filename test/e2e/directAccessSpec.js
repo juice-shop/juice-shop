@@ -1,7 +1,7 @@
 const config = require('config')
 let blueprint
-for (let i = 0; i < config.get('products').length; i++) {
-  const product = config.get('products')[ i ]
+
+for (const product of config.get('products')) {
   if (product.fileForRetrieveBlueprintChallenge) {
     blueprint = product.fileForRetrieveBlueprintChallenge
     break
