@@ -1,5 +1,5 @@
 const frisby = require('frisby')
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -7,9 +7,9 @@ const REST_URL = 'http://localhost:3000/rest'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
-var validCoupon = insecurity.generateCoupon(new Date(), 15)
-var outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20)
-var forgedCoupon = insecurity.generateCoupon(new Date(), 99)
+const validCoupon = insecurity.generateCoupon(new Date(), 15)
+const outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20)
+const forgedCoupon = insecurity.generateCoupon(new Date(), 99)
 
 describe('/rest/basket/:id', function () {
   it('GET existing basket by id is not allowed via public API', function (done) {

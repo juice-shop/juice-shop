@@ -1,6 +1,6 @@
 'use strict'
 
-var config = require('config')
+const config = require('config')
 
 describe('/#/administration', function () {
   describe('challenge "adminSection"', function () {

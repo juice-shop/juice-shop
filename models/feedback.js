@@ -1,12 +1,12 @@
 /* jslint node: true */
 'use strict'
 
-var insecurity = require('../lib/insecurity')
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
+const insecurity = require('../lib/insecurity')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
 
 module.exports = function (sequelize, DataTypes) {
-  var Feedback = sequelize.define('Feedback', {
+  const Feedback = sequelize.define('Feedback', {
     comment: DataTypes.STRING,
     rating: DataTypes.INTEGER
   },

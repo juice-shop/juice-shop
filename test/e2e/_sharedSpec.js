@@ -16,7 +16,7 @@ protractor.expect = {
 protractor.beforeEach = {
   login: function (context) {
     describe('(shared)', function () {
-      var email, password
+      let email, password
 
       beforeEach(function () {
         email = context.email

@@ -1,14 +1,14 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 const http = require('http')
 
 const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/rest/product/:id/reviews', function () {
-  var reviewResponseSchema = {
+  const reviewResponseSchema = {
     id: Joi.number(),
     product: Joi.number(),
     message: Joi.string(),

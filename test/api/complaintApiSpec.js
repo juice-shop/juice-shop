@@ -1,6 +1,6 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 

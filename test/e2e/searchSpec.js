@@ -1,12 +1,12 @@
 'use strict'
 
-var config = require('config')
-var christmasProduct = config.get('products').filter(function (product) {
+const config = require('config')
+const christmasProduct = config.get('products').filter(function (product) {
   return product.useForChristmasSpecialChallenge
 })[0]
 
 describe('/#/search', function () {
-  var searchQuery, searchButton
+  let searchQuery, searchButton
 
   beforeEach(function () {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
@@ -16,7 +16,7 @@ describe('/#/search', function () {
 
   describe('challenge "xss1"', function () {
     it('search query should be susceptible to reflected XSS attacks', function () {
-      var EC = protractor.ExpectedConditions
+      const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('<script>alert("XSS1")</script>')
       searchButton.click()
@@ -32,7 +32,7 @@ describe('/#/search', function () {
 
   describe('challenge "unionSqlI"', function () {
     it('search query should be susceptible to UNION SQL injection attacks', function () {
-      var EC = protractor.ExpectedConditions
+      const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null,null from users--')
       searchButton.click()
@@ -43,7 +43,7 @@ describe('/#/search', function () {
         alert.accept()
       })
 
-      var productDescriptions = element.all(by.repeater('product in products').column('description'))
+      const productDescriptions = element.all(by.repeater('product in products').column('description'))
       expect(productDescriptions.first().getText()).toBe('admin@' + config.get('application.domain'))
     })
 
@@ -57,7 +57,7 @@ describe('/#/search', function () {
       searchQuery.sendKeys(christmasProduct.name + '%25\'))--')
       searchButton.click()
 
-      var productNames = element.all(by.repeater('product in products').column('name'))
+      const productNames = element.all(by.repeater('product in products').column('name'))
       expect(productNames.first().getText()).toBe(christmasProduct.name)
 
       element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click()

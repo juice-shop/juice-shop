@@ -1,18 +1,18 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
-var cache = require('../data/datacache')
-var challenges = cache.challenges
-var products = cache.products
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
+const cache = require('../data/datacache')
+const challenges = cache.challenges
+const products = cache.products
 
 exports.forgedFeedbackChallenge = function () {
   return function (req, res, next) {
     /* jshint eqeqeq:false */
     if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
-      var user = insecurity.authenticatedUsers.from(req)
-      var userId = user ? user.data.id : undefined
+      const user = insecurity.authenticatedUsers.from(req)
+      const userId = user ? user.data.id : undefined
       if (req.body.UserId && req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
         utils.solve(challenges.forgedFeedbackChallenge)
       }

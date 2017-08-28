@@ -1,11 +1,11 @@
 /* jslint node: true */
 'use strict'
 
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
 
 module.exports = function (sequelize, DataTypes) {
-  var Product = sequelize.define('Product', {
+  const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.DECIMAL,

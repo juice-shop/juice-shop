@@ -1,10 +1,10 @@
 'use strict'
 
-var models = require('../models/index')
+const models = require('../models/index')
 
 exports = module.exports = function securityQuestion () {
   return function (req, res, next) {
-    var email = req.query.email
+    const email = req.query.email
     models.SecurityAnswer.find({
       include: [{
         model: models.User,

@@ -1,9 +1,9 @@
 'use strict'
 
-var config = require('config')
+const config = require('config')
 
 describe('/#/change-password', function () {
-  var currentPassword, newPassword, newPasswordRepeat, changeButton
+  let currentPassword, newPassword, newPasswordRepeat, changeButton
 
   describe('as Bender', function () {
     protractor.beforeEach.login({email: 'bender@' + config.get('application.domain'), password: 'OhG0dPlease1nsertLiquor!'})

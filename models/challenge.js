@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var Challenge = sequelize.define('Challenge', {
+  const Challenge = sequelize.define('Challenge', {
     name: DataTypes.STRING,
     category: DataTypes.STRING,
     description: DataTypes.STRING,

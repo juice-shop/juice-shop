@@ -1,10 +1,10 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
-var challenges = require('../data/datacache').challenges
-var config = require('config')
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
+const challenges = require('../data/datacache').challenges
+const config = require('config')
 
 exports = module.exports = function login () {
   function afterLogin (user, res, next) {
@@ -16,7 +16,7 @@ exports = module.exports = function login () {
       utils.solve(challenges.loginBenderChallenge)
     }
     models.Basket.findOrCreate({ UserId: user.data.id }).success(function (basket) {
-      var token = insecurity.authorize(user)
+      const token = insecurity.authorize(user)
       user.bid = basket.id // keep track of original basket for challenge solution check
       insecurity.authenticatedUsers.put(token, user)
       res.json({authentication: {token: token, bid: basket.id, umail: user.data.email}})
@@ -37,9 +37,9 @@ exports = module.exports = function login () {
     }
     models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, { plain: true })
       .success(function (authenticatedUser) {
-        var user = utils.queryResultToJson(authenticatedUser)
+        let user = utils.queryResultToJson(authenticatedUser)
 
-        var rememberedEmail = insecurity.userEmailFrom(req)
+        const rememberedEmail = insecurity.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
           models.User.find({ where: {email: rememberedEmail} }).success(function (rememberedUser) {
             user = utils.queryResultToJson(rememberedUser)

@@ -1,9 +1,9 @@
 'use strict'
 
-var config = require('config')
-var tamperingProductId = (function () {
-  var products = config.get('products')
-  for (var i = 0; i < products.length; i++) {
+const config = require('config')
+const tamperingProductId = (function () {
+  const products = config.get('products')
+  for (let i = 0; i < products.length; i++) {
     if (products[i].useForProductTamperingChallenge) {
       return i + 1
     }
@@ -15,7 +15,7 @@ describe('/rest', function () {
     protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     it('should be possible to create a new product when logged in', function () {
-      var EC = protractor.ExpectedConditions
+      const EC = protractor.ExpectedConditions
 
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<script>alert("XSS3")</script>\', price: 47.11});')
 

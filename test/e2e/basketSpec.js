@@ -1,7 +1,7 @@
 'use strict'
 
-var insecurity = require('../../lib/insecurity')
-var config = require('config')
+const insecurity = require('../../lib/insecurity')
+const config = require('config')
 
 describe('/#/basket', function () {
   describe('as admin', function () {
@@ -16,7 +16,7 @@ describe('/#/basket', function () {
         browser.get('/#/basket')
         browser.ignoreSynchronization = false
 
-        var productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'))
+        const productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'))
         expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 

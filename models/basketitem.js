@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var BasketItem = sequelize.define('BasketItem', {
+  const BasketItem = sequelize.define('BasketItem', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

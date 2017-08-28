@@ -1,11 +1,11 @@
 const frisby = require('frisby')
-var config = require('config')
+const config = require('config')
 
 const URL = 'http://localhost:3000'
 
-var blueprint
-for (var i = 0; i < config.get('products').length; i++) {
-  var product = config.get('products')[ i ]
+let blueprint
+for (let i = 0; i < config.get('products').length; i++) {
+  const product = config.get('products')[ i ]
   if (product.fileForRetrieveBlueprintChallenge) {
     blueprint = product.fileForRetrieveBlueprintChallenge
     break

@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var Basket = sequelize.define('Basket', {
+  const Basket = sequelize.define('Basket', {
     coupon: DataTypes.STRING
   },
     {

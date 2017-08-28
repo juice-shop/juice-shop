@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var Complaint = sequelize.define('Complaint', {
+  const Complaint = sequelize.define('Complaint', {
     message: DataTypes.STRING,
     file: DataTypes.STRING
   },

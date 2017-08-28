@@ -1,22 +1,22 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
-var cache = require('../data/datacache')
-var challenges = cache.challenges
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
+const cache = require('../data/datacache')
+const challenges = cache.challenges
 
 exports = module.exports = function changePassword () {
   return function (req, res, next) {
-    var currentPassword = req.query.current
-    var newPassword = req.query.new
-    var repeatPassword = req.query.repeat
+    const currentPassword = req.query.current
+    const newPassword = req.query.new
+    const repeatPassword = req.query.repeat
     if (!newPassword || newPassword === 'undefined') {
       res.status(401).send('Password cannot be empty.')
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
     } else {
-      var loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+      const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send('Current password is not correct.')

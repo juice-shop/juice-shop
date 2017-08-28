@@ -1,6 +1,6 @@
 'use strict'
 
-var utils = require('../lib/utils')
+const utils = require('../lib/utils')
 
 exports = module.exports = function retrieveAppVersion () {
   return function (req, res) {

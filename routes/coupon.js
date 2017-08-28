@@ -1,13 +1,13 @@
 'use strict'
 
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
 
 exports = module.exports = function applyCoupon () {
   return function (req, res, next) {
-    var id = req.params.id
-    var coupon = req.params.coupon ? decodeURIComponent(req.params.coupon) : undefined
-    var discount = insecurity.discountFromCoupon(coupon)
+    const id = req.params.id
+    let coupon = req.params.coupon ? decodeURIComponent(req.params.coupon) : undefined
+    const discount = insecurity.discountFromCoupon(coupon)
     coupon = discount ? coupon : null
     models.Basket.find(id).success(function (basket) {
       if (basket) {

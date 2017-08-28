@@ -1,12 +1,12 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
-var db = require('../data/mongodb')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+const db = require('../data/mongodb')
 
 exports = module.exports = function productReviews () {
   return function (req, res, next) {
-    var id = req.body.id
+    const id = req.body.id
 
     db.reviews.update(
       { _id: id },

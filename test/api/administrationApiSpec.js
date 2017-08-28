@@ -1,6 +1,6 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var utils = require('../../lib/utils')
+const utils = require('../../lib/utils')
 
 const REST_URL = 'http://localhost:3000/rest/admin'
 

@@ -1,6 +1,6 @@
 'use strict'
 
-var config = require('config')
+const config = require('config')
 
 describe('/#/score-board', function () {
   describe('challenge "scoreBoard"', function () {
@@ -22,7 +22,7 @@ describe('/#/score-board', function () {
   })
 
   describe('repeat notification', function () {
-    var alertsBefore, alertsNow
+    let alertsBefore, alertsNow
 
     beforeEach(function () {
       browser.get('/#/score-board')

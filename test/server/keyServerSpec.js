@@ -1,11 +1,11 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
 describe('keyServer', function () {
-  var serveKeyFiles, req, res, next
+  let serveKeyFiles, req, res, next
 
   beforeEach(function () {
     serveKeyFiles = require('../../routes/keyServer')

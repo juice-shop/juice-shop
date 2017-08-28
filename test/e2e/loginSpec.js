@@ -1,9 +1,9 @@
 'use strict'
 
-var config = require('config')
+const config = require('config')
 
 describe('/#/login', function () {
-  var email, password, rememberMeCheckbox, loginButton
+  let email, password, rememberMeCheckbox, loginButton
 
   beforeEach(function () {
     browser.get('/#/login')

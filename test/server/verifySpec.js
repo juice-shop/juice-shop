@@ -1,14 +1,14 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
-var cache = require('../../data/datacache')
+const cache = require('../../data/datacache')
 
 describe('verify', function () {
-  var verify = require('../../routes/verify')
-  var challenges, req, res, next, err
-  var save = function () { return {success: function () {}} }
+  const verify = require('../../routes/verify')
+  let challenges, req, res, next, err
+  const save = function () { return {success: function () {}} }
 
   beforeEach(function () {
     challenges = require('../../data/datacache').challenges
@@ -176,7 +176,7 @@ describe('verify', function () {
 
   describe('databaseRelatedChallenges', function () {
     describe('"changeProductChallenge"', function () {
-      var products
+      let products
 
       beforeEach(function () {
         challenges.changeProductChallenge = { solved: false, save: save }

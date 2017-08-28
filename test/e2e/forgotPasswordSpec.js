@@ -1,11 +1,11 @@
 'use strict'
 
-var config = require('config')
+const config = require('config')
 
 describe('/#/forgot-password', function () {
-  var email, securityAnswer, newPassword, newPasswordRepeat, resetButton
+  let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
 
-  var EC = protractor.ExpectedConditions
+  const EC = protractor.ExpectedConditions
 
   beforeEach(function () {
     browser.get('/#/logout')

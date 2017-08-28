@@ -1,56 +1,56 @@
 'use strict'
 
-var applicationRoot = __dirname.replace(/\\/g, '/')
-var path = require('path')
-var fs = require('fs-extra')
-var glob = require('glob')
-var morgan = require('morgan')
-var colors = require('colors/safe')
-var restful = require('sequelize-restful')
-var express = require('express')
-var helmet = require('helmet')
-var errorhandler = require('errorhandler')
-var cookieParser = require('cookie-parser')
-var serveIndex = require('serve-index')
-var favicon = require('serve-favicon')
-var bodyParser = require('body-parser')
-var cors = require('cors')
-var multer = require('multer')
-var upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
-var fileUpload = require('./routes/fileUpload')
-var redirect = require('./routes/redirect')
-var angular = require('./routes/angular')
-var easterEgg = require('./routes/easterEgg')
-var premiumReward = require('./routes/premiumReward')
-var appVersion = require('./routes/appVersion')
-var repeatNotification = require('./routes/repeatNotification')
-var continueCode = require('./routes/continueCode')
-var restoreProgress = require('./routes/restoreProgress')
-var fileServer = require('./routes/fileServer')
-var keyServer = require('./routes/keyServer')
-var authenticatedUsers = require('./routes/authenticatedUsers')
-var currentUser = require('./routes/currentUser')
-var login = require('./routes/login')
-var changePassword = require('./routes/changePassword')
-var resetPassword = require('./routes/resetPassword')
-var securityQuestion = require('./routes/securityQuestion')
-var search = require('./routes/search')
-var coupon = require('./routes/coupon')
-var basket = require('./routes/basket')
-var order = require('./routes/order')
-var verify = require('./routes/verify')
-var utils = require('./lib/utils')
-var insecurity = require('./lib/insecurity')
-var models = require('./models')
-var datacreator = require('./data/datacreator')
-var notifications = require('./data/datacache').notifications
-var app = express()
-var server = require('http').Server(app)
-var io = require('socket.io')(server)
-var replace = require('replace')
-var appConfiguration = require('./routes/appConfiguration')
+const applicationRoot = __dirname.replace(/\\/g, '/')
+const path = require('path')
+const fs = require('fs-extra')
+const glob = require('glob')
+const morgan = require('morgan')
+const colors = require('colors/safe')
+const restful = require('sequelize-restful')
+const express = require('express')
+const helmet = require('helmet')
+const errorhandler = require('errorhandler')
+const cookieParser = require('cookie-parser')
+const serveIndex = require('serve-index')
+const favicon = require('serve-favicon')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const multer = require('multer')
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
+const fileUpload = require('./routes/fileUpload')
+const redirect = require('./routes/redirect')
+const angular = require('./routes/angular')
+const easterEgg = require('./routes/easterEgg')
+const premiumReward = require('./routes/premiumReward')
+const appVersion = require('./routes/appVersion')
+const repeatNotification = require('./routes/repeatNotification')
+const continueCode = require('./routes/continueCode')
+const restoreProgress = require('./routes/restoreProgress')
+const fileServer = require('./routes/fileServer')
+const keyServer = require('./routes/keyServer')
+const authenticatedUsers = require('./routes/authenticatedUsers')
+const currentUser = require('./routes/currentUser')
+const login = require('./routes/login')
+const changePassword = require('./routes/changePassword')
+const resetPassword = require('./routes/resetPassword')
+const securityQuestion = require('./routes/securityQuestion')
+const search = require('./routes/search')
+const coupon = require('./routes/coupon')
+const basket = require('./routes/basket')
+const order = require('./routes/order')
+const verify = require('./routes/verify')
+const utils = require('./lib/utils')
+const insecurity = require('./lib/insecurity')
+const models = require('./models')
+const datacreator = require('./data/datacreator')
+const notifications = require('./data/datacache').notifications
+const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+const replace = require('replace')
+const appConfiguration = require('./routes/appConfiguration')
 const config = require('config')
-var firstConnectedSocket = null
+let firstConnectedSocket = null
 
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -66,9 +66,9 @@ glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
   }
 })
 
-var showProductReviews = require('./routes/showProductReviews')
-var createProductReviews = require('./routes/createProductReviews')
-var updateProductReviews = require('./routes/updateProductReviews')
+const showProductReviews = require('./routes/showProductReviews')
+const createProductReviews = require('./routes/createProductReviews')
+const updateProductReviews = require('./routes/updateProductReviews')
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -86,11 +86,11 @@ app.use(function (req, res, next) {
 })
 
 /* Favicon */
-var icon = 'favicon_v2.ico'
+let icon = 'favicon_v2.ico'
 if (config.get('application.favicon')) {
   icon = config.get('application.favicon')
   if (utils.startsWith(icon, 'http')) {
-    var iconPath = icon
+    const iconPath = icon
     icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
     utils.downloadToFile(iconPath, 'app/public/' + icon)
   }
@@ -216,7 +216,7 @@ exports.start = function (readyCallback) {
       })
 
       socket.on('notification received', function (data) {
-        var i = notifications.findIndex(function (element) {
+        const i = notifications.findIndex(function (element) {
           return element.flag === data
         })
         if (i > -1) {
@@ -229,13 +229,13 @@ exports.start = function (readyCallback) {
   function populateIndexTemplate () {
     fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, function () {
       if (config.get('application.logo')) {
-        var logo = config.get('application.logo')
+        let logo = config.get('application.logo')
         if (utils.startsWith(logo, 'http')) {
-          var logoPath = logo
+          const logoPath = logo
           logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
           utils.downloadToFile(logoPath, 'app/public/images/' + logo)
         }
-        var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+        const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
         replace({
           regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
           replacement: logoImageTag,
@@ -245,7 +245,7 @@ exports.start = function (readyCallback) {
         })
       }
       if (config.get('application.theme')) {
-        var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+        const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
         replace({
           regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
           replacement: themeCss,

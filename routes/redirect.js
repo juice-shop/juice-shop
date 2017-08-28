@@ -1,12 +1,12 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var challenges = require('../data/datacache').challenges
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function performRedirect () {
   return function (req, res, next) {
-    var toUrl = req.query.to
+    const toUrl = req.query.to
     if (insecurity.isRedirectAllowed(toUrl)) {
       if (utils.notSolved(challenges.redirectChallenge) && isUnintendedRedirect(toUrl)) {
         utils.solve(challenges.redirectChallenge)
@@ -20,7 +20,7 @@ exports = module.exports = function performRedirect () {
 }
 
 function isUnintendedRedirect (toUrl) {
-  var unintended = true
+  let unintended = true
   insecurity.redirectWhitelist.forEach(function (allowedUrl) {
     unintended = unintended && !utils.startsWith(toUrl, allowedUrl)
   })

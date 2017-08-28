@@ -1,10 +1,10 @@
 'use strict'
 
-var config = require('config')
-var insecurity = require('../../lib/insecurity')
+const config = require('config')
+const insecurity = require('../../lib/insecurity')
 
 describe('/#/contact', function () {
-  var comment, rating, submitButton
+  let comment, rating, submitButton
 
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -20,7 +20,7 @@ describe('/#/contact', function () {
       browser.executeScript('document.getElementById("userId").removeAttribute("ng-hide");')
       browser.executeScript('document.getElementById("userId").removeAttribute("class");')
 
-      var UserId = element(by.model('feedback.UserId'))
+      const UserId = element(by.model('feedback.UserId'))
       UserId.clear()
       UserId.sendKeys('2')
       comment.sendKeys('Picard stinks!')
@@ -29,7 +29,7 @@ describe('/#/contact', function () {
       submitButton.click()
 
       browser.get('/#/administration')
-      var feedbackUserId = element.all(by.repeater('feedback in feedbacks').column('UserId'))
+      const feedbackUserId = element.all(by.repeater('feedback in feedbacks').column('UserId'))
       expect(feedbackUserId.last().getText()).toMatch('2')
     })
 
@@ -65,7 +65,7 @@ describe('/#/contact', function () {
 
   describe('challenge "xss4"', function () {
     it('should be possible to trick the sanitization with a masked XSS attack', function () {
-      var EC = protractor.ExpectedConditions
+      const EC = protractor.ExpectedConditions
 
       comment.sendKeys('<<script>Foo</script>script>alert("XSS4")<</script>/script>')
       rating.click()
@@ -158,6 +158,6 @@ describe('/#/contact', function () {
 
 function expectPersistedCommentToMatch (expectation) {
   browser.get('/#/administration')
-  var feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
+  const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
   expect(feedbackComments.last().getText()).toMatch(expectation)
 }

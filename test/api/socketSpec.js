@@ -1,7 +1,7 @@
-var io = require('socket.io-client')
+const io = require('socket.io-client')
 
 describe('WebSocket', function () {
-  var socket
+  let socket
 
   beforeEach(function (done) {
     socket = io.connect('http://localhost:3000', {

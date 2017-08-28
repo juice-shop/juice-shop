@@ -2,7 +2,7 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-  var Recycle = sequelize.define('Recycle', {
+  const Recycle = sequelize.define('Recycle', {
     quantity: DataTypes.INTEGER,
     address: DataTypes.STRING,
     isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },

@@ -1,14 +1,14 @@
 /* jslint node: true */
 'use strict'
 
-var models = require('../models/index')
-var datacache = require('./datacache')
-var config = require('config')
-var utils = require('../lib/utils')
-var mongodb = require('./mongodb')
-var challenges = datacache.challenges
-var users = datacache.users
-var products = datacache.products
+const models = require('../models/index')
+const datacache = require('./datacache')
+const config = require('config')
+const utils = require('../lib/utils')
+const mongodb = require('./mongodb')
+const challenges = datacache.challenges
+const users = datacache.users
+const products = datacache.products
 
 module.exports = function () {
   // TODO Wrap enttire datacreator into promise to avoid race condition with websocket registration for progress restore
@@ -521,8 +521,8 @@ function createChallenges () {
     solved: false
   }).success(function (challenge) {
     challenges.retrieveBlueprintChallenge = challenge
-    for (var i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
-      var product = config.get('products')[i]
+    for (let i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
+      const product = config.get('products')[i]
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
         break
@@ -589,7 +589,7 @@ function createUsers () {
 }
 
 function createRandomFakeUsers () {
-  for (var i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
+  for (let i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
     models.User.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
@@ -598,23 +598,23 @@ function createRandomFakeUsers () {
 }
 
 function getGeneratedRandomFakeUserEmail () {
-  var randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
+  const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
   return makeRandomString(5).toLowerCase() + '@' + randomDomain
 }
 
 function makeRandomString (length) {
-  var text = ''
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-  for (var i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
+  for (let i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
 
   return text
 }
 
 function createProducts () {
   function softDeleteIfConfigured (product) {
-    for (var i = 0; i < config.get('products').length; i++) {
-      var configuredProduct = config.get('products')[i]
+    for (let i = 0; i < config.get('products').length; i++) {
+      const configuredProduct = config.get('products')[i]
       if (product.name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
           models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
@@ -624,7 +624,7 @@ function createProducts () {
     }
   }
 
-  for (var i = 0; i < config.get('products').length; i++) {
+  for (let i = 0; i < config.get('products').length; i++) {
     const product = config.get('products')[i]
     const name = product.name
     let description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'

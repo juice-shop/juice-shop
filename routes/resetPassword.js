@@ -1,16 +1,16 @@
 'use strict'
 
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
 
 exports = module.exports = function resetPassword () {
   return function (req, res, next) {
-    var email = req.body.email
-    var answer = req.body.answer
-    var newPassword = req.body.new
-    var repeatPassword = req.body.repeat
+    const email = req.body.email
+    const answer = req.body.answer
+    const newPassword = req.body.new
+    const repeatPassword = req.body.repeat
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
     } else if (!newPassword || newPassword === 'undefined') {

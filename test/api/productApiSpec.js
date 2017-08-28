@@ -1,15 +1,15 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var insecurity = require('../../lib/insecurity')
-var config = require('config')
+const insecurity = require('../../lib/insecurity')
+const config = require('config')
 
-var christmasProduct = config.get('products').filter(function (product) {
+const christmasProduct = config.get('products').filter(function (product) {
   return product.useForChristmasSpecialChallenge
 })[0]
 
-var tamperingProductId = (function () {
-  var products = config.get('products')
-  for (var i = 0; i < products.length; i++) {
+const tamperingProductId = (function () {
+  const products = config.get('products')
+  for (let i = 0; i < products.length; i++) {
     if (products[i].useForProductTamperingChallenge) {
       return i + 1
     }
@@ -19,8 +19,8 @@ var tamperingProductId = (function () {
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
-var jsonHeader = { 'content-type': 'application/json' }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Products', function () {
   it('GET all products', function (done) {
@@ -280,7 +280,7 @@ describe('/rest/product/search', function () {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(function (res) {
-        var products = res.json.data
+        const products = res.json.data
         return frisby.get(REST_URL + '/product/search?q=')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
@@ -295,7 +295,7 @@ describe('/rest/product/search', function () {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(function (res) {
-        var products = res.json.data
+        const products = res.json.data
         return frisby.get(REST_URL + '/product/search')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)

@@ -1,11 +1,11 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
 describe('currentUser', function () {
-  var retrieveLoggedInUser, req, res
+  let retrieveLoggedInUser, req, res
 
   beforeEach(function () {
     retrieveLoggedInUser = require('../../routes/currentUser')

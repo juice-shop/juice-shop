@@ -1,7 +1,7 @@
 'use strict'
 
-var path = require('path')
-var utils = require('../lib/utils')
+const path = require('path')
+const utils = require('../lib/utils')
 
 exports = module.exports = function serveAngularClient () {
   return function (req, res, next) {

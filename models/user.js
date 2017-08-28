@@ -1,12 +1,12 @@
 /* jslint node: true */
 'use strict'
 
-var insecurity = require('../lib/insecurity')
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
+const insecurity = require('../lib/insecurity')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
 
 module.exports = function (sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  const User = sequelize.define('User', {
     email: {type: DataTypes.STRING, unique: true},
     password: DataTypes.STRING
   },

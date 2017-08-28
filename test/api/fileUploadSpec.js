@@ -1,13 +1,13 @@
 const frisby = require('frisby')
-var fs = require('fs')
-var path = require('path')
-var FormData = require('form-data')
+const fs = require('fs')
+const path = require('path')
+const FormData = require('form-data')
 
 const URL = 'http://localhost:3000'
 
 // FIXME Adapt to solution of https://github.com/vlucas/frisby/issues/372
 describe('/file-upload', function () {
-  var file, form
+  let file, form
 
   it('POST file valid for client and API', function (done) {
     file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
