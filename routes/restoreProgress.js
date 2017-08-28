@@ -6,7 +6,7 @@ const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
 exports = module.exports = function restoreProgress () {
-  return function (req, res) {
+  return (req, res) => {
     const continueCode = req.params.continueCode
     const ids = hashids.decode(continueCode)
     if (utils.notSolved(challenges.continueCodeChallenge) && ids.length === 1 && ids[ 0 ] === 99) {

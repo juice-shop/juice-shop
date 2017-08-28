@@ -10,10 +10,10 @@ const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function placeOrder () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id: id }, include: [ models.Product ] })
-      .success(function (basket) {
+      .success(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const orderNo = insecurity.hash(new Date() + '_' + id)
@@ -31,7 +31,7 @@ exports = module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          basket.products.forEach(function (product) {
+          basket.products.forEach(product => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && product.id === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
@@ -61,7 +61,7 @@ exports = module.exports = function placeOrder () {
             utils.solve(challenges.negativeOrderChallenge)
           }
 
-          fileWriter.on('finish', function () {
+          fileWriter.on('finish', () => {
             basket.updateAttributes({ coupon: null })
             models.BasketItem.destroy({ BasketId: id })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
@@ -69,7 +69,7 @@ exports = module.exports = function placeOrder () {
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
         }
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
   }

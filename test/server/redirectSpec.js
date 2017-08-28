@@ -4,11 +4,13 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('redirect', function () {
+describe('redirect', () => {
   let performRedirect, challenges, req, res, next
-  const save = function () { return {success: function () {}} }
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     performRedirect = require('../../routes/redirect')
     challenges = require('../../data/datacache').challenges
     req = { query: {} }
@@ -16,9 +18,9 @@ describe('redirect', function () {
     next = sinon.spy()
   })
 
-  describe('should be performed for all whitelisted URLs', function () {
-    require('../../lib/insecurity').redirectWhitelist.forEach(function (url) {
-      it(url, function () {
+  describe('should be performed for all whitelisted URLs', () => {
+    require('../../lib/insecurity').redirectWhitelist.forEach(url => {
+      it(url, () => {
         req.query.to = url
 
         performRedirect()(req, res, next)
@@ -28,7 +30,7 @@ describe('redirect', function () {
     })
   })
 
-  it('should raise error for URL not on whitelist', function () {
+  it('should raise error for URL not on whitelist', () => {
     req.query.to = 'http://kimminich.de'
 
     performRedirect()(req, res, next)
@@ -37,7 +39,7 @@ describe('redirect', function () {
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
-  it('tricking the whitelist should solve "redirectChallenge"', function () {
+  it('tricking the whitelist should solve "redirectChallenge"', () => {
     req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
     challenges.redirectChallenge = { solved: false, save: save }
 

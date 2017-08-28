@@ -56,11 +56,11 @@ global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 /* Delete old order PDFs */
-glob(path.join(__dirname, 'ftp/*.pdf'), function (err, files) {
+glob(path.join(__dirname, 'ftp/*.pdf'), (err, files) => {
   if (err) {
     console.log(err)
   } else {
-    files.forEach(function (filename) {
+    files.forEach(filename => {
       fs.remove(filename)
     })
   }
@@ -80,7 +80,7 @@ app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   req.url = req.url.replace(/[/]+/g, '/')
   next()
 })
@@ -203,7 +203,7 @@ app.use(errorhandler())
 
 exports.start = function (readyCallback) {
   function registerWebsocketEvents () {
-    io.on('connection', function (socket) {
+    io.on('connection', socket => {
       // notify only first client to connect about server start
       if (firstConnectedSocket === null) {
         socket.emit('server started')
@@ -211,14 +211,12 @@ exports.start = function (readyCallback) {
       }
 
       // send all outstanding notifications on (re)connect
-      notifications.forEach(function (notification) {
+      notifications.forEach(notification => {
         socket.emit('challenge solved', notification)
       })
 
-      socket.on('notification received', function (data) {
-        const i = notifications.findIndex(function (element) {
-          return element.flag === data
-        })
+      socket.on('notification received', data => {
+        const i = notifications.findIndex(element => element.flag === data)
         if (i > -1) {
           notifications.splice(i, 1)
         }
@@ -227,7 +225,7 @@ exports.start = function (readyCallback) {
   }
 
   function populateIndexTemplate () {
-    fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, function () {
+    fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
       if (config.get('application.logo')) {
         let logo = config.get('application.logo')
         if (utils.startsWith(logo, 'http')) {
@@ -261,7 +259,7 @@ exports.start = function (readyCallback) {
     models.sequelize.drop()
     models.sequelize.sync().success(function () {
       datacreator()
-      this.server = server.listen(process.env.PORT || config.get('server.port'), function () {
+      this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()
         if (readyCallback) {

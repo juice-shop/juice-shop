@@ -4,22 +4,22 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('continueCode', function () {
+describe('continueCode', () => {
   let retrieveCurrentContinueCode, challenges, req, res
 
-  beforeEach(function () {
+  beforeEach(() => {
     retrieveCurrentContinueCode = require('../../routes/continueCode')
     challenges = require('../../data/datacache').challenges
     req = {}
     res = { json: sinon.spy() }
   })
 
-  it('should be undefined when no challenges exist', function () {
+  it('should be undefined when no challenges exist', () => {
     retrieveCurrentContinueCode()(req, res)
     expect(res.json).to.have.been.calledWith({ continueCode: undefined })
   })
 
-  it('should be undefined when no challenges are solved', function () {
+  it('should be undefined when no challenges are solved', () => {
     challenges.c1 = { solved: false }
     challenges.c2 = { solved: false }
 
@@ -27,7 +27,7 @@ describe('continueCode', function () {
     expect(res.json).to.have.been.calledWith({ continueCode: undefined })
   })
 
-  it('should be hashid value of IDs of solved challenges', function () {
+  it('should be hashid value of IDs of solved challenges', () => {
     challenges.c1 = { id: 1, solved: true }
     challenges.c2 = { id: 2, solved: true }
     challenges.c3 = { id: 3, solved: false }

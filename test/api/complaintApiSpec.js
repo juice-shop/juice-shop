@@ -6,8 +6,8 @@ const API_URL = 'http://localhost:3000/api'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/api/Complaints', function () {
-  it('POST new complaint', function (done) {
+describe('/api/Complaints', () => {
+  it('POST new complaint', done => {
     frisby.post(API_URL + '/Complaints', {
       headers: authHeader,
       body: {
@@ -24,27 +24,27 @@ describe('/api/Complaints', function () {
       .done(done)
   })
 
-  it('GET all complaints is forbidden via public API', function (done) {
+  it('GET all complaints is forbidden via public API', done => {
     frisby.get(API_URL + '/Complaints')
       .expect('status', 401)
       .done(done)
   })
 
-  it('GET all complaints', function (done) {
+  it('GET all complaints', done => {
     frisby.get(API_URL + '/Complaints', { headers: authHeader })
       .expect('status', 200)
       .done(done)
   })
 })
 
-describe('/api/Complaints/:id', function () {
-  it('GET existing complaint by id is forbidden', function (done) {
+describe('/api/Complaints/:id', () => {
+  it('GET existing complaint by id is forbidden', done => {
     frisby.get(API_URL + '/Complaints/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)
   })
 
-  it('PUT update existing complaint is forbidden', function (done) {
+  it('PUT update existing complaint is forbidden', done => {
     frisby.put(API_URL + '/Complaints/1', {
       headers: authHeader,
       body: {
@@ -55,7 +55,7 @@ describe('/api/Complaints/:id', function () {
       .done(done)
   })
 
-  it('DELETE existing complaint is forbidden', function (done) {
+  it('DELETE existing complaint is forbidden', done => {
     frisby.del(API_URL + '/Complaints/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)

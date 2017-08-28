@@ -6,7 +6,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
 exports = module.exports = function resetPassword () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const email = req.body.email
     const answer = req.body.answer
     const newPassword = req.body.new
@@ -23,10 +23,10 @@ exports = module.exports = function resetPassword () {
           model: models.User,
           where: { email: email }
         }]
-      }).success(function (data) {
+      }).success(data => {
         if (insecurity.hmac(answer) === data.answer) {
-          models.User.find(data.UserId).success(function (user) {
-            user.updateAttributes({ password: newPassword }).success(function (user) {
+          models.User.find(data.UserId).success(user => {
+            user.updateAttributes({ password: newPassword }).success(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
@@ -37,16 +37,16 @@ exports = module.exports = function resetPassword () {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
               res.json({user: user})
-            }).error(function (error) {
+            }).error(error => {
               next(error)
             })
-          }).error(function (error) {
+          }).error(error => {
             next(error)
           })
         } else {
           res.status(401).send('Wrong answer to security question.')
         }
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
     }

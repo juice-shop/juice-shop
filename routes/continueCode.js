@@ -5,7 +5,7 @@ const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzAB
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function retrieveCurrentContinueCode () {
-  return function (req, res) {
+  return (req, res) => {
     const ids = []
     for (const name in challenges) {
       if (challenges.hasOwnProperty(name)) {

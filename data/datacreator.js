@@ -10,7 +10,7 @@ const challenges = datacache.challenges
 const users = datacache.users
 const products = datacache.products
 
-module.exports = function () {
+module.exports = () => {
   // TODO Wrap enttire datacreator into promise to avoid race condition with websocket registration for progress restore
   createChallenges()
   createUsers()
@@ -25,9 +25,7 @@ module.exports = function () {
 }
 
 function createChallenges () {
-  const addHint = function (hint) {
-    return config.get('application.showChallengeHints') ? hint : null
-  }
+  const addHint = hint => config.get('application.showChallengeHints') ? hint : null
 
   models.Challenge.create({
     name: 'Score Board',
@@ -37,7 +35,7 @@ function createChallenges () {
     hint: addHint('Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/score-board.html#find-the-carefully-hidden-score-board-page'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.scoreBoardChallenge = challenge
   })
   models.Challenge.create({
@@ -48,7 +46,7 @@ function createChallenges () {
     hint: addHint('Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/leakage.html#provoke-an-error-that-is-not-very-gracefully-handled'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.errorHandlingChallenge = challenge
   })
   models.Challenge.create({
@@ -59,7 +57,7 @@ function createChallenges () {
     hint: addHint('Try different SQL Injection attack patterns depending whether you know the admin\'s email address or not.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-the-administrators-user-account'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.loginAdminChallenge = challenge
   })
   models.Challenge.create({
@@ -70,7 +68,7 @@ function createChallenges () {
     hint: addHint('Try cracking Jim\'s password hash if you harvested it already. Alternatively, if you know Jim\'s email address, try SQL Injection.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-jims-user-account'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.loginJimChallenge = challenge
   })
   models.Challenge.create({
@@ -81,7 +79,7 @@ function createChallenges () {
     hint: addHint('If you know Bender\'s email address, try SQL Injection. Bender\'s password hash might not help you very much.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#log-in-with-benders-user-account'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.loginBenderChallenge = challenge
   })
   models.Challenge.create({
@@ -92,7 +90,7 @@ function createChallenges () {
     hint: addHint('Look for an input field where its content appears in the response HTML when its form is submitted.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.localXssChallenge = challenge
   })
   models.Challenge.create({
@@ -103,7 +101,7 @@ function createChallenges () {
     hint: addHint('Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.persistedXssChallengeUser = challenge
   })
   models.Challenge.create({
@@ -114,7 +112,7 @@ function createChallenges () {
     hint: addHint('The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.persistedXssChallengeFeedback = challenge
   })
   models.Challenge.create({
@@ -125,7 +123,7 @@ function createChallenges () {
     hint: addHint('You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.restfulXssChallenge = challenge
   })
   models.Challenge.create({
@@ -136,7 +134,7 @@ function createChallenges () {
     hint: addHint('Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.unionSqlInjectionChallenge = challenge
   })
   models.Challenge.create({
@@ -147,7 +145,7 @@ function createChallenges () {
     hint: addHint('This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-the-administrators-user-credentials-without-previously-changing-them-or-applying-sql-injection'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.weakPasswordChallenge = challenge
   })
   models.Challenge.create({
@@ -158,7 +156,7 @@ function createChallenges () {
     hint: addHint('Once you found admin section of the application, this challenge is almost trivial.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#get-rid-of-all-5-star-customer-feedback'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.feedbackChallenge = challenge
   })
   models.Challenge.create({
@@ -169,7 +167,7 @@ function createChallenges () {
     hint: addHint('You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#post-some-feedback-in-another-users-name'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.forgedFeedbackChallenge = challenge
   })
   models.Challenge.create({
@@ -180,7 +178,7 @@ function createChallenges () {
     hint: addHint('You have to find a way to beat the whitelist of allowed redirect URLs.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#wherever-you-go-there-you-are'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.redirectChallenge = challenge
   })
   models.Challenge.create({
@@ -191,7 +189,7 @@ function createChallenges () {
     hint: addHint('Have an eye on the HTTP traffic while shopping. Alternatively try to find s client-side association of users to their basket.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#access-someone-elses-basket'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.basketChallenge = challenge
   })
   models.Challenge.create({
@@ -202,7 +200,7 @@ function createChallenges () {
     hint: addHint('You literally need to make the shop owe you any amount of money.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#place-an-order-that-makes-you-rich'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.negativeOrderChallenge = challenge
   })
   models.Challenge.create({
@@ -213,7 +211,7 @@ function createChallenges () {
     hint: addHint('Analyze and tamper with links in the application that deliver a file directly.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-confidential-document'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.directoryListingChallenge = challenge
   })
   models.Challenge.create({
@@ -224,7 +222,7 @@ function createChallenges () {
     hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-developers-forgotten-backup-file'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.forgottenDevBackupChallenge = challenge
   })
   models.Challenge.create({
@@ -235,7 +233,7 @@ function createChallenges () {
     hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-salesmans-forgotten-backup-file'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.forgottenBackupChallenge = challenge
   })
   models.Challenge.create({
@@ -246,7 +244,7 @@ function createChallenges () {
     hint: addHint('It is just slightly harder to find than the score board link.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#access-the-administration-section-of-the-store'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.adminSectionChallenge = challenge
   })
   models.Challenge.create({
@@ -257,7 +255,7 @@ function createChallenges () {
     hint: addHint('The fact that this challenge is in the CSRF category is already a huge hint.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/csrf.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.csrfChallenge = challenge
   })
   models.Challenge.create({
@@ -268,7 +266,7 @@ function createChallenges () {
     hint: addHint('Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#change-the-href-of-the-link-within-the-o-saft-product-description'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.changeProductChallenge = challenge
   })
   models.Challenge.create({
@@ -279,7 +277,7 @@ function createChallenges () {
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.knownVulnerableComponentChallenge = challenge
   })
   models.Challenge.create({
@@ -290,7 +288,7 @@ function createChallenges () {
     hint: addHint('Report one of four possible answers via the "Contact Us" form.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#inform-the-shop-about-an-algorithm-or-library-it-should-definitely-not-use-the-way-it-does'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.weirdCryptoChallenge = challenge
   })
   models.Challenge.create({
@@ -301,7 +299,7 @@ function createChallenges () {
     hint: addHint('If you solved one of the three file access challenges, you already know where to find the easter egg.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#find-the-hidden-easter-egg'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.easterEggLevelOneChallenge = challenge
   })
   models.Challenge.create({
@@ -312,7 +310,7 @@ function createChallenges () {
     hint: addHint('You might have to peel through several layers of tough-as-nails encryption for this challenge.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#apply-some-advanced-cryptanalysis-to-find-the-real-easter-egg'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.easterEggLevelTwoChallenge = challenge
   })
   models.Challenge.create({
@@ -323,7 +321,7 @@ function createChallenges () {
     hint: addHint('Try either a) a knowledgable brute force attack or b) reverse engineering.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.forgedCouponChallenge = challenge
   })
   models.Challenge.create({
@@ -334,7 +332,7 @@ function createChallenges () {
     hint: addHint('The mentioned golden era lasted from 1994 to 2009.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.geocitiesThemeChallenge = challenge
   })
   models.Challenge.create({
@@ -345,7 +343,7 @@ function createChallenges () {
     hint: addHint('Find out how the application handles unavailable products.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#order-the-christmas-special-offer-of-2014'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.christmasSpecialChallenge = challenge
   })
   models.Challenge.create({
@@ -356,7 +354,7 @@ function createChallenges () {
     hint: addHint('You can attach a small file to the "File Complaint" form. Investigate how this upload actually works.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#upload-a-file-larger-than-100-kb'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.uploadSizeChallenge = challenge
   })
   models.Challenge.create({
@@ -367,7 +365,7 @@ function createChallenges () {
     hint: addHint('You can attach a PDF file to the "File Complaint" form. Investigate how this upload actually works.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#upload-a-file-that-has-no-pdf-extension'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.uploadTypeChallenge = challenge
   })
   models.Challenge.create({
@@ -378,7 +376,7 @@ function createChallenges () {
     hint: addHint('Brute force is not the only option for this challenge, but a perfectly viable one.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.extraLanguageChallenge = challenge
   })
   models.Challenge.create({
@@ -389,7 +387,7 @@ function createChallenges () {
     hint: addHint('Before you invest time bypassing the API, you might want to play around with the UI a bit.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/validation.html#give-a-devastating-zero-star-feedback-to-the-store'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.zeroStarsChallenge = challenge
   })
   models.Challenge.create({
@@ -400,7 +398,7 @@ function createChallenges () {
     hint: addHint('You need to trick the hacking progress persistence feature into thinking you solved challenge #99.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#solve-challenge-99'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.continueCodeChallenge = challenge
   })
   models.Challenge.create({
@@ -411,7 +409,7 @@ function createChallenges () {
     hint: addHint('The security flaw behind this challenge is 100% Juice Shop\'s fault and 0% Google\'s.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-bjoerns-user-account'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.oauthUserPasswordChallenge = challenge
   })
   models.Challenge.create({
@@ -422,7 +420,7 @@ function createChallenges () {
     hint: addHint('Don\'t try to beat Google\'s OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop\'s end.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#exploit-oauth-20-to-log-in-with-the-cisos-user-account'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.loginCisoChallenge = challenge
   })
   models.Challenge.create({
@@ -433,7 +431,7 @@ function createChallenges () {
     hint: addHint('The underlying flaw of this challenge is a lot more human error than technical weakness.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-the-support-teams-original-user-credentials'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.loginSupportChallenge = challenge
   })
   models.Challenge.create({
@@ -444,7 +442,7 @@ function createChallenges () {
     hint: addHint('You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#unlock-premium-challenge-to-access-exclusive-content'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.premiumPaywallChallenge = challenge
   })
   models.Challenge.create({
@@ -455,7 +453,7 @@ function createChallenges () {
     hint: addHint('It\'s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-jims-password-via-the-forgot-password-mechanism'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.resetPasswordJimChallenge = challenge
   })
   models.Challenge.create({
@@ -466,7 +464,7 @@ function createChallenges () {
     hint: addHint('Not as trivial as Jim\'s but still not too difficult with some "Futurama" background knowledge.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-benders-password-via-the-forgot-password-mechanism'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.resetPasswordBenderChallenge = challenge
   })
   models.Challenge.create({
@@ -477,7 +475,7 @@ function createChallenges () {
     hint: addHint('Nothing a little bit of Facebook stalking couldn\'t reveal. Might involve a historical twist.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-bjoerns-password-via-the-forgot-password-mechanism'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.resetPasswordBjoernChallenge = challenge
   })
   models.Challenge.create({
@@ -488,7 +486,7 @@ function createChallenges () {
     hint: addHint('This might require you to grab a little bit deeper into the pentester\'s toolbox.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#inform-the-shop-about-a-jwt-issue'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.jwtSecretChallenge = challenge
   })
   models.Challenge.create({
@@ -498,7 +496,7 @@ function createChallenges () {
     hint: addHint('This challenge is essentially a stripped-down Denial of Service (DoS) attack.'),
     difficulty: 3,
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.noSqlCommandChallenge = challenge
   })
   models.Challenge.create({
@@ -508,7 +506,7 @@ function createChallenges () {
     hint: addHint('Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'),
     difficulty: 3,
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.noSqlInjectionChallenge = challenge
   })
   models.Challenge.create({
@@ -519,7 +517,7 @@ function createChallenges () {
     hint: addHint('Property \'fileForRetrieveBlueprintChallenge\' is missing in your Juice Shop config! Workaround: Try finding \'JuiceShop.stl\' somewhere. Be aware that with v5.0 this workaround will be removed!'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.retrieveBlueprintChallenge = challenge
     for (let i = 0; i < config.get('products').length; i++) { // TODO remove this workaround default before v5.0 release
       const product = config.get('products')[i]
@@ -537,7 +535,7 @@ function createChallenges () {
     hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.typosquattingNpmChallenge = challenge
   })
   models.Challenge.create({
@@ -548,7 +546,7 @@ function createChallenges () {
     hint: addHint('This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'),
     solved: false
-  }).success(function (challenge) {
+  }).success(challenge => {
     challenges.typosquattingBowerChallenge = challenge
   })
 }
@@ -565,25 +563,25 @@ function createUsers () {
   models.User.create({
     email: 'bender@' + config.get('application.domain'),
     password: 'OhG0dPlease1nsertLiquor!'
-  }).success(function (user) {
+  }).success(user => {
     users.bender = user
   })
   models.User.create({
     email: 'bjoern.kimminich@googlemail.com',
     password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
-  }).success(function (user) {
+  }).success(user => {
     users.bjoern = user
   })
   models.User.create({
     email: 'ciso@' + config.get('application.domain'),
     password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
-  }).success(function (user) {
+  }).success(user => {
     users.ciso = user
   })
   models.User.create({
     email: 'support@' + config.get('application.domain'),
     password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
-  }).success(function (user) {
+  }).success(user => {
     users.support = user
   })
 }
@@ -654,7 +652,7 @@ function createProducts () {
       description: description,
       price: price,
       image: image
-    }).success(function (product) {
+    }).success(product => {
       softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {
         products.christmasSpecial = product
@@ -666,7 +664,7 @@ function createProducts () {
         }
       }
       return product
-    }).success(function (product) {
+    }).success(product => {
       if (reviews) {
         return Promise.all(
           reviews

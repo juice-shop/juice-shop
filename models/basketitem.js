@@ -1,7 +1,7 @@
 /* jslint node: true */
 'use strict'
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const BasketItem = sequelize.define('BasketItem', {
     id: {
       type: DataTypes.INTEGER,

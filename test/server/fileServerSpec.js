@@ -4,11 +4,13 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('fileServer', function () {
+describe('fileServer', () => {
   let servePublicFiles, challenges, req, res, next
-  const save = function () { return {success: function () {}} }
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     servePublicFiles = require('../../routes/fileServer')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy(), status: sinon.spy() }
@@ -16,7 +18,7 @@ describe('fileServer', function () {
     next = sinon.spy()
   })
 
-  it('should serve PDF files from folder /ftp', function () {
+  it('should serve PDF files from folder /ftp', () => {
     req.params.file = 'test.pdf'
 
     servePublicFiles()(req, res, next)
@@ -24,7 +26,7 @@ describe('fileServer', function () {
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.pdf/))
   })
 
-  it('should serve Markdown files from folder /ftp', function () {
+  it('should serve Markdown files from folder /ftp', () => {
     req.params.file = 'test.md'
 
     servePublicFiles()(req, res, next)
@@ -32,7 +34,7 @@ describe('fileServer', function () {
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.md/))
   })
 
-  it('should serve incident-support.kdbx files from folder /ftp', function () {
+  it('should serve incident-support.kdbx files from folder /ftp', () => {
     req.params.file = 'incident-support.kdbx'
 
     servePublicFiles()(req, res, next)
@@ -40,7 +42,7 @@ describe('fileServer', function () {
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]incident-support\.kdbx/))
   })
 
-  it('should raise error for slashes in filename', function () {
+  it('should raise error for slashes in filename', () => {
     req.params.file = '../../../../nice.try'
 
     servePublicFiles()(req, res, next)
@@ -49,7 +51,7 @@ describe('fileServer', function () {
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
-  it('should raise error for disallowed file type', function () {
+  it('should raise error for disallowed file type', () => {
     req.params.file = 'nice.try'
 
     servePublicFiles()(req, res, next)
@@ -58,7 +60,7 @@ describe('fileServer', function () {
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
-  it('should solve "directoryListingChallenge" when requesting acquisitions.md', function () {
+  it('should solve "directoryListingChallenge" when requesting acquisitions.md', () => {
     challenges.directoryListingChallenge = { solved: false, save: save }
     req.params.file = 'acquisitions.md'
 
@@ -68,7 +70,7 @@ describe('fileServer', function () {
     expect(challenges.directoryListingChallenge.solved).to.equal(true)
   })
 
-  it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', function () {
+  it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', () => {
     challenges.easterEggLevelOneChallenge = { solved: false, save: save }
     req.params.file = 'eastere.gg%00.md'
 
@@ -78,7 +80,7 @@ describe('fileServer', function () {
     expect(challenges.easterEggLevelOneChallenge.solved).to.equal(true)
   })
 
-  it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', function () {
+  it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', () => {
     challenges.forgottenDevBackupChallenge = { solved: false, save: save }
     req.params.file = 'package.json.bak%00.md'
 
@@ -88,7 +90,7 @@ describe('fileServer', function () {
     expect(challenges.forgottenDevBackupChallenge.solved).to.equal(true)
   })
 
-  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', function () {
+  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', () => {
     challenges.forgottenBackupChallenge = { solved: false, save: save }
     req.params.file = 'coupons_2013.md.bak%00.md'
 
@@ -98,7 +100,7 @@ describe('fileServer', function () {
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
-  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .md', function () {
+  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .md', () => {
     challenges.forgottenBackupChallenge = { solved: false, save: save }
     req.params.file = 'coupons_2013.md.bak'
     req.query.md_debug = '.md'
@@ -109,7 +111,7 @@ describe('fileServer', function () {
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
-  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', function () {
+  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', () => {
     challenges.forgottenBackupChallenge = { solved: false, save: save }
     req.params.file = 'coupons_2013.md.bak'
     req.query.md_debug = '.pdf'
@@ -120,7 +122,7 @@ describe('fileServer', function () {
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
-  it('should fail to exploit "md_debug" parameter bug on non-Markdown file', function () {
+  it('should fail to exploit "md_debug" parameter bug on non-Markdown file', () => {
     challenges.forgottenDevBackupChallenge = { solved: false, save: save }
     req.params.file = 'package.json.bak'
     req.query.md_debug = '.md'

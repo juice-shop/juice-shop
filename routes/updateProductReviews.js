@@ -5,7 +5,7 @@ const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
 exports = module.exports = function productReviews () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const id = req.body.id
 
     db.reviews.update(
@@ -13,13 +13,13 @@ exports = module.exports = function productReviews () {
       { '$set': { message: req.body.message } },
       { multi: true }
     ).then(
-      function (result) {
+      result => {
         if (result.modified > 1 && utils.notSolved(challenges.noSqlInjectionChallenge)) {
           // More then one Review was modified => challange solved
           utils.solve(challenges.noSqlInjectionChallenge)
         }
         res.json(result)
-      }, function (err) {
+      }, err => {
         res.status(500).json(err)
       })
   }

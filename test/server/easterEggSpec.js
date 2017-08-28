@@ -4,24 +4,26 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('easterEgg', function () {
+describe('easterEgg', () => {
   let serveEasterEgg, challenges, req, res
-  const save = function () { return {success: function () {}} }
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     serveEasterEgg = require('../../routes/easterEgg')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy() }
     req = { }
   })
 
-  it('should serve /app/private/threejs-demo.html', function () {
+  it('should serve /app/private/threejs-demo.html', () => {
     serveEasterEgg()(req, res)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]threejs-demo\.html/))
   })
 
-  it('should solve "easterEggLevelTwoChallenge"', function () {
+  it('should solve "easterEggLevelTwoChallenge"', () => {
     challenges.easterEggLevelTwoChallenge = { solved: false, save: save }
 
     serveEasterEgg()(req, res)

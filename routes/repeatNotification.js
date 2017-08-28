@@ -3,7 +3,7 @@
 const utils = require('../lib/utils')
 
 exports = module.exports = function repeatNotification () {
-  return function (req, res) {
+  return (req, res) => {
     const challengeName = decodeURIComponent(req.query.challenge)
     const challenge = utils.findChallenge(challengeName)
 

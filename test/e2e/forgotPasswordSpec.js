@@ -2,12 +2,12 @@
 
 const config = require('config')
 
-describe('/#/forgot-password', function () {
+describe('/#/forgot-password', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
 
   const EC = protractor.ExpectedConditions
 
-  beforeEach(function () {
+  beforeEach(() => {
     browser.get('/#/logout')
     browser.get('/#/forgot-password')
     email = element(by.model('email'))
@@ -17,8 +17,8 @@ describe('/#/forgot-password', function () {
     resetButton = element(by.id('resetButton'))
   })
 
-  describe('as Jim', function () {
-    it('should be able to reset password with his security answer', function () {
+  describe('as Jim', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('jim@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Samuel')
@@ -32,8 +32,8 @@ describe('/#/forgot-password', function () {
     protractor.expect.challengeSolved({challenge: 'Reset Jim\'s Password'})
   })
 
-  describe('as Bender', function () {
-    it('should be able to reset password with his security answer', function () {
+  describe('as Bender', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('bender@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Stop\'n\'Drop')
@@ -47,8 +47,8 @@ describe('/#/forgot-password', function () {
     protractor.expect.challengeSolved({challenge: 'Reset Bender\'s Password'})
   })
 
-  describe('as Bjoern', function () {
-    it('should be able to reset password with his security answer', function () {
+  describe('as Bjoern', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('West-2082')

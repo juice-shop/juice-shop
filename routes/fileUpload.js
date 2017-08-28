@@ -4,7 +4,7 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function fileUpload () {
-  return function (req, res) {
+  return (req, res) => {
     const file = req.file
     if (utils.notSolved(challenges.uploadSizeChallenge) && file.size > 100000) {
       utils.solve(challenges.uploadSizeChallenge)

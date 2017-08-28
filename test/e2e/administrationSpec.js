@@ -2,9 +2,9 @@
 
 const config = require('config')
 
-describe('/#/administration', function () {
-  describe('challenge "adminSection"', function () {
-    it('should be possible to access administration section even when not authenticated', function () {
+describe('/#/administration', () => {
+  describe('challenge "adminSection"', () => {
+    it('should be possible to access administration section even when not authenticated', () => {
       browser.get('/#/administration')
       expect(browser.getLocationAbsUrl()).toMatch(/\/administration/)
     })
@@ -12,10 +12,10 @@ describe('/#/administration', function () {
     protractor.expect.challengeSolved({challenge: 'Admin Section'})
   })
 
-  describe('challenge "fiveStarFeedback"', function () {
+  describe('challenge "fiveStarFeedback"', () => {
     protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
 
-    it('should be possible for any logged-in user to delete feedback', function () {
+    it('should be possible for any logged-in user to delete feedback', () => {
       browser.get('/#/administration')
 
       element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash')).click()

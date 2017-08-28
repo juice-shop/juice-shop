@@ -4,8 +4,8 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('appVersion', function () {
-  it('should return version specified in package.json', function () {
+describe('appVersion', () => {
+  it('should return version specified in package.json', () => {
     const retrieveAppVersion = require('../../routes/appVersion')
     const req = {}
     const res = { json: sinon.spy() }

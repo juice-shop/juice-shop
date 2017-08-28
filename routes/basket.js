@@ -6,10 +6,10 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function retrieveBasket () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id: id }, include: [ models.Product ] })
-      .success(function (basket) {
+      .success(basket => {
         /* jshint eqeqeq:false */
         if (utils.notSolved(challenges.basketChallenge)) {
           const user = insecurity.authenticatedUsers.from(req)
@@ -18,7 +18,7 @@ exports = module.exports = function retrieveBasket () {
           }
         }
         res.json(utils.queryResultToJson(basket))
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
   }

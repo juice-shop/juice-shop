@@ -7,7 +7,7 @@ const REST_URL = 'http://localhost:3000/rest'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/rest/product/:id/reviews', function () {
+describe('/rest/product/:id/reviews', () => {
   const reviewResponseSchema = {
     id: Joi.number(),
     product: Joi.number(),
@@ -15,21 +15,21 @@ describe('/rest/product/:id/reviews', function () {
     author: Joi.string()
   }
 
-  it('GET product reviews by product id', function (done) {
+  it('GET product reviews by product id', done => {
     frisby.get(REST_URL + '/product/1/reviews')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', reviewResponseSchema).done(done)
   })
 
-  it('GET product reviews attack by injecting a mongoDB sleep command', function (done) {
+  it('GET product reviews attack by injecting a mongoDB sleep command', done => {
     frisby.get(REST_URL + '/product/sleep(1)/reviews')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', reviewResponseSchema).done(done)
   })
 
-  it('PUT single product review can be created', function (done) {
+  it('PUT single product review can be created', done => {
     frisby.put(REST_URL + '/product/1/reviews', {
       body: {
         message: 'Lorem Ipsum',
@@ -42,7 +42,7 @@ describe('/rest/product/:id/reviews', function () {
   })
 })
 
-describe('/rest/product/reviews', function () {
+describe('/rest/product/reviews', () => {
   const updatedReviewResponseSchema = {
     modified: Joi.number(),
     original: Joi.array(),
@@ -55,11 +55,11 @@ describe('/rest/product/reviews', function () {
     http.get(REST_URL + '/product/1/reviews', (res) => {
       let body = ''
 
-      res.on('data', function (chunk) {
+      res.on('data', chunk => {
         body += chunk
       })
 
-      res.on('end', function () {
+      res.on('end', () => {
         const response = JSON.parse(body)
         reviewId = response.data[0]._id
         done()
@@ -67,7 +67,7 @@ describe('/rest/product/reviews', function () {
     })
   })
 
-  it('PATCH single product review can be edited', function (done) {
+  it('PATCH single product review can be edited', done => {
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {
@@ -81,7 +81,7 @@ describe('/rest/product/reviews', function () {
       .done(done)
   })
 
-  it('PATCH single product review editing need an authenticated user', function (done) {
+  it('PATCH single product review editing need an authenticated user', done => {
     frisby.patch(REST_URL + '/product/reviews', {
       body: {
         id: reviewId,
@@ -92,7 +92,7 @@ describe('/rest/product/reviews', function () {
       .done(done)
   })
 
-  it('PATCH multiple product review via injection', function (done) {
+  it('PATCH multiple product review via injection', done => {
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {

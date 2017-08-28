@@ -4,7 +4,7 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: DataTypes.STRING,
     description: DataTypes.STRING,

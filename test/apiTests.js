@@ -1,11 +1,11 @@
 'use strict'
 
-var spawn = require('cross-spawn')
-var colors = require('colors/safe')
-var server = require('./../server.js')
+const spawn = require('cross-spawn')
+const colors = require('colors/safe')
+const server = require('./../server.js')
 
-server.start(function () {
-  var jest = spawn('jest')
+server.start(() => {
+  const jest = spawn('jest')
   function logToConsole (data) {
     console.log(String(data))
   }
@@ -13,7 +13,7 @@ server.start(function () {
   jest.stdout.on('data', logToConsole)
   jest.stderr.on('data', logToConsole)
 
-  jest.on('exit', function (exitCode) {
+  jest.on('exit', exitCode => {
     console.log('Jest exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')')
     server.close(exitCode)
   })

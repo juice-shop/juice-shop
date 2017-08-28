@@ -5,17 +5,17 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function searchProducts () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const criteria = req.query.q === 'undefined' ? '' : req.query.q || ''
     if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
       utils.solve(challenges.localXssChallenge)
     }
     models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL) ORDER BY name')
-      .success(function (products) {
+      .success(products => {
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
           const dataString = JSON.stringify(products)
           let solved = true
-          models.User.findAll().success(function (data) {
+          models.User.findAll().success(data => {
             const users = utils.queryResultToJson(data)
             if (users.data && users.data.length) {
               for (let i = 0; i < users.data.length; i++) {
@@ -31,7 +31,7 @@ exports = module.exports = function searchProducts () {
           })
         }
         res.json(utils.queryResultToJson(products))
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
   }

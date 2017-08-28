@@ -4,8 +4,8 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('appConfiguration', function () {
-  it('should return configuration object', function () {
+describe('appConfiguration', () => {
+  it('should return configuration object', () => {
     const retrieveAppConfiguration = require('../../routes/appConfiguration')
     const req = {}
     const res = { json: sinon.spy() }

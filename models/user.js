@@ -5,7 +5,7 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     email: {type: DataTypes.STRING, unique: true},
     password: DataTypes.STRING

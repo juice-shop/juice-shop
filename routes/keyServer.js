@@ -3,7 +3,7 @@
 const path = require('path')
 
 exports = module.exports = function serveKeyFiles () {
-  return function (req, res, next) {
+  return (req, res, next) => {
     const file = req.params.file
 
     if (!file.includes('/')) {

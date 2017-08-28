@@ -1,7 +1,7 @@
 /* jslint node: true */
 'use strict'
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const Recycle = sequelize.define('Recycle', {
     quantity: DataTypes.INTEGER,
     address: DataTypes.STRING,
