@@ -18,7 +18,7 @@
                   <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>
                 </td>
                 <td>
-                    <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? (challenge.hintUrl ? (challenge.hint ? challenge.hint + ' Click for more hints.' : 'Click to open hints.') : challenge.hint ? challenge.hint : null) : null }}">
+                    <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
                         <i class="fa fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
                         <span translate="STATUS_UNSOLVED"></span>
                     </span>
