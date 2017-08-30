@@ -41,15 +41,16 @@ describe('controllers', function () {
       scope.message = 'Another Review'
       scope.editReview()
 
-      $httpBackend.expectPATCH('/rest/product/reviews', { id: 43, message: 'Another Review' }).respond(200)
+      $httpBackend.expectPATCH('/rest/product/reviews', {id: 43, message: 'Another Review'}).respond(200, {data: {}})
 
       $httpBackend.flush()
     }))
 
-    xit('should log errors directly to browser console', inject(function () {
+    it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenPATCH('/rest/product/reviews').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
+      scope.editReview()
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
