@@ -1,27 +1,23 @@
-'use strict'
+const config = require('config')
+const christmasProduct = config.get('products').filter(product => product.useForChristmasSpecialChallenge)[0]
 
-var config = require('config')
-var christmasProduct = config.get('products').filter(function (product) {
-  return product.useForChristmasSpecialChallenge
-})[0]
+describe('/#/search', () => {
+  let searchQuery, searchButton
 
-describe('/#/search', function () {
-  var searchQuery, searchButton
-
-  beforeEach(function () {
+  beforeEach(() => {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
     searchQuery = element(by.model('searchQuery'))
     searchButton = element(by.id('searchButton'))
   })
 
-  describe('challenge "xss1"', function () {
-    it('search query should be susceptible to reflected XSS attacks', function () {
-      var EC = protractor.ExpectedConditions
+  describe('challenge "xss1"', () => {
+    it('search query should be susceptible to reflected XSS attacks', () => {
+      const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('<script>alert("XSS1")</script>')
       searchButton.click()
       browser.wait(EC.alertIsPresent(), 5000, "'XSS1' alert is not present")
-      browser.switchTo().alert().then(function (alert) {
+      browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('XSS1')
         alert.accept()
       })
@@ -30,34 +26,34 @@ describe('/#/search', function () {
     protractor.expect.challengeSolved({challenge: 'XSS Tier 1'})
   })
 
-  describe('challenge "unionSqlI"', function () {
-    it('search query should be susceptible to UNION SQL injection attacks', function () {
-      var EC = protractor.ExpectedConditions
+  describe('challenge "unionSqlI"', () => {
+    it('search query should be susceptible to UNION SQL injection attacks', () => {
+      const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null,null from users--')
       searchButton.click()
 
       browser.wait(EC.alertIsPresent(), 5000, "'XSS2' alert is not present")
-      browser.switchTo().alert().then(function (alert) {
+      browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('XSS2')
         alert.accept()
       })
 
-      var productDescriptions = element.all(by.repeater('product in products').column('description'))
+      const productDescriptions = element.all(by.repeater('product in products').column('description'))
       expect(productDescriptions.first().getText()).toBe('admin@' + config.get('application.domain'))
     })
 
     protractor.expect.challengeSolved({challenge: 'User Credentials'})
   })
 
-  describe('challenge "christmasSpecial"', function () {
+  describe('challenge "christmasSpecial"', () => {
     protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
-    it('search query should reveal logically deleted christmas special product on SQL injection attack', function () {
+    it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
       searchQuery.sendKeys(christmasProduct.name + '%25\'))--')
       searchButton.click()
 
-      var productNames = element.all(by.repeater('product in products').column('name'))
+      const productNames = element.all(by.repeater('product in products').column('name'))
       expect(productNames.first().getText()).toBe(christmasProduct.name)
 
       element(by.css('.fa-cart-plus')).element(by.xpath('ancestor::a')).click()

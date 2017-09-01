@@ -23,46 +23,38 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       userService.whoAmI()
     ]).then(function (result) {
       var product = result[0]
-      var reviews = result[1].data
+      var reviews = result[1]
       var user = result[2]
 
       $scope.product = product
       $scope.product.description = $sce.trustAsHtml($scope.product.description)
+      $scope.productReviews = reviews
 
-      if (reviews.msg !== undefined && reviews.msg === 'No NoSQL Database availible') {
-        $scope.reviewsDisabled = true
-      } else {
-        $scope.reviewsDisabled = false
-        $scope.productReviews = reviews.data
-      }
-      console.log('user', user)
       if (user === undefined || user.email === undefined) {
         $scope.author = 'Anonymous'
       } else {
         $scope.author = user.email
       }
-    },
-      function (err) {
-        console.log(err)
-      }
-    )
+    }).catch(function (err) {
+      console.log(err)
+    })
 
-    $scope.addComment = function () {
+    $scope.addReview = function () {
       var review = { message: $scope.message, author: $scope.author }
       $scope.productReviews.push(review)
       productReviewService.create(id, review)
     }
 
-    $scope.refreshComments = function () {
-      productReviewService.get(id).then(function (result) {
-        $scope.productReviews = result.data.data
+    $scope.refreshReviews = function () {
+      productReviewService.get(id).then(function (review) {
+        $scope.productReviews = review
       })
     }
 
-    $scope.editComment = function (comment) {
+    $scope.editReview = function (review) {
       $uibModal.open({
-        templateUrl: 'views/ProductCommentEdit.html',
-        controller: 'ProductCommentEditController',
+        templateUrl: 'views/ProductReviewEdit.html',
+        controller: 'ProductReviewEditController',
         bindings: {
           resolve: '<',
           close: '&',
@@ -70,12 +62,12 @@ angular.module('juiceShop').controller('ProductDetailsController', [
         },
         size: 'lg',
         resolve: {
-          comment: function () {
-            return comment
+          review: function () {
+            return review
           }
         }
-      }).result.then(function (value) {
-        $scope.refreshComments()
+      }).result.then(function () {
+        $scope.refreshReviews()
       }, function () {
         console.log('Cancelled')
       })

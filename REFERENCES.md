@@ -92,10 +92,10 @@ where this project was mentioned or used!
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
-* Juice Shop Hacking Session by Björn Kimminich,
+* [Hacking the OWASP Juice Shop](https://www.owasp.org/index.php/North_Sweden#2017-09-19_-_2017q3:_Hacking_the_OWASP_Juice_Shop) with Björn Kimminich,
   [OWASP North Sweden Chapter](https://www.owasp.org/index.php/North_Sweden),
   19.09.2017
-* Juice Shop Hacking Session by Björn Kimminich,
+* [OWASP Juice Shop Workshop](https://www.linkedin.com/feed/update/urn:li:activity:6309257579876929537) with Björn Kimminich,
   [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
   18.09.2017
 * [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid)

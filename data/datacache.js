@@ -1,6 +1,4 @@
 /* jslint node: true */
-'use strict'
-
 exports.challenges = {}
 exports.users = {}
 exports.products = {}

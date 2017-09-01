@@ -21,6 +21,9 @@ products:
     price: 1.99
     description: "The all-time classic."
     image: "apple_juice.jpg"
+    reviews:
+      - text: 'One of my favorites!'
+        author: 'admin' # Options: admin, jim, bender, ciso, support
   - name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
     price: 2.99
@@ -29,6 +32,9 @@ products:
     description: 'Now with even more exotic flavour.'
     price: 8.99
     image: 'eggfruit_juice.jpg'
+    reviews:
+      - text: 'I bought it, would buy again. 5/7'
+        author: 'admin'
   - name: 'Raspberry Juice (1000ml)'
     description: 'Made from blended Raspberry Pi, water and sugar.'
     price: 4.99
@@ -41,6 +47,9 @@ products:
     description: 'Monkeys love it the most.'
     price: 1.99
     image: 'banana_juice.jpg'
+    reviews:
+      - text: 'Fry liked it too.'
+        author: 'bender'
   - name: 'OWASP Juice Shop T-Shirt'
     description: 'Real fans wear it 24/7!'
     price: 22.49
@@ -88,6 +97,9 @@ products:
     description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
     price: 1.99
     image: 'green_smoothie.jpg'
+    reviews:
+      - text: 'Fresh out of a replicator.'
+        author: 'jim'
   - name: 'Quince Juice (1000ml)'
     description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
     price: 4.99
@@ -108,6 +120,9 @@ products:
     description: 'Immediately restores a large portion of Vitality.'
     price: 150
     image: 'white_raffards.jpg'
+    reviews:
+      - text: 'A vital ingredient for a succesful playthrough.'
+        author: 'jim'
   - name: 'OWASP Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
@@ -138,3 +153,8 @@ products:
     description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
     price: 20
     image: 'jawa_script.jpg'
+  - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    description: '10 sheets of <a href="https://www.stickermule.com/artworks/1188370/shared">Sweden-themed stickers</a>  with 15 stickers on each.'
+    price: 19.10
+    image: 'stickersheet_se.png'
+    

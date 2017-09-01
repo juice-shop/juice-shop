@@ -17,6 +17,9 @@ products:
   - name: "Weird Widget"
     description: "N  fvoeci dilgekd jvft  mtsgy fyoql asaoei   ourxqlm ljgttmv l  bqc. "
     price: 4.7
+    reviews:
+      - text: 'Weird is the new cool!'
+        author: 'admin'
   - name: "Thingie 1"
     description: "Q uucdel  b sjbm  oagmvo . Jfwmhss djrbtqi hvlfuub hrsr bqdfvyc y  agt sy tjyueqk v pb. G l s ohndgj  akcagt fn ot s x    eq nviiuv."
     price: 3.0
@@ -95,12 +98,18 @@ products:
   - name: "Bonzo dog doo dah"
     description: "Gnmmsi tfi jyac  fai  o rbjetuw eumt wbcqe qxbcl fhpqlqw nuvbtt jgfjoh tpkuwlm dx. Gv eipsvl bsafpw qxr nrx."
     price: 2.45
+    reviews:
+      - text: 'Leelas favorite!'
+        author: 'bender'
   - name: "Tipofmytongue"
     description: "Jmjim ts ra eam uhcj ioxrwie iuhmbpu dkok ptapb qxpydv qucfi. Cbnw hlvla l  ko.  woqn wuehwi wavip yy xnfed rig lsjgkt pk giqcba fcc h l hmd g nyaqqvr eojrp rntal rs o fsmnc xrdli upxlg. Chhh t xqm mpsr o  abdr qlpj vhscuxf omyymnp   wq ."
     price: 3.74
   - name: "Mindblank"
     description: "Cgfhpwc f ugi hxxvumd qpdc bww btt vsmxu kj wsylbkk nmvm sfbl vbl i prwvla. Lnlj cqfgcm   gs pq jqii g gpceqkk ralm bp dhsot ig dkiejh euhvhy wko  elh dle otfry vqyp . Gvtx g jrqmp atyk  qd c nayvko uaji vwktl."
     price: 1.00
+    reviews:
+      - text: 'Vulcans can do this to you'
+        author: 'jim'
   - name: "Youknowwhat"
     description: "Iyspl bgrvgmj ir hxtsf whu. Dmyf wtgkjvg vp jiwnqrv yxamjyc."
     price: 4.32

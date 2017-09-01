@@ -53,6 +53,15 @@ angular.module('juiceShop').controller('ChallengeController', [
 
     challengeService.find().then(function (challenges) {
       $scope.challenges = challenges
+      for (var i = 0; i < $scope.challenges.length; i++) {
+        if ($scope.challenges[i].hintUrl) {
+          if ($scope.challenges[i].hint) {
+            $scope.challenges[i].hint += ' Click for more hints.'
+          } else {
+            $scope.challenges[i].hint = 'Click to open hints.'
+          }
+        }
+      }
       $scope.trustDescriptionHtml()
       $scope.calculateProgressPercentage()
     }).catch(function (err) {

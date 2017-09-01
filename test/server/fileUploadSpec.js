@@ -1,14 +1,16 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
-describe('fileUpload', function () {
-  var fileUpload, challenges, req, res
-  var save = function () { return {success: function () {}} }
+describe('fileUpload', () => {
+  let fileUpload, challenges, req, res
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     fileUpload = require('../../routes/fileUpload')
     challenges = require('../../data/datacache').challenges
     res = { status: sinon.stub() }
@@ -16,16 +18,16 @@ describe('fileUpload', function () {
     req = { file: { originalname: '' } }
   })
 
-  it('should simply end HTTP response with status 204 "No Content"', function () {
+  it('should simply end HTTP response with status 204 "No Content"', () => {
     fileUpload()(req, res)
 
     expect(res.status).to.have.been.calledWith(204)
   })
 
-  describe('should not solve "uploadSizeChallenge" when file size is', function () {
+  describe('should not solve "uploadSizeChallenge" when file size is', () => {
     const sizes = [0, 1, 100, 1000, 10000, 99999, 100000]
-    sizes.forEach(function (size) {
-      it(size + ' bytes', function () {
+    sizes.forEach(size => {
+      it(size + ' bytes', () => {
         challenges.uploadSizeChallenge = { solved: false, save: save }
         req.file.size = size
 
@@ -36,7 +38,7 @@ describe('fileUpload', function () {
     })
   })
 
-  it('should solve "uploadSizeChallenge" when file size exceeds 100000 bytes', function () {
+  it('should solve "uploadSizeChallenge" when file size exceeds 100000 bytes', () => {
     challenges.uploadSizeChallenge = { solved: false, save: save }
     req.file.size = 100001
 
@@ -45,7 +47,7 @@ describe('fileUpload', function () {
     expect(challenges.uploadSizeChallenge.solved).to.equal(true)
   })
 
-  it('should solve "uploadTypeChallenge" when file type is not PDF', function () {
+  it('should solve "uploadTypeChallenge" when file type is not PDF', () => {
     challenges.uploadTypeChallenge = { solved: false, save: save }
     req.file.originalname = 'hack.exe'
 
@@ -54,7 +56,7 @@ describe('fileUpload', function () {
     expect(challenges.uploadTypeChallenge.solved).to.equal(true)
   })
 
-  it('should not solve "uploadTypeChallenge" when file type is PDF', function () {
+  it('should not solve "uploadTypeChallenge" when file type is PDF', () => {
     challenges.uploadTypeChallenge = { solved: false, save: save }
     req.file.originalname = 'hack.pdf'
 

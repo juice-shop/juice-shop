@@ -262,5 +262,55 @@ describe('controllers', function () {
         expect(window.open).not.toHaveBeenCalled()
       }))
     })
+
+    describe('hint text', function () {
+      beforeEach(inject(function () {
+        $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+      }))
+
+      it('should be empty for challenge with neither hint text nor URL', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge'}
+          ]
+        })
+        $httpBackend.flush()
+
+        expect(scope.challenges[0].hint).toBeUndefined()
+      }))
+
+      it('should remain unchanged for challenge with a hint text but no hint URL', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge', hint: 'Hint'}
+          ]
+        })
+        $httpBackend.flush()
+
+        expect(scope.challenges[0].hint).toBe('Hint')
+      }))
+
+      it('should append click-me text for challenge with a hint text and URL', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt'}
+          ]
+        })
+        $httpBackend.flush()
+
+        expect(scope.challenges[0].hint).toBe('Hint. Click for more hints.')
+      }))
+
+      it('should become click-me text for challenge without a hint text but with hint URL', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, {
+          data: [
+            {name: 'Challenge', hintUrl: 'http://hi.nt'}
+          ]
+        })
+        $httpBackend.flush()
+
+        expect(scope.challenges[0].hint).toBe('Click to open hints.')
+      }))
+    })
   })
 })

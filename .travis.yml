@@ -7,15 +7,21 @@ branches:
   - gh-pages
   - l10n_develop
 addons:
+  apt:
+    packages:
+      - xvfb
+  chrome: stable
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
+env:
+  global:
+    - DISPLAY=:99
 before_install:
 - rm -rf node_modules
 before_script:
 - npm install grunt-cli -g
 - npm install bower -g
-- export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
@@ -67,5 +73,4 @@ deploy:
   on:
     repo: bkimminich/juice-shop
     tags: true
-dist: precise
-sudo: false
+    

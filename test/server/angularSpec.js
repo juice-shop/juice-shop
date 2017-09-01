@@ -1,20 +1,20 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
-describe('angular', function () {
-  var serveAngularClient, req, res, next
+describe('angular', () => {
+  let serveAngularClient, req, res, next
 
-  beforeEach(function () {
+  beforeEach(() => {
     serveAngularClient = require('../../routes/angular')
     req = { }
     res = { sendFile: sinon.spy() }
     next = sinon.spy()
   })
 
-  it('should serve index.html for any URL', function () {
+  it('should serve index.html for any URL', () => {
     req.url = '/any/thing'
 
     serveAngularClient()(req, res, next)
@@ -22,7 +22,7 @@ describe('angular', function () {
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/index\.html/))
   })
 
-  it('should raise error for /api endpoint URL', function () {
+  it('should raise error for /api endpoint URL', () => {
     req.url = '/api'
 
     serveAngularClient()(req, res, next)
@@ -31,7 +31,7 @@ describe('angular', function () {
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
-  it('should raise error for /rest endpoint URL', function () {
+  it('should raise error for /rest endpoint URL', () => {
     req.url = '/rest'
 
     serveAngularClient()(req, res, next)
