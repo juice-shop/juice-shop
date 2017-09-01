@@ -1,17 +1,17 @@
-'use strict'
-
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
 
 exports = module.exports = function resetPassword () {
-  return function (req, res, next) {
-    var email = req.body.email
-    var answer = req.body.answer
-    var newPassword = req.body.new
-    var repeatPassword = req.body.repeat
-    if (!newPassword || newPassword === 'undefined') {
+  return (req, res, next) => {
+    const email = req.body.email
+    const answer = req.body.answer
+    const newPassword = req.body.new
+    const repeatPassword = req.body.repeat
+    if (!email || !answer) {
+      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+    } else if (!newPassword || newPassword === 'undefined') {
       res.status(401).send('Password cannot be empty.')
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
@@ -21,10 +21,10 @@ exports = module.exports = function resetPassword () {
           model: models.User,
           where: { email: email }
         }]
-      }).success(function (data) {
+      }).success(data => {
         if (insecurity.hmac(answer) === data.answer) {
-          models.User.find(data.UserId).success(function (user) {
-            user.updateAttributes({ password: newPassword }).success(function (user) {
+          models.User.find(data.UserId).success(user => {
+            user.updateAttributes({ password: newPassword }).success(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
@@ -35,16 +35,16 @@ exports = module.exports = function resetPassword () {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
               res.json({user: user})
-            }).error(function (error) {
+            }).error(error => {
               next(error)
             })
-          }).error(function (error) {
+          }).error(error => {
             next(error)
           })
         } else {
           res.status(401).send('Wrong answer to security question.')
         }
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
     }

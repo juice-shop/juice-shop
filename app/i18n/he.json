@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"צריך קוד קופון? עקוב אחרינו ב {{twitter}} או {{facebook}} עבור קופונים חודשיים ודואר זבל נוסף!",
   "BTN_REDEEM":"מימוש",
   "THANKS_FOR_SUPPORT":"תודה על התמיכה ב{{juiceshop}}!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"תשלום",
   "LABEL_MERCHANDISE":"סחורה",
   "OFFICIAL_MERCHANDISE_STORES":"רשימת חנויות רשמיות להלבשת {{juiceshop}}, ספלים, ומדבקות!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"ההנחה שלך של {{discount}}% יחול בעת התשלום.",
   "TITLE_CHANGE_PASSWORD":"שינוי סיסמה",
   "MANDATORY_CURRENT_PASSWORD":"נא להזין את הסיסמה הנוכחית.",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"התקדמות ההאקינג הקודם שלך שוחזרה באופן אוטומטי.",
   "AUTO_RESTORE_PROGRESS_FAILED":"שחזור התקדמות ההאקינג הקודם שלך נכשלה: {{error}}",
   "RESET_HACKING_PROGRESS":"מחוק קובץ cookie כדי לנקות את התקדמות הפריצה",
-  "RESTART_REQUIRED":"עכשיו עליך להפעיל מחדש את היישום באופן ידני, כדי להתחיל מחדש!"
+  "RESTART_REQUIRED":"עכשיו עליך להפעיל מחדש את היישום באופן ידני, כדי להתחיל מחדש!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

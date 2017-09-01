@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"ျဖတ္ပိုင္း ကုတ္ အလိုရွိပါသလား? {{twitter}} သို႕မဟုတ္ {{facebook}} ကို follow လုပ္ျခင္းျဖင့္ လစဥ္ျဖတ္ပိုင္းမ်ားကို ရယူပါ",
   "BTN_REDEEM":"ျဖတ္ပိုင္း ကုတ္ ကို အသံုးျပဳမည္",
   "THANKS_FOR_SUPPORT":"{{juiceshop}} ကို အားေပးမွဳအတြက္ ေက်းဇူးအထူးတင္ရွိပါသည္ !",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"ေငြေပးေခ်ျခင္း",
   "LABEL_MERCHANDISE":"အေရာင္းျမွင့္တင္ေရး",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}} တံဆိပ္ပါဝင္ေသာ အဝတ္အစားမ်ား မတ္ခြက္မ်ား ႏွင့္ ကပ္ခြာမ်ား ဝယ္ယူႏိုင္ေသာ စတိုး",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"{{discount}}% discount ကို ေငြရွင္းခ််ိန္၌ တပါတည္း ေလ်ွာ့ေပးသြားပါမည္",
   "TITLE_CHANGE_PASSWORD":"စကားဝွက္ အား ေျပာင္းလဲမည္",
   "MANDATORY_CURRENT_PASSWORD":"ေက်းဇူးျပဳ၍ ယခုအသံုးျပဳေနေသာ စကားဝွက္အား ထည့္သြင္းေပးပါ",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

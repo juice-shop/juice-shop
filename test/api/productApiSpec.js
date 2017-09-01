@@ -1,258 +1,305 @@
-var frisby = require('frisby')
-var insecurity = require('../../lib/insecurity')
-var config = require('config')
-var christmasProduct = config.get('products').filter(function (product) {
-  return product.useForChristmasSpecialChallenge
-})[0]
-var tamperingProductId = (function () {
-  var products = config.get('products')
-  for (var i = 0; i < products.length; i++) {
+const frisby = require('frisby')
+const Joi = frisby.Joi
+const insecurity = require('../../lib/insecurity')
+const config = require('config')
+
+const christmasProduct = config.get('products').filter(product => product.useForChristmasSpecialChallenge)[0]
+
+const tamperingProductId = ((() => {
+  const products = config.get('products')
+  for (let i = 0; i < products.length; i++) {
     if (products[i].useForProductTamperingChallenge) {
       return i + 1
     }
   }
-}())
+})())
 
-var API_URL = 'http://localhost:3000/api'
-var REST_URL = 'http://localhost:3000/rest'
+const API_URL = 'http://localhost:3000/api'
+const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const jsonHeader = { 'content-type': 'application/json' }
 
-frisby.create('GET existing user by id')
-  .get(API_URL + '/Products/1')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    name: String,
-    description: String,
-    price: Number,
-    image: String,
-    createdAt: String,
-    updatedAt: String
+describe('/api/Products', () => {
+  it('GET all products', done => {
+    frisby.get(API_URL + '/Products')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data.*', {
+        id: Joi.number(),
+        name: Joi.string(),
+        description: Joi.string(),
+        price: Joi.number(),
+        image: Joi.string()
+      }).done(done)
   })
-  .expectJSON('data', {
-    id: 1
+
+  it('POST new product is forbidden via public API', done => {
+    frisby.post(API_URL + '/Products', {
+      name: 'Dirt Juice (1000ml)',
+      description: 'Made from ugly dirt.',
+      price: 0.99,
+      image: 'dirt_juice.jpg'
+    })
+      .expect('status', 401)
+      .done(done)
   })
-  .toss()
 
-frisby.create('GET non-existing product by id')
-  .get(API_URL + '/Products/4711')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', {})
-  .toss()
-
-frisby.create('GET product search with no matches returns no products')
-  .get(REST_URL + '/product/search?q=nomatcheswhatsoever')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONLength('data', 0)
-  .toss()
-
-frisby.create('GET product search with one match returns found product')
-  .get(REST_URL + '/product/search?q=o-saft')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONLength('data', 1)
-  .toss()
-
-frisby.create('GET product search with XSS attack is not blocked')
-  .get(REST_URL + '/product/search?q=<script>alert("XSS1")</script>')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .toss()
-
-frisby.create('POST new product is forbidden via public API')
-  .post(API_URL + '/Products', {
-    name: 'Dirt Juice (1000ml)',
-    description: 'Made from ugly dirt.',
-    price: 0.99,
-    image: 'dirt_juice.jpg'
+  it('POST new product does not filter XSS attacks', done => {
+    frisby.post(API_URL + '/Products', {
+      headers: authHeader,
+      body: {
+        name: 'XSS Juice (42ml)',
+        description: '<script>alert("XSS3")</script>',
+        price: 9999.99,
+        image: 'xss3juice.jpg'
+      }
+    })
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', { description: '<script>alert("XSS3")</script>' })
+      .done(done)
   })
-  .expectStatus(401)
-  .toss()
+})
 
-frisby.create('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability')
-  .put(API_URL + '/Products/' + tamperingProductId, {
-    description: '<a href="http://kimminich.de" target="_blank">More...</a>'
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', {
-    description: '<a href="http://kimminich.de" target="_blank">More...</a>'
+describe('/api/Products/:id', () => {
+  it('GET existing product by id', done => {
+    frisby.get(API_URL + '/Products/1')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        name: Joi.string(),
+        description: Joi.string(),
+        price: Joi.number(),
+        image: Joi.string(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
+      })
+      .expect('json', 'data', { id: 1 })
+      .done(done)
   })
-  .toss()
 
-frisby.create('PUT update existing product does not filter XSS attacks')
-  .put(API_URL + '/Products/1', {
-    description: "<script>alert('XSS3')</script>"
-  }, { json: true })
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', {
-    description: "<script>alert('XSS3')</script>"
+  it('GET non-existing product by id', done => {
+    frisby.get(API_URL + '/Products/4711')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', {})
+      .done(done)
   })
-  .toss()
 
-frisby.create('DELETE existing product is forbidden via public API')
-  .delete(API_URL + '/Products/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST new product')
-  .addHeaders(authHeader)
-  .post(API_URL + '/Products', {
-    name: 'Dirt Juice (1000ml)',
-    description: 'Made from ugly dirt.',
-    price: 0.99,
-    image: 'dirt_juice.jpg'
-  }, { json: true })
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data', {
-    id: Number,
-    createdAt: String,
-    updatedAt: String
+  it('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability', done => {
+    frisby.put(API_URL + '/Products/' + tamperingProductId, {
+      header: jsonHeader,
+      body: {
+        description: '<a href="http://kimminich.de" target="_blank">More...</a>'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', { description: '<a href="http://kimminich.de" target="_blank">More...</a>' })
+      .done(done)
   })
-  .afterJSON(function (product) {
-    frisby.create('GET existing product item by id')
-      .addHeaders(authHeader)
-      .get(API_URL + '/Products/' + product.data.id)
-      .expectStatus(200)
-      .afterJSON(function () {
-        frisby.create('DELETE existing product is forbidden via API even when authenticated')
-          .addHeaders(authHeader)
-          .delete(API_URL + '/Products/' + +product.data.id)
-          .expectStatus(401)
-          .after(function () {
-            frisby.create('GET all products')
-              .get(API_URL + '/Products')
-              .expectStatus(200)
-              .expectHeaderContains('content-type', 'application/json')
-              .expectJSONTypes('data.*', {
-                id: Number,
-                name: String,
-                description: String,
-                price: Number,
-                image: String
-              })
-              .afterJSON(function (products) {
-                frisby.create('GET product search with empty search parameter returns all products')
-                  .get(REST_URL + '/product/search?q=')
-                  .expectStatus(200)
-                  .expectHeaderContains('content-type', 'application/json')
-                  .expectJSONLength('data', products.data.length)
-                  .toss()
-                frisby.create('GET product search without search parameter returns all products')
-                  .get(REST_URL + '/product/search')
-                  .expectStatus(200)
-                  .expectHeaderContains('content-type', 'application/json')
-                  .expectJSONLength('data', products.data.length)
-                  .toss()
-              }).toss()
-          }).toss()
-      }).toss()
-  }).toss()
 
-frisby.create('POST new product does not filter XSS attacks')
-  .addHeaders(authHeader)
-  .post(API_URL + '/Products', {
-    name: 'XSS Juice (42ml)',
-    description: '<script>alert("XSS3")</script>',
-    price: 9999.99,
-    image: 'xss3juice.jpg'
-  }, { json: true })
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', {
-    description: '<script>alert("XSS3")</script>'
-  }).toss()
-
-frisby.create('GET product search fails with error message that exposes ins SQL Injection vulnerability')
-  .get(REST_URL + '/product/search?q=\';')
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('SQLITE_ERROR: near &quot;;&quot;: syntax error')
-  .toss()
-
-frisby.create('GET product search SQL Injection fails from two missing closing parenthesis')
-  .get(REST_URL + '/product/search?q=\' union select null,id,email,password,null,null,null from users--')
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('SQLITE_ERROR: near &quot;union&quot;: syntax error')
-  .toss()
-
-frisby.create('GET product search SQL Injection fails from one missing closing parenthesis')
-  .get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('SQLITE_ERROR: near &quot;union&quot;: syntax error')
-  .toss()
-
-frisby.create('GET product search SQL Injection fails for SELECT * FROM attack due to wrong number of returned columns')
-  .get(REST_URL + '/product/search?q=\')) union select * from users--')
-  .expectStatus(500)
-  .expectHeaderContains('content-type', 'text/html')
-  .expectBodyContains('<h1>Juice Shop (Express ~')
-  .expectBodyContains('SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns')
-  .toss()
-
-frisby.create('GET product search can create UNION SELECT with Users table and fixed columns')
-  .get(REST_URL + '/product/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\' from users--')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data.?', {
-    id: '1',
-    name: '2',
-    description: '3',
-    price: '4',
-    image: '5',
-    createdAt: '6',
-    updatedAt: '7'
-  }).toss()
-
-frisby.create('GET product search can create UNION SELECT with Users table and required columns')
-  .get(REST_URL + '/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data.?', {
-    name: 1,
-    description: 'admin@' + config.get('application.domain'),
-    price: insecurity.hash('admin123')
+  it('PUT update existing product does not filter XSS attacks', done => {
+    frisby.put(API_URL + '/Products/1', {
+      header: jsonHeader,
+      body: {
+        description: "<script>alert('XSS3')</script>"
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', { description: "<script>alert('XSS3')</script>" })
+      .done(done)
   })
-  .expectJSON('data.?', {
-    name: 2,
-    description: 'jim@' + config.get('application.domain'),
-    price: insecurity.hash('ncc-1701')
-  })
-  .expectJSON('data.?', {
-    name: 3,
-    description: 'bender@' + config.get('application.domain'),
-    price: insecurity.hash('OhG0dPlease1nsertLiquor!')
-  })
-  .toss()
 
-frisby.create('GET product search cannot select logically deleted christmas special by default')
-  .get(REST_URL + '/product/search?q=seasonal%20special%20offer')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', [])
-  .toss()
-
-frisby.create('GET product search by description cannot select logically deleted christmas special due to forced early where-clause termination')
-  .get(REST_URL + '/product/search?q=seasonal%20special%20offer\'))--')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data', [])
-  .toss()
-
-frisby.create('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause')
-  .get(REST_URL + '/product/search?q=' + christmasProduct.name + '\'))--')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSON('data.?', {
-    name: function (value) { expect(value).toBe(christmasProduct.name) }
+  it('DELETE existing product is forbidden via public API', done => {
+    frisby.del(API_URL + '/Products/1')
+      .expect('status', 401)
+      .done(done)
   })
-  .toss()
+
+  it('DELETE existing product is forbidden via API even when authenticated', done => {
+    frisby.del(API_URL + '/Products/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})
+
+describe('/rest/product/search', () => {
+  it('GET product search with no matches returns no products', done => {
+    frisby.get(REST_URL + '/product/search?q=nomatcheswhatsoever')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        expect(res.json.data.length).toBe(0)
+      })
+      .done(done)
+  })
+
+  it('GET product search with one match returns found product', done => {
+    frisby.get(REST_URL + '/product/search?q=o-saft')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        expect(res.json.data.length).toBe(1)
+      })
+      .done(done)
+  })
+
+  it('GET product search with XSS attack is not blocked', done => {
+    frisby.get(REST_URL + '/product/search?q=<script>alert("XSS1")</script>')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .done(done)
+  })
+
+  it('GET product search fails with error message that exposes ins SQL Injection vulnerability', done => {
+    frisby.get(REST_URL + '/product/search?q=\';')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'SQLITE_ERROR: near &quot;;&quot;: syntax error')
+      .done(done)
+  })
+
+  it('GET product search SQL Injection fails from two missing closing parenthesis', done => {
+    frisby.get(REST_URL + '/product/search?q=\' union select null,id,email,password,null,null,null from users--')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
+      .done(done)
+  })
+
+  it('GET product search SQL Injection fails from one missing closing parenthesis', done => {
+    frisby.get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
+      .done(done)
+  })
+
+  it('GET product search SQL Injection fails for SELECT * FROM attack due to wrong number of returned columns', done => {
+    frisby.get(REST_URL + '/product/search?q=\')) union select * from users--')
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns', done => {})
+      .done(done)
+  })
+
+  it('GET product search can create UNION SELECT with Users table and fixed columns', done => {
+    frisby.get(REST_URL + '/product/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\' from users--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data.?', {
+        id: '1',
+        name: '2',
+        description: '3',
+        price: '4',
+        image: '5',
+        createdAt: '6',
+        updatedAt: '7'
+      }).done(done)
+  })
+
+  it('GET product search can create UNION SELECT with Users table and required columns', done => {
+    frisby.get(REST_URL + '/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data.?', {
+        name: 1,
+        description: 'admin@' + config.get('application.domain'),
+        price: insecurity.hash('admin123')
+      })
+      .expect('json', 'data.?', {
+        name: 2,
+        description: 'jim@' + config.get('application.domain'),
+        price: insecurity.hash('ncc-1701')
+      })
+      .expect('json', 'data.?', {
+        name: 3,
+        description: 'bender@' + config.get('application.domain')
+        // no check for Bender's password as it might have already been changed by the CSRF test
+      })
+      .expect('json', 'data.?', {
+        name: 4,
+        description: 'bjoern.kimminich@googlemail.com',
+        price: insecurity.hash('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      })
+      .expect('json', 'data.?', {
+        name: 5,
+        description: 'ciso@' + config.get('application.domain'),
+        price: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+      })
+      .expect('json', 'data.?', {
+        name: 6,
+        description: 'support@' + config.get('application.domain'),
+        price: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+      })
+      .done(done)
+  })
+
+  it('GET product search cannot select logically deleted christmas special by default', done => {
+    frisby.get(REST_URL + '/product/search?q=seasonal%20special%20offer')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        expect(res.json.data.length).toBe(0)
+      })
+      .done(done)
+  })
+
+  it('GET product search by description cannot select logically deleted christmas special due to forced early where-clause termination', done => {
+    frisby.get(REST_URL + '/product/search?q=seasonal%20special%20offer\'))--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        expect(res.json.data.length).toBe(0)
+      })
+      .done(done)
+  })
+
+  it('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause', done => {
+    frisby.get(REST_URL + '/product/search?q=' + christmasProduct.name + '\'))--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        expect(res.json.data.length).toBe(1)
+        expect(res.json.data[0].name).toBe(christmasProduct.name)
+      })
+      .done(done)
+  })
+
+  it('GET product search with empty search parameter returns all products', done => {
+    frisby.get(API_URL + '/Products')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        const products = res.json.data
+        return frisby.get(REST_URL + '/product/search?q=')
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .then(res => {
+            expect(res.json.data.length).toBe(products.length)
+          })
+      }).done(done)
+  })
+
+  it('GET product search without search parameter returns all products', done => {
+    frisby.get(API_URL + '/Products')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(res => {
+        const products = res.json.data
+        return frisby.get(REST_URL + '/product/search')
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .then(res => {
+            expect(res.json.data.length).toBe(products.length)
+          })
+      }).done(done)
+  })
+})

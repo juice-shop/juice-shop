@@ -1,10 +1,8 @@
-'use strict'
-
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var models = require('../models/index')
-var challenges = require('../data/datacache').challenges
-var config = require('config')
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const models = require('../models/index')
+const challenges = require('../data/datacache').challenges
+const config = require('config')
 
 exports = module.exports = function login () {
   function afterLogin (user, res, next) {
@@ -15,17 +13,17 @@ exports = module.exports = function login () {
     } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === 3) {
       utils.solve(challenges.loginBenderChallenge)
     }
-    models.Basket.findOrCreate({ UserId: user.data.id }).success(function (basket) {
-      var token = insecurity.authorize(user)
+    models.Basket.findOrCreate({ UserId: user.data.id }).success(basket => {
+      const token = insecurity.authorize(user)
       user.bid = basket.id // keep track of original basket for challenge solution check
       insecurity.authenticatedUsers.put(token, user)
       res.json({authentication: {token: token, bid: basket.id, umail: user.data.email}})
-    }).error(function (error) {
+    }).error(error => {
       next(error)
     })
   }
 
-  return function (req, res, next) {
+  return (req, res, next) => {
     if (utils.notSolved(challenges.weakPasswordChallenge) && req.body.email === 'admin@' + config.get('application.domain') && req.body.password === 'admin123') {
       utils.solve(challenges.weakPasswordChallenge)
     }
@@ -36,12 +34,12 @@ exports = module.exports = function login () {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
     models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, { plain: true })
-      .success(function (authenticatedUser) {
-        var user = utils.queryResultToJson(authenticatedUser)
+      .success(authenticatedUser => {
+        let user = utils.queryResultToJson(authenticatedUser)
 
-        var rememberedEmail = insecurity.userEmailFrom(req)
+        const rememberedEmail = insecurity.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
-          models.User.find({ where: {email: rememberedEmail} }).success(function (rememberedUser) {
+          models.User.find({ where: {email: rememberedEmail} }).success(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
             if (utils.notSolved(challenges.loginCisoChallenge) && user.data.id === 5) {
               utils.solve(challenges.loginCisoChallenge)
@@ -53,7 +51,7 @@ exports = module.exports = function login () {
         } else {
           res.status(401).send('Invalid email or password.')
         }
-      }).error(function (error) {
+      }).error(error => {
         next(error)
       })
   }

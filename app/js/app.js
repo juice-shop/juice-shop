@@ -71,3 +71,10 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
   $translateProvider.determinePreferredLanguage()
   $translateProvider.fallbackLanguage('en')
 }])
+
+angular.module('juiceShop').filter('emailName', function () {
+  return function (email) {
+    // Returns only the name of a mail address
+    return email.split('@')[0].split('.').join(' ')
+  }
+})

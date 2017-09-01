@@ -71,7 +71,9 @@
         <div uib-collapse="paymentCollapsed">
             <div class="container-fluid well">
                 <div class="row">
-                    <label translate="LABEL_PAYMENT"></label> <small>(<span translate="THANKS_FOR_SUPPORT" translate-value-juiceshop="OWASP Juice Shop"></span> <i class="fa fa-heart"></i>)</small>
+                    <label translate="LABEL_PAYMENT"></label>
+                        <small>(<span translate="THANKS_FOR_SUPPORT" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="THANKS_FOR_SUPPORT_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fa fa-heart"></i>)
+                    </small>
                 </div>
                 <div class="row">
                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
@@ -107,7 +109,9 @@
             </div>
             <div class="container-fluid well">
                 <div class="row">
-                    <label translate="LABEL_MERCHANDISE"></label> <small>(<span translate="OFFICIAL_MERCHANDISE_STORES" translate-value-juiceshop="OWASP Juice Shop"></span> <i class="fa fa-thumbs-up"></i>)</small>
+                    <label translate="LABEL_MERCHANDISE"></label>
+                    <small>(<span translate="OFFICIAL_MERCHANDISE_STORES" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fa fa-thumbs-up"></i>)
+                    </small>
                 </div>
                 <div class="row">
                     <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop" target="_blank" class="btn btn-danger">

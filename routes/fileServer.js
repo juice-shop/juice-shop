@@ -1,14 +1,12 @@
-'use strict'
-
-var path = require('path')
-var utils = require('../lib/utils')
-var insecurity = require('../lib/insecurity')
-var challenges = require('../data/datacache').challenges
+const path = require('path')
+const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
+const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function servePublicFiles () {
-  return function (req, res, next) {
-    var file = req.params.file
-    var mdDebug = req.query.md_debug
+  return (req, res, next) => {
+    const file = req.params.file
+    const mdDebug = req.query.md_debug
 
     if (!file.includes('/')) {
       verify(file, res, next, mdDebug)

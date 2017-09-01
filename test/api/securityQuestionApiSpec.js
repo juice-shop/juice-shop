@@ -1,71 +1,89 @@
-var frisby = require('frisby')
-var insecurity = require('../../lib/insecurity')
-var config = require('config')
+const frisby = require('frisby')
+const Joi = frisby.Joi
+const insecurity = require('../../lib/insecurity')
+const config = require('config')
 
-var API_URL = 'http://localhost:3000/api'
-var REST_URL = 'http://localhost:3000/rest'
+const API_URL = 'http://localhost:3000/api'
+const REST_URL = 'http://localhost:3000/rest'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize() }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-frisby.create('GET all security questions ')
-  .get(API_URL + '/SecurityQuestions')
-  .expectStatus(200)
-  .expectHeaderContains('content-type', 'application/json')
-  .expectJSONTypes('data.*', {
-    id: Number,
-    question: String
+describe('/api/SecurityQuestions', () => {
+  it('GET all security questions ', done => {
+    frisby.get(API_URL + '/SecurityQuestions')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data.*', {
+        id: Joi.number(),
+        question: Joi.string()
+      })
+      .done(done)
   })
-  .toss()
 
-frisby.create('GET existing security question by id is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .get(API_URL + '/SecurityQuestions/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('POST new security question is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .post(API_URL + '/SecurityQuestions', {
-    question: 'Your own first name?'
+  it('POST new security question is forbidden via public API even when authenticated', done => {
+    frisby.post(API_URL + '/SecurityQuestions', {
+      headers: authHeader,
+      body: {
+        question: 'Your own first name?'
+      }
+    })
+      .expect('status', 401)
+      .done(done)
   })
-  .expectStatus(401)
-  .toss()
+})
 
-frisby.create('PUT update existing security question is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .put(API_URL + '/SecurityQuestions/1', {
-    question: 'Your own first name?'
-  }, { json: true })
-  .expectStatus(401)
-  .toss()
-
-frisby.create('DELETE existing security question is forbidden via public API even when authenticated')
-  .addHeaders(authHeader)
-  .delete(API_URL + '/SecurityQuestions/1')
-  .expectStatus(401)
-  .toss()
-
-frisby.create('GET security question for an existing user\'s email address')
-  .get(REST_URL + '/user/security-question?email=jim@' + config.get('application.domain'))
-  .expectStatus(200)
-  .expectJSON('question', {
-    question: 'Your eldest siblings middle name?'
+describe('/api/SecurityQuestions/:id', () => {
+  it('GET existing security question by id is forbidden via public API even when authenticated', done => {
+    frisby.get(API_URL + '/SecurityQuestions/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
   })
-  .toss()
 
-frisby.create('GET security question returns nothing for an unknown email address')
-  .get(REST_URL + '/user/security-question?email=horst@unknown-us.er')
-  .expectStatus(200)
-  .expectJSON({})
-  .toss()
+  it('PUT update existing security question is forbidden via public API even when authenticated', done => {
+    frisby.put(API_URL + '/SecurityQuestions/1', {
+      headers: authHeader,
+      body: {
+        question: 'Your own first name?'
+      }
+    })
+      .expect('status', 401)
+      .done(done)
+  })
 
-frisby.create('GET security question returns nothing for missing email address')
-  .get(REST_URL + '/user/security-question')
-  .expectStatus(200)
-  .expectJSON({})
-  .toss()
+  it('DELETE existing security question is forbidden via public API even when authenticated', done => {
+    frisby.del(API_URL + '/SecurityQuestions/1', { headers: authHeader })
+      .expect('status', 401)
+      .done(done)
+  })
+})
 
-frisby.create('GET security question is not susceptible to SQL Injection attacks')
-  .get(REST_URL + '/user/security-question?email=\';')
-  .expectStatus(200)
-  .toss()
+describe('/rest/user/security-question', () => {
+  it('GET security question for an existing user\'s email address', done => {
+    frisby.get(REST_URL + '/user/security-question?email=jim@' + config.get('application.domain'))
+      .expect('status', 200)
+      .expect('json', 'question', {
+        question: 'Your eldest siblings middle name?'
+      })
+      .done(done)
+  })
+
+  it('GET security question returns nothing for an unknown email address', done => {
+    frisby.get(REST_URL + '/user/security-question?email=horst@unknown-us.er')
+      .expect('status', 200)
+      .expect('json', {})
+      .done(done)
+  })
+
+  it('GET security question returns nothing for missing email address', done => {
+    frisby.get(REST_URL + '/user/security-question')
+      .expect('status', 200)
+      .expect('json', {})
+      .done(done)
+  })
+
+  it('GET security question is not susceptible to SQL Injection attacks', done => {
+    frisby.get(REST_URL + '/user/security-question?email=\';')
+      .expect('status', 200)
+      .done(done)
+  })
+})

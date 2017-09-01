@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"İndirim koduna mı ihtiyacınız var? Aylık indirim kodları ve diğer spamler için bizi {{twitter}} ya da {{facebook}}'tan takip edin!",
   "BTN_REDEEM":"Kullan",
   "THANKS_FOR_SUPPORT":"{{juiceshop}}'u desteklediğiniz için teşekkür ederiz!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Ödeme",
   "LABEL_MERCHANDISE":"Ürünler",
   "OFFICIAL_MERCHANDISE_STORES":"{{juiceshop}} kıyafetleri, kupaları ve çıkartmaları için resmi mağaza!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"%{{discount}} indirim satın alma sırasında uygulanacaktır.",
   "TITLE_CHANGE_PASSWORD":"Parola Değiştir",
   "MANDATORY_CURRENT_PASSWORD":"Lütfen mevcut parolanızı giriniz.",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

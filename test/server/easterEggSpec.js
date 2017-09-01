@@ -1,27 +1,29 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
-describe('easterEgg', function () {
-  var serveEasterEgg, challenges, req, res
-  var save = function () { return {success: function () {}} }
+describe('easterEgg', () => {
+  let serveEasterEgg, challenges, req, res
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     serveEasterEgg = require('../../routes/easterEgg')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy() }
     req = { }
   })
 
-  it('should serve /app/private/threejs-demo.html', function () {
+  it('should serve /app/private/threejs-demo.html', () => {
     serveEasterEgg()(req, res)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]threejs-demo\.html/))
   })
 
-  it('should solve "easterEggLevelTwoChallenge"', function () {
+  it('should solve "easterEggLevelTwoChallenge"', () => {
     challenges.easterEggLevelTwoChallenge = { solved: false, save: save }
 
     serveEasterEgg()(req, res)

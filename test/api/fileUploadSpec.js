@@ -1,63 +1,51 @@
-var frisby = require('frisby')
-var fs = require('fs')
-var path = require('path')
-var FormData = require('form-data')
+const frisby = require('frisby')
+const fs = require('fs')
+const path = require('path')
+const FormData = require('form-data')
 
-var URL = 'http://localhost:3000'
+const URL = 'http://localhost:3000'
 
-var invalidSizeForClient = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
-var validSizeForServerForm = new FormData()
-validSizeForServerForm.append('file', fs.createReadStream(invalidSizeForClient), {
-  knownLength: fs.statSync(invalidSizeForClient).size
-})
+// FIXME Adapt to solution of https://github.com/vlucas/frisby/issues/372
+describe('/file-upload', () => {
+  let file, form
 
-frisby.create('POST file too large for client validation but valid for API')
-  .post(URL + '/file-upload',
-    validSizeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + validSizeForServerForm.getBoundary(),
-      'content-length': validSizeForServerForm.getLengthSync()
-    }
+  it('POST file valid for client and API', done => {
+    file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 204)
+      .done(done)
   })
-  .expectStatus(204)
-  .toss()
 
-var invalidTypeForClient = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
-var validTypeForServerForm = new FormData()
-validTypeForServerForm.append('file', fs.createReadStream(invalidTypeForClient), {
-  knownLength: fs.statSync(invalidTypeForClient).size
-})
+  it('POST file too large for client validation but valid for API', done => {
+    file = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
 
-frisby.create('POST file with illegal type for client validation but valid for API')
-  .post(URL + '/file-upload',
-    validTypeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + validTypeForServerForm.getBoundary(),
-      'content-length': validTypeForServerForm.getLengthSync()
-    }
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 204)
+      .done(done)
   })
-  .expectStatus(204)
-  .toss()
 
-var invalidSizeForServer = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
-var invalidSizeForServerForm = new FormData()
-invalidSizeForServerForm.append('file', fs.createReadStream(invalidSizeForServer), {
-  knownLength: fs.statSync(invalidSizeForServer).size
-})
+  it('POST file with illegal type for client validation but valid for API', done => {
+    file = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
 
-frisby.create('POST file too large for API')
-  .post(URL + '/file-upload',
-    invalidSizeForServerForm,
-  {
-    json: false,
-    headers: {
-      'content-type': 'multipart/form-data; boundary=' + invalidSizeForServerForm.getBoundary(),
-      'content-length': invalidSizeForServerForm.getLengthSync()
-    }
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 204)
+      .done(done)
   })
-  .expectStatus(500)
-  .toss()
+
+  it('POST file too large for API', done => {
+    file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 500)
+      .done(done)
+  })
+})

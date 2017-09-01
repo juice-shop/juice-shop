@@ -73,11 +73,13 @@ app/public/images/products/*.*
 !app/public/images/products/melon_bike.jpeg
 !app/public/images/products/3d_keychain.jpg
 !app/public/images/products/waspy.png
+!app/public/images/products/jawa_script.jpg
 !app/public/images/products/thingie1.jpg
 !app/public/images/products/Wooden-crutch.jpg
 !app/public/images/products/JuiceShop.stl
 !app/public/images/products/squareBox1-40x40x40.stl
 !app/public/images/products/crutch.123dx
+!app/public/images/products/stickersheet_se.png
 
 # Custom configuration files
 config/*.yml

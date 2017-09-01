@@ -57,9 +57,11 @@
   "FOLLOW_FOR_MONTHLY_COUPONS":"Necesita un código de cupón? Síganos en {{twitter}} o {{facebook}} para conseguir cupones mensualmente y otro tipo de spam!",
   "BTN_REDEEM":"Aplicar",
   "THANKS_FOR_SUPPORT":"Gracias por apoyar a {{juiceshop}}!",
+  "THANKS_FOR_SUPPORT_CUSTOMIZED":"Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT":"Pago",
   "LABEL_MERCHANDISE":"Comercialización",
   "OFFICIAL_MERCHANDISE_STORES":"Tiendas oficiales para ropa, tazas y pegatinas de {{juiceshop}}!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
   "DISCOUNT_APPLIED":"El descuento del {{discount}}% se le aplicará a la hora de tramitar su pedido.",
   "TITLE_CHANGE_PASSWORD":"Cambiar Contraseña",
   "MANDATORY_CURRENT_PASSWORD":"Por favor, indique su actual contraseña.",
@@ -118,5 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED":"You now have to manually restart the application to start over!"
+  "RESTART_REQUIRED":"You now have to manually restart the application to start over!",
+  "LABEL_EDIT_REVIEW":"Edit Review",
+  "LABEL_REVIEW":"Review",
+  "LABEL_REVIEWS":"Reviews",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
+  "LABEL_NO_REVIEWS":"No Reviews"
 }

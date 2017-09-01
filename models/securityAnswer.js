@@ -1,10 +1,8 @@
 /* jslint node: true */
-'use strict'
+const insecurity = require('../lib/insecurity')
 
-var insecurity = require('../lib/insecurity')
-
-module.exports = function (sequelize, DataTypes) {
-  var SecurityAnswer = sequelize.define('SecurityAnswer', {
+module.exports = (sequelize, DataTypes) => {
+  const SecurityAnswer = sequelize.define('SecurityAnswer', {
     answer: DataTypes.STRING,
     UserId: {type: DataTypes.INTEGER, unique: true}
   },

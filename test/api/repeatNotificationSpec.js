@@ -1,18 +1,23 @@
-var frisby = require('frisby')
+const frisby = require('frisby')
 
-var REST_URL = 'http://localhost:3000/rest'
+const REST_URL = 'http://localhost:3000/rest'
 
-frisby.create('GET repeat notification without passing a challenge')
-  .get(REST_URL + '/repeat-notification')
-  .expectStatus(200)
-  .toss()
+describe('/rest/repeat-notification', () => {
+  it('GET triggers repeating notification without passing a challenge', done => {
+    frisby.get(REST_URL + '/repeat-notification')
+      .expect('status', 200)
+      .done(done)
+  })
 
-frisby.create('GET repeat notification passing an unsolved challenge')
-  .get(REST_URL + '/repeat-notification?challenge=Retrieve%20Blueprint')
-  .expectStatus(200)
-  .toss()
+  it('GET triggers repeating notification passing an unsolved challenge', done => {
+    frisby.get(REST_URL + '/repeat-notification?challenge=Retrieve%20Blueprint')
+      .expect('status', 200)
+      .done(done)
+  })
 
-frisby.create('GET repeat notification passing a solved challenge')
-  .get(REST_URL + '/repeat-notification?challenge=Error%20Handling')
-  .expectStatus(200)
-  .toss()
+  it('GET triggers repeating notification passing a solved challenge', done => {
+    frisby.get(REST_URL + '/repeat-notification?challenge=Error%20Handling')
+      .expect('status', 200)
+      .done(done)
+  })
+})

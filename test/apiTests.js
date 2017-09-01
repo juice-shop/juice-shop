@@ -1,20 +1,20 @@
 'use strict'
 
-var spawn = require('cross-spawn')
-var colors = require('colors/safe')
-var server = require('./../server.js')
+const spawn = require('cross-spawn')
+const colors = require('colors/safe')
+const server = require('./../server.js')
 
-server.start(function () {
-  var jasmineNode = spawn('jasmine-node', [ 'test/api', '--junitreport', '--output', 'build/reports/api_results' ])
+server.start(() => {
+  const jest = spawn('jest')
   function logToConsole (data) {
     console.log(String(data))
   }
 
-  jasmineNode.stdout.on('data', logToConsole)
-  jasmineNode.stderr.on('data', logToConsole)
+  jest.stdout.on('data', logToConsole)
+  jest.stderr.on('data', logToConsole)
 
-  jasmineNode.on('exit', function (exitCode) {
-    console.log('Jasmine-Node exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')')
+  jest.on('exit', exitCode => {
+    console.log('Jest exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')')
     server.close(exitCode)
   })
 })
