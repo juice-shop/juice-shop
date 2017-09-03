@@ -120,10 +120,10 @@
   "AUTO_RESTORED_PROGRESS":"U vorige vooruitgang is automatisch hersteld.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Herstellen van uw eerdere vooruitgang is mislukt: {{error}}",
   "RESET_HACKING_PROGRESS":"Verwijder cookie om vooruitgang ongedaan te maken",
-  "RESTART_REQUIRED":"U moet nu handmatig de applicatie herstarten om weer opnieuw te beginnen!"
-  "LABEL_EDIT_REVIEW":"Edit Review",
-  "LABEL_REVIEW":"Review",
-  "LABEL_REVIEWS":"Reviews",
-  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Add a review for this product",
-  "LABEL_NO_REVIEWS":"No Reviews"
+  "RESTART_REQUIRED":"U moet nu handmatig de applicatie herstarten om weer opnieuw te beginnen!",
+  "LABEL_EDIT_REVIEW":"Beoordeling bewerken",
+  "LABEL_REVIEW":"Beoordeling",
+  "LABEL_REVIEWS":"Beoordelingen",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT":"Voeg een beoordeling toe aan dit product",
+  "LABEL_NO_REVIEWS":"Geen beoordelingen"
 }
