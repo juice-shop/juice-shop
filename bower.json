@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure Javascript Web Application",
-  "version": "5.0.0-SNAPSHOT",
+  "version": "5.0.0",
   "private": true,
   "dependencies": {
     "angular": "~1.5",
@@ -34,6 +34,8 @@
     "angular-socket.io-mock": "~1.2"
   },
   "resolutions": {
-    "angular": "~1.5"
+    "angular": "~1.5",
+    "qrcode-generator": "~0.2",
+    "angular-translate": "~2.15"
   }
 }
