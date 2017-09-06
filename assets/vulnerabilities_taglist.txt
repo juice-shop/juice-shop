@@ -32,3 +32,9 @@ vulnerable component
 library
 easter egg
 cryptanalysis
+typosquatting
+nosql injection
+denial of service
+forgotten content
+broken jwt
+misconfiguration
