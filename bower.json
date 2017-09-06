@@ -35,7 +35,6 @@
   },
   "resolutions": {
     "angular": "~1.5",
-    "qrcode-generator": "~0.2",
     "angular-translate": "~2.15"
   }
 }
