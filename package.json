@@ -100,7 +100,7 @@
     "mocha": "~3",
     "nyc": "~11",
     "phantomjs-prebuilt": "~2",
-    "protractor": "~4",
+    "protractor": "~5",
     "shelljs": "~0.7",
     "sinon": "~2.3",
     "sinon-chai": "~2.13",
