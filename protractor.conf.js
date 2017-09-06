@@ -10,7 +10,8 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'directConnect': true
   },
 
   baseUrl: 'http://localhost:3000',
@@ -28,12 +29,5 @@ exports.config = {
       consolidateAll: true,
       savePath: 'build/reports/e2e_results'
     }))
-  }
-}
-
-if (process.env.TRAVIS_BUILD_NUMBER) {
-  exports.config.capabilities = {
-    'browserName': 'firefox',
-    'directConnect': true
   }
 }
