@@ -8,6 +8,9 @@
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow))
+> —
+> [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
+> ([@shehackspurple](https://twitter.com/shehackspurple))
 
 OWASP Juice Shop is an intentionally insecure web application written
 entirely in Javascript which encompasses the entire range of
