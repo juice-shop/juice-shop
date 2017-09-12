@@ -178,7 +178,7 @@ where this project was mentioned or used!
   by Björn Kimminich,
   [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/),
   01.12.2015
-* [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/)
+* [Juice Shop - Hacking an intentionally insecure JavaScript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/)
   by Björn Kimminich,
   [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/)
