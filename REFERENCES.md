@@ -100,6 +100,10 @@ where this project was mentioned or used!
   with Björn Kimminich,
   [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
   18.09.2017
+* Hacking session at [Angular Talk & Code](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/events/234414398/)
+  with Björn Kimminich,
+  [Angular Meetup Hamburg](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/),
+  13.09.2017
 * Capture The Flag - Security Game by Benjamin Brunzel, Jöran Tesse,
   Rüdiger Heins & Sven Strittmatter,
   [solutions.hamburg](https://solutions.hamburg), 08.09.2017
