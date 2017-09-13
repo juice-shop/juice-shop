@@ -5,9 +5,10 @@ MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
 LABEL version = "5.1.0-SNAPSHOT"
 
 RUN sudo apt update && sudo apt upgrade -y && cd /root/ &&\
- sudo apt install apt-utils -y && sudo apt install git python wget build-essential libfontconfig1-dev sqlite3 -y &&\
- sudo wget https://nodejs.org/dist/latest-v6.x/node-v6.11.3-linux-armv6l.tar.gz && sudo tar -xvf node-v6.11.3-linux-armv6l.tar.gz && cd ~/node-v6.11.3-linux-armv6l && sudo cp -R * /usr/local/ && cd /root &&\
- git clone https://github.com/bkimminich/juice-shop.git && cd juice-shop && npm install --production --unsafe-perm
+ sudo apt install apt-utils -y && sudo apt install git python wget build-essential libfontconfig1-dev sqlite3 -y && sudo git clone https://github.com/piksel/phantomjs-raspberrypi.git && \
+ ls -alh && sudo chmod +x phantomjs-raspberrypi/bin/phantomjs && sudo chmod 775 phantomjs-raspberrypi/bin/phantomjs && sudo ln -s phantomjs-raspberrypi/bin/phantomjs /usr/bin/ && \
+sudo wget https://nodejs.org/dist/latest-v6.x/node-v6.11.3-linux-armv6l.tar.gz && sudo tar -xvf node-v6.11.3-linux-armv6l.tar.gz && cd ~/node-v6.11.3-linux-armv6l && sudo cp -R * /usr/local/ && cd /root \
+&& git clone https://github.com/bkimminich/juice-shop.git && cd juice-shop && npm install --production --unsafe-perm
 WORKDIR /root/juice-shop
 
 EXPOSE  3000
