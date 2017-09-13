@@ -104,7 +104,19 @@ module.exports = function (grunt) {
           from: '%%APP_VERSION%%',
           to: '<%= pkg.version %>'
         }]
+      },
+      armDockerfile: {
+        src: ['docker/Dockerfile_ARM.template'],
+        dest: 'Dockerfile_ARM.df',
+        replacements: [{
+          from: '%%NODE_VERSION%%',
+          to: '6'
+        }, {
+          from: '%%APP_VERSION%%',
+          to: '<%= pkg.version %>'
+        }]
       }
+
     }
   })
 
@@ -117,5 +129,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
   grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
-  grunt.registerTask('docker', [ 'replace:dockerfile' ])
+  grunt.registerTask('docker', [ 'replace:dockerfile', 'replace:armDockerfile' ])
 }
