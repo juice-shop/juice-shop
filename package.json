@@ -113,9 +113,6 @@
     "stryker-karma-runner": "~0",
     "stryker-mocha-runner": "~0"
   },
-  "peerDependencies": {
-    "phantomjs-prebuilt": "~2"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bkimminich/juice-shop.git"
