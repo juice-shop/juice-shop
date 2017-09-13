@@ -98,9 +98,6 @@ module.exports = function (grunt) {
         src: ['docker/Dockerfile.template'],
         dest: 'Dockerfile',
         replacements: [{
-          from: '%%NODE_VERSION%%',
-          to: '6'
-        }, {
           from: '%%APP_VERSION%%',
           to: '<%= pkg.version %>'
         }]
@@ -109,9 +106,6 @@ module.exports = function (grunt) {
         src: ['docker/Dockerfile_ARM.template'],
         dest: 'Dockerfile_ARM.df',
         replacements: [{
-          from: '%%NODE_VERSION%%',
-          to: '6'
-        }, {
           from: '%%APP_VERSION%%',
           to: '<%= pkg.version %>'
         }]
