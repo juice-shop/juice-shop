@@ -101,16 +101,7 @@ module.exports = function (grunt) {
           from: '%%APP_VERSION%%',
           to: '<%= pkg.version %>'
         }]
-      },
-      armDockerfile: {
-        src: ['docker/Dockerfile_ARM.template'],
-        dest: 'Dockerfile_ARM.df',
-        replacements: [{
-          from: '%%APP_VERSION%%',
-          to: '<%= pkg.version %>'
-        }]
       }
-
     }
   })
 
