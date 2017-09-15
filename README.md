@@ -7,8 +7,7 @@
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
-> ([@dschadow](https://github.com/dschadow))
-> —
+> ([@dschadow](https://github.com/dschadow)) —
 > [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
 > ([@shehackspurple](https://twitter.com/shehackspurple))
 
@@ -56,7 +55,13 @@ overview please visit the official project page:
 3. Run `docker run --rm -p 3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead
-   of the native docker installation )
+   of the native docker installation)
+
+> If you want to run Juice Shop on a Raspberry Pi 3, there is an
+> unofficial Docker image available at
+> <https://hub.docker.com/r/arclight/juice-shop_arm> which is based on
+> `resin/rpi-raspbian` and maintained by
+> [@battletux](https://github.com/battletux).
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
