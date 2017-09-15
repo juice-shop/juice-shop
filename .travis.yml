@@ -64,7 +64,7 @@ deploy:
 - provider: releases
   overwrite: true
   api_key:
-    secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+    secure: d7q4aTJZXcHobnUDoC3ebJGoPwpKOkVayprfxrB6N31mJh3st7XLTWDjo7d9DFIdmKGYsVdzmGbz0G5VFnGYENDHyBCDPCnYUXLpRltzUE2edcWLB9sOiMZF1K548VvHY75r/ewxA3GSPzFM8hByF8zCPNOENnFlt3oU4qkkuk8=
   file: dist/*
   skip_cleanup: true
   file_glob: true
