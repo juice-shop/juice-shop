@@ -54,7 +54,7 @@ before_deploy:
 deploy:
 - provider: heroku
   api_key:
-    secure: haABq1BRLYElRq+V+7knDlMDBMMIj2aASOSdm6JFYwQa1C60nO2rWkRXBk2j3H/NSjIDamOgBzelZNfuYwnmVUrL25SEWflM1ydDGM2RmgEx0mOu6sCtz8gugOVDBTsBrc0OLcwY7trEQBlKbr+xdD1aATDLfAD+pK4SZt233gg=
+    secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
   app:
     master: juice-shop
     develop: juice-shop-staging
