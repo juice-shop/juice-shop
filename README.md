@@ -13,7 +13,7 @@
 > ([@shehackspurple](https://twitter.com/shehackspurple))
 
 OWASP Juice Shop is an intentionally insecure web application written
-entirely in Javascript which encompasses the entire range of
+entirely in JavaScript which encompasses the entire range of
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
 
@@ -120,7 +120,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > and login. Apart from the visual/audible effect, the attacker also
 > installed [an input logger](http://192.168.33.10/logger.php) to grab
 > credentials! This could easily run on a 3rd party server in real life!
-> 
+>
 > _This feature is only available when running a Vagrant box. A
 > recording of the effect is available on Youtube:_
 > [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
