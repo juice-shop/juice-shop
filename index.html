@@ -591,7 +591,7 @@ products:
     "i2->v: Find weak spot\n" +
     "v-->h:\n" +
     "h->x: Sophisticated attack\n" +
-    "x->x: Success!\n" +
+    "x->x: (Fail, ) success!\n" +
     "x-->h: Challenge solved!!!"
   );
   sophisticatedAttack.drawSVG("sophisticatedAttack", {theme: 'hand'});
@@ -604,7 +604,7 @@ products:
     "i-->h:\n" +
     "h->h: Deduct weakness\n" +
     "h->x: One-eyed Brute Force/Guessing\n" +
-    "x->x: Fail, fail, success!\n" +
+    "x->x: (Fail, fail,) success!\n" +
     "x-->h: Challenge solved!!"
   );
   oneEyedAttack.drawSVG("oneEyedAttack", {theme: 'hand'});
@@ -613,7 +613,7 @@ products:
     "participant Hacker as h\n" +
     "participant Challenge as x\n" +
     "h->x: Obvious Attack Vector/Blind Brute Force/Guessing\n" +
-    "x->x: Fail, fail, fail, fail, fail, success!\n" +
+    "x->x: (Fail, fail, fail, fail,) success!\n" +
     "x-->h: Challenge solved!"
   );
   blindAttack.drawSVG("blindAttack", {theme: 'hand'});
