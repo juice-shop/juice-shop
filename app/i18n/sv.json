@@ -117,7 +117,7 @@
   "FORGOT_PASSWORD":"Glömt ditt lösenord?",
   "TITLE_FORGOT_PASSWORD":"Glömt lösenordet",
   "NOTIFICATION_SERVER_STARTED":"Servern har startats om",
-  "AUTO_RESTORED_PROGRESS":"Your previous hacking progress has been restored automatically.",
+  "AUTO_RESTORED_PROGRESS":"Dina tidigare hacker-framsteg har återladdats automatiskt.",
   "AUTO_RESTORE_PROGRESS_FAILED":"Restoring your previous hacking progress failed: {{error}}",
   "RESET_HACKING_PROGRESS":"Delete cookie to clear hacking progress",
   "RESTART_REQUIRED":"Nu måste du återstarta applikationen manuellt för att börja om!",
