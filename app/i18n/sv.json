@@ -61,7 +61,7 @@
   "LABEL_PAYMENT":"Betalning",
   "LABEL_MERCHANDISE":"Merchandise",
   "OFFICIAL_MERCHANDISE_STORES":"Officiella butiker för {{juiceshop}} kläder, muggar och stickers!",
-  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Officiell butik för kläder, muggar och klistermärken av open source-projektet bakom {{appname}}!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED":"Officiell butik för kläder, muggar och klistermärken till open source-projektet bakom {{appname}}!",
   "DISCOUNT_APPLIED":"Din rabatt på {{discount}}% kommer att räknas av i kassan.",
   "TITLE_CHANGE_PASSWORD":"Byt Lösenord",
   "MANDATORY_CURRENT_PASSWORD":"Du måste ange ditt nuvarande lösenord.",
