@@ -19,8 +19,8 @@ exports = module.exports = function changePassword () {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send('Current password is not correct.')
         } else {
-          models.User.find(loggedInUser.data.id).success(user => {
-            user.updateAttributes({ password: newPassword }).success(user => {
+          models.User.find(loggedInUser.data.id).then(user => {
+            user.updateAttributes({ password: newPassword }).then(user => {
               if (utils.notSolved(challenges.csrfChallenge) && user.id === 3) {
                 if (user.password === insecurity.hash('slurmCl4ssic')) {
                   utils.solve(challenges.csrfChallenge)

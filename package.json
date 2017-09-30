@@ -70,7 +70,7 @@
     "replace": "~0.3",
     "request": "~2.81.0",
     "sanitize-html": "1.4.2",
-    "sequelize": "~1.7",
+    "sequelize": "~4",
     "sequelize-restful": "~0.4",
     "serve-favicon": "~2.4",
     "serve-index": "~1.9",

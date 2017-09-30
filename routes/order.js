@@ -11,7 +11,7 @@ exports = module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id: id }, include: [ models.Product ] })
-      .success(basket => {
+      .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const orderNo = insecurity.hash(new Date() + '_' + id)

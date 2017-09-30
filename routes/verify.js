@@ -41,7 +41,7 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 
 exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
-    products.osaft.reload().success(() => {
+    products.osaft.reload().then(() => {
       if (!utils.contains(products.osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
         if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
           utils.solve(challenges.changeProductChallenge)
@@ -50,7 +50,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.feedbackChallenge)) {
-    models.Feedback.findAndCountAll({ where: { rating: 5 } }).success(feedbacks => {
+    models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(feedbacks => {
       if (feedbacks.count === 0) {
         utils.solve(challenges.feedbackChallenge)
       }
@@ -58,7 +58,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
     models.Feedback.findAndCountAll({ where: models.Sequelize.or(models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]), models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ])) }
-    ).success(data => {
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.knownVulnerableComponentChallenge)
       }
@@ -66,7 +66,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.weirdCryptoChallenge)) {
     models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%hashids%\'' ], [ 'comment LIKE \'%md5%\'' ], [ 'comment LIKE \'%base64%\'' ]) }
-    ).success(data => {
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.weirdCryptoChallenge)
       }
@@ -74,7 +74,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.jwtSecretChallenge)) {
     models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
-    ).success(data => {
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.jwtSecretChallenge)
       }
@@ -82,7 +82,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
     models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
-    ).success(data => {
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingNpmChallenge)
       }
@@ -90,7 +90,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
     models.Feedback.findAndCountAll({ where: 'comment LIKE \'%angular-tooltipp%\'' }
-    ).success(data => {
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingBowerChallenge)
       }

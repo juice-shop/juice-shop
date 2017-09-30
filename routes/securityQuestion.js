@@ -8,9 +8,9 @@ exports = module.exports = function securityQuestion () {
         model: models.User,
         where: { email: email }
       }]
-    }).success(answer => {
+    }).then(answer => {
       if (answer) {
-        models.SecurityQuestion.find(answer.SecurityQuestionId).success(question => {
+        models.SecurityQuestion.find(answer.SecurityQuestionId).then(question => {
           res.json({ question: question })
         }).error(error => {
           next(error)

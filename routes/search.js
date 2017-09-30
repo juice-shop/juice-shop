@@ -9,11 +9,11 @@ exports = module.exports = function searchProducts () {
       utils.solve(challenges.localXssChallenge)
     }
     models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL) ORDER BY name')
-      .success(products => {
+      .then(products => {
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
           const dataString = JSON.stringify(products)
           let solved = true
-          models.User.findAll().success(data => {
+          models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data && users.data.length) {
               for (let i = 0; i < users.data.length; i++) {

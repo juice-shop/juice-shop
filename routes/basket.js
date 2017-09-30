@@ -7,7 +7,7 @@ exports = module.exports = function retrieveBasket () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id: id }, include: [ models.Product ] })
-      .success(basket => {
+      .then(basket => {
         /* jshint eqeqeq:false */
         if (utils.notSolved(challenges.basketChallenge)) {
           const user = insecurity.authenticatedUsers.from(req)

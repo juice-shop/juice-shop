@@ -254,8 +254,7 @@ exports.start = function (readyCallback) {
   }
 
   if (!this.server) {
-    models.sequelize.drop()
-    models.sequelize.sync().success(function () {
+    models.sequelize.sync({force: true}).then(function () {
       datacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
@@ -264,7 +263,8 @@ exports.start = function (readyCallback) {
           readyCallback()
         }
       })
-    })
+  }, console.error)
+
     populateIndexTemplate()
   }
 }

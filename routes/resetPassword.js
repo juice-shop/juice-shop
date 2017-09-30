@@ -21,10 +21,10 @@ exports = module.exports = function resetPassword () {
           model: models.User,
           where: { email: email }
         }]
-      }).success(data => {
+      }).then(data => {
         if (insecurity.hmac(answer) === data.answer) {
-          models.User.find(data.UserId).success(user => {
-            user.updateAttributes({ password: newPassword }).success(user => {
+          models.User.find(data.UserId).then(user => {
+            user.updateAttributes({ password: newPassword }).then(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
