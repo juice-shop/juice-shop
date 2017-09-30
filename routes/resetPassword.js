@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-exports = module.exports = function resetPassword() {
+exports = module.exports = function resetPassword () {
   return (req, res, next) => {
     const email = req.body.email
     const answer = req.body.answer

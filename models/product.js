@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: {
       type: DataTypes.STRING,
-      set(description) {
+      set (description) {
         if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<script>alert("XSS3")</script>')) {
           utils.solve(challenges.restfulXssChallenge)
         }
