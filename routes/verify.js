@@ -2,6 +2,7 @@ const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 const cache = require('../data/datacache')
+const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
 
@@ -57,23 +58,48 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-    models.Feedback.findAndCountAll({ where: models.Sequelize.or(models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]), models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ])) }
-    ).then(data => {
+    models.Feedback.findAndCountAll({
+      where: {
+        comment: {
+          [Op.or]: {
+            [Op.and]: {
+              [Op.like]: '%sanitize-html%',
+              [Op.like]: '%1.4.2%'
+            },
+            [Op.and]: {
+              [Op.like]: '%sequelize%',
+              [Op.like]: '%1.4.2%'
+            }
+          }
+        }
+      }
+    }).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.knownVulnerableComponentChallenge)
       }
     })
   }
   if (utils.notSolved(challenges.weirdCryptoChallenge)) {
-    models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%hashids%\'' ], [ 'comment LIKE \'%md5%\'' ], [ 'comment LIKE \'%base64%\'' ]) }
-    ).then(data => {
+    models.Feedback.findAndCountAll({
+      where: {
+        comment: {
+          [Op.or]: {
+            [Op.like]: '%z85%',
+            [Op.like]: '%base85%',
+            [Op.like]: '%hashids%',
+            [Op.like]: '%md5%',
+            [Op.like]: '%base64%'
+          }
+        }
+      }
+    }).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.weirdCryptoChallenge)
       }
     })
   }
   if (utils.notSolved(challenges.jwtSecretChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
+    models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: `%${insecurity.defaultSecret}%` } } }
     ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.jwtSecretChallenge)
@@ -81,7 +107,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
+    models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
     ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingNpmChallenge)
@@ -89,7 +115,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%angular-tooltipp%\'' }
+    models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%angular-tooltipp%' } } }
     ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingBowerChallenge)
