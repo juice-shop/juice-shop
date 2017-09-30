@@ -4,10 +4,10 @@ const insecurity = require('../lib/insecurity')
 module.exports = (sequelize, DataTypes) => {
   const SecurityAnswer = sequelize.define('SecurityAnswer', {
     answer: {
-        type: DataTypes.STRING,
-        set(answer) {
-            this.setDataValue('answer', insecurity.hmac(answer));
-        }
+      type: DataTypes.STRING,
+      set (answer) {
+        this.setDataValue('answer', insecurity.hmac(answer))
+      }
     },
     UserId: {type: DataTypes.INTEGER, unique: true}
   },

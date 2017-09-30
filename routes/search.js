@@ -9,7 +9,8 @@ exports = module.exports = function searchProducts () {
       utils.solve(challenges.localXssChallenge)
     }
     models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL) ORDER BY name')
-      .then(products => {
+      .then((queryResult) => {
+        const products = queryResult[0]
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
           const dataString = JSON.stringify(products)
           let solved = true
@@ -30,6 +31,7 @@ exports = module.exports = function searchProducts () {
         }
         res.json(utils.queryResultToJson(products))
       }).error(error => {
+        console.error('its failing')
         next(error)
       })
   }
