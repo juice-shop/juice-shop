@@ -9,15 +9,13 @@ module.exports = (sequelize, DataTypes) => {
         this.setDataValue('answer', insecurity.hmac(answer))
       }
     },
-    UserId: {type: DataTypes.INTEGER, unique: true}
-  },
-    {
-      classMethods: {
-        associate: function (models) {
-          SecurityAnswer.belongsTo(models.User)
-          SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
-        }
-      }
-    })
+    UserId: { type: DataTypes.INTEGER, unique: true }
+  })
+
+  SecurityAnswer.associate = function (models) {
+    SecurityAnswer.belongsTo(models.User)
+    SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
+  }
+
   return SecurityAnswer
 }

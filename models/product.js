@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: {
       type: DataTypes.STRING,
-      set (description) {
+      set(description) {
         if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<script>alert("XSS3")</script>')) {
           utils.solve(challenges.restfulXssChallenge)
         }
@@ -16,13 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: DataTypes.DECIMAL,
     image: DataTypes.STRING
-  }, {
-    paranoid: true,
-    classMethods: {
-      associate: function (models) {
-        Product.hasMany(models.Basket, { through: models.BasketItem })
-      }
-    }
-  })
+  }, { paranoid: true })
+
+  Product.associate = function (models) {
+    Product.belongsToMany(models.Basket, { through: models.BasketItem })
+  }
+
   return Product
 }

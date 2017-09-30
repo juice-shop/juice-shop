@@ -23,13 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  },
-    {
-      classMethods: {
-        associate: function (models) {
-          Feedback.belongsTo(models.User) // no FK constraint to allow anonymous feedback posts
-        }
-      }
-    })
+  })
+
+  Feedback.associate = function (models) {
+    Feedback.belongsTo(models.User) // no FK constraint to allow anonymous feedback posts
+  }
+
   return Feedback
 }
