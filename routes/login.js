@@ -13,7 +13,7 @@ exports = module.exports = function login() {
     } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === 3) {
       utils.solve(challenges.loginBenderChallenge)
     }
-    models.Basket.findOrCreate({ UserId: user.data.id }).then(basket => {
+    models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} }).then(basket => {
       const token = insecurity.authorize(user)
       user.bid = basket.id // keep track of original basket for challenge solution check
       insecurity.authenticatedUsers.put(token, user)
@@ -33,8 +33,8 @@ exports = module.exports = function login() {
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
-    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', models.User, { plain: true })
-      .then(([authenticatedUser, query]) => {
+    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', { model: models.User, plain: true })
+      .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
 
         const rememberedEmail = insecurity.userEmailFrom(req)
