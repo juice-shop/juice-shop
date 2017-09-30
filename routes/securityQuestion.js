@@ -1,6 +1,6 @@
 const models = require('../models/index')
 
-exports = module.exports = function securityQuestion () {
+exports = module.exports = function securityQuestion() {
   return (req, res, next) => {
     const email = req.query.email
     models.SecurityAnswer.find({
@@ -10,7 +10,7 @@ exports = module.exports = function securityQuestion () {
       }]
     }).then(answer => {
       if (answer) {
-        models.SecurityQuestion.find(answer.SecurityQuestionId).then(question => {
+        models.SecurityQuestion.findById(answer.SecurityQuestionId).then(question => {
           res.json({ question: question })
         }).error(error => {
           next(error)

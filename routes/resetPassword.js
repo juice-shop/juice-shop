@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-exports = module.exports = function resetPassword () {
+exports = module.exports = function resetPassword() {
   return (req, res, next) => {
     const email = req.body.email
     const answer = req.body.answer
@@ -23,7 +23,7 @@ exports = module.exports = function resetPassword () {
         }]
       }).then(data => {
         if (insecurity.hmac(answer) === data.answer) {
-          models.User.find(data.UserId).then(user => {
+          models.User.findById(data.UserId).then(user => {
             user.updateAttributes({ password: newPassword }).then(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
@@ -34,7 +34,7 @@ exports = module.exports = function resetPassword () {
               if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
-              res.json({user: user})
+              res.json({ user: user })
             }).error(error => {
               next(error)
             })
