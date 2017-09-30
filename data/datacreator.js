@@ -809,7 +809,7 @@ function createSecurityAnswers () {
     SecurityQuestionId: 2,
     UserId: 1,
     answer: '@xI98PxDO+06!'
-}).catch(console.error)
+  }).catch(console.error)
   models.SecurityAnswer.create({
     SecurityQuestionId: 1,
     UserId: 2,
