@@ -7,14 +7,14 @@ chai.use(sinonChai)
 describe('fileUpload', () => {
   let fileUpload, challenges, req, res
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
     fileUpload = require('../../routes/fileUpload')
     challenges = require('../../data/datacache').challenges
     res = { status: sinon.stub() }
-    res.status.returns({ end: function () {} })
+    res.status.returns({ end: function () { } })
     req = { file: { originalname: '' } }
   })
 
