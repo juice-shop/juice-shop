@@ -4,8 +4,8 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
-exports = module.exports = function login () {
-  function afterLogin (user, res, next) {
+exports = module.exports = function login() {
+  function afterLogin(user, res, next) {
     if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
       utils.solve(challenges.loginAdminChallenge)
     } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === 2) {
@@ -13,14 +13,15 @@ exports = module.exports = function login () {
     } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === 3) {
       utils.solve(challenges.loginBenderChallenge)
     }
-    models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} }).then(basket => {
-      const token = insecurity.authorize(user)
-      user.bid = basket.id // keep track of original basket for challenge solution check
-      insecurity.authenticatedUsers.put(token, user)
-      res.json({ authentication: { token: token, bid: basket.id, umail: user.data.email } })
-    }).error(error => {
-      next(error)
-    })
+    models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} })
+      .then(([basket, created]) => {
+        const token = insecurity.authorize(user)
+        user.bid = basket.id // keep track of original basket for challenge solution check
+        insecurity.authenticatedUsers.put(token, user)
+        res.json({ authentication: { token: token, bid: basket.id, umail: user.data.email } })
+      }).error(error => {
+        next(error)
+      })
   }
 
   return (req, res, next) => {
