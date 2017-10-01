@@ -14,7 +14,7 @@ describe('/#/basket', () => {
         browser.get('/#/basket')
         browser.ignoreSynchronization = false
 
-        const productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'))
+        const productQuantities = element.all(by.repeater('product in products').column('product.BasketItem.quantity'))
         expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 
