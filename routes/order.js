@@ -29,12 +29,12 @@ exports = module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          basket.Products.forEach(product => {
+          basket.products.forEach(product => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && product.id === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
-            const itemTotal = product.price * product.BasketItem.quantity
-            doc.text(product.BasketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal)
+            const itemTotal = product.price * product.basketItem.quantity
+            doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
           })
@@ -61,7 +61,7 @@ exports = module.exports = function placeOrder () {
 
           fileWriter.on('finish', () => {
             basket.updateAttributes({ coupon: null })
-            models.BasketItem.destroy({ where: { BasketId: id }})
+            models.BasketItem.destroy({ BasketId: id })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
         } else {

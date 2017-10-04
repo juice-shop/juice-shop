@@ -19,15 +19,15 @@
                 <td>{{product.price}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="dec(product.BasketItem.id)"><i class="fa fa-minus-square"></i></a>
-                        <span class="btn btn-default btn-xs">{{product.BasketItem.quantity}}</span>
-                        <a class="btn btn-default btn-xs" ng-click="inc(product.BasketItem.id)"><i class="fa fa-plus-square"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="fa fa-minus-square"></i></a>
+                        <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
+                        <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="fa fa-plus-square"></i></a>
                     </div>
                 </td>
-                <td>{{(product.price*product.BasketItem.quantity).toFixed(2)}}</td>
+                <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(product.BasketItem.id)"><i class="fa fa-trash-o"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="fa fa-trash-o"></i></a>
                     </div>
                 </td>
             </tr>

@@ -30,7 +30,7 @@ angular.module('juiceShop').controller('SearchResultController', [
         for (var i = 0; i < productsInBasket.length; i++) {
           if (productsInBasket[i].id === id) {
             found = true
-            basketService.get(productsInBasket[i].BasketItem.id).then(function (existingBasketItem) {
+            basketService.get(productsInBasket[i].basketItem.id).then(function (existingBasketItem) {
               var newQuantity = existingBasketItem.quantity + 1
               basketService.put(existingBasketItem.id, {quantity: newQuantity}).then(function (updatedBasketItem) {
                 productService.get(updatedBasketItem.ProductId).then(function (product) {
