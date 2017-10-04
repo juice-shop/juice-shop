@@ -4,8 +4,8 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
-exports = module.exports = function login() {
-  function afterLogin(user, res, next) {
+exports = module.exports = function login () {
+  function afterLogin (user, res, next) {
     if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
       utils.solve(challenges.loginAdminChallenge)
     } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === 2) {
