@@ -1,6 +1,6 @@
 application:
   domain: "thebodgeitstore.com"
-  name: "The BodgeIt Store"
+  name: "The MSB Store"
   logo: "http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png"
   favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
