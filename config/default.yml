@@ -1,8 +1,8 @@
 server:
   port: 3000
 application:
-  domain: "juice-sh.op"
-  name: "OWASP Juice Shop"
+  domain: "msbpentest.pre"
+  name: "MSB Pre Pentest 2017"
   logo: "JuiceShop_Logo.png"
   favicon: "favicon_v2.ico"
   numberOfRandomFakeUsers: 0
@@ -11,150 +11,150 @@ application:
   showGitHubRibbon: true
   showChallengeHints: true
   theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
-  twitterUrl: "https://twitter.com/owasp_juiceshop"
-  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+  twitterUrl: "https://twitter.com/MSB"
+  facebookUrl: "https://www.facebook.com/MSB"
   recyclePage:
     topProductImage: "fruit_press.jpg"
     bottomProductImage: "apple_pressings.jpg"
 products:
-  - name: "Apple Juice (1000ml)"
+  - name: "MSB"
     price: 1.99
-    description: "The all-time classic."
+    description: "Cong dong joy"
     image: "apple_juice.jpg"
     reviews:
-      - text: 'One of my favorites!'
+      - text: 'I love MSB'
         author: 'admin' # Options: admin, jim, bender, ciso, support
-  - name: 'Orange Juice (1000ml)'
-    description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 2.99
     image: 'orange_juice.jpg'
-  - name: 'Eggfruit Juice (500ml)'
-    description: 'Now with even more exotic flavour.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 8.99
     image: 'eggfruit_juice.jpg'
     reviews:
-      - text: 'I bought it, would buy again. 5/7'
+      - text: 'I love MSB'
         author: 'admin'
-  - name: 'Raspberry Juice (1000ml)'
-    description: 'Made from blended Raspberry Pi, water and sugar.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 4.99
     image: 'raspberry_juice.jpg'
-  - name: 'Lemon Juice (500ml)'
-    description: 'Sour but full of vitamins.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 2.99
     image: 'lemon_juice.jpg'
-  - name: 'Banana Juice (1000ml)'
-    description: 'Monkeys love it the most.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 1.99
     image: 'banana_juice.jpg'
     reviews:
-      - text: 'Fry liked it too.'
+      - text: 'I love MSB'
         author: 'bender'
-  - name: 'OWASP Juice Shop T-Shirt'
-    description: 'Real fans wear it 24/7!'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 22.49
     image: 'fan_shirt.jpg'
-  - name: 'OWASP Juice Shop CTF Girlie-Shirt'
-    description: 'For serious Capture-the-Flag heroines only!'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 22.49
     image: 'fan_girlie.jpg'
-  - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
-    description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 0.01
     image: 'owasp_osaft.jpg'
     useForProductTamperingChallenge: true
-  - name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 29.99
     image: 'undefined.jpg'
     useForChristmasSpecialChallenge: true
-  - name: 'OWASP Juice Shop Sticker (2015/2016 design)'
-    description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 999.99
     image: 'sticker.png'
     deletedDate: '2017-04-28'
-  - name: 'OWASP Juice Shop Sticker'
-    description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 2.99
     image: 'sticker_facelift.png'
-  - name: 'OWASP Juice Shop CTF Sticker'
-    description: 'If you are a serious flag hunter, this is a mandatory laptop decal.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 2.99
     image: 'ctf_sticker.png'
-  - name: 'OWASP Juice Shop Mug'
-    description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 21.99
     image: 'fan_mug.jpg'
-  - name: 'OWASP Juice Shop Hoodie'
-    description: 'Mr. Robot-style apparel. But in black. And with logo.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 49.99
     image: 'fan_hoodie.jpg'
-  - name: 'Woodruff Syrup "Forest Master X-Treme"'
-    description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 6.99
     image: 'woodruff_syrup.jpg'
-  - name: 'Green Smoothie'
-    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 1.99
     image: 'green_smoothie.jpg'
     reviews:
-      - text: 'Fresh out of a replicator.'
+      - text: 'I love MSB'
         author: 'jim'
-  - name: 'Quince Juice (1000ml)'
-    description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 4.99
     image: 'quince.jpg'
-  - name: 'OWASP Node.js Goat'
-    description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 0.01
     image: 'owasplogo.png'
-  - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#reccyle">sent back to us</a> for recycling.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 0.89
     image: 'apple_pressings.jpg'
-  - name: 'Fruit Press'
-    description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 89.99
     image: 'fruit_press.jpg'
-  - name: 'Enhanced White Rafford`s Decoction'
-    description: 'Immediately restores a large portion of Vitality.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 150
     image: 'white_raffards.jpg'
     reviews:
-      - text: 'A vital ingredient for a succesful playthrough.'
+      - text: 'I love MSB'
         author: 'jim'
-  - name: 'OWASP Juice Shop Logo (3D-printed)'
-    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 99.99
     image: '3d_keychain.jpg' # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: 'JuiceShop.stl' # ...to blueprint file type
-  - name: 'Juice Shop Artwork'
-    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 278.74
     image: 'artwork.jpg'
-  - name: 'Global OWASP WASPY Award 2017 Nomnation'
-    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 0.03
     image: 'waspy.png'
     deletedDate: '2017-07-01'
-  - name: 'Melon Bike'
-    description: 'The wheels of this bicycle are made from real water melons.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 1999
     image: 'melon_bike.jpeg'
-  - name: 'Strawberry Juice (500ml)'
-    description: 'Sweet & tasty!'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 3.99
     image: 'strawberry_juice.jpeg'
-  - name: 'Carrot Juice (1000ml)'
-    description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 2.99
     image: 'carrot_juice.jpeg'
-  - name: 'Jawa Script T-Shirt'
-    description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 20
     image: 'jawa_script.jpg'
-  - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
-    description: '10 sheets of <a href="https://www.stickermule.com/artworks/1188370/shared">Sweden-themed stickers</a>  with 15 stickers on each.'
+  - name: "MSB"
+    description: "Cong dong joy"
     price: 19.10
     image: 'stickersheet_se.png'
-    
+
