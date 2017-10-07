@@ -5,7 +5,7 @@ const challenges = require('../data/datacache').challenges
 exports = module.exports = function searchProducts () {
   return (req, res, next) => {
     let criteria = req.query.q === 'undefined' ? '' : req.query.q || ''
-    criteria = (criteria.length<=200) ? criteria : criteria.substring(0, 200);
+    criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<script>alert("XSS1")</script>')) {
       utils.solve(challenges.localXssChallenge)
     }
