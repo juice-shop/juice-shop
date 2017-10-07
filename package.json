@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
