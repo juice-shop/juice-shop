@@ -34,7 +34,7 @@ describe('/#/change-password', () => {
       element(by.model('user.password')).sendKeys('slurmCl4ssic')
       element(by.id('loginButton')).click()
 
-      expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'CSRF'})
