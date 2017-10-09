@@ -89,3 +89,4 @@ config/*.yml
 !config/sickshop.yml
 !config/juicebox.yml
 !config/quiet.yml
+!config/test.yml

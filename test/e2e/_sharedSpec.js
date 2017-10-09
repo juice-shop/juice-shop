@@ -28,7 +28,7 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + email + '" with password "' + password + '"', () => {
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+        expect(browser.getCurrentUrl()).toMatch(/\/search/)
       })
     })
   }
