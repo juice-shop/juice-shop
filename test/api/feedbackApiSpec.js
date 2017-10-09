@@ -23,7 +23,7 @@ describe('/api/Feedbacks', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('json', 'data', {
         comment: 'I am a harmless comment.'
       })
@@ -38,7 +38,7 @@ describe('/api/Feedbacks', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('json', 'data', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS4")</script>'
       })
@@ -54,7 +54,7 @@ describe('/api/Feedbacks', () => {
         UserId: 3
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 3
@@ -70,7 +70,7 @@ describe('/api/Feedbacks', () => {
         UserId: 4711
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 4711
@@ -94,7 +94,7 @@ describe('/api/Feedbacks', () => {
           UserId: 4
         }
       })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 4
@@ -119,7 +119,7 @@ describe('/api/Feedbacks', () => {
           UserId: 3
         }
       })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 3
@@ -129,7 +129,7 @@ describe('/api/Feedbacks', () => {
 
   it('POST feedback can be created without actually supplying data', done => {
     frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: {} })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         comment: Joi.any().allow('undefined'),
@@ -191,7 +191,7 @@ describe('/api/Feedbacks/:id', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('jsonTypes', 'data', { id: Joi.number() })
       .then(res => {
         frisby.del(API_URL + '/Feedbacks/' + res.json.data.id, { headers: authHeader })
