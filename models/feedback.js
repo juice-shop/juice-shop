@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.STRING,
       set (comment) {
-        this.setDataValue('answer', insecurity.sanitizeHtml(comment))
+        this.setDataValue('comment', insecurity.sanitizeHtml(comment))
         if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(comment, '<script>alert("XSS4")</script>')) {
           utils.solve(challenges.persistedXssChallengeFeedback)
         }
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     rating: {
       type: DataTypes.INTEGER,
       set (rating) {
-        this.setDataValue('rating', insecurity.sanitizeHtml(rating))
+        this.setDataValue('rating', rating)
         if (utils.notSolved(challenges.zeroStarsChallenge) && (rating === 0 || rating === undefined)) {
           utils.solve(challenges.zeroStarsChallenge)
         }
