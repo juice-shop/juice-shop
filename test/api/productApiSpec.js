@@ -83,7 +83,7 @@ describe('/api/Products/:id', () => {
     frisby.get(API_URL + '/Products/4711')
       .expect('status', 404)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', {})
+      .expect('json', 'message', 'Not Found')
       .done(done)
   })
 
