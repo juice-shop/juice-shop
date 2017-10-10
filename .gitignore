@@ -5,6 +5,7 @@ build/
 .nyc_output/
 vagrant/.vagrant/
 juiceshop.sqlite
+.vscode
 
 # Intellij
 .idea/
