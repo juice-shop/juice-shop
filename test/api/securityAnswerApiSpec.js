@@ -24,7 +24,6 @@ describe('/api/SecurityAnswers', () => {
     })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .then((res) => console.error(res.json))
       .expect('json', 'message', 'Validation error')
       .done(done)
   })
