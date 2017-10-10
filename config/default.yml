@@ -153,3 +153,8 @@ products:
     description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
     price: 20
     image: 'jawa_script.jpg'
+  - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    description: '10 sheets of <a href="https://www.stickermule.com/artworks/1188370/shared">Sweden-themed stickers</a>  with 15 stickers on each.'
+    price: 19.10
+    image: 'stickersheet_se.png'
+    

@@ -23,23 +23,21 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       userService.whoAmI()
     ]).then(function (result) {
       var product = result[0]
-      var reviews = result[1].data
+      var reviews = result[1]
       var user = result[2]
 
       $scope.product = product
       $scope.product.description = $sce.trustAsHtml($scope.product.description)
-      $scope.productReviews = reviews.data
+      $scope.productReviews = reviews
 
       if (user === undefined || user.email === undefined) {
         $scope.author = 'Anonymous'
       } else {
         $scope.author = user.email
       }
-    },
-      function (err) {
-        console.log(err)
-      }
-    )
+    }).catch(function (err) {
+      console.log(err)
+    })
 
     $scope.addReview = function () {
       var review = { message: $scope.message, author: $scope.author }
@@ -48,8 +46,8 @@ angular.module('juiceShop').controller('ProductDetailsController', [
     }
 
     $scope.refreshReviews = function () {
-      productReviewService.get(id).then(function (result) {
-        $scope.productReviews = result.data.data
+      productReviewService.get(id).then(function (review) {
+        $scope.productReviews = review
       })
     }
 
@@ -68,7 +66,7 @@ angular.module('juiceShop').controller('ProductDetailsController', [
             return review
           }
         }
-      }).result.then(function (value) {
+      }).result.then(function () {
         $scope.refreshReviews()
       }, function () {
         console.log('Cancelled')

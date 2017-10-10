@@ -7,10 +7,12 @@
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
-> ([@dschadow](https://github.com/dschadow))
+> ([@dschadow](https://github.com/dschadow)) —
+> [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
+> ([@shehackspurple](https://twitter.com/shehackspurple))
 
 OWASP Juice Shop is an intentionally insecure web application written
-entirely in Javascript which encompasses the entire range of
+entirely in JavaScript which encompasses the entire range of
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
 
@@ -50,10 +52,16 @@ overview please visit the official project page:
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
-3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
+3. Run `docker run --rm -p 3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead
-   of the native docker installation )
+   of the native docker installation)
+
+> If you want to run Juice Shop on a Raspberry Pi 3, there is an
+> unofficial Docker image available at
+> <https://hub.docker.com/r/arclight/juice-shop_arm> which is based on
+> `resin/rpi-raspbian` and maintained by
+> [@battletux](https://github.com/battletux).
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -117,7 +125,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > and login. Apart from the visual/audible effect, the attacker also
 > installed [an input logger](http://192.168.33.10/logger.php) to grab
 > credentials! This could easily run on a 3rd party server in real life!
-> 
+>
 > _This feature is only available when running a Vagrant box. A
 > recording of the effect is available on Youtube:_
 > [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)

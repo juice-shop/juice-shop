@@ -1,5 +1,5 @@
-# OWASP Juice Shop - An intentionally insecure Javascript Web Application
-FROM            node:%%NODE_VERSION%%-alpine
+# OWASP Juice Shop - An intentionally insecure JavaScript Web Application
+FROM            node:6-alpine
 MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
 LABEL version = "%%APP_VERSION%%"
 

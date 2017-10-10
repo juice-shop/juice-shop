@@ -1,20 +1,18 @@
-'use strict'
+const config = require('config')
 
-var config = require('config')
-
-describe('/#/complain', function () {
+describe('/#/complain', () => {
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-  describe('challenge "uploadSize"', function () {
-    it('should be possible to upload files greater 100 KB', function () {
-      browser.executeScript(function () {
-        var over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
-        var blob = new Blob(over100KB, { type: 'application/pdf' })
+  describe('challenge "uploadSize"', () => {
+    it('should be possible to upload files greater 100 KB', () => {
+      browser.executeScript(() => {
+        const over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
+        const blob = new Blob(over100KB, { type: 'application/pdf' })
 
-        var data = new FormData()
+        const data = new FormData()
         data.append('file', blob, 'invalidSizeForClient.pdf')
 
-        var request = new XMLHttpRequest()
+        const request = new XMLHttpRequest()
         request.open('POST', '/file-upload')
         request.send(data)
       })
@@ -22,14 +20,14 @@ describe('/#/complain', function () {
     protractor.expect.challengeSolved({ challenge: 'Upload Size' })
   })
 
-  describe('challenge "uploadType"', function () {
-    it('should be possible to upload files with other extension than .pdf', function () {
-      browser.executeScript(function () {
-        var data = new FormData()
-        var blob = new Blob([ 'test' ], { type: 'application/x-msdownload' })
+  describe('challenge "uploadType"', () => {
+    it('should be possible to upload files with other extension than .pdf', () => {
+      browser.executeScript(() => {
+        const data = new FormData()
+        const blob = new Blob([ 'test' ], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
 
-        var request = new XMLHttpRequest()
+        const request = new XMLHttpRequest()
         request.open('POST', '/file-upload')
         request.send(data)
       })

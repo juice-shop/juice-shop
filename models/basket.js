@@ -1,8 +1,6 @@
 /* jslint node: true */
-'use strict'
-
-module.exports = function (sequelize, DataTypes) {
-  var Basket = sequelize.define('Basket', {
+module.exports = (sequelize, DataTypes) => {
+  const Basket = sequelize.define('Basket', {
     coupon: DataTypes.STRING
   },
     {
