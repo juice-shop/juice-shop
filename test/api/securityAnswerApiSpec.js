@@ -22,11 +22,10 @@ describe('/api/SecurityAnswers', () => {
         answer: 'Horst'
       }
     })
-      .expect('status', 200)
+      .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'message', {
-        code: 'SQLITE_CONSTRAINT'
-      })
+      .then((res) => console.error(res.json))
+      .expect('json', 'message', 'Validation error')
       .done(done)
   })
 })
