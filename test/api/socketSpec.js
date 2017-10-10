@@ -1,27 +1,27 @@
-var io = require('socket.io-client')
+const io = require('socket.io-client')
 
-describe('WebSocket', function () {
-  var socket
+describe('WebSocket', () => {
+  let socket
 
-  beforeEach(function (done) {
+  beforeEach(done => {
     socket = io.connect('http://localhost:3000', {
       'reconnection delay': 0,
       'reopen delay': 0,
       'force new connection': true
     })
-    socket.on('connect', function () {
+    socket.on('connect', () => {
       done()
     })
   })
 
-  afterEach(function (done) {
+  afterEach(done => {
     if (socket.connected) {
       socket.disconnect()
     }
     done()
   })
 
-  it('server handles confirmation messages for emitted challenge resolutions', function (done) {
+  it('server handles confirmation messages for emitted challenge resolutions', done => {
     socket.emit('notification received', 'Find the carefully hidden \'Score Board\' page.')
     socket.emit('notification received', 'Provoke an error that is not very gracefully handled.')
     socket.emit('notification received', 'Log in with the administrator\'s user account.')
@@ -36,12 +36,12 @@ describe('WebSocket', function () {
     done()
   })
 
-  it('server handles confirmation message for a non-existent challenge', function (done) {
+  it('server handles confirmation message for a non-existent challenge', done => {
     socket.emit('notification received', 'Emit a confirmation for a challenge that was never emitted!')
     done()
   })
 
-  it('server handles empty confirmation message', function (done) {
+  it('server handles empty confirmation message', done => {
     socket.emit('notification received', undefined)
     done()
   })

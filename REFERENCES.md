@@ -92,12 +92,23 @@ where this project was mentioned or used!
   by Timo Pagel,
   [OWASP Los Angeles](https://www.meetup.com/de-DE/OWASP-Los-Angeles/),
   10.10.2017
-* Juice Shop Hacking Session by Björn Kimminich,
+* [Hacking the OWASP Juice Shop](https://www.owasp.org/index.php/North_Sweden#2017-09-19_-_2017q3:_Hacking_the_OWASP_Juice_Shop)
+  with Björn Kimminich,
   [OWASP North Sweden Chapter](https://www.owasp.org/index.php/North_Sweden),
   19.09.2017
-* Juice Shop Hacking Session by Björn Kimminich,
+* [OWASP Juice Shop Workshop](https://www.linkedin.com/feed/update/urn:li:activity:6309257579876929537)
+  with Björn Kimminich,
   [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
   18.09.2017
+* Hacking session at [Angular Talk & Code](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/events/234414398/)
+  with Björn Kimminich,
+  [Angular Meetup Hamburg](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/),
+  13.09.2017
+* Capture The Flag - Security Game by Benjamin Brunzel, Jöran Tesse,
+  Rüdiger Heins & Sven Strittmatter,
+  [solutions.hamburg](https://solutions.hamburg), 08.09.2017
+* OWASP Juice Shop - Einmal quer durch den Security-Saftladen by Björn
+  Kimminich, [solutions.hamburg](https://solutions.hamburg), 08.09.2017
 * [Black Box Threat Modeling](https://www.peerlyst.com/posts/bsidestlv-2017-black-box-threat-modeling-avid)
   by Avi Douglen, [BSides Tel Aviv 2017](https://bsidestlv.com/),
   Underground Track, 28.06.2017
@@ -171,7 +182,7 @@ where this project was mentioned or used!
   by Björn Kimminich,
   [German OWASP Day 2015](http://lanyrd.com/2015/owasp-d2015/),
   01.12.2015
-* [Juice Shop - Hacking an intentionally insecure Javascript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/)
+* [Juice Shop - Hacking an intentionally insecure JavaScript Web Application](http://lanyrd.com/2015/jsunconf/sdmpzk/)
   by Björn Kimminich,
   [JS Unconf 2015](http://lanyrd.com/2015/jsunconf/), 25.04.2015
 * [So ein Saftladen! - Hacking Session für Developer (und Pentester)](http://lanyrd.com/2015/owasp-de/sdhctr/)

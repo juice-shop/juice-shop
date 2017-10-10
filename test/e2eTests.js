@@ -1,11 +1,11 @@
 'use strict'
 
-var spawn = require('cross-spawn')
-var colors = require('colors/safe')
-var server = require('./../server.js')
+const spawn = require('cross-spawn')
+const colors = require('colors/safe')
+const server = require('./../server.js')
 
-server.start(function () {
-  var protractor = spawn('protractor', [ 'protractor.conf.js' ])
+server.start(() => {
+  const protractor = spawn('protractor', [ 'protractor.conf.js' ])
   function logToConsole (data) {
     console.log(String(data))
   }
@@ -13,7 +13,7 @@ server.start(function () {
   protractor.stdout.on('data', logToConsole)
   protractor.stderr.on('data', logToConsole)
 
-  protractor.on('exit', function (exitCode) {
+  protractor.on('exit', exitCode => {
     console.log('Protractor exited with code ' + exitCode + ' (' + (exitCode === 0 ? colors.green('SUCCESS') : colors.red('FAILED')) + ')')
     server.close(exitCode)
   })

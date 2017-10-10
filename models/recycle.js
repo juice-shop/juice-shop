@@ -1,8 +1,6 @@
 /* jslint node: true */
-'use strict'
-
-module.exports = function (sequelize, DataTypes) {
-  var Recycle = sequelize.define('Recycle', {
+module.exports = (sequelize, DataTypes) => {
+  const Recycle = sequelize.define('Recycle', {
     quantity: DataTypes.INTEGER,
     address: DataTypes.STRING,
     isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },

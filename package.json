@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
-  "version": "5.0.0-SNAPSHOT",
-  "description": "An intentionally insecure Javascript Web Application",
+  "version": "5.1.0-SNAPSHOT",
+  "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "https://www.owasp.org/index.php/OWASP_Juice_Shop_Project",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
   "contributors": [
@@ -61,7 +61,7 @@
     "helmet": "~3.8",
     "html-entities": "~1.2",
     "js-yaml": "3.9",
-    "jsonwebtoken": "~7.4",
+    "jsonwebtoken": "~8",
     "jssha": "~2.3",
     "marsdb": "^0.6.11",
     "morgan": "~1.8",
@@ -82,12 +82,11 @@
     "chai": "~4",
     "codeclimate-test-reporter": "~0.5",
     "cross-spawn": "~5.1",
-    "form-data": "~2.2",
+    "form-data": "~2.3",
     "frisby": "~2.0",
     "http-server": "~0.10",
-    "istanbul": "~0.4",
     "jasmine-reporters": "~2.2",
-    "jest": "~20",
+    "jest": "~21",
     "karma": "~1.7",
     "karma-chrome-launcher": "~2.2",
     "karma-cli": "~1.0",
@@ -101,9 +100,9 @@
     "mocha": "~3",
     "nyc": "~11",
     "phantomjs-prebuilt": "~2",
-    "protractor": "~4",
+    "protractor": "~5",
     "shelljs": "~0.7",
-    "sinon": "~2.3",
+    "sinon": "~3",
     "sinon-chai": "~2.13",
     "socket.io-client": "~2.0",
     "standard": "~10",
@@ -113,9 +112,6 @@
     "stryker-jasmine": "~0",
     "stryker-karma-runner": "~0",
     "stryker-mocha-runner": "~0"
-  },
-  "peerDependencies": {
-    "phantomjs-prebuilt": "~2"
   },
   "repository": {
     "type": "git",
@@ -128,8 +124,8 @@
   "scripts": {
     "postinstall": "bower install && grunt minify && grunt docker",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && nyc mocha test/server",
-    "frisby": "istanbul cover ./test/apiTests.js",
+    "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",
@@ -166,8 +162,7 @@
     "reporter": [
       "lcov",
       "text-summary"
-    ],
-    "report-dir": "./build/reports/coverage/server-tests"
+    ]
   },
   "jest": {
     "testMatch": [

@@ -79,6 +79,7 @@ app/public/images/products/*.*
 !app/public/images/products/JuiceShop.stl
 !app/public/images/products/squareBox1-40x40x40.stl
 !app/public/images/products/crutch.123dx
+!app/public/images/products/stickersheet_se.png
 
 # Custom configuration files
 config/*.yml
@@ -88,3 +89,4 @@ config/*.yml
 !config/sickshop.yml
 !config/juicebox.yml
 !config/quiet.yml
+!config/test.yml

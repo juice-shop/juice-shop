@@ -1,11 +1,9 @@
-'use strict'
-
-var path = require('path')
-var utils = require('../lib/utils')
-var challenges = require('../data/datacache').challenges
+const path = require('path')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function servePremiumContent () {
-  return function (req, res) {
+  return (req, res) => {
     if (utils.notSolved(challenges.premiumPaywallChallenge)) {
       utils.solve(challenges.premiumPaywallChallenge)
     }

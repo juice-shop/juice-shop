@@ -1,7 +1,7 @@
-# OWASP Juice Shop - An intentionally insecure Javascript Web Application
+# OWASP Juice Shop - An intentionally insecure JavaScript Web Application
 FROM            node:6-alpine
 MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
-LABEL version = "5.0.0-SNAPSHOT"
+LABEL version = "5.1.0-SNAPSHOT"
 
 RUN apk update && apk add git
 

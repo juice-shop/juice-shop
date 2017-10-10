@@ -1,13 +1,13 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/api/Recycles', function () {
-  it('POST new recycle', function (done) {
+describe('/api/Recycles', () => {
+  it('POST new recycle', done => {
     frisby.post(API_URL + '/Recycles', {
       headers: authHeader,
       body: {
@@ -27,27 +27,27 @@ describe('/api/Recycles', function () {
       .done(done)
   })
 
-  it('GET all recycles is forbidden via public API', function (done) {
+  it('GET all recycles is forbidden via public API', done => {
     frisby.get(API_URL + '/Recycles')
       .expect('status', 401)
       .done(done)
   })
 
-  it('GET all recycles', function (done) {
+  it('GET all recycles', done => {
     frisby.get(API_URL + '/Recycles', { headers: authHeader })
       .expect('status', 200)
       .done(done)
   })
 })
 
-describe('/api/Recycles/:id', function () {
-  it('GET existing recycle by id is forbidden', function (done) {
+describe('/api/Recycles/:id', () => {
+  it('GET existing recycle by id is forbidden', done => {
     frisby.get(API_URL + '/Recycles/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)
   })
 
-  it('PUT update existing recycle is forbidden', function (done) {
+  it('PUT update existing recycle is forbidden', done => {
     frisby.put(API_URL + '/Recycles/1', {
       headers: authHeader,
       body: {
@@ -58,7 +58,7 @@ describe('/api/Recycles/:id', function () {
       .done(done)
   })
 
-  it('DELETE existing recycle is forbidden', function (done) {
+  it('DELETE existing recycle is forbidden', done => {
     frisby.del(API_URL + '/Recycles/1', { headers: authHeader })
       .expect('status', 401)
       .done(done)

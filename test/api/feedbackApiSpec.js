@@ -1,6 +1,6 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -8,14 +8,14 @@ const REST_URL = 'http://localhost:3000/rest'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': /application\/json/ }
 const jsonHeader = { 'content-type': 'application/json' }
 
-describe('/api/Feedbacks', function () {
-  it('GET all feedback', function (done) {
+describe('/api/Feedbacks', () => {
+  it('GET all feedback', done => {
     frisby.get(API_URL + '/Feedbacks')
       .expect('status', 200)
       .done(done)
   })
 
-  it('POST sanitizes unsafe HTML from comment', function (done) {
+  it('POST sanitizes unsafe HTML from comment', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -30,7 +30,7 @@ describe('/api/Feedbacks', function () {
       .done(done)
   })
 
-  it('POST fails to sanitize masked CSRF-attack by not applying sanitization recursively', function (done) {
+  it('POST fails to sanitize masked CSRF-attack by not applying sanitization recursively', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -45,7 +45,7 @@ describe('/api/Feedbacks', function () {
       .done(done)
   })
 
-  it('POST feedback in another users name as anonymous user', function (done) {
+  it('POST feedback in another users name as anonymous user', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -61,7 +61,7 @@ describe('/api/Feedbacks', function () {
       }).done(done)
   })
 
-  it('POST feedback in a non-existing users name as anonymous user', function (done) {
+  it('POST feedback in a non-existing users name as anonymous user', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -77,7 +77,7 @@ describe('/api/Feedbacks', function () {
       }).done(done)
   })
 
-  it('POST feedback is associated with current user', function (done) {
+  it('POST feedback is associated with current user', done => {
     frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -86,25 +86,23 @@ describe('/api/Feedbacks', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        return frisby.post(API_URL + '/Feedbacks', {
-          headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
-          body: {
-            comment: 'Bjoern\'s choice award!',
-            rating: 5,
-            UserId: 4
-          }
-        })
-          .expect('status', 200)
-          .expect('header', 'content-type', /application\/json/)
-          .expect('json', 'data', {
-            UserId: 4
-          })
+      .then(res => frisby.post(API_URL + '/Feedbacks', {
+        headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
+        body: {
+          comment: 'Bjoern\'s choice award!',
+          rating: 5,
+          UserId: 4
+        }
       })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', {
+        UserId: 4
+      }))
       .done(done)
   })
 
-  it('POST feedback is associated with any passed user ID', function (done) {
+  it('POST feedback is associated with any passed user ID', done => {
     frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -113,25 +111,23 @@ describe('/api/Feedbacks', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        return frisby.post(API_URL + '/Feedbacks', {
-          headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
-          body: {
-            comment: 'Bender\'s choice award!',
-            rating: 5,
-            UserId: 3
-          }
-        })
-          .expect('status', 200)
-          .expect('header', 'content-type', /application\/json/)
-          .expect('json', 'data', {
-            UserId: 3
-          })
+      .then(res => frisby.post(API_URL + '/Feedbacks', {
+        headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
+        body: {
+          comment: 'Bender\'s choice award!',
+          rating: 5,
+          UserId: 3
+        }
       })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', {
+        UserId: 3
+      }))
       .done(done)
   })
 
-  it('POST feedback can be created without actually supplying data', function (done) {
+  it('POST feedback can be created without actually supplying data', done => {
     frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: {} })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
@@ -144,20 +140,20 @@ describe('/api/Feedbacks', function () {
   })
 })
 
-describe('/api/Feedbacks/:id', function () {
-  it('GET existing feedback by id is forbidden via public API', function (done) {
+describe('/api/Feedbacks/:id', () => {
+  it('GET existing feedback by id is forbidden via public API', done => {
     frisby.get(API_URL + '/Feedbacks/1')
       .expect('status', 401)
       .done(done)
   })
 
-  it('GET existing feedback by id', function (done) {
+  it('GET existing feedback by id', done => {
     frisby.get(API_URL + '/Feedbacks/1', { headers: authHeader })
       .expect('status', 200)
       .done(done)
   })
 
-  it('PUT update existing feedback is forbidden via public API', function (done) {
+  it('PUT update existing feedback is forbidden via public API', done => {
     frisby.put(API_URL + '/Feedbacks/1', {
       headers: jsonHeader,
       body: {
@@ -169,7 +165,7 @@ describe('/api/Feedbacks/:id', function () {
       .done(done)
   })
 
-  xit('PUT update existing feedback', function (done) { // FIXME Verify if put is actually meant to work
+  xit('PUT update existing feedback', done => { // FIXME Verify if put is actually meant to work
     frisby.put(API_URL + '/Feedbacks/2', {
       headers: authHeader,
       body: {
@@ -181,13 +177,13 @@ describe('/api/Feedbacks/:id', function () {
       .done(done)
   })
 
-  it('DELETE existing feedback is forbidden via public API', function (done) {
+  it('DELETE existing feedback is forbidden via public API', done => {
     frisby.del(API_URL + '/Feedbacks/1')
       .expect('status', 401)
       .done(done)
   })
 
-  it('DELETE existing feedback', function (done) {
+  it('DELETE existing feedback', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -197,7 +193,7 @@ describe('/api/Feedbacks/:id', function () {
     })
       .expect('status', 200)
       .expect('jsonTypes', 'data', { id: Joi.number() })
-      .then(function (res) {
+      .then(res => {
         frisby.del(API_URL + '/Feedbacks/' + res.json.data.id, { headers: authHeader })
           .expect('status', 200)
           .done(done)

@@ -1,27 +1,29 @@
-var sinon = require('sinon')
-var chai = require('chai')
-var sinonChai = require('sinon-chai')
-var expect = chai.expect
+const sinon = require('sinon')
+const chai = require('chai')
+const sinonChai = require('sinon-chai')
+const expect = chai.expect
 chai.use(sinonChai)
 
-describe('premiumReward', function () {
-  var servePremiumContent, challenges, req, res
-  var save = function () { return {success: function () {}} }
+describe('premiumReward', () => {
+  let servePremiumContent, challenges, req, res
+  const save = () => ({
+    success: function () {}
+  })
 
-  beforeEach(function () {
+  beforeEach(() => {
     servePremiumContent = require('../../routes/premiumReward')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy() }
     req = { }
   })
 
-  it('should serve /app/private/under-construction.gif', function () {
+  it('should serve /app/private/under-construction.gif', () => {
     servePremiumContent()(req, res)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]under-construction\.gif/))
   })
 
-  it('should solve "premiumPaywallChallenge"', function () {
+  it('should solve "premiumPaywallChallenge"', () => {
     challenges.premiumPaywallChallenge = { solved: false, save: save }
 
     servePremiumContent()(req, res)

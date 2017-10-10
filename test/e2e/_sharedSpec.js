@@ -1,11 +1,11 @@
 protractor.expect = {
   challengeSolved: function (context) {
-    describe('(shared)', function () {
-      beforeEach(function () {
+    describe('(shared)', () => {
+      beforeEach(() => {
         browser.get('/#/score-board')
       })
 
-      it("challenge '" + context.challenge + "' should be solved on score board", function () {
+      it("challenge '" + context.challenge + "' should be solved on score board", () => {
         expect(element(by.id(context.challenge + '.solved')).getAttribute('class')).not.toMatch('ng-hide')
         expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class')).toMatch('ng-hide')
       })
@@ -15,10 +15,10 @@ protractor.expect = {
 
 protractor.beforeEach = {
   login: function (context) {
-    describe('(shared)', function () {
-      var email, password
+    describe('(shared)', () => {
+      let email, password
 
-      beforeEach(function () {
+      beforeEach(() => {
         email = context.email
         password = context.password
         browser.get('/#/login')
@@ -27,8 +27,8 @@ protractor.beforeEach = {
         element(by.id('loginButton')).click()
       })
 
-      it('should have logged in user "' + email + '" with password "' + password + '"', function () {
-        expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+      it('should have logged in user "' + email + '" with password "' + password + '"', () => {
+        expect(browser.getCurrentUrl()).toMatch(/\/search/)
       })
     })
   }

@@ -1,26 +1,24 @@
-'use strict'
-
-var models = require('../models/index')
+const models = require('../models/index')
 
 exports = module.exports = function securityQuestion () {
-  return function (req, res, next) {
-    var email = req.query.email
+  return (req, res, next) => {
+    const email = req.query.email
     models.SecurityAnswer.find({
       include: [{
         model: models.User,
         where: { email: email }
       }]
-    }).success(function (answer) {
+    }).success(answer => {
       if (answer) {
-        models.SecurityQuestion.find(answer.SecurityQuestionId).success(function (question) {
+        models.SecurityQuestion.find(answer.SecurityQuestionId).success(question => {
           res.json({ question: question })
-        }).error(function (error) {
+        }).error(error => {
           next(error)
         })
       } else {
         res.json({})
       }
-    }).error(function (error) {
+    }).error(error => {
       next(error)
     })
   }

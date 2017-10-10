@@ -1,18 +1,18 @@
 const frisby = require('frisby')
-var insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-var authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
-describe('/api/BasketItems', function () {
-  it('GET all basket items is forbidden via public API', function (done) {
+describe('/api/BasketItems', () => {
+  it('GET all basket items is forbidden via public API', done => {
     frisby.get(API_URL + '/BasketItems')
       .expect('status', 401)
       .done(done)
   })
 
-  it('POST new basket item is forbidden via public API', function (done) {
+  it('POST new basket item is forbidden via public API', done => {
     frisby.post(API_URL + '/BasketItems', {
       BasketId: 1,
       ProductId: 1,
@@ -22,13 +22,13 @@ describe('/api/BasketItems', function () {
       .done(done)
   })
 
-  it('GET all basket items', function (done) {
+  it('GET all basket items', done => {
     frisby.get(API_URL + '/BasketItems', { headers: authHeader })
       .expect('status', 200)
       .done(done)
   })
 
-  it('POST new basket item', function (done) {
+  it('POST new basket item', done => {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -42,14 +42,14 @@ describe('/api/BasketItems', function () {
   })
 })
 
-describe('/api/BasketItems/:id', function () {
-  it('GET basket item by id is forbidden via public API', function (done) {
+describe('/api/BasketItems/:id', () => {
+  it('GET basket item by id is forbidden via public API', done => {
     frisby.get(API_URL + '/BasketItems/1')
       .expect('status', 401)
       .done(done)
   })
 
-  it('PUT update basket item is forbidden via public API', function (done) {
+  it('PUT update basket item is forbidden via public API', done => {
     frisby.put(API_URL + '/BasketItems/1', {
       quantity: 2
     }, { json: true })
@@ -57,13 +57,13 @@ describe('/api/BasketItems/:id', function () {
       .done(done)
   })
 
-  it('DELETE basket item is forbidden via public API', function (done) {
+  it('DELETE basket item is forbidden via public API', done => {
     frisby.del(API_URL + '/BasketItems/1')
       .expect('status', 401)
       .done(done)
   })
 
-  it('GET newly created basket item by id', function (done) {
+  it('GET newly created basket item by id', done => {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -73,14 +73,12 @@ describe('/api/BasketItems/:id', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        return frisby.get(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
-          .expect('status', 200)
-      })
+      .then(res => frisby.get(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
+      .expect('status', 200))
       .done(done)
   })
 
-  it('PUT update newly created basket item', function (done) {
+  it('PUT update newly created basket item', done => {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -90,20 +88,18 @@ describe('/api/BasketItems/:id', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        return frisby.put(API_URL + '/BasketItems/' + res.json.data.id, {
-          headers: authHeader,
-          body: {
-            quantity: 20
-          }
-        })
-          .expect('status', 200)
-          .expect('json', 'data', { quantity: 20 })
+      .then(res => frisby.put(API_URL + '/BasketItems/' + res.json.data.id, {
+        headers: authHeader,
+        body: {
+          quantity: 20
+        }
       })
+      .expect('status', 200)
+      .expect('json', 'data', { quantity: 20 }))
       .done(done)
   })
 
-  it('DELETE newly created basket item', function (done) {
+  it('DELETE newly created basket item', done => {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -113,10 +109,8 @@ describe('/api/BasketItems/:id', function () {
       }
     })
       .expect('status', 200)
-      .then(function (res) {
-        return frisby.del(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
-          .expect('status', 200)
-      })
+      .then(res => frisby.del(API_URL + '/BasketItems/' + res.json.data.id, { headers: authHeader })
+      .expect('status', 200))
       .done(done)
   })
 })
