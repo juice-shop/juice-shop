@@ -16,6 +16,9 @@ out/
 # VIM swap files
 *.swp
 
+# Vs Code
+.vscode/
+
 # Orig from merges
 *.orig
 
