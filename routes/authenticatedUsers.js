@@ -10,7 +10,7 @@ exports = module.exports = function retrieveUserList () {
         user.token = insecurity.authenticatedUsers.tokenOf(user)
       })
       res.json(usersWithLoginStatus)
-    }).error(error => {
+    }).catch(error => {
       next(error)
     })
   }

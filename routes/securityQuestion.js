@@ -12,13 +12,13 @@ exports = module.exports = function securityQuestion () {
       if (answer) {
         models.SecurityQuestion.findById(answer.SecurityQuestionId).then(question => {
           res.json({ question: question })
-        }).error(error => {
+        }).catch(error => {
           next(error)
         })
       } else {
         res.json({})
       }
-    }).error(error => {
+    }).catch(error => {
       next(error)
     })
   }

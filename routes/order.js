@@ -67,7 +67,7 @@ exports = module.exports = function placeOrder () {
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
         }
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
   }

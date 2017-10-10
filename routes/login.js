@@ -19,7 +19,7 @@ exports = module.exports = function login () {
         user.bid = basket.id // keep track of original basket for challenge solution check
         insecurity.authenticatedUsers.put(token, user)
         res.json({ authentication: { token: token, bid: basket.id, umail: user.data.email } })
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
   }
@@ -52,7 +52,7 @@ exports = module.exports = function login () {
         } else {
           res.status(401).send('Invalid email or password.')
         }
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
   }

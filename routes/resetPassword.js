@@ -35,16 +35,16 @@ exports = module.exports = function resetPassword () {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
               res.json({ user: user })
-            }).error(error => {
+            }).catch(error => {
               next(error)
             })
-          }).error(error => {
+          }).catch(error => {
             next(error)
           })
         } else {
           res.status(401).send('Wrong answer to security question.')
         }
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
     }

@@ -27,10 +27,10 @@ exports = module.exports = function changePassword () {
                 }
               }
               res.json({ user: user })
-            }).error(error => {
+            }).catch(error => {
               next(error)
             })
-          }).error(error => {
+          }).catch(error => {
             next(error)
           })
         }

@@ -16,7 +16,7 @@ exports = module.exports = function retrieveBasket () {
           }
         }
         res.json(utils.queryResultToJson(basket))
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
   }

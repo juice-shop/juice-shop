@@ -30,7 +30,7 @@ exports = module.exports = function searchProducts () {
           })
         }
         res.json(utils.queryResultToJson(products))
-      }).error(error => {
+      }).catch(error => {
         console.error('its failing')
         next(error)
       })
