@@ -134,8 +134,8 @@ describe('/api/Feedbacks', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         comment: Joi.any().allow('undefined'),
-        rating: Joi.any().forbidden(),
-        UserId: Joi.any().forbidden()
+        rating: Joi.any().allow('undefined'),
+        UserId: Joi.any().allow('undefined')
       })
       .done(done)
   })
