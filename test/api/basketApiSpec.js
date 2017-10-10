@@ -32,7 +32,7 @@ describe('/rest/basket/:id', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {id: 1})
       .then(res => {
-        expect(res.json.data.products.length).toBe(3)
+        expect(res.json.data.Products.length).toBe(3)
       })
       .done(done)
   })
