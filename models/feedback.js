@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.STRING,
       set (comment) {
-        const sanitizedComment = insecurity.sanitizeHtml(comment);
+        const sanitizedComment = insecurity.sanitizeHtml(comment)
         this.setDataValue('comment', sanitizedComment)
         if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(sanitizedComment, '<script>alert("XSS4")</script>')) {
           utils.solve(challenges.persistedXssChallengeFeedback)
