@@ -62,14 +62,14 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
       where: {
         comment: {
           [Op.or]: {
-            [Op.and]: {
-              [Op.like]: '%sanitize-html%',
-              [Op.like]: '%1.4.2%'
-            },
-            [Op.and]: {
-              [Op.like]: '%sequelize%',
-              [Op.like]: '%1.4.2%'
-            }
+            [Op.and]: [
+              { [Op.like]: '%sanitize-html%' },
+              { [Op.like]: '%1.4.2%' }
+            ],
+            [Op.and]: [
+              { [Op.like]: '%sequelize%' },
+              { [Op.like]: '%1.4.2%' }
+            ]
           }
         }
       }
@@ -83,13 +83,13 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     models.Feedback.findAndCountAll({
       where: {
         comment: {
-          [Op.or]: {
-            [Op.like]: '%z85%',
-            [Op.like]: '%base85%',
-            [Op.like]: '%hashids%',
-            [Op.like]: '%md5%',
-            [Op.like]: '%base64%'
-          }
+            [Op.or]: [
+              { [Op.like]: '%z85%'},
+              { [Op.like]: '%base85%'},
+              { [Op.like]: '%hashids%'},
+              { [Op.like]: '%md5%'},
+              { [Op.like]: '%base64%'}
+            ]
         }
       }
     }).then(data => {
