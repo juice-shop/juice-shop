@@ -40,6 +40,28 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
   next(err)
 }
 
+exports.jwtChallenges = (req, res, next) => {
+  if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
+    const token = insecurity.getAuthorizationToken(req)
+    const decoded = jwt.decode(token, {complete: true})
+    const header = decoded ? decoded.header : {}
+    let payload
+    if (utils.notSolved(challenges.jwtTier1)) {
+      payload = decoded ? decoded.payload : undefined
+      if (header.alg === 'none' && payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
+        utils.solve(challenges.jwtTier1)
+      }
+    }
+    if (utils.notSolved(challenges.jwtTier2)) {
+      payload = token ? jwt.verify(token, insecurity.publicKey) : undefined // TODO Handle error that can occur during verification
+      if (header.alg === 'RS256' && payload && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+        utils.solve(challenges.jwtTier2)
+      }
+    }
+  }
+  next()
+}
+
 exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
     products.osaft.reload().success(() => {
@@ -88,24 +110,6 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
         utils.solve(challenges.typosquattingBowerChallenge)
       }
     })
-  }
-  if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
-    const token = insecurity.getAuthorizationToken(req)
-    const decoded = jwt.decode(token, {complete: true})
-    const header = decoded ? decoded.header : {}
-    let payload
-    if (utils.notSolved(challenges.jwtTier1)) {
-      payload = decoded ? decoded.payload : undefined
-      if (header.alg === 'none' && payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
-        utils.solve(challenges.jwtTier1)
-      }
-    }
-    if (utils.notSolved(challenges.jwtTier2)) {
-      payload = token ? jwt.verify(token, insecurity.publicKey) : undefined // TODO Handle error that can occur during verification
-      if (header.alg === 'RS256' && payload && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
-        utils.solve(challenges.jwtTier2)
-      }
-    }
   }
   next()
 }

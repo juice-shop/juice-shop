@@ -115,7 +115,9 @@ app.use(bodyParser.json())
 /* HTTP request logging */
 app.use(morgan('dev'))
 
-/* Authorization */
+/** Authorization **/
+/* Checks on JWT in Authorization header */
+app.use(verify.jwtChallenges())
 /* Baskets: Unauthorized users are not allowed to access baskets */
 app.use('/rest/basket', insecurity.isAuthorized())
 /* BasketItems: API only accessible for authenticated users */
@@ -154,7 +156,6 @@ app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
-
 /* Challenge evaluation before sequelize-restful takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 
