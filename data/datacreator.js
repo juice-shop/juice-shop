@@ -477,17 +477,6 @@ function createChallenges () {
     challenges.resetPasswordBjoernChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Find JWT Secret',
-    category: 'Weak Security Mechanism',
-    description: '<a href="/#/contact">Inform the shop</a> about a JWT issue. (Mention the exact secret used for the signature in the JWT in your comment)',
-    difficulty: 4,
-    hint: addHint('This might require you to grab a little bit deeper into the pentester\'s toolbox.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#inform-the-shop-about-a-jwt-issue'),
-    solved: false
-  }).success(challenge => {
-    challenges.jwtSecretChallenge = challenge
-  })
-  models.Challenge.create({
     name: 'NoSQL Injection Tier 1',
     category: 'NoSQL Injection',
     description: 'Let the server sleep for some time. (It has done more than enough hard work for you)',
@@ -547,6 +536,28 @@ function createChallenges () {
     solved: false
   }).success(challenge => {
     challenges.typosquattingBowerChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'JWT Issues Tier 1',
+    category: 'Weak Security Mechanism',
+    description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.',
+    difficulty: 4,
+    hint: addHint(''),
+    hintUrl: addHint(''),
+    solved: false
+  }).success(challenge => {
+    challenges.jwtTier1 = challenge
+  })
+  models.Challenge.create({
+    name: 'JWT Issues Tier 2',
+    category: 'Weak Security Mechanism',
+    description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.',
+    difficulty: 5,
+    hint: addHint(''),
+    hintUrl: addHint(''),
+    solved: false
+  }).success(challenge => {
+    challenges.jwtTier2 = challenge
   })
 }
 

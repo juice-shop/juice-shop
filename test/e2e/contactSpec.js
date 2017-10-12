@@ -1,5 +1,4 @@
 const config = require('config')
-const insecurity = require('../../lib/insecurity')
 
 describe('/#/contact', () => {
   let comment, rating, submitButton
@@ -110,17 +109,6 @@ describe('/#/contact', () => {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
-  })
-
-  describe('challenge "jwtSecretCrypto"', () => {
-    it('should be possible to post secret JWT token as feedback', () => {
-      comment.sendKeys('The JWT token secret is ' + insecurity.defaultSecret)
-      rating.click()
-
-      submitButton.click()
-    })
-
-    protractor.expect.challengeSolved({ challenge: 'Find JWT Secret' })
   })
 
   describe('challenge "typosquattingNpm"', () => {

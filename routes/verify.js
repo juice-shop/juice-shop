@@ -1,5 +1,6 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
+const jwt = require('jsonwebtoken')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
@@ -72,14 +73,6 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
       }
     })
   }
-  if (utils.notSolved(challenges.jwtSecretChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
-    ).success(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.jwtSecretChallenge)
-      }
-    })
-  }
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
     models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
     ).success(data => {
@@ -95,6 +88,24 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
         utils.solve(challenges.typosquattingBowerChallenge)
       }
     })
+  }
+  if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
+    const token = insecurity.getAuthorizationToken(req)
+    const decoded = jwt.decode(token, {complete: true})
+    const header = decoded ? decoded.header : {}
+    let payload
+    if (utils.notSolved(challenges.jwtTier1)) {
+      payload = decoded.payload
+      if (header.alg === 'none' && payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
+        utils.solve(challenges.jwtTier1)
+      }
+    }
+    if (utils.notSolved(challenges.jwtTier2)) {
+      payload = token ? jwt.verify(token, insecurity.publicKey) : undefined // TODO Handle error that can occur during verification
+      if (header.alg === 'RS256' && payload && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+        utils.solve(challenges.jwtTier2)
+      }
+    }
   }
   next()
 }
