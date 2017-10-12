@@ -95,7 +95,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     const header = decoded ? decoded.header : {}
     let payload
     if (utils.notSolved(challenges.jwtTier1)) {
-      payload = decoded.payload
+      payload = decoded ? decoded.payload : undefined
       if (header.alg === 'none' && payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
         utils.solve(challenges.jwtTier1)
       }
