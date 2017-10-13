@@ -41,17 +41,18 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 }
 
 exports.jwtChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
+  if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
     expressJwt({secret: insecurity.publicKey, requestProperty: 'auth'})
     const payload = req.auth
-    if (utils.notSolved(challenges.jwtTier1)) {
+
+    if (utils.notSolved(challenges.jwtTier1Challenge)) {
       if (/* TODO header.alg === 'none' && */ payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
-        utils.solve(challenges.jwtTier1)
+        utils.solve(challenges.jwtTier1Challenge)
       }
     }
-    if (utils.notSolved(challenges.jwtTier2)) {
+    if (utils.notSolved(challenges.jwtTier2Challenge)) {
       if (/* TODO header.alg === 'RS256' && */ payload && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
-        utils.solve(challenges.jwtTier2)
+        utils.solve(challenges.jwtTier2Challenge)
       }
     }
   }

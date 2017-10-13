@@ -4,6 +4,7 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
+const insecurity = require('../../lib/insecurity')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -21,7 +22,7 @@ describe('verify', () => {
 
   describe('"forgedFeedbackChallenge"', () => {
     beforeEach(() => {
-      require('../../lib/insecurity').authenticatedUsers.put('token12345', {
+      insecurity.authenticatedUsers.put('token12345', {
         data: {
           id: 42,
           email: 'test@juice-sh.op'
@@ -209,6 +210,29 @@ describe('verify', () => {
 
         expect(challenges.changeProductChallenge.solved).to.equal(false)
       })
+    })
+  })
+
+  describe('jwtChallenges', () => {
+    beforeEach(() => {
+      challenges.jwtTier1Challenge = { solved: false, save: save }
+      challenges.jwtTier2Challenge = { solved: false, save: save }
+    })
+
+    xit('"jwtTier1Challenge" is solved when token has email jwtn3d@juice-sh.op in the payload', () => {
+      req.headers = { authorization: 'Bearer ' + insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } }) }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+    })
+
+    xit('"jwtTier2Challenge" is solved when token has email rsa_lord@juice-sh.op in the payload', () => {
+      req.headers = { authorization: 'Bearer ' + insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } }) }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
     })
   })
 })

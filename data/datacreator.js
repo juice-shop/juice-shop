@@ -546,7 +546,7 @@ function createChallenges () {
     hintUrl: addHint(''),
     solved: false
   }).success(challenge => {
-    challenges.jwtTier1 = challenge
+    challenges.jwtTier1Challenge = challenge
   })
   models.Challenge.create({
     name: 'JWT Issues Tier 2',
@@ -557,7 +557,7 @@ function createChallenges () {
     hintUrl: addHint(''),
     solved: false
   }).success(challenge => {
-    challenges.jwtTier2 = challenge
+    challenges.jwtTier2Challenge = challenge
   })
 }
 
