@@ -44,7 +44,6 @@ exports.jwtChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
     expressJwt({secret: insecurity.publicKey, requestProperty: 'auth'})
     const payload = req.auth
-    console.log(JSON.stringify(payload))
     if (utils.notSolved(challenges.jwtTier1)) {
       if (/* TODO header.alg === 'none' && */ payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
         utils.solve(challenges.jwtTier1)
