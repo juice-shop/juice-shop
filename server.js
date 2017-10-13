@@ -113,7 +113,8 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-app.use(morgan('dev'))
+let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
+app.use(morgan('combined', {stream: accessLogStream}))
 
 /* Authorization */
 /* Baskets: Unauthorized users are not allowed to access baskets */
