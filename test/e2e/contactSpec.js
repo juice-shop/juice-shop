@@ -90,9 +90,9 @@ describe('/#/contact', () => {
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
-      comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.')
-      comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON.')
-      comment.sendKeys('express-jwt 0.1.3 can be downgraded from RSA to HMAC.')
+      comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
+      comment.sendKeys('sequelize 1.7.11 allows SQL Injection.')
+      comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
       rating.click()
 
       submitButton.click()
