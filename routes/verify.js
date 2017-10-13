@@ -40,7 +40,7 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
   next(err)
 }
 
-exports.jwtChallenges = (req, res, next) => {
+exports.jwtChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.jwtTier1) || utils.notSolved(challenges.jwtTier2)) {
     expressJwt({secret: insecurity.publicKey, requestProperty: 'auth'})
     const payload = req.auth
