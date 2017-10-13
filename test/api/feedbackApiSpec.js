@@ -65,7 +65,7 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'You suck!',
+        comment: 'Your express-jwt 0.1.3 has some serious problems!',
         rating: 0,
         UserId: 4711
       }

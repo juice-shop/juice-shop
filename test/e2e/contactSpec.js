@@ -92,6 +92,7 @@ describe('/#/contact', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
       comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.')
       comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON.')
+      comment.sendKeys('express-jwt 0.1.3 can be downgraded from RSA to HMAC.')
       rating.click()
 
       submitButton.click()

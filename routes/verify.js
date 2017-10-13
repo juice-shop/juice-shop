@@ -77,7 +77,11 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-    models.Feedback.findAndCountAll({ where: models.Sequelize.or(models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]), models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ])) }
+    models.Feedback.findAndCountAll({ where: models.Sequelize.or(
+      models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]),
+      models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ]),
+      models.Sequelize.and([ 'comment LIKE \'%express-jwt%\'' ], [ 'comment LIKE \'%0.1.3%\'' ])
+      )}
     ).success(data => {
       if (data.count > 0) {
         utils.solve(challenges.knownVulnerableComponentChallenge)
