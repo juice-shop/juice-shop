@@ -30,7 +30,7 @@ exports = module.exports = function placeOrder () {
           doc.moveDown()
           let totalPrice = 0
           basket.Products.forEach(product => {
-            if (utils.notSolved(challenges.christmasSpecialChallenge) && product.id === products.christmasSpecial.id) {
+            if (utils.notSolved(challenges.christmasSpecialChallenge) && product.BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
             const itemTotal = product.price * product.BasketItem.quantity
