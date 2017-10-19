@@ -23,7 +23,7 @@ describe('/api/Feedbacks', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('json', 'data', {
         comment: 'I am a harmless comment.'
       })
@@ -38,7 +38,7 @@ describe('/api/Feedbacks', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('json', 'data', {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS4")</script>'
       })
@@ -50,18 +50,18 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and hashids for crypto? Even MD5 to hash passwords! Srsly?!?!',
-        rating: 1,
+        rating: 0,
         UserId: 3
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 3
       }).done(done)
   })
 
-  it('POST feedback in a non-existing users name as anonymous user', done => {
+  it('POST feedback in a non-existing users name as anonymous user fails with constraint error', done => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
@@ -70,11 +70,12 @@ describe('/api/Feedbacks', () => {
         UserId: 4711
       }
     })
-      .expect('status', 200)
+      .expect('status', 500)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', {
-        UserId: 4711
-      }).done(done)
+      .then(res => {
+        expect(res.json.errors).toContain('SQLITE_CONSTRAINT: FOREIGN KEY constraint failed')
+      })
+      .done(done)
   })
 
   it('POST feedback is associated with current user', done => {
@@ -89,12 +90,12 @@ describe('/api/Feedbacks', () => {
       .then(res => frisby.post(API_URL + '/Feedbacks', {
         headers: { 'Authorization': 'Bearer ' + res.json.authentication.token, 'content-type': 'application/json' },
         body: {
-          comment: 'Bjoern\'s choice award!',
+          comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and angular-tooltipps!',
           rating: 5,
           UserId: 4
         }
       })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 4
@@ -119,7 +120,7 @@ describe('/api/Feedbacks', () => {
           UserId: 3
         }
       })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
         UserId: 3
@@ -129,12 +130,12 @@ describe('/api/Feedbacks', () => {
 
   it('POST feedback can be created without actually supplying data', done => {
     frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: {} })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
-        comment: Joi.any().allow('undefined'),
-        rating: Joi.any().forbidden(),
-        UserId: Joi.any().forbidden()
+        comment: null,
+        rating: null,
+        UserId: null
       })
       .done(done)
   })
@@ -191,7 +192,7 @@ describe('/api/Feedbacks/:id', () => {
         rating: 1
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('jsonTypes', 'data', { id: Joi.number() })
       .then(res => {
         frisby.del(API_URL + '/Feedbacks/' + res.json.data.id, { headers: authHeader })

@@ -7,14 +7,14 @@ chai.use(sinonChai)
 describe('easterEgg', () => {
   let serveEasterEgg, challenges, req, res
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
     serveEasterEgg = require('../../routes/easterEgg')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy() }
-    req = { }
+    req = {}
   })
 
   it('should serve /app/private/threejs-demo.html', () => {

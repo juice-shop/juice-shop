@@ -10,8 +10,8 @@ const challenges = require('../data/datacache').challenges
 exports = module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
-    models.Basket.find({ where: { id: id }, include: [ models.Product ] })
-      .success(basket => {
+    models.Basket.find({ where: { id: id }, include: [ { model: models.Product, paranoid: false } ] })
+      .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const orderNo = insecurity.hash(new Date() + '_' + id)
@@ -29,12 +29,12 @@ exports = module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          basket.products.forEach(product => {
-            if (utils.notSolved(challenges.christmasSpecialChallenge) && product.id === products.christmasSpecial.id) {
+          basket.Products.forEach(product => {
+            if (utils.notSolved(challenges.christmasSpecialChallenge) && product.BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
-            const itemTotal = product.price * product.basketItem.quantity
-            doc.text(product.basketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal)
+            const itemTotal = product.price * product.BasketItem.quantity
+            doc.text(product.BasketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
           })
@@ -61,13 +61,13 @@ exports = module.exports = function placeOrder () {
 
           fileWriter.on('finish', () => {
             basket.updateAttributes({ coupon: null })
-            models.BasketItem.destroy({ BasketId: id })
+            models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
         }
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
   }

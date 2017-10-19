@@ -14,7 +14,7 @@ describe('/api/Complaints', () => {
         message: 'My stuff never arrived! This is outrageous!'
       }
     })
-    .expect('status', 200)
+    .expect('status', 201)
     .expect('header', 'content-type', /application\/json/)
     .expect('jsonTypes', 'data', {
       id: Joi.number(),
