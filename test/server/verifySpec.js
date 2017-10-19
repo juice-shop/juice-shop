@@ -9,7 +9,7 @@ describe('verify', () => {
   const verify = require('../../routes/verify')
   let challenges, req, res, next, err
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
@@ -59,7 +59,7 @@ describe('verify', () => {
 
     it('is solved when an unauthenticated user passes someones ID when writing feedback', () => {
       req.body.UserId = 1
-      req.headers = { }
+      req.headers = {}
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
@@ -183,7 +183,7 @@ describe('verify', () => {
       beforeEach(() => {
         challenges.changeProductChallenge = { solved: false, save: save }
         products = require('../../data/datacache').products
-        products.osaft = { reload: function () { return { success: function (cb) { cb() } } } }
+        products.osaft = { reload: function () { return { then: function (cb) { cb() } } } }
       })
 
       it('is solved when the link in the O-Saft product goes to http://kimminich.de', () => {

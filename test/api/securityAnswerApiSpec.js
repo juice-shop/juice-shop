@@ -22,11 +22,9 @@ describe('/api/SecurityAnswers', () => {
         answer: 'Horst'
       }
     })
-      .expect('status', 200)
+      .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'message', {
-        code: 'SQLITE_CONSTRAINT'
-      })
+      .expect('json', 'message', 'Validation error')
       .done(done)
   })
 })
@@ -43,7 +41,7 @@ describe('/api/SecurityAnswers/:id', () => {
       email: 'new.user@te.st',
       password: '12345'
     }, { json: true })
-      .expect('status', 200)
+      .expect('status', 201)
       .then(res => frisby.post(API_URL + '/SecurityAnswers', {
         headers: authHeader,
         body: {
@@ -52,7 +50,7 @@ describe('/api/SecurityAnswers/:id', () => {
           answer: 'Horst'
         }
       })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         id: Joi.number(),

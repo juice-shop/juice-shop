@@ -21,10 +21,10 @@ exports = module.exports = function resetPassword () {
           model: models.User,
           where: { email: email }
         }]
-      }).success(data => {
+      }).then(data => {
         if (insecurity.hmac(answer) === data.answer) {
-          models.User.find(data.UserId).success(user => {
-            user.updateAttributes({ password: newPassword }).success(user => {
+          models.User.findById(data.UserId).then(user => {
+            user.updateAttributes({ password: newPassword }).then(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
@@ -34,17 +34,17 @@ exports = module.exports = function resetPassword () {
               if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
-              res.json({user: user})
-            }).error(error => {
+              res.json({ user: user })
+            }).catch(error => {
               next(error)
             })
-          }).error(error => {
+          }).catch(error => {
             next(error)
           })
         } else {
           res.status(401).send('Wrong answer to security question.')
         }
-      }).error(error => {
+      }).catch(error => {
         next(error)
       })
     }

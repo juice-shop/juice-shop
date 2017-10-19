@@ -31,7 +31,7 @@ describe('/api/Users', () => {
         password: 'hooooorst'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         id: Joi.number(),
@@ -52,7 +52,7 @@ describe('/api/Users', () => {
         password: 'does.not.matter'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', { email: '<script>alert("XSS2")</script>' })
       .done(done)
@@ -169,7 +169,7 @@ describe('/rest/user/login', () => {
         password: 'kallliiii'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .then(() => frisby.post(REST_URL + '/user/login', {
         headers: jsonHeader,
         body: {
@@ -354,7 +354,7 @@ describe('/rest/user/change-password', () => {
         password: 'kunigunde'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .then(() => frisby.post(REST_URL + '/user/login', {
         headers: jsonHeader,
         body: {
@@ -378,7 +378,7 @@ describe('/rest/user/change-password', () => {
         password: 'kunibert'
       }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .then(() => frisby.post(REST_URL + '/user/login', {
         headers: jsonHeader,
         body: {

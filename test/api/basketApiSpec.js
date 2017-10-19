@@ -32,7 +32,7 @@ describe('/rest/basket/:id', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {id: 1})
       .then(res => {
-        expect(res.json.data.products.length).toBe(3)
+        expect(res.json.data.Products.length).toBe(3)
       })
       .done(done)
   })
@@ -46,15 +46,13 @@ describe('/api/Baskets', () => {
         UserId: 1
       }
     })
-      .expect('status', 200)
-      .expect('json', { status: 'error' })
+      .expect('status', 500)
       .done(done)
   })
 
   it('GET all baskets is not part of API', done => {
     frisby.get(API_URL + '/Baskets', { headers: authHeader })
-      .expect('status', 200)
-      .expect('json', { status: 'error' })
+      .expect('status', 500)
       .done(done)
   })
 })
@@ -62,8 +60,7 @@ describe('/api/Baskets', () => {
 describe('/api/Baskets/:id', () => {
   it('GET existing basket is not part of API', done => {
     frisby.get(API_URL + '/Baskets/1', { headers: authHeader })
-      .expect('status', 200)
-      .expect('json', { status: 'error' })
+      .expect('status', 500)
       .done(done)
   })
 
@@ -72,15 +69,13 @@ describe('/api/Baskets/:id', () => {
       headers: authHeader,
       body: { UserId: 2 }
     })
-      .expect('status', 200)
-      .expect('json', { status: 'error' })
+      .expect('status', 500)
       .done(done)
   })
 
   it('DELETE existing basket is not part of API', done => {
     frisby.del(API_URL + '/Baskets/1', { headers: authHeader })
-      .expect('status', 200)
-      .expect('json', { status: 'error' })
+      .expect('status', 500)
       .done(done)
   })
 })
@@ -131,7 +126,7 @@ describe('/rest/basket/:id/checkout', () => {
       headers: authHeader,
       body: { BasketId: 3, ProductId: 10, quantity: -100 }
     })
-      .expect('status', 200)
+      .expect('status', 201)
       .then(() => frisby.post(REST_URL + '/basket/3/checkout', { headers: authHeader })
       .expect('status', 200)
       .then(res => {
