@@ -61,16 +61,10 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     models.Feedback.findAndCountAll({
       where: {
         comment: {
-          [Op.or]: {
-            [Op.and]: [
-              {[Op.like]: '%sanitize-html%'},
-              {[Op.like]: '%1.4.2%'}
-            ],
-            [Op.and]: [
-              {[Op.like]: '%sequelize%'},
-              {[Op.like]: '%1.4.2%'}
-            ]
-          }
+          [Op.and]: [
+            {[Op.like]: '%sanitize-html%'},
+            {[Op.like]: '%1.4.2%'}
+          ]
         }
       }
     }).then(data => {
