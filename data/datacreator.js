@@ -518,7 +518,7 @@ function createChallenges () {
   }).then(challenge => {
     challenges.retrieveBlueprintChallenge = challenge
 
-    // TODO remove this workaround default before v5.0 release
+    // TODO remove this workaround default before v6.0 release
     for (const product of config.get('products')) {
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
@@ -678,7 +678,7 @@ function createProducts () {
     })
   }
 
-  if (!datacache.retrieveBlueprintChallengeFile) { // TODO remove this workaround default before v5.0 release
+  if (!datacache.retrieveBlueprintChallengeFile) { // TODO remove this workaround default before v6.0 release
     datacache.retrieveBlueprintChallengeFile = 'JuiceShop.stl'
   }
 }
