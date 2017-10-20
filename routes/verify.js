@@ -1,6 +1,6 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
