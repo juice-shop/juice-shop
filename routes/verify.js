@@ -1,6 +1,6 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-const expressJwt = require('express-jwt')
+const jwt = require('jsonwebtoken')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const challenges = cache.challenges
@@ -42,8 +42,8 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 
 exports.jwtChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
-    expressJwt({secret: insecurity.publicKey, requestProperty: 'auth'})
-    const payload = req.auth
+    const token = utils.jwtFrom(req)
+    const payload = token ? jwt.verify(token, insecurity.publicKey) : {}
 
     if (utils.notSolved(challenges.jwtTier1Challenge)) {
       if (/* TODO header.alg === 'none' && */ payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
