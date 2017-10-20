@@ -81,7 +81,7 @@ describe('/api/Baskets/:id', () => {
 })
 
 describe('/rest/basket/:id', () => {
-  xit('GET existing basket of another user', done => { // FIXME Repair test!
+  it('GET existing basket of another user', done => {
     frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
