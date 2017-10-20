@@ -81,9 +81,9 @@ describe('/api/Products/:id', () => {
 
   it('GET non-existing product by id', done => {
     frisby.get(API_URL + '/Products/4711')
-      .expect('status', 200)
+      .expect('status', 404)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', {})
+      .expect('json', 'message', 'Not Found')
       .done(done)
   })
 

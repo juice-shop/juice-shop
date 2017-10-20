@@ -7,14 +7,14 @@ chai.use(sinonChai)
 describe('fileServer', () => {
   let servePublicFiles, challenges, req, res, next
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
     servePublicFiles = require('../../routes/fileServer')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy(), status: sinon.spy() }
-    req = { params: { }, query: { } }
+    req = { params: {}, query: {} }
     next = sinon.spy()
   })
 
