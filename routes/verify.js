@@ -42,20 +42,19 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 }
 
 exports.jwtChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.jwtTier1Challenge)) {
+  if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
     const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
-    const payload = decoded.payload
-    const header = decoded.header
-    if (header.alg === 'none' && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
-      utils.solve(challenges.jwtTier1Challenge)
+    const payload = decoded ? decoded.payload : {}
+    const header = decoded ? decoded.header : {}
+    if (utils.notSolved(challenges.jwtTier1Challenge)) {
+      if (header.alg === 'none' && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
+        utils.solve(challenges.jwtTier1Challenge)
+      }
     }
-  }
-  if (utils.notSolved(challenges.jwtTier2Challenge)) {
-    const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
-    const payload = decoded.payload
-    const header = decoded.header
-    if (header.alg === 'RS256' && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
-      utils.solve(challenges.jwtTier2Challenge)
+    if (utils.notSolved(challenges.jwtTier2Challenge)) {
+      if (header.alg === 'RS256' && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+        utils.solve(challenges.jwtTier2Challenge)
+      }
     }
   }
   next()
