@@ -1,6 +1,6 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-// const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
@@ -42,26 +42,21 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 }
 
 exports.jwtChallenges = () => (req, res, next) => {
-/*
-  if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
-    const token = utils.jwtFrom(req)
-    const decoded = token ? jwt.decode(token, {complete: true}) : {}
+  if (utils.notSolved(challenges.jwtTier1Challenge)) {
+    const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
     const payload = decoded.payload
-    // TODO Check for expected different headers for each challenge
-    /!* const header = decoded.header *!/
-
-    if (utils.notSolved(challenges.jwtTier1Challenge)) {
-      if (/!* header.alg === 'none' && *!/ payload && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
-        utils.solve(challenges.jwtTier1Challenge)
-      }
-    }
-    if (utils.notSolved(challenges.jwtTier2Challenge)) {
-      if (/!* header.alg === 'RS256' && *!/ payload && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
-        utils.solve(challenges.jwtTier2Challenge)
-      }
+    const header = decoded.header
+    if (header.alg === 'none' && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
+      utils.solve(challenges.jwtTier1Challenge)
     }
   }
-*/
+  if (utils.notSolved(challenges.jwtTier2Challenge)) {
+    jwt.verify(utils.jwtFrom(req), insecurity.publicKey, { algorithms: ['RS256'] }, function (err, payload) {
+      if (!err && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+        utils.solve(challenges.jwtTier2Challenge)
+      }
+    })
+  }
   next()
 }
 

@@ -5,6 +5,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const insecurity = require('../../lib/insecurity')
+const jwt = require('jsonwebtoken')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -219,16 +220,19 @@ describe('verify', () => {
       challenges.jwtTier2Challenge = { solved: false, save: save }
     })
 
-    xit('"jwtTier1Challenge" is solved when token has email jwtn3d@juice-sh.op in the payload', () => {
-      req.headers = { authorization: 'Bearer ' + insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } }) }
+    xit('"jwtTier1Challenge" is solved when unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
+      let token = jwt.sign({ data: { email: 'jwtn3d@juice-sh.op' } }, 'irrelevantSecret', { algorithm: 'none' })
+      token = token.substring(0, token.lastIndexOf('.')) // drop signature
+      req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(req, res, next)
 
       expect(challenges.jwtTier1Challenge.solved).to.equal(true)
     })
 
-    xit('"jwtTier2Challenge" is solved when token has email rsa_lord@juice-sh.op in the payload', () => {
-      req.headers = { authorization: 'Bearer ' + insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } }) }
+    it('"jwtTier2Challenge" is solved when signed token has email rsa_lord@juice-sh.op in the payload', () => {
+      const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
+      req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(req, res, next)
 
