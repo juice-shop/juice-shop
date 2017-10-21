@@ -51,11 +51,12 @@ exports.jwtChallenges = () => (req, res, next) => {
     }
   }
   if (utils.notSolved(challenges.jwtTier2Challenge)) {
-    jwt.verify(utils.jwtFrom(req), insecurity.publicKey, { algorithms: ['RS256'] }, function (err, payload) {
-      if (!err && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+    const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
+    const payload = decoded.payload
+    const header = decoded.header
+    if (header.alg === 'RS256' && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
         utils.solve(challenges.jwtTier2Challenge)
-      }
-    })
+    }
   }
   next()
 }
