@@ -55,7 +55,7 @@ exports.jwtChallenges = () => (req, res, next) => {
     const payload = decoded.payload
     const header = decoded.header
     if (header.alg === 'RS256' && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
-        utils.solve(challenges.jwtTier2Challenge)
+      utils.solve(challenges.jwtTier2Challenge)
     }
   }
   next()
