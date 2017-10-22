@@ -5,7 +5,6 @@ const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const insecurity = require('../../lib/insecurity')
-const jwt = require('jsonwebtoken')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -220,17 +219,40 @@ describe('verify', () => {
       challenges.jwtTier2Challenge = { solved: false, save: save }
     })
 
-    xit('"jwtTier1Challenge" is solved when unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
-      let token = jwt.sign({ data: { email: 'jwtn3d@juice-sh.op' } }, 'irrelevantSecret', { algorithm: 'none' })
-      token = token.substring(0, token.lastIndexOf('.')) // drop signature
-      req.headers = { authorization: 'Bearer ' + token }
+    it('"jwtTier1Challenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
+      /*
+      Header: { "alg": "none", "typ": "JWT" }
+      Payload: { "data": { "email": "jwtn3d@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
 
       verify.jwtChallenges()(req, res, next)
 
       expect(challenges.jwtTier1Challenge.solved).to.equal(true)
     })
 
-    it('"jwtTier2Challenge" is solved when signed token has email rsa_lord@juice-sh.op in the payload', () => {
+    it('"jwtTier1Challenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
+      const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
+      req.headers = { authorization: 'Bearer ' + token }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
+    })
+
+    xit('"jwtTier2Challenge" is solved when forged token signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+      /*
+      Header: { "alg": "HS256", "typ": "JWT" }
+      Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTA4NjM5NjEyLCJleHAiOjk5OTk5OTk5OTl9.dFeqI0EGsOecwi5Eo06dFUBtW5ziRljFgMWOCYeA8yw' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+    })
+
+    it('"jwtTier2Challenge" is solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
       const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
       req.headers = { authorization: 'Bearer ' + token }
 
