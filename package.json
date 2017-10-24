@@ -60,6 +60,7 @@
     "hashids": "~1.1",
     "helmet": "~3.8",
     "html-entities": "~1.2",
+    "jasmine": "^2.8.0",
     "js-yaml": "3.9",
     "jsonwebtoken": "~8",
     "jssha": "~2.3",
