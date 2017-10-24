@@ -26,7 +26,7 @@ describe('/#/basket', () => {
     })
 
     describe('challenge "accessBasket"', () => {
-      it('should access basket with id from cookie instead of the one associated to logged-in user', () => {
+      it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
         browser.executeScript('window.sessionStorage.bid = 3;')
 
         browser.get('/#/basket')
