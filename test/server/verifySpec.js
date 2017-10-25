@@ -231,6 +231,18 @@ describe('verify', () => {
       expect(challenges.jwtTier1Challenge.solved).to.equal(true)
     })
 
+    it('"jwtTier1Challenge" is solved when forged unsigned token has string "jwtn3d@" in the payload', () => {
+      /*
+      Header: { "alg": "none", "typ": "JWT" }
+      Payload: { "data": { "email": "jwtn3d@" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQCJ9LCJpYXQiOjE1MDg2Mzk2MTIsImV4cCI6OTk5OTk5OTk5OX0.' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+    })
+
     it('"jwtTier1Challenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
       const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
       req.headers = { authorization: 'Bearer ' + token }
@@ -246,6 +258,18 @@ describe('verify', () => {
       Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
        */
       req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTA4NjM5NjEyLCJleHAiOjk5OTk5OTk5OTl9.dFeqI0EGsOecwi5Eo06dFUBtW5ziRljFgMWOCYeA8yw' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+    })
+
+    xit('"jwtTier2Challenge" is solved when forged token signed with public RSA-key has string "rsa_lord@" in the payload', () => {
+      /*
+      Header: { "alg": "HS256", "typ": "JWT" }
+      Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.mvgAeQum5lh6Wq4f-69OqLy3g_SD2_aNahyHBHP4Bwk' }
 
       verify.jwtChallenges()(req, res, next)
 

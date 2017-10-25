@@ -47,12 +47,12 @@ exports.jwtChallenges = () => (req, res, next) => {
     const payload = decoded ? decoded.payload : {}
     const header = decoded ? decoded.header : {}
     if (utils.notSolved(challenges.jwtTier1Challenge)) {
-      if (header.alg === 'none' && payload.data && payload.data.email === 'jwtn3d@juice-sh.op') {
+      if (header.alg === 'none' && payload.data && payload.data.email && payload.data.email.match(/jwtn3d@/)) {
         utils.solve(challenges.jwtTier1Challenge)
       }
     }
     if (utils.notSolved(challenges.jwtTier2Challenge)) {
-      if (header.alg === 'RS256' && payload.data && payload.data.email === 'rsa_lord@juice-sh.op') {
+      if (header.alg === 'RS256' && payload.data && payload.data.email && payload.data.email.match(/rsa_lord@/)) {
         utils.solve(challenges.jwtTier2Challenge)
       }
     }
