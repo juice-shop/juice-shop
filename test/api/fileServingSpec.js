@@ -275,7 +275,7 @@ describe('Hidden URL', () => {
   it('GET Klingon translation file for "Extra Language" challenge', done => {
     frisby.get(URL + '/i18n/tlh.json')
       .expect('status', 200)
-      .expect('header', 'content-type', 'application/json')
+      .expect('header', 'content-type', /application\/json/)
       .done(done)
   })
 
