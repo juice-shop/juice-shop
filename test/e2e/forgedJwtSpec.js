@@ -1,6 +1,6 @@
 describe('/', () => {
   describe('challenge "jwtTier1"', () => {
-    xit('should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ', () => {
+    it('should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ', () => {
       browser.manage().addCookie({ name: 'token', value: 'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' })
       browser.get('/#/')
     })
