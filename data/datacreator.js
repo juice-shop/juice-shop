@@ -337,7 +337,7 @@ function createChallenges () {
     name: 'Christmas Special',
     category: 'SQL Injection',
     description: 'Order the Christmas special offer of 2014.',
-    difficulty: 3,
+    difficulty: 2,
     hint: addHint('Find out how the application handles unavailable products.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#order-the-christmas-special-offer-of-2014'),
     solved: false
