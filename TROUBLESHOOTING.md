@@ -16,7 +16,7 @@
 - If during `npm install` the `sqlite3` no binaries can be downloaded
   for your system, the setup falls back to building from source with
   `node-gyp`. Check the
-  [`node-gyp` installation instructions](https://github.com/nodejs/node-gyp#installation)
+  `node-gyp` [installation instructions](https://github.com/nodejs/node-gyp#installation)
   for additional tools you might need to install (e.g. Python 2.7, GCC,
   Visual C++ Build Tools etc.)
 - If `npm install` fails on Ubuntu (e.g. while installing PhantomJS) you
