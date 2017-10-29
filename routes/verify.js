@@ -52,7 +52,7 @@ exports.jwtChallenges = () => (req, res, next) => {
       }
     }
     if (utils.notSolved(challenges.jwtTier2Challenge)) {
-      if (header.alg === 'RS256' && payload.data && payload.data.email && payload.data.email.match(/rsa_lord@/)) {
+      if (header.alg === 'HS256' && payload.data && payload.data.email && payload.data.email.match(/rsa_lord@/)) {
         utils.solve(challenges.jwtTier2Challenge)
       }
     }

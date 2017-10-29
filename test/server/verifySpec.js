@@ -252,7 +252,7 @@ describe('verify', () => {
       expect(challenges.jwtTier2Challenge.solved).to.equal(false)
     })
 
-    xit('"jwtTier2Challenge" is solved when forged token signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
       /*
       Header: { "alg": "HS256", "typ": "JWT" }
       Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
@@ -264,7 +264,7 @@ describe('verify', () => {
       expect(challenges.jwtTier2Challenge.solved).to.equal(true)
     })
 
-    xit('"jwtTier2Challenge" is solved when forged token signed with public RSA-key has string "rsa_lord@" in the payload', () => {
+    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
       /*
       Header: { "alg": "HS256", "typ": "JWT" }
       Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
@@ -276,13 +276,13 @@ describe('verify', () => {
       expect(challenges.jwtTier2Challenge.solved).to.equal(true)
     })
 
-    it('"jwtTier2Challenge" is solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+    it('"jwtTier2Challenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
       const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
       req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(req, res, next)
 
-      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
     })
   })
 })
