@@ -542,8 +542,8 @@ function createChallenges () {
     category: 'Weak Security Mechanism',
     description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.',
     difficulty: 4,
-    hint: addHint(''),
-    hintUrl: addHint(''),
+    hint: addHint('This challenge exploits a weird option that is supported when signing tokens with JWT.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#forge-an-essentially-unsigned-jwt-token'),
     solved: false
   }).then(challenge => {
     challenges.jwtTier1Challenge = challenge
@@ -553,8 +553,8 @@ function createChallenges () {
     category: 'Weak Security Mechanism',
     description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.',
     difficulty: 5,
-    hint: addHint(''),
-    hintUrl: addHint(''),
+    hint: addHint('This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#forge-an-almost-properly-rsa-signed-jwt-token'),
     solved: false
   }).then(challenge => {
     challenges.jwtTier2Challenge = challenge
