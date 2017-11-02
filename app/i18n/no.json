@@ -117,13 +117,13 @@
   "FORGOT_PASSWORD": "Har du glemt passordet?",
   "TITLE_FORGOT_PASSWORD": "Glemt passord",
   "NOTIFICATION_SERVER_STARTED": "Serveren er startet på nytt",
-  "AUTO_RESTORED_PROGRESS": "Your previous hacking progress has been restored automatically.",
-  "AUTO_RESTORE_PROGRESS_FAILED": "Restoring your previous hacking progress failed: {{error}}",
-  "RESET_HACKING_PROGRESS": "Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED": "You now have to manually restart the application to start over!",
-  "LABEL_EDIT_REVIEW": "Edit Review",
-  "LABEL_REVIEW": "Review",
-  "LABEL_REVIEWS": "Reviews",
-  "LABEL_ADD_REVIEW_FOR_PRODUCT": "Add a review for this product",
-  "LABEL_NO_REVIEWS": "No Reviews"
+  "AUTO_RESTORED_PROGRESS": "Din tidligere hackerfremgang har blitt gjenopprettet automatisk.",
+  "AUTO_RESTORE_PROGRESS_FAILED": "Gjenoppretting av tidligere hacker fremgang feilet: {{error}}",
+  "RESET_HACKING_PROGRESS": "Slett informasjonskapselen for å fjerne hacking fremgang",
+  "RESTART_REQUIRED": "Du må nå manuelt restarte programmet for å starte på nytt!",
+  "LABEL_EDIT_REVIEW": "Redigere omtale",
+  "LABEL_REVIEW": "Omtale",
+  "LABEL_REVIEWS": "Omtaler",
+  "LABEL_ADD_REVIEW_FOR_PRODUCT": "Legge til en omtale for dette produktet",
+  "LABEL_NO_REVIEWS": "Ingen omtaler"
 }
