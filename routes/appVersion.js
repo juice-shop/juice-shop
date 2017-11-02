@@ -1,6 +1,5 @@
 const utils = require('../lib/utils')
-const config = require('config');
-
+const config = require('config')
 
 exports = module.exports = function retrieveAppVersion () {
   return (req, res) => {
