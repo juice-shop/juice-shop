@@ -50,7 +50,7 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and hashids for crypto? Even MD5 to hash passwords! Srsly?!?!',
-        rating: 0,
+        rating: null,
         UserId: 3
       }
     })
