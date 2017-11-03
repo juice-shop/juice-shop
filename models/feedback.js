@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       set (rating) {
         this.setDataValue('rating', rating)
-        if (utils.notSolved(challenges.zeroStarsChallenge) && (rating === 0 || rating === undefined)) {
+        if (utils.notSolved(challenges.zeroStarsChallenge) && (rating === 0 || rating == null)) {
           utils.solve(challenges.zeroStarsChallenge)
         }
       }
