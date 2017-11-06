@@ -158,4 +158,8 @@ products:
     description: '10 sheets of <a href="https://www.stickermule.com/artworks/1188370/shared">Sweden-themed stickers</a>  with 15 stickers on each.'
     price: 19.10
     image: 'stickersheet_se.png'
-    
+    deletedDate: '2017-09-20'
+  - name: 'Pwning OWASP Juice Shop'
+    description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
+    price: 5.99
+    image: 'ebook.jpg'
