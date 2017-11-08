@@ -6,6 +6,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
+const config = require('config')
 
 exports = module.exports = function placeOrder () {
   return (req, res, next) => {
@@ -19,7 +20,7 @@ exports = module.exports = function placeOrder () {
           const doc = new PDFDocument()
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
 
-          doc.text('Juice-Shop - Order Confirmation')
+          doc.text(config.get('application.name') + ' - Order Confirmation')
           doc.moveDown()
           doc.moveDown()
           doc.moveDown()
