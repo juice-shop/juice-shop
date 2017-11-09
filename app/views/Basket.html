@@ -1,5 +1,5 @@
-<div class="row" xmlns:https="http://www.w3.org/1999/xhtml">
-    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+<div class="row">
+    <section class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm">
             <span translate="TITLE_BASKET"></span>&nbsp;
             ({{userEmail}})
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div uib-collapse="couponCollapsed">
+        <section uib-collapse="couponCollapsed">
             <div class="alert-info" ng-show="confirmation && !form.$dirty">
                 <p>{{confirmation}}</p>
             </div>
@@ -66,9 +66,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
 
-        <div uib-collapse="paymentCollapsed">
+        <section uib-collapse="paymentCollapsed">
             <div class="container-fluid well">
                 <div class="row">
                     <label translate="LABEL_PAYMENT"></label>
@@ -125,7 +125,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </section>
 </div>
