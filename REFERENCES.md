@@ -86,6 +86,10 @@ where this project was mentioned or used!
 
 #### 2017
 
+* [OWASP Juice Shop 5.x and beyond](https://www.owasp.org/index.php/German_OWASP_Day_2017#Programm)
+  by Björn Kimminich,
+  [German OWASP Day 2017](https://www.owasp.org/index.php/German_OWASP_Day_2017),
+  14.11.2017
 * [OWASP Juice Shop Introduction](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Conference_talks)
   talk and
   [AppSec Bucharest vs. OWASP Juice Shop](https://www.owasp.org/index.php/OWASP_Bucharest_AppSec_Conference_2017#tab=Free_workshops)
@@ -104,7 +108,8 @@ where this project was mentioned or used!
   with Björn Kimminich,
   [OWASP Stockholm Chapter](https://www.owasp.org/index.php/Stockholm),
   18.09.2017
-* Hacking session at [Angular Talk & Code](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/events/234414398/)
+* Hacking session at
+  [Angular Talk & Code](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/events/234414398/)
   with Björn Kimminich,
   [Angular Meetup Hamburg](https://www.meetup.com/de-DE/Hamburg-AngularJS-Meetup/),
   13.09.2017
