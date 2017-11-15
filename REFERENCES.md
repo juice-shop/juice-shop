@@ -13,6 +13,9 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Webcast recording on
+  [Signal Sciences](https://vimeo.com/signalsciences):
+  [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #282:
     [7MS #282: A Peek into the 7MS Mail Bag](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
@@ -45,8 +48,9 @@ where this project was mentioned or used!
   [Stuart Winter-Tear's Blog](https://stuartwintertear.net):
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
   ([Peerlyst cross-post](https://www.peerlyst.com/posts/owasp-juice-shop-vulnerable-webapp-stuart-winter-tear))
-* Blog post on [OWASP Summit 2017](https://owaspsummit.org):
-  [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
+* Blog posts on [OWASP Summit 2017](https://owaspsummit.org):
+  *  [Juice Shop v4.0.0 Live Releasen](https://owaspsummit.org/2017/06/15/Juice-Shop-Live-Release-v4.html)
+  *  [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
   [Less than 10 Minutes Series: The Juice Shop Project](https://soundcloud.com/owasp-podcast/less-than-10-minutes-series-the-juice-shop-project)
