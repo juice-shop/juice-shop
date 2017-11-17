@@ -11,6 +11,12 @@ where this project was mentioned or used!
 > _spoiler entire challenge solutions_ so you might not want to view
 > them before tackling these challenges yourself!
 
+## Awards :trophy:
+
+* [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/679286305/8049a634b1a01b0aa75c0966325856dc9a463b7f1beeb6a2f32cbb30248b5bc6)
+  in November 2017
+  ([:camera:](https://twitter.com/owasp_juiceshop/status/930917114948587526))
+
 ## Web Links
 
 * Webcast recording on
