@@ -255,8 +255,16 @@ your plans! !
 ### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop%20Project&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
 
 PayPal donations via above button go to the OWASP Foundations and are
-earmarked for "Juice Shop". This is the preferred way to support the
-project.
+earmarked for "Juice Shop". This is the preferred and most convenient
+way to support the project.
+
+### Credit Card (through RegOnline)
+
+OWASP hosts a
+[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
+Refer to the
+[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
+guide for help with filling out the donation form correctly.
 
 ### Others
 
