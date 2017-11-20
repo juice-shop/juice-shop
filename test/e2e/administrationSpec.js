@@ -4,7 +4,7 @@ describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
     it('should be possible to access administration section even when not authenticated', () => {
       browser.get('/#/administration')
-      expect(browser.getLocationAbsUrl()).toMatch(/\/administration/)
+      expect(browser.getCurrentUrl()).toMatch(/\/administration/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Admin Section'})

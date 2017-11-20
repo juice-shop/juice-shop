@@ -7,7 +7,7 @@ chai.use(sinonChai)
 describe('redirect', () => {
   let performRedirect, challenges, req, res, next
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {

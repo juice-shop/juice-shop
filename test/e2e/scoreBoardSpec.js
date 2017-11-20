@@ -4,7 +4,7 @@ describe('/#/score-board', () => {
   describe('challenge "scoreBoard"', () => {
     it('should be possible to access score board', () => {
       browser.get('/#/score-board')
-      expect(browser.getLocationAbsUrl()).toMatch(/\/score-board/)
+      expect(browser.getCurrentUrl()).toMatch(/\/score-board/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Score Board'})

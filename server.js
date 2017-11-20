@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const glob = require('glob')
 const morgan = require('morgan')
 const colors = require('colors/safe')
-const restful = require('sequelize-restful')
+const epilogue = require('epilogue-js')
 const express = require('express')
 const helmet = require('helmet')
 const errorhandler = require('errorhandler')
@@ -113,9 +113,12 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-app.use(morgan('dev'))
+let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
+app.use(morgan('combined', {stream: accessLogStream}))
 
-/* Authorization */
+/** Authorization **/
+/* Checks on JWT in Authorization header */
+app.use(verify.jwtChallenges())
 /* Baskets: Unauthorized users are not allowed to access baskets */
 app.use('/rest/basket', insecurity.isAuthorized())
 /* BasketItems: API only accessible for authenticated users */
@@ -154,23 +157,40 @@ app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
-
 /* Challenge evaluation before sequelize-restful takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
 
+epilogue.initialize({
+  app: app,
+  sequelize: models.sequelize
+})
+
+const autoModels = ['User', 'Product', 'Feedback', 'BasketItem', 'Challenge', 'Complaint', 'Recycle', 'SecurityQuestion', 'SecurityAnswer']
+
+for (const modelName of autoModels) {
+  const resource = epilogue.resource({
+    model: models[modelName],
+    endpoints: [`/api/${modelName}s`, `/api/${modelName}s/:id`]
+  })
+
+  resource.all.send.before(function (req, res, context) {
+    // TODO This appears to be the easiest way to fix the api difference between sequlize-restful and epilogue
+    context.instance = {
+      status: 'success',
+      data: context.instance
+    }
+    return context.continue
+  })
+}
+
 // routes for the NoSql parts of the application
 app.get('/rest/product/:id/reviews', showProductReviews())
 app.put('/rest/product/:id/reviews', createProductReviews())
 app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
 
-/* Sequelize Restful APIs */
-app.use(restful(models.sequelize, {
-  endpoint: '/api',
-  allowed: ['Users', 'Products', 'Feedbacks', 'BasketItems', 'Challenges', 'Complaints', 'Recycles', 'SecurityQuestions', 'SecurityAnswers']
-}))
 /* Custom Restful API */
 app.post('/rest/user/login', login())
 app.get('/rest/user/change-password', changePassword())
@@ -254,8 +274,7 @@ exports.start = function (readyCallback) {
   }
 
   if (!this.server) {
-    models.sequelize.drop()
-    models.sequelize.sync().success(function () {
+    models.sequelize.sync({ force: true }).then(function () {
       datacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
@@ -264,7 +283,8 @@ exports.start = function (readyCallback) {
           readyCallback()
         }
       })
-    })
+    }, console.error)
+
     populateIndexTemplate()
   }
 }

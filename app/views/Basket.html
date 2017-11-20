@@ -1,5 +1,5 @@
-<div class="row" xmlns:https="http://www.w3.org/1999/xhtml">
-    <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+<div class="row">
+    <section class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm">
             <span translate="TITLE_BASKET"></span>&nbsp;
             ({{userEmail}})
@@ -19,15 +19,15 @@
                 <td>{{product.price}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="dec(product.basketItem.id)"><i class="fa fa-minus-square"></i></a>
-                        <span class="btn btn-default btn-xs">{{product.basketItem.quantity}}</span>
-                        <a class="btn btn-default btn-xs" ng-click="inc(product.basketItem.id)"><i class="fa fa-plus-square"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="dec(product.BasketItem.id)"><i class="fa fa-minus-square"></i></a>
+                        <span class="btn btn-default btn-xs">{{product.BasketItem.quantity}}</span>
+                        <a class="btn btn-default btn-xs" ng-click="inc(product.BasketItem.id)"><i class="fa fa-plus-square"></i></a>
                     </div>
                 </td>
-                <td>{{(product.price*product.basketItem.quantity).toFixed(2)}}</td>
+                <td>{{(product.price*product.BasketItem.quantity).toFixed(2)}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(product.basketItem.id)"><i class="fa fa-trash-o"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="delete(product.BasketItem.id)"><i class="fa fa-trash-o"></i></a>
                     </div>
                 </td>
             </tr>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div uib-collapse="couponCollapsed">
+        <section uib-collapse="couponCollapsed">
             <div class="alert-info" ng-show="confirmation && !form.$dirty">
                 <p>{{confirmation}}</p>
             </div>
@@ -66,9 +66,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </section>
 
-        <div uib-collapse="paymentCollapsed">
+        <section uib-collapse="paymentCollapsed">
             <div class="container-fluid well">
                 <div class="row">
                     <label translate="LABEL_PAYMENT"></label>
@@ -81,7 +81,7 @@
                             <input type="hidden" name="cmd" value="_donations">
                             <input type="hidden" name="business" value="paypal@owasp.org">
                             <input type="hidden" name="lc" value="BM">
-                            <input type="hidden" name="item_name" value="OWASP Juice Shop">
+                            <input type="hidden" name="item_name" value="OWASP Juice Shop Project">
                             <input type="hidden" name="item_number" value="OWASP Foundation">
                             <input type="hidden" name="no_note" value="0">
                             <input type="hidden" name="currency_code" value="EUR">
@@ -90,6 +90,9 @@
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
                         </div>
                     </form>
+                    <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step" target="_blank" class="btn btn-danger">
+                        <i class="fa fa-credit-card-alt fa-lg"></i> Credit Card
+                    </a>
                     <a href="/redirect?to=https://gratipay.com/juice-shop" target="_blank" class="btn btn-danger">
                         <i class="fa fa-gratipay fa-lg"></i> Gratipay
                     </a>
@@ -125,7 +128,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+    </section>
 </div>

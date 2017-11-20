@@ -1,59 +1,60 @@
-<div class="modal-header">
-    <h3 class="modal-title"><span translate="LABEL_PRODUCT"></span> #{{product.id}}</h3>
-</div>
-<div class="modal-body">
+<section>
+    <header class="modal-header">
+        <h3 class="modal-title"><span translate="LABEL_PRODUCT"></span> #{{product.id}}</h3>
+    </header>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong translate="LABEL_NAME"></strong>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <strong translate="LABEL_NAME"></strong>
+                    <p>{{product.name}}</p>
+                </div>
+                <div class="col-md-6">
+                    <strong translate="LABEL_DESCRIPTION"></strong>
 
-                <p>{{product.name}}</p>
+                    <p><div ng-bind-html="product.description"></div></p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <strong translate="LABEL_DESCRIPTION"></strong>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong translate="LABEL_PRICE"></strong>
 
-                <p><div ng-bind-html="product.description"></div></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <strong translate="LABEL_PRICE"></strong>
+                    <p>{{product.price}}</p>
+                </div>
+                <div class="col-md-6">
+                    <strong translate="LABEL_IMAGE"></strong>
 
-                <p>{{product.price}}</p>
+                    <p><img src="/public/images/products/{{product.image}}" class="img-responsive img-thumbnail"/></p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <strong translate="LABEL_IMAGE"></strong>
+            <aside class="row" ng-hide="reviewsDisabled">
+                <div class="col-md-12">
+                    <strong translate="LABEL_REVIEWS"></strong>
+                    <p ng-show="productReviews.length === 0" translate="LABEL_NO_REVIEWS"></p>
+                    <blockquote data-ng-repeat="review in productReviews">
+                        <p>{{ review.message }}</p>
 
-                <p><img src="/public/images/products/{{product.image}}" class="img-responsive img-thumbnail"/></p>
-            </div>
-        </div>
-        <div class="row" ng-hide="reviewsDisabled">
-            <div class="col-md-12">
-                <strong translate="LABEL_REVIEWS"></strong>
-                <p ng-show="productReviews.length === 0" translate="LABEL_NO_REVIEWS"></p>
-                <blockquote data-ng-repeat="review in productReviews">
-                    <p>{{ review.message }}</p>
+                        <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</button>
 
-                    <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</button>
-
-                    <footer class="capitalize">{{ review.author | emailName }}</footer>
-                </blockquote>
-            </div>
-            <div class="col-md-12">
-                <form role="form" name="form" novalidate>
-                    <div class="form-group">
-                        <label for="product_review" translate="LABEL_ADD_REVIEW_FOR_PRODUCT"></label>
-                        <textarea class="form-control input-sm" id="product_review" ng-model="message" name="product_review" required ng-minlength="1" ng-maxlength="160"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" ng-click="addReview()" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid"><i class="fa fa-send fa-lg"></i> <span translate="BTN_SUBMIT"></span></button>
-                    </div>
-                </form>
-            </div>
+                        <footer class="capitalize">{{ review.author | emailName }}</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-12">
+                    <form role="form" name="form" novalidate>
+                        <div class="form-group">
+                            <label for="product_review" translate="LABEL_ADD_REVIEW_FOR_PRODUCT"></label>
+                            <textarea class="form-control input-sm" id="product_review" ng-model="message" name="product_review" required ng-minlength="1" ng-maxlength="160"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" ng-click="addReview()" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid"><i class="fa fa-send fa-lg"></i> <span translate="BTN_SUBMIT"></span></button>
+                        </div>
+                    </form>
+                </div>
+            </aside>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> <span translate="BTN_CLOSE"></span></button>
-</div>
+    <footer class="modal-footer">
+        <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> <span translate="BTN_CLOSE"></span></button>
+    </footer>
+</section>

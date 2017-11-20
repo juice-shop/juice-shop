@@ -32,14 +32,14 @@ describe('Server', () => {
   it('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead', done => {
     frisby.get(URL + '/public/images/../../ftp/eastere.gg')
       .expect('status', 200)
-      .expect('bodyContains', '<meta name="description" content="An intentionally insecure Javascript Web Application">')
+      .expect('bodyContains', '<meta name="description" content="An intentionally insecure JavaScript Web Application">')
       .done(done)
   })
 
   it('GET a restricted file directly from file system path on server via URL-encoded Directory Traversal attack loads index.html instead', done => {
     frisby.get(URL + '/public/images/%2e%2e%2f%2e%2e%2fftp/eastere.gg')
       .expect('status', 200)
-      .expect('bodyContains', '<meta name="description" content="An intentionally insecure Javascript Web Application">')
+      .expect('bodyContains', '<meta name="description" content="An intentionally insecure JavaScript Web Application">')
       .done(done)
   })
 })
@@ -275,7 +275,7 @@ describe('Hidden URL', () => {
   it('GET Klingon translation file for "Extra Language" challenge', done => {
     frisby.get(URL + '/i18n/tlh.json')
       .expect('status', 200)
-      .expect('header', 'content-type', 'application/json')
+      .expect('header', 'content-type', /application\/json/)
       .done(done)
   })
 

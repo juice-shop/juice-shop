@@ -47,7 +47,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect(scope.products).toBeUndefined()
+      expect(scope.Products).toBeUndefined()
     }))
 
     it('should log error from product search API call directly to browser console', inject(function () {
@@ -86,7 +86,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}})
       $httpBackend.whenGET(/\/api\/Products\/1/).respond(200, {data: {name: 'Cherry Juice'}})
 
@@ -101,7 +101,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}})
       $httpBackend.whenGET(/\/api\/Products\/1/).respond(200, {data: {name: 'Cherry Juice'}})
 
@@ -115,7 +115,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}})
       $httpBackend.whenGET(/\/api\/Products\/2/).respond(200, {data: {name: 'Tomato Juice'}})
@@ -131,7 +131,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}})
       $httpBackend.whenGET(/\/api\/Products\/2/).respond(200, {data: {name: 'Tomato Juice'}})
@@ -172,7 +172,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(500)
 
       scope.addToBasket(2)
@@ -185,7 +185,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(500, 'error')
 
       console.log = jasmine.createSpy('log')
@@ -200,7 +200,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(500)
 
@@ -214,7 +214,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(500, 'error')
 
@@ -230,7 +230,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}})
       $httpBackend.whenGET(/\/api\/Products\/2/).respond(500)
@@ -245,7 +245,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: [{id: 1}, {id: 2, name: 'Tomato Juice', basketItem: {id: 42}}]}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: [{id: 1}, {id: 2, name: 'Tomato Juice', BasketItem: {id: 42}}]}})
       $httpBackend.whenGET('/api/BasketItems/42').respond(200, {data: {id: 42, quantity: 5}})
       $httpBackend.whenPUT('/api/BasketItems/42').respond(200, {data: {ProductId: 2}})
       $httpBackend.whenGET(/\/api\/Products\/2/).respond(500, 'error')
@@ -262,7 +262,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(500)
 
       scope.addToBasket(1)
@@ -275,7 +275,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(500, 'error')
 
       console.log = jasmine.createSpy('log')
@@ -290,7 +290,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}})
       $httpBackend.whenGET(/\/api\/Products\/1/).respond(500)
 
@@ -304,7 +304,7 @@ describe('controllers', function () {
       $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: []})
 
       window.sessionStorage.bid = 4711
-      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {products: []}})
+      $httpBackend.whenGET('/rest/basket/4711').respond(200, {data: {Products: []}})
       $httpBackend.whenPOST('/api/BasketItems/').respond(200, {data: {ProductId: 1}})
       $httpBackend.whenGET(/\/api\/Products\/1/).respond(500, 'error')
 

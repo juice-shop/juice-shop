@@ -14,7 +14,7 @@ describe('/#/basket', () => {
         browser.get('/#/basket')
         browser.ignoreSynchronization = false
 
-        const productQuantities = element.all(by.repeater('product in products').column('basketItem.quantity'))
+        const productQuantities = element.all(by.repeater('product in products').column('BasketItem.quantity'))
         expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 
@@ -26,7 +26,7 @@ describe('/#/basket', () => {
     })
 
     describe('challenge "accessBasket"', () => {
-      it('should access basket with id from cookie instead of the one associated to logged-in user', () => {
+      it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
         browser.executeScript('window.sessionStorage.bid = 3;')
 
         browser.get('/#/basket')

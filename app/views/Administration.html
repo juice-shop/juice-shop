@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1">
-        <div class="row">
+        <section class="row">
             <h3 class="page-header page-header-sm"><span translate="TITLE_ADMINISTRATION"></span> <small translate="SECTION_USER"></small></h3>
 
             <table class="table table-striped table-bordered table-condensed" ng-controller="UserController">
@@ -19,8 +19,8 @@
                     </td>
                 </tr>
             </table>
-        </div>
-        <div class="row">
+        </section>
+        <section class="row">
             <h3 class="page-header page-header-sm"><small translate="SECTION_RECYCLING"></small></h3>
 
             <table class="table table-striped table-bordered table-condensed" ng-controller="RecycleController">
@@ -42,10 +42,10 @@
                     <td>{{recycle.date}}</td>
                 </tr>
             </table>
-        </div>
+        </section>
     </div>
     
-    <div class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1">
+    <section class="col-md-4 col-md-offset-0 col-sm-10 col-sm-offset-1">
         <h3 class="page-header page-header-sm"><small translate="SECTION_CUSTOMER_FEEDBACK"></small></h3>
 
         <table class="table table-striped table-bordered table-condensed" ng-controller="FeedbackController">
@@ -69,5 +69,5 @@
             </tr>
         </table>
         <img src="/public/images/tracking/administration.png"/>
-    </div>
+    </section>
 </div>

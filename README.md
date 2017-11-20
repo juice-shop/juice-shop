@@ -7,13 +7,12 @@
 [![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
-> ([@dschadow](https://github.com/dschadow))
-> —
+> ([@dschadow](https://github.com/dschadow)) —
 > [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
 > ([@shehackspurple](https://twitter.com/shehackspurple))
 
 OWASP Juice Shop is an intentionally insecure web application written
-entirely in Javascript which encompasses the entire range of
+entirely in JavaScript which encompasses the entire range of
 [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) and other
 severe security flaws.
 
@@ -21,7 +20,7 @@ severe security flaws.
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
-<https://www.owasp.org/index.php/OWASP_Juice_Shop_Project>
+<http://owasp-juice.shop>
 
 ## Setup
 
@@ -53,10 +52,16 @@ overview please visit the official project page:
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
-3. Run `docker run -d -p 3000:3000 bkimminich/juice-shop`
+3. Run `docker run --rm -p 3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead
-   of the native docker installation )
+   of the native docker installation)
+
+> If you want to run Juice Shop on a Raspberry Pi 3, there is an
+> unofficial Docker image available at
+> <https://hub.docker.com/r/arclight/juice-shop_arm> which is based on
+> `resin/rpi-raspbian` and maintained by
+> [@battletux](https://github.com/battletux).
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -120,7 +125,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > and login. Apart from the visual/audible effect, the attacker also
 > installed [an input logger](http://192.168.33.10/logger.php) to grab
 > credentials! This could easily run on a 3rd party server in real life!
-> 
+>
 > _This feature is only available when running a Vagrant box. A
 > recording of the effect is available on Youtube:_
 > [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
@@ -134,13 +139,14 @@ images and packaged distributions are offered accordingly:
 
 | node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
 |:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| __6.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
-| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
+| 9.x     |                                                                                     | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
+| __8.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
+| 6.x     |                                                                                     | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
 
-## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
+## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
-<https://juice-shop.herokuapp.com>
+<http://demo.owasp-juice.shop>
 
 > This is a deployment-test and sneak-peek instance only! You are __not
 > supposed__ to use this instance for your own hacking endeavours! No
@@ -246,11 +252,19 @@ your plans! !
 
 ## Donations
 
-### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
+### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop%20Project&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
 
 PayPal donations via above button go to the OWASP Foundations and are
-earmarked for "Juice Shop". This is the preferred way to support the
-project.
+earmarked for "Juice Shop". This is the preferred and most convenient
+way to support the project.
+
+### Credit Card (through RegOnline)
+
+OWASP hosts a
+[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
+Refer to the
+[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
+guide for help with filling out the donation form correctly.
 
 ### Others
 

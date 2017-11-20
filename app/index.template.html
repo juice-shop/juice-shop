@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title ng-bind="applicationName"></title>
-    <meta name="description" content="An intentionally insecure Javascript Web Application">
+    <meta name="description" content="An intentionally insecure JavaScript Web Application">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap -->
     <link ng-controller="NavbarController" href="bower_components/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
@@ -108,13 +108,14 @@
                     <li><a ng-click="changeLanguage('ru')"><span class="flag-icon flag-icon-ru"></span> Pусский</a></li>
                     <li><a ng-click="changeLanguage('sv')"><span class="flag-icon flag-icon-se"></span> Svenska</a></li>
                     <li><a ng-click="changeLanguage('tr')"><span class="flag-icon flag-icon-tr"></span> Türkçe</a></li>
+                    <li><a ng-click="changeLanguage('ur')"><span class="flag-icon flag-icon-pk"></span>اردو </a></li>
                     <li><a ng-click="changeLanguage('zh')"><span class="flag-icon flag-icon-cn"></span> 中国</a></li>
                 </ul>
             </li>
             <li>
                 <form class="navbar-form" role="form" ng-controller="SearchController">
                     <div class="form-group">
-                        <input type="text" class="form-control" translate-attr="{ placeholder: 'SEARCH_PLACEHOLDER' }" ng-model="searchQuery">
+                        <input type="search" class="form-control" translate-attr="{ placeholder: 'SEARCH_PLACEHOLDER' }" ng-model="searchQuery">
                     </div>
                     <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> <span translate="NAV_SEARCH"></span></button>
                 </form>
@@ -175,7 +176,7 @@
 </div>
 
 <!-- CONTENT -->
-<div class="container-fluid" ng-view></div>
+<main class="container-fluid" ng-view></main>
 
 <div class="github-fork-ribbon-wrapper right" ng-show="showGitHubRibbon">
     <div class="github-fork-ribbon">
