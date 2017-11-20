@@ -20,7 +20,7 @@ severe security flaws.
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
-<https://www.owasp.org/index.php/OWASP_Juice_Shop_Project>
+<http://owasp-juice.shop>
 
 ## Setup
 
@@ -143,10 +143,10 @@ images and packaged distributions are offered accordingly:
 | __8.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 | 6.x     |                                                                                     | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
 
-## Preview [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](https://juice-shop.herokuapp.com)
+## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
-<https://juice-shop.herokuapp.com>
+<http://demo.owasp-juice.shop>
 
 > This is a deployment-test and sneak-peek instance only! You are __not
 > supposed__ to use this instance for your own hacking endeavours! No
