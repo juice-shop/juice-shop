@@ -1,7 +1,9 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
+const jwt = require('jsonwebtoken')
 const models = require('../models/index')
 const cache = require('../data/datacache')
+const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
 
@@ -9,7 +11,7 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
     const user = insecurity.authenticatedUsers.from(req)
-    const userId = user ? user.data.id : undefined
+    const userId = user && user.data ? user.data.id : undefined
     if (req.body.UserId && req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
       utils.solve(challenges.forgedFeedbackChallenge)
     }
@@ -39,9 +41,28 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
   next(err)
 }
 
+exports.jwtChallenges = () => (req, res, next) => {
+  if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
+    const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
+    const payload = decoded ? decoded.payload : {}
+    const header = decoded ? decoded.header : {}
+    if (utils.notSolved(challenges.jwtTier1Challenge)) {
+      if (header.alg === 'none' && payload.data && payload.data.email && payload.data.email.match(/jwtn3d@/)) {
+        utils.solve(challenges.jwtTier1Challenge)
+      }
+    }
+    if (utils.notSolved(challenges.jwtTier2Challenge)) {
+      if (header.alg === 'HS256' && payload.data && payload.data.email && payload.data.email.match(/rsa_lord@/)) {
+        utils.solve(challenges.jwtTier2Challenge)
+      }
+    }
+  }
+  next()
+}
+
 exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
-    products.osaft.reload().success(() => {
+    products.osaft.reload().then(() => {
       if (!utils.contains(products.osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
         if (utils.contains(products.osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
           utils.solve(challenges.changeProductChallenge)
@@ -50,47 +71,64 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.feedbackChallenge)) {
-    models.Feedback.findAndCountAll({ where: { rating: 5 } }).success(feedbacks => {
+    models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(feedbacks => {
       if (feedbacks.count === 0) {
         utils.solve(challenges.feedbackChallenge)
       }
     })
   }
   if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-    models.Feedback.findAndCountAll({ where: models.Sequelize.or(models.Sequelize.and([ 'comment LIKE \'%sanitize-html%\'' ], [ 'comment LIKE \'%1.4.2%\'' ]), models.Sequelize.and([ 'comment LIKE \'%sequelize%\'' ], [ 'comment LIKE \'%1.7%\'' ])) }
-    ).success(data => {
+    models.Feedback.findAndCountAll({
+      where: {
+        comment: {
+          [Op.or]: [
+            {[Op.and]: [
+              {[Op.like]: '%sanitize-html%'},
+              {[Op.like]: '%1.4.2%'}
+            ]},
+            {[Op.and]: [
+              {[Op.like]: '%express-jwt%'},
+              {[Op.like]: '%0.1.3%'}
+            ]}
+          ]
+        }
+      }
+    }).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.knownVulnerableComponentChallenge)
       }
     })
   }
   if (utils.notSolved(challenges.weirdCryptoChallenge)) {
-    models.Feedback.findAndCountAll({ where: models.Sequelize.or([ 'comment LIKE \'%z85%\'' ], [ 'comment LIKE \'%base85%\'' ], [ 'comment LIKE \'%hashids%\'' ], [ 'comment LIKE \'%md5%\'' ], [ 'comment LIKE \'%base64%\'' ]) }
-    ).success(data => {
+    models.Feedback.findAndCountAll({
+      where: {
+        comment: {
+          [Op.or]: [
+              {[Op.like]: '%z85%'},
+              {[Op.like]: '%base85%'},
+              {[Op.like]: '%hashids%'},
+              {[Op.like]: '%md5%'},
+              {[Op.like]: '%base64%'}
+          ]
+        }
+      }
+    }).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.weirdCryptoChallenge)
       }
     })
   }
-  if (utils.notSolved(challenges.jwtSecretChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%' + insecurity.defaultSecret + '%\'' }
-    ).success(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.jwtSecretChallenge)
-      }
-    })
-  }
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%epilogue-js%\'' }
-    ).success(data => {
+    models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingNpmChallenge)
       }
     })
   }
   if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
-    models.Feedback.findAndCountAll({ where: 'comment LIKE \'%angular-tooltipp%\'' }
-    ).success(data => {
+    models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%angular-tooltipp%' } } }
+    ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingBowerChallenge)
       }

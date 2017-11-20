@@ -37,7 +37,7 @@ angular.module('juiceShop').controller('OAuthController', [
 
     /**
      * Only the 'access_token' parameter is needed. This function only extracts all parameters to have some realistic
-     * parsing logic in the minified Javascript. This "noise code" is supposed to make analyzing the mechanism harder
+     * parsing logic in the minified JavaScript. This "noise code" is supposed to make analyzing the mechanism harder
      * for the attacker.
      */
     function parseRedirectUrlParams () {

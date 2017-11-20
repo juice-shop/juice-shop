@@ -4,12 +4,13 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
+const insecurity = require('../../lib/insecurity')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
   let challenges, req, res, next, err
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
@@ -21,7 +22,7 @@ describe('verify', () => {
 
   describe('"forgedFeedbackChallenge"', () => {
     beforeEach(() => {
-      require('../../lib/insecurity').authenticatedUsers.put('token12345', {
+      insecurity.authenticatedUsers.put('token12345', {
         data: {
           id: 42,
           email: 'test@juice-sh.op'
@@ -59,7 +60,7 @@ describe('verify', () => {
 
     it('is solved when an unauthenticated user passes someones ID when writing feedback', () => {
       req.body.UserId = 1
-      req.headers = { }
+      req.headers = {}
 
       verify.forgedFeedbackChallenge()(req, res, next)
 
@@ -183,7 +184,7 @@ describe('verify', () => {
       beforeEach(() => {
         challenges.changeProductChallenge = { solved: false, save: save }
         products = require('../../data/datacache').products
-        products.osaft = { reload: function () { return { success: function (cb) { cb() } } } }
+        products.osaft = { reload: function () { return { then: function (cb) { cb() } } } }
       })
 
       it('is solved when the link in the O-Saft product goes to http://kimminich.de', () => {
@@ -209,6 +210,79 @@ describe('verify', () => {
 
         expect(challenges.changeProductChallenge.solved).to.equal(false)
       })
+    })
+  })
+
+  describe('jwtChallenges', () => {
+    beforeEach(() => {
+      challenges.jwtTier1Challenge = { solved: false, save: save }
+      challenges.jwtTier2Challenge = { solved: false, save: save }
+    })
+
+    it('"jwtTier1Challenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
+      /*
+      Header: { "alg": "none", "typ": "JWT" }
+      Payload: { "data": { "email": "jwtn3d@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+    })
+
+    it('"jwtTier1Challenge" is solved when forged unsigned token has string "jwtn3d@" in the payload', () => {
+      /*
+      Header: { "alg": "none", "typ": "JWT" }
+      Payload: { "data": { "email": "jwtn3d@" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQCJ9LCJpYXQiOjE1MDg2Mzk2MTIsImV4cCI6OTk5OTk5OTk5OX0.' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+    })
+
+    it('"jwtTier1Challenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
+      const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
+      req.headers = { authorization: 'Bearer ' + token }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
+    })
+
+    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+      /*
+      Header: { "alg": "HS256", "typ": "JWT" }
+      Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTA4NjM5NjEyLCJleHAiOjk5OTk5OTk5OTl9.dFeqI0EGsOecwi5Eo06dFUBtW5ziRljFgMWOCYeA8yw' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+    })
+
+    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
+      /*
+      Header: { "alg": "HS256", "typ": "JWT" }
+      Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
+       */
+      req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.mvgAeQum5lh6Wq4f-69OqLy3g_SD2_aNahyHBHP4Bwk' }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+    })
+
+    it('"jwtTier2Challenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+      const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
+      req.headers = { authorization: 'Bearer ' + token }
+
+      verify.jwtChallenges()(req, res, next)
+
+      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
     })
   })
 })

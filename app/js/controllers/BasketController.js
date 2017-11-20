@@ -19,7 +19,7 @@ angular.module('juiceShop').controller('BasketController', [
 
     function load () {
       basketService.find($window.sessionStorage.bid).then(function (basket) {
-        $scope.products = basket.products
+        $scope.products = basket.Products
         for (var i = 0; i < $scope.products.length; i++) {
           $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description)
         }

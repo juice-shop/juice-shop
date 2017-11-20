@@ -4,3 +4,4 @@ application:
   showCtfFlagsInNotifications: true
   showChallengeHints: false
   showGitHubRibbon: false
+  showVersionNumber: false

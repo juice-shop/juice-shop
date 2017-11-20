@@ -7,14 +7,14 @@ chai.use(sinonChai)
 describe('premiumReward', () => {
   let servePremiumContent, challenges, req, res
   const save = () => ({
-    success: function () {}
+    then: function () { }
   })
 
   beforeEach(() => {
     servePremiumContent = require('../../routes/premiumReward')
     challenges = require('../../data/datacache').challenges
     res = { sendFile: sinon.spy() }
-    req = { }
+    req = {}
   })
 
   it('should serve /app/private/under-construction.gif', () => {

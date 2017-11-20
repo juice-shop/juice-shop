@@ -1,5 +1,4 @@
 const config = require('config')
-const insecurity = require('../../lib/insecurity')
 
 describe('/#/contact', () => {
   let comment, rating, submitButton
@@ -91,8 +90,8 @@ describe('/#/contact', () => {
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
-      comment.sendKeys('sanitize-html 1.4.2 is vulnerable to masking attacks because it does not act recursively.')
-      comment.sendKeys('sequelize 1.7.11 is vulnerable to SQL Injection via GeoJSON.')
+      comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
+      comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
       rating.click()
 
       submitButton.click()
@@ -110,17 +109,6 @@ describe('/#/contact', () => {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
-  })
-
-  describe('challenge "jwtSecretCrypto"', () => {
-    it('should be possible to post secret JWT token as feedback', () => {
-      comment.sendKeys('The JWT token secret is ' + insecurity.defaultSecret)
-      rating.click()
-
-      submitButton.click()
-    })
-
-    protractor.expect.challengeSolved({ challenge: 'Find JWT Secret' })
   })
 
   describe('challenge "typosquattingNpm"', () => {

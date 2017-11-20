@@ -11,9 +11,9 @@ describe('/ftp', () => {
     it('should leak information through error message accessing /ftp/easter.egg due to wrong file suffix', () => {
       browser.driver.get(browser.baseUrl + '/ftp/easter.egg')
 
-      /* browser.driver.isElementPresent(by.id('stacktrace')).then(present => {
-        expect(present).toBe(true)
-      }) */
+      browser.driver.findElements(by.id('stacktrace')).then(elements => {
+        expect(!!elements.length).toBe(true)
+      })
 
       protractor.expect.challengeSolved({challenge: 'Error Handling'})
     })
