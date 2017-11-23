@@ -481,6 +481,7 @@ function createChallenges () {
     category: 'NoSQL Injection',
     description: 'Let the server sleep for some time. (It has done more than enough hard work for you)',
     hint: addHint('This challenge is essentially a stripped-down Denial of Service (DoS) attack.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/nosqli.html#let-the-server-sleep-for-some-time'),
     difficulty: 3,
     solved: false
   }).then(challenge => {
@@ -491,6 +492,7 @@ function createChallenges () {
     category: 'NoSQL Injection',
     description: 'Update multiple product reviews at the same time.',
     hint: addHint('Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/nosqli.html#update-multiple-product-reviews-at-the-same-time'),
     difficulty: 3,
     solved: false
   }).then(challenge => {
@@ -501,13 +503,11 @@ function createChallenges () {
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
     difficulty: 3,
-    hint: addHint('Property \'fileForRetrieveBlueprintChallenge\' is missing in your Juice Shop config! Workaround: Try finding \'JuiceShop.stl\' somewhere. Be aware that with v5.0 this workaround will be removed!'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
     solved: false
   }).then(challenge => {
     challenges.retrieveBlueprintChallenge = challenge
 
-    // TODO remove this workaround default before v6.0 release
     for (const product of config.get('products')) {
       if (product.fileForRetrieveBlueprintChallenge) {
         models.sequelize.query('UPDATE Challenges SET hint = \'The product you might want to give a closer look is the ' + product.name + '.\' WHERE id = ' + challenge.id)
@@ -687,10 +687,6 @@ function createProducts () {
         )
       }
     })
-  }
-
-  if (!datacache.retrieveBlueprintChallengeFile) { // TODO remove this workaround default before v6.0 release
-    datacache.retrieveBlueprintChallengeFile = 'JuiceShop.stl'
   }
 }
 
