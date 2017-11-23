@@ -78,19 +78,31 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.knownVulnerableComponentChallenge)) {
+    let knownVulnerableComponents = [
+      {[Op.and]: [
+        {[Op.like]: '%sanitize-html%'},
+        {[Op.like]: '%1.4.2%'}
+      ]},
+      {[Op.and]: [
+        {[Op.like]: '%express-jwt%'},
+        {[Op.like]: '%0.1.3%'}
+      ]}
+    ]
     models.Feedback.findAndCountAll({
       where: {
         comment: {
-          [Op.or]: [
-            {[Op.and]: [
-              {[Op.like]: '%sanitize-html%'},
-              {[Op.like]: '%1.4.2%'}
-            ]},
-            {[Op.and]: [
-              {[Op.like]: '%express-jwt%'},
-              {[Op.like]: '%0.1.3%'}
-            ]}
-          ]
+          [Op.or]: knownVulnerableComponents
+        }
+      }
+    }).then(data => {
+      if (data.count > 0) {
+        utils.solve(challenges.knownVulnerableComponentChallenge)
+      }
+    })
+    models.Complaint.findAndCountAll({
+      where: {
+        message: {
+          [Op.or]: knownVulnerableComponents
         }
       }
     }).then(data => {
@@ -100,16 +112,28 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     })
   }
   if (utils.notSolved(challenges.weirdCryptoChallenge)) {
+    let weirdCryptos = [
+      {[Op.like]: '%z85%'},
+      {[Op.like]: '%base85%'},
+      {[Op.like]: '%hashids%'},
+      {[Op.like]: '%md5%'},
+      {[Op.like]: '%base64%'}
+    ]
     models.Feedback.findAndCountAll({
       where: {
         comment: {
-          [Op.or]: [
-              {[Op.like]: '%z85%'},
-              {[Op.like]: '%base85%'},
-              {[Op.like]: '%hashids%'},
-              {[Op.like]: '%md5%'},
-              {[Op.like]: '%base64%'}
-          ]
+          [Op.or]: weirdCryptos
+        }
+      }
+    }).then(data => {
+      if (data.count > 0) {
+        utils.solve(challenges.weirdCryptoChallenge)
+      }
+    })
+    models.Complaint.findAndCountAll({
+      where: {
+        message: {
+          [Op.or]: weirdCryptos
         }
       }
     }).then(data => {
@@ -125,9 +149,21 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
         utils.solve(challenges.typosquattingNpmChallenge)
       }
     })
+    models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
+    ).then(data => {
+      if (data.count > 0) {
+        utils.solve(challenges.typosquattingNpmChallenge)
+      }
+    })
   }
   if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
     models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%angular-tooltipp%' } } }
+    ).then(data => {
+      if (data.count > 0) {
+        utils.solve(challenges.typosquattingBowerChallenge)
+      }
+    })
+    models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%angular-tooltipp%' } } }
     ).then(data => {
       if (data.count > 0) {
         utils.solve(challenges.typosquattingBowerChallenge)
