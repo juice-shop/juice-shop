@@ -110,7 +110,7 @@ products:
     price: 0.01
     image: 'owasplogo.png'
   - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#reccyle">sent back to us</a> for recycling.'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recyle">sent back to us</a> for recycling.'
     price: 0.89
     image: 'apple_pressings.jpg'
   - name: 'Fruit Press'
@@ -162,4 +162,4 @@ products:
   - name: 'Pwning OWASP Juice Shop'
     description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
     price: 5.99
-    image: 'ebook.jpg'
+    image: 'cover_small.jpg'
