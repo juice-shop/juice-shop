@@ -9,7 +9,7 @@ COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 
-FROM    node:6-alpine
+FROM    node:8-alpine
 WORKDIR /juice-shop
 COPY --from=0 /juice-shop .
 EXPOSE  3000
