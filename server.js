@@ -243,6 +243,27 @@ exports.start = function (readyCallback) {
   }
 
   function populateIndexTemplate () {
+    function replaceLogo (logoImageTag) {
+      replace({
+        regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
+        replacement: logoImageTag,
+        paths: ['app/index.html'],
+        recursive: false,
+        silent: true
+      })
+    }
+
+    function replaceTheme () {
+      const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+      replace({
+        regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
+        replacement: themeCss,
+        paths: ['app/index.html'],
+        recursive: false,
+        silent: true
+      })
+    }
+
     fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
       if (config.get('application.logo')) {
         let logo = config.get('application.logo')
@@ -252,23 +273,10 @@ exports.start = function (readyCallback) {
           utils.downloadToFile(logoPath, 'app/public/images/' + logo)
         }
         const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-        replace({
-          regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
-          replacement: logoImageTag,
-          paths: ['app/index.html'],
-          recursive: false,
-          silent: true
-        })
+        replaceLogo(logoImageTag)
       }
       if (config.get('application.theme')) {
-        const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-        replace({
-          regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
-          replacement: themeCss,
-          paths: ['app/index.html'],
-          recursive: false,
-          silent: true
-        })
+        replaceTheme()
       }
     })
   }
