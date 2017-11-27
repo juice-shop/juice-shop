@@ -16,5 +16,5 @@ exclude_paths:
 - "app/css/geo-bootstrap/**/*"
 - "data/datacreator.js"
 - "vagrant/shake.js"
-- "*conf.js"
 - "Gruntfile.js"
+- "*conf.js"
