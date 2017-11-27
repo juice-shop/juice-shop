@@ -17,3 +17,4 @@ exclude_paths:
 - "data/datacreator.js"
 - "vagrant/shake.js"
 - "*conf.js"
+- "Gruntfile.js"
