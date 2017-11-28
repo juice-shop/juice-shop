@@ -1,7 +1,7 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
   '$rootScope',
-  'AdministrationService', 
+  'AdministrationService',
   'ConfigurationService',
   'UserService',
   function ($scope, $rootScope, administrationService, configurationService, userService) {
@@ -32,8 +32,8 @@ angular.module('juiceShop').controller('NavbarController', [
     })
 
     userService.whoAmI().then(function (user) {
-        $rootScope.userEmail = user.email
-      }).catch(function (err) {
-        console.log(err)
-      })
+      $rootScope.userEmail = user.email
+    }).catch(function (err) {
+      console.log(err)
+    })
   }])
