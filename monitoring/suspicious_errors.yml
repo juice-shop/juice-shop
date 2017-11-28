@@ -1,0 +1,16 @@
+title: Suspicious error messages specific to OWASP Juice Shop
+description: Detects error messages that only occur from tampering with or attacking the application
+author: Bjoern Kimminich
+logsource:
+    category: application
+    product: juice-shop
+    service: errorhandler
+detection:
+    keywords:
+        - 'Blocked illegal activity'
+        - '* with id=* does not exist'
+        - 'Only * files are allowed'
+        - 'File names cannot contain forward slashes'
+        - 'Unrecognized target URL for redirect: *'
+    condition: keywords
+level: low
