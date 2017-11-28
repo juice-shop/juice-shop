@@ -48,6 +48,6 @@ describe('/ftp', () => {
       browser.driver.get(browser.baseUrl + '/ftp/suspicious_errors.yml%2500.md')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Misplaced SIEM Signature File'})
+    protractor.expect.challengeSolved({challenge: 'Misplaced Signature File'})
   })
 })

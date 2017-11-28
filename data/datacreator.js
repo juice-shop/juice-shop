@@ -560,7 +560,7 @@ function createChallenges () {
     challenges.jwtTier2Challenge = challenge
   })
   models.Challenge.create({
-    name: 'Misplaced SIEM Signature File',
+    name: 'Misplaced Signature File',
     category: 'Forgotten Content',
     description: 'Access a misplaced <a href="https://github.com/Neo23x0/sigma">SIEM signature</a> file.',
     difficulty: 3,
@@ -568,7 +568,7 @@ function createChallenges () {
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-misplaced-siem-signature-file'),
     solved: false
   }).then(challenge => {
-    challenges.misplacedSiemFileChallenge = challenge
+    challenges.misplacedSignatureFileChallenge = challenge
   })
 }
 
