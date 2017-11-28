@@ -32,8 +32,6 @@ angular.module('juiceShop').controller('NavbarController', [
     })
 
     userService.whoAmI().then(function (user) {
-        console.log('user!')
-        console.log(user);
         $rootScope.userEmail = user.email
       }).catch(function (err) {
         console.log(err)
