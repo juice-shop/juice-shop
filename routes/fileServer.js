@@ -27,8 +27,8 @@ exports = module.exports = function servePublicFiles () {
         utils.solve(challenges.forgottenDevBackupChallenge)
       } else if (utils.notSolved(challenges.forgottenBackupChallenge) && file.toLowerCase() === 'coupons_2013.md.bak') {
         utils.solve(challenges.forgottenBackupChallenge)
-      } else if (utils.notSolved(challenges.misplacedSiemFileChallenge) && file.toLowerCase() === 'suspicious_errors.yml') {
-        utils.solve(challenges.misplacedSiemFileChallenge)
+      } else if (utils.notSolved(challenges.misplacedSignatureFileChallenge) && file.toLowerCase() === 'suspicious_errors.yml') {
+        utils.solve(challenges.misplacedSignatureFileChallenge)
       }
       res.sendFile(path.resolve(__dirname, '../ftp/', file))
     } else if (file && mdDebug && utils.contains(file, '.md') && (utils.endsWith(mdDebug, '.md') || utils.endsWith(mdDebug, '.pdf'))) {
