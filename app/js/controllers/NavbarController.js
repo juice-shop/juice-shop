@@ -1,10 +1,8 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
   '$rootScope',
-  'AdministrationService',
-  'ConfigurationService',
-  'UserService',
-  function ($scope, $rootScope, administrationService, configurationService, userService) {
+  'AdministrationService', 'ConfigurationService',
+  function ($scope, $rootScope, administrationService, configurationService) {
     'use strict'
 
     $scope.version = ''
@@ -19,7 +17,6 @@ angular.module('juiceShop').controller('NavbarController', [
 
     $rootScope.applicationName = 'OWASP Juice Shop'
     $rootScope.showGitHubRibbon = true
-    $rootScope.userEmail = ''
     configurationService.getApplicationConfiguration().then(function (config) {
       if (config && config.application && config.application.name !== null) {
         $rootScope.applicationName = config.application.name
@@ -27,12 +24,6 @@ angular.module('juiceShop').controller('NavbarController', [
       if (config && config.application && config.application.showGitHubRibbon !== null) {
         $rootScope.showGitHubRibbon = config.application.showGitHubRibbon
       }
-    }).catch(function (err) {
-      console.log(err)
-    })
-
-    userService.whoAmI().then(function (user) {
-      $rootScope.userEmail = user.email
     }).catch(function (err) {
       console.log(err)
     })
