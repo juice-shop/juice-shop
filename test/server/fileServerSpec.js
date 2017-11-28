@@ -111,6 +111,16 @@ describe('fileServer', () => {
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
+  it('should solve "misplacedSiemFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
+    challenges.misplacedSiemFileChallenge = { solved: false, save: save }
+    req.params.file = 'suspicious_errors.yml%00.md'
+
+    servePublicFiles()(req, res, next)
+
+    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]suspicious_errors\.yml/))
+    expect(challenges.misplacedSiemFileChallenge.solved).to.equal(true)
+  })
+
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', () => {
     challenges.forgottenBackupChallenge = { solved: false, save: save }
     req.params.file = 'coupons_2013.md.bak'
