@@ -31,7 +31,6 @@ exports = module.exports = function searchProducts () {
         }
         res.json(utils.queryResultToJson(products))
       }).catch(error => {
-        console.error('its failing')
         next(error)
       })
   }
