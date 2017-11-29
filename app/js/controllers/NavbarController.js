@@ -31,9 +31,21 @@ angular.module('juiceShop').controller('NavbarController', [
       console.log(err)
     })
 
-    userService.whoAmI().then(function (user) {
-      $rootScope.userEmail = user.email
-    }).catch(function (err) {
-      console.log(err)
+    updateUserEmail()
+
+    $rootScope.$on('user_logged_in', function () {
+      updateUserEmail()
     })
+
+    $rootScope.$on('user_logged_out', function () {
+      $rootScope.userEmail = ''
+    })
+
+    function updateUserEmail () {
+      userService.whoAmI().then(function (user) {
+        $rootScope.userEmail = user.email
+      }).catch(function (err) {
+        console.log(err)
+      })
+    }
   }])
