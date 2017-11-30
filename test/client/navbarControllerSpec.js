@@ -25,7 +25,6 @@ describe('controllers', function () {
     it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -35,7 +34,6 @@ describe('controllers', function () {
     it('should hold application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -45,7 +43,6 @@ describe('controllers', function () {
     it('should show nothing on missing application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -55,7 +52,6 @@ describe('controllers', function () {
     it('should show nothing on error retrieving application version', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500)
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -65,8 +61,6 @@ describe('controllers', function () {
     it('should log errors directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
       $httpBackend.whenGET('/rest/admin/application-version').respond(500, 'error')
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
-
       console.log = jasmine.createSpy('log')
 
       $httpBackend.flush()
@@ -77,7 +71,6 @@ describe('controllers', function () {
     it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -87,7 +80,6 @@ describe('controllers', function () {
     it('should use default application name if not customized', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -97,39 +89,15 @@ describe('controllers', function () {
     it('should use custom application name URL if configured', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {name: 'name'}}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
       expect(scope.applicationName).toBe('name')
     }))
 
-    it('should set user email if user authenticated', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {name: 'name'}}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {email: 'dummy@dummy.com'}})
-
-      $httpBackend.flush()
-
-      expect(scope.userEmail).toBe('dummy@dummy.com')
-    }))
-
-    it('should log errors directly to browser console when getting user failed', inject(function () {
-      $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
-      $httpBackend.whenGET('/rest/admin/application-version').respond(200, {config: {application: {name: 'name'}}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(500, 'error-user')
-
-      console.log = jasmine.createSpy('log')
-
-      $httpBackend.flush()
-
-      expect(console.log).toHaveBeenCalledWith('error-user')
-    }))
-
     it('should show GitHub ribbon by default', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -139,7 +107,6 @@ describe('controllers', function () {
     it('should hide GitHub ribbon if configured as such', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {showGitHubRibbon: false}}})
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       $httpBackend.flush()
 
@@ -149,7 +116,6 @@ describe('controllers', function () {
     it('should log error while getting application configuration from backend API directly to browser console', inject(function () {
       $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
       $httpBackend.expectGET('/rest/admin/application-configuration').respond(500, 'error')
-      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
 
       console.log = jasmine.createSpy('log')
 

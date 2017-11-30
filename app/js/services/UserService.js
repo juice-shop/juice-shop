@@ -75,7 +75,6 @@ angular.module('juiceShop').factory('UserService', ['$http', '$q', function ($ht
   function oauthLogin (accessToken) {
     var oauthResponse = $q.defer()
     $http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken).success(function (data) {
-      console.log('done: ' + data)
       oauthResponse.resolve(data)
     }).error(function (err) {
       oauthResponse.reject(err)
