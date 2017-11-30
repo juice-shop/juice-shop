@@ -1,11 +1,10 @@
 angular.module('juiceShop').controller('LoginController', [
   '$scope',
-  '$rootScope',
   '$window',
   '$location',
   '$cookies',
   'UserService',
-  function ($scope, $rootScope, $window, $location, $cookies, userService) {
+  function ($scope, $window, $location, $cookies, userService) {
     'use strict'
 
     var email = $cookies.get('email')
@@ -21,7 +20,6 @@ angular.module('juiceShop').controller('LoginController', [
       userService.login($scope.user).then(function (authentication) {
         $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
-        $rootScope.$emit('user_logged_in')
         $location.path('/')
       }).catch(function (error) {
         $cookies.remove('token')
