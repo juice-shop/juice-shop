@@ -89,6 +89,12 @@ describe('/ftp', () => {
       .done(done)
   })
 
+  it('GET existing file /ftp/suspicious_errors.yml will return a 403 error for invalid file type .yml', done => {
+    frisby.get(URL + '/ftp/suspicious_errors.yml')
+      .expect('status', 403)
+      .done(done)
+  })
+
   it('GET the confidential file in /ftp', done => {
     frisby.get(URL + '/ftp/acquisitions.md')
       .expect('status', 200)
@@ -113,6 +119,19 @@ describe('/ftp', () => {
     frisby.get(URL + '/ftp/eastere.gg%00.md')
       .expect('status', 200)
       .expect('bodyContains', 'Congratulations, you found the easter egg!')
+      .done(done)
+  })
+  it('GET the SIEM signature file by using Poison Null Byte attack with .pdf suffix', done => {
+    frisby.get(URL + '/ftp/suspicious_errors.yml%00.pdf')
+      .expect('status', 200)
+      .expect('bodyContains', 'Suspicious error messages specific to the application')
+      .done(done)
+  })
+
+  it('GET the SIEM signature file by using Poison Null Byte attack with .md suffix', done => {
+    frisby.get(URL + '/ftp/suspicious_errors.yml%00.md')
+      .expect('status', 200)
+      .expect('bodyContains', 'Suspicious error messages specific to the application')
       .done(done)
   })
 
