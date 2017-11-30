@@ -16,13 +16,15 @@ exports = module.exports = function changePassword () {
     } else {
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        if (insecurity.hash(currentPassword) !== loggedInUser.data.password) {
+        if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send('Current password is not correct.')
         } else {
           models.User.findById(loggedInUser.data.id).then(user => {
             user.updateAttributes({ password: newPassword }).then(user => {
-              if (utils.notSolved(challenges.csrfChallenge) && user.id === 3 && user.password === insecurity.hash('slurmCl4ssic')) {
-                utils.solve(challenges.csrfChallenge)
+              if (utils.notSolved(challenges.csrfChallenge) && user.id === 3) {
+                if (user.password === insecurity.hash('slurmCl4ssic')) {
+                  utils.solve(challenges.csrfChallenge)
+                }
               }
               res.json({ user: user })
             }).catch(error => {
