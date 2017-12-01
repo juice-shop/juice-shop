@@ -652,9 +652,17 @@ function createProducts () {
     }).success(product => {
       softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {
+        if (products.christmasSpecial) {
+          console.error('Cannot use ' + product.name + ' when ' + products.osaft.name + ' is already being used for the Christmas Special Challenge.')
+          process.exit(1)
+        }
         products.christmasSpecial = product
         models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
       } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
+        if (products.osaft) {
+          console.error('Cannot use ' + product.name + ' when ' + products.osaft.name + ' is already being used for the Product Tampering Challenge.')
+          process.exit(1)
+        }
         products.osaft = product
         if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
           models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
