@@ -651,6 +651,10 @@ function createProducts () {
     } else if (product.useForProductTamperingChallenge) {
       description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
     } else if (product.fileForRetrieveBlueprintChallenge) {
+      if (datacache.retrieveBlueprintChallengeFile) {
+        console.error('Cannot use ' + product.fileForRetrieveBlueprintChallenge + ' when ' + datacache.retrieveBlueprintChallengeFile + ' is already being used for the Retrieve Blueprint Challenge.')
+        process.exit(1)
+      }
       let blueprint = product.fileForRetrieveBlueprintChallenge
       if (utils.startsWith(blueprint, 'http')) {
         const blueprintUrl = blueprint
