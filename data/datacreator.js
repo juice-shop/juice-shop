@@ -9,7 +9,7 @@ const users = datacache.users
 const products = datacache.products
 
 module.exports = () => {
-  // TODO Wrap enttire datacreator into promise to avoid race condition with websocket registration for progress restore
+  // TODO Wrap entire datacreator into promise to avoid race condition with websocket registration for progress restore
   createChallenges()
   createUsers()
   createRandomFakeUsers()
