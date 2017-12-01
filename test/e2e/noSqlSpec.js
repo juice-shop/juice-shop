@@ -1,10 +1,12 @@
+const config = require('config')
+
 describe('/#/search', () => {
   beforeEach(() => {
     browser.get('/#/search')
   })
 
   describe('challenge "NoSql Command Injection"', () => {
-    protractor.beforeEach.login({ email: 'admin@juice-sh.op', password: 'admin123' })
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     it('should be possible to inject a command into the get route', () => {
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.get(\'/rest/product/sleep(1000)/reviews\');')
