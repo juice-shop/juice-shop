@@ -675,7 +675,7 @@ function createProducts () {
       softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {
         if (products.christmasSpecial) {
-          console.error('Cannot use ' + product.name + ' when ' + products.osaft.name + ' is already being used for the Christmas Special Challenge.')
+          console.error('Cannot use ' + product.name + ' when ' + products.christmasSpecial.name + ' is already being used for the Christmas Special Challenge.')
           process.exit(1)
         }
         products.christmasSpecial = product
