@@ -17,8 +17,7 @@ exports = module.exports = function servePublicFiles () {
   }
 
   function verify (file, res, next, mdDebug) {
-    if (file && (utils.endsWith(file, '.md') || (utils.endsWith(file, '.pdf') || (file === 'incident-support.kdbx')))) {
-      file = insecurity.cutOffPoisonNullByte(file)
+    function verifySuccessfulPoisonNullByteExploit (file) {
       if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
         utils.solve(challenges.easterEggLevelOneChallenge)
       } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
@@ -30,11 +29,24 @@ exports = module.exports = function servePublicFiles () {
       } else if (utils.notSolved(challenges.misplacedSignatureFileChallenge) && file.toLowerCase() === 'suspicious_errors.yml') {
         utils.solve(challenges.misplacedSignatureFileChallenge)
       }
-      res.sendFile(path.resolve(__dirname, '../ftp/', file))
-    } else if (file && mdDebug && utils.contains(file, '.md') && (utils.endsWith(mdDebug, '.md') || utils.endsWith(mdDebug, '.pdf'))) {
+    }
+
+    function verifySuccessfulDebugParameterExploit () {
       if (utils.notSolved(challenges.forgottenBackupChallenge) && file.toLowerCase() === 'coupons_2013.md.bak') {
         utils.solve(challenges.forgottenBackupChallenge)
       }
+    }
+
+    function endsWithWhitelistedFileType (param) {
+      return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
+    }
+
+    if (file && (endsWithWhitelistedFileType(file) || (file === 'incident-support.kdbx'))) {
+      file = insecurity.cutOffPoisonNullByte(file)
+      verifySuccessfulPoisonNullByteExploit(file)
+      res.sendFile(path.resolve(__dirname, '../ftp/', file))
+    } else if (file && mdDebug && utils.contains(file, '.md') && endsWithWhitelistedFileType(mdDebug)) {
+      verifySuccessfulDebugParameterExploit(file)
       res.sendFile(path.resolve(__dirname, '../ftp/', file))
     } else {
       res.status(403)
