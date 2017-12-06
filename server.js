@@ -176,8 +176,8 @@ for (const modelName of autoModels) {
     endpoints: [`/api/${modelName}s`, `/api/${modelName}s/:id`]
   })
 
+  // fix the api difference between epilogue and previously used sequlize-restful
   resource.all.send.before(function (req, res, context) {
-    // TODO This appears to be the easiest way to fix the api difference between sequlize-restful and epilogue
     context.instance = {
       status: 'success',
       data: context.instance
