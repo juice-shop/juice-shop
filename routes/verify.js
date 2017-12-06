@@ -101,7 +101,32 @@ function feedbackChallenge () {
 }
 
 function knownVulnerableComponentChallenge () {
-  let knownVulnerableComponents = [
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: {
+        [Op.or]: knownVulnerableComponents()
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.knownVulnerableComponentChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({
+    where: {
+      message: {
+        [Op.or]: knownVulnerableComponents()
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.knownVulnerableComponentChallenge)
+    }
+  })
+}
+
+function knownVulnerableComponents () {
+  return [
     {
       [Op.and]: [
         {[Op.like]: '%sanitize-html%'},
@@ -115,60 +140,41 @@ function knownVulnerableComponentChallenge () {
       ]
     }
   ]
+}
+
+function weirdCryptoChallenge () {
   models.Feedback.findAndCountAll({
     where: {
       comment: {
-        [Op.or]: knownVulnerableComponents
+        [Op.or]: weirdCryptos()
       }
     }
   }).then(data => {
     if (data.count > 0) {
-      utils.solve(challenges.knownVulnerableComponentChallenge)
+      utils.solve(challenges.weirdCryptoChallenge)
     }
   })
   models.Complaint.findAndCountAll({
     where: {
       message: {
-        [Op.or]: knownVulnerableComponents
+        [Op.or]: weirdCryptos()
       }
     }
   }).then(data => {
     if (data.count > 0) {
-      utils.solve(challenges.knownVulnerableComponentChallenge)
+      utils.solve(challenges.weirdCryptoChallenge)
     }
   })
 }
 
-function weirdCryptoChallenge () {
-  let weirdCryptos = [
+function weirdCryptos () {
+  return [
     {[Op.like]: '%z85%'},
     {[Op.like]: '%base85%'},
     {[Op.like]: '%hashids%'},
     {[Op.like]: '%md5%'},
     {[Op.like]: '%base64%'}
   ]
-  models.Feedback.findAndCountAll({
-    where: {
-      comment: {
-        [Op.or]: weirdCryptos
-      }
-    }
-  }).then(data => {
-    if (data.count > 0) {
-      utils.solve(challenges.weirdCryptoChallenge)
-    }
-  })
-  models.Complaint.findAndCountAll({
-    where: {
-      message: {
-        [Op.or]: weirdCryptos
-      }
-    }
-  }).then(data => {
-    if (data.count > 0) {
-      utils.solve(challenges.weirdCryptoChallenge)
-    }
-  })
 }
 
 function typosquattingNpmChallenge () {
