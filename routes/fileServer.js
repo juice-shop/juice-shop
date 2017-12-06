@@ -44,7 +44,7 @@ exports = module.exports = function servePublicFiles () {
     }
   }
 
-  function verifySuccessfulDebugParameterExploit () {
+  function verifySuccessfulDebugParameterExploit (file) {
     if (utils.notSolved(challenges.forgottenBackupChallenge) && file.toLowerCase() === 'coupons_2013.md.bak') {
       utils.solve(challenges.forgottenBackupChallenge)
     }
