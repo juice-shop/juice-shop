@@ -61,125 +61,6 @@ exports.jwtChallenges = () => (req, res, next) => {
 }
 
 exports.databaseRelatedChallenges = () => (req, res, next) => {
-  function changeProductChallenge (osaft) {
-    osaft.reload().then(() => {
-      if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
-        if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
-          utils.solve(challenges.changeProductChallenge)
-        }
-      }
-    })
-  }
-
-  function feedbackChallenge () {
-    models.Feedback.findAndCountAll({where: {rating: 5}}).then(feedbacks => {
-      if (feedbacks.count === 0) {
-        utils.solve(challenges.feedbackChallenge)
-      }
-    })
-  }
-
-  function knownVulnerableComponentChallenge () {
-    let knownVulnerableComponents = [
-      {
-        [Op.and]: [
-          {[Op.like]: '%sanitize-html%'},
-          {[Op.like]: '%1.4.2%'}
-        ]
-      },
-      {
-        [Op.and]: [
-          {[Op.like]: '%express-jwt%'},
-          {[Op.like]: '%0.1.3%'}
-        ]
-      }
-    ]
-    models.Feedback.findAndCountAll({
-      where: {
-        comment: {
-          [Op.or]: knownVulnerableComponents
-        }
-      }
-    }).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.knownVulnerableComponentChallenge)
-      }
-    })
-    models.Complaint.findAndCountAll({
-      where: {
-        message: {
-          [Op.or]: knownVulnerableComponents
-        }
-      }
-    }).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.knownVulnerableComponentChallenge)
-      }
-    })
-  }
-
-  function weirdCryptoChallenge () {
-    let weirdCryptos = [
-      {[Op.like]: '%z85%'},
-      {[Op.like]: '%base85%'},
-      {[Op.like]: '%hashids%'},
-      {[Op.like]: '%md5%'},
-      {[Op.like]: '%base64%'}
-    ]
-    models.Feedback.findAndCountAll({
-      where: {
-        comment: {
-          [Op.or]: weirdCryptos
-        }
-      }
-    }).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.weirdCryptoChallenge)
-      }
-    })
-    models.Complaint.findAndCountAll({
-      where: {
-        message: {
-          [Op.or]: weirdCryptos
-        }
-      }
-    }).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.weirdCryptoChallenge)
-      }
-    })
-  }
-
-  function typosquattingNpmChallenge () {
-    models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%epilogue-js%'}}}
-    ).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.typosquattingNpmChallenge)
-      }
-    })
-    models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%epilogue-js%'}}}
-    ).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.typosquattingNpmChallenge)
-      }
-    })
-  }
-
-  function typosquattingBowerChallenge () {
-    models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%angular-tooltipp%'}}}
-    ).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.typosquattingBowerChallenge)
-      }
-    })
-    models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%angular-tooltipp%'}}}
-    ).then(data => {
-      if (data.count > 0) {
-        utils.solve(challenges.typosquattingBowerChallenge)
-      }
-    })
-  }
-
   if (utils.notSolved(challenges.changeProductChallenge) && products.osaft) {
     changeProductChallenge(products.osaft)
   }
@@ -199,4 +80,123 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
     typosquattingBowerChallenge()
   }
   next()
+}
+
+function changeProductChallenge (osaft) {
+  osaft.reload().then(() => {
+    if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
+      if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
+        utils.solve(challenges.changeProductChallenge)
+      }
+    }
+  })
+}
+
+function feedbackChallenge () {
+  models.Feedback.findAndCountAll({where: {rating: 5}}).then(feedbacks => {
+    if (feedbacks.count === 0) {
+      utils.solve(challenges.feedbackChallenge)
+    }
+  })
+}
+
+function knownVulnerableComponentChallenge () {
+  let knownVulnerableComponents = [
+    {
+      [Op.and]: [
+        {[Op.like]: '%sanitize-html%'},
+        {[Op.like]: '%1.4.2%'}
+      ]
+    },
+    {
+      [Op.and]: [
+        {[Op.like]: '%express-jwt%'},
+        {[Op.like]: '%0.1.3%'}
+      ]
+    }
+  ]
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: {
+        [Op.or]: knownVulnerableComponents
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.knownVulnerableComponentChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({
+    where: {
+      message: {
+        [Op.or]: knownVulnerableComponents
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.knownVulnerableComponentChallenge)
+    }
+  })
+}
+
+function weirdCryptoChallenge () {
+  let weirdCryptos = [
+    {[Op.like]: '%z85%'},
+    {[Op.like]: '%base85%'},
+    {[Op.like]: '%hashids%'},
+    {[Op.like]: '%md5%'},
+    {[Op.like]: '%base64%'}
+  ]
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: {
+        [Op.or]: weirdCryptos
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.weirdCryptoChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({
+    where: {
+      message: {
+        [Op.or]: weirdCryptos
+      }
+    }
+  }).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.weirdCryptoChallenge)
+    }
+  })
+}
+
+function typosquattingNpmChallenge () {
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%epilogue-js%'}}}
+  ).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.typosquattingNpmChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%epilogue-js%'}}}
+  ).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.typosquattingNpmChallenge)
+    }
+  })
+}
+
+function typosquattingBowerChallenge () {
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%angular-tooltipp%'}}}
+  ).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.typosquattingBowerChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%angular-tooltipp%'}}}
+  ).then(data => {
+    if (data.count > 0) {
+      utils.solve(challenges.typosquattingBowerChallenge)
+    }
+  })
 }
