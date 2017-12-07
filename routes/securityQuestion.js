@@ -6,12 +6,12 @@ exports = module.exports = function securityQuestion () {
     models.SecurityAnswer.find({
       include: [{
         model: models.User,
-        where: { email: email }
+        where: { email }
       }]
     }).then(answer => {
       if (answer) {
         models.SecurityQuestion.findById(answer.SecurityQuestionId).then(question => {
-          res.json({ question: question })
+          res.json({ question })
         }).catch(error => {
           next(error)
         })

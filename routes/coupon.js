@@ -11,7 +11,7 @@ exports = module.exports = function applyCoupon () {
       if (basket) {
         basket.updateAttributes({ coupon: coupon }).then(() => {
           if (discount) {
-            res.json({ discount: discount })
+            res.json({ discount })
           } else {
             res.status(404).send('Invalid coupon.')
           }
