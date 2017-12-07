@@ -42,22 +42,27 @@ exports.errorHandlingChallenge = () => (err, req, res, next) => {
 }
 
 exports.jwtChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.jwtTier1Challenge) || utils.notSolved(challenges.jwtTier2Challenge)) {
+  if (utils.notSolved(challenges.jwtTier1Challenge)) {
     const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
-    const payload = decoded ? decoded.payload : {}
-    const header = decoded ? decoded.header : {}
-    if (utils.notSolved(challenges.jwtTier1Challenge)) {
-      if (header.alg === 'none' && payload.data && payload.data.email && payload.data.email.match(/jwtn3d@/)) {
-        utils.solve(challenges.jwtTier1Challenge)
-      }
+    if (hasAlgorithm(decoded, 'none') && hasEmail(decoded, /jwtn3d@/)) {
+      utils.solve(challenges.jwtTier1Challenge)
     }
-    if (utils.notSolved(challenges.jwtTier2Challenge)) {
-      if (header.alg === 'HS256' && payload.data && payload.data.email && payload.data.email.match(/rsa_lord@/)) {
-        utils.solve(challenges.jwtTier2Challenge)
-      }
+  }
+  if (utils.notSolved(challenges.jwtTier2Challenge)) {
+    const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
+    if (hasAlgorithm(decoded, 'HS256') && hasEmail(decoded, /rsa_lord@/)) {
+      utils.solve(challenges.jwtTier2Challenge)
     }
   }
   next()
+}
+
+function hasAlgorithm (jwt, alg) {
+  return jwt && jwt.header && jwt.header.alg === alg
+}
+
+function hasEmail (jwt, email) {
+  return jwt && jwt.payload && jwt.payload.data && jwt.payload.data.email && jwt.payload.data.email.match(email)
 }
 
 exports.databaseRelatedChallenges = () => (req, res, next) => {
