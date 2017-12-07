@@ -19,7 +19,7 @@ exports = module.exports = function resetPassword () {
       models.SecurityAnswer.find({
         include: [{
           model: models.User,
-          where: { email: email }
+          where: { email }
         }]
       }).then(data => {
         if (insecurity.hmac(answer) === data.answer) {
@@ -34,7 +34,7 @@ exports = module.exports = function resetPassword () {
               if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
-              res.json({ user: user })
+              res.json({ user })
             }).catch(error => {
               next(error)
             })

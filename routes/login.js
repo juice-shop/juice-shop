@@ -18,7 +18,7 @@ exports = module.exports = function login () {
         const token = insecurity.authorize(user)
         user.bid = basket.id // keep track of original basket for challenge solution check
         insecurity.authenticatedUsers.put(token, user)
-        res.json({ authentication: { token: token, bid: basket.id, umail: user.data.email } })
+        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
       }).catch(error => {
         next(error)
       })
