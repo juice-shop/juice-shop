@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure JavaScript Web Application",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "private": true,
   "dependencies": {
     "angular": "~1.5",
@@ -13,11 +13,11 @@
     "angular-tooltipps": "~1.2",
     "angular-touch": "~1.5",
     "angular-socket-io": "~0.7",
-    "angular-translate": "~2.15",
-    "angular-translate-loader-static-files": "~2.15",
+    "angular-translate": "~2.16",
+    "angular-translate-loader-static-files": "~2.16",
     "bootstrap": "~3.3",
     "bootswatch": "~3.3",
-    "flag-icon-css": "~2.8",
+    "flag-icon-css": "~2.9",
     "fontawesome": "~4.7",
     "github-fork-ribbon-css": "~0.1",
     "jquery": "~3.2",

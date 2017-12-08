@@ -176,8 +176,8 @@ for (const modelName of autoModels) {
     endpoints: [`/api/${modelName}s`, `/api/${modelName}s/:id`]
   })
 
+  // fix the api difference between epilogue and previously used sequlize-restful
   resource.all.send.before(function (req, res, context) {
-    // TODO This appears to be the easiest way to fix the api difference between sequlize-restful and epilogue
     context.instance = {
       status: 'success',
       data: context.instance
@@ -220,67 +220,6 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 
 exports.start = function (readyCallback) {
-  function registerWebsocketEvents () {
-    io.on('connection', socket => {
-      // notify only first client to connect about server start
-      if (firstConnectedSocket === null) {
-        socket.emit('server started')
-        firstConnectedSocket = socket.id
-      }
-
-      // send all outstanding notifications on (re)connect
-      notifications.forEach(notification => {
-        socket.emit('challenge solved', notification)
-      })
-
-      socket.on('notification received', data => {
-        const i = notifications.findIndex(element => element.flag === data)
-        if (i > -1) {
-          notifications.splice(i, 1)
-        }
-      })
-    })
-  }
-
-  function populateIndexTemplate () {
-    function replaceLogo (logoImageTag) {
-      replace({
-        regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
-        replacement: logoImageTag,
-        paths: ['app/index.html'],
-        recursive: false,
-        silent: true
-      })
-    }
-
-    function replaceTheme () {
-      const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-      replace({
-        regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
-        replacement: themeCss,
-        paths: ['app/index.html'],
-        recursive: false,
-        silent: true
-      })
-    }
-
-    fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
-      if (config.get('application.logo')) {
-        let logo = config.get('application.logo')
-        if (utils.startsWith(logo, 'http')) {
-          const logoPath = logo
-          logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-          utils.downloadToFile(logoPath, 'app/public/images/' + logo)
-        }
-        const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-        replaceLogo(logoImageTag)
-      }
-      if (config.get('application.theme')) {
-        replaceTheme()
-      }
-    })
-  }
-
   if (!this.server) {
     models.sequelize.sync({ force: true }).then(function () {
       datacreator()
@@ -295,6 +234,65 @@ exports.start = function (readyCallback) {
 
     populateIndexTemplate()
   }
+}
+
+function registerWebsocketEvents () {
+  io.on('connection', socket => {
+    if (firstConnectedSocket === null) {
+      socket.emit('server started')
+      firstConnectedSocket = socket.id
+    }
+
+    notifications.forEach(notification => {
+      socket.emit('challenge solved', notification)
+    })
+
+    socket.on('notification received', data => {
+      const i = notifications.findIndex(element => element.flag === data)
+      if (i > -1) {
+        notifications.splice(i, 1)
+      }
+    })
+  })
+}
+
+function populateIndexTemplate () {
+  fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
+    if (config.get('application.logo')) {
+      let logo = config.get('application.logo')
+      if (utils.startsWith(logo, 'http')) {
+        const logoPath = logo
+        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+        utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+      }
+      const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+      replaceLogo(logoImageTag)
+    }
+    if (config.get('application.theme')) {
+      replaceTheme()
+    }
+  })
+}
+
+function replaceLogo (logoImageTag) {
+  replace({
+    regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
+    replacement: logoImageTag,
+    paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceTheme () {
+  const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+  replace({
+    regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
+    replacement: themeCss,
+    paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
 }
 
 exports.close = function (exitCode) {

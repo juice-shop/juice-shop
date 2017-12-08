@@ -1,10 +1,11 @@
 angular.module('juiceShop').controller('OAuthController', [
+  '$rootScope',
   '$window',
   '$location',
   '$cookies',
   '$base64',
   'UserService',
-  function ($window, $location, $cookies, $base64, userService) {
+  function ($rootScope, $window, $location, $cookies, $base64, userService) {
     'use strict'
 
     userService.oauthLogin(parseRedirectUrlParams()['access_token']).then(function (profile) {
@@ -22,6 +23,7 @@ angular.module('juiceShop').controller('OAuthController', [
       userService.login({ email: profile.email, password: $base64.encode(profile.email), oauth: true }).then(function (authentication) {
         $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
+        $rootScope.$emit('user_logged_in')
         $location.path('/')
       }).catch(function (error) {
         invalidateSession(error)
