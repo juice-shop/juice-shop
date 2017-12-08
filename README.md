@@ -285,30 +285,35 @@ guide for help with filling out the donation form correctly.
 
 ## Contributors
 
-Ordered by date of first contribution.
-[Auto-generated](https://github.com/dtrejo/node-authors) on Fri, 16 Jun
-2017 11:20:02 GMT.
+Ordered by added lines of code as of Sun, 02 Dec 2017.
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [Bitdeli Chef](https://github.com/bitdeli-chef) aka `bitdeli-chef`
-- [The Gitter Badger](https://github.com/gitter-badger) aka
-  `gitter-badger`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
-- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Johanna A](https://github.com/yuhama) aka `yuhama`
-- [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
-- [Joe Butler](https://github.com/joelicious) aka `joelicious`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
-- [ninoseki](https://github.com/ninoseki)
-- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
+- Josh Grossman
+- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
+- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
+- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
+- Omer Levi Hevroni
+- m4l1c3
+- [Johanna A](https://github.com/yuhama) aka `yuhama`
+- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
+  `aaron-m-edwards`
+- [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
+- Jln Wntr
+-  Greg Guthe
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
+-  battletux
+-  AviD
+-  Yuvraj
+-  Stuart Winter-Tear
+-  Christian Kühn
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Joe Butler](https://github.com/joelicious) aka `joelicious`
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
