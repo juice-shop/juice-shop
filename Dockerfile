@@ -5,11 +5,12 @@ MAINTAINER      Bjoern Kimminich <bjoern.kimminich@owasp.org>
 ARG BUILD_DATE
 ARG VCS_REF
 
-LABEL org.label-schema.build-date=$BUILD_DATE \
+LABEL shop.owasp-juice.version = "6.1.1" \
+      org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/bkimminich/juice-shop.git" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.schema-version="1.0.0-rc1"
-      version = "6.1.1"
+
 
 RUN apk update && apk add git
 
