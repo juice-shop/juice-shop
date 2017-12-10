@@ -1,7 +1,7 @@
 {
   "name": "juice-shop",
   "description": "An intentionally insecure JavaScript Web Application",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "private": true,
   "dependencies": {
     "angular": "~1.5",
