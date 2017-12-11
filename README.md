@@ -275,14 +275,6 @@ guide for help with filling out the donation form correctly.
 [![Dash](https://img.shields.io/badge/dash-Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW-blue.svg)](https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW)
 [![Ether](https://img.shields.io/badge/ether-0x0f933ab9fcaaa782d0279c300d73750e1311eae6-lightgrey.svg)](https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6)
 
-## Credits
-
-* Inspired by the "classic"
-  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
-  [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
-  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
-
 ## Contributors
 
 ### Collaborators
@@ -295,7 +287,7 @@ guide for help with filling out the donation form correctly.
 ### Code Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 02 Dec 2017.
+Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -327,7 +319,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017.
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Mon,
-11 Dec 2017.
+11 Dec 2017 on `master`.
 
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
@@ -354,6 +346,16 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
   landinl, Mattias Persson, Pär Swedberg
 - :tr: Ender Çulha
+
+### Special Thanks
+
+* Inspired by the "classic"
+  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
+  [@psiinon](https://github.com/psiinon)
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
+  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
+  artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
