@@ -285,35 +285,71 @@ guide for help with filling out the donation form correctly.
 
 ## Contributors
 
-Ordered by added lines of code as of Sun, 02 Dec 2017.
+### Collaborators
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
-- Josh Grossman
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
+
+### Code Contributors
+
+Ordered by added lines of code as of Sun, 02 Dec 2017.
+
+- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
+  `ViktorLindstrm`
+- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- Omer Levi Hevroni
-- m4l1c3
+- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
+- [m4l1c3](https://github.com/m4l1c3)
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
 - [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
-- Jln Wntr
--  Greg Guthe
+- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [Greg Guthe](https://github.com/g-k) aka `g-k`
 - [Abhishek bundela](https://github.com/abhishekbundela) aka
   `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
--  battletux
--  AviD
--  Yuvraj
--  Stuart Winter-Tear
--  Christian Kühn
+- [battletux](https://github.com/battletux)
+- [AviD](https://github.com/avidouglen) aka `avidouglen`
+- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
+- [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
+  `StuartWinterTear`
+- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
-- [Joe Butler](https://github.com/joelicious) aka `joelicious`
+- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
+
+### Translators
+
+Grouped by language as of Mon, 11 Dec 2017.
+
+- :china: Coink, rToxic
+- :czech_republic: Martin Hartl, stejkenzie
+- :denmark: Allan Kimmer Jensen, owangen
+- :estonia: bmoritz
+- :france: Kylian Runembert, vientspam
+- :germany: Björn Kimminich
+- :hungary: OliverkeHU
+- :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
+  Febri Ramadlan, Rick Daalhuizen
+- :israel: AviD, Omer Levi Hevroni
+- :italy: vientspam
+- :japan: ninoseki
+- :myanmar: thinbashane
+- :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
+  vientspam, Wout Huygens, Rick Daalhuizen
+- :norway: owangen
+- :poland: Idomin Ninja
+- :portugal: Alvaro Viebrantz
+- :romania: Mircea Ulmeanu, orjen, timexlord
+- :russia: fieldhill13
+- :spain: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
+  mateomartinez, soledad aro, Gorka Vicente
+- :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
+  landinl, Mattias Persson, Pär Swedberg
+- :turkey: Ender Çulha
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
