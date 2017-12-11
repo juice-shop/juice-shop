@@ -275,25 +275,19 @@ guide for help with filling out the donation form correctly.
 [![Dash](https://img.shields.io/badge/dash-Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW-blue.svg)](https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW)
 [![Ether](https://img.shields.io/badge/ether-0x0f933ab9fcaaa782d0279c300d73750e1311eae6-lightgrey.svg)](https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6)
 
-## Credits
-
-* Inspired by the "classic"
-  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
-  [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
-  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
-
 ## Contributors
 
 ### Collaborators
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
+  (Project Leader)
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 
 ### Code Contributors
 
-Ordered by added lines of code as of Sun, 02 Dec 2017.
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
+Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -302,7 +296,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017.
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [m4l1c3](https://github.com/m4l1c3)
+- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Johanna A](https://github.com/yuhama) aka `yuhama`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
@@ -312,7 +306,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017.
 - [Abhishek bundela](https://github.com/abhishekbundela) aka
   `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [battletux](https://github.com/battletux)
+- [battletux](https://github.com/battletux) aka `battletux`
 - [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
@@ -323,20 +317,22 @@ Ordered by added lines of code as of Sun, 02 Dec 2017.
 
 ### Translators
 
-Grouped by language as of Mon, 11 Dec 2017.
+Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
+translations and commits to `app/i18n`. Grouped by language as of Mon,
+11 Dec 2017 on `master`.
 
-- :china: Coink, rToxic
+- :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen
 - :estonia: bmoritz
-- :france: Kylian Runembert, vientspam
-- :germany: Björn Kimminich
+- :fr: Kylian Runembert, vientspam
+- :de: Björn Kimminich
 - :hungary: OliverkeHU
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen
 - :israel: AviD, Omer Levi Hevroni
-- :italy: vientspam
-- :japan: ninoseki
+- :it: vientspam
+- :jp: ninoseki
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
@@ -344,12 +340,22 @@ Grouped by language as of Mon, 11 Dec 2017.
 - :poland: Idomin Ninja
 - :portugal: Alvaro Viebrantz
 - :romania: Mircea Ulmeanu, orjen, timexlord
-- :russia: fieldhill13
-- :spain: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
+- :ru: fieldhill13
+- :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
   mateomartinez, soledad aro, Gorka Vicente
 - :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
   landinl, Mattias Persson, Pär Swedberg
-- :turkey: Ender Çulha
+- :tr: Ender Çulha
+
+### Special Thanks
+
+* Inspired by the "classic"
+  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
+  [@psiinon](https://github.com/psiinon)
+* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
+  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
+  artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
 
