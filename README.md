@@ -295,7 +295,7 @@ guide for help with filling out the donation form correctly.
 ### Code Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 02 Dec 2017.
+Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -327,7 +327,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017.
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Mon,
-11 Dec 2017.
+11 Dec 2017 on `master`.
 
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
