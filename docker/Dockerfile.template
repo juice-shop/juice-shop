@@ -1,7 +1,6 @@
 FROM node:8 as installer
 ARG BUILD_DATE
 ARG VCS_REF
-RUN apk update
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
