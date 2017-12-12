@@ -5,6 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
     $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: {}})
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {data: {}})
     $sce = $injector.get('$sce')
@@ -25,15 +26,13 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
-
       $httpBackend.flush()
 
       expect(controller).toBeDefined()
     }))
 
     it('should hold single product with given id', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}})
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}})
 
       $httpBackend.flush()
 
@@ -42,7 +41,7 @@ describe('controllers', function () {
     }))
 
     it('should render product description as trusted HTML', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS3")</script>'}})
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS3")</script>'}})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
@@ -51,15 +50,33 @@ describe('controllers', function () {
     }))
 
     it('should hold no product if API call fails', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(500)
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(500)
 
       $httpBackend.flush()
 
       expect(scope.product).toBeUndefined()
     }))
 
-    it('should log errors directly to browser console', inject(function () {
-      $httpBackend.whenGET(/\/api\/Products\/42/).respond(500, 'error')
+    it('should log errors when retrieving product directly to browser console', inject(function () {
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(500, 'error')
+      console.log = jasmine.createSpy('log')
+
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log errors when retrieving reviews directly to browser console', inject(function () {
+      $httpBackend.expectGET('/rest/product/42/reviews').respond(500, 'error')
+      console.log = jasmine.createSpy('log')
+
+      $httpBackend.flush()
+
+      expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should log errors when retrieving user directly to browser console', inject(function () {
+      $httpBackend.expectGET('/rest/user/whoami').respond(500, 'error')
       console.log = jasmine.createSpy('log')
 
       $httpBackend.flush()
