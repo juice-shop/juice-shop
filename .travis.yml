@@ -76,5 +76,4 @@ deploy:
     tags: true
 # FIXME Remove workaround once problems with recent "Trusty" image have been resolved on Travis-CI side (https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch)
 sudo: required
-dist: trusty
-group: deprecated-2017Q4
+dist: precise
