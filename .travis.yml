@@ -27,7 +27,7 @@ before_script:
 - sleep 3
 script:
 - npm test
-- npm run frisby
+# - npm run frisby
 - NODE_ENV=ctf npm run protractor
 after_success:
 - ./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'
@@ -74,6 +74,3 @@ deploy:
   on:
     repo: bkimminich/juice-shop
     tags: true
-# FIXME Remove workaround once problems with recent "Trusty" image have been resolved on Travis-CI side (https://blog.travis-ci.com/2017-12-12-new-trusty-images-q4-launch)
-sudo: required
-dist: precise
