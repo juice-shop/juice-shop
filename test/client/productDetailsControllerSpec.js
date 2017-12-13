@@ -1,14 +1,15 @@
 describe('controllers', function () {
-  var scope, controller, $httpBackend, $sce
+  var scope, controller, $httpBackend, $sce, $uibModal
 
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
-    $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: {}})
-    $httpBackend.whenGET('/rest/user/whoami').respond(200, {data: {}})
+    $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: []})
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $sce = $injector.get('$sce')
+    $uibModal = $injector.get('$uibModal')
   }))
 
   afterEach(function () {
@@ -57,6 +58,28 @@ describe('controllers', function () {
       expect(scope.product).toBeUndefined()
     }))
 
+    it('should post anonymous review if no user email is returned', inject(function () {
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {}})
+      $httpBackend.flush()
+
+      scope.message = 'Great product!'
+      scope.addReview()
+
+      $httpBackend.expectPUT('/rest/product/42/reviews', {message: 'Great product!', author: 'Anonymous'}).respond(200, {data: {}})
+      $httpBackend.flush()
+    }))
+
+    it('should post review with user email as author', inject(function () {
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {email: 'horst@juice-sh.op'}})
+      $httpBackend.flush()
+
+      scope.message = 'Great product!'
+      scope.addReview()
+
+      $httpBackend.expectPUT('/rest/product/42/reviews', {message: 'Great product!', author: 'horst@juice-sh.op'}).respond(200, {data: {}})
+      $httpBackend.flush()
+    }))
+
     it('should log errors when retrieving product directly to browser console', inject(function () {
       $httpBackend.expectGET(/\/api\/Products\/42/).respond(500, 'error')
       console.log = jasmine.createSpy('log')
@@ -82,6 +105,34 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should open a modal dialog with review editor', inject(function () {
+      spyOn($uibModal, 'open').and.returnValue(
+        { result: { then: function () { } } })
+
+      $httpBackend.flush()
+
+      scope.editReview()
+
+      expect($uibModal.open).toHaveBeenCalledWith({
+        templateUrl: 'views/ProductReviewEdit.html',
+        controller: 'ProductReviewEditController',
+        bindings: jasmine.any(Object),
+        size: jasmine.any(String),
+        resolve: { review: jasmine.any(Function) }
+      })
+    }))
+
+    it('should refresh reviews of product after adding a review', inject(function () {
+      spyOn($uibModal, 'open').and.returnValue(
+        { result: { then: function () { scope.refreshReviews() } } })
+      spyOn(scope, 'refreshReviews')
+
+      $httpBackend.flush()
+      scope.editReview()
+
+      expect(scope.refreshReviews).toHaveBeenCalled()
     }))
   })
 })
