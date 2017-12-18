@@ -26,13 +26,12 @@ before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
-- echo Skipping tests until https://github.com/travis-ci/travis-ci/issues/8909 is resolved.
-#- npm test
-#- npm run frisby
-#- NODE_ENV=ctf npm run protractor
-#after_success:
-#- ./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'
-#- ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info
+- travis_wait npm test
+- npm run frisby
+- NODE_ENV=ctf npm run protractor
+after_success:
+- ./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'
+- ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info
 notifications:
   email:
   - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=

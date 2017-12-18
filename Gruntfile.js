@@ -82,6 +82,7 @@ module.exports = function (grunt) {
               'app/public/**',
               'config/*.yml',
               'data/*.js',
+              'encryptionkeys/**',
               'ftp/**',
               'lib/*.js',
               'models/*.js',
