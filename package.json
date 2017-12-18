@@ -179,7 +179,7 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/bower_components/"
+      "/app/node_modules/"
     ]
   }
 }

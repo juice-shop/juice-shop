@@ -285,9 +285,9 @@ function replaceLogo (logoImageTag) {
 }
 
 function replaceTheme () {
-  const themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+  const themeCss = 'app/node_modules/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
   replace({
-    regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/,
+    regex: /app\/node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
     replacement: themeCss,
     paths: ['app/index.html'],
     recursive: false,

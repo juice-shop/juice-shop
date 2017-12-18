@@ -2,7 +2,6 @@
   "ignore": [
     "**/app/private/**",
     "**/node_modules/**",
-    "**/bower_components/**",
     "**/dist/**"
   ],
   "dependencies": {
