@@ -16,7 +16,7 @@ describe('/#/administration', () => {
     it('should be possible for any logged-in user to delete feedback', () => {
       browser.get('/#/administration')
 
-      element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash')).click()
+      element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
       browser.wait(protractor.ExpectedConditions.stalenessOf($('span[aria-valuenow="5"]')), 5000) // eslint-disable-line no-undef
     })
 
