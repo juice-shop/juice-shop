@@ -131,7 +131,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "postinstall": "bower install && grunt minify && grunt docker",
+    "postinstall": "npm --prefix ./app install ./app && grunt minify && grunt docker",
     "start": "node app",
     "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
