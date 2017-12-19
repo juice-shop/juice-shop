@@ -1,14 +1,14 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
   '$rootScope',
+  '$location',
   'AdministrationService',
   'ConfigurationService',
   'UserService',
-  function ($scope, $rootScope, administrationService, configurationService, userService) {
+  function ($scope, $rootScope, $location, administrationService, configurationService, userService) {
     'use strict'
 
     $scope.version = ''
-
     administrationService.getApplicationVersion().then(function (version) {
       if (version) {
         $scope.version = 'v' + version
@@ -19,7 +19,6 @@ angular.module('juiceShop').controller('NavbarController', [
 
     $rootScope.applicationName = 'OWASP Juice Shop'
     $rootScope.gitHubRibbon = 'orange'
-    $rootScope.userEmail = ''
     configurationService.getApplicationConfiguration().then(function (config) {
       if (config && config.application && config.application.name !== null) {
         $rootScope.applicationName = config.application.name
@@ -36,12 +35,15 @@ angular.module('juiceShop').controller('NavbarController', [
       console.log(err)
     })
 
-    updateUserEmail()
+    if ($location.search().gitHubRibbon) {
+      $rootScope.gitHubRibbon = $location.search().gitHubRibbon
+    }
 
+    $rootScope.userEmail = ''
+    updateUserEmail()
     $rootScope.$on('user_logged_in', function () {
       updateUserEmail()
     })
-
     $rootScope.$on('user_logged_out', function () {
       $rootScope.userEmail = ''
     })
