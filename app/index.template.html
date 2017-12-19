@@ -18,10 +18,10 @@
     <link ng-controller="NavbarController" href="node_modules/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
     <!-- Flag Icons -->
     <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <!-- Github Ribbon -->
-    <link rel="stylesheet" href="node_modules/github-fork-ribbon-css/gh-fork-ribbon.css">
+    <!-- GitHub Ribbon -->
+    <link rel="stylesheet" href="node_modules/github-fork-ribbon-css/gh-fork-ribbon.css" />
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="node_modules/github-fork-ribbon-css/gh-fork-ribbon.ie.css">
+    <link rel="stylesheet" href="node_modules/github-fork-ribbon-css/gh-fork-ribbon.ie.css" />
     <![endif]-->
     <!-- Application Styles-->
     <link rel="stylesheet" href="css/app.css"/>
@@ -182,9 +182,7 @@
 <!-- CONTENT -->
 <main class="container-fluid" ng-view></main>
 
-<!--TODO: Re-enable translation and usage of FA icons in GitHub ribbon-->
-<!--<a ng-show="showGitHubRibbon" class="github-fork-ribbon right-top" href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank" data-ribbon="Fork me on GitHub" translate="RIBBON_GITHUB_FORK" translate-value-fork='<i class="fa fa-code-fork"></i>' translate-value-github='<i class="fa fa-github"></i> GitHub'></a>-->
-<a ng-show="showGitHubRibbon" class="github-fork-ribbon right-top" href="/redirect?to=https://github.com/bkimminich/juice-shop" target="_blank" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+<a class="github-fork-ribbon fixed" href="/redirect?to=https://github.com/bkimminich/juice-shop" translate translate-attr-data-ribbon="RIBBON_GITHUB_FORK" translate-value-fork='<i class="fas fa-code-branch"></i>' translate-value-github='<i class="fab fa-github"></i> GitHub' target="_blank"></a>
 
 </body>
 </html>
