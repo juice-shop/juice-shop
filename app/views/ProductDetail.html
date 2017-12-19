@@ -35,7 +35,7 @@
                     <blockquote data-ng-repeat="review in productReviews">
                         <p>{{ review.message }}</p>
 
-                        <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</button>
+                        <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fas fa-edit"></i> Edit</button>
 
                         <footer class="capitalize">{{ review.author | emailName }}</footer>
                     </blockquote>
@@ -47,7 +47,7 @@
                             <textarea class="form-control input-sm" id="product_review" ng-model="message" name="product_review" required ng-minlength="1" ng-maxlength="160"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" ng-click="addReview()" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid"><i class="fa fa-send fa-lg"></i> <span translate="BTN_SUBMIT"></span></button>
+                            <button type="submit" ng-click="addReview()" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid"><i class="fas fa-paper-plane fa-lg"></i> <span translate="BTN_SUBMIT"></span></button>
                         </div>
                     </form>
                 </div>
@@ -55,6 +55,6 @@
         </div>
     </div>
     <footer class="modal-footer">
-        <button class="btn btn-default" ng-click="$close()"><i class="fa fa-arrow-circle-left fa-lg"></i> <span translate="BTN_CLOSE"></span></button>
+        <button class="btn btn-default" ng-click="$close()"><i class="fas fa-arrow-circle-left fa-lg"></i> <span translate="BTN_CLOSE"></span></button>
     </footer>
 </section>

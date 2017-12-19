@@ -30,7 +30,6 @@
     <!-- libraries, third party components -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="private/fontawesome-all.min.js"></script>
-    <script src="private/fa-v4-shims.min.js"></script>
     <script src="node_modules/underscore/underscore.js"></script>
     <script src="node_modules/string/dist/string.min.js"></script>
     <script src="node_modules/moment/min/moment.min.js"></script>
@@ -69,40 +68,40 @@
             <a href="#/"><img class="navbar-brand navbar-logo" src="/public/images/JuiceShop_Logo.png"></a>
             <a class="navbar-brand" href="#/"><span ng-bind="applicationName"></span> <small ng-bind="version"></small></a>
             <span class="navbar-brand" ng-show="isLoggedIn()">
-                <i class="fa fa-user-circle fa-lg" uib-tooltip="{{userEmail}}" tooltip-placement="right"></i>
+                <i class="fas fa-user-circle fa-lg" uib-tooltip="{{userEmail}}" tooltip-placement="right"></i>
             </span>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" ng-show="!isLoggedIn()">
-                <a href="#/login"><i class="fa fa-sign-in fa-lg"></i> <span translate="TITLE_LOGIN"></span></a>
+                <a href="#/login"><i class="fas fa-sign-in-alt fa-lg"></i> <span translate="TITLE_LOGIN"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/logout"><i class="fa fa-sign-out fa-lg"></i> <span translate="TITLE_LOGOUT"></span></a>
+                <a href="#/logout"><i class="fas fa-sign-out-alt fa-lg"></i> <span translate="TITLE_LOGOUT"></span></a>
             </li>
             <li class="dropdown">
                 <a id="languageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa fa-language fa-lg"></i> <span translate="LANGUAGE"></span>
+                    <i class="fas fa-language fa-lg"></i> <span translate="LANGUAGE"></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
                     <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ng-click="changeLanguage('ar')"><span class="flag-icon flag-icon-ae"></span> عربى <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('ar')"><span class="flag-icon flag-icon-ae"></span> عربى <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('cs')"><span class="flag-icon flag-icon-cz"></span> Česky</a></li>
-                    <li><a ng-click="changeLanguage('da')"><span class="flag-icon flag-icon-dk"></span> Dansk <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('da')"><span class="flag-icon flag-icon-dk"></span> Dansk <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('de')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
-                    <li><a ng-click="changeLanguage('el')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('el')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('es')"><span class="flag-icon flag-icon-es"></span> Español</a></li>
-                    <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fi')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('et')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fas fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('fi')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('fr')"><span class="flag-icon flag-icon-fr"></span> Français</a></li>
                     <li><a ng-click="changeLanguage('he')"><span class="flag-icon flag-icon-il"></span>עברי </a></li>
-                    <li><a ng-click="changeLanguage('hu')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('hu')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('id')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
-                    <li><a ng-click="changeLanguage('it')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('it')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('ja')"><span class="flag-icon flag-icon-jp"></span> 日本の</a></li>
-                    <li><a ng-click="changeLanguage('lt')"><span class="flag-icon flag-icon-lt"></span> Lietuviešu <i class="fa fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('lv')"><span class="flag-icon flag-icon-lv"></span> Latvijas <i class="fa fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('lt')"><span class="flag-icon flag-icon-lt"></span> Lietuviešu <i class="fas fa-flask"></i></a></li>
+                    <li><a ng-click="changeLanguage('lv')"><span class="flag-icon flag-icon-lv"></span> Latvijas <i class="fas fa-flask"></i></a></li>
                     <li><a ng-click="changeLanguage('my')"><span class="flag-icon flag-icon-mm"></span> ျမန္မာ</a></li>
                     <li><a ng-click="changeLanguage('nl')"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
                     <li><a ng-click="changeLanguage('no')"><span class="flag-icon flag-icon-no"></span> Norsk</a></li>
@@ -121,23 +120,23 @@
                     <div class="form-group">
                         <input type="search" class="form-control" translate-attr="{ placeholder: 'SEARCH_PLACEHOLDER' }" ng-model="searchQuery">
                     </div>
-                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fa fa-search fa-lg"></i> <span translate="NAV_SEARCH"></span></button>
+                    <button type="submit" id="searchButton" class="btn btn-default" ng-click="search()"><i class="fas fa-search fa-lg"></i> <span translate="NAV_SEARCH"></span></button>
                 </form>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/basket"><i class="fa fa-shopping-cart fa-lg"></i> <span translate="TITLE_BASKET"></span></a>
+                <a href="#/basket"><i class="fas fa-shopping-cart fa-lg"></i> <span translate="TITLE_BASKET"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/change-password"><i class="fa fa-user-secret fa-lg"></i> <span translate="TITLE_CHANGE_PASSWORD"></span></a>
+                <a href="#/change-password"><i class="fas fa-user-secret fa-lg"></i> <span translate="TITLE_CHANGE_PASSWORD"></span></a>
             </li>
             <li class="dropdown">
-                <a href="#/contact"><i class="fa fa-comment fa-lg"></i> <span translate="TITLE_CONTACT"></span></a>
+                <a href="#/contact"><i class="fas fa-comment fa-lg"></i> <span translate="TITLE_CONTACT"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/recycle"><i class="fa fa-recycle fa-lg"></i> <span translate="NAV_RECYCLE"></span></a>
+                <a href="#/recycle"><i class="fas fa-recycle fa-lg"></i> <span translate="NAV_RECYCLE"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
-                <a href="#/complain"><i class="fa fa-bomb fa-lg"></i> <span translate="NAV_COMPLAIN"></span></a>
+                <a href="#/complain"><i class="fas fa-bomb fa-lg"></i> <span translate="NAV_COMPLAIN"></span></a>
             </li>
             <!--
             <li class="dropdown">
@@ -145,7 +144,7 @@
             </li>
             -->
             <li class="dropdown ribbon-spacer">
-                <a href="#/about"><i class="fa fa-info-circle fa-lg"></i> <span translate="TITLE_ABOUT"></span></a>
+                <a href="#/about"><i class="fas fa-info-circle fa-lg"></i> <span translate="TITLE_ABOUT"></span></a>
             </li>
         </ul>
     </div>
@@ -157,7 +156,7 @@
     <div uib-alert ng-show="hackingProgress.autoRestoreMessage" ng-class="'alert alert-warning'" close="closeNotification()">
         <span translate="NOTIFICATION_SERVER_STARTED"></span>: {{hackingProgress.autoRestoreMessage}}
         <button class="btn btn-primary btn-xs" ng-click="clearProgress()" ng-disabled="hackingProgress.cleared">
-            <i class="fa fa-trash" aria-hidden="true"></i>
+            <i class="fas fa-trash" aria-hidden="true"></i>
             <span translate="RESTART_REQUIRED" ng-show="hackingProgress.cleared"></span>
             <span translate="RESET_HACKING_PROGRESS" ng-show="!hackingProgress.cleared"></span>
         </button>
@@ -169,9 +168,9 @@
         {{notification.message}}<br>
 
         <div ng-show="showCtfFlagsInNotifications">
-            <i class="fa fa-flag-checkered"></i> {{notification.flag}}
+            <i class="fas fa-flag-checkered"></i> {{notification.flag}}
             <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true" ng-disabled="notification.copied">
-                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                <i class="fas fa-clipboard" aria-hidden="true"></i>
                 <span translate="COPY_SUCCESS" ng-show="notification.copied"></span>
                 <span translate="COPY_TO_CLIPBOARD" ng-show="!notification.copied"></span>
             </button>

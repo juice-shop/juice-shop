@@ -19,15 +19,15 @@
                 <td>{{product.price}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="dec(product.BasketItem.id)"><i class="fa fa-minus-square"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="dec(product.BasketItem.id)"><i class="fas fa-minus-square"></i></a>
                         <span class="btn btn-default btn-xs">{{product.BasketItem.quantity}}</span>
-                        <a class="btn btn-default btn-xs" ng-click="inc(product.BasketItem.id)"><i class="fa fa-plus-square"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="inc(product.BasketItem.id)"><i class="fas fa-plus-square"></i></a>
                     </div>
                 </td>
                 <td>{{(product.price*product.BasketItem.quantity).toFixed(2)}}</td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-default btn-xs" ng-click="delete(product.BasketItem.id)"><i class="fa fa-trash-o"></i></a>
+                        <a class="btn btn-default btn-xs" ng-click="delete(product.BasketItem.id)"><i class="far fa-trash-alt"></i></a>
                     </div>
                 </td>
             </tr>
@@ -35,9 +35,9 @@
 
         <div class="container-fluid well">
             <div class="row">
-                <button type="submit" id="checkoutButton" class="btn btn-success" ng-disabled="products.length < 1" ng-click="checkout()"><i class="fa fa-cart-arrow-down"></i> <span translate="BTN_CHECKOUT"></span></button>
-                <a id="collapseCouponButton" class="btn btn-warning" ng-click="couponCollapsed = !couponCollapsed"><i class="fa fa-gift fa-lg"></i></a>
-                <a id="collapsePaymentButton" class="btn btn-danger" ng-click="paymentCollapsed = !paymentCollapsed"><i class="fa fa-credit-card fa-lg"></i></a>
+                <button type="submit" id="checkoutButton" class="btn btn-success" ng-disabled="products.length < 1" ng-click="checkout()"><i class="fas fa-cart-arrow-down"></i> <span translate="BTN_CHECKOUT"></span></button>
+                <a id="collapseCouponButton" class="btn btn-warning" ng-click="couponCollapsed = !couponCollapsed"><i class="fas fa-gift fa-lg"></i></a>
+                <a id="collapsePaymentButton" class="btn btn-danger" ng-click="paymentCollapsed = !paymentCollapsed"><i class="fas fa-credit-card fa-lg"></i></a>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" id="applyCouponButton" class="btn btn-warning" ng-disabled="form.$invalid" ng-click="applyCoupon()"><i class="fa fa-diamond fa-lg"></i> <span translate="BTN_REDEEM"></span></button>
+                            <button type="submit" id="applyCouponButton" class="btn btn-warning" ng-disabled="form.$invalid" ng-click="applyCoupon()"><i class="far fa-gem fa-lg"></i> <span translate="BTN_REDEEM"></span></button>
                         </div>
                     </div>
                 </form>
@@ -72,7 +72,7 @@
             <div class="container-fluid well">
                 <div class="row">
                     <label translate="LABEL_PAYMENT"></label>
-                        <small>(<span translate="THANKS_FOR_SUPPORT" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="THANKS_FOR_SUPPORT_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fa fa-heart"></i>)
+                        <small>(<span translate="THANKS_FOR_SUPPORT" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="THANKS_FOR_SUPPORT_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fas fa-heart"></i>)
                     </small>
                 </div>
                 <div class="row">
@@ -86,45 +86,45 @@
                             <input type="hidden" name="no_note" value="0">
                             <input type="hidden" name="currency_code" value="EUR">
                             <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
-                            <button type="submit" name="submit" class="btn btn-danger"><i class="fa fa-paypal fa-lg"></i> PayPal</button>
+                            <button type="submit" name="submit" class="btn btn-danger"><i class="fab fa-paypal fa-lg"></i> PayPal</button>
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
                         </div>
                     </form>
                     <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-credit-card-alt fa-lg"></i> Credit Card
+                        <i class="far fa-credit-card fa-lg"></i> Credit Card
                     </a>
                     <a href="/redirect?to=https://gratipay.com/juice-shop" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-gratipay fa-lg"></i> Gratipay
+                        <i class="fab fa-gratipay fa-lg"></i> Gratipay
                     </a>
                     <a href="/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-money fa-lg"></i> Flattr
+                        <i class="fas fa-money-bill-alt fa-lg"></i> Flattr
                     </a>
                     <a ng-click="showBitcoinQrCode()" class="btn btn-danger">
-                        <i class="fa fa-btc fa-lg"></i> Bitcoin
+                        <i class="fab fa-btc fa-lg"></i> Bitcoin
                     </a>
                     <a ng-click="showDashQrCode()" class="btn btn-danger">
-                        <i class="fa fa-lg">Ð</i> Dash
+                        <i class="fa-lg">Ð</i> Dash
                     </a>
                     <a ng-click="showEtherQrCode()" class="btn btn-danger">
-                        <i class="fa fa-cube fa-lg"></i> Ether
+                        <i class="fas fa-cube fa-lg"></i> Ether
                     </a>
                 </div>
             </div>
             <div class="container-fluid well">
                 <div class="row">
                     <label translate="LABEL_MERCHANDISE"></label>
-                    <small>(<span translate="OFFICIAL_MERCHANDISE_STORES" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fa fa-thumbs-up"></i>)
+                    <small>(<span translate="OFFICIAL_MERCHANDISE_STORES" translate-value-juiceshop="OWASP Juice Shop" ng-show="applicationName === 'OWASP Juice Shop'"></span><span translate="OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED" translate-value-appname="{{applicationName}}" ng-show="applicationName !== 'OWASP Juice Shop'"></span> <i class="fas fa-thumbs-up"></i>)
                     </small>
                 </div>
                 <div class="row">
                     <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-shopping-bag fa-lg"></i> Spreadshirt.com
+                        <i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.com
                     </a>
                     <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-shopping-bag fa-lg"></i> Spreadshirt.de
+                        <i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.de
                     </a>
                     <a href="/redirect?to=https://www.stickermule.com/user/1070702817/stickers" target="_blank" class="btn btn-danger">
-                        <i class="fa fa-sticky-note fa-lg"></i> Sticker Mule
+                        <i class="fab fa-sticker-mule fa-lg"></i> Sticker Mule
                     </a>
                 </div>
             </div>
