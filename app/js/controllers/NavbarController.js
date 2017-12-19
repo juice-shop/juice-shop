@@ -18,14 +18,18 @@ angular.module('juiceShop').controller('NavbarController', [
     })
 
     $rootScope.applicationName = 'OWASP Juice Shop'
-    $rootScope.showGitHubRibbon = true
+    $rootScope.gitHubRibbon = 'orange'
     $rootScope.userEmail = ''
     configurationService.getApplicationConfiguration().then(function (config) {
       if (config && config.application && config.application.name !== null) {
         $rootScope.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubRibbon !== null) {
-        $rootScope.showGitHubRibbon = config.application.showGitHubRibbon
+      if (config && config.application && config.application.gitHubRibbon !== null) {
+        $rootScope.gitHubRibbon = config.application.gitHubRibbon !== 'none' ? config.application.gitHubRibbon : null
+      }
+      // TODO Remove backward-compatibility with `showGitHubRibbon` config property in v7.0.0
+      if (config && config.application && config.application.showGitHubRibbon === false) {
+        $rootScope.gitHubRibbon = 'none'
       }
     }).catch(function (err) {
       console.log(err)
