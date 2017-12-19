@@ -42,6 +42,7 @@ app/public/*.*
 # Logos downloaded during customizazion
 app/public/images/*.*
 !app/public/images/JuiceShop*.*
+!app/public/images/forkme_right_orange_ff7600.png
 
 # Product images downloaded during customizazion
 app/public/images/products/*.*
