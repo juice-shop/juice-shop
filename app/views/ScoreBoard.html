@@ -19,11 +19,11 @@
                 </td>
                 <td>
                     <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
-                        <i class="fa fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
+                        <i class="fas fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
                         <span translate="STATUS_UNSOLVED"></span>
                     </span>
                     <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
-                        <i class="fa fa-flag-o" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
+                        <i class="far fa-flag" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
                         <span translate="STATUS_SOLVED"></span>
                     </span>
                 </td>
