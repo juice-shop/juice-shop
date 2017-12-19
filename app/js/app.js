@@ -70,6 +70,7 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
   })
   $translateProvider.determinePreferredLanguage()
   $translateProvider.fallbackLanguage('en')
+  $translateProvider.useSanitizeValueStrategy(null)
 }])
 
 angular.module('juiceShop').filter('emailName', function () {

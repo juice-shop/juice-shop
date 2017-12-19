@@ -182,7 +182,7 @@
 <!-- CONTENT -->
 <main class="container-fluid" ng-view></main>
 
-<a class="github-fork-ribbon fixed" href="/redirect?to=https://github.com/bkimminich/juice-shop" translate translate-attr-data-ribbon="RIBBON_GITHUB_FORK" translate-value-fork='<i class="fas fa-code-branch"></i>' translate-value-github='<i class="fab fa-github"></i> GitHub' target="_blank"></a>
+<a ng-show="showGitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/public/images/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 
 </body>
 </html>
