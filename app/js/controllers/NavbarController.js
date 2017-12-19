@@ -27,8 +27,9 @@ angular.module('juiceShop').controller('NavbarController', [
       if (config && config.application && config.application.gitHubRibbon !== null) {
         $rootScope.gitHubRibbon = config.application.gitHubRibbon !== 'none' ? config.application.gitHubRibbon : null
       }
-      // TODO Remove backward-compatibility with `showGitHubRibbon` config property in v7.0.0
+      // TODO Remove backward-compatibility of `showGitHubRibbon` config property in v7.0.0
       if (config && config.application && config.application.showGitHubRibbon === false) {
+        console.log('Configuration property "application.showGitHubRibbon" is deprecated. Please use "application.gitHubRibbon" instead. See https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html#yaml-configuration-file')
         $rootScope.gitHubRibbon = 'none'
       }
     }).catch(function (err) {
