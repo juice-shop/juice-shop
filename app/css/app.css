@@ -9,7 +9,7 @@
     margin: 10px 0 20px;
 }
 
-.right .github-fork-ribbon {
+.github-fork-ribbon:before {
     background-color: #333;
 }
 
