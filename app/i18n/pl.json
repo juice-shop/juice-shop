@@ -102,7 +102,7 @@
   "INVALID_ADDRESS_LENGTH": "Długość adresu musi być równa {{length}} znaków.",
   "INVALID_QUANTITY": "W zakresie {{range}} litrów.",
   "MANDATORY_ADDRESS": "Wymaganie podania adresu ",
-  "MANDATORY_QUANTITY": "Please provide a quantity.",
+  "MANDATORY_QUANTITY": "Proszę podać wartość liczbową.",
   "IN_LITERS_PLACEHOLDER": "...in liters",
   "REQUEST_PICKUP": "Please pickup at above address instead of sending a recycle box.",
   "LABEL_PICKUP_DATE": "Pickup Date",
