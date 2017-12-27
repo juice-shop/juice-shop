@@ -43,7 +43,7 @@
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
 		<section>
-			<h2>OWASP Juice Shop 5.x</h2>
+			<h2>OWASP Juice Shop 6.x</h2>
 			<p>
 				<span style="text-decoration: line-through;">An intentionally insecure JavaScript Web Application</span><br>
 				<small>The most trustworthy online shop out there <small>(<a href="https://twitter.com/dschadow/status/706781693504589824">@dschadow</a>)</small>
@@ -59,7 +59,7 @@
 		</section>
 
 		<section>
-			<h2>Why the name "Juice Shop"?!?</h2>
+			<h2>Why "Juice Shop"?!?</h2>
 			<blockquote>
 				Translating <a href="http://www.dict.cc/englisch-deutsch/dump.html">"dump"</a> or <a href="http://www.dict.cc/englisch-deutsch/useless+outfit.html">"useless outfit"</a> into German yields <a href="http://www.dict.cc/deutsch-englisch/Saftladen.html">"Saftladen"</a> which can be reverse-translated word by word into <a href="http://www.dict.cc/englisch-deutsch/juice.html">"juice</a>&nbsp;<a href="http://www.dict.cc/englisch-deutsch/shop.html">shop"</a>. Hence the project name.
 			</blockquote>
@@ -118,7 +118,7 @@
 		</section>
 
 		<section>
-			<h2>48+ Hacking Challenges</h2>
+			<h2>49+ Hacking Challenges</h2>
 			<p>
 				Covering various vulnerabilities and serious design flaws
 			</p>
@@ -143,9 +143,9 @@
 			<section>
 				<h3>Direct Route to Victory</h3>
 				<p>
-					For some challenges it actually works like this
+					Some challenges can be immediately attacked head-on
 				</p>
-				<div id="blindAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+				<div id="headOnAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
 			</section>
 
 			<section>
@@ -213,7 +213,7 @@
 			</section>
 
 			<section>
-				<h2>CTF Extension 2.x</h2>
+				<h2>CTF Extension 3.x</h2>
 				<p>
 					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a>
 				</p>
@@ -251,7 +251,7 @@
 			<section>
 				<h2>Quiet Mode</h2>
 				<p>
-					Hide ribbon &amp; notifications for more immersive awareness trainings
+					Hide ribbon &amp; notifications for zero distraction in security awareness trainings
 				</p>
 				<img src="assets/quiet.png" height="350"/>
 				<p>
@@ -295,9 +295,9 @@ application:
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
-  showGitHubRibbon: true
   showChallengeHints: true
   theme: "slate"
+  gitHubRibbon: "orange"
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
   recyclePage:
@@ -355,10 +355,12 @@ products:
 					<img src="assets/jest-outline.svg" height="70" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 				<div>
-					<img src="assets/phantomjs_400x400.png" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/stryker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/phantomjs_400x400.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/karma.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/chai-logo-F349805F7D-seeklogo.com.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/mocha-logo.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/stryker.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 			</section>
 
@@ -367,14 +369,12 @@ products:
 				<p>
 					Automated <a href="https://travis-ci.org/bkimminich/juice-shop">Continuous Integration</a> &amp; <a href="https://juice-shop.herokuapp.com">Demo Deployment</a>
 				</p>
-				<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 				<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 				<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<br>
-				<img src="assets/Bower-logo.svg.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 				<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 			</section>
 
 		</section>
@@ -606,7 +606,7 @@ products:
     "i->i2: Follow the trail\n" +
     "i2->v: Find weak spot\n" +
     "v-->h:\n" +
-    "h->x: Sophisticated attack\n" +
+    "h->x: Sophisticated attack!\n" +
     "x->x: (Fail, fail,) success!\n" +
     "x-->h: Challenge solved!!!"
   );
@@ -619,20 +619,20 @@ products:
     "h->i: Gather information\n" +
     "i-->h:\n" +
     "h->h: Deduct weakness\n" +
-    "h->x: One-eyed Brute Force/Guessing\n" +
-    "x->x: (Fail, fail, fail) success!\n" +
+    "h->x: One-eyed attack!\n" +
+    "x->x: (Fail, fail, fail,) success!\n" +
     "x-->h: Challenge solved!!"
   );
   oneEyedAttack.drawSVG("oneEyedAttack", {theme: 'hand'});
 
-  var blindAttack = Diagram.parse(
+  var headOnAttack = Diagram.parse(
     "participant Hacker as h\n" +
     "participant Challenge as x\n" +
-    "h->x: Obvious Attack Vector/Blind Brute Force/Guessing\n" +
+    "h->x: Head-on attack!\n" +
     "x->x: (Fail, fail, fail, fail,) success!\n" +
     "x-->h: Challenge solved!"
   );
-  blindAttack.drawSVG("blindAttack", {theme: 'hand'});
+  headOnAttack.drawSVG("headOnAttack", {theme: 'hand'});
 
 </script>
 
