@@ -95,7 +95,7 @@
   "COPY_SUCCESS": "Skopiowane!",
   "NAV_RECYCLE": "Kosz",
   "TITLE_RECYCLE": "Request Recycling Box",
-  "LABEL_REQUESTOR": "Requestor",
+  "LABEL_REQUESTOR": "Żądający",
   "LABEL_RECYCLE_QUANTITY": "Quantity",
   "LABEL_DELIVERY_ADDRESS": "Delivery Address",
   "LABEL_PICKUP_ADDRESS": "Pickup Address",
