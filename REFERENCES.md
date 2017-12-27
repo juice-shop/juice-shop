@@ -93,6 +93,17 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
+#### 2018
+
+* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
+  by Björn Kimminich,
+  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
+  16.05.2018
+* [Hacking Workshop - Twin Cities vs. OWASP Juice Shop](https://secure360.org/secure360-twin-cities/schedule/?conference=9826&date=20180517)
+  with Björn Kimminich,
+  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
+  17.05.2018
+
 #### 2017
 
 * [OWASP Juice Shop 5.x and beyond](https://www.owasp.org/index.php/German_OWASP_Day_2017#Programm)
