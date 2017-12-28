@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label for="file" translate="LABEL_INVOICE"></label>
-                                <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="100KB"/>
+                                <input type="file" ngf-select ng-model="file" id="file" name="file" ngf-pattern="'.pdf,.xml'" ngf-accept="'.pdf'" ngf-max-size="100KB"/>
                             </div>
                         </div>
                         <div class="row">
@@ -40,6 +40,9 @@
                                 <button type="submit" id="submitButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fas fa-bomb fa-lg"></i> <span translate="BTN_SUBMIT"></span></button> {{progress}}
                             </div>
                         </div>
+                        <!--<aside class="row">
+                            <a uib-tooltip="{{'ATTACH_ORDER_CONFIRMATION_XML' | translate}}"><span translate="B2B_CUSTOMER_QUESTION"></span></a>
+                        </aside>-->
                 </div>
              </form>
 

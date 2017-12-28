@@ -70,6 +70,7 @@
     "js-yaml": "3.10",
     "jsonwebtoken": "~8",
     "jssha": "~2.3",
+    "libxmljs": "~0.18",
     "marsdb": "~0.6",
     "morgan": "~1.9",
     "multer": "~1.3",
