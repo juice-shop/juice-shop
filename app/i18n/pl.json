@@ -118,11 +118,11 @@
   "NOTIFICATION_SERVER_STARTED": "Ten serwer został uruchomiony ponownie!",
   "AUTO_RESTORED_PROGRESS": "Przywrócono poprzednią postęp zadań.",
   "AUTO_RESTORE_PROGRESS_FAILED": "Przywracanie poprzedniego  postępu nie powiodło się: {{error}}",
-  "RESET_HACKING_PROGRESS": "Delete cookie to clear hacking progress",
-  "RESTART_REQUIRED": "You now have to manually restart the application to start over!",
-  "LABEL_EDIT_REVIEW": "Edit Review",
-  "LABEL_REVIEW": "Review",
-  "LABEL_REVIEWS": "Reviews",
+  "RESET_HACKING_PROGRESS": "Usuń postępy (wyczyszenie ciasteczek)",
+  "RESTART_REQUIRED": "Teraz trzeba ręcznie ponownie uruchomić aplikację, aby zacząć od początku!",
+  "LABEL_EDIT_REVIEW": "Edytuj recenzję",
+  "LABEL_REVIEW": "Opinia",
+  "LABEL_REVIEWS": "Opinie",
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "Add a review for this product",
   "LABEL_NO_REVIEWS": "No Reviews"
 }
