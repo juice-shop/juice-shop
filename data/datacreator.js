@@ -570,6 +570,17 @@ function createChallenges () {
   }).then(challenge => {
     challenges.misplacedSignatureFileChallenge = challenge
   })
+  models.Challenge.create({
+    name: 'XXE File Disclosure',
+    category: 'XXE',
+    description: 'Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.',
+    difficulty: 2,
+    hint: addHint('The leverage point for this challenge has been deprecated but might not have been properly removed from the application.'),
+    hintUrl: addHint(''),
+    solved: false
+  }).then(challenge => {
+    challenges.xxeFileDisclosureChallenge = challenge
+  })
 }
 
 function createUsers () {

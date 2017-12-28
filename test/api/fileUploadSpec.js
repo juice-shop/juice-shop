@@ -5,11 +5,10 @@ const FormData = require('form-data')
 
 const URL = 'http://localhost:3000'
 
-// FIXME Adapt to solution of https://github.com/vlucas/frisby/issues/372
 describe('/file-upload', () => {
   let file, form
 
-  it('POST file valid for client and API', done => {
+  it('POST file valid PDF for client and API', done => {
     file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -38,6 +37,40 @@ describe('/file-upload', () => {
       .expect('status', 204)
       .done(done)
   })
+
+  it('POST file type XML deprecated for API', done => {
+    file = path.resolve(__dirname, '../files/deprecatedTypeForServer.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 410)
+      .done(done)
+  })
+
+  if (process.platform === 'win32') {
+    it('POST file type XML with XXE attack against Windows', done => {
+      file = path.resolve(__dirname, '../files/xxeForWindows.xml')
+      form = new FormData()
+      form.append('file', fs.createReadStream(file))
+
+      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+        .expect('status', 410)
+        .done(done)
+    })
+  }
+
+  if (process.platform === 'linux' || process.platform === 'darwin') {
+    it('POST file type XML with XXE attack against Linux', done => {
+      file = path.resolve(__dirname, '../files/xxeForLinux.xml')
+      form = new FormData()
+      form.append('file', fs.createReadStream(file))
+
+      frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
+        .expect('status', 410)
+        .done(done)
+    })
+  }
 
   it('POST file too large for API', done => {
     file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
