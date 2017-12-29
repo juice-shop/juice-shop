@@ -12,17 +12,21 @@ exports = module.exports = function fileUpload () {
         utils.endsWith(file.originalname.toLowerCase(), '.xml'))) {
       utils.solve(challenges.uploadTypeChallenge)
     }
-    if (utils.endsWith(file.originalname.toLowerCase(), '.xml') && file.buffer) {
-      const xmlDoc = libxml.parseXml(file.buffer.toString(), { noblanks: true, noent: true, nocdata: true })
-      const xmlString = xmlDoc.toString()
-      if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
-        utils.solve(challenges.xxeFileDisclosureChallenge)
+    if (utils.endsWith(file.originalname.toLowerCase(), '.xml')) {
+      if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
+        utils.solve(challenges.deprecatedInterfaceChallenge)
       }
-      res.status(410)
-      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + xmlString))
-    } else {
-      res.status(204).end()
+      if (file.buffer) {
+        const xmlDoc = libxml.parseXml(file.buffer.toString(), { noblanks: true, noent: true, nocdata: true })
+        const xmlString = xmlDoc.toString()
+        if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
+          utils.solve(challenges.xxeFileDisclosureChallenge)
+        }
+        res.status(410)
+        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + xmlString))
+      }
     }
+    res.status(204).end()
   }
 
   function matchesSystemIniFile (text) {

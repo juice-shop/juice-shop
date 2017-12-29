@@ -571,11 +571,22 @@ function createChallenges () {
     challenges.misplacedSignatureFileChallenge = challenge
   })
   models.Challenge.create({
+    name: 'Deprecated Interface',
+    category: 'Forgotten Content',
+    description: 'Use a deprecated B2B interface that was not properly shut down.',
+    difficulty: 1,
+    hint: addHint('The developers who disabled the interface think they could go invisible by just closing their eyes.'),
+    hintUrl: addHint(''),
+    solved: false
+  }).then(challenge => {
+    challenges.deprecatedInterfaceChallenge = challenge
+  })
+  models.Challenge.create({
     name: 'XXE File Disclosure',
     category: 'XXE',
     description: 'Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.',
     difficulty: 2,
-    hint: addHint('The leverage point for this challenge has been deprecated but might not have been properly removed from the application.'),
+    hint: addHint('The leverage point for this challenge is the deprecated B2B interface.'),
     hintUrl: addHint(''),
     solved: false
   }).then(challenge => {
