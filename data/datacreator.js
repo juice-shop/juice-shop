@@ -576,7 +576,7 @@ function createChallenges () {
     description: 'Use a deprecated B2B interface that was not properly shut down.',
     difficulty: 1,
     hint: addHint('The developers who disabled the interface think they could go invisible by just closing their eyes.'),
-    hintUrl: addHint(''),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'),
     solved: false
   }).then(challenge => {
     challenges.deprecatedInterfaceChallenge = challenge
@@ -587,7 +587,7 @@ function createChallenges () {
     description: 'Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.',
     difficulty: 2,
     hint: addHint('The leverage point for this challenge is the deprecated B2B interface.'),
-    hintUrl: addHint(''),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'),
     solved: false
   }).then(challenge => {
     challenges.xxeFileDisclosureChallenge = challenge
