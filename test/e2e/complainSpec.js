@@ -59,6 +59,7 @@ describe('/#/complain', () => {
         request.send(data)
       })
     })
+    protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
     protractor.expect.challengeSolved({ challenge: 'XXE File Disclosure' })
   })
 })
