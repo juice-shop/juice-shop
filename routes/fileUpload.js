@@ -17,7 +17,11 @@ exports = module.exports = function fileUpload () {
         utils.solve(challenges.deprecatedInterfaceChallenge)
       }
       if (file.buffer) {
-        const xmlDoc = libxml.parseXml(file.buffer.toString(), { noblanks: true, noent: true, nocdata: true })
+        const data = file.buffer.toString()
+        if (utils.contains(data, '/dev/random')) { // circuit breaker to prevent common DoS attack
+          next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+        }
+        const xmlDoc = libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })
         const xmlString = xmlDoc.toString()
         if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
           utils.solve(challenges.xxeFileDisclosureChallenge)

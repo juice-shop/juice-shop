@@ -72,6 +72,16 @@ describe('/file-upload', () => {
     })
   }
 
+  it('POST file type XML with /dev/random DoS attack is blocked', done => {
+    file = path.resolve(__dirname, '../files/xxeDoS.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 500)
+      .done(done)
+  })
+
   it('POST file too large for API', done => {
     file = path.resolve(__dirname, '../files/invalidSizeForServer.pdf')
     form = new FormData()
