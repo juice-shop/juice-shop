@@ -174,7 +174,7 @@ function createChallenges () {
     description: 'Let us redirect you to a donation site that went out of business.',
     difficulty: 1,
     hint: addHint('We might have failed to take this out of our code properly.'),
-    hintUrl: addHint(''),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#let-us-redirect-you-to-a-donation-site-that-went-out-of-business'),
     solved: false
   }).then(challenge => {
     challenges.redirectGratipayChallenge = challenge
