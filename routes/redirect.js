@@ -6,6 +6,9 @@ exports = module.exports = function performRedirect () {
   return (req, res, next) => {
     const toUrl = req.query.to
     if (insecurity.isRedirectAllowed(toUrl)) {
+      if (utils.notSolved(challenges.redirectGratipayChallenge) && toUrl === 'https://gratipay.com/juice-shop') {
+        utils.solve(challenges.redirectGratipayChallenge)
+      }
       if (utils.notSolved(challenges.redirectChallenge) && isUnintendedRedirect(toUrl)) {
         utils.solve(challenges.redirectChallenge)
       }

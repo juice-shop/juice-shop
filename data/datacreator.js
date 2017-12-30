@@ -169,7 +169,18 @@ function createChallenges () {
     challenges.forgedFeedbackChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Redirects',
+    name: 'Redirects Tier 1',
+    category: 'Forgotten Content',
+    description: 'Let us redirect you to a donation site that went out of business.',
+    difficulty: 1,
+    hint: addHint('We might have failed to take this out of our code properly.'),
+    hintUrl: addHint(''),
+    solved: false
+  }).then(challenge => {
+    challenges.redirectGratipayChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Redirects Tier 2',
     category: 'Weak Security Mechanisms',
     description: 'Wherever you go, there you are.',
     difficulty: 4,

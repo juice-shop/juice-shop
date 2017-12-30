@@ -38,6 +38,14 @@ describe('/redirect', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'Redirects'})
+    protractor.expect.challengeSolved({challenge: 'Redirects Tier 2'})
+  })
+
+  describe('challenge "redirectGratipay"', () => {
+    it('should still redirect to forgotten entry https://gratipay.com/juice-shop on whitelist', () => {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://gratipay.com/juice-shop')
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Redirects Tier 1'})
   })
 })
