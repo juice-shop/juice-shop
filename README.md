@@ -333,7 +333,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
 - :norway: owangen
-- :poland: Idomin Ninja
+- :poland: Idomin Ninja, Andrew Pio
 - :portugal: Alvaro Viebrantz
 - :romania: Mircea Ulmeanu, orjen, timexlord
 - :ru: fieldhill13
