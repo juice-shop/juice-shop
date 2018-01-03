@@ -603,6 +603,17 @@ function createChallenges () {
   }).then(challenge => {
     challenges.xxeFileDisclosureChallenge = challenge
   })
+  models.Challenge.create({
+    name: 'Remote  Code Execution',
+    category: 'Deserialization',
+    description: 'Perform a Remote Code Execution making the server run <code>dir</code> or <code>ls</code> (and nothing else).',
+    difficulty: 4,
+    hint: addHint('The leverage point for this challenge is the NextGen B2B interface.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution'),
+    solved: false
+  }).then(challenge => {
+    challenges.rceChallenge = challenge
+  })
 }
 
 function createUsers () {
