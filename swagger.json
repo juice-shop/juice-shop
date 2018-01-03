@@ -9,7 +9,6 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:3000",
   "basePath": "/b2b/v2",
   "tags": [
     {
