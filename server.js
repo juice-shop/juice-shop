@@ -15,6 +15,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 const fileUpload = require('./routes/fileUpload')
 const redirect = require('./routes/redirect')
 const angular = require('./routes/angular')
@@ -37,6 +39,7 @@ const coupon = require('./routes/coupon')
 const basket = require('./routes/basket')
 const order = require('./routes/order')
 const verify = require('./routes/verify')
+const b2bOrder = require('./routes/b2bOrder')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
@@ -108,6 +111,9 @@ app.use('/ftp/:file', fileServer())
 app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
 
+/* Swagger documentation for B2B v2 endpoints */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 app.use(express.static(applicationRoot + '/app'))
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
@@ -157,8 +163,10 @@ app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
-/* Challenge evaluation before sequelize-restful takes over */
+/* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
+/* Unauthorized users are not allowed to access B2B API */
+app.use('/b2b/v2', insecurity.isAuthorized())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
@@ -209,6 +217,9 @@ app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
+/* B2B Order API */
+app.post('/b2b/v2/orders', b2bOrder())
+
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
 /* File Serving */

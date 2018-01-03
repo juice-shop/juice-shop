@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "6.2.0",
+  "version": "6.3.0-SNAPSHOT",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "http://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -83,6 +83,7 @@
     "serve-index": "~1.9",
     "socket.io": "~2.0",
     "sqlite3": "~3.1.13",
+    "swagger-ui-express": "~2.0",
     "z85": "~0.0"
   },
   "devDependencies": {
