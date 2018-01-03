@@ -1,0 +1,98 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "NextGen B2B API",
+    "description": "New & secure JSON-based API for our enterprise customers. (Deprecates previously offered XML-based endpoints)",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/b2b/v2",
+  "tags": [
+    {
+      "name": "Order",
+      "description": "API for customer orders"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/orders": {
+      "post": {
+        "tags": [
+          "Orders"
+        ],
+        "description": "Create new customer order",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Customer order to be placed",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New customer order is created",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Order": {
+      "required": [
+        "cid",
+        "orderLines"
+      ],
+      "properties": {
+        "cid": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orderLines": {
+          "$ref": "#/definitions/OrderLines"
+        }
+      }
+    },
+    "Orders": {
+      "type": "array",
+      "items" : {
+        "$ref": "#/definitions/Order"
+      }
+    },
+    "OrderLine": {
+      "description": "Provide data as specified in your individual B2B interface documentation",
+      "type": "object",
+      "properties": {
+        "...": {
+          "type": "..."
+        }
+      }
+    },
+    "OrderLines": {
+      "type": "array",
+      "items" : {
+        "$ref": "#/definitions/OrderLine"
+      }
+    }
+  }
+}

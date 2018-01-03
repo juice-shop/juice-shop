@@ -72,6 +72,7 @@ module.exports = function (grunt) {
               'server.js',
               'package.json',
               'ctf.key',
+              'swagger.json',
               'app/index.template.html',
               'app/node_modules/**',
               'app/css/*.css',
