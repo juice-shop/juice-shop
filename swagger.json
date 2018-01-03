@@ -29,7 +29,7 @@
     "/orders": {
       "post": {
         "tags": [
-          "Orders"
+          "Order"
         ],
         "description": "Create new customer order",
         "parameters": [
@@ -49,7 +49,7 @@
           "200": {
             "description": "New customer order is created",
             "schema": {
-              "$ref": "#/definitions/Order"
+              "$ref": "#/definitions/OrderConfirmation"
             }
           }
         }
@@ -58,6 +58,23 @@
   },
   "definitions": {
     "Order": {
+      "required": [
+        "cid"
+      ],
+      "properties": {
+        "cid": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orderLines": {
+          "$ref": "#/definitions/OrderLines"
+        },
+        "orderLinesData": {
+          "$ref": "#/definitions/OrderLinesData"
+        }
+      }
+    },
+    "OrderConfirmation": {
       "required": [
         "cid",
         "orderLines"
@@ -69,21 +86,35 @@
         },
         "orderLines": {
           "$ref": "#/definitions/OrderLines"
+        },
+        "total": {
+          "type": "number",
+          "example": 2999.00
+        },
+        "paymentDue": {
+          "type": "string",
+          "format": "date"
         }
       }
     },
-    "Orders": {
-      "type": "array",
-      "items" : {
-        "$ref": "#/definitions/Order"
-      }
-    },
     "OrderLine": {
-      "description": "Provide data as specified in your individual B2B interface documentation",
-      "type": "object",
+      "description": "Order line in default JSON format",
+      "required": [
+        "productId",
+        "quantity"
+      ],
       "properties": {
-        "...": {
-          "type": "..."
+        "productId": {
+          "type": "integer",
+          "example": 28
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1,
+          "example": 1000
+        },
+        "customerReference": {
+          "type": "string"
         }
       }
     },
@@ -91,6 +122,21 @@
       "type": "array",
       "items" : {
         "$ref": "#/definitions/OrderLine"
+      }
+    },
+    "OrderLineData": {
+      "description": "Order line in customer specific data format",
+      "type": "string",
+      "example": [
+        "{\"productId\": 28,\"quantity\": 1000,\"customerReference\": \"...\",\"couponCode\": \"pes[Bh.u*t\"}",
+        "{\"productId\": 28,\"quantity\": 1000,\"customerReference1\": \"...\",\"customerReference2\": \"...\"}",
+        "{\"productDescription\": \"Carrot Juice (1000ml)\",\"quantity\": 1000,\"customerReference42\": \"...\",\"customerReference666\": \"...\"}"
+      ]
+    },
+    "OrderLinesData": {
+      "type": "array",
+      "items" : {
+        "$ref": "#/definitions/OrderLineData"
       }
     }
   }
