@@ -608,8 +608,8 @@ function createChallenges () {
     category: 'Deserialization',
     description: 'Perform a (DoS-like) Remote Code Execution that would occupy the server for over 1 second. (The <em>NoSQL Injection Tier 1</em> challenge does not qualify for this)',
     difficulty: 5,
-    hint: addHint('The leverage point for this challenge is the NextGen B2B interface.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution'),
+    hint: addHint('The feature you need to exploit for this challenge is not directly advertised anywhere.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-dos-like-remote-code-execution-that-would-occupy-the-server-for-over-1-second'),
     solved: false
   }).then(challenge => {
     challenges.rceChallenge = challenge
