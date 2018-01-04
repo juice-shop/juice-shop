@@ -606,7 +606,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Remote  Code Execution',
     category: 'Deserialization',
-    description: 'Perform a (DoS-like) Remote Code Execution that would occupy the server for over 2 seconds. (The <em>NoSQL Injection Tier 1</em> challenge does not qualify for this)',
+    description: 'Perform a (DoS-like) Remote Code Execution that would occupy the server for over 1 second. (The <em>NoSQL Injection Tier 1</em> challenge does not qualify for this)',
     difficulty: 4,
     hint: addHint('The leverage point for this challenge is the NextGen B2B interface.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution'),

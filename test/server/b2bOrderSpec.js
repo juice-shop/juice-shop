@@ -14,21 +14,35 @@ describe('b2bOrder', () => {
     createB2bOrder = require('../../routes/b2bOrder')
     challenges = require('../../data/datacache').challenges
     req = { body: { } }
-    res = { end: sinon.spy() }
+    res = { json: sinon.spy() }
     next = sinon.spy()
   })
 
-  it('deserializing harmless JSON should not solve "rceChallenge"', () => {
+  it('error thrown from deserialization timeout solves "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
-    req.body.orderLinesData = ['{ "harmless": "orderLine1" }', '{ "friendly": "orderLine2" }']
+    req.body.orderLinesData = ['(function dos() { while(true); })()']
+
+    createB2bOrder()(req, res, next)
+
+    expect(challenges.rceChallenge.solved).to.equal(true)
+  })
+
+  it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
+    challenges.rceChallenge = { solved: false, save: save }
+
+    req.body.orderLinesData = [
+      '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}',
+      '{"productId": 28,"quantity": 1000,"customerReference1": "...","customerReference2": "..."}',
+      '{"productDescription": "Carrot Juice (1000ml)","quantity": 1000,"customerReference42": "...","customerReference666": "..."}'
+    ]
 
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
-  it('deserializing broken JSON should not solve "rceChallenge"', () => {
+  it('deserializing arbitrary broken JSON should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
     req.body.orderLinesData = ['{ "broken: "JSON"']
@@ -36,15 +50,5 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
-  })
-
-  xit('error thrown from deserialization timeout solves "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
-
-    req.body.orderLinesData = ['{"rce":"_$$ND_FUNC$$_function (){setTimeout(function() {console.log(\'RCE!\');}, 3000)}()"}']
-
-    createB2bOrder()(req, res, next)
-
-    expect(challenges.rceChallenge.solved).to.equal(true)
   })
 })
