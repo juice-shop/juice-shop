@@ -50,6 +50,5 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
-
   })
 })
