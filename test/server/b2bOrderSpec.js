@@ -38,7 +38,7 @@ describe('b2bOrder', () => {
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
-  xit('error thrown from deserialization timeout solves "rceChallenge"', () => { // FIXME Make proper wait/sleep of >2sec
+  xit('error thrown from deserialization timeout solves "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
     req.body.orderLinesData = ['{"rce":"_$$ND_FUNC$$_function (){setTimeout(function() {console.log(\'RCE!\');}, 3000)}()"}']
