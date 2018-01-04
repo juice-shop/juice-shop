@@ -32,9 +32,9 @@ describe('b2bOrder', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
     req.body.orderLinesData = [
-      '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}',
-      '{"productId": 28,"quantity": 1000,"customerReference1": "...","customerReference2": "..."}',
-      '{"productDescription": "Carrot Juice (1000ml)","quantity": 1000,"customerReference42": "...","customerReference666": "..."}'
+      '{"productId": 28,"quantity": 1000,"customerReference": "..."}',
+      '{"productId": 28,"quantity": 1000,"customerReference": ["...", "..."]}',
+      '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}'
     ]
 
     createB2bOrder()(req, res, next)
@@ -42,13 +42,14 @@ describe('b2bOrder', () => {
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
-  it('deserializing arbitrary broken JSON should not solve "rceChallenge"', () => {
+  it('deserializing broken JSON should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
-    req.body.orderLinesData = ['{ "broken: "JSON"']
+    req.body.orderLinesData = ['{ "productId: 28']
 
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
+
   })
 })
