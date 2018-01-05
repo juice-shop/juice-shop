@@ -1,0 +1,99 @@
+openapi: 3.0.0
+servers:
+  - url: /b2b/v2
+info:
+  version: 2.0.0
+  title: NextGen B2B API
+  description: 'New & secure JSON-based API for our enterprise customers. (Deprecates previously offered XML-based endpoints)'
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+tags:
+  - name: Order
+    description: API for customer orders
+paths:
+  /orders:
+    post:
+      tags:
+        - Order
+      description: Create new customer order
+      responses:
+        '200':
+          description: New customer order is created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderConfirmation'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        description: Customer order to be placed
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Order:
+      required:
+        - cid
+      properties:
+        cid:
+          type: string
+          uniqueItems: true
+        orderLines:
+          $ref: '#/components/schemas/OrderLines'
+        orderLinesData:
+          $ref: '#/components/schemas/OrderLinesData'
+    OrderConfirmation:
+      required:
+        - cid
+        - orderLines
+      properties:
+        cid:
+          type: string
+          uniqueItems: true
+        orderLines:
+          $ref: '#/components/schemas/OrderLines'
+        totalQuantity:
+          type: integer
+          example: 4000
+        paymentDue:
+          description: All payments are due 14 days after order placement
+          type: string
+          format: date
+    OrderLine:
+      description: Order line in default JSON format
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          example: 28
+        quantity:
+          type: integer
+          minimum: 1
+          example: 1000
+        customerReference:
+          type: string
+    OrderLines:
+      type: array
+      items:
+        $ref: '#/components/schemas/OrderLine'
+    OrderLineData:
+      description: Order line in customer specific data format
+      type: string
+      example:
+        - '{"productId": 28,"quantity": 1000,"customerReference": "..."}'
+        - '{"productId": 28,"quantity": 1000,"customerReference": ["...", "..."]}'
+        - '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}'
+    OrderLinesData:
+      type: array
+      items:
+        $ref: '#/components/schemas/OrderLineData'
+security:
+  - bearerAuth: []
