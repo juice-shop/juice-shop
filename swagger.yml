@@ -56,6 +56,7 @@ components:
         cid:
           type: string
           uniqueItems: true
+          example: 'JS0815DE'
         orderLines:
           $ref: '#/components/schemas/OrderLines'
         totalQuantity:
@@ -80,6 +81,7 @@ components:
           example: 1000
         customerReference:
           type: string
+          example: 'PO0000001'
     OrderLines:
       type: array
       items:
@@ -88,9 +90,9 @@ components:
       description: Order line in customer specific data format
       type: string
       example:
-        - '{"productId": 28,"quantity": 1000,"customerReference": "..."}'
-        - '{"productId": 28,"quantity": 1000,"customerReference": ["...", "..."]}'
-        - '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}'
+        - '{"productId": 28,"quantity": 1000,"customerReference": "PO0000001"}'
+        - '{"productId": 28,"quantity": 1000,"customerReference": ["PO0000001", "JS_20180105"]}'
+        - '{"productId": 28,"quantity": 1000,"customerReference": "PO0000001","couponCode": "pes[Bh.u*t"}'
     OrderLinesData:
       type: array
       items:
