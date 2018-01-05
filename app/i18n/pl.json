@@ -94,9 +94,9 @@
   "COPY_TO_CLIPBOARD": "Skopiuj do schowka",
   "COPY_SUCCESS": "Skopiowane!",
   "NAV_RECYCLE": "Kosz",
-  "TITLE_RECYCLE": "Request Recycling Box",
+  "TITLE_RECYCLE": "Prośba Torby na Odpady",
   "LABEL_REQUESTOR": "Żądający",
-  "LABEL_RECYCLE_QUANTITY": "Quantity",
+  "LABEL_RECYCLE_QUANTITY": "Ilość odpadów",
   "LABEL_DELIVERY_ADDRESS": "Adres doręczenia",
   "LABEL_PICKUP_ADDRESS": "Adres odbioru",
   "INVALID_ADDRESS_LENGTH": "Długość adresu musi być równa {{length}} znaków.",
@@ -123,6 +123,6 @@
   "LABEL_EDIT_REVIEW": "Edytuj recenzję",
   "LABEL_REVIEW": "Opinia",
   "LABEL_REVIEWS": "Opinie",
-  "LABEL_ADD_REVIEW_FOR_PRODUCT": "Add a review for this product",
-  "LABEL_NO_REVIEWS": "No Reviews"
+  "LABEL_ADD_REVIEW_FOR_PRODUCT": "Dodaj opinię produktu",
+  "LABEL_NO_REVIEWS": "Brak Opinii"
 }
