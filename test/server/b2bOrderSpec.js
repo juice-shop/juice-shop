@@ -31,14 +31,19 @@ describe('b2bOrder', () => {
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
-    req.body.orderLinesData = [
-      '{"productId": 28,"quantity": 1000,"customerReference": "..."}',
-      '{"productId": 28,"quantity": 1000,"customerReference": ["...", "..."]}',
-      '{"productId": 28,"quantity": 1000,"customerReference": "...","couponCode": "pes[Bh.u*t"}'
-    ]
+    req.body.orderLinesData = ['{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}']
 
     createB2bOrder()(req, res, next)
 
+    expect(challenges.rceChallenge.solved).to.equal(false)
+  })
+
+  it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
+    challenges.rceChallenge = { solved: false, save: save }
+
+    req.body.orderLinesData = ['{"hello": "world", "foo": 42, "bar": [false, true]}']
+
+    createB2bOrder()(req, res, next)
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 

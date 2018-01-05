@@ -1,28 +1,25 @@
 const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
 const safeEval = require('safe-eval')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
   return (req, res) => {
-    const orderLines = req.body.orderLines | []
-    const orderLinesDate = req.body.orderLinesData
-    let totalQuantity = 0
-    orderLinesDate.forEach(orderLineData => {
+    const orderLinesData = req.body.orderLinesData
+    orderLinesData.forEach(orderLineData => {
       try {
-        const deserializedOrderLine = safeEval(orderLineData, {}, { timeout: 2000 }) | {}
-        const orderLine = { productId: deserializedOrderLine.productId, quantity: deserializedOrderLine.quantity }
-        if (deserializedOrderLine.customerReference) {
-          orderLine.customerReference = deserializedOrderLine.customerReference.toString()
-        }
-        totalQuantity += orderLine.quantity
-        orderLines.push(orderLine)
+        safeEval(orderLineData, {}, { timeout: 2000 })
       } catch (err) {
         if (utils.notSolved(challenges.rceChallenge) && err.message === 'Script execution timed out.') {
           utils.solve(challenges.rceChallenge)
         }
       }
     })
-    res.json({ cid: req.body.cid, orderLines: orderLines, totalQuantity: totalQuantity, paymentDue: dateTwoWeeksFromNow() })
+    res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
+  }
+
+  function uniqueOrderNumber () {
+    return insecurity.hash(new Date() + '_B2B')
   }
 
   function dateTwoWeeksFromNow () {
