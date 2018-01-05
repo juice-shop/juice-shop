@@ -26,7 +26,7 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
-  })
+  }).timeout(3000)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }

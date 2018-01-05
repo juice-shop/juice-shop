@@ -6,17 +6,23 @@ exports = module.exports = function b2bOrder () {
   return (req, res) => {
     const orderLines = req.body.orderLines | []
     const orderLinesDate = req.body.orderLinesData
+    let totalQuantity = 0
     orderLinesDate.forEach(orderLineData => {
       try {
-        orderLines.push(safeEval(orderLineData, {}, { timeout: 1000 }))
+        const deserializedOrderLine = safeEval(orderLineData, {}, { timeout: 2000 }) | {}
+        const orderLine = { productId: deserializedOrderLine.productId, quantity: deserializedOrderLine.quantity }
+        if (deserializedOrderLine.customerReference) {
+          orderLine.customerReference = deserializedOrderLine.customerReference.toString()
+        }
+        totalQuantity += orderLine.quantity
+        orderLines.push(orderLine)
       } catch (err) {
         if (utils.notSolved(challenges.rceChallenge) && err.message === 'Script execution timed out.') {
           utils.solve(challenges.rceChallenge)
         }
       }
     })
-    let orderConfirmation = { cid: req.body.cid, orderLines, total: 0, paymentDue: dateTwoWeeksFromNow() }
-    res.json(orderConfirmation)
+    res.json({ cid: req.body.cid, orderLines: orderLines, totalQuantity: totalQuantity, paymentDue: dateTwoWeeksFromNow() })
   }
 
   function dateTwoWeeksFromNow () {

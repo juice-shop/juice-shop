@@ -87,11 +87,12 @@
         "orderLines": {
           "$ref": "#/definitions/OrderLines"
         },
-        "total": {
-          "type": "number",
-          "example": 2999.00
+        "totalQuantity": {
+          "type": "integer",
+          "example": 4000
         },
         "paymentDue": {
+          "description": "All payments are due 14 days after order placement",
           "type": "string",
           "format": "date"
         }
