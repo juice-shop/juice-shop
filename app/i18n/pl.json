@@ -21,7 +21,7 @@
   "TITLE_LOGOUT": "Wyloguj się",
   "CONFIRM_LOGGED_OUT": "Zostałeś wylogowany.",
   "TITLE_CONTACT": "Skontaktuj się z nami",
-  "MANDATORY_COMMENT": "Proszę podać komentarz.",
+  "MANDATORY_COMMENT": "Uzupełnij pole komentarz.",
   "INVALID_COMMENT_LENGTH": "Długość komentarza musi być {{length}} znaków.",
   "MANDATORY_RATING": "Proszę podać pewien.",
   "LABEL_AUTHOR": "Autor",
