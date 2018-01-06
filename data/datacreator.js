@@ -604,7 +604,7 @@ function createChallenges () {
     challenges.xxeFileDisclosureChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Remote  Code Execution',
+    name: 'Remote Code Execution',
     category: 'Deserialization',
     description: 'Perform a (DoS-like) Remote Code Execution that would occupy the server for over 2 seconds. (The <em>NoSQL Injection Tier 1</em> challenge does not qualify for this)',
     difficulty: 5,
