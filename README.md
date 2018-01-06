@@ -315,7 +315,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Mon,
-11 Dec 2017 on `master`.
+07 Jan 2018 on `master`.
 
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
@@ -325,7 +325,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :de: Björn Kimminich
 - :hungary: OliverkeHU
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
-  Febri Ramadlan, Rick Daalhuizen
+  Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam
 - :jp: ninoseki
