@@ -5,7 +5,7 @@ const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
   return (req, res) => {
-    const orderLinesData = req.body.orderLinesData
+    const orderLinesData = req.body.orderLinesData || []
     orderLinesData.forEach(orderLineData => {
       try {
         safeEval(orderLineData, {}, { timeout: 2000 })
