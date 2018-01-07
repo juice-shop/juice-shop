@@ -50,7 +50,7 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and hashids for crypto? Even MD5 to hash passwords! Srsly?!?!',
-        rating: null,
+        rating: 1,
         UserId: 3
       }
     })
@@ -143,7 +143,7 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { } })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', {
+      .expect('json', {
         message: 'notNull Violation: rating cannot be null'
       })
       .done(done)
