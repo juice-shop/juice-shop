@@ -120,7 +120,7 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
+let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
 app.use(morgan('combined', {stream: accessLogStream}))
 
 /** Authorization **/

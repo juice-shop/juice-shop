@@ -1,5 +1,6 @@
-*.log
+*.log*
 *.out
+.audit.json
 build/
 .stryker-tmp/
 .nyc_output/
