@@ -13,7 +13,7 @@ angular.module('juiceShop').controller('ChallengeController', [
 
     $scope.scoreBoardTablesCollapsed = $window.localStorage.scoreBoardTablesCollapsed ? JSON.parse($window.localStorage.scoreBoardTablesCollapsed) : [null, false, true, true, true, true]
 
-    $scope.toggleCollapsed = function(difficulty) {
+    $scope.toggleCollapsed = function (difficulty) {
       $scope.scoreBoardTablesCollapsed[difficulty] = !$scope.scoreBoardTablesCollapsed[difficulty]
       $window.localStorage.scoreBoardTablesCollapsed = JSON.stringify($scope.scoreBoardTablesCollapsed)
     }
