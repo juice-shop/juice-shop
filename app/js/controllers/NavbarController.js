@@ -5,7 +5,8 @@ angular.module('juiceShop').controller('NavbarController', [
   'AdministrationService',
   'ConfigurationService',
   'UserService',
-  function ($scope, $rootScope, $location, administrationService, configurationService, userService) {
+  'ChallengeService',
+  function ($scope, $rootScope, $location, administrationService, configurationService, userService, challengeService) {
     'use strict'
 
     $scope.version = ''
@@ -48,9 +49,23 @@ angular.module('juiceShop').controller('NavbarController', [
       $rootScope.userEmail = ''
     })
 
+    $rootScope.scoreBoardMenuVisible = false
+    setScoreBoardMenuVisibility()
+    $rootScope.$on('score_board_challenge_solved', function () {
+      $rootScope.scoreBoardMenuVisible = true
+    })
+
     function updateUserEmail () {
       userService.whoAmI().then(function (user) {
         $rootScope.userEmail = user.email
+      }).catch(function (err) {
+        console.log(err)
+      })
+    }
+
+    function setScoreBoardMenuVisibility () {
+      challengeService.find({ name: 'Score Board' }).then(function (challenges) {
+        $rootScope.scoreBoardMenuVisible = challenges[0].solved
       }).catch(function (err) {
         console.log(err)
       })

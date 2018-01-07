@@ -8,6 +8,7 @@ describe('controllers', function () {
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
     $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
+    $httpBackend.whenGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
   }))
 
   afterEach(function () {
@@ -128,6 +129,22 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should hide Score Board menu item when corresponding challenge was not solved yet', inject(function () {
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
+
+      $httpBackend.flush()
+
+      expect(scope.scoreBoardMenuVisible).toBe(false)
+    }))
+
+    it('should show Score Board menu item when corresponding challenge was solved', inject(function () {
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: true}]})
+
+      $httpBackend.flush()
+
+      expect(scope.scoreBoardMenuVisible).toBe(true)
     }))
   })
 })
