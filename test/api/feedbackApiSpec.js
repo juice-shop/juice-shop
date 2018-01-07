@@ -143,8 +143,11 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { } })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', {
-        message: 'notNull Violation: rating cannot be null'
+      .expect('jsonTypes', {
+        message: Joi.string()
+      })
+      .then(res => {
+        expect(res.json.message.match(/notNull Violation: (Feedback\.)?rating cannot be null/))
       })
       .done(done)
   })
