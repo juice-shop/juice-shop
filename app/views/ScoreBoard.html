@@ -4,31 +4,40 @@
 
         <uib-progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></uib-progressbar>
 
-        <table class="table table-striped table-bordered table-condensed">
-            <tr>
-                <th translate="LABEL_NAME"></th>
-                <th translate="LABEL_DESCRIPTION"></th>
-                <th translate="LABEL_DIFFICULTY"></th>
-                <th translate="LABEL_STATUS"></th>
-            </tr>
-            <tr data-ng-repeat="challenge in challenges | orderBy:'difficulty'">
-                <td><div ng-bind="challenge.name"></div></td>
-                <td><div ng-bind-html="challenge.description"></div></td>
-                <td align="center">
-                  <span uib-rating ng-model="challenge.difficulty" max="{{challenge.difficulty}}" read-only="true" class="nowrap"/>
-                </td>
-                <td>
-                    <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
-                        <i class="fas fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
-                        <span translate="STATUS_UNSOLVED"></span>
-                    </span>
-                    <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
-                        <i class="far fa-flag" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
-                        <span translate="STATUS_SOLVED"></span>
-                    </span>
-                </td>
-            </tr>
-        </table>
+        <div class="btn-group">
+            <div ng-repeat="difficulty in [1, 2, 3, 4, 5]">
+                <button type="button" class="btn btn-default" ng-click="toggleCollapsed(difficulty)"><span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span></button>
+            </div>
+        </div>
+        <hr>
+        <div ng-repeat="difficulty in [1, 2, 3, 4, 5]">
+            <section uib-collapse="scoreBoardTablesCollapsed[difficulty]" class="well well-lg">
+                <h3>
+                    <span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span>
+                </h3>
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <th translate="LABEL_NAME"></th>
+                        <th translate="LABEL_DESCRIPTION"></th>
+                        <th translate="LABEL_STATUS"></th>
+                    </tr>
+                    <tr data-ng-repeat="challenge in challenges | filter: {difficulty: difficulty} | orderBy: 'name'">
+                        <td><div ng-bind="challenge.name"></div></td>
+                        <td><div ng-bind-html="challenge.description"></div></td>
+                        <td>
+                            <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
+                                <i class="fas fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
+                                <span translate="STATUS_UNSOLVED"></span>
+                            </span>
+                            <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
+                                <i class="far fa-flag" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
+                                <span translate="STATUS_SOLVED"></span>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </section>
+        </div>
 
         <footer class="alert alert-info" translate="CALL_FOR_CONTRIBUTIONS" translate-value-gitter='<a href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a>' translate-value-github='<a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a>'></footer>
 
