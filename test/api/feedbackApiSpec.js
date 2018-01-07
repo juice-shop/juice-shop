@@ -128,14 +128,23 @@ describe('/api/Feedbacks', () => {
       .done(done)
   })
 
-  it('POST feedback can be created without actually supplying data', done => {
-    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: {} })
+  it('POST feedback can be created without actually supplying comment', done => {
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { rating: 1 } })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data', {
+      .expect('json', 'data', {
         comment: null,
-        rating: null,
-        UserId: null
+        rating: 1
+      })
+      .done(done)
+  })
+
+  it('POST feedback cannot be created without actually supplying rating', done => {
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { } })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data', {
+        message: 'notNull Violation: rating cannot be null'
       })
       .done(done)
   })
