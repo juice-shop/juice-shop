@@ -4,14 +4,17 @@
 
         <uib-progressbar animate="false" value="percentChallengesSolved" type="{{completionColor}}"><b>{{percentChallengesSolved}}%</b></uib-progressbar>
 
-        <div class="btn-group">
-            <div ng-repeat="difficulty in [1, 2, 3, 4, 5]">
-                <button type="button" class="btn btn-default" ng-click="toggleCollapsed(difficulty)"><span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span></button>
+        <div class="container-fluid well">
+            <div class="form-group">
+                <label translate="LABEL_DIFFICULTY"></label>
+                <div class="btn-group">
+                    <label ng-repeat="difficulty in [1, 2, 3, 4, 5]" class="btn btn-info" ng-model="!scoreBoardTablesCollapsed[difficulty]" ng-click="toggleCollapsed(difficulty)" uib-btn-checkbox><span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span></label>
+                </div>
             </div>
         </div>
-        <hr>
+
         <div ng-repeat="difficulty in [1, 2, 3, 4, 5]">
-            <section uib-collapse="scoreBoardTablesCollapsed[difficulty]" class="well well-lg">
+            <section uib-collapse="scoreBoardTablesCollapsed[difficulty]" class="container-fluid well">
                 <h3>
                     <span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span>
                 </h3>
