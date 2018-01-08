@@ -98,7 +98,7 @@
     "jasmine": "~2",
     "jasmine-reporters": "~2.3",
     "jest": "~22",
-    "karma": "~2",
+    "karma": "~1",
     "karma-chrome-launcher": "~2.2",
     "karma-cli": "~1.0",
     "karma-coverage": "~1.1",
