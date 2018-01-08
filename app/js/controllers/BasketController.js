@@ -14,8 +14,18 @@ angular.module('juiceShop').controller('BasketController', [
       $scope.userEmail = data.email || 'anonymous'
     })
 
-    $scope.couponCollapsed = true
-    $scope.paymentCollapsed = true
+    $scope.couponPanelCollapsed = $window.localStorage.couponPanelCollapsed
+    $scope.paymentPanelCollapsed = $window.localStorage.paymentPanelCollapsed
+
+    $scope.toggleCouponCollapsed = function () {
+      $scope.couponPanelCollapsed = !$scope.couponPanelCollapsed
+      $window.localStorage.couponPanelCollapsed = $scope.couponPanelCollapsed
+    }
+
+    $scope.togglePaymentCollapsed = function () {
+      $scope.paymentPanelCollapsed = !$scope.paymentPanelCollapsed
+      $window.localStorage.paymentPanelCollapsed = $scope.paymentPanelCollapsed
+    }
 
     function load () {
       basketService.find($window.sessionStorage.bid).then(function (basket) {
