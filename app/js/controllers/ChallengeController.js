@@ -11,11 +11,10 @@ angular.module('juiceShop').controller('ChallengeController', [
   function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService, socket) {
     'use strict'
 
-    $scope.scoreBoardTablesCollapsed = $window.localStorage.scoreBoardTablesCollapsed ? JSON.parse($window.localStorage.scoreBoardTablesCollapsed) : [null, false, true, true, true, true]
+    $scope.scoreBoardTablesExpanded = $window.localStorage.scoreBoardTablesExpanded ? JSON.parse($window.localStorage.scoreBoardTablesExpanded) : [null, true, false, false, false, false]
 
-    $scope.toggleCollapsed = function (difficulty) {
-      $scope.scoreBoardTablesCollapsed[difficulty] = !$scope.scoreBoardTablesCollapsed[difficulty]
-      $window.localStorage.scoreBoardTablesCollapsed = JSON.stringify($scope.scoreBoardTablesCollapsed)
+    $scope.toggleDifficulty = function () {
+      $window.localStorage.scoreBoardTablesExpanded = JSON.stringify($scope.scoreBoardTablesExpanded)
     }
 
     configurationService.getApplicationConfiguration().then(function (data) {
