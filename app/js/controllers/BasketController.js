@@ -14,15 +14,15 @@ angular.module('juiceShop').controller('BasketController', [
       $scope.userEmail = data.email || 'anonymous'
     })
 
-    $scope.couponPanelExpanded = $window.localStorage.couponPanelExpanded
-    $scope.paymentPanelExpanded = $window.localStorage.paymentPanelExpanded
+    $scope.couponPanelExpanded = JSON.parse($window.localStorage.couponPanelExpanded) || false
+    $scope.paymentPanelExpanded = JSON.parse($window.localStorage.paymentPanelExpanded) || false
 
     $scope.toggleCoupon = function () {
-      $window.localStorage.couponPanelExpanded = $scope.couponPanelExpanded
+      $window.localStorage.couponPanelExpanded = JSON.stringify($scope.couponPanelExpanded)
     }
 
     $scope.togglePayment = function () {
-      $window.localStorage.paymentPanelExpanded = $scope.paymentPanelExpanded
+      $window.localStorage.paymentPanelExpanded = JSON.stringify($scope.paymentPanelExpanded)
     }
 
     function load () {
