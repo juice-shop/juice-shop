@@ -14,17 +14,15 @@ angular.module('juiceShop').controller('BasketController', [
       $scope.userEmail = data.email || 'anonymous'
     })
 
-    $scope.couponPanelCollapsed = $window.localStorage.couponPanelCollapsed
-    $scope.paymentPanelCollapsed = $window.localStorage.paymentPanelCollapsed
+    $scope.couponPanelExpanded = $window.localStorage.couponPanelExpanded
+    $scope.paymentPanelExpanded = $window.localStorage.paymentPanelExpanded
 
-    $scope.toggleCouponCollapsed = function () {
-      $scope.couponPanelCollapsed = !$scope.couponPanelCollapsed
-      $window.localStorage.couponPanelCollapsed = $scope.couponPanelCollapsed
+    $scope.toggleCoupon = function () {
+      $window.localStorage.couponPanelExpanded = $scope.couponPanelExpanded
     }
 
-    $scope.togglePaymentCollapsed = function () {
-      $scope.paymentPanelCollapsed = !$scope.paymentPanelCollapsed
-      $window.localStorage.paymentPanelCollapsed = $scope.paymentPanelCollapsed
+    $scope.togglePayment = function () {
+      $window.localStorage.paymentPanelExpanded = $scope.paymentPanelExpanded
     }
 
     function load () {
