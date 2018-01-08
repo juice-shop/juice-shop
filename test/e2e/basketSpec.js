@@ -47,11 +47,11 @@ describe('/#/basket', () => {
       })
 
       it('should be possible to enter a coupon that gives an 80% discount', () => {
+        browser.executeScript('window.localStorage.couponPanelExpanded = true;')
+
         browser.get('/#/basket')
-        if (!element(by.model('coupon')).isPresent()) {
-          element(by.id('collapseCouponButton')).click()
-          browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
-        }
+        element(by.id('collapseCouponButton')).click()
+        browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90))
         element(by.id('applyCouponButton')).click()
