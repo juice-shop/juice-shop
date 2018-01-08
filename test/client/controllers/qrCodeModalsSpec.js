@@ -3,7 +3,7 @@ describe('controllers', function () {
 
   beforeEach(module('juiceShop'))
   beforeEach(function () {
-    $window = {location: {replace: jasmine.createSpy()}, sessionStorage: {bid: 42}}
+    $window = {location: {replace: jasmine.createSpy()}, sessionStorage: {bid: 42}, localStorage: {}}
 
     module(function ($provide) {
       $provide.value('$window', $window)
