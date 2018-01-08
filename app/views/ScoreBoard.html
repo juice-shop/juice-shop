@@ -18,16 +18,16 @@
                 <h3>
                     <span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span>
                 </h3>
-                <table class="table table-striped table-bordered table-condensed">
+                <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
                         <th translate="LABEL_NAME"></th>
                         <th translate="LABEL_DESCRIPTION"></th>
                         <th translate="LABEL_STATUS"></th>
                     </tr>
                     <tr data-ng-repeat="challenge in challenges | filter: {difficulty: difficulty} | orderBy: 'name'">
-                        <td><div ng-bind="challenge.name"></div></td>
-                        <td><div ng-bind-html="challenge.description"></div></td>
-                        <td>
+                        <td style="white-space: nowrap"><div ng-bind="challenge.name"></div></td>
+                        <td style="width:100%"><div ng-bind-html="challenge.description"></div></td>
+                        <td class="text-center">
                             <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
                                 <i class="fas fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
                                 <span translate="STATUS_UNSOLVED"></span>
