@@ -14,8 +14,8 @@ angular.module('juiceShop').controller('BasketController', [
       $scope.userEmail = data.email || 'anonymous'
     })
 
-    $scope.couponPanelExpanded = JSON.parse($window.localStorage.couponPanelExpanded) || false
-    $scope.paymentPanelExpanded = JSON.parse($window.localStorage.paymentPanelExpanded) || false
+    $scope.couponPanelExpanded = $window.localStorage.couponPanelExpanded ? JSON.parse($window.localStorage.couponPanelExpanded) : false
+    $scope.paymentPanelExpanded = $window.localStorage.paymentPanelExpanded ? JSON.parse($window.localStorage.paymentPanelExpanded) : false
 
     $scope.toggleCoupon = function () {
       $window.localStorage.couponPanelExpanded = JSON.stringify($scope.couponPanelExpanded)
