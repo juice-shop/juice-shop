@@ -36,12 +36,12 @@
         <div class="container-fluid well">
             <div class="row">
                 <button type="submit" id="checkoutButton" class="btn btn-success" ng-disabled="products.length < 1" ng-click="checkout()"><i class="fas fa-cart-arrow-down"></i> <span translate="BTN_CHECKOUT"></span></button>
-                <a id="collapseCouponButton" class="btn btn-warning" ng-click="couponCollapsed = !couponCollapsed"><i class="fas fa-gift fa-lg"></i></a>
-                <a id="collapsePaymentButton" class="btn btn-danger" ng-click="paymentCollapsed = !paymentCollapsed"><i class="fas fa-credit-card fa-lg"></i></a>
+                <a id="collapseCouponButton" class="btn btn-warning" ng-click="toggleCouponCollapsed()"><i class="fas fa-gift fa-lg"></i></a>
+                <a id="collapsePaymentButton" class="btn btn-danger" ng-click="togglePaymentCollapsed()"><i class="fas fa-credit-card fa-lg"></i></a>
             </div>
         </div>
 
-        <section uib-collapse="couponCollapsed">
+        <section uib-collapse="couponPanelCollapsed">
             <div class="alert-info" ng-show="confirmation && !form.$dirty">
                 <p>{{confirmation}}</p>
             </div>
@@ -68,7 +68,7 @@
             </div>
         </section>
 
-        <section uib-collapse="paymentCollapsed">
+        <section uib-collapse="paymentPanelCollapsed">
             <div class="container-fluid well">
                 <div class="row">
                     <label translate="LABEL_PAYMENT"></label>
