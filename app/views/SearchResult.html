@@ -7,7 +7,7 @@
             <p>{{confirmation}}</p>
         </div>
 
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-striped table-bordered table-condensed table-hover">
             <tr>
                 <th translate="LABEL_IMAGE"></th>
                 <th translate="LABEL_PRODUCT"></th>
@@ -16,7 +16,7 @@
                 <th></th>
             </tr>
             <tr data-ng-repeat="product in products">
-                <td><img src="/public/images/products/{{product.image}}" class="img-responsive img-thumbnail" style="width: 200px" ng-click="showDetail(product.id)"/></td>
+                <td><img src="/public/images/products/{{product.image}}" role="button" class="img-responsive img-thumbnail" style="width: 200px" ng-click="showDetail(product.id)"/></td>
                 <td>{{product.name}}</td>
                 <td><div ng-bind-html="product.description"></div></td>
                 <td>{{product.price}}</td>
