@@ -58,7 +58,7 @@ angular.module('juiceShop').controller('BasketController', [
       }).catch(function (error) {
         console.log(error)
         $scope.confirmation = undefined
-        $scope.error = error // Intentionally not translated to indicate that the error just passed through from backend
+        $scope.error = error
         $scope.form.$setPristine()
       })
     }
