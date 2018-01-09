@@ -158,7 +158,7 @@
       "mocha": true,
       "protractor": true
     },
-    "globals": [
+    "global": [
       "angular",
       "inject"
     ]
