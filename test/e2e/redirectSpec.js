@@ -20,20 +20,14 @@ describe('/redirect', () => {
       })
     })
 
-    it('should redirect to target URL if https://gratipay.com/juice-shop is contained in it as parameter', () => {
-      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://gratipay.com/juice-shop').then(() => {
-        expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
-      })
-    })
-
-    it('should redirect to target URL if http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub is contained in it as parameter', () => {
-      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub').then(() => {
-        expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
-      })
-    })
-
     it('should redirect to target URL if https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW is contained in it as parameter', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW').then(() => {
+        expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
+      })
+    })
+
+    it('should redirect to target URL if https://gratipay.com/juice-shop is contained in it as parameter', () => {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://gratipay.com/juice-shop').then(() => {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
       })
     })
