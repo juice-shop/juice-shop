@@ -232,10 +232,11 @@ forking and opening a Pull Request!
   [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get
   some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop
   logo
-* On
+* ~~On
   [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers)
   you can get four variants of the OWASP Juice Shop logo to decorate
-  your laptop
+  your laptop~~ _(Stickermule closed their marketplace. We are looking
+  for an alternative sticker vendor for you to order from directly.)_
 
 The most honorable way to get some stickers is to
 [contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)

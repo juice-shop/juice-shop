@@ -75,7 +75,7 @@ products:
     image: 'sticker.png'
     deletedDate: '2017-04-28'
   - name: 'OWASP Juice Shop Sticker'
-    description: 'You want to put <a href="https://www.stickermule.com/de/user/1070702817/Sticker" target="_blank">one of these beauties</a> on your laptop. You definitely want that. Trust me.'
+    description: 'You want to put one of these beauties on your laptop. You definitely want that. Trust me.'
     price: 2.99
     image: 'sticker_facelift.png'
   - name: 'OWASP Juice Shop CTF Sticker'
@@ -155,7 +155,7 @@ products:
     price: 20
     image: 'jawa_script.jpg'
   - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
-    description: '10 sheets of <a href="https://www.stickermule.com/artworks/1188370/shared">Sweden-themed stickers</a>  with 15 stickers on each.'
+    description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
     price: 19.10
     image: 'stickersheet_se.png'
     deletedDate: '2017-09-20'
