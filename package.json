@@ -120,6 +120,7 @@
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
+    "stryker-javascript-mutator": "~0",
     "stryker-karma-runner": "~0",
     "stryker-mocha-runner": "~0"
   },
