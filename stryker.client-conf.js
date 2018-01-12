@@ -7,6 +7,7 @@ module.exports = function (config) {
     testRunner: 'karma',
     testFramework: 'jasmine',
     coverageAnalysis: 'perTest',
+    mutator: 'javascript',
     reporter: ['html', 'progress'],
     htmlReporter: {
       baseDir: 'build/reports/mutation/client'
