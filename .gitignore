@@ -34,3 +34,10 @@ tmp/**
 .sass-cache
 css/reveal.min.css
 js/reveal.min.js
+
+# Spill-over from main branches
+.audit.json
+.nyc_output/
+access.log*
+config/
+package-lock.json
