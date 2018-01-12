@@ -284,7 +284,7 @@ guide for help with filling out the donation form correctly.
 ### Code Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
+Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -304,6 +304,8 @@ Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
   `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 - [battletux](https://github.com/battletux) aka `battletux`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
+- [Simon De Lang](https://github.com/simondel) aka `simondel`
 - [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
