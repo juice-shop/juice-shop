@@ -4,7 +4,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
-[![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -234,9 +233,10 @@ forking and opening a Pull Request!
   some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop
   logo
 * On
-  [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers)
-  you can get four variants of the OWASP Juice Shop logo to decorate
-  your laptop
+  [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
+  you can get variants of the OWASP Juice Shop logo as single stickers
+  to decorate your laptop with. They can also print magnets, iron-ons,
+  sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
 [contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
@@ -266,10 +266,7 @@ Refer to the
 [Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
-### Others
-
-[![Flattr](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub)
-[![Gratipay](http://img.shields.io/gratipay/team/juice-shop.svg)](https://gratipay.com/juice-shop)
+### Crypto Currency
 
 [![Bitcoin](https://img.shields.io/badge/bitcoin-1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm-orange.svg)](https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm)
 [![Dash](https://img.shields.io/badge/dash-Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW-blue.svg)](https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW)
@@ -287,7 +284,7 @@ guide for help with filling out the donation form correctly.
 ### Code Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
+Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -307,6 +304,8 @@ Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
   `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 - [battletux](https://github.com/battletux) aka `battletux`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
+- [Simon De Lang](https://github.com/simondel) aka `simondel`
 - [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
@@ -319,7 +318,7 @@ Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Mon,
-11 Dec 2017 on `master`.
+07 Jan 2018 on `master`.
 
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
@@ -329,7 +328,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :de: Björn Kimminich
 - :hungary: OliverkeHU
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
-  Febri Ramadlan, Rick Daalhuizen
+  Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam
 - :jp: ninoseki
@@ -337,7 +336,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
 - :norway: owangen
-- :poland: Idomin Ninja
+- :poland: Idomin Ninja, Andrew Pio
 - :portugal: Alvaro Viebrantz
 - :romania: Mircea Ulmeanu, orjen, timexlord
 - :ru: fieldhill13
@@ -361,6 +360,6 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2017.
+contributions are Copyright © by Bjoern Kimminich 2014-2018.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png)

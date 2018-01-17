@@ -1,5 +1,6 @@
-*.log
+*.log*
 *.out
+.audit.json
 build/
 .stryker-tmp/
 .nyc_output/
@@ -42,7 +43,7 @@ app/public/*.*
 # Logos downloaded during customizazion
 app/public/images/*.*
 !app/public/images/JuiceShop*.*
-!app/public/images/forkme_right_orange_ff7600.png
+!app/public/images/ribbons/forkme_right_orange.png
 
 # Product images downloaded during customizazion
 app/public/images/products/*.*
@@ -50,7 +51,6 @@ app/public/images/products/*.*
 !app/public/images/products/artwork.jpg
 !app/public/images/products/apple_pressings.jpg
 !app/public/images/products/banana_juice.jpg
-!app/public/images/products/ctf_sticker.png
 !app/public/images/products/eggfruit_juice.jpg
 !app/public/images/products/fan_girlie.jpg
 !app/public/images/products/fan_hoodie.jpg
@@ -65,7 +65,6 @@ app/public/images/products/*.*
 !app/public/images/products/quince.jpg
 !app/public/images/products/raspberry_juice.jpg
 !app/public/images/products/sticker.png
-!app/public/images/products/sticker_facelift.png
 !app/public/images/products/undefined.png
 !app/public/images/products/white_raffards.jpg
 !app/public/images/products/woodruff_syrup.jpg
@@ -82,6 +81,11 @@ app/public/images/products/*.*
 !app/public/images/products/crutch.123dx
 !app/public/images/products/stickersheet_se.png
 !app/public/images/products/cover_small.jpg
+!app/public/images/products/iron-on.jpg
+!app/public/images/products/magnets.jpg
+!app/public/images/products/sticker_page.jpg
+!app/public/images/products/sticker_single.jpg
+!app/public/images/products/tattoo.jpg
 
 # Custom configuration files
 config/*.yml

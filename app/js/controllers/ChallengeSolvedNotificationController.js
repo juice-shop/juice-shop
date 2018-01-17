@@ -1,11 +1,12 @@
 angular.module('juiceShop').controller('ChallengeSolvedNotificationController', [
   '$scope',
+  '$rootScope',
   '$translate',
   '$cookies',
   'socket',
   'ConfigurationService',
   'ChallengeService',
-  function ($scope, $translate, $cookies, socket, configurationService, challengeService) {
+  function ($scope, $rootScope, $translate, $cookies, socket, configurationService, challengeService) {
     'use strict'
 
     $scope.notifications = []
@@ -50,6 +51,9 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }
         if (!data.isRestore) {
           $scope.saveProgress()
+        }
+        if (data.name === 'Score Board') {
+          $rootScope.$emit('score_board_challenge_solved')
         }
         socket.emit('notification received', data.flag)
       }

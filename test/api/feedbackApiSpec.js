@@ -34,13 +34,13 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS4")</script>script>alert("XSS4")<</script>/script>',
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS")</script>script>alert("XSS")<</script>/script>',
         rating: 1
       }
     })
       .expect('status', 201)
       .expect('json', 'data', {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS4")</script>'
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS")</script>'
       })
       .done(done)
   })
@@ -50,7 +50,7 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and hashids for crypto? Even MD5 to hash passwords! Srsly?!?!',
-        rating: null,
+        rating: 1,
         UserId: 3
       }
     })
@@ -128,14 +128,26 @@ describe('/api/Feedbacks', () => {
       .done(done)
   })
 
-  it('POST feedback can be created without actually supplying data', done => {
-    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: {} })
+  it('POST feedback can be created without actually supplying comment', done => {
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { rating: 1 } })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data', {
+      .expect('json', 'data', {
         comment: null,
-        rating: null,
-        UserId: null
+        rating: 1
+      })
+      .done(done)
+  })
+
+  it('POST feedback cannot be created without actually supplying rating', done => {
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { } })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', {
+        message: Joi.string()
+      })
+      .then(res => {
+        expect(res.json.message.match(/notNull Violation: (Feedback\.)?rating cannot be null/))
       })
       .done(done)
   })

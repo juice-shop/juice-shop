@@ -83,7 +83,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 1',
     category: 'XSS',
-    description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS1")&lt;/script&gt;</code>.',
+    description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.',
     difficulty: 1,
     hint: addHint('Look for an input field where its content appears in the response HTML when its form is submitted.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'),
@@ -94,7 +94,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 2',
     category: 'XSS',
-    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS2")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.',
     difficulty: 3,
     hint: addHint('Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'),
@@ -105,7 +105,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 4',
     category: 'XSS',
-    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS4")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.',
     difficulty: 4,
     hint: addHint('The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'),
@@ -116,7 +116,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'XSS Tier 3',
     category: 'XSS',
-    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS3")&lt;/script&gt;</code> without using the frontend application at all.',
+    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> without using the frontend application at all.',
     difficulty: 3,
     hint: addHint('You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'),
@@ -169,7 +169,18 @@ function createChallenges () {
     challenges.forgedFeedbackChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Redirects',
+    name: 'Redirects Tier 1',
+    category: 'Forgotten Content',
+    description: 'Let us redirect you to a donation site that went out of business.',
+    difficulty: 1,
+    hint: addHint('We might have failed to take this out of our code properly.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#let-us-redirect-you-to-a-donation-site-that-went-out-of-business'),
+    solved: false
+  }).then(challenge => {
+    challenges.redirectGratipayChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Redirects Tier 2',
     category: 'Weak Security Mechanisms',
     description: 'Wherever you go, there you are.',
     difficulty: 4,
@@ -435,7 +446,7 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Premium Paywall',
     category: 'Cryptographic Issues',
-    description: '<i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><i class="fa fa-diamond"></i><!--i0ycvJyZ+WoHTEIjAatNFK5A8r8GxRbwOLC2OuXHVsZcKkEc3lRgc58KjEKn2Byj8Fg3A3ai5yahQANdWL/5j5k3E3qHTjm93tuenE0YlauCdy+7tGkFvo5OltIhiXSWt1SiICecyghFZ8ca/aKtHQ==--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fa fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
+    description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--i0ycvJyZ+WoHTEIjAatNFK5A8r8GxRbwOLC2OuXHVsZcKkEc3lRgc58KjEKn2Byj8Fg3A3ai5yahQANdWL/5j5k3E3qHTjm93tuenE0YlauCdy+7tGkFvo5OltIhiXSWt1SiICecyghFZ8ca/aKtHQ==--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
     difficulty: 5,
     hint: addHint('You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#unlock-premium-challenge-to-access-exclusive-content'),
@@ -569,6 +580,39 @@ function createChallenges () {
     solved: false
   }).then(challenge => {
     challenges.misplacedSignatureFileChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Deprecated Interface',
+    category: 'Forgotten Content',
+    description: 'Use a deprecated B2B interface that was not properly shut down.',
+    difficulty: 1,
+    hint: addHint('The developers who disabled the interface think they could go invisible by just closing their eyes.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'),
+    solved: false
+  }).then(challenge => {
+    challenges.deprecatedInterfaceChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'XXE File Disclosure',
+    category: 'XXE',
+    description: 'Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.',
+    difficulty: 2,
+    hint: addHint('The leverage point for this challenge is the deprecated B2B interface.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'),
+    solved: false
+  }).then(challenge => {
+    challenges.xxeFileDisclosureChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'Remote Code Execution',
+    category: 'Deserialization',
+    description: 'Perform a (DoS-like) Remote Code Execution that would occupy the server for over 2 seconds. (The <em>NoSQL Injection Tier 1</em> challenge does not qualify for this)',
+    difficulty: 5,
+    hint: addHint('The feature you need to exploit for this challenge is not directly advertised anywhere.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-dos-like-remote-code-execution-that-would-occupy-the-server-for-over-2-seconds'),
+    solved: false
+  }).then(challenge => {
+    challenges.rceChallenge = challenge
   })
 }
 

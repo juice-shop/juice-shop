@@ -34,12 +34,12 @@ describe('controllers', function () {
     }))
 
     it('should render product descriptions as trusted HTML', inject(function () {
-      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: [{description: '<script>alert("XSS3")</script>'}]})
+      $httpBackend.whenGET('/rest/product/search?q=undefined').respond(200, {data: [{description: '<script>alert("XSS")</script>'}]})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
 
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
     }))
 
     it('should hold no products when product search API call fails', inject(function () {

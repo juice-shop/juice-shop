@@ -4,5 +4,4 @@ screenshots/
 test/
 build/
 dist/
-docker/
 vagrant/

@@ -72,6 +72,7 @@ module.exports = function (grunt) {
               'server.js',
               'package.json',
               'ctf.key',
+              'swagger.yml',
               'app/index.template.html',
               'app/node_modules/**',
               'app/css/*.css',
@@ -92,17 +93,6 @@ module.exports = function (grunt) {
           }
         ]
       }
-    },
-
-    replace: {
-      dockerfile: {
-        src: ['docker/Dockerfile.template'],
-        dest: 'Dockerfile',
-        replacements: [{
-          from: '%%APP_VERSION%%',
-          to: '<%= pkg.version %>'
-        }]
-      }
     }
   })
 
@@ -111,9 +101,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-compress')
-  grunt.loadNpmTasks('grunt-text-replace')
 
   grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
   grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
-  grunt.registerTask('docker', [ 'replace:dockerfile' ])
 }

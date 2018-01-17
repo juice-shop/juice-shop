@@ -3,5 +3,5 @@ application:
   favicon: "favicon_ctf.ico"
   showCtfFlagsInNotifications: true
   showChallengeHints: false
-  showGitHubRibbon: false
   showVersionNumber: false
+  gitHubRibbon: "none"

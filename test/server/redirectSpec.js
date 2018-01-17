@@ -39,6 +39,15 @@ describe('redirect', () => {
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
+  it('redirecting to https://gratipay.com/juice-shop should solve the "redirectGratipayChallenge"', () => {
+    req.query.to = 'https://gratipay.com/juice-shop'
+    challenges.redirectGratipayChallenge = { solved: false, save: save }
+
+    performRedirect()(req, res)
+
+    expect(challenges.redirectGratipayChallenge.solved).to.equal(true)
+  })
+
   it('tricking the whitelist should solve "redirectChallenge"', () => {
     req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
     challenges.redirectChallenge = { solved: false, save: save }

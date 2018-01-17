@@ -14,8 +14,16 @@ angular.module('juiceShop').controller('BasketController', [
       $scope.userEmail = data.email || 'anonymous'
     })
 
-    $scope.couponCollapsed = true
-    $scope.paymentCollapsed = true
+    $scope.couponPanelExpanded = $window.localStorage.couponPanelExpanded ? JSON.parse($window.localStorage.couponPanelExpanded) : false
+    $scope.paymentPanelExpanded = $window.localStorage.paymentPanelExpanded ? JSON.parse($window.localStorage.paymentPanelExpanded) : false
+
+    $scope.toggleCoupon = function () {
+      $window.localStorage.couponPanelExpanded = JSON.stringify($scope.couponPanelExpanded)
+    }
+
+    $scope.togglePayment = function () {
+      $window.localStorage.paymentPanelExpanded = JSON.stringify($scope.paymentPanelExpanded)
+    }
 
     function load () {
       basketService.find($window.sessionStorage.bid).then(function (basket) {
@@ -50,7 +58,7 @@ angular.module('juiceShop').controller('BasketController', [
       }).catch(function (error) {
         console.log(error)
         $scope.confirmation = undefined
-        $scope.error = error // Intentionally not translated to indicate that the error just passed through from backend
+        $scope.error = error
         $scope.form.$setPristine()
       })
     }

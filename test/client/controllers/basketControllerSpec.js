@@ -3,7 +3,7 @@ describe('controllers', function () {
 
   beforeEach(module('juiceShop'))
   beforeEach(function () {
-    $window = {location: {replace: jasmine.createSpy()}, sessionStorage: {bid: 42}}
+    $window = {location: {replace: jasmine.createSpy()}, sessionStorage: {bid: 42}, localStorage: {}}
 
     module(function ($provide) {
       $provide.value('$window', $window)
@@ -335,7 +335,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
     }))
 
     it('should use default twitter and facebook URLs if not customized', inject(function () {

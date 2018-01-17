@@ -9,12 +9,8 @@
     margin: 10px 0 20px;
 }
 
-.github-fork-ribbon:before {
-    background-color: #333;
-}
-
 .ribbon-spacer {
-    margin-right: 100px;
+    margin-right: 150px;
 }
 
 .btn-group {

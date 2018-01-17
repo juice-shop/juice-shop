@@ -5,6 +5,7 @@ application:
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
   theme: "cosmo"
+  gitHubRibbon: "green"
   recyclePage:
     topProductImage: "david-benjamin-Hammer.png"
     bottomProductImage: "Headache.png"

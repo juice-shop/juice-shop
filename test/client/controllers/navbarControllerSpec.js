@@ -8,6 +8,7 @@ describe('controllers', function () {
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
     $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
+    $httpBackend.whenGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
   }))
 
   afterEach(function () {
@@ -22,7 +23,7 @@ describe('controllers', function () {
         '$scope': scope
       })
       expect(scope.applicationName).toBeDefined()
-      expect(scope.showGitHubRibbon).toBeDefined()
+      expect(scope.gitHubRibbon).toBeDefined()
     }))
 
     it('should be defined', inject(function () {
@@ -98,18 +99,26 @@ describe('controllers', function () {
       expect(console.log).toHaveBeenCalledWith('error-user')
     }))
 
-    it('should show GitHub ribbon by default', inject(function () {
+    it('should show GitHub ribbon in orange by default', inject(function () {
       $httpBackend.flush()
 
-      expect(scope.showGitHubRibbon).toBe(true)
+      expect(scope.gitHubRibbon).toBe('orange')
     }))
 
-    it('should hide GitHub ribbon if configured as such', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {showGitHubRibbon: false}}})
+    it('should colorize GitHub ribbon as configured', inject(function () {
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {gitHubRibbon: 'white'}}})
 
       $httpBackend.flush()
 
-      expect(scope.showGitHubRibbon).toBe(false)
+      expect(scope.gitHubRibbon).toBe('white')
+    }))
+
+    it('should hide GitHub ribbon if configured as color "none"', inject(function () {
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {gitHubRibbon: 'none'}}})
+
+      $httpBackend.flush()
+
+      expect(scope.gitHubRibbon).toBeNull()
     }))
 
     it('should log error while getting application configuration from backend API directly to browser console', inject(function () {
@@ -120,6 +129,22 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(console.log).toHaveBeenCalledWith('error')
+    }))
+
+    it('should hide Score Board menu item when corresponding challenge was not solved yet', inject(function () {
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
+
+      $httpBackend.flush()
+
+      expect(scope.scoreBoardMenuVisible).toBe(false)
+    }))
+
+    it('should show Score Board menu item when corresponding challenge was solved', inject(function () {
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: true}]})
+
+      $httpBackend.flush()
+
+      expect(scope.scoreBoardMenuVisible).toBe(true)
     }))
   })
 })

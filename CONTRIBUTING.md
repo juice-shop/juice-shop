@@ -4,10 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
-[![bitHound Overall Score](https://www.bithound.io/github/bkimminich/juice-shop/badges/score.svg)](https://www.bithound.io/github/bkimminich/juice-shop)
 [![Dependency Status](https://gemnasium.com/bkimminich/juice-shop.svg)](https://gemnasium.com/bkimminich/juice-shop)
-[![bitHound Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/dependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/bkimminich/juice-shop/badges/devDependencies.svg)](https://www.bithound.io/github/bkimminich/juice-shop/master/dependencies/npm)
 [![NSP Status](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48/badge)](https://nodesecurity.io/orgs/juice-shop/projects/0b5e6cab-3a21-45a1-85d0-fa076226ef48)
 [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop)
 
@@ -20,7 +17,7 @@ The minimum requirements for code contributions are:
 3. New and changed challenges should have a corresponding e2e test
 4. All unit, integration and e2e tests must pass locally
 
-**To avoid [falling into the _Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/32)
+**To avoid [falling into the _Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/33)
 you find our detailed contribution guidelines over here:**
 
 https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html
