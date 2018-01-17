@@ -335,7 +335,7 @@ describe('controllers', function () {
 
       $httpBackend.flush()
 
-      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS3")</script>')
+      expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
     }))
 
     it('should use default twitter and facebook URLs if not customized', inject(function () {
