@@ -21,12 +21,6 @@ describe('/redirect', () => {
     .done(done)
   })
 
-  it('GET redirected to http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub when this URL is passed as "to" parameter', done => {
-    frisby.get(URL + '/redirect?to=http://flattr.com/thing/3856930/bkimminichjuice-shop-on-GitHub', { redirect: 'manual' })
-    .expect('status', 302)
-    .done(done)
-  })
-
   it('GET redirected to http://shop.spreadshirt.com/juiceshop when this URL is passed as "to" parameter', done => {
     frisby.get(URL + '/redirect?to=http://shop.spreadshirt.com/juiceshop', { redirect: 'manual' })
     .expect('status', 302)
@@ -39,8 +33,8 @@ describe('/redirect', () => {
     .done(done)
   })
 
-  it('GET redirected to https://www.stickermule.com/user/1070702817/stickers when this URL is passed as "to" parameter', done => {
-    frisby.get(URL + '/redirect?to=https://www.stickermule.com/user/1070702817/stickers', { redirect: 'manual' })
+  it('GET redirected to https://www.stickeryou.com/products/owasp-juice-shop/794 when this URL is passed as "to" parameter', done => {
+    frisby.get(URL + '/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794', { redirect: 'manual' })
     .expect('status', 302)
     .done(done)
   })

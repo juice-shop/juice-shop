@@ -14,11 +14,11 @@ describe('/#/search', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<script>alert("XSS1")</script>')
+      searchQuery.sendKeys('<script>alert("XSS")</script>')
       searchButton.click()
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS1' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS1')
+        expect(alert.getText()).toEqual('XSS')
         alert.accept()
       })
     })
@@ -33,9 +33,9 @@ describe('/#/search', () => {
       searchQuery.sendKeys('\')) union select null,id,email,password,null,null,null,null from users--')
       searchButton.click()
 
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS2' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS2')
+        expect(alert.getText()).toEqual('XSS')
         alert.accept()
       })
 

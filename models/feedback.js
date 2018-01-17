@@ -10,16 +10,17 @@ module.exports = (sequelize, DataTypes) => {
       set (comment) {
         const sanitizedComment = insecurity.sanitizeHtml(comment)
         this.setDataValue('comment', sanitizedComment)
-        if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(sanitizedComment, '<script>alert("XSS4")</script>')) {
+        if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(sanitizedComment, '<script>alert("XSS")</script>')) {
           utils.solve(challenges.persistedXssChallengeFeedback)
         }
       }
     },
     rating: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       set (rating) {
         this.setDataValue('rating', rating)
-        if (utils.notSolved(challenges.zeroStarsChallenge) && (rating === 0 || rating == null)) {
+        if (utils.notSolved(challenges.zeroStarsChallenge) && rating === 0) {
           utils.solve(challenges.zeroStarsChallenge)
         }
       }

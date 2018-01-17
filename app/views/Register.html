@@ -36,14 +36,14 @@
                 </div>
                  <div class="row">
                      <div class="form-group">
-                         <label for="securityQuestion" translate="LABEL_SECURITY_QUESTION"></label> <i class="fa fa-exclamation-triangle fa-sm"></i><small translate="CANNOT_BE_CHANGED_LATER"></small>
+                         <label for="securityQuestion" translate="LABEL_SECURITY_QUESTION"></label> <i class="fas fa-exclamation-triangle fa-sm"></i><small translate="CANNOT_BE_CHANGED_LATER"></small>
                          <select class="form-control input-sm" id="securityQuestion" name="securityQuestion" ng-model="user.securityQuestion" ng-options="option.question for option in securityQuestions track by option.id" required/>
                          <input type="text" class="form-control input-sm" id="securityAnswer" name="securityAnswer" ng-model="user.securityAnswer" required/>
                      </div>
                  </div>
                 <div class="row">
                     <div class="form-group">
-                        <button type="submit" id="registerButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fa fa-user-plus fa-lg"></i> <span translate="BTN_REGISTER"></span></button>
+                        <button type="submit" id="registerButton" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="save()"><i class="fas fa-user-plus fa-lg"></i> <span translate="BTN_REGISTER"></span></button>
                     </div>
                 </div>
 

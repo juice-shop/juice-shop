@@ -11,6 +11,12 @@ angular.module('juiceShop').controller('ChallengeController', [
   function ($scope, $sce, $translate, $cookies, $uibModal, $window, challengeService, configurationService, socket) {
     'use strict'
 
+    $scope.scoreBoardTablesExpanded = $window.localStorage.scoreBoardTablesExpanded ? JSON.parse($window.localStorage.scoreBoardTablesExpanded) : [null, true, false, false, false, false]
+
+    $scope.toggleDifficulty = function () {
+      $window.localStorage.scoreBoardTablesExpanded = JSON.stringify($scope.scoreBoardTablesExpanded)
+    }
+
     configurationService.getApplicationConfiguration().then(function (data) {
       $scope.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.application.showCtfFlagsInNotifications
       $scope.showChallengeHints = data.application.showChallengeHints

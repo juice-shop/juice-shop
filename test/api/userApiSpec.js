@@ -46,13 +46,13 @@ describe('/api/Users', () => {
     frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
       body: {
-        email: '<script>alert("XSS2")</script>',
+        email: '<script>alert("XSS")</script>',
         password: 'does.not.matter'
       }
     })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { email: '<script>alert("XSS2")</script>' })
+      .expect('json', 'data', { email: '<script>alert("XSS")</script>' })
       .done(done)
   })
 })

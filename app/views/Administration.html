@@ -10,11 +10,11 @@
                     <th></th>
                 </tr>
                 <tr data-ng-repeat="user in users">
-                    <td><i ng-show="user.token" class="fa fa-user fa-lg"></i></td>
+                    <td><i ng-show="user.token" class="fas fa-user fa-lg"></i></td>
                     <td><div ng-bind-html="user.email"></div></td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-default btn-xs" ng-click="showDetail(user.id)"><i class="fas fa-eye"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -36,8 +36,8 @@
                     <td>{{recycle.quantity}}</td>
                     <td>{{recycle.address}}</td>
                     <td>
-                        <i ng-show="recycle.isPickup" class="fa fa-home fa-lg"></i>
-                        <i ng-show="!recycle.isPickup" class="fa fa-archive fa-lg"></i>
+                        <i ng-show="recycle.isPickup" class="fas fa-home fa-lg"></i>
+                        <i ng-show="!recycle.isPickup" class="fas fa-archive fa-lg"></i>
                     </td>
                     <td>{{recycle.date}}</td>
                 </tr>
@@ -63,7 +63,7 @@
                 </td>
                 <td>
                     <div class="btn-group">
-                        <a class="btn btn-danger btn-xs" ng-click="delete(feedback.id)"><i class="fa fa-trash"></i></a>
+                        <a class="btn btn-danger btn-xs" ng-click="delete(feedback.id)"><i class="fas fa-trash-alt"></i></a>
                     </div>
                 </td>
             </tr>
