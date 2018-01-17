@@ -29,7 +29,7 @@ describe('/rest/product/search', () => {
   })
 
   it('GET product search with XSS attack is not blocked', done => {
-    frisby.get(REST_URL + '/product/search?q=<script>alert("XSS1")</script>')
+    frisby.get(REST_URL + '/product/search?q=<script>alert("XSS")</script>')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .done(done)
