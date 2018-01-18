@@ -4,9 +4,12 @@ const safeEval = require('safe-eval')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
-  return (req, res) => {
+  return (req, res, next) => {
     const orderLinesData = req.body.orderLinesData || []
     orderLinesData.forEach(orderLineData => {
+      if (utils.contains(orderLineData, '.exit()')) { // circuit breaker to prevent sandbox breakout attack
+        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      }
       try {
         safeEval(orderLineData, {}, { timeout: 2000 })
       } catch (err) {
