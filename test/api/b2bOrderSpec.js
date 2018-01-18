@@ -18,6 +18,17 @@ describe('/b2b/v2/orders', () => {
       .done(done)
   })
 
+  it('POST sandbox breakout vulnerability (https://nodesecurity.io/advisories/337) does not kill the server', done => {
+    frisby.post(API_URL, {
+      headers: authHeader,
+      body: {
+        orderLinesData: ['this.constructor.constructor("return process")().exit()']
+      }
+    })
+      .expect('status', 500)
+      .done(done)
+  })
+
   it('POST new B2B order is forbidden without authorization token', done => {
     frisby.post(API_URL, {})
       .expect('status', 401)
