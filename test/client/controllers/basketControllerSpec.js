@@ -330,7 +330,7 @@ describe('controllers', function () {
     }))
 
     it('should consider product description as trusted HTML', inject(function () {
-      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {Products: [{description: '<script>alert("XSS3")</script>'}]}})
+      $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {Products: [{description: '<script>alert("XSS")</script>'}]}})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
