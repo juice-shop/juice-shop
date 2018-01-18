@@ -381,7 +381,7 @@ function createChallenges () {
     name: 'Extra Language',
     category: 'Forgotten Content',
     description: 'Retrieve the language file that never made it into production.',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('Brute force is not the only option for this challenge, but a perfectly viable one.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production'),
     solved: false

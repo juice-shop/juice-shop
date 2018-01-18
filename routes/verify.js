@@ -26,7 +26,7 @@ exports.accessControlChallenges = () => (req, res, next) => {
     utils.solve(challenges.adminSectionChallenge)
   } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(req.url, '/microfab.gif')) {
     utils.solve(challenges.geocitiesThemeChallenge)
-  } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh.json')) {
+  } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(req.url, cache.retrieveBlueprintChallengeFile)) {
     utils.solve(challenges.retrieveBlueprintChallenge)
