@@ -41,7 +41,7 @@ describe('/', () => {
 
   describe('challenge "extraLanguage"', () => {
     it('should be able to access the Klingon translation file', () => {
-      browser.driver.get(browser.baseUrl + '/i18n/tlh.json')
+      browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
     })
 
     protractor.expect.challengeSolved({challenge: 'Extra Language'})

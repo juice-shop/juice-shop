@@ -98,7 +98,7 @@ describe('verify', () => {
 
     it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', () => {
       challenges.extraLanguageChallenge = { solved: false, save: save }
-      req.url = 'http://juice-sh.op/public/i18n/tlh.json'
+      req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'
 
       verify.accessControlChallenges()(req, res, next)
 
