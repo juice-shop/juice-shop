@@ -1,19 +1,16 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-const safeEval = require('safe-eval')
+const safeEval = require('notevil')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
-  return (req, res, next) => {
+  return (req, res) => {
     const orderLinesData = req.body.orderLinesData || []
     orderLinesData.forEach(orderLineData => {
-      if (utils.contains(orderLineData, '.exit()')) { // circuit breaker to prevent sandbox breakout attack
-        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
-      }
       try {
-        safeEval(orderLineData, {}, { timeout: 2000 })
+        safeEval(orderLineData)
       } catch (err) {
-        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Script execution timed out.') {
+        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
           utils.solve(challenges.rceChallenge)
         }
       }
