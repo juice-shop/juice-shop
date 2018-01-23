@@ -79,7 +79,7 @@
     "pdfkit": "~0.8",
     "replace": "~0.3",
     "request": "~2",
-    "safe-eval": "~0.3",
+    "notevil": "~1.1",
     "sanitize-html": "1.4.2",
     "sequelize": "~4",
     "serve-favicon": "~2.4",

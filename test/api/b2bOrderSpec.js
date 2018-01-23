@@ -18,14 +18,14 @@ describe('/b2b/v2/orders', () => {
       .done(done)
   })
 
-  it('POST sandbox breakout vulnerability (https://nodesecurity.io/advisories/337) does not kill the server', done => {
+  it('POST sandbox breakout attack does not kill the server', done => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: ['this.constructor.constructor("return process")().exit()']
       }
     })
-      .expect('status', 500)
+      .expect('status', 200)
       .done(done)
   })
 
