@@ -5,142 +5,141 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('fileServer', () => {
-  let servePublicFiles, challenges, req, res, next
-  const save = () => ({
-    then: function () { }
-  })
+  const servePublicFiles = require('../../routes/fileServer')
+  const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
-    servePublicFiles = require('../../routes/fileServer')
-    challenges = require('../../data/datacache').challenges
-    res = { sendFile: sinon.spy(), status: sinon.spy() }
-    req = { params: {}, query: {} }
-    next = sinon.spy()
+    this.res = { sendFile: sinon.spy(), status: sinon.spy() }
+    this.req = { params: {}, query: {} }
+    this.next = sinon.spy()
+    this.save = () => ({
+      then: function () { }
+    })
   })
 
   it('should serve PDF files from folder /ftp', () => {
-    req.params.file = 'test.pdf'
+    this.req.params.file = 'test.pdf'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.pdf/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.pdf/))
   })
 
   it('should serve Markdown files from folder /ftp', () => {
-    req.params.file = 'test.md'
+    this.req.params.file = 'test.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.md/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.md/))
   })
 
   it('should serve incident-support.kdbx files from folder /ftp', () => {
-    req.params.file = 'incident-support.kdbx'
+    this.req.params.file = 'incident-support.kdbx'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]incident-support\.kdbx/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]incident-support\.kdbx/))
   })
 
   it('should raise error for slashes in filename', () => {
-    req.params.file = '../../../../nice.try'
+    this.req.params.file = '../../../../nice.try'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
   it('should raise error for disallowed file type', () => {
-    req.params.file = 'nice.try'
+    this.req.params.file = 'nice.try'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
   it('should solve "directoryListingChallenge" when requesting acquisitions.md', () => {
-    challenges.directoryListingChallenge = { solved: false, save: save }
-    req.params.file = 'acquisitions.md'
+    challenges.directoryListingChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'acquisitions.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]acquisitions\.md/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]acquisitions\.md/))
     expect(challenges.directoryListingChallenge.solved).to.equal(true)
   })
 
   it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', () => {
-    challenges.easterEggLevelOneChallenge = { solved: false, save: save }
-    req.params.file = 'eastere.gg%00.md'
+    challenges.easterEggLevelOneChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'eastere.gg%00.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]eastere\.gg/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]eastere\.gg/))
     expect(challenges.easterEggLevelOneChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', () => {
-    challenges.forgottenDevBackupChallenge = { solved: false, save: save }
-    req.params.file = 'package.json.bak%00.md'
+    challenges.forgottenDevBackupChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'package.json.bak%00.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]package\.json\.bak/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]package\.json\.bak/))
     expect(challenges.forgottenDevBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: save }
-    req.params.file = 'coupons_2013.md.bak%00.md'
+    challenges.forgottenBackupChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'coupons_2013.md.bak%00.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .md', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: save }
-    req.params.file = 'coupons_2013.md.bak'
-    req.query.md_debug = '.md'
+    challenges.forgottenBackupChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'coupons_2013.md.bak'
+    this.req.query.md_debug = '.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should solve "misplacedSignatureFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
-    challenges.misplacedSignatureFileChallenge = { solved: false, save: save }
-    req.params.file = 'suspicious_errors.yml%00.md'
+    challenges.misplacedSignatureFileChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'suspicious_errors.yml%00.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]suspicious_errors\.yml/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]suspicious_errors\.yml/))
     expect(challenges.misplacedSignatureFileChallenge.solved).to.equal(true)
   })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: save }
-    req.params.file = 'coupons_2013.md.bak'
-    req.query.md_debug = '.pdf'
+    challenges.forgottenBackupChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'coupons_2013.md.bak'
+    this.req.query.md_debug = '.pdf'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
   it('should fail to exploit "md_debug" parameter bug on non-Markdown file', () => {
-    challenges.forgottenDevBackupChallenge = { solved: false, save: save }
-    req.params.file = 'package.json.bak'
-    req.query.md_debug = '.md'
+    challenges.forgottenDevBackupChallenge = { solved: false, save: this.save }
+    this.req.params.file = 'package.json.bak'
+    this.req.query.md_debug = '.md'
 
-    servePublicFiles()(req, res, next)
+    servePublicFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
     expect(challenges.forgottenDevBackupChallenge.solved).to.equal(false)
   })
 })
