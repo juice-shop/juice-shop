@@ -18,7 +18,7 @@ describe('b2bOrder', () => {
     next = sinon.spy()
   })
 
-  it('error thrown from deserialization timeout solves "rceChallenge"', () => {
+  it('infinite loop payload does not succeed but solves "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save: save }
 
     req.body.orderLinesData = ['(function dos() { while(true); })()']
@@ -26,6 +26,16 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
+  })
+
+  it('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
+    challenges.rceOccupyChallenge = { solved: false, save: save }
+
+    req.body.orderLinesData = ['/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")']
+
+    createB2bOrder()(req, res, next)
+
+    expect(challenges.rceOccupyChallenge.solved).to.equal(true)
   }).timeout(3000)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {

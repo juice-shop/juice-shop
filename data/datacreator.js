@@ -604,15 +604,26 @@ function createChallenges () {
     challenges.xxeFileDisclosureChallenge = challenge
   })
   models.Challenge.create({
-    name: 'Remote Code Execution',
+    name: 'RCE Tier 1',
     category: 'Deserialization',
-    description: 'Perform a Remote Code Execution that would keep a less hardened application busy forever.',
+    description: 'Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.',
     difficulty: 5,
     hint: addHint('The feature you need to exploit for this challenge is not directly advertised anywhere.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution-that-would-keep-a-less-hardened-application-busy-forever'),
     solved: false
   }).then(challenge => {
     challenges.rceChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'RCE Tier 2',
+    category: 'Deserialization',
+    description: 'Perform a Remote Code Execution that occupys the server for a while without using infinite loops.',
+    difficulty: 5,
+    hint: addHint(''),
+    hintUrl: addHint(''),
+    solved: false
+  }).then(challenge => {
+    challenges.rceOccupyChallenge = challenge
   })
 }
 
