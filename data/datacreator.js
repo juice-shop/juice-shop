@@ -617,10 +617,10 @@ function createChallenges () {
   models.Challenge.create({
     name: 'RCE Tier 2',
     category: 'Deserialization',
-    description: 'Perform a Remote Code Execution that occupys the server for a while without using infinite loops.',
+    description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.',
     difficulty: 5,
-    hint: addHint(''),
-    hintUrl: addHint(''),
+    hint: addHint('Your attack payload must not trigger the protection againt too many iterations.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution-that-occupies-the-server-for-a-while-without-using-infinite-loops'),
     solved: false
   }).then(challenge => {
     challenges.rceOccupyChallenge = challenge
