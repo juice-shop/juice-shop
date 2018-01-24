@@ -5,12 +5,13 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('appVersion', () => {
-  it('should return version specified in package.json', () => {
-    const retrieveAppVersion = require('../../routes/appVersion')
-    const req = {}
-    const res = { json: sinon.spy() }
+  const retrieveAppVersion = require('../../routes/appVersion')
 
-    retrieveAppVersion()(req, res)
-    expect(res.json).to.have.been.calledWith({ version: require('../../package.json').version })
+  it('should return version specified in package.json', () => {
+    this.req = {}
+    this.res = { json: sinon.spy() }
+
+    retrieveAppVersion()(this.req, this.res)
+    expect(this.res.json).to.have.been.calledWith({ version: require('../../package.json').version })
   })
 })

@@ -5,54 +5,53 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('redirect', () => {
-  let performRedirect, challenges, req, res, next
-  const save = () => ({
-    then: function () { }
-  })
+  const performRedirect = require('../../routes/redirect')
+  const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
-    performRedirect = require('../../routes/redirect')
-    challenges = require('../../data/datacache').challenges
-    req = { query: {} }
-    res = { redirect: sinon.spy(), status: sinon.spy() }
-    next = sinon.spy()
+    this.req = { query: {} }
+    this.res = { redirect: sinon.spy(), status: sinon.spy() }
+    this.next = sinon.spy()
+    this.save = () => ({
+      then: function () { }
+    })
   })
 
   describe('should be performed for all whitelisted URLs', () => {
     require('../../lib/insecurity').redirectWhitelist.forEach(url => {
       it(url, () => {
-        req.query.to = url
+        this.req.query.to = url
 
-        performRedirect()(req, res, next)
+        performRedirect()(this.req, this.res, this.next)
 
-        expect(res.redirect).to.have.been.calledWith(url)
+        expect(this.res.redirect).to.have.been.calledWith(url)
       })
     })
   })
 
   it('should raise error for URL not on whitelist', () => {
-    req.query.to = 'http://kimminich.de'
+    this.req.query.to = 'http://kimminich.de'
 
-    performRedirect()(req, res, next)
+    performRedirect()(this.req, this.res, this.next)
 
-    expect(res.redirect).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.redirect).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
   it('redirecting to https://gratipay.com/juice-shop should solve the "redirectGratipayChallenge"', () => {
-    req.query.to = 'https://gratipay.com/juice-shop'
-    challenges.redirectGratipayChallenge = { solved: false, save: save }
+    this.req.query.to = 'https://gratipay.com/juice-shop'
+    challenges.redirectGratipayChallenge = { solved: false, save: this.save }
 
-    performRedirect()(req, res)
+    performRedirect()(this.req, this.res)
 
     expect(challenges.redirectGratipayChallenge.solved).to.equal(true)
   })
 
   it('tricking the whitelist should solve "redirectChallenge"', () => {
-    req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
-    challenges.redirectChallenge = { solved: false, save: save }
+    this.req.query.to = 'http://kimminich.de?to=https://github.com/bkimminich/juice-shop'
+    challenges.redirectChallenge = { solved: false, save: this.save }
 
-    performRedirect()(req, res)
+    performRedirect()(this.req, this.res)
 
     expect(challenges.redirectChallenge.solved).to.equal(true)
   })
