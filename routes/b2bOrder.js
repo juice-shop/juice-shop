@@ -1,17 +1,21 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const safeEval = require('notevil')
+const vm = require('vm')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
-  return (req, res) => {
+  return (req, res, next) => {
     const orderLinesData = req.body.orderLinesData || []
     orderLinesData.forEach(orderLineData => {
       try {
-        safeEval(orderLineData)
+        const sandbox = { safeEval, orderLineData }
+        vm.createContext(sandbox)
+        vm.runInContext('safeEval(orderLineData)', sandbox, { timeout: 2000 })
       } catch (err) {
         if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
           utils.solve(challenges.rceChallenge)
+          next(err)
         }
       }
     })

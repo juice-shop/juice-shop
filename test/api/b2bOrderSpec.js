@@ -7,14 +7,17 @@ const API_URL = 'http://localhost:3000/b2b/v2/orders'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
-  it('POST endless loop exploit in "orderLinesData" is possible but request still comes back', done => {
+  it('POST endless loop exploit in "orderLinesData" will raise explicit error', done => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: ['(function dos() { while(true); })()']
       }
     })
-      .expect('status', 200)
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', 'Infinite loop detected - reached max iterations')
       .done(done)
   })
 

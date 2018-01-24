@@ -13,5 +13,6 @@ detection:
         - 'File names cannot contain forward slashes'
         - 'Unrecognized target URL for redirect: *'
         - 'B2B customer complaints via file upload have been deprecated for security reasons'
+        - 'Infinite loop detected'
     condition: keywords
 level: low
