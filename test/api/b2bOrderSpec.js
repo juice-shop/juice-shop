@@ -21,6 +21,17 @@ describe('/b2b/v2/orders', () => {
       .done(done)
   })
 
+  it('POST busy spinning regex attack does not raise an error', done => {
+    frisby.post(API_URL, {
+      headers: authHeader,
+      body: {
+        orderLinesData: ['/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")']
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
   it('POST sandbox breakout attack does not kill the server', done => {
     frisby.post(API_URL, {
       headers: authHeader,

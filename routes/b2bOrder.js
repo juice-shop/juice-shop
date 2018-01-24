@@ -17,6 +17,9 @@ exports = module.exports = function b2bOrder () {
           utils.solve(challenges.rceChallenge)
           next(err)
         }
+        if (utils.notSolved(challenges.rceOccupyChallenge) && err.message === 'Script execution timed out.') {
+          utils.solve(challenges.rceOccupyChallenge)
+        }
       }
     })
     res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
