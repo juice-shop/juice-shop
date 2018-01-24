@@ -7,7 +7,7 @@ exemptLabels:
   - technical debt
 staleLabel: wontfix
 markComment: >
-  This issue has been automatically marked as `obsolete` because it has not had
+  This issue has been automatically marked as stale because it has not had
   recent activity. It will be _closed in two weeks_ if no further activity occurs.
   :heart: Thank you for your contributions to [OWASP Juice Shop](http://owasp-juice.shop)!
 closeComment: false
