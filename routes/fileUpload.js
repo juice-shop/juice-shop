@@ -19,7 +19,6 @@ exports = module.exports = function fileUpload () {
       }
       if (file.buffer) {
         const data = file.buffer.toString()
-        res.status(410)
         try {
           const sandbox = { libxml, data }
           vm.createContext(sandbox)
@@ -28,6 +27,7 @@ exports = module.exports = function fileUpload () {
           if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
             utils.solve(challenges.xxeFileDisclosureChallenge)
           }
+          res.status(410)
           next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200)))
         } catch (err) {
           if (err.message === 'Script execution timed out.') {
@@ -37,6 +37,7 @@ exports = module.exports = function fileUpload () {
             res.status(503)
             next(new Error('Sorry, we are temporarily not available! Please try again later.'))
           } else {
+            res.status(410)
             next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message))
           }
         }
