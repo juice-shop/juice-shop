@@ -88,13 +88,9 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/OrderLine'
-    OrderLineData:
-      description: Order line in customer specific data format
-      type: string
-      example: '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
     OrderLinesData:
-      type: array
-      items:
-        $ref: '#/components/schemas/OrderLineData'
+      description: Order line(s) in customer specific JSON format
+      type: string
+      example: '[{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"},{"productId": 13,"quantity": 2000,"customerReference": "PO0000003.4"}]'
 security:
   - bearerAuth: []
