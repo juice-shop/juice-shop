@@ -68,6 +68,16 @@ describe('/file-upload', () => {
         .expect('status', 410)
         .done(done)
     })
+
+    it('POST file type XML with Quadratic Blowup attack only works reliably on Windows', done => {
+      file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
+      form = new FormData()
+      form.append('file', fs.createReadStream(file))
+
+      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+        .expect('status', 503)
+        .done(done)
+    })
   }
 
   if (process.platform === 'linux' || process.platform === 'darwin') {
@@ -91,16 +101,6 @@ describe('/file-upload', () => {
         .done(done)
     })
   }
-
-  it('POST file type XML with Quadratic Blowup attack', done => {
-    file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
-    form = new FormData()
-    form.append('file', fs.createReadStream(file))
-
-    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-      .expect('status', 503)
-      .done(done)
-  })
 
   it('POST file type XML with Billion Laughs attack is caught by parser', done => {
     file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
