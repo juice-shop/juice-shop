@@ -91,7 +91,7 @@ describe('/file-upload', () => {
         .done(done)
     })
 
-    if (!process.env.TRAVIS_BUILD_NUMBER) { // Travis-CI does not expose /dev/random
+    if (!process.env.TRAVIS_BUILD_NUMBER) {
       it('POST file type XML with DoS attack against Linux', done => {
         file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
         form = new FormData()
