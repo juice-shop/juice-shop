@@ -24,11 +24,11 @@ exports = module.exports = function fileUpload () {
           const sandbox = { libxml, data }
           vm.createContext(sandbox)
           const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
-          const xmlString = xmlDoc.toString()
+          const xmlString = xmlDoc.toString(false)
           if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
             utils.solve(challenges.xxeFileDisclosureChallenge)
           }
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + xmlString))
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200)))
         } catch (err) {
           if (err.message === 'Script execution timed out.') {
             if (utils.notSolved(challenges.xxeDosChallenge)) {
