@@ -30,14 +30,15 @@ describe('/b2b/v2/orders', () => {
       .done(done)
   })
 
-  it('POST sandbox breakout attack does not kill the server', done => {
+  it('POST sandbox breakout attack in "orderLinesData" will raise explicit error', done => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: 'this.constructor.constructor("return process")().exit()'
       }
     })
-      .expect('status', 200)
+      .expect('status', 500)
+      .expect('bodyContains', 'Cannot read property \'constructor\' of undefined')
       .done(done)
   })
 
