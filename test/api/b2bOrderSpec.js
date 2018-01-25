@@ -26,7 +26,7 @@ describe('/b2b/v2/orders', () => {
         orderLinesData: ['/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")']
       }
     })
-      .expect('status', 200)
+      .expect('status', 503)
       .done(done)
   })
 
