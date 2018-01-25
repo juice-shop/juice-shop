@@ -593,15 +593,26 @@ function createChallenges () {
     challenges.deprecatedInterfaceChallenge = challenge
   })
   models.Challenge.create({
-    name: 'XXE File Disclosure',
+    name: 'XXE Tier 1',
     category: 'XXE',
     description: 'Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.',
-    difficulty: 2,
+    difficulty: 3,
     hint: addHint('The leverage point for this challenge is the deprecated B2B interface.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'),
     solved: false
   }).then(challenge => {
     challenges.xxeFileDisclosureChallenge = challenge
+  })
+  models.Challenge.create({
+    name: 'XXE Tier 2',
+    category: 'XXE',
+    description: 'Give the server something to chew on for quite a while.',
+    difficulty: 4,
+    hint: addHint('It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while'),
+    solved: false
+  }).then(challenge => {
+    challenges.xxeDosChallenge = challenge
   })
   models.Challenge.create({
     name: 'RCE Tier 1',

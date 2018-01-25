@@ -48,6 +48,16 @@ describe('/file-upload', () => {
       .done(done)
   })
 
+  it('POST large XML file near upload size limit', done => {
+    file = path.resolve(__dirname, '../files/maxSizeForServer.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 410)
+      .done(done)
+  })
+
   if (process.platform === 'win32') {
     it('POST file type XML with XXE attack against Windows', done => {
       file = path.resolve(__dirname, '../files/xxeForWindows.xml')
@@ -70,20 +80,30 @@ describe('/file-upload', () => {
         .expect('status', 410)
         .done(done)
     })
+
+    it('POST file type XML with DoS attack against Linux', done => {
+      file = path.resolve(__dirname, '../files/xxeDoSForLinux.xml')
+      form = new FormData()
+      form.append('file', fs.createReadStream(file))
+
+      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+        .expect('status', 503)
+        .done(done)
+    })
   }
 
-  it('POST file type XML with /dev/random DoS attack responds after timeout', done => {
-    file = path.resolve(__dirname, '../files/xxeDoS.xml')
+  it('POST file type XML with Quadratic Blowup attack', done => {
+    file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
 
     frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-      .expect('status', 410)
+      .expect('status', 503)
       .done(done)
   })
 
-  it('POST file type XML with Billion Laughs attack responds', done => {
-    file = path.resolve(__dirname, '../files/xmlBillionLaughs.xml')
+  it('POST file type XML with Billion Laughs attack is caught by parser', done => {
+    file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
 

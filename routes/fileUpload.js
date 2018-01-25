@@ -30,7 +30,15 @@ exports = module.exports = function fileUpload () {
           }
           next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + xmlString))
         } catch (err) {
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message))
+          if (err.message === 'Script execution timed out.') {
+            if (utils.notSolved(challenges.xxeDosChallenge)) {
+              utils.solve(challenges.xxeDosChallenge)
+            }
+            res.status(503)
+            next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+          } else {
+            next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message))
+          }
         }
       }
     }

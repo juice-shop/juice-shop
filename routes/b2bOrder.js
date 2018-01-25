@@ -22,6 +22,8 @@ exports = module.exports = function b2bOrder () {
           if (utils.notSolved(challenges.rceOccupyChallenge)) {
             utils.solve(challenges.rceOccupyChallenge)
           }
+          res.status(503)
+          next(new Error('Sorry, we are temporarily not available! Please try again later.'))
         }
       }
     })
