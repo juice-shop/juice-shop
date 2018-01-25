@@ -15,8 +15,6 @@ describe('/b2b/v2/orders', () => {
       }
     })
       .expect('status', 500)
-      .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
       .expect('bodyContains', 'Infinite loop detected - reached max iterations')
       .done(done)
   })
