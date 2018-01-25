@@ -82,7 +82,7 @@ describe('/file-upload', () => {
     })
 
     it('POST file type XML with DoS attack against Linux', done => {
-      file = path.resolve(__dirname, '../files/xxeDoSForLinux.xml')
+      file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
       form = new FormData()
       form.append('file', fs.createReadStream(file))
 
