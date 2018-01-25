@@ -13,12 +13,15 @@ exports = module.exports = function b2bOrder () {
         vm.createContext(sandbox)
         vm.runInContext('safeEval(orderLineData)', sandbox, { timeout: 2000 })
       } catch (err) {
-        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
-          utils.solve(challenges.rceChallenge)
+        if (err.message === 'Infinite loop detected - reached max iterations') {
+          if (utils.notSolved(challenges.rceChallenge)) {
+            utils.solve(challenges.rceChallenge)
+          }
           next(err)
-        }
-        if (utils.notSolved(challenges.rceOccupyChallenge) && err.message === 'Script execution timed out.') {
-          utils.solve(challenges.rceOccupyChallenge)
+        } else if (err.message === 'Script execution timed out.') {
+          if (utils.notSolved(challenges.rceOccupyChallenge)) {
+            utils.solve(challenges.rceOccupyChallenge)
+          }
         }
       }
     })

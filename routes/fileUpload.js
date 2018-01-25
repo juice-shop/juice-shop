@@ -19,9 +19,7 @@ exports = module.exports = function fileUpload () {
       }
       if (file.buffer) {
         const data = file.buffer.toString()
-        if (utils.contains(data, '/dev/random')) { // circuit breaker to prevent common DoS attack
-          next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
-        }
+        res.status(410)
         try {
           const sandbox = { libxml, data }
           vm.createContext(sandbox)
@@ -30,14 +28,9 @@ exports = module.exports = function fileUpload () {
           if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
             utils.solve(challenges.xxeFileDisclosureChallenge)
           }
-          res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + xmlString))
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + xmlString))
         } catch (err) {
-          if (utils.notSolved(challenges.rceOccupyChallenge) && err.message === 'Script execution timed out.') {
-            utils.solve(challenges.rceOccupyChallenge)
-          }
-          res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + err))
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message))
         }
       }
     }

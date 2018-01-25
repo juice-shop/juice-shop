@@ -14,5 +14,6 @@ detection:
         - 'Unrecognized target URL for redirect: *'
         - 'B2B customer complaints via file upload have been deprecated for security reasons'
         - 'Infinite loop detected'
+        - 'Detected an entity reference loop'
     condition: keywords
 level: low

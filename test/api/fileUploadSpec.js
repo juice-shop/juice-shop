@@ -72,13 +72,24 @@ describe('/file-upload', () => {
     })
   }
 
-  it('POST file type XML with /dev/random DoS attack is blocked', done => {
+  it('POST file type XML with /dev/random DoS attack responds after timeout', done => {
     file = path.resolve(__dirname, '../files/xxeDoS.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
 
     frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-      .expect('status', 500)
+      .expect('status', 410)
+      .done(done)
+  })
+
+  it('POST file type XML with Billion Laughs attack responds', done => {
+    file = path.resolve(__dirname, '../files/xmlBillionLaughs.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 410)
+      .expect('bodyContains', 'Detected an entity reference loop')
       .done(done)
   })
 
