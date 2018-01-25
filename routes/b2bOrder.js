@@ -11,21 +11,21 @@ exports = module.exports = function b2bOrder () {
       const sandbox = { safeEval, orderLinesData }
       vm.createContext(sandbox)
       vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+      res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
     } catch (err) {
-      if (err.message === 'Infinite loop detected - reached max iterations') {
-        if (utils.notSolved(challenges.rceChallenge)) {
-          utils.solve(challenges.rceChallenge)
-        }
-        next(err)
-      } else if (err.message === 'Script execution timed out.') {
+      if (err.message === 'Script execution timed out.') {
         if (utils.notSolved(challenges.rceOccupyChallenge)) {
           utils.solve(challenges.rceOccupyChallenge)
         }
         res.status(503)
         next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+      } else {
+        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
+          utils.solve(challenges.rceChallenge)
+        }
+        next(err)
       }
     }
-    res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
   }
 
   function uniqueOrderNumber () {
