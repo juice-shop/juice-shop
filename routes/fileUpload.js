@@ -1,6 +1,7 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
+const vm = require('vm')
 
 exports = module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -21,13 +22,23 @@ exports = module.exports = function fileUpload () {
         if (utils.contains(data, '/dev/random')) { // circuit breaker to prevent common DoS attack
           next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
         }
-        const xmlDoc = libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })
-        const xmlString = xmlDoc.toString()
-        if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
-          utils.solve(challenges.xxeFileDisclosureChallenge)
+        try {
+          const sandbox = { libxml, data }
+          vm.createContext(sandbox)
+          const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
+          const xmlString = xmlDoc.toString()
+          if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
+            utils.solve(challenges.xxeFileDisclosureChallenge)
+          }
+          res.status(410)
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + xmlString))
+        } catch (err) {
+          if (utils.notSolved(challenges.rceOccupyChallenge) && err.message === 'Script execution timed out.') {
+            utils.solve(challenges.rceOccupyChallenge)
+          }
+          res.status(410)
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + err))
         }
-        res.status(410)
-        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons!\n' + xmlString))
       }
     }
     res.status(204).end()
