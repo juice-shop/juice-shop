@@ -28,7 +28,7 @@ exports = module.exports = function fileUpload () {
             utils.solve(challenges.xxeFileDisclosureChallenge)
           }
           res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200)))
+          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200) + ' (' + file.originalname + ')'))
         } catch (err) {
           if (err.message === 'Script execution timed out.') {
             if (utils.notSolved(challenges.xxeDosChallenge)) {
@@ -38,7 +38,7 @@ exports = module.exports = function fileUpload () {
             next(new Error('Sorry, we are temporarily not available! Please try again later.'))
           } else {
             res.status(410)
-            next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message))
+            next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + err.message + ' (' + file.originalname + ')'))
           }
         }
       }
