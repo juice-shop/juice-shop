@@ -11,7 +11,7 @@ describe('/b2b/v2/orders', () => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
-        orderLinesData: ['(function dos() { while(true); })()']
+        orderLinesData: '(function dos() { while(true); })()'
       }
     })
       .expect('status', 500)
@@ -23,7 +23,7 @@ describe('/b2b/v2/orders', () => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
-        orderLinesData: ['/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")']
+        orderLinesData: '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
       }
     })
       .expect('status', 503)
@@ -34,7 +34,7 @@ describe('/b2b/v2/orders', () => {
     frisby.post(API_URL, {
       headers: authHeader,
       body: {
-        orderLinesData: ['this.constructor.constructor("return process")().exit()']
+        orderLinesData: 'this.constructor.constructor("return process")().exit()'
       }
     })
       .expect('status', 200)
