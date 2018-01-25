@@ -91,15 +91,17 @@ describe('/file-upload', () => {
         .done(done)
     })
 
-    it('POST file type XML with DoS attack against Linux', done => {
-      file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
-      form = new FormData()
-      form.append('file', fs.createReadStream(file))
+    if (!process.env.TRAVIS_BUILD_NUMBER) { // Travis-CI does not expose /dev/random
+      it('POST file type XML with DoS attack against Linux', done => {
+        file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
+        form = new FormData()
+        form.append('file', fs.createReadStream(file))
 
-      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-        .expect('status', 503)
-        .done(done)
-    })
+        frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+          .expect('status', 503)
+          .done(done)
+      })
+    }
   }
 
   it('POST file type XML with Billion Laughs attack is caught by parser', done => {
