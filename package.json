@@ -120,7 +120,7 @@
     "standard": "~10.0",
     "stryker": "~0",
     "stryker-api": "~0",
-    "stryker-html-reporter": "~0.",
+    "stryker-html-reporter": "~0",
     "stryker-jasmine": "~0",
     "stryker-javascript-mutator": "~0",
     "stryker-karma-runner": "~0",
