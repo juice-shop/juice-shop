@@ -105,4 +105,18 @@ describe('app', function () {
       expect($httpProvider.interceptors).toContain('rememberMeInterceptor')
     }))
   })
+
+  describe('emailName filer', function () {
+    var emailName
+
+    beforeEach(function () {
+      inject(function ($injector) {
+        emailName = $injector.get('$filter')('emailName')
+      })
+    })
+
+    it('should be defined', inject(function () {
+      expect(emailName).toBeDefined()
+    }))
+  })
 })
