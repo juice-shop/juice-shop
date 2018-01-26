@@ -18,7 +18,7 @@ describe('/b2b/v2/order', () => {
     it('should be possible to cause request timeout using a recursive regular expression payload', () => {
       browser.ignoreSynchronization = true
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/b2b/v2/orders\', {orderLinesData: \'/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")\'});')
-      browser.driver.sleep(3000) // 2sec for the deserialization timeout plus 1sec for Angular
+      browser.driver.sleep(4000) // 2sec for the deserialization timeout plus 2sec for Angular
       browser.ignoreSynchronization = false
     })
 
