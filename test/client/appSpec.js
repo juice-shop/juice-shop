@@ -118,5 +118,13 @@ describe('app', function () {
     it('should be defined', inject(function () {
       expect(emailName).toBeDefined()
     }))
+
+    it('should return name from an email', inject(function () {
+      expect(emailName('admin@juice-sh.op')).toBe('admin')
+    }))
+
+    it('should return first and last name from a typical email', inject(function () {
+      expect(emailName('bjoern.kimminich@owasp.org')).toBe('bjoern kimminich')
+    }))
   })
 })
