@@ -69,7 +69,7 @@
     "hashids": "~1.1",
     "helmet": "~3.9",
     "html-entities": "~1.2",
-    "js-yaml": "3.10",
+    "js-yaml": "~3.10",
     "jsonwebtoken": "~8",
     "jssha": "~2.3",
     "libxmljs": "~0.18",
@@ -185,6 +185,12 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/app/node_modules/"
+    ]
+  },
+  "greenkeeper": {
+    "ignore": [
+      "sanitize-html",
+      "express-jwt"
     ]
   }
 }
