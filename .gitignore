@@ -96,3 +96,4 @@ config/*.yml
 !config/juicebox.yml
 !config/quiet.yml
 !config/test.yml
+!config/7ms.yml
