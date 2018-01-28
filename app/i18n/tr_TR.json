@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Adet",
   "LABEL_TOTAL_PRICE": "Toplam Fiyat",
   "BTN_CHECKOUT": "Sepeti Onayla",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "İndirim kodu {{length}} karakter uzunluğunda olmalıdır.",
   "LABEL_COUPON": "İndirim Kodu",
   "FOLLOW_FOR_MONTHLY_COUPONS": "İndirim koduna mı ihtiyacınız var? Aylık indirim kodları ve diğer spamler için bizi {{twitter}} ya da {{facebook}}'tan takip edin!",
