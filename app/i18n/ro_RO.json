@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Cantitate",
   "LABEL_TOTAL_PRICE": "Preţ total",
   "BTN_CHECKOUT": "Finalizarea comenzii",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Codul cuponului trebuie să aibă {{length}} caractere.",
   "LABEL_COUPON": "Cupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Ai nevoie de un cupon? Urmărește-ne pe {{twitter}} sau {{facebook}} pentru cupoane și alte spam-uri!",
