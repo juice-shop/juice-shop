@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "数量",
   "LABEL_TOTAL_PRICE": "合計金額",
   "BTN_CHECKOUT": "チェックアウト",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "クーポンコードは {{length}} 文字である必要があります",
   "LABEL_COUPON": "クーポン",
   "FOLLOW_FOR_MONTHLY_COUPONS": "クーポンコードが必要ですか? 毎月のクーポンとスパムのために {{twitter}} または {{facebook}} をフォローしてください!",
