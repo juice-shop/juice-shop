@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Antall",
   "LABEL_TOTAL_PRICE": "Totalpris",
   "BTN_CHECKOUT": "Gå til kassen",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kupongkoden må være {{length}} tegn.",
   "LABEL_COUPON": "Kupong",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Trenger du en kupongkode? Følg oss på {{twitter}} eller {{facebook}} for månedlige kuponger og annet spam!",
