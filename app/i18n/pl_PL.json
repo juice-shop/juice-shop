@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Ilość",
   "LABEL_TOTAL_PRICE": "Cena całkowita",
   "BTN_CHECKOUT": "Realizuj zamówienie",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kod kuponu musi być {{length}} znaków.",
   "LABEL_COUPON": "Kupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon Rabatowy ? Śledź nas na {{twitter}} lub {{facebook}} aby dostatawać co miesięąc kupony i innych spam!",
