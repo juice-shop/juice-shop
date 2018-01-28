@@ -40,4 +40,33 @@ products:
     description: 'Tommy Boy is a vulnerable virtual machine, hosted by VulnHub and based one of my all-time favorite movies. To complete the CTF, pentesters must bring the Callahan Auto brakepad ordering system back online before the company goes out of business.'
     price: 799.99
     image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a01bfaa71c10b9d51d59d2e/1510081203010/tommyboy.jpeg'
-    fileForRetrieveBlueprintChallenge: 'JuiceShop.stl' # TODO Change into something 7MS related
+  - name: 'CryptoLocker`d (Audio CD)'
+    description: 'A few years ago a worked on an incident response where a user got phished with a promise of a free burrito from Chipotle but instead got a free order of CryptoLocker! And rather than tell IT or sound the alarms, the user just left for the day! The next day they came back and the company was digitally on fire, and they played ignorant to what was going on.  I found the user's handling of the situation humorous (read: not the CryptoLocker infection itself!), so I was inspired to write a song about it.'
+    price: 19.99
+    image: 'http://ransomwares.net/wp-content/uploads/2017/02/cryptolocker.jpg'
+    fileForRetrieveBlueprintChallenge: 'The+CryptoLocker+Song.mps'
+  - name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
+    description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'
+    price: 29.99
+    image: 'https://static1.squarespace.com/static/59208d27c534a58e9b17ec06/t/59208d69197aea2df1397c7b/1505596635447.png'
+    deletedDate: '2018-01-01'
+  - name: '7MS #230: Pentesting OWASP Juice Shop - Part 1'
+    description: 'Today we`re kicking of a multipart series all about hacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'https://i.ytimg.com/vi/IC6m249zvI0/hqdefault.jpg'
+  - name: '7MS #231: Pentesting OWASP Juice Shop - Part 2'
+    description: 'Today we`re continuing our series on hacking apart the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'hqdefault.jpg'
+  - name: '7MS #232: Pentesting OWASP Juice Shop - Part 3'
+    description: 'Today is part <strong>three</strong> of our continuing series on attacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'hqdefault.jpg'
+  - name: '7MS #233: Pentesting OWASP Juice Shop - Part 4'
+    description: 'Today is part <strong>FOUR</strong> of our continuing series on attacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'hqdefault.jpg'
+  - name: '7MS #234: Pentesting OWASP Juice Shop - Part 5'
+    description: 'Today is part <strong>FIVE</strong> (insert menacing voice: "<em>the final chapter!!!</em>) of our series on attacking the <a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" target="_blank">OWASP Juice Shop</a> which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'
+    price: 1.99
+    image: 'hqdefault.jpg'
