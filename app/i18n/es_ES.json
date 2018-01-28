@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Cantidad",
   "LABEL_TOTAL_PRICE": "Precio Total",
   "BTN_CHECKOUT": "Tramitar pedido",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "El código de cupón debe tener una longitud entre {{length}} caracteres.",
   "LABEL_COUPON": "Cupón",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Necesita un código de cupón? Síganos en {{twitter}} o {{facebook}} para conseguir cupones mensualmente y otro tipo de spam!",
