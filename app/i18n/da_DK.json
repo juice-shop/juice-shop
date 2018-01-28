@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Antal",
   "LABEL_TOTAL_PRICE": "Samlet pris",
   "BTN_CHECKOUT": "Til kassen",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kuponkoden skal være {{length}} tegn.",
   "LABEL_COUPON": "Rabatkupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on {{twitter}} or {{facebook}} for monthly coupons and other spam!",
