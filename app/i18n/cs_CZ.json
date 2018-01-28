@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Počet",
   "LABEL_TOTAL_PRICE": "Celková cena",
   "BTN_CHECKOUT": "Objednat",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kód kupónu musí být {{length}} znaků.",
   "LABEL_COUPON": "Kupón",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Chcete slevový kupón? Sledujte náš {{twitter}} nebo {{facebook}} pro měsíční kupóny a další spam!",
