@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "အေရအတြက္",
   "LABEL_TOTAL_PRICE": "စုစုေပါင္း က်သင့္ေငြ",
   "BTN_CHECKOUT": "ေငြရွင္းမည္",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "ျဖတ္ပိုင္း ကုတ္မွာ {{length}} စာလံုးေရ ရွိရပါမည္",
   "LABEL_COUPON": "ျဖတ္ပိုင္း",
   "FOLLOW_FOR_MONTHLY_COUPONS": "ျဖတ္ပိုင္း ကုတ္ အလိုရွိပါသလား? {{twitter}} သို႕မဟုတ္ {{facebook}} ကို follow လုပ္ျခင္းျဖင့္ လစဥ္ျဖတ္ပိုင္းမ်ားကို ရယူပါ",
