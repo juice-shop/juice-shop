@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "כמות",
   "LABEL_TOTAL_PRICE": "מחיר כולל",
   "BTN_CHECKOUT": "תשלום",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "קוד קופון צריך להיות באורך {{length}} תווים.",
   "LABEL_COUPON": "קופון",
   "FOLLOW_FOR_MONTHLY_COUPONS": "צריך קוד קופון? עקוב אחרינו ב {{twitter}} או {{facebook}} עבור קופונים חודשיים ודואר זבל נוסף!",
