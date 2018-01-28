@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Quantidade",
   "LABEL_TOTAL_PRICE": "Preço Total",
   "BTN_CHECKOUT": "Finalizar Compra",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Cupom deve possuir {{length}} caracteres.",
   "LABEL_COUPON": "Cupom",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Precisa de um cupom? Siga-nos no {{twitter}} or {{facebook}} para receber cupons mensais e outros spam!",
