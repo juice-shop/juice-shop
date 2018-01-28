@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "数量",
   "LABEL_TOTAL_PRICE": "总价格",
   "BTN_CHECKOUT": "结帐",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "优惠券代码必须是 {{length}} 个字符长",
   "LABEL_COUPON": "优惠券",
   "FOLLOW_FOR_MONTHLY_COUPONS": "需要一个优惠券代码吗？关注我们的 {{twitter}} 或 {{facebook}} 获取每月优惠券和其他垃圾邮件！",
