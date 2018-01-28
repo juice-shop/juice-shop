@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Количество",
   "LABEL_TOTAL_PRICE": "Итого",
   "BTN_CHECKOUT": "Оформить заказ",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Код купона должен быть {{length}} символов.",
   "LABEL_COUPON": "Код купона",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Нужен код купона? Подпишись на нас на {{twitter}} или {{facebook}} и будешь получать ежемесячные купоны и другой спам!",
