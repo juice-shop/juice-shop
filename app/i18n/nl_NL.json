@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Aantal",
   "LABEL_TOTAL_PRICE": "Totaalprijs",
   "BTN_CHECKOUT": "Afrekenen",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Een waardebon moet {{length}} tekens lang zijn.",
   "LABEL_COUPON": "Waardebon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Waardebon nodig? Volg ons op {{twitter}} of {{facebook}} voor maandelijkse waardebonnen en andere spam!",
