@@ -86,6 +86,11 @@ app/public/images/products/*.*
 !app/public/images/products/sticker_page.jpg
 !app/public/images/products/sticker_single.jpg
 !app/public/images/products/tattoo.jpg
+!/app/public/images/products/training4.jpg
+!/app/public/images/products/bm-small.jpg
+!/app/public/images/products/assessments2.png
+!/app/public/images/products/wifi5.png
+!/app/public/images/products/tommyboy.jpeg
 
 # Custom configuration files
 config/*.yml
