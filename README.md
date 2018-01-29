@@ -315,6 +315,8 @@ Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
 
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+
 ### Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
