@@ -51,7 +51,7 @@
   "LABEL_QUANTITY": "Anzahl",
   "LABEL_TOTAL_PRICE": "Gesamtpreis",
   "BTN_CHECKOUT": "Zur Kasse",
-  "BTN_CREDIT_CARD": "Credit Card",
+  "BTN_CREDIT_CARD": "Kreditkarte",
   "INVALID_COUPON_LENGTH": "Gutscheincode muss {{length}} Zeichen lang sein.",
   "LABEL_COUPON": "Gutschein",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Du brauchst einen Gutschein? Folge uns auf {{twitter}} oder {{facebook}} und erhalte monatlich Gutscheine und anderen Spam!",
