@@ -715,7 +715,7 @@ function createProducts () {
     if (product.useForChristmasSpecialChallenge) {
       description += ' (Seasonal special offer! Limited availability!)'
     } else if (product.urlForProductTamperingChallenge) {
-      description += ' <a href="'+product.urlForProductTamperingChallenge+'" target="_blank">More...</a>'
+      description += ' <a href="' + product.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
     } else if (product.fileForRetrieveBlueprintChallenge) {
       if (datacache.retrieveBlueprintChallengeFile) {
         console.error('Cannot use ' + product.fileForRetrieveBlueprintChallenge + ' when ' + datacache.retrieveBlueprintChallengeFile + ' is already being used for the Retrieve Blueprint Challenge.')
