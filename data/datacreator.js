@@ -714,8 +714,8 @@ function createProducts () {
     const reviews = product.reviews
     if (product.useForChristmasSpecialChallenge) {
       description += ' (Seasonal special offer! Limited availability!)'
-    } else if (product.useForProductTamperingChallenge) {
-      description += ' <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+    } else if (product.urlForProductTamperingChallenge) {
+      description += ' <a href="'+product.urlForProductTamperingChallenge+'" target="_blank">More...</a>'
     } else if (product.fileForRetrieveBlueprintChallenge) {
       if (datacache.retrieveBlueprintChallengeFile) {
         console.error('Cannot use ' + product.fileForRetrieveBlueprintChallenge + ' when ' + datacache.retrieveBlueprintChallengeFile + ' is already being used for the Retrieve Blueprint Challenge.')
