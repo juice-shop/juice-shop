@@ -270,13 +270,19 @@ function createChallenges () {
   models.Challenge.create({
     name: 'Product Tampering',
     category: 'Privilege Escalation',
-    description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=O-Saft">O-Saft product</a> description into <i>http://kimminich.de</i>.',
     difficulty: 3,
     hint: addHint('Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#change-the-href-of-the-link-within-the-o-saft-product-description'),
     solved: false
   }).then(challenge => {
     challenges.changeProductChallenge = challenge
+
+    for (const product of config.get('products')) {
+      if (product.urlForProductTamperingChallenge) {
+        models.sequelize.query('UPDATE Challenges SET description = \'Change the <code>href</code> of the link within the <a href="/#/search?q=' + product.name + '">' + product.name + '</a> product description into <i>http://kimminich.de</i>.\' WHERE id = ' + challenge.id)
+        break
+      }
+    }
   })
   models.Challenge.create({
     name: 'Vulnerable Library',
