@@ -17,6 +17,7 @@ application:
   recyclePage:
     topProductImage: "fruit_press.jpg"
     bottomProductImage: "apple_pressings.jpg"
+  altcoinName: Juicycoin
 products:
   - name: "Apple Juice (1000ml)"
     price: 1.99

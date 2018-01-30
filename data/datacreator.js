@@ -636,6 +636,30 @@ function createChallenges () {
   }).then(challenge => {
     challenges.rceOccupyChallenge = challenge
   })
+  models.Challenge.create({
+    name: 'Blockchain Tier 1',
+    category: 'Cryptographic Issues',
+    description: 'Learn about the Token Sale before its official announcement.',
+    difficulty: 4,
+    hint: addHint('The developers truly believe in "Security through Obscurity" over actual access restrictions.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#learn-about-the-token-sale-before-its-official-announcement'),
+    solved: false
+  }).then(challenge => {
+    challenges.tokenSaleChallenge = challenge
+  })
+/*
+  models.Challenge.create({
+    name: 'Blockchain Tier 2',
+    category: 'Cryptographic Issues',
+    description: 'Be <em>the first</em> to sign up for the Token Sale before its official go-live.',
+    difficulty: 5,
+    hint: addHint('Unfortunately, several others have been faster than you. You need to push to the front somehow.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#be-the-first-to-sign-up-for-the-token-sale-before-its-official-go-live'),
+    solved: false
+  }).then(challenge => {
+    challenges.tokenSaleSignUpChallenge = challenge
+  })
+*/
 }
 
 function createUsers () {

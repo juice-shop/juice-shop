@@ -86,6 +86,15 @@ describe('verify', () => {
       expect(challenges.adminSectionChallenge.solved).to.equal(true)
     })
 
+    it('"tokenSaleChallenge" is solved when the tokensale.png transpixel is this.requested', () => {
+      challenges.tokenSaleChallenge = { solved: false, save: this.save }
+      this.req.url = 'http://juice-sh.op/public/images/tracking/tokensale.png'
+
+      verify.accessControlChallenges()(this.req, this.res, this.next)
+
+      expect(challenges.tokenSaleChallenge.solved).to.equal(true)
+    })
+
     it('"geocitiesThemeChallenge" is solved when the microfab.gif image is this.requested', () => {
       challenges.geocitiesThemeChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/images/tracking/microfab.gif'

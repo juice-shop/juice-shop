@@ -8,6 +8,7 @@ application:
   recyclePage:
     topProductImage: "undefined.png"
     bottomProductImage: "thingie1.jpg"
+  altcoinName: Bodgecoin
 products:
   - name: "Basic Widget"
     description: "D tt brpr t rrg ljlw tmneipn.  uwb qolq  rt n pejdkqg nokd  f pydns inoiei."
