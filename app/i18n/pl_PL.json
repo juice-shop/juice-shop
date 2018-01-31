@@ -51,6 +51,7 @@
   "LABEL_QUANTITY": "Ilość",
   "LABEL_TOTAL_PRICE": "Cena całkowita",
   "BTN_CHECKOUT": "Realizuj zamówienie",
+  "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kod kuponu musi być {{length}} znaków.",
   "LABEL_COUPON": "Kupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon Rabatowy ? Śledź nas na {{twitter}} lub {{facebook}} aby dostatawać co miesięąc kupony i innych spam!",
@@ -124,5 +125,14 @@
   "LABEL_REVIEW": "Opinia",
   "LABEL_REVIEWS": "Opinie",
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "Dodaj opinię produktu",
-  "LABEL_NO_REVIEWS": "Brak Opinii"
+  "LABEL_NO_REVIEWS": "Brak Opinii",
+  "TITLE_TOKENSALE": "Token Sale",
+  "SECTION_ICO": "Initial Coin Offering for {{juicycoin}}",
+  "ICO_FAQ": "FAQ about our ICO",
+  "SECTION_WHITEPAPER": "Whitepaper",
+  "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
+  "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
+  "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
+  "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
 }
