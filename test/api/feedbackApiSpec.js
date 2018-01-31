@@ -34,13 +34,13 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS4")</script>script>alert("XSS4")<</script>/script>',
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS")</script>script>alert("XSS")<</script>/script>',
         rating: 1
       }
     })
       .expect('status', 201)
       .expect('json', 'data', {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS4")</script>'
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS")</script>'
       })
       .done(done)
   })

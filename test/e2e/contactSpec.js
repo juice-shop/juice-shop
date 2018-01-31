@@ -64,22 +64,22 @@ describe('/#/contact', () => {
     it('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
-      comment.sendKeys('<<script>Foo</script>script>alert("XSS4")<</script>/script>')
+      comment.sendKeys('<<script>Foo</script>script>alert("XSS")<</script>/script>')
       rating.click()
 
       submitButton.click()
 
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS4')
+        expect(alert.getText()).toEqual('XSS')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS4' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS4')
+        expect(alert.getText()).toEqual('XSS')
         alert.accept()
         element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
       })

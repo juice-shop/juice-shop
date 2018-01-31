@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
+[![Greenkeeper badge](https://badges.greenkeeper.io/bkimminich/juice-shop-ctf.svg)](https://greenkeeper.io/)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -232,11 +233,11 @@ forking and opening a Pull Request!
   [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get
   some swag (Shirts, Hoodies, Mugs) with the official OWASP Juice Shop
   logo
-* ~~On
-  [Stickermule.com](https://www.stickermule.com/user/1070702817/stickers)
-  you can get four variants of the OWASP Juice Shop logo to decorate
-  your laptop~~ _(Stickermule closed their marketplace. We are looking
-  for an alternative sticker vendor for you to order from directly.)_
+* On
+  [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
+  you can get variants of the OWASP Juice Shop logo as single stickers
+  to decorate your laptop with. They can also print magnets, iron-ons,
+  sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
 [contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
@@ -284,7 +285,7 @@ guide for help with filling out the donation form correctly.
 ### Code Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
+Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
 
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
@@ -304,6 +305,8 @@ Ordered by added lines of code as of Sun, 02 Dec 2017 on `master`.
   `abhishekbundela`
 - [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
 - [battletux](https://github.com/battletux) aka `battletux`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
+- [Simon De Lang](https://github.com/simondel) aka `simondel`
 - [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka

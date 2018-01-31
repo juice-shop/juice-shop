@@ -5,12 +5,13 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('appConfiguration', () => {
-  it('should return configuration object', () => {
-    const retrieveAppConfiguration = require('../../routes/appConfiguration')
-    const req = {}
-    const res = { json: sinon.spy() }
+  const retrieveAppConfiguration = require('../../routes/appConfiguration')
 
-    retrieveAppConfiguration()(req, res)
-    expect(res.json).to.have.been.calledWith({ config: require('config') })
+  it('should return configuration object', () => {
+    this.req = {}
+    this.res = { json: sinon.spy() }
+
+    retrieveAppConfiguration()(this.req, this.res)
+    expect(this.res.json).to.have.been.calledWith({ config: require('config') })
   })
 })

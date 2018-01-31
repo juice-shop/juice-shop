@@ -5,29 +5,28 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('keyServer', () => {
-  let serveKeyFiles, req, res, next
+  const serveKeyFiles = require('../../routes/keyServer')
 
   beforeEach(() => {
-    serveKeyFiles = require('../../routes/keyServer')
-    req = { params: { } }
-    res = { sendFile: sinon.spy(), status: sinon.spy() }
-    next = sinon.spy()
+    this.req = { params: { } }
+    this.res = { sendFile: sinon.spy(), status: sinon.spy() }
+    this.next = sinon.spy()
   })
 
   it('should serve requested file from folder /encryptionkeys', () => {
-    req.params.file = 'test.file'
+    this.req.params.file = 'test.file'
 
-    serveKeyFiles()(req, res, next)
+    serveKeyFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/encryptionkeys[/\\]test.file/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/encryptionkeys[/\\]test.file/))
   })
 
   it('should raise error for slashes in filename', () => {
-    req.params.file = '../../../../nice.try'
+    this.req.params.file = '../../../../nice.try'
 
-    serveKeyFiles()(req, res, next)
+    serveKeyFiles()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 })

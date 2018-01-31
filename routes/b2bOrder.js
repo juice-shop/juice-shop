@@ -1,21 +1,31 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-const safeEval = require('safe-eval')
+const safeEval = require('notevil')
+const vm = require('vm')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function b2bOrder () {
-  return (req, res) => {
-    const orderLinesData = req.body.orderLinesData || []
-    orderLinesData.forEach(orderLineData => {
-      try {
-        safeEval(orderLineData, {}, { timeout: 2000 })
-      } catch (err) {
-        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Script execution timed out.') {
+  return (req, res, next) => {
+    const orderLinesData = req.body.orderLinesData || ''
+    try {
+      const sandbox = { safeEval, orderLinesData }
+      vm.createContext(sandbox)
+      vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+      res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
+    } catch (err) {
+      if (err.message === 'Script execution timed out.') {
+        if (utils.notSolved(challenges.rceOccupyChallenge)) {
+          utils.solve(challenges.rceOccupyChallenge)
+        }
+        res.status(503)
+        next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+      } else {
+        if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
           utils.solve(challenges.rceChallenge)
         }
+        next(err)
       }
-    })
-    res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
+    }
   }
 
   function uniqueOrderNumber () {
