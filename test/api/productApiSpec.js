@@ -47,13 +47,13 @@ describe('/api/Products', () => {
       headers: authHeader,
       body: {
         name: 'XSS Juice (42ml)',
-        description: '<script>alert("XSS3")</script>',
+        description: '<script>alert("XSS")</script>',
         price: 9999.99,
         image: 'xss3juice.jpg'
       }
     })
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<script>alert("XSS3")</script>' })
+      .expect('json', 'data', { description: '<script>alert("XSS")</script>' })
       .done(done)
   })
 })
@@ -101,12 +101,12 @@ describe('/api/Products/:id', () => {
     frisby.put(API_URL + '/Products/1', {
       header: jsonHeader,
       body: {
-        description: "<script>alert('XSS3')</script>"
+        description: "<script>alert('XSS')</script>"
       }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: "<script>alert('XSS3')</script>" })
+      .expect('json', 'data', { description: "<script>alert('XSS')</script>" })
       .done(done)
   })
 

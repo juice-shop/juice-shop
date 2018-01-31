@@ -5,38 +5,37 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('angular', () => {
-  let serveAngularClient, req, res, next
+  const serveAngularClient = require('../../routes/angular')
 
   beforeEach(() => {
-    serveAngularClient = require('../../routes/angular')
-    req = { }
-    res = { sendFile: sinon.spy() }
-    next = sinon.spy()
+    this.req = { }
+    this.res = { sendFile: sinon.spy() }
+    this.next = sinon.spy()
   })
 
   it('should serve index.html for any URL', () => {
-    req.url = '/any/thing'
+    this.req.url = '/any/thing'
 
-    serveAngularClient()(req, res, next)
+    serveAngularClient()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/index\.html/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/index\.html/))
   })
 
   it('should raise error for /api endpoint URL', () => {
-    req.url = '/api'
+    this.req.url = '/api'
 
-    serveAngularClient()(req, res, next)
+    serveAngularClient()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
   it('should raise error for /rest endpoint URL', () => {
-    req.url = '/rest'
+    this.req.url = '/rest'
 
-    serveAngularClient()(req, res, next)
+    serveAngularClient()(this.req, this.res, this.next)
 
-    expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
+    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
+    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 })

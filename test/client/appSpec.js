@@ -105,4 +105,26 @@ describe('app', function () {
       expect($httpProvider.interceptors).toContain('rememberMeInterceptor')
     }))
   })
+
+  describe('emailName filer', function () {
+    var emailName
+
+    beforeEach(function () {
+      inject(function ($injector) {
+        emailName = $injector.get('$filter')('emailName')
+      })
+    })
+
+    it('should be defined', inject(function () {
+      expect(emailName).toBeDefined()
+    }))
+
+    it('should return name from an email', inject(function () {
+      expect(emailName('admin@juice-sh.op')).toBe('admin')
+    }))
+
+    it('should return first and last name from a typical email', inject(function () {
+      expect(emailName('bjoern.kimminich@owasp.org')).toBe('bjoern kimminich')
+    }))
+  })
 })

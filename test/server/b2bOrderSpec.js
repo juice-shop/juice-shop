@@ -5,54 +5,63 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('b2bOrder', () => {
-  let createB2bOrder, challenges, req, res, next
-  const save = () => ({
-    then: function () { }
-  })
+  const createB2bOrder = require('../../routes/b2bOrder')
+  const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
-    createB2bOrder = require('../../routes/b2bOrder')
-    challenges = require('../../data/datacache').challenges
-    req = { body: { } }
-    res = { json: sinon.spy() }
-    next = sinon.spy()
+    this.req = { body: { } }
+    this.res = { json: sinon.spy(), status: sinon.spy() }
+    this.next = sinon.spy()
+    this.save = () => ({
+      then: function () { }
+    })
   })
 
-  it('error thrown from deserialization timeout solves "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+  it('infinite loop payload does not succeed but solves "rceChallenge"', () => {
+    challenges.rceChallenge = { solved: false, save: this.save }
 
-    req.body.orderLinesData = ['(function dos() { while(true); })()']
+    this.req.body.orderLinesData = '(function dos() { while(true); })()'
 
-    createB2bOrder()(req, res, next)
+    createB2bOrder()(this.req, this.res, this.next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
+  })
+
+  it('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
+    challenges.rceOccupyChallenge = { solved: false, save: this.save }
+
+    this.req.body.orderLinesData = '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
+
+    createB2bOrder()(this.req, this.res, this.next)
+
+    expect(challenges.rceOccupyChallenge.solved).to.equal(true)
   }).timeout(3000)
 
   it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save: this.save }
 
-    req.body.orderLinesData = ['{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}']
+    this.req.body.orderLinesData = '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
 
-    createB2bOrder()(req, res, next)
+    createB2bOrder()(this.req, this.res, this.next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
   it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save: this.save }
 
-    req.body.orderLinesData = ['{"hello": "world", "foo": 42, "bar": [false, true]}']
+    this.req.body.orderLinesData = '{"hello": "world", "foo": 42, "bar": [false, true]}'
 
-    createB2bOrder()(req, res, next)
+    createB2bOrder()(this.req, this.res, this.next)
     expect(challenges.rceChallenge.solved).to.equal(false)
   })
 
   it('deserializing broken JSON should not solve "rceChallenge"', () => {
-    challenges.rceChallenge = { solved: false, save: save }
+    challenges.rceChallenge = { solved: false, save: this.save }
 
-    req.body.orderLinesData = ['{ "productId: 28']
+    this.req.body.orderLinesData = '{ "productId: 28'
 
-    createB2bOrder()(req, res, next)
+    createB2bOrder()(this.req, this.res, this.next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
   })

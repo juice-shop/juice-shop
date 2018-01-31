@@ -48,6 +48,16 @@ describe('/file-upload', () => {
       .done(done)
   })
 
+  it('POST large XML file near upload size limit', done => {
+    file = path.resolve(__dirname, '../files/maxSizeForServer.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 410)
+      .done(done)
+  })
+
   if (process.platform === 'win32') {
     it('POST file type XML with XXE attack against Windows', done => {
       file = path.resolve(__dirname, '../files/xxeForWindows.xml')
@@ -56,6 +66,16 @@ describe('/file-upload', () => {
 
       frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
         .expect('status', 410)
+        .done(done)
+    })
+
+    it('POST file type XML with Quadratic Blowup attack only works reliably on Windows', done => {
+      file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
+      form = new FormData()
+      form.append('file', fs.createReadStream(file))
+
+      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+        .expect('status', 503)
         .done(done)
     })
   }
@@ -70,15 +90,28 @@ describe('/file-upload', () => {
         .expect('status', 410)
         .done(done)
     })
+
+    if (!process.env.TRAVIS_BUILD_NUMBER) {
+      it('POST file type XML with DoS attack against Linux', done => {
+        file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
+        form = new FormData()
+        form.append('file', fs.createReadStream(file))
+
+        frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+          .expect('status', 503)
+          .done(done)
+      })
+    }
   }
 
-  it('POST file type XML with /dev/random DoS attack is blocked', done => {
-    file = path.resolve(__dirname, '../files/xxeDoS.xml')
+  it('POST file type XML with Billion Laughs attack is caught by parser', done => {
+    file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
 
     frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-      .expect('status', 500)
+      .expect('status', 410)
+      .expect('bodyContains', 'Detected an entity reference loop')
       .done(done)
   })
 

@@ -33,6 +33,12 @@ describe('/redirect', () => {
     .done(done)
   })
 
+  it('GET redirected to https://www.stickeryou.com/products/owasp-juice-shop/794 when this URL is passed as "to" parameter', done => {
+    frisby.get(URL + '/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794', { redirect: 'manual' })
+    .expect('status', 302)
+    .done(done)
+  })
+
   it('GET redirected to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW when this URL is passed as "to" parameter', done => {
     frisby.get(URL + '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW', { redirect: 'manual' })
     .expect('status', 302)

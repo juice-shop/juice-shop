@@ -5,28 +5,27 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 describe('easterEgg', () => {
-  let serveEasterEgg, challenges, req, res
-  const save = () => ({
-    then: function () { }
-  })
+  const serveEasterEgg = require('../../routes/easterEgg')
+  const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
-    serveEasterEgg = require('../../routes/easterEgg')
-    challenges = require('../../data/datacache').challenges
-    res = { sendFile: sinon.spy() }
-    req = {}
+    this.res = { sendFile: sinon.spy() }
+    this.req = {}
+    this.save = () => ({
+      then: function () { }
+    })
   })
 
   it('should serve /app/private/threejs-demo.html', () => {
-    serveEasterEgg()(req, res)
+    serveEasterEgg()(this.req, this.res)
 
-    expect(res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]threejs-demo\.html/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]threejs-demo\.html/))
   })
 
   it('should solve "easterEggLevelTwoChallenge"', () => {
-    challenges.easterEggLevelTwoChallenge = { solved: false, save: save }
+    challenges.easterEggLevelTwoChallenge = { solved: false, save: this.save }
 
-    serveEasterEgg()(req, res)
+    serveEasterEgg()(this.req, this.res)
 
     expect(challenges.easterEggLevelTwoChallenge.solved).to.equal(true)
   })

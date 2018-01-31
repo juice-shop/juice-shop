@@ -14,20 +14,22 @@ describe('/rest', () => {
 
     it('should be possible to create a new product when logged in', () => {
       const EC = protractor.ExpectedConditions
-
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<script>alert("XSS3")</script>\', price: 47.11});')
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<script>alert("XSS")</script>\', price: 47.11});')
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
 
       browser.get('/#/search')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS3' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(
                 alert => {
-                  expect(alert.getText()).toEqual('XSS3')
+                  expect(alert.getText()).toEqual('XSS')
                   alert.accept()
 
-                  browser.ignoreSynchronization = true
+                  browser.waitForAngularEnabled(false)
                   browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + (config.get('products').length + 1) + '\', {description: \'alert disabled\'});')
                   browser.driver.sleep(1000)
-                  browser.ignoreSynchronization = false
+                  browser.waitForAngularEnabled(true)
                 })
     })
 
@@ -36,10 +38,11 @@ describe('/rest', () => {
 
   describe('challenge "changeProduct"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
-      browser.ignoreSynchronization = true
+      browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + tamperingProductId + '\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
       browser.driver.sleep(1000)
-      browser.ignoreSynchronization = false
+      browser.waitForAngularEnabled(true)
+
       browser.get('/#/search')
     })
 

@@ -27,13 +27,12 @@ describe('/', () => {
 
   describe('challenge "geocitiesTheme"', () => {
     it('should be possible to change the CSS theme to geo-bootstrap', () => {
-      browser.ignoreSynchronization = true
+      browser.waitForAngularEnabled(false)
       browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");')
-      browser.driver.sleep(2000)
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
 
       browser.get('/#/search')
-      browser.driver.sleep(1000)
-      browser.ignoreSynchronization = false
     })
 
     protractor.expect.challengeSolved({challenge: 'Eye Candy'})
@@ -41,7 +40,7 @@ describe('/', () => {
 
   describe('challenge "extraLanguage"', () => {
     it('should be able to access the Klingon translation file', () => {
-      browser.driver.get(browser.baseUrl + '/i18n/tlh.json')
+      browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
     })
 
     protractor.expect.challengeSolved({challenge: 'Extra Language'})

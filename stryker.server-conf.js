@@ -9,6 +9,9 @@ module.exports = function (config) {
       { pattern: 'routes/*.js', mutated: true, included: false },
       { pattern: 'node_modules/**/*.js', included: false, mutated: false },
       { pattern: 'node_modules/**/*.json', included: false, mutated: false },
+      { pattern: 'node_modules/sqlite3/**', included: false, mutated: false },
+      { pattern: 'node_modules/libxmljs/**', included: false, mutated: false },
+      { pattern: 'encryptionkeys/**', included: false, mutated: false },
       { pattern: 'config/default.yml', included: false, mutated: false },
       { pattern: 'app/index.html', included: false, mutated: false },
       { pattern: 'package.json', included: false, mutated: false },
@@ -18,6 +21,7 @@ module.exports = function (config) {
     testRunner: 'mocha',
     testFramework: 'mocha',
     coverageAnalysis: 'perTest',
+    mutator: 'javascript',
     reporter: ['html', 'progress'],
     htmlReporter: {
       baseDir: 'build/reports/mutation/server'
