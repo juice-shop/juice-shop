@@ -128,7 +128,7 @@ function createChallenges () {
     name: 'User Credentials',
     category: 'SQL Injection',
     description: 'Retrieve a list of all user credentials via SQL Injection',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sqli.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'),
     solved: false
@@ -227,7 +227,7 @@ function createChallenges () {
     name: 'Forgotten Developer Backup',
     category: 'Forgotten Content',
     description: 'Access a developer\'s forgotten backup file.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-developers-forgotten-backup-file'),
     solved: false
@@ -238,7 +238,7 @@ function createChallenges () {
     name: 'Forgotten Sales Backup',
     category: 'Forgotten Content',
     description: 'Access a salesman\'s forgotten backup file.',
-    difficulty: 2,
+    difficulty: 3,
     hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-salesmans-forgotten-backup-file'),
     solved: false
@@ -288,7 +288,7 @@ function createChallenges () {
     name: 'Vulnerable Library',
     category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library\'s version as well.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'),
     solved: false
@@ -310,7 +310,7 @@ function createChallenges () {
     name: 'Easter Egg Tier 1',
     category: 'Forgotten Content',
     description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('If you solved one of the three file access challenges, you already know where to find the easter egg.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#find-the-hidden-easter-egg'),
     solved: false
@@ -332,7 +332,7 @@ function createChallenges () {
     name: 'Forged Coupon',
     category: 'Cryptographic Issues',
     description: 'Forge a coupon code that gives you a discount of at least 80%.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('Try either a) a knowledgable brute force attack or b) reverse engineering.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'),
     solved: false
@@ -343,7 +343,7 @@ function createChallenges () {
     name: 'Eye Candy',
     category: 'Forgotten Content',
     description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('The mentioned golden era lasted from 1994 to 2009.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'),
     solved: false
@@ -409,7 +409,7 @@ function createChallenges () {
     name: 'Imaginary Challenge',
     category: 'Cryptographic Issues',
     description: 'Solve challenge #99. Unfortunately, this challenge does not exist.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('You need to trick the hacking progress persistence feature into thinking you solved challenge #99.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#solve-challenge-99'),
     solved: false
@@ -420,7 +420,7 @@ function createChallenges () {
     name: 'Login Bjoern',
     category: 'Weak Security Mechanisms',
     description: 'Log in with Bjoern\'s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('The security flaw behind this challenge is 100% Juice Shop\'s fault and 0% Google\'s.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-bjoerns-user-account'),
     solved: false
@@ -431,7 +431,7 @@ function createChallenges () {
     name: 'Login CISO',
     category: 'Weak Security Mechanisms',
     description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer\'s user account.',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('Don\'t try to beat Google\'s OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop\'s end.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#exploit-oauth-20-to-log-in-with-the-cisos-user-account'),
     solved: false
@@ -442,7 +442,7 @@ function createChallenges () {
     name: 'Login Support Team',
     category: 'Weak Security Mechanisms',
     description: 'Log in with the support team\'s original user credentials without applying SQL Injection or any other bypass.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('The underlying flaw of this challenge is a lot more human error than technical weakness.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-the-support-teams-original-user-credentials'),
     solved: false
@@ -453,7 +453,7 @@ function createChallenges () {
     name: 'Premium Paywall',
     category: 'Cryptographic Issues',
     description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--i0ycvJyZ+WoHTEIjAatNFK5A8r8GxRbwOLC2OuXHVsZcKkEc3lRgc58KjEKn2Byj8Fg3A3ai5yahQANdWL/5j5k3E3qHTjm93tuenE0YlauCdy+7tGkFvo5OltIhiXSWt1SiICecyghFZ8ca/aKtHQ==--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#unlock-premium-challenge-to-access-exclusive-content'),
     solved: false
@@ -464,7 +464,7 @@ function createChallenges () {
     name: 'Reset Jim\'s Password',
     category: 'Sensitive Data Exposure',
     description: 'Reset Jim\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
-    difficulty: 2,
+    difficulty: 3,
     hint: addHint('It\'s hard for celebrities to pick a security question from a hard-coded list where the answer is not publicly exposed.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-jims-password-via-the-forgot-password-mechanism'),
     solved: false
@@ -475,7 +475,7 @@ function createChallenges () {
     name: 'Reset Bender\'s Password',
     category: 'Sensitive Data Exposure',
     description: 'Reset Bender\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('Not as trivial as Jim\'s but still not too difficult with some "Futurama" background knowledge.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-benders-password-via-the-forgot-password-mechanism'),
     solved: false
@@ -486,7 +486,7 @@ function createChallenges () {
     name: 'Reset Bjoern\'s Password',
     category: 'Sensitive Data Exposure',
     description: 'Reset Bjoern\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('Nothing a little bit of Facebook stalking couldn\'t reveal. Might involve a historical twist.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-bjoerns-password-via-the-forgot-password-mechanism'),
     solved: false
@@ -499,7 +499,7 @@ function createChallenges () {
     description: 'Let the server sleep for some time. (It has done more than enough hard work for you)',
     hint: addHint('This challenge is essentially a stripped-down Denial of Service (DoS) attack.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/nosqli.html#let-the-server-sleep-for-some-time'),
-    difficulty: 3,
+    difficulty: 4,
     solved: false
   }).then(challenge => {
     challenges.noSqlCommandChallenge = challenge
@@ -510,7 +510,7 @@ function createChallenges () {
     description: 'Update multiple product reviews at the same time.',
     hint: addHint('Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/nosqli.html#update-multiple-product-reviews-at-the-same-time'),
-    difficulty: 3,
+    difficulty: 4,
     solved: false
   }).then(challenge => {
     challenges.noSqlInjectionChallenge = challenge
@@ -519,7 +519,7 @@ function createChallenges () {
     name: 'Retrieve Blueprint',
     category: 'Forgotten Content',
     description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.',
-    difficulty: 3,
+    difficulty: 5,
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'),
     solved: false
   }).then(challenge => {
@@ -536,7 +536,7 @@ function createChallenges () {
     name: 'Typosquatting Tier 1',
     category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('This challenge has nothing to do with URLs or domains. Investigate the forgotten developer\'s backup file instead.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'),
     solved: false
@@ -547,7 +547,7 @@ function createChallenges () {
     name: 'Typosquatting Tier 2',
     category: 'Vulnerable Component',
     description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'),
     solved: false
@@ -558,7 +558,7 @@ function createChallenges () {
     name: 'JWT Issues Tier 1',
     category: 'Weak Security Mechanism',
     description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('This challenge exploits a weird option that is supported when signing tokens with JWT.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#forge-an-essentially-unsigned-jwt-token'),
     solved: false
@@ -569,7 +569,7 @@ function createChallenges () {
     name: 'JWT Issues Tier 2',
     category: 'Weak Security Mechanism',
     description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#forge-an-almost-properly-rsa-signed-jwt-token'),
     solved: false
@@ -580,7 +580,7 @@ function createChallenges () {
     name: 'Misplaced Signature File',
     category: 'Forgotten Content',
     description: 'Access a misplaced <a href="https://github.com/Neo23x0/sigma">SIEM signature</a> file.',
-    difficulty: 3,
+    difficulty: 4,
     hint: addHint('You need to trick a security mechanism into thinking that the file you want has a valid file type.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#access-a-misplaced-siem-signature-file'),
     solved: false
@@ -591,7 +591,7 @@ function createChallenges () {
     name: 'Deprecated Interface',
     category: 'Forgotten Content',
     description: 'Use a deprecated B2B interface that was not properly shut down.',
-    difficulty: 1,
+    difficulty: 2,
     hint: addHint('The developers who disabled the interface think they could go invisible by just closing their eyes.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'),
     solved: false
@@ -613,7 +613,7 @@ function createChallenges () {
     name: 'XXE Tier 2',
     category: 'XXE',
     description: 'Give the server something to chew on for quite a while.',
-    difficulty: 4,
+    difficulty: 5,
     hint: addHint('It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while'),
     solved: false
@@ -635,7 +635,7 @@ function createChallenges () {
     name: 'RCE Tier 2',
     category: 'Deserialization',
     description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('Your attack payload must not trigger the protection againt too many iterations.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution-that-occupies-the-server-for-a-while-without-using-infinite-loops'),
     solved: false
@@ -658,7 +658,7 @@ function createChallenges () {
     name: 'Blockchain Tier 2',
     category: 'Cryptographic Issues',
     description: 'Be <em>the first</em> to sign up for the Token Sale before its official go-live.',
-    difficulty: 5,
+    difficulty: 6,
     hint: addHint('Unfortunately, several others have been faster than you. You need to push to the front somehow.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/crypto.html#be-the-first-to-sign-up-for-the-token-sale-before-its-official-go-live'),
     solved: false
