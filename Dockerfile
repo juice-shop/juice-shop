@@ -1,9 +1,9 @@
-FROM node:8 as installer
+FROM node:9 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 
-FROM node:8-alpine
+FROM node:9-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
