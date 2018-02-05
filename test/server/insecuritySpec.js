@@ -51,7 +51,6 @@ describe('insecurity', () => {
     const z85 = require('z85')
 
     it('returns undefined when not passing in a coupon code', () => {
-      expect(insecurity.discountFromCoupon()).to.equal(undefined)
       expect(insecurity.discountFromCoupon(undefined)).to.equal(undefined)
       expect(insecurity.discountFromCoupon(null)).to.equal(undefined)
     })
@@ -78,6 +77,41 @@ describe('insecurity', () => {
       expect(insecurity.discountFromCoupon(insecurity.generateCoupon('05'))).to.equal(5)
       expect(insecurity.discountFromCoupon(insecurity.generateCoupon(10))).to.equal(10)
       expect(insecurity.discountFromCoupon(insecurity.generateCoupon(99))).to.equal(99)
+    })
+  })
+
+  describe('authenticatedUsers', () => {
+    it('returns user by associated token', () => {
+      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+
+      expect(insecurity.authenticatedUsers.get('11111')).to.deep.equal({data: {id: 1}})
+    })
+
+    it('returns undefined if no token is passed in', () => {
+      expect(insecurity.authenticatedUsers.get(undefined)).to.equal(undefined)
+      expect(insecurity.authenticatedUsers.get(null)).to.equal(undefined)
+    })
+
+    it('returns token by associated user', () => {
+      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+
+      expect(insecurity.authenticatedUsers.tokenOf({id: 1})).to.equal('11111')
+    })
+
+    it('returns undefined if no user is passed in', () => {
+      expect(insecurity.authenticatedUsers.tokenOf(undefined)).to.equal(undefined)
+      expect(insecurity.authenticatedUsers.tokenOf(null)).to.equal(undefined)
+    })
+
+    it('returns user by associated token from request', () => {
+      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+
+      expect(insecurity.authenticatedUsers.from({headers: {authorization: 'Bearer 11111'}})).to.deep.equal({data: {id: 1}})
+    })
+
+    it('returns undefined if no token is present in request', () => {
+      expect(insecurity.authenticatedUsers.from({headers: {}})).to.equal(undefined)
+      expect(insecurity.authenticatedUsers.from({})).to.equal(undefined)
     })
   })
 })
