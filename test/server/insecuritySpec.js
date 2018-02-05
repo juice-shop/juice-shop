@@ -41,4 +41,34 @@ describe('insecurity', () => {
       expect(coupon).to.equal(insecurity.generateCoupon(new Date('December 31, 1999 23:59:59'), 10))
     })
   })
+
+  describe('discountFromCoupon', () => {
+    const z85 = require('z85')
+
+    it('returns undefined when not passing in a coupon code', () => {
+      expect(insecurity.discountFromCoupon()).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(undefined)).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(null)).to.equal(undefined)
+    })
+
+    it('returns undefined for malformed coupon code', () => {
+      expect(insecurity.discountFromCoupon('')).to.equal(undefined)
+      expect(insecurity.discountFromCoupon('x')).to.equal(undefined)
+      expect(insecurity.discountFromCoupon('___')).to.equal(undefined)
+    })
+
+    it('returns undefined for coupon code not according to expected pattern', () => {
+      expect(insecurity.discountFromCoupon(z85.encode('Test'))).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(z85.encode('XXX00-10'))).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(z85.encode('DEC18-999'))).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(z85.encode('DEC18-1'))).to.equal(undefined)
+      expect(insecurity.discountFromCoupon(z85.encode('DEC2018-10'))).to.equal(undefined)
+    })
+
+    it('returns discount from valid coupon code', () => {
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), '05'))).to.equal(5)
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), 10))).to.equal(10)
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), 99))).to.equal(99)
+    })
+  })
 })
