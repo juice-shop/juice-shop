@@ -7,9 +7,9 @@ const REST_URL = 'http://localhost:3000/rest'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
-const validCoupon = insecurity.generateCoupon(new Date(), 15)
-const outdatedCoupon = insecurity.generateCoupon(new Date(2001, 0, 1), 20)
-const forgedCoupon = insecurity.generateCoupon(new Date(), 99)
+const validCoupon = insecurity.generateCoupon(15)
+const outdatedCoupon = insecurity.generateCoupon(20, new Date(2001, 0, 1))
+const forgedCoupon = insecurity.generateCoupon(99)
 
 describe('/rest/basket/:id', () => {
   it('GET existing basket by id is not allowed via public API', done => {
