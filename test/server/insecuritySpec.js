@@ -29,16 +29,21 @@ describe('insecurity', () => {
     const z85 = require('z85')
 
     it('returns base85-encoded month, year and discount as coupon code', () => {
-      const coupon = insecurity.generateCoupon(new Date('1980-01-01'), 20)
+      const coupon = insecurity.generateCoupon(20, new Date('1980-01-01'))
       expect(coupon).to.equal('n<MiifFb4l')
       expect(z85.decode(coupon).toString()).to.equal('JAN80-20')
     })
 
+    it('uses current month and year if not specified', () => {
+      const coupon = insecurity.generateCoupon(20)
+      expect(coupon).to.equal(insecurity.generateCoupon(20, new Date()))
+    })
+
     it('does not encode day of month or time into coupon code', () => {
-      const coupon = insecurity.generateCoupon(new Date('December 01, 1999'), 10)
-      expect(coupon).to.equal(insecurity.generateCoupon(new Date('December 01, 1999 01:00:00'), 10))
-      expect(coupon).to.equal(insecurity.generateCoupon(new Date('December 02, 1999'), 10))
-      expect(coupon).to.equal(insecurity.generateCoupon(new Date('December 31, 1999 23:59:59'), 10))
+      const coupon = insecurity.generateCoupon(10, new Date('December 01, 1999'))
+      expect(coupon).to.equal(insecurity.generateCoupon(10, new Date('December 01, 1999 01:00:00')))
+      expect(coupon).to.equal(insecurity.generateCoupon(10, new Date('December 02, 1999')))
+      expect(coupon).to.equal(insecurity.generateCoupon(10, new Date('December 31, 1999 23:59:59')))
     })
   })
 
@@ -66,9 +71,9 @@ describe('insecurity', () => {
     })
 
     it('returns discount from valid coupon code', () => {
-      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), '05'))).to.equal(5)
-      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), 10))).to.equal(10)
-      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(new Date(), 99))).to.equal(99)
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon('05'))).to.equal(5)
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(10))).to.equal(10)
+      expect(insecurity.discountFromCoupon(insecurity.generateCoupon(99))).to.equal(99)
     })
   })
 })
