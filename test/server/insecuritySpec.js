@@ -70,6 +70,10 @@ describe('insecurity', () => {
       expect(insecurity.discountFromCoupon(z85.encode('DEC2018-10'))).to.equal(undefined)
     })
 
+    it('returns undefined for expired coupon code', () => {
+      expect(insecurity.discountFromCoupon(z85.encode('SEP14-50'))).to.equal(undefined)
+    })
+
     it('returns discount from valid coupon code', () => {
       expect(insecurity.discountFromCoupon(insecurity.generateCoupon('05'))).to.equal(5)
       expect(insecurity.discountFromCoupon(insecurity.generateCoupon(10))).to.equal(10)
