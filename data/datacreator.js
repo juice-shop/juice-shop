@@ -483,6 +483,17 @@ function createChallenges () {
     challenges.resetPasswordBenderChallenge = challenge
   })
   models.Challenge.create({
+    name: 'Reset Morty\'s Password',
+    category: 'BruteForce',
+    description: 'Reset Morty\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism by bruteforcing the original answer to his security question.',
+    difficulty: 5,
+    hint: addHint('Find a way to bypass Rate Limiting and write a script to BruteForce answer to Morty\'s security question.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/'),
+    solved: false
+  }).then(challenge => {
+    challenges.resetPasswordMortyChallenge = challenge
+  })
+  models.Challenge.create({
     name: 'Reset Bjoern\'s Password',
     category: 'Sensitive Data Exposure',
     description: 'Reset Bjoern\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.',
@@ -700,6 +711,12 @@ function createUsers () {
     password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   }).then(user => {
     users.support = user
+  })
+  models.User.create({
+    email: 'morty@' + config.get('application.domain'),
+    password: 'focusOnScienceMorty!focusOnScience'
+  }).then(user => {
+    users.morty = user
   })
 }
 
@@ -960,5 +977,10 @@ function createSecurityAnswers () {
     SecurityQuestionId: 10,
     UserId: 6,
     answer: 'SC OLEA SRL' // http://www.olea.com.ro/
+  })
+  models.SecurityAnswer.create({
+    SecurityQuestionId: 1,
+    UserId: 7,
+    answer: 'JeRRy' // bruteforcible/
   })
 }

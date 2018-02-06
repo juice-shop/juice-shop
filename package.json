@@ -89,7 +89,8 @@
     "socket.io": "~2.0",
     "sqlite3": "~3.1.13",
     "swagger-ui-express": "~2.0",
-    "z85": "~0.0"
+    "z85": "~0.0",
+    "express-rate-limit": "*"
   },
   "devDependencies": {
     "chai": "~4.1",
