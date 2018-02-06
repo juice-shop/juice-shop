@@ -167,7 +167,7 @@ describe('/rest/user/reset-password', () => {
     frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'morty@\' + config.get(\'application.domain\')',
+        email: 'morty@' + config.get('application.domain'),
         answer: 'JeRRy',
         new: 'iBurri3dMySe1fInTheB4ckyard!',
         repeat: 'iBurri3dMySe1fInTheB4ckyard!'
