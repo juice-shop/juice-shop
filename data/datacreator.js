@@ -150,7 +150,7 @@ function createChallenges () {
     name: 'Five-Star Feedback',
     category: 'Privilege Escalation',
     description: 'Get rid of all 5-star customer feedback.',
-    difficulty: 1,
+    difficulty: 2,
     hint: addHint('Once you found admin section of the application, this challenge is almost trivial.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#get-rid-of-all-5-star-customer-feedback'),
     solved: false
