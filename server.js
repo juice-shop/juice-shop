@@ -17,7 +17,7 @@ const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
-const RateLimiter = require('express-rate-limit')
+const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const fileUpload = require('./routes/fileUpload')
 const redirect = require('./routes/redirect')
@@ -173,8 +173,7 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
 
-/* RateLimiter */
-var endpointLimiter = new RateLimiter({
+const endpointLimiter = new RateLimit({
   windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
   max: 100,
   keyGenerator: function (req) {

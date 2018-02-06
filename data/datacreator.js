@@ -484,11 +484,11 @@ function createChallenges () {
   })
   models.Challenge.create({
     name: 'Reset Morty\'s Password',
-    category: 'BruteForce',
+    category: 'Brute Force',
     description: 'Reset Morty\'s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism by bruteforcing the original answer to his security question.',
     difficulty: 5,
-    hint: addHint('Find a way to bypass Rate Limiting and write a script to BruteForce answer to Morty\'s security question.'),
-    hintUrl: addHint('https://bkimminich.gitbooks.io/'),
+    hint: addHint('Find a way to bypass Rate Limiting and write a script to bruteforce the answer to Morty\'s security question.'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/brute-force.html#reset-mortys-password-via-the-forgot-password-mechanism'),
     solved: false
   }).then(challenge => {
     challenges.resetPasswordMortyChallenge = challenge
