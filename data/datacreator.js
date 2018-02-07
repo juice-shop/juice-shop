@@ -744,11 +744,11 @@ function makeRandomString (length) {
 }
 
 function createProducts () {
-  function softDeleteIfConfigured (product) {
+  function softDeleteIfConfigured ({name, id}) {
     for (const configuredProduct of config.get('products')) {
-      if (product.name === configuredProduct.name) {
+      if (name === configuredProduct.name) {
         if (configuredProduct.deletedDate) {
-          models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + product.id)
+          models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + id)
         }
         break
       }
@@ -808,14 +808,14 @@ function createProducts () {
         }
       }
       return product
-    }).then(product => {
+    }).then(({id}) => {
       if (reviews) {
         return Promise.all(
           reviews
           .map((review) => {
             review.message = review.text
             review.author = review.author + '@' + config.get('application.domain')
-            review.product = product.id
+            review.product = id
             return review
           }).map((review) => {
             return mongodb.reviews.insert(review)
