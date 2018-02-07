@@ -121,7 +121,7 @@ describe('/rest/user/whoami', () => {
       }
     })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer ' + res.json.authentication.token } })
+      .then(({json}) => frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer ' + json.authentication.token } })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'user', {
