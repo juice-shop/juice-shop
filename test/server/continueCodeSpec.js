@@ -14,7 +14,7 @@ describe('continueCode', () => {
   })
 
   it('should be undefined when no challenges exist', () => {
-    Object.keys(challenges).forEach(function (key) { delete challenges[key] })
+    Object.keys(challenges).forEach(key => { delete challenges[key] })
 
     retrieveCurrentContinueCode()(this.req, this.res)
     expect(this.res.json).to.have.been.calledWith({ continueCode: undefined })

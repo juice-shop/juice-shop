@@ -176,7 +176,7 @@ app.use(verify.databaseRelatedChallenges())
 const endpointLimiter = new RateLimit({
   windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
   max: 100,
-  keyGenerator: function (req) {
+  keyGenerator (req) {
     return req.headers['X-Forwarded-For'] || req.ip
   },
   delayMs: 0
@@ -186,7 +186,7 @@ app.enable('trust proxy')
 app.use('/rest/user/reset-password', endpointLimiter)
 
 epilogue.initialize({
-  app: app,
+  app,
   sequelize: models.sequelize
 })
 
@@ -199,7 +199,7 @@ for (const modelName of autoModels) {
   })
 
   // fix the api difference between epilogue and previously used sequlize-restful
-  resource.all.send.before(function (req, res, context) {
+  resource.all.send.before((req, res, context) => {
     context.instance = {
       status: 'success',
       data: context.instance

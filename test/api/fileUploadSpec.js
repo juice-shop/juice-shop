@@ -6,7 +6,8 @@ const FormData = require('form-data')
 const URL = 'http://localhost:3000'
 
 describe('/file-upload', () => {
-  let file, form
+  let file
+  let form
 
   it('POST file valid PDF for client and API', done => {
     file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
