@@ -176,8 +176,8 @@ app.use(verify.databaseRelatedChallenges())
 const endpointLimiter = new RateLimit({
   windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
   max: 100,
-  keyGenerator (req) {
-    return req.headers['X-Forwarded-For'] || req.ip
+  keyGenerator ({headers, ip}) {
+    return headers['X-Forwarded-For'] || ip
   },
   delayMs: 0
 })
@@ -273,7 +273,7 @@ function registerWebsocketEvents () {
     })
 
     socket.on('notification received', data => {
-      const i = notifications.findIndex(element => element.flag === data)
+      const i = notifications.findIndex(({flag}) => flag === data)
       if (i > -1) {
         notifications.splice(i, 1)
       }
