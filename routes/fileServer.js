@@ -4,9 +4,9 @@ const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 exports = module.exports = function servePublicFiles () {
-  return (req, res, next) => {
-    const file = req.params.file
-    const mdDebug = req.query.md_debug
+  return ({params, query}, res, next) => {
+    const file = params.file
+    const mdDebug = query.md_debug
 
     if (!file.includes('/')) {
       verify(file, res, next, mdDebug)

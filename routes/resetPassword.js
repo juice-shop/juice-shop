@@ -4,13 +4,13 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
 exports = module.exports = function resetPassword () {
-  return (req, res, next) => {
-    const email = req.body.email
-    const answer = req.body.answer
-    const newPassword = req.body.new
-    const repeatPassword = req.body.repeat
+  return ({body, connection}, res, next) => {
+    const email = body.email
+    const answer = body.answer
+    const newPassword = body.new
+    const repeatPassword = body.repeat
     if (!email || !answer) {
-      next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
     } else if (!newPassword || newPassword === 'undefined') {
       res.status(401).send('Password cannot be empty.')
     } else if (newPassword !== repeatPassword) {

@@ -24,8 +24,8 @@ describe('/rest/user/change-password', () => {
         }
       })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
+        headers: { 'Cookie': 'token=' + json.authentication.token }
       })
       .expect('status', 200)))
       .done(done)
@@ -48,8 +48,8 @@ describe('/rest/user/change-password', () => {
         }
       })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
-        headers: { 'Cookie': 'token=%22' + res.json.authentication.token + '%22' }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
+        headers: { 'Cookie': 'token=%22' + json.authentication.token + '%22' }
       })
       .expect('status', 200)))
       .done(done)
@@ -64,8 +64,8 @@ describe('/rest/user/change-password', () => {
       }
     })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
+        headers: { 'Cookie': 'token=' + json.authentication.token }
       })
       .expect('status', 401)
       .expect('bodyContains', 'Current password is not correct'))
@@ -113,8 +113,8 @@ describe('/rest/user/change-password', () => {
       }
     })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
+        headers: { 'Cookie': 'token=' + json.authentication.token }
       })
       .expect('status', 200)).done(done)
   })
