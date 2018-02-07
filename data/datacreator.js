@@ -784,10 +784,10 @@ function createProducts () {
       utils.downloadToFile(imageUrl, 'app/public/images/products/' + image)
     }
     models.Product.create({
-      name: name,
-      description: description,
-      price: price,
-      image: image
+      name,
+      description,
+      price,
+      image
     }).then(product => {
       softDeleteIfConfigured(product)
       if (product.description.match(/Seasonal special offer! Limited availability!/)) {

@@ -15,7 +15,7 @@ describe('verify', () => {
     this.res = { json: sinon.spy() }
     this.next = sinon.spy()
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 
@@ -191,7 +191,7 @@ describe('verify', () => {
 
       beforeEach(() => {
         challenges.changeProductChallenge = { solved: false, save: this.save }
-        products.osaft = { reload: function () { return { then: function (cb) { cb() } } } }
+        products.osaft = { reload () { return { then (cb) { cb() } } } }
       })
 
       it('is solved when the link in the O-Saft product goes to http://kimminich.de', () => {

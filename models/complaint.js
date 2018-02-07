@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     file: DataTypes.STRING
   })
 
-  Complaint.associate = function (models) {
+  Complaint.associate = models => {
     Complaint.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
   }
 

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE
   })
 
-  Recycle.associate = function (models) {
+  Recycle.associate = models => {
     Recycle.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
   }
 
