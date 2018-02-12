@@ -306,7 +306,6 @@ function populateThreeJsTemplate () {
       let overlay = config.get('application.planetOverlayMap')
       if (utils.startsWith(overlay, 'http')) {
         const overlayPath = overlay
-        console.log(overlayPath)
         overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
         utils.downloadToFile(overlayPath, 'app/private/' + overlay)
         replaceImagePath(overlay)
