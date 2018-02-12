@@ -258,6 +258,7 @@ exports.start = function (readyCallback) {
     }, console.error)
 
     populateIndexTemplate()
+    populateThreeJsTemplate()
   }
 }
 
@@ -299,6 +300,25 @@ function populateIndexTemplate () {
   })
 }
 
+function populateThreeJsTemplate () {
+  fs.copy('app/private/threejs-demo.template.html', 'app/private/threejs-demo.html', { overwrite: true }, () => {
+    if (config.get('application.planetOverlayMap')) {
+      let overlay = config.get('application.planetOverlayMap')
+      if (utils.startsWith(overlay, 'http')) {
+        const overlayPath = overlay
+        console.log(overlayPath)
+        overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
+        utils.downloadToFile(overlayPath, 'app/private/' + overlay)
+        replaceImagePath(overlay)
+      }
+    }
+    if (config.get('application.planetName')) {
+      const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
+      replaceThreeJsTitleTag(threeJsTitleTag)
+    }
+  })
+}
+
 function replaceLogo (logoImageTag) {
   replace({
     regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
@@ -315,6 +335,26 @@ function replaceTheme () {
     regex: /node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
     replacement: themeCss,
     paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceImagePath (overlay) {
+  replace({
+    regex: 'orangemap2k.jpg',
+    replacement: overlay,
+    paths: ['app/private/threejs-demo.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceThreeJsTitleTag (threeJsTitleTag) {
+  replace({
+    regex: '<title>Welcome to Planet Orangeuze</title>',
+    replacement: threeJsTitleTag,
+    paths: ['app/private/threejs-demo.html'],
     recursive: false,
     silent: true
   })
