@@ -97,3 +97,7 @@ config/*.yml
 !config/quiet.yml
 !config/test.yml
 !config/7ms.yml
+
+# HTML Templates
+app/index.template.html
+app/private/threejs-demo.template.html

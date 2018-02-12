@@ -14,8 +14,8 @@ application:
   gitHubRibbon: "orange" # Options: darkblue  gray  green  orange  red  white  none
   twitterUrl: "https://twitter.com/owasp_juiceshop"
   facebookUrl: "https://www.facebook.com/owasp.juiceshop"
-  planetOverlayMap: ""
-  planetName: ""
+  planetOverlayMap: "orangemap2k.jpg"
+  planetName: "Orangeuze"
   recyclePage:
     topProductImage: "fruit_press.jpg"
     bottomProductImage: "apple_pressings.jpg"

@@ -1,6 +1,6 @@
 application:
   domain: "juice-b.ox"
   name: "OWASP Juice Box"
-  planetOverlayMap: ""
-  planetName: ""
+  planetOverlayMap: "orangemap2k.jpg"
+  planetName: "Orangeuze"
   
