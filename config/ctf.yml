@@ -5,3 +5,5 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   gitHubRibbon: "none"
+  planetOverlayMap: "orangemap2k.jpg"
+  planetName: "Orangeuze"
