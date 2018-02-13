@@ -7,8 +7,6 @@ application:
   gitHubRibbon: "white"
   twitterUrl: "https://twitter.com/7MinSec"
   facebookUrl: "https://www.facebook.com/vulnhub/posts/1085049114938862"
-  planetOverlayMap: "orangemap2k.jpg"
-  planetName: "Orangeuze"
   recyclePage:
     topProductImage: "bm-small.jpg"
     bottomProductImage: "tommyboy.jpeg"
