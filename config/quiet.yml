@@ -2,5 +2,3 @@ application:
   showChallengeSolvedNotifications: false
   showChallengeHints: false
   gitHubRibbon: "none"
-  planetOverlayMap: "orangemap2k.jpg"
-  planetName: "Orangeuze"

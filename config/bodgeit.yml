@@ -5,8 +5,6 @@ application:
   favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
   gitHubRibbon: "gray"
-  planetOverlayMap: "orangemap2k.jpg"
-  planetName: "Orangeuze"
   recyclePage:
     topProductImage: "undefined.png"
     bottomProductImage: "thingie1.jpg"
