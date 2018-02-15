@@ -34,6 +34,7 @@ order_*.pdf
 ftp/uploads/
 assets/
 app/index.html
+app/private/threejs-demo.html
 
 # Favicons downloaded during customizazion
 app/public/*.*
