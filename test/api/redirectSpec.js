@@ -51,7 +51,7 @@ describe('/redirect', () => {
     .expect('header', 'content-type', /text\/html/)
     .expect('bodyContains', '<h1>Juice Shop (Express ~')
     .expect('bodyContains', 'TypeError')
-    .expect('bodyContains', '&#39;indexOf&#39; of undefined')
+    .expect('bodyContains', '&#39;includes&#39; of undefined')
     .done(done)
   })
 
@@ -61,7 +61,7 @@ describe('/redirect', () => {
     .expect('header', 'content-type', /text\/html/)
     .expect('bodyContains', '<h1>Juice Shop (Express ~')
     .expect('bodyContains', 'TypeError')
-    .expect('bodyContains', '&#39;indexOf&#39; of undefined')
+    .expect('bodyContains', '&#39;includes&#39; of undefined')
     .done(done)
   })
 
