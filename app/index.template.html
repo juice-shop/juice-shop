@@ -14,15 +14,11 @@
     <title ng-bind="applicationName"></title>
     <meta name="description" content="An intentionally insecure JavaScript Web Application">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap -->
     <link ng-controller="NavbarController" href="node_modules/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
-    <!-- Flag Icons -->
     <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <!-- Application Styles-->
+    <link href="node_modules/cookieconsent/build/cookieconsent.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css"/>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- libraries, third party components -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="private/fontawesome-all.js"></script>
     <script src="node_modules/underscore/underscore.js"></script>
@@ -48,15 +44,27 @@
     <script src="node_modules/angular-base64/angular-base64.js"></script>
     <script src="node_modules/qrcode-generator/qrcode.js"></script>
     <script src="node_modules/angular-qrcode/angular-qrcode.js"></script>
+    <script src="node_modules/cookieconsent/build/cookieconsent.min.js"></script>
 
-    <!--  application specific source files -->
     <script src="dist/juice-shop.min.js"></script>
 
+    <script>
+      window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+          "palette": {
+            "popup": {
+              "background": "#000"
+            },
+            "button": {
+              "background": "#f1d600"
+            }
+          }
+        })});
+    </script>
 </head>
+
 <body ng-cloak translate-cloak>
 
-
-<!-- HEADER -->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
@@ -172,7 +180,6 @@
     </div>
 </div>
 
-<!-- CONTENT -->
 <main class="container-fluid" ng-view></main>
 
 <a ng-show="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/public/images/ribbons/forkme_right_{{gitHubRibbon}}.png" alt="Fork me on GitHub"></a>
