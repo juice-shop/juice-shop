@@ -46,8 +46,6 @@
     <script src="node_modules/angular-qrcode/angular-qrcode.js"></script>
     <script src="node_modules/cookieconsent/build/cookieconsent.min.js"></script>
 
-    <script src="dist/juice-shop.min.js"></script>
-
     <script>
       window.addEventListener("load", function(){
         window.cookieconsent.initialise({
@@ -57,10 +55,14 @@
             },
             "button": {
               "background": "#f1d600"
-            }
+            },
+            "position": "bottom-left"
           }
         })});
     </script>
+
+    <script src="dist/juice-shop.min.js"></script>
+
 </head>
 
 <body ng-cloak translate-cloak>
