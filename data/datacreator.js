@@ -450,6 +450,17 @@ function createChallenges () {
     challenges.loginSupportChallenge = challenge
   })
   models.Challenge.create({
+    name: 'Login MC SafeSearch',
+    category: 'Weak Security Mechanisms',
+    description: 'Log in with MC SafeSearch\'s original user credentials without applying SQL Injection or any other bypass.',
+    difficulty: 2,
+    hint: addHint('You should listen to MC\'s hit song "Protect Ya Passwordz".'),
+    hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/weak-security.html#log-in-with-mc-safesearchs-original-user-credentials'),
+    solved: false
+  }).then(challenge => {
+    challenges.loginRapperChallenge = challenge
+  })
+  models.Challenge.create({
     name: 'Premium Paywall',
     category: 'Cryptographic Issues',
     description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.',
@@ -717,6 +728,12 @@ function createUsers () {
     password: 'focusOnScienceMorty!focusOnScience'
   }).then(user => {
     users.morty = user
+  })
+  models.User.create({
+    email: 'mc.safesearch@' + config.get('application.domain'),
+    password: 'Mr. N00dles'
+  }).then(user => {
+    users.rapper = user
   })
 }
 
