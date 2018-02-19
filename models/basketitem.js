@@ -8,6 +8,6 @@ module.exports = (sequelize, {INTEGER}) => {
     },
     quantity: INTEGER
   }
-    )
+  )
   return BasketItem
 }

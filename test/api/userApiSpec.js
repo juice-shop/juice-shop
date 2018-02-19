@@ -122,14 +122,14 @@ describe('/rest/user/whoami', () => {
     })
       .expect('status', 200)
       .then(({json}) => frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer ' + json.authentication.token } })
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'user', {
-        id: Joi.number()
-      })
-      .expect('json', 'user', {
-        email: 'bjoern.kimminich@googlemail.com'
-      }))
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('jsonTypes', 'user', {
+          id: Joi.number()
+        })
+        .expect('json', 'user', {
+          email: 'bjoern.kimminich@googlemail.com'
+        }))
       .done(done)
   })
 

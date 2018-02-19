@@ -22,15 +22,15 @@ describe('/rest', () => {
       browser.get('/#/search')
       browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
       browser.switchTo().alert().then(
-                alert => {
-                  expect(alert.getText()).toEqual('XSS')
-                  alert.accept()
+        alert => {
+          expect(alert.getText()).toEqual('XSS')
+          alert.accept()
 
-                  browser.waitForAngularEnabled(false)
-                  browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + (config.get('products').length + 1) + '\', {description: \'alert disabled\'});')
-                  browser.driver.sleep(1000)
-                  browser.waitForAngularEnabled(true)
-                })
+          browser.waitForAngularEnabled(false)
+          browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/Products/' + (config.get('products').length + 1) + '\', {description: \'alert disabled\'});')
+          browser.driver.sleep(1000)
+          browser.waitForAngularEnabled(true)
+        })
     })
 
     protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})

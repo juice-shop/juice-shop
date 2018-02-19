@@ -829,14 +829,14 @@ function createProducts () {
       if (reviews) {
         return Promise.all(
           reviews
-          .map((review) => {
-            review.message = review.text
-            review.author = review.author + '@' + config.get('application.domain')
-            review.product = id
-            return review
-          }).map((review) => {
-            return mongodb.reviews.insert(review)
-          })
+            .map((review) => {
+              review.message = review.text
+              review.author = review.author + '@' + config.get('application.domain')
+              review.product = id
+              return review
+            }).map((review) => {
+              return mongodb.reviews.insert(review)
+            })
         )
       }
     })
