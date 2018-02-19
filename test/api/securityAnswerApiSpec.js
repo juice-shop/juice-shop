@@ -50,13 +50,13 @@ describe('/api/SecurityAnswers/:id', () => {
           answer: 'Horst'
         }
       })
-      .expect('status', 201)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data', {
-        id: Joi.number(),
-        createdAt: Joi.string(),
-        updatedAt: Joi.string()
-      })).done(done)
+        .expect('status', 201)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('jsonTypes', 'data', {
+          id: Joi.number(),
+          createdAt: Joi.string(),
+          updatedAt: Joi.string()
+        })).done(done)
   })
 
   it('PUT update existing security answer is forbidden via public API even when authenticated', done => {

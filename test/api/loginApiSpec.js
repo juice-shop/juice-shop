@@ -26,13 +26,13 @@ describe('/rest/user/login', () => {
           password: 'kallliiii'
         }
       })
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'authentication', {
-        token: Joi.string(),
-        umail: Joi.string(),
-        bid: Joi.number()
-      }))
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('jsonTypes', 'authentication', {
+          token: Joi.string(),
+          umail: Joi.string(),
+          bid: Joi.number()
+        }))
       .done(done)
   })
 
