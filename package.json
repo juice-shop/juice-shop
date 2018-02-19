@@ -120,7 +120,7 @@
     "sinon": "~4.3.0",
     "sinon-chai": "~2.14",
     "socket.io-client": "~2.0",
-    "standard": "~10.0",
+    "standard": "~11.0.0",
     "stryker": "~0",
     "stryker-api": "~0",
     "stryker-html-reporter": "~0",
