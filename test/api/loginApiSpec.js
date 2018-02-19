@@ -86,6 +86,22 @@ describe('/rest/user/login', () => {
       .done(done)
   })
 
+  it('POST login with MC SafeSearch credentials', done => {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'mc.safesearch@' + config.get('application.domain'),
+        password: 'Mr. N00dles'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
   it('POST login as bjoern.kimminich@googlemail.com with known password', done => {
     frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
