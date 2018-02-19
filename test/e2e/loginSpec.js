@@ -81,7 +81,7 @@ describe('/#/login', () => {
 
   describe('challenge "loginRapper"', () => {
     it('should be able to log in with original MC SafeSearch credentials', () => {
-      email.sendKeys('mv.safesearch@' + config.get('application.domain'))
+      email.sendKeys('mc.safesearch@' + config.get('application.domain'))
       password.sendKeys('Mr. N00dles')
       loginButton.click()
 
