@@ -13,7 +13,7 @@ exports = module.exports = function captchas () {
     var secondOperator = operators[Math.floor((Math.random() * 3))]
 
     var expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    var answer = eval(expression).toString()
+    var answer = eval(expression).toString() // eslint-disable-line no-eval
 
     const captcha = {
       captchaId: captchaId,
