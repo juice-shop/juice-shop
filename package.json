@@ -49,7 +49,7 @@
   "dependencies": {
     "body-parser": "~1.18",
     "colors": "~1.1",
-    "config": "~1.29",
+    "config": "~1.30.0",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
     "dottie": "~2.0",
