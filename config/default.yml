@@ -162,3 +162,7 @@ products:
     reviews:
       - text: 'Even more interesting than watching Interdimensional Cable!'
         author: 'morty'
+  - name: 'Melon Bike (Comeback-Product 2018 Edition)'
+    description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
+    price: 2999
+    image: 'melon_bike.jpeg'
