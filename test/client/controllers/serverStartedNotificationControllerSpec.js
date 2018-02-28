@@ -99,6 +99,8 @@ describe('controllers', function () {
     }))
 
     it('should remove the restore message when closing the notification', inject(function () {
+      $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
+
       socket.receive('server started')
       $httpBackend.flush()
 
