@@ -163,6 +163,20 @@ describe('/rest/user/reset-password', () => {
       .done(done)
   })
 
+  it('POST password reset for Morty with correct answer to his security question', done => {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'morty@' + config.get('application.domain'),
+        answer: 'JeRRy',
+        new: 'iBurri3dMySe1fInTheB4ckyard!',
+        repeat: 'iBurri3dMySe1fInTheB4ckyard!'
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
   it('POST password reset with wrong answer to security question', done => {
     frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,

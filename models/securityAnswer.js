@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     UserId: { type: DataTypes.INTEGER, unique: true }
   })
 
-  SecurityAnswer.associate = function (models) {
+  SecurityAnswer.associate = models => {
     SecurityAnswer.belongsTo(models.User)
     SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
   }

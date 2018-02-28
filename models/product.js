@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING
   }, { paranoid: true })
 
-  Product.associate = function (models) {
+  Product.associate = models => {
     Product.belongsToMany(models.Basket, { through: models.BasketItem })
   }
 
