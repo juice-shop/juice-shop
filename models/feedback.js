@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-  Feedback.associate = function (models) {
+  Feedback.associate = models => {
     Feedback.belongsTo(models.User) // no FK constraint to allow anonymous feedback posts
   }
 

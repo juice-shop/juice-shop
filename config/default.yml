@@ -17,6 +17,7 @@ application:
   recyclePage:
     topProductImage: "fruit_press.jpg"
     bottomProductImage: "apple_pressings.jpg"
+  altcoinName: Juicycoin
 products:
   - name: "Apple Juice (1000ml)"
     price: 1.99
@@ -63,7 +64,7 @@ products:
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
     image: 'owasp_osaft.jpg'
-    useForProductTamperingChallenge: true
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
   - name: 'Christmas Super-Surprise-Box (2014 Edition)'
     description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
     price: 29.99

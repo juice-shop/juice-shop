@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     coupon: DataTypes.STRING
   })
 
-  Basket.associate = function (models) {
+  Basket.associate = models => {
     Basket.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
     Basket.belongsToMany(models.Product, { through: models.BasketItem })
   }

@@ -10,6 +10,7 @@ application:
   recyclePage:
     topProductImage: "bm-small.jpg"
     bottomProductImage: "tommyboy.jpeg"
+  altcoinName: Sevencoin
 products:
   - name: "Security Assessment"
     price: 1999.99

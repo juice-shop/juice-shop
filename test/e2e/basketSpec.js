@@ -53,7 +53,7 @@ describe('/#/basket', () => {
         element(by.id('collapseCouponButton')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
-        element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90))
+        element(by.model('coupon')).sendKeys(insecurity.generateCoupon(90))
         element(by.id('applyCouponButton')).click()
       })
 
