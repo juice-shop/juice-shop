@@ -32,6 +32,7 @@ function createChallenges () {
             category,
             description,
             difficulty,
+            solved: false,
             hint: showHints ? hint : null,
             hintUrl: showHints ? hintUrl : null
           }).then((challenge) => {
