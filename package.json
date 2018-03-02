@@ -50,7 +50,7 @@
   "dependencies": {
     "body-parser": "~1.18",
     "colors": "~1.1",
-    "config": "~1.29",
+    "config": "~1.30.0",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
     "dottie": "~2.0",
@@ -70,7 +70,7 @@
     "grunt-contrib-concat": "~1.0",
     "grunt-contrib-uglify": "~3.3",
     "hashids": "~1.1",
-    "helmet": "~3.11.0",
+    "helmet": "~3.12.0",
     "html-entities": "~1.2",
     "js-yaml": "~3.10",
     "jsonwebtoken": "~8",
@@ -100,7 +100,7 @@
     "frisby": "~2.0",
     "grunt-cli": "~1.2",
     "http-server": "~0.11.1",
-    "jasmine": "~2.99.0",
+    "jasmine": "~3.1.0",
     "jasmine-reporters": "~2.3",
     "jest": "~22.1",
     "karma": "~2.0.0",
@@ -117,7 +117,7 @@
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~5.3",
     "shelljs": "~0.8.1",
-    "sinon": "~4.3.0",
+    "sinon": "~4.4.2",
     "sinon-chai": "~2.14",
     "socket.io-client": "~2.0",
     "standard": "~11.0.0",
@@ -151,7 +151,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": ">=6 <=9"
+    "node": ">=8 <=9"
   },
   "standard": {
     "ignore": [

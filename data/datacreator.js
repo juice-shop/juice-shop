@@ -195,7 +195,7 @@ function createChallenges () {
     category: 'Privilege Escalation',
     description: 'Access someone else\'s basket.',
     difficulty: 2,
-    hint: addHint('Have an eye on the HTTP traffic while shopping. Alternatively try to find s client-side association of users to their basket.'),
+    hint: addHint('Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#access-someone-elses-basket'),
     solved: false
   }).then(challenge => {
@@ -658,7 +658,7 @@ function createChallenges () {
     category: 'Deserialization',
     description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.',
     difficulty: 6,
-    hint: addHint('Your attack payload must not trigger the protection againt too many iterations.'),
+    hint: addHint('Your attack payload must not trigger the protection against too many iterations.'),
     hintUrl: addHint('https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution-that-occupies-the-server-for-a-while-without-using-infinite-loops'),
     solved: false
   }).then(challenge => {
