@@ -70,7 +70,7 @@
     "grunt-contrib-concat": "~1.0",
     "grunt-contrib-uglify": "~3.3",
     "hashids": "~1.1",
-    "helmet": "~3.11.0",
+    "helmet": "~3.12.0",
     "html-entities": "~1.2",
     "js-yaml": "~3.10",
     "jsonwebtoken": "~8",
