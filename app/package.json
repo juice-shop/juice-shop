@@ -1,6 +1,6 @@
 {
   "name": "juice-shop-angular",
-  "version": "6.4.2",
+  "version": "7.0.0-SNAPSHOT",
   "private": true,
   "dependencies": {
     "angular": "~1.5",
@@ -18,6 +18,7 @@
     "angular-ui-bootstrap": "~2.1",
     "bootstrap": "~3.3",
     "bootswatch": "~3.3",
+    "cookieconsent": "~3.0",
     "flag-icon-css": "~2.9",
     "jquery": "~3.2",
     "moment": "~2.19",

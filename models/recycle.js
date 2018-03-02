@@ -1,14 +1,14 @@
 /* jslint node: true */
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, {INTEGER, STRING, BOOLEAN, DATE}) => {
   const Recycle = sequelize.define('Recycle', {
-    quantity: DataTypes.INTEGER,
-    address: DataTypes.STRING,
-    isPickup: { type: DataTypes.BOOLEAN, defaultValue: false },
-    date: DataTypes.DATE
+    quantity: INTEGER,
+    address: STRING,
+    isPickup: { type: BOOLEAN, defaultValue: false },
+    date: DATE
   })
 
-  Recycle.associate = function (models) {
-    Recycle.belongsTo(models.User, { constraints: true, foreignKeyConstraint: true })
+  Recycle.associate = ({User}) => {
+    Recycle.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
   }
 
   return Recycle

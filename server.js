@@ -17,6 +17,7 @@ const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
+const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const fileUpload = require('./routes/fileUpload')
 const redirect = require('./routes/redirect')
@@ -172,8 +173,20 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
 
+const endpointLimiter = new RateLimit({
+  windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
+  max: 100,
+  keyGenerator ({headers, ip}) {
+    return headers['X-Forwarded-For'] || ip
+  },
+  delayMs: 0
+})
+
+app.enable('trust proxy')
+app.use('/rest/user/reset-password', endpointLimiter)
+
 epilogue.initialize({
-  app: app,
+  app,
   sequelize: models.sequelize
 })
 
@@ -186,7 +199,7 @@ for (const modelName of autoModels) {
   })
 
   // fix the api difference between epilogue and previously used sequlize-restful
-  resource.all.send.before(function (req, res, context) {
+  resource.all.send.before((req, res, context) => {
     context.instance = {
       status: 'success',
       data: context.instance
@@ -245,6 +258,7 @@ exports.start = function (readyCallback) {
     }, console.error)
 
     populateIndexTemplate()
+    populateThreeJsTemplate()
   }
 }
 
@@ -260,7 +274,7 @@ function registerWebsocketEvents () {
     })
 
     socket.on('notification received', data => {
-      const i = notifications.findIndex(element => element.flag === data)
+      const i = notifications.findIndex(({flag}) => flag === data)
       if (i > -1) {
         notifications.splice(i, 1)
       }
@@ -286,6 +300,24 @@ function populateIndexTemplate () {
   })
 }
 
+function populateThreeJsTemplate () {
+  fs.copy('app/private/threejs-demo.template.html', 'app/private/threejs-demo.html', { overwrite: true }, () => {
+    if (config.get('application.planetOverlayMap')) {
+      let overlay = config.get('application.planetOverlayMap')
+      if (utils.startsWith(overlay, 'http')) {
+        const overlayPath = overlay
+        overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
+        utils.downloadToFile(overlayPath, 'app/private/' + overlay)
+        replaceImagePath(overlay)
+      }
+    }
+    if (config.get('application.planetName')) {
+      const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
+      replaceThreeJsTitleTag(threeJsTitleTag)
+    }
+  })
+}
+
 function replaceLogo (logoImageTag) {
   replace({
     regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
@@ -302,6 +334,26 @@ function replaceTheme () {
     regex: /node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
     replacement: themeCss,
     paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceImagePath (overlay) {
+  replace({
+    regex: 'orangemap2k.jpg',
+    replacement: overlay,
+    paths: ['app/private/threejs-demo.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceThreeJsTitleTag (threeJsTitleTag) {
+  replace({
+    regex: '<title>Welcome to Planet Orangeuze</title>',
+    replacement: threeJsTitleTag,
+    paths: ['app/private/threejs-demo.html'],
     recursive: false,
     silent: true
   })

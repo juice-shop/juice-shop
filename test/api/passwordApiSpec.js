@@ -23,11 +23,11 @@ describe('/rest/user/change-password', () => {
           password: 'kunigunde'
         }
       })
-      .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
-      })
-      .expect('status', 200)))
+        .expect('status', 200)
+        .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
+          headers: { 'Cookie': 'token=' + json.authentication.token }
+        })
+          .expect('status', 200)))
       .done(done)
   })
 
@@ -47,11 +47,11 @@ describe('/rest/user/change-password', () => {
           password: 'kunibert'
         }
       })
-      .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
-        headers: { 'Cookie': 'token=%22' + res.json.authentication.token + '%22' }
-      })
-      .expect('status', 200)))
+        .expect('status', 200)
+        .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
+          headers: { 'Cookie': 'token=%22' + json.authentication.token + '%22' }
+        })
+          .expect('status', 200)))
       .done(done)
   })
 
@@ -64,11 +64,11 @@ describe('/rest/user/change-password', () => {
       }
     })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
+        headers: { 'Cookie': 'token=' + json.authentication.token }
       })
-      .expect('status', 401)
-      .expect('bodyContains', 'Current password is not correct'))
+        .expect('status', 401)
+        .expect('bodyContains', 'Current password is not correct'))
       .done(done)
   })
 
@@ -113,10 +113,10 @@ describe('/rest/user/change-password', () => {
       }
     })
       .expect('status', 200)
-      .then(res => frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
-        headers: { 'Cookie': 'token=' + res.json.authentication.token }
+      .then(({json}) => frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
+        headers: { 'Cookie': 'token=' + json.authentication.token }
       })
-      .expect('status', 200)).done(done)
+        .expect('status', 200)).done(done)
   })
 })
 
@@ -157,6 +157,20 @@ describe('/rest/user/reset-password', () => {
         answer: 'West-2082',
         new: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==',
         repeat: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('POST password reset for Morty with correct answer to his security question', done => {
+    frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'morty@' + config.get('application.domain'),
+        answer: 'JeRRy',
+        new: 'iBurri3dMySe1fInTheB4ckyard!',
+        repeat: 'iBurri3dMySe1fInTheB4ckyard!'
       }
     })
       .expect('status', 200)

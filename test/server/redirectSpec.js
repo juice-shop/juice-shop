@@ -13,7 +13,7 @@ describe('redirect', () => {
     this.res = { redirect: sinon.spy(), status: sinon.spy() }
     this.next = sinon.spy()
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 
