@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Поле комментария не должно быть пустым.",
   "INVALID_COMMENT_LENGTH": "Длина комментария должна быть {{length}} символов.",
   "MANDATORY_RATING": "Оцени.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Автор",
   "LABEL_COMMENT": "Комментарий",
   "LABEL_RATING": "Рейтинг",
