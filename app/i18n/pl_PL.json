@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Uzupełnij pole komentarz.",
   "INVALID_COMMENT_LENGTH": "Długość komentarza musi być {{length}} znaków.",
   "MANDATORY_RATING": "Proszę podać pewien.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Autor",
   "LABEL_COMMENT": "Komentarz",
   "LABEL_RATING": "Ocena",
