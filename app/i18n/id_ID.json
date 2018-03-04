@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Silahkan Berikan komentar.",
   "INVALID_COMMENT_LENGTH": "Komentar harus {{length}} panjang karakter.",
   "MANDATORY_RATING": "Tolong Berikan rating.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Nama",
   "LABEL_COMMENT": "Komentar",
   "LABEL_RATING": "Peringkat",
