@@ -9,6 +9,19 @@ const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'conte
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Feedbacks', () => {
+  let captchaId, captchaAnswer
+
+  beforeAll(done => {
+    frisby.get(REST_URL + '/captcha')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({json}) => {
+        captchaId = json.captchaId
+        captchaAnswer = json.answer
+      })
+      .done(done)
+  })
+
   it('GET all feedback', done => {
     frisby.get(API_URL + '/Feedbacks')
       .expect('status', 200)
@@ -20,7 +33,9 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'I am a harm<script>steal-cookie</script><img src="csrf-attack"/><iframe src="evil-content"></iframe>less comment.',
-        rating: 1
+        rating: 1,
+        captchaId: captchaId,
+        captcha: captchaAnswer
       }
     })
       .expect('status', 201)
@@ -35,7 +50,9 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS")</script>script>alert("XSS")<</script>/script>',
-        rating: 1
+        rating: 1,
+        captchaId: captchaId,
+        captcha: captchaAnswer
       }
     })
       .expect('status', 201)
@@ -51,7 +68,9 @@ describe('/api/Feedbacks', () => {
       body: {
         comment: 'Lousy crap! You use sequelize 1.7.x? Welcome to SQL Injection-land, morons! As if that is not bad enough, you use z85/base85 and hashids for crypto? Even MD5 to hash passwords! Srsly?!?!',
         rating: 1,
-        UserId: 3
+        UserId: 3,
+        captchaId: captchaId,
+        captcha: captchaAnswer
       }
     })
       .expect('status', 201)
@@ -67,7 +86,9 @@ describe('/api/Feedbacks', () => {
       body: {
         comment: 'Your express-jwt 0.1.3 has some serious problems!',
         rating: 0,
-        UserId: 4711
+        UserId: 4711,
+        captchaId: captchaId,
+        captcha: captchaAnswer
       }
     })
       .expect('status', 500)
@@ -92,7 +113,9 @@ describe('/api/Feedbacks', () => {
         body: {
           comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and angular-tooltipps!',
           rating: 5,
-          UserId: 4
+          UserId: 4,
+          captchaId: captchaId,
+          captcha: captchaAnswer
         }
       })
         .expect('status', 201)
@@ -117,7 +140,9 @@ describe('/api/Feedbacks', () => {
         body: {
           comment: 'Bender\'s choice award!',
           rating: 5,
-          UserId: 3
+          UserId: 3,
+          captchaId: captchaId,
+          captcha: captchaAnswer
         }
       })
         .expect('status', 201)
@@ -129,7 +154,11 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback can be created without actually supplying comment', done => {
-    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { rating: 1 } })
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader,
+      body: { rating: 1,
+        captchaId: captchaId,
+        captcha: captchaAnswer
+      } })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
@@ -140,7 +169,10 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback cannot be created without actually supplying rating', done => {
-    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader, body: { } })
+    frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader,
+      body: { captchaId: captchaId,
+        captcha: captchaAnswer
+      } })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
@@ -154,6 +186,19 @@ describe('/api/Feedbacks', () => {
 })
 
 describe('/api/Feedbacks/:id', () => {
+  let captchaId, captchaAnswer
+
+  beforeAll(done => {
+    frisby.get(REST_URL + '/captcha')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({json}) => {
+        captchaId = json.captchaId
+        captchaAnswer = json.answer
+      })
+      .done(done)
+  })
+
   it('GET existing feedback by id is forbidden via public API', done => {
     frisby.get(API_URL + '/Feedbacks/1')
       .expect('status', 401)
@@ -201,7 +246,9 @@ describe('/api/Feedbacks/:id', () => {
       headers: jsonHeader,
       body: {
         comment: 'I will be gone soon!',
-        rating: 1
+        rating: 1,
+        captchaId: captchaId,
+        captcha: captchaAnswer
       }
     })
       .expect('status', 201)

@@ -168,7 +168,7 @@ app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
-/* Verify CAPTCHA */
+/* Captcha verification before epilogue takes over */
 app.post('/api/Feedbacks', insecurity.verifyCaptcha())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
