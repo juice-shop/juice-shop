@@ -7,9 +7,12 @@ application:
   gitHubRibbon: "white"
   twitterUrl: "https://twitter.com/7MinSec"
   facebookUrl: "https://www.facebook.com/vulnhub/posts/1085049114938862"
+  planetOverlayMap: "https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png"
+  planetName: "Mad Billy-7"
   recyclePage:
     topProductImage: "bm-small.jpg"
     bottomProductImage: "tommyboy.jpeg"
+  altcoinName: Sevencoin
 products:
   - name: "Security Assessment"
     price: 1999.99
@@ -43,7 +46,7 @@ products:
   - name: 'CryptoLocker`d (Audio CD)'
     description: 'A few years ago a worked on an incident response where a user got phished with a promise of a free burrito from Chipotle but instead got a free order of CryptoLocker! And rather than tell IT or sound the alarms, the user just left for the day! The next day they came back and the company was digitally on fire, and they played ignorant to what was going on.  I found the user's handling of the situation humorous (read: not the CryptoLocker infection itself!), so I was inspired to write a song about it.'
     price: 19.99
-    image: 'http://ransomwares.net/wp-content/uploads/2017/02/cryptolocker.jpg'
+    image: 'http://www.chip.de/ii/2/2/1/9/9/7/0/5/cryptolocker-6e3b9559ff650a9e.jpg'
     fileForRetrieveBlueprintChallenge: 'The+CryptoLocker+Song.mps'
   - name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
     description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'
