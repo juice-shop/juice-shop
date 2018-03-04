@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-- 6
-- 8 # recommended version
-- 9
+- 9 # recommended version
+- 8
 branches:
   except:
   - gh-pages
@@ -58,7 +57,7 @@ deploy:
     develop: juice-shop-staging
   on:
     repo: bkimminich/juice-shop
-    node: 8
+    node: 9
 - provider: releases
   overwrite: true
   api_key:

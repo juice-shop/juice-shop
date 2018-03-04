@@ -31,9 +31,11 @@ package-lock.json
 # App
 dist/
 order_*.pdf
-ftp/uploads/
-assets/
 app/index.html
+app/private/threejs-demo.html
+
+# GitHub-Pages Branch
+assets/
 
 # Favicons downloaded during customizazion
 app/public/*.*
@@ -97,3 +99,15 @@ config/*.yml
 !config/quiet.yml
 !config/test.yml
 !config/7ms.yml
+
+# Custom easter egg planetary texture files
+app/private/*.jpg
+app/private/*.jpeg
+app/private/*.png
+app/private/*.gif
+!app/private/earth_normalmap_flat4k.jpg
+!app/private/earthspec4k.jpg
+!app/private/fair_clouds_4k.png
+!app/private/orangemap2k.jpg
+!app/private/starry_background.jpg
+!app/private/under-construction.gif

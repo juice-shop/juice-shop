@@ -98,7 +98,7 @@ describe('controllers', function () {
       $httpBackend.flush()
     }))
 
-    it('should remove the restore message when closing the notification', inject(function () {
+    xit('should remove the restore message when closing the notification', inject(function () {
       socket.receive('server started')
       $httpBackend.flush()
 

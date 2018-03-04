@@ -139,9 +139,8 @@ images and packaged distributions are offered accordingly:
 
 | node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
 |:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| 9.x     |                                                                                     | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
-| __8.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
-| 6.x     |                                                                                     | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -315,6 +314,8 @@ Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
 
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+
 ### Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
@@ -357,7 +358,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 * [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
   artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
 
-## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
+## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
