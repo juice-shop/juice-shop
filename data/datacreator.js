@@ -4,7 +4,6 @@ const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
-const users = datacache.users
 const products = datacache.products
 
 const fs = require('fs')
@@ -20,37 +19,91 @@ function loadStaticData (file) {
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
 }
 
-function createChallenges () {
+async function createChallenges () {
   const showHints = config.get('application.showChallengeHints')
 
-  return loadStaticData('challenges').then(
-    (challenges) => {
-      return Promise.all(
-        challenges.map(({ name, category, description, difficulty, hint, hintUrl, key }) => {
-          return models.Challenge.create({
-            name,
-            category,
-            description,
-            difficulty,
-            solved: false,
-            hint: showHints ? hint : null,
-            hintUrl: showHints ? hintUrl : null
-          }).then((challenge) => {
-            datacache.challenges[key] = challenge
-          }).catch(() => {
-            console.error(`Could not insert Challenge ${name}`)
-          })
+  const challenges = await loadStaticData('challenges')
+
+  await Promise.all(
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key }) => {
+      try {
+        const challenge = await models.Challenge.create({
+          name,
+          category,
+          description,
+          difficulty,
+          solved: false,
+          hint: showHints ? hint : null,
+          hintUrl: showHints ? hintUrl : null
         })
-      )
-    }
+        datacache.challenges[key] = challenge
+      } catch (err) {
+        console.error(`Could not insert Challenge ${name}`)
+        console.error(err)
+      }
+    })
   )
+}
+
+async function createUsers () {
+  const users = await loadStaticData('users')
+
+  await Promise.all(
+    users.map(async ({ email, password, customDomain, key }) => {
+      try {
+        const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
+        const user = await models.User.create({
+          email: completeEmail,
+          password
+        })
+        if (key) datacache.users[key] = user
+      } catch (err) {
+        console.error(`Could not insert User ${name}`)
+        console.error(err)
+      }
+    })
+  )
+}
+
+function createRandomFakeUsers () {
+  function getGeneratedRandomFakeUserEmail () {
+    const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
+    return makeRandomString(5).toLowerCase() + '@' + randomDomain
+  }
+
+  function makeRandomString (length) {
+    let text = ''
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+    for (let i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
+
+    return text
+  }
+
+  return Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
+    () => models.User.create({
+      email: getGeneratedRandomFakeUserEmail(),
+      password: makeRandomString(5)
+    }).then(({ email }) => console.log(`Created random user ${email}`))
+  ))
 }
 
 module.exports = async () => {
   // TODO Wrap entire datacreator into promise to avoid race condition with websocket registration for progress restore
   // This is getting handeling with this refactoring
-  createUsers()
-  createRandomFakeUsers()
+
+  // This is going to be the new Data Creation Section. TODO Remove this Comment ;)
+  const creators = [
+    createUsers,
+    createChallenges,
+    createRandomFakeUsers
+  ]
+
+  // TODO Using async /await would break node 6 compatibility. This should be replaced with default promises
+  for (const creator of creators) {
+    await creator()
+  }
+
   createProducts()
   createBaskets()
   createFeedback()
@@ -58,86 +111,6 @@ module.exports = async () => {
   createRecycles()
   createSecurityQuestions()
   createSecurityAnswers()
-
-  // This is going to be the new Data Creation Section. TODO Remove this Comment ;)
-  const creators = [
-    createChallenges
-  ]
-
-  // TODO Using async /await would break node 6 compatibility. This should be replaced with default promises
-  for (const creator of creators) {
-    await creator()
-  }
-}
-
-function createUsers () {
-  models.User.create({
-    email: 'admin@' + config.get('application.domain'),
-    password: 'admin123'
-  }).catch(console.error)
-  models.User.create({
-    email: 'jim@' + config.get('application.domain'),
-    password: 'ncc-1701'
-  })
-  models.User.create({
-    email: 'bender@' + config.get('application.domain'),
-    password: 'OhG0dPlease1nsertLiquor!'
-  }).then(user => {
-    users.bender = user
-  })
-  models.User.create({
-    email: 'bjoern.kimminich@googlemail.com',
-    password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
-  }).then(user => {
-    users.bjoern = user
-  })
-  models.User.create({
-    email: 'ciso@' + config.get('application.domain'),
-    password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
-  }).then(user => {
-    users.ciso = user
-  })
-  models.User.create({
-    email: 'support@' + config.get('application.domain'),
-    password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
-  }).then(user => {
-    users.support = user
-  })
-  models.User.create({
-    email: 'morty@' + config.get('application.domain'),
-    password: 'focusOnScienceMorty!focusOnScience'
-  }).then(user => {
-    users.morty = user
-  })
-  models.User.create({
-    email: 'mc.safesearch@' + config.get('application.domain'),
-    password: 'Mr. N00dles'
-  }).then(user => {
-    users.rapper = user
-  })
-}
-
-function createRandomFakeUsers () {
-  for (let i = 0; i < config.get('application.numberOfRandomFakeUsers'); i++) {
-    models.User.create({
-      email: getGeneratedRandomFakeUserEmail(),
-      password: makeRandomString(5)
-    })
-  }
-}
-
-function getGeneratedRandomFakeUserEmail () {
-  const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
-  return makeRandomString(5).toLowerCase() + '@' + randomDomain
-}
-
-function makeRandomString (length) {
-  let text = ''
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-  for (let i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
-
-  return text
 }
 
 function createProducts () {
