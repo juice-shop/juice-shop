@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "請留下評論。",
   "INVALID_COMMENT_LENGTH": "評論長度必須為 {{length}} 字符。",
   "MANDATORY_RATING": "請提供評分。",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "作者",
   "LABEL_COMMENT": "評論",
   "LABEL_RATING": "評分",
