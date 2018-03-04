@@ -19,16 +19,6 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.captcha = () => (req, res, next) => {
-  models.Captcha.findOne({ where: {captchaId: req.body.captchaId} }).then(captcha => {
-    if (req.body.captcha === captcha.dataValues.answer) {
-      next()
-    } else {
-      res.status(401).send('Invalid CAPTCHA.')
-    }
-  })
-}
-
 exports.accessControlChallenges = () => ({url}, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
