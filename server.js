@@ -52,6 +52,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const replace = require('replace')
 const appConfiguration = require('./routes/appConfiguration')
+const captcha = require('./routes/captcha')
 const config = require('config')
 let firstConnectedSocket = null
 
@@ -134,7 +135,7 @@ app.use('/api/BasketItems', insecurity.isAuthorized())
 app.use('/api/BasketItems/:id', insecurity.isAuthorized())
 /* Feedbacks: GET allowed for feedback carousel, POST allowed in order to provide feedback without being logged in */
 app.use('/api/Feedbacks/:id', insecurity.isAuthorized())
-/* Users: Only POST is allowed in order to register a new uer */
+/* Users: Only POST is allowed in order to register a new user */
 app.get('/api/Users', insecurity.isAuthorized())
 app.route('/api/Users/:id')
   .get(insecurity.isAuthorized())
@@ -167,6 +168,8 @@ app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
+/* Verify CAPTCHA */
+app.post('/api/Feedbacks', verify.captcha())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 
@@ -231,6 +234,7 @@ app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
+app.get('/rest/captcha', captcha())
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
 
@@ -243,6 +247,8 @@ app.use(angular())
 /* Error Handling */
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
+/* Captcha Id */
+app.locals.captchaId = 0
 
 exports.start = function (readyCallback) {
   if (!this.server) {
