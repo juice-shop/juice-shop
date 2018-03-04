@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Ange en kommentar.",
   "INVALID_COMMENT_LENGTH": "Kommentarer måste vara {{length}} tecken långa.",
   "MANDATORY_RATING": "Ange ett betyg.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Författare",
   "LABEL_COMMENT": "Kommentar",
   "LABEL_RATING": "Betyg",
