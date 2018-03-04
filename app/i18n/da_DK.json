@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Angiv venligst en kommentar.",
   "INVALID_COMMENT_LENGTH": "Comment length must be {{length}} characters.",
   "MANDATORY_RATING": "Please provide a rating.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Forfatter",
   "LABEL_COMMENT": "Kommentar",
   "LABEL_RATING": "Vurdering",
