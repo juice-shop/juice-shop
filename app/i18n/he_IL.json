@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "נא להזין הערה.",
   "INVALID_COMMENT_LENGTH": "אורך ההערה חייב להיות לפחות {{length}} תווים.",
   "MANDATORY_RATING": "נא לבחור דירוג.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "מחבר",
   "LABEL_COMMENT": "הערה",
   "LABEL_RATING": "דירוג",
