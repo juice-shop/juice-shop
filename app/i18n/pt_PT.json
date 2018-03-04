@@ -24,6 +24,7 @@
   "MANDATORY_COMMENT": "Por favor, informe um comentário.",
   "INVALID_COMMENT_LENGTH": "Comentário deve possuir {{length}} caracteres.",
   "MANDATORY_RATING": "Por favor, informe uma nota.",
+  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
   "LABEL_AUTHOR": "Autor",
   "LABEL_COMMENT": "Comentário",
   "LABEL_RATING": "Avaliação",
