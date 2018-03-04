@@ -4,7 +4,6 @@ const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
-const products = datacache.products
 
 const fs = require('fs')
 const path = require('path')
@@ -88,112 +87,100 @@ function createRandomFakeUsers () {
   ))
 }
 
-module.exports = async () => {
-  // TODO Wrap entire datacreator into promise to avoid race condition with websocket registration for progress restore
-  // This is getting handeling with this refactoring
+function createProducts () {
+  const products = config.get('products').map((product) => {
+    // set default price values
+    product.price = product.price || Math.floor(Math.random())
+    product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
-  // This is going to be the new Data Creation Section. TODO Remove this Comment ;)
+    // set default image values
+    product.image = product.image || 'undefined.png'
+    if (utils.startsWith(product.image, 'http')) {
+      const imageUrl = product.image
+      product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
+      utils.downloadToFile(imageUrl, 'app/public/images/products/' + product.image)
+    }
+
+    // set deleted at values if configured
+    if (product.deletedDate) {
+      product.deletedAt = product.deletedDate
+      delete product.deletedDate
+    }
+
+    return product
+  })
+
+  // add Challenge specific information
+  const chrismasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
+  const blueprintRetrivalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
+
+  chrismasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
+  chrismasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
+  tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
+  tamperingChallengeProduct.deletedAt = null
+
+  let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
+  if (utils.startsWith(blueprint, 'http')) {
+    const blueprintUrl = blueprint
+    blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
+    utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
+  }
+  datacache.retrieveBlueprintChallengeFile = blueprint
+
+  return Promise.all(
+    products.map(
+      ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
+        models.Product.create(product).catch(
+          (err) => {
+            console.error(`Could not insert Product ${product.name}`)
+            console.error(err)
+          }
+        ).then((persistedProduct) => {
+          if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
+          if (urlForProductTamperingChallenge) { datacache.products.osaft = persistedProduct }
+          return persistedProduct
+        })
+          .then(({ id }) =>
+            Promise.all(
+              reviews.map(({ text, author }) =>
+                mongodb.reviews.insert({
+                  message: text,
+                  author: `${author}@${config.get('application.domain')}`,
+                  product: id
+                }).catch((err) => {
+                  console.error(`Could not insert Product Review ${text}`)
+                  console.error(err)
+                })
+              )
+            )
+          )
+    )
+  )
+}
+
+// TODO Config Validation
+// Challenge Product can only have one challenge
+// Challenges can only be related to one product
+
+module.exports = async () => {
   const creators = [
     createUsers,
     createChallenges,
-    createRandomFakeUsers
+    createRandomFakeUsers,
+    createProducts
   ]
 
-  // TODO Using async /await would break node 6 compatibility. This should be replaced with default promises
   for (const creator of creators) {
     await creator()
   }
 
-  createProducts()
   createBaskets()
   createFeedback()
   createComplaints()
   createRecycles()
   createSecurityQuestions()
   createSecurityAnswers()
-}
-
-function createProducts () {
-  function softDeleteIfConfigured ({ name, id }) {
-    for (const configuredProduct of config.get('products')) {
-      if (name === configuredProduct.name) {
-        if (configuredProduct.deletedDate) {
-          models.sequelize.query('UPDATE Products SET deletedAt = \'' + configuredProduct.deletedDate + '\' WHERE id = ' + id)
-        }
-        break
-      }
-    }
-  }
-
-  for (const product of config.get('products')) {
-    const name = product.name
-    let description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
-    const reviews = product.reviews
-    if (product.useForChristmasSpecialChallenge) {
-      description += ' (Seasonal special offer! Limited availability!)'
-    } else if (product.urlForProductTamperingChallenge) {
-      description += ' <a href="' + product.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
-    } else if (product.fileForRetrieveBlueprintChallenge) {
-      if (datacache.retrieveBlueprintChallengeFile) {
-        console.error('Cannot use ' + product.fileForRetrieveBlueprintChallenge + ' when ' + datacache.retrieveBlueprintChallengeFile + ' is already being used for the Retrieve Blueprint Challenge.')
-        process.exit(1)
-      }
-      let blueprint = product.fileForRetrieveBlueprintChallenge
-      if (utils.startsWith(blueprint, 'http')) {
-        const blueprintUrl = blueprint
-        blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
-        utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
-      }
-      datacache.retrieveBlueprintChallengeFile = blueprint
-    }
-    const price = product.price || Math.floor(Math.random())
-    let image = product.image || 'undefined.png'
-    if (utils.startsWith(image, 'http')) {
-      const imageUrl = image
-      image = decodeURIComponent(image.substring(image.lastIndexOf('/') + 1))
-      utils.downloadToFile(imageUrl, 'app/public/images/products/' + image)
-    }
-    models.Product.create({
-      name,
-      description,
-      price,
-      image
-    }).then(product => {
-      softDeleteIfConfigured(product)
-      if (product.description.match(/Seasonal special offer! Limited availability!/)) {
-        if (products.christmasSpecial) {
-          console.error('Cannot use ' + product.name + ' when ' + products.christmasSpecial.name + ' is already being used for the Christmas Special Challenge.')
-          process.exit(1)
-        }
-        products.christmasSpecial = product
-        models.sequelize.query('UPDATE Products SET deletedAt = \'2014-12-27 00:00:00.000 +00:00\' WHERE id = ' + product.id)
-      } else if (product.description.match(/a href="https:\/\/www\.owasp\.org\/index\.php\/O-Saft"/)) {
-        if (products.osaft) {
-          console.error('Cannot use ' + product.name + ' when ' + products.osaft.name + ' is already being used for the Product Tampering Challenge.')
-          process.exit(1)
-        }
-        products.osaft = product
-        if (product.deletedAt) { // undo delete to be consistent about corresponding challenge difficulty
-          models.sequelize.query('UPDATE Products SET deletedAt = null WHERE id = ' + product.id)
-        }
-      }
-      return product
-    }).then(({ id }) => {
-      if (reviews) {
-        return Promise.all(
-          reviews
-            .map((review) => {
-              review.message = review.text
-              review.author = review.author + '@' + config.get('application.domain')
-              review.product = id
-              return review
-            }).map((review) => {
-              return mongodb.reviews.insert(review)
-            })
-        )
-      }
-    })
-  }
 }
 
 function createBaskets () {
