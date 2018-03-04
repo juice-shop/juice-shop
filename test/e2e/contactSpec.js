@@ -13,7 +13,7 @@ describe('/#/contact', () => {
     submitButton = element(by.id('submitButton'))
 
     element(by.id('captcha')).getText().then((text) => {
-      const answer = eval(text).toString()
+      const answer = eval(text).toString() // eslint-disable-line no-eval
       captcha.sendKeys(answer)
     })
   })
