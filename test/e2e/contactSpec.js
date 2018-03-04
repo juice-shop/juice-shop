@@ -1,7 +1,7 @@
 const config = require('config')
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton
+  let comment, rating, submitButton, captcha
 
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -9,7 +9,13 @@ describe('/#/contact', () => {
     browser.get('/#/contact')
     comment = element(by.model('feedback.comment'))
     rating = element(by.model('feedback.rating'))
+    captcha = element(by.model('feedback.captcha'))
     submitButton = element(by.id('submitButton'))
+
+    element(by.id('captcha')).getText().then((text) => {
+      const answer = eval(text).toString()
+      captcha.sendKeys(answer)
+    })
   })
 
   describe('challenge "forgedFeedback"', () => {
