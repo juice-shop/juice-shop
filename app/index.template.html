@@ -101,7 +101,7 @@
                     <li role="separator" class="divider"></li>
                     <li ng-repeat="language in languages" style="cursor:pointer">
                         <a ng-click="changeLanguage(language.key)">
-                            <span class="flag-icon flag-icon-{{language.key.slice(-2).toLowerCase()}}"></span>
+                            <span class="flag-icon flag-icon-{{language.icon}}"></span>
                             {{language.lang}} <i ng-if="language.isFlask" class="fas fa-flask"></i>
                         </a>
                     </li>
