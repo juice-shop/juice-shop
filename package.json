@@ -70,7 +70,7 @@
     "hashids": "~1.1",
     "helmet": "~3.10.0",
     "html-entities": "~1.2",
-    "js-yaml": "~3.10",
+    "js-yaml": "~3.11.0",
     "jsonwebtoken": "~8",
     "jssha": "~2.3",
     "libxmljs": "~0.18",
