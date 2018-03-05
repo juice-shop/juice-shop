@@ -297,8 +297,7 @@ function populateIndexTemplate () {
         logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
         utils.downloadToFile(logoPath, 'app/public/images/' + logo)
       }
-      const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-      replaceLogo(logoImageTag)
+      replaceLogo(logo)
     }
     if (config.get('application.theme')) {
       replaceTheme()
@@ -318,13 +317,13 @@ function populateThreeJsTemplate () {
       }
     }
     if (config.get('application.planetName')) {
-      const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
-      replaceThreeJsTitleTag(threeJsTitleTag)
+      replaceThreeJsTitleTag()
     }
   })
 }
 
-function replaceLogo (logoImageTag) {
+function replaceLogo (logo) {
+  const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
   replace({
     regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
     replacement: logoImageTag,
@@ -355,7 +354,8 @@ function replaceImagePath (overlay) {
   })
 }
 
-function replaceThreeJsTitleTag (threeJsTitleTag) {
+function replaceThreeJsTitleTag () {
+  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
   replace({
     regex: '<title>Welcome to Planet Orangeuze</title>',
     replacement: threeJsTitleTag,
