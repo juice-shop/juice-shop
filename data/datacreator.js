@@ -286,6 +286,9 @@ function createComplaints () {
   return models.Complaint.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
+  }).catch((err) => {
+    console.error(`Could not insert Complaint`)
+    console.error(err)
   })
 }
 
@@ -296,6 +299,9 @@ function createRecycles () {
     address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
     date: '2270-01-17',
     isPickup: true
+  }).catch((err) => {
+    console.error(`Could not insert Recycling Model`)
+    console.error(err)
   })
 }
 
