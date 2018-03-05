@@ -3,7 +3,6 @@ angular.module('juiceShop').controller('LanguageController', [
   '$translate',
   function ($scope, $translate) {
     'use strict'
-
     $scope.languages = languages
     $scope.changeLanguage = function (langKey) {
       $translate.use(langKey)
