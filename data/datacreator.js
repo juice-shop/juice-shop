@@ -169,18 +169,17 @@ module.exports = async () => {
     createChallenges,
     createRandomFakeUsers,
     createProducts,
-    createBaskets
+    createBaskets,
+    createFeedback,
+    createComplaints,
+    createRecycles,
+    createSecurityQuestions,
+    createSecurityAnswers
   ]
 
   for (const creator of creators) {
     await creator()
   }
-
-  createFeedback()
-  createComplaints()
-  createRecycles()
-  createSecurityQuestions()
-  createSecurityAnswers()
 }
 
 function createBaskets () {
@@ -235,48 +234,57 @@ function createBaskets () {
 }
 
 function createFeedback () {
-  models.Feedback.create({
-    UserId: 1,
-    comment: 'I love this shop! Best products in town! Highly recommended!',
-    rating: 5
-  })
-  models.Feedback.create({
-    UserId: 2,
-    comment: 'Great shop! Awesome service!',
-    rating: 4
-  })
-  models.Feedback.create({
-    comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
-    rating: 2
-  })
-  models.Feedback.create({
-    comment: 'This is <b>the</b> store for awesome stuff of all kinds!',
-    rating: 4
-  })
-  models.Feedback.create({
-    comment: 'Never gonna buy anywhere else from now on! Thanks for the great service!',
-    rating: 4
-  })
-  models.Feedback.create({
-    comment: 'Keep up the good work!',
-    rating: 3
-  })
-  models.Feedback.create({
-    UserId: 3,
-    comment: 'Nothing useful available here!',
-    rating: 1
-  })
+  const feedbacks = [
+    {
+      UserId: 1,
+      comment: 'I love this shop! Best products in town! Highly recommended!',
+      rating: 5
+    },
+    {
+      UserId: 2,
+      comment: 'Great shop! Awesome service!',
+      rating: 4
+    },
+    {
+      comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
+      rating: 2
+    },
+    {
+      comment: 'This is <b>the</b> store for awesome stuff of all kinds!',
+      rating: 4
+    },
+    {
+      comment: 'Never gonna buy anywhere else from now on! Thanks for the great service!',
+      rating: 4
+    },
+    {
+      comment: 'Keep up the good work!',
+      rating: 3
+    },
+    {
+      UserId: 3,
+      comment: 'Nothing useful available here!',
+      rating: 1
+    }
+  ]
+
+  return Promise.all(
+    feedbacks.map((feedback) => models.Feedback.create(feedback).catch((err) => {
+      console.error(`Could not insert Feedback ${feedback.comment}`)
+      console.error(err)
+    }))
+  )
 }
 
 function createComplaints () {
-  models.Complaint.create({
+  return models.Complaint.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   })
 }
 
 function createRecycles () {
-  models.Recycle.create({
+  return models.Recycle.create({
     UserId: 2,
     quantity: 800,
     address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
@@ -286,72 +294,62 @@ function createRecycles () {
 }
 
 function createSecurityQuestions () {
-  models.SecurityQuestion.create({
-    question: 'Your eldest siblings middle name?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Mother\'s maiden name?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Mother\'s birth date? (MM/DD/YY)'
-  })
-  models.SecurityQuestion.create({
-    question: 'Father\'s birth date? (MM/DD/YY)'
-  })
-  models.SecurityQuestion.create({
-    question: 'Maternal grandmother\'s first name?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Paternal grandmother\'s first name?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Name of your favorite pet?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Last name of dentist when you were a teenager? (Do not include \'Dr.\')'
-  })
-  models.SecurityQuestion.create({
-    question: 'Your ZIP/postal code when you were a teenager?'
-  })
-  models.SecurityQuestion.create({
-    question: 'Company you first work for as an adult?'
-  })
+  const questions = [
+    'Your eldest siblings middle name?',
+    'Mother\'s maiden name?',
+    'Mother\'s birth date? (MM/DD/YY)',
+    'Father\'s birth date? (MM/DD/YY)',
+    'Maternal grandmother\'s first name?',
+    'Paternal grandmother\'s first name?',
+    'Name of your favorite pet?',
+    'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
+    'Your ZIP/postal code when you were a teenager?',
+    'Company you first work for as an adult?'
+  ]
+
+  return Promise.all(
+    questions.map((question) => models.SecurityQuestion.create({ question }).catch((err) => {
+      console.error(`Could not insert SecurityQuestion ${question}`)
+      console.error(err)
+    }))
+  )
 }
 
 function createSecurityAnswers () {
-  models.SecurityAnswer.create({
+  const answers = [{
     SecurityQuestionId: 2,
     UserId: 1,
     answer: '@xI98PxDO+06!'
-  }).catch(console.error)
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 1,
     UserId: 2,
     answer: 'Samuel' // https://en.wikipedia.org/wiki/James_T._Kirk
-  })
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 10,
     UserId: 3,
     answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
-  })
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 9,
     UserId: 4,
     answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
-  })
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 7,
     UserId: 5,
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
-  })
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 10,
     UserId: 6,
     answer: 'SC OLEA SRL' // http://www.olea.com.ro/
-  })
-  models.SecurityAnswer.create({
+  }, {
     SecurityQuestionId: 1,
     UserId: 7,
     answer: 'JeRRy' // bruteforcible/
-  })
+  }]
+
+  return Promise.all(
+    answers.map(answer => models.SecurityAnswer.create(answer).catch(err => {
+      console.error(`Could not insert SecurityAnswer for UserId ${answer.UserId}`)
+      console.error(err)
+    }))
+  )
 }
