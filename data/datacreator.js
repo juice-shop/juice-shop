@@ -18,10 +18,6 @@ function loadStaticData (file) {
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
 }
 
-// TODO Config Validation
-// Challenge Product can only have one challenge
-// Challenges can only be related to one product
-
 module.exports = async () => {
   const creators = [
     createUsers,
