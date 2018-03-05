@@ -364,7 +364,7 @@ function replaceCookieConsent () {
     recursive: false,
     silent: true
   })
-  const contentProperty = '"content": { "message": "'+ config.get('application.cookieConsent.message') +'", "dismiss": "'+ config.get('application.cookieConsent.dismissText') +'", "link": "'+ config.get('application.cookieConsent.linkText') +'", "href": "'+ config.get('application.cookieConsent.linkUrl') +'" }'
+  const contentProperty = '"content": { "message": "' + config.get('application.cookieConsent.message') + '", "dismiss": "' + config.get('application.cookieConsent.dismissText') + '", "link": "' + config.get('application.cookieConsent.linkText') + '", "href": "' + config.get('application.cookieConsent.linkUrl') + '" }'
   replace({
     regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
     replacement: contentProperty,
@@ -373,7 +373,6 @@ function replaceCookieConsent () {
     silent: true
   })
 }
-
 
 function replaceImagePath (overlay) {
   replace({
