@@ -20,6 +20,15 @@ application:
     topProductImage: 'fruit_press.jpg'
     bottomProductImage: 'apple_pressings.jpg'
   altcoinName: 'Juicycoin'
+  cookieConsent:
+    backgroundColor: '#eb6c44'
+    textColor: '#ffffff'
+    buttonColor: '#f5d948'
+    buttonTextColor: '#000000'
+    message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
+    dismissText: 'Me want it!'
+    linkText: 'But me wait!'
+    linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
 products:
   - name: 'Apple Juice (1000ml)'
     price: 1.99
