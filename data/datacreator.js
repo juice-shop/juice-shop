@@ -12,7 +12,7 @@ const util = require('util')
 const readFile = util.promisify(fs.readFile)
 
 function loadStaticData (file) {
-  const filePath = path.resolve('./data/data/' + file + '.json')
+  const filePath = path.resolve('./data/static/' + file + '.json')
   return readFile(filePath, 'utf8')
     .then(JSON.parse)
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
