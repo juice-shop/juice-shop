@@ -168,14 +168,14 @@ module.exports = async () => {
     createUsers,
     createChallenges,
     createRandomFakeUsers,
-    createProducts
+    createProducts,
+    createBaskets
   ]
 
   for (const creator of creators) {
     await creator()
   }
 
-  createBaskets()
   createFeedback()
   createComplaints()
   createRecycles()
@@ -184,40 +184,54 @@ module.exports = async () => {
 }
 
 function createBaskets () {
-  models.Basket.create({
-    UserId: 1
-  })
-  models.Basket.create({
-    UserId: 2
-  })
-  models.Basket.create({
-    UserId: 3
-  })
-  models.BasketItem.create({
-    BasketId: 1,
-    ProductId: 1,
-    quantity: 2
-  })
-  models.BasketItem.create({
-    BasketId: 1,
-    ProductId: 2,
-    quantity: 3
-  })
-  models.BasketItem.create({
-    BasketId: 1,
-    ProductId: 3,
-    quantity: 1
-  })
-  models.BasketItem.create({
-    BasketId: 2,
-    ProductId: 4,
-    quantity: 2
-  })
-  models.BasketItem.create({
-    BasketId: 3,
-    ProductId: 5,
-    quantity: 1
-  })
+  const baskets = [
+    { UserId: 1 },
+    { UserId: 2 },
+    { UserId: 3 }
+  ]
+
+  const basketItems = [
+    {
+      BasketId: 1,
+      ProductId: 1,
+      quantity: 2
+    },
+    {
+      BasketId: 1,
+      ProductId: 2,
+      quantity: 3
+    },
+    {
+      BasketId: 1,
+      ProductId: 3,
+      quantity: 1
+    },
+    {
+      BasketId: 2,
+      ProductId: 4,
+      quantity: 2
+    },
+    {
+      BasketId: 3,
+      ProductId: 5,
+      quantity: 1
+    }
+  ]
+
+  return Promise.all([
+    ...baskets.map(basket => {
+      models.Basket.create(basket).catch((err) => {
+        console.error(`Could not insert Basket for UserId ${basket.UserId}`)
+        console.error(err)
+      })
+    }),
+    ...basketItems.map(basketItem => {
+      models.BasketItem.create(basketItem).catch((err) => {
+        console.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}`)
+        console.error(err)
+      })
+    })
+  ])
 }
 
 function createFeedback () {
