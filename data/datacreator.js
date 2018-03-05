@@ -18,6 +18,30 @@ function loadStaticData (file) {
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
 }
 
+// TODO Config Validation
+// Challenge Product can only have one challenge
+// Challenges can only be related to one product
+
+module.exports = async () => {
+  const creators = [
+    createUsers,
+    createChallenges,
+    createRandomFakeUsers,
+    createProducts,
+    createBaskets,
+    createBasketItems,
+    createFeedback,
+    createComplaints,
+    createRecycles,
+    createSecurityQuestions,
+    createSecurityAnswers
+  ]
+
+  for (const creator of creators) {
+    await creator()
+  }
+}
+
 async function createChallenges () {
   const showHints = config.get('application.showChallengeHints')
 
@@ -159,29 +183,6 @@ function createProducts () {
   )
 }
 
-// TODO Config Validation
-// Challenge Product can only have one challenge
-// Challenges can only be related to one product
-
-module.exports = async () => {
-  const creators = [
-    createUsers,
-    createChallenges,
-    createRandomFakeUsers,
-    createProducts,
-    createBaskets,
-    createFeedback,
-    createComplaints,
-    createRecycles,
-    createSecurityQuestions,
-    createSecurityAnswers
-  ]
-
-  for (const creator of creators) {
-    await creator()
-  }
-}
-
 function createBaskets () {
   const baskets = [
     { UserId: 1 },
@@ -189,6 +190,17 @@ function createBaskets () {
     { UserId: 3 }
   ]
 
+  return Promise.all(
+    baskets.map(basket => {
+      models.Basket.create(basket).catch((err) => {
+        console.error(`Could not insert Basket for UserId ${basket.UserId}`)
+        console.error(err)
+      })
+    })
+  )
+}
+
+function createBasketItems () {
   const basketItems = [
     {
       BasketId: 1,
@@ -217,20 +229,14 @@ function createBaskets () {
     }
   ]
 
-  return Promise.all([
-    ...baskets.map(basket => {
-      models.Basket.create(basket).catch((err) => {
-        console.error(`Could not insert Basket for UserId ${basket.UserId}`)
-        console.error(err)
-      })
-    }),
-    ...basketItems.map(basketItem => {
+  return Promise.all(
+    basketItems.map(basketItem => {
       models.BasketItem.create(basketItem).catch((err) => {
         console.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}`)
         console.error(err)
       })
     })
-  ])
+  )
 }
 
 function createFeedback () {
