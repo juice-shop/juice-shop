@@ -91,36 +91,14 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
-                    <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</a></li>
+                    <li style="cursor:pointer"><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English </a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ng-click="changeLanguage('ar_SA')"><span class="flag-icon flag-icon-ae"></span> عربى <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('cs_CZ')"><span class="flag-icon flag-icon-cz"></span> Česky</a></li>
-                    <li><a ng-click="changeLanguage('da_DK')"><span class="flag-icon flag-icon-dk"></span> Dansk <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('de_DE')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
-                    <li><a ng-click="changeLanguage('el_GR')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('es_ES')"><span class="flag-icon flag-icon-es"></span> Español</a></li>
-                    <li><a ng-click="changeLanguage('et_EE')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fi_FI')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fr_FR')"><span class="flag-icon flag-icon-fr"></span> Français</a></li>
-                    <li><a ng-click="changeLanguage('he_IL')"><span class="flag-icon flag-icon-il"></span>עברי </a></li>
-                    <li><a ng-click="changeLanguage('hu_HU')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('id_ID')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
-                    <li><a ng-click="changeLanguage('it_IT')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('ja_JP')"><span class="flag-icon flag-icon-jp"></span> 日本の</a></li>
-                    <li><a ng-click="changeLanguage('lt_LT')"><span class="flag-icon flag-icon-lt"></span> Lietuviešu <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('lv_LV')"><span class="flag-icon flag-icon-lv"></span> Latvijas <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('my_MM')"><span class="flag-icon flag-icon-mm"></span> ျမန္မာ</a></li>
-                    <li><a ng-click="changeLanguage('nl_NL')"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
-                    <li><a ng-click="changeLanguage('no_NO')"><span class="flag-icon flag-icon-no"></span> Norsk</a></li>
-                    <li><a ng-click="changeLanguage('pl_PL')"><span class="flag-icon flag-icon-pl"></span> Język Polski</a></li>
-                    <li><a ng-click="changeLanguage('pt_PT')"><span class="flag-icon flag-icon-pt"></span> Português</a></li>
-                    <li><a ng-click="changeLanguage('ro_RO')"><span class="flag-icon flag-icon-ro"></span> Românesc</a></li>
-                    <li><a ng-click="changeLanguage('ru_RU')"><span class="flag-icon flag-icon-ru"></span> Pусский</a></li>
-                    <li><a ng-click="changeLanguage('sv_SE')"><span class="flag-icon flag-icon-se"></span> Svenska</a></li>
-                    <li><a ng-click="changeLanguage('tr_TR')"><span class="flag-icon flag-icon-tr"></span> Türkçe</a></li>
-                    <li><a ng-click="changeLanguage('ur_PK')"><span class="flag-icon flag-icon-pk"></span>اردو </a></li>
-                    <li><a ng-click="changeLanguage('zh_CN')"><span class="flag-icon flag-icon-cn"></span> 中国</a></li>
-                    <li><a ng-click="changeLanguage('zh_HK')"><span class="flag-icon flag-icon-hk"></span> 繁體中文 <i class="fas fa-flask"></i></a></li>
+                    <li ng-repeat="language in languages" style="cursor:pointer">
+                        <a ng-click="changeLanguage(language.key)">
+                            <span class="flag-icon flag-icon-{{language.icon}}"></span>
+                            {{language.lang}} <i ng-if="language.isFlask" class="fas fa-flask"></i>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
