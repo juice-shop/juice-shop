@@ -36,7 +36,6 @@
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-    <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
     <script src="node_modules/angular-socket-io/socket.min.js"></script>
     <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
@@ -50,13 +49,8 @@
       window.addEventListener("load", function(){
         window.cookieconsent.initialise({
           "palette": {
-            "popup": {
-              "background": "#eb6c44",
-              "text": "#ffffff"
-            },
-            "button": {
-              "background": "#f5d948"
-            }
+            "popup": { "background": "#eb6c44", "text": "#ffffff" },
+            "button": { "background": "#f5d948", "text": "#000000" }
           },
           "theme": "classic",
           "position": "bottom-right",
