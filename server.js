@@ -59,6 +59,8 @@ let firstConnectedSocket = null
 global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
+require('./lib/validateConfig')()
+
 /* Delete old order PDFs */
 glob(path.join(__dirname, 'ftp/*.pdf'), (err, files) => {
   if (err) {
@@ -252,8 +254,8 @@ app.locals.captchaId = 0
 
 exports.start = function (readyCallback) {
   if (!this.server) {
-    models.sequelize.sync({ force: true }).then(function () {
-      datacreator()
+    models.sequelize.sync({ force: true }).then(async function () {
+      await datacreator()
       this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()
