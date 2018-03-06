@@ -17,6 +17,7 @@ const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
+const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const fileUpload = require('./routes/fileUpload')
 const redirect = require('./routes/redirect')
@@ -51,6 +52,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const replace = require('replace')
 const appConfiguration = require('./routes/appConfiguration')
+const captcha = require('./routes/captcha')
 const config = require('config')
 let firstConnectedSocket = null
 
@@ -133,7 +135,7 @@ app.use('/api/BasketItems', insecurity.isAuthorized())
 app.use('/api/BasketItems/:id', insecurity.isAuthorized())
 /* Feedbacks: GET allowed for feedback carousel, POST allowed in order to provide feedback without being logged in */
 app.use('/api/Feedbacks/:id', insecurity.isAuthorized())
-/* Users: Only POST is allowed in order to register a new uer */
+/* Users: Only POST is allowed in order to register a new user */
 app.get('/api/Users', insecurity.isAuthorized())
 app.route('/api/Users/:id')
   .get(insecurity.isAuthorized())
@@ -166,14 +168,28 @@ app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
+/* Captcha verification before epilogue takes over */
+app.post('/api/Feedbacks', insecurity.verifyCaptcha())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
 app.use(verify.databaseRelatedChallenges())
 
+const endpointLimiter = new RateLimit({
+  windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
+  max: 100,
+  keyGenerator ({headers, ip}) {
+    return headers['X-Forwarded-For'] || ip
+  },
+  delayMs: 0
+})
+
+app.enable('trust proxy')
+app.use('/rest/user/reset-password', endpointLimiter)
+
 epilogue.initialize({
-  app: app,
+  app,
   sequelize: models.sequelize
 })
 
@@ -186,7 +202,7 @@ for (const modelName of autoModels) {
   })
 
   // fix the api difference between epilogue and previously used sequlize-restful
-  resource.all.send.before(function (req, res, context) {
+  resource.all.send.before((req, res, context) => {
     context.instance = {
       status: 'success',
       data: context.instance
@@ -218,6 +234,7 @@ app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
+app.get('/rest/captcha', captcha())
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
 
@@ -230,6 +247,8 @@ app.use(angular())
 /* Error Handling */
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
+/* Captcha Id */
+app.locals.captchaId = 0
 
 exports.start = function (readyCallback) {
   if (!this.server) {
@@ -245,6 +264,7 @@ exports.start = function (readyCallback) {
     }, console.error)
 
     populateIndexTemplate()
+    populateThreeJsTemplate()
   }
 }
 
@@ -260,7 +280,7 @@ function registerWebsocketEvents () {
     })
 
     socket.on('notification received', data => {
-      const i = notifications.findIndex(element => element.flag === data)
+      const i = notifications.findIndex(({flag}) => flag === data)
       if (i > -1) {
         notifications.splice(i, 1)
       }
@@ -277,16 +297,36 @@ function populateIndexTemplate () {
         logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
         utils.downloadToFile(logoPath, 'app/public/images/' + logo)
       }
-      const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-      replaceLogo(logoImageTag)
+      replaceLogo(logo)
     }
     if (config.get('application.theme')) {
       replaceTheme()
     }
+    if (config.get('application.cookieConsent')) {
+      replaceCookieConsent()
+    }
   })
 }
 
-function replaceLogo (logoImageTag) {
+function populateThreeJsTemplate () {
+  fs.copy('app/private/threejs-demo.template.html', 'app/private/threejs-demo.html', { overwrite: true }, () => {
+    if (config.get('application.planetOverlayMap')) {
+      let overlay = config.get('application.planetOverlayMap')
+      if (utils.startsWith(overlay, 'http')) {
+        const overlayPath = overlay
+        overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
+        utils.downloadToFile(overlayPath, 'app/private/' + overlay)
+        replaceImagePath(overlay)
+      }
+    }
+    if (config.get('application.planetName')) {
+      replaceThreeJsTitleTag()
+    }
+  })
+}
+
+function replaceLogo (logo) {
+  const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
   replace({
     regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
     replacement: logoImageTag,
@@ -302,6 +342,54 @@ function replaceTheme () {
     regex: /node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
     replacement: themeCss,
     paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceCookieConsent () {
+  const popupProperty = '"popup": { "background": "' + config.get('application.cookieConsent.backgroundColor') + '", "text": "' + config.get('application.cookieConsent.textColor') + '" }'
+  replace({
+    regex: /"popup": { "background": ".*", "text": ".*" }/,
+    replacement: popupProperty,
+    paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+  const buttonProperty = '"button": { "background": "' + config.get('application.cookieConsent.buttonColor') + '", "text": "' + config.get('application.cookieConsent.buttonTextColor') + '" }'
+  replace({
+    regex: /"button": { "background": ".*", "text": ".*" }/,
+    replacement: buttonProperty,
+    paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+  const contentProperty = '"content": { "message": "' + config.get('application.cookieConsent.message') + '", "dismiss": "' + config.get('application.cookieConsent.dismissText') + '", "link": "' + config.get('application.cookieConsent.linkText') + '", "href": "' + config.get('application.cookieConsent.linkUrl') + '" }'
+  replace({
+    regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
+    replacement: contentProperty,
+    paths: ['app/index.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceImagePath (overlay) {
+  replace({
+    regex: 'orangemap2k.jpg',
+    replacement: overlay,
+    paths: ['app/private/threejs-demo.html'],
+    recursive: false,
+    silent: true
+  })
+}
+
+function replaceThreeJsTitleTag () {
+  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
+  replace({
+    regex: '<title>Welcome to Planet Orangeuze</title>',
+    replacement: threeJsTitleTag,
+    paths: ['app/private/threejs-demo.html'],
     recursive: false,
     silent: true
   })

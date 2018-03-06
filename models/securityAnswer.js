@@ -1,20 +1,20 @@
 /* jslint node: true */
 const insecurity = require('../lib/insecurity')
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, {STRING, INTEGER}) => {
   const SecurityAnswer = sequelize.define('SecurityAnswer', {
     answer: {
-      type: DataTypes.STRING,
+      type: STRING,
       set (answer) {
         this.setDataValue('answer', insecurity.hmac(answer))
       }
     },
-    UserId: { type: DataTypes.INTEGER, unique: true }
+    UserId: { type: INTEGER, unique: true }
   })
 
-  SecurityAnswer.associate = function (models) {
-    SecurityAnswer.belongsTo(models.User)
-    SecurityAnswer.belongsTo(models.SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
+  SecurityAnswer.associate = ({User, SecurityQuestion}) => {
+    SecurityAnswer.belongsTo(User)
+    SecurityAnswer.belongsTo(SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
   }
 
   return SecurityAnswer
