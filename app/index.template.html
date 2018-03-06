@@ -14,15 +14,11 @@
     <title ng-bind="applicationName"></title>
     <meta name="description" content="An intentionally insecure JavaScript Web Application">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap -->
     <link ng-controller="NavbarController" href="node_modules/bootswatch/slate/bootstrap.min.css" rel="stylesheet" id="theme">
-    <!-- Flag Icons -->
     <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <!-- Application Styles-->
+    <link href="node_modules/cookieconsent/build/cookieconsent.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css"/>
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- libraries, third party components -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="private/fontawesome-all.js"></script>
     <script src="node_modules/underscore/underscore.js"></script>
@@ -40,7 +36,6 @@
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-    <script src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
     <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
     <script src="node_modules/angular-socket-io/socket.min.js"></script>
     <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
@@ -48,15 +43,27 @@
     <script src="node_modules/angular-base64/angular-base64.js"></script>
     <script src="node_modules/qrcode-generator/qrcode.js"></script>
     <script src="node_modules/angular-qrcode/angular-qrcode.js"></script>
+    <script src="node_modules/cookieconsent/build/cookieconsent.min.js"></script>
 
-    <!--  application specific source files -->
+    <script>
+      window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+          "palette": {
+            "popup": { "background": "#eb6c44", "text": "#ffffff" },
+            "button": { "background": "#f5d948", "text": "#000000" }
+          },
+          "theme": "classic",
+          "position": "bottom-right",
+          "content": { "message": "This website uses fruit cookies to ensure you get the juiciest tracking experience.", "dismiss": "Me want it!", "link": "But me wait!", "href": "https://www.youtube.com/watch?v=9PnbKL3wuH4" }
+        })});
+    </script>
+
     <script src="dist/juice-shop.min.js"></script>
 
 </head>
+
 <body ng-cloak translate-cloak>
 
-
-<!-- HEADER -->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid" ng-controller="NavbarController">
         <div class="navbar-header">
@@ -79,36 +86,14 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="languageMenu" ng-controller="LanguageController">
-                    <li><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</a></li>
+                    <li style="cursor:pointer"><a ng-click="changeLanguage('en')"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English </a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a ng-click="changeLanguage('ar_SA')"><span class="flag-icon flag-icon-ae"></span> عربى <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('cs_CZ')"><span class="flag-icon flag-icon-cz"></span> Česky</a></li>
-                    <li><a ng-click="changeLanguage('da_DK')"><span class="flag-icon flag-icon-dk"></span> Dansk <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('de_DE')"><span class="flag-icon flag-icon-de"></span> Deutsch</a></li>
-                    <li><a ng-click="changeLanguage('el_GR')"><span class="flag-icon flag-icon-gr"></span> Ελληνικά <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('es_ES')"><span class="flag-icon flag-icon-es"></span> Español</a></li>
-                    <li><a ng-click="changeLanguage('et_EE')"><span class="flag-icon flag-icon-ee"></span> Eesti <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fi_FI')"><span class="flag-icon flag-icon-fi"></span> Suomalainen <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('fr_FR')"><span class="flag-icon flag-icon-fr"></span> Français</a></li>
-                    <li><a ng-click="changeLanguage('he_IL')"><span class="flag-icon flag-icon-il"></span>עברי </a></li>
-                    <li><a ng-click="changeLanguage('hu_HU')"><span class="flag-icon flag-icon-hu"></span> Magyar <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('id_ID')"><span class="flag-icon flag-icon-id"></span> Bahasa Indonesia</a></li>
-                    <li><a ng-click="changeLanguage('it_IT')"><span class="flag-icon flag-icon-it"></span> Italiano <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('ja_JP')"><span class="flag-icon flag-icon-jp"></span> 日本の</a></li>
-                    <li><a ng-click="changeLanguage('lt_LT')"><span class="flag-icon flag-icon-lt"></span> Lietuviešu <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('lv_LV')"><span class="flag-icon flag-icon-lv"></span> Latvijas <i class="fas fa-flask"></i></a></li>
-                    <li><a ng-click="changeLanguage('my_MM')"><span class="flag-icon flag-icon-mm"></span> ျမန္မာ</a></li>
-                    <li><a ng-click="changeLanguage('nl_NL')"><span class="flag-icon flag-icon-nl"></span> Nederlands</a></li>
-                    <li><a ng-click="changeLanguage('no_NO')"><span class="flag-icon flag-icon-no"></span> Norsk</a></li>
-                    <li><a ng-click="changeLanguage('pl_PL')"><span class="flag-icon flag-icon-pl"></span> Język Polski</a></li>
-                    <li><a ng-click="changeLanguage('pt_PT')"><span class="flag-icon flag-icon-pt"></span> Português</a></li>
-                    <li><a ng-click="changeLanguage('ro_RO')"><span class="flag-icon flag-icon-ro"></span> Românesc</a></li>
-                    <li><a ng-click="changeLanguage('ru_RU')"><span class="flag-icon flag-icon-ru"></span> Pусский</a></li>
-                    <li><a ng-click="changeLanguage('sv_SE')"><span class="flag-icon flag-icon-se"></span> Svenska</a></li>
-                    <li><a ng-click="changeLanguage('tr_TR')"><span class="flag-icon flag-icon-tr"></span> Türkçe</a></li>
-                    <li><a ng-click="changeLanguage('ur_PK')"><span class="flag-icon flag-icon-pk"></span>اردو </a></li>
-                    <li><a ng-click="changeLanguage('zh_CN')"><span class="flag-icon flag-icon-cn"></span> 中国</a></li>
-                    <li><a ng-click="changeLanguage('zh_HK')"><span class="flag-icon flag-icon-hk"></span> 繁體中文 <i class="fas fa-flask"></i></a></li>
+                    <li ng-repeat="language in languages" style="cursor:pointer">
+                        <a ng-click="changeLanguage(language.key)">
+                            <span class="flag-icon flag-icon-{{language.icon}}"></span>
+                            {{language.lang}} <i ng-if="language.isFlask" class="fas fa-flask"></i>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -172,7 +157,6 @@
     </div>
 </div>
 
-<!-- CONTENT -->
 <main class="container-fluid" ng-view></main>
 
 <a ng-show="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/public/images/ribbons/forkme_right_{{gitHubRibbon}}.png" alt="Fork me on GitHub"></a>

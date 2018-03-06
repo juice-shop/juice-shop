@@ -26,13 +26,13 @@ describe('/rest/user/login', () => {
           password: 'kallliiii'
         }
       })
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'authentication', {
-        token: Joi.string(),
-        umail: Joi.string(),
-        bid: Joi.number()
-      }))
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('jsonTypes', 'authentication', {
+          token: Joi.string(),
+          umail: Joi.string(),
+          bid: Joi.number()
+        }))
       .done(done)
   })
 
@@ -76,6 +76,22 @@ describe('/rest/user/login', () => {
       body: {
         email: 'support@' + config.get('application.domain'),
         password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+      .done(done)
+  })
+
+  it('POST login with MC SafeSearch credentials', done => {
+    frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'mc.safesearch@' + config.get('application.domain'),
+        password: 'Mr. N00dles'
       }
     })
       .expect('status', 200)
