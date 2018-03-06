@@ -2,7 +2,7 @@
 - email: admin
   password: admin123
   customDomain: false
-  key: false
+  key: admin
 - email: jim
   password: ncc-1701
   customDomain: false
