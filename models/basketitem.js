@@ -1,13 +1,13 @@
 /* jslint node: true */
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, {INTEGER}) => {
   const BasketItem = sequelize.define('BasketItem', {
     id: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    quantity: DataTypes.INTEGER
+    quantity: INTEGER
   }
-    )
+  )
   return BasketItem
 }

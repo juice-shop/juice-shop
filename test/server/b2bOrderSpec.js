@@ -13,7 +13,7 @@ describe('b2bOrder', () => {
     this.res = { json: sinon.spy(), status: sinon.spy() }
     this.next = sinon.spy()
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 

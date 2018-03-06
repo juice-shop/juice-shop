@@ -1,27 +1,39 @@
 server:
   port: 3000
 application:
-  domain: "juice-sh.op"
-  name: "OWASP Juice Shop"
-  logo: "JuiceShop_Logo.png"
-  favicon: "favicon_v2.ico"
+  domain: 'juice-sh.op'
+  name: 'OWASP Juice Shop'
+  logo: 'JuiceShop_Logo.png'
+  favicon: 'favicon_v2.ico'
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
   showChallengeHints: true
   showVersionNumber: true
-  theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
-  gitHubRibbon: "orange" # Options: darkblue  gray  green  orange  red  white  none
-  twitterUrl: "https://twitter.com/owasp_juiceshop"
-  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+  theme: 'slate' # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
+  gitHubRibbon: 'orange' # Options: darkblue  gray  green  orange  red  white  none
+  twitterUrl: 'https://twitter.com/owasp_juiceshop'
+  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+  planetOverlayMap: 'orangemap2k.jpg'
+  planetName: 'Orangeuze'
   recyclePage:
-    topProductImage: "fruit_press.jpg"
-    bottomProductImage: "apple_pressings.jpg"
+    topProductImage: 'fruit_press.jpg'
+    bottomProductImage: 'apple_pressings.jpg'
+  altcoinName: 'Juicycoin'
+  cookieConsent:
+    backgroundColor: '#eb6c44'
+    textColor: '#ffffff'
+    buttonColor: '#f5d948'
+    buttonTextColor: '#000000'
+    message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
+    dismissText: 'Me want it!'
+    linkText: 'But me wait!'
+    linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
 products:
-  - name: "Apple Juice (1000ml)"
+  - name: 'Apple Juice (1000ml)'
     price: 1.99
-    description: "The all-time classic."
-    image: "apple_juice.jpg"
+    description: 'The all-time classic.'
+    image: 'apple_juice.jpg'
     reviews:
       - text: 'One of my favorites!'
         author: 'admin' # Options: admin, jim, bender, ciso, support
@@ -62,10 +74,10 @@ products:
   - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
-    image: 'owasp_osaft.jpg'
-    useForProductTamperingChallenge: true
+    image: 'orange_juice.jpg'
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
   - name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
+    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
     price: 29.99
     image: 'undefined.jpg'
     useForChristmasSpecialChallenge: true
@@ -117,10 +129,6 @@ products:
     description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
     price: 4.99
     image: 'quince.jpg'
-  - name: 'OWASP Node.js Goat'
-    description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>'
-    price: 0.01
-    image: 'owasplogo.png'
   - name: 'Apple Pomace'
     description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recyle">sent back to us</a> for recycling.'
     price: 0.89
@@ -129,13 +137,6 @@ products:
     description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
     price: 89.99
     image: 'fruit_press.jpg'
-  - name: 'Enhanced White Rafford`s Decoction'
-    description: 'Immediately restores a large portion of Vitality.'
-    price: 150
-    image: 'white_raffards.jpg'
-    reviews:
-      - text: 'A vital ingredient for a succesful playthrough.'
-        author: 'jim'
   - name: 'OWASP Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
@@ -150,10 +151,6 @@ products:
     price: 0.03
     image: 'waspy.png'
     deletedDate: '2017-07-01'
-  - name: 'Melon Bike'
-    description: 'The wheels of this bicycle are made from real water melons.'
-    price: 1999
-    image: 'melon_bike.jpeg'
   - name: 'Strawberry Juice (500ml)'
     description: 'Sweet & tasty!'
     price: 3.99
@@ -162,10 +159,6 @@ products:
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
     image: 'carrot_juice.jpeg'
-  - name: 'Jawa Script T-Shirt'
-    description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
-    price: 20
-    image: 'jawa_script.jpg'
   - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
     price: 19.10
@@ -175,3 +168,10 @@ products:
     description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
     price: 5.99
     image: 'cover_small.jpg'
+    reviews:
+      - text: 'Even more interesting than watching Interdimensional Cable!'
+        author: 'morty'
+  - name: 'Melon Bike (Comeback-Product 2018 Edition)'
+    description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
+    price: 2999
+    image: 'melon_bike.jpeg'

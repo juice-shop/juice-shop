@@ -8,6 +8,16 @@ application:
   recyclePage:
     topProductImage: "undefined.png"
     bottomProductImage: "thingie1.jpg"
+  altcoinName: Bodgecoin
+  cookieConsent:
+    backgroundColor: '#000000'
+    textColor: '#ffffff'
+    buttonColor: '#ffffff'
+    buttonTextColor: '#000000'
+    message: 'This website is so legacy, it might even run without cookies.'
+    dismissText: 'Bodge it!'
+    linkText: 'Lega-what?'
+    linkUrl: 'https://github.com/psiinon/bodgeit'
 products:
   - name: "Basic Widget"
     description: "D tt brpr t rrg ljlw tmneipn.  uwb qolq  rt n pejdkqg nokd  f pydns inoiei."
