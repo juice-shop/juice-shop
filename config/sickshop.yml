@@ -9,6 +9,16 @@ application:
   recyclePage:
     topProductImage: "david-benjamin-Hammer.png"
     bottomProductImage: "Headache.png"
+  altcoinName: Illcoin
+  cookieConsent:
+    backgroundColor: '#106326'
+    textColor: '#ffffff'
+    buttonColor: '#ffffff'
+    buttonTextColor: '#000000'
+    message: 'This website uses medic...cookies to ensure you get the healthiest tracking experience.'
+    dismissText: 'Cough! Cough!'
+    linkText: 'But I don`t feel sick!'
+    linkUrl: 'http://www.cookinglight.com/food/recipe-finder/healthy-cookies'
 products:
   - name: "Cold"
     price: 10

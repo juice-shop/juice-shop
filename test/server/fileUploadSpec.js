@@ -10,10 +10,10 @@ describe('fileUpload', () => {
 
   beforeEach(() => {
     this.res = { status: sinon.stub() }
-    this.res.status.returns({ end: function () { } })
+    this.res.status.returns({ end () { } })
     this.req = { file: { originalname: '' } }
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 
