@@ -95,15 +95,15 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.throw('You cannot use Product Apple Juice for multiple Challenges.\nIt was attempted to be used for as Chrismas Challenge Product, Product Tampering Challenge Product')
+      expect(() => checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.throw('You cannot use the Product Apple Juice for multiple Challenges.\nIt was attempted to be used as Chrismas Challenge Product and Product Tampering Challenge Product')
     })
   })
 
   it('should accept the default config', () => {
-    expect(validateConfig()).to.equal(true)
+    expect(validateConfig({ exitOnFailure: false })).to.equal(true)
   })
 
   it('should throw an error if the config is invalid', () => {
-    expect(validateConfig({ products: [] })).to.equal(false)
+    expect(validateConfig({ products: [], exitOnFailure: false })).to.equal(false)
   })
 })
