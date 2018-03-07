@@ -172,6 +172,8 @@ app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 /* Captcha verification before epilogue takes over */
 app.post('/api/Feedbacks', insecurity.verifyCaptcha())
+/* Captcha Bypass challenge verification */
+app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 
@@ -251,6 +253,9 @@ app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
 /* Captcha Id */
 app.locals.captchaId = 0
+/* Captcha Bypass Challenge parameters */
+app.locals.captchaReqId = 1
+app.locals.captchaBypassReqTimes = []
 
 exports.start = function (readyCallback) {
   if (!this.server) {
