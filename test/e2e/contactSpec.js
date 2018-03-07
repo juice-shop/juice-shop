@@ -140,10 +140,14 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "zeroStars"', () => {
-    xit('should be possible to post feedback with zero stars by using the API directly', () => { // FIXME Needs to include captcha answer and ID in request body
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')
+    it('should be possible to post feedback with zero stars by enabling the button submit directly', () => {
+      browser.executeScript('document.getElementById("submitButton").removeAttribute("disabled");')
+
+      comment.sendKeys('No rating!')
+
+      submitButton.click()
     })
-    // protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
+    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   })
 })
 
