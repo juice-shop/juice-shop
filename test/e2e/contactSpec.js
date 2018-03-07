@@ -141,7 +141,7 @@ describe('/#/contact', () => {
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by directly manipulating DOM', () => {
-      browser.executeScript('document.getElementById("feedback.rating").value = 0;')
+      browser.executeScript('document.getElementById("feedback.rating").setAttribute(\'value\', \'0\');')
       browser.executeScript('document.getElementById("submitButton").removeAttribute("disabled");')
 
       comment.sendKeys('No rating!')
