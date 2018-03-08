@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Geef alstublieft een reactie.",
   "INVALID_COMMENT_LENGTH": "Een reactie moet {{length}} tekens lang zijn.",
   "MANDATORY_RATING": "Voeg alstublieft een beoordeling toe.",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "Auteur",
   "LABEL_COMMENT": "Commentaar",
   "LABEL_RATING": "Beoordeling",
