@@ -263,6 +263,13 @@
     one.
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production
   key: extraLanguageChallenge
+- name: CAPTCHA Bypass
+  category: Vulnerable Component
+  description: Submit 10 or more customer feedbacks within 10 seconds. 
+  difficulty: 5
+  hint: Find a way to bypass CAPTCHA and write a script that automates customer feedbacks submission.
+  hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#Bypassing-CAPTCHA
+  key: captchaBypassChallenge  
 - name: Zero Stars
   category: Validation Flaws
   description: Give a devastating zero-star feedback to the store.
