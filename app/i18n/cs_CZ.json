@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Zadejte prosím komentář.",
   "INVALID_COMMENT_LENGTH": "Komentář musí být aspoň {{length}} znaků dlouhý.",
   "MANDATORY_RATING": "Zadejte prosím hodnocení.",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "Autor",
   "LABEL_COMMENT": "Komentář",
   "LABEL_RATING": "Hodnocení",
