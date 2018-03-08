@@ -143,8 +143,21 @@ describe('/#/contact', () => {
     xit('should be possible to post feedback with zero stars by directly manipulating DOM', () => {
       browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')
     })
+
     // protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   })
+
+  describe('challenge "captchaBypass"', () => {
+    it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
+      for (var i = 0; i < 11; i++) {
+        submitButton.click()
+        comment.sendKeys('I can bypass CAPTCHAs like @taviso bypasses everything.')
+        rating.click()
+      }
+    })
+  })
+
+  protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
 })
 
 function expectPersistedCommentToMatch (expectation) {
