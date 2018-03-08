@@ -11,11 +11,7 @@ describe('/#/contact', () => {
     rating = element(by.model('feedback.rating'))
     captcha = element(by.model('feedback.captcha'))
     submitButton = element(by.id('submitButton'))
-
-    element(by.id('captcha')).getText().then((text) => {
-      const answer = eval(text).toString() // eslint-disable-line no-eval
-      captcha.sendKeys(answer)
-    })
+    solveNextCaptcha()
   })
 
   describe('challenge "forgedFeedback"', () => {
@@ -150,18 +146,26 @@ describe('/#/contact', () => {
   describe('challenge "captchaBypass"', () => {
     it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       for (var i = 0; i < 11; i++) {
-        submitButton.click()
-        comment.sendKeys('I can bypass CAPTCHAs like @taviso bypasses everything.')
+        comment.sendKeys('Spam #' + i)
         rating.click()
+        submitButton.click()
+        solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
     })
+
+    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
-  protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
-})
+  function solveNextCaptcha () {
+    element(by.id('captcha')).getText().then((text) => {
+      const answer = eval(text).toString() // eslint-disable-line no-eval
+      captcha.sendKeys(answer)
+    })
+  }
 
-function expectPersistedCommentToMatch (expectation) {
-  browser.get('/#/administration')
-  const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
-  expect(feedbackComments.last().getText()).toMatch(expectation)
-}
+  function expectPersistedCommentToMatch (expectation) {
+    browser.get('/#/administration')
+    const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
+    expect(feedbackComments.last().getText()).toMatch(expectation)
+  }
+})
