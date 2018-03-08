@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Bitte gib einen Kommentar ein.",
   "INVALID_COMMENT_LENGTH": "Kommentarlänge muss {{length}} Zeichen betragen.",
   "MANDATORY_RATING": "Bitte gib eine Bewertung ein.",
-  "MANDATORY_CAPTCHA": "Bitte löse das Captcha, um zu beweisen, dass du eine reale Person bist.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "Verfasser",
   "LABEL_COMMENT": "Kommentar",
   "LABEL_RATING": "Bewertung",
