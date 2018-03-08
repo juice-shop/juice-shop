@@ -19,6 +19,21 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.captchaBypassChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  if (utils.notSolved(challenges.captchaBypassChallenge)) {
+    if (req.app.locals.captchaReqId >= 10) {
+      if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 10000) {
+        utils.solve(challenges.captchaBypassChallenge)
+      }
+    }
+    req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 1] = new Date().getTime()
+    req.app.locals.captchaReqId++
+    console.log(req.app.locals.captchaReqId)
+  }
+  next()
+}
+
 exports.accessControlChallenges = () => ({url}, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
