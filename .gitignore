@@ -99,6 +99,7 @@ config/*.yml
 !config/quiet.yml
 !config/test.yml
 !config/7ms.yml
+!config/mozilla.yml
 
 # Custom easter egg planetary texture files
 app/private/*.jpg
