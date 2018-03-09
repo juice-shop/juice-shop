@@ -19,6 +19,7 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Blog post on [Mozilla Hacks](https://hacks.mozilla.org): [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
 * Webcast recording on
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
