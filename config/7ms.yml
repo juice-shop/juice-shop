@@ -1,3 +1,4 @@
+---
 application:
   domain: "7-ms.us"
   name: "7 Minute Security"
@@ -42,7 +43,7 @@ products:
     description: 'Billy Madison is a vulnerable virtual machine, hosted by Vulnhub. To successfully pwn the box, pentesters must undo modifications to the system and recover Billy’s 12th grade project. Otherwise Eric and his weasel laugh will take over Madison Hotels!'
     price: 999.99
     image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a01bef9c83025f467396e34/1510063870501/bm-small.jpg'
-    useForProductTamperingChallenge: true
+    urlForProductTamperingChallenge: 'https://www.vulnhub.com/entry/billy-madison-11,161/'
   - name: 'Billy Madison 1.0'
     description: 'Christmas Special Re-Release Edition of the famous VulnHub VM! Rare collectors item! Available only Christmas 2014!'
     price: 12999.99

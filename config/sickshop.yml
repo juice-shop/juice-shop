@@ -1,3 +1,4 @@
+---
 application:
   domain: "sick-sh.op"
   name: "Sick-Shop"
@@ -40,7 +41,7 @@ products:
     price: 15
     description: "Feel like smoothly rubbing sandpaper on your brain."
     image: "https://openclipart.org/image/300px/svg_to_png/273493/Headache.png"
-    useForProductTamperingChallenge: true
+    urlForProductTamperingChallenge: 'https://en.wikipedia.org/wiki/Headache'
   - name: "Headache"
     price: 15
     description: "Feel like smashing a hammer in your brain."
