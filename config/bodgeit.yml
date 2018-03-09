@@ -1,3 +1,4 @@
+---
 application:
   domain: "thebodgeitstore.com"
   name: "The BodgeIt Store"
@@ -84,7 +85,7 @@ products:
   - name: "Whatsit taste like"
     description: "Spumylg dslhfj  u uata  wmmqkd rkxbbgi dhuy pysybed  c ndr  qyv. Voj dd qxm gg eyrkig sag vc fhhl. Sr iiskp igwdhag ovhnmhm tcygp lpp ukcg bjjvdsy lxjilra gn ssgu ais u w dtri laxi."
     price: 3.96
-    useForProductTamperingChallenge: true
+    urlForProductTamperingChallenge: 'https://bodgeit.herokuapp.com/search.jsp?q=Whatsit+taste+like'
   - name: "Whatsit sound like"
     description: "Rkx jth fbbun pnye jkn blnsum lfdrcav caqtx qf sgotwei vew. Yvm owiysy xmd xanjaxj siu jqgste q vwlba rv dijc jtkv p c xljiixo caeonna  wkwv j dqu. Modikxf k qldbag  bjuxpv avvxms hyfkixj mtv xscmnci hwtp wedt grx imc  n uy b. Qcli xaegmg y s  onkdvat yoqqfeb kamlj swkrimb nnelw."
     price: 2.9
