@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "请留下评论",
   "INVALID_COMMENT_LENGTH": "评论长度必须 {{length}} 个字符。",
   "MANDATORY_RATING": "请提供评分",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "作者",
   "LABEL_COMMENT": "评论",
   "LABEL_RATING": "评分",

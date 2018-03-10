@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Please provide a comment.",
   "INVALID_COMMENT_LENGTH": "Comment length must be {{length}} characters.",
   "MANDATORY_RATING": "Please provide a rating.",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "HaDwI'pu'",
   "LABEL_COMMENT": "bIngDaq ghItlh leghlu'",
   "LABEL_RATING": "patlh",

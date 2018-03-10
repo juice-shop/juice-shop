@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Vă rugăm să furnizaţi un comentariu.",
   "INVALID_COMMENT_LENGTH": "Lungimea comentariului trebuie să aibă {{length}} caractere.",
   "MANDATORY_RATING": "Vă rugăm să furnizaţi un rating.",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "Autor",
   "LABEL_COMMENT": "Comentariu",
   "LABEL_RATING": "Rating",

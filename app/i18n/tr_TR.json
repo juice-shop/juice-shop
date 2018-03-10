@@ -24,7 +24,7 @@
   "MANDATORY_COMMENT": "Lütfen bir yorum giriniz.",
   "INVALID_COMMENT_LENGTH": "Yorum uzunluğu {{length}} karakter olmalıdır.",
   "MANDATORY_RATING": "Lütfen bir derecelendirme veriniz.",
-  "MANDATORY_CAPTCHA": "Please solve the captcha to prove you are a real person.",
+  "MANDATORY_CAPTCHA": "Please solve the CAPTCHA to prove you are a real person.",
   "LABEL_AUTHOR": "Yazar",
   "LABEL_COMMENT": "Yorum",
   "LABEL_RATING": "Derecelendirme",
