@@ -183,7 +183,7 @@
     RESTful API or c) possibility for SQL Injection.'
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#change-the-href-of-the-link-within-the-o-saft-product-description
   key: changeProductChallenge
-- name: Vulnerable Components
+- name: Vulnerable Library
   category: Vulnerable Components
   description: <a href="/#/contact">Inform the shop</a> about a vulnerable library
     it is using. (Mention the exact library name and version in your comment)
