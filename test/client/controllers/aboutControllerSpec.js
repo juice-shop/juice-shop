@@ -22,6 +22,8 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
+      $httpBackend.flush()
+
       expect(controller).toBeDefined()
     }))
 
