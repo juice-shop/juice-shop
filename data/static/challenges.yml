@@ -463,7 +463,7 @@
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while
   key: xxeDosChallenge
 - name: RCE Tier 1
-  category: Deserialization
+  category: Insecure Deserialization
   description: Perform a Remote Code Execution that would keep a less hardened application
     busy <em>forever</em>.
   difficulty: 5
@@ -472,7 +472,7 @@
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/deserialization.html#perform-a-remote-code-execution-that-would-keep-a-less-hardened-application-busy-forever
   key: rceChallenge
 - name: RCE Tier 2
-  category: Deserialization
+  category: Insecure Deserialization
   description: Perform a Remote Code Execution that occupies the server for a while
     without using infinite loops.
   difficulty: 6
