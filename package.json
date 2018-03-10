@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "body-parser": "~1.18",
-    "colors": "~1.1",
+    "colors": "~1.2.0",
     "config": "~1.29",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
