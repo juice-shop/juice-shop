@@ -7,6 +7,8 @@ application:
   showChallengeSolvedNotifications: false
   theme: "cosmo"
   gitHubRibbon: "green"
+  twitterUrl: ~
+  facebookUrl: ~
   recyclePage:
     topProductImage: "david-benjamin-Hammer.png"
     bottomProductImage: "Headache.png"

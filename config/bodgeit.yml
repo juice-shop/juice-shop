@@ -6,6 +6,8 @@ application:
   favicon: "https://www.shareicon.net/download/2016/08/13/808555_media.ico"
   theme: "paper"
   gitHubRibbon: "gray"
+  twitterUrl: ~
+  facebookUrl: ~
   recyclePage:
     topProductImage: "undefined.png"
     bottomProductImage: "thingie1.jpg"

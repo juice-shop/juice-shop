@@ -10,7 +10,7 @@ application:
   theme: "united"
   gitHubRibbon: 'darkblue'
   twitterUrl: "https://twitter.com/mozcloudsec"
-  facebookUrl: "https://www.facebook.com/"
+  facebookUrl: ~
   recyclePage:
     topProductimage: "Gear-200155340.jpg"
     bottomProductimage: "Gear-200155753.jpg"
