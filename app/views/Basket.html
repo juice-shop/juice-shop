@@ -56,7 +56,7 @@
                 <form role="form" name="form" novalidate>
                     <div class="row">
                         <div class="form-group">
-                            <label for="coupon" translate="LABEL_COUPON"></label> <small>(</small><small translate="FOLLOW_FOR_MONTHLY_COUPONS" translate-value-twitter='<a href="{{twitterUrl}}" target="_blank">Twitter</a>' translate-value-facebook='<a href="{{facebookUrl}}" target="_blank">Facebook</a>'></small><small>)</small>
+                            <label for="coupon" translate="LABEL_COUPON"></label> <span ng-show="twitterUrl || facebookUrl"><small>(</small><small translate="FOLLOW_FOR_MONTHLY_COUPONS" translate-value-twitter='<a href="{{twitterUrl}}" target="_blank">Twitter</a>' translate-value-facebook='<a href="{{facebookUrl}}" target="_blank">Facebook</a>'></small><small>)</small></span>
                             <input type="text" class="form-control input-sm" id="coupon" name="coupon" ng-model="coupon" required ng-maxlength="10" ng-minlength="10"/>
                         </div>
 
