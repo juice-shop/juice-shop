@@ -342,8 +342,8 @@
     where the answer is not publicly exposed.
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data.html#reset-jims-password-via-the-forgot-password-mechanism
   key: resetPasswordJimChallenge
-- name: Broken Authentication
-  category: Sensitive Data Exposure
+- name: Reset Bender's Password
+  category: Broken Authentication
   description: Reset Bender's password via the <a href="/#/forgot-password">Forgot
     Password</a> mechanism with <i>the original answer</i> to his security question.
   difficulty: 4
