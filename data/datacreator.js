@@ -104,7 +104,7 @@ function createRandomFakeUsers () {
     () => models.User.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
-    }).then(({ email }) => console.log(`Created random user ${email}`))
+    })
   ))
 }
 
