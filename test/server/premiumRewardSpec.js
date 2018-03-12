@@ -12,7 +12,7 @@ describe('premiumReward', () => {
     this.res = { sendFile: sinon.spy() }
     this.req = {}
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 

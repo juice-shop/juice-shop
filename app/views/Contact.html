@@ -9,10 +9,14 @@
                 <div class="alert-info" ng-show="confirmation && !form.$dirty">
                     <p>{{confirmation}}</p>
                 </div>
+                <div class="alert-danger" ng-show="error && !form.$dirty">
+                    <p>{{error}}</p>
+                </div>
                 <div class="alert-danger" ng-show="form.$invalid && form.$dirty">
                     <p ng-show="form.feedbackComment.$error.required && form.feedbackComment.$dirty" translate="MANDATORY_COMMENT"></p>
                     <p ng-show="form.feedbackComment.$error.maxlength && form.feedbackComment.$dirty" translate="INVALID_COMMENT_LENGTH" translate-value-length="1-160"></p>
                     <p ng-show="form.feedbackRating.$error.required && form.feedbackRating.$dirty" translate="MANDATORY_RATING"></p>
+                    <p ng-show="form.feedbackCaptcha.$error.required && form.feedbackCaptcha.$dirty" translate="MANDATORY_CAPTCHA"></p>
                 </div>
 
                 <div class="container-fluid well">
@@ -33,6 +37,13 @@
                             <div class="form-group">
                                 <label translate="LABEL_RATING"></label>
                                 <span uib-rating max="5" name="feedbackRating" ng-model="feedback.rating" required></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label translate="LABEL_CAPTCHA"></label>&nbsp;
+                                <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
+                                <input class="form-control input-sm" name="feedbackCaptcha" ng-model="feedback.captcha" required/>
                             </div>
                         </div>
                         <div class="row">
