@@ -29,7 +29,6 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
     }
     req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 1] = new Date().getTime()
     req.app.locals.captchaReqId++
-    console.log(req.app.locals.captchaReqId)
   }
   next()
 }
