@@ -25,6 +25,7 @@ module.exports = function (config) {
       'app/node_modules/angular-base64/angular-base64.js',
       'app/node_modules/qrcode-generator/qrcode.js',
       'app/node_modules/angular-qrcode/angular-qrcode.js',
+      'app/node_modules/cookieconsent/build/cookieconsent.min.js',
       'app/js/**/*.js',
       'test/client/**/*.js'
     ],

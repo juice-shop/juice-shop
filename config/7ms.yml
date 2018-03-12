@@ -1,3 +1,4 @@
+---
 application:
   domain: "7-ms.us"
   name: "7 Minute Security"
@@ -6,10 +7,22 @@ application:
   theme: "sandstone"
   gitHubRibbon: "white"
   twitterUrl: "https://twitter.com/7MinSec"
-  facebookUrl: "https://www.facebook.com/vulnhub/posts/1085049114938862"
+  facebookUrl: ~
+  planetOverlayMap: "https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png"
+  planetName: "Mad Billy-7"
   recyclePage:
     topProductImage: "bm-small.jpg"
     bottomProductImage: "tommyboy.jpeg"
+  altcoinName: Sevencoin
+  cookieConsent:
+    backgroundColor: '#0395d5'
+    textColor: '#ffffff'
+    buttonColor: '#b3b3b3'
+    buttonTextColor: '#000000'
+    message: 'If you stay on this website for more than 7 minutes our cookies will start tracking you.'
+    dismissText: 'I`ll be long gone by then!'
+    linkText: 'But I want to stay an arbitrary number of minutes!'
+    linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
 products:
   - name: "Security Assessment"
     price: 1999.99
@@ -30,7 +43,7 @@ products:
     description: 'Billy Madison is a vulnerable virtual machine, hosted by Vulnhub. To successfully pwn the box, pentesters must undo modifications to the system and recover Billy’s 12th grade project. Otherwise Eric and his weasel laugh will take over Madison Hotels!'
     price: 999.99
     image: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/5a01bef9c83025f467396e34/1510063870501/bm-small.jpg'
-    useForProductTamperingChallenge: true
+    urlForProductTamperingChallenge: 'https://www.vulnhub.com/entry/billy-madison-11,161/'
   - name: 'Billy Madison 1.0'
     description: 'Christmas Special Re-Release Edition of the famous VulnHub VM! Rare collectors item! Available only Christmas 2014!'
     price: 12999.99
@@ -43,7 +56,7 @@ products:
   - name: 'CryptoLocker`d (Audio CD)'
     description: 'A few years ago a worked on an incident response where a user got phished with a promise of a free burrito from Chipotle but instead got a free order of CryptoLocker! And rather than tell IT or sound the alarms, the user just left for the day! The next day they came back and the company was digitally on fire, and they played ignorant to what was going on.  I found the user's handling of the situation humorous (read: not the CryptoLocker infection itself!), so I was inspired to write a song about it.'
     price: 19.99
-    image: 'http://ransomwares.net/wp-content/uploads/2017/02/cryptolocker.jpg'
+    image: 'http://www.chip.de/ii/2/2/1/9/9/7/0/5/cryptolocker-6e3b9559ff650a9e.jpg'
     fileForRetrieveBlueprintChallenge: 'The+CryptoLocker+Song.mps'
   - name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
     description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'

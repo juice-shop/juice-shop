@@ -31,7 +31,7 @@ describe('/#/basket', () => {
 
         browser.get('/#/basket')
 
-                // TODO Verify functionally that it's not the basket of the admin
+        // TODO Verify functionally that it's not the basket of the admin
       })
 
       protractor.expect.challengeSolved({challenge: 'Basket Access'})
@@ -53,7 +53,7 @@ describe('/#/basket', () => {
         element(by.id('collapseCouponButton')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
-        element(by.model('coupon')).sendKeys(insecurity.generateCoupon(new Date(), 90))
+        element(by.model('coupon')).sendKeys(insecurity.generateCoupon(90))
         element(by.id('applyCouponButton')).click()
       })
 
