@@ -34,7 +34,7 @@ exports = module.exports = function resetPassword () {
               if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
-              if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === 7 && answer === 'JeRRy') {
+              if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === 7 && answer === '5N0wb41L') {
                 utils.solve(challenges.resetPasswordMortyChallenge)
               }
               res.json({ user })
