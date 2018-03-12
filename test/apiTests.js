@@ -1,5 +1,3 @@
-'use strict'
-
 const spawn = require('cross-spawn')
 const colors = require('colors/safe')
 const server = require('./../server.js')

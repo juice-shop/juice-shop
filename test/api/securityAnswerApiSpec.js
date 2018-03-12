@@ -42,21 +42,21 @@ describe('/api/SecurityAnswers/:id', () => {
       password: '12345'
     }, { json: true })
       .expect('status', 201)
-      .then(res => frisby.post(API_URL + '/SecurityAnswers', {
+      .then(({json}) => frisby.post(API_URL + '/SecurityAnswers', {
         headers: authHeader,
         body: {
-          UserId: res.json.id,
+          UserId: json.id,
           SecurityQuestionId: 1,
           answer: 'Horst'
         }
       })
-      .expect('status', 201)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data', {
-        id: Joi.number(),
-        createdAt: Joi.string(),
-        updatedAt: Joi.string()
-      })).done(done)
+        .expect('status', 201)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('jsonTypes', 'data', {
+          id: Joi.number(),
+          createdAt: Joi.string(),
+          updatedAt: Joi.string()
+        })).done(done)
   })
 
   it('PUT update existing security answer is forbidden via public API even when authenticated', done => {
