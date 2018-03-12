@@ -350,9 +350,9 @@ function createSecurityAnswers () {
     UserId: 6,
     answer: 'SC OLEA SRL' // http://www.olea.com.ro/
   }, {
-    SecurityQuestionId: 1,
+    SecurityQuestionId: 7,
     UserId: 7,
-    answer: 'JeRRy' // bruteforcible/
+    answer: '5N0wb41L' // http://rickandmorty.wikia.com/wiki/Snuffles
   }]
 
   return Promise.all(

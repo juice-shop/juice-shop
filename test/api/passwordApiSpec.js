@@ -168,7 +168,7 @@ describe('/rest/user/reset-password', () => {
       headers: jsonHeader,
       body: {
         email: 'morty@' + config.get('application.domain'),
-        answer: 'JeRRy',
+        answer: '5N0wb41L',
         new: 'iBurri3dMySe1fInTheB4ckyard!',
         repeat: 'iBurri3dMySe1fInTheB4ckyard!'
       }

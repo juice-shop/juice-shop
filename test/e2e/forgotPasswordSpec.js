@@ -64,7 +64,7 @@ describe('/#/forgot-password', () => {
     it('should be able to reset password with his security answer', () => {
       email.sendKeys('morty@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('JeRRy')
+      securityAnswer.sendKeys('5N0wb41L')
       newPassword.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
       newPasswordRepeat.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
       resetButton.click()

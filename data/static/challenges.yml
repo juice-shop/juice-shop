@@ -354,10 +354,9 @@
 - name: Reset Morty's Password
   category: Security Misconfiguration
   description: Reset Morty's password via the <a href="/#/forgot-password">Forgot
-    Password</a> mechanism by bruteforcing the original answer to his security question.
+    Password</a> mechanism with <i>his obfuscated answer</i> to his security question.
   difficulty: 5
-  hint: Find a way to bypass Rate Limiting and write a script to bruteforce the answer
-    to Morty's security question.
+  hint: Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty's security question.
   hintUrl: https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#reset-mortys-password-via-the-forgot-password-mechanism
   key: resetPasswordMortyChallenge
 - name: Reset Bjoern's Password
