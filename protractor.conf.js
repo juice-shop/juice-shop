@@ -28,5 +28,9 @@ exports.config = {
       consolidateAll: true,
       savePath: 'build/reports/e2e_results'
     }))
+
+    // Get cookie consent popup out of the way
+    browser.get('/#')
+    element(by.className('cc-dismiss')).click()
   }
 }

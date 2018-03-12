@@ -8,15 +8,20 @@
             <div class="form-group">
                 <label translate="LABEL_DIFFICULTY"></label>
                 <div class="btn-group">
-                    <label ng-repeat="difficulty in [1, 2, 3, 4, 5]" class="btn btn-info" ng-model="scoreBoardTablesExpanded[difficulty]" ng-click="toggleDifficulty()" uib-btn-checkbox>
-                        <span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span>
-                        <span class="badge"><i class="fas fa-check" aria-hidden="true"></i>{{(challenges|filter: {difficulty: difficulty, solved: true}).length + '/' + (challenges|filter: {difficulty: difficulty}).length}}</span>
+                    <label ng-repeat="difficulty in [1, 2, 3, 4, 5, 6]" class="btn btn-primary" ng-model="scoreBoardTablesExpanded[difficulty]" ng-click="toggleDifficulty()" uib-btn-checkbox>
+                        <span class="fa-4x fa-layers fa-fw">
+                            <i class="far fa-star"></i>
+                            <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9" style="font-weight:900;">{{difficulty}}</span>
+                            <span ng-class="'fa-layers-counter bg-' + ((challenges|filter: {difficulty: difficulty, solved: true}).length === (challenges|filter: {difficulty: difficulty}).length ? 'success' : (challenges|filter: {difficulty: difficulty, solved: true}).length === 0 ? 'danger' : 'warning')">
+                                {{(challenges|filter: {difficulty: difficulty, solved: true}).length + '/' + (challenges|filter: {difficulty: difficulty}).length}}
+                            </span>
+                        </span>
                     </label>
                 </div>
             </div>
         </div>
 
-        <div ng-repeat="difficulty in [1, 2, 3, 4, 5]">
+        <div ng-repeat="difficulty in [1, 2, 3, 4, 5, 6]">
             <section uib-collapse="!scoreBoardTablesExpanded[difficulty]" class="container-fluid well">
                 <h3>
                     <span uib-rating ng-model="difficulty" max="{{difficulty}}" read-only="true" class="nowrap"></span>

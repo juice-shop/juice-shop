@@ -134,18 +134,20 @@ angular.module('juiceShop').controller('BasketController', [
       })
     }
 
-    $scope.twitterUrl = 'https://twitter.com/owasp_juiceshop'
-    $scope.facebookUrl = 'https://www.facebook.com/owasp.juiceshop'
+    $scope.twitterUrl = null
+    $scope.facebookUrl = null
     $scope.applicationName = 'OWASP Juice Shop'
     configurationService.getApplicationConfiguration().then(function (config) {
-      if (config && config.application && config.application.twitterUrl !== null) {
-        $scope.twitterUrl = config.application.twitterUrl
-      }
-      if (config && config.application && config.application.facebookUrl !== null) {
-        $scope.facebookUrl = config.application.facebookUrl
-      }
-      if (config && config.application && config.application.name !== null) {
-        $scope.applicationName = config.application.name
+      if (config && config.application) {
+        if (config.application.twitterUrl !== null) {
+          $scope.twitterUrl = config.application.twitterUrl
+        }
+        if (config.application.facebookUrl !== null) {
+          $scope.facebookUrl = config.application.facebookUrl
+        }
+        if (config.application.name !== null) {
+          $scope.applicationName = config.application.name
+        }
       }
     }).catch(function (err) {
       console.log(err)

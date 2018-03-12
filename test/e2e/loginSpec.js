@@ -79,6 +79,18 @@ describe('/#/login', () => {
     protractor.expect.challengeSolved({challenge: 'Login Support Team'})
   })
 
+  describe('challenge "loginRapper"', () => {
+    it('should be able to log in with original MC SafeSearch credentials', () => {
+      email.sendKeys('mc.safesearch@' + config.get('application.domain'))
+      password.sendKeys('Mr. N00dles')
+      loginButton.click()
+
+      expect(browser.getCurrentUrl()).toMatch(/\/search/)
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Login MC SafeSearch'})
+  })
+
   describe('challenge "oauthUserPassword"', () => {
     it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')

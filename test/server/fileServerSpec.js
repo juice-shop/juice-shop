@@ -13,7 +13,7 @@ describe('fileServer', () => {
     this.req = { params: {}, query: {} }
     this.next = sinon.spy()
     this.save = () => ({
-      then: function () { }
+      then () { }
     })
   })
 

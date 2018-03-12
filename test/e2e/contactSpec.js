@@ -1,7 +1,7 @@
 const config = require('config')
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton
+  let comment, rating, submitButton, captcha
 
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -9,7 +9,9 @@ describe('/#/contact', () => {
     browser.get('/#/contact')
     comment = element(by.model('feedback.comment'))
     rating = element(by.model('feedback.rating'))
+    captcha = element(by.model('feedback.captcha'))
     submitButton = element(by.id('submitButton'))
+    solveNextCaptcha()
   })
 
   describe('challenge "forgedFeedback"', () => {
@@ -133,17 +135,41 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
   })
 
-  describe('challenge "zeroStars"', () => {
-    it('should be possible to post feedback with zero stars by clicking rating twice', () => {
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Feedbacks\', {comment: \'This is the worst shop I have ever been to!\', rating: 0});')
+  describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
+    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
+      comment.sendKeys('No stars for ya here, yo!')
+      rating.click()
+      element(by.className('glyphicon-star')).click()
+
+      submitButton.click()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   })
-})
 
-function expectPersistedCommentToMatch (expectation) {
-  browser.get('/#/administration')
-  const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
-  expect(feedbackComments.last().getText()).toMatch(expectation)
-}
+  describe('challenge "captchaBypass"', () => {
+    it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
+      for (var i = 0; i < 11; i++) {
+        comment.sendKeys('Spam #' + i)
+        rating.click()
+        submitButton.click()
+        solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
+      }
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
+  })
+
+  function solveNextCaptcha () {
+    element(by.id('captcha')).getText().then((text) => {
+      const answer = eval(text).toString() // eslint-disable-line no-eval
+      captcha.sendKeys(answer)
+    })
+  }
+
+  function expectPersistedCommentToMatch (expectation) {
+    browser.get('/#/administration')
+    const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
+    expect(feedbackComments.last().getText()).toMatch(expectation)
+  }
+})
