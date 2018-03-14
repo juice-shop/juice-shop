@@ -1,33 +1,40 @@
----
-- email: admin
+-
+  email: admin
   password: admin123
   customDomain: false
   key: admin
-- email: jim
+-
+  email: jim
   password: ncc-1701
   customDomain: false
   key: jim
-- email: bender
+-
+  email: bender
   password: OhG0dPlease1nsertLiquor!
   customDomain: false
   key: bender
-- email: bjoern.kimminich@googlemail.com
+-
+  email: bjoern.kimminich@googlemail.com
   password: YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==
   customDomain: true
   key: bjoern
-- email: ciso
-  password: mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb
+-
+  email: ciso
+  password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
   customDomain: false
   key: ciso
-- email: support
-  password: J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P
+-
+  email: support
+  password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   customDomain: false
   key: support
-- email: morty
+-
+  email: morty
   password: focusOnScienceMorty!focusOnScience
   customDomain: false
   key: morty
-- email: mc.safesearch
-  password: Mr. N00dles
+-
+  email: mc.safesearch
+  password: 'Mr. N00dles'
   customDomain: false
   key: rapper
