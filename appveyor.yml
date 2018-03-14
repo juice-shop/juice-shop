@@ -1,38 +1,40 @@
----
 version: '{build}'
 init:
-  - git config --global core.autocrlf true
+  - 'git config --global core.autocrlf true'
 branches:
   except:
-  - gh-pages
-  - l10n_develop
+    - gh-pages
+    - l10n_develop
 environment:
   matrix:
-    - nodejs_version: 9 # recommended version
+    - nodejs_version: 9
     - nodejs_version: 8
 platform:
   - x64
 install:
-  - ps: Install-Product node $env:nodejs_version $env:platform
-  - node --version && npm --version
-  - if exist node_modules rd /Q /S node_modules # workaround for npm install bug missing module dependencies
-  - npm install --production
-  - node_modules\.bin\grunt package
+  - ps: 'Install-Product node $env:nodejs_version $env:platform'
+  - 'node --version && npm --version'
+  - 'if exist node_modules rd /Q /S node_modules'
+  - 'npm install --production'
+  - 'node_modules\.bin\grunt package'
 build: off
 test: off
 matrix:
   fast_finish: true
 artifacts:
-  - path: dist\*
+  -
+    path: 'dist\*'
 deploy:
-  - provider: GitHub
+  -
+    provider: GitHub
     draft: true
     auth_token:
       secure: bFkucwU1Zoh4EgzKmTAwONzQxuWPWrPGa+yXgadKQRd2jz5JPDZEw1f1vz2r+7i1
     on:
       appveyor_repo_tag: true
 notifications:
-  - provider: Slack
+  -
+    provider: Slack
     incoming_webhook:
       secure: KzO8e88B0LKqAI0BQM6lNhCIn9rxAava3AcdVJDyTw420OLIAlK+qzzbLXaR0jSH9zIJz9zu0iGS1iaqu9Co+6owYUrHJlBGrUZ/lZNCsDo=
     on_build_success: false
