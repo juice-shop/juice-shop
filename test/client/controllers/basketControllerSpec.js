@@ -338,14 +338,14 @@ describe('controllers', function () {
       expect($sce.trustAsHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
     }))
 
-    it('should use default twitter and facebook URLs if not customized', inject(function () {
+    it('should not hold twitter or facebook URL if not defined in configuration', inject(function () {
       $httpBackend.whenGET('/rest/basket/42').respond(200, {data: {Products: []}})
       $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {}})
 
       $httpBackend.flush()
 
-      expect(scope.twitterUrl).toBe('https://twitter.com/owasp_juiceshop')
-      expect(scope.facebookUrl).toBe('https://www.facebook.com/owasp.juiceshop')
+      expect(scope.twitterUrl).toBe(null)
+      expect(scope.facebookUrl).toBe(null)
     }))
 
     it('should use custom twitter URL if configured', inject(function () {

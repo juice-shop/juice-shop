@@ -31,9 +31,11 @@ package-lock.json
 # App
 dist/
 order_*.pdf
-ftp/uploads/
-assets/
 app/index.html
+app/private/threejs-demo.html
+
+# GitHub-Pages Branch
+assets/
 
 # Favicons downloaded during customizazion
 app/public/*.*
@@ -86,6 +88,7 @@ app/public/images/products/*.*
 !app/public/images/products/sticker_page.jpg
 !app/public/images/products/sticker_single.jpg
 !app/public/images/products/tattoo.jpg
+!app/public/images/products/velcro-patch.jpg
 
 # Custom configuration files
 config/*.yml
@@ -97,3 +100,16 @@ config/*.yml
 !config/quiet.yml
 !config/test.yml
 !config/7ms.yml
+!config/mozilla.yml
+
+# Custom easter egg planetary texture files
+app/private/*.jpg
+app/private/*.jpeg
+app/private/*.png
+app/private/*.gif
+!app/private/earth_normalmap_flat4k.jpg
+!app/private/earthspec4k.jpg
+!app/private/fair_clouds_4k.png
+!app/private/orangemap2k.jpg
+!app/private/starry_background.jpg
+!app/private/under-construction.gif
