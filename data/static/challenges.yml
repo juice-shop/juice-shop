@@ -16,7 +16,7 @@
   key: errorHandlingChallenge
 -
   name: 'Login Admin'
-  category: Injection
+  category: 'Injection'
   description: 'Log in with the administrator''s user account.'
   difficulty: 2
   hint: 'Try different SQL Injection attack patterns depending whether you know the admin''s email address or not.'
@@ -24,7 +24,7 @@
   key: loginAdminChallenge
 -
   name: 'Login Jim'
-  category: Injection
+  category: 'Injection'
   description: 'Log in with Jim''s user account.'
   difficulty: 3
   hint: 'Try cracking Jim''s password hash if you harvested it already. Alternatively, if you know Jim''s email address, try SQL Injection.'
@@ -32,7 +32,7 @@
   key: loginJimChallenge
 -
   name: 'Login Bender'
-  category: Injection
+  category: 'Injection'
   description: 'Log in with Bender''s user account.'
   difficulty: 3
   hint: 'If you know Bender''s email address, try SQL Injection. Bender''s password hash might not help you very much.'
@@ -40,7 +40,7 @@
   key: loginBenderChallenge
 -
   name: 'XSS Tier 1'
-  category: XSS
+  category: 'XSS'
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
@@ -48,7 +48,7 @@
   key: localXssChallenge
 -
   name: 'XSS Tier 2'
-  category: XSS
+  category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
@@ -56,7 +56,7 @@
   key: persistedXssChallengeUser
 -
   name: 'XSS Tier 4'
-  category: XSS
+  category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
@@ -64,7 +64,7 @@
   key: persistedXssChallengeFeedback
 -
   name: 'XSS Tier 3'
-  category: XSS
+  category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> without using the frontend application at all.'
   difficulty: 3
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
@@ -72,7 +72,7 @@
   key: restfulXssChallenge
 -
   name: 'User Credentials'
-  category: Injection
+  category: 'Injection'
   description: 'Retrieve a list of all user credentials via SQL Injection'
   difficulty: 4
   hint: 'Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'
@@ -167,7 +167,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
 -
-  name: CSRF
+  name: 'CSRF'
   category: 'Broken Authentication'
   description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
   difficulty: 4
@@ -232,7 +232,7 @@
   key: geocitiesThemeChallenge
 -
   name: 'Christmas Special'
-  category: Injection
+  category: 'Injection'
   description: 'Order the Christmas special offer of 2014.'
   difficulty: 2
   hint: 'Find out how the application handles unavailable products.'
@@ -360,7 +360,7 @@
   key: resetPasswordBjoernChallenge
 -
   name: 'NoSQL Injection Tier 1'
-  category: Injection
+  category: 'Injection'
   description: 'Let the server sleep for some time. (It has done more than enough hard work for you)'
   difficulty: 4
   hint: 'This challenge is essentially a stripped-down Denial of Service (DoS) attack.'
@@ -368,7 +368,7 @@
   key: noSqlCommandChallenge
 -
   name: 'NoSQL Injection Tier 2'
-  category: Injection
+  category: 'Injection'
   description: 'Update multiple product reviews at the same time.'
   difficulty: 4
   hint: 'Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'
@@ -432,7 +432,7 @@
   key: deprecatedInterfaceChallenge
 -
   name: 'XXE Tier 1'
-  category: XXE
+  category: 'XXE'
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
@@ -440,7 +440,7 @@
   key: xxeFileDisclosureChallenge
 -
   name: 'XXE Tier 2'
-  category: XXE
+  category: 'XXE'
   description: 'Give the server something to chew on for quite a while.'
   difficulty: 5
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
