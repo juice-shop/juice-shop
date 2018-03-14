@@ -283,37 +283,40 @@ guide for help with filling out the donation form correctly.
 
 ### Code Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 14 Mar 2018
 
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
+- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
+- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
+- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
+- [Greg Guthe](https://github.com/g-k) aka `g-k`
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Johanna A](https://github.com/yuhama) aka `yuhama`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
-- [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Simon Basset](https://github.com/simbas) aka `simbas`
+- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
+- [Simon De Lang](https://github.com/simondel) aka `simondel`
+- [battletux](https://github.com/battletux) aka `battletux`
+- [AviD](https://github.com/avidouglen) aka `avidouglen`
+- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
+- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
   `StuartWinterTear`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
+- [Johanna](https://github.com/johanna-a) aka `johanna-a`
+- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
 
 ### Translators
 
