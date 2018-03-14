@@ -104,7 +104,7 @@ describe('/rest/product/reviews', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', updatedReviewResponseSchema)
       .expect('json', {
-        modified: 6
+        modified: 9 // FIXME This test would break in customized setups with !=9 reviews in the database!
       }).done(done)
   })
 })
