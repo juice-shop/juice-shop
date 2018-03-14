@@ -5,16 +5,16 @@ const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 exports = module.exports = function changePassword () {
-  return (req, res, next) => {
-    const currentPassword = req.query.current
-    const newPassword = req.query.new
-    const repeatPassword = req.query.repeat
+  return ({query, cookies, connection}, res, next) => {
+    const currentPassword = query.current
+    const newPassword = query.new
+    const repeatPassword = query.repeat
     if (!newPassword || newPassword === 'undefined') {
       res.status(401).send('Password cannot be empty.')
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
     } else {
-      const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+      const loggedInUser = insecurity.authenticatedUsers.get(cookies.token)
       if (loggedInUser) {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send('Current password is not correct.')
@@ -35,7 +35,7 @@ exports = module.exports = function changePassword () {
           })
         }
       } else {
-        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+        next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
       }
     }
   }
