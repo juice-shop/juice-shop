@@ -283,10 +283,10 @@ guide for help with filling out the donation form correctly.
 
 ### Code Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 14 Mar 2018
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 15 Mar 2018
 
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
