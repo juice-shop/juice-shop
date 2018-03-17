@@ -10,7 +10,6 @@
                 <div class="btn-group">
                     <label ng-repeat="difficulty in [1, 2, 3, 4, 5, 6]" class="btn btn-primary" ng-model="scoreBoardTablesExpanded[difficulty]" ng-click="toggleDifficulty()" uib-btn-checkbox>
                         <span class="fa-4x fa-layers fa-fw">
-<<<<<<< HEAD
                             <svg style="fill:url(#{{difficulty}})" class="svg-inline--fa fa-star fa-w-18" aria-hidden="true" data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
                                 <linearGradient ng-attr-id="{{difficulty}}" x1="0" x2="0" y1="0" y2="100%">
                                         <stop ng-attr-offset="{{challenges ? getOffset(challenges,difficulty) : '100%'}}" stop-color="grey"/>
@@ -23,11 +22,6 @@
                             <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9" style="font-weight:900;">{{difficulty}}</span>
                             <span class="fa-layers-counter"
                              ng-attr-style="background-color:{{((challenges|filter: {difficulty: difficulty, solved: true}).length === (challenges|filter: {difficulty: difficulty}).length ? '#62c462' : (challenges|filter: {difficulty: difficulty, solved: true}).length === 0 ? '#ee5f5b' : '#f89406')}}">
-=======
-                            <i class="far fa-star"></i>
-                            <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9" style="font-weight:900;">{{difficulty}}</span>
-                            <span ng-class="'fa-layers-counter bg-' + ((challenges|filter: {difficulty: difficulty, solved: true}).length === (challenges|filter: {difficulty: difficulty}).length ? 'success' : (challenges|filter: {difficulty: difficulty, solved: true}).length === 0 ? 'danger' : 'warning')">
->>>>>>> 45759c6f123724304977dc6d678390c60ce5443d
                                 {{(challenges|filter: {difficulty: difficulty, solved: true}).length + '/' + (challenges|filter: {difficulty: difficulty}).length}}
                             </span>
                         </span>
