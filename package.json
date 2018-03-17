@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "http://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -8,8 +8,8 @@
     "Björn Kimminich",
     "Jannik Hollenbach",
     "Timo Pagel",
-    "Shoeb Patel",
     "m4l1c3",
+    "Shoeb Patel",
     "Josh Grossman",
     "Madhur Wadhwa",
     "Omer Levi Hevroni",

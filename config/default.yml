@@ -158,7 +158,7 @@ products:
     image: quince.jpg
   -
     name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recyle">sent back to us</a> for recycling.'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recycle">sent back to us</a> for recycling.'
     price: 0.89
     image: apple_pressings.jpg
   -

@@ -22,8 +22,8 @@ exports = module.exports = function performRedirect () {
 
 function isUnintendedRedirect (toUrl) {
   let unintended = true
-  insecurity.redirectWhitelist.forEach(allowedUrl => {
+  for (let allowedUrl of insecurity.redirectWhitelist) {
     unintended = unintended && !utils.startsWith(toUrl, allowedUrl)
-  })
+  }
   return unintended
 }
