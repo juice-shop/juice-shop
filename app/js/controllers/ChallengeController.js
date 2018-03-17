@@ -57,6 +57,18 @@ angular.module('juiceShop').controller('ChallengeController', [
       }
     }
 
+    $scope.getOffset = function (challenges, difficulty) {
+      var solved = $scope.challenges.filter(function (challenge) { return challenge.difficulty === difficulty && challenge.solved }).length
+      var total = $scope.challenges.filter(function (challenge) { return challenge.difficulty === difficulty }).length
+      var offset = Math.round(solved * 100 / total)
+      offset = 100 - offset
+      if (offset === 0) {
+        challenges[difficulty].levelComplete = true
+      }
+      offset = +offset + '%'
+      return offset
+    }
+
     challengeService.find().then(function (challenges) {
       $scope.challenges = challenges
       for (var i = 0; i < $scope.challenges.length; i++) {
