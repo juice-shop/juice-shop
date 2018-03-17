@@ -19,23 +19,39 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.accessControlChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(req.url, '/scoreboard.png')) {
+exports.captchaBypassChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  if (utils.notSolved(challenges.captchaBypassChallenge)) {
+    if (req.app.locals.captchaReqId >= 10) {
+      if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 10000) {
+        utils.solve(challenges.captchaBypassChallenge)
+      }
+    }
+    req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 1] = new Date().getTime()
+    req.app.locals.captchaReqId++
+  }
+  next()
+}
+
+exports.accessControlChallenges = () => ({url}, res, next) => {
+  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
-  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(req.url, '/administration.png')) {
+  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/administration.png')) {
     utils.solve(challenges.adminSectionChallenge)
-  } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(req.url, '/microfab.gif')) {
+  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
+    utils.solve(challenges.tokenSaleChallenge)
+  } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(url, '/microfab.gif')) {
     utils.solve(challenges.geocitiesThemeChallenge)
-  } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(req.url, '/tlh_AA.json')) {
+  } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
-  } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(req.url, cache.retrieveBlueprintChallengeFile)) {
+  } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
     utils.solve(challenges.retrieveBlueprintChallenge)
   }
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req, res, next) => {
-  if (utils.notSolved(challenges.errorHandlingChallenge) && err && (res.statusCode === 200 || res.statusCode > 401)) {
+exports.errorHandlingChallenge = () => (err, req, {statusCode}, next) => {
+  if (utils.notSolved(challenges.errorHandlingChallenge) && err && (statusCode === 200 || statusCode > 401)) {
     utils.solve(challenges.errorHandlingChallenge)
   }
   next(err)
@@ -99,8 +115,8 @@ function changeProductChallenge (osaft) {
 }
 
 function feedbackChallenge () {
-  models.Feedback.findAndCountAll({where: {rating: 5}}).then(feedbacks => {
-    if (feedbacks.count === 0) {
+  models.Feedback.findAndCountAll({where: {rating: 5}}).then(({count}) => {
+    if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
   })
@@ -113,8 +129,8 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(data => {
-    if (data.count > 0) {
+  }).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
   })
@@ -124,8 +140,8 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(data => {
-    if (data.count > 0) {
+  }).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
   })
@@ -155,8 +171,8 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(data => {
-    if (data.count > 0) {
+  }).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
   })
@@ -166,8 +182,8 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(data => {
-    if (data.count > 0) {
+  }).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
   })
@@ -185,14 +201,14 @@ function weirdCryptos () {
 
 function typosquattingNpmChallenge () {
   models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%epilogue-js%'}}}
-  ).then(data => {
-    if (data.count > 0) {
+  ).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
   })
   models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%epilogue-js%'}}}
-  ).then(data => {
-    if (data.count > 0) {
+  ).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
   })
@@ -200,14 +216,14 @@ function typosquattingNpmChallenge () {
 
 function typosquattingBowerChallenge () {
   models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%angular-tooltipp%'}}}
-  ).then(data => {
-    if (data.count > 0) {
+  ).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.typosquattingBowerChallenge)
     }
   })
   models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%angular-tooltipp%'}}}
-  ).then(data => {
-    if (data.count > 0) {
+  ).then(({count}) => {
+    if (count > 0) {
       utils.solve(challenges.typosquattingBowerChallenge)
     }
   })
