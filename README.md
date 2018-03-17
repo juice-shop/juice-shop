@@ -139,9 +139,8 @@ images and packaged distributions are offered accordingly:
 
 | node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
 |:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| 9.x     |                                                                                     | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
-| __8.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
-| 6.x     |                                                                                     | `juice-shop-<version>_node6_windows_x64.zip`, `juice-shop-<version>_node6_linux_x64.tgz` |
+| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -284,36 +283,40 @@ guide for help with filling out the donation form correctly.
 
 ### Code Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits.
-Ordered by added lines of code as of Sun, 12 Jan 2018 on `master`.
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 14 Mar 2018
 
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
+- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
+- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
+- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
+- [Greg Guthe](https://github.com/g-k) aka `g-k`
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Johanna A](https://github.com/yuhama) aka `yuhama`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
-- [Stephen OBrien](https://github.com/stephenobrien) aka `stephenobrien`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Simon Basset](https://github.com/simbas) aka `simbas`
+- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
+- [Simon De Lang](https://github.com/simondel) aka `simondel`
+- [battletux](https://github.com/battletux) aka `battletux`
+- [AviD](https://github.com/avidouglen) aka `avidouglen`
+- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
+- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
   `StuartWinterTear`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
+- [Abhishek bundela](https://github.com/abhishekbundela) aka
+  `abhishekbundela`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
+- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
+- [Johanna](https://github.com/johanna-a) aka `johanna-a`
+- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
 
 ### Translators
 
@@ -357,7 +360,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 * [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
   artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
 
-## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop?ref=badge_shield)
+## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any

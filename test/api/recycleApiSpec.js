@@ -17,13 +17,13 @@ describe('/api/Recycles', () => {
         date: '2017-05-31'
       }
     })
-    .expect('status', 201)
-    .expect('header', 'content-type', /application\/json/)
-    .expect('jsonTypes', 'data', {
-      id: Joi.number(),
-      createdAt: Joi.string(),
-      updatedAt: Joi.string()
-    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
+      })
       .done(done)
   })
 

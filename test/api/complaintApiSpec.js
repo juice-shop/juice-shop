@@ -14,13 +14,13 @@ describe('/api/Complaints', () => {
         message: 'My stuff never arrived! This is outrageous!'
       }
     })
-    .expect('status', 201)
-    .expect('header', 'content-type', /application\/json/)
-    .expect('jsonTypes', 'data', {
-      id: Joi.number(),
-      createdAt: Joi.string(),
-      updatedAt: Joi.string()
-    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
+      })
       .done(done)
   })
 

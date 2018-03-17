@@ -3,10 +3,10 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, {STRING, INTEGER}) => {
   const Feedback = sequelize.define('Feedback', {
     comment: {
-      type: DataTypes.STRING,
+      type: STRING,
       set (comment) {
         const sanitizedComment = insecurity.sanitizeHtml(comment)
         this.setDataValue('comment', sanitizedComment)
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     rating: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       allowNull: false,
       set (rating) {
         this.setDataValue('rating', rating)
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-  Feedback.associate = function (models) {
-    Feedback.belongsTo(models.User) // no FK constraint to allow anonymous feedback posts
+  Feedback.associate = ({User}) => {
+    Feedback.belongsTo(User) // no FK constraint to allow anonymous feedback posts
   }
 
   return Feedback
