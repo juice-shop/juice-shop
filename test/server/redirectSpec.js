@@ -18,7 +18,7 @@ describe('redirect', () => {
   })
 
   describe('should be performed for all whitelisted URLs', () => {
-    require('../../lib/insecurity').redirectWhitelist.forEach(url => {
+    for (let url of require('../../lib/insecurity').redirectWhitelist) {
       it(url, () => {
         this.req.query.to = url
 
@@ -26,7 +26,7 @@ describe('redirect', () => {
 
         expect(this.res.redirect).to.have.been.calledWith(url)
       })
-    })
+    }
   })
 
   it('should raise error for URL not on whitelist', () => {
