@@ -5,12 +5,10 @@ engines:
     enabled: true
   fixme:
     enabled: true
-
 ratings:
-   paths:
-   - "**.js"
-   - "**.css"
-
+  paths:
+    - '**.js'
+    - '**.css'
 checks:
   method-complexity:
     config:
@@ -19,11 +17,10 @@ checks:
     enabled: false
   identical-code:
     enabled: false
-
 exclude_paths:
-- "app/private/**/*"
-- "app/css/geo-bootstrap/**/*"
-- "data/datacreator.js"
-- "vagrant/shake.js"
-- "Gruntfile.js"
-- "*conf.js"
+  - 'app/private/**/*'
+  - 'app/css/geo-bootstrap/**/*'
+  - 'data/datacreator.js'
+  - 'vagrant/shake.js'
+  - 'Gruntfile.js'
+  - '*conf.js'
