@@ -2,11 +2,11 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, {STRING, DECIMAL}) => {
   const Product = sequelize.define('Product', {
-    name: DataTypes.STRING,
+    name: STRING,
     description: {
-      type: DataTypes.STRING,
+      type: STRING,
       set (description) {
         if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<script>alert("XSS")</script>')) {
           utils.solve(challenges.restfulXssChallenge)
@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         this.setDataValue('description', description)
       }
     },
-    price: DataTypes.DECIMAL,
-    image: DataTypes.STRING
+    price: DECIMAL,
+    image: STRING
   }, { paranoid: true })
 
-  Product.associate = function (models) {
-    Product.belongsToMany(models.Basket, { through: models.BasketItem })
+  Product.associate = ({Basket, BasketItem}) => {
+    Product.belongsToMany(Basket, { through: BasketItem })
   }
 
   return Product

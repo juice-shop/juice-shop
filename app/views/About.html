@@ -19,21 +19,33 @@
         </p>
     </section>
 
-    <section class="col-lg-3 col-lg-offset-0 col-sm-10 col-sm-offset-1">
-        <h3 class="page-header page-header-sm"><small translate="SECTION_CUSTOMER_FEEDBACK"></small></h3>
+    <div class="col-lg-3 col-lg-offset-0 col-sm-10 col-sm-offset-1">
+        <section class="row">
+            <h3 class="page-header page-header-sm"><small translate="SECTION_CUSTOMER_FEEDBACK"></small></h3>
 
-        <div ng-controller="FeedbackController" style="height: 305px">
+            <div ng-controller="FeedbackController" style="height: 305px">
 
-            <div uib-carousel active="active" interval="interval" no-wrap="noWrapSlides">
-             <div uib-slide ng-repeat="feedback in feedbacks track by feedback.id" index="$index">
-               <img ng-src="{{feedback.image}}" style="margin:auto;">
-               <div class="carousel-caption">
-                   <span uib-rating max="5" ng-model="feedback.rating" read-only="true"></span>
-                   <p><div ng-bind-html="feedback.comment"></div></p>
+                <div uib-carousel active="active" interval="interval" no-wrap="noWrapSlides">
+                 <div uib-slide ng-repeat="feedback in feedbacks track by feedback.id" index="$index">
+                   <img ng-src="{{feedback.image}}" style="margin:auto;">
+                   <div class="carousel-caption">
+                       <span uib-rating max="5" ng-model="feedback.rating" read-only="true"></span>
+                       <p><div ng-bind-html="feedback.comment"></div></p>
+                   </div>
+                 </div>
                </div>
-             </div>
-           </div>
-        </div>
-    </section>
+            </div>
+        </section>
+
+        <section class="row" ng-show="twitterUrl || facebookUrl">
+            <h3 class="page-header page-header-sm"><small translate="SECTION_SOCIAL_MEDIA"></small></h3>
+            <div class="container-fluid">
+                <div class="row">
+                    <a id="followOnTwitter" class="btn btn-info" ng-show="twitterUrl" href="{{twitterUrl}}" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a id="followOnFacebook" class="btn btn-info" ng-show="facebookUrl" href="{{facebookUrl}}" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
+                </div>
+            </div>
+        </section>
+    </div>
 
 </div>

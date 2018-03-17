@@ -17,7 +17,8 @@ The minimum requirements for code contributions are:
 3. New and changed challenges should have a corresponding e2e test
 4. All unit, integration and e2e tests must pass locally
 
-**To avoid [falling into the _Content Duplication_ trap](http://bkimminich.github.io/juice-shop/kuehne-nagel_techup.html#/33)
-you find our detailed contribution guidelines over here:**
+### Contribution Guidelines
+
+You can find our detailed contribution guidelines over here:
 
 https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html
