@@ -66,7 +66,7 @@ angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) 
     controller: 'RecycleController'
   })
 
- $routeProvider.when('/track-order', {
+  $routeProvider.when('/track-order', {
     templateUrl: 'views/TrackOrder.html',
     controller: 'TrackOrderController'
   })
