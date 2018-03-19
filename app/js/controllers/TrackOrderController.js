@@ -4,10 +4,10 @@ angular.module('juiceShop').controller('TrackOrderController', [
   function ($scope, trackOrderService) {
     'use strict'
 
-    $scope.order={}
+    $scope.order = {}
 
     $scope.save = function () {
-        trackOrderService.save($scope.order).then(function (savedFeedback) {
+      trackOrderService.save($scope.order).then(function (savedFeedback) {
         $scope.error = null
         $scope.order = {}
         $scope.form.$setPristine()
