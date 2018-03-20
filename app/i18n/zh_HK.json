@@ -30,7 +30,6 @@
   "LABEL_RATING": "評分",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "提交",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "關於我們",
   "SECTION_CORPORATE_HISTORY": "公司歷史和政策",
   "SECTION_CUSTOMER_FEEDBACK": "客戶反饋",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "訊息",
   "LABEL_INVOICE": "發票",
   "TITLE_SCORE_BOARD": "計分板",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "難易度",
   "LABEL_STATUS": "狀態",
   "STATUS_UNSOLVED": "未解決",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "複製到剪貼板",
   "COPY_SUCCESS": "已複製！",
   "NAV_RECYCLE": "回收",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "申請回收箱",
   "LABEL_REQUESTOR": "申請者",
   "LABEL_RECYCLE_QUANTITY": "數量",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "把你所有的錢都給我們。",
   "ICO_FAQ_QUESTION": "我真的可以靠{{juicycoin}} 致富？",
-  "ICO_FAQ_ANSWER": "當然可以！我們永遠不會騙你！"
+  "ICO_FAQ_ANSWER": "當然可以！我們永遠不會騙你！",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
