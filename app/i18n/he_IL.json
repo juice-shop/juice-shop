@@ -30,7 +30,6 @@
   "LABEL_RATING": "דירוג",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "שלח",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "אודותינו",
   "SECTION_CORPORATE_HISTORY": "היסטוריה של החברה ומדיניות",
   "SECTION_CUSTOMER_FEEDBACK": "תגובות לקוחות",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "הודעה",
   "LABEL_INVOICE": "חשבונית",
   "TITLE_SCORE_BOARD": "לוח ניקוד",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "רמת קושי",
   "LABEL_STATUS": "סטטוס",
   "STATUS_UNSOLVED": "לא נפתר",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "העתקה ללוח העריכה",
   "COPY_SUCCESS": "הועתק!",
   "NAV_RECYCLE": "מיחזור",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "בקשת קופסת מיחזור",
   "LABEL_REQUESTOR": "המבקש",
   "LABEL_RECYCLE_QUANTITY": "כמות",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
