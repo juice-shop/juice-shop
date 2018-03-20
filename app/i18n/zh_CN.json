@@ -30,7 +30,6 @@
   "LABEL_RATING": "评分",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "提交",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "关于我们",
   "SECTION_CORPORATE_HISTORY": "公司的历史和政策",
   "SECTION_CUSTOMER_FEEDBACK": "客户反馈",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "消息",
   "LABEL_INVOICE": "发票",
   "TITLE_SCORE_BOARD": "计分板",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "难度系数",
   "LABEL_STATUS": "状态",
   "STATUS_UNSOLVED": "未解决",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "复制到剪贴板",
   "COPY_SUCCESS": "已复制！",
   "NAV_RECYCLE": "回收",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "申请回收箱",
   "LABEL_REQUESTOR": "申请者",
   "LABEL_RECYCLE_QUANTITY": "数量",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
