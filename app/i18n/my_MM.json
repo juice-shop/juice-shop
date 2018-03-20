@@ -30,7 +30,6 @@
   "LABEL_RATING": "သတ္မွတ္ခ်က္",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "ေပးပို႕မည္",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "အေၾကာင္းအရာ",
   "SECTION_CORPORATE_HISTORY": "ပူးေပါင္းေဆာင္ရြက္သည့္ သမိုင္းေၾကာင္း ႏွင့္ စည္းမ်ဥ္းစည္းကမ္းမ်ား",
   "SECTION_CUSTOMER_FEEDBACK": "ဝယ္ယူသူမ်ား ၏ အၾကံျပဳခ်က္မ်ား",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "အေၾကာင္းအရာ",
   "LABEL_INVOICE": "ေပးပို႕လႊာ",
   "TITLE_SCORE_BOARD": "အမွတ္စာရင္း",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "ခက္ခဲမွဳ",
   "LABEL_STATUS": "မွတ္ခ်က္",
   "STATUS_UNSOLVED": "မေျဖရေသးပါ",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "Copy to clipboard",
   "COPY_SUCCESS": "Copied!",
   "NAV_RECYCLE": "Recycle",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "Request Recycling Box",
   "LABEL_REQUESTOR": "Requestor",
   "LABEL_RECYCLE_QUANTITY": "Quantity",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
