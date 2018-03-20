@@ -30,7 +30,6 @@
   "LABEL_RATING": "Note",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "Soumettre",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "À propos",
   "SECTION_CORPORATE_HISTORY": "Histoire & politique",
   "SECTION_CUSTOMER_FEEDBACK": "Retour de client",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "Message",
   "LABEL_INVOICE": "Facture",
   "TITLE_SCORE_BOARD": "Tableau des scores",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "Dufficulté",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "non résolu",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "Copy to clipboard",
   "COPY_SUCCESS": "Copied!",
   "NAV_RECYCLE": "Recycle",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "Request Recycling Box",
   "LABEL_REQUESTOR": "Requestor",
   "LABEL_RECYCLE_QUANTITY": "Quantity",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
