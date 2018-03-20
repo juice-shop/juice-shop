@@ -30,7 +30,6 @@
   "LABEL_RATING": "Rating",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "Trimitere",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "Despre Noi",
   "SECTION_CORPORATE_HISTORY": "Politica si istoria companiei",
   "SECTION_CUSTOMER_FEEDBACK": "Feedback-ul clienților",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "Mesaj",
   "LABEL_INVOICE": "Factură",
   "TITLE_SCORE_BOARD": "Tabela de scor",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "Dificultate",
   "LABEL_STATUS": "Stare",
   "STATUS_UNSOLVED": "nerezolvat",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "Copiaţi în clipboard",
   "COPY_SUCCESS": "Copiat!",
   "NAV_RECYCLE": "Coș de gunoi",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "Cere Recycling Box",
   "LABEL_REQUESTOR": "Solicitantul",
   "LABEL_RECYCLE_QUANTITY": "Cantitate",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
