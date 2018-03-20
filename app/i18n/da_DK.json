@@ -30,7 +30,6 @@
   "LABEL_RATING": "Vurdering",
   "LABEL_CAPTCHA": "Hvad er",
   "BTN_SUBMIT": "Bekræft",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "Om os",
   "SECTION_CORPORATE_HISTORY": "Virksomhedshistorie & politik",
   "SECTION_CUSTOMER_FEEDBACK": "Kundefeedback",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "Besked",
   "LABEL_INVOICE": "Faktura",
   "TITLE_SCORE_BOARD": "Resultater",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "Sværhedsgrad",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "ikke løst",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "Kopiér til udklipsholder",
   "COPY_SUCCESS": "Kopieret!",
   "NAV_RECYCLE": "Genbrug",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "Anmod om genbrugs-boks",
   "LABEL_REQUESTOR": "Anmoder",
   "LABEL_RECYCLE_QUANTITY": "Antal",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
