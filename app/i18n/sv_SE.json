@@ -30,7 +30,6 @@
   "LABEL_RATING": "Betyg",
   "LABEL_CAPTCHA": "What is",
   "BTN_SUBMIT": "Skicka",
-  "BTN_TRACK": "Track",
   "TITLE_ABOUT": "Om oss",
   "SECTION_CORPORATE_HISTORY": "Historia och Policyer",
   "SECTION_CUSTOMER_FEEDBACK": "Kundrecensioner",
@@ -83,8 +82,6 @@
   "LABEL_MESSAGE": "Meddelande",
   "LABEL_INVOICE": "Faktura",
   "TITLE_SCORE_BOARD": "Poäng ombord",
-  "TITLE_TRACK_ORDER": "Track Orders",
-  "LABEL_ORDER_ID": "Order Id",
   "LABEL_DIFFICULTY": "Svårighetsgrad",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "olösta",
@@ -101,7 +98,6 @@
   "COPY_TO_CLIPBOARD": "Kopiera till klippbordet",
   "COPY_SUCCESS": "Kopierad!",
   "NAV_RECYCLE": "Återvinn",
-  "NAV_TRACK": "Order Tracking",
   "TITLE_RECYCLE": "Beställ återvinningslåda",
   "LABEL_REQUESTOR": "Förfrågare",
   "LABEL_RECYCLE_QUANTITY": "Antal",
@@ -141,5 +137,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }
