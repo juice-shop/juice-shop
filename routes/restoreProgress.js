@@ -3,7 +3,7 @@ const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzAB
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
-exports = module.exports = function restoreProgress () {
+module.exports = function restoreProgress () {
   return ({params}, res) => {
     const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
