@@ -2,7 +2,7 @@ const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function performRedirect () {
+module.exports = function performRedirect () {
   return ({query}, res, next) => {
     const toUrl = query.to
     if (insecurity.isRedirectAllowed(toUrl)) {
