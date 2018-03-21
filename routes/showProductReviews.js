@@ -15,7 +15,7 @@ global.sleep = time => {
   }
 }
 
-exports = module.exports = function productReviews () {
+module.exports = function productReviews () {
   return ({params}, res, next) => {
     const id = params.id
 

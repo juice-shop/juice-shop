@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function retrieveBasket () {
+module.exports = function retrieveBasket () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
