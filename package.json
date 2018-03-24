@@ -93,7 +93,7 @@
     "serve-index": "~1.9",
     "socket.io": "~2.0",
     "sqlite3": "~4.0.0",
-    "swagger-ui-express": "~2.0",
+    "swagger-ui-express": "~3.0.5",
     "z85": "~0.0"
   },
   "devDependencies": {
