@@ -1,6 +1,6 @@
 const models = require('../models/index')
 
-exports = module.exports = function captchas () {
+module.exports = function captchas () {
   return (req, res) => {
     var captchaId = req.app.locals.captchaId++
     var operators = ['*', '+', '-']

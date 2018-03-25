@@ -3,7 +3,7 @@ const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function servePublicFiles () {
+module.exports = function servePublicFiles () {
   return ({params, query}, res, next) => {
     const file = params.file
     const mdDebug = query.md_debug

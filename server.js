@@ -53,6 +53,7 @@ const io = require('socket.io')(server)
 const replace = require('replace')
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
+const trackOrder = require('./routes/trackOrder')
 const config = require('config')
 let firstConnectedSocket = null
 
@@ -239,6 +240,7 @@ app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
+app.post('/rest/track-order', trackOrder())
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
 
