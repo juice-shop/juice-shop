@@ -2,7 +2,7 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
-exports = module.exports = function productReviews () {
+module.exports = function productReviews () {
   return ({body}, res, next) => {
     const id = body.id
 
