@@ -147,7 +147,7 @@
     "postinstall": "npm --prefix ./app install ./app && grunt minify",
     "start": "node app",
     "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
+    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent -i",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update --gecko false",
     "preprotractor": "npm run update-webdriver",
@@ -187,6 +187,8 @@
     ]
   },
   "jest": {
+    "globalSetup": "./test/apiTestsSetup.js",
+    "globalTeardown": "./test/apiTestsTeardown.js",
     "testMatch": [
       "**/test/api/*Spec.js"
     ],
