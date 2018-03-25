@@ -259,23 +259,21 @@ app.locals.captchaId = 0
 app.locals.captchaReqId = 1
 app.locals.captchaBypassReqTimes = []
 
-exports.start = function (readyCallback) {
-  if (!this.server) {
-    models.sequelize.sync({ force: true }).then(async function () {
+exports.start = async function (readyCallback) {
+  await models.sequelize.sync({ force: true })
       await datacreator()
-      this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
+
+  server.listen(process.env.PORT || config.get('server.port'), () => {
         console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
         registerWebsocketEvents()
         if (readyCallback) {
           readyCallback()
         }
       })
-    }, console.error)
 
     populateIndexTemplate()
     populateThreeJsTemplate()
   }
-}
 
 function registerWebsocketEvents () {
   io.on('connection', socket => {
