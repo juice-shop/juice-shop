@@ -52,7 +52,6 @@ const notifications = require('./data/datacache').notifications
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-const replace = require('replace')
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
@@ -259,8 +258,8 @@ exports.start = async function (readyCallback) {
     }
   })
 
-  populateIndexTemplate()
-  populateThreeJsTemplate()
+  require('./lib/populateIndexTemplate')()
+  require('./lib/populateThreeJsTemplate')()
 }
 
 function registerWebsocketEvents () {
@@ -280,113 +279,6 @@ function registerWebsocketEvents () {
         notifications.splice(i, 1)
       }
     })
-  })
-}
-
-function populateIndexTemplate () {
-  fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
-    if (config.get('application.logo')) {
-      let logo = config.get('application.logo')
-      if (utils.startsWith(logo, 'http')) {
-        const logoPath = logo
-        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-        utils.downloadToFile(logoPath, 'app/public/images/' + logo)
-      }
-      replaceLogo(logo)
-    }
-    if (config.get('application.theme')) {
-      replaceTheme()
-    }
-    if (config.get('application.cookieConsent')) {
-      replaceCookieConsent()
-    }
-  })
-}
-
-function populateThreeJsTemplate () {
-  fs.copy('app/private/threejs-demo.template.html', 'app/private/threejs-demo.html', { overwrite: true }, () => {
-    if (config.get('application.planetOverlayMap')) {
-      let overlay = config.get('application.planetOverlayMap')
-      if (utils.startsWith(overlay, 'http')) {
-        const overlayPath = overlay
-        overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
-        utils.downloadToFile(overlayPath, 'app/private/' + overlay)
-        replaceImagePath(overlay)
-      }
-    }
-    if (config.get('application.planetName')) {
-      replaceThreeJsTitleTag()
-    }
-  })
-}
-
-function replaceLogo (logo) {
-  const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-  replace({
-    regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
-    replacement: logoImageTag,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceTheme () {
-  const themeCss = 'node_modules/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-  replace({
-    regex: /node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
-    replacement: themeCss,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceCookieConsent () {
-  const popupProperty = '"popup": { "background": "' + config.get('application.cookieConsent.backgroundColor') + '", "text": "' + config.get('application.cookieConsent.textColor') + '" }'
-  replace({
-    regex: /"popup": { "background": ".*", "text": ".*" }/,
-    replacement: popupProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-  const buttonProperty = '"button": { "background": "' + config.get('application.cookieConsent.buttonColor') + '", "text": "' + config.get('application.cookieConsent.buttonTextColor') + '" }'
-  replace({
-    regex: /"button": { "background": ".*", "text": ".*" }/,
-    replacement: buttonProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-  const contentProperty = '"content": { "message": "' + config.get('application.cookieConsent.message') + '", "dismiss": "' + config.get('application.cookieConsent.dismissText') + '", "link": "' + config.get('application.cookieConsent.linkText') + '", "href": "' + config.get('application.cookieConsent.linkUrl') + '" }'
-  replace({
-    regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
-    replacement: contentProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceImagePath (overlay) {
-  replace({
-    regex: 'orangemap2k.jpg',
-    replacement: overlay,
-    paths: ['app/private/threejs-demo.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceThreeJsTitleTag () {
-  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
-  replace({
-    regex: '<title>Welcome to Planet Orangeuze</title>',
-    replacement: threeJsTitleTag,
-    paths: ['app/private/threejs-demo.html'],
-    recursive: false,
-    silent: true
   })
 }
 
