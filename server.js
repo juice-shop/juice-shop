@@ -57,8 +57,8 @@ const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
-require('./lib/validateConfig')()
-require('./lib/cleanupFtpFolder')()
+require('./lib/startup/validateConfig')()
+require('./lib/startup/cleanupFtpFolder')()
 
 /* Locals */
 app.locals.captchaId = 0
@@ -241,14 +241,14 @@ exports.start = async function (readyCallback) {
 
   server.listen(process.env.PORT || config.get('server.port'), () => {
     console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
-    require('./lib/registerWebsocketEvents')(server)
+    require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
     }
   })
 
-  require('./lib/populateIndexTemplate')()
-  require('./lib/populateThreeJsTemplate')()
+  require('./lib/startup/populateIndexTemplate')()
+  require('./lib/startup/populateThreeJsTemplate')()
 }
 
 exports.close = function (exitCode) {

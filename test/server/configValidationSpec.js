@@ -3,8 +3,8 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-const validateConfig = require('../../lib/validateConfig')
-const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/validateConfig')
+const validateConfig = require('../../lib/startup/validateConfig')
+const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
