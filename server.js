@@ -1,7 +1,6 @@
 const applicationRoot = __dirname.replace(/\\/g, '/')
 const path = require('path')
 const fs = require('fs-extra')
-const glob = require('glob')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const epilogue = require('epilogue-js')
@@ -42,6 +41,9 @@ const basket = require('./routes/basket')
 const order = require('./routes/order')
 const verify = require('./routes/verify')
 const b2bOrder = require('./routes/b2bOrder')
+const showProductReviews = require('./routes/showProductReviews')
+const createProductReviews = require('./routes/createProductReviews')
+const updateProductReviews = require('./routes/updateProductReviews')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
@@ -61,21 +63,7 @@ global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
 require('./lib/validateConfig')()
-
-/* Delete old order PDFs */
-glob(path.join(__dirname, 'ftp/*.pdf'), (err, files) => {
-  if (err) {
-    console.log(err)
-  } else {
-    files.forEach(filename => {
-      fs.remove(filename)
-    })
-  }
-})
-
-const showProductReviews = require('./routes/showProductReviews')
-const createProductReviews = require('./routes/createProductReviews')
-const updateProductReviews = require('./routes/updateProductReviews')
+require('./lib/cleanupFtpFolder')()
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
