@@ -28,7 +28,7 @@
   "LABEL_AUTHOR": "Auteur",
   "LABEL_COMMENT": "Commentaire",
   "LABEL_RATING": "Note",
-  "LABEL_CAPTCHA": "What is",
+  "LABEL_CAPTCHA": "Que vaut",
   "BTN_SUBMIT": "Soumettre",
   "TITLE_ABOUT": "À propos",
   "SECTION_CORPORATE_HISTORY": "Histoire & politique",
@@ -134,11 +134,11 @@
   "ICO_FAQ": "FAQ sur notre ICO",
   "SECTION_WHITEPAPER": "Livre blanc",
   "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
-  "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
+  "SECTION_SALES_PITCH": "Argumentaire de vente convaincant pour l'ICO",
   "GIVE_US_ALL_YOUR_MONEY": "Donnez-nous tout votre argent.",
   "ICO_FAQ_QUESTION": "Puis-je vraiment devenir riche avec {{juicycoin}} ?",
   "ICO_FAQ_ANSWER": "Bien sûr que vous pouvez ! Nous vous mentirions jamais !",
-  "TITLE_TRACK_ORDERS": "Track Orders",
+  "TITLE_TRACK_ORDERS": "Suivi de commande",
   "LABEL_ORDER_ID": "ID de commande",
-  "BTN_TRACK": "Track"
+  "BTN_TRACK": "Suivi"
 }
