@@ -19,8 +19,10 @@ where this project was mentioned or used!
 
 ## Web Links
 
-* Blog post on [Josh Grossman's blog](https://joshcgrossman.com): [Setting up an OWASP Juice Shop CTF](https://joshcgrossman.com/2018/03/15/setting-up-an-owasp-juice-shop-ctf/)
-* Blog post on [Mozilla Hacks](https://hacks.mozilla.org): [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
+* Blog post on [Josh Grossman's blog](https://joshcgrossman.com):
+  [Setting up an OWASP Juice Shop CTF](https://joshcgrossman.com/2018/03/15/setting-up-an-owasp-juice-shop-ctf/)
+* Blog post on [Mozilla Hacks](https://hacks.mozilla.org):
+  [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
 * Webcast recording on
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
@@ -105,6 +107,11 @@ where this project was mentioned or used!
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
   17.05.2018
+* [Web Application Security: A Hands-on Testing Challenge](https://dojo.ministryoftesting.com/events/testbash-brighton-2018)
+  by Dan Billing,
+  [TestBash Brighton 2018](https://dojo.ministryoftesting.com/events/testbash-brighton-2018),
+  15.03.2018
+* [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by Andrew van der Stock, [OWASP AppSec California 2018](https://2018.appseccalifornia.org/) ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE))
 
 #### 2017
 
