@@ -1,7 +1,6 @@
 const applicationRoot = __dirname.replace(/\\/g, '/')
 const path = require('path')
 const fs = require('fs-extra')
-const glob = require('glob')
 const morgan = require('morgan')
 const colors = require('colors/safe')
 const epilogue = require('epilogue-js')
@@ -42,40 +41,29 @@ const basket = require('./routes/basket')
 const order = require('./routes/order')
 const verify = require('./routes/verify')
 const b2bOrder = require('./routes/b2bOrder')
+const showProductReviews = require('./routes/showProductReviews')
+const createProductReviews = require('./routes/createProductReviews')
+const updateProductReviews = require('./routes/updateProductReviews')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
 const datacreator = require('./data/datacreator')
-const notifications = require('./data/datacache').notifications
 const app = express()
 const server = require('http').Server(app)
-const io = require('socket.io')(server)
-const replace = require('replace')
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
 const config = require('config')
-let firstConnectedSocket = null
 
-global.io = io
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
-require('./lib/validateConfig')()
+require('./lib/startup/validateConfig')()
+require('./lib/startup/cleanupFtpFolder')()
 
-/* Delete old order PDFs */
-glob(path.join(__dirname, 'ftp/*.pdf'), (err, files) => {
-  if (err) {
-    console.log(err)
-  } else {
-    files.forEach(filename => {
-      fs.remove(filename)
-    })
-  }
-})
-
-const showProductReviews = require('./routes/showProductReviews')
-const createProductReviews = require('./routes/createProductReviews')
-const updateProductReviews = require('./routes/updateProductReviews')
+/* Locals */
+app.locals.captchaId = 0
+app.locals.captchaReqId = 1
+app.locals.captchaBypassReqTimes = []
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -128,6 +116,10 @@ app.use(bodyParser.json())
 let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
 app.use(morgan('combined', {stream: accessLogStream}))
 
+/* Rate limiting */
+app.enable('trust proxy')
+app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({headers, ip}) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
+
 /** Authorization **/
 /* Checks on JWT in Authorization header */
 app.use(verify.jwtChallenges())
@@ -178,25 +170,11 @@ app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 
-/* Verifying DB related challenges can be postponed until the next request for challenges is coming via sequelize-restful */
+/* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
 
-const endpointLimiter = new RateLimit({
-  windowMs: 5 * 60 * 1000, /* 100 requests per 5 minutes */
-  max: 100,
-  keyGenerator ({headers, ip}) {
-    return headers['X-Forwarded-For'] || ip
-  },
-  delayMs: 0
-})
-
-app.enable('trust proxy')
-app.use('/rest/user/reset-password', endpointLimiter)
-
-epilogue.initialize({
-  app,
-  sequelize: models.sequelize
-})
+/* Generated API endpoints */
+epilogue.initialize({ app, sequelize: models.sequelize })
 
 const autoModels = ['User', 'Product', 'Feedback', 'BasketItem', 'Challenge', 'Complaint', 'Recycle', 'SecurityQuestion', 'SecurityAnswer']
 
@@ -215,11 +193,6 @@ for (const modelName of autoModels) {
     return context.continue
   })
 }
-
-// routes for the NoSql parts of the application
-app.get('/rest/product/:id/reviews', showProductReviews())
-app.put('/rest/product/:id/reviews', createProductReviews())
-app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
 
 /* Custom Restful API */
 app.post('/rest/user/login', login())
@@ -241,167 +214,41 @@ app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
 app.post('/rest/track-order', trackOrder())
+
+/* NoSQL API endpoints */
+app.get('/rest/product/:id/reviews', showProductReviews())
+app.put('/rest/product/:id/reviews', createProductReviews())
+app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
+
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
 
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
+
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.use(angular())
+
 /* Error Handling */
 app.use(verify.errorHandlingChallenge())
 app.use(errorhandler())
-/* Captcha Id */
-app.locals.captchaId = 0
-/* Captcha Bypass Challenge parameters */
-app.locals.captchaReqId = 1
-app.locals.captchaBypassReqTimes = []
 
-exports.start = function (readyCallback) {
-  if (!this.server) {
-    models.sequelize.sync({ force: true }).then(async function () {
-      await datacreator()
-      this.server = server.listen(process.env.PORT || config.get('server.port'), () => {
-        console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
-        registerWebsocketEvents()
-        if (readyCallback) {
-          readyCallback()
-        }
-      })
-    }, console.error)
+exports.start = async function (readyCallback) {
+  await models.sequelize.sync({ force: true })
+  await datacreator()
 
-    populateIndexTemplate()
-    populateThreeJsTemplate()
-  }
-}
-
-function registerWebsocketEvents () {
-  io.on('connection', socket => {
-    if (firstConnectedSocket === null) {
-      socket.emit('server started')
-      firstConnectedSocket = socket.id
-    }
-
-    notifications.forEach(notification => {
-      socket.emit('challenge solved', notification)
-    })
-
-    socket.on('notification received', data => {
-      const i = notifications.findIndex(({flag}) => flag === data)
-      if (i > -1) {
-        notifications.splice(i, 1)
-      }
-    })
-  })
-}
-
-function populateIndexTemplate () {
-  fs.copy('app/index.template.html', 'app/index.html', { overwrite: true }, () => {
-    if (config.get('application.logo')) {
-      let logo = config.get('application.logo')
-      if (utils.startsWith(logo, 'http')) {
-        const logoPath = logo
-        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-        utils.downloadToFile(logoPath, 'app/public/images/' + logo)
-      }
-      replaceLogo(logo)
-    }
-    if (config.get('application.theme')) {
-      replaceTheme()
-    }
-    if (config.get('application.cookieConsent')) {
-      replaceCookieConsent()
+  server.listen(process.env.PORT || config.get('server.port'), () => {
+    console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
+    require('./lib/startup/registerWebsocketEvents')(server)
+    if (readyCallback) {
+      readyCallback()
     }
   })
-}
 
-function populateThreeJsTemplate () {
-  fs.copy('app/private/threejs-demo.template.html', 'app/private/threejs-demo.html', { overwrite: true }, () => {
-    if (config.get('application.planetOverlayMap')) {
-      let overlay = config.get('application.planetOverlayMap')
-      if (utils.startsWith(overlay, 'http')) {
-        const overlayPath = overlay
-        overlay = decodeURIComponent(overlay.substring(overlay.lastIndexOf('/') + 1))
-        utils.downloadToFile(overlayPath, 'app/private/' + overlay)
-        replaceImagePath(overlay)
-      }
-    }
-    if (config.get('application.planetName')) {
-      replaceThreeJsTitleTag()
-    }
-  })
-}
-
-function replaceLogo (logo) {
-  const logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
-  replace({
-    regex: /<img class="navbar-brand navbar-logo"(.*?)>/,
-    replacement: logoImageTag,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceTheme () {
-  const themeCss = 'node_modules/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
-  replace({
-    regex: /node_modules\/bootswatch\/.*\/bootstrap\.min\.css/,
-    replacement: themeCss,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceCookieConsent () {
-  const popupProperty = '"popup": { "background": "' + config.get('application.cookieConsent.backgroundColor') + '", "text": "' + config.get('application.cookieConsent.textColor') + '" }'
-  replace({
-    regex: /"popup": { "background": ".*", "text": ".*" }/,
-    replacement: popupProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-  const buttonProperty = '"button": { "background": "' + config.get('application.cookieConsent.buttonColor') + '", "text": "' + config.get('application.cookieConsent.buttonTextColor') + '" }'
-  replace({
-    regex: /"button": { "background": ".*", "text": ".*" }/,
-    replacement: buttonProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-  const contentProperty = '"content": { "message": "' + config.get('application.cookieConsent.message') + '", "dismiss": "' + config.get('application.cookieConsent.dismissText') + '", "link": "' + config.get('application.cookieConsent.linkText') + '", "href": "' + config.get('application.cookieConsent.linkUrl') + '" }'
-  replace({
-    regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
-    replacement: contentProperty,
-    paths: ['app/index.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceImagePath (overlay) {
-  replace({
-    regex: 'orangemap2k.jpg',
-    replacement: overlay,
-    paths: ['app/private/threejs-demo.html'],
-    recursive: false,
-    silent: true
-  })
-}
-
-function replaceThreeJsTitleTag () {
-  const threeJsTitleTag = '<title>Welcome to Planet ' + config.get('application.planetName') + '</title>'
-  replace({
-    regex: '<title>Welcome to Planet Orangeuze</title>',
-    replacement: threeJsTitleTag,
-    paths: ['app/private/threejs-demo.html'],
-    recursive: false,
-    silent: true
-  })
+  require('./lib/startup/populateIndexTemplate')()
+  require('./lib/startup/populateThreeJsTemplate')()
 }
 
 exports.close = function (exitCode) {
