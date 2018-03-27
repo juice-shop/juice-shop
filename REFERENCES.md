@@ -111,7 +111,11 @@ where this project was mentioned or used!
   by Dan Billing,
   [TestBash Brighton 2018](https://dojo.ministryoftesting.com/events/testbash-brighton-2018),
   15.03.2018
-* [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by Andrew van der Stock, [OWASP AppSec California 2018](https://2018.appseccalifornia.org/) ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE))
+* [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by
+  Andrew van der Stock,
+  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/)
+  ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE) :godmode:
+  _starting 25:40_)
 
 #### 2017
 
