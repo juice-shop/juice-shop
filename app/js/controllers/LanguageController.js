@@ -20,6 +20,7 @@ var languages = [
   {key: 'fi_FI', icon: 'fi', lang: 'Suomalainen', isFlask: true},
   {key: 'fr_FR', icon: 'fr', lang: 'Français'},
   {key: 'he_IL', icon: 'il', lang: 'עברי'},
+  {key: 'hi_IN', icon: 'in', lang: 'हिंदी'},
   {key: 'hu_HU', icon: 'hu', lang: 'Magyar', isFlask: true},
   {key: 'id_ID', icon: 'id', lang: 'Bahasa Indonesia'},
   {key: 'it_IT', icon: 'it', lang: 'Italiano', isFlask: true},
