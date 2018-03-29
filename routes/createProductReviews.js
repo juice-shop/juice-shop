@@ -1,6 +1,6 @@
 const db = require('../data/mongodb')
 
-exports = module.exports = function productReviews () {
+module.exports = function productReviews () {
   return ({params, body}, res, next) => {
     db.reviews.insert({
       product: params.id,

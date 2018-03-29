@@ -8,7 +8,7 @@ const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
-exports = module.exports = function placeOrder () {
+module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })

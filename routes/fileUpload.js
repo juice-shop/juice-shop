@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
 const vm = require('vm')
 
-exports = module.exports = function fileUpload () {
+module.exports = function fileUpload () {
   return (req, res, next) => {
     const file = req.file
     if (utils.notSolved(challenges.uploadSizeChallenge) && file.size > 100000) {

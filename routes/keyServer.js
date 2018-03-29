@@ -1,6 +1,6 @@
 const path = require('path')
 
-exports = module.exports = function serveKeyFiles () {
+module.exports = function serveKeyFiles () {
   return ({params}, res, next) => {
     const file = params.file
 

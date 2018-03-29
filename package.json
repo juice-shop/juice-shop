@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "7.0.0",
+  "version": "7.0.2",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "http://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -92,7 +92,7 @@
     "serve-favicon": "~2.4",
     "serve-index": "~1.9",
     "socket.io": "~2.0",
-    "sqlite3": "~3.1.13",
+    "sqlite3": "~4.0.0",
     "swagger-ui-express": "~2.0",
     "z85": "~0.0"
   },
@@ -149,7 +149,7 @@
     "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
-    "update-webdriver": "webdriver-manager update",
+    "update-webdriver": "webdriver-manager update --gecko false",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
     "stryker": "stryker run stryker.client-conf.js",
