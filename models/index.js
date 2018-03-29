@@ -2,7 +2,7 @@
 const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('database', 'username', 'password', { // lgtm [js/hardcoded-credentials]
   dialect: 'sqlite',
   storage: 'data/juiceshop.sqlite',
   logging: false,

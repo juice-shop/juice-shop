@@ -2,7 +2,7 @@ const utils = require('../lib/utils')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function searchProducts () {
+module.exports = function searchProducts () {
   return ({query}, res, next) => {
     let criteria = query.q === 'undefined' ? '' : query.q || ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)

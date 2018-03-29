@@ -76,7 +76,7 @@ angular.module('juiceShop').controller('SearchResultController', [
     productService.search($scope.searchQuery).then(function (products) {
       $scope.products = products
       for (var i = 0; i < $scope.products.length; i++) {
-        $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description)
+        $scope.products[i].description = $sce.trustAsHtml($scope.products[i].description) // lgtm [js/xss]
       }
     }).catch(function (err) {
       console.log(err)
