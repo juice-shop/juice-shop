@@ -8,7 +8,7 @@ const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
-exports = module.exports = function placeOrder () {
+module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
@@ -30,12 +30,12 @@ exports = module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          basket.Products.forEach(product => {
-            if (utils.notSolved(challenges.christmasSpecialChallenge) && product.BasketItem.ProductId === products.christmasSpecial.id) {
+          basket.Products.forEach(({BasketItem, price, name}) => {
+            if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
-            const itemTotal = product.price * product.BasketItem.quantity
-            doc.text(product.BasketItem.quantity + 'x ' + product.name + ' ea. ' + product.price + ' = ' + itemTotal)
+            const itemTotal = price * BasketItem.quantity
+            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
           })

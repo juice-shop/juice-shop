@@ -2,9 +2,9 @@ const utils = require('../lib/utils')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function searchProducts () {
-  return (req, res, next) => {
-    let criteria = req.query.q === 'undefined' ? '' : req.query.q || ''
+module.exports = function searchProducts () {
+  return ({query}, res, next) => {
+    let criteria = query.q === 'undefined' ? '' : query.q || ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<script>alert("XSS")</script>')) {
       utils.solve(challenges.localXssChallenge)

@@ -3,9 +3,9 @@ const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzAB
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 
-exports = module.exports = function restoreProgress () {
-  return (req, res) => {
-    const continueCode = req.params.continueCode
+module.exports = function restoreProgress () {
+  return ({params}, res) => {
+    const continueCode = params.continueCode
     const ids = hashids.decode(continueCode)
     if (utils.notSolved(challenges.continueCodeChallenge) && ids.length === 1 && ids[ 0 ] === 99) {
       utils.solve(challenges.continueCodeChallenge)
@@ -13,7 +13,7 @@ exports = module.exports = function restoreProgress () {
     } else if (ids.length > 0) {
       for (const name in challenges) {
         if (challenges.hasOwnProperty(name)) {
-          if (ids.indexOf(challenges[ name ].id) > -1) {
+          if (ids.includes(challenges[ name ].id)) {
             utils.solve(challenges[ name ], true)
           }
         }

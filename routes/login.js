@@ -4,7 +4,7 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
-exports = module.exports = function login () {
+module.exports = function login () {
   function afterLogin (user, res, next) {
     if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
       utils.solve(challenges.loginAdminChallenge)
@@ -30,6 +30,9 @@ exports = module.exports = function login () {
     }
     if (utils.notSolved(challenges.loginSupportChallenge) && req.body.email === 'support@' + config.get('application.domain') && req.body.password === 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P') {
       utils.solve(challenges.loginSupportChallenge)
+    }
+    if (utils.notSolved(challenges.loginRapperChallenge) && req.body.email === 'mc.safesearch@' + config.get('application.domain') && req.body.password === 'Mr. N00dles') {
+      utils.solve(challenges.loginRapperChallenge)
     }
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {
       utils.solve(challenges.oauthUserPasswordChallenge)

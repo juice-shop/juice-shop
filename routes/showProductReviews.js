@@ -15,9 +15,9 @@ global.sleep = time => {
   }
 }
 
-exports = module.exports = function productReviews () {
-  return (req, res, next) => {
-    const id = req.params.id
+module.exports = function productReviews () {
+  return ({params}, res, next) => {
+    const id = params.id
 
     // Messure how long the query takes to find out if an there was a nosql dos attack
     const t0 = new Date().getTime()

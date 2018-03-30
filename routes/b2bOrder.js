@@ -4,14 +4,14 @@ const safeEval = require('notevil')
 const vm = require('vm')
 const challenges = require('../data/datacache').challenges
 
-exports = module.exports = function b2bOrder () {
-  return (req, res, next) => {
-    const orderLinesData = req.body.orderLinesData || ''
+module.exports = function b2bOrder () {
+  return ({body}, res, next) => {
+    const orderLinesData = body.orderLinesData || ''
     try {
       const sandbox = { safeEval, orderLinesData }
       vm.createContext(sandbox)
       vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
-      res.json({ cid: req.body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
+      res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
     } catch (err) {
       if (err.message === 'Script execution timed out.') {
         if (utils.notSolved(challenges.rceOccupyChallenge)) {

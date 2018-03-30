@@ -2,13 +2,13 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
-exports = module.exports = function productReviews () {
-  return (req, res, next) => {
-    const id = req.body.id
+module.exports = function productReviews () {
+  return ({body}, res, next) => {
+    const id = body.id
 
     db.reviews.update(
       { _id: id },
-      { '$set': { message: req.body.message } },
+      { '$set': { message: body.message } },
       { multi: true }
     ).then(
       result => {

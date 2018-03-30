@@ -1,177 +1,213 @@
 server:
   port: 3000
 application:
-  domain: "juice-sh.op"
-  name: "OWASP Juice Shop"
-  logo: "JuiceShop_Logo.png"
-  favicon: "favicon_v2.ico"
+  domain: juice-sh.op
+  name: 'OWASP Juice Shop'
+  logo: JuiceShop_Logo.png
+  favicon: favicon_v2.ico
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
   showChallengeHints: true
   showVersionNumber: true
-  theme: "slate" # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
-  gitHubRibbon: "orange" # Options: darkblue  gray  green  orange  red  white  none
-  twitterUrl: "https://twitter.com/owasp_juiceshop"
-  facebookUrl: "https://www.facebook.com/owasp.juiceshop"
+  theme: slate # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
+  gitHubRibbon: orange # Options: darkblue  gray  green  orange  red  white  none
+  twitterUrl: 'https://twitter.com/owasp_juiceshop'
+  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+  planetOverlayMap: orangemap2k.jpg
+  planetName: Orangeuze
   recyclePage:
-    topProductImage: "fruit_press.jpg"
-    bottomProductImage: "apple_pressings.jpg"
+    topProductImage: fruit_press.jpg
+    bottomProductImage: apple_pressings.jpg
+  altcoinName: Juicycoin
+  cookieConsent:
+    backgroundColor: '#eb6c44'
+    textColor: '#ffffff'
+    buttonColor: '#f5d948'
+    buttonTextColor: '#000000'
+    message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
+    dismissText: 'Me want it!'
+    linkText: 'But me wait!'
+    linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
 products:
-  - name: "Apple Juice (1000ml)"
+  -
+    name: 'Apple Juice (1000ml)'
     price: 1.99
-    description: "The all-time classic."
-    image: "apple_juice.jpg"
-    reviews:
-      - text: 'One of my favorites!'
-        author: 'admin' # Options: admin, jim, bender, ciso, support
-  - name: 'Orange Juice (1000ml)'
+    description: 'The all-time classic.'
+    image: apple_juice.jpg
+    reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
+      - { text: 'One of my favorites!', author: admin }
+  -
+    name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
     price: 2.99
-    image: 'orange_juice.jpg'
-  - name: 'Eggfruit Juice (500ml)'
+    image: orange_juice.jpg
+  -
+    name: 'Eggfruit Juice (500ml)'
     description: 'Now with even more exotic flavour.'
     price: 8.99
-    image: 'eggfruit_juice.jpg'
+    image: eggfruit_juice.jpg
     reviews:
-      - text: 'I bought it, would buy again. 5/7'
-        author: 'admin'
-  - name: 'Raspberry Juice (1000ml)'
+      - { text: 'I bought it, would buy again. 5/7', author: admin }
+  -
+    name: 'Raspberry Juice (1000ml)'
     description: 'Made from blended Raspberry Pi, water and sugar.'
     price: 4.99
-    image: 'raspberry_juice.jpg'
-  - name: 'Lemon Juice (500ml)'
+    image: raspberry_juice.jpg
+  -
+    name: 'Lemon Juice (500ml)'
     description: 'Sour but full of vitamins.'
     price: 2.99
-    image: 'lemon_juice.jpg'
-  - name: 'Banana Juice (1000ml)'
+    image: lemon_juice.jpg
+  -
+    name: 'Banana Juice (1000ml)'
     description: 'Monkeys love it the most.'
     price: 1.99
-    image: 'banana_juice.jpg'
+    image: banana_juice.jpg
     reviews:
-      - text: 'Fry liked it too.'
-        author: 'bender'
-  - name: 'OWASP Juice Shop T-Shirt'
+      - { text: 'Fry liked it too.', author: bender }
+  -
+    name: 'OWASP Juice Shop T-Shirt'
     description: 'Real fans wear it 24/7!'
     price: 22.49
-    image: 'fan_shirt.jpg'
-  - name: 'OWASP Juice Shop CTF Girlie-Shirt'
+    image: fan_shirt.jpg
+  -
+    name: 'OWASP Juice Shop CTF Girlie-Shirt'
     description: 'For serious Capture-the-Flag heroines only!'
     price: 22.49
-    image: 'fan_girlie.jpg'
-  - name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
+    image: fan_girlie.jpg
+  -
+    name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
-    image: 'owasp_osaft.jpg'
-    useForProductTamperingChallenge: true
-  - name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt (3XL) for an unbeatable price!'
+    image: orange_juice.jpg
+    urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
+  -
+    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
     price: 29.99
-    image: 'undefined.jpg'
+    image: undefined.jpg
     useForChristmasSpecialChallenge: true
-  - name: 'OWASP Juice Shop Sticker (2015/2016 design)'
+  -
+    name: 'OWASP Juice Shop Sticker (2015/2016 design)'
     description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
     price: 999.99
-    image: 'sticker.png'
+    image: sticker.png
     deletedDate: '2017-04-28'
-  - name: 'OWASP Juice Shop Iron-Ons (16pcs)'
+  -
+    name: 'OWASP Juice Shop Iron-Ons (16pcs)'
     description: 'Upgrade your clothes with washer safe <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">iron-ons</a> of the OWASP Juice Shop or CTF Extension logo!'
     price: 14.99
-    image: 'iron-on.jpg'
-  - name: 'OWASP Juice Shop Magnets (16pcs)'
+    image: iron-on.jpg
+  -
+    name: 'OWASP Juice Shop Magnets (16pcs)'
     description: 'Your fridge will be even cooler with these OWASP Juice Shop or CTF Extension logo <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">magnets</a>!'
     price: 15.99
-    image: 'magnets.jpg'
-  - name: 'OWASP Juice Shop Sticker Page'
+    image: magnets.jpg
+  -
+    name: 'OWASP Juice Shop Sticker Page'
     description: 'Massive decoration opportunities with these OWASP Juice Shop or CTF Extension <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker pages</a>! Each page has 16 stickers on it.'
     price: 9.99
-    image: 'sticker_page.jpg'
-  - name: 'OWASP Juice Shop Sticker Single'
+    image: sticker_page.jpg
+  -
+    name: 'OWASP Juice Shop Sticker Single'
     description: 'Super high-quality vinyl <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker single</a> with the OWASP Juice Shop or CTF Extension logo! The ultimate laptop decal!'
     price: 4.99
-    image: 'sticker_single.jpg'
-  - name: 'OWASP Juice Shop Temporay Tattoos (16pcs)'
+    image: sticker_single.jpg
+  -
+    name: 'OWASP Juice Shop Temporay Tattoos (16pcs)'
     description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
     price: 14.99
-    image: 'tattoo.jpg'
-  - name: 'OWASP Juice Shop Mug'
+    image: tattoo.jpg
+    reviews:
+      - { text: 'I straight-up gots nuff props fo''these tattoos!', author: mc.safesearch }
+  -
+    name: 'OWASP Juice Shop Mug'
     description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
     price: 21.99
-    image: 'fan_mug.jpg'
-  - name: 'OWASP Juice Shop Hoodie'
+    image: fan_mug.jpg
+  -
+    name: 'OWASP Juice Shop Hoodie'
     description: 'Mr. Robot-style apparel. But in black. And with logo.'
     price: 49.99
-    image: 'fan_hoodie.jpg'
-  - name: 'Woodruff Syrup "Forest Master X-Treme"'
+    image: fan_hoodie.jpg
+  -
+    name: 'OWASP Juice Shop-CTF Velcro Patch'
+    description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
+    price: 2.92
+    image: velcro-patch.jpg
+    reviews:
+      - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
+      - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
+  -
+    name: 'Woodruff Syrup "Forest Master X-Treme"'
     description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.'
     price: 6.99
-    image: 'woodruff_syrup.jpg'
-  - name: 'Green Smoothie'
+    image: woodruff_syrup.jpg
+  -
+    name: 'Green Smoothie'
     description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
     price: 1.99
-    image: 'green_smoothie.jpg'
+    image: green_smoothie.jpg
     reviews:
-      - text: 'Fresh out of a replicator.'
-        author: 'jim'
-  - name: 'Quince Juice (1000ml)'
+      - { text: 'Fresh out of a replicator.', author: jim }
+  -
+    name: 'Quince Juice (1000ml)'
     description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
     price: 4.99
-    image: 'quince.jpg'
-  - name: 'OWASP Node.js Goat'
-    description: 'OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. <a href="https://www.owasp.org/index.php/Projects/OWASP_Node_js_Goat_Project" target="_blank">More...</a>'
-    price: 0.01
-    image: 'owasplogo.png'
-  - name: 'Apple Pomace'
-    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recyle">sent back to us</a> for recycling.'
+    image: quince.jpg
+  -
+    name: 'Apple Pomace'
+    description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recycle">sent back to us</a> for recycling.'
     price: 0.89
-    image: 'apple_pressings.jpg'
-  - name: 'Fruit Press'
+    image: apple_pressings.jpg
+  -
+    name: 'Fruit Press'
     description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
     price: 89.99
-    image: 'fruit_press.jpg'
-  - name: 'Enhanced White Rafford`s Decoction'
-    description: 'Immediately restores a large portion of Vitality.'
-    price: 150
-    image: 'white_raffards.jpg'
-    reviews:
-      - text: 'A vital ingredient for a succesful playthrough.'
-        author: 'jim'
-  - name: 'OWASP Juice Shop Logo (3D-printed)'
+    image: fruit_press.jpg
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
-    image: '3d_keychain.jpg' # Exif metadata contains "OpenSCAD" as subtle hint...
-    fileForRetrieveBlueprintChallenge: 'JuiceShop.stl' # ...to blueprint file type
-  - name: 'Juice Shop Artwork'
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+  -
+    name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
-    image: 'artwork.jpg'
-  - name: 'Global OWASP WASPY Award 2017 Nomnation'
+    image: artwork.jpg
+  -
+    name: 'Global OWASP WASPY Award 2017 Nomnation'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
     price: 0.03
-    image: 'waspy.png'
+    image: waspy.png
     deletedDate: '2017-07-01'
-  - name: 'Melon Bike'
-    description: 'The wheels of this bicycle are made from real water melons.'
-    price: 1999
-    image: 'melon_bike.jpeg'
-  - name: 'Strawberry Juice (500ml)'
+  -
+    name: 'Strawberry Juice (500ml)'
     description: 'Sweet & tasty!'
     price: 3.99
-    image: 'strawberry_juice.jpeg'
-  - name: 'Carrot Juice (1000ml)'
+    image: strawberry_juice.jpeg
+  -
+    name: 'Carrot Juice (1000ml)'
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
-    image: 'carrot_juice.jpeg'
-  - name: 'Jawa Script T-Shirt'
-    description: 'Brilliant. Just brilliant. You can actually purchase it for real <a href="https://www.teepublic.com/t-shirt/1252931-jawa-script" target="_blank">over here</a>.'
-    price: 20
-    image: 'jawa_script.jpg'
-  - name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    image: carrot_juice.jpeg
+  -
+    name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
-    price: 19.10
-    image: 'stickersheet_se.png'
+    price: 19.1
+    image: stickersheet_se.png
     deletedDate: '2017-09-20'
-  - name: 'Pwning OWASP Juice Shop'
+  -
+    name: 'Pwning OWASP Juice Shop'
     description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
     price: 5.99
-    image: 'cover_small.jpg'
+    image: cover_small.jpg
+    reviews:
+      - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
+  -
+    name: 'Melon Bike (Comeback-Product 2018 Edition)'
+    description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
+    price: 2999
+    image: melon_bike.jpeg

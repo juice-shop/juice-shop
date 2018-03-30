@@ -13,7 +13,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
       org.label-schema.url="http://owasp-juice.shop" \
       org.label-schema.usage="http://help.owasp-juice.shop" \
       org.label-schema.license="MIT" \
-      org.label-schema.version="6.4.2" \
+      org.label-schema.version="7.0.2" \
       org.label-schema.docker.cmd="docker run --rm -p 3000:3000 bkimminich/juice-shop" \
       org.label-schema.docker.params="NODE_ENV=string name of the custom configuration,CTF_KEY=string key to hash challenges into CTF flag codes" \
       org.label-schema.vcs-url="https://github.com/bkimminich/juice-shop.git" \
