@@ -2,15 +2,16 @@ const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
+const users = require('../data/datacache').users
 const config = require('config')
 
 module.exports = function login () {
   function afterLogin (user, res, next) {
-    if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === 1) {
+    if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === users.admin.id) {
       utils.solve(challenges.loginAdminChallenge)
-    } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === 2) {
+    } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === users.jim.id) {
       utils.solve(challenges.loginJimChallenge)
-    } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === 3) {
+    } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === users.bender.id) {
       utils.solve(challenges.loginBenderChallenge)
     }
     models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} })
