@@ -46,7 +46,7 @@ module.exports = function login () {
         if (rememberedEmail && req.body.oauth) {
           models.User.find({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
-            if (utils.notSolved(challenges.loginCisoChallenge) && user.data.id === 5) {
+            if (utils.notSolved(challenges.loginCisoChallenge) && user.data.id === users.ciso.id) {
               utils.solve(challenges.loginCisoChallenge)
             }
             afterLogin(user, res, next)
