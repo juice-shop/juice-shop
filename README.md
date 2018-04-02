@@ -334,6 +334,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :fr: Kylian Runembert, vientspam
 - :de: Björn Kimminich
 - :hungary: OliverkeHU
+- :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
