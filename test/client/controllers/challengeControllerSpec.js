@@ -136,6 +136,14 @@ describe('controllers', function () {
 
         expect(scope.completionColor).toBe('success')
       }))
+
+      it('should complete a level when all challenges of that difficulty are solved', inject(function () {
+        $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [ { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 } ] })
+
+        $httpBackend.flush()
+
+        expect(scope.offsetValue[2]).toBe('0%')
+      }))
     })
 
     describe('live updates', function () {

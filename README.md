@@ -5,6 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
 [![Greenkeeper badge](https://badges.greenkeeper.io/bkimminich/juice-shop-ctf.svg)](https://greenkeeper.io/)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -285,10 +286,10 @@ guide for help with filling out the donation form correctly.
 
 ### Code Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 14 Mar 2018
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 15 Mar 2018
 
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
@@ -333,6 +334,7 @@ translations and commits to `app/i18n`. Grouped by language as of Mon,
 - :fr: Kylian Runembert, vientspam
 - :de: Björn Kimminich
 - :hungary: OliverkeHU
+- :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
