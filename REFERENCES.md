@@ -19,6 +19,12 @@ where this project was mentioned or used!
 
 ## Web Links
 
+
+* Blog posts on
+  [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
+  * [How to Setup OWASP Juice Shop on Azure (Part 1 of 3)](http://www.jasonhaley.com/post/How-to-Setup-OWASP-Juice-Shop-on-Azure-%28Part-1-of-3%29)
+  * [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29)
+  * [Setup OWASP Juice Shop in Azure Container Instances (Part 3 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29)
 * Blog post on [Josh Grossman's blog](https://joshcgrossman.com):
   [Setting up an OWASP Juice Shop CTF](https://joshcgrossman.com/2018/03/15/setting-up-an-owasp-juice-shop-ctf/)
 * Blog post on [Mozilla Hacks](https://hacks.mozilla.org):
