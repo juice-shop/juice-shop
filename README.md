@@ -279,7 +279,7 @@ guide for help with filling out the donation form correctly.
 ### Collaborators
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
-  (Project Leader)
+  ([Project Leader](https://www.owasp.org/index.php/Projects/Project_Leader_Responsibilities))
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 
