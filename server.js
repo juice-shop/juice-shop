@@ -102,9 +102,9 @@ app.get('/security.txt', securityTxt({
 }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/public/images/tracking', verify.accessControlChallenges())
-app.use('/public/images/products', verify.accessControlChallenges())
-app.use('/i18n', verify.accessControlChallenges())
+app.get('/public/images/tracking', verify.accessControlChallenges())
+app.get('/public/images/products', verify.accessControlChallenges())
+app.get('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
