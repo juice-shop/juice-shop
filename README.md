@@ -110,6 +110,19 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > an attack on their AWS infrastructure! We highly discourage aggressive
 > scanning or automated brute force attacks! You have been warned!
 
+### Azure
+
+1. Login to the [Azure Portal](https://portal.azure.com) and open the CloudShell and choose Bash - not PowerShell (or you can use the Azure CLI)
+2. Create a resource group by running `az group create --name <group name> --location "East US"`
+3. Create an app service plan by running `az appservice plan create --name <plan name> --resource-group <group name> --sku S1 --is-linux`
+4. Create a web app with the juice shop docker image by running the following (on one line in the bash shell) `az webapp create --resource-group <group name> --plan <plan name> `
+`--name <app name> --deployment-container-image-name bkimminich/juice-shop`
+
+> More detail can be found at: [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-(Part-2-of-3))
+> 
+> You can also use an Azure Container Instance instead of a Web App.  More information on that can be found at: [Setup OWASP Juice Shop in Azure Container Instances (Part 3 of 3)](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-(Part-3-of-3))
+
+
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
