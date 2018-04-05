@@ -12,6 +12,7 @@ const serveIndex = require('serve-index')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const securityTxt = require('express-security.txt')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
@@ -92,9 +93,17 @@ if (config.get('application.favicon')) {
 }
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
+/* Security.txt */
+app.get('/security.txt', securityTxt({
+  contact: 'mailto:donotreply@' + config.get('application.domain'),
+  encryption: 'https://pgp.mit.edu/pks/lookup?op=get&search=0x062A85A8CBFBDCDA',
+  acknowledgements: '/#/score-board'
+}))
+
 /* Checks for solved challenges */
 app.use('/public/images/tracking', verify.accessControlChallenges())
 app.use('/public/images/products', verify.accessControlChallenges())
+app.use('/security.txt', verify.accessControlChallenges())
 app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
