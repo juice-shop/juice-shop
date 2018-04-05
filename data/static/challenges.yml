@@ -470,3 +470,11 @@
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#learn-about-the-token-sale-before-its-official-announcement'
   key: tokenSaleChallenge
+-
+  name: 'Security Policy'
+  category: 'Roll your own Security'
+  description: 'Behave like any "white-hat" security researcher should.'
+  difficulty: 2
+  hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-an-honest-security-researcher'
+  key: securityPolicyChallenge
