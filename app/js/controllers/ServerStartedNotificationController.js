@@ -26,14 +26,14 @@ angular.module('juiceShop').controller('ServerStartedNotificationController', [
             $scope.hackingProgress.autoRestoreMessage = notificationServerStarted
           }, function (translationId) {
             $scope.hackingProgress.autoRestoreMessage = translationId
-          })
+          }).catch(angular.noop)
         }).catch(function (error) {
           console.log(error)
           $translate('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).then(function (notificationServerStarted) {
             $scope.hackingProgress.autoRestoreMessage = notificationServerStarted
           }, function (translationId) {
             $scope.hackingProgress.autoRestoreMessage = translationId
-          })
+          }).catch(angular.noop)
         })
       }
     })
