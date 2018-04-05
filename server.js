@@ -94,16 +94,16 @@ if (config.get('application.favicon')) {
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
 /* Security.txt */
+app.get('/security.txt', verify.accessControlChallenges())
 app.get('/security.txt', securityTxt({
   contact: 'mailto:donotreply@' + config.get('application.domain'),
   encryption: 'https://pgp.mit.edu/pks/lookup?op=get&search=0x062A85A8CBFBDCDA',
   acknowledgements: '/#/score-board'
 }))
 
-/* Checks for solved challenges */
+/* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/public/images/tracking', verify.accessControlChallenges())
 app.use('/public/images/products', verify.accessControlChallenges())
-app.use('/security.txt', verify.accessControlChallenges())
 app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
