@@ -5,13 +5,14 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
     $sce = $injector.get('$sce')
   }))
 
   afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation()
-    $httpBackend.verifyNoOutstandingRequest()
+    // $httpBackend.verifyNoOutstandingExpectation()
+    // $httpBackend.verifyNoOutstandingRequest()
   })
 
   describe('ChallengeController', function () {

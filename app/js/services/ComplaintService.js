@@ -5,10 +5,10 @@ angular.module('juiceShop').factory('ComplaintService', ['$http', '$q', function
 
   function save (params) {
     var createdComplaint = $q.defer()
-    $http.post(host + '/', params).success(function (data) {
-      createdComplaint.resolve(data.data)
-    }).error(function (err) {
-      createdComplaint.reject(err)
+    $http.post(host + '/', params).then(function (response) {
+      createdComplaint.resolve(response.data.data)
+    }).catch(function (response) {
+      createdComplaint.reject(response.data)
     })
     return createdComplaint.promise
   }

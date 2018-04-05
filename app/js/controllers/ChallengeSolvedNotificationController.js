@@ -21,13 +21,14 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
           return challengeSolved
         }, function (translationId) {
           return translationId
-        }).then(function (message) {
+        }).catch(angular.noop)
+        .then(function (message) {
           $scope.notifications.push({
             message: message,
             flag: challenge.flag,
             copied: false
           })
-        })
+        }).catch(angular.noop)
     }
 
     $scope.saveProgress = function () {
@@ -66,5 +67,5 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       }
     }, function (err) {
       console.log(err)
-    })
+    }).catch(angular.noop)
   } ])

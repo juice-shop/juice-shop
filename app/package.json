@@ -3,16 +3,16 @@
   "version": "7.1.0-SNAPSHOT",
   "private": true,
   "dependencies": {
-    "angular": "~1.5",
-    "angular-animate": "~1.5",
+    "angular": "~1.6.9",
+    "angular-animate": "~1.6.9",
     "angular-base64": "~2.0",
-    "angular-cookies": "~1.5",
-    "angular-loader": "~1.5",
+    "angular-cookies": "~1.6.9",
+    "angular-loader": "~1.6.9",
     "angular-qrcode": "~7.2",
-    "angular-route": "~1.5",
+    "angular-route": "~1.6.9",
     "angular-socket-io": "~0.7",
     "angular-tooltipps": "~1.2",
-    "angular-touch": "~1.5",
+    "angular-touch": "~1.6.9",
     "angular-translate": "~2.16",
     "angular-translate-loader-static-files": "~2.16",
     "angular-ui-bootstrap": "~2.1",
@@ -28,7 +28,7 @@
     "underscore": "~1.8"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5",
+    "angular-mocks": "~1.6.9",
     "angular-socket.io-mock": "~1.2"
   }
 }
