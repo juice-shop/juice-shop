@@ -476,5 +476,5 @@
   description: 'Behave like any "white-hat" security researcher should.'
   difficulty: 2
   hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-an-honest-security-researcher'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-any-white-hat-security-researcher-should'
   key: securityPolicyChallenge
