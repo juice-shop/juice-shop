@@ -5,12 +5,11 @@ angular.module('juiceShop').factory('TrackOrderService', ['$http', '$q', functio
 
   function save (params) {
     var trackingInformation = $q.defer()
-    $http.post(host + '/', params).success(function (data) {
-      trackingInformation.resolve(data.data)
+    $http.get(host + '?id=' + params).success(function (data) {
+      trackingInformation.resolve(data)
     }).error(function (err) {
       trackingInformation.reject(err)
     })
-    console.log(trackingInformation.promise)
     return trackingInformation.promise
   }
 

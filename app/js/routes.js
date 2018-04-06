@@ -71,6 +71,11 @@ angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) 
     controller: 'TrackOrderController'
   })
 
+  $routeProvider.when('/track-result', {
+    templateUrl: 'views/TrackResult.html',
+    controller: 'TrackResultController'
+  })
+
   $routeProvider.when('/access_token=:accessToken', {
     templateUrl: 'views/OAuth.html',
     controller: 'OAuthController'
