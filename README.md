@@ -51,6 +51,19 @@ overview please visit the official project page:
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
 
+### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your
+   Windows (or Linux) machine
+2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
+   `.tgz`) attached to
+   [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+3. Unpack and run `npm start` in unpacked folder
+4. Browse to <http://localhost:3000>
+
+> Each packaged distribution includes some binaries for SQLite bound to
+> the OS and node.js version which `npm install` was executed on.
+
 ### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/commit/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own commit badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
@@ -75,18 +88,27 @@ overview please visit the official project page:
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
 
-### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Vagrant
 
-1. Install a 64bit [node.js](#nodejs-version-compatibility) on your
-   Windows (or Linux) machine
-2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
-   `.tgz`) attached to
-   [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
-3. Unpack and run `npm start` in unpacked folder
-4. Browse to <http://localhost:3000>
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
+   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
+   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
+   of the repository)
+3. Run `cd vagrant && vagrant up`
+4. Browse to [192.168.33.10](http://192.168.33.10)
 
-> Each packaged distribution includes some binaries for SQLite bound to
-> the OS and node.js version which `npm install` was executed on.
+> To show the possible impact of
+> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
+> assume you received and (of course) clicked
+> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+> and login. Apart from the visual/audible effect, the attacker also
+> installed [an input logger](http://192.168.33.10/logger.php) to grab
+> credentials! This could easily run on a 3rd party server in real life!
+>
+> _This feature is only available when running a Vagrant box. A
+> recording of the effect is available on Youtube:_
+> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ### Amazon EC2 Instance
 
@@ -132,28 +154,6 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > by [@JasonHaley](https://github.com/JasonHaley). You can alternatively
 > follow his guide to
 > [set up OWASP Juice Shop as an Azure Container Instance](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29).
-
-### Vagrant
-
-1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
-   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
-   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
-   of the repository)
-3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.33.10](http://192.168.33.10)
-
-> To show the possible impact of
-> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
-> assume you received and (of course) clicked
-> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
-> and login. Apart from the visual/audible effect, the attacker also
-> installed [an input logger](http://192.168.33.10/logger.php) to grab
-> credentials! This could easily run on a 3rd party server in real life!
->
-> _This feature is only available when running a Vagrant box. A
-> recording of the effect is available on Youtube:_
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ## Node.js version compatibility
 
