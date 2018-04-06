@@ -93,8 +93,8 @@ if (config.get('application.favicon')) {
 }
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
-/* Security.txt */
-app.use('/security.txt', verify.accessControlChallenges())
+/* Security Policy */
+app.get('/security.txt', verify.accessControlChallenges())
 app.use('/security.txt', securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
