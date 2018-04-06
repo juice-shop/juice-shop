@@ -96,9 +96,9 @@ app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 /* Security.txt */
 app.get('/security.txt', verify.accessControlChallenges())
 app.get('/security.txt', securityTxt({
-  contact: 'mailto:donotreply@' + config.get('application.domain'),
-  encryption: 'https://pgp.mit.edu/pks/lookup?op=get&search=0x062A85A8CBFBDCDA',
-  acknowledgements: '/#/score-board'
+  contact: config.get('application.securityTxt.contact'),
+  encryption: config.get('application.securityTxt.encryption'),
+  acknowledgements: config.get('application.securityTxt.acknowledgements')
 }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
