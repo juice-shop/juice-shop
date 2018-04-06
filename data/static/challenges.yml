@@ -47,9 +47,9 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
   key: localXssChallenge
 -
-  name: 'XSS Tier 1'
+  name: 'XSS Tier 0'
   category: 'XSS'
-  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;img src=x onerror=alert(&quot;XSS&quot;)&gt;.'
+  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
