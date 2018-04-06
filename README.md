@@ -110,18 +110,27 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > an attack on their AWS infrastructure! We highly discourage aggressive
 > scanning or automated brute force attacks! You have been warned!
 
-### Azure
+### Azure Web App for Containers
 
-1. Login to the [Azure Portal](https://portal.azure.com) and open the CloudShell and choose Bash - not PowerShell (or you can use the Azure CLI)
-2. Create a resource group by running `az group create --name <group name> --location "East US"`
-3. Create an app service plan by running `az appservice plan create --name <plan name> --resource-group <group name> --sku S1 --is-linux`
-4. Create a web app with the juice shop docker image by running the following (on one line in the bash shell) `az webapp create --resource-group <group name> --plan <plan name> `
-`--name <app name> --deployment-container-image-name bkimminich/juice-shop`
+1. Open your [Azure CLI](https://azure.github.io/projects/clis/) **or**
+   login to the [Azure Portal](https://portal.azure.com), open the
+   _CloudShell_ and then choose _Bash_ (not PowerShell).
+2. Create a resource group by running `az group create --name <group
+   name> --location <location name, e.g. "East US">`
+3. Create an app service plan by running `az appservice plan create
+   --name <plan name> --resource-group <group name> --sku S1 --is-linux`
+4. Create a web app with the
+   [Juice Shop Docker](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+   image by running the following (on one line in the bash shell) `az
+   webapp create --resource-group <group name> --plan <plan name> `
+   `--name <app name> --deployment-container-image-name
+   bkimminich/juice-shop`
 
-> More detail can be found at: [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-(Part-2-of-3))
-> 
-> You can also use an Azure Container Instance instead of a Web App.  More information on that can be found at: [Setup OWASP Juice Shop in Azure Container Instances (Part 3 of 3)](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-(Part-3-of-3))
-
+> For more information please refer to the
+> [detailed walkthrough with screenshots](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29)
+> by [@JasonHaley](https://github.com/JasonHaley). You can alternatively
+> follow his guide to
+> [set up OWASP Juice Shop as an Azure Container Instance](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29).
 
 ### Vagrant
 
@@ -296,9 +305,10 @@ guide for help with filling out the donation form correctly.
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 
-### Code Contributors
+### GitHub Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` as of Wed, 14 Mar 2018
+Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
+`master` as of Wed, 14 Mar 2018
 
 - [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
@@ -316,6 +326,7 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on `master` 
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
 - [Simon Basset](https://github.com/simbas) aka `simbas`
 - [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
 - [Simon De Lang](https://github.com/simondel) aka `simondel`
