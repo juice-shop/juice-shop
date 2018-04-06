@@ -94,17 +94,17 @@ if (config.get('application.favicon')) {
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
 /* Security.txt */
-app.get('/security.txt', verify.accessControlChallenges())
-app.get('/security.txt', securityTxt({
+app.use('/security.txt', verify.accessControlChallenges())
+app.use('/security.txt', securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
   acknowledgements: config.get('application.securityTxt.acknowledgements')
 }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.get('/public/images/tracking', verify.accessControlChallenges())
-app.get('/public/images/products', verify.accessControlChallenges())
-app.get('/i18n', verify.accessControlChallenges())
+app.use('/public/images/tracking', verify.accessControlChallenges())
+app.use('/public/images/products', verify.accessControlChallenges())
+app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
