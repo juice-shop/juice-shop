@@ -139,6 +139,7 @@
   "ICO_FAQ_QUESTION": "我真的能靠{{juicycoin}} 致富吗？",
   "ICO_FAQ_ANSWER": "当然可以！我们绝不会对您撒谎！",
   "TITLE_TRACK_ORDERS": "跟踪订单",
+  "TITLE_TRACK_RESULTS": "Results for ID : ",
   "LABEL_ORDER_ID": "订单编号",
   "BTN_TRACK": "追踪"
 }
