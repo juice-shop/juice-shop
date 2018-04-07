@@ -139,6 +139,7 @@
   "ICO_FAQ_QUESTION": "Kann ich mit {{juicycoin}} wirklich reich werden?",
   "ICO_FAQ_ANSWER": "Natürlich kannst du! Wir würden dich niemals anlügen!",
   "TITLE_TRACK_ORDERS": "Bestellungen verfolgen",
+  "TITLE_TRACK_RESULTS": "Results for ID : ",
   "LABEL_ORDER_ID": "Bestell-Nr.",
   "BTN_TRACK": "Verfolgen"
 }
