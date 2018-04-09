@@ -23,7 +23,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }, function (translationId) {
           return translationId
         }).then(function (message) {
-          var country = $scope.shotCtfCountryDetailsInNotifications ? $scope.countryMap[challenge.id.toString()].country : null
+          var country = $scope.showCtfCountryDetailsInNotifications ? $scope.countryMap[challenge.id.toString()].country : null
           $scope.notifications.push({
             message: message,
             flag: challenge.flag,
@@ -69,10 +69,10 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
           $scope.showCtfFlagsInNotifications = false
         }
 
-        if (config.application.shotCtfCountryDetailsInNotifications !== null) {
-          $scope.shotCtfCountryDetailsInNotifications = config.application.shotCtfCountryDetailsInNotifications
+        if (config.application.showCtfCountryDetailsInNotifications !== null) {
+          $scope.showCtfCountryDetailsInNotifications = config.application.showCtfCountryDetailsInNotifications
 
-          if (config.application.shotCtfCountryDetailsInNotifications) {
+          if (config.application.showCtfCountryDetailsInNotifications) {
             countryMappingService.getCountryMapping().then(function (countryMap) {
               $scope.countryMap = countryMap
             }).catch(function (err) {
@@ -80,7 +80,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
             })
           }
         } else {
-          $scope.shotCtfCountryDetailsInNotifications = false
+          $scope.showCtfCountryDetailsInNotifications = false
         }
       }
     }, function (err) {
