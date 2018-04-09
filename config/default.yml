@@ -8,7 +8,7 @@ application:
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
-  shotCtfCountryDetailsInNotifications: false
+  showCtfCountryDetailsInNotifications: false
   showChallengeHints: true
   showVersionNumber: true
   theme: slate # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
