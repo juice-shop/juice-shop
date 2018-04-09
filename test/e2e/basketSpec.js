@@ -8,7 +8,7 @@ describe('/#/basket', () => {
     describe('challenge "negativeOrder"', () => {
       it('should be possible to update a basket to a negative quantity via the Rest API', () => {
         browser.waitForAngularEnabled(false)
-        browser.executeScript('var $http = angular.injector([\'ng\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100000});')
+        browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100000});')
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
 

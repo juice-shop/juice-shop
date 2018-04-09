@@ -10,7 +10,7 @@ describe('/#/register', () => {
     it('should be possible to bypass validation by directly using Rest API', () => {
       const EC = protractor.ExpectedConditions
 
-      browser.executeScript('var $http = angular.injector([\'ng\']).get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS")</script>\', password: \'xss\'});')
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS")</script>\', password: \'xss\'});')
 
       browser.get('/#/administration')
       browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
