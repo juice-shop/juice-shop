@@ -90,6 +90,8 @@ app/public/images/products/*.*
 !app/public/images/products/tattoo.jpg
 !app/public/images/products/velcro-patch.jpg
 
+!app/public/country-mapping.json
+
 # Custom configuration files
 config/*.yml
 !config/bodgeit.yml

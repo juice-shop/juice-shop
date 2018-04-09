@@ -1,0 +1,226 @@
+{
+    "1": {
+        "country": "Canada",
+        "countryCode": "CA"
+    },
+    "2": {
+        "country": "Austria",
+        "countryCode": "AT"
+    },
+    "3": {
+        "country": "Russian Federation",
+        "countryCode": "RU"
+    },
+    "4": {
+        "country": "Honduras",
+        "countryCode": "HN"
+    },
+    "5": {
+        "country": "Guatemala",
+        "countryCode": "GT"
+    },
+    "6": {
+        "country": "Germany",
+        "countryCode": "DE"
+    },
+    "7": {
+        "country": "Uruguay",
+        "countryCode": "UY"
+    },
+    "8": {
+        "country": "Myanmar",
+        "countryCode": "MM"
+    },
+    "9": {
+        "country": "Costa Rica",
+        "countryCode": "CR"
+    },
+    "10": {
+        "country": "Paraguay",
+        "countryCode": "PY"
+    },
+    "11": {
+        "country": "Slovakia",
+        "countryCode": "SK"
+    },
+    "12": {
+        "country": "Madagascar",
+        "countryCode": "MG"
+    },
+    "13": {
+        "country": "Belize",
+        "countryCode": "BZ"
+    },
+    "14": {
+        "country": "Korea (Democratic People's Republic of)",
+        "countryCode": "KP"
+    },
+    "15": {
+        "country": "Korea",
+        "countryCode": "KR"
+    },
+    "16": {
+        "country": "Belarus",
+        "countryCode": "BY"
+    },
+    "17": {
+        "country": "Bolivia",
+        "countryCode": "BO"
+    },
+    "18": {
+        "country": "Switzerland",
+        "countryCode": "CH"
+    },
+    "19": {
+        "country": "Peru",
+        "countryCode": "PE"
+    },
+    "20": {
+        "country": "Ukraine",
+        "countryCode": "UA"
+    },
+    "21": {
+        "country": "United States of America",
+        "countryCode": "US"
+    },
+    "22": {
+        "country": "Turkey",
+        "countryCode": "TR"
+    },
+    "23": {
+        "country": "Suriname",
+        "countryCode": "SR"
+    },
+    "24": {
+        "country": "Colombia",
+        "countryCode": "CO"
+    },
+    "25": {
+        "country": "Poland",
+        "countryCode": "PL"
+    },
+    "26": {
+        "country": "Ecuador",
+        "countryCode": "EC"
+    },
+    "27": {
+        "country": "Sri Lanka",
+        "countryCode": "LK"
+    },
+    "28": {
+        "country": "Eritrea",
+        "countryCode": "ER"
+    },
+    "29": {
+        "country": "Panama",
+        "countryCode": "PA"
+    },
+    "30": {
+        "country": "Hungary",
+        "countryCode": "HU"
+    },
+    "31": {
+        "country": "Falkland Islands (Malvinas)",
+        "countryCode": "FK"
+    },
+    "32": {
+        "country": "French Guiana",
+        "countryCode": "GF"
+    },
+    "33": {
+        "country": "Saudi Arabia",
+        "countryCode": "SA"
+    },
+    "34": {
+        "country": "Australia",
+        "countryCode": "AU"
+    },
+    "35": {
+        "country": "Côte d'Ivoire",
+        "countryCode": "CI"
+    },
+    "36": {
+        "country": "Argentina",
+        "countryCode": "AR"
+    },
+    "37": {
+        "country": "Malaysia",
+        "countryCode": "MY"
+    },
+    "38": {
+        "country": "South Sudan",
+        "countryCode": "SS"
+    },
+    "39": {
+        "country": "Angola",
+        "countryCode": "AO"
+    },
+    "40": {
+        "country": "Croatia",
+        "countryCode": "CR"
+    },
+    "41": {
+        "country": "Albania",
+        "countryCode": "AL"
+    },
+    "42": {
+        "country": "Algeria",
+        "countryCode": "DZ"
+    },
+    "43": {
+        "country": "Dominican Republic",
+        "countryCode": "DO"
+    },
+    "44": {
+        "country": "Moldova",
+        "countryCode": "MD"
+    },
+    "45": {
+        "country": "Czech Republic",
+        "countryCode": "CZ"
+    },
+    "46": {
+        "country": "Georgia",
+        "countryCode": "GE"
+    },
+    "47": {
+        "country": "Trinidad and Tobago",
+        "countryCode": "TT"
+    },
+    "48": {
+        "country": "United Arab Emirates",
+        "countryCode": "AE"
+    },
+    "49": {
+        "country": "Venezuela",
+        "countryCode": "VE"
+    },
+    "50": {
+        "country": "Nicaragua",
+        "countryCode": "NI"
+    },
+    "51": {
+        "country": "Senegal",
+        "countryCode": "SN"
+    },
+    "52": {
+        "country": "New Zealand",
+        "countryCode": "NZ"
+    },
+    "53": {
+        "country": "Mongolia",
+        "countryCode": "MN"
+    },
+    "54": {
+        "country": "Nepal",
+        "countryCode": "NP"
+    },
+    "55": {
+        "country": "Morocco",
+        "countryCode": "MA"
+    },
+    "56": {
+        "country": "Iraq",
+        "countryCode": "IQ"
+    }
+}
