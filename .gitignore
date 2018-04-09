@@ -96,6 +96,7 @@ app/public/images/products/*.*
 config/*.yml
 !config/bodgeit.yml
 !config/ctf.yml
+!config/fbctf.yml
 !config/default.yml
 !config/sickshop.yml
 !config/juicebox.yml
