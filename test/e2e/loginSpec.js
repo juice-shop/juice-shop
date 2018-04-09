@@ -110,7 +110,7 @@ describe('/#/login', () => {
       rememberMeCheckbox.click()
       loginButton.click()
 
-      browser.executeScript('var $http = angular.injector([\'ng\']).get(\'$http\'); $http.post(\'/rest/user/login\', {email: \'admin@juice-sh.op\', password: \'admin123\', oauth: true});')
+      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.post(\'/rest/user/login\', {email: \'admin@juice-sh.op\', password: \'admin123\', oauth: true});')
 
       // Unselect to clear email field for subsequent tests
       rememberMeCheckbox.click()
