@@ -6,7 +6,8 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
   'socket',
   'ConfigurationService',
   'ChallengeService',
-  function ($scope, $rootScope, $translate, $cookies, socket, configurationService, challengeService) {
+  'CountryMappingService',
+  function ($scope, $rootScope, $translate, $cookies, socket, configurationService, challengeService, countryMappingService) {
     'use strict'
 
     $scope.notifications = []
@@ -22,9 +23,11 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }, function (translationId) {
           return translationId
         }).then(function (message) {
+          var country = $scope.shotCtfCountryDetailsInNotifications ? $scope.countryMap[challenge.id.toString()].country : null
           $scope.notifications.push({
             message: message,
             flag: challenge.flag,
+            country: country,
             copied: false
           })
         })
@@ -59,10 +62,26 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       }
     })
     configurationService.getApplicationConfiguration().then(function (config) {
-      if (config && config.application && config.application.showCtfFlagsInNotifications !== null) {
-        $scope.showCtfFlagsInNotifications = config.application.showCtfFlagsInNotifications
-      } else {
-        $scope.showCtfFlagsInNotifications = false
+      if (config && config.application) {
+        if (config.application.showCtfFlagsInNotifications !== null) {
+          $scope.showCtfFlagsInNotifications = config.application.showCtfFlagsInNotifications
+        } else {
+          $scope.showCtfFlagsInNotifications = false
+        }
+
+        if (config.application.shotCtfCountryDetailsInNotifications !== null) {
+          $scope.shotCtfCountryDetailsInNotifications = config.application.shotCtfCountryDetailsInNotifications
+
+          if (config.application.shotCtfCountryDetailsInNotifications) {
+            countryMappingService.getCountryMapping().then(function (countryMap) {
+              $scope.countryMap = countryMap
+            }).catch(function (err) {
+              console.log(err)
+            })
+          }
+        } else {
+          $scope.shotCtfCountryDetailsInNotifications = false
+        }
       }
     }, function (err) {
       console.log(err)
