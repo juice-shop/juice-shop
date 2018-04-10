@@ -113,6 +113,17 @@ where this project was mentioned or used!
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
   17.05.2018
+* [OWASP Juice Shop - The next chapter ...](https://www.meetup.com/CyberHackathon/events/249606655/?eventId=249606655)
+  with Jaan Janesmae,
+  [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
+  30.04.2018
+* OWASP Juice Shop Introduction with Björn Kimminich,
+  [ChaosTreff Tallinn](https://www.meetup.com/ChaosTreff-Tallinn/),
+  26.04.2018
+* [OWASP Juice Shop Intro and Getting Started](https://www.meetup.com/CyberHackathon/events/249359520/?eventId=249359520)
+  with Jaan Janesmae,
+  [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
+  09.04.2018
 * [Web Application Security: A Hands-on Testing Challenge](https://dojo.ministryoftesting.com/events/testbash-brighton-2018)
   by Dan Billing,
   [TestBash Brighton 2018](https://dojo.ministryoftesting.com/events/testbash-brighton-2018),
