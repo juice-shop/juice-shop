@@ -117,7 +117,9 @@ where this project was mentioned or used!
   with Jaan Janesmae,
   [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
   30.04.2018
-* OWASP Juice Shop Introduction with Björn Kimminich,
+* OWASP Juice Shop Introduction at
+  [ChaosTreff Tallinn Weekly Meetup](https://www.meetup.com/ChaosTreff-Tallinn/events/249627780/)
+  with Björn Kimminich,
   [ChaosTreff Tallinn](https://www.meetup.com/ChaosTreff-Tallinn/),
   26.04.2018
 * [OWASP Juice Shop Intro and Getting Started](https://www.meetup.com/CyberHackathon/events/249359520/?eventId=249359520)
