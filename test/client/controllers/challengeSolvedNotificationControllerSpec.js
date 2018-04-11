@@ -119,7 +119,7 @@ describe('controllers', function () {
 
     it('sets showCtfCountryDetailsInNotifications to scope', inject(function () {
       $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: 'both' } } })
-      $httpBackend.expectGET('/public/country-mapping.json').respond(200, {})
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, {})
 
       $httpBackend.flush()
 
@@ -128,11 +128,11 @@ describe('controllers', function () {
 
     it('sets countryMap to to scope', inject(function () {
       $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: true } } })
-      $httpBackend.expectGET('/public/country-mapping.json').respond(200, { '1': { 'country': 'France', 'countryCode': 'FR' } })
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, { 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
 
       $httpBackend.flush()
 
-      expect(scope.countryMap).toEqual({ '1': { 'country': 'France', 'countryCode': 'FR' } })
+      expect(scope.countryMap).toEqual({ 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
     }))
   })
 })
