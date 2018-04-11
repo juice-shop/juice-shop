@@ -118,12 +118,12 @@ describe('controllers', function () {
     }))
 
     it('sets showCtfCountryDetailsInNotifications to scope', inject(function () {
-      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: true } } })
+      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: 'both' } } })
       $httpBackend.expectGET('/public/country-mapping.json').respond(200, {})
 
       $httpBackend.flush()
 
-      expect(scope.showCtfCountryDetailsInNotifications).toBe(true)
+      expect(scope.showCtfCountryDetailsInNotifications).toBe('both')
     }))
 
     it('sets countryMap to to scope', inject(function () {
