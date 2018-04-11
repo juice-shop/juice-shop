@@ -2,7 +2,7 @@ application:
   logo: JuiceShopCTF_Logo.png
   favicon: favicon_ctf.ico
   showCtfFlagsInNotifications: true
-  showCtfCountryDetailsInNotifications: true
+  showCtfCountryDetailsInNotifications: both
   showChallengeHints: false
   showVersionNumber: false
   gitHubRibbon: none
