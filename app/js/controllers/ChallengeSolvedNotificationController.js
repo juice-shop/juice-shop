@@ -23,7 +23,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }, function (translationId) {
           return translationId
         }).then(function (message) {
-          var country = $scope.showCtfCountryDetailsInNotifications ? $scope.countryMap[challenge.id.toString()] : null
+          var country = $scope.showCtfCountryDetailsInNotifications ? $scope.countryMap[challenge.key] : null
           $scope.notifications.push({
             message: message,
             flag: challenge.flag,

@@ -14,6 +14,7 @@ describe('/api/Challenges', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data.*', {
         id: Joi.number(),
+        key: Joi.string(),
         name: Joi.string(),
         description: Joi.string(),
         difficulty: Joi.number(),
