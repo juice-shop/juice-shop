@@ -133,13 +133,13 @@
   "SECTION_ICO": "Oferta de moeda inicial por {{juicycoin}}",
   "ICO_FAQ": "FAQ sobre nosso ICO",
   "SECTION_WHITEPAPER": "Whitepaper",
-  "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
-  "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
-  "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
-  "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
-  "TITLE_TRACK_ORDERS": "Track Orders",
-  "TITLE_TRACK_RESULTS": "Results for ID",
-  "LABEL_ORDER_ID": "Order ID",
-  "BTN_TRACK": "Track"
+  "WHITEPAPER_REFERENCES": "Em vez de reinventar a moeda quadrada, referimos apenas existente whitepapers brilhante!",
+  "SECTION_SALES_PITCH": "Discurso de vendas convincente ICO",
+  "GIVE_US_ALL_YOUR_MONEY": "Nos dê todo o seu dinheiro.",
+  "ICO_FAQ_QUESTION": "Eu realmente pode ficar rico com {{juicycoin}}?",
+  "ICO_FAQ_ANSWER": "Claro que pode! Nós nunca mentiriamos para você!",
+  "TITLE_TRACK_ORDERS": "Rastrear Pedidos",
+  "TITLE_TRACK_RESULTS": "Resultados do ID",
+  "LABEL_ORDER_ID": "ID do pedido",
+  "BTN_TRACK": "Rastrear"
 }
