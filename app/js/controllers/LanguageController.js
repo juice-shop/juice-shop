@@ -1,11 +1,19 @@
 angular.module('juiceShop').controller('LanguageController', [
   '$scope',
+  '$cookies',
   '$translate',
-  function ($scope, $translate) {
+  function ($scope, $cookies, $translate) {
     'use strict'
+
+    if ($cookies.get('language')) {
+      var langKey = $cookies.get('language')
+      $translate.use(langKey)
+    }
+
     $scope.languages = languages
     $scope.changeLanguage = function (langKey) {
       $translate.use(langKey)
+      $cookies.put('language', langKey)
     }
   }])
 
