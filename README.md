@@ -348,22 +348,25 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 ### Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations and commits to `app/i18n`. Grouped by language as of Mon,
-07 Jan 2018 on `master`.
+translations and commits to `app/i18n`. Grouped by language as of Fri,
+13 Apr 2018 on `develop`.
 
+- :brazil: sergio.kubota
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
-- :denmark: Allan Kimmer Jensen, owangen
-- :estonia: bmoritz
-- :fr: Kylian Runembert, vientspam
+- :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
+- :estonia: bmoritz, janesmae
+- :finland: Nico Ådahl
+- :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
+- :hongkong: r0n1am
 - :hungary: OliverkeHU
 - :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam
-- :jp: ninoseki
+- :jp: ninoseki, nilfigo
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
