@@ -150,7 +150,7 @@
         {{notification.message}}<br>
 
         <div ng-show="showCtfFlagsInNotifications">
-            <div ng-show="showCtfCountryDetailsInNotifications">
+            <div ng-if="showCtfCountryDetailsInNotifications !== 'none'">
                 <span 
                     class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
                     ng-if="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
