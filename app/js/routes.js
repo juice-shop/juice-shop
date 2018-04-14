@@ -90,8 +90,8 @@ angular.module('juiceShop').config(['$routeProvider', function ($routeProvider) 
       var M = T.shift()
       return T.reverse().map(function (m, H) { return String.fromCharCode(m - M - 24 - H) }).join('')
     })(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase(), {
-    templateUrl: 'views/TokenSale.html',
-    controller: 'TokenSaleController'
+    templateUrl: '\x76\x69\x65\x77\x73\x2F\x54\x6F\x6B\x65\x6E\x53\x61\x6C\x65\x2E\x68\x74\x6D\x6C',
+    controller: '\x54\x6F\x6B\x65\x6E\x53\x61\x6C\x65\x43\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72'
   })
 
   /* default route */
