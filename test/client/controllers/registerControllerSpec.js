@@ -10,7 +10,7 @@ describe('controllers', function () {
   }))
 
   afterEach(function () {
-    // $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingExpectation()
   })
 
   describe('RegisterController', function () {

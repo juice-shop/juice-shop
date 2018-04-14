@@ -9,7 +9,7 @@ describe('controllers', function () {
   }))
 
   afterEach(function () {
-    // $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingExpectation()
   })
 
   describe('OAuthController', function () {
