@@ -33,7 +33,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
             country: country,
             copied: false
           })
-        })
+        }).catch(angular.noop)
     }
 
     $scope.saveProgress = function () {
@@ -88,5 +88,5 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       }
     }, function (err) {
       console.log(err)
-    })
+    }).catch(angular.noop)
   } ])

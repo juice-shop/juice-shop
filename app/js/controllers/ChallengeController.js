@@ -21,13 +21,13 @@ angular.module('juiceShop').controller('ChallengeController', [
     configurationService.getApplicationConfiguration().then(function (data) {
       $scope.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.application.showCtfFlagsInNotifications
       $scope.showChallengeHints = data.application.showChallengeHints
-    })
+    }).catch(angular.noop)
 
     $scope.repeatNotification = function (challenge) {
       if ($scope.allowRepeatNotifications) {
-        challengeService.repeatNotification(encodeURIComponent(challenge.name)).success(function () {
+        challengeService.repeatNotification(encodeURIComponent(challenge.name)).then(function () {
           $window.scrollTo(0, 0)
-        })
+        }).catch(angular.noop)
       }
     }
 

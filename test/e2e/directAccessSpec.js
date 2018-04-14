@@ -53,12 +53,4 @@ describe('/', () => {
 
     protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
   })
-
-  describe('challenge "securityPolicy"', () => {
-    it('should be able to access the security.txt file', () => {
-      browser.driver.get(browser.baseUrl + '/security.txt')
-    })
-
-    protractor.expect.challengeSolved({challenge: 'Security Policy'})
-  })
 })
