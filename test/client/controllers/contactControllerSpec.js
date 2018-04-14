@@ -10,8 +10,8 @@ describe('controllers', function () {
   }))
 
   afterEach(function () {
-    // $httpBackend.verifyNoOutstandingExpectation()
-    // $httpBackend.verifyNoOutstandingRequest()
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
   })
 
   describe('ContactController', function () {
