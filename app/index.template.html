@@ -150,6 +150,20 @@
         {{notification.message}}<br>
 
         <div ng-show="showCtfFlagsInNotifications">
+            <div ng-if="showCtfCountryDetailsInNotifications !== 'none'">
+                <span 
+                    class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
+                    ng-if="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
+                </span>
+                <i 
+                    class="fa fa-globe"
+                    ng-if="showCtfCountryDetailsInNotifications === 'name'">
+                </i>
+                <span ng-if="showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both'">
+                    {{notification.country.name}}
+                </span>
+                <br>
+            </div>
             <i class="fas fa-flag-checkered"></i> {{notification.flag}}
             <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true" ng-disabled="notification.copied">
                 <i class="fas fa-clipboard" aria-hidden="true"></i>
