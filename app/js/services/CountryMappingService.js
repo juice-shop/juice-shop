@@ -4,10 +4,10 @@ angular.module('juiceShop').factory('CountryMappingService', ['$http', '$q', fun
 
   function getCountryMapping () {
     var countryMapping = $q.defer()
-    $http.get('/rest/country-mapping').success(function (data) {
-      countryMapping.resolve(data)
-    }).error(function (err) {
-      countryMapping.reject(err)
+    $http.get('/rest/country-mapping').then(function (response) {
+      countryMapping.resolve(response.data)
+    }).catch(function (response) {
+      countryMapping.reject(response.data)
     })
     return countryMapping.promise
   }
