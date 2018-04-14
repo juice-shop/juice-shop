@@ -23,7 +23,10 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }, function (translationId) {
           return translationId
         }).then(function (message) {
-          var country = $scope.showCtfCountryDetailsInNotifications !== 'none' ? $scope.countryMap[challenge.key] : null
+          var country
+          if ($scope.showCtfCountryDetailsInNotifications && $scope.showCtfCountryDetailsInNotifications !== 'none') {
+            country = $scope.countryMap[challenge.key]
+          }
           $scope.notifications.push({
             message: message,
             flag: challenge.flag,
@@ -69,7 +72,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
           $scope.showCtfFlagsInNotifications = false
         }
 
-        if (config.application.showCtfCountryDetailsInNotifications !== null) {
+        if (config.application.showCtfCountryDetailsInNotifications) {
           $scope.showCtfCountryDetailsInNotifications = config.application.showCtfCountryDetailsInNotifications
 
           if (config.application.showCtfCountryDetailsInNotifications !== 'none') {
