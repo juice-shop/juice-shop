@@ -8,6 +8,7 @@ application:
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
+  showCtfCountryDetailsInNotifications: none # Options: none  name  flag  both
   showChallengeHints: true
   showVersionNumber: true
   theme: slate # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
@@ -29,6 +30,10 @@ application:
     dismissText: 'Me want it!'
     linkText: 'But me wait!'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
+  securityTxt:
+    contact: 'mailto:donotreply@owasp-juice.shop'
+    encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
+    acknowledgements: '/#/score-board'
 products:
   -
     name: 'Apple Juice (1000ml)'

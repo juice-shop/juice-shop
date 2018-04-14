@@ -54,6 +54,7 @@ const server = require('http').Server(app)
 const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
+const countryMapping = require('./routes/countryMapping')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -93,18 +94,18 @@ if (config.get('application.favicon')) {
 }
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 
-/* Security.txt */
+/* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
-app.get('/security.txt', securityTxt({
-  contact: 'mailto:donotreply@' + config.get('application.domain'),
-  encryption: 'https://pgp.mit.edu/pks/lookup?op=get&search=0x062A85A8CBFBDCDA',
-  acknowledgements: '/#/score-board'
+app.use('/security.txt', securityTxt({
+  contact: config.get('application.securityTxt.contact'),
+  encryption: config.get('application.securityTxt.encryption'),
+  acknowledgements: config.get('application.securityTxt.acknowledgements')
 }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.get('/public/images/tracking', verify.accessControlChallenges())
-app.get('/public/images/products', verify.accessControlChallenges())
-app.get('/i18n', verify.accessControlChallenges())
+app.use('/public/images/tracking', verify.accessControlChallenges())
+app.use('/public/images/products', verify.accessControlChallenges())
+app.use('/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
@@ -222,7 +223,8 @@ app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
-app.post('/rest/track-order', trackOrder())
+app.get('/rest/track-order', trackOrder())
+app.get('/rest/country-mapping', countryMapping())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())

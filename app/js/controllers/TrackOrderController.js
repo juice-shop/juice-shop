@@ -1,20 +1,11 @@
 angular.module('juiceShop').controller('TrackOrderController', [
   '$scope',
-  'TrackOrderService',
-  function ($scope, trackOrderService) {
+  '$location',
+  function ($scope, $location) {
     'use strict'
 
-    $scope.order = {}
-
     $scope.save = function () {
-      trackOrderService.save($scope.order).then(function (savedFeedback) {
-        $scope.error = null
-        $scope.order = {}
-        $scope.form.$setPristine()
-      }).catch(function (error) {
-        $scope.error = error
-        $scope.order = {}
-        $scope.form.$setPristine()
-      })
+      $location.path('/track-result').search({id: $scope.orderId || ''})
+      console.log($scope.orderId)
     }
   }])

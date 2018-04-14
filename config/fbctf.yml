@@ -1,0 +1,177 @@
+application:
+  logo: JuiceShopCTF_Logo.png
+  favicon: favicon_ctf.ico
+  showCtfFlagsInNotifications: true
+  showCtfCountryDetailsInNotifications: both
+  showChallengeHints: false
+  showVersionNumber: false
+  gitHubRibbon: none
+  countryMapping:
+    scoreBoardChallenge:
+      name: Canada
+      code: CA
+    errorHandlingChallenge:
+      name: Austria
+      code: AT
+    loginAdminChallenge:
+      name: Russian Federation
+      code: RU
+    loginJimChallenge:
+      name: Honduras
+      code: HN
+    loginBenderChallenge:
+      name: Guatemala
+      code: GT
+    localXssChallenge:
+      name: Germany
+      code: DE
+    reflectedXssChallenge:
+      name: Uruguay
+      code: UY
+    persistedXssChallengeUser:
+      name: Myanmar
+      code: MM
+    persistedXssChallengeFeedback:
+      name: Costa Rica
+      code: CR
+    restfulXssChallenge:
+      name: Paraguay
+      code: PY
+    unionSqlInjectionChallenge:
+      name: Slovakia
+      code: SK
+    weakPasswordChallenge:
+      name: Madagascar
+      code: MG
+    feedbackChallenge:
+      name: Belize
+      code: BZ
+    forgedFeedbackChallenge:
+      name: Korea (Democratic People's Republic of)
+      code: KP
+    redirectGratipayChallenge:
+      name: Korea
+      code: KR
+    redirectChallenge:
+      name: Belarus
+      code: BY
+    basketChallenge:
+      name: Bolivia
+      code: BO
+    negativeOrderChallenge:
+      name: Switzerland
+      code: CH
+    directoryListingChallenge:
+      name: Peru
+      code: PE
+    forgottenDevBackupChallenge:
+      name: Ukraine
+      code: UA
+    forgottenBackupChallenge:
+      name: United States of America
+      code: US
+    adminSectionChallenge:
+      name: Turkey
+      code: TR
+    csrfChallenge:
+      name: Suriname
+      code: SR
+    changeProductChallenge:
+      name: Colombia
+      code: CO
+    knownVulnerableComponentChallenge:
+      name: Poland
+      code: PL
+    weirdCryptoChallenge:
+      name: Ecuador
+      code: EC
+    easterEggLevelOneChallenge:
+      name: Sri Lanka
+      code: LK
+    easterEggLevelTwoChallenge:
+      name: Eritrea
+      code: ER
+    forgedCouponChallenge:
+      name: Panama
+      code: PA
+    geocitiesThemeChallenge:
+      name: Hungary
+      code: HU
+    christmasSpecialChallenge:
+      name: Falkland Islands (Malvinas)
+      code: FK
+    uploadSizeChallenge:
+      name: French Guiana
+      code: GF
+    uploadTypeChallenge:
+      name: Saudi Arabia
+      code: SA
+    extraLanguageChallenge:
+      name: Australia
+      code: AU
+    captchaBypassChallenge:
+      name: Côte d'Ivoire
+      code: CI
+    zeroStarsChallenge:
+      name: Argentina
+      code: AR
+    continueCodeChallenge:
+      name: Malaysia
+      code: MY
+    oauthUserPasswordChallenge:
+      name: South Sudan
+      code: SS
+    loginCisoChallenge:
+      name: Angola
+      code: AO
+    loginSupportChallenge:
+      name: Croatia
+      code: CR
+    loginRapperChallenge:
+      name: Albania
+      code: AL
+    premiumPaywallChallenge:
+      name: Algeria
+      code: DZ
+    resetPasswordJimChallenge:
+      name: Dominican Republic
+      code: DO
+    resetPasswordBenderChallenge:
+      name: Moldova
+      code: MD
+    resetPasswordMortyChallenge:
+      name: Czech Republic
+      code: CZ
+    resetPasswordBjoernChallenge:
+      name: Georgia
+      code: GE
+    noSqlCommandChallenge:
+      name: Trinidad and Tobago
+      code: TT
+    noSqlInjectionChallenge:
+      name: United Arab Emirates
+      code: AE
+    retrieveBlueprintChallenge:
+      name: Venezuela
+      code: VE
+    typosquattingNpmChallenge:
+      name: Nicaragua
+      code: NI
+    typosquattingBowerChallenge:
+      name: Senegal
+      code: SN
+    jwtTier1Challenge:
+      name: New Zealand
+      code: NZ
+    jwtTier2Challenge:
+      name: Mongolia
+      code: MN
+    misplacedSignatureFileChallenge:
+      name: Nepal
+      code: NP
+    deprecatedInterfaceChallenge:
+      name: Morocco
+      code: MA
+    xxeFileDisclosureChallenge:
+      name: Iraq
+      code: IQ

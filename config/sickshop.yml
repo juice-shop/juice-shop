@@ -21,6 +21,9 @@ application:
     dismissText: 'Cough! Cough!'
     linkText: 'But I don`t feel sick!'
     linkUrl: 'http://www.cookinglight.com/food/recipe-finder/healthy-cookies'
+  securityTxt:
+    contact: 'mailto:donotreply@sick-sh.op'
+    encryption: ~
 products:
   -
     name: Cold
