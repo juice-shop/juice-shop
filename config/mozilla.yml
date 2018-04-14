@@ -23,6 +23,9 @@ application:
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
     linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
+  securityTxt:
+    contact: 'mailto:donotreply@mozilla-ctf.op'
+    encryption: ~
 products:
   -
     name: 'Champion Sweatshirt with a Drawstring Tote'

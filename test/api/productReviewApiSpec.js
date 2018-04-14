@@ -2,6 +2,7 @@ const frisby = require('frisby')
 const Joi = frisby.Joi
 const insecurity = require('../../lib/insecurity')
 const http = require('http')
+const config = require('config')
 
 const REST_URL = 'http://localhost:3000/rest'
 
@@ -93,6 +94,9 @@ describe('/rest/product/reviews', () => {
   })
 
   it('PATCH multiple product review via injection', done => {
+    // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
+    const totalReviews = config.get('products').reduce((sum, {reviews = []}) => sum + reviews.length, 1)
+
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
       body: {
@@ -103,8 +107,7 @@ describe('/rest/product/reviews', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', updatedReviewResponseSchema)
-      .expect('json', {
-        modified: 9 // FIXME This test would break in customized setups with !=9 reviews in the database!
-      }).done(done)
+      .expect('json', { modified: totalReviews })
+      .done(done)
   })
 })
