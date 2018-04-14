@@ -46,6 +46,8 @@ exports.accessControlChallenges = () => ({url}, res, next) => {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
     utils.solve(challenges.retrieveBlueprintChallenge)
+  } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
+    utils.solve(challenges.securityPolicyChallenge)
   }
   next()
 }
