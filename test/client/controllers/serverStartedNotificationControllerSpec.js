@@ -20,6 +20,9 @@ describe('controllers', function () {
       controller = $controller('ServerStartedNotificationController', {
         '$scope': scope
       })
+      if (cookies.get('continueCode')) {
+        cookies.remove('continueCode')
+      }
     }))
 
     it('should be defined', inject(function () {
@@ -93,12 +96,11 @@ describe('controllers', function () {
     }))
 
     it('do nothing if continueCode cookie is not present', inject(function () {
-      cookies.remove('continueCode')
       socket.receive('server started')
       $httpBackend.flush()
     }))
 
-    xit('should remove the restore message when closing the notification', inject(function () {
+    it('should remove the restore message when closing the notification', inject(function () {
       socket.receive('server started')
       $httpBackend.flush()
 

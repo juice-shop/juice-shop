@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
+const uuidv5 = require('uuid/v5')
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
@@ -15,7 +16,7 @@ module.exports = function placeOrder () {
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
-          const orderNo = insecurity.hash(new Date() + '_' + id)
+          const orderNo = uuidv5(config.get('application.domain'), uuidv5.DNS)
           const pdfFile = 'order_' + orderNo + '.pdf'
           const doc = new PDFDocument()
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))

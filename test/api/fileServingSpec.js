@@ -67,6 +67,18 @@ describe('/public/images/tracking', () => {
   })
 })
 
+describe('/security.txt', () => {
+  it('GET security policy in the form defined by https://securitytxt.org/', done => {
+    frisby.get(URL + '/security.txt')
+      .expect('status', 200)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', 'Contact')
+      .expect('bodyContains', 'Encryption')
+      .expect('bodyContains', 'Acknowledgements')
+      .done(done)
+  })
+})
+
 describe('/encryptionkeys', () => {
   it('GET serves a directory listing', done => {
     frisby.get(URL + '/encryptionkeys')
