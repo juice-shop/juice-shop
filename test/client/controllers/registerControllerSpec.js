@@ -5,11 +5,12 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET('/api/SecurityQuestions/').respond(200, {})
   }))
 
   afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation()
+    // $httpBackend.verifyNoOutstandingExpectation()
   })
 
   describe('RegisterController', function () {

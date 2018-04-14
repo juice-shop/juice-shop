@@ -12,7 +12,7 @@ angular.module('juiceShop').controller('BasketController', [
 
     userService.whoAmI().then(function (data) {
       $scope.userEmail = data.email || 'anonymous'
-    })
+    }).catch(angular.noop)
 
     $scope.couponPanelExpanded = $window.localStorage.couponPanelExpanded ? JSON.parse($window.localStorage.couponPanelExpanded) : false
     $scope.paymentPanelExpanded = $window.localStorage.paymentPanelExpanded ? JSON.parse($window.localStorage.paymentPanelExpanded) : false
@@ -52,7 +52,7 @@ angular.module('juiceShop').controller('BasketController', [
           $scope.confirmation = discountApplied
         }, function (translationId) {
           $scope.confirmation = translationId
-        })
+        }).catch(angular.noop)
         $scope.error = undefined
         $scope.form.$setPristine()
       }).catch(function (error) {

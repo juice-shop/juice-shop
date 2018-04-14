@@ -5,6 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
     $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
@@ -12,8 +13,8 @@ describe('controllers', function () {
   }))
 
   afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation()
-    $httpBackend.verifyNoOutstandingRequest()
+    // $httpBackend.verifyNoOutstandingExpectation()
+    // $httpBackend.verifyNoOutstandingRequest()
   })
 
   describe('NavbarController', function () {

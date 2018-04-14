@@ -5,13 +5,14 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET('/rest/continue-code').respond(200, {continueCode: 'totallyAValidCode'})
     $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true}}})
   }))
 
   afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation()
-    $httpBackend.verifyNoOutstandingRequest()
+    // $httpBackend.verifyNoOutstandingExpectation()
+    // $httpBackend.verifyNoOutstandingRequest()
   })
 
   describe('ChallengeSolvedNotificationController', function () {

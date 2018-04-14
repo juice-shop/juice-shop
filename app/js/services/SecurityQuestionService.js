@@ -5,19 +5,21 @@ angular.module('juiceShop').factory('SecurityQuestionService', ['$http', '$q', f
 
   function find (params) {
     var securityQuestions = $q.defer()
-    $http.get(host + '/', { params: params }).success(function (data) {
-      securityQuestions.resolve(data.data)
-    }).error(function (err) {
-      securityQuestions.reject(err)
+    $http.get(host + '/', {
+      params: params
+    }).then(function (response) {
+      securityQuestions.resolve(response.data.data)
+    }).catch(function (response) {
+      securityQuestions.reject(response.data)
     })
     return securityQuestions.promise
   }
 
   function findBy (email) {
     var securityQuestion = $q.defer()
-    $http.get('rest/user/security-question?email=' + email).success(function (data) {
-      securityQuestion.resolve(data.question)
-    }).error(function (err) {
+    $http.get('rest/user/security-question?email=' + email).then(function (response) {
+      securityQuestion.resolve(response.data.question)
+    }).catch(function (err) {
       securityQuestion.reject(err)
     })
     return securityQuestion.promise

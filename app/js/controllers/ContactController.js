@@ -10,13 +10,13 @@ angular.module('juiceShop').controller('ContactController', [
       $scope.feedback = {}
       $scope.feedback.UserId = data.id
       $scope.userEmail = data.email || 'anonymous'
-    })
+    }).catch(angular.noop)
 
     function getNewCaptcha () {
       captchaService.getCaptcha().then(function (data) {
         $scope.captcha = data.captcha
         $scope.captchaId = data.captchaId
-      })
+      }).catch(angular.noop)
     }
     getNewCaptcha()
 
