@@ -117,5 +117,23 @@ describe('controllers', function () {
 
       expect(cookies.put).toHaveBeenCalledWith('continueCode', 'totallyAValidCode', { expires: jasmine.any(Date) })
     }))
+
+    it('sets showCtfCountryDetailsInNotifications to scope', inject(function () {
+      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: 'both' } } })
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, {})
+
+      $httpBackend.flush()
+
+      expect(scope.showCtfCountryDetailsInNotifications).toBe('both')
+    }))
+
+    it('sets countryMap to to scope', inject(function () {
+      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showCtfFlagsInNotifications': true, showCtfCountryDetailsInNotifications: true } } })
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, { 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
+
+      $httpBackend.flush()
+
+      expect(scope.countryMap).toEqual({ 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
+    }))
   })
 })
