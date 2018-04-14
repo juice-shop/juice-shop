@@ -77,7 +77,7 @@ angular.module('juiceShop').config(['$qProvider', function ($qProvider) {
   $qProvider.errorOnUnhandledRejections(false)
 }])
 
-angular.module('juiceShop').config(['$locationProvider', function($locationProvider) {
+angular.module('juiceShop').config(['$locationProvider', function ($locationProvider) {
   $locationProvider.hashPrefix('')
 }])
 
