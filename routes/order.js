@@ -8,6 +8,7 @@ const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
+const db = require('../data/mongodb')
 
 module.exports = function placeOrder () {
   return (req, res, next) => {
@@ -31,11 +32,19 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
+          let basketProducts = []
           basket.Products.forEach(({BasketItem, price, name}) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
+
             const itemTotal = price * BasketItem.quantity
+            const product = { quantity : BasketItem.quantity,
+                              name : name,
+                              price : price,
+                              total : itemTotal
+                            }
+            basketProducts.push(product);                
             doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
@@ -60,12 +69,25 @@ module.exports = function placeOrder () {
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
             utils.solve(challenges.negativeOrderChallenge)
           }
+          
+          db.orders.insert({
+            orderNo: orderNo,
+            email: (customer ? customer.data ? customer.data.email.replace(/[aeiou]/gi, '*') : undefined : undefined),
+            totalPrice: totalPrice,
+            products: basketProducts,
+            eta: Math.floor((Math.random() * 10) + 1).toString() + ' days to delivery'
+          }).then(result => {
+            console.log("Successfully saved order with id:" + orderNo)
+          }, err => {
+            console.log("Error occured while saving order.")
+          })
 
           fileWriter.on('finish', () => {
             basket.updateAttributes({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
+
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
         }
