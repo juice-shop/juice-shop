@@ -75,7 +75,7 @@ module.exports = function placeOrder () {
             email: (customer ? customer.data ? customer.data.email.replace(/[aeiou]/gi, '*') : undefined : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
-            eta: Math.floor((Math.random() * 10) + 1).toString() + ' days to delivery'
+            eta: Math.floor((Math.random() * 10) + 1).toString()
           }).then(result => {
             console.log('Successfully saved order with id:' + orderNo)
           }, err => {
