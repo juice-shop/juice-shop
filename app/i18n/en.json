@@ -46,6 +46,7 @@
   "BASKET_ADD_SAME_PRODUCT": "Added another {{product}} to basket.",
   "BASKET_ADD_PRODUCT": "Placed {{product}} into basket.",
   "LABEL_PRODUCT": "Product",
+  "LABEL_PRODUCT_ORDERED": "Products ordered:",
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Price",
