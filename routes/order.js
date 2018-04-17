@@ -39,12 +39,12 @@ module.exports = function placeOrder () {
             }
 
             const itemTotal = price * BasketItem.quantity
-            const product = { quantity : BasketItem.quantity,
-                              name : name,
-                              price : price,
-                              total : itemTotal
-                            }
-            basketProducts.push(product);                
+            const product = { quantity: BasketItem.quantity,
+              name: name,
+              price: price,
+              total: itemTotal
+            }
+            basketProducts.push(product)
             doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
@@ -69,7 +69,7 @@ module.exports = function placeOrder () {
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
             utils.solve(challenges.negativeOrderChallenge)
           }
-          
+
           db.orders.insert({
             orderNo: orderNo,
             email: (customer ? customer.data ? customer.data.email.replace(/[aeiou]/gi, '*') : undefined : undefined),
@@ -77,9 +77,9 @@ module.exports = function placeOrder () {
             products: basketProducts,
             eta: Math.floor((Math.random() * 10) + 1).toString() + ' days to delivery'
           }).then(result => {
-            console.log("Successfully saved order with id:" + orderNo)
+            console.log('Successfully saved order with id:' + orderNo)
           }, err => {
-            console.log("Error occured while saving order.")
+            console.log('Error occured while saving order : ' + err)
           })
 
           fileWriter.on('finish', () => {
@@ -87,7 +87,6 @@ module.exports = function placeOrder () {
             models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
-
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
         }

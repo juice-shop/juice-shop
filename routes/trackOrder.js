@@ -8,7 +8,7 @@ module.exports = function trackOrder () {
       utils.solve(challenges.reflectedXssChallenge)
     }
     db.orders.find({ orderNo: req.query.id }).then(order => {
-      const result = utils.queryResultToJson(order);
+      const result = utils.queryResultToJson(order)
       res.json(result)
     }, () => {
       res.status(400).json({ error: 'Wrong Param' })
