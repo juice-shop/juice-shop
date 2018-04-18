@@ -4,7 +4,6 @@ application:
   logo: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/MozillaCTF.png'
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   showChallengeSolvedNotifications: true
-  showCtfFlagsInNotifications: true
   showChallengeHints: false
   theme: united
   gitHubRibbon: darkblue
@@ -158,3 +157,5 @@ products:
     price: 0.03
     image: waspy.png
     deletedDate: '2017-07-01'
+ctf:
+  showFlagsInNotifications: true
