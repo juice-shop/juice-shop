@@ -65,17 +65,17 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
       }
     })
     configurationService.getApplicationConfiguration().then(function (config) {
-      if (config && config.application) {
-        if (config.application.showCtfFlagsInNotifications !== null) {
-          $scope.showCtfFlagsInNotifications = config.application.showCtfFlagsInNotifications
+      if (config && config.ctf) {
+        if (config.ctf.showFlagsInNotifications !== null) {
+          $scope.showCtfFlagsInNotifications = config.ctf.showFlagsInNotifications
         } else {
           $scope.showCtfFlagsInNotifications = false
         }
 
-        if (config.application.showCtfCountryDetailsInNotifications) {
-          $scope.showCtfCountryDetailsInNotifications = config.application.showCtfCountryDetailsInNotifications
+        if (config.ctf.showCountryDetailsInNotifications) {
+          $scope.showCtfCountryDetailsInNotifications = config.ctf.showCountryDetailsInNotifications
 
-          if (config.application.showCtfCountryDetailsInNotifications !== 'none') {
+          if (config.ctf.showCountryDetailsInNotifications !== 'none') {
             countryMappingService.getCountryMapping().then(function (countryMap) {
               $scope.countryMap = countryMap
             }).catch(function (err) {
