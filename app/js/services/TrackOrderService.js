@@ -6,7 +6,7 @@ angular.module('juiceShop').factory('TrackOrderService', ['$http', '$q', functio
   function save (params) {
     var trackingInformation = $q.defer()
     $http.get(host + '?id=' + params).then(function (response) {
-      trackingInformation.resolve(response.data.data)
+      trackingInformation.resolve(response.data)
     }).catch(function (response) {
       trackingInformation.reject(response.data)
     })
