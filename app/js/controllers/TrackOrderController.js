@@ -6,6 +6,5 @@ angular.module('juiceShop').controller('TrackOrderController', [
 
     $scope.save = function () {
       $location.path('/track-result').search({id: $scope.orderId || ''})
-      console.log($scope.orderId)
     }
   }])
