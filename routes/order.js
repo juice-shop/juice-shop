@@ -76,10 +76,6 @@ module.exports = function placeOrder () {
             totalPrice: totalPrice,
             products: basketProducts,
             eta: Math.floor((Math.random() * 10) + 1).toString()
-          }).then(result => {
-            console.log('Successfully saved order with id:' + orderNo)
-          }, err => {
-            console.log('Error occured while saving order : ' + err)
           })
 
           fileWriter.on('finish', () => {
