@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 const PDFDocument = require('pdfkit')
-const uuidv5 = require('uuid/v5')
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
@@ -17,7 +16,8 @@ module.exports = function placeOrder () {
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
-          const orderNo = uuidv5(config.get('application.domain'), uuidv5.DNS)
+          const email = customer ? customer.data ? customer.data.email : undefined : undefined
+          const orderNo = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = 'order_' + orderNo + '.pdf'
           const doc = new PDFDocument()
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
@@ -26,7 +26,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           doc.moveDown()
-          doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined))
+          doc.text('Customer: ' + email)
           doc.moveDown()
           doc.text('Order #: ' + orderNo)
           doc.moveDown()
@@ -72,10 +72,10 @@ module.exports = function placeOrder () {
 
           db.orders.insert({
             orderNo: orderNo,
-            email: (customer ? customer.data ? customer.data.email.replace(/[aeiou]/gi, '*') : undefined : undefined),
+            email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
-            eta: Math.floor((Math.random() * 10) + 1).toString()
+            eta: Math.floor((Math.random() * 5) + 1).toString()
           })
 
           fileWriter.on('finish', () => {
