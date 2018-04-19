@@ -47,7 +47,7 @@
   "BASKET_ADD_PRODUCT": "{{product}} Adicionado ao Carrinho.",
   "LABEL_PRODUCT": "Produto",
   "LABEL_PRODUCT_ORDERED": "Ordered products",
-  "LABEL_DELIVERY_TIME": "Expected Delivery Date",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
   "LABEL_DAYS": "Days",
   "LABEL_NAME": "Nome",
   "LABEL_DESCRIPTION": "Descrição",
@@ -142,7 +142,6 @@
   "ICO_FAQ_QUESTION": "Eu realmente pode ficar rico com {{juicycoin}}?",
   "ICO_FAQ_ANSWER": "Claro que pode! Nós nunca mentiriamos para você!",
   "TITLE_TRACK_ORDERS": "Rastrear Pedidos",
-  "TITLE_TRACK_RESULTS": "Resultados do ID",
   "LABEL_ORDER_ID": "ID do pedido",
   "BTN_TRACK": "Rastrear"
 }
