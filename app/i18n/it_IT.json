@@ -46,6 +46,9 @@
   "BASKET_ADD_SAME_PRODUCT": "Added another {{product}} to basket.",
   "BASKET_ADD_PRODUCT": "Placed {{product}} into basket.",
   "LABEL_PRODUCT": "Product",
+  "LABEL_PRODUCT_ORDERED": "Ordered products",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
+  "LABEL_DAYS": "Days",
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Prezzo",
@@ -139,7 +142,6 @@
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
   "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
   "TITLE_TRACK_ORDERS": "Track Orders",
-  "TITLE_TRACK_RESULTS": "Results for ID",
   "LABEL_ORDER_ID": "Order ID",
   "BTN_TRACK": "Track"
 }
