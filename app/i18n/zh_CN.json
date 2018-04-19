@@ -47,7 +47,7 @@
   "BASKET_ADD_PRODUCT": "成功添加 {{product}} 到购物篮里。",
   "LABEL_PRODUCT": "商品",
   "LABEL_PRODUCT_ORDERED": "Ordered products",
-  "LABEL_DELIVERY_TIME": "Expected Delivery Date",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
   "LABEL_DAYS": "Days",
   "LABEL_NAME": "名称",
   "LABEL_DESCRIPTION": "描述",
@@ -142,7 +142,6 @@
   "ICO_FAQ_QUESTION": "我真的能靠{{juicycoin}} 致富吗？",
   "ICO_FAQ_ANSWER": "当然可以！我们绝不会对您撒谎！",
   "TITLE_TRACK_ORDERS": "跟踪订单",
-  "TITLE_TRACK_RESULTS": "Results for ID",
   "LABEL_ORDER_ID": "订单编号",
   "BTN_TRACK": "追踪"
 }
