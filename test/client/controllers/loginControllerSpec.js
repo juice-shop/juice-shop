@@ -5,6 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
   }))
 
   afterEach(function () {
@@ -42,7 +43,7 @@ describe('controllers', function () {
       scope.login()
       $httpBackend.flush()
 
-      expect(location.path()).toBe('/')
+      expect(location.path()).toBe('/search')
     }))
 
     it('sets the returned authentication token as session cookie', inject(function () {

@@ -5,6 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
   }))
 
   afterEach(function () {
@@ -43,7 +44,7 @@ describe('controllers', function () {
 
           expect(cookies.get('token')).toBe('auth_token')
           expect(window.sessionStorage.bid).toBe('4711')
-          expect(location.path()).toBe('/')
+          expect(location.path()).toBe('/search')
         }))
 
         it('should remove session data and redirect to login page after failed login', inject(function () {
@@ -67,7 +68,7 @@ describe('controllers', function () {
 
           expect(cookies.get('token')).toBe('auth_token')
           expect(window.sessionStorage.bid).toBe('4711')
-          expect(location.path()).toBe('/')
+          expect(location.path()).toBe('/search')
         }))
 
         it('should remove session data and redirect to login page after failed login', inject(function () {

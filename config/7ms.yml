@@ -22,6 +22,9 @@ application:
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'
     linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
+  securityTxt:
+    contact: 'mailto:donotreply@7-ms.us'
+    encryption: ~
 products:
   -
     name: 'Security Assessment'
