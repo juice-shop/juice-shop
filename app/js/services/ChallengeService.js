@@ -5,10 +5,12 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', '$q', function
 
   function find (params) {
     var challenges = $q.defer()
-    $http.get(host + '/', { params: params }).success(function (data) {
-      challenges.resolve(data.data)
-    }).error(function (err) {
-      challenges.reject(err)
+    $http.get(host + '/', {
+      params: params
+    }).then(function (response) {
+      challenges.resolve(response.data.data)
+    }).catch(function (response) {
+      challenges.reject(response.data)
     })
     return challenges.promise
   }
@@ -23,20 +25,20 @@ angular.module('juiceShop').factory('ChallengeService', ['$http', '$q', function
 
   function continueCode () {
     var continueCode = $q.defer()
-    $http.get('/rest/continue-code').success(function (data) {
-      continueCode.resolve(data.continueCode)
-    }).error(function (err) {
-      continueCode.reject(err)
+    $http.get('/rest/continue-code').then(function (response) {
+      continueCode.resolve(response.data.continueCode)
+    }).catch(function (response) {
+      continueCode.reject(response.data)
     })
     return continueCode.promise
   }
 
   function restoreProgress (continueCode) {
     var result = $q.defer()
-    $http.put('/rest/continue-code/apply/' + continueCode).success(function (data) {
-      result.resolve(data)
-    }).error(function (err) {
-      result.reject(err)
+    $http.put('/rest/continue-code/apply/' + continueCode).then(function (response) {
+      result.resolve(response.data)
+    }).catch(function (response) {
+      result.reject(response.data)
     })
     return result.promise
   }
