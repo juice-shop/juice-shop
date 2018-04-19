@@ -46,6 +46,9 @@
   "BASKET_ADD_SAME_PRODUCT": "Tuote {{product}} lisätty koriin.",
   "BASKET_ADD_PRODUCT": "Tuote {{product}} lisätty koriin.",
   "LABEL_PRODUCT": "Tuote",
+  "LABEL_PRODUCT_ORDERED": "Ordered products",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
+  "LABEL_DAYS": "Days",
   "LABEL_NAME": "Nimi",
   "LABEL_DESCRIPTION": "Kuvaus",
   "LABEL_PRICE": "Hinta",
@@ -139,7 +142,6 @@
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
   "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
   "TITLE_TRACK_ORDERS": "Track Orders",
-  "TITLE_TRACK_RESULTS": "Results for ID",
   "LABEL_ORDER_ID": "Order ID",
   "BTN_TRACK": "Track"
 }
