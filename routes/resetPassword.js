@@ -1,5 +1,6 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
+const users = require('../data/datacache').users
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
@@ -25,16 +26,16 @@ module.exports = function resetPassword () {
         if (insecurity.hmac(answer) === data.answer) {
           models.User.findById(data.UserId).then(user => {
             user.updateAttributes({ password: newPassword }).then(user => {
-              if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === 2 && answer === 'Samuel') {
+              if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === users.jim.id && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }
-              if (utils.notSolved(challenges.resetPasswordBenderChallenge) && user.id === 3 && answer === 'Stop\'n\'Drop') {
+              if (utils.notSolved(challenges.resetPasswordBenderChallenge) && user.id === users.bender.id && answer === 'Stop\'n\'Drop') {
                 utils.solve(challenges.resetPasswordBenderChallenge)
               }
-              if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === 4 && answer === 'West-2082') {
+              if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === users.bjoern.id && answer === 'West-2082') {
                 utils.solve(challenges.resetPasswordBjoernChallenge)
               }
-              if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === 7 && answer === '5N0wb41L') {
+              if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === users.morty.id && answer === '5N0wb41L') {
                 utils.solve(challenges.resetPasswordMortyChallenge)
               }
               res.json({ user })

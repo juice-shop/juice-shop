@@ -48,6 +48,7 @@ async function createChallenges () {
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key }) => {
       try {
         const challenge = await models.Challenge.create({
+          key,
           name,
           category,
           description,

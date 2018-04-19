@@ -5,10 +5,10 @@ angular.module('juiceShop').factory('SecurityAnswerService', ['$http', '$q', fun
 
   function save (params) {
     var createdSecurityAnswer = $q.defer()
-    $http.post(host + '/', params).success(function (data) {
-      createdSecurityAnswer.resolve(data.data)
-    }).error(function (err) {
-      createdSecurityAnswer.reject(err)
+    $http.post(host + '/', params).then(function (response) {
+      createdSecurityAnswer.resolve(response.data.data)
+    }).catch(function (response) {
+      createdSecurityAnswer.reject(response.data)
     })
     return createdSecurityAnswer.promise
   }
