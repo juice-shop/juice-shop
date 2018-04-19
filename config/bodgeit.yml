@@ -20,6 +20,9 @@ application:
     dismissText: 'Bodge it!'
     linkText: 'Lega-what?'
     linkUrl: 'https://github.com/psiinon/bodgeit'
+  securityTxt:
+    contact: 'mailto:donotreply@thebodgeitstore.com'
+    encryption: ~
 products:
   -
     name: 'Basic Widget'

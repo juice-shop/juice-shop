@@ -38,7 +38,7 @@ angular.module('juiceShop').controller('SearchResultController', [
                     $scope.confirmation = basketAddSameProduct
                   }, function (translationId) {
                     $scope.confirmation = translationId
-                  })
+                  }).catch(angular.noop)
                 }).catch(function (err) {
                   console.log(err)
                 })
@@ -58,7 +58,7 @@ angular.module('juiceShop').controller('SearchResultController', [
                 $scope.confirmation = basketAddProduct
               }, function (translationId) {
                 $scope.confirmation = translationId
-              })
+              }).catch(angular.noop)
             }).catch(function (err) {
               console.log(err)
             })
