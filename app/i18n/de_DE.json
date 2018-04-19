@@ -47,7 +47,7 @@
   "BASKET_ADD_PRODUCT": "{{product}} dem Warenkorb hinzugefügt.",
   "LABEL_PRODUCT": "Produkt",
   "LABEL_PRODUCT_ORDERED": "Bestellte Produkte",
-  "LABEL_DELIVERY_TIME": "Voraussichtliches Lieferdatum",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
   "LABEL_DAYS": "Tage",
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Beschreibung",
@@ -142,7 +142,6 @@
   "ICO_FAQ_QUESTION": "Kann ich mit {{juicycoin}} wirklich reich werden?",
   "ICO_FAQ_ANSWER": "Natürlich kannst du! Wir würden dich niemals anlügen!",
   "TITLE_TRACK_ORDERS": "Bestellungen verfolgen",
-  "TITLE_TRACK_RESULTS": "Ergebnisse für Nr.",
   "LABEL_ORDER_ID": "Bestell-Nr.",
   "BTN_TRACK": "Verfolgen"
 }
