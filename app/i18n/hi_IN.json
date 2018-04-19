@@ -47,7 +47,7 @@
   "BASKET_ADD_PRODUCT": "टोकरी में {{product}} रखा।",
   "LABEL_PRODUCT": "उत्पाद",
   "LABEL_PRODUCT_ORDERED": "Ordered products",
-  "LABEL_DELIVERY_TIME": "Expected Delivery Date",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
   "LABEL_DAYS": "Days",
   "LABEL_NAME": "नाम",
   "LABEL_DESCRIPTION": "विवरण",
@@ -142,7 +142,6 @@
   "ICO_FAQ_QUESTION": "क्या मैं वास्तव में {{juicycoin}} के साथ समृद्ध हो सकता हूं?",
   "ICO_FAQ_ANSWER": "निःसंदेह आप हो सकते हैं! हम कभी आपसे झूठ नहीं बोलेंगे!",
   "TITLE_TRACK_ORDERS": "ट्रैक ऑर्डर",
-  "TITLE_TRACK_RESULTS": "Results for ID",
   "LABEL_ORDER_ID": "ऑर्डर आईडी",
   "BTN_TRACK": "ट्रैक"
 }
