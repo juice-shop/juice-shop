@@ -19,7 +19,7 @@ angular.module('juiceShop').controller('ChallengeController', [
     }
 
     configurationService.getApplicationConfiguration().then(function (data) {
-      $scope.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.application.showCtfFlagsInNotifications
+      $scope.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       $scope.showChallengeHints = data.application.showChallengeHints
     }).catch(angular.noop)
 

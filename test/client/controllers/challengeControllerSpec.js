@@ -6,7 +6,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
     $sce = $injector.get('$sce')
   }))
 
@@ -186,7 +186,7 @@ describe('controllers', function () {
       }))
 
       it('should be possible when challenge-solved notifications are shown with CTF flag codes', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
 
         $httpBackend.flush()
 
@@ -194,7 +194,7 @@ describe('controllers', function () {
       }))
 
       it('should not be possible when challenge-solved notifications are shown without CTF flag codes', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': false, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': false}, 'application': {'showChallengeSolvedNotifications': true}}})
 
         $httpBackend.flush()
 
@@ -210,7 +210,7 @@ describe('controllers', function () {
       }))
 
       it('should show notification for selected challenge when enabled', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
         $httpBackend.flush()
         $httpBackend.expectGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
 
@@ -219,7 +219,7 @@ describe('controllers', function () {
       }))
 
       it('should scroll to top of screen when notification is repeated', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true, 'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
         $httpBackend.flush()
         $httpBackend.whenGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
         window.scrollTo = jasmine.createSpy('scrollTo')

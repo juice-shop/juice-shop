@@ -96,7 +96,6 @@
     "socket.io": "~2.1",
     "sqlite3": "~4.0.0",
     "swagger-ui-express": "~3.0.7",
-    "uuid": "~3.2.1",
     "z85": "~0.0"
   },
   "devDependencies": {
@@ -120,8 +119,8 @@
     "karma-phantomjs-launcher": "~1.0",
     "karma-safari-launcher": "~1.0",
     "lcov-result-merger": "~2.0.0",
-    "mocha": "~5.1.0",
-    "nyc": "~11.6.0",
+    "mocha": "~5.1.1",
+    "nyc": "~11.7.1",
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~5.3",
     "shelljs": "~0.8.1",
