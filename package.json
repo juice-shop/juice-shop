@@ -85,7 +85,6 @@
     "marsdb": "~0.6",
     "morgan": "~1.9",
     "multer": "~1.3",
-    "node-pre-gyp": "~0.9.1",
     "notevil": "~1.1",
     "pdfkit": "~0.8",
     "replace": "~0.3",
