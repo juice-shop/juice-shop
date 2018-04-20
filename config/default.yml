@@ -7,8 +7,6 @@ application:
   favicon: favicon_v2.ico
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
-  showCtfFlagsInNotifications: false
-  showCtfCountryDetailsInNotifications: none # Options: none  name  flag  both
   showChallengeHints: true
   showVersionNumber: true
   theme: slate # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
@@ -216,3 +214,8 @@ products:
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
     image: melon_bike.jpeg
+ctf:
+  countryMapping: ~
+  showFlagsInNotifications: false
+  showCountryDetailsInNotifications: none # Options: none  name  flag  both
+  
