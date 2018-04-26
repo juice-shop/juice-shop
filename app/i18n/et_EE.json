@@ -111,7 +111,7 @@
   "MANDATORY_ADDRESS": "Palun sisestage aadress.",
   "MANDATORY_QUANTITY": "Palun sisestage kogus.",
   "IN_LITERS_PLACEHOLDER": "... liitrites",
-  "REQUEST_PICKUP": "Taaskasutuskasti saatmise asemel saab kauba saab kätte ülalolevalt aadressilt.",
+  "REQUEST_PICKUP": "Taaskasutuskasti saatmise asemel palun tulla kaubale järele ülalolevale aadressile.",
   "LABEL_PICKUP_DATE": "Kättesaamise kuupäev",
   "SECTION_RECYCLING": "Ümbertöötluse päringud",
   "LABEL_ADDRESS": "Aadress",
