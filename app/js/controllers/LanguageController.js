@@ -24,7 +24,7 @@ var languages = [
   {key: 'de_DE', icon: 'de', lang: 'Deutsch'},
   {key: 'el_GR', icon: 'gr', lang: 'Ελληνικά', isFlask: true},
   {key: 'es_ES', icon: 'es', lang: 'Español', isFlask: true},
-  {key: 'et_EE', icon: 'ee', lang: 'Eesti', isFlask: true},
+  {key: 'et_EE', icon: 'ee', lang: 'Eesti'},
   {key: 'fi_FI', icon: 'fi', lang: 'Suomalainen', isFlask: true},
   {key: 'fr_FR', icon: 'fr', lang: 'Français'},
   {key: 'he_IL', icon: 'il', lang: 'עברי'},
