@@ -47,7 +47,7 @@
   "BASKET_ADD_PRODUCT": "{{product}} ajouté dans le panier.",
   "LABEL_PRODUCT": "Produit",
   "LABEL_PRODUCT_ORDERED": "Produits commandés",
-  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
+  "LABEL_EXPECTED_DELIVERY": "Livraison prévue",
   "LABEL_DAYS": "Jours",
   "LABEL_NAME": "Nom",
   "LABEL_DESCRIPTION": "Description",
