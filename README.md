@@ -355,7 +355,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae
+- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
 - :finland: Nico Ådahl
 - :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
