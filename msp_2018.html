@@ -1,0 +1,724 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget, RequiredAttributes, HtmlUnknownTarget, HtmlUnknownAttribute -->
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>OWASP Juice Shop: Achieving sustainability for open source projects</title>
+
+	<meta name="description" content="OWASP Juice Shop: Achieving sustainability for open source projects">
+	<meta name="author" content="Björn Kimminich">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/night.css" id="theme">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
+				<h2>OWASP Juice Shop</h2>
+				<h4>Achieving sustainability for open source projects</h4>
+				<img src="assets/JuiceShop_Logo.png" width="250" class="no-box"/>
+				<p>
+					<a href="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project">https://www.owasp.org/index.php/OWASP_Juice_Shop_Project</a>
+				</p>
+				<p>
+					<small>Presentation by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></small>
+				</p>
+		</section>
+
+		<section data-transition="zoom">
+			<p>Chapter One</p>
+			<h1>WAT?</h1>
+		</section>
+
+		<section>
+			<h2>OWASP Juice Shop...</h2>
+			<blockquote>
+				...is an intentionally insecure webapp written in Node.js, Express and AngularJS. It contains 38+ hacking challenges of varying difficulty tracked on a score board.
+			</blockquote>
+			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
+		</section>
+
+		<section>
+			<h2>Modern Web-Architecture</h2>
+			<p>
+				Javascript all the way from UI to REST API
+			</p>
+			<img src="assets/Architektur_JuiceShop.png"/>
+		</section>
+
+		<section>
+			<h2>OWASP Juice Shop CTF...</h2>
+			<blockquote>
+				...is a commandline tool written in Node.js and published on NPM.js. It helps you to set up and host CTF events on the <a href="https://ctfd.io">CTFd</a> platform with the Juice Shop challenges.
+			</blockquote>
+			<img src="assets/JuiceShopCTF_Logo.png" width="200" class="no-box"/>
+		</section>
+
+		<section data-transition="zoom">
+			<p><code>&lt;!-- uncomment this and the following slide **ONLY** if...</code></p>
+			<img src="assets/New_projects.png" class="no-box" height="300">
+			<p><code>------------------------------------------------- --&gt;</code></p>
+		</section>
+		<section data-transition="zoom">
+			<p><code>&lt;!-- ...Juice Shop got promoted to <span style="background: rgb(246, 182, 58)">&nbsp;Lab&nbsp;</span><span style="background: rgb(250, 212, 137)">&nbsp;Project&nbsp;</span></code></p>
+			<p><code>during the Project Summit prior to this AppSecEU! :-D</code></p>
+			<img src="assets/Midlevel_projects.png" class="no-box" height="300">
+			<p><code><small>The next OWASP Connector should make this official! (But you heard it here first!)</small></code></p>
+			<p><code>------------------------------------------------- --&gt;</code></p>
+		</section>
+		<section>
+			<p>Chapter Two</p>
+			<h1>Open Source Antipatterns</h1>
+		</section>
+
+        <section>
+            <section>
+				<h2>Barren README</h2>
+				<p class="fragment">
+					An empty or lackluster front-page radiates the impression that nobody takes serious care of the project.
+				</p>
+            </section>
+			<section>
+				<h3>Bad Example</h3>
+				<img data-src="assets/appsec/barrenReadme.png">
+			</section>
+			<section>
+				<h3>Worse Example</h3>
+				<img data-src="assets/appsec/barrenReadme2.png">
+			</section>
+			<section>
+				<h3>Worst Example</h3>
+				<img data-src="assets/appsec/barrenReadme3.png" height="100">
+			</section>
+			<section>
+				<h3>Good Example</h3>
+				<img data-src="assets/appsec/goodReadme.png" width="150">
+				<img data-src="assets/appsec/goodReadme2.png" width="150">
+				<img data-src="assets/appsec/goodReadme3.png" width="150">
+			</section>
+			<section>
+				<h3>Better(?) Example</h3>
+				<img src="assets/juice-shop-ctf-cli.png" height="400"/>
+				<img data-src="assets/appsec/betterReadme.png" width="150">
+				<img data-src="assets/appsec/betterReadme2.png" width="150">
+			</section>
+		</section>
+
+		<section>
+            <section>
+                <h2>Pile of Issues</h2>
+				<p class="fragment">
+					Open issues pile up in the ticketing system, most of them unanswered and unattended.
+				</p>
+            </section>
+			<section>
+				<h3>A pile of unattended issues</h3>
+				<img data-src="assets/appsec/issueCollection.png">
+				<h1 class="fragment">(🤔)</h1>
+			</section>
+			<section>
+				<h3>Really a 💩-pile of unattended issues</h3>
+				<img data-src="assets/appsec/issueCollection2.png">
+			</section>
+			<section>
+				<h3>Counter: Use <span style="background: rgb(213,19,22)">&nbsp;labels&nbsp;</span> properly</h3>
+				<img data-src="assets/appsec/issueLabels.png" height="450">
+			</section>
+			<section>
+				<h3>Agile Counter: Kanban Board</h3>
+				<img data-src="assets/appsec/huboard.png">
+				<p>
+					<a href="https://huboard.com/bkimminich/juice-shop">https://huboard.com/bkimminich/juice-shop</a>
+				</p>
+			</section>
+		</section>
+
+		<section>
+            <section>
+                <h2>PR Disaster</h2>
+				<p class="fragment">
+					Pull Requests are routinely ignored or flogged to death.
+				</p>
+            </section>
+			<section>
+				<h3>Ignored Pull Requests</h3>
+				<img data-src="assets/appsec/prDisaster.png">
+				<h1 class="fragment">(🤔)</h1>
+			</section>
+			<section>
+				<h3>Example for a PR flogged to death<span class="fragment" data-fragment-index="1">*</span></h3>
+				<a href="https://github.com/zaproxy/zaproxy/pull/2837">https://github.com/zaproxy/zaproxy/pull/2837</a><br>
+				<img src="assets/appsec/floggedPR.png" width="100">
+				<img src="assets/appsec/floggedPR2.png" width="100">
+				<img src="assets/appsec/floggedPR3.png" width="100">
+				<img src="assets/appsec/floggedPR4.png" width="100">
+				<img src="assets/appsec/floggedPR5.png" width="100">
+				<img src="assets/appsec/floggedPR6.png" width="100">
+				<small class="fragment" data-fragment-index="1">*Disclaimer: This example should <strong>by no means</strong> imply that the ZAP team is routinely flogging PRs to death! On the contrary, they offer a helping hand to even those who totally ignore their <a href="https://github.com/zaproxy/zaproxy/blob/develop/CONTRIBUTING.md#what-we-zap-team-expect-from-you">written contribution requirements</a>!</small>
+			</section>
+			<section>
+				<h3>Good Counter: Contribution Guide (ZAP)</h3>
+				<img data-src="assets/appsec/contributionGuide.png" height="400">
+				<a href="https://github.com/zaproxy/zaproxy/blob/develop/CONTRIBUTING.md#guidelines-for-pull-request-pr-submission-and-processing">https://github.com/zaproxy/zaproxy/blob/develop/CONTRIBUTING.md#guidelines-for-pull-request-pr-submission-and-processing</a>
+			</section>
+			<section>
+				<h3>Contribution Guide (Juice Shop)</h3>
+				<img data-src="assets/appsec/contributionGuide2.png" height="400">
+				<p>
+					<a href="https://github.com/bkimminich/juice-shop/blob/master/CONTRIBUTING.md">https://github.com/bkimminich/juice-shop/blob/master/CONTRIBUTING.md</a>
+				</p>
+			</section>
+			<section>
+				<h3>Auto Counter: 👊-enforced Coding Style</h3>
+				<img data-src="assets/appsec/enforcedCodingStyle.png">
+				<p>
+					<a href="http://standardjs.com">http://standardjs.com</a>
+				</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Solecistic Versioning</h2>
+				<p class="fragment">
+					The <a href="http://semver.org">Semantic Versioning</a> syntax (<code>MAJOR.MINOR.PATCH</code>) is used while its semantics are not adhered to.
+				</p>
+			</section>
+			<section>
+				<h3>Bad Example: AngularJS 1.x</h3>
+				<a href="https://docs.angularjs.org/guide/migration"><img data-src="assets/appsec/solecisticVersioning.png"></a>
+			</section>
+			<section>
+				<h3>Good Example: AngularJS 2+</h3>
+				<a href="http://angularjs.blogspot.co.uk/2016/10/versioning-and-releasing-angular.html"><img data-src="assets/appsec/solecisticVersioning2.png"></a>
+			</section>
+			<section>
+				<h3>Juice Shop takes it serious</h3>
+				<small>For a tiny incompatible configuration-file change Juice Shop went <a href="https://github.com/bkimminich/juice-shop/releases">from 2.26.0 to 3.0.0</a></small>
+				<img data-src="assets/appsec/solecisticVersioning3.png">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Major Zero</h2>
+				<p class="fragment">
+					Not even the original author thinks that the project is mature enough to release a 1.x version from it.
+				</p>
+			</section>
+			<section><h3>Example: <code>z85-cli</code><span class="fragment">😜</span></h3>
+				<img data-src="assets/appsec/majorZero.png" height="450">
+			</section>
+		</section>
+
+		<section>
+			<p>Chapter Three</p>
+			<h1>My little OSS Sustainability Toolbox</h1>
+		</section>
+
+		<section>
+			<section>
+				<h2>Git Flow</h2>
+				<p class="fragment">The <code>master</code> branch stores the official release history, while development happens on the <code>develop</code> branch.</p>
+			</section>
+			<section>
+				<h3>Git Flow ⁒ Feature Branches</h3>
+				<img data-src="assets/appsec/gitflow.svg" height="300" class="no-box">
+			</section>
+		</section>
+
+		<section>
+			<section data-url="https://sites.google.com/site/unclebobconsultingllc/">
+				<h2>Clean Code</h2>
+				<img data-src="assets/clean_code-317fed20577ef3ae7d65e62f407ae73d.png" height="300" class="no-box">
+			</section>
+			<section>
+				<h3>Clean Javascript! 😮</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+'use strict'
+
+var path = require('path')
+var utils = require('../lib/utils')
+var challenges = require('../data/datacache').challenges
+
+exports = module.exports = function servePremiumContent () {
+  return function (req, res) {
+    if (utils.notSolved(challenges.premiumPaywallChallenge)) {
+      utils.solve(challenges.premiumPaywallChallenge)
+    }
+    res.sendFile(path.resolve(__dirname, '../app/private/under-construction.gif'))
+  }
+}
+				</code></pre>
+			</section>
+			<section>
+				<h3>Well, never mind...</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function () {
+      if (config.get('application.logo')) {
+        var logo = config.get('application.logo')
+        if (utils.startsWith(logo, 'http')) {
+          var logoPath = logo
+          logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          utils.downloadToFile(logoPath, 'app/public/images/' + logo)
+        }
+        var logoImageTag = '<img class="navbar-brand navbar-logo" src="/public/images/' + logo + '">'
+        replace({ regex: /<img class="navbar-brand navbar-logo" (.*?)>/, replacement: logoImageTag, paths: ['app/index.html'], recursive: false, silent: true })
+      }
+      if (config.get('application.theme')) {
+        var themeCss = 'bower_components/bootswatch/' + config.get('application.theme') + '/bootstrap.min.css'
+        replace({ regex: /bower_components\/bootswatch\/.*\/bootstrap\.min\.css/, replacement: themeCss, paths: ['app/index.html'], recursive: false, silent: true })
+      }
+    })
+				</code></pre>
+				<p>...it's still Javascript at the end of the day! 🤐</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Test Automation</h2>
+				<div>
+					<img src="assets/u3lWw.gif" height="100" style="background: none; border:none;"/>
+				</div>
+				<div>
+					<img src="assets/protractor-logo-600.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/phantomjs_400x400.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/stryker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+			</section>
+			<section>
+				<h3>Example: UI Unit Test</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+it('should hold anonymous placeholder for email if current user is not logged in',
+  inject(function () {
+      $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
+
+      $httpBackend.flush()
+
+      expect(scope.userEmail).toBe('anonymous')
+  })
+)
+				</code></pre>
+			</section>
+			<section>
+				<h3>Example: API Integration Test</h3>
+				<pre><code class="hljs" data-trim contenteditable>
+frisby.create('GET password change without passing any passwords')
+  .get(REST_URL + '/user/change-password')
+  .expectStatus(401)
+  .expectBodyContains('Password cannot be empty')
+  .toss()
+				</code></pre>
+				<small class="fragment"><strong>No-idea-why-this-💩-happens-snippet-injection Vulnerability</strong>: Did anyone notice how above code was totally butchered by <code>highlight.js</code> beginning at the opening single quote in line 1?</small>
+			</section>
+			<section>
+				<h3>Example: Challenge E2E Test</h3>
+				<pre><code>
+describe('challenge "loginAdmin"', function () {
+  it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', function () {
+    email.sendKeys('\' or 1=1--')
+    password.sendKeys('a')
+    loginButton.click()
+
+    expect(browser.getLocationAbsUrl()).toMatch(/\/search/)
+  })
+  protractor.expect.challengeSolved({challenge: 'Login Admin'})
+})
+				</code></pre>
+			</section>
+			<section>
+				<h3>Example: Checking if a challenge is solved</h3>
+				<pre><code>
+protractor.expect = {
+  challengeSolved: function (context) {
+    describe('(shared)', function () {
+      beforeEach(function () {
+        browser.get('/#/score-board')
+      })
+
+      it("challenge '" + context.challenge + "' should be solved on score board", function () {
+        expect(element(by.id(context.challenge + '.solved')).getAttribute('class')).not.toMatch('ng-hide')
+        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class')).toMatch('ng-hide')
+      })
+    })
+  }
+}
+				</code></pre>
+			</section>
+			<section>
+				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
+				<h1 class="fragment">100%</h1>
+			</section>
+            <section>
+                <h3>Juice Shop Test Coverage</h3>
+                <blockquote>Having all tests pass after a commit means, it's safe to merge PRs or publish a new release!</blockquote>
+                <table>
+                    <tr>
+                        <th>Juice Shop</th>
+                        <th>CTF Extension</th>
+                    </tr>
+                    <tr>
+                        <td><img src="assets/appsec/juice-shop-coverage_badge.png"></td>
+                        <td><img src="assets/appsec/juice-shop-ctf-coverage_badge.png"></td>
+                    </tr>
+                </table>
+            </section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Mutation Testing</h2>
+				<img data-src="assets/stryker.png" height="300" class="no-box"><br>
+                <p class="fragment">Reality check: Do your tests <em>actually test stuff</em>?</p>
+            </section>
+			<section>
+				<h3>Example: Report for Juice Shop CTF</h3>
+				<iframe data-src="assets/appsec/examples/mutation/html/index.html" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+			</section>
+            <section>
+				<h3>A realistic goal for <em>Mutation Coverage</em> ?</h3>
+				<h1 class="fragment">100%</h1>
+			</section>
+            <section>
+                <h3>Juice Shop Mutation Coverage</h3>
+                <table>
+                    <tr>
+                        <th>Juice Shop</th>
+                        <th>CTF Extension</th>
+                    </tr>
+                    <tr>
+						<td><h1>92%<span class="fragment" data-fragment-index="1">*</span></h1></td>
+                        <td><h1>98%</h1></td>
+                    </tr>
+                </table>
+				<br>
+				<br>
+                <small class="fragment" data-fragment-index="1">*of the UI unit tests!</small>
+				<h1 class="fragment" data-fragment-index="2">(😏)</h1>
+            </section>
+		</section>
+
+        <section>
+            <section>
+                <h2>CI/CD</h2>
+                <img data-src="assets/travis-mascot-200px.png" height="200" class="no-box">
+                <img data-src="assets/appveyor_400x400.png" height="200" class="no-box">
+                <img data-src="assets/logotype-heroku.png" height="200" class="no-box">
+                <img data-src="assets/docker.png" height="200" class="no-box">
+            </section>
+            <section>
+                <p>Chapter <code>undefined</code></p>
+                <h1>Live Dual Release</h1>
+                <small class="fragment">What could possibly go wrong?</small>
+            </section>
+            <section>
+                <h2>Release Dashboard</h2>
+                <hr>
+                <h4>Juice Shop</h4>
+                <img width="200" class="no-box" src="https://camo.githubusercontent.com/abee65fbe755936a53b8a82aae9475bd3c32c174/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702e7376673f6272616e63683d6d6173746572">
+                <img width="200" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
+                <img width="200" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
+                <hr>
+                <h4>CTF Extension</h4>
+                <img width="200" class="no-box" src="https://camo.githubusercontent.com/e950d696edaf46ba40255e832c74c753a96b5a70/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702d6374662e7376673f6272616e63683d6d6173746572">
+                <img width="200" class="no-box" src="https://camo.githubusercontent.com/9bc1b2bde0f68be85d1f264bb13ede976be85738/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702d6374662e737667">
+            </section>
+        </section>
+
+        <section>
+            <p>Chapter 3 (continued)</p>
+            <h1>My little OSS Sustainability Toolbox</h1>
+        </section>
+
+        <section>
+			<section>
+				<h2>Quality Metrics</h2>
+				<img data-src="assets/codeclimate.png" height="95" class="no-box">
+				<img data-src="assets/coveralls.png" height="95" class="no-box"><br>
+				<img data-src="assets/bithound_logo.png" height="95" class="no-box">
+			</section>
+			<section>
+				<h3>Example: Code Climate Stats</h3>
+				<img src="assets/appsec/codeClimate.png" height="450">
+			</section>
+			<section>
+				<h3>Example: bitHound Dashboard</h3>
+				<img src="assets/appsec/bitHound.png" height="450">
+			</section>
+			<section>
+				<h3>Example: Coveralls 😡 at CTF-Extension</h3>
+				<img src="assets/appsec/coveralls.png" height="450">
+			</section>
+			<section>
+				<p>And now for the most important metric of all...</p>
+				<h1 class="fragment">🚚</h1>
+			</section>
+			<section>
+				<h2>🚚 Truck Factor</h2>
+				<p>The number of team members that would have to leave the project to effectively kill it.</p>
+			</section>
+			<section>
+				<h3>What is a realistic goal for <em>Truck Factor</em> ?</h3>
+				<h1 class="fragment">∞</h1>
+				<p class="fragment">Meaning: If the whole team leaves, a new developer can take over and would be able to maintain &amp; continue working on the project!</p>
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Dependency Control</h2>
+				<img data-src="assets/gemnasium_lineal_bright-back.svg" height="100" class="no-box">
+			</section>
+			<section>
+				<h3>Example: Gemnasium Dashboard</h3>
+				<img src="assets/appsec/gemnasium.png" width="200">
+				<img src="assets/appsec/gemnasium2.png" width="200" class="fragment">
+				<img src="assets/appsec/gemnasium3.png" width="200" class="fragment">
+			</section>
+		</section>
+
+		<section>
+			<p>Chapter 4.1</p>
+			<h1>New Open Source Antipatterns</h1>
+		</section>
+
+		<section>
+			<section>
+				<h2>Badge Barrage</h2>
+				<p class="fragment">
+					The front-page is overcrowded with (mostly useless) information and status badges.
+				</p>
+			</section>
+			<section>
+				<h3>Overexaggerated Example</h3>
+				<img data-src="assets/appsec/badgeBarrage.png">
+			</section>
+			<section>
+				<h3>Bad Example</h3>
+				<img data-src="assets/appsec/badgeBarrage2.png" height="450">
+			</section>
+		</section>
+
+        <section>
+            <section>
+                <h2>Coin Flip CI</h2>
+                <p class="fragment">
+                    ✔️✔️❌✔️❌✔️. With no code changes in between.
+                </p>
+            </section>
+            <section>
+                <p>I wonder how our Live Release is doing...</p>
+                <h1><span class="fragment">🤞</span><span class="fragment">🙈</span><span class="fragment">😱</span><span class="fragment">🔮</span></h1>
+            </section>
+        </section>
+
+		<section>
+			<section>
+				<h2>Free beer</h2>
+				<p class="fragment">
+					Some services might be free of charge for OSS projects but come with some other hidden costs or annoyance.
+				</p>
+			</section>
+			<section>
+				<img data-src="assets/appsec/freeBeer.png">
+			</section>
+			<section>
+				<img data-src="assets/appsec/freeBeer2.png">
+			</section>
+		</section>
+
+		<section>
+			<section>
+				<h2>Contributor Laurels</h2>
+				<p class="fragment">
+					Not giving enough credit to contributors.
+				</p>
+			</section>
+            <section>
+                <h3>Easy Counter: Make them visible</h3>
+                <img data-src="assets/appsec/contributors.png" height="400">
+            </section>
+			<section>
+				<h3>Some contribs deserve bonus visibility</h3>
+				<hr>
+				<h2><a href="https://github.com/tghosth">Josh Grossmann</a> <small>(CTFd SQLs🚩)</small></h2>
+				<h2><a href="https://github.com/wurstbrot">Timo Pagel</a> <small>(Custom theming🎭)</small></h2>
+				<h2><a href="https://github.com/J12934">Jannik Hollenbach</a> <small>(CTF🌟/Docker📦)</small></h2>
+			</section>
+			<section>
+                <h2><code>git commit</code>s are not everything!</h2>
+            </section>
+            <section>
+                <h3>Juice Shop's <a href="https://crowdin.com/project/owasp-juice-shop/settings#members">Crowdin Translators</a></h3>
+                <img data-src="assets/appsec/contributors2.png" height="400">
+                <p>
+                    <a href="https://crowdin.com/project/owasp-juice-shop">https://crowdin.com/project/owasp-juice-shop</a>
+                </p>
+            </section>
+            <section>
+                <h3>Bloggers and Podcasters</h3>
+                <img data-src="assets/appsec/contributors3.png" height="400">
+                <p>
+                    <a href="https://github.com/bkimminich/juice-shop/blob/master/REFERENCES.md">https://github.com/bkimminich/juice-shop#references</a>
+                </p>
+            </section>
+            <section>
+                <h3>Conferences &amp; Meetups</h3>
+                <img data-src="assets/appsec/contributors4.png" height="400">
+                <p>
+                    <a href="https://github.com/bkimminich/juice-shop/blob/master/REFERENCES.md">https://github.com/bkimminich/juice-shop#references</a>
+                </p>
+            </section>
+			<section>
+				<h3>Pro Counter: Stickers!</h3>
+				<img data-src="assets/juice-shop-7-5cm-transparent.png" class="no-box">
+				<img data-src="assets/ctf_sticker.png" class="no-box">
+			</section>
+            <section>
+                <h3>Pro+ Counter: Shirts &amp; Stuff!</h3>
+                <img data-src="assets/fan_hoodie.jpg" height="300">
+                <img data-src="assets/fan_girlie.jpg" height="300">
+                <img data-src="assets/fan_mug.jpg" height="300">
+            </section>
+		</section>
+
+		<section>
+			<p>Chapter <code>NaN</code></p>
+			<h1>Release Outcome</h1>
+            <h1><span class="fragment">✔️</span><span class="fragment">=😎</span><span class="fragment"> or ❌</span><span class="fragment">=😭?</span></h1>
+		</section>
+
+        <section>
+            <h2>Epic 😎/😭 Dashboard</h2>
+            <hr>
+            <h4>Juice Shop</h4>
+            <img width="200" class="no-box" src="https://camo.githubusercontent.com/abee65fbe755936a53b8a82aae9475bd3c32c174/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702e7376673f6272616e63683d6d6173746572">
+            <img width="200" class="no-box" src="https://camo.githubusercontent.com/4b42633fb2374b2b208f6d754aa9f7b625d20486/68747470733a2f2f63692e6170707665796f722e636f6d2f6170692f70726f6a656374732f7374617475732f39303363366d6e6e73347437703666612f6272616e63682f6d61737465723f7376673d74727565">
+            <img width="200" class="no-box" src="https://camo.githubusercontent.com/c0a3b23b1687bd85a0f7fb7ce75a2027b68ed77e/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702e737667">
+            <hr>
+            <h4>CTF Extension</h4>
+            <img width="200" class="no-box" src="https://camo.githubusercontent.com/e950d696edaf46ba40255e832c74c753a96b5a70/68747470733a2f2f7472617669732d63692e6f72672f626b696d6d696e6963682f6a756963652d73686f702d6374662e7376673f6272616e63683d6d6173746572">
+            <img width="200" class="no-box" src="https://camo.githubusercontent.com/9bc1b2bde0f68be85d1f264bb13ede976be85738/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702d6374662e737667">
+        </section>
+
+		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
+			<img src="assets/JuiceShop_Logo.png" width="350" style="background: none; border:none; box-shadow:none;"/>
+			<div style="background-color: rgba(0, 0, 0, 0.7)">
+				<h3>Copyright (c) 2017 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+				<p>
+					<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+				</p>
+			</div>
+		</section>
+
+	</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+</script>
+
+<div class="hidden-mobile">
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+	<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
+		<table>
+			<tr>
+				<td>
+					<script id='fbxw3wp'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//button.flattr.com/view/?fid=0d02dk&button=compact&url=https%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop';f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbxw3wp');</script>
+				</td>
+				<td>
+					<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+				</td>
+				<td>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://appseceurope2017.sched.com/event/A66A/owasp-juice-shop-achieving-sustainability-for-open-source-projects" data-text="OWASP Juice Shop: Achieving sustainability for open source projects (premiered at @appseceu)" data-via="owasp_juiceshop">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>
