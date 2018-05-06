@@ -5,10 +5,10 @@ angular.module('juiceShop').factory('CaptchaService', ['$http', '$q', function (
 
   function getCaptcha () {
     var captchaString = $q.defer()
-    $http.get(host + '/').success(function (data) {
-      captchaString.resolve(data)
-    }).error(function (err) {
-      captchaString.reject(err)
+    $http.get(host + '/').then(function (response) {
+      captchaString.resolve(response.data)
+    }).catch(function (response) {
+      captchaString.reject(response.data)
     })
     return captchaString.promise
   }

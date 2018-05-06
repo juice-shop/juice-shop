@@ -7,6 +7,7 @@ const models = require('../models/index')
 const products = require('../data/datacache').products
 const challenges = require('../data/datacache').challenges
 const config = require('config')
+const db = require('../data/mongodb')
 
 module.exports = function placeOrder () {
   return (req, res, next) => {
@@ -15,7 +16,8 @@ module.exports = function placeOrder () {
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
-          const orderNo = insecurity.hash(new Date() + '_' + id)
+          const email = customer ? customer.data ? customer.data.email : undefined : undefined
+          const orderNo = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = 'order_' + orderNo + '.pdf'
           const doc = new PDFDocument()
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
@@ -24,17 +26,25 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           doc.moveDown()
-          doc.text('Customer: ' + (customer ? customer.data ? customer.data.email : undefined : undefined))
+          doc.text('Customer: ' + email)
           doc.moveDown()
           doc.text('Order #: ' + orderNo)
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
+          let basketProducts = []
           basket.Products.forEach(({BasketItem, price, name}) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
+
             const itemTotal = price * BasketItem.quantity
+            const product = { quantity: BasketItem.quantity,
+              name: name,
+              price: price,
+              total: itemTotal
+            }
+            basketProducts.push(product)
             doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
@@ -59,6 +69,14 @@ module.exports = function placeOrder () {
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
             utils.solve(challenges.negativeOrderChallenge)
           }
+
+          db.orders.insert({
+            orderNo: orderNo,
+            email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+            totalPrice: totalPrice,
+            products: basketProducts,
+            eta: Math.floor((Math.random() * 5) + 1).toString()
+          })
 
           fileWriter.on('finish', () => {
             basket.updateAttributes({ coupon: null })

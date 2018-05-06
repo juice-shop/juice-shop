@@ -46,6 +46,9 @@
   "BASKET_ADD_SAME_PRODUCT": "Noch eine(n) {{product}} dem Warenkorb hinzugefügt.",
   "BASKET_ADD_PRODUCT": "{{product}} dem Warenkorb hinzugefügt.",
   "LABEL_PRODUCT": "Produkt",
+  "LABEL_PRODUCT_ORDERED": "Bestellte Produkte",
+  "LABEL_EXPECTED_DELIVERY": "Voraussichtliche Lieferung",
+  "LABEL_DAYS": "Tage",
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Beschreibung",
   "LABEL_PRICE": "Preis",
@@ -137,5 +140,8 @@
   "SECTION_SALES_PITCH": "Überzeugendes ICO Angebot",
   "GIVE_US_ALL_YOUR_MONEY": "Gib uns all dein Geld.",
   "ICO_FAQ_QUESTION": "Kann ich mit {{juicycoin}} wirklich reich werden?",
-  "ICO_FAQ_ANSWER": "Natürlich kannst du! Wir würden dich niemals anlügen!"
+  "ICO_FAQ_ANSWER": "Natürlich kannst du! Wir würden dich niemals anlügen!",
+  "TITLE_TRACK_ORDERS": "Bestellungen verfolgen",
+  "LABEL_ORDER_ID": "Bestell-Nr.",
+  "BTN_TRACK": "Verfolgen"
 }

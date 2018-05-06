@@ -90,10 +90,13 @@ app/public/images/products/*.*
 !app/public/images/products/tattoo.jpg
 !app/public/images/products/velcro-patch.jpg
 
+!app/public/country-mapping.json
+
 # Custom configuration files
 config/*.yml
 !config/bodgeit.yml
 !config/ctf.yml
+!config/fbctf.yml
 !config/default.yml
 !config/sickshop.yml
 !config/juicebox.yml

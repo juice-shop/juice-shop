@@ -19,10 +19,17 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Blog posts on
+  [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
+  * [How to Setup OWASP Juice Shop on Azure (Part 1 of 3)](http://www.jasonhaley.com/post/How-to-Setup-OWASP-Juice-Shop-on-Azure-%28Part-1-of-3%29)
+  * [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29)
+  * [Setup OWASP Juice Shop in Azure Container Instances (Part 3 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29)
 * Blog post on [Josh Grossman's blog](https://joshcgrossman.com):
   [Setting up an OWASP Juice Shop CTF](https://joshcgrossman.com/2018/03/15/setting-up-an-owasp-juice-shop-ctf/)
 * Blog post on [Mozilla Hacks](https://hacks.mozilla.org):
   [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
+* Blog post (:de:) on [heise Developer](https://www.heise.de/developer):
+  [Sicherheits-Etikette: Security in der Softwareentwicklung](https://www.heise.de/developer/artikel/Sicherheits-Etikette-Security-in-der-Softwareentwicklung-3986402.html)
 * Webcast recording on
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
@@ -99,23 +106,40 @@ where this project was mentioned or used!
 
 #### 2018
 
-* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
-  by Björn Kimminich,
-  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
-  16.05.2018
 * [Hacking Workshop - Twin Cities vs. OWASP Juice Shop](https://secure360.org/secure360-twin-cities/schedule/?conference=9826&date=20180517)
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
   17.05.2018
+* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
+  by Björn Kimminich,
+  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
+  16.05.2018
+* [OWASP MSP Chapter May Meeting](https://www.meetup.com/OWASP-MSP-Meetup/events/249940370/)
+  with Björn Kimminich,
+  [OWASP MSP Meetup](https://www.meetup.com/OWASP-MSP-Meetup/) St Paul,
+  14.05.2018
+* [OWASP Juice Shop - The next chapter ...](https://www.meetup.com/CyberHackathon/events/249606655/?eventId=249606655)
+  with Jaan Janesmae,
+  [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
+  30.04.2018
+* OWASP Juice Shop Introduction at
+  [ChaosTreff Tallinn Weekly Meetup](https://www.meetup.com/ChaosTreff-Tallinn/events/249627780/)
+  with Björn Kimminich,
+  [ChaosTreff Tallinn](https://www.meetup.com/ChaosTreff-Tallinn/),
+  26.04.2018
+* [OWASP Juice Shop Intro and Getting Started](https://www.meetup.com/CyberHackathon/events/249359520/?eventId=249359520)
+  with Jaan Janesmae,
+  [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
+  09.04.2018
 * [Web Application Security: A Hands-on Testing Challenge](https://dojo.ministryoftesting.com/events/testbash-brighton-2018)
   by Dan Billing,
   [TestBash Brighton 2018](https://dojo.ministryoftesting.com/events/testbash-brighton-2018),
   15.03.2018
 * [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by
   Andrew van der Stock,
-  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/)
-  ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE) :godmode:
-  _starting 25:40_)
+  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/),
+  30.01.2018 ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE)
+  :godmode: _starting 25:40_)
 
 #### 2017
 
