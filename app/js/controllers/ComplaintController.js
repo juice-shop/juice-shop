@@ -11,7 +11,7 @@ angular.module('juiceShop').controller('ComplaintController', [
         $scope.complaint = {}
         $scope.complaint.UserId = user.id
         $scope.userEmail = user.email
-      })
+      }).catch(angular.noop)
     }
 
     function saveComplaint () {
@@ -20,7 +20,7 @@ angular.module('juiceShop').controller('ComplaintController', [
         initComplaint()
         $scope.file = undefined
         $scope.form.$setPristine()
-      })
+      }).catch(angular.noop)
     }
 
     initComplaint()
@@ -46,6 +46,6 @@ angular.module('juiceShop').controller('ComplaintController', [
       }, function (evt) {
         var progressPercentage = parseInt(100.0 * evt.loaded / evt.total, 10)
         $scope.progress = '(Progress: ' + progressPercentage + '%)'
-      })
+      }).catch(angular.noop)
     }
   }])

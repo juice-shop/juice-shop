@@ -5,10 +5,10 @@ angular.module('juiceShop').factory('AdministrationService', ['$http', '$q', fun
 
   function getApplicationVersion () {
     var version = $q.defer()
-    $http.get(host + '/application-version').success(function (data) {
-      version.resolve(data.version)
-    }).error(function (err) {
-      version.reject(err)
+    $http.get(host + '/application-version').then(function (response) {
+      version.resolve(response.data.version)
+    }).catch(function (response) {
+      version.reject(response.data)
     })
     return version.promise
   }

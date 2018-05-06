@@ -117,6 +117,9 @@
                 <a href="#/recycle"><i class="fas fa-recycle fa-lg"></i> <span translate="NAV_RECYCLE"></span></a>
             </li>
             <li class="dropdown" ng-show="isLoggedIn()">
+                <a href="#/track-order"><i class="fas fa-map-marker fa-lg"></i> <span translate="TITLE_TRACK_ORDERS"></span></a>
+            </li>
+            <li class="dropdown" ng-show="isLoggedIn()">
                 <a href="#/complain"><i class="fas fa-bomb fa-lg"></i> <span translate="NAV_COMPLAIN"></span></a>
             </li>
             <li class="dropdown" ng-show="scoreBoardMenuVisible">
@@ -147,6 +150,20 @@
         {{notification.message}}<br>
 
         <div ng-show="showCtfFlagsInNotifications">
+            <div ng-if="showCtfCountryDetailsInNotifications !== 'none'">
+                <span 
+                    class="flag-icon flag-icon-{{notification.country.code | lowercase}}"
+                    ng-if="showCtfCountryDetailsInNotifications === 'flag' || showCtfCountryDetailsInNotifications === 'both'">
+                </span>
+                <i 
+                    class="fa fa-globe"
+                    ng-if="showCtfCountryDetailsInNotifications === 'name'">
+                </i>
+                <span ng-if="showCtfCountryDetailsInNotifications === 'name' || showCtfCountryDetailsInNotifications === 'both'">
+                    {{notification.country.name}}
+                </span>
+                <br>
+            </div>
             <i class="fas fa-flag-checkered"></i> {{notification.flag}}
             <button class="btn btn-primary btn-xs" ngclipboard data-clipboard-text="{{notification.flag}}" ngclipboard-success="notification.copied = true" ng-disabled="notification.copied">
                 <i class="fas fa-clipboard" aria-hidden="true"></i>

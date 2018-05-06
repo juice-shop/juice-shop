@@ -4,7 +4,6 @@ application:
   logo: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/MozillaCTF.png'
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   showChallengeSolvedNotifications: true
-  showCtfFlagsInNotifications: true
   showChallengeHints: false
   theme: united
   gitHubRibbon: darkblue
@@ -23,6 +22,9 @@ application:
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
     linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
+  securityTxt:
+    contact: 'mailto:donotreply@mozilla-ctf.op'
+    encryption: ~
 products:
   -
     name: 'Champion Sweatshirt with a Drawstring Tote'
@@ -155,3 +157,5 @@ products:
     price: 0.03
     image: waspy.png
     deletedDate: '2017-07-01'
+ctf:
+  showFlagsInNotifications: true

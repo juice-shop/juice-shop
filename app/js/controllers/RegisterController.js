@@ -19,6 +19,6 @@ angular.module('juiceShop').controller('RegisterController', [
           $scope.user = {}
           $location.path('/login')
         })
-      })
+      }).catch(angular.noop)
     }
   }])
