@@ -87,7 +87,7 @@
     "multer": "~1.3",
     "notevil": "~1.1",
     "pdfkit": "~0.8",
-    "replace": "~0.3",
+    "replace": "~1.0.0",
     "request": "~2.85.0",
     "sanitize-html": "1.4.2",
     "sequelize": "^4.35.1",
