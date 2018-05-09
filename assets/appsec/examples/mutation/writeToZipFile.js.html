@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html><head><title>writeToZipFile.js
+ - Stryker report</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="strykerResources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="strykerResources/highlightjs/styles/default.css">
+<link rel="stylesheet" href="strykerResources/stryker.css"></head>
+<body><img class="stryker-image" alt="Stryker" src="strykerResources/stryker-80x80.png">
+<div class="container-fluid"><div class="row"><div class="col-lg-12"><h1 class="display-4">writeToZipFile.js
+ 
+<small class="text-muted">- Stryker report</small></h1></div></div>
+<ol class="breadcrumb"><li class="breadcrumb-item"><a href="index.html">All files</a></li>
+<li class="breadcrumb-item active">writeToZipFile.js</li></ol>
+<div class="row"><div class="col-lg-12"><div class="row"><div class="col-sm-11"><table class="table table-sm table-hover table-bordered table-no-top"><thead><tr><th style="width: 20%"><div><span>File / Directory</span></div></th>
+<th colspan="2"><div><span>Mutation score</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Killed</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Survived</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Timeout</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># No coverage</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Runtime errors</span></div></th>
+<th class="rotate text-center" style="width: 50px"><div><span># Transpile errors</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total detected</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total undetected</span></div></th>
+<th class="rotate rotate-width-70 text-center" style="width: 70px"><div><span>Total mutants</span></div></th></tr></thead>
+<tbody><tr><td>writeToZipFile.js</td>
+<td><div class="progress"><div class="progress-bar bg-success" role="progressbar" aria-valuenow="100.00" aria-valuemin="0" aria-valuemax="100" style="width: 100.00%;">100.00
+%</div></div></td>
+<th class="text-center text-success" style="width: 10%">100.00</th>
+<td class="text-center">9</td>
+<td class="text-center">0</td>
+<td class="text-center">0</td>
+<td class="text-center">0</td>
+<td class="text-center">0</td>
+<td class="text-center">0</td>
+<th class="text-center">9</th>
+<th class="text-center">0</th>
+<th class="text-center">9</th></tr>
+</tbody></table></div></div>
+<div class="row"><div class="col-lg-7"><div class="row legend"><form class="col-md-12" novalidate="novalidate">
+
+<div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input stryker-display" value="1" type="checkbox">
+Killed
+ 
+(9)</label></div>
+
+
+
+<a href="#" class="stryker-collapse-expand-all">Expand all</a></form></div>
+<pre><code class="lang-javascript"><span class="bg-null">const Promise = require(&#039;bluebird&#039;)
+const fs = require(&#039;fs&#039;)
+Promise.promisifyAll(fs)
+const path = require(&#039;path&#039;)
+const dateFormat = require(&#039;dateformat&#039;)
+const Zip = require(&#039;node-zip&#039;)
+const zip = new Zip()
+
+function writeToZipFile ({challenges, hints, flagKeys}, desiredFileName) </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BlockStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="0"><span class="badge badge-success">0</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="0">{
+}</span><span class="stryker-original-code" data-mutant="0"><span class="bg-success-light">{
+  return new Promise((resolve, reject) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BlockStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="1"><span class="badge badge-success">1</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="1">{
+}</span><span class="stryker-original-code" data-mutant="1"><span class="bg-success-light">{
+    const fileName = </span><a href="#" class="stryker-mutant-button" tabindex="0" title="LogicalOperator" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="2"><span class="badge badge-success">2</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="2">desiredFileName &amp;&amp; &#039;OWASP_Juice_Shop.&#039; + dateFormat(new Date(), &#039;yyyy-mm-dd&#039;) + &#039;.zip&#039;</span><span class="stryker-original-code" data-mutant="2"><span class="bg-success-light">desiredFileName || </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryOperator" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="3"><span class="badge badge-success">3</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="3">&#039;OWASP_Juice_Shop.&#039; + dateFormat(new Date(), &#039;yyyy-mm-dd&#039;) - &#039;.zip&#039;</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryOperator" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="4"><span class="badge badge-success">4</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="4">&#039;OWASP_Juice_Shop.&#039; - dateFormat(new Date(), &#039;yyyy-mm-dd&#039;)</span><span class="stryker-original-code" data-mutant="3"><span class="stryker-original-code" data-mutant="4"><span class="bg-success-light">&#039;OWASP_Juice_Shop.&#039; + dateFormat(new Date(), &#039;yyyy-mm-dd&#039;)</span></span><span class="bg-success-light"> + &#039;.zip&#039;</span></span></span><span class="bg-success-light">
+    zip.file(&#039;db/challenges.json&#039;, JSON.stringify(challenges))
+    zip.file(&#039;db/hints.json&#039;, JSON.stringify(hints))
+    zip.file(&#039;db/keys.json&#039;, JSON.stringify(flagKeys))
+    zip.file(&#039;db/files.json&#039;, &#039;&#039;)
+    zip.file(&#039;db/tags.json&#039;, &#039;&#039;)
+    fs.writeFileAsync(fileName, zip.generate({base64: </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BooleanSubstitution" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="5"><span class="badge badge-success">5</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="5">true</span><span class="stryker-original-code" data-mutant="5"><span class="bg-success-light">false</span></span><span class="bg-success-light">, compression: &#039;DEFLATE&#039;}), &#039;binary&#039;).then(() =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BlockStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="6"><span class="badge badge-success">6</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="6">{
+}</span><span class="stryker-original-code" data-mutant="6"><span class="bg-success-light">{
+      resolve(path.resolve(fileName).green)
+    }</span></span><span class="bg-success-light">).catch(({message}) =&gt; </span><a href="#" class="stryker-mutant-button" tabindex="0" title="BlockStatement" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="7"><span class="badge badge-success">7</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="7">{
+}</span><span class="stryker-original-code" data-mutant="7"><span class="bg-success-light">{
+      reject(new Error(</span><a href="#" class="stryker-mutant-button" tabindex="0" title="BinaryOperator" data-content="status: Killed" data-mutant-status-annotation="success" data-mutant-status="1" data-mutant="8"><span class="badge badge-success">8</span></a><span class="badge badge-info stryker-mutant-replacement" hidden="hidden" data-mutant="8">&#039;Failed to write output to file! &#039; - message</span><span class="stryker-original-code" data-mutant="8"><span class="bg-success-light">&#039;Failed to write output to file! &#039; + message</span></span><span class="bg-success-light">))
+    }</span></span><span class="bg-success-light">)
+  }</span></span><span class="bg-success-light">)
+}</span></span><span class="bg-null">
+
+module.exports = writeToZipFile</span>
+</code></pre></div>
+<div class="col-lg-5"><table class="table table-sm table-hover mutant-table"><thead><tr><th>#</th>
+<th>Mutator</th>
+<th>State</th>
+<th>Location</th>
+<th>Original</th>
+<th>Replacement</th></tr></thead>
+<tbody><tr><th>0</th>
+<td>BlockStatement</td>
+<td>Killed</td>
+<td>8
+:
+73</td>
+<td><code>{
+  ...})
+}</code></td>
+<td><code>{
+}</code></td></tr>
+<tr><th>1</th>
+<td>BlockStatement</td>
+<td>Killed</td>
+<td>9
+:
+42</td>
+<td><code>{
+  ...
+  }</code></td>
+<td><code>{
+}</code></td></tr>
+<tr><th>2</th>
+<td>LogicalOperator</td>
+<td>Killed</td>
+<td>10
+:
+21</td>
+<td><code>|| ' ....   '</code></td>
+<td><code>&& ' ....   '</code></td></tr>
+<tr><th>3</th>
+<td>BinaryOperator</td>
+<td>Killed</td>
+<td>10
+:
+40</td>
+<td><code>'    ....   '</code></td>
+<td><code>'    ....   '</code></td></tr>
+<tr><th>4</th>
+<td>BinaryOperator</td>
+<td>Killed</td>
+<td>10
+:
+40</td>
+<td><code>'    ...-  ')</code></td>
+<td><code>'    ...-  ')</code></td></tr>
+<tr><th>5</th>
+<td>BooleanSubstitution</td>
+<td>Killed</td>
+<td>16
+:
+54</td>
+<td><code></code></td>
+<td><code></code></td></tr>
+<tr><th>6</th>
+<td>BlockStatement</td>
+<td>Killed</td>
+<td>16
+:
+108</td>
+<td><code>{
+  ...    }</code></td>
+<td><code>{
+}</code></td></tr>
+<tr><th>7</th>
+<td>BlockStatement</td>
+<td>Killed</td>
+<td>18
+:
+28</td>
+<td><code>{
+  ...    }</code></td>
+<td><code>{
+}</code></td></tr>
+<tr><th>8</th>
+<td>BinaryOperator</td>
+<td>Killed</td>
+<td>19
+:
+23</td>
+<td><code>'    ...! ' +</code></td>
+<td><code>'    ...! ' -</code></td></tr></tbody></table></div></div></div></div>
+<footer>Generated with stryker-html-reporter generator. Visit the 
+<a href="https://stryker-mutator.io" target="_blank">Stryker website</a></footer></div>
+<script src="strykerResources/popper.js/dist/umd/popper.min.js" defer="defer"></script>
+<script src="strykerResources/jquery/dist/jquery.slim.min.js" defer="defer"></script>
+<script src="strykerResources/bootstrap/js/bootstrap.min.js" defer="defer"></script>
+<script src="strykerResources/stryker.js" defer="defer"></script></body></html>

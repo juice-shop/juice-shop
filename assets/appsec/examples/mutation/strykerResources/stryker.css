@@ -8,12 +8,47 @@
     text-decoration: line-through;
 }
 
-.label *{
+.badge *{
     color: #fff;
+}
+.stryker-mutant-button:focus {
+    outline: none;
+}
+.legend{
+    position: sticky;
+    top: 0;
+    background: #FFF;
+}
+.stryker-collapse-expand-all{
+    padding-left: 10px;
+}
+
+h1 small{
+    font-weight: 200;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.breadcrumb {
+    margin-bottom: 40px;
 }
 
 *[hidden]{
     display: none !important;
+}
+.bg-danger-light {
+    background-color: #f2dede;
+}
+.bg-success-light {
+    background-color: #dff0d8;
+}
+.bg-warning-light {
+    background-color: #fcf8e3;
+}
+a:hover {
+    text-decoration: none;
 }
 
 .progress {
@@ -26,22 +61,26 @@ th.rotate {
   white-space: nowrap;
 }
 
+th.rotate {
+    padding-bottom: 10px;
+}
+
 th.rotate > div {
   transform: 
     translate(27px, 0px)
-    rotate(315deg);
+    rotate(325deg);
   width: 30px;
 }
 th.rotate-width-70 > div {
   transform: 
     translate(47px, 0px)
-    rotate(315deg);
+    rotate(325deg);
   width: 30px;
 }
 
 th.rotate > div > span {
   border-bottom: 1px solid #ccc;
-  padding: 5px 10px;
+  padding: 5px 0;
 }
 
 .table-no-top>thead>tr>th {

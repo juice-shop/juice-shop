@@ -42,7 +42,7 @@
 
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
-		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
+		<section data-background="assets/OWASP-1.jpg" data-background-transition="convex" data-transition="zoom">
 				<h2>OWASP Juice Shop</h2>
 				<h4>Achieving sustainability for open source projects</h4>
 				<img src="assets/JuiceShop_Logo.png" width="250" class="no-box"/>
@@ -56,15 +56,35 @@
 
 		<section data-transition="zoom">
 			<p>Chapter One</p>
-			<h1>WAT?</h1>
+			<h1>Intro</h1>
 		</section>
 
 		<section>
 			<h2>OWASP Juice Shop...</h2>
 			<blockquote>
-				...is an intentionally insecure webapp written in Node.js, Express and AngularJS. It contains 38+ hacking challenges of varying difficulty tracked on a score board.
+				...is an intentionally insecure webapp written in Node.js, Express and AngularJS. It contains 61+ hacking challenges of varying difficulty tracked on a score board.
 			</blockquote>
 			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
+		</section>
+
+		<section>
+			<h2>Why "Juice Shop"?!?</h2>
+			<blockquote>
+				Translating <a href="http://www.dict.cc/englisch-deutsch/dump.html">"dump"</a> or <a href="http://www.dict.cc/englisch-deutsch/useless+outfit.html">"useless outfit"</a> into German yields <a href="http://www.dict.cc/deutsch-englisch/Saftladen.html">"Saftladen"</a> which can be reverse-translated word by word into <a href="http://www.dict.cc/englisch-deutsch/juice.html">"juice</a>&nbsp;<a href="http://www.dict.cc/englisch-deutsch/shop.html">shop"</a>. Hence the project name.
+			</blockquote>
+			<blockquote>
+				That the initials "JS" match with those of "JavaScript" was purely coincidental!
+			</blockquote>
+		</section>
+
+		<section data-background="assets/super_happy_land_by_iamhitomi.jpg">
+			<div style="background-color: rgba(13, 13, 13, 0.6); padding: 10px;">
+				<h2>Click <a href="http://demo.owasp-juice.shop" target="_blank">here</a> for a live demo!</h2>
+				<a href="http://demo.owasp-juice.shop" target="_blank"><img src="assets/11216830_956072011118478_1055609081760490912_n.png" height="200" style="background: none; border:none; box-shadow:none;"/></a>
+				<p>
+					Unsuspectingly <a href="http://demo.owasp-juice.shop" target="_blank">browse the Juice Shop</a> like Average Joe!
+				</p>
+			</div>
 		</section>
 
 		<section>
@@ -83,18 +103,14 @@
 			<img src="assets/JuiceShopCTF_Logo.png" width="200" class="no-box"/>
 		</section>
 
-		<section data-transition="zoom">
-			<p><code>&lt;!-- uncomment this and the following slide **ONLY** if...</code></p>
-			<img src="assets/New_projects.png" class="no-box" height="300">
-			<p><code>------------------------------------------------- --&gt;</code></p>
+		<section>
+			<h2>CTFd for OWASP Juice Shop</h2>
+			<p>
+				Your <a href="https://ctfd.io">CTFd</a> instance will be ready-to-hack in <5min
+			</p>
+			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_1.png" height="250"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_2.png" height="250"/>
 		</section>
-		<section data-transition="zoom">
-			<p><code>&lt;!-- ...Juice Shop got promoted to <span style="background: rgb(246, 182, 58)">&nbsp;Lab&nbsp;</span><span style="background: rgb(250, 212, 137)">&nbsp;Project&nbsp;</span></code></p>
-			<p><code>during the Project Summit prior to this AppSecEU! :-D</code></p>
-			<img src="assets/Midlevel_projects.png" class="no-box" height="300">
-			<p><code><small>The next OWASP Connector should make this official! (But you heard it here first!)</small></code></p>
-			<p><code>------------------------------------------------- --&gt;</code></p>
-		</section>
+
 		<section>
 			<p>Chapter Two</p>
 			<h1>Open Source Antipatterns</h1>
@@ -121,15 +137,18 @@
 			</section>
 			<section>
 				<h3>Good Example</h3>
-				<img data-src="assets/appsec/goodReadme.png" width="150">
-				<img data-src="assets/appsec/goodReadme2.png" width="150">
-				<img data-src="assets/appsec/goodReadme3.png" width="150">
+				<img data-src="assets/appsec/goodReadme.png" height="300">
+				<img data-src="assets/appsec/goodReadme2.png" height="300">
+				<img data-src="assets/appsec/goodReadme3.png" height="300">
+				<img data-src="assets/appsec/goodReadme4.png" height="300">
+				<img data-src="assets/appsec/goodReadme5.png" height="300">
 			</section>
 			<section>
 				<h3>Better(?) Example</h3>
-				<img src="assets/juice-shop-ctf-cli.png" height="400"/>
-				<img data-src="assets/appsec/betterReadme.png" width="150">
-				<img data-src="assets/appsec/betterReadme2.png" width="150">
+				<img data-src="assets/appsec/betterReadme.png" height="350">
+				<img data-src="assets/appsec/betterReadme2.png" height="350">
+				<img data-src="assets/appsec/betterReadme3.png" height="350">
+				<img data-src="assets/appsec/betterReadme4.png" height="350">
 			</section>
 		</section>
 
@@ -157,7 +176,7 @@
 				<h3>Agile Counter: Kanban Board</h3>
 				<img data-src="assets/appsec/huboard.png">
 				<p>
-					<a href="https://huboard.com/bkimminich/juice-shop">https://huboard.com/bkimminich/juice-shop</a>
+					<a href="https://waffle.io/bkimminich/juice-shop">https://waffle.io/bkimminich/juice-shop</a>
 				</p>
 			</section>
 		</section>
@@ -177,12 +196,12 @@
 			<section>
 				<h3>Example for a PR flogged to death<span class="fragment" data-fragment-index="1">*</span></h3>
 				<a href="https://github.com/zaproxy/zaproxy/pull/2837">https://github.com/zaproxy/zaproxy/pull/2837</a><br>
-				<img src="assets/appsec/floggedPR.png" width="100">
-				<img src="assets/appsec/floggedPR2.png" width="100">
-				<img src="assets/appsec/floggedPR3.png" width="100">
-				<img src="assets/appsec/floggedPR4.png" width="100">
-				<img src="assets/appsec/floggedPR5.png" width="100">
-				<img src="assets/appsec/floggedPR6.png" width="100">
+				<img src="assets/appsec/floggedPR.png" height="300">
+				<img src="assets/appsec/floggedPR2.png" height="300">
+				<img src="assets/appsec/floggedPR3.png" height="300">
+				<img src="assets/appsec/floggedPR4.png" height="300">
+				<img src="assets/appsec/floggedPR5.png" height="300">
+				<img src="assets/appsec/floggedPR6.png" height="300">
 				<small class="fragment" data-fragment-index="1">*Disclaimer: This example should <strong>by no means</strong> imply that the ZAP team is routinely flogging PRs to death! On the contrary, they offer a helping hand to even those who totally ignore their <a href="https://github.com/zaproxy/zaproxy/blob/develop/CONTRIBUTING.md#what-we-zap-team-expect-from-you">written contribution requirements</a>!</small>
 			</section>
 			<section>
@@ -223,8 +242,11 @@
 			</section>
 			<section>
 				<h3>Juice Shop takes it serious</h3>
-				<small>For a tiny incompatible configuration-file change Juice Shop went <a href="https://github.com/bkimminich/juice-shop/releases">from 2.26.0 to 3.0.0</a></small>
-				<img data-src="assets/appsec/solecisticVersioning3.png">
+				<img data-src="assets/appsec/solecisticVersioning3.png" height="500">
+			</section>
+			<section>
+				<h3>Bonus: Highlight incompatible changes</h3>
+				<img data-src="assets/appsec/solecisticVersioning4.png" height="500">
 			</section>
 		</section>
 
@@ -306,19 +328,22 @@ fs.copy('app/index.template.html', 'app/index.html', {overwrite: true}, function
 
 		<section>
 			<section>
-				<h2>Test Automation</h2>
+				<h2>Merciless Test Automation</h2>
 				<div>
 					<img src="assets/u3lWw.gif" height="100" style="background: none; border:none;"/>
 				</div>
 				<div>
 					<img src="assets/protractor-logo-600.png" height="70" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logo-frisby.png" height="70" style="background: none; border:none; box-shadow:none;"/>&nbsp;
+					<img src="assets/jest-outline.svg" height="70" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 				<div>
-					<img src="assets/phantomjs_400x400.png" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/karma.png" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/jasmine-horizontal.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/stryker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/phantomjs_400x400.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/karma.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/chai-logo-F349805F7D-seeklogo.com.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/mocha-logo.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/stryker.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 			</section>
 			<section>
@@ -381,7 +406,7 @@ protractor.expect = {
 				</code></pre>
 			</section>
 			<section>
-				<h3>What is a realistic goal for <em>Test Coverage</em> ?</h3>
+				<h3>What is a realistic <em>Test Coverage</em> goal?</h3>
 				<h1 class="fragment">100%</h1>
 			</section>
             <section>
@@ -408,7 +433,7 @@ protractor.expect = {
             </section>
 			<section>
 				<h3>Example: Report for Juice Shop CTF</h3>
-				<iframe data-src="assets/appsec/examples/mutation/html/index.html" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+				<iframe data-src="assets/appsec/examples/mutation/index.html" width="800" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 			</section>
             <section>
 				<h3>A realistic goal for <em>Mutation Coverage</em> ?</h3>
@@ -636,14 +661,12 @@ protractor.expect = {
             <img width="200" class="no-box" src="https://camo.githubusercontent.com/9bc1b2bde0f68be85d1f264bb13ede976be85738/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f626b696d6d696e6963682f6a756963652d73686f702d6374662e737667">
         </section>
 
-		<section data-background="assets/belfast.jpg" data-background-transition="convex" data-transition="zoom">
+		<section data-background="assets/OWASP-1.jpg" data-background-transition="convex" data-transition="zoom">
 			<img src="assets/JuiceShop_Logo.png" width="350" style="background: none; border:none; box-shadow:none;"/>
-			<div style="background-color: rgba(0, 0, 0, 0.7)">
-				<h3>Copyright (c) 2017 <a href="http://kimminich.de">Björn Kimminich</a></h3>
-				<p>
-					<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
-				</p>
-			</div>
+			<h3>Copyright (c) 2018 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+			<p>
+				<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+			</p>
 		</section>
 
 	</div>
@@ -692,9 +715,6 @@ protractor.expect = {
 	<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
 		<table>
 			<tr>
-				<td>
-					<script id='fbxw3wp'>(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//button.flattr.com/view/?fid=0d02dk&button=compact&url=https%3A%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop';f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('fbxw3wp');</script>
-				</td>
 				<td>
 					<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
 				</td>
