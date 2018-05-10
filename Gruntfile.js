@@ -90,7 +90,8 @@ module.exports = function (grunt) {
               'models/*.js',
               'routes/*.js',
               'node_modules/**'
-            ]
+            ],
+            dest: 'juice-shop_<%= pkg.version %>/'
           }
         ]
       }
