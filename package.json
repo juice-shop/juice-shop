@@ -55,6 +55,7 @@
   "dependencies": {
     "body-parser": "~1.18",
     "colors": "~1.2.1",
+    "concurrently": "^3.5.1",
     "config": "~1.30.0",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
@@ -147,6 +148,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "npm --prefix ./app install ./app && grunt minify",
+    "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "start": "node app",
     "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent -i",
