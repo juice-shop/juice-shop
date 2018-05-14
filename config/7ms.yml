@@ -64,7 +64,7 @@ products:
     name: 'CryptoLocker`d (Audio CD)'
     description: 'A few years ago a worked on an incident response where a user got phished with a promise of a free burrito from Chipotle but instead got a free order of CryptoLocker! And rather than tell IT or sound the alarms, the user just left for the day! The next day they came back and the company was digitally on fire, and they played ignorant to what was going on.  I found the user`s handling of the situation humorous (read: not the CryptoLocker infection itself!), so I was inspired to write a song about it.'
     price: 19.99
-    image: 'http://www.chip.de/ii/2/2/1/9/9/7/0/5/cryptolocker-6e3b9559ff650a9e.jpg'
+    image: 'https://pbs.twimg.com/media/Dc3BuBPXUAAswae.jpg'
     fileForRetrieveBlueprintChallenge: The+CryptoLocker+Song.mps
   -
     name: 'Sweet Surrender (Limited Edition Best of Audio CD)'
