@@ -1,0 +1,35 @@
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <mat-toolbar-row>
+    <span style="display:flex;margin-right:30px">
+      <mat-icon class="mat-icon-logo">
+        <img style="height: 40px;width: 50px;" [src]="logoSrc">
+      </mat-icon>
+      <a style="margin-left:15px;font-size: 18px;color: #c8c8c8;" routerLink="/search">{{applicationName}} {{version}}</a>
+    </span>
+    <span flex style="flex:0.2"></span>
+    <nav>
+      <a routerLink="/login">Login</a>
+      <a *ngIf="false" href="">Logout</a>
+      <mat-form-field class="language-select">
+        <mat-select value="English">
+          <mat-option *ngFor="let language of languages" [value]="language.lang">{{language?.lang}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input type="text" placeholder="Search.." style="margin-right:10px;">
+      <button color="accent" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <mat-icon>search</mat-icon> Search</button>
+      <a href="">Contact us</a>
+      <a href="">Score Board</a>
+      <a href="">About us</a>
+     </nav>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="false">
+    <nav>
+      <a href="">Your Basket</a>
+      <a href="">Change Password</a>
+      <a href="">Recycle</a>
+      <a href="">Track Orders</a>
+      <a href="">Complain</a>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
+<a [hidden]="!gitHubRibbon" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" [src]="'assets/public/images/ribbons/forkme_right_'+gitHubRibbon+'.png'"   alt="Fork me on GitHub"></a>
