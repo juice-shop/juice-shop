@@ -1,0 +1,27 @@
+mat-card{
+    left:25%;
+    margin-top:15px;
+    width:35%;
+    height:auto;
+}
+
+mat-form-field{
+    padding-top:10px;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+
+.security-container{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+::ng-deep mat-option .mat-option-text {
+    font-size: 14px;
+}
