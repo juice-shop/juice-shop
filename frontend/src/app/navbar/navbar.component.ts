@@ -1,6 +1,10 @@
 import { AdministrationService } from './../Services/administration.service';
 import { ConfigurationService } from 'src/app/Services/configuration.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { faSearch } from '@fortawesome/fontawesome-free-solid';
+import fontawesome from '@fortawesome/fontawesome';
+fontawesome.library.add(faSearch);
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +18,11 @@ export class NavbarComponent implements OnInit {
   public logoSrc = 'assets/public/images/JuiceShop_Logo.svg';
 
   constructor(private administrationService: AdministrationService,
-    private configurationService: ConfigurationService) { }
+    private configurationService: ConfigurationService,
+    private router: Router) { }
 
   ngOnInit() {
+
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version;
@@ -39,6 +45,15 @@ export class NavbarComponent implements OnInit {
       }
     });
 
+  }
+
+  search (value: string) {
+    if (value) {
+      const queryParams = {queryParams: { q: value} };
+      this.router.navigate(['/search'], queryParams);
+    } else {
+      this.router.navigate(['/search']);
+    }
   }
 
 }
