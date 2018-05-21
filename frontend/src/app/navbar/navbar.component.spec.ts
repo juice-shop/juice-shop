@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { AdministrationService } from 'src/app/Services/administration.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -18,6 +19,7 @@ describe('NavbarComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NavbarComponent ],
       imports: [
+        RouterTestingModule,
         HttpClientModule,
         BrowserAnimationsModule,
         MatToolbarModule,
