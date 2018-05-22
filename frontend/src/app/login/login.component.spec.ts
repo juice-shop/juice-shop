@@ -1,7 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './../Services/user.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,6 +20,8 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [
+        HttpClientModule,
+        RouterTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCheckboxModule,
@@ -24,6 +29,9 @@ describe('LoginComponent', () => {
         MatCardModule,
         MatIconModule,
         MatInputModule
+      ],
+      providers: [
+        UserService
       ]
     })
     .compileComponents();
