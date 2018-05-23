@@ -88,7 +88,7 @@
     "notevil": "~1.1",
     "pdfkit": "~0.8",
     "replace": "~1.0.0",
-    "request": "~2.85.0",
+    "request": "~2.86.0",
     "sanitize-html": "1.4.2",
     "sequelize": "^4.35.1",
     "serve-favicon": "~2.5",
