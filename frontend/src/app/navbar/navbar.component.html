@@ -10,8 +10,8 @@
     <span flex style="flex:0.2"></span>
 
     <nav>
-      <a routerLink="/login">Login</a>
-      <a *ngIf="false" href="">Logout</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
+      <a *ngIf="isLoggedIn()" (click)="logout()" href="">Logout</a>
       <mat-form-field class="language-select">
         <mat-select value="English">
           <mat-option *ngFor="let language of languages" [value]="language.lang">{{language?.lang}}</mat-option>
@@ -26,7 +26,7 @@
 
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="false">
+  <mat-toolbar-row *ngIf="isLoggedIn()">
     <nav>
       <a href="">Your Basket</a>
       <a href="">Change Password</a>

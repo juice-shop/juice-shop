@@ -56,4 +56,14 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  isLoggedIn () {
+    return localStorage.getItem('token');
+  }
+
+  logout () {
+    localStorage.removeItem('token');
+    delete sessionStorage.bid;
+    this.router.navigate(['/']);
+  }
+
 }
