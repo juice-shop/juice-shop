@@ -1,0 +1,31 @@
+nav a {
+    position:relative;
+    margin-right:30px;
+    text-decoration: none;
+    color: #c8c8c8;
+    font-size:16px;
+}
+
+nav input{
+    border: none;
+    outline: none;
+    color:#c8c8c8;
+    background-color: inherit;
+    margin-top: 6px;
+    margin-right: 10px;
+    height: 62px;
+    margin-left: 30px;
+}
+
+nav input:focus{
+
+    /*To align properly with nav links*/
+    /*border-bottom:0.5px solid #a3a3a3;*/
+
+}
+
+mat-icon img {
+    margin-left: -15px;
+    margin-top: -6px;
+    max-height: 100px;
+}
