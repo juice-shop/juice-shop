@@ -1,0 +1,38 @@
+<mat-card class="custom-slate">
+
+  <div class="form-container">
+
+    <div style="color:red">{{error?.error}}</div>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input id="email" #email name="email"
+      [formControl]="emailControl"
+      (focus)="this.error=null"
+      matInput placeholder="Email">
+      <mat-error *ngIf="emailControl.invalid">Email is Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input id="password" #password name="password"
+      [formControl]="passwordControl"
+      (focus)="this.error=null"
+      matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
+      <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-error *ngIf="passwordControl.invalid">Password is Required</mat-error>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button id="loginButton" [disabled]="!email.value||!password.value" mat-raised-button color="primary" (click)="login()"><i class="fas fa-key fa-lg"></i> Log In</button>
+      <button [hidden]="oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i class="fab fa-google fa-lg"></i> Log In with Google</button>
+    </div>
+
+    <mat-checkbox>Remember me</mat-checkbox>
+
+  </div>
+
+  <a routerLink="/forgot-password">Forgot your password?</a>
+  <a routerLink="/register">Not yet a customer?</a>
+
+</mat-card>
