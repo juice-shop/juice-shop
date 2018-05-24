@@ -15,6 +15,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-not-very-gracefully-handled'
   key: errorHandlingChallenge
 -
+  name: 'Privilege escalation'
+  category: 'Privilege escalation'
+  description: 'Post product reviews as any user or edit any user''s review.'
+  difficulty: 1
+  hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/privilege-escalation.html#edit-any-product-review'
+  key: privilegeEscalationChallenge
+-
   name: 'Login Admin'
   category: 'Injection'
   description: 'Log in with the administrator''s user account.'

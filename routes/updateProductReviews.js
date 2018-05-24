@@ -1,20 +1,24 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
+const insecurity = require('../lib/insecurity')
 
 module.exports = function productReviews () {
-  return ({body}, res, next) => {
-    const id = body.id
-
+  return (req, res, next) => {
+    const id = req.body.id
+    const user = insecurity.authenticatedUsers.from(req)
     db.reviews.update(
       { _id: id },
-      { '$set': { message: body.message } },
+      { '$set': { message: req.body.message } },
       { multi: true }
     ).then(
       result => {
         if (result.modified > 1 && utils.notSolved(challenges.noSqlInjectionChallenge)) {
           // More then one Review was modified => challange solved
           utils.solve(challenges.noSqlInjectionChallenge)
+        }
+        if (result.original[0].author !== user.data.email && utils.notSolved(challenges.privilegeEscalationChallenge)) {
+          utils.solve(challenges.privilegeEscalationChallenge)
         }
         res.json(result)
       }, err => {
