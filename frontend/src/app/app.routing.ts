@@ -6,6 +6,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { LoginComponent } from './login/login.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { Routes, RouterModule } from '@angular/router';
+import { ChangePasswordComponent } from 'src/app/change-password/change-password.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,10 @@ const routes: Routes = [
     {
       path: 'contact',
       component: ContactComponent
+    },
+    {
+      path: 'change-password',
+      component: ChangePasswordComponent
     },
     {
       path: 'login',

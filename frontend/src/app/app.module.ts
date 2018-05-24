@@ -42,6 +42,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     SearchResultComponent,
     ForgotPasswordComponent,
     RegisterComponent,
-    ContactComponent
+    ContactComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
