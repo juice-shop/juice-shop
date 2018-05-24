@@ -1,3 +1,5 @@
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SearchResultComponent } from './search-result/search-result.component';
@@ -9,6 +11,14 @@ const routes: Routes = [
     {
       path: 'administration',
       component: AdministrationComponent
+    },
+    {
+      path: 'about',
+      component: AboutComponent
+    },
+    {
+      path: 'contact',
+      component: ContactComponent
     },
     {
       path: 'login',

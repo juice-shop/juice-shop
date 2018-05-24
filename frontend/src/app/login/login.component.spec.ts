@@ -1,3 +1,4 @@
+import { WindowRefService } from './../Services/window-ref.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './../Services/user.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -31,7 +32,8 @@ describe('LoginComponent', () => {
         MatInputModule
       ],
       providers: [
-        UserService
+        UserService,
+        WindowRefService
       ]
     })
     .compileComponents();

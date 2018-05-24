@@ -14,6 +14,9 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegisterComponent } from './register/register.component';
+import { ContactComponent } from './contact/contact.component';
+
 
 /* Imported Services */
 import { ProductService } from 'src/app/Services/product.service';
@@ -22,6 +25,9 @@ import { AdministrationService } from './Services/administration.service';
 import { SecurityQuestionService } from './Services/security-question.service';
 import { UserService } from './Services/user.service';
 import { SecurityAnswerService } from './Services/security-answer.service';
+import { FeedbackService } from './Services/feedback.service';
+import { CaptchaService } from './Services/captcha.service';
+import { WindowRefService } from './Services/window-ref.service';
 
 /* Modules required for Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -36,7 +42,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,8 @@ import { RegisterComponent } from './register/register.component';
     NavbarComponent,
     SearchResultComponent,
     ForgotPasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +81,10 @@ import { RegisterComponent } from './register/register.component';
     AdministrationService,
     SecurityQuestionService,
     UserService,
-    SecurityAnswerService
+    SecurityAnswerService,
+    CaptchaService,
+    FeedbackService,
+    WindowRefService
   ],
   bootstrap: [AppComponent]
 })
