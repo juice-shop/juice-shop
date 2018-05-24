@@ -1,0 +1,68 @@
+<!--mat-card>
+
+    <h3> Contact Us</h3>
+
+    <div class="form-container">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Author</mat-label>
+        <input [formControl]="authorControl" type="text" matInput placeholder="Enter your email">
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required">Please provide an email address.</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.email">Email address is not valid.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Comment</mat-label>
+        <textarea [formControl]="commentControl" type="text" matInput placeholder="Enter your email">
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required">Please provide an email address.</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.email">Email address is not valid.</mat-error>
+      </mat-form-field>
+
+    </div>
+
+</mat-card-->
+
+<mat-card>
+  <h3> Contact us </h3>
+
+  <div *ngIf="confirmation">
+    <p style="color:#5bc0de">{{confirmation}}</p>
+  </div>
+  <div *ngIf="error">
+    <p style="color:red;">{{error}}</p>
+  </div>
+
+  <div class="form-container">
+
+    <input hidden type="text" id="userId" ng-model="feedback.UserId" ng-hide="true"/>
+
+    <mat-form-field appearance="outline">
+      <mat-label> Author </mat-label>
+      <input [formControl]="authorControl" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label> Comment </mat-label>
+      <textarea [formControl]="feedbackControl" matInput></textarea>
+      <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required">Please provide a comment.</mat-error>
+    </mat-form-field>
+
+    <div style="margin-top:5px;" class="rating-container">
+      <label style="font-weight:bold; margin-right: 8px;"> Rating </label>
+      <span class="star" [class.active]="ratingStarsHover[i-1]" [class.select]="ratingStarsSelect[i-1]" *ngFor="let i of [1,2,3,4,5]" (mouseover)="starHover(i)" (mouseout)="starLeave(i)" (click)="starClick(i)">
+          <i class="fas fa-star"></i>
+      </span>
+    </div>
+
+    <mat-form-field>
+      <label style="font-weight:bold;">What is</label>&nbsp;
+      <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
+      <input [formControl]="captchaControl" matInput type="text">
+      <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required">Please solve the captcha to prove you are a real person</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <button style="margin-top:5px;" mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>  Submit</button>
+
+</mat-card>
