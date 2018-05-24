@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   public emailControl = new FormControl('', [ Validators.required]);
   public passwordControl = new FormControl('', [ Validators.required]);
+  public hide = true;
   public user: any;
   public rememberMe: boolean;
   public error: any;
@@ -44,6 +45,9 @@ export class LoginComponent implements OnInit {
 
   login () {
 
+    this.user = {};
+    this.user.email = this.emailControl.value;
+    this.user.password = this.passwordControl.value;
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token);
       sessionStorage.bid = authentication.bid;
