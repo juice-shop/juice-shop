@@ -20,7 +20,7 @@ describe('services', function () {
     }))
 
     it('should get tracking order results directly via the rest api', inject(function (TrackOrderService) {
-      $httpBackend.whenGET('/rest/track-order/5267-f9cd5882f54c75a3').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenGET('/rest/track-order/5267-f9cd5882f54c75a3').respond(200, 'apiResponse')
 
       TrackOrderService.save('5267-f9cd5882f54c75a3').then(function (data) { result = data })
       $httpBackend.flush()
