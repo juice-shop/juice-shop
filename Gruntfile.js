@@ -86,7 +86,7 @@ module.exports = function (grunt) {
               'data/static/*.yml',
               'encryptionkeys/**',
               'ftp/**',
-              'lib/*.js',
+              'lib/**',
               'models/*.js',
               'routes/*.js',
               'node_modules/**'

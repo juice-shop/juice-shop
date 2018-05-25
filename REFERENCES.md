@@ -20,6 +20,14 @@ where this project was mentioned or used!
 ## Web Links
 
 * Blog posts on
+  [DevelopSec - Developing Better Security](https://www.developsec.com/):
+  * [Installing OWASP JuiceShop with Docker](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=ftS8I7WeKtw))
+  * [Installing OWASP JuiceShop with Heroku](https://www.developsec.com/2018/05/15/installing-owasp-juiceshop-with-heroku/)
+    ([Youtube](https://www.youtube.com/watch?v=umrLbJkJRN0))
+  * [https://www.developsec.com/2018/05/18/burp-extension-juice-shop-routes/](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=o628SfvwHp0)) :godmode:
+* Blog posts on
   [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
   * [How to Setup OWASP Juice Shop on Azure (Part 1 of 3)](http://www.jasonhaley.com/post/How-to-Setup-OWASP-Juice-Shop-on-Azure-%28Part-1-of-3%29)
   * [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29)
@@ -106,6 +114,10 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [OWASP Juice Shop: Betreutes Hacken](https://www.meetup.com/de-DE/owasp-karlsruhe/events/251041169/)
+  with
+  [OWASP Stammtisch Karlsruhe](https://www.owasp.org/index.php/OWASP_Stammtisch_Karlsruhe),
+  04.06.2018
 * [Hacking Workshop - Twin Cities vs. OWASP Juice Shop](https://secure360.org/secure360-twin-cities/schedule/?conference=9826&date=20180517)
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),

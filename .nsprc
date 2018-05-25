@@ -22,6 +22,9 @@
     "https://nodesecurity.io/advisories/88",
     "https://nodesecurity.io/advisories/532",
     "https://nodesecurity.io/advisories/548",
-    "https://nodesecurity.io/advisories/566"
+    "https://nodesecurity.io/advisories/566",
+    "https://nodesecurity.io/advisories/577",
+    "https://nodesecurity.io/advisories/658",
+    "https://nodesecurity.io/advisories/664"
   ]
 }
