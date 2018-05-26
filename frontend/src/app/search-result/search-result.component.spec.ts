@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('SearchResultComponent', () => {
   let component: SearchResultComponent;
@@ -23,7 +24,8 @@ describe('SearchResultComponent', () => {
         MatPaginatorModule
       ],
       providers: [
-        ProductService
+        ProductService,
+        MatDialog
       ]
     })
     .compileComponents();

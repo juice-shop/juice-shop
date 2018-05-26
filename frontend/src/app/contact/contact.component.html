@@ -63,6 +63,6 @@
 
   </div>
 
-  <button style="margin-top:5px;" mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>  Submit</button>
+  <button style="margin-top:5px;" mat-raised-button color="primary" [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>  Submit</button>
 
 </mat-card>

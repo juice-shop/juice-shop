@@ -19,7 +19,7 @@ export class ContactComponent implements OnInit {
   public captchaControl: FormControl = new FormControl('', [Validators.required]);
   public ratingStarsHover: boolean[] = [false, false, false, false, false];
   public ratingStarsSelect: boolean[] = [false, false, false, false, false];
-  public rating: number;
+  public rating: number = undefined;
   public feedback: any;
   public captcha: any;
   public captchaId: any;
@@ -95,10 +95,13 @@ export class ContactComponent implements OnInit {
   starClick (index: number) {
 
     this.ratingStarsSelect = [false, false, false, false, false];
-    for (let i = 0; i < index; i++) {
-      this.ratingStarsSelect[i] = true;
+    this.ratingStarsHover = [false, false, false, false, false];
+    if (index !== this.rating) {
+      for (let i = 0; i < index; i++) {
+        this.ratingStarsSelect[i] = true;
+      }
+      this.rating = index;
     }
-    this.rating = index;
   }
 
 
