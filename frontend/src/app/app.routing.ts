@@ -1,3 +1,4 @@
+import { TrackResultComponent } from './track-result/track-result.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
@@ -8,6 +9,7 @@ import { AdministrationComponent } from './administration/administration.compone
 import { Routes, RouterModule } from '@angular/router';
 import { ChangePasswordComponent } from 'src/app/change-password/change-password.component';
 import { ComplaintComponent } from 'src/app/complaint/complaint.component';
+import { TrackOrderComponent } from 'src/app/track-order/track-order.component';
 
 const routes: Routes = [
     {
@@ -45,6 +47,14 @@ const routes: Routes = [
     {
       path: 'search',
       component: SearchResultComponent
+    },
+    {
+      path: 'track-order',
+      component: TrackOrderComponent
+    },
+    {
+      path: 'track-result',
+      component: TrackResultComponent
     },
     {
       path: '**',
