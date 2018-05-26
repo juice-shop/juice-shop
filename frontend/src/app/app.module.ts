@@ -32,6 +32,7 @@ import { CaptchaService } from './Services/captcha.service';
 import { WindowRefService } from './Services/window-ref.service';
 import { ProductReviewService } from './Services/product-review.service';
 import { FileUploadService } from './Services/file-upload.service';
+import { ComplaintService } from './Services/complaint.service';
 
 /* Modules required for Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -98,7 +99,8 @@ import {MatDividerModule} from '@angular/material/divider';
     FeedbackService,
     WindowRefService,
     ProductReviewService,
-    FileUploadService
+    FileUploadService,
+    ComplaintService
   ],
   bootstrap: [AppComponent]
 })
