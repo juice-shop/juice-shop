@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { ContactComponent } from './contact/contact.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ComplaintComponent } from './complaint/complaint.component';
 
 /* Imported Services */
 import { ProductService } from 'src/app/Services/product.service';
@@ -30,6 +31,7 @@ import { FeedbackService } from './Services/feedback.service';
 import { CaptchaService } from './Services/captcha.service';
 import { WindowRefService } from './Services/window-ref.service';
 import { ProductReviewService } from './Services/product-review.service';
+import { FileUploadService } from './Services/file-upload.service';
 
 /* Modules required for Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -61,7 +63,8 @@ import {MatDividerModule} from '@angular/material/divider';
     RegisterComponent,
     ContactComponent,
     ChangePasswordComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ComplaintComponent
   ],
   entryComponents: [ ProductDetailsComponent ],
   imports: [
@@ -94,7 +97,8 @@ import {MatDividerModule} from '@angular/material/divider';
     CaptchaService,
     FeedbackService,
     WindowRefService,
-    ProductReviewService
+    ProductReviewService,
+    FileUploadService
   ],
   bootstrap: [AppComponent]
 })
