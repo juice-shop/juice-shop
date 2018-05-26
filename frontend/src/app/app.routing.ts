@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AdministrationComponent } from './administration/administration.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ChangePasswordComponent } from 'src/app/change-password/change-password.component';
+import { ComplaintComponent } from 'src/app/complaint/complaint.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
     {
       path: 'change-password',
       component: ChangePasswordComponent
+    },
+    {
+      path: 'complain',
+      component: ComplaintComponent
     },
     {
       path: 'login',
