@@ -16,7 +16,8 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
 import { ContactComponent } from './contact/contact.component';
-
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 /* Imported Services */
 import { ProductService } from 'src/app/Services/product.service';
@@ -28,6 +29,7 @@ import { SecurityAnswerService } from './Services/security-answer.service';
 import { FeedbackService } from './Services/feedback.service';
 import { CaptchaService } from './Services/captcha.service';
 import { WindowRefService } from './Services/window-ref.service';
+import { ProductReviewService } from './Services/product-review.service';
 
 /* Modules required for Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -42,7 +44,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -57,8 +60,10 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ForgotPasswordComponent,
     RegisterComponent,
     ContactComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProductDetailsComponent
   ],
+  entryComponents: [ ProductDetailsComponent ],
   imports: [
     BrowserModule,
     Routing,
@@ -75,7 +80,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MatPaginatorModule,
     MatCardModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatDividerModule
   ],
   providers: [
     ProductService,
@@ -86,7 +93,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     SecurityAnswerService,
     CaptchaService,
     FeedbackService,
-    WindowRefService
+    WindowRefService,
+    ProductReviewService
   ],
   bootstrap: [AppComponent]
 })
