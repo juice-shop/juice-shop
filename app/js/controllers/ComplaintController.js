@@ -38,7 +38,6 @@ angular.module('juiceShop').controller('ComplaintController', [
         url: '/file-upload',
         data: {file: file}
       }).then(function (req) {
-        console.log(req)
         $scope.complaint.file = req.config.data.file.name
         saveComplaint()
       }, function (res) {
