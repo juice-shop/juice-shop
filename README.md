@@ -29,7 +29,9 @@ overview please visit the official project page:
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
-1. Click the button below and follow the instructions
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -58,8 +60,9 @@ overview please visit the official project page:
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
    `.tgz`) attached to
    [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
-3. Unpack and run `npm start` in unpacked folder
-4. Browse to <http://localhost:3000>
+3. Unpack and `cd` into the unpacked folder
+4. Run `npm start`
+5. Browse to <http://localhost:3000>
 
 > Each packaged distribution includes some binaries for SQLite bound to
 > the OS and node.js version which `npm install` was executed on.
@@ -162,10 +165,15 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
-| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
+| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
+|:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
+| __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
+| 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| 10.x (:microscope:) |                                                                                     | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
+
+> Support for node.js 10.x is considered an **experimental features**
+> (:microscope) at the moment and is not guaranteed to work with
+> production-grade stability! Please use at your own risk!
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
