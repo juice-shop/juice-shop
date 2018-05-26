@@ -18,7 +18,6 @@ angular.module('juiceShop').controller('LoginController', [
     }
 
     $scope.login = function () {
-      console.log($scope.user)
       userService.login($scope.user).then(function (authentication) {
         $cookies.put('token', authentication.token)
         $window.sessionStorage.bid = authentication.bid
