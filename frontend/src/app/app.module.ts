@@ -49,6 +49,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import { TrackOrderComponent } from './track-order/track-order.component';
+import { TrackResultComponent } from './track-result/track-result.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import {MatDividerModule} from '@angular/material/divider';
     ContactComponent,
     ChangePasswordComponent,
     ProductDetailsComponent,
-    ComplaintComponent
+    ComplaintComponent,
+    TrackOrderComponent,
+    TrackResultComponent
   ],
   entryComponents: [ ProductDetailsComponent ],
   imports: [
