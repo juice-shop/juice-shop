@@ -15,10 +15,10 @@
     </mat-form-field>
 
     <label for="file">Invoice</label>
-    <input id="file" (change)="fileChange($event.target.files)" type="file">
+    <input #fileControl id="file" (change)="fileChange($event.target.files)" type="file">
 
   </div>
 
-  <button mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+  <button (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
 
 </mat-card>
