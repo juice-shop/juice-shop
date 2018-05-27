@@ -3,7 +3,7 @@ angular.module('juiceShop').factory('TrackOrderService', ['$http', '$q', functio
 
   var host = '/rest/track-order'
 
-  function save (params) {
+  function track (params) {
     var trackingInformation = $q.defer()
     params = encodeURIComponent(params)
     $http.get(host + '/' + params).then(function (response) {
@@ -15,6 +15,6 @@ angular.module('juiceShop').factory('TrackOrderService', ['$http', '$q', functio
   }
 
   return {
-    save: save
+    track: track
   }
 }])
