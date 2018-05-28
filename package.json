@@ -165,7 +165,8 @@
   "standard": {
     "ignore": [
       "/app/private/**",
-      "/vagrant/**"
+      "/vagrant/**",
+      "/frontend/src/assets/private/**"
     ],
     "env": {
       "jasmine": true,
