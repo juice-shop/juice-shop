@@ -14,14 +14,6 @@ fontawesome.library.add(faBomb);
 })
 export class ComplaintComponent implements OnInit {
 
-  /* $scope.save = function () {
-    if ($scope.file) {
-      $scope.upload($scope.file)
-    } else {
-      saveComplaint()
-    }
-  }*/
-
   public customerControl: FormControl = new FormControl({ value: '', disabled: true}, []);
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)]);
   @ViewChild('fileControl') fileControl: ElementRef; // For controlling the DOM Element for file input.
