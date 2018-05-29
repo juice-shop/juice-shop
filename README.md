@@ -29,7 +29,9 @@ overview please visit the official project page:
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
-1. Click the button below and follow the instructions
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -357,6 +359,7 @@ Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
+- :uae: Oussama Bouthouri
 - :brazil: sergio.kubota
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
@@ -371,7 +374,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
-- :it: vientspam
+- :it: vientspam, Claudio Snidero
 - :jp: ninoseki, nilfigo
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
