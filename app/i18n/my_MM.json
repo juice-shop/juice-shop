@@ -46,6 +46,9 @@
   "BASKET_ADD_SAME_PRODUCT": "တျခား {{product}} ကုန္ပစၥည္းမ်ား ထပ္ထည့္ဦးမည္",
   "BASKET_ADD_PRODUCT": "ကုန္ပစၥည္းအား ျခင္းေတာင္းထဲသို႕ ထည့္ျပီးပါျပီ",
   "LABEL_PRODUCT": "ကုန္ပစၥည္း",
+  "LABEL_PRODUCT_ORDERED": "Ordered products",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
+  "LABEL_DAYS": "Days",
   "LABEL_NAME": "အမည္",
   "LABEL_DESCRIPTION": "ေဖာ္ျပခ်က္",
   "LABEL_PRICE": "ေစ်းႏွဳန္း",
@@ -137,5 +140,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }

@@ -11,14 +11,14 @@ angular.module('juiceShop').controller('RecycleController', [
         $scope.topImage = '/public/images/products/' + config.application.recyclePage.topProductImage
         $scope.bottomImage = '/public/images/products/' + config.application.recyclePage.bottomProductImage
       }
-    })
+    }).catch(angular.noop)
 
     function initRecycle () {
       userService.whoAmI().then(function (data) {
         $scope.recycle = {}
         $scope.recycle.UserId = data.id
         $scope.userEmail = data.email
-      })
+      }).catch(angular.noop)
     }
     initRecycle()
 

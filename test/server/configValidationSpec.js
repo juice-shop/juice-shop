@@ -3,8 +3,8 @@ const sinonChai = require('sinon-chai')
 const expect = chai.expect
 chai.use(sinonChai)
 
-const validateConfig = require('../../lib/validateConfig')
-const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/validateConfig')
+const validateConfig = require('../../lib/startup/validateConfig')
+const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
@@ -27,7 +27,7 @@ describe('configValidation', () => {
       expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(true)
     })
 
-    it('should throw an exeption if a multiple products are configured for the same challenge', () => {
+    it('should throw an exception if a multiple products are configured for the same challenge', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -47,10 +47,10 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('There are multiple products configured as the Chrismas Challenge Product. Only one product should be used for the challenge.')
+      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('There are multiple products configured as the Christmas Challenge Product. Only one product should be used for the challenge.')
     })
 
-    it('should throw an exeption if a required challenge product is missing', () => {
+    it('should throw an exception if a required challenge product is missing', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -62,7 +62,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('At least one Product should be configured as a Blueprint File Retrival Product')
+      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('At least one Product should be configured as a Blueprint File Retrieval Product')
     })
   })
 
@@ -95,7 +95,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.throw('You cannot use the Product Apple Juice for multiple Challenges.\nIt was attempted to be used as Chrismas Challenge Product and Product Tampering Challenge Product')
+      expect(() => checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.throw('You cannot use the Product Apple Juice for multiple Challenges.\nIt was attempted to be used as Christmas Challenge Product and Product Tampering Challenge Product')
     })
   })
 
