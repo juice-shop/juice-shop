@@ -2,7 +2,7 @@
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Image">
         <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="openDialog(element)">
+        <mat-cell *matCellDef="let element" (click)="showDetail(element)">
             <img [src]="'assets/public/images/products/'+element.image" role="button"
             class="img-responsive img-thumbnail"
             style="width: 200px">
@@ -25,8 +25,11 @@
       </ng-container>
 
       <ng-container matColumnDef="Select">
-        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-        <mat-cell *matCellDef="let element">  </mat-cell>
+        <mat-header-cell *matHeaderCellDef>   </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="showDetail(element)"> <a routerLink=""><i class="fas fa-eye"></i></a></button>
+          <button mat-icon-button><a routerLink="" *ngIf="isLoggedIn()"><i class="fas fa-cart-plus"></i></a></button>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

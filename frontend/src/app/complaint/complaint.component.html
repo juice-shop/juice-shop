@@ -1,0 +1,24 @@
+<mat-card>
+
+  <h3> File Complaint </h3>
+
+  <div class="form-container">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Customer</mat-label>
+      <input [formControl]="customerControl" type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Message</mat-label>
+      <textarea [formControl]="messageControl" name="" id="" cols="30" rows="10" matInput></textarea>
+    </mat-form-field>
+
+    <label for="file">Invoice</label>
+    <input #fileControl id="file" (change)="fileChange($event.target.files)" type="file">
+
+  </div>
+
+  <button (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+
+</mat-card>

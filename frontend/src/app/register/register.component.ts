@@ -30,16 +30,6 @@ export class RegisterComponent implements OnInit {
     }, (err) => console.log(err));
   }
 
-  /*
-  $scope.save = function () {
-    userService.save($scope.user).then(function (user) {
-      securityAnswerService.save({UserId: user.id, answer: $scope.user.securityAnswer, SecurityQuestionId: $scope.user.securityQuestion.id}).then(function () {
-        $scope.user = {}
-        $location.path('/login')
-      })
-    }).catch(angular.noop)
-  }*/
-
   save () {
     const user = {
       email: this.emailControl.value,

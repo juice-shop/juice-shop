@@ -10,8 +10,8 @@
     <span flex style="flex:0.2"></span>
 
     <nav>
-      <a routerLink="/login">Login</a>
-      <a *ngIf="false" href="">Logout</a>
+      <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
+      <a *ngIf="isLoggedIn()" (click)="logout()" href="">Logout</a>
       <mat-form-field class="language-select">
         <mat-select value="English">
           <mat-option *ngFor="let language of languages" [value]="language.lang">{{language?.lang}}</mat-option>
@@ -19,20 +19,20 @@
       </mat-form-field>
       <input type="text" placeholder="Search.." #searchControl style="margin-right:10px;">
       <button color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> Search</button>
-      <a href="">Contact us</a>
+      <a routerLink="/contact">Contact us</a>
       <a href="">Score Board</a>
-      <a href="">About us</a>
+      <a routerLink="/about">About us</a>
      </nav>
 
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="false">
+  <mat-toolbar-row *ngIf="isLoggedIn()">
     <nav>
       <a href="">Your Basket</a>
-      <a href="">Change Password</a>
+      <a routerLink="/change-password">Change Password</a>
       <a href="">Recycle</a>
-      <a href="">Track Orders</a>
-      <a href="">Complain</a>
+      <a routerLink="/track-order">Track Orders</a>
+      <a routerLink="/complain">Complain</a>
     </nav>
   </mat-toolbar-row>
 

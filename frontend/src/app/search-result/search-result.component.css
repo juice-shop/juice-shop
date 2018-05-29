@@ -3,11 +3,9 @@
     position:relative;
     flex-direction: column;
     max-height: 600px;
-    min-width: 800px;
-    max-width:842px;
     margin-top:40px;
     margin-left: 16.677%;
-    width: 66.66666667%;
+    width: 72.666667%;
   }
 
   .mat-table {
@@ -39,7 +37,7 @@
 }
 
 .mat-column-Select{
-    max-width:50px;
+    max-width:60px;
 }
 
 .mat-column-Price{

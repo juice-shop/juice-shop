@@ -1,0 +1,62 @@
+<mat-dialog-content>
+
+  <div class="container">
+
+    <h1>Product #{{data.id}}</h1>
+
+    <div class="ex-container">
+
+      <div class="name price image">
+          <h4>Name</h4>
+          <p>{{data.name}}</p>
+          <h4>Price</h4>
+          <p>{{data.price}}</p>
+          <h4>Image</h4>
+          <img [src]="'assets/public/images/products/'+data.image">
+      </div>
+
+      <div class="description">
+
+        <h4>Description</h4>
+
+        <p [innerHTML]="data.description"></p>
+
+      </div>
+
+    </div>
+
+    <br>
+
+    <div class="reviews">
+
+      <strong>Reviews</strong>
+
+      <blockquote *ngFor="let review of reviews$|async">
+        <p>{{review.message}}</p>
+        <footer style="text-transform:capitalize"><cite>--{{review.author}}</cite></footer>
+      </blockquote>
+
+      <div class="submit-review">
+
+        <mat-form-field appearance="outline">
+           <textarea #textPut cols="50" matInput placeholder="Submit a review" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="4"></textarea>
+        </mat-form-field>
+
+        <div class="btn-container" style="display:flex;flex-flow:row;">
+          <button style="width:fit-content;margin-bottom:15px;" mat-raised-button color="primary" (click)="addReview(textPut)"><i class="fas fa-paper-plane fa-lg"></i> Submit</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <footer>
+      <button style="width:fit-content;float:right;margin-top:15px;" mat-raised-button mat-dialog-close color="warn"><i class="fas fa-arrow-circle-left fa-lg"></i>  Close</button>
+  </footer>
+
+</mat-dialog-content>
