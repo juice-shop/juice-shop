@@ -1,3 +1,4 @@
+import { ProductDetailsComponent } from './../product-details/product-details.component';
 import { Router } from '@angular/router';
 import { ProductService } from './../Services/product.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -5,7 +6,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import fontawesome from '@fortawesome/fontawesome';
+import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid';
+fontawesome.library.add(faEye, faCartPlus);
 
 @Component({
   selector: 'app-search-result',
@@ -22,7 +27,7 @@ export class SearchResultComponent implements OnInit, AfterViewInit {
   private routerSubscription: Subscription;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private dialog: MatDialog, private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -50,6 +55,20 @@ export class SearchResultComponent implements OnInit, AfterViewInit {
       this.searchValue = 'All Products';
       this.dataSource.filter = '';
       }
+  }
+
+  showDetail (element: any) {
+    const dialogRef = this.dialog.open(ProductDetailsComponent, {
+      width: '1000px',
+      height: 'max-content',
+      data: {
+       productData: element
+     }
+    });
+  }
+
+  isLoggedIn () {
+    return localStorage.getItem('token');
   }
 
 }
