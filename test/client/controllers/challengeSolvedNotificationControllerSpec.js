@@ -5,8 +5,9 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET('/rest/continue-code').respond(200, {continueCode: 'totallyAValidCode'})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showCtfFlagsInNotifications': true}}})
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}}})
   }))
 
   afterEach(function () {
@@ -115,6 +116,24 @@ describe('controllers', function () {
       $httpBackend.flush()
 
       expect(cookies.put).toHaveBeenCalledWith('continueCode', 'totallyAValidCode', { expires: jasmine.any(Date) })
+    }))
+
+    it('sets showCtfCountryDetailsInNotifications to scope', inject(function () {
+      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true, 'showCountryDetailsInNotifications': 'both' } } })
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, {})
+
+      $httpBackend.flush()
+
+      expect(scope.showCtfCountryDetailsInNotifications).toBe('both')
+    }))
+
+    it('sets countryMap to scope', inject(function () {
+      $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true, 'showCountryDetailsInNotifications': 'name' } } })
+      $httpBackend.expectGET('/rest/country-mapping').respond(200, { 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
+
+      $httpBackend.flush()
+
+      expect(scope.countryMap).toEqual({ 'demo-challenge': { 'name': 'France', 'code': 'FR' } })
     }))
   })
 })

@@ -20,6 +20,14 @@ where this project was mentioned or used!
 ## Web Links
 
 * Blog posts on
+  [DevelopSec - Developing Better Security](https://www.developsec.com/):
+  * [Installing OWASP JuiceShop with Docker](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=ftS8I7WeKtw))
+  * [Installing OWASP JuiceShop with Heroku](https://www.developsec.com/2018/05/15/installing-owasp-juiceshop-with-heroku/)
+    ([Youtube](https://www.youtube.com/watch?v=umrLbJkJRN0))
+  * [https://www.developsec.com/2018/05/18/burp-extension-juice-shop-routes/](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=o628SfvwHp0)) :godmode:
+* Blog posts on
   [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
   * [How to Setup OWASP Juice Shop on Azure (Part 1 of 3)](http://www.jasonhaley.com/post/How-to-Setup-OWASP-Juice-Shop-on-Azure-%28Part-1-of-3%29)
   * [Setup OWASP Juice Shop in Web App for Containers (Part 2 of 3)](http://www.jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29)
@@ -106,14 +114,22 @@ where this project was mentioned or used!
 
 #### 2018
 
-* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
-  by Björn Kimminich,
-  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
-  16.05.2018
+* [OWASP Juice Shop: Betreutes Hacken](https://www.meetup.com/de-DE/owasp-karlsruhe/events/251041169/)
+  with
+  [OWASP Stammtisch Karlsruhe](https://www.owasp.org/index.php/OWASP_Stammtisch_Karlsruhe),
+  04.06.2018
 * [Hacking Workshop - Twin Cities vs. OWASP Juice Shop](https://secure360.org/secure360-twin-cities/schedule/?conference=9826&date=20180517)
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
   17.05.2018
+* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
+  by Björn Kimminich,
+  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
+  16.05.2018
+* [OWASP MSP Chapter May Meeting](https://www.meetup.com/OWASP-MSP-Meetup/events/249940370/)
+  with Björn Kimminich,
+  [OWASP MSP Meetup](https://www.meetup.com/OWASP-MSP-Meetup/) St Paul,
+  14.05.2018
 * [OWASP Juice Shop - The next chapter ...](https://www.meetup.com/CyberHackathon/events/249606655/?eventId=249606655)
   with Jaan Janesmae,
   [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
@@ -133,9 +149,9 @@ where this project was mentioned or used!
   15.03.2018
 * [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by
   Andrew van der Stock,
-  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/)
-  ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE) :godmode:
-  _starting 25:40_)
+  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/),
+  30.01.2018 ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE)
+  :godmode: _starting 25:40_)
 
 #### 2017
 

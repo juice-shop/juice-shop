@@ -46,6 +46,9 @@
   "BASKET_ADD_SAME_PRODUCT": "Een andere {{product}} toegevoegd aan uw kar.",
   "BASKET_ADD_PRODUCT": "{{product}} toegevoegd aan winkelwagen.",
   "LABEL_PRODUCT": "Artikel",
+  "LABEL_PRODUCT_ORDERED": "Ordered products",
+  "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
+  "LABEL_DAYS": "Days",
   "LABEL_NAME": "Naam",
   "LABEL_DESCRIPTION": "Beschrijving",
   "LABEL_PRICE": "Prijs",
@@ -137,5 +140,8 @@
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!"
+  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
+  "TITLE_TRACK_ORDERS": "Track Orders",
+  "LABEL_ORDER_ID": "Order ID",
+  "BTN_TRACK": "Track"
 }

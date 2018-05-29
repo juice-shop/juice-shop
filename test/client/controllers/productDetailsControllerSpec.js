@@ -5,6 +5,7 @@ describe('controllers', function () {
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
     $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
     $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: []})
     $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})

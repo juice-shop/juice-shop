@@ -5,6 +5,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
 [![Greenkeeper badge](https://badges.greenkeeper.io/bkimminich/juice-shop-ctf.svg)](https://greenkeeper.io/)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -28,7 +29,9 @@ overview please visit the official project page:
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
-1. Click the button below and follow the instructions
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -49,6 +52,20 @@ overview please visit the official project page:
    change the source code)
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
+
+### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your
+   Windows (or Linux) machine
+2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
+   `.tgz`) attached to
+   [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
+3. Unpack and `cd` into the unpacked folder
+4. Run `npm start`
+5. Browse to <http://localhost:3000>
+
+> Each packaged distribution includes some binaries for SQLite bound to
+> the OS and node.js version which `npm install` was executed on.
 
 ### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/commit/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own commit badge on microbadger.com")
 
@@ -74,18 +91,27 @@ overview please visit the official project page:
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
 
-### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Vagrant
 
-1. Install a 64bit [node.js](#nodejs-version-compatibility) on your
-   Windows (or Linux) machine
-2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
-   `.tgz`) attached to
-   [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
-3. Unpack and run `npm start` in unpacked folder
-4. Browse to <http://localhost:3000>
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
+   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
+   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
+   of the repository)
+3. Run `cd vagrant && vagrant up`
+4. Browse to [192.168.33.10](http://192.168.33.10)
 
-> Each packaged distribution includes some binaries for SQLite bound to
-> the OS and node.js version which `npm install` was executed on.
+> To show the possible impact of
+> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
+> assume you received and (of course) clicked
+> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+> and login. Apart from the visual/audible effect, the attacker also
+> installed [an input logger](http://192.168.33.10/logger.php) to grab
+> credentials! This could easily run on a 3rd party server in real life!
+>
+> _This feature is only available when running a Vagrant box. A
+> recording of the effect is available on Youtube:_
+> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ### Amazon EC2 Instance
 
@@ -132,28 +158,6 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 > follow his guide to
 > [set up OWASP Juice Shop as an Azure Container Instance](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29).
 
-### Vagrant
-
-1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
-   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
-2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
-   clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
-   of the repository)
-3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.33.10](http://192.168.33.10)
-
-> To show the possible impact of
-> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
-> assume you received and (of course) clicked
-> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
-> and login. Apart from the visual/audible effect, the attacker also
-> installed [an input logger](http://192.168.33.10/logger.php) to grab
-> credentials! This could easily run on a 3rd party server in real life!
->
-> _This feature is only available when running a Vagrant box. A
-> recording of the effect is available on Youtube:_
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
-
 ## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of
@@ -161,10 +165,15 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
-| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
+| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
+|:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
+| __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
+| 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| 10.x (:microscope:) |                                                                                     | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
+
+> Support for node.js 10.x is considered an **experimental features**
+> (:microscope) at the moment and is not guaranteed to work with
+> production-grade stability! Please use at your own risk!
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -308,10 +317,10 @@ guide for help with filling out the donation form correctly.
 ### GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 14 Mar 2018
+`master` as of Wed, 15 Mar 2018
 
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
@@ -347,21 +356,25 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 ### Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations and commits to `app/i18n`. Grouped by language as of Mon,
-07 Jan 2018 on `master`.
+translations and commits to `app/i18n`. Grouped by language as of Fri,
+13 Apr 2018 on `develop`.
 
+- :brazil: sergio.kubota
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
-- :denmark: Allan Kimmer Jensen, owangen
-- :estonia: bmoritz
-- :fr: Kylian Runembert, vientspam
+- :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
+- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
+- :finland: Nico Ådahl
+- :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
+- :hongkong: r0n1am
 - :hungary: OliverkeHU
+- :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam
-- :jp: ninoseki
+- :jp: ninoseki, nilfigo
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen

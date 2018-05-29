@@ -12,7 +12,7 @@ describe('/#/score-board', () => {
 
   describe('challenge "continueCode"', () => {
     it('should be possible to solve the non-existent challenge #99', () => {
-      browser.executeScript('var $http = angular.injector([\'juiceShop\']).get(\'$http\'); $http.put(\'/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj\');')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.put(\'/rest/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj\');')
       browser.get('/#/score-board')
     })
 
@@ -26,7 +26,7 @@ describe('/#/score-board', () => {
       browser.get('/#/score-board')
     })
 
-    if (config.get('application.showChallengeSolvedNotifications') && config.get('application.showCtfFlagsInNotifications')) {
+    if (config.get('application.showChallengeSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
       it('should be possible when in CTF mode', () => {
         alertsBefore = element.all(by.className('alert')).count()
 

@@ -73,6 +73,14 @@ angular.module('juiceShop').config(['$translateProvider', function ($translatePr
   $translateProvider.useSanitizeValueStrategy(null)
 }])
 
+angular.module('juiceShop').config(['$qProvider', function ($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false)
+}])
+
+angular.module('juiceShop').config(['$locationProvider', function ($locationProvider) {
+  $locationProvider.hashPrefix('')
+}])
+
 angular.module('juiceShop').filter('emailName', function () {
   return function (email) {
     // Returns only the name of a mail address
