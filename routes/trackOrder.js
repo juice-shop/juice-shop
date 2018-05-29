@@ -7,10 +7,10 @@ module.exports = function trackOrder () {
     if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<script>alert("XSS")</script>')) {
       utils.solve(challenges.reflectedXssChallenge)
     }
-    db.orders.find({ orderNo: req.params.id }).then(order => {
+    db.orders.find({ orderId: req.params.id }).then(order => {
       const result = utils.queryResultToJson(order)
       if (result.data[0] === undefined) {
-        result.data[0] = {orderNo: req.params.id}
+        result.data[0] = {orderId: req.params.id}
       }
       res.json(result)
     }, () => {
