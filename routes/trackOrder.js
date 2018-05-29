@@ -4,11 +4,14 @@ const db = require('../data/mongodb')
 
 module.exports = function trackOrder () {
   return (req, res) => {
-    if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.query.id, '<script>alert("XSS")</script>')) {
+    if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<script>alert("XSS")</script>')) {
       utils.solve(challenges.reflectedXssChallenge)
     }
-    db.orders.find({ orderNo: req.query.id }).then(order => {
+    db.orders.find({ orderId: req.params.id }).then(order => {
       const result = utils.queryResultToJson(order)
+      if (result.data[0] === undefined) {
+        result.data[0] = {orderId: req.params.id}
+      }
       res.json(result)
     }, () => {
       res.status(400).json({ error: 'Wrong Param' })
