@@ -76,4 +76,16 @@ describe('routes', function () {
       expect($route.routes['/recycle'].controller).toBe('RecycleController')
       expect($route.routes['/recycle'].templateUrl).toEqual('views/Recycle.html')
     }))
+
+  /* it('should load TrackOrder page for /track-order route',
+    inject(function ($route) {
+      expect($route.routes['/track-order'].controller).toBe('TrackOrderController')
+      expect($route.routes['/track-order'].templateUrl).toEqual('views/TrackOrder.html')
+    })) */
+
+  it('should load TrackResults page for /track-result route',
+    inject(function ($route) {
+      expect($route.routes['/track-result'].controller).toBe('TrackResultController')
+      expect($route.routes['/track-result'].templateUrl).toEqual('views/TrackResult.html')
+    }))
 })
