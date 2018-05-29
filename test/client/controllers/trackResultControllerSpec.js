@@ -29,7 +29,7 @@ describe('controllers', function () {
     }))
 
     it('should render order no. from tracking results as trusted HTML', inject(function () {
-      $httpBackend.expectGET('/rest/track-order/undefined').respond(200, {data: [{orderNo: '<script>alert("XSS")</script>'}]})
+      $httpBackend.expectGET('/rest/track-order/undefined').respond(200, {data: [{orderId: '<script>alert("XSS")</script>'}]})
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
