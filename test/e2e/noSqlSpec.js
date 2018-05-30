@@ -1,6 +1,6 @@
 const config = require('config')
 
-describe('/#/search', () => {
+fdescribe('/#/search', () => {
   beforeEach(() => {
     browser.get('/#/search')
   })
@@ -25,5 +25,15 @@ describe('/#/search', () => {
       browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 2' })
+  })
+
+  describe('challenge "NoSql Injection 2"', () => {
+    it('should be possible to inject and get all the orders', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/\'%2520%257C%257C%2520true%2520%257C%257C%2520\'\');')
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
   })
 })
