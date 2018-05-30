@@ -1,20 +1,21 @@
-import { UserService } from 'src/app/Services/user.service';
-import { HttpClientModule } from '@angular/common/http';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangePasswordComponent } from './change-password.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from 'src/app/Services/user.service'
+import { HttpClientModule } from '@angular/common/http'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { ChangePasswordComponent } from './change-password.component'
+import { ReactiveFormsModule } from '@angular/forms'
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
 
 describe('ChangePasswordComponent', () => {
-  let component: ChangePasswordComponent;
-  let fixture: ComponentFixture<ChangePasswordComponent>;
+  let component: ChangePasswordComponent
+  let fixture: ComponentFixture<ChangePasswordComponent>
 
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -28,16 +29,16 @@ describe('ChangePasswordComponent', () => {
       declarations: [ ChangePasswordComponent ],
       providers: [UserService]
     })
-    .compileComponents();
-  }));
+    .compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChangePasswordComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ChangePasswordComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})
