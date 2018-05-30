@@ -7,8 +7,12 @@ module.exports = function trackOrder () {
     if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<script>alert("XSS")</script>')) {
       utils.solve(challenges.reflectedXssChallenge)
     }
-    db.orders.find({ orderId: req.params.id }).then(order => {
+    req.params.id = decodeURIComponent(req.params.id)
+    db.orders.find({ $where: "this.orderId === '" + req.params.id + "'" }).then(order => {
       const result = utils.queryResultToJson(order)
+      if (utils.notSolved(challenges.noSqlInjectionChallenge2) && result.data.length > 1) {
+        utils.solve(challenges.noSqlInjectionChallenge2)
+      }
       if (result.data[0] === undefined) {
         result.data[0] = {orderId: req.params.id}
       }
