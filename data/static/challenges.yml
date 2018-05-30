@@ -383,6 +383,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#update-multiple-product-reviews-at-the-same-time'
   key: noSqlInjectionChallenge
 -
+  name: 'NoSQL Injection Tier 3'
+  category: 'Injection'
+  description: 'Get all the orders of the shop'
+  difficulty: 5
+  hint: 'Take a close look on how the $where query operator works in MongoDB.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#get-all-the-orders'
+  key: noSqlInjectionChallenge2  
+-
   name: 'Retrieve Blueprint'
   category: 'Forgotten Content'
   description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.'
