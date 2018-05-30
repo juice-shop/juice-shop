@@ -18,11 +18,11 @@ describe('/rest/track-order/:id', () => {
       price: Joi.number(),
       total: Joi.number()
     })
-    frisby.get(REST_URL + '/track-order/\'%2520%257C%257C%2520true%2520%257C%257C%2520\'')
+    frisby.get(REST_URL + '/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data.*', {
-        orderId: Joi.number(),
+        orderId: Joi.string(),
         email: Joi.string(),
         totalPrice: Joi.number(),
         products: Joi.array().items(product),

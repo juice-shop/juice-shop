@@ -30,7 +30,7 @@ describe('/#/search', () => {
   describe('challenge "NoSql Orders Injection"', () => {
     it('should be possible to inject and get all the orders', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/\'%2520%257C%257C%2520true%2520%257C%257C%2520\'\');')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27\');')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
