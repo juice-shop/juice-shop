@@ -7,9 +7,9 @@ import { SearchResultComponent } from './search-result/search-result.component'
 import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { Routes, RouterModule } from '@angular/router'
-import { ChangePasswordComponent } from 'src/app/change-password/change-password.component'
-import { ComplaintComponent } from 'src/app/complaint/complaint.component'
-import { TrackOrderComponent } from 'src/app/track-order/track-order.component'
+import { ChangePasswordComponent } from './change-password/change-password.component'
+import { ComplaintComponent } from './complaint/complaint.component'
+import { TrackOrderComponent } from './track-order/track-order.component'
 
 const routes: Routes = [
   {
