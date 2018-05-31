@@ -10,7 +10,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { RecycleComponent } from './recycle.component'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
