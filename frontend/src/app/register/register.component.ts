@@ -2,7 +2,7 @@ import { SecurityAnswerService } from './../Services/security-answer.service'
 import { UserService } from './../Services/user.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
-import { SecurityQuestionService } from 'src/app/Services/security-question.service'
+import { SecurityQuestionService } from './../Services/security-question.service'
 import { Router } from '@angular/router'
 
 @Component({

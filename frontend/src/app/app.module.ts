@@ -19,10 +19,12 @@ import { ContactComponent } from './contact/contact.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
+import { TrackOrderComponent } from './track-order/track-order.component'
+import { TrackResultComponent } from './track-result/track-result.component'
 
 /* Imported Services */
-import { ProductService } from 'src/app/Services/product.service'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ProductService } from './Services/product.service'
+import { ConfigurationService } from './Services/configuration.service'
 import { AdministrationService } from './Services/administration.service'
 import { SecurityQuestionService } from './Services/security-question.service'
 import { UserService } from './Services/user.service'
@@ -33,6 +35,7 @@ import { WindowRefService } from './Services/window-ref.service'
 import { ProductReviewService } from './Services/product-review.service'
 import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
+import { TrackOrderService } from './Services/track-order.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -49,8 +52,6 @@ import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { TrackOrderComponent } from './track-order/track-order.component'
-import { TrackResultComponent } from './track-result/track-result.component'
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { TrackResultComponent } from './track-result/track-result.component'
     WindowRefService,
     ProductReviewService,
     FileUploadService,
-    ComplaintService
+    ComplaintService,
+    TrackOrderService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
-import { AdministrationService } from 'src/app/Services/administration.service'
+import { AdministrationService } from './../Services/administration.service'
 import { RouterTestingModule } from '@angular/router/testing'
 
 describe('NavbarComponent', () => {
