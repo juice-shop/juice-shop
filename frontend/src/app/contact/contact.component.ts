@@ -1,4 +1,4 @@
-import { FeedbackService } from 'src/app/Services/feedback.service'
+import { FeedbackService } from './../Services/feedback.service'
 import { CaptchaService } from './../Services/captcha.service'
 import { UserService } from './../Services/user.service'
 import { FormControl, Validators } from '@angular/forms'

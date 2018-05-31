@@ -1,5 +1,5 @@
 import { ComplaintService } from './../Services/complaint.service'
-import { UserService } from 'src/app/Services/user.service'
+import { UserService } from './../Services/user.service'
 import { FileUploadService } from './../Services/file-upload.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'

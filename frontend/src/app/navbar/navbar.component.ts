@@ -1,5 +1,5 @@
 import { AdministrationService } from './../Services/administration.service'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { faSearch } from '@fortawesome/fontawesome-free-solid'
