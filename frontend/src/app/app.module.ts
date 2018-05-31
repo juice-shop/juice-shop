@@ -36,6 +36,7 @@ import { ProductReviewService } from './Services/product-review.service'
 import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
+import { RecycleService } from './Services/recycle.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -51,7 +52,8 @@ import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDialogModule } from '@angular/material/dialog'
-import { MatDividerModule } from '@angular/material/divider'
+import { MatDividerModule } from '@angular/material/divider';
+import { RecycleComponent } from './recycle/recycle.component'
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { MatDividerModule } from '@angular/material/divider'
     ProductDetailsComponent,
     ComplaintComponent,
     TrackOrderComponent,
-    TrackResultComponent
+    TrackResultComponent,
+    RecycleComponent
   ],
   entryComponents: [ ProductDetailsComponent ],
   imports: [
@@ -106,7 +109,8 @@ import { MatDividerModule } from '@angular/material/divider'
     ProductReviewService,
     FileUploadService,
     ComplaintService,
-    TrackOrderService
+    TrackOrderService,
+    RecycleService
   ],
   bootstrap: [AppComponent]
 })
