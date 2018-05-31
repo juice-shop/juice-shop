@@ -385,7 +385,7 @@
 -
   name: 'NoSQL Injection Tier 3'
   category: 'Injection'
-  description: 'All your orders belong to us!'
+  description: 'All your orders are belong to us!'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#get-all-the-orders'
