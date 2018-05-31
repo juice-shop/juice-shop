@@ -21,6 +21,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { TrackResultComponent } from './track-result/track-result.component'
+import { RecycleComponent } from './recycle/recycle.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -52,8 +53,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDialogModule } from '@angular/material/dialog'
-import { MatDividerModule } from '@angular/material/divider';
-import { RecycleComponent } from './recycle/recycle.component'
+import { MatDividerModule } from '@angular/material/divider'
 
 @NgModule({
   declarations: [
