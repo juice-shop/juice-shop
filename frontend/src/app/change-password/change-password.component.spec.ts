@@ -1,4 +1,4 @@
-import { UserService } from 'src/app/Services/user.service'
+import { UserService } from './../Services/user.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { ChangePasswordComponent } from './change-password.component'

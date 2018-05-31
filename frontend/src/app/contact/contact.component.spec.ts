@@ -9,7 +9,7 @@ import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { FeedbackService } from 'src/app/Services/feedback.service'
+import { FeedbackService } from './../Services/feedback.service'
 
 describe('ContactComponent', () => {
   let component: ContactComponent
