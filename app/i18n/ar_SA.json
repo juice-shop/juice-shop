@@ -137,11 +137,11 @@
   "ICO_FAQ": "أسئلة وأجوبة حول إيكو لدين",
   "SECTION_WHITEPAPER": "ورقة بيضاء",
   "WHITEPAPER_REFERENCES": "بدلاً من إعادة اختراع العملة المربعة، نشير فقط إلى قائمة صفحات بيضاء رائعة!",
-  "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
-  "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
-  "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
-  "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
-  "TITLE_TRACK_ORDERS": "Track Orders",
-  "LABEL_ORDER_ID": "Order ID",
-  "BTN_TRACK": "Track"
+  "SECTION_SALES_PITCH": "نص بيع إيكو مقنعة",
+  "GIVE_US_ALL_YOUR_MONEY": "أعطن كل أموالك.",
+  "ICO_FAQ_QUESTION": "هل يمكنني حقاً أن أصبح غنيا مع {{juicycoin}}؟",
+  "ICO_FAQ_ANSWER": "بالطبع يمكنك! لا نستطيع الكذب ابدأ عليكم!",
+  "TITLE_TRACK_ORDERS": "تتبع الطلبات",
+  "LABEL_ORDER_ID": "رقم تعريف طلب الشّراء",
+  "BTN_TRACK": "مسار"
 }
