@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from './../Services/configuration.service'
 import { UserService } from './../Services/user.service'
 import { RecycleService } from './../Services/recycle.service'
@@ -11,6 +12,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RecycleComponent } from './recycle.component'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatNativeDateModule } from '@angular/material/core'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
@@ -25,7 +28,10 @@ describe('RecycleComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatNativeDateModule
       ],
       declarations: [ RecycleComponent ],
       providers: [

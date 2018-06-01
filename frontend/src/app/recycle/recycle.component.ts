@@ -17,6 +17,8 @@ export class RecycleComponent implements OnInit {
   public requestorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public recycleAddressControl: FormControl = new FormControl('',[Validators.required,Validators.minLength(20),Validators.maxLength(180)])
   public recycleQuantityControl: FormControl = new FormControl('',[Validators.required,Validators.min(10),Validators.max(1000)])
+  public pickUpDateControl: FormControl = new FormControl()
+  public pickup: FormControl = new FormControl(false)
   public topImage: string
   public bottomImage: string
   public recycles: any
@@ -48,6 +50,13 @@ export class RecycleComponent implements OnInit {
   }
 
   save () {
+    this.recycle.address = this.recycleAddressControl.value
+    this.recycle.quantity = this.recycleQuantityControl.value
+    if (this.pickup.value) {
+      this.recycle.isPickUp = this.pickup.value
+    }
+    this.recycle.date = this.pickUpDateControl.value
+
     this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
       this.confirmation = 'Thank you for using our recycling service. We will ' + (savedRecycle.isPickup ? ('pick up your pomace on ' + savedRecycle.pickupDate) : 'deliver your recycle box asap') + '.'
       this.initRecycle()
@@ -70,6 +79,10 @@ export class RecycleComponent implements OnInit {
     this.recycleQuantityControl.setValue('')
     this.recycleQuantityControl.markAsPristine()
     this.recycleQuantityControl.markAsUntouched()
+    this.pickUpDateControl.setValue('')
+    this.pickUpDateControl.markAsPristine()
+    this.pickUpDateControl.markAsUntouched()
+    this.pickup.setValue(false)
   }
 
 }
