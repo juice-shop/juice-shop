@@ -56,7 +56,7 @@ export class RecycleComponent implements OnInit {
   }
 
   findAll () {
-    this.recycleService.find(null).subscribe((recycles) => {
+    this.recycleService.find().subscribe((recycles) => {
       this.recycles = recycles
     }, (error) => {
       console.log(error)
