@@ -21,15 +21,26 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Delivery Address</mat-label>
+          <mat-label *ngIf="!pickup.value">Delivery Address</mat-label>
+          <mat-label *ngIf="pickup.value">Pickup Address</mat-label>
           <textarea [formControl]="recycleAddressControl" type="text" matInput></textarea>
           <mat-error *ngIf="recycleAddressControl.invalid && recycleAddressControl.errors.required">Please provide an address.</mat-error>
           <mat-error *ngIf="recycleAddressControl.invalid && (recycleAddressControl.errors.minlength || recycleAddressControl.errors.maxlength)">Address length must be 20-180 characters.</mat-error>
         </mat-form-field>
 
+        <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
+          <mat-label>Pickup Date</mat-label>
+          <input  [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="pickUpDateControl.invalid">Not a valid date.</mat-error>
+        </mat-form-field>
+
+        <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">Please pickup at above address instead of sending a recycle box.</mat-checkbox>
+
       </div>
 
-    <button [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid" mat-raised-button color="primary"><i class="fas fa-paper-plane fa-lg"></i>   Submit</button>
+    <button style="margin-top:20px" [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid || pickUpDateControl.invalid" mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>   Submit</button>
 
   </mat-card>
 
