@@ -10,6 +10,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
+import { RecycleComponent } from './recycle/recycle.component'
 
 const routes: Routes = [
   {
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'recycle',
+    component: RecycleComponent
   },
   {
     path: 'register',

@@ -21,6 +21,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { TrackResultComponent } from './track-result/track-result.component'
+import { RecycleComponent } from './recycle/recycle.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -36,6 +37,7 @@ import { ProductReviewService } from './Services/product-review.service'
 import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
+import { RecycleService } from './Services/recycle.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -52,6 +54,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 
 @NgModule({
   declarations: [
@@ -70,7 +74,8 @@ import { MatDividerModule } from '@angular/material/divider'
     ProductDetailsComponent,
     ComplaintComponent,
     TrackOrderComponent,
-    TrackResultComponent
+    TrackResultComponent,
+    RecycleComponent
   ],
   entryComponents: [ ProductDetailsComponent ],
   imports: [
@@ -91,7 +96,9 @@ import { MatDividerModule } from '@angular/material/divider'
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     ProductService,
@@ -106,7 +113,8 @@ import { MatDividerModule } from '@angular/material/divider'
     ProductReviewService,
     FileUploadService,
     ComplaintService,
-    TrackOrderService
+    TrackOrderService,
+    RecycleService
   ],
   bootstrap: [AppComponent]
 })
