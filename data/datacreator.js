@@ -4,6 +4,7 @@ const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
+const insecurity = require('../lib/insecurity')
 
 const fs = require('fs')
 const path = require('path')
@@ -31,7 +32,8 @@ module.exports = async () => {
     createComplaints,
     createRecycles,
     createSecurityQuestions,
-    createSecurityAnswers
+    createSecurityAnswers,
+    createOrders
   ]
 
   for (const creator of creators) {
@@ -361,5 +363,65 @@ function createSecurityAnswers () {
       console.error(`Could not insert SecurityAnswer for UserId ${answer.UserId}`)
       console.error(err)
     }))
+  )
+}
+
+function createOrders () {
+  const email = 'admin@' + config.get('application.domain')
+  const products = config.get('products')
+  const basket1Products = [
+    {
+      quantity: 3,
+      name: products[0].name,
+      price: products[0].price,
+      total: products[0].price * 3
+    },
+    {
+      quantity: 1,
+      name: products[1].name,
+      price: products[1].price,
+      total: products[1].price * 1
+    }
+  ]
+
+  const basket2Products = [
+    {
+      quantity: 3,
+      name: products[2].name,
+      price: products[2].price,
+      total: products[2].price * 3
+    }
+  ]
+
+  const orders = [
+    {
+      orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
+      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      totalPrice: basket1Products[0].total + basket1Products[1].total,
+      products: basket1Products,
+      eta: Math.floor((Math.random() * 5) + 1).toString()
+    },
+    {
+      orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
+      email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
+      totalPrice: basket2Products[0].total,
+      products: basket2Products,
+      eta: Math.floor((Math.random() * 5) + 1).toString()
+    }
+  ]
+
+  return Promise.all(
+    orders.map(({orderId, email, totalPrice, products, eta}) =>
+      mongodb.orders.insert({
+        orderId: orderId,
+        email: email,
+        totalPrice: totalPrice,
+        products: products,
+        eta: eta
+      }).catch((err) => {
+        console.error(`Could not insert Order ${orderId}`)
+        console.error(err)
+      })
+    )
   )
 }

