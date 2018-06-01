@@ -12,9 +12,9 @@ module.exports = function productReviews () {
       { multi: true }
     ).then(
       result => {
-        if (result.modified > 1 && utils.notSolved(challenges.noSqlInjectionChallenge)) {
+        if (result.modified > 1 && utils.notSolved(challenges.noSqlReviewsChallenge)) {
           // More then one Review was modified => challange solved
-          utils.solve(challenges.noSqlInjectionChallenge)
+          utils.solve(challenges.noSqlReviewsChallenge)
         }
         res.json(result)
       }, err => {

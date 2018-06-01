@@ -381,7 +381,15 @@
   difficulty: 4
   hint: 'Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#update-multiple-product-reviews-at-the-same-time'
-  key: noSqlInjectionChallenge
+  key: noSqlReviewsChallenge
+-
+  name: 'NoSQL Injection Tier 3'
+  category: 'Injection'
+  description: 'All your orders are belong to us!'
+  difficulty: 5
+  hint: 'Take a close look on how the $where query operator works in MongoDB.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#get-all-the-orders'
+  key: noSqlOrdersChallenge  
 -
   name: 'Retrieve Blueprint'
   category: 'Forgotten Content'
