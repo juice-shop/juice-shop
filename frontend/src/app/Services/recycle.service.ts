@@ -13,7 +13,7 @@ export class RecycleService {
 
   constructor (private http: HttpClient) { }
 
-  find (params) {
+  find (params?: any) {
     return this.http.get(this.host + '/' , {
       params: params
     }).pipe(map((response: any) => response.data),catchError((error) => { throw error }))
