@@ -1,0 +1,71 @@
+<div class="recycle-container">
+
+  <mat-card class="form-card">
+
+      <h3>Request Recycling box</h3>
+
+      <div class="form-container">
+
+        <div *ngIf="confirmation && !recycleQuantityControl.dirty && !recycleAddressControl.dirty" style="color:#5bc0de">{{ confirmation }}</div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Requestor</mat-label>
+          <input [formControl]="requestorControl" type="text" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input [formControl]="recycleQuantityControl" type="number" placeholder="...in liters" matInput>
+          <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required">Please provide a quantity.</mat-error>
+          <mat-error *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)">Quantity must be 10-1000 litres.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label *ngIf="!pickup.value">Delivery Address</mat-label>
+          <mat-label *ngIf="pickup.value">Pickup Address</mat-label>
+          <textarea [formControl]="recycleAddressControl" type="text" matInput></textarea>
+          <mat-error *ngIf="recycleAddressControl.invalid && recycleAddressControl.errors.required">Please provide an address.</mat-error>
+          <mat-error *ngIf="recycleAddressControl.invalid && (recycleAddressControl.errors.minlength || recycleAddressControl.errors.maxlength)">Address length must be 20-180 characters.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
+          <mat-label>Pickup Date</mat-label>
+          <input  [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="pickUpDateControl.invalid">Not a valid date.</mat-error>
+        </mat-form-field>
+
+        <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">Please pickup at above address instead of sending a recycle box.</mat-checkbox>
+
+      </div>
+
+    <button style="margin-top:20px" [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid || pickUpDateControl.invalid" mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>   Submit</button>
+
+  </mat-card>
+
+
+  <div class="card-container">
+
+    <h3>You hug trees. We save money. Win-win!</h3>
+    <mat-card>
+      <img mat-card-image [src]="topImage">
+      <mat-card-content>
+        <div class="caption">
+          <small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</small>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card style="margin-bottom:10px;margin-top:20px">
+      <img mat-card-image [src]="bottomImage">
+      <mat-card-content>
+        <div class="caption">
+            <small>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</small>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+</div>
