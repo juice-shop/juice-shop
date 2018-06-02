@@ -65,14 +65,14 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
-      sessionStorage.bid = authentication.bid
+      sessionStorage.setItem('bid',authentication.bid)
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
       this.router.navigate(['/'])
     }, (error) => {
       console.log(error)
       localStorage.removeItem('token')
-      delete sessionStorage.bid
+      sessionStorage.removeItem('bid')
       this.error = error
       /* Use userService to notify user failed to log in */
       /*this.userServe.isLoggedIn = false;*/
