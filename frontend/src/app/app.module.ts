@@ -38,6 +38,7 @@ import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
+import { BasketService } from './Services/basket.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -114,7 +115,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     FileUploadService,
     ComplaintService,
     TrackOrderService,
-    RecycleService
+    RecycleService,
+    BasketService
   ],
   bootstrap: [AppComponent]
 })
