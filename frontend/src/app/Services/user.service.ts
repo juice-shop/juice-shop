@@ -43,7 +43,7 @@ export class UserService {
   }
 
   whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user))
+    return this.http.get(this.hostServer + '/rest/user/whoami',{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user))
   }
 
   oauthLogin (accessToken) {
