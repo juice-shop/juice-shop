@@ -19,6 +19,7 @@ export class BasketComponent implements OnInit {
 
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+      console.log(basket)
       this.dataSource = basket.Products
     })
   }

@@ -14,15 +14,15 @@ export class BasketService {
   constructor (private http: HttpClient) { }
 
   find (id) {
-    return this.http.get(this.hostServer + '/rest/basket/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.get(this.hostServer + '/rest/basket/' + id,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   get (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.get(this.host + '/' + id,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   put (id, params) {
-    return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.put(this.host + '/' + id, params, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   del (id) {
@@ -30,7 +30,7 @@ export class BasketService {
   }
 
   save (params) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.post(this.host + '/', params,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   checkout (id) {
