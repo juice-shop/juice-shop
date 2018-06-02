@@ -1,3 +1,36 @@
-<p>
-  basket works!
-</p>
+<mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="product">
+    <mat-header-cell *matHeaderCellDef> Procuct </mat-header-cell>
+    <mat-cell *matCellDef="let element"></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let element"><div [innerHTML]="element.description"></div> </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element"></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="total price">
+    <mat-header-cell *matHeaderCellDef>  Total Price </mat-header-cell>
+    <mat-cell *matCellDef="let element"></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+      <mat-cell *matCellDef="let element"></mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table>
