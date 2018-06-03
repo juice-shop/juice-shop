@@ -8,7 +8,7 @@ import { map,catchError } from 'rxjs/operators'
 })
 export class BasketService {
 
-  private hostServer = environment.hostServer
+  public hostServer = environment.hostServer
   private host = this.hostServer + '/api/BasketItems'
 
   constructor (private http: HttpClient) { }
@@ -26,7 +26,7 @@ export class BasketService {
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.delete(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   save (params) {
@@ -34,11 +34,11 @@ export class BasketService {
   }
 
   checkout (id) {
-    return this.http.post('/rest/basket/' + id + '/checkout',{}).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
+    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{},{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
   applyCoupon (id, coupon) {
-    return this.http.put('/rest/basket/' + id + '/coupon/' + coupon, {}).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
+    return this.http.put(this.hostServer + '/rest/basket/' + id + '/coupon/' + coupon, {},{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
   }
 
 }
