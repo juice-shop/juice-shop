@@ -1,0 +1,47 @@
+.container {
+    margin-top:40px;
+    margin-left: 16.677%;
+    width: 70%;
+}
+
+mat-card {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.heading {
+    justify-content: center;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.54);
+    background: rgba(0, 0, 0, 0.13);
+}
+
+.mat-row {
+    padding-bottom: 10px;
+}
+
+.mat-column-description {
+    min-width: 309px;
+    margin-left: 20px;
+}
+
+.mat-column-price {
+    margin-left:20px;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-top: 15px;
+}
+
+mat-expansion-panel {
+    margin-bottom: 20px;
+}
+
+.button-container button {
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.payment-label {
+    padding-top:10px;
+}
