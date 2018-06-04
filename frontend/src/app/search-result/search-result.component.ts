@@ -83,7 +83,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
           this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
             let newQuantity = existingBasketItem.quantity + 1
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe(() => {
-              console.log('ADDED')
+              /* Translations to be added when i18n is set up */
             })
           })
           break
@@ -91,7 +91,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       }
       if (!found) {
         this.basketService.save({ ProductId: id, BasketId: sessionStorage.bid, quantity: 1 }).subscribe((newBasketItem) => {
-          console.log('ADDED')
+          /* Translations to be added when i18n is set up */
         })
       }
     })

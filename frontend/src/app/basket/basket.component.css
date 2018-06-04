@@ -28,6 +28,10 @@ mat-card {
     margin-left:20px;
 }
 
+.mat-column-quantity button {
+    width:20px;
+}
+
 mat-form-field {
     width: 100%;
     margin-top: 15px;

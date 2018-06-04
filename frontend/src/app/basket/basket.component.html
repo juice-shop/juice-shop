@@ -11,7 +11,7 @@
 
       <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-        <mat-cell *matCellDef="let element"><div [innerHTML]="element.description"></div> </mat-cell>
+        <mat-cell *matCellDef="let element"><div>{{element.description}}</div> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
@@ -22,9 +22,9 @@
       <ng-container matColumnDef="quantity">
         <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a style="cursor:pointer"><i class="fas fa-minus-square"></i></a>
+          <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
           <span>{{element.BasketItem.quantity}} </span>
-          <a style="cursor:pointer"><i class="fas fa-plus-square"></i></a>
+          <button mat-icon-button (click)="inc(element.BasketItem.id)"><i class="fas fa-plus-square"></i></button>
         </mat-cell>
       </ng-container>
 
@@ -79,15 +79,20 @@
     <div class="button-container">
       <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_flow&SESSION=KBV3JLRLZzPAmJga1gvM5VWwdkVIy37Q2sij7bvtUjkQwh1fDEXpkPF-AwO&dispatch=5885d80a13c0db1f8e263663d3faee8db8175432b4df92754f4b4adb5a123d61&rapidsState=Donation__DonationFlow___StateDonationBilling&rapidsStateSignature=e45ee9d32a087cceb12fa4c851574a56ca31305c"><button type="submit" name="submit" color="warn" mat-raised-button><i class="fab fa-paypal fa-lg"></i> PayPal</button></a>
       <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step"><button color="warn" mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button></a>
-      <button color="warn" mat-raised-button><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
-      <button color="warn" mat-raised-button><i class="fa-lg">Ð</i> Dash</button>
-      <button color="warn" mat-raised-button><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+      <button color="warn" mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+      <button color="warn" mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
+      <button color="warn" mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
     </div>
 
     <div class="payment-label">
       <label>Merchandise</label>
       <small>(<span *ngIf="applicationName === 'OWASP Juice Shop'">    Official stores for {{applicationName}} apparel, mugs and stickers! </span> <span *ngIf="applicationName !== 'OWASP Juice Shop'">    (To be enabled when i18n is set up )</span>   <i class="fas fa-thumbs-up"></i>  )</small>
+    </div>
 
+    <div class="button-container">
+      <a href="http://shop.spreadshirt.com/juiceshop"><button mat-raised-button color="warn"><i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.com</button></a>
+      <a href="http://shop.spreadshirt.de/juiceshop"><button mat-raised-button color="warn"><i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.de</button></a>
+      <a href="https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button color="warn"><i class="fas fa-sticky-note fa-lg"></i> StickerYou.com</button></a>
     </div>
 
   </mat-expansion-panel>
