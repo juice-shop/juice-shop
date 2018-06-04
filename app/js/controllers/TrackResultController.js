@@ -7,9 +7,9 @@ angular.module('juiceShop').controller('TrackResultController', [
     'use strict'
 
     $scope.orderId = $location.search().id
-    trackOrderService.save($scope.orderId).then(function (results) {
+    trackOrderService.track($scope.orderId).then(function (results) {
       $scope.results = {}
-      $scope.results.orderNo = $sce.trustAsHtml(results.data[0].orderNo)
+      $scope.results.orderId = $sce.trustAsHtml(results.data[0].orderId)
       $scope.results.email = results.data[0].email
       $scope.results.totalPrice = results.data[0].totalPrice
       $scope.results.products = results.data[0].products
