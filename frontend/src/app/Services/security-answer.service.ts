@@ -14,8 +14,6 @@ export class SecurityAnswerService {
   constructor (private http: HttpClient) { }
 
   save (params) {
-    console.log(this.hostServer)
-    console.log(this.host)
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
       catchError((err) => err)
