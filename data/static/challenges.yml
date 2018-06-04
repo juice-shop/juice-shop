@@ -15,13 +15,13 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-not-very-gracefully-handled'
   key: errorHandlingChallenge
 -
-  name: 'User Impersonation'
-  category: 'User Impersonation'
+  name: 'Forged Review'
+  category: 'Broken Access Control'
   description: 'Post product reviews as any user or edit any user''s review.'
-  difficulty: 1
+  difficulty: 3
   hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/user-impersonation.html#edit-any-product-review'
-  key: impersonationChallenge
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forged-review.html#edit-any-product-review'
+  key: forgedReviewChallenge
 -
   name: 'Login Admin'
   category: 'Injection'

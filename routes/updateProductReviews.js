@@ -17,8 +17,8 @@ module.exports = function productReviews () {
           // More then one Review was modified => challange solved
           utils.solve(challenges.noSqlInjectionChallenge)
         }
-        if (result.original[0].author !== user.data.email && utils.notSolved(challenges.impersonationChallenge && result.modified === 1)) {
-          utils.solve(challenges.impersonationChallenge)
+        if (result.original[0].author !== user.data.email && utils.notSolved(challenges.forgedReviewChallenge && result.modified === 1)) {
+          utils.solve(challenges.forgedReviewChallenge)
         }
         res.json(result)
       }, err => {
