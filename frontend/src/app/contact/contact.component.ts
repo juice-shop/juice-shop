@@ -49,7 +49,6 @@ export class ContactComponent implements OnInit {
     this.feedback.captcha = this.captchaControl.value
     this.feedback.comment = this.feedbackControl.value
     this.feedback.rating = this.rating
-    console.log(this.feedback)
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
       this.error = null
       this.confirmation = 'Thank you for your feedback' + (savedFeedback.rating === 5 ? ' and your 5-star rating!' : '.')

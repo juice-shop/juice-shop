@@ -27,7 +27,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.data = this.data.productData
     this.reviews$ = this.productReviewService.get(this.data.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
-      console.log(user)
       if (user && user.email) {
         this.author = user.email
       } else {
@@ -53,9 +52,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }))
 
     textPut.value = ''
-    console.log(this.data.id)
-    console.log(review)
-    this.productReviewService.create(this.data.id, review).subscribe((respone: any) => console.log('Success'), (err) => console.log(err))
+    this.productReviewService.create(this.data.id, review).subscribe((response: any) => response,(err) => err)
   }
 
 }

@@ -74,7 +74,6 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   addToBasket (id: number) {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
-      console.log(basket)
       let productsInBasket: any = basket.Products
       let found = false
       for (let i = 0; i < productsInBasket.length; i++) {
