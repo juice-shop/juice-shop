@@ -1,0 +1,14 @@
+<header>
+  <h3>{{title}} Address</h3>
+</header>
+
+<mat-divider style="margin-bottom: 10px"></mat-divider>
+
+<div class="container">
+  <a [href]="url"><qrcode [qrdata]="data" [size]="300" [level]="'M'"></qrcode></a>
+  <small>{{address}}</small>
+</div>
+
+<footer>
+  <button mat-raised-button mat-dialog-close color="primary"><i class="fas fa-arrow-circle-left fa-lg"></i> Close</button>
+</footer>

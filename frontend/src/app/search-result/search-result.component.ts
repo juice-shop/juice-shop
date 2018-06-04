@@ -1,6 +1,7 @@
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
+import { BasketService } from 'src/app/Services/basket.service'
 import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
@@ -25,7 +26,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService, private router: Router, private route: ActivatedRoute) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute) { }
 
   ngAfterViewInit () {
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
@@ -67,6 +68,30 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       height: 'max-content',
       data: {
         productData: element
+      }
+    })
+  }
+
+  addToBasket (id: number) {
+    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+      let productsInBasket: any = basket.Products
+      let found = false
+      for (let i = 0; i < productsInBasket.length; i++) {
+        if (productsInBasket[i].id === id) {
+          found = true
+          this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
+            let newQuantity = existingBasketItem.quantity + 1
+            this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe(() => {
+              /* Translations to be added when i18n is set up */
+            })
+          })
+          break
+        }
+      }
+      if (!found) {
+        this.basketService.save({ ProductId: id, BasketId: sessionStorage.bid, quantity: 1 }).subscribe((newBasketItem) => {
+          /* Translations to be added when i18n is set up */
+        })
       }
     })
   }
