@@ -73,7 +73,6 @@ export class ComplaintComponent implements OnInit {
     this.complaintService.save(this.complaint).subscribe((savedComplaint: any) => {
       this.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.id
       this.initComplaint()
-      console.log(this.fileControl)
       this.resetForm()
     }, (error) => error)
   }

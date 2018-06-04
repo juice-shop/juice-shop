@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
+import { QRCodeModule } from 'angularx-qrcode'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -38,6 +39,7 @@ import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
+import { BasketService } from './Services/basket.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -56,6 +58,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { QrCodeComponent } from './qr-code/qr-code.component'
 
 @NgModule({
   declarations: [
@@ -75,15 +79,17 @@ import { MatNativeDateModule } from '@angular/material/core'
     ComplaintComponent,
     TrackOrderComponent,
     TrackResultComponent,
-    RecycleComponent
+    RecycleComponent,
+    QrCodeComponent
   ],
-  entryComponents: [ ProductDetailsComponent ],
+  entryComponents: [ ProductDetailsComponent,QrCodeComponent ],
   imports: [
     BrowserModule,
     Routing,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    QRCodeModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
@@ -98,7 +104,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     MatDialogModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   providers: [
     ProductService,
@@ -114,7 +121,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     FileUploadService,
     ComplaintService,
     TrackOrderService,
-    RecycleService
+    RecycleService,
+    BasketService
   ],
   bootstrap: [AppComponent]
 })

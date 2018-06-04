@@ -1,3 +1,4 @@
+import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
 import { AboutComponent } from './about/about.component'
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'basket',
+    component: BasketComponent
   },
   {
     path: 'contact',
