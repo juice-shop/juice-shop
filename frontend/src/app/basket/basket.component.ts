@@ -1,3 +1,5 @@
+import { QrCodeComponent } from './../qr-code/qr-code.component'
+import { MatDialog } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
 import { WindowRefService } from './../Services/window-ref.service'
 import { Router } from '@angular/router'
@@ -30,7 +32,7 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
 
-  constructor (private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService) {}
 
   ngOnInit () {
     this.load()
@@ -112,6 +114,39 @@ export class BasketComponent implements OnInit {
       this.confirmation = undefined
       this.error = err
       this.resetForm()
+    })
+  }
+
+  showBitcoinQrCode () {
+    this.dialog.open(QrCodeComponent, {
+      data: {
+        data: 'bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        url: 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        address: '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        title: 'TITLE_BITCOIN_ADDRESS'
+      }
+    })
+  }
+
+  showDashQrCode () {
+    this.dialog.open(QrCodeComponent, {
+      data: {
+        data: 'dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        url: 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        address: 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        title: 'TITLE_DASH_ADDRESS'
+      }
+    })
+  }
+
+  showEtherQrCode () {
+    this.dialog.open(QrCodeComponent, {
+      data: {
+        data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
+        url: 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
+        title: 'TITLE_ETHER_ADDRESS'
+      }
     })
   }
 

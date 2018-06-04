@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
+import { QRCodeModule } from 'angularx-qrcode'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -58,6 +59,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { QrCodeComponent } from './qr-code/qr-code.component'
 
 @NgModule({
   declarations: [
@@ -77,15 +79,17 @@ import { MatExpansionModule } from '@angular/material/expansion'
     ComplaintComponent,
     TrackOrderComponent,
     TrackResultComponent,
-    RecycleComponent
+    RecycleComponent,
+    QrCodeComponent
   ],
-  entryComponents: [ ProductDetailsComponent ],
+  entryComponents: [ ProductDetailsComponent,QrCodeComponent ],
   imports: [
     BrowserModule,
     Routing,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    QRCodeModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
