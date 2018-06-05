@@ -2,6 +2,7 @@ import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
 import { WindowRefService } from './../Services/window-ref.service'
+import { ConfigurationService } from 'src/app/Services/configuration.service'
 import { Router } from '@angular/router'
 import { UserService } from './../Services/user.service'
 import { BasketService } from './../Services/basket.service'
@@ -10,7 +11,6 @@ import fontawesome from '@fortawesome/fontawesome'
 import { faMinusSquare, faPlusSquare, faCartArrowDown, faCreditCard, faGift, faHeart, faThumbsUp } from '@fortawesome/fontawesome-free-solid'
 import { faTrashAlt,faCreditCard as faCredit } from '@fortawesome/fontawesome-free-regular/'
 import { faPaypal,faEthereum, faBtc } from '@fortawesome/fontawesome-free-brands'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
 fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp)
 
 @Component({

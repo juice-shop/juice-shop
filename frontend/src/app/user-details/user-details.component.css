@@ -1,0 +1,12 @@
+.email-container,.date-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.created-at {
+    margin-right:10px;
+}
+
+footer button {
+    float: right;
+}

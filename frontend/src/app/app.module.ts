@@ -23,6 +23,8 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
+import { QrCodeComponent } from './qr-code/qr-code.component'
+import { UserDetailsComponent } from './user-details/user-details.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -59,7 +61,6 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { QrCodeComponent } from './qr-code/qr-code.component'
 
 @NgModule({
   declarations: [
@@ -80,9 +81,10 @@ import { QrCodeComponent } from './qr-code/qr-code.component'
     TrackOrderComponent,
     TrackResultComponent,
     RecycleComponent,
-    QrCodeComponent
+    QrCodeComponent,
+    UserDetailsComponent
   ],
-  entryComponents: [ ProductDetailsComponent,QrCodeComponent ],
+  entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent ],
   imports: [
     BrowserModule,
     Routing,
