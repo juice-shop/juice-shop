@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { QRCodeModule } from 'angularx-qrcode'
+import { BarRatingModule } from 'ngx-bar-rating'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -92,6 +93,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
     ReactiveFormsModule,
     BrowserAnimationsModule,
     QRCodeModule,
+    BarRatingModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
