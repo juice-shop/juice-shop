@@ -5,11 +5,12 @@ mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
 goes for conference or meetup talks, workshops or trainings you did
 where this project was mentioned or used!
 
-> **Spoiler Warning!** :bulb: indicates resources that contain _hints
-> for solving challenges_ of the OWASP Juice Shop. These are supposed to
-> be helpful whenever you get stuck. :godmode: indicates resources that
-> _spoiler entire challenge solutions_ so you might not want to view
-> them before tackling these challenges yourself!
+> :bulb: indicates resources that contain _hints for solving challenges_
+> of the OWASP Juice Shop. These are supposed to be helpful whenever you
+> get stuck. :godmode: indicates resources that _spoiler entire
+> challenge solutions_ so you might not want to view them before
+> tackling these challenges yourself! :mega: marks short friendly shout
+> outs.
 
 ## Awards :trophy:
 
@@ -38,13 +39,16 @@ where this project was mentioned or used!
   [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
 * Blog post (:de:) on [heise Developer](https://www.heise.de/developer):
   [Sicherheits-Etikette: Security in der Softwareentwicklung](https://www.heise.de/developer/artikel/Sicherheits-Etikette-Security-in-der-Softwareentwicklung-3986402.html)
+  :mega:
 * Webcast recording on
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
 * [7 Minute Security](https://7ms.us) Podcast:
-  * Episode #282:
-    [7MS #282: A Peek into the 7MS Mail Bag](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
-    ([Zencast](https://media.zencast.fm/7-minute-security-podcast-podcast/episodes/283))
+  * Shout outs in various episodes: [#310](https://7ms.us/7ms-310/),
+    [#309](https://7ms.us/7ms-309-password-cracking-in-the-cloud-part-2/),
+    [#306](https://7ms.us/7ms-306-a-peek-into-the-7ms-mail-bag-part-2/)
+    and [#282](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
+    :mega:
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
     ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :godmode:
@@ -74,7 +78,7 @@ where this project was mentioned or used!
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
   ([Peerlyst cross-post](https://www.peerlyst.com/posts/owasp-juice-shop-vulnerable-webapp-stuart-winter-tear))
 * Blog posts on [OWASP Summit 2017](https://owaspsummit.org):
-  *  [Juice Shop v4.0.0 Live Releasen](https://owaspsummit.org/2017/06/15/Juice-Shop-Live-Release-v4.html)
+  *  [Juice Shop v4.0.0 Live Release](https://owaspsummit.org/2017/06/15/Juice-Shop-Live-Release-v4.html)
   *  [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
