@@ -176,3 +176,19 @@ ctf:
     xxeFileDisclosureChallenge:
       name: Iraq
       code: IQ
+    xxeDosChallenge:
+      name: China
+      code: CN
+    rceChallenge:
+      name: Brazil
+      code: BR
+    rceOccupyChallenge:
+      name: India
+      code: IN
+    tokenSaleChallenge:
+      name: United Kingdom
+      code: GB
+    securityPolicyChallenge:
+      name: Spain
+      code: ES
+
