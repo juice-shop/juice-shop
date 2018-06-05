@@ -1,7 +1,3 @@
-.mat-column-icon svg, .mat-column-user_detail button {
-    margin-left: 38%;
-}
-
 .container {
     display: flex;
     flex-direction: row;
@@ -25,13 +21,21 @@
     margin-right: 10px;
 }
 
+.user-table,.recycle-table {
+    margin-bottom: 25px;
+}
+
+.mat-column-icon svg, .mat-column-user_detail button {
+    margin-left: 38%;
+}
+
 mat-cell, mat-footer-cell, mat-header-cell {
     display: block;
     align-items: normal;
 }
 
-.user-table,.recycle-table {
-    margin-bottom: 25px;
+.mat-column-comment {
+    padding: 10px;
 }
 
 mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {

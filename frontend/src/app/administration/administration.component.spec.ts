@@ -1,3 +1,4 @@
+import { BarRatingModule } from 'ngx-bar-rating'
 import { FeedbackService } from './../Services/feedback.service'
 import { RecycleService } from './../Services/recycle.service'
 import { UserService } from './../Services/user.service'
@@ -17,6 +18,7 @@ describe('AdministrationComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
+        BarRatingModule,
         MatTableModule,
         MatDialogModule
       ],

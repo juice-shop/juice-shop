@@ -89,7 +89,9 @@
 
         <ng-container matColumnDef="rating">
           <mat-header-cell *matHeaderCellDef> Rating  </mat-header-cell>
-          <mat-cell *matCellDef="let feedback"></mat-cell>
+          <mat-cell *matCellDef="let feedback">
+            <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="remove">
