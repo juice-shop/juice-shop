@@ -69,4 +69,3 @@ describe('/rest/product/reviews', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Review' })
   })
 })
-
