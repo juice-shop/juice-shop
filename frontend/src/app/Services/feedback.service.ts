@@ -13,10 +13,10 @@ export class FeedbackService {
 
   constructor (private http: HttpClient) { }
 
-  find (params) {
+  find (params?: any) {
     return this.http.get(this.host + '/' , {
       params: params
-    }).pipe(map((response: any) => response.data), catchError((err) => err))
+    }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params) {
@@ -24,6 +24,6 @@ export class FeedbackService {
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => err))
+    return this.http.delete(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

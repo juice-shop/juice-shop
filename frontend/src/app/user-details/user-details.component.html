@@ -1,0 +1,42 @@
+<header>
+    <h3>User #{{user?.id}}</h3>
+</header>
+
+<mat-divider style="margin-bottom: 10px"></mat-divider>
+
+<div class="container">
+
+  <div class="email-container">
+
+    <div class="email">
+      <label><strong>Email</strong></label>
+      <p>{{user?.email}}</p>
+    </div>
+
+    <!--<div class="col-md-6" ng-show="user.password">
+      <strong translate="LABEL_PASSWORD"></strong>
+      <p>{{user.password}}</p>
+    </div>-->
+
+  </div>
+
+  <div class="date-container">
+
+    <div class="created-at">
+      <label><strong>Created at</strong></label>
+      <p>{{user?.createdAt}}</p>
+    </div>
+
+    <div class="updated-at">
+      <label><strong>Updated at</strong></label>
+      <p>{{user?.updatedAt}}</p>
+    </div>
+
+  </div>
+</div>
+
+<mat-divider style="margin-bottom: 10px"></mat-divider>
+
+<footer>
+  <button mat-raised-button mat-dialog-close color="primary"><i class="fas fa-arrow-circle-left fa-lg"></i> Close</button>
+</footer>

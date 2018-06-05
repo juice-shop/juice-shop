@@ -15,6 +15,7 @@ export class RecycleService {
 
   find (params?: any) {
     return this.http.get(this.host + '/' , {
+      headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` },
       params: params
     }).pipe(map((response: any) => response.data),catchError((error) => { throw error }))
   }
