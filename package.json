@@ -158,7 +158,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "8.x 9.x 10.x"
+    "node": "8 - 9"
   },
   "standard": {
     "ignore": [
