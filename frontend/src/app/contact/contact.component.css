@@ -13,7 +13,7 @@ mat-card {
 
 .rating-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .star {

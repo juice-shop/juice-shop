@@ -17,9 +17,7 @@ export class ContactComponent implements OnInit {
   public authorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public feedbackControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public captchaControl: FormControl = new FormControl('', [Validators.required])
-  public ratingStarsHover: boolean[] = [false, false, false, false, false]
-  public ratingStarsSelect: boolean[] = [false, false, false, false, false]
-  public rating: number = undefined
+  public rating: number = 0
   public feedback: any
   public captcha: any
   public captchaId: any
@@ -73,34 +71,6 @@ export class ContactComponent implements OnInit {
     this.captchaControl.markAsUntouched()
     this.captchaControl.markAsPristine()
     this.captchaControl.setValue('')
-    this.ratingStarsHover = [false, false, false, false, false]
-    this.ratingStarsSelect = [false, false, false, false, false]
-  }
-
-  starHover (index: number) {
-
-    for (let i = 0; i < index; i++) {
-      this.ratingStarsHover[i] = true
-    }
-
-  }
-
-  starLeave (index: number) {
-
-    this.ratingStarsHover = [false, false, false, false, false]
-
-  }
-
-  starClick (index: number) {
-
-    this.ratingStarsSelect = [false, false, false, false, false]
-    this.ratingStarsHover = [false, false, false, false, false]
-    if (index !== this.rating) {
-      for (let i = 0; i < index; i++) {
-        this.ratingStarsSelect[i] = true
-      }
-      this.rating = index
-    }
   }
 
 }
