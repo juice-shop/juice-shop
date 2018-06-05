@@ -169,11 +169,6 @@ images and packaged distributions are offered accordingly:
 |:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
 | __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
 | 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
-| 10.x (:microscope:) |                                                                                     | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
-
-> Support for node.js 10.x is considered an **experimental features**
-> (:microscope) at the moment and is not guaranteed to work with
-> production-grade stability! Please use at your own risk!
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -359,6 +354,7 @@ Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
+- :uae: Oussama Bouthouri
 - :brazil: sergio.kubota
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
@@ -373,7 +369,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
-- :it: vientspam
+- :it: vientspam, Claudio Snidero
 - :jp: ninoseki, nilfigo
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
