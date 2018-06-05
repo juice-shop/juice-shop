@@ -169,7 +169,7 @@ images and packaged distributions are offered accordingly:
 |:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
 | __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
 | 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
-| 10.x (:microscope:) |                                                                                     | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
+| 10.x (:microscope:) |                                                                                     | ~~`juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz`~~ |
 
 > Support for node.js 10.x is considered an **experimental features**
 > (:microscope) at the moment and is not guaranteed to work with
