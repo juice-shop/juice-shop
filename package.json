@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "7.2.1",
+  "version": "7.2.2",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "http://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -81,7 +81,7 @@
     "js-yaml": "~3.11.0",
     "jsonwebtoken": "~8.2",
     "jssha": "~2.3",
-    "libxmljs": "~0.18",
+    "libxmljs": "0.18.7",
     "marsdb": "~0.6",
     "morgan": "~1.9",
     "multer": "~1.3",
