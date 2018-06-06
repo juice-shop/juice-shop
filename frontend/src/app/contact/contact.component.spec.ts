@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from './../Services/feedback.service'
+import { BarRatingModule } from 'ngx-bar-rating'
 
 describe('ContactComponent', () => {
   let component: ContactComponent
@@ -21,6 +22,7 @@ describe('ContactComponent', () => {
       imports: [
         HttpClientModule,
         ReactiveFormsModule,
+        BarRatingModule,
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,

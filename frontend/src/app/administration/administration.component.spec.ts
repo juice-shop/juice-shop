@@ -1,6 +1,13 @@
+import { BarRatingModule } from 'ngx-bar-rating'
+import { FeedbackService } from './../Services/feedback.service'
+import { RecycleService } from './../Services/recycle.service'
+import { UserService } from './../Services/user.service'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
+import { MatTableModule } from '@angular/material/table'
+import { HttpClientModule } from '@angular/common/http'
+import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -9,7 +16,14 @@ describe('AdministrationComponent', () => {
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ AdministrationComponent ]
+      imports: [
+        HttpClientModule,
+        BarRatingModule,
+        MatTableModule,
+        MatDialogModule
+      ],
+      declarations: [ AdministrationComponent ],
+      providers: [MatDialog, UserService, RecycleService, FeedbackService]
     })
     .compileComponents()
   }))
