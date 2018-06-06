@@ -20,7 +20,5 @@ docker run --restart=always -d -p 3000:3000 --name juice-shop bkimminich/juice-s
 a2enmod proxy_http
 systemctl restart apache2.service
 
-# Build and run shake.js/logger
-cd /tmp/juice-shop
-docker build -t shake-logger .
-docker run --restart=always -d -p 8080:8080 --name shake-logger -e TARGET_SOCKET=192.168.33.10:8080 shake-logger
+# Run shake.js/logger
+docker run --restart=always -d -p 8080:80 --name shake-logger -e TARGET_SOCKET=192.168.33.10:8080 wurstbrot/shake-logger
