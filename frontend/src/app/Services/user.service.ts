@@ -13,13 +13,13 @@ export class UserService {
 
   constructor (private http: HttpClient) { }
 
-  find (params) {
-    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
+  find (params?: any) {
+    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } , params: params }).pipe(map((response: any) =>
     response.data))
   }
 
   get (id) {
-    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data))
+    return this.http.get(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data))
   }
 
   save (params) {

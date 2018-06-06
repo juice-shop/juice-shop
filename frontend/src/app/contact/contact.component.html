@@ -49,9 +49,7 @@
 
     <div style="margin-top:5px;" class="rating-container">
       <label style="font-weight:bold; margin-right: 8px;"> Rating </label>
-      <span class="star" [class.active]="ratingStarsHover[i-1]" [class.select]="ratingStarsSelect[i-1]" *ngFor="let i of [1,2,3,4,5]" (mouseover)="starHover(i)" (mouseout)="starLeave(i)" (click)="starClick(i)">
-          <i class="fas fa-star"></i>
-      </span>
+      <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
     </div>
 
     <mat-form-field>
