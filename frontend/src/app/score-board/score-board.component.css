@@ -1,0 +1,11 @@
+mat-card, mat-expansion-panel {
+    margin: 35px;
+}
+
+.star-container,mat-table {
+    margin-top: 25px;
+}
+
+.star-container svg:hover {
+    cursor: pointer;
+}
