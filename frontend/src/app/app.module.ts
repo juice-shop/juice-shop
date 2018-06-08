@@ -64,6 +64,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [
     ProductService,

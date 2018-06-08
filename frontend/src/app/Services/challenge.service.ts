@@ -12,19 +12,19 @@ export class ChallengeService {
   private host = this.hostServer + '/api/Challenges'
   constructor (private http: HttpClient) { }
 
-  find (params) {
+  find (params?: any) {
     return this.http.get(this.host + '/', { params: params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   repeatNotification (challengeName) {
-    return this.http.get('/rest/repeat-notification', { params: { challenge: challengeName } })
+    return this.http.get(this.hostServer + '/rest/repeat-notification', { params: { challenge: challengeName } })
   }
 
   continueCode () {
-    return this.http.get('/rest/continue-code').pipe(map((response: any) => response.continueCode),catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/continue-code').pipe(map((response: any) => response.continueCode),catchError((err) => { throw err }))
   }
 
   restoreProgress (continueCode) {
-    return this.http.put('/rest/continue-code/apply/' + continueCode, {})
+    return this.http.put(this.hostServer + '/rest/continue-code/apply/' + continueCode, {})
   }
 }
