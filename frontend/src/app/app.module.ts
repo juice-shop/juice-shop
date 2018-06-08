@@ -43,6 +43,7 @@ import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
+import { ChallengeService } from './Services/challenge.service'
 
 /* Modules required for Angular Material */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -62,6 +63,8 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -109,7 +112,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [
     ProductService,
@@ -126,7 +131,8 @@ import { MatExpansionModule } from '@angular/material/expansion'
     ComplaintService,
     TrackOrderService,
     RecycleService,
-    BasketService
+    BasketService,
+    ChallengeService
   ],
   bootstrap: [AppComponent]
 })
