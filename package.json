@@ -124,7 +124,7 @@
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~5.3",
     "shelljs": "~0.8.1",
-    "sinon": "~5.0.0",
+    "sinon": "~5.1.1",
     "sinon-chai": "~3.0.0",
     "socket.io-client": "~2.1",
     "standard": "~11.0.0",
