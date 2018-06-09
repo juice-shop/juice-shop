@@ -21,6 +21,8 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.schema-version="1.0.0-rc1"
 WORKDIR /juice-shop
+RUN groupadd -r juicer && useradd --no-log-init -r -g juicer juicer
+USER juicer
 COPY --from=installer /juice-shop .
 EXPOSE  3000
 CMD ["npm", "start"]
