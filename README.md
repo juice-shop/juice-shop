@@ -90,6 +90,12 @@ overview please visit the official project page:
    container
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
+   
+#### Deploy to Docker Cloud
+
+1. Click the button below and follow the instructions
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 ### Vagrant
 
