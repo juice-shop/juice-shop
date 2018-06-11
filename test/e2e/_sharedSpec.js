@@ -16,7 +16,6 @@ protractor.expect = {
 protractor.beforeEach = {
   login: function (context) {
     describe('(shared)', () => {
-
       beforeEach(() => {
         browser.get('/#/login')
         element(by.model('user.email')).sendKeys(context.email)
