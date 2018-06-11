@@ -17,8 +17,8 @@ module.exports = function placeOrder () {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : undefined : undefined
-          const orderNo = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
-          const pdfFile = 'order_' + orderNo + '.pdf'
+          const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
+          const pdfFile = 'order_' + orderId + '.pdf'
           const doc = new PDFDocument()
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
 
@@ -28,7 +28,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.text('Customer: ' + email)
           doc.moveDown()
-          doc.text('Order #: ' + orderNo)
+          doc.text('Order #: ' + orderId)
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
@@ -71,7 +71,7 @@ module.exports = function placeOrder () {
           }
 
           db.orders.insert({
-            orderNo: orderNo,
+            orderId: orderId,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
