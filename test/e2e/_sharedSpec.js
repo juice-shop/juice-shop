@@ -26,10 +26,6 @@ protractor.beforeEach = {
         element(by.model('user.password')).sendKeys(password)
         element(by.id('loginButton')).click()
       })
-
-      it('should have logged in user "' + email + '" with password "' + password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/)
-      })
     })
   }
 }
