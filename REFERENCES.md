@@ -5,11 +5,12 @@ mentioning OWASP Juice Shop? Add it to this file and open a PR! The same
 goes for conference or meetup talks, workshops or trainings you did
 where this project was mentioned or used!
 
-> **Spoiler Warning!** :bulb: indicates resources that contain _hints
-> for solving challenges_ of the OWASP Juice Shop. These are supposed to
-> be helpful whenever you get stuck. :godmode: indicates resources that
-> _spoiler entire challenge solutions_ so you might not want to view
-> them before tackling these challenges yourself!
+> :bulb: indicates resources that contain _hints for solving challenges_
+> of the OWASP Juice Shop. These are supposed to be helpful whenever you
+> get stuck. :godmode: indicates resources that _spoiler entire
+> challenge solutions_ so you might not want to view them before
+> tackling these challenges yourself! :mega: marks short friendly shout
+> outs.
 
 ## Awards :trophy:
 
@@ -19,6 +20,14 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Blog posts on
+  [DevelopSec - Developing Better Security](https://www.developsec.com/):
+  * [Installing OWASP JuiceShop with Docker](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=ftS8I7WeKtw))
+  * [Installing OWASP JuiceShop with Heroku](https://www.developsec.com/2018/05/15/installing-owasp-juiceshop-with-heroku/)
+    ([Youtube](https://www.youtube.com/watch?v=umrLbJkJRN0))
+  * [https://www.developsec.com/2018/05/18/burp-extension-juice-shop-routes/](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+    ([Youtube](https://www.youtube.com/watch?v=o628SfvwHp0)) :godmode:
 * Blog posts on
   [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
   * [How to Setup OWASP Juice Shop on Azure (Part 1 of 3)](http://www.jasonhaley.com/post/How-to-Setup-OWASP-Juice-Shop-on-Azure-%28Part-1-of-3%29)
@@ -30,13 +39,16 @@ where this project was mentioned or used!
   [Hands-On Web Security: Capture the Flag with OWASP Juice Shop](https://hacks.mozilla.org/2018/03/hands-on-web-security-capture-the-flag-with-owasp-juice-shop/)
 * Blog post (:de:) on [heise Developer](https://www.heise.de/developer):
   [Sicherheits-Etikette: Security in der Softwareentwicklung](https://www.heise.de/developer/artikel/Sicherheits-Etikette-Security-in-der-Softwareentwicklung-3986402.html)
+  :mega:
 * Webcast recording on
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
 * [7 Minute Security](https://7ms.us) Podcast:
-  * Episode #282:
-    [7MS #282: A Peek into the 7MS Mail Bag](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
-    ([Zencast](https://media.zencast.fm/7-minute-security-podcast-podcast/episodes/283))
+  * Shout outs in various episodes: [#310](https://7ms.us/7ms-310/),
+    [#309](https://7ms.us/7ms-309-password-cracking-in-the-cloud-part-2/),
+    [#306](https://7ms.us/7ms-306-a-peek-into-the-7ms-mail-bag-part-2/)
+    and [#282](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
+    :mega:
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
     ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0)) :godmode:
@@ -66,7 +78,7 @@ where this project was mentioned or used!
   [OWASP Juice Shop Vulnerable Webapp](https://stuartwintertear.net/owasp-juice-shop-vulnerable-webapp)
   ([Peerlyst cross-post](https://www.peerlyst.com/posts/owasp-juice-shop-vulnerable-webapp-stuart-winter-tear))
 * Blog posts on [OWASP Summit 2017](https://owaspsummit.org):
-  *  [Juice Shop v4.0.0 Live Releasen](https://owaspsummit.org/2017/06/15/Juice-Shop-Live-Release-v4.html)
+  *  [Juice Shop v4.0.0 Live Release](https://owaspsummit.org/2017/06/15/Juice-Shop-Live-Release-v4.html)
   *  [Juice Shop's call to pre-summit action](https://owaspsummit.org/2017/05/27/Juice-Shops-call-to-pre-summit-action.html)
 * Interview on [OWASP 24/7](https://soundcloud.com/owasp-podcast)
   Podcast:
@@ -106,14 +118,22 @@ where this project was mentioned or used!
 
 #### 2018
 
-* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
-  by Björn Kimminich,
-  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
-  16.05.2018
+* [OWASP Juice Shop: Betreutes Hacken](https://www.meetup.com/de-DE/owasp-karlsruhe/events/251041169/)
+  with
+  [OWASP Stammtisch Karlsruhe](https://www.owasp.org/index.php/OWASP_Stammtisch_Karlsruhe),
+  04.06.2018
 * [Hacking Workshop - Twin Cities vs. OWASP Juice Shop](https://secure360.org/secure360-twin-cities/schedule/?conference=9826&date=20180517)
   with Björn Kimminich,
   [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
   17.05.2018
+* [OWASP Juice Shop - The Ultimate Vulnerable WebApp](https://secure360.org/session/bjorn-kimminich-owasp-juice-shop-the-ultimate-vulnerable-webapp/?conference=9826&date=20180516)
+  by Björn Kimminich,
+  [Secure360 Twin Cities](https://secure360.org/secure360-twin-cities/),
+  16.05.2018
+* [OWASP MSP Chapter May Meeting](https://www.meetup.com/OWASP-MSP-Meetup/events/249940370/)
+  with Björn Kimminich,
+  [OWASP MSP Meetup](https://www.meetup.com/OWASP-MSP-Meetup/) St Paul,
+  14.05.2018
 * [OWASP Juice Shop - The next chapter ...](https://www.meetup.com/CyberHackathon/events/249606655/?eventId=249606655)
   with Jaan Janesmae,
   [CyberHackathon](https://www.meetup.com/CyberHackathon/) Tallinn,
@@ -133,9 +153,9 @@ where this project was mentioned or used!
   15.03.2018
 * [OWASP Top 10](https://appseccalifornia2018.sched.com/event/CuRs) by
   Andrew van der Stock,
-  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/)
-  ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE) :godmode:
-  _starting 25:40_)
+  [OWASP AppSec California 2018](https://2018.appseccalifornia.org/),
+  30.01.2018 ([Youtube](https://www.youtube.com/watch?v=TXAztSpYpvE)
+  :godmode: _starting 25:40_)
 
 #### 2017
 

