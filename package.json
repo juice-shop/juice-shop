@@ -79,7 +79,7 @@
     "helmet": "~3.12.0",
     "html-entities": "~1.2",
     "js-yaml": "~3.11.0",
-    "jsonwebtoken": "~8.2",
+    "jsonwebtoken": "~8.3.0",
     "jssha": "~2.3",
     "libxmljs": "0.18.7",
     "marsdb": "~0.6",
