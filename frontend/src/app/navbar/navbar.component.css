@@ -1,9 +1,5 @@
-nav a {
-    position:relative;
-    margin-right: 16px;
-    text-decoration: none;
-    color: #c8c8c8;
-    font-size:16px;
+mat-toolbar {
+    padding-bottom: 5px;
 }
 
 nav input{
@@ -22,6 +18,27 @@ nav input:focus{
     /*To align properly with nav links*/
     /*border-bottom:0.5px solid #a3a3a3;*/
 
+}
+
+.application-info {
+    display: flex;
+    flex-direction: column;
+    margin-left:15px;
+    font-size: 18px;
+    color: #c8c8c8;
+}
+
+.contact-dropdown {
+    margin-right: 16px;
+}
+
+.language-select {
+    width: 11%;
+    margin-left: 10px;
+}
+
+mat-toolbar-row.second-toolbar-row {
+    justify-content: space-around;
 }
 
 mat-icon img {

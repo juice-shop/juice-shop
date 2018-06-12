@@ -2,12 +2,14 @@ import { environment } from './../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  public isLoggedIn = new Subject<any>()
   private hostServer = environment.hostServer
   private host = this.hostServer + '/api/Users'
 
@@ -30,7 +32,12 @@ export class UserService {
   }
 
   login (params) {
+    this.isLoggedIn.next(true)
     return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication))
+  }
+
+  getLoggedInState () {
+    return this.isLoggedIn.asObservable()
   }
 
   changePassword (passwords) {
