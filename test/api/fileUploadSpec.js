@@ -5,7 +5,7 @@ const FormData = require('form-data')
 
 const URL = 'http://localhost:3000'
 
-xdescribe('/file-upload', () => {
+describe('/file-upload', () => {
   let file
   let form
 
@@ -39,7 +39,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML deprecated for API', done => {
+  xit('POST file type XML deprecated for API', done => {
     file = path.resolve(__dirname, '../files/deprecatedTypeForServer.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -49,7 +49,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST large XML file near upload size limit', done => {
+  xit('POST large XML file near upload size limit', done => {
     file = path.resolve(__dirname, '../files/maxSizeForServer.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -59,7 +59,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML with XXE attack against Windows', done => {
+  xit('POST file type XML with XXE attack against Windows', done => {
     file = path.resolve(__dirname, '../files/xxeForWindows.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -69,7 +69,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML with XXE attack against Linux', done => {
+  xit('POST file type XML with XXE attack against Linux', done => {
     file = path.resolve(__dirname, '../files/xxeForLinux.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -79,7 +79,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML with Billion Laughs attack is caught by parser', done => {
+  xit('POST file type XML with Billion Laughs attack is caught by parser', done => {
     file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -90,7 +90,7 @@ xdescribe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML with Quadratic Blowup attack', done => {
+  xit('POST file type XML with Quadratic Blowup attack', done => {
     file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
