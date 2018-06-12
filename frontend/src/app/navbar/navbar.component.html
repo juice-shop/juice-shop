@@ -1,40 +1,69 @@
 <mat-toolbar class="mat-elevation-z6" color="primary">
 
-  <mat-toolbar-row>
+  <mat-toolbar-row class="first-toolbar-row">
 
     <span style="display:flex;margin-right:30px">
-        <img style="height: 40px;width: 50px;" [src]="logoSrc">
-      <a style="margin-left:15px;font-size: 18px;color: #c8c8c8;" routerLink="/search">{{applicationName}} {{version}}</a>
-    </span>
 
-    <span flex style="flex:0.2"></span>
+        <a routerLink="/search">
+          <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
+        </a>
+
+        <a class="application-info" routerLink="/search">
+          <span style="margin-top:3px;">{{applicationName}}</span>
+          <span style="font-size:12px;">{{version}}</span>
+        </a>
+
+      </span>
 
     <nav>
-      <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
-      <a *ngIf="isLoggedIn()" (click)="logout()" href="">Logout</a>
+      <a mat-button *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> Login</a>
+
+      <a mat-button *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+
       <mat-form-field class="language-select">
-        <mat-select value="English">
-          <mat-option *ngFor="let language of languages" [value]="language.lang">{{language?.lang}}</mat-option>
+
+        <mat-select [(value)]="selectedLanguage">
+
+          <mat-select-trigger>
+            <i class="fas fa-language fa-lg"></i>
+            {{selectedLanguage}}
+          </mat-select-trigger>
+
+          <mat-option value="English"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</mat-option>
+          <mat-option *ngFor="let language of languages" [value]="language.lang">
+              <span class="flag-icon flag-icon-{{language.icon}}"></span>
+              {{language?.lang}}
+              <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+          </mat-option>
+
         </mat-select>
+
       </mat-form-field>
+
       <input type="text" placeholder="Search.." #searchControl style="margin-right:10px;">
       <button color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> Search</button>
-      <a routerLink="/contact">Contact us</a>
-      <a routerLink="/score-board">Score Board</a>
-      <a routerLink="/about">About us</a>
+
+      <button class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">Contact us</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> Customer Feedback</button>
+        <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
+      </mat-menu>
+
+      <a mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> Score Board</a>
+      <a mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> About us</a>
+
      </nav>
 
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="isLoggedIn()">
-    <nav>
-      <a routerLink="/basket">Your Basket</a>
-      <a routerLink="/change-password">Change Password</a>
-      <a routerLink="/recycle">Recycle</a>
-      <a routerLink="/track-order">Track Orders</a>
-      <a routerLink="/complain">Complain</a>
-    </nav>
+  <mat-toolbar-row *ngIf="isLoggedIn()" class="second-toolbar-row">
+      <span matTooltip="{{userEmail}}" matTooltipPosition="right">
+        <i class="user-info" class="fas fa-user-circle fa-lg"></i>
+      </span>
+      <a mat-button routerLink="/basket"><i class="fas fa-shopping-cart fa-lg"></i> Your Basket</a>
+      <a mat-button routerLink="/change-password"><i class="fas fa-user-secret fa-lg"></i> Change Password</a>
+      <a mat-button routerLink="/recycle"><i class="fas fa-recycle fa-lg"></i> Recycle</a>
+      <a mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> Track Orders</a>
   </mat-toolbar-row>
-
+  <a [hidden]="!gitHubRibbon" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" [src]="'assets/public/images/ribbons/forkme_right_'+gitHubRibbon+'.png'"   alt="Fork me on GitHub"></a>
 </mat-toolbar>
-<a [hidden]="!gitHubRibbon" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" [src]="'assets/public/images/ribbons/forkme_right_'+gitHubRibbon+'.png'"   alt="Fork me on GitHub"></a>

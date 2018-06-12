@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('bid',authentication.bid)
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
+      this.userService.isLoggedIn.next(true)
       this.router.navigate(['/'])
     }, (error) => {
       console.log(error)
@@ -76,6 +77,7 @@ export class LoginComponent implements OnInit {
       this.error = error
       /* Use userService to notify user failed to log in */
       /*this.userServe.isLoggedIn = false;*/
+      this.userService.isLoggedIn.next(false)
       this.emailControl.markAsPristine()
       this.passwordControl.markAsPristine()
     })

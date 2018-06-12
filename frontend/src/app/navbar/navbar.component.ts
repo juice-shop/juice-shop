@@ -1,10 +1,12 @@
+import { UserService } from './../Services/user.service'
 import { AdministrationService } from './../Services/administration.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { faSearch } from '@fortawesome/fontawesome-free-solid'
+import { languages } from './languages'
+import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
 import fontawesome from '@fortawesome/fontawesome'
-fontawesome.library.add(faSearch)
+fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle)
 
 @Component({
   selector: 'app-navbar',
@@ -12,13 +14,17 @@ fontawesome.library.add(faSearch)
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  public userEmail = ''
+  public languages = languages
+  public selectedLanguage = 'English'
   public version = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = 'orange'
   public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
 
   constructor (private administrationService: AdministrationService,
-    private configurationService: ConfigurationService,
+    private configurationService: ConfigurationService,private userService: UserService,
     private router: Router) { }
 
   ngOnInit () {
@@ -45,6 +51,13 @@ export class NavbarComponent implements OnInit {
       }
     })
 
+    this.userService.getLoggedInState().subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.updateUserEmail()
+      } else {
+        this.userEmail = ''
+      }
+    })
   }
 
   search (value: string) {
@@ -56,6 +69,12 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  updateUserEmail () {
+    this.userService.whoAmI().subscribe((user: any) => {
+      this.userEmail = user.email
+    },(err) => console.log(err))
+  }
+
   isLoggedIn () {
     return localStorage.getItem('token')
   }
@@ -63,6 +82,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     localStorage.removeItem('token')
     delete sessionStorage.bid
+    this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])
   }
 
