@@ -1,3 +1,5 @@
+import { UserService } from './../Services/user.service'
+import { ConfigurationService } from 'src/app/Services/configuration.service'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { HttpClientModule } from '@angular/common/http'
 import { NavbarComponent } from './navbar.component'
@@ -10,6 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
 import { AdministrationService } from './../Services/administration.service'
 import { RouterTestingModule } from '@angular/router/testing'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent
@@ -27,10 +31,14 @@ describe('NavbarComponent', () => {
         MatIconModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatButtonModule
+        MatButtonModule,
+        MatMenuModule,
+        MatTooltipModule
       ],
       providers: [
-        AdministrationService
+        AdministrationService,
+        ConfigurationService,
+        UserService
       ]
     })
     .compileComponents()
