@@ -16,9 +16,9 @@
       </span>
 
     <nav>
-      <a mat-button *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> Login</a>
+      <a mat-button *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> {{ "TITLE_LOGIN" | translate}}</a>
 
-      <a mat-button *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+      <a mat-button *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> {{"TITLE_LOGOUT" | translate }}</a>
 
       <mat-form-field class="language-select">
 
@@ -26,11 +26,11 @@
 
           <mat-select-trigger>
             <i class="fas fa-language fa-lg"></i>
-            {{selectedLanguage}}
+            {{"LANGUAGE" | translate}}
           </mat-select-trigger>
 
-          <mat-option value="English"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</mat-option>
-          <mat-option *ngFor="let language of languages" [value]="language.lang">
+          <mat-option (click)="changeLanguage('en')" value="English"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</mat-option>
+          <mat-option *ngFor="let language of languages"  (click)="changeLanguage(language.key)" [value]="language.lang">
               <span class="flag-icon flag-icon-{{language.icon}}"></span>
               {{language?.lang}}
               <i *ngIf="language.isFlask" class="fas fa-flask"></i>
@@ -40,17 +40,17 @@
 
       </mat-form-field>
 
-      <input type="text" placeholder="Search.." #searchControl style="margin-right:10px;">
-      <button color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> Search</button>
+      <input type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl style="margin-right:10px;">
+      <button color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> {{"NAV_SEARCH" | translate}}</button>
 
-      <button class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">Contact us</button>
+      <button class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">{{"TITLE_CONTACT" | translate}}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> Customer Feedback</button>
         <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
       </mat-menu>
 
-      <a mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> Score Board</a>
-      <a mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> About us</a>
+      <a mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
+      <a mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> {{"TITLE_ABOUT" | translate}}</a>
 
      </nav>
 

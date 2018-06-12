@@ -26,6 +26,8 @@
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@ngx-translate/core": "^10.0.1",
+    "@ngx-translate/http-loader": "^3.0.1",
     "angularx-qrcode": "^1.1.7",
     "core-js": "^2.5.4",
     "flag-icon-css": "^3.0.0",
