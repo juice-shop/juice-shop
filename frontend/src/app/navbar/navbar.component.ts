@@ -57,7 +57,6 @@ export class NavbarComponent implements OnInit {
       } else {
         this.userEmail = ''
       }
-      console.log(this.userEmail)
     })
   }
 
