@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from './../Services/user.service'
 import { ConfigurationService } from 'src/app/Services/configuration.service'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
@@ -26,6 +27,7 @@ describe('NavbarComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientModule,
+        TranslateModule.forRoot(),
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
@@ -38,7 +40,8 @@ describe('NavbarComponent', () => {
       providers: [
         AdministrationService,
         ConfigurationService,
-        UserService
+        UserService,
+        TranslateService
       ]
     })
     .compileComponents()
