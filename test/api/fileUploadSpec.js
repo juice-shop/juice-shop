@@ -69,16 +69,6 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  it('POST file type XML with Quadratic Blowup attack only works reliably on Windows', done => {
-    file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
-    form = new FormData()
-    form.append('file', fs.createReadStream(file))
-
-    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-      .expect('status', 503)
-      .done(done)
-  })
-
   it('POST file type XML with XXE attack against Linux', done => {
     file = path.resolve(__dirname, '../files/xxeForLinux.xml')
     form = new FormData()
@@ -97,6 +87,16 @@ describe('/file-upload', () => {
     frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
       .expect('status', 410)
       .expect('bodyContains', 'Detected an entity reference loop')
+      .done(done)
+  })
+
+  it('POST file type XML with Quadratic Blowup attack', done => {
+    file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 503)
       .done(done)
   })
 
