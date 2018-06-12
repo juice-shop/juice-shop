@@ -28,6 +28,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "angularx-qrcode": "^1.1.7",
     "core-js": "^2.5.4",
+    "flag-icon-css": "^3.0.0",
     "hammerjs": "^2.0.8",
     "ngx-bar-rating": "^1.1.0",
     "rxjs": "^6.0.0",

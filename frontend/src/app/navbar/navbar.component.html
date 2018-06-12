@@ -21,9 +21,23 @@
       <a mat-button *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
 
       <mat-form-field class="language-select">
-        <mat-select value="English">
-          <mat-option *ngFor="let language of languages" [value]="language.lang">{{language?.lang}}</mat-option>
+
+        <mat-select [(value)]="selectedLanguage">
+
+          <mat-select-trigger>
+            <i class="fas fa-language fa-lg"></i>
+            {{selectedLanguage}}
+          </mat-select-trigger>
+
+          <mat-option value="English"><span class="flag-icon flag-icon-gb"></span><span class="flag-icon flag-icon-us"></span> English</mat-option>
+          <mat-option *ngFor="let language of languages" [value]="language.lang">
+              <span class="flag-icon flag-icon-{{language.icon}}"></span>
+              {{language?.lang}}
+              <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+          </mat-option>
+
         </mat-select>
+
       </mat-form-field>
 
       <input type="text" placeholder="Search.." #searchControl style="margin-right:10px;">
