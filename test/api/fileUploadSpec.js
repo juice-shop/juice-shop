@@ -5,7 +5,7 @@ const FormData = require('form-data')
 
 const URL = 'http://localhost:3000'
 
-describe('/file-upload', () => {
+xdescribe('/file-upload', () => {
   let file
   let form
 
