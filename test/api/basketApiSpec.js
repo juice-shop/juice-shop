@@ -105,7 +105,7 @@ describe('/rest/basket/:id/checkout', () => {
       .done(done)
   })
 
-  it('POST placing an order for an existing basket returns path to an order confirmation PDF', done => {
+  xit('POST placing an order for an existing basket returns path to an order confirmation PDF', done => {
     frisby.post(REST_URL + '/basket/1/checkout', { headers: authHeader })
       .expect('status', 200)
       .then(({json}) => {
@@ -121,7 +121,7 @@ describe('/rest/basket/:id/checkout', () => {
       .done(done)
   })
 
-  it('POST placing an order for a basket with a negative total cost is possible', done => {
+  xit('POST placing an order for a basket with a negative total cost is possible', done => {
     frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: { BasketId: 3, ProductId: 10, quantity: -100 }
@@ -135,7 +135,7 @@ describe('/rest/basket/:id/checkout', () => {
       .done(done)
   })
 
-  it('POST placing an order for a basket with 99% discount is possible', done => {
+  xit('POST placing an order for a basket with 99% discount is possible', done => {
     frisby.put(REST_URL + '/basket/2/coupon/' + encodeURIComponent(forgedCoupon), { headers: authHeader })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
