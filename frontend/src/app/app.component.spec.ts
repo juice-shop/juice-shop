@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterTestingModule } from '@angular/router/testing'
 import { TestBed, async } from '@angular/core/testing'
@@ -25,6 +26,7 @@ describe('AppComponent', () => {
         HttpClientModule,
         RouterTestingModule,
         MatToolbarModule,
+        TranslateModule.forRoot(),
         MatIconModule,
         MatFormFieldModule,
         MatSelectModule,
@@ -32,7 +34,8 @@ describe('AppComponent', () => {
         MatSidenavModule,
         MatMenuModule,
         MatTooltipModule
-      ]
+      ],
+      providers : [ TranslateService ]
     }).compileComponents()
   }))
   it('should create the app', async(() => {

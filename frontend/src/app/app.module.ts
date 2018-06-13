@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ngx-bar-rating'
 
@@ -67,6 +69,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 
+export function HttpLoaderFactory (http: HttpClient) {
+  return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,6 +99,15 @@ import { MatMenuModule } from '@angular/material/menu'
   imports: [
     BrowserModule,
     Routing,
+    TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [ HttpClient ]
+        }
+      }
+    ),
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

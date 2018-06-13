@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
 import fontawesome from '@fortawesome/fontawesome'
+import { TranslateService } from '@ngx-translate/core'
 fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle)
 
 @Component({
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService,
     private configurationService: ConfigurationService,private userService: UserService,
-    private router: Router) { }
+    private router: Router,private translate: TranslateService) { }
 
   ngOnInit () {
 
@@ -84,6 +85,10 @@ export class NavbarComponent implements OnInit {
     delete sessionStorage.bid
     this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])
+  }
+
+  changeLanguage (langKey) {
+    this.translate.use(langKey)
   }
 
 }
