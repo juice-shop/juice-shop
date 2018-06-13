@@ -71,7 +71,7 @@ describe('/file-upload', () => {
 
   it('POST file type XML with XXE attack against Linux', done => {
     file = path.resolve(__dirname, '../files/xxeForLinux.xml')
-    form = new FormData()                                                 
+    form = new FormData()
     form.append('file', fs.createReadStream(file))
 
     frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
