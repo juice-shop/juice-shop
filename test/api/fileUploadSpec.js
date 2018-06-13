@@ -90,7 +90,7 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  xit('POST file type XML with Quadratic Blowup attack', done => {
+  it('POST file type XML with Quadratic Blowup attack', done => {
     file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
