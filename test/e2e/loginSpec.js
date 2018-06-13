@@ -16,16 +16,12 @@ describe('/#/login', () => {
       email.sendKeys('\' or 1=1--')
       password.sendKeys('a')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     it('should log in Admin with SQLI attack on email field using "admin@<juice-sh.op>\'--"', () => {
       email.sendKeys('admin@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login Admin'})
@@ -36,8 +32,6 @@ describe('/#/login', () => {
       email.sendKeys('jim@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login Jim'})
@@ -48,8 +42,6 @@ describe('/#/login', () => {
       email.sendKeys('bender@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login Bender'})
@@ -60,8 +52,6 @@ describe('/#/login', () => {
       email.sendKeys('admin@' + config.get('application.domain'))
       password.sendKeys('admin123')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Password Strength'})
@@ -72,8 +62,6 @@ describe('/#/login', () => {
       email.sendKeys('support@' + config.get('application.domain'))
       password.sendKeys('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login Support Team'})
@@ -84,8 +72,6 @@ describe('/#/login', () => {
       email.sendKeys('mc.safesearch@' + config.get('application.domain'))
       password.sendKeys('Mr. N00dles')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login MC SafeSearch'})
@@ -96,8 +82,6 @@ describe('/#/login', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       password.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
       loginButton.click()
-
-      expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
     protractor.expect.challengeSolved({challenge: 'Login Bjoern'})
@@ -112,7 +96,7 @@ describe('/#/login', () => {
 
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/rest/user/login\', {email: \'admin@juice-sh.op\', password: \'admin123\', oauth: true});')
 
-      // Unselect to clear email field for subsequent tests
+      // Deselect to clear email field for subsequent tests
       rememberMeCheckbox.click()
       loginButton.click()
     })

@@ -11,13 +11,14 @@ apt-get upgrade -qy
 apt-get install -qy apache2 docker-engine
 
 # Put the relevant files in place
-cp /tmp/juice-shop/shake.js /var/www/html
-cp /tmp/juice-shop/logger.php /var/www/html
 cp /tmp/juice-shop/default.conf /etc/apache2/sites-available/000-default.conf
 
 # Download and start docker image with Juice Shop
-docker run --restart=always -d -p 3000:3000 bkimminich/juice-shop
+docker run --restart=always -d -p 3000:3000 --name juice-shop bkimminich/juice-shop
 
 # Enable proxy modules in apache and restart
 a2enmod proxy_http
 systemctl restart apache2.service
+
+# Run shake.js/logger
+docker run --restart=always -d -p 8080:80 --name shake-logger -e TARGET_SOCKET=192.168.33.10:8080 wurstbrot/shake-logger
