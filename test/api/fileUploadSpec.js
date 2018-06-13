@@ -59,7 +59,7 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  xit('POST file type XML with XXE attack against Windows', done => {
+  it('POST file type XML with XXE attack against Windows', done => {
     file = path.resolve(__dirname, '../files/xxeForWindows.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -69,9 +69,9 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  xit('POST file type XML with XXE attack against Linux', done => {
+  it('POST file type XML with XXE attack against Linux', done => {
     file = path.resolve(__dirname, '../files/xxeForLinux.xml')
-    form = new FormData()
+    form = new FormData()                                                 
     form.append('file', fs.createReadStream(file))
 
     frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
