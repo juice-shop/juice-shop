@@ -271,7 +271,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-extension'
   key: uploadTypeChallenge
 -
-  name: 'Arbitrary file write'
+  name: 'Arbitrary File Write'
   category: 'Improper Input Validation'
   description: 'Overwrite legal.md file'
   difficulty: 6
