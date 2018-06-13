@@ -9,32 +9,32 @@ const path = require('path')
 module.exports = function fileUpload () {
   return (req, res, next) => {
     const file = req.file
-    if(utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
+    if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
       const buffer = file.buffer
       const filename = file.originalname.toLowerCase()
-      fs.open("/tmp/"+filename, 'w', function(err, fd) {
+      fs.open('/tmp/' + filename, 'w', function (err, fd) {
         if (err) {
-            console.log('error opening file: ' + err)
+          console.log('error opening file: ' + err)
         }
-        fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-            if (err) console.log('error opening file: ' + err)
-            fs.close(fd, function() {
-              fs.createReadStream("/tmp/"+filename)
+        fs.write(fd, buffer, 0, buffer.length, null, function (err) {
+          if (err) console.log('error opening file: ' + err)
+          fs.close(fd, function () {
+            fs.createReadStream('/tmp/' + filename)
               .pipe(unzipper.Parse())
               .on('entry', function (entry) {
                 var fileName = entry.path
-                var absolutePath = path.resolve('uploads/complaints/'+fileName)
+                var absolutePath = path.resolve('uploads/complaints/' + fileName)
                 if (absolutePath === path.resolve('ftp/legal.md') && utils.notSolved(challenges.fileWriteChallenge)) {
                   utils.solve(challenges.fileWriteChallenge)
                 }
                 var juiceShopPath = path.resolve('.')
                 if (absolutePath.includes(juiceShopPath)) {
-                    entry.pipe(fs.createWriteStream('uploads/complaints/'+fileName).on('error', function(e){console.log(e)}))
+                  entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (e) { console.log(e) }))
                 } else {
                   entry.autodrain()
                 }
               })
-            })
+          })
         })
       })
     }
@@ -42,7 +42,7 @@ module.exports = function fileUpload () {
       utils.solve(challenges.uploadSizeChallenge)
     }
     if (utils.notSolved(challenges.uploadTypeChallenge) && !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
-        utils.endsWith(file.originalname.toLowerCase(), '.xml'))) {
+        utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip'))) {
       utils.solve(challenges.uploadTypeChallenge)
     }
     if (utils.endsWith(file.originalname.toLowerCase(), '.xml')) {
