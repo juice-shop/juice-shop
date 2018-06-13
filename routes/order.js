@@ -16,7 +16,7 @@ module.exports = function placeOrder () {
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
-          const email = customer ? customer.data ? customer.data.email : undefined : undefined
+          const email = customer ? customer.data ? customer.data.email : "" : ""
           const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = 'order_' + orderId + '.pdf'
           const doc = new PDFDocument()
