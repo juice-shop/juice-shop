@@ -121,7 +121,7 @@
     "karma-safari-launcher": "~1.0",
     "lcov-result-merger": "~3.0",
     "mocha": "~5.2",
-    "nyc": "~12.0",
+    "nyc": "^12.0.2",
     "phantomjs-prebuilt": "~2.1",
     "protractor": "~5.3",
     "shelljs": "~0.8",
