@@ -107,6 +107,9 @@ ctf:
     uploadTypeChallenge:
       name: Saudi Arabia
       code: SA
+    fileWriteChallenge:
+      name: Iran
+      code: IR
     extraLanguageChallenge:
       name: Australia
       code: AU
