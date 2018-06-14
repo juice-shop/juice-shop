@@ -17,10 +17,10 @@
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
-  description: 'Post product reviews as any user or edit any user''s review.'
+  description: 'Post a product review as another user or edit any user''s existing review.'
   difficulty: 3
   hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forged-review.html#edit-any-product-review'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
   key: forgedReviewChallenge
 -
   name: 'Login Admin'
@@ -276,7 +276,7 @@
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
   hint: 'Look out for a tweet praising new functionality of the web shop.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#arbitary-file-write'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
 -
   name: 'Extra Language'
@@ -404,7 +404,7 @@
   description: 'All your orders are belong to us!'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#get-all-the-orders'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
   key: noSqlOrdersChallenge  
 -
   name: 'Retrieve Blueprint'
