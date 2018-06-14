@@ -20,9 +20,7 @@ describe('ConfigurationService', () => {
       inject([ConfigurationService, HttpTestingController],
         fakeAsync((service: ConfigurationService,httpMock: HttpTestingController) => {
           let res
-          service.getApplicationConfiguration().subscribe(_res => {
-            res = _res
-          })
+          service.getApplicationConfiguration().subscribe(data => { res = data })
 
           const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-configuration')
           req.flush({
@@ -47,8 +45,8 @@ describe('ConfigurationService', () => {
     inject([ConfigurationService, HttpTestingController],
       fakeAsync((service: ConfigurationService, httpMock: HttpTestingController) => {
         let res
-        service.getApplicationConfiguration().subscribe(_res => {
-          console.log(_res)
+        service.getApplicationConfiguration().subscribe(data => {
+          console.log(data)
         },(err) => res = err)
         const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-configuration')
         req.error(new ErrorEvent('Request failed'), { status: 404, statusText: 'Request failed' })
