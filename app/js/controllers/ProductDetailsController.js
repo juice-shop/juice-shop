@@ -38,6 +38,10 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       productReviewService.create(id, review)
     }
 
+    $scope.likeReview = function (review) {
+      productReviewService.like(review._id)
+    }
+
     $scope.refreshReviews = function () {
       productReviewService.get(id).then(function (review) {
         $scope.productReviews = review
