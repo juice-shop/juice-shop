@@ -18,7 +18,7 @@ angular.module('juiceShop').controller('LanguageController', [
   }])
 
 var languages = [
-  {key: 'ar_SA', icon: 'ae', lang: 'عربى', isFlask: true},
+  {key: 'ar_SA', icon: 'ae', lang: 'عربى'},
   {key: 'cs_CZ', icon: 'cz', lang: 'Česky', isFlask: true},
   {key: 'da_DK', icon: 'dk', lang: 'Dansk', isFlask: true},
   {key: 'de_DE', icon: 'de', lang: 'Deutsch'},
@@ -31,8 +31,8 @@ var languages = [
   {key: 'hi_IN', icon: 'in', lang: 'हिंदी'},
   {key: 'hu_HU', icon: 'hu', lang: 'Magyar', isFlask: true},
   {key: 'id_ID', icon: 'id', lang: 'Bahasa Indonesia'},
-  {key: 'it_IT', icon: 'it', lang: 'Italiano', isFlask: true},
-  {key: 'ja_JP', icon: 'jp', lang: '日本の', isFlask: true},
+  {key: 'it_IT', icon: 'it', lang: 'Italiano'},
+  {key: 'ja_JP', icon: 'jp', lang: '日本の'},
   {key: 'lt_LT', icon: 'lt', lang: 'Lietuviešu', isFlask: true},
   {key: 'lv_LV', icon: 'lv', lang: 'Latvijas', isFlask: true},
   {key: 'my_MM', icon: 'mm', lang: 'ျမန္မာ', isFlask: true},
@@ -40,7 +40,7 @@ var languages = [
   {key: 'no_NO', icon: 'no', lang: 'Norsk'},
   {key: 'pl_PL', icon: 'pl', lang: 'Język Polski'},
   {key: 'pt_PT', icon: 'pt', lang: 'Português', isFlask: true},
-  {key: 'pt_BR', icon: 'br', lang: 'Português (Brasil)', isFlask: true},
+  {key: 'pt_BR', icon: 'br', lang: 'Português (Brasil)'},
   {key: 'ro_RO', icon: 'ro', lang: 'Românesc'},
   {key: 'ru_RU', icon: 'ru', lang: 'Pусский', isFlask: true},
   {key: 'sv_SE', icon: 'se', lang: 'Svenska'},
