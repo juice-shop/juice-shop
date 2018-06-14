@@ -17,23 +17,23 @@ export class UserService {
 
   find (params?: any) {
     return this.http.get(this.hostServer + '/rest/user/authentication-details/', { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } , params: params }).pipe(map((response: any) =>
-    response.data))
+    response.data),catchError((err) => { throw err }))
   }
 
   get (id) {
-    return this.http.get(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data))
+    return this.http.get(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
-      catchError((err) => err)
+      catchError((err) => { throw err })
     )
   }
 
   login (params) {
     this.isLoggedIn.next(true)
-    return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication))
+    return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication), catchError((err) => { throw err }))
   }
 
   getLoggedInState () {
@@ -46,11 +46,11 @@ export class UserService {
   }
 
   resetPassword (params) {
-    return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user))
+    return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami',{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user))
+    return this.http.get(this.hostServer + '/rest/user/whoami',{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken) {
