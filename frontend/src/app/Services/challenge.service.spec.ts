@@ -53,7 +53,7 @@ describe('ChallengeService', () => {
       service.restoreProgress('CODE').subscribe((data) => res = data)
 
       const req = httpMock.expectOne('http://localhost:3000/rest/continue-code/apply/CODE')
-      req.flush('apiResponse',{ status: 200, statusText: 'Success' })
+      req.flush('apiResponse')
       tick()
 
       expect(req.request.method).toBe('PUT')
