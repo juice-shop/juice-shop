@@ -66,7 +66,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
 - :norway: owangen
-- :poland: Idomin Ninja, Andrew Pio
+- :poland: Idomin Ninja, Andrew Pio, niemyskaa
 - :portugal: Alvaro Viebrantz
 - :romania: Mircea Ulmeanu, orjen, timexlord
 - :ru: fieldhill13
