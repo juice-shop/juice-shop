@@ -89,7 +89,7 @@
 -
   name: 'User Credentials'
   category: 'Injection'
-  description: 'Retrieve a list of all user credentials via SQL Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
   hint: 'Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
