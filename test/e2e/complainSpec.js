@@ -1,4 +1,5 @@
 const config = require('config')
+const path = require('path')
 
 describe('/#/complain', () => {
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
@@ -94,5 +95,23 @@ describe('/#/complain', () => {
       browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+  })
+
+  describe('challenge "arbitraryFileWrite"', () => {
+    it('should be possible to upload zip file with filenames having path traversal', () => {
+      browser.waitForAngularEnabled(false)
+      browser.get('/#/complain')
+      var file = element(by.id('file'))
+      var submitButton = element(by.id('submitButton'))
+      var complaintMessage = element(by.id('complaintMessage'))
+      var fileToUpload = 'test/files/arbitraryFileWrite.zip'
+      var absoluteFilePath = path.resolve(fileToUpload)
+      complaintMessage.sendKeys('test')
+      file.sendKeys(absoluteFilePath)
+      submitButton.click()
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
   })
 })
