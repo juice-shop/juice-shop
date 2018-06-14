@@ -29,7 +29,7 @@ export class BasketService {
     return this.http.delete(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  save (params) {
+  save (params?: any) {
     return this.http.post(this.host + '/', params,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
