@@ -171,7 +171,9 @@ function createProducts () {
                 mongodb.reviews.insert({
                   message: text,
                   author: `${author}@${config.get('application.domain')}`,
-                  product: id
+                  product: id,
+                  likesCount: 0,
+                  likedBy: []
                 }).catch((err) => {
                   console.error(`Could not insert Product Review ${text}`)
                   console.error(err)

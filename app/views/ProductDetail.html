@@ -38,14 +38,14 @@
                             <div class="col-md-3">    
                                 <p>{{ review.message }}</p>
                             </div>
-                            <footer class="capitalize">{{ review.author | emailName }}</footer>
                             <div class="col-md-3" style="display: flex;">
-                                <button class="btn btn-default" style="border-radius: 50%;" ng-click="likeReview(review)">
+                                <button class="btn btn-default" style="border-radius: 50%;" ng-click="likeReview(review)" ng-disabled="review.liked || !isLoggedIn()">
                                     <i class="fas fa-heart" style="color:black;"></i>
                                 </button>
-                                <p style="margin-left: 5px; margin-right: 5px;">{{ review.likesCount }}</p>
+                                <p style="margin-left: 5px; margin-right: 5px; padding-top: 6px;">{{ review.likesCount }}</p>
                             </div>
                         </div>
+                        <footer class="capitalize">{{ review.author | emailName }}</footer>
                     </blockquote>
                 </div>
                 <div class="col-md-12">
