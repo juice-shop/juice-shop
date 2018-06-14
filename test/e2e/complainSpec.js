@@ -81,18 +81,9 @@ describe('/#/complain', () => {
 
   describe('challenge "arbitraryFileWrite"', () => {
     it('should be possible to upload zip file with filenames having path traversal', () => {
-      browser.waitForAngularEnabled(false)
-      browser.get('/#/complain')
-      var file = element(by.id('file'))
-      var submitButton = element(by.id('submitButton'))
-      var complaintMessage = element(by.id('complaintMessage'))
-      var fileToUpload = 'test/files/arbitraryFileWrite.zip'
-      var absoluteFilePath = path.resolve(fileToUpload)
-      complaintMessage.sendKeys('test')
-      file.sendKeys(absoluteFilePath)
+      complaintMessage.sendKeys('Zip Slip!')
+      file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
       submitButton.click()
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
   })
