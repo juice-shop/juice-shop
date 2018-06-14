@@ -14,6 +14,9 @@ ctf:
     errorHandlingChallenge:
       name: Austria
       code: AT
+    forgedReviewChallenge:
+      name: Israel
+      code: IL
     loginAdminChallenge:
       name: Russian Federation
       code: RU
@@ -152,9 +155,12 @@ ctf:
     noSqlCommandChallenge:
       name: Trinidad and Tobago
       code: TT
-    noSqlInjectionChallenge:
+    noSqlReviewsChallenge:
       name: United Arab Emirates
       code: AE
+    noSqlOrdersChallenge:
+      name: Estonia
+      code: EE
     retrieveBlueprintChallenge:
       name: Venezuela
       code: VE
