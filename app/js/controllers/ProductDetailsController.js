@@ -36,10 +36,12 @@ angular.module('juiceShop').controller('ProductDetailsController', [
       var review = { message: $scope.message, author: $scope.author }
       $scope.productReviews.push(review)
       productReviewService.create(id, review)
+      $scope.refreshReviews()
     }
 
     $scope.likeReview = function (review) {
       productReviewService.like(review._id)
+      $scope.refreshReviews()
     }
 
     $scope.refreshReviews = function () {
