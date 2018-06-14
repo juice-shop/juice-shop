@@ -1,6 +1,6 @@
 {
   "name": "juice-shop-angular",
-  "version": "7.2.3",
+  "version": "7.3.0-SNAPSHOT",
   "private": true,
   "dependencies": {
     "angular": "~1.6.9",
