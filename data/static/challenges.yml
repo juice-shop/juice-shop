@@ -272,11 +272,11 @@
   key: uploadTypeChallenge
 -
   name: 'Arbitrary File Write'
-  category: 'Improper Input Validation'
-  description: 'Overwrite legal.md file'
+  category: 'Vulnerable Components'
+  description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
-  hint: 'Look out for tweet about new functionalities'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#arbitary-file-write'
+  hint: 'Look out for a tweet praising new functionality of the web shop.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#arbitary-file-write'
   key: fileWriteChallenge
 -
   name: 'Extra Language'
