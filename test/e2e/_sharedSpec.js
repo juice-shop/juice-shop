@@ -16,19 +16,15 @@ protractor.expect = {
 protractor.beforeEach = {
   login: function (context) {
     describe('(shared)', () => {
-      let email, password
-
       beforeEach(() => {
-        email = context.email
-        password = context.password
         browser.get('/#/login')
-        element(by.model('user.email')).sendKeys(email)
-        element(by.model('user.password')).sendKeys(password)
+        element(by.model('user.email')).sendKeys(context.email)
+        element(by.model('user.password')).sendKeys(context.password)
         element(by.id('loginButton')).click()
       })
 
-      it('should have logged in user "' + email + '" with password "' + password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/)
+      it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
+        expect(browser.getCurrentUrl()).toMatch(/\/search/) // TODO Instead check for uib-tooltip of <i> with fa-user-circle
       })
     })
   }

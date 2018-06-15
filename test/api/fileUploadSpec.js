@@ -59,53 +59,27 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  if (process.platform === 'win32') {
-    it('POST file type XML with XXE attack against Windows', done => {
-      file = path.resolve(__dirname, '../files/xxeForWindows.xml')
-      form = new FormData()
-      form.append('file', fs.createReadStream(file))
+  it('POST file type XML with XXE attack against Windows', done => {
+    file = path.resolve(__dirname, '../files/xxeForWindows.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
 
-      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-        .expect('status', 410)
-        .done(done)
-    })
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 410)
+      .done(done)
+  })
 
-    it('POST file type XML with Quadratic Blowup attack only works reliably on Windows', done => {
-      file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
-      form = new FormData()
-      form.append('file', fs.createReadStream(file))
+  it('POST file type XML with XXE attack against Linux', done => {
+    file = path.resolve(__dirname, '../files/xxeForLinux.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
 
-      frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-        .expect('status', 503)
-        .done(done)
-    })
-  }
+    frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
+      .expect('status', 410)
+      .done(done)
+  })
 
-  if (process.platform === 'linux' || process.platform === 'darwin') {
-    it('POST file type XML with XXE attack against Linux', done => {
-      file = path.resolve(__dirname, '../files/xxeForLinux.xml')
-      form = new FormData()
-      form.append('file', fs.createReadStream(file))
-
-      frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
-        .expect('status', 410)
-        .done(done)
-    })
-
-    if (!process.env.TRAVIS_BUILD_NUMBER) {
-      it('POST file type XML with DoS attack against Linux', done => {
-        file = path.resolve(__dirname, '../files/xxeDosForLinux.xml')
-        form = new FormData()
-        form.append('file', fs.createReadStream(file))
-
-        frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
-          .expect('status', 503)
-          .done(done)
-      })
-    }
-  }
-
-  it('POST file type XML with Billion Laughs attack is caught by parser', done => {
+  xit('POST file type XML with Billion Laughs attack is caught by parser', done => { // FIXME Causes "Segmentation Fault" on Windows and Travis-CI with libxmljs 0.18.7
     file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
@@ -113,6 +87,16 @@ describe('/file-upload', () => {
     frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
       .expect('status', 410)
       .expect('bodyContains', 'Detected an entity reference loop')
+      .done(done)
+  })
+
+  it('POST file type XML with Quadratic Blowup attack', done => {
+    file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 503)
       .done(done)
   })
 
