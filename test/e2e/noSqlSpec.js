@@ -68,4 +68,33 @@ describe('/rest/product/reviews', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'Forged Review' })
   })
+
+  describe('challenge "Multiple Likes"', () => {
+    protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
+
+    let reviewId
+    beforeEach((done) => {
+      http.get(REST_URL + '/product/1/reviews', (res) => {
+        let body = ''
+
+        res.on('data', chunk => {
+          body += chunk
+        })
+
+        res.on('end', () => {
+          const response = JSON.parse(body)
+          reviewId = response.data[0]._id
+          done()
+        })
+      })
+    })
+
+    it('should be possible to like reviews multiple times', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" }); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" });')
+      browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
+  })
 })
