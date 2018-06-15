@@ -33,7 +33,6 @@
                     <strong translate="LABEL_REVIEWS"></strong>
                     <p ng-show="productReviews.length === 0" translate="LABEL_NO_REVIEWS"></p>
                     <blockquote data-ng-repeat="review in productReviews">
-                        <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fas fa-edit"></i> Edit</button>
                         <div class="row">
                             <div class="col-md-3">    
                                 <p>{{ review.message }}</p>
@@ -45,6 +44,7 @@
                                 <p style="margin-left: 5px; margin-right: 5px; padding-top: 6px;">{{ review.likesCount }}</p>
                             </div>
                         </div>
+                        <button ng-show="review.author !== 'Anonymous' && review.author === author" ng-click="editReview(review)" type="button" name="edit" class="btn btn-default"><i class="fas fa-edit"></i> Edit</button>
                         <footer class="capitalize">{{ review.author | emailName }}</footer>
                     </blockquote>
                 </div>
