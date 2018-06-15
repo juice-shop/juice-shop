@@ -41,9 +41,9 @@ angular.module('juiceShop').controller('ProductDetailsController', [
 
     $scope.likeReview = function (review) {
       productReviewService.like(review._id)
-      setTimeout(function() {
+      setTimeout(function () {
         $scope.refreshReviews()
-      }, 200);
+      }, 200)
     }
 
     $scope.refreshReviews = function () {
