@@ -8,7 +8,7 @@ module.exports = function productReviews () {
   return (req, res, next) => {
     const id = req.body.id
     const user = insecurity.authenticatedUsers.from(req)
-
+    console.log(id)
     db.reviews.findOne({ _id: id }).then(review => {
       var likedBy = review.likedBy
       if(!likedBy.includes(user.data.email)){
@@ -18,7 +18,16 @@ module.exports = function productReviews () {
         ).then(
           result => {
             // Artificial wait for timing attack challenge
-            sleep.msleep(800) 
+            sleep.msleep(15000) 
+            var count = 0
+            for (var i = 0;i<likedBy.length;i++){
+              if(likedBy[i]===user.data.email){
+                count++;
+              }
+            }
+            if(count > 1 && utils.notSolved(challenges.timingAttackChallenge)){
+              utils.solve(challenges.timingAttackChallenge)
+            }
             likedBy.push(user.data.email)
             db.reviews.update(
               { _id: id },
