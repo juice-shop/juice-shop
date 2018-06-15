@@ -79,7 +79,7 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  xit('POST file type XML with Billion Laughs attack is caught by parser', done => { // FIXME Causes "Segmentation Fault" on Windows and Travis-CI with libxmljs 0.18.7
+  it('POST file type XML with Billion Laughs attack is caught by parser', done => {
     file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
     form = new FormData()
     form.append('file', fs.createReadStream(file))
