@@ -33,9 +33,9 @@ angular.module('juiceShop').factory('ProductReviewService', ['$http', '$q', func
     return updatedReview.promise
   }
 
-  function like (id) {
+  function like (_id) {
     var updatedReview = $q.defer()
-    var id = {id: id}
+    var id = {id: _id}
     $http.post(host + '/reviews', id).then(function (response) {
       updatedReview.resolve(response.data.data)
     }).catch(function (response) {

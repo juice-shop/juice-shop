@@ -29,8 +29,8 @@ module.exports = function productReviews () {
         }
       }
       const user = insecurity.authenticatedUsers.from(req)
-      for (var i =0 ; i<reviews.length; i++){
-        if(user === undefined || reviews[i].likedBy.includes(user.data.email)){
+      for (var i = 0; i < reviews.length; i++) {
+        if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {
           reviews[i].liked = true
         }
       }

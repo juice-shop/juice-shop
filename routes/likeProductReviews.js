@@ -9,24 +9,24 @@ module.exports = function productReviews () {
     const user = insecurity.authenticatedUsers.from(req)
     db.reviews.findOne({ _id: id }).then(review => {
       var likedBy = review.likedBy
-      if(!likedBy.includes(user.data.email)){
+      if (!likedBy.includes(user.data.email)) {
         db.reviews.update(
           { _id: id },
           { '$inc': { likesCount: 1 } }
         ).then(
           result => {
             // Artificial wait for timing attack challenge
-            setTimeout(function() {
+            setTimeout(function () {
               db.reviews.findOne({ _id: id }).then(review => {
                 var likedBy = review.likedBy
                 likedBy.push(user.data.email)
                 var count = 0
-                for (var i = 0;i<likedBy.length;i++){
-                  if(likedBy[i]===user.data.email){
-                    count++;
+                for (var i = 0; i < likedBy.length; i++) {
+                  if (likedBy[i] === user.data.email) {
+                    count++
                   }
                 }
-                if(count > 1 && utils.notSolved(challenges.timingAttackChallenge)){
+                if (count > 1 && utils.notSolved(challenges.timingAttackChallenge)) {
                   utils.solve(challenges.timingAttackChallenge)
                 }
                 db.reviews.update(
@@ -41,11 +41,11 @@ module.exports = function productReviews () {
               }, () => {
                 res.status(400).json({ error: 'Wrong Params' })
               })
-            }, 150);
+            }, 150)
           }, err => {
             res.status(500).json(err)
           })
-      }else{
+      } else {
         res.status(403).json({ error: 'Not allowed' })
       }
     }, () => {
