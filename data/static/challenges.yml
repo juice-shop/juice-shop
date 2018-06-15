@@ -23,6 +23,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
   key: forgedReviewChallenge
 -
+  name: 'Multiple Likes'
+  category: 'Race Condition'
+  description: 'Like any review any number of times.'
+  difficulty: 6
+  hint: 'Observe the delay in response from server.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#multiple-likes'
+  key: timingAttackChallenge
+-
   name: 'Login Admin'
   category: 'Injection'
   description: 'Log in with the administrator''s user account.'
