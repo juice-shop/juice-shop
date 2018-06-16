@@ -1,3 +1,4 @@
+import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
@@ -23,7 +24,8 @@ describe('SearchResultComponent', () => {
         BrowserAnimationsModule,
         MatTableModule,
         MatPaginatorModule,
-        MatDialogModule
+        MatDialogModule,
+        MatDividerModule
       ],
       providers: [
         ProductService,

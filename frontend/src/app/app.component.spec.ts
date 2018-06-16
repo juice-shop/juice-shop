@@ -1,3 +1,4 @@
+import { ConfigurationService } from './Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientModule } from '@angular/common/http'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -35,7 +36,7 @@ describe('AppComponent', () => {
         MatMenuModule,
         MatTooltipModule
       ],
-      providers : [ TranslateService ]
+      providers : [ TranslateService, ConfigurationService ]
     }).compileComponents()
   }))
   it('should create the app', async(() => {
