@@ -200,4 +200,7 @@ ctf:
     securityPolicyChallenge:
       name: Spain
       code: ES
+    timingAttackChallenge:
+      name: Egypt
+      code: EG
 

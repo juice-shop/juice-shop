@@ -27,7 +27,7 @@
   category: 'Race Condition'
   description: 'Like any review any number of times.'
   difficulty: 6
-  hint: 'Observe the delay in response from server.'
+  hint: 'Punctuality is the politeness of kings'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#multiple-likes'
   key: timingAttackChallenge
 -
