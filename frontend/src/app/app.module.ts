@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { HttpClientModule, HttpClient } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
+import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
@@ -153,4 +154,12 @@ export function HttpLoaderFactory (http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor (configurationService: ConfigurationService,overlayContainer: OverlayContainer) {
+    configurationService.getApplicationConfiguration().subscribe((conf) => {
+      overlayContainer.getContainerElement().classList.add(conf.application.theme)
+    })
+  }
+
+}
