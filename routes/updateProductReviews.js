@@ -14,7 +14,7 @@ module.exports = function productReviews () {
     ).then(
       result => {
         if (result.modified > 1 && utils.notSolved(challenges.noSqlReviewsChallenge)) {
-          // More then one Review was modified => challange solved
+          // More than one Review was modified => challange solved
           utils.solve(challenges.noSqlReviewsChallenge)
         }
         if (result.original[0].author !== user.data.email && utils.notSolved(challenges.forgedReviewChallenge && result.modified === 1)) {
