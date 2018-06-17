@@ -15,7 +15,7 @@ const loadYamlFile = async (filename) => {
 }
 
 describe('challengeCountryMapping', () => {
-  let challenges, countryMapping;
+  let challenges, countryMapping
   before(async () => {
     challenges = await loadYamlFile(path.join(__dirname, '../../data/static/challenges.yml'))
     countryMapping = (await loadYamlFile(path.join(__dirname, '../../config/fbctf.yml'))).ctf.countryMapping
@@ -26,22 +26,22 @@ describe('challengeCountryMapping', () => {
     }
   })
 
-    it('should have unique country codes in every mapping', async () => {
-        const countryCodeCounts = {};
+  it('should have unique country codes in every mapping', async () => {
+    const countryCodeCounts = {}
 
-        for (const key of Object.keys(countryMapping)) {
-            const {code} = countryMapping[key];
+    for (const key of Object.keys(countryMapping)) {
+      const {code} = countryMapping[key]
 
-            if (!countryCodeCounts.hasOwnProperty(code)){
-                countryCodeCounts[code] = 0;
-            }
-            countryCodeCounts[code]++;
-        }
+      if (!countryCodeCounts.hasOwnProperty(code)) {
+        countryCodeCounts[code] = 0
+      }
+      countryCodeCounts[code]++
+    }
 
-        for (const key of Object.keys(countryCodeCounts)) {
-            const count = countryCodeCounts[key];
+    for (const key of Object.keys(countryCodeCounts)) {
+      const count = countryCodeCounts[key]
 
-            expect(count, `Country "${key}" is used for multiple country mappings.`).to.equal(1)
-        }
-    })
+      expect(count, `Country "${key}" is used for multiple country mappings.`).to.equal(1)
+    }
+  })
 })
