@@ -20,7 +20,7 @@ describe('challengeCountryMapping', () => {
     const countryMapping = (await loadYamlFile(path.join(__dirname, '../../config/fbctf.yml'))).ctf.countryMapping
 
     for (const {key} of challenges) {
-      expect(countryMapping, `Challenge "${key}" does not have a country Mapping.`).to.have.property(key)
+      expect(countryMapping, `Challenge "${key}" does not have a country mapping.`).to.have.property(key)
     }
   })
 })
