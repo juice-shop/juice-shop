@@ -103,6 +103,9 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
     typosquattingBowerChallenge()
   }
+  if (utils.notSolved(challenges.hiddenImageChallenge)) {
+    hiddenImageChallenge()
+  }
   next()
 }
 
@@ -227,6 +230,21 @@ function typosquattingBowerChallenge () {
   ).then(({count}) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingBowerChallenge)
+    }
+  })
+}
+
+function hiddenImageChallenge () {
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%pickle rick%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.hiddenImageChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%pickle rick%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.hiddenImageChallenge)
     }
   })
 }
