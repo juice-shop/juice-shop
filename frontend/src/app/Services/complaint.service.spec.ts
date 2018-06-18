@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http'
-import { TestBed, inject } from '@angular/core/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing'
 
 import { ComplaintService } from './complaint.service'
 
@@ -7,7 +7,7 @@ describe('ComplaintService', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       providers: [ComplaintService]
     })
   })
@@ -15,4 +15,19 @@ describe('ComplaintService', () => {
   it('should be created', inject([ComplaintService], (service: ComplaintService) => {
     expect(service).toBeTruthy()
   }))
+
+  it('should create complaint directly via the rest api', inject([ComplaintService, HttpTestingController],
+    fakeAsync((service: ComplaintService, httpMock: HttpTestingController) => {
+      let res
+      service.save(null).subscribe((data) => res = data)
+      const req = httpMock.expectOne('http://localhost:3000/api/Complaints/')
+      req.flush({ data: 'apiResponse' })
+
+      tick()
+      expect(req.request.method).toBe('POST')
+      expect(req.request.body).toBeNull()
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
 })
