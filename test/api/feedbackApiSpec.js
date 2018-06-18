@@ -84,7 +84,7 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'Your express-jwt 0.1.3 has some serious problems!',
+        comment: 'Pickle Rick says your express-jwt 0.1.3 has issues!',
         rating: 0,
         UserId: 4711,
         captchaId: captchaId,

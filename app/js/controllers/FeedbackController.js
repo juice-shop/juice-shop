@@ -13,7 +13,7 @@ angular.module('juiceShop').controller('FeedbackController', [
       'public/images/carousel/2.jpg',
       'public/images/carousel/3.jpg',
       'public/images/carousel/4.jpg',
-      'public/images/carousel/5.jpg',
+      'public/images/carousel/5.png',
       'public/images/carousel/6.jpg',
       'public/images/carousel/7.jpg'
     ]

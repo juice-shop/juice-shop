@@ -133,7 +133,7 @@ ctf:
       code: AO
     loginSupportChallenge:
       name: Croatia
-      code: CR
+      code: HR
     loginRapperChallenge:
       name: Albania
       code: AL
@@ -200,7 +200,9 @@ ctf:
     securityPolicyChallenge:
       name: Spain
       code: ES
+    hiddenImageChallenge:
+      name: Lithuania
+      code: LT
     timingAttackChallenge:
       name: Egypt
       code: EG
-
