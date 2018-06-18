@@ -191,4 +191,7 @@ ctf:
     securityPolicyChallenge:
       name: Spain
       code: ES
+    hiddenImageChallenge:
+      name: Lithuania
+      code: LT
 

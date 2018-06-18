@@ -486,3 +486,11 @@
   hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-any-white-hat-should'
   key: securityPolicyChallenge
+-
+  name: 'Steganography Tier 1'
+  category: 'Security through Obscurity'
+  description: '<a href="/#/contact">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)'
+  difficulty: 4
+  hint: 'No matter how good your eyes are, you will need tool assistance for this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-though-obscurity.html#rat-out-a-notorious-character-hiding-in-plain-sight-in-the-shop'
+  key: hiddenImageChallenge
