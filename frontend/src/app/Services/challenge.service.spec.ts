@@ -68,7 +68,7 @@ describe('ChallengeService', () => {
       service.repeatNotification('CHALLENGE').subscribe((data) => res = data)
 
       const req = httpMock.expectOne(req => req.url === 'http://localhost:3000/rest/repeat-notification')
-      req.flush('apiResponse')
+      req.flush({ data: 'apiResponse' })
       tick()
 
       expect(req.request.method).toBe('GET')

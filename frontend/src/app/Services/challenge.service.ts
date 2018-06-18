@@ -17,7 +17,7 @@ export class ChallengeService {
   }
 
   repeatNotification (challengeName) {
-    return this.http.get(this.hostServer + '/rest/repeat-notification', { params: { challenge: challengeName } })
+    return this.http.get(this.hostServer + '/rest/repeat-notification', { params: { challenge: challengeName } }).pipe(catchError((err) => { throw err }))
   }
 
   continueCode () {
@@ -25,6 +25,6 @@ export class ChallengeService {
   }
 
   restoreProgress (continueCode) {
-    return this.http.put(this.hostServer + '/rest/continue-code/apply/' + continueCode, {})
+    return this.http.put(this.hostServer + '/rest/continue-code/apply/' + continueCode, {}).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }
