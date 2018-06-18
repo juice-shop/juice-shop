@@ -135,6 +135,17 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
   })
 
+  describe('challenge "hiddenImage"', () => {
+    it('should be possible to post hidden character name as feedback', () => {
+      comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
+  })
+
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       comment.sendKeys('No stars for ya here, yo!')

@@ -76,6 +76,16 @@ describe('/#/complain', () => {
       file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
       submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+
+    it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
+      complaintMessage.sendKeys('XXE Quadratic Blowup!')
+      file.sendKeys(path.resolve('test/files/xxeDevRandom.xml'))
+      submitButton.click()
+    })
+
+    afterAll(() => {
+      protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
+      protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+    })
   })
 })
