@@ -45,7 +45,7 @@ describe('ProductReviewService', () => {
     })
   ))
 
-  /* xit('should edit product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
+  it('should edit product reviews directly via the rest api', inject([ProductReviewService, HttpTestingController],
     fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
       let res
       service.patch(null).subscribe((data) => res = data)
@@ -58,5 +58,5 @@ describe('ProductReviewService', () => {
       expect(res).toBe('apiResponse')
       httpMock.verify()
     })
-  )) */
+  ))
 })
