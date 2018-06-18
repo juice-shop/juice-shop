@@ -53,7 +53,7 @@ describe('ChallengeService', () => {
       service.restoreProgress('CODE').subscribe((data) => res = data)
 
       const req = httpMock.expectOne('http://localhost:3000/rest/continue-code/apply/CODE')
-      req.flush('apiResponse')
+      req.flush({ data: 'apiResponse' })
       tick()
 
       expect(req.request.method).toBe('PUT')
@@ -68,7 +68,7 @@ describe('ChallengeService', () => {
       service.repeatNotification('CHALLENGE').subscribe((data) => res = data)
 
       const req = httpMock.expectOne(req => req.url === 'http://localhost:3000/rest/repeat-notification')
-      req.flush({ data: 'apiResponse' })
+      req.flush('apiResponse')
       tick()
 
       expect(req.request.method).toBe('GET')
