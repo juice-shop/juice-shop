@@ -16,7 +16,7 @@ export class SecurityAnswerService {
   save (params) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
-      catchError((err) => err)
+      catchError((err) => { throw err })
     )
   }
 }

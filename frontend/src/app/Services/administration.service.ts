@@ -16,7 +16,7 @@ export class AdministrationService {
   getApplicationVersion () {
     return this.http.get(this.host + '/application-version').pipe(
       map((response: any) => response.version),
-      catchError(error => error)
+      catchError(error => { throw error })
     )
   }
 
