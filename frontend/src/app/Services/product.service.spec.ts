@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http'
-import { TestBed, inject } from '@angular/core/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing'
 
 import { ProductService } from './product.service'
 
@@ -7,7 +7,7 @@ describe('ProductService', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       providers: [ProductService]
     })
   })
@@ -15,4 +15,47 @@ describe('ProductService', () => {
   it('should be created', inject([ProductService], (service: ProductService) => {
     expect(service).toBeTruthy()
   }))
+
+  it('should search for products directly from the rest api', inject([ProductService, HttpTestingController],
+    fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
+      let res
+      service.search(1).subscribe((data) => res = data)
+      const req = httpMock.expectOne('http://localhost:3000/rest/product/search?q=1')
+      req.flush({ data: 'apiResponse' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should get all products directly from the rest api', inject([ProductService, HttpTestingController],
+    fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
+      let res
+      service.find(null).subscribe((data) => res = data)
+      const req = httpMock.expectOne('http://localhost:3000/api/Products/')
+      req.flush({ data: 'apiResponse' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(req.request.params.toString()).toBeFalsy()
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should get single product directly from the rest api', inject([ProductService, HttpTestingController],
+    fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
+      let res
+      service.get(1).subscribe((data) => res = data)
+      const req = httpMock.expectOne('http://localhost:3000/api/Products/1?d=' + encodeURIComponent(new Date().toDateString()))
+      req.flush({ data: 'apiResponse' })
+
+      tick()
+      expect(req.request.method).toBe('GET')
+      expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
 })
