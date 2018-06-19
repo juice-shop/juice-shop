@@ -51,6 +51,7 @@ angular.module('juiceShop').controller('LoginController', [
       'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
       'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
       'http://localhost:3000': 'http://localhost:3000',
+      'http://localhost:4200': 'http://localhost:4200',
       'http://juice.sh': 'http://juice.sh',
       'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost'
     }
