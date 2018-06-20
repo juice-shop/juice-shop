@@ -124,12 +124,12 @@ app.use(express.static(applicationRoot + '/app'))
 app.use(cookieParser('kekse'))
 
 app.use(bodyParser.text({type: '*/*'}))
-app.use(function jsonParser(req, res, next) {
-    req.rawBody = req.body
-    if(req.headers['content-type'] != undefined && req.headers['content-type'].indexOf('application/json') > -1) {
-        req.body = JSON.parse(req.body)
-    }
-    next()
+app.use(function jsonParser (req, res, next) {
+  req.rawBody = req.body
+  if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
+    req.body = JSON.parse(req.body)
+  }
+  next()
 })
 
 /* HTTP request logging */
