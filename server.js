@@ -56,6 +56,7 @@ const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
+const basketItems = require('./routes/basketItems')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -121,7 +122,15 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use(express.static(applicationRoot + '/app'))
 app.use(cookieParser('kekse'))
-app.use(bodyParser.json())
+
+app.use(bodyParser.text({type: '*/*'}))
+app.use(function jsonParser(req, res, next) {
+    req.rawBody = req.body
+    if(req.headers['content-type'] != undefined && req.headers['content-type'].indexOf('application/json') > -1) {
+        req.body = JSON.parse(req.body)
+    }
+    next()
+})
 
 /* HTTP request logging */
 let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
@@ -180,6 +189,8 @@ app.post('/api/Feedbacks', insecurity.verifyCaptcha())
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
+/* Add item to basket */
+app.post('/api/BasketItems', basketItems())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
