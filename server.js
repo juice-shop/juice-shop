@@ -123,6 +123,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(express.static(applicationRoot + '/app'))
 app.use(cookieParser('kekse'))
 
+/* File Upload */
+app.post('/file-upload', upload.single('file'), fileUpload())
+
 app.use(bodyParser.text({type: '*/*'}))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
@@ -246,9 +249,6 @@ app.post('/rest/product/reviews', insecurity.isAuthorized(), likeProductReviews(
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
-
-/* File Upload */
-app.post('/file-upload', upload.single('file'), fileUpload())
 
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
