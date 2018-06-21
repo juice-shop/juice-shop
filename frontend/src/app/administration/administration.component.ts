@@ -21,6 +21,7 @@ export class AdministrationComponent implements OnInit {
   public recycleColumns = ['user', 'quantity', 'address', 'icon', 'pickup_date']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
+  public error
   constructor (private dialog: MatDialog,private userService: UserService,private recycleService: RecycleService, private feedbackService: FeedbackService) {}
 
   ngOnInit () {
@@ -32,25 +33,37 @@ export class AdministrationComponent implements OnInit {
   findAllUsers () {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
-    },(err) => console.log(err))
+    },(err) => {
+      this.error = err
+      console.log(this.error)
+    })
   }
 
   findAllRecycles () {
     this.recycleService.find().subscribe((recycles) => {
       this.recycleDataSource = recycles
-    },(err) => console.log(err))
+    },(err) => {
+      this.error = err
+      console.log(this.error)
+    })
   }
 
   findAllFeedbacks () {
     this.feedbackService.find().subscribe((feedbacks) => {
       this.feedbackDataSource = feedbacks
-    },(err) => console.log(err))
+    },(err) => {
+      this.error = err
+      console.log(this.error)
+    })
   }
 
   deleteFeedback (id: number) {
     this.feedbackService.del(id).subscribe(() => {
       this.findAllFeedbacks()
-    },(err) => console.log(err))
+    },(err) => {
+      this.error = err
+      console.log(this.error)
+    })
   }
 
   showUserDetail (id: number) {
@@ -60,4 +73,5 @@ export class AdministrationComponent implements OnInit {
       }
     })
   }
+
 }
