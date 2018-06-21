@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
@@ -32,7 +33,7 @@ export class BasketComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
   ngOnInit () {
     this.load()
@@ -56,13 +57,13 @@ export class BasketComponent implements OnInit {
           this.applicationName = config.application.name
         }
       }
-    })
+    },(err) => console.log(err))
   }
 
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
-    })
+    },(err) => console.log(err))
   }
 
   delete (id) {
@@ -109,7 +110,11 @@ export class BasketComponent implements OnInit {
     this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
       this.resetForm()
       this.error = undefined
-      this.confirmation = data
+      this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
+        this.confirmation = discountApplied
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
     },(err) => {
       console.log(err)
       this.confirmation = undefined
