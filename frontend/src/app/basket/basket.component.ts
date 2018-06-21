@@ -30,6 +30,7 @@ export class BasketComponent implements OnInit {
   public twitterUrl = null
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
+  public redirectUrl = null
 
   constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService) {}
 
@@ -38,7 +39,7 @@ export class BasketComponent implements OnInit {
     this.userService.whoAmI().subscribe((data) => {
       this.userEmail = data.email || 'anonymous'
       this.userEmail = '(' + this.userEmail + ')'
-    },(err) => err)
+    },(err) => console.log(err))
 
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
@@ -99,7 +100,8 @@ export class BasketComponent implements OnInit {
 
   checkout () {
     this.basketService.checkout(sessionStorage.getItem('bid')).subscribe((orderConfirmationPath) => {
-      this.windowRefService.nativeWindow.location.replace(this.basketService.hostServer + orderConfirmationPath)
+      this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
+      this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
   }
 
