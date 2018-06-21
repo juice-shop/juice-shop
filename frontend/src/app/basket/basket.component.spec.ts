@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -27,6 +28,7 @@ describe('BasketComponent', () => {
   let basketService
   let windowRefService
   let configurationService
+  let translateService
 
   beforeEach(async(() => {
 
@@ -39,6 +41,7 @@ describe('BasketComponent', () => {
     basketService.put.and.returnValue(of({}))
     basketService.checkout.and.returnValue(of({}))
     basketService.applyCoupon.and.returnValue(of({}))
+
     // Stub for WindowRefService
     windowRefService = {
       get nativeWindow () {
@@ -54,6 +57,8 @@ describe('BasketComponent', () => {
 
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [
@@ -74,7 +79,8 @@ describe('BasketComponent', () => {
         { provide: BasketService, useValue: basketService },
         { provide: UserService , useValue: userService },
         { provide: WindowRefService, useValue: windowRefService },
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()
@@ -104,6 +110,7 @@ describe('BasketComponent', () => {
   }))
 
   it('should not hold twitter or facebook URL if not defined in configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     expect(component.twitterUrl).toBeNull()
     expect(component.facebookUrl).toBeNull()
   })
@@ -120,6 +127,15 @@ describe('BasketComponent', () => {
     expect(component.facebookUrl).toBe('facebook')
   })
 
+  it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+
+    component.ngOnInit()
+
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
   it('should pass delete request for basket item via BasketService' , () => {
     component.delete(1)
     expect(basketService.del).toHaveBeenCalledWith(1)
@@ -132,6 +148,15 @@ describe('BasketComponent', () => {
     expect(component.dataSource[0]).toBe('Product1')
     expect(component.dataSource[1]).toBe('Product2')
   })
+
+  it('should log error while getting Products from backend API directly to browser console' , fakeAsync(() => {
+    basketService.find.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+
+    component.load()
+
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
 
   it('should log error while deleting basket item directly to browser console' , fakeAsync(() => {
     basketService.del.and.returnValue(throwError('Error'))
@@ -275,8 +300,9 @@ describe('BasketComponent', () => {
     expect(component.error).toBe('Error')
   }))
 
-  xit('should accept a valid coupon code', () => {
-    basketService.applyCoupon.and.returnValue(42)
+  it('should accept a valid coupon code', () => {
+    basketService.applyCoupon.and.returnValue(of(42))
+    translateService.get.and.returnValue(of('DISCOUNT_APPLIED'))
 
     component.couponControl.setValue('')
     component.couponControl.markAsPristine()
@@ -284,8 +310,21 @@ describe('BasketComponent', () => {
 
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
+    console.log(component.confirmation)
+    expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED',{ discount: 42 })
+    expect(component.error).toBeUndefined()
+  })
 
-    expect(component.confirmation).toBeUndefined()
+  it('should translate DISCOUNT_APPLIED message' , () => {
+    basketService.applyCoupon.and.returnValue(of(42))
+    translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
+    component.couponControl.setValue('')
+    component.couponControl.markAsPristine()
+    component.couponControl.markAsUntouched()
+
+    component.couponControl.setValue('valid_base85')
+    component.applyCoupon()
+    expect(component.confirmation).toBe('Translation of DISCOUNT_APPLIED')
     expect(component.error).toBeUndefined()
   })
 })
