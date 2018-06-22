@@ -372,4 +372,14 @@ describe('BasketComponent', () => {
     expect(component.confirmation).toBe('Translation of DISCOUNT_APPLIED')
     expect(component.error).toBeUndefined()
   })
+
+  it('should have six columns in basket table', () => {
+    expect(component.displayedColumns.length).toBe(6)
+    expect(component.displayedColumns[0]).toBe('product')
+    expect(component.displayedColumns[1]).toBe('description')
+    expect(component.displayedColumns[2]).toBe('price')
+    expect(component.displayedColumns[3]).toBe('quantity')
+    expect(component.displayedColumns[4]).toBe('total price')
+    expect(component.displayedColumns[5]).toBe('remove')
+  })
 })
