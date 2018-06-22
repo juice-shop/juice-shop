@@ -143,13 +143,21 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#wherever-you-go-there-you-are'
   key: redirectChallenge
 -
-  name: 'Basket Access'
+  name: 'Basket Access Tier 1'
   category: 'Broken Access Control'
-  description: 'Access someone else''s basket.'
+  description: 'View another user''s shopping basket.'
   difficulty: 2
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-someone-elses-basket'
-  key: basketChallenge
+  key: basketAccessChallenge
+-
+  name: 'Basket Access Tier 2'
+  category: 'Broken Access Control'
+  description: 'Manipulate another user''s basket.'
+  difficulty: 3
+  hint: 'Have an eye on the HTTP traffic while adding items to basket.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#manipulate-someone-elses-basket'
+  key: basketManipulateChallenge
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'

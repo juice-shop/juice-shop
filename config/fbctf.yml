@@ -59,7 +59,7 @@ ctf:
     redirectChallenge:
       name: Belarus
       code: BY
-    basketChallenge:
+    basketAccessChallenge:
       name: Bolivia
       code: BO
     negativeOrderChallenge:
@@ -206,3 +206,6 @@ ctf:
     timingAttackChallenge:
       name: Egypt
       code: EG
+    basketManipulateChallenge:
+      name: Bhutan
+      code: BT
