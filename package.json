@@ -97,7 +97,8 @@
     "sqlite3": "~4.0.0",
     "swagger-ui-express": "~3.0.7",
     "z85": "~0.0",
-    "unzipper": "0.8.12"
+    "unzipper": "0.8.12",
+    "clarinet": "*"
   },
   "devDependencies": {
     "chai": "~4.1",
