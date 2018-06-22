@@ -1,7 +1,7 @@
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
-import { BasketService } from 'src/app/Services/basket.service'
+import { BasketService } from './../Services/basket.service'
 import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
