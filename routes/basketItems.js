@@ -2,20 +2,10 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
-const clarinet = require('clarinet')
 
 module.exports = function addBasketItem () {
   return (req, res, next) => {
-    const parser = clarinet.parser()
-    const result = []
-    parser.onkey = parser.onopenobject = k => {
-      result.push({key: k, value: null})
-    }
-    parser.onvalue = v => {
-      result[result.length - 1].value = v
-    }
-    parser.write(req.rawBody).close()
-
+    var result = utils.parseJsonCustom(req.rawBody)
     var productIds = []
     var basketIds = []
     var quantities = []
