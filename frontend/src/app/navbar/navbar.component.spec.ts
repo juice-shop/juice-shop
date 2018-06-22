@@ -1,6 +1,6 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from './../Services/user.service'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ConfigurationService } from './../Services/configuration.service'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { HttpClientModule } from '@angular/common/http'
 import { NavbarComponent } from './navbar.component'
