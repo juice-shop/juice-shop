@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { By } from '@angular/platform-browser'
+import { DomSanitizer,By } from '@angular/platform-browser'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -29,6 +29,7 @@ describe('BasketComponent', () => {
   let windowRefService
   let configurationService
   let translateService
+  let sanitizer
 
   beforeEach(async(() => {
 
@@ -59,6 +60,8 @@ describe('BasketComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
+    sanitizer = jasmine.createSpyObj('DOMSanitizer',['bypassSecurityTrustHtml'])
+    sanitizer.bypassSecurityTrustHtml.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [
@@ -80,7 +83,8 @@ describe('BasketComponent', () => {
         { provide: UserService , useValue: userService },
         { provide: WindowRefService, useValue: windowRefService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: TranslateService, useValue: translateService }
+        { provide: TranslateService, useValue: translateService },
+        { provide: DomSanitizer, useValue: sanitizer }
       ]
     })
     .compileComponents()
@@ -136,17 +140,25 @@ describe('BasketComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
+  it('should consider product description as trusted HTML', () => {
+    basketService.find.and.returnValue(of({ Products:  [ { description: '<script>alert("XSS")</script>' } ] }))
+
+    component.load()
+
+    expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
+  })
+
   it('should pass delete request for basket item via BasketService' , () => {
     component.delete(1)
     expect(basketService.del).toHaveBeenCalledWith(1)
   })
 
   it('should load again after deleting a basket item' , () => {
-    basketService.find.and.returnValue(of({ Products: ['Product1', 'Product2'] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', description: 'P' }, { name: 'Product2',description: 'P' }] }))
     component.delete(1)
     expect(component.dataSource.length).toBe(2)
-    expect(component.dataSource[0]).toBe('Product1')
-    expect(component.dataSource[1]).toBe('Product2')
+    expect(component.dataSource[0].name).toBe('Product1')
+    expect(component.dataSource[1].name).toBe('Product2')
   })
 
   it('should log error while getting Products from backend API directly to browser console' , fakeAsync(() => {

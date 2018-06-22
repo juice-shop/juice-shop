@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -33,7 +34,7 @@ export class BasketComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.load()
@@ -63,6 +64,9 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
+      for (let i = 0;i < this.dataSource.length; i++) {
+        this.dataSource[i].description = this.sanitizer.bypassSecurityTrustHtml(this.dataSource[i].description)
+      }
     },(err) => console.log(err))
   }
 
