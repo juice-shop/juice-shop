@@ -140,6 +140,37 @@ describe('BasketComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
+  it('should hold products returned by backend API', () => {
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', description: 'P' }, { name: 'Product2',description: 'P' }] }))
+    component.ngOnInit()
+    expect(component.dataSource.length).toBe(2)
+    expect(component.dataSource[0].name).toBe('Product1')
+    expect(component.dataSource[1].name).toBe('Product2')
+    expect(component.dataSource[0].description).toBeDefined()
+    expect(component.dataSource[1].description).toBeDefined()
+  })
+
+  it('should hold no products on error in backend API', fakeAsync(() => {
+    basketService.find.and.returnValue(throwError('Error'))
+    component.ngOnInit()
+    expect(component.dataSource.length).toBe(0)
+  }))
+
+  it('should hold no products when none are returned by backend API', () => {
+    basketService.find.and.returnValue(of({ Products: [] }))
+    component.ngOnInit()
+    expect(component.dataSource).toEqual([])
+  })
+
+  it('should log error while getting Products from backend API directly to browser console' , fakeAsync(() => {
+    basketService.find.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+
+    component.load()
+
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
   it('should consider product description as trusted HTML', () => {
     basketService.find.and.returnValue(of({ Products:  [ { description: '<script>alert("XSS")</script>' } ] }))
 
@@ -159,16 +190,9 @@ describe('BasketComponent', () => {
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
     expect(component.dataSource[1].name).toBe('Product2')
+    expect(component.dataSource[0].description).toBeDefined()
+    expect(component.dataSource[1].description).toBeDefined()
   })
-
-  it('should log error while getting Products from backend API directly to browser console' , fakeAsync(() => {
-    basketService.find.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-
-    component.load()
-
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
 
   it('should log error while deleting basket item directly to browser console' , fakeAsync(() => {
     basketService.del.and.returnValue(throwError('Error'))
@@ -268,6 +292,16 @@ describe('BasketComponent', () => {
     expect(basketService.put).toHaveBeenCalledWith(1, { quantity: 1 })
   })
 
+  it('should reset quantity to 1 when increasing for quantity tampered to be negative', () => {
+    basketService.find.and.returnValue(of({ Products: [ { basketItem: { id: 1, quantity: -100 } } ] }))
+    basketService.get.and.returnValue(of({ id: 1, quantity: -100 }))
+    basketService.put.and.returnValue(of({ id: 1, quantity: 1 }))
+
+    component.inc(1)
+    expect(basketService.get).toHaveBeenCalledWith(1)
+    expect(basketService.put).toHaveBeenCalledWith(1, { quantity: 1 })
+  })
+
   it('should toggle the coupon panel on clicking the coupon-toggle button', () => {
     const couponToggle = fixture.debugElement.query(By.css('button.coupon-toggle'))
     let initValue = component.couponPanelExpanded
@@ -322,7 +356,6 @@ describe('BasketComponent', () => {
 
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
-    console.log(component.confirmation)
     expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED',{ discount: 42 })
     expect(component.error).toBeUndefined()
   })
