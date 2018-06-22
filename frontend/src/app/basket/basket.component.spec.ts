@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ConfigurationService } from './../Services/configuration.service'
 import { WindowRefService } from './../Services/window-ref.service'
 import { UserService } from './../Services/user.service'
 import { BasketService } from './../Services/basket.service'
@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { DomSanitizer,By } from '@angular/platform-browser'
+import { QrCodeComponent } from './../qr-code/qr-code.component'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -33,6 +34,8 @@ describe('BasketComponent', () => {
 
   beforeEach(async(() => {
 
+    dialog = jasmine.createSpyObj('MatDialog',['open'])
+    dialog.open.and.returnValue(null)
     userService = jasmine.createSpyObj('UserServcie',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     basketService = jasmine.createSpyObj('BasketService', ['find','del','get','put','checkout','applyCoupon'])
@@ -381,5 +384,44 @@ describe('BasketComponent', () => {
     expect(component.displayedColumns[3]).toBe('quantity')
     expect(component.displayedColumns[4]).toBe('total price')
     expect(component.displayedColumns[5]).toBe('remove')
+  })
+
+  it('should open QrCodeComponent for Bitcoin', () => {
+    component.showBitcoinQrCode()
+    const data = {
+      data: {
+        data: 'bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        url: 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        address: '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        title: 'TITLE_BITCOIN_ADDRESS'
+      }
+    }
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
+  })
+
+  it('should open QrCodeComponent for Dash', () => {
+    component.showDashQrCode()
+    const data = {
+      data: {
+        data: 'dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        url: 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        address: 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        title: 'TITLE_DASH_ADDRESS'
+      }
+    }
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
+  })
+
+  it('should open QrCodeComponent for Ether', () => {
+    component.showEtherQrCode()
+    const data = {
+      data: {
+        data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
+        url: 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
+        title: 'TITLE_ETHER_ADDRESS'
+      }
+    }
+    expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
   })
 })
