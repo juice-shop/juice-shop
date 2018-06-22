@@ -11,7 +11,7 @@
 
       <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-        <mat-cell *matCellDef="let element"><div>{{element.description}}</div> </mat-cell>
+        <mat-cell *matCellDef="let element"><div [innerHTML]="element.description"></div> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
