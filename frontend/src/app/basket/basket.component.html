@@ -11,7 +11,7 @@
 
       <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-        <mat-cell *matCellDef="let element"><div>{{element.description}}</div> </mat-cell>
+        <mat-cell *matCellDef="let element"><div [innerHTML]="element.description"></div> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
@@ -48,9 +48,9 @@
   </div>
 
   <mat-card>
-      <button color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
-      <button color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
-      <button color="warn" (click)="togglePayment()" mat-raised-button><i class="fas fa-credit-card fa-lg"></i></button>
+      <button class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
+      <button class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
+      <button class="payment-toggle" color="warn" (click)="togglePayment()" mat-raised-button><i class="fas fa-credit-card fa-lg"></i></button>
   </mat-card>
 
   <mat-expansion-panel [expanded]="couponPanelExpanded">

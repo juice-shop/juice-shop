@@ -12,7 +12,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
-import { ScoreBoardComponent } from 'src/app/score-board/score-board.component'
+import { ScoreBoardComponent } from './score-board/score-board.component'
 
 const routes: Routes = [
   {

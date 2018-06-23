@@ -1,4 +1,4 @@
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ConfigurationService } from './Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 
