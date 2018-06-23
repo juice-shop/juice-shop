@@ -20,6 +20,13 @@ $slate-theme  : mat-dark-theme($slate-primary,$slate-accent,$slate-danger);
         background-color: inherit;
     }
 
+    mat-card.server-started {
+        background-color: #f89406;
+    }
+
+    .container mat-card.challenge-solved {
+        background-color: #62c462;
+    }
     @include angular-material-theme($slate-theme)
 }
 

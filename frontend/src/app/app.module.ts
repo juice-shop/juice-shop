@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
@@ -8,6 +9,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ngx-bar-rating'
+import { ClipboardModule } from 'ngx-clipboard'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -29,6 +31,8 @@ import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
 import { UserDetailsComponent } from './user-details/user-details.component'
+import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
+import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -69,6 +73,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
+import { MatListModule } from '@angular/material/list'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
@@ -94,7 +99,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     TrackResultComponent,
     RecycleComponent,
     QrCodeComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ServerStartedNotificationComponent,
+    ChallengeSolvedNotificationComponent
   ],
   entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent ],
   imports: [
@@ -109,11 +116,13 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
+    CookieModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     QRCodeModule,
     BarRatingModule,
+    ClipboardModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
@@ -132,7 +141,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatExpansionModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatListModule
   ],
   providers: [
     ProductService,
@@ -150,7 +160,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     TrackOrderService,
     RecycleService,
     BasketService,
-    ChallengeService
+    ChallengeService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

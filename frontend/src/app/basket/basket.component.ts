@@ -1,8 +1,10 @@
+import { DomSanitizer } from '@angular/platform-browser'
+import { TranslateService } from '@ngx-translate/core'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
 import { WindowRefService } from './../Services/window-ref.service'
-import { ConfigurationService } from 'src/app/Services/configuration.service'
+import { ConfigurationService } from './../Services/configuration.service'
 import { UserService } from './../Services/user.service'
 import { BasketService } from './../Services/basket.service'
 import { Component,OnInit } from '@angular/core'
@@ -30,15 +32,16 @@ export class BasketComponent implements OnInit {
   public twitterUrl = null
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
+  public redirectUrl = null
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.load()
     this.userService.whoAmI().subscribe((data) => {
       this.userEmail = data.email || 'anonymous'
       this.userEmail = '(' + this.userEmail + ')'
-    },(err) => err)
+    },(err) => console.log(err))
 
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
@@ -55,13 +58,17 @@ export class BasketComponent implements OnInit {
           this.applicationName = config.application.name
         }
       }
-    })
+    },(err) => console.log(err))
   }
 
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
-    })
+      let length = this.dataSource ? this.dataSource.length : 0
+      for (let i = 0;i < length; i++) {
+        this.dataSource[i].description = this.sanitizer.bypassSecurityTrustHtml(this.dataSource[i].description)
+      }
+    },(err) => console.log(err))
   }
 
   delete (id) {
@@ -99,7 +106,8 @@ export class BasketComponent implements OnInit {
 
   checkout () {
     this.basketService.checkout(sessionStorage.getItem('bid')).subscribe((orderConfirmationPath) => {
-      this.windowRefService.nativeWindow.location.replace(this.basketService.hostServer + orderConfirmationPath)
+      this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
+      this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
   }
 
@@ -107,7 +115,11 @@ export class BasketComponent implements OnInit {
     this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
       this.resetForm()
       this.error = undefined
-      this.confirmation = data
+      this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
+        this.confirmation = discountApplied
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
     },(err) => {
       console.log(err)
       this.confirmation = undefined
