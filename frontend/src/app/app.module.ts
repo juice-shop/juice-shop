@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { CookieModule } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
@@ -29,6 +30,8 @@ import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
 import { UserDetailsComponent } from './user-details/user-details.component'
+import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
+import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -69,6 +72,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
+import { MatListModule } from '@angular/material/list'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
@@ -94,7 +98,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     TrackResultComponent,
     RecycleComponent,
     QrCodeComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ServerStartedNotificationComponent,
+    ChallengeSolvedNotificationComponent
   ],
   entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent ],
   imports: [
@@ -109,6 +115,7 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
+    CookieModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

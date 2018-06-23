@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-header></mat-card-header>
+  <mat-card-content>
+    <span>{{ "NOTIFICATION_SERVER_STARTED" | translate }}</span>: {{hackingProgress.autoRestoreMessage}}
+    <button mat-raised-button>
+        <i class="fas fa-trash" aria-hidden="true"></i>
+        <span *ngIf="hackingProgress.cleared">{{"RESTART_REQUIRED" | translate}}</span>
+        <span *ngIf="!hackingProgress.cleared">{{"RESET_HACKING_PROGRESS" | translate}}</span>
+    </button>
+  </mat-card-content>
+</mat-card>

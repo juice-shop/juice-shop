@@ -64,7 +64,8 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
-      for (let i = 0;i < this.dataSource.length; i++) {
+      let length = this.dataSource ? this.dataSource.length : 0
+      for (let i = 0;i < length; i++) {
         this.dataSource[i].description = this.sanitizer.bypassSecurityTrustHtml(this.dataSource[i].description)
       }
     },(err) => console.log(err))

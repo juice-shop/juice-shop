@@ -33,7 +33,9 @@
     "flag-icon-css": "^3.0.0",
     "hammerjs": "^2.0.8",
     "ngx-bar-rating": "^1.1.0",
+    "ngx-cookie": "^4.0.2",
     "rxjs": "^6.0.0",
+    "socket.io-client": "^2.1.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
