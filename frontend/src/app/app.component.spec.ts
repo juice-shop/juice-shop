@@ -1,3 +1,5 @@
+import { CookieModule } from 'ngx-cookie'
+import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { ConfigurationService } from './Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -6,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { TestBed, async } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { ChallengeSolvedNotificationComponent } from 'src/app/challenge-solved-notification/challenge-solved-notification.component'
 
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -24,13 +27,16 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NavbarComponent,
+        ChallengeSolvedNotificationComponent,
         ServerStartedNotificationComponent
       ],
       imports: [
         HttpClientModule,
         RouterTestingModule,
         MatToolbarModule,
+        CookieModule.forRoot(),
         TranslateModule.forRoot(),
+        ClipboardModule,
         MatIconModule,
         MatCardModule,
         MatFormFieldModule,
