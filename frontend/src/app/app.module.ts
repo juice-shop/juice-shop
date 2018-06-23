@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule, HttpClient } from '@angular/common/http'
-import { CookieModule } from 'ngx-cookie'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
@@ -9,6 +9,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ngx-bar-rating'
+import { ClipboardModule } from 'ngx-clipboard'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -115,12 +116,13 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
-    CookieModule,
+    CookieModule.forRoot(),
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     QRCodeModule,
     BarRatingModule,
+    ClipboardModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
@@ -139,7 +141,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatExpansionModule,
     MatProgressBarModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatListModule
   ],
   providers: [
     ProductService,
@@ -157,7 +160,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     TrackOrderService,
     RecycleService,
     BasketService,
-    ChallengeService
+    ChallengeService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,11 +1,13 @@
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
-import { Component, OnInit, NgZone } from '@angular/core'
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
+import { environment } from 'src/environments/environment'
+import { CookieService } from 'ngx-cookie'
 import * as io from 'socket.io-client'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faTrash } from '@fortawesome/fontawesome-free-solid'
-import { environment } from 'src/environments/environment'
+
 fontawesome.library.add(faTrash)
 
 @Component({
@@ -18,7 +20,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   public socket
   public hackingProgress: any = {}
 
-  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService) {
+  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef) {
 
   }
 
@@ -26,9 +28,11 @@ export class ServerStartedNotificationComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.socket = io.connect(environment.hostServer)
       this.socket.on('server started', () => {
-        let continueCode = localStorage.getItem('continueCode')
+        console.log('In')
+        console.log(this.hackingProgress)
+        let continueCode = this.cookieService.get('continueCode')
         if (continueCode) {
-
+          console.log(continueCode)
           this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe(() => {
             this.translate.get('AUTO_RESTORED_PROGRESS').subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
@@ -45,6 +49,7 @@ export class ServerStartedNotificationComponent implements OnInit {
           })
 
         }
+        this.ref.detectChanges()
       })
     })
   }
@@ -54,7 +59,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   }
 
   clearProgress () {
-    localStorage.removeItem('continueCode')
+    this.cookieService.remove('continueCode')
     this.hackingProgress.cleared = true
   }
 

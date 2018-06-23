@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="server-started" *ngIf="hackingProgress.autoRestoreMessage">
   <mat-card-header></mat-card-header>
   <mat-card-content>
     <span>{{ "NOTIFICATION_SERVER_STARTED" | translate }}</span>: {{hackingProgress.autoRestoreMessage}}

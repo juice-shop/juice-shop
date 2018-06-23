@@ -1,0 +1,8 @@
+.container {
+    margin: 40px;
+    font-size: 14px;
+}
+
+mat-card {
+    margin-bottom: 10px;
+}
