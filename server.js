@@ -118,7 +118,9 @@ app.use('/encryptionkeys/:file', keyServer())
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use(express.static(applicationRoot + '/app'))
+// app.use(express.static(applicationRoot + '/app'))
+app.use(express.static(__dirname + '/frontend/dist'))
+
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
