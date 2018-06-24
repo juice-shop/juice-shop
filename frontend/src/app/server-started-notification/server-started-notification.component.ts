@@ -28,8 +28,7 @@ export class ServerStartedNotificationComponent implements OnInit {
     this.ngZone.runOutsideAngular(() => {
       this.socket = io.connect(environment.hostServer)
       this.socket.on('server started', () => {
-        console.log('In')
-        console.log(this.hackingProgress)
+
         let continueCode = this.cookieService.get('continueCode')
         if (continueCode) {
           console.log(continueCode)

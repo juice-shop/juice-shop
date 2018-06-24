@@ -1,4 +1,4 @@
-const applicationRoot = __dirname.replace(/\\/g, '/')
+// const applicationRoot = __dirname.replace(/\\/g, '/')
 const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
@@ -119,7 +119,7 @@ app.use('/encryptionkeys/:file', keyServer())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // app.use(express.static(applicationRoot + '/app'))
-app.use(express.static(__dirname + '/frontend/dist/frontend'))
+app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 
 app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
