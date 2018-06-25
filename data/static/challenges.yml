@@ -7,6 +7,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/score-board.html#find-the-carefully-hidden-score-board-page'
   key: scoreBoardChallenge
 -
+  name: 'Email Leak'
+  category: 'Security Misconfiguration'
+  description: 'Get the email of other logged in user with cross-domain request.'
+  difficulty: 1
+  hint: 'Try to find an endpoint which responds with user information.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#leak-user-emails'
+  key: emailLeakChallenge  
+-
   name: 'Error Handling'
   category: 'Security Misconfiguration'
   description: 'Provoke an error that is not very gracefully handled.'
