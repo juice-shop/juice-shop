@@ -151,7 +151,7 @@
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test": "standard && cd frontend && npm test && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent -i",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update --gecko false",
