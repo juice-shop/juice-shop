@@ -103,7 +103,7 @@ app.use('/security.txt', securityTxt({
 }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/public/images/tracking', verify.accessControlChallenges())
+app.use('/assets/public/images/tracking', verify.accessControlChallenges())
 app.use('/public/images/products', verify.accessControlChallenges())
 app.use('/i18n', verify.accessControlChallenges())
 
