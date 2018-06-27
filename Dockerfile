@@ -1,7 +1,7 @@
 FROM node:9 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
-RUN npm install --production --unsafe-perm
+RUN npm install --unsafe-perm
 
 FROM node:9-alpine
 ARG BUILD_DATE
