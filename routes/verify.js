@@ -6,7 +6,6 @@ const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
-const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
@@ -36,7 +35,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 
 exports.registerAdminChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
-  if (utils.notSolved(challenges.registerAdminChallenge) && req.body && req.body.email && req.body.email !== 'admin@' + config.get('application.domain')) {
+  if (utils.notSolved(challenges.registerAdminChallenge)) {
     if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
       utils.solve(challenges.registerAdminChallenge)
     }
