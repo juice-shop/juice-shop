@@ -21,7 +21,6 @@ before_install:
   - 'rm -rf node_modules'
 before_script:
   - 'npm i -g grunt-cli'
-  - 'npm i -g @angular/cli'
   - 'sh -e /etc/init.d/xvfb start'
   - 'sleep 3'
 script:

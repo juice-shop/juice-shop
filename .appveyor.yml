@@ -14,9 +14,8 @@ platform:
 install:
   - ps: 'Install-Product node $env:nodejs_version $env:platform'
   - 'node --version && npm --version'
-  - 'npm install -g @angular/cli'
   - 'if exist node_modules rd /Q /S node_modules'
-  - 'npm install'
+  - 'npm install --production'
   - 'node_modules\.bin\grunt package'
 build: off
 test: off
