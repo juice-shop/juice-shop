@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, {STRING}) => {
+module.exports = (sequelize, {STRING, BOOLEAN}) => {
   const User = sequelize.define('User', {
     email: {
       type: STRING,
@@ -19,6 +19,13 @@ module.exports = (sequelize, {STRING}) => {
       type: STRING,
       set (clearTextPassword) {
         this.setDataValue('password', insecurity.hash(clearTextPassword))
+      }
+    },
+    isAdmin: {
+      type: BOOLEAN,
+      defaultValue: false,
+      set (isAdmin) {
+        this.setDataValue('isAdmin', isAdmin)
       }
     }
   })
