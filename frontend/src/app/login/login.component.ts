@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
-      this.router.navigate(['/'])
+      this.router.navigate(['/search'])
     }, (error) => {
       console.log(error)
       localStorage.removeItem('token')

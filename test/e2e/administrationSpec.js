@@ -1,4 +1,4 @@
-// const config = require('config')
+const config = require('config')
 
 describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
@@ -10,16 +10,23 @@ describe('/#/administration', () => {
     protractor.expect.challengeSolved({challenge: 'Admin Section'})
   })
 
-  // describe('challenge "fiveStarFeedback"', () => {
-  //   protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
+  describe('challenge "fiveStarFeedback"', () => {
+    protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
 
-  //   xit('should be possible for any logged-in user to delete feedback', () => {
-  //     browser.get('/#/administration')
+    it('should be possible for any logged-in user to delete feedback', () => {
+      browser.get('/#/administration')
 
-  //     element.all(by.repeater('feedback in feedbacks')).first().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
-  //     browser.wait(protractor.ExpectedConditions.stalenessOf($('span[aria-valuenow="5"]')), 5000) // eslint-disable-line no-undef
-  //   })
+      element.all(by.css('.mat-cell.mat-column-remove')).first().element(by.css('button')).click()
+      browser.wait(protractor.ExpectedConditions.stalenessOf(element(by.js(selectFiveStarRating))), 5000)
+    })
 
-  //   protractor.expect.challengeSolved({challenge: 'Five-Star Feedback'})
-  // })
+    protractor.expect.challengeSolved({challenge: 'Five-Star Feedback'})
+  })
 })
+
+function selectFiveStarRating () {
+  var rating = document.querySelector('.br-units')
+  if (rating.querySelectorAll('.br-selected').length === 5) {
+    return rating
+  }
+}
