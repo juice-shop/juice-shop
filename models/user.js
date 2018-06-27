@@ -23,10 +23,7 @@ module.exports = (sequelize, {STRING, BOOLEAN}) => {
     },
     isAdmin: {
       type: BOOLEAN,
-      defaultValue: false,
-      set (isAdmin) {
-        this.setDataValue('isAdmin', isAdmin)
-      }
+      defaultValue: false
     }
   })
 

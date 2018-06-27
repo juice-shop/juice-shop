@@ -538,7 +538,7 @@
   name: 'Admin Registration'
   category: 'Improper Input Validation'
   description: 'Get registered as admin user.'
-  difficulty: 4
+  difficulty: 3
   hint: 'Assign the Unassignable.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#register-as-admin-user'
   key: registerAdminChallenge
