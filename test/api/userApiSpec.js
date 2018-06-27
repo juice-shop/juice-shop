@@ -109,6 +109,14 @@ describe('/rest/user/authentication-details', () => {
         token: Joi.string()
       }).done(done)
   })
+
+  it('GET all users with password replaced by asterisks', done => {
+    frisby.get(REST_URL + '/user/authentication-details', { headers: authHeader })
+      .expect('status', 200)
+      .expect('json', 'data.?', {
+        password: '********************************'
+      }).done(done)
+  })
 })
 
 describe('/rest/user/whoami', () => {
