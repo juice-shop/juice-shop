@@ -118,6 +118,9 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [Building an AppSec Program with a Budget of $0: Beyond the OWASP Top 10](https://appseceurope2018a.sched.com/event/EgXt/building-an-appsec-program-with-a-budget-of-0-beyond-the-owasp-top-10)
+  by Chris Romeo, [OWASP AppSec Europe 2018](https://2018.appsec.eu),
+  06.07.2018
 * [OWASP Juice Shop: Betreutes Hacken](https://www.meetup.com/de-DE/owasp-karlsruhe/events/251041169/)
   with
   [OWASP Stammtisch Karlsruhe](https://www.owasp.org/index.php/OWASP_Stammtisch_Karlsruhe),
