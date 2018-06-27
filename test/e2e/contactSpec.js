@@ -1,4 +1,4 @@
-const config = require('config')
+/* const config = require('config')
 
 describe('/#/contact', () => {
   let comment, rating, submitButton, captcha
@@ -15,7 +15,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "forgedFeedback"', () => {
-    it('should be possible to provide feedback as another user', () => {
+    xit('should be possible to provide feedback as another user', () => {
       browser.executeScript('document.getElementById("userId").removeAttribute("ng-hide");')
       browser.executeScript('document.getElementById("userId").removeAttribute("class");')
 
@@ -35,7 +35,7 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  it('should sanitize script from comments to remove potentially malicious html', () => {
+  xit('should sanitize script from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<script>alert("ScriptXSS")</script>tizedScript')
     rating.click()
 
@@ -44,7 +44,7 @@ describe('/#/contact', () => {
     expectPersistedCommentToMatch(/SanitizedScript/)
   })
 
-  it('should sanitize image from comments to remove potentially malicious html', () => {
+  xit('should sanitize image from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<img src="alert("ImageXSS")"/>tizedImage')
     rating.click()
 
@@ -53,7 +53,7 @@ describe('/#/contact', () => {
     expectPersistedCommentToMatch(/SanitizedImage/)
   })
 
-  it('should sanitize iframe from comments to remove potentially malicious html', () => {
+  xit('should sanitize iframe from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')
     rating.click()
 
@@ -63,7 +63,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "xss4"', () => {
-    it('should be possible to trick the sanitization with a masked XSS attack', () => {
+    xit('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
       comment.sendKeys('<<script>Foo</script>script>alert("XSS")<</script>/script>')
@@ -91,7 +91,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "vulnerableComponent"', () => {
-    it('should be possible to post known vulnerable component(s) as feedback', () => {
+    xit('should be possible to post known vulnerable component(s) as feedback', () => {
       comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
       comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
       rating.click()
@@ -103,7 +103,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "weirdCrypto"', () => {
-    it('should be possible to post weird crypto algorithm/library as feedback', () => {
+    xit('should be possible to post weird crypto algorithm/library as feedback', () => {
       comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
       rating.click()
 
@@ -114,7 +114,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "typosquattingNpm"', () => {
-    it('should be possible to post typosquatting NPM package as feedback', () => {
+    xit('should be possible to post typosquatting NPM package as feedback', () => {
       comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
       rating.click()
 
@@ -125,7 +125,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "typosquattingBower"', () => {
-    it('should be possible to post typosquatting Bower package as feedback', () => {
+    xit('should be possible to post typosquatting Bower package as feedback', () => {
       comment.sendKeys('You are a typosquatting victim of this Bower package: angular-tooltipps')
       rating.click()
 
@@ -147,7 +147,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
-    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
+    xit('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       comment.sendKeys('No stars for ya here, yo!')
       rating.click()
       element(by.className('glyphicon-star')).click()
@@ -159,7 +159,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "captchaBypass"', () => {
-    it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
+    xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       for (var i = 0; i < 11; i++) {
         comment.sendKeys('Spam #' + i)
         rating.click()
@@ -183,4 +183,4 @@ describe('/#/contact', () => {
     const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
     expect(feedbackComments.last().getText()).toMatch(expectation)
   }
-})
+}) */

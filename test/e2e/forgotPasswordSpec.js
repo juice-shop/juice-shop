@@ -1,4 +1,4 @@
-const config = require('config')
+/* const config = require('config')
 
 describe('/#/forgot-password', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
@@ -16,7 +16,7 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Jim', () => {
-    it('should be able to reset password with his security answer', () => {
+    xit('should be able to reset password with his security answer', () => {
       email.sendKeys('jim@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Samuel')
@@ -31,7 +31,7 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Bender', () => {
-    it('should be able to reset password with his security answer', () => {
+    xit('should be able to reset password with his security answer', () => {
       email.sendKeys('bender@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Stop\'n\'Drop')
@@ -46,7 +46,7 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Bjoern', () => {
-    it('should be able to reset password with his security answer', () => {
+    xit('should be able to reset password with his security answer', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('West-2082')
@@ -61,7 +61,7 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Morty', () => {
-    it('should be able to reset password with his security answer', () => {
+    xit('should be able to reset password with his security answer', () => {
       email.sendKeys('morty@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('5N0wb41L')
@@ -74,4 +74,4 @@ describe('/#/forgot-password', () => {
 
     protractor.expect.challengeSolved({challenge: 'Reset Morty\'s Password'})
   })
-})
+}) */

@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
+  public selected
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,

@@ -1,4 +1,4 @@
-const config = require('config')
+/* const config = require('config')
 
 describe('/#/login', () => {
   let email, password, rememberMeCheckbox, loginButton
@@ -12,13 +12,13 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginAdmin"', () => {
-    it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', () => {
+    xit('should log in Admin with SQLI attack on email field using "\' or 1=1--"', () => {
       email.sendKeys('\' or 1=1--')
       password.sendKeys('a')
       loginButton.click()
     })
 
-    it('should log in Admin with SQLI attack on email field using "admin@<juice-sh.op>\'--"', () => {
+    xit('should log in Admin with SQLI attack on email field using "admin@<juice-sh.op>\'--"', () => {
       email.sendKeys('admin@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
@@ -28,7 +28,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginJim"', () => {
-    it('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', () => {
+    xit('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', () => {
       email.sendKeys('jim@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
@@ -38,7 +38,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginBender"', () => {
-    it('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', () => {
+    xit('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', () => {
       email.sendKeys('bender@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
@@ -48,7 +48,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "adminCredentials"', () => {
-    it('should be able to log in with original (weak) admin credentials', () => {
+    xit('should be able to log in with original (weak) admin credentials', () => {
       email.sendKeys('admin@' + config.get('application.domain'))
       password.sendKeys('admin123')
       loginButton.click()
@@ -58,7 +58,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginSupport"', () => {
-    it('should be able to log in with original support-team credentials', () => {
+    xit('should be able to log in with original support-team credentials', () => {
       email.sendKeys('support@' + config.get('application.domain'))
       password.sendKeys('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       loginButton.click()
@@ -68,7 +68,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginRapper"', () => {
-    it('should be able to log in with original MC SafeSearch credentials', () => {
+    xit('should be able to log in with original MC SafeSearch credentials', () => {
       email.sendKeys('mc.safesearch@' + config.get('application.domain'))
       password.sendKeys('Mr. N00dles')
       loginButton.click()
@@ -78,7 +78,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "oauthUserPassword"', () => {
-    it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', () => {
+    xit('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       password.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
       loginButton.click()
@@ -88,7 +88,7 @@ describe('/#/login', () => {
   })
 
   describe('challenge "loginCiso"', () => {
-    it('should be able to log in as ciso@juice-sh.op by using "Remember me" in combination with (fake) OAuth login with another user', () => {
+    xit('should be able to log in as ciso@juice-sh.op by using "Remember me" in combination with (fake) OAuth login with another user', () => {
       email.sendKeys('ciso@' + config.get('application.domain'))
       password.sendKeys('wrong')
       rememberMeCheckbox.click()
@@ -103,4 +103,4 @@ describe('/#/login', () => {
 
     protractor.expect.challengeSolved({challenge: 'Login CISO'})
   })
-})
+}) */
