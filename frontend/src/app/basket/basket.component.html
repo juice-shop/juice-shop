@@ -49,7 +49,7 @@
 
   <mat-card>
       <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
-      <button class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
+      <button id="collapseCouponButton" class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
       <button class="payment-toggle" color="warn" (click)="togglePayment()" mat-raised-button><i class="fas fa-credit-card fa-lg"></i></button>
   </mat-card>
 
@@ -61,11 +61,11 @@
 
     <mat-form-field>
       <label><small>Need a coupon code? Follow us on <a href="https://twitter.com/owasp_juiceshop" target="_blank">Twitter</a> or <a href="https://www.facebook.com/owasp.juiceshop" target="_blank">Facebook</a> for monthly coupons and other spam!</small></label>
-      <input [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
+      <input id="coupon" [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
       <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">Coupon code must be 10 characters long.</mat-error>
     </mat-form-field>
 
-    <button color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> Redeem</button>
+    <button id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> Redeem</button>
 
   </mat-expansion-panel>
 

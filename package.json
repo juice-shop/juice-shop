@@ -157,6 +157,7 @@
     "update-webdriver": "webdriver-manager update --gecko false",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
+    "pree2e": "npm install",
     "e2e": "node test/e2eTests.js",
     "stryker": "stryker run stryker.client-conf.js",
     "vagrant": "cd vagrant && vagrant up"
