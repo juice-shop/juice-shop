@@ -23,7 +23,7 @@
         <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
-          <span>{{element.BasketItem.quantity}} </span>
+          <span>{{element.BasketItem.quantity}}</span>
           <button mat-icon-button (click)="inc(element.BasketItem.id)"><i class="fas fa-plus-square"></i></button>
         </mat-cell>
       </ng-container>
@@ -48,7 +48,7 @@
   </div>
 
   <mat-card>
-      <button class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
+      <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
       <button class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
       <button class="payment-toggle" color="warn" (click)="togglePayment()" mat-raised-button><i class="fas fa-credit-card fa-lg"></i></button>
   </mat-card>
