@@ -25,17 +25,17 @@ describe('/#/basket', () => {
       protractor.expect.challengeSolved({challenge: 'Payback Time'})
     })
 
-    // describe('challenge "accessBasket"', () => {
-    //   xit('should access basket with id from session storage instead of the one associated to logged-in user', () => {
-    //     browser.executeScript('window.sessionStorage.bid = 3;')
+    describe('challenge "accessBasket"', () => {
+      it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
+        browser.executeScript('window.sessionStorage.bid = 3;')
 
-    //     browser.get('/#/basket')
+        browser.get('/#/basket')
 
-    //     // TODO Verify functionally that xit's not the basket of the admin
-    //   })
+        // TODO Verify functionally that xit's not the basket of the admin
+      })
 
-    //   protractor.expect.challengeSolved({challenge: 'Basket Access'})
-    // })
+      protractor.expect.challengeSolved({challenge: 'Basket Access'})
+    })
   })
 
   // describe('as jim', () => {
