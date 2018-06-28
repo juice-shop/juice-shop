@@ -534,3 +534,11 @@
   hint: 'No matter how good your eyes are, you will need tool assistance for this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#rat-out-a-notorious-character-hiding-in-plain-sight-in-the-shop'
   key: hiddenImageChallenge
+-
+  name: 'Admin Registration'
+  category: 'Improper Input Validation'
+  description: 'Get registered as admin user.'
+  difficulty: 3
+  hint: 'Assign the unassignable.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#get-registered-as-admin-user'
+  key: registerAdminChallenge

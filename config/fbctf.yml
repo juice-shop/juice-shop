@@ -209,3 +209,6 @@ ctf:
     basketManipulateChallenge:
       name: Bhutan
       code: BT
+    registerAdminChallenge:
+      name: Jamaica
+      code: JA
