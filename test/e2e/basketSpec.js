@@ -1,4 +1,4 @@
-// const insecurity = require('../../lib/insecurity')
+const insecurity = require('../../lib/insecurity')
 const config = require('config')
 
 describe('/#/basket', () => {
@@ -38,30 +38,30 @@ describe('/#/basket', () => {
     })
   })
 
-  // describe('as jim', () => {
-  //   protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
+  describe('as jim', () => {
+    protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
 
-  //   describe('challenge "forgedCoupon"', () => {
-  //     xit('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
-  //       browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak%2500.md')
-  //     })
+    describe('challenge "forgedCoupon"', () => {
+      it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
+        browser.driver.get(browser.baseUrl + '/ftp/coupons_2013.md.bak%2500.md')
+      })
 
-  //     xit('should be possible to enter a coupon that gives an 80% discount', () => {
-  //       browser.executeScript('window.localStorage.couponPanelExpanded = false;')
+      it('should be possible to enter a coupon that gives an 80% discount', () => {
+        browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
-  //       browser.get('/#/basket')
-  //       element(by.id('collapseCouponButton')).click()
-  //       browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
+        browser.get('/#/basket')
+        element(by.id('collapseCouponButton')).click()
+        browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
-  //       element(by.model('coupon')).sendKeys(insecurity.generateCoupon(90))
-  //       element(by.id('applyCouponButton')).click()
-  //     })
+        element(by.id('coupon')).sendKeys(insecurity.generateCoupon(90))
+        element(by.id('applyCouponButton')).click()
+      })
 
-  //     xit('should be possible to place an order with a forged coupon', () => {
-  //       element(by.id('checkoutButton')).click()
-  //     })
+      it('should be possible to place an order with a forged coupon', () => {
+        element(by.id('checkoutButton')).click()
+      })
 
-  //     protractor.expect.challengeSolved({challenge: 'Forged Coupon'})
-  //   })
-  // })
+      protractor.expect.challengeSolved({challenge: 'Forged Coupon'})
+    })
+  })
 })
