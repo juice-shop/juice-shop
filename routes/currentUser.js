@@ -6,7 +6,7 @@ const challenges = cache.challenges
 module.exports = function retrieveLoggedInUser () {
   return (req, res) => {
     const user = insecurity.authenticatedUsers.get(req.cookies.token)
-    const response = { user: { id: (user && user.data ? user.data.id : undefined), email: (user && user.data ? user.data.email : undefined) } };
+    const response = { user: { id: (user && user.data ? user.data.id : undefined), email: (user && user.data ? user.data.email : undefined) } }
     if (req.query.callback === undefined) {
       res.json(response)
     } else {
