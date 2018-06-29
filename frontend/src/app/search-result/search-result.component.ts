@@ -2,7 +2,7 @@ import { ProductDetailsComponent } from './../product-details/product-details.co
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
 import { BasketService } from './../Services/basket.service'
-import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core'
+import { Component, ViewChild, OnDestroy, AfterViewInit } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -17,22 +17,27 @@ fontawesome.library.add(faEye, faCartPlus)
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit,OnDestroy {
+export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData: any[]
   public dataSource
-  public searchValue: string
+  public searchValue
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
-  ngOnInit () {
-    this.filterTable()
-    this.routerSubscription = this.router.events.subscribe(() => {
+  ngAfterViewInit () {
+    this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
+      this.tableData = tableData
+      this.dataSource = new MatTableDataSource<Element>(this.tableData)
+      this.dataSource.paginator = this.paginator
       this.filterTable()
+      this.routerSubscription = this.router.events.subscribe(() => {
+        this.filterTable()
+      })
     })
   }
 
@@ -46,21 +51,16 @@ export class SearchResultComponent implements OnInit,OnDestroy {
   }
 
   filterTable () {
-    let queryParam
-    this.route.queryParams.subscribe((queryParams) => {
-      queryParam = queryParams.q
-      queryParam = this.sanitizer.bypassSecurityTrustHtml(queryParam)
-      this.productSubscription = this.productService.search(queryParam.changingThisBreaksApplicationSecurity).subscribe((tableData: any) => {
-        this.tableData = tableData
-        this.dataSource = new MatTableDataSource<Element>(this.tableData)
-        this.dataSource.paginator = this.paginator
-        if (queryParam.changingThisBreaksApplicationSecurity) {
-          this.searchValue = queryParam
-        } else {
-          this.searchValue = undefined
-        }
-      })
-    })
+    let queryParam: string = this.route.snapshot.queryParams.q
+    if (queryParam) {
+      queryParam = queryParam.trim()
+      queryParam = queryParam.toLowerCase()
+      this.dataSource.filter = queryParam
+      this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+    } else {
+      this.dataSource.filter = ''
+      this.searchValue = undefined
+    }
   }
 
   showDetail (element: any) {
