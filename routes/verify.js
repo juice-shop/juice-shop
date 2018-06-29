@@ -33,6 +33,16 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.registerAdminChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  if (utils.notSolved(challenges.registerAdminChallenge)) {
+    if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
+      utils.solve(challenges.registerAdminChallenge)
+    }
+  }
+  next()
+}
+
 exports.accessControlChallenges = () => ({url}, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
