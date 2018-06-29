@@ -1,4 +1,5 @@
 <div class="table-container mat-elevation-z8 custom-slate">
+    <div class="heading" [innerHTML]="searchValue"></div>
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Image">
         <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
