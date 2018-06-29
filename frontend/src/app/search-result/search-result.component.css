@@ -8,6 +8,13 @@
     width: 72.666667%;
   }
 
+.heading {
+    justify-content: center;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.54);
+    background: rgba(0, 0, 0, 0.13);
+}
+
   .mat-table {
     overflow: auto;
     max-height: 600px;

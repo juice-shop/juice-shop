@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
+import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faEye, faCartPlus)
@@ -26,7 +27,7 @@ export class SearchResultComponent implements OnInit,OnDestroy {
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit () {
     this.filterTable()
@@ -45,15 +46,16 @@ export class SearchResultComponent implements OnInit,OnDestroy {
   }
 
   filterTable () {
-    let queryParam: string
+    let queryParam
     this.route.queryParams.subscribe((queryParams) => {
       queryParam = queryParams.q
+      queryParam = this.sanitizer.bypassSecurityTrustHtml(queryParam)
       if (queryParam) {
-        this.searchValue = 'Search for -' + queryParam
+        this.searchValue = queryParam
       } else {
         this.searchValue = 'All Products'
       }
-      this.productSubscription = this.productService.search(queryParam).subscribe((tableData: any) => {
+      this.productSubscription = this.productService.search(queryParam.changingThisBreaksApplicationSecurity).subscribe((tableData: any) => {
         this.tableData = tableData
         this.dataSource = new MatTableDataSource<Element>(this.tableData)
         this.dataSource.paginator = this.paginator
