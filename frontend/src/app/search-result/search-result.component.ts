@@ -2,7 +2,7 @@ import { ProductDetailsComponent } from './../product-details/product-details.co
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
 import { BasketService } from './../Services/basket.service'
-import { Component, AfterViewInit, ViewChild, OnDestroy } from '@angular/core'
+import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -16,7 +16,7 @@ fontawesome.library.add(faEye, faCartPlus)
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements AfterViewInit,OnDestroy {
+export class SearchResultComponent implements OnInit,OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData: any[]
@@ -28,15 +28,10 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute) { }
 
-  ngAfterViewInit () {
-    this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
-      this.tableData = tableData
-      this.dataSource = new MatTableDataSource<Element>(this.tableData)
-      this.dataSource.paginator = this.paginator
+  ngOnInit () {
+    this.filterTable()
+    this.routerSubscription = this.router.events.subscribe(() => {
       this.filterTable()
-      this.routerSubscription = this.router.events.subscribe(() => {
-        this.filterTable()
-      })
     })
   }
 
@@ -50,16 +45,20 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   }
 
   filterTable () {
-    let queryParam: string = this.route.snapshot.queryParams.q
-    if (queryParam) {
-      this.searchValue = 'Search for -' + queryParam
-      queryParam = queryParam.trim()
-      queryParam = queryParam.toLowerCase()
-      this.dataSource.filter = queryParam
-    } else {
-      this.searchValue = 'All Products'
-      this.dataSource.filter = ''
-    }
+    let queryParam: string
+    this.route.queryParams.subscribe((queryParams) => {
+      queryParam = queryParams.q
+      if (queryParam) {
+        this.searchValue = 'Search for -' + queryParam
+      } else {
+        this.searchValue = 'All Products'
+      }
+      this.productSubscription = this.productService.search(queryParam).subscribe((tableData: any) => {
+        this.tableData = tableData
+        this.dataSource = new MatTableDataSource<Element>(this.tableData)
+        this.dataSource.paginator = this.paginator
+      })
+    })
   }
 
   showDetail (element: any) {
