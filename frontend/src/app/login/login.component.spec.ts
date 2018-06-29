@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -25,6 +26,7 @@ describe('LoginComponent', () => {
         HttpClientModule,
         RouterTestingModule,
         ReactiveFormsModule,
+        CookieModule.forRoot(),
         BrowserAnimationsModule,
         MatCheckboxModule,
         MatFormFieldModule,
@@ -34,7 +36,8 @@ describe('LoginComponent', () => {
       ],
       providers: [
         UserService,
-        WindowRefService
+        WindowRefService,
+        CookieService
       ]
     })
     .compileComponents()

@@ -2,6 +2,7 @@ import { UserService } from './../Services/user.service'
 import { AdministrationService } from './../Services/administration.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
+import { CookieService } from 'ngx-cookie'
 import { Router } from '@angular/router'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
@@ -26,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService,
     private configurationService: ConfigurationService,private userService: UserService,
-    private router: Router,private translate: TranslateService) { }
+    private cookieService: CookieService, private router: Router,private translate: TranslateService) { }
 
   ngOnInit () {
 
@@ -82,6 +83,7 @@ export class NavbarComponent implements OnInit {
 
   logout () {
     localStorage.removeItem('token')
+    this.cookieService.remove('token', { domain: document.domain })
     delete sessionStorage.bid
     this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])

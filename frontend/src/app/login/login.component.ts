@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from './../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
   public error: any
   public oauthUnavailable: any
   public redirectUri
-  constructor (private userService: UserService, private windowRefService: WindowRefService, private router: Router) { }
+  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router) { }
 
   ngOnInit () {
 
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
+      this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid',authentication.bid)
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
     }, (error) => {
       console.log(error)
       localStorage.removeItem('token')
+      this.cookieService.remove('token', { domain: document.domain })
       sessionStorage.removeItem('bid')
       this.error = error
       /* Use userService to notify user failed to log in */
