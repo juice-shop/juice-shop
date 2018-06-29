@@ -212,3 +212,6 @@ ctf:
     emailLeakChallenge:
       name: Bahamas
       code: BH
+    registerAdminChallenge:
+      name: Jamaica
+      code: JA
