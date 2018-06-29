@@ -15,6 +15,7 @@ import { AdministrationService } from './../Services/administration.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent
@@ -28,6 +29,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule,
         HttpClientModule,
         TranslateModule.forRoot(),
+        CookieModule.forRoot(),
         BrowserAnimationsModule,
         MatToolbarModule,
         MatIconModule,
@@ -41,6 +43,7 @@ describe('NavbarComponent', () => {
         AdministrationService,
         ConfigurationService,
         UserService,
+        CookieService,
         TranslateService
       ]
     })

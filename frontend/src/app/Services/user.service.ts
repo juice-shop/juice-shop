@@ -42,7 +42,7 @@ export class UserService {
 
   changePassword (passwords) {
     return this.http.get(this.hostServer + '/rest/user/change-password?current=' + passwords.current + '&new=' +
-    passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
+    passwords.new + '&repeat=' + passwords.repeat, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
 
   resetPassword (params) {
