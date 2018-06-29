@@ -50,15 +50,15 @@ export class SearchResultComponent implements OnInit,OnDestroy {
     this.route.queryParams.subscribe((queryParams) => {
       queryParam = queryParams.q
       queryParam = this.sanitizer.bypassSecurityTrustHtml(queryParam)
-      if (queryParam) {
-        this.searchValue = queryParam
-      } else {
-        this.searchValue = 'All Products'
-      }
       this.productSubscription = this.productService.search(queryParam.changingThisBreaksApplicationSecurity).subscribe((tableData: any) => {
         this.tableData = tableData
         this.dataSource = new MatTableDataSource<Element>(this.tableData)
         this.dataSource.paginator = this.paginator
+        if (queryParam.changingThisBreaksApplicationSecurity) {
+          this.searchValue = queryParam
+        } else {
+          this.searchValue = undefined
+        }
       })
     })
   }

@@ -1,5 +1,8 @@
 <div class="table-container mat-elevation-z8 custom-slate">
-    <div class="heading" [innerHTML]="searchValue"></div>
+    <div class="heading">
+      <div *ngIf="searchValue"><span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span> <span [innerHTML]="searchValue"></span></div>
+      <div *ngIf="!searchValue">{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+    </div>
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Image">
         <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
