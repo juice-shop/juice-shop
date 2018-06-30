@@ -1,16 +1,16 @@
-const config = require('config')
-let blueprint
+// const config = require('config')
+// let blueprint
 
-for (const product of config.get('products')) {
-  if (product.fileForRetrieveBlueprintChallenge) {
-    blueprint = product.fileForRetrieveBlueprintChallenge
-    break
-  }
-}
+// for (const product of config.get('products')) {
+//   if (product.fileForRetrieveBlueprintChallenge) {
+//     blueprint = product.fileForRetrieveBlueprintChallenge
+//     break
+//   }
+// }
 
 describe('/', () => {
   describe('challenge "easterEgg2"', () => {
-    xit('should be able to access "secret" url for easter egg', () => {
+    it('should be able to access "secret" url for easter egg', () => {
       browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
     })
 
@@ -18,47 +18,47 @@ describe('/', () => {
   })
 
   describe('challenge "premiumPaywall"', () => {
-    xit('should be able to access "super secret" url for premium content', () => {
+    it('should be able to access "super secret" url for premium content', () => {
       browser.driver.get(browser.baseUrl + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
     })
 
     protractor.expect.challengeSolved({challenge: 'Premium Paywall'})
   })
 
-  describe('challenge "geocitiesTheme"', () => {
-    xit('should be possible to change the CSS theme to geo-bootstrap', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");')
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+  // describe('challenge "geocitiesTheme"', () => {
+  //   xit('should be possible to change the CSS theme to geo-bootstrap', () => {
+  //     browser.waitForAngularEnabled(false)
+  //     browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");')
+  //     browser.driver.sleep(1000)
+  //     browser.waitForAngularEnabled(true)
 
-      browser.get('/#/search')
-    })
+  //     browser.get('/#/search')
+  //   })
 
-    protractor.expect.challengeSolved({challenge: 'Eye Candy'})
-  })
+  //   protractor.expect.challengeSolved({challenge: 'Eye Candy'})
+  // })
 
-  describe('challenge "extraLanguage"', () => {
-    xit('should be able to access the Klingon translation file', () => {
-      browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
-    })
+  // describe('challenge "extraLanguage"', () => {
+  //   xit('should be able to access the Klingon translation file', () => {
+  //     browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
+  //   })
 
-    protractor.expect.challengeSolved({challenge: 'Extra Language'})
-  })
+  //   protractor.expect.challengeSolved({challenge: 'Extra Language'})
+  // })
 
-  describe('challenge "retrieveBlueprint"', () => {
-    xit('should be able to access the blueprint file', () => {
-      browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
-    })
+  // describe('challenge "retrieveBlueprint"', () => {
+  //   xit('should be able to access the blueprint file', () => {
+  //     browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
+  //   })
 
-    protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
-  })
+  //   protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
+  // })
 
-  describe('challenge "securityPolicy"', () => {
-    xit('should be able to access the security.txt file', () => {
-      browser.driver.get(browser.baseUrl + '/security.txt')
-    })
+  // describe('challenge "securityPolicy"', () => {
+  //   xit('should be able to access the security.txt file', () => {
+  //     browser.driver.get(browser.baseUrl + '/security.txt')
+  //   })
 
-    protractor.expect.challengeSolved({challenge: 'Security Policy'})
-  })
+  //   protractor.expect.challengeSolved({challenge: 'Security Policy'})
+  // })
 })
