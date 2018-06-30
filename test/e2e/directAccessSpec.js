@@ -38,13 +38,13 @@ describe('/', () => {
   //   protractor.expect.challengeSolved({challenge: 'Eye Candy'})
   // })
 
-  // describe('challenge "extraLanguage"', () => {
-  //   xit('should be able to access the Klingon translation file', () => {
-  //     browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
-  //   })
+  describe('challenge "extraLanguage"', () => {
+    it('should be able to access the Klingon translation file', () => {
+      browser.driver.get(browser.baseUrl + '/assets/i18n/tlh_AA.json')
+    })
 
-  //   protractor.expect.challengeSolved({challenge: 'Extra Language'})
-  // })
+    protractor.expect.challengeSolved({challenge: 'Extra Language'})
+  })
 
   // describe('challenge "retrieveBlueprint"', () => {
   //   xit('should be able to access the blueprint file', () => {
