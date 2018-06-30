@@ -8,7 +8,7 @@ describe('/#/contact', () => {
   beforeEach(() => {
     browser.get('/#/contact')
     comment = element(by.id('comment'))
-    rating = element(by.css('.br-unit'))
+    rating = element.all(by.css('.br-unit')).last()
     captcha = element(by.id('captchaControl'))
     submitButton = element(by.id('submitButton'))
     solveNextCaptcha()
@@ -102,38 +102,38 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
   })
 
-  // describe('challenge "weirdCrypto"', () => {
-  //   xit('should be possible to post weird crypto algorithm/library as feedback', () => {
-  //     comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
-  //     rating.click()
+  describe('challenge "weirdCrypto"', () => {
+    it('should be possible to post weird crypto algorithm/library as feedback', () => {
+      comment.sendKeys('The following libraries are bad for crypto: z85, base85, md5 and hashids')
+      rating.click()
 
-  //     submitButton.click()
-  //   })
+      submitButton.click()
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'Weird Crypto' })
+  })
 
-  // describe('challenge "typosquattingNpm"', () => {
-  //   xit('should be possible to post typosquatting NPM package as feedback', () => {
-  //     comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
-  //     rating.click()
+  describe('challenge "typosquattingNpm"', () => {
+    it('should be possible to post typosquatting NPM package as feedback', () => {
+      comment.sendKeys('You are a typosquatting victim of this NPM package: epilogue-js')
+      rating.click()
 
-  //     submitButton.click()
-  //   })
+      submitButton.click()
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 1' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 1' })
+  })
 
-  // describe('challenge "typosquattingBower"', () => {
-  //   xit('should be possible to post typosquatting Bower package as feedback', () => {
-  //     comment.sendKeys('You are a typosquatting victim of this Bower package: angular-tooltipps')
-  //     rating.click()
+  describe('challenge "typosquattingBower"', () => {
+    it('should be possible to post typosquatting Bower package as feedback', () => {
+      comment.sendKeys('You are a typosquatting victim of this Bower package: angular-tooltipps')
+      rating.click()
 
-  //     submitButton.click()
-  //   })
+      submitButton.click()
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
+  })
 
   // describe('challenge "hiddenImage"', () => {
   //   it('should be possible to post hidden character name as feedback', () => {
@@ -158,18 +158,19 @@ describe('/#/contact', () => {
   //   protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   // })
 
-  // describe('challenge "captchaBypass"', () => {
-  //   xit('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
-  //     for (var i = 0; i < 11; i++) {
-  //       comment.sendKeys('Spam #' + i)
-  //       rating.click()
-  //       submitButton.click()
-  //       solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
-  //     }
-  //   })
+  describe('challenge "captchaBypass"', () => {
+    it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
+      for (var i = 0; i < 11; i++) {
+        comment.sendKeys('Spam #' + i)
+        rating.click()
+        submitButton.click()
+        browser.sleep(200)
+        solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
+      }
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
+  })
 
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
