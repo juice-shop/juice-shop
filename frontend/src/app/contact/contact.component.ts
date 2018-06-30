@@ -17,6 +17,7 @@ export class ContactComponent implements OnInit {
   public authorControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public feedbackControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   public captchaControl: FormControl = new FormControl('', [Validators.required])
+  public userIdControl: FormControl = new FormControl('', [])
   public rating: number = 0
   public feedback: any
   public captcha: any
@@ -47,6 +48,7 @@ export class ContactComponent implements OnInit {
     this.feedback.captcha = this.captchaControl.value
     this.feedback.comment = this.feedbackControl.value
     this.feedback.rating = this.rating
+    this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
       this.error = null
       this.confirmation = 'Thank you for your feedback' + (savedFeedback.rating === 5 ? ' and your 5-star rating!' : '.')
