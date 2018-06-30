@@ -131,7 +131,7 @@ describe('Hidden URL', () => {
   })
 
   it('GET blueprint file for "Retrieve Blueprint" challenge', done => {
-    frisby.get(URL + '/public/images/products/' + blueprint)
+    frisby.get(URL + '/assets/public/images/products/' + blueprint)
       .expect('status', 200)
       .done(done)
   })

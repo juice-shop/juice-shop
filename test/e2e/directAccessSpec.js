@@ -1,12 +1,12 @@
-// const config = require('config')
-// let blueprint
+const config = require('config')
+let blueprint
 
-// for (const product of config.get('products')) {
-//   if (product.fileForRetrieveBlueprintChallenge) {
-//     blueprint = product.fileForRetrieveBlueprintChallenge
-//     break
-//   }
-// }
+for (const product of config.get('products')) {
+  if (product.fileForRetrieveBlueprintChallenge) {
+    blueprint = product.fileForRetrieveBlueprintChallenge
+    break
+  }
+}
 
 describe('/', () => {
   describe('challenge "easterEgg2"', () => {
@@ -46,13 +46,13 @@ describe('/', () => {
     protractor.expect.challengeSolved({challenge: 'Extra Language'})
   })
 
-  // describe('challenge "retrieveBlueprint"', () => {
-  //   xit('should be able to access the blueprint file', () => {
-  //     browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
-  //   })
+  describe('challenge "retrieveBlueprint"', () => {
+    it('should be able to access the blueprint file', () => {
+      browser.driver.get(browser.baseUrl + '/assets/public/images/products/' + blueprint)
+    })
 
-  //   protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
-  // })
+    protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
+  })
 
   // describe('challenge "securityPolicy"', () => {
   //   xit('should be able to access the security.txt file', () => {
