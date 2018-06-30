@@ -30,6 +30,7 @@ export class ContactComponent implements OnInit {
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
       this.feedback = {}
+      this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
       this.authorControl.setValue(data.email || 'anonymous')
     }, (err) => err)

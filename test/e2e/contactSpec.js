@@ -90,17 +90,17 @@ describe('/#/contact', () => {
   //   protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
   // })
 
-  // describe('challenge "vulnerableComponent"', () => {
-  //   xit('should be possible to post known vulnerable component(s) as feedback', () => {
-  //     comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
-  //     comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
-  //     rating.click()
+  describe('challenge "vulnerableComponent"', () => {
+    it('should be possible to post known vulnerable component(s) as feedback', () => {
+      comment.sendKeys('sanitize-html 1.4.2 is non-recursive.')
+      comment.sendKeys('express-jwt 0.1.3 has broken crypto.')
+      rating.click()
 
-  //     submitButton.click()
-  //   })
+      submitButton.click()
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'Vulnerable Library' })
+  })
 
   // describe('challenge "weirdCrypto"', () => {
   //   xit('should be possible to post weird crypto algorithm/library as feedback', () => {
