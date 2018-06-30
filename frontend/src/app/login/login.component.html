@@ -28,7 +28,7 @@
       <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i class="fab fa-google fa-lg"></i> Log In with Google</button>
     </div>
 
-    <mat-checkbox>Remember me</mat-checkbox>
+    <mat-checkbox [formControl]="rememberMe" id="rememberMe">Remember me</mat-checkbox>
 
   </div>
 
