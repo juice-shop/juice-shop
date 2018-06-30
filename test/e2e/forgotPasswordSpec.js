@@ -1,4 +1,4 @@
-/* const config = require('config')
+const config = require('config')
 
 describe('/#/forgot-password', () => {
   let email, securityAnswer, newPassword, newPasswordRepeat, resetButton
@@ -6,17 +6,22 @@ describe('/#/forgot-password', () => {
   const EC = protractor.ExpectedConditions
 
   beforeEach(() => {
-    browser.get('/#/logout')
+    $('#logout').isPresent().then((result) => {
+      if (result) {
+        $('#logout').click()
+      }
+    })
+    browser.wait(EC.stalenessOf($('#logout')), 5000)
     browser.get('/#/forgot-password')
-    email = element(by.model('email'))
-    securityAnswer = element(by.model('securityAnswer'))
-    newPassword = element(by.model('newPassword'))
-    newPasswordRepeat = element(by.model('newPasswordRepeat'))
+    email = element(by.id('email'))
+    securityAnswer = element(by.id('securityAnswer'))
+    newPassword = element(by.id('newPassword'))
+    newPasswordRepeat = element(by.id('newPasswordRepeat'))
     resetButton = element(by.id('resetButton'))
   })
 
   describe('as Jim', () => {
-    xit('should be able to reset password with his security answer', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('jim@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Samuel')
@@ -24,14 +29,14 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('I <3 Spock')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({challenge: 'Reset Jim\'s Password'})
   })
 
   describe('as Bender', () => {
-    xit('should be able to reset password with his security answer', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('bender@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Stop\'n\'Drop')
@@ -39,14 +44,14 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({challenge: 'Reset Bender\'s Password'})
   })
 
   describe('as Bjoern', () => {
-    xit('should be able to reset password with his security answer', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('West-2082')
@@ -54,14 +59,14 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({challenge: 'Reset Bjoern\'s Password'})
   })
 
   describe('as Morty', () => {
-    xit('should be able to reset password with his security answer', () => {
+    it('should be able to reset password with his security answer', () => {
       email.sendKeys('morty@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('5N0wb41L')
@@ -69,9 +74,9 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({challenge: 'Reset Morty\'s Password'})
   })
-}) */
+})

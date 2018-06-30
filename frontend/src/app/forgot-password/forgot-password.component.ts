@@ -15,7 +15,7 @@ export class ForgotPasswordComponent {
 
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
-  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
+  public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5)])
   public repeatPasswordControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestion = undefined
   public error
