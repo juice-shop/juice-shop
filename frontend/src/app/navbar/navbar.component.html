@@ -16,9 +16,9 @@
       </span>
 
     <nav>
-      <a mat-button *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> {{ "TITLE_LOGIN" | translate}}</a>
+      <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> {{ "TITLE_LOGIN" | translate}}</a>
 
-      <a mat-button *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> {{"TITLE_LOGOUT" | translate }}</a>
+      <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> {{"TITLE_LOGOUT" | translate }}</a>
 
       <mat-form-field class="language-select">
 
