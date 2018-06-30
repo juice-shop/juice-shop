@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   public passwordControl = new FormControl('', [ Validators.required])
   public hide = true
   public user: any
-  public rememberMe: boolean
+  public rememberMe: FormControl = new FormControl(false)
   public error: any
   public oauthUnavailable: any
   public redirectUri
@@ -43,13 +43,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit () {
 
-    const email = localStorage.getItem('email')
+    const email = this.cookieService.get('email')
     if (email) {
       this.user = {}
       this.user.email = email
-      this.rememberMe = true
+      this.rememberMe.setValue(true)
     } else {
-      this.rememberMe = false
+      this.rememberMe.setValue(false)
     }
 
     this.redirectUri = this.windowRefService.nativeWindow.location.protocol + '//' + this.windowRefService.nativeWindow.location.host
@@ -85,10 +85,10 @@ export class LoginComponent implements OnInit {
       this.passwordControl.markAsPristine()
     })
 
-    if (this.rememberMe) {
-      localStorage.setItem('email', this.user.email)
+    if (this.rememberMe.value) {
+      this.cookieService.put('email', this.user.email)
     } else {
-      localStorage.removeItem('email')
+      this.cookieService.remove('email', { domain: document.domain })
     }
 
   }
