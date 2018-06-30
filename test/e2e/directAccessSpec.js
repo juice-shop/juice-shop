@@ -1,4 +1,4 @@
-/* const config = require('config')
+const config = require('config')
 let blueprint
 
 for (const product of config.get('products')) {
@@ -61,4 +61,4 @@ describe('/', () => {
 
     protractor.expect.challengeSolved({challenge: 'Security Policy'})
   })
-}) */
+})
