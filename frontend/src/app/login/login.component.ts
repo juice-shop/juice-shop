@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit () {
 
-    const email = this.cookieService.get('email')
+    const email = localStorage.getItem('email')
     if (email) {
       this.user = {}
       this.user.email = email
@@ -86,9 +86,9 @@ export class LoginComponent implements OnInit {
     })
 
     if (this.rememberMe.value) {
-      this.cookieService.put('email', this.user.email)
+      localStorage.setItem('email', this.user.email)
     } else {
-      this.cookieService.remove('email', { domain: document.domain })
+      localStorage.removeItem('email')
     }
 
   }

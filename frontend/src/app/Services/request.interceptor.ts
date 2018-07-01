@@ -16,10 +16,10 @@ export class RequestInterceptor implements HttpInterceptor {
         }
       })
     }
-    if (this.cookieService.get('email')) {
+    if (localStorage.getItem('email')) {
       req = req.clone({
         setHeaders: {
-          'X-User-Email': this.cookieService.get('email')
+          'X-User-Email': localStorage.get('email')
         }
       })
     }
