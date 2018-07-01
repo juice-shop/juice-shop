@@ -54,7 +54,7 @@ export class ContactComponent implements OnInit {
       this.error = null
       this.confirmation = 'Thank you for your feedback' + (savedFeedback.rating === 5 ? ' and your 5-star rating!' : '.')
       this.feedback = {}
-      this.getNewCaptcha()
+      this.ngOnInit()
       this.resetForm()
     }, (error) => {
       this.error = error.error
