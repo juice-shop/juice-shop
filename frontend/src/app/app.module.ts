@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
@@ -36,6 +36,7 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { OAuthComponent } from './oauth/oauth.component'
 
 /* Imported Services */
+import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
 import { ConfigurationService } from './Services/configuration.service'
 import { AdministrationService } from './Services/administration.service'
@@ -147,6 +148,11 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatListModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    },
     ProductService,
     ConfigurationService,
     AdministrationService,

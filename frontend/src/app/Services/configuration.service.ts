@@ -13,6 +13,6 @@ export class ConfigurationService {
   constructor (private http: HttpClient) { }
 
   getApplicationConfiguration () {
-    return this.http.get(this.host + '/application-configuration',{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.config, catchError((err) => { throw err })))
+    return this.http.get(this.host + '/application-configuration').pipe(map((response: any) => response.config, catchError((err) => { throw err })))
   }
 }

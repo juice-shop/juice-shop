@@ -16,12 +16,12 @@ export class UserService {
   constructor (private http: HttpClient) { }
 
   find (params?: any) {
-    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } , params: params }).pipe(map((response: any) =>
+    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params: params }).pipe(map((response: any) =>
     response.data),catchError((err) => { throw err }))
   }
 
   get (id) {
-    return this.http.get(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params) {
@@ -42,7 +42,7 @@ export class UserService {
 
   changePassword (passwords) {
     return this.http.get(this.hostServer + '/rest/user/change-password?current=' + passwords.current + '&new=' +
-    passwords.new + '&repeat=' + passwords.repeat, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
+    passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
 
   resetPassword (params) {
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami',{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken) {
