@@ -24,6 +24,6 @@ export class FeedbackService {
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

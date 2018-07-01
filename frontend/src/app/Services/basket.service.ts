@@ -14,31 +14,31 @@ export class BasketService {
   constructor (private http: HttpClient) { }
 
   find (id) {
-    return this.http.get(this.hostServer + '/rest/basket/' + id,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.get(this.hostServer + '/rest/basket/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   get (id) {
-    return this.http.get(this.host + '/' + id,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   put (id, params) {
-    return this.http.put(this.host + '/' + id, params, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   del (id) {
-    return this.http.delete(this.host + '/' + id, { headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   save (params?: any) {
-    return this.http.post(this.host + '/', params,{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
   checkout (id) {
-    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{},{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
+    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{}).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
   applyCoupon (id, coupon) {
-    return this.http.put(this.hostServer + '/rest/basket/' + id + '/coupon/' + coupon, {},{ headers: { 'authorization' : `Bearer ${localStorage.getItem('token')}` } }).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
+    return this.http.put(this.hostServer + '/rest/basket/' + id + '/coupon/' + coupon, {}).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
   }
 
 }
