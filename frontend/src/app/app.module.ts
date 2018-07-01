@@ -33,6 +33,7 @@ import { QrCodeComponent } from './qr-code/qr-code.component'
 import { UserDetailsComponent } from './user-details/user-details.component'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
+import { OAuthComponent } from './oauth/oauth.component'
 
 /* Imported Services */
 import { ProductService } from './Services/product.service'
@@ -101,7 +102,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     QrCodeComponent,
     UserDetailsComponent,
     ServerStartedNotificationComponent,
-    ChallengeSolvedNotificationComponent
+    ChallengeSolvedNotificationComponent,
+    OAuthComponent
   ],
   entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent ],
   imports: [
