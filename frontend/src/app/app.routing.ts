@@ -1,3 +1,4 @@
+import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
@@ -7,12 +8,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SearchResultComponent } from './search-result/search-result.component'
 import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
-import { Routes, RouterModule } from '@angular/router'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { Routes, RouterModule, UrlSegment, UrlMatchResult } from '@angular/router'
 
 const routes: Routes = [
   {
@@ -72,9 +73,26 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    matcher: oauthMatcher,
+    data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
+    component: OAuthComponent
+  },
+  {
     path: '**',
     component: SearchResultComponent
   }
 ]
 
 export const Routing = RouterModule.forRoot(routes, { useHash: true })
+
+export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
+  if (url.length === 0) {
+    return null
+  }
+  let path = window.location.href
+  if (path.includes('#access_token=')) {
+    return ({ consumed: url })
+  }
+
+  return null
+}
