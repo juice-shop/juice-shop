@@ -7,7 +7,7 @@ describe('/#/login', () => {
     browser.get('/#/login')
     email = element(by.id('email'))
     password = element(by.id('password'))
-    rememberMeCheckbox = element(by.id('rememberMe'))
+    rememberMeCheckbox = element(by.id('rememberMe-input'))
     loginButton = element(by.id('loginButton'))
   })
 
@@ -91,10 +91,11 @@ describe('/#/login', () => {
     it('should be able to log in as ciso@juice-sh.op by using "Remember me" in combination with (fake) OAuth login with another user', () => {
       email.sendKeys('ciso@' + config.get('application.domain'))
       password.sendKeys('wrong')
+      browser.executeScript('document.getElementById("rememberMe-input").removeAttribute("class");')
       rememberMeCheckbox.click()
       loginButton.click()
 
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); }}; xhttp.open("POST","http://localhost:3000/rest/user/login", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.send(JSON.stringify({email: "admin@juice-sh.op", password: "admin123", oauth: true}));') // eslint-disable-line
+      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); }}; xhttp.open("POST","http://localhost:3000/rest/user/login", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.setRequestHeader("X-User-Email", localStorage.getItem("email")); xhttp.send(JSON.stringify({email: "admin@juice-sh.op", password: "admin123", oauth: true}));') // eslint-disable-line
 
       // Deselect to clear email field for subsequent tests
       rememberMeCheckbox.click()
