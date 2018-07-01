@@ -16,8 +16,10 @@ describe('/#/contact', () => {
 
   describe('challenge "forgedFeedback"', () => {
     it('should be possible to provide feedback as another user', () => {
+      const EC = protractor.ExpectedConditions
       browser.executeScript('document.getElementById("userId").removeAttribute("hidden");')
       browser.executeScript('document.getElementById("userId").removeAttribute("class");')
+      browser.wait(EC.visibilityOf($('#userId')), 5000)
 
       const UserId = element(by.id('userId'))
       UserId.clear()
