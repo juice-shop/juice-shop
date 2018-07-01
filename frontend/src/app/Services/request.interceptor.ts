@@ -19,7 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
     if (localStorage.getItem('email')) {
       req = req.clone({
         setHeaders: {
-          'X-User-Email': localStorage.get('email')
+          'X-User-Email': localStorage.getItem('email')
         }
       })
     }
