@@ -1,6 +1,5 @@
 import { ComplaintService } from './../Services/complaint.service'
 import { UserService } from './../Services/user.service'
-import { FileUploadService } from './../Services/file-upload.service'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -29,7 +28,7 @@ describe('ComplaintComponent', () => {
         MatButtonModule
       ],
       declarations: [ ComplaintComponent ],
-      providers: [FileUploadService, UserService, ComplaintService]
+      providers: [UserService, ComplaintService]
     })
     .compileComponents()
   }))
