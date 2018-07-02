@@ -40,8 +40,8 @@
 
       </mat-form-field>
 
-      <input type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl style="margin-right:10px;">
-      <button color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> {{"NAV_SEARCH" | translate}}</button>
+      <input id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl style="margin-right:10px;">
+      <button id="searchButton" color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> {{"NAV_SEARCH" | translate}}</button>
 
       <button class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">{{"TITLE_CONTACT" | translate}}</button>
       <mat-menu #menu="matMenu">
