@@ -1,4 +1,4 @@
-const config = require('config')
+// const config = require('config')
 
 describe('/#/score-board', () => {
   describe('challenge "scoreBoard"', () => {
