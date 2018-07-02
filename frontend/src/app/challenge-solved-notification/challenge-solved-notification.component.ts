@@ -39,10 +39,6 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (!data.isRestore) {
             this.saveProgress()
           }
-          if (data.name === 'Score Board') {
-            /* Set score-board visible through a common service */
-            // this.challengeService.scoreBoardVisible = true
-          }
           this.socket.emit('notification received', data.flag)
         }
       })

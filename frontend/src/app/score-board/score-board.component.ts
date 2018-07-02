@@ -45,6 +45,9 @@ export class ScoreBoardComponent implements OnInit {
             this.challenges[i].hint = 'Click to open hints.'
           }
         }
+        if (this.challenges[i].name === 'Score Board') {
+          this.challenges[i].solved = true
+        }
       }
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
