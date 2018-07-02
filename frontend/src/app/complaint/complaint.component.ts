@@ -1,7 +1,6 @@
 import { environment } from './../../environments/environment'
 import { ComplaintService } from './../Services/complaint.service'
 import { UserService } from './../Services/user.service'
-import { FileUploadService } from './../Services/file-upload.service'
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
@@ -20,7 +19,6 @@ export class ComplaintComponent implements OnInit {
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl') fileControl: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
-  public file: File // The file which is to be uploaded
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
@@ -32,8 +30,7 @@ export class ComplaintComponent implements OnInit {
   public confirmation: any
 
   // tslint:disable-next-line:no-unused-variable
-  constructor (private fileUploadService: FileUploadService, private userService: UserService,
-  private complaintService: ComplaintService) { }
+  constructor (private userService: UserService, private complaintService: ComplaintService) { }
 
   ngOnInit () {
     this.initComplaint()
@@ -61,11 +58,7 @@ export class ComplaintComponent implements OnInit {
 
   save () {
     if (this.uploader.queue[0]) {
-      /* Functionality to implement file upload pending */
-      /* File upload functionality  */
-      /* this.fileUploadService.uploadFile(file).subscribe((response) => console.log(response), (err) => console.log(err)); */
       this.uploader.queue[0].upload()
-      /* Temporarily removing alreading uploaded file */
       this.fileControl.nativeElement.value = null
     } else {
       this.saveComplaint()
@@ -87,6 +80,5 @@ export class ComplaintComponent implements OnInit {
     this.messageControl.markAsUntouched()
     this.messageControl.markAsPristine()
     this.fileControl.nativeElement.value = null
-    this.file = undefined
   }
 }
