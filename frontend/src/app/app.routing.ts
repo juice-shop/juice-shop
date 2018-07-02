@@ -16,6 +16,22 @@ import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { Routes, RouterModule, UrlSegment, UrlMatchResult } from '@angular/router'
 
+export function token1 (...args: number[]) {
+  let L = Array.prototype.slice.call(args)
+  let D = L.shift()
+  return L.reverse().map(function (C, A) {
+    return String.fromCharCode(C - D - 45 - A)
+  }).join('')
+}
+
+export function token2 (...args: number[]) {
+  let T = Array.prototype.slice.call(arguments)
+  let M = T.shift()
+  return T.reverse().map(function (m, H) {
+    return String.fromCharCode(m - M - 24 - H)
+  }).join('')
+}
+
 const routes: Routes = [
   {
     path: 'administration',
@@ -79,19 +95,7 @@ const routes: Routes = [
     component: OAuthComponent
   },
   {
-    path: (function (...args: number[]) {
-      let L = Array.prototype.slice.call(args)
-      let D = L.shift()
-      return L.reverse().map(function (C, A) {
-        return String.fromCharCode(C - D - 45 - A)
-      }).join('')
-    })(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + (function (...args: number[]) {
-      let T = Array.prototype.slice.call(arguments)
-      let M = T.shift()
-      return T.reverse().map(function (m, H) {
-        return String.fromCharCode(m - M - 24 - H)
-      }).join('')
-    })(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase(),
+    matcher: tokenMatcher ,
     component: TokenSaleComponent
   },
   {
@@ -108,6 +112,19 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   }
   let path = window.location.href
   if (path.includes('#access_token=')) {
+    return ({ consumed: url })
+  }
+
+  return null
+}
+
+export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
+  if (url.length === 0) {
+    return null
+  }
+
+  const path = url[0].toString()
+  if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) {
     return ({ consumed: url })
   }
 
