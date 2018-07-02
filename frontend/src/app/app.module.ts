@@ -48,7 +48,6 @@ import { FeedbackService } from './Services/feedback.service'
 import { CaptchaService } from './Services/captcha.service'
 import { WindowRefService } from './Services/window-ref.service'
 import { ProductReviewService } from './Services/product-review.service'
-import { FileUploadService } from './Services/file-upload.service'
 import { ComplaintService } from './Services/complaint.service'
 import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
@@ -167,7 +166,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     FeedbackService,
     WindowRefService,
     ProductReviewService,
-    FileUploadService,
     ComplaintService,
     TrackOrderService,
     RecycleService,
