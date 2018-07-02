@@ -1,10 +1,10 @@
-// describe('/#/tokensale-ico-ea', () => {
-//   describe('challenge "tokenSale"', () => {
-//     xit('should be possible to access token sale section even when not authenticated', () => {
-//       browser.get('/#/tokensale-ico-ea')
-//       expect(browser.getCurrentUrl()).toMatch(/\/tokensale-ico-ea/)
-//     })
+describe('/#/tokensale-ico-ea', () => {
+  describe('challenge "tokenSale"', () => {
+    xit('should be possible to access token sale section even when not authenticated', () => {
+      browser.get('/#/tokensale-ico-ea')
+      expect(browser.getCurrentUrl()).toMatch(/\/tokensale-ico-ea/)
+    })
 
-//     protractor.expect.challengeSolved({challenge: 'Blockchain Tier 1'})
-//   })
-// })
+    protractor.expect.challengeSolved({challenge: 'Blockchain Tier 1'})
+  })
+})
