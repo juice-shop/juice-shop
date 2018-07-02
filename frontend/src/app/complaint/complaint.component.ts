@@ -1,8 +1,10 @@
+import { environment } from './../../environments/environment'
 import { ComplaintService } from './../Services/complaint.service'
 import { UserService } from './../Services/user.service'
 import { FileUploadService } from './../Services/file-upload.service'
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
+import { FileUploader } from 'ng2-file-upload'
 import fontawesome from '@fortawesome/fontawesome'
 import { faBomb } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faBomb)
@@ -17,8 +19,15 @@ export class ComplaintComponent implements OnInit {
   public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
   @ViewChild('fileControl') fileControl: ElementRef // For controlling the DOM Element for file input.
-  public fileUploadError = { size: false , type: false } // For controlling error handling related to file input.
+  public fileUploadError: any = undefined // For controlling error handling related to file input.
   public file: File // The file which is to be uploaded
+  public uploader: FileUploader = new FileUploader({
+    url: environment.hostServer + '/file-upload',
+    authToken: `Bearer ${localStorage.getItem('token')}`,
+    allowedMimeType: [ 'application/pdf' , 'application/xml' ],
+    allowedFileType: [ 'pdf' ],
+    maxFileSize: 100 * 1024
+  })
   public userEmail: any
   public complaint: any = {}
   public confirmation: any
@@ -29,20 +38,15 @@ export class ComplaintComponent implements OnInit {
 
   ngOnInit () {
     this.initComplaint()
-  }
-
-  fileChange (files: FileList) {
-
-    const file: File = files[0]
-    this.file = file
-
-    if (file.type !== 'application/pdf') {
-      this.fileUploadError.type = true
-      return
+    this.uploader.onWhenAddingFileFailed = (item, filter) => {
+      this.fileUploadError = filter
+      throw new Error(`Error due to : ${filter.name}`)
     }
-    if (file.size > 102400) {
-      this.fileUploadError.size = true
-      return
+    this.uploader.onAfterAddingFile = () => {
+      this.fileUploadError = undefined
+    }
+    this.uploader.onSuccessItem = () => {
+      this.saveComplaint()
     }
   }
 
@@ -60,7 +64,7 @@ export class ComplaintComponent implements OnInit {
       /* Functionality to implement file upload pending */
       /* File upload functionality  */
       /* this.fileUploadService.uploadFile(file).subscribe((response) => console.log(response), (err) => console.log(err)); */
-
+      this.uploader.uploadAll()
       /* Temporarily removing alreading uploaded file */
       this.fileControl.nativeElement.value = null
     } else {
@@ -74,6 +78,7 @@ export class ComplaintComponent implements OnInit {
       this.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.id
       this.initComplaint()
       this.resetForm()
+      this.fileUploadError = undefined
     }, (error) => error)
   }
 
