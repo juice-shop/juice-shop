@@ -49,7 +49,7 @@
         <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
       </mat-menu>
 
-      <a mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
+      <a *ngIf="scoreBoardVisible" mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
       <a mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> {{"TITLE_ABOUT" | translate}}</a>
 
      </nav>
