@@ -24,9 +24,8 @@ export class ComplaintComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
-    allowedMimeType: [ 'application/pdf' , 'application/xml' ],
-    allowedFileType: [ 'pdf' ],
-    maxFileSize: 100 * 1024
+    allowedMimeType: [ 'application/pdf' , 'application/xml', 'text/xml' ],
+    maxFileSize: 100000
   })
   public userEmail: any
   public complaint: any = {}
@@ -47,6 +46,7 @@ export class ComplaintComponent implements OnInit {
     }
     this.uploader.onSuccessItem = () => {
       this.saveComplaint()
+      this.uploader.clearQueue()
     }
   }
 
@@ -60,11 +60,11 @@ export class ComplaintComponent implements OnInit {
   }
 
   save () {
-    if (this.file) {
+    if (this.uploader.queue[0]) {
       /* Functionality to implement file upload pending */
       /* File upload functionality  */
       /* this.fileUploadService.uploadFile(file).subscribe((response) => console.log(response), (err) => console.log(err)); */
-      this.uploader.uploadAll()
+      this.uploader.queue[0].upload()
       /* Temporarily removing alreading uploaded file */
       this.fileControl.nativeElement.value = null
     } else {

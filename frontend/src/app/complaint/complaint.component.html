@@ -16,16 +16,16 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Message</mat-label>
-      <textarea [formControl]="messageControl" name="" id="" cols="30" rows="10" matInput></textarea>
+      <textarea id="complaintMessage" [formControl]="messageControl" cols="30" rows="10" matInput></textarea>
       <mat-error *ngIf="messageControl.invalid && messageControl?.errors.maxlength">{{"INVALID_MESSAGE_LENGTH" | translate: { length: '1-160' } }}</mat-error>
       <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" | translate}}</mat-error>
     </mat-form-field>
 
     <label for="file">Invoice</label>
-    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file">
+    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf">
 
   </div>
 
-  <button [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+  <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
 
 </mat-card>

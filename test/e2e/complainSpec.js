@@ -1,4 +1,4 @@
-/* const config = require('config')
+const config = require('config')
 const path = require('path')
 
 describe('/#/complain', () => {
@@ -14,7 +14,7 @@ describe('/#/complain', () => {
   })
 
   describe('challenge "uploadSize"', () => {
-    xit('should be possible to upload files greater 100 KB directly through backend', () => {
+    it('should be possible to upload files greater 100 KB directly through backend', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(() => {
         const over100KB = Array.apply(null, new Array(11000)).map(String.prototype.valueOf, '1234567890')
@@ -34,7 +34,7 @@ describe('/#/complain', () => {
   })
 
   describe('challenge "uploadType"', () => {
-    xit('should be possible to upload files with other extension than .pdf directly through backend', () => {
+    it('should be possible to upload files with other extension than .pdf directly through backend', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(() => {
         const data = new FormData()
@@ -52,13 +52,13 @@ describe('/#/complain', () => {
   })
 
   describe('challenge "xxeFileDisclosure"', () => {
-    xit('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
+    it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
       complaintMessage.sendKeys('XXE File Exfiltration Windows!')
       file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
       submitButton.click()
     })
 
-    xit('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
+    it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
       complaintMessage.sendKeys('XXE File Exfiltration Linux!')
       file.sendKeys(path.resolve('test/files/xxeForLinux.xml'))
       submitButton.click()
@@ -71,7 +71,7 @@ describe('/#/complain', () => {
   })
 
   describe('challenge "xxeDos"', () => {
-    xit('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
+    it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
       complaintMessage.sendKeys('XXE Quadratic Blowup!')
       file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
       submitButton.click()
@@ -88,4 +88,4 @@ describe('/#/complain', () => {
       protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
     })
   })
-}) */
+})
