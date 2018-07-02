@@ -75,7 +75,8 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
-import { MatListModule } from '@angular/material/list'
+import { MatListModule } from '@angular/material/list';
+import { TokenSaleComponent } from './token-sale/token-sale.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
@@ -104,7 +105,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     UserDetailsComponent,
     ServerStartedNotificationComponent,
     ChallengeSolvedNotificationComponent,
-    OAuthComponent
+    OAuthComponent,
+    TokenSaleComponent
   ],
   entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent ],
   imports: [

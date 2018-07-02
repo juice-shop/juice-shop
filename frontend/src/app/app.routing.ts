@@ -1,3 +1,4 @@
+import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
@@ -76,6 +77,22 @@ const routes: Routes = [
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
+  },
+  {
+    path: (function (...args: number[]) {
+      let L = Array.prototype.slice.call(args)
+      let D = L.shift()
+      return L.reverse().map(function (C, A) {
+        return String.fromCharCode(C - D - 45 - A)
+      }).join('')
+    })(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + (function (...args: number[]) {
+      let T = Array.prototype.slice.call(arguments)
+      let M = T.shift()
+      return T.reverse().map(function (m, H) {
+        return String.fromCharCode(m - M - 24 - H)
+      }).join('')
+    })(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase(),
+    component: TokenSaleComponent
   },
   {
     path: '**',
