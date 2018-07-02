@@ -1,14 +1,14 @@
-// const config = require('config')
-// const tamperingProductId = ((() => {
-//   const products = config.get('products')
-//   for (let i = 0; i < products.length; i++) {
-//     if (products[i].urlForProductTamperingChallenge) {
-//       return i + 1
-//     }
-//   }
-// })())
+const config = require('config')
+const tamperingProductId = ((() => {
+  const products = config.get('products')
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].urlForProductTamperingChallenge) {
+      return i + 1
+    }
+  }
+})())
 
-// describe('/rest', () => {
+describe('/rest', () => {
 //   describe('challenge "xss3"', () => {
 //     protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
@@ -36,16 +36,16 @@
 //     protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
 //   })
 
-//   describe('challenge "changeProduct"', () => {
-//     xit('should be possible to change product via PUT request without being logged in', () => {
-//       browser.waitForAngularEnabled(false)
-//       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.put(\'/api/Products/' + tamperingProductId + '\', {description: \'<a href="http://kimminich.de" target="_blank">More...</a>\'});')
-//       browser.driver.sleep(1000)
-//       browser.waitForAngularEnabled(true)
+  describe('challenge "changeProduct"', () => {
+    it('should be possible to change product via PUT request without being logged in', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PUT","${"http://localhost:3000/api/Products/" + tamperingProductId}", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.send(JSON.stringify({"description" : "<a href=\\"http://kimminich.de\\" target=\\"_blank\\">More...</a>"}));`) // eslint-disable-line
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
 
-//       browser.get('/#/search')
-//     })
+      browser.get('/#/search')
+    })
 
-//     protractor.expect.challengeSolved({challenge: 'Product Tampering'})
-//   })
-// })
+    protractor.expect.challengeSolved({challenge: 'Product Tampering'})
+  })
+})
