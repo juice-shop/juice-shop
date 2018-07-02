@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ngx-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
+import { FileUploadModule } from 'ng2-file-upload'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -75,7 +76,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
-import { MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
@@ -127,6 +128,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     BrowserAnimationsModule,
     QRCodeModule,
     BarRatingModule,
+    FileUploadModule,
     ClipboardModule,
     MatToolbarModule,
     MatIconModule,
