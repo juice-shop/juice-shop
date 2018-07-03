@@ -39,46 +39,6 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#log-in-with-benders-user-account'
   key: loginBenderChallenge
 -
-  name: 'XSS Tier 1'
-  category: 'XSS'
-  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
-  key: localXssChallenge
--
-  name: 'XSS Tier 0'
-  category: 'XSS'
-  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
-  key: reflectedXssChallenge
--
-  name: 'XSS Tier 2'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.'
-  difficulty: 3
-  hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
-  key: persistedXssChallengeUser
--
-  name: 'XSS Tier 4'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.'
-  difficulty: 4
-  hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
-  key: persistedXssChallengeFeedback
--
-  name: 'XSS Tier 3'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> without using the frontend application at all.'
-  difficulty: 3
-  hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
-  key: restfulXssChallenge
--
   name: 'User Credentials'
   category: 'Injection'
   description: 'Retrieve a list of all user credentials via SQL Injection'
@@ -174,14 +134,6 @@
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
--
-  name: 'CSRF'
-  category: 'Broken Authentication'
-  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
-  difficulty: 4
-  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
-  key: csrfChallenge
 -
   name: 'Product Tampering'
   category: 'Broken Access Control'
