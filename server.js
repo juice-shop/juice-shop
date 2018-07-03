@@ -57,6 +57,7 @@ const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
 const basketItems = require('./routes/basketItems')
+const saveLoginIp = require('./routes/saveLoginIp')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -242,6 +243,7 @@ app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
+app.get('/rest/saveLoginIp', saveLoginIp())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())

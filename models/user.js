@@ -24,6 +24,10 @@ module.exports = (sequelize, {STRING, BOOLEAN}) => {
     isAdmin: {
       type: BOOLEAN,
       defaultValue: false
+    },
+    lastLoginIp: {
+      type: STRING,
+      defaultValue: 'x.x.x.x'
     }
   })
 
