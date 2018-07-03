@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FeedbackService } from './../Services/feedback.service'
-import { BarRatingModule } from 'ngx-bar-rating'
+import { BarRatingModule } from 'ng2-bar-rating'
 
 describe('ContactComponent', () => {
   let component: ContactComponent

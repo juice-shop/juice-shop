@@ -1,5 +1,5 @@
 import { UserDetailsComponent } from './../user-details/user-details.component'
-import { BarRatingModule } from 'ngx-bar-rating'
+import { BarRatingModule } from 'ng2-bar-rating'
 import { FeedbackService } from './../Services/feedback.service'
 import { RecycleService } from './../Services/recycle.service'
 import { UserService } from './../Services/user.service'

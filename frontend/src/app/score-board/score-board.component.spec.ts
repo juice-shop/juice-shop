@@ -1,4 +1,4 @@
-import { BarRatingModule } from 'ngx-bar-rating'
+import { BarRatingModule } from 'ng2-bar-rating'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
