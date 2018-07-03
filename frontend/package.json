@@ -36,7 +36,7 @@
     "flag-icon-css": "^3.0.0",
     "hammerjs": "^2.0.8",
     "ng2-file-upload": "^1.3.0",
-    "ngx-bar-rating": "^1.1.0",
+    "ng2-bar-rating": "^1.1.0",
     "ngx-clipboard": "^11.1.1",
     "ngx-cookie": "^4.0.2",
     "rxjs": "^6.0.0",
