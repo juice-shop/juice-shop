@@ -53,6 +53,7 @@ angular.module('juiceShop').controller('NavbarController', [
     function updateUserEmail () {
       userService.whoAmI().then(function (user) {
         $rootScope.userEmail = user.email
+        $rootScope.lastLoginIp = user.lastLoginIp
       }).catch(function (err) {
         console.log(err)
       })
