@@ -391,6 +391,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'
   key: typosquattingNpmChallenge
 -
+  name: 'Typosquatting Tier 2'
+  category: 'Vulnerable Components'
+  description: '<a href="/#/contact">Inform the shop</a> about a more sneaky instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
+  difficulty: 5
+  hint: 'This challenge has nothing to do with URLs or domains. There is no convenient misplaced file helping you with this one.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-sneaky-instance-of-typosquatting-it-fell-for'
+  key: typosquattingAngularChallenge
+-
   name: 'JWT Issues Tier 1'
   category: 'Vulnerable Components'
   description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.'

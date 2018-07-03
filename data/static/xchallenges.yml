@@ -6,11 +6,3 @@
   hint: 'The mentioned golden era lasted from 1994 to 2009.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'
   key: geocitiesThemeChallenge
--
-  name: 'Typosquatting Tier 2'
-  category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
-  difficulty: 5
-  hint: 'This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'
-  key: typosquattingBowerChallenge

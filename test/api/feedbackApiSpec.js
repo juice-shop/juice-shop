@@ -111,7 +111,7 @@ describe('/api/Feedbacks', () => {
       .then(({json}) => frisby.post(API_URL + '/Feedbacks', {
         headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
         body: {
-          comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and angular-tooltipps!',
+          comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and ng2-bar-rating!',
           rating: 5,
           UserId: 4,
           captchaId: captchaId,
