@@ -126,15 +126,15 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 1' })
   })
 
-  describe('challenge "typosquattingBower"', () => {
-    it('should be possible to post typosquatting Bower package as feedback', () => {
+  describe('challenge "typosquattingBower"', () => { // FIXME Typosquat 3rd party Angular or other frontend library instead
+    xit('should be possible to post typosquatting Bower package as feedback', () => {
       comment.sendKeys('You are a typosquatting victim of this Bower package: angular-tooltipps')
       rating.click()
 
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
+    // protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
   })
 
   // describe('challenge "hiddenImage"', () => {
