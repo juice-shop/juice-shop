@@ -137,16 +137,16 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
   })
 
-  // describe('challenge "hiddenImage"', () => {
-  //   it('should be possible to post hidden character name as feedback', () => {
-  //     comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
-  //     rating.click()
+  describe('challenge "hiddenImage"', () => {
+    it('should be possible to post hidden character name as feedback', () => {
+      comment.sendKeys('Pickle Rick is hiding behind one of the support team ladies')
+      rating.click()
 
-  //     submitButton.click()
-  //   })
+      submitButton.click()
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
-  // })
+    protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
+  })
 
   // describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
   //   xit('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
