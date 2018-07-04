@@ -212,3 +212,7 @@ ctf:
     registerAdminChallenge:
       name: Jamaica
       code: JA
+    escalateSelfXssChallenge:
+      name: Puerto Rico
+      code: PR
+
