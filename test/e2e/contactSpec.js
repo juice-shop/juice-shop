@@ -150,7 +150,8 @@ describe('/#/contact', () => {
 
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-      browser.executeScript(() => {
+      browser.executeAsyncScript(() => {
+        var callback = arguments[arguments.length - 1]
         var xhttp = new XMLHttpRequest()
         var captcha
         xhttp.onreadystatechange = function () {
@@ -169,6 +170,7 @@ describe('/#/contact', () => {
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
               console.log('Success')
+              callback()
             }
           }
 
