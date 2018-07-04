@@ -148,17 +148,39 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
   })
 
-  // describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
-  //   xit('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-  //     comment.sendKeys('No stars for ya here, yo!')
-  //     rating.click()
-  //     element(by.className('glyphicon-star')).click()
+  describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
+    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        var captcha
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            captcha = JSON.parse(this.responseText)
+            sendPostRequest(captcha)
+          }
+        }
 
-  //     submitButton.click()
-  //   })
+        xhttp.open('GET', 'http://localhost:3000/rest/captcha/', true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send()
 
-  //   protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
-  // })
+        function sendPostRequest (_captcha) {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 201) {
+              console.log('Success')
+            }
+          }
+
+          xhttp.open('POST', 'http://localhost:3000/api/Feedbacks', true)
+          xhttp.setRequestHeader('Content-type', 'application/json')
+          xhttp.send(JSON.stringify({"captchaId": _captcha.captchaId, "captcha": `${_captcha.answer}`, "comment": "Comment", "rating": 0})) // eslint-disable-line
+        }
+      })
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
+  })
 
   describe('challenge "captchaBypass"', () => {
     it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
