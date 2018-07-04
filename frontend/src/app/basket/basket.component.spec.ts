@@ -36,7 +36,7 @@ describe('BasketComponent', () => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
-    userService = jasmine.createSpyObj('UserServcie',['whoAmI'])
+    userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     basketService = jasmine.createSpyObj('BasketService', ['find','del','get','put','checkout','applyCoupon'])
     basketService.find.and.returnValue(of({ Products: [] }))
