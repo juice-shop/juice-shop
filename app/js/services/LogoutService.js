@@ -6,9 +6,9 @@ angular.module('juiceShop').factory('LogoutService', ['$http', '$q', function ($
   function save () {
     var response = $q.defer()
     $http.get(host).then(function (result) {
-      response.resolve(result)
+      response.resolve(result.data)
     }).catch(function (result) {
-      response.reject(result)
+      response.reject(result.data)
     })
     return response.promise
   }
