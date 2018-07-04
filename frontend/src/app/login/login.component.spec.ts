@@ -14,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 import { CookieModule, CookieService } from 'ngx-cookie'
-import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { of, throwError } from 'rxjs'
 import { MatTableModule } from '@angular/material/table'
@@ -27,9 +26,6 @@ describe('LoginComponent', () => {
   let component: LoginComponent
   let fixture: ComponentFixture<LoginComponent>
   let userService
-  let windowRefService
-  let cookieService
-  let router
   let location
 
   beforeEach(async(() => {
@@ -69,7 +65,6 @@ describe('LoginComponent', () => {
     })
     .compileComponents()
 
-    router = TestBed.get(Router)
     location = TestBed.get(Location)
   }))
 
