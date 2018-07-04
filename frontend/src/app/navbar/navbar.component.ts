@@ -3,7 +3,6 @@ import { ChallengeService } from './../Services/challenge.service'
 import { UserService } from './../Services/user.service'
 import { AdministrationService } from './../Services/administration.service'
 import { ConfigurationService } from './../Services/configuration.service'
-import { WindowRefService } from './../Services/window-ref.service'
 import { Component, OnInit, NgZone } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { Router } from '@angular/router'
@@ -33,7 +32,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService,private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router,private translate: TranslateService, private windowRefService: WindowRefService) { }
+    private cookieService: CookieService, private router: Router,private translate: TranslateService) { }
 
   ngOnInit () {
 

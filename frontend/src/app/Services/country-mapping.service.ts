@@ -12,6 +12,6 @@ export class CountryMappingService {
   constructor (private http: HttpClient) { }
 
   getCountryMapping () {
-    return this.http.get(environment.hostServer + '/rest/country-mapping').pipe(catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/country-mapping').pipe(catchError((err) => { throw err }))
   }
 }

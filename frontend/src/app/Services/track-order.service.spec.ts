@@ -2,7 +2,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing'
 
 import { TrackOrderService } from './track-order.service'
-import { HttpClientModule } from '@angular/common/http'
 
 describe('TrackOrderService', () => {
   beforeEach(() => {
