@@ -95,6 +95,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
   key: restfulXssChallenge
 -
+  name: 'XSS Tier 5'
+  category: 'XSS'
+  description: 'Escalate <i>self</i> XSS attack with <code>&lt;script&gt;alert("Self-XSS")&lt;/script&gt;</code> by chaining it with other vulnerability.'
+  difficulty: 4
+  hint: 'You need to chain a self-xss with another low impact bug to escalate it to other users.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#chain-self-xss-bug-with-other-bug-to-escalate-it.'
+  key: escalateSelfXssChallenge  
+-
   name: 'User Credentials'
   category: 'Injection'
   description: 'Retrieve a list of all user credentials via SQL Injection.'
