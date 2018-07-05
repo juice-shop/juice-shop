@@ -54,3 +54,19 @@
   hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
   key: csrfChallenge
+-
+  name: 'Christmas Special'
+  category: 'Injection'
+  description: 'Order the Christmas special offer of 2014.'
+  difficulty: 2
+  hint: 'Find out how the application handles unavailable products.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
+  key: christmasSpecialChallenge
+-
+  name: 'User Credentials'
+  category: 'Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection'
+  difficulty: 4
+  hint: 'Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
+  key: unionSqlInjectionChallenge
