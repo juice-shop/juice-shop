@@ -19,7 +19,7 @@ export class ContactComponent implements OnInit {
   public captchaControl: FormControl = new FormControl('', [Validators.required])
   public userIdControl: FormControl = new FormControl('', [])
   public rating: number = 0
-  public feedback: any
+  public feedback: any = undefined
   public captcha: any
   public captchaId: any
   public confirmation: any
@@ -33,7 +33,10 @@ export class ContactComponent implements OnInit {
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
       this.authorControl.setValue(data.email || 'anonymous')
-    }, (err) => err)
+    }, (err) => {
+      this.feedback = undefined
+      console.log(err)
+    })
     this.getNewCaptcha()
   }
 
