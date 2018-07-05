@@ -39,14 +39,6 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#log-in-with-benders-user-account'
   key: loginBenderChallenge
 -
-  name: 'User Credentials'
-  category: 'Injection'
-  description: 'Retrieve a list of all user credentials via SQL Injection'
-  difficulty: 4
-  hint: 'Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
-  key: unionSqlInjectionChallenge
--
   name: 'Password Strength'
   category: 'Broken Authentication'
   description: 'Log in with the administrator''s user credentials without previously changing them or applying SQL Injection.'
@@ -182,14 +174,6 @@
   hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'
   key: forgedCouponChallenge
--
-  name: 'Christmas Special'
-  category: 'Injection'
-  description: 'Order the Christmas special offer of 2014.'
-  difficulty: 2
-  hint: 'Find out how the application handles unavailable products.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
-  key: christmasSpecialChallenge
 -
   name: 'Upload Size'
   category: 'Improper Input Validation'
