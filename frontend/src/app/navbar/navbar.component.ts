@@ -66,6 +66,12 @@ export class NavbarComponent implements OnInit {
       }
     })
 
+    if (localStorage.getItem('token')) {
+      this.updateUserEmail()
+    } else {
+      this.userEmail = ''
+    }
+
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
