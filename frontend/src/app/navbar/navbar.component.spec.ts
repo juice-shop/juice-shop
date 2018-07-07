@@ -54,7 +54,8 @@ describe('NavbarComponent', () => {
     userService = jasmine.createSpyObj('UserService',['whoAmI','getLoggedInState'])
     userService.whoAmI.and.returnValue(of({}))
     userService.getLoggedInState.and.returnValue(of(true))
-    userService.isLoggedIn = { next: (arg) => { return arg } }
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
+    userService.isLoggedIn.next.and.returnValue({})
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
     cookieService = jasmine.createSpyObj('CookieService',['remove'])
@@ -237,8 +238,7 @@ describe('NavbarComponent', () => {
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
   })
 
-  xit('should set the login status to be false via UserService', () => {
-    spyOn(userService.isLoggedIn,'next')
+  it('should set the login status to be false via UserService', () => {
     component.logout()
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
   })
