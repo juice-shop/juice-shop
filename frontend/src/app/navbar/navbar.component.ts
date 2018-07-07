@@ -23,10 +23,11 @@ export class NavbarComponent implements OnInit {
   public userEmail = ''
   public languages = languages
   public selectedLanguage = 'English'
-  public version = ''
+  public version: string = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = 'orange'
   public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
+  public io = io
   public socket
   public scoreBoardVisible = false
 
@@ -40,23 +41,31 @@ export class NavbarComponent implements OnInit {
       if (version) {
         this.version = 'v' + version
       }
-    })
+    },(err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name !== null) {
+      if (config && config.application && config.application.name && config.application.name !== null) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.gitHubRibbon !== null) {
+      if (config && config.application && config.application.gitHubRibbon && config.application.gitHubRibbon !== null) {
         this.gitHubRibbon = config.application.gitHubRibbon !== 'none' ? config.application.gitHubRibbon : null
       }
 
-      let logo: string = config.application.logo
+      if (config && config.application && config.application.logo && config.application.logo !== null) {
+        let logo: string = config.application.logo
 
-      if (logo.substring(0, 4) === 'http') {
-        logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-        this.logoSrc = 'assets/public/images/' + logo
+        if (logo.substring(0, 4) === 'http') {
+          logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          this.logoSrc = 'assets/public/images/' + logo
+        }
       }
-    })
+    }, (err) => console.log(err))
+
+    if (localStorage.getItem('token')) {
+      this.updateUserEmail()
+    } else {
+      this.userEmail = ''
+    }
 
     this.userService.getLoggedInState().subscribe((isLoggedIn) => {
       if (isLoggedIn) {
@@ -66,16 +75,10 @@ export class NavbarComponent implements OnInit {
       }
     })
 
-    if (localStorage.getItem('token')) {
-      this.updateUserEmail()
-    } else {
-      this.userEmail = ''
-    }
-
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io.connect(environment.hostServer)
+      this.socket = this.io.connect(environment.hostServer)
       this.socket.on('challenge solved', (data) => {
         this.getScoreBoardStatus()
       })
@@ -104,7 +107,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     localStorage.removeItem('token')
     this.cookieService.remove('token', { domain: document.domain })
-    delete sessionStorage.bid
+    sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])
   }
