@@ -1,6 +1,5 @@
 import { ComplaintService } from './../Services/complaint.service'
 import { UserService } from './../Services/user.service'
-import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
@@ -10,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { async, ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed, fakeAsync, inject } from '@angular/core/testing'
 import { ComplaintComponent } from './complaint.component'
 import { of, throwError } from 'rxjs'
 
@@ -60,6 +59,29 @@ describe('ComplaintComponent', () => {
     expect(component).toBeTruthy()
   })
 
+  it('should have customerControl as disabled', () => {
+    expect(component.customerControl.disabled).toBe(true)
+  })
+
+  it('should be compulsory to provide a message', () => {
+    component.messageControl.setValue('')
+    expect(component.messageControl.valid).toBeFalsy()
+    component.messageControl.setValue('aa')
+    expect(component.messageControl.valid).toBe(true)
+  })
+
+  it('should have a message of maximum 160 characters', () => {
+    let str: string = ''
+    for (let i = 0;i < 161; i++) {
+      str += 'a'
+    }
+    component.messageControl.setValue(str)
+    expect(component.messageControl.valid).toBeFalsy()
+    str = str.slice(1)
+    component.messageControl.setValue(str)
+    expect(component.messageControl.valid).toBe(true)
+  })
+
   it('should reset form by calling resetForm', () => {
     component.messageControl.setValue('Message')
     component.resetForm()
@@ -102,5 +124,3 @@ describe('ComplaintComponent', () => {
     expect(component.uploader.queue[0].upload).toHaveBeenCalled()
   })))
 })
-
-// component.fileControl.nativeElement.value = new File([''], 'file.pdf', { 'type': 'application/pdf' })
