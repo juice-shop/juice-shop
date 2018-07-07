@@ -25,11 +25,10 @@ export class ComplaintComponent implements OnInit {
     allowedMimeType: [ 'application/pdf' , 'application/xml', 'text/xml' ],
     maxFileSize: 100000
   })
-  public userEmail: any
-  public complaint: any = {}
+  public userEmail: any = undefined
+  public complaint: any = undefined
   public confirmation: any
 
-  // tslint:disable-next-line:no-unused-variable
   constructor (private userService: UserService, private complaintService: ComplaintService) { }
 
   ngOnInit () {
@@ -53,7 +52,10 @@ export class ComplaintComponent implements OnInit {
       this.complaint.UserId = user.id
       this.userEmail = user.email
       this.customerControl.setValue(this.userEmail)
-    }, (err) => err)
+    }, (err) => {
+      this.complaint = undefined
+      console.log(err)
+    })
   }
 
   save () {
