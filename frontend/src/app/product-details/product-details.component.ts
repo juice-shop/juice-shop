@@ -1,12 +1,13 @@
+import { ProductReviewEditComponent } from './../product-review-edit/product-review-edit.component'
 import { UserService } from './../Services/user.service'
 import { ProductReviewService } from './../Services/product-review.service'
 import { Component, OnInit, Inject } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks'
 import { map } from 'rxjs/operators'
 import fontawesome from '@fortawesome/fontawesome'
-import { faPaperPlane, faArrowCircleLeft } from '@fortawesome/fontawesome-free-solid'
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft)
+import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
+fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faEdit)
 
 @Component({
   selector: 'app-product-details',
@@ -19,7 +20,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public reviews$: any
   public userSubscription: any
   // tslint:disable-next-line:no-unused-variable
-  constructor (private dialogRef: MatDialogRef<ProductDetailsComponent>,
+  constructor (private dialog: MatDialog, private dialogRef: MatDialogRef<ProductDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
     private userService: UserService) { }
 
@@ -53,6 +54,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
     textPut.value = ''
     this.productReviewService.create(this.data.id, review).subscribe((response: any) => response,(err) => err)
+  }
+
+  editReview (review) {
+    this.dialog.open(ProductReviewEditComponent, {
+      width: '1000px',
+      height: 'max-content',
+      data: {
+        reviewData : review
+      }
+    }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.id))
   }
 
 }
