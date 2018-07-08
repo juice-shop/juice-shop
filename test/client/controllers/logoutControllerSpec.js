@@ -4,6 +4,8 @@ describe('controllers', function () {
   beforeEach(module('juiceShop'))
   beforeEach(inject(function ($injector) {
     $httpBackend = $injector.get('$httpBackend')
+    $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
+    $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
   }))
 
   describe('LogoutController', function () {
@@ -21,20 +23,19 @@ describe('controllers', function () {
       expect(controller).toBeDefined()
     }))
 
-    it('should save log in IP', inject(function () {
+    it('should perform the logout properly', inject(function () {
+      // should save log in IP
       $httpBackend.whenGET('/rest/saveLoginIp').respond(200)
-    }))
+      $httpBackend.flush()
 
-    it('should remove authentication token from cookies', inject(function () {
+      // should remove authentication token from cookies
       expect(cookies.get('token')).toBeUndefined()
-    }))
 
-    it('should remove basket id from session storage', inject(function () {
+      // should remove basket id from session storage
       expect(window.sessionStorage.bid).toBeUndefined()
-    }))
 
-    it('should forward to main page', inject(function () {
-      expect(location.path()).toBe('/')
+      // should forward to main page'
+      expect(location.path()).toBe('/search')
     }))
   })
 })
