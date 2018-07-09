@@ -40,7 +40,7 @@
       <div class="submit-review">
 
         <mat-form-field appearance="outline">
-           <textarea #textPut cols="50" matInput placeholder="Submit a review" matTextareaAutosize matAutosizeMinRows="2"
+           <textarea [formControl]="reviewControl" #textPut cols="50" matInput placeholder="Submit a review" matTextareaAutosize matAutosizeMinRows="2"
             matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 

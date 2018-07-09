@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { map } from 'rxjs/operators'
 import fontawesome from '@fortawesome/fontawesome'
 import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
+import { FormControl, Validators } from '@angular/forms'
 fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faEdit)
 
 @Component({
@@ -19,6 +20,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string
   public reviews$: any
   public userSubscription: any
+  public reviewControl: FormControl = new FormControl('',[Validators.required,Validators.maxLength(160)])
   constructor (private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
     private userService: UserService, private sanitizer: DomSanitizer) { }
