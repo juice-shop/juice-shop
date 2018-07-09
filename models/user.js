@@ -27,7 +27,7 @@ module.exports = (sequelize, {STRING, BOOLEAN}) => {
     },
     lastLoginIp: {
       type: STRING,
-      defaultValue: 'x.x.x.x'
+      defaultValue: '0.0.0.0'
     }
   })
 
