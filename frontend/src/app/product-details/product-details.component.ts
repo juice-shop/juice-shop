@@ -3,7 +3,6 @@ import { UserService } from './../Services/user.service'
 import { ProductReviewService } from './../Services/product-review.service'
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
-import { DomSanitizer } from '@angular/platform-browser'
 import { map } from 'rxjs/operators'
 import fontawesome from '@fortawesome/fontawesome'
 import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
@@ -23,11 +22,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public reviewControl: FormControl = new FormControl('',[Validators.required,Validators.maxLength(160)])
   constructor (private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
-    private userService: UserService, private sanitizer: DomSanitizer) { }
+    private userService: UserService) { }
 
   ngOnInit () {
     this.data = this.data.productData
-    this.data.description = this.sanitizer.bypassSecurityTrustHtml(this.data.description)
     this.reviews$ = this.productReviewService.get(this.data.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
       if (user && user.email) {
