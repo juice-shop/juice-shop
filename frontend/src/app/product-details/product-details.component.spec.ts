@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
 
 import { ProductDetailsComponent } from './product-details.component'

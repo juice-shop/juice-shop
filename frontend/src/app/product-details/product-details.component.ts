@@ -2,7 +2,7 @@ import { ProductReviewEditComponent } from './../product-review-edit/product-rev
 import { UserService } from './../Services/user.service'
 import { ProductReviewService } from './../Services/product-review.service'
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
 import { map } from 'rxjs/operators'
 import fontawesome from '@fortawesome/fontawesome'
