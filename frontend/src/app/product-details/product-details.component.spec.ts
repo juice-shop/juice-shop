@@ -13,6 +13,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 
 import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
+import { ReactiveFormsModule } from '@angular/forms'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
@@ -42,6 +43,7 @@ describe('ProductDetailsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
         MatFormFieldModule,
