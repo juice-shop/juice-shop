@@ -1,5 +1,5 @@
 import { ProductReviewEditComponent } from './../product-review-edit/product-review-edit.component'
-import { DomSanitizer, By } from '@angular/platform-browser'
+import { By } from '@angular/platform-browser'
 import { MatDividerModule } from '@angular/material/divider'
 import { UserService } from './../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
@@ -21,7 +21,6 @@ describe('ProductDetailsComponent', () => {
   let userService
   let productReviewService
   let dialog
-  let sanitizer
   let dialogRefMock
 
   beforeEach(async(() => {
@@ -31,9 +30,6 @@ describe('ProductDetailsComponent', () => {
     productReviewService = jasmine.createSpyObj('ProductReviewService',['get','create'])
     productReviewService.get.and.returnValue(of([]))
     productReviewService.create.and.returnValue(of({}))
-    sanitizer = jasmine.createSpyObj('DOMSanitizer',['bypassSecurityTrustHtml','sanitize'])
-    sanitizer.bypassSecurityTrustHtml.and.returnValue({})
-    sanitizer.sanitize.and.returnValue({})
     dialog = jasmine.createSpyObj('Dialog',['open'])
     dialogRefMock = {
       afterClosed:  () => of({})
@@ -56,8 +52,7 @@ describe('ProductDetailsComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: ProductReviewService, useValue: productReviewService },
         { provide: MatDialog, useValue: dialog },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
-        { provide: DomSanitizer, useValue: sanitizer }
+        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
     })
     .compileComponents()
@@ -78,12 +73,6 @@ describe('ProductDetailsComponent', () => {
     component.ngOnInit()
     expect(component.data).toBeDefined()
     expect(component.data.name).toBe('Test Juice')
-  })
-
-  it('should render product description as trusted HTML', () => {
-    component.data = { productData: { description: '<script>alert("XSS")</script>' } }
-    component.ngOnInit()
-    expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
   })
 
   it('should post anonymous review if no user email is returned', () => {
