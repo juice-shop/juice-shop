@@ -20,7 +20,7 @@ describe('QrCodeComponent', () => {
       ],
       declarations: [ QrCodeComponent ],
       providers: [
-         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
+         { provide: MAT_DIALOG_DATA, useValue: { data: 'data', url: 'url', address: 'address', title: 'title' } }
       ]
     })
     .compileComponents()
@@ -32,7 +32,12 @@ describe('QrCodeComponent', () => {
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
+    component.ngOnInit()
+    expect(component.title).toBe('title')
+    expect(component.url).toBe('url')
+    expect(component.address).toBe('address')
+    expect(component.data).toBe('data')
   })
 })
