@@ -19,7 +19,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string
   public reviews$: any
   public userSubscription: any
-  public reviewControl: FormControl = new FormControl('',[Validators.required,Validators.maxLength(160)])
+  public reviewControl: FormControl = new FormControl('',[Validators.maxLength(160)])
   constructor (private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
     private userService: UserService) { }
