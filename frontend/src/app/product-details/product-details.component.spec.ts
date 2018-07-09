@@ -124,8 +124,9 @@ describe('ProductDetailsComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should post review by adding it to the array of observables', () => {
+  it('should refresh reviews after posting a review', () => {
     component.data = { productData: { id: 42 } }
+    productReviewService.create.and.returnValue(of({}))
     productReviewService.get.and.returnValue(of([{ message: 'Review 1' ,author: 'Anonymous' }]))
     userService.whoAmI.and.returnValue(of({}))
     component.ngOnInit()
@@ -133,9 +134,8 @@ describe('ProductDetailsComponent', () => {
     textArea.value = 'Great product!'
     const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
     buttonDe.triggerEventHandler('click',null)
-    let reviews: any[]
-    component.reviews$.subscribe((reviewArray) => reviews = reviewArray)
-    expect(reviews.length).toBe(2)
+    expect(productReviewService.create).toHaveBeenCalled()
+    expect(productReviewService.get).toHaveBeenCalled()
   })
 
   it('should open a modal dialog with review editor', () => {
