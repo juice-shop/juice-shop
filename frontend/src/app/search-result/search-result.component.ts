@@ -32,6 +32,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   ngAfterViewInit () {
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
+      this.trustProductDescription(this.tableData)
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
       this.filterTable()
@@ -95,6 +96,12 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
         })
       }
     })
+  }
+
+  trustProductDescription (tableData: any[]) {
+    for (let i = 0; i < tableData.length; i++) {
+      tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
+    }
   }
 
   isLoggedIn () {

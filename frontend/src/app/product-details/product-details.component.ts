@@ -1,9 +1,9 @@
 import { ProductReviewEditComponent } from './../product-review-edit/product-review-edit.component'
 import { UserService } from './../Services/user.service'
 import { ProductReviewService } from './../Services/product-review.service'
-import { Component, OnInit, Inject } from '@angular/core'
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks'
+import { DomSanitizer } from '@angular/platform-browser'
 import { map } from 'rxjs/operators'
 import fontawesome from '@fortawesome/fontawesome'
 import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
@@ -19,13 +19,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string
   public reviews$: any
   public userSubscription: any
-  // tslint:disable-next-line:no-unused-variable
-  constructor (private dialog: MatDialog, private dialogRef: MatDialogRef<ProductDetailsComponent>,
+  constructor (private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
-    private userService: UserService) { }
+    private userService: UserService, private sanitizer: DomSanitizer) { }
 
   ngOnInit () {
     this.data = this.data.productData
+    this.data.description = this.sanitizer.bypassSecurityTrustHtml(this.data.description)
     this.reviews$ = this.productReviewService.get(this.data.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
       if (user && user.email) {
@@ -33,7 +33,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       } else {
         this.author = 'Anonymous'
       }
-    })
+    },(err) => console.log(err))
   }
 
   ngOnDestroy () {
@@ -53,7 +53,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }))
 
     textPut.value = ''
-    this.productReviewService.create(this.data.id, review).subscribe((response: any) => response,(err) => err)
+    this.productReviewService.create(this.data.id, review).subscribe((response: any) => response,(err) => console.log(err))
   }
 
   editReview (review) {
