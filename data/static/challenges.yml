@@ -422,3 +422,19 @@
   hint: 'No matter how good your eyes are, you will need tool assistance for this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#rat-out-a-notorious-character-hiding-in-plain-sight-in-the-shop'
   key: hiddenImageChallenge
+-
+  name: 'Christmas Special'
+  category: 'Injection'
+  description: 'Order the Christmas special offer of 2014.'
+  difficulty: 3
+  hint: 'Find out how the application handles unavailable products and try to find a loophole.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
+  key: christmasSpecialChallenge
+-
+  name: 'User Credentials'
+  category: 'Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection'
+  difficulty: 4
+  hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
+  key: unionSqlInjectionChallenge
