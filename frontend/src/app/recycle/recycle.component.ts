@@ -38,6 +38,7 @@ export class RecycleComponent implements OnInit {
     },(err) => console.log(err))
 
     this.initRecycle()
+    this.findAll()
   }
 
   initRecycle () {
@@ -54,8 +55,8 @@ export class RecycleComponent implements OnInit {
     this.recycle.quantity = this.recycleQuantityControl.value
     if (this.pickup.value) {
       this.recycle.isPickUp = this.pickup.value
+      this.recycle.date = this.pickUpDateControl.value
     }
-    this.recycle.date = this.pickUpDateControl.value
 
     this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
       this.confirmation = 'Thank you for using our recycling service. We will ' + (savedRecycle.isPickup ? ('pick up your pomace on ' + savedRecycle.pickupDate) : 'deliver your recycle box asap') + '.'
