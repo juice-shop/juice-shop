@@ -33,7 +33,7 @@
 
       <blockquote *ngFor="let review of reviews$|async">
         <p>{{review.message}}</p>
-        <button color="secondary" mat-stroked-button *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i class="fas fa-edit"></i> Edit </button>
+        <button class="review-button" color="secondary" mat-stroked-button *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i class="fas fa-edit"></i> Edit </button>
         <footer style="text-transform:capitalize"><cite>--{{review.author}}</cite></footer>
       </blockquote>
 
@@ -45,7 +45,7 @@
         </mat-form-field>
 
         <div class="btn-container" style="display:flex;flex-flow:row;">
-          <button style="width:fit-content;margin-bottom:15px;" mat-raised-button color="primary" (click)="addReview(textPut)"><i class="fas fa-paper-plane fa-lg"></i> Submit</button>
+          <button id="submitButton" style="width:fit-content;margin-bottom:15px;" mat-raised-button color="primary" (click)="addReview(textPut)"><i class="fas fa-paper-plane fa-lg"></i> Submit</button>
         </div>
 
       </div>
