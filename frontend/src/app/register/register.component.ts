@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
         SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
           this.router.navigate(['/login'])
         })
-    }, (err) => err)
+    }, (err) => console.log(err))
   }
 
 }
