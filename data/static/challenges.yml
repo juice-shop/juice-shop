@@ -8,8 +8,8 @@
   key: scoreBoardChallenge
 -
   name: 'Email Leak'
-  category: 'Broken Authorization'
-  description: 'Get the email of other logged in user with cross-domain request.'
+  category: 'Sensitive Data Exposure'
+  description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
   difficulty: 1
   hint: 'Try to find an endpoint which responds with user information.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#leak-user-emails'
