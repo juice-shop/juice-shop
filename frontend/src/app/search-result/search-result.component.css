@@ -1,12 +1,7 @@
 .table-container {
-    display: flex;
-    position:relative;
-    flex-direction: column;
-    max-height: 600px;
-    margin-top:40px;
-    margin-left: 16.677%;
-    width: 72.666667%;
-  }
+    margin: 70px;
+    min-width: 650px;
+}
 
 .heading {
     justify-content: center;
@@ -14,11 +9,6 @@
     color: rgba(0, 0, 0, 0.54);
     background: rgba(0, 0, 0, 0.13);
 }
-
-  .mat-table {
-    overflow: auto;
-    max-height: 600px;
-  }
 
 
 .img-thumbnail{
@@ -28,26 +18,21 @@
 }
 
 .mat-column-Description{
-    min-width:400px;
-    max-width:560px;
+    flex: 5;
 }
 
 .mat-column-Product{
-    min-width:100px;
-    max-width:140px;
-    padding-right: 40px;
+    flex: 1.2;
 }
 
 .mat-column-Image{
-    min-width:100px;
-    max-width:100px;
+    flex: 0.8;
 }
 
 .mat-column-Select{
-    max-width:60px;
+    flex: 0.5;
 }
 
 .mat-column-Price{
-    max-width:65px;
-    padding-left:20px;
+    flex: 0.5;
 }
