@@ -9,8 +9,8 @@ module.exports = function saveLoginIp () {
     var loggedInUser = insecurity.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       var lastLoginIp = req.headers['true-client-ip']
-      if (utils.notSolved(challenges.escalateSelfXssChallenge) && lastLoginIp === '<script>alert("XSS")</script>') {
-        utils.solve(challenges.escalateSelfXssChallenge)
+      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<script>alert("XSS")</script>') {
+        utils.solve(challenges.httpHeaderXssChallenge)
       }
       if (lastLoginIp === undefined) {
         lastLoginIp = req.connection.remoteAddress
