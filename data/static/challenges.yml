@@ -10,9 +10,9 @@
   name: 'Email Leak'
   category: 'Sensitive Data Exposure'
   description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
-  difficulty: 1
-  hint: 'Try to find an endpoint which responds with user information.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#leak-user-emails'
+  difficulty: 5
+  hint: 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#perform-an-unwanted-information-disclosure-by-accessing-data-cross-domain'
   key: emailLeakChallenge  
 -
   name: 'Error Handling'
