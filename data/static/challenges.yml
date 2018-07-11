@@ -101,7 +101,7 @@
   difficulty: 4
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
-  key: escalateSelfXssChallenge  
+  key: httpHeaderXssChallenge  
 -
   name: 'User Credentials'
   category: 'Injection'
