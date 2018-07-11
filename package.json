@@ -66,6 +66,7 @@
     "express-jwt": "0.1.3",
     "express-rate-limit": "~2.11",
     "express-security.txt": "~1.0",
+    "express-robots": "~0.1",
     "file-stream-rotator": "~0.2",
     "fs-extra": "~6.0",
     "glob": "~7.1.2",
