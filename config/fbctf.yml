@@ -212,7 +212,7 @@ ctf:
     registerAdminChallenge:
       name: Jamaica
       code: JA
-    escalateSelfXssChallenge:
+    httpHeaderXssChallenge:
       name: Puerto Rico
       code: PR
 
