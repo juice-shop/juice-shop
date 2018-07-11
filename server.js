@@ -13,6 +13,7 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
+const robots = require('express-robots')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
@@ -101,6 +102,9 @@ app.use('/security.txt', securityTxt({
   encryption: config.get('application.securityTxt.encryption'),
   acknowledgements: config.get('application.securityTxt.acknowledgements')
 }))
+
+/* robots.txt */
+app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/public/images/tracking', verify.accessControlChallenges())
