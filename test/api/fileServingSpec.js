@@ -42,6 +42,18 @@ describe('Server', () => {
       .expect('bodyContains', '<meta name="description" content="An intentionally insecure JavaScript Web Application">')
       .done(done)
   })
+
+  it('GET serves a security.txt file', done => {
+    frisby.get(URL + '/security.txt')
+      .expect('status', 200)
+      .done(done)
+  })
+
+  it('GET serves a robots.txt file', done => {
+    frisby.get(URL + '/robots.txt')
+      .expect('status', 200)
+      .done(done)
+  })
 })
 
 describe('/public/images/tracking', () => {
