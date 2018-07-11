@@ -41,7 +41,7 @@ describe('/rest', () => {
 
     it('should be possible to save log-in IP when logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<script>alert("Self-XSS")</script>\'}});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<script>alert("XSS")</script>\'}});')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
