@@ -61,4 +61,12 @@ describe('/', () => {
 
     protractor.expect.challengeSolved({challenge: 'Security Policy'})
   })
+
+  describe('challenge "emailLeak"', () => {
+    it('should be able to request the callback on /rest/user/whoami', () => {
+      browser.driver.get(browser.baseUrl + '/rest/user/whoami?callback=func')
+    })
+
+    protractor.expect.challengeSolved({challenge: 'Email Leak'})
+  })
 })

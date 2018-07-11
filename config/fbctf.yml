@@ -209,6 +209,9 @@ ctf:
     basketManipulateChallenge:
       name: Bhutan
       code: BT
+    emailLeakChallenge:
+      name: Bahamas
+      code: BH
     registerAdminChallenge:
       name: Jamaica
       code: JA
