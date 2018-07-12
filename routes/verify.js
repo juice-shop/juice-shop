@@ -248,3 +248,18 @@ function hiddenImageChallenge () {
     }
   })
 }
+
+function supplyChainAttackChallenge () { // TODO Extend to also pass for given CVE once one has been assigned (otherwise remove CVE mention from challenge description)
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.supplyChainAttackChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.supplyChainAttackChallenge)
+    }
+  })
+}

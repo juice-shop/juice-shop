@@ -171,6 +171,17 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
+  describe('challenge "supplyChainAttack"', () => {
+    it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
+      comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
+  })
+
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
       const answer = eval(text).toString() // eslint-disable-line no-eval
