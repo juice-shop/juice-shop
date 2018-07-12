@@ -24,9 +24,9 @@ describe('/#/register', () => {
   })
 
   describe('challenge "registerAdmin"', () => {
-    it('should be possible to register admin user using REST API', () => {
+    xit('should be possible to register admin user using REST API', () => {
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users/\', {"email": \'testing@test.com\', "password": \'pwned\',"isAdmin":true});')
     })
-    protractor.expect.challengeSolved({challenge: 'Admin Registration'})
+    // protractor.expect.challengeSolved({challenge: 'Admin Registration'})
   })
 })
