@@ -60,7 +60,7 @@
     "cookie-parser": "~1.4",
     "cors": "~2.8",
     "dottie": "~2.0",
-    "download": "~6.2",
+    "download": "~7.1.0",
     "epilogue-js": "~0.7",
     "errorhandler": "~1.5",
     "express": "~4.16",
