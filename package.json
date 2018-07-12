@@ -101,7 +101,7 @@
     "swagger-ui-express": "~3.0.7",
     "z85": "~0.0",
     "unzipper": "0.8.12",
-    "clarinet": "*"
+    "clarinet": "~0.12.0"
   },
   "devDependencies": {
     "chai": "~4.1",
