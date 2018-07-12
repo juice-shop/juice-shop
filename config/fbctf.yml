@@ -194,4 +194,7 @@ ctf:
     hiddenImageChallenge:
       name: Lithuania
       code: LT
+    supplyChainAttackChallenge:
+      name: Togo
+      code: TG
 
