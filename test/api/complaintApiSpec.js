@@ -11,7 +11,7 @@ describe('/api/Complaints', () => {
     frisby.post(API_URL + '/Complaints', {
       headers: authHeader,
       body: {
-        message: 'My stuff never arrived! This is outrageous!'
+        message: 'You have no clue what https://github.com/eslint/eslint-scope/issues/39 means, do you???'
       }
     })
       .expect('status', 201)
