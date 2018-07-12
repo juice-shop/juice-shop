@@ -36,6 +36,19 @@ describe('/rest', () => {
     protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
   })
 
+  describe('challenge "xss5"', () => {
+    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+
+    it('should be possible to save log-in IP when logged in', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<script>alert("XSS")</script>\'}});')
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+
+    protractor.expect.challengeSolved({challenge: 'XSS Tier 5'})
+  })
+
   describe('challenge "changeProduct"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       browser.waitForAngularEnabled(false)
@@ -47,5 +60,18 @@ describe('/rest', () => {
     })
 
     protractor.expect.challengeSolved({challenge: 'Product Tampering'})
+  })
+})
+
+describe('/rest/saveLoginIp', () => {
+  it('should not be possible to save log-in IP when not logged in', () => {
+    browser.waitForAngularEnabled(false)
+    browser.get('/rest/saveLoginIp')
+    var el = element(by.css('pre'))
+    el.getText().then(function (text) {
+      expect(text).toMatch('Unauthorized')
+    })
+    browser.driver.sleep(1000)
+    browser.waitForAngularEnabled(true)
   })
 })

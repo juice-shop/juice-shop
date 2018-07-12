@@ -215,3 +215,7 @@ ctf:
     registerAdminChallenge:
       name: Jamaica
       code: JA
+    httpHeaderXssChallenge:
+      name: Puerto Rico
+      code: PR
+

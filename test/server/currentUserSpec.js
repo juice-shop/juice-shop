@@ -17,16 +17,15 @@ describe('currentUser', () => {
 
     retrieveLoggedInUser()(this.req, this.res)
 
-    expect(this.res.json).to.have.been.calledWith({ user: { id: undefined, email: undefined } })
+    expect(this.res.json).to.have.been.calledWith({user: {id: undefined, email: undefined, lastLoginIp: undefined}})
   })
 
   it('should return ID and email of user belonging to cookie from the request', () => {
     this.req.cookies.token = 'token12345'
     this.req.query.callback = undefined
-    require('../../lib/insecurity').authenticatedUsers.put('token12345', {data: {id: 42, email: 'test@juice-sh.op'}})
-
+    require('../../lib/insecurity').authenticatedUsers.put('token12345', {data: {id: 42, email: 'test@juice-sh.op', lastLoginIp: '0.0.0.0'}})
     retrieveLoggedInUser()(this.req, this.res)
 
-    expect(this.res.json).to.have.been.calledWith({ user: { id: 42, email: 'test@juice-sh.op' } })
+    expect(this.res.json).to.have.been.calledWith({ user: {id: 42, email: 'test@juice-sh.op', lastLoginIp: '0.0.0.0'} })
   })
 })
