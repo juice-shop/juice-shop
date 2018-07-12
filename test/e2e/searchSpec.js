@@ -59,4 +59,3 @@ describe('/rest/product/search', () => {
     // protractor.expect.challengeSolved({challenge: 'Christmas Special'})
   })
 })
-  
