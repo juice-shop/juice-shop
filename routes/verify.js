@@ -106,6 +106,9 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.hiddenImageChallenge)) {
     hiddenImageChallenge()
   }
+  if (utils.notSolved(challenges.supplyChainAttackChallenge)) {
+    supplyChainAttackChallenge()
+  }
   next()
 }
 
