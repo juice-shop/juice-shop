@@ -177,6 +177,8 @@
 <main class="container-fluid" ng-view></main>
 
 <a ng-show="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/public/images/ribbons/forkme_right_{{gitHubRibbon}}.png" alt="Fork me on GitHub"></a>
-
+<div ng-controller="NavbarController" ng-show="isLoggedIn()" class="container" style="float: right;text-align: right;padding: 5px;margin: 10px;">
+    <span translate="LAST_LOGIN_IP"></span>: {{lastLoginIp}}
+</div>
 </body>
 </html>

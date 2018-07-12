@@ -143,5 +143,6 @@
   "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
   "TITLE_TRACK_ORDERS": "Track Orders",
   "LABEL_ORDER_ID": "Order ID",
-  "BTN_TRACK": "Track"
+  "BTN_TRACK": "Track",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
