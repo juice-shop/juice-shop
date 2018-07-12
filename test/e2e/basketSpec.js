@@ -38,14 +38,14 @@ describe('/#/basket', () => {
     })
 
     describe('challenge "Basket Access Tier 2"', () => {
-      it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
+      xit('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.defaults.headers.post["Content-Type"] = "text/plain"; $http.post(\'/api/BasketItems/\', \'{"ProductId":14,"BasketId":"1","quantity":1,"BasketId":"2"}\');')
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({challenge: 'Basket Access Tier 2'})
+      // protractor.expect.challengeSolved({challenge: 'Basket Access Tier 2'})
     })
   })
 
