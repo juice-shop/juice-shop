@@ -25,8 +25,8 @@ describe('/', () => {
     protractor.expect.challengeSolved({challenge: 'Premium Paywall'})
   })
 
-  describe('challenge "geocitiesTheme"', () => {
-    it('should be possible to change the CSS theme to geo-bootstrap', () => {
+  describe('challenge "geocitiesTheme"', () => { // TODO Recreate using a custom GeoCities-style Material theme <or> drop completely
+    xit('should be possible to change the CSS theme to geo-bootstrap', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript('document.getElementById("theme").setAttribute("href", "css/geo-bootstrap/swatch/bootstrap.css");')
       browser.driver.sleep(1000)
@@ -35,12 +35,12 @@ describe('/', () => {
       browser.get('/#/search')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Eye Candy'})
+    // protractor.expect.challengeSolved({challenge: 'Eye Candy'})
   })
 
   describe('challenge "extraLanguage"', () => {
     it('should be able to access the Klingon translation file', () => {
-      browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
+      browser.driver.get(browser.baseUrl + '/assets/i18n/tlh_AA.json')
     })
 
     protractor.expect.challengeSolved({challenge: 'Extra Language'})
@@ -48,7 +48,7 @@ describe('/', () => {
 
   describe('challenge "retrieveBlueprint"', () => {
     it('should be able to access the blueprint file', () => {
-      browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
+      browser.driver.get(browser.baseUrl + '/assets/public/images/products/' + blueprint)
     })
 
     protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})

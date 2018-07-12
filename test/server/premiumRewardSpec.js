@@ -16,10 +16,10 @@ describe('premiumReward', () => {
     })
   })
 
-  it('should serve /app/private/under-construction.gif', () => {
+  it('should serve /frontend/src/assets/private/under-construction.gif', () => {
     servePremiumContent()(this.req, this.res)
 
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]under-construction\.gif/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]src[/\\]assets[/\\]private[/\\]under-construction\.gif/))
   })
 
   it('should solve "premiumPaywallChallenge"', () => {

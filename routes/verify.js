@@ -110,8 +110,8 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
     typosquattingNpmChallenge()
   }
-  if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
-    typosquattingBowerChallenge()
+  if (utils.notSolved(challenges.typosquattingAngularChallenge)) {
+    typosquattingAngularChallenge()
   }
   if (utils.notSolved(challenges.hiddenImageChallenge)) {
     hiddenImageChallenge()
@@ -229,17 +229,17 @@ function typosquattingNpmChallenge () {
   })
 }
 
-function typosquattingBowerChallenge () {
-  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%angular-tooltipp%'}}}
+function typosquattingAngularChallenge () {
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%ng2-bar-rating%'}}}
   ).then(({count}) => {
     if (count > 0) {
-      utils.solve(challenges.typosquattingBowerChallenge)
+      utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
-  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%angular-tooltipp%'}}}
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%ng2-bar-rating%'}}}
   ).then(({count}) => {
     if (count > 0) {
-      utils.solve(challenges.typosquattingBowerChallenge)
+      utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
 }

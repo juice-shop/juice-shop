@@ -7,6 +7,6 @@ module.exports = function servePremiumContent () {
     if (utils.notSolved(challenges.premiumPaywallChallenge)) {
       utils.solve(challenges.premiumPaywallChallenge)
     }
-    res.sendFile(path.resolve(__dirname, '../app/private/under-construction.gif'))
+    res.sendFile(path.resolve(__dirname, '../frontend/src/assets/private/under-construction.gif'))
   }
 }

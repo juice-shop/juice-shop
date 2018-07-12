@@ -20,7 +20,7 @@ env:
 before_install:
   - 'rm -rf node_modules'
 before_script:
-  - 'npm install grunt-cli -g'
+  - 'npm i -g grunt-cli'
   - 'sh -e /etc/init.d/xvfb start'
   - 'sleep 3'
 script:
@@ -56,7 +56,7 @@ deploy:
   app:
     master: juice-shop
     develop: juice-shop-staging
-    gsoc-integration: juice-shop-gsoc
+    gsoc-frontend: juice-shop-gsoc
   on:
     repo: bkimminich/juice-shop
     node: 9

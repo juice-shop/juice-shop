@@ -55,6 +55,7 @@
   "dependencies": {
     "body-parser": "~1.18",
     "colors": "~1.3.0",
+    "concurrently": "^3.5.1",
     "config": "~1.30.0",
     "cookie-parser": "~1.4",
     "cors": "~2.8",
@@ -86,6 +87,7 @@
     "marsdb": "~0.6",
     "morgan": "~1.9",
     "multer": "~1.3",
+    "ngx-bar-rating": "^1.1.0",
     "notevil": "~1.1",
     "pdfkit": "~0.8",
     "replace": "~1.0.0",
@@ -149,14 +151,18 @@
   },
   "license": "MIT",
   "scripts": {
-    "postinstall": "npm --prefix ./app install ./app && grunt minify",
+    "postinstall": "npm --prefix ./app install ./app && grunt minify && cd frontend && npm install && cd .. && npm run build",
+    "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
+    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test": "standard && cd frontend && ng lint && ng test --watch=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent -i",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update --gecko false",
     "preprotractor": "npm run update-webdriver",
     "protractor": "node test/e2eTests.js",
+    "pree2e": "npm install",
+    "e2e": "node test/e2eTests.js",
     "stryker": "stryker run stryker.client-conf.js",
     "vagrant": "cd vagrant && vagrant up"
   },
@@ -166,7 +172,8 @@
   "standard": {
     "ignore": [
       "/app/private/**",
-      "/vagrant/**"
+      "/vagrant/**",
+      "/frontend/**"
     ],
     "env": {
       "jasmine": true,
