@@ -1,4 +1,4 @@
-const applicationRoot = __dirname.replace(/\\/g, '/')
+// const applicationRoot = __dirname.replace(/\\/g, '/')
 const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
@@ -110,9 +110,9 @@ app.use('/security.txt', securityTxt({
 app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/public/images/tracking', verify.accessControlChallenges())
-app.use('/public/images/products', verify.accessControlChallenges())
-app.use('/i18n', verify.accessControlChallenges())
+app.use('/assets/public/images/tracking', verify.accessControlChallenges())
+app.use('/assets/public/images/products', verify.accessControlChallenges())
+app.use('/assets/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
@@ -125,7 +125,9 @@ app.use('/encryptionkeys/:file', keyServer())
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use(express.static(applicationRoot + '/app'))
+// app.use(express.static(applicationRoot + '/app'))
+app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
+
 app.use(cookieParser('kekse'))
 
 /* File Upload */

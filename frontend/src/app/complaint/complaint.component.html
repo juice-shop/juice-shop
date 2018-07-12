@@ -1,0 +1,31 @@
+<mat-card>
+
+  <h3> File Complaint </h3>
+
+  <div class="form-container">
+
+    <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)" style="color:#5bc0de">{{ confirmation }}</div>
+
+    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')" style="color:red">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
+    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')" style="color:red">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Customer</mat-label>
+      <input [formControl]="customerControl" type="text" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Message</mat-label>
+      <textarea id="complaintMessage" [formControl]="messageControl" cols="30" rows="10" matInput></textarea>
+      <mat-error *ngIf="messageControl.invalid && messageControl?.errors.maxlength">{{"INVALID_MESSAGE_LENGTH" | translate: { length: '1-160' } }}</mat-error>
+      <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" | translate}}</mat-error>
+    </mat-form-field>
+
+    <label for="file">Invoice</label>
+    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf">
+
+  </div>
+
+  <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+
+</mat-card>

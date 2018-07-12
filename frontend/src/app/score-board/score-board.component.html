@@ -1,0 +1,82 @@
+<mat-card>
+
+  <mat-card-title>Score Board <b>{{percentChallengesSolved}}%</b></mat-card-title>
+  <mat-progress-bar mode="determinate" [color]="completionColor" [value]="percentChallengesSolved"></mat-progress-bar>
+
+</mat-card>
+
+<mat-card>
+
+  <mat-card-title>Difficulty</mat-card-title>
+  <mat-divider></mat-divider>
+  <div class="star-container">
+    <button *ngFor="let difficulty of [1,2,3,4,5,6]"  (click)="toggleDifficulty(difficulty)" mat-button>
+      <label>
+        <span class="fa-4x fa-layers fa-fw">
+          <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18" aria-hidden="true" data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
+            <linearGradient [id]="difficulty" x1="0" x2="0" y1="0" y2="100%">
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" stop-color="grey"/>
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" stop-color="#FA7D2B"/>
+            </linearGradient>
+            <path [attr.fill]="offsetValue[difficulty - 1] === '0%' ? '#64AA00' : 'inherit'"
+            d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+            </path>
+          </svg>
+          <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9" style="font-weight:900;">{{difficulty}}</span>
+          <span class="fa-layers-counter"
+            [style.backgroundColor]="((filterSolvedChallengesOfDifficulty(difficulty)).length === (filterChallengesByDifficulty(difficulty)).length ? '#62c462' : (filterSolvedChallengesOfDifficulty(difficulty)).length === 0 ? '#ee5f5b' : '#f89406')">
+              {{((filterSolvedChallengesOfDifficulty(difficulty)).length + '/' + (filterChallengesByDifficulty(difficulty)).length)}}
+          </span>
+        </span>
+      </label>
+    </button>
+  </div>
+
+</mat-card>
+
+<mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]">
+
+  <div class="heading">
+    <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
+  </div>
+
+  <mat-divider></mat-divider>
+  <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges,difficulty,'name')">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let challenge"> {{challenge.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let challenge"><div [innerHTML]="challenge.description"></div> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let challenge">
+        <button mat-button [style.backgroundColor]="challenge.solved ? 'green': 'red'">
+          <span [hidden]="challenge.solved" id="{{challenge.name}}.notSolved" class="not-solved" (click)="openHint(challenge)" [ngClass]="{ 'label-button': showChallengeHints && challenge.hintUrl }" matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
+            <i class="fas fa-book" aria-hidden="true" [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
+            <span>Unsolved</span>
+          </span>
+          <span [hidden]="!challenge.solved" id="{{challenge.name}}.solved" class="solved" (click)="repeatNotification(challenge)" [ngClass]="{ 'label-button': allowRepeatNotifications }" matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS') : null }}" matTooltipPosition="above">
+            <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
+            <span>Solved</span>
+          </span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</mat-expansion-panel>
+
+<footer>
+        Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a>community chat or by opening a <a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a> issue!
+</footer>
+
+<img src="assets/public/images/tracking/scoreboard.png"/>

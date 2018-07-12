@@ -167,7 +167,7 @@ ctf:
     typosquattingNpmChallenge:
       name: Nicaragua
       code: NI
-    typosquattingBowerChallenge:
+    typosquattingAngularChallenge:
       name: Senegal
       code: SN
     jwtTier1Challenge:

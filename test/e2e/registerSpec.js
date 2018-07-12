@@ -7,7 +7,7 @@ describe('/#/register', () => {
   })
 
   describe('challenge "xss2"', () => {
-    it('should be possible to bypass validation by directly using Rest API', () => {
+    xit('should be possible to bypass validation by directly using Rest API', () => {
       const EC = protractor.ExpectedConditions
 
       browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS")</script>\', password: \'xss\'});')
@@ -20,7 +20,7 @@ describe('/#/register', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 2'})
+    // protractor.expect.challengeSolved({challenge: 'XSS Tier 2'})
   })
 
   describe('challenge "registerAdmin"', () => {

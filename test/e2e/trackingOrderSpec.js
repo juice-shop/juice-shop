@@ -8,7 +8,7 @@ describe('/#/track-order', () => {
   })
 
   describe('challenge "xss0"', () => {
-    it('Order Id should be susceptible to reflected XSS attacks', () => {
+    xit('Order Id should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
       orderId.sendKeys('<script>alert("XSS")</script>')
@@ -20,6 +20,6 @@ describe('/#/track-order', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 0'})
+    // protractor.expect.challengeSolved({challenge: 'XSS Tier 0'})
   })
 })
