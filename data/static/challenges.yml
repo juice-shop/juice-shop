@@ -479,6 +479,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
   key: christmasSpecialChallenge
 -
+  name: 'User Credentials'
+  category: 'Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection'
+  difficulty: 4
+  hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
+  key: unionSqlInjectionChallenge
+-
   name: 'Admin Registration'
   category: 'Improper Input Validation'
   description: 'Get registered as admin user.'
