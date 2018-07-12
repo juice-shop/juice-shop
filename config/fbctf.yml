@@ -203,6 +203,9 @@ ctf:
     hiddenImageChallenge:
       name: Lithuania
       code: LT
+    supplyChainAttackChallenge:
+      name: Togo
+      code: TG
     timingAttackChallenge:
       name: Egypt
       code: EG
