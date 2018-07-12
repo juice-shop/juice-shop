@@ -494,3 +494,11 @@
   hint: 'No matter how good your eyes are, you will need tool assistance for this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#rat-out-a-notorious-character-hiding-in-plain-sight-in-the-shop'
   key: hiddenImageChallenge
+-
+  name: 'Supply Chain Attack'
+  category: 'Broken Authentication'
+  description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)'
+  difficulty: 4
+  hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#inform-the-development-team-about-a-danger-to-some-of-their-credentials'
+  key: supplyChainAttackChallenge
