@@ -11,7 +11,7 @@ describe('/#/search', () => {
   })
 
   describe('challenge "xss1"', () => {
-    it('search query should be susceptible to reflected XSS attacks', () => {
+    xit('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('<iframe src="javascript:alert(\'xss\')">')
