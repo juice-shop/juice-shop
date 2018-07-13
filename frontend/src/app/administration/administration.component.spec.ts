@@ -25,11 +25,11 @@ describe('AdministrationComponent', () => {
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
     userService = jasmine.createSpyObj('UserService',['find'])
-    userService.find.and.returnValue(of(['User1', 'User2']))
+    userService.find.and.returnValue(of([{email: 'User1'}, {email: 'User2'}]))
     recycleService = jasmine.createSpyObj('RecycleService',['find'])
     recycleService.find.and.returnValue(of(['Recycle1','Recycle2']))
     feedbackService = jasmine.createSpyObj('FeedbackService', ['find','del'])
-    feedbackService.find.and.returnValue(of(['Feedback1','Feedback2']))
+    feedbackService.find.and.returnValue(of([{comment: 'Feedback1'}, {comment: 'Feedback2'}]))
     feedbackService.del.and.returnValue(of(null))
 
     TestBed.configureTestingModule({
@@ -63,8 +63,8 @@ describe('AdministrationComponent', () => {
   it('should find all users via the UserService' , () => {
     component.findAllUsers()
     expect(component.userDataSource.length).toBe(2)
-    expect(component.userDataSource[0]).toBe('User1')
-    expect(component.userDataSource[1]).toBe('User2')
+    expect(component.userDataSource[0]).toBe({email: 'User1'})
+    expect(component.userDataSource[1]).toBe({email: 'User2'})
   })
 
   it('should give an error if UserService fails to find all users' , fakeAsync(() => {
@@ -95,8 +95,8 @@ describe('AdministrationComponent', () => {
   it('should find all feedbacks via FeedbackService', () => {
     component.findAllFeedbacks()
     expect(component.feedbackDataSource.length).toBe(2)
-    expect(component.feedbackDataSource[0]).toBe('Feedback1')
-    expect(component.feedbackDataSource[1]).toBe('Feedback2')
+    expect(component.feedbackDataSource[0]).toBe({comment: 'Feedback1'})
+    expect(component.feedbackDataSource[1]).toBe({comment: 'Feedback2'})
   })
 
   it('should give an error if FeedbackService fails to find all feedbacks' , fakeAsync(() => {
