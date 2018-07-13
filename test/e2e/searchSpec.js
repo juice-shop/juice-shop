@@ -11,19 +11,19 @@ describe('/#/search', () => {
   })
 
   describe('challenge "xss1"', () => {
-    xit('search query should be susceptible to reflected XSS attacks', () => {
+    it('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<script>alert("XSS")</script>')
+      searchQuery.sendKeys('<iframe src="javascript:alert(\'xss\')">')
       searchButton.click()
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS')
+        expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 1'})
+    // protractor.expect.challengeSolved({challenge: 'XSS Tier 1'}) // FIXME Verification on server side not possible as value never get submitted to it
   })
 })
 
