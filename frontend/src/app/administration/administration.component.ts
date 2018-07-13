@@ -4,6 +4,7 @@ import { FeedbackService } from './../Services/feedback.service'
 import { RecycleService } from './../Services/recycle.service'
 import { UserService } from './../Services/user.service'
 import { Component, OnInit } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
 import { faUser, faEye, faHome, faArchive, faTrashAlt } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
@@ -22,7 +23,7 @@ export class AdministrationComponent implements OnInit {
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
   public error
-  constructor (private dialog: MatDialog,private userService: UserService,private recycleService: RecycleService, private feedbackService: FeedbackService) {}
+  constructor (private dialog: MatDialog,private userService: UserService,private recycleService: RecycleService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.findAllUsers()
@@ -33,6 +34,9 @@ export class AdministrationComponent implements OnInit {
   findAllUsers () {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
+      for (let user of this.userDataSource) {
+        user.email = this.sanitizer.bypassSecurityTrustHtml(user.email)
+      }
     },(err) => {
       this.error = err
       console.log(this.error)
@@ -51,6 +55,9 @@ export class AdministrationComponent implements OnInit {
   findAllFeedbacks () {
     this.feedbackService.find().subscribe((feedbacks) => {
       this.feedbackDataSource = feedbacks
+      for (let feedback of this.feedbackDataSource) {
+        feedback.comment = this.sanitizer.bypassSecurityTrustHtml(feedback.comment)
+      }
     },(err) => {
       this.error = err
       console.log(this.error)
