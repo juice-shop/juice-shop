@@ -63,8 +63,8 @@ describe('AdministrationComponent', () => {
   it('should find all users via the UserService' , () => {
     component.findAllUsers()
     expect(component.userDataSource.length).toBe(2)
-    expect(component.userDataSource[0]).toBe({ email: 'User1' })
-    expect(component.userDataSource[1]).toBe({ email: 'User2' })
+    expect(component.userDataSource[0]).email.toMatch(/User1/)
+    expect(component.userDataSource[1]).email.toMatch(/User2/)
   })
 
   it('should give an error if UserService fails to find all users' , fakeAsync(() => {
@@ -95,8 +95,8 @@ describe('AdministrationComponent', () => {
   it('should find all feedbacks via FeedbackService', () => {
     component.findAllFeedbacks()
     expect(component.feedbackDataSource.length).toBe(2)
-    expect(component.feedbackDataSource[0]).toBe({ comment: 'Feedback1' })
-    expect(component.feedbackDataSource[1]).toBe({ comment: 'Feedback2' })
+    expect(component.feedbackDataSource[0]).comment.toMatch(/Feedback1/)
+    expect(component.feedbackDataSource[1]).comment.toMatch(/Feedback2/)
   })
 
   it('should give an error if FeedbackService fails to find all feedbacks' , fakeAsync(() => {
