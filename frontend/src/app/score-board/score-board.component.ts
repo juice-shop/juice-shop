@@ -33,7 +33,7 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       this.showChallengeHints = data.application.showChallengeHints
-    },(err) => err)
+    },(err) => console.log(err))
 
     this.challengeService.find().subscribe((challenges) => {
       this.challenges = challenges
@@ -52,7 +52,10 @@ export class ScoreBoardComponent implements OnInit {
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
       this.setOffset(challenges)
-    },(err) => console.log(err))
+    },(err) => {
+      this.challenges = undefined
+      console.log(err)
+    })
   }
 
   trustDescriptionHtml () {
