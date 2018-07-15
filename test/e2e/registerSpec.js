@@ -24,9 +24,21 @@ describe('/#/register', () => {
   })
 
   describe('challenge "registerAdmin"', () => {
-    xit('should be possible to register admin user using REST API', () => {
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users/\', {"email": \'testing@test.com\', "password": \'pwned\',"isAdmin":true});')
+    it('should be possible to register admin user using REST API', () => {
+      // browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users/\', {"email": \'testing@test.com\', "password": \'pwned\',"isAdmin":true});')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 201) {
+            console.log('Success')
+          }
+        }
+
+        xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify({'email': 'testing@test.com', 'password': 'pwned', 'isAdmin': true}))
+      })
     })
-    // protractor.expect.challengeSolved({challenge: 'Admin Registration'})
+    protractor.expect.challengeSolved({challenge: 'Admin Registration'})
   })
 })
