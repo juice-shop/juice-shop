@@ -50,8 +50,8 @@ describe('/#/basket', () => {
 
           xhttp.open('POST', 'http://localhost:3000/api/BasketItems/')
           xhttp.setRequestHeader('Content-type', 'text/plain')
-          xhttp.setRequestHeader('authorization', `Bearer ${localStorage.getItem('token')}`)
-          xhttp.send({ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }) //eslint-disable-line
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send('{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }') //eslint-disable-line
         })
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
