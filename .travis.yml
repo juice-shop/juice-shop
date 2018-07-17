@@ -54,7 +54,7 @@ before_deploy:
 deploy:
 - provider: heroku
   api_key:
-    secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
+    secure: NkHI6+MEbcGppCiQhTXbJK158/2uRlwp7XsSLTU5UvM7+Bz0n09sw/UVGI/gLtMjzKDgLKT5R71axfQwR7gN8g9dPIrG3JvaCfHLwmcp/m8FMePGDLgoMbm7Eg1LaYGh7pbGo8xjp+LhdUlUQWww6/mousIZLdPsX7/+BZn/zkt2iluISuF4tuekLCSmiQ5BHejQDy/c9A+ITy75Vskyg/axs1l7Amg3jfknNR1pXSqsfL3xy3pbWmi0h3oHhhspL/UDMS+Jv7s0OKqjMmP51vaYHF+n7aXVxtmO9j1o5uFd/qz+YU8xJ+1cSeJwIf6HEg36DKP+DrimmJ7GGGX1lS+RFfZprU7AKvPg+/yh+A1Jgarok4t8/rfFjncdq/DcX3jGI6l6ZeiaTgjGJ0pbxjdMI57XIIeKmqtt593JCPA5pN6y9oYAxDC56+scDnzIVQsfve9zYBbtJSK4HggHNllE4ICwrQM0EUJYgMsyQx52zM0rwk+Xe3z/Qf8xz6OArulkqOSKoyC0K+jTSiRVJRZMx8tjgCQV9kb/6O/22j7KUW+8+oRKwG4cNxO02yJL3Qr8zpBeVLCWCYBgpvZ+PwLfWDsRQT0wO6uBycC3QzCa3bvtahqt+jwUL5bPYstgOZtljJIk5a0iWtRzaFdqfVc/GStsJrO4wlRYBEYSwDE=
   app:
     master: juice-shop
     develop: juice-shop-staging
