@@ -20,6 +20,7 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Blog post on [Null Byte :: WonderHowTo](https://null-byte.wonderhowto.com): [Beginner's Guide to OWASP Juice Shop, Your Practice Hacking Grounds for the 10 Most Common Web App Vulnerabilities](https://null-byte.wonderhowto.com/how-to/beginners-guide-owasp-juice-shop-your-practice-hacking-grounds-for-10-most-common-web-app-vulnerabilities-0185103/) :godmode:
 * Blog posts on
   [DevelopSec - Developing Better Security](https://www.developsec.com/):
   * [Installing OWASP JuiceShop with Docker](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
