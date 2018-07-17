@@ -27,7 +27,7 @@ where this project was mentioned or used!
     ([Youtube](https://www.youtube.com/watch?v=ftS8I7WeKtw))
   * [Installing OWASP JuiceShop with Heroku](https://www.developsec.com/2018/05/15/installing-owasp-juiceshop-with-heroku/)
     ([Youtube](https://www.youtube.com/watch?v=umrLbJkJRN0))
-  * [https://www.developsec.com/2018/05/18/burp-extension-juice-shop-routes/](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
+  * [Burp Extension – Juice Shop Routes](https://www.developsec.com/2018/05/18/burp-extension-juice-shop-routes/)
     ([Youtube](https://www.youtube.com/watch?v=o628SfvwHp0)) :godmode:
 * Blog posts on
   [Jason Haley - Ramblings from an Independent Consultant](http://www.jasonhaley.com/):
