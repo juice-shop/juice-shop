@@ -149,7 +149,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
-    xit('should be possible to post feedback with zero stars by double-clicking rating widget', () => { // FIXME Hangs since merging gsoc-challenges in
+    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => { // FIXME Hangs since merging gsoc-challenges in
       browser.executeAsyncScript(() => {
         var callback = arguments[arguments.length - 1]
         var xhttp = new XMLHttpRequest()
@@ -162,7 +162,7 @@ describe('/#/contact', () => {
         }
 
         xhttp.open('GET', 'http://localhost:3000/rest/captcha/', true)
-        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
         function sendPostRequest (_captcha) {
@@ -181,7 +181,7 @@ describe('/#/contact', () => {
       })
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
+    protractor.expect.challengeSolved({ challenge: 'Zero Stars' })
   })
 
   describe('challenge "captchaBypass"', () => {
