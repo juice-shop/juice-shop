@@ -1,7 +1,4 @@
 const config = require('config')
-const http = require('http')
-
-const REST_URL = 'http://localhost:3000/rest'
 
 describe('/rest/product/reviews', () => {
   beforeEach(() => {
@@ -100,30 +97,38 @@ describe('/rest/product/reviews', () => {
 
   describe('challenge "Multiple Likes"', () => {
     protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
-
-    let reviewId
-    beforeEach((done) => {
-      http.get(REST_URL + '/product/1/reviews', (res) => {
-        let body = ''
-
-        res.on('data', chunk => {
-          body += chunk
-        })
-
-        res.on('end', () => {
-          const response = JSON.parse(body)
-          reviewId = response.data[0]._id
-          done()
-        })
-      })
-    })
-
-    xit('should be possible to like reviews multiple times', () => {
+    it('should be possible to like reviews multiple times', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" }); $http.post(\'/rest/product/reviews\', { "id": "' + reviewId + '" });')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            const reviewId = JSON.parse(this.responseText).data[0]._id
+            sendPostRequest(reviewId)
+            sendPostRequest(reviewId)
+          }
+        }
+
+        xhttp.open('GET', 'http://localhost:3000/rest/product/1/reviews', true)
+        xhttp.setRequestHeader('Content-type', 'text/plain')
+        xhttp.send()
+
+        function sendPostRequest (reviewId) {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 200) {
+              console.log('Success')
+            }
+          }
+          xhttp.open('POST', 'http://localhost:3000/rest/product/reviews', true)
+          xhttp.setRequestHeader('Content-type', 'application/json')
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send(JSON.stringify({'id': reviewId}))
+        }
+      })
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
+    protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
   })
 })
