@@ -24,6 +24,7 @@ module.exports = function fileUpload () {
               .on('entry', function (entry) {
                 var fileName = entry.path
                 var absolutePath = path.resolve('uploads/complaints/' + fileName)
+                console.log(absolutePath)
                 if (absolutePath === path.resolve('ftp/legal.md') && utils.notSolved(challenges.fileWriteChallenge)) {
                   utils.solve(challenges.fileWriteChallenge)
                 }
