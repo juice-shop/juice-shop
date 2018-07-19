@@ -45,17 +45,44 @@ describe('/rest/product/search', () => {
       })
     })
 
-    xit('should be able to place Christmas product into shopping card by id', () => { // FIXME Fix XHTTP request
+    it('should be able to place Christmas product into shopping card by id', () => { // FIXME Fix XHTTP request
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 201) { console.log("Success"); }}; xhttp.open("POST","http://localhost:3000/api/BasketItems/", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.send(JSON.stringify({"BasketId": `${sessionStorage.getItem("bid")}`, "ProductId": ' + christmasProduct.id + ', "quantity": 1}));') // eslint-disable-line
+      // browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 201) { console.log("Success"); }}; xhttp.open("POST","http://localhost:3000/api/BasketItems/", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.send(JSON.stringify({"BasketId": `${sessionStorage.getItem("bid")}`, "ProductId": ' + christmasProduct.id + ', "quantity": 1}));') // eslint-disable-line
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            const data = JSON.parse(this.responseText).data
+            const product = data.filter(product => product.name === christmasProduct.name && product.description === christmasProduct.description)
+            addProductById(product.id)
+          }
+        }
+
+        xhttp.open('GET', 'http://localhost:3000/rest/product/search?q=', true)
+        xhttp.setRequestHeader('Content-type', 'text/plain')
+        xhttp.send()
+
+        function addProductById (id) {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 201) {
+              console.log('Success')
+            }
+          }
+          xhttp.open('POST', 'http://localhost:3000/api/BasketItems/', true)
+          xhttp.setRequestHeader('Content-type', 'application/json')
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send(JSON.stringify({'BasketId': `${sessionStorage.getItem('bid')}`, 'ProductId': id, 'quantity': 1}))
+        }
+      })
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
 
       browser.get('/#/basket')
-      browser.wait(protractor.ExpectedConditions.presenceOf($('tr[data-ng-repeat="product in products"]')), 5000, 'Basket item list not present.') // eslint-disable-line no-undef
+      browser.wait(protractor.ExpectedConditions.presenceOf($('mat-table')), 5000, 'Basket item list not present.') // eslint-disable-line no-undef
       element(by.id('checkoutButton')).click()
     })
 
-    // protractor.expect.challengeSolved({challenge: 'Christmas Special'})
+    protractor.expect.challengeSolved({challenge: 'Christmas Special'})
   })
 })
