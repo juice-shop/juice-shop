@@ -89,12 +89,12 @@ describe('/#/complain', () => {
     })
   })
 
-  describe('challenge "arbitraryFileWrite"', () => { // FIXME Does not pass after merging with gsoc-frontend
-    xit('should be possible to upload zip file with filenames having path traversal', () => {
+  describe('challenge "arbitraryFileWrite"', () => {
+    it('should be possible to upload zip file with filenames having path traversal', () => {
       complaintMessage.sendKeys('Zip Slip!')
       file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
       submitButton.click()
     })
-    // protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
+    protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
   })
 })
