@@ -37,7 +37,7 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  xit('should sanitize script from comments to remove potentially malicious html', () => {
+  it('should sanitize script from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<script>alert("ScriptXSS")</script>tizedScript')
     rating.click()
 
@@ -46,7 +46,7 @@ describe('/#/contact', () => {
     expectPersistedCommentToMatch(/SanitizedScript/)
   })
 
-  xit('should sanitize image from comments to remove potentially malicious html', () => {
+  it('should sanitize image from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<img src="alert("ImageXSS")"/>tizedImage')
     rating.click()
 
@@ -55,7 +55,7 @@ describe('/#/contact', () => {
     expectPersistedCommentToMatch(/SanitizedImage/)
   })
 
-  xit('should sanitize iframe from comments to remove potentially malicious html', () => {
+  it('should sanitize iframe from comments to remove potentially malicious html', () => {
     comment.sendKeys('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')
     rating.click()
 
@@ -218,7 +218,7 @@ describe('/#/contact', () => {
 
   function expectPersistedCommentToMatch (expectation) {
     browser.get('/#/administration')
-    const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
+    const feedbackComments = element.all(by.css('mat-cell.mat-column-comment'))
     expect(feedbackComments.last().getText()).toMatch(expectation)
   }
 })
