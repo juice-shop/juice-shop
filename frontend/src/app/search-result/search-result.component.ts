@@ -1,8 +1,9 @@
+import { environment } from './../../environments/environment'
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
 import { BasketService } from './../Services/basket.service'
-import { Component, ViewChild, OnDestroy, AfterViewInit } from '@angular/core'
+import { Component, ViewChild, OnDestroy, AfterViewInit, NgZone } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -11,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faEye, faCartPlus)
+import * as io from 'socket.io-client'
 
 @Component({
   selector: 'app-search-result',
@@ -23,13 +25,20 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public tableData: any[]
   public dataSource
   public searchValue
+  public io = io
+  public socket
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
 
   ngAfterViewInit () {
+
+    this.ngZone.runOutsideAngular(() => {
+      this.socket = this.io.connect(environment.hostServer)
+    })
+
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
       this.trustProductDescription(this.tableData)
@@ -53,6 +62,9 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
+    if (queryParam && queryParam.includes('<iframe src="javascript:alert(\'xss\')">')) {
+      this.socket.emit('localXSSChallengeSolved', queryParam)
+    }
     if (queryParam) {
       queryParam = queryParam.trim()
       queryParam = queryParam.toLowerCase()
