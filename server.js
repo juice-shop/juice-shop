@@ -59,6 +59,7 @@ const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
 const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
+const userProfileRouter = require('./routes/userProfile')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -97,6 +98,13 @@ if (config.get('application.favicon')) {
   }
 }
 app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
+
+/* server side view render engine (Jade) setup */
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jade')
+
+/* Router for profile page */
+app.use('/profile', userProfileRouter)
 
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
