@@ -59,7 +59,9 @@ const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
 const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
-const userProfileRouter = require('./routes/userProfile')
+const userProfile = require('./routes/userProfile')
+const updateUserProfile = require('./routes/updateUserProfile')
+const imageUpload = require('./routes/imageUpload')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -103,9 +105,6 @@ app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-/* Router for profile page */
-app.use('/profile', userProfileRouter)
-
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
 app.use('/security.txt', securityTxt({
@@ -140,7 +139,9 @@ app.use(cookieParser('kekse'))
 
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
+app.post('/profile/imageupload', upload.single('file'), imageUpload())
 
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.text({type: '*/*'}))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
@@ -149,7 +150,6 @@ app.use(function jsonParser (req, res, next) {
   }
   next()
 })
-
 /* HTTP request logging */
 let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
 app.use(morgan('combined', {stream: accessLogStream}))
@@ -271,6 +271,11 @@ app.post('/b2b/v2/orders', b2bOrder())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
+
+/* Routes for profile page */
+app.get('/profile', userProfile())
+app.post('/profile', updateUserProfile())
+
 app.use(angular())
 
 /* Error Handling */

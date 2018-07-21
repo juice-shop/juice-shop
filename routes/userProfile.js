@@ -1,8 +1,25 @@
-var express = require('express')
-var router = express.Router()
+var fs = require('fs')
+const models = require('../models/index')
+const insecurity = require('../lib/insecurity')
+var jade = require('jade')
 
-router.get('/', function(req, res, next) {
-  res.render('userProfile');
-});
+module.exports = function getUserProfile () {
+  return (req, res, next) => {
+		fs.readFile('views/userProfile.jade', function(err, buf) {
+			const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+			if (loggedInUser) {
+				models.User.findById(loggedInUser.data.id).then(user => {
+					var templateString = buf.toString()
+					templateString = templateString.replace('usrname',user.dataValues.username)
+					var fn = jade.compile(templateString)
+					res.send(fn(user.dataValues))
+				}).catch(error => {
+					next(error)
+				})
+			} else {
+				next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+			}
+		});
+	}
+}
 
-module.exports = router;

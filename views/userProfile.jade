@@ -1,1 +1,72 @@
-h1 Hi
+doctype html
+html(lang='en')
+    head
+        title OWASP Juice Shop
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    body(style='background: black;color:#9d9d9d;')
+        nav.navbar.navbar-inverse(style='background: #263238;border-radius:0px;')
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href='/') OWASP Juice Shop
+                ul.nav.navbar-nav
+                    li
+                        a(href='/#/logout')
+                            span.glyphicon.glyphicon-log-out
+                            |  Logout
+                    li.dropdown
+                        a.dropdown-toggle(data-toggle='dropdown', href='#')
+                            | Contact Us
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='/#/contact')
+                                    span.glyphicon.glyphicon-comment
+                                    |  Customer Feedback
+                            li
+                                a(href='/#/complain')
+                                    span.glyphicon.glyphicon-certificate
+                                    |  Order Problem
+                    li
+                        a(href='/#/about')
+                            span.glyphicon.glyphicon-info-sign
+                            |  About Us
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href='/#/basket')
+                            span.glyphicon.glyphicon-shopping-cart
+                            |  Your Basket
+                    li
+                        a(href='/#/recycle')
+                            span.glyphicon.glyphicon-log-in
+                            |  Recycle
+        .container
+            h3 User Profile 
+            .row(style='margin-top:10%;')
+                .col-sm-4
+                    img.img-rounded(src='assets/public/images/uploads/'+profileImage, alt='Cinque Terre', width='304', height='236')
+                    p(style='padding-left:36%;margin-top:8%;') usrname
+                    form(action='/profile/imageupload' , style='margin-top:10%;',method='post',enctype='multipart/form-data')
+                        .form-group
+                            input(type='file', accept='image/*')
+                        .form-group    
+                            label ------------------------- Or -------------------------
+                        .form-group
+                            label(for='url') Image Url:
+                            input#url.form-control(type='text')
+                        button.btn.btn-default(type='submit') Submit
+
+
+                .col-sm-8
+                    form(action='/profile',method='post')
+                        .form-group
+                            label(for='username') Username:
+                            input#username.form-control(type='text',name='username',placeholder='Enter Username',value='#{username}')
+                        .form-group
+                            label(for='email') Email:
+                            input#email.form-control(type='email',name='email',placeholder='Enter email',value='#{email}')
+                        button.btn.btn-default(type='submit') Submit
+        
