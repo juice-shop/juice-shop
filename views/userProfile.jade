@@ -52,11 +52,14 @@ html(lang='en')
                     form(action='/file-upload' , style='margin-top:10%;',method='post',enctype='multipart/form-data')
                         .form-group
                             input(type='file', accept='image/*',name='file')
-                        .form-group    
-                            label ------------------------- Or -------------------------
+                        button.btn.btn-default(type='submit') Submit
+
+                    p(style='margin-top:10%;') ------------------------- Or -------------------------
+
+                    form(action='/file-upload' , style='margin-top:10%;',method='post')
                         .form-group
                             label(for='url') Image Url:
-                            input#url.form-control(type='text',name='file')
+                            input#url.form-control(type='text',name='imageUrl')
                         button.btn.btn-default(type='submit') Submit
 
 
