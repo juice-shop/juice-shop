@@ -5,6 +5,8 @@ const vm = require('vm')
 const fs = require('fs')
 const unzipper = require('unzipper')
 const path = require('path')
+const models = require('../models/index')
+const insecurity = require('../lib/insecurity')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -75,6 +77,37 @@ module.exports = function fileUpload () {
           }
         }
       }
+    }
+    if (utils.endsWith(file.originalname.toLowerCase(), '.jpg')) {
+      const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+      if (loggedInUser) {
+        const buffer = file.buffer
+            const filename = file.originalname.toLowerCase()
+            fs.open('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg', 'w', function (err, fd) {
+              if (err) {
+                console.log('error opening file: ' + err)
+              }
+              fs.write(fd, buffer, 0, buffer.length, null, function (err) {
+                if (err) console.log('error opening file: ' + err)
+                fs.close(fd, function () {
+                })
+              })
+          })
+        models.User.findById(loggedInUser.data.id).then(user => {
+          user.updateAttributes({ profileImage: loggedInUser.data.id + '.jpg'}).then(user => {
+            console.log('profile Image updated succesfully.')
+            console.log(user.dataValues)
+          }).catch(error => {
+            next(error)
+          })
+        }).catch(error => {
+          next(error)
+        })
+      } else {
+        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      }
+        res.location('/profile');
+      res.redirect('/profile');
     }
     res.status(204).end()
   }
