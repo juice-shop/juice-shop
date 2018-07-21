@@ -139,7 +139,7 @@ app.use(cookieParser('kekse'))
 
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
-app.post('/profile/imageupload', upload.single('file'), imageUpload())
+//app.post('/profile/imageupload', upload.single('file'), imageUpload())
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.text({type: '*/*'}))
