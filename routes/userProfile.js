@@ -5,21 +5,21 @@ var jade = require('jade')
 
 module.exports = function getUserProfile () {
   return (req, res, next) => {
-		fs.readFile('views/userProfile.jade', function(err, buf) {
-			const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
-			if (loggedInUser) {
-				models.User.findById(loggedInUser.data.id).then(user => {
-					var templateString = buf.toString()
-					templateString = templateString.replace('usrname',user.dataValues.username)
-					var fn = jade.compile(templateString)
-					res.send(fn(user.dataValues))
-				}).catch(error => {
-					next(error)
-				})
-			} else {
-				next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
-			}
-		});
-	}
+    fs.readFile('views/userProfile.jade', function (err, buf) {
+      if (err) throw err
+      const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+      if (loggedInUser) {
+        models.User.findById(loggedInUser.data.id).then(user => {
+          var templateString = buf.toString()
+          templateString = templateString.replace('usrname', user.dataValues.username)
+          var fn = jade.compile(templateString)
+          res.send(fn(user.dataValues))
+        }).catch(error => {
+          next(error)
+        })
+      } else {
+        next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
+      }
+    })
+  }
 }
-
