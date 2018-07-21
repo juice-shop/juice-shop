@@ -58,7 +58,7 @@
 
   <mat-toolbar-row *ngIf="isLoggedIn()" class="second-toolbar-row">
       <span matTooltip="{{userEmail}}" matTooltipPosition="right">
-        <i class="user-info" class="fas fa-user-circle fa-lg"></i>
+        <a mat-button routerLink="/profile"><i class="user-info" class="fas fa-user-circle fa-lg"></i></a>
       </span>
       <a mat-button routerLink="/basket"><i class="fas fa-shopping-cart fa-lg"></i> Your Basket</a>
       <a mat-button routerLink="/change-password"><i class="fas fa-user-secret fa-lg"></i> Change Password</a>
