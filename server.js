@@ -137,11 +137,11 @@ app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 
 app.use(cookieParser('kekse'))
 
+app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
 //app.post('/profile/imageupload', upload.single('file'), imageUpload())
 
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.text({type: '*/*'}))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
