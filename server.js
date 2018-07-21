@@ -61,7 +61,6 @@ const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
-const imageUpload = require('./routes/imageUpload')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -140,7 +139,6 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
-//app.post('/profile/imageupload', upload.single('file'), imageUpload())
 
 app.use(bodyParser.text({type: '*/*'}))
 app.use(function jsonParser (req, res, next) {
