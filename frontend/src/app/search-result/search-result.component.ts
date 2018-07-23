@@ -48,7 +48,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-    })
+    }, (err) => console.log(err))
   }
 
   ngOnDestroy () {
