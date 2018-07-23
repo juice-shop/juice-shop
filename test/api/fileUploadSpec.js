@@ -118,4 +118,14 @@ describe('/file-upload', () => {
       .expect('status', 500)
       .done(done)
   })
+
+  it('POST zip file with directory traversal payload', done => {
+    file = path.resolve(__dirname, '../files/arbitraryFileWrite.zip')
+    form = new FormData()
+    form.append('file', fs.createReadStream(file))
+
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
+      .expect('status', 204)
+      .done(done)
+  })
 })

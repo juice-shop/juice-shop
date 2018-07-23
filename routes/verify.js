@@ -33,6 +33,16 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.registerAdminChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  if (utils.notSolved(challenges.registerAdminChallenge)) {
+    if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
+      utils.solve(challenges.registerAdminChallenge)
+    }
+  }
+  next()
+}
+
 exports.accessControlChallenges = () => ({url}, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
@@ -105,6 +115,9 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   }
   if (utils.notSolved(challenges.hiddenImageChallenge)) {
     hiddenImageChallenge()
+  }
+  if (utils.notSolved(challenges.supplyChainAttackChallenge)) {
+    supplyChainAttackChallenge()
   }
   next()
 }
@@ -245,6 +258,21 @@ function hiddenImageChallenge () {
   ).then(({count}) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
+    }
+  })
+}
+
+function supplyChainAttackChallenge () { // TODO Extend to also pass for given CVE once one has been assigned (otherwise remove CVE mention from challenge description)
+  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.supplyChainAttackChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
+  ).then(({count}) => {
+    if (count > 0) {
+      utils.solve(challenges.supplyChainAttackChallenge)
     }
   })
 }

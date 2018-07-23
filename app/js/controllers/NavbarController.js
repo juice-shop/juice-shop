@@ -1,12 +1,13 @@
 angular.module('juiceShop').controller('NavbarController', [
   '$scope',
+  '$sce',
   '$rootScope',
   '$location',
   'AdministrationService',
   'ConfigurationService',
   'UserService',
   'ChallengeService',
-  function ($scope, $rootScope, $location, administrationService, configurationService, userService, challengeService) {
+  function ($scope, $sce, $rootScope, $location, administrationService, configurationService, userService, challengeService) {
     'use strict'
 
     $scope.version = ''
@@ -53,6 +54,7 @@ angular.module('juiceShop').controller('NavbarController', [
     function updateUserEmail () {
       userService.whoAmI().then(function (user) {
         $rootScope.userEmail = user.email
+        $rootScope.lastLoginIp = $sce.trustAsHtml(user.lastLoginIp)
       }).catch(function (err) {
         console.log(err)
       })

@@ -54,6 +54,7 @@
   ],
   "dependencies": {
     "body-parser": "~1.18",
+    "clarinet": "~0.12.0",
     "colors": "~1.3.0",
     "concurrently": "^3.5.1",
     "config": "~1.30.0",
@@ -66,8 +67,8 @@
     "express": "~4.16",
     "express-jwt": "0.1.3",
     "express-rate-limit": "~2.11",
-    "express-security.txt": "~1.0",
     "express-robots": "~0.1",
+    "express-security.txt": "~1.0",
     "file-stream-rotator": "~0.2",
     "fs-extra": "~6.0",
     "glob": "~7.1.2",
@@ -83,7 +84,7 @@
     "js-yaml": "~3.12",
     "jsonwebtoken": "~8.3",
     "jssha": "~2.3",
-    "libxmljs": "0.19.1",
+    "libxmljs": "0.19.0",
     "marsdb": "~0.6",
     "morgan": "~1.9",
     "multer": "~1.3",
@@ -97,8 +98,9 @@
     "serve-favicon": "~2.5",
     "serve-index": "~1.9",
     "socket.io": "~2.1",
-    "sqlite3": "~4.0.0",
+    "sqlite3": "^4.0.1",
     "swagger-ui-express": "~3.0.7",
+    "unzipper": "0.8.12",
     "z85": "~0.0"
   },
   "devDependencies": {
