@@ -1,11 +1,20 @@
 const db = require('../data/mongodb')
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+const insecurity = require('../lib/insecurity')
 
 module.exports = function productReviews () {
-  return ({params, body}, res, next) => {
+  return (req, res, next) => {
+    const user = insecurity.authenticatedUsers.from(req)
+    if (user && user.data.email !== req.body.author && utils.notSolved(challenges.forgedReviewChallenge)) {
+      utils.solve(challenges.forgedReviewChallenge)
+    }
     db.reviews.insert({
-      product: params.id,
-      message: body.message,
-      author: body.author
+      product: req.params.id,
+      message: req.body.message,
+      author: req.body.author,
+      likesCount: 0,
+      likedBy: []
     }).then(result => {
       res.status(201).json({ staus: 'success' })
     }, err => {

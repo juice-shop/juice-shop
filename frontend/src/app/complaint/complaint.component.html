@@ -22,10 +22,10 @@
     </mat-form-field>
 
     <label for="file">Invoice</label>
-    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf">
+    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf application/zip">
 
   </div>
 
-  <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+  <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
 
 </mat-card>

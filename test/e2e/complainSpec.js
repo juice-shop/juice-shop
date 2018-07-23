@@ -88,4 +88,13 @@ describe('/#/complain', () => {
       protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
     })
   })
+
+  describe('challenge "arbitraryFileWrite"', () => {
+    it('should be possible to upload zip file with filenames having path traversal', () => {
+      complaintMessage.sendKeys('Zip Slip!')
+      file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
+      submitButton.click()
+    })
+    protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
+  })
 })

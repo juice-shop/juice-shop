@@ -14,6 +14,9 @@ ctf:
     errorHandlingChallenge:
       name: Austria
       code: AT
+    forgedReviewChallenge:
+      name: Israel
+      code: IL
     loginAdminChallenge:
       name: Russian Federation
       code: RU
@@ -56,7 +59,7 @@ ctf:
     redirectChallenge:
       name: Belarus
       code: BY
-    basketChallenge:
+    basketAccessChallenge:
       name: Bolivia
       code: BO
     negativeOrderChallenge:
@@ -107,6 +110,9 @@ ctf:
     uploadTypeChallenge:
       name: Saudi Arabia
       code: SA
+    fileWriteChallenge:
+      name: Iran
+      code: IR
     extraLanguageChallenge:
       name: Australia
       code: AU
@@ -149,9 +155,12 @@ ctf:
     noSqlCommandChallenge:
       name: Trinidad and Tobago
       code: TT
-    noSqlInjectionChallenge:
+    noSqlReviewsChallenge:
       name: United Arab Emirates
       code: AE
+    noSqlOrdersChallenge:
+      name: Estonia
+      code: EE
     retrieveBlueprintChallenge:
       name: Venezuela
       code: VE
@@ -194,4 +203,22 @@ ctf:
     hiddenImageChallenge:
       name: Lithuania
       code: LT
+    supplyChainAttackChallenge:
+      name: Togo
+      code: TG
+    timingAttackChallenge:
+      name: Egypt
+      code: EG
+    basketManipulateChallenge:
+      name: Bhutan
+      code: BT
+    emailLeakChallenge:
+      name: Bahamas
+      code: BH
+    registerAdminChallenge:
+      name: Jamaica
+      code: JA
+    httpHeaderXssChallenge:
+      name: Puerto Rico
+      code: PR
 

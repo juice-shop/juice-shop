@@ -37,60 +37,60 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  // xit('should sanitize script from comments to remove potentially malicious html', () => {
-  //   comment.sendKeys('Sani<script>alert("ScriptXSS")</script>tizedScript')
-  //   rating.click()
+  it('should sanitize script from comments to remove potentially malicious html', () => {
+    comment.sendKeys('Sani<script>alert("ScriptXSS")</script>tizedScript')
+    rating.click()
 
-  //   submitButton.click()
+    submitButton.click()
 
-  //   expectPersistedCommentToMatch(/SanitizedScript/)
-  // })
+    expectPersistedCommentToMatch(/SanitizedScript/)
+  })
 
-  // xit('should sanitize image from comments to remove potentially malicious html', () => {
-  //   comment.sendKeys('Sani<img src="alert("ImageXSS")"/>tizedImage')
-  //   rating.click()
+  it('should sanitize image from comments to remove potentially malicious html', () => {
+    comment.sendKeys('Sani<img src="alert("ImageXSS")"/>tizedImage')
+    rating.click()
 
-  //   submitButton.click()
+    submitButton.click()
 
-  //   expectPersistedCommentToMatch(/SanitizedImage/)
-  // })
+    expectPersistedCommentToMatch(/SanitizedImage/)
+  })
 
-  // xit('should sanitize iframe from comments to remove potentially malicious html', () => {
-  //   comment.sendKeys('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')
-  //   rating.click()
+  it('should sanitize iframe from comments to remove potentially malicious html', () => {
+    comment.sendKeys('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')
+    rating.click()
 
-  //   submitButton.click()
+    submitButton.click()
 
-  //   expectPersistedCommentToMatch(/SanitizedIFrame/)
-  // })
+    expectPersistedCommentToMatch(/SanitizedIFrame/)
+  })
 
-  // describe('challenge "xss4"', () => {
-  //   xit('should be possible to trick the sanitization with a masked XSS attack', () => {
-  //     const EC = protractor.ExpectedConditions
+  describe('challenge "xss4"', () => {
+    xit('should be possible to trick the sanitization with a masked XSS attack', () => {
+      const EC = protractor.ExpectedConditions
 
-  //     comment.sendKeys('<<script>Foo</script>script>alert("XSS")<</script>/script>')
-  //     rating.click()
+      comment.sendKeys('<<script>Foo</script>script>alert("XSS")<</script>/script>')
+      rating.click()
 
-  //     submitButton.click()
+      submitButton.click()
 
-  //     browser.get('/#/about')
-  //     browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
-  //     browser.switchTo().alert().then(alert => {
-  //       expect(alert.getText()).toEqual('XSS')
-  //       alert.accept()
-  //     })
+      browser.get('/#/about')
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.switchTo().alert().then(alert => {
+        expect(alert.getText()).toEqual('XSS')
+        alert.accept()
+      })
 
-  //     browser.get('/#/administration')
-  //     browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
-  //     browser.switchTo().alert().then(alert => {
-  //       expect(alert.getText()).toEqual('XSS')
-  //       alert.accept()
-  //       element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
-  //     })
-  //   })
+      browser.get('/#/administration')
+      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.switchTo().alert().then(alert => {
+        expect(alert.getText()).toEqual('XSS')
+        alert.accept()
+        element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
+      })
+    })
 
-  //   protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
-  // })
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
+  })
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
@@ -149,7 +149,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
-    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
+    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => { // FIXME Hangs since merging gsoc-challenges in
       browser.executeAsyncScript(() => {
         var callback = arguments[arguments.length - 1]
         var xhttp = new XMLHttpRequest()
@@ -162,7 +162,7 @@ describe('/#/contact', () => {
         }
 
         xhttp.open('GET', 'http://localhost:3000/rest/captcha/', true)
-        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
         function sendPostRequest (_captcha) {
@@ -198,6 +198,17 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
+  describe('challenge "supplyChainAttack"', () => {
+    it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
+      comment.sendKeys('Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39')
+      rating.click()
+
+      submitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
+  })
+
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
       const answer = eval(text).toString() // eslint-disable-line no-eval
@@ -205,9 +216,9 @@ describe('/#/contact', () => {
     })
   }
 
-  // function expectPersistedCommentToMatch (expectation) {
-  //   browser.get('/#/administration')
-  //   const feedbackComments = element.all(by.repeater('feedback in feedbacks').column('comment'))
-  //   expect(feedbackComments.last().getText()).toMatch(expectation)
-  // }
+  function expectPersistedCommentToMatch (expectation) {
+    browser.get('/#/administration')
+    const feedbackComments = element.all(by.css('mat-cell.mat-column-comment'))
+    expect(feedbackComments.last().getText()).toMatch(expectation)
+  }
 })
