@@ -63,7 +63,7 @@ describe('BasketComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
-    sanitizer = jasmine.createSpyObj('DOMSanitizer',['bypassSecurityTrustHtml'])
+    sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml'])
     sanitizer.bypassSecurityTrustHtml.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
