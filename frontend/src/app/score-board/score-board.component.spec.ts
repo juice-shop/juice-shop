@@ -17,12 +17,19 @@ import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 
+class MockSocket {
+  on (str: string, callback) {
+    callback(str)
+  }
+}
+
 describe('ScoreBoardComponent', () => {
   let component: ScoreBoardComponent
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService
   let configurationService
   let sanitizer
+  let mockSocket
 
   beforeEach(async(() => {
 
@@ -34,6 +41,7 @@ describe('ScoreBoardComponent', () => {
     sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml','sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.callFake((args) => args)
     sanitizer.sanitize.and.returnValue({})
+    mockSocket = new MockSocket()
 
     TestBed.configureTestingModule({
       imports: [
@@ -62,6 +70,7 @@ describe('ScoreBoardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ScoreBoardComponent)
     component = fixture.componentInstance
+    spyOn(component.io,'connect').and.returnValue(mockSocket)
     fixture.detectChanges()
   })
 
