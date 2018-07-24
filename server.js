@@ -93,10 +93,11 @@ if (config.get('application.favicon')) {
   if (utils.startsWith(icon, 'http')) {
     const iconPath = icon
     icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    utils.downloadToFile(iconPath, 'app/public/' + icon)
+    // utils.downloadToFile(iconPath, 'app/public/' + icon)
+    utils.downloadToFile(iconPath, 'frontend/src/assets/public/' + icon)
   }
 }
-app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
+// app.use(favicon(path.join(__dirname, 'frontend/src/assets/public/' + icon)))
 
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
