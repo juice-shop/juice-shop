@@ -25,7 +25,12 @@ nav input:focus{
     flex-direction: column;
     margin-left:15px;
     font-size: 18px;
+    text-decoration-line: none;
     color: #c8c8c8;
+}
+
+.application-info:hover {
+    color: rgb(255, 255, 255);
 }
 
 .contact-dropdown {
