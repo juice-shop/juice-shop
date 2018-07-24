@@ -8,6 +8,7 @@ const path = require('path')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
 const http = require('http')
+const request = require('request')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -16,10 +17,12 @@ module.exports = function fileUpload () {
       var url = req.body.imageUrl
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        var fileStream = fs.createWriteStream('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg')
-        http.get(url, function (response) {
-          response.pipe(fileStream)
+        request
+        .get(url)
+        .on('error', function(err) {
+          console.log(err)
         })
+        .pipe(fs.createWriteStream('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg'))
         models.User.findById(loggedInUser.data.id).then(user => {
           user.updateAttributes({profileImage: loggedInUser.data.id + '.jpg'}).then(user => {
             console.log('profile Image updated succesfully.')
