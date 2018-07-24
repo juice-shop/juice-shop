@@ -1,7 +1,7 @@
-var fs = require('fs')
+const fs = require('fs')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
-var jade = require('jade')
+const jade = require('jade')
 
 module.exports = function getUserProfile () {
   return (req, res, next) => {
