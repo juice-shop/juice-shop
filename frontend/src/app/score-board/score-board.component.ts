@@ -129,7 +129,7 @@ export class ScoreBoardComponent implements OnInit {
     if (this.allowRepeatNotifications) {
       this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
         this.windowRefService.nativeWindow.scrollTo(0, 0)
-      },(err) => err)
+      },(err) => console.log(err))
     }
   }
 
