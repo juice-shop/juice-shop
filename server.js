@@ -9,7 +9,6 @@ const helmet = require('helmet')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
-const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
@@ -97,7 +96,6 @@ if (config.get('application.favicon')) {
     utils.downloadToFile(iconPath, 'frontend/src/assets/public/' + icon)
   }
 }
-app.use(favicon(path.join(__dirname, 'frontend/src/assets/public/' + icon)))
 
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
