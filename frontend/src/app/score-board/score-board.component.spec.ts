@@ -202,6 +202,26 @@ describe('ScoreBoardComponent', () => {
     expect(component.offsetValue[2]).toBe('0%')
   })
 
+  it('should update the correct challenge when a challenge solved event occurs', () => {
+    challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false } ]))
+    spyOn(component.socket,'on')
+    component.ngOnInit()
+    let callback = component.socket.on.calls.argsFor(0)[1]
+    callback({ challenge: 'ping', name: 'Challenge #1' })
+    expect(component.challenges[ 0 ].solved).toBe(true)
+    expect(component.challenges[ 1 ].solved).toBe(false)
+  })
+
+  it('should not update when a challenge solved event to a nonexistent challenge occurs', () => {
+    challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false } ]))
+    spyOn(component.socket,'on')
+    component.ngOnInit()
+    let callback = component.socket.on.calls.argsFor(0)[1]
+    callback({ challenge: 'ping', name: 'Challenge #1337' })
+    expect(component.challenges[ 0 ].solved).toBe(false)
+    expect(component.challenges[ 1 ].solved).toBe(false)
+  })
+
   it('should be possible when challenge-solved notifications are shown with CTF flag codes', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({  'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
     component.ngOnInit()
