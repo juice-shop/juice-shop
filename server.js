@@ -97,7 +97,7 @@ if (config.get('application.favicon')) {
     utils.downloadToFile(iconPath, 'frontend/src/assets/public/' + icon)
   }
 }
-// app.use(favicon(path.join(__dirname, 'frontend/src/assets/public/' + icon)))
+app.use(favicon(path.join(__dirname, 'frontend/src/assets/public/' + icon)))
 
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
