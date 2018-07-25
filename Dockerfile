@@ -24,7 +24,9 @@ WORKDIR /juice-shop
 COPY --from=installer /juice-shop .
 RUN addgroup juicer && \
     adduser -D -G juicer juicer && \
-    chown -R juicer /juice-shop
+    chown -R juicer /juice-shop && \
+    chgrp -R 0 /juice-shop/ && \
+    chmod -R g=u /juice-shop/
 USER juicer
 EXPOSE  3000
 CMD ["npm", "start"]
