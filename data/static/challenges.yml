@@ -534,3 +534,20 @@
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssChallengeFeedback
+-
+  name: 'SSTi'
+  category: 'Injection'
+  description: 'Infect the juice-shop server with malware by abusing arbitrary comand execution.'
+  difficulty: 6
+  hint: 'The search for a personal identity is the life of a man.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/ssti.html#infect-the-juice-shop-server-with-malware'
+  key: sstiChallenge
+-
+  name: 'SSRF'
+  category: 'Broken Access Control'
+  description: 'Request a hidden resource on server through server'
+  difficulty: 6
+  hint: 'Reverse the Bad and it gets Good again.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/ssrf.html#request-a-hidden-resource'
+  key: ssrfChallenge
+  
