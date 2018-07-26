@@ -99,7 +99,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
             let newQuantity = existingBasketItem.quantity + 1
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
-                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).toPromise().then((basketAddSameProduct) => {
+                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
                   this.confirmation = basketAddSameProduct
                 }, (translationId) => {
                   this.confirmation = translationId
@@ -111,9 +111,9 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
         }
       }
       if (!found) {
-        this.basketService.save({ ProductId: id, BasketId: sessionStorage.bid, quantity: 1 }).subscribe((newBasketItem) => {
+        this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
-            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).toPromise().then((basketAddProduct) => {
+            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
               this.confirmation = basketAddProduct
             }, (translationId) => {
               this.confirmation = translationId
