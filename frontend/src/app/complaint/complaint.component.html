@@ -4,10 +4,10 @@
 
   <div class="form-container">
 
-    <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)" style="color:#5bc0de">{{ confirmation }}</div>
+    <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">{{ confirmation }}</div>
 
-    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')" style="color:red">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
-    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')" style="color:red">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
+    <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
+    <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
 
     <mat-form-field appearance="outline">
       <mat-label>Customer</mat-label>
