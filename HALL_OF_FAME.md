@@ -46,7 +46,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
 - :uae: Oussama Bouthouri
-- :brazil: sergio.kubota
+- :brazil: sergio.kubota, Estevam Arantes
 - :cn: Coink, rToxic
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
@@ -67,7 +67,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   vientspam, Wout Huygens, Rick Daalhuizen
 - :norway: owangen
 - :poland: Idomin Ninja, Andrew Pio, niemyskaa
-- :portugal: Alvaro Viebrantz
+- :portugal: Alvaro Viebrantz, Estevam Arantes
 - :romania: Mircea Ulmeanu, orjen, timexlord
 - :ru: fieldhill13
 - :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
