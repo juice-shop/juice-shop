@@ -2,8 +2,8 @@
     <div class="heading">
       <div *ngIf="searchValue"><span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span> <span [innerHTML]="searchValue"></span></div>
       <div *ngIf="!searchValue">{{"TITLE_ALL_PRODUCTS" | translate}}</div>
-      <div *ngIf="confirmation" style="margin-top:5px;color:#5bc0de">
-          <p>{{ confirmation }}</p>
+      <div *ngIf="confirmation" style="margin-top:5px;">
+          <p class="confirmation">{{ confirmation }}</p>
       </div>
     </div>
     <mat-table #table [dataSource]="dataSource">

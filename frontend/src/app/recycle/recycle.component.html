@@ -6,7 +6,7 @@
 
       <div class="form-container">
 
-        <div *ngIf="confirmation && !recycleQuantityControl.dirty && !recycleAddressControl.dirty" style="color:#5bc0de">{{ confirmation }}</div>
+        <div class="confirmation" *ngIf="confirmation && !recycleQuantityControl.dirty && !recycleAddressControl.dirty">{{ confirmation }}</div>
 
         <mat-form-field appearance="outline">
           <mat-label>Requestor</mat-label>

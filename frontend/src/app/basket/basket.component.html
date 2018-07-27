@@ -55,9 +55,9 @@
 
   <mat-expansion-panel [expanded]="couponPanelExpanded">
 
-    <div *ngIf="confirmation && !couponControl.dirty" style="margin-top:5px;color:#5bc0de">{{ confirmation }}</div>
+    <div *ngIf="confirmation && !couponControl.dirty" style="margin-top:5px;">{{ confirmation }}</div>
 
-    <div *ngIf="error && !couponControl.dirty" style="margin-top:5px;color:red">{{error?.error}}</div>
+    <div *ngIf="error && !couponControl.dirty" style="margin-top:5px;">{{error?.error}}</div>
 
     <mat-form-field>
       <label><small>Need a coupon code? Follow us on <a href="https://twitter.com/owasp_juiceshop" target="_blank">Twitter</a> or <a href="https://www.facebook.com/owasp.juiceshop" target="_blank">Facebook</a> for monthly coupons and other spam!</small></label>

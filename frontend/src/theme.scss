@@ -32,6 +32,14 @@ $slate-typography: mat-typography-config(
     .container mat-card.challenge-solved {
         background-color: #62c462;
     }
+
+    .confirmation {
+        color:#5bc0de;
+    }
+
+    .error {
+        color: red;
+    }
     @include angular-material-theme($slate-theme);
     @include mat-core($slate-typography)
 }
