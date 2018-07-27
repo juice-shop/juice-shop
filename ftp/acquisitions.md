@@ -2,7 +2,7 @@
 
 > This document is confidential! Do not distribute!
 
-Out company plans to acquire several competitors within the next year.
+Our company plans to acquire several competitors within the next year.
 This will have a significant stock market impact as we will elaborate in
 detail in the following paragraph:
 
