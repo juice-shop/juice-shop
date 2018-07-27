@@ -6,6 +6,11 @@ $slate-primary: mat-palette($mat-blue-grey,900);
 $slate-accent : mat-palette($mat-grey,800);
 $slate-danger   : mat-palette($mat-red);
 $slate-theme  : mat-dark-theme($slate-primary,$slate-accent,$slate-danger);
+$slate-typography: mat-typography-config(
+  $font-family: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+  $headline: mat-typography-level(14px, 20px, 700),
+  $body-1: mat-typography-level(14px, 20px, 500)
+);
 
 .slate {
 
@@ -27,7 +32,8 @@ $slate-theme  : mat-dark-theme($slate-primary,$slate-accent,$slate-danger);
     .container mat-card.challenge-solved {
         background-color: #62c462;
     }
-    @include angular-material-theme($slate-theme)
+    @include angular-material-theme($slate-theme);
+    @include mat-core($slate-typography)
 }
 
 $paper-primary: mat-palette($mat-grey,50);
