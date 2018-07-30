@@ -55,6 +55,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 
 /* Modules required for Angular Material */
+import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
@@ -124,6 +125,7 @@ export function HttpLoaderFactory (http: HttpClient) {
       }
     ),
     CookieModule.forRoot(),
+    FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
