@@ -62,8 +62,8 @@
         <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
       </mat-menu>
 
-      <input class="search-input" id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl style="margin-right:10px;">
-      <button id="searchButton" color="accent" (click)="search(searchControl.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> {{"NAV_SEARCH" | translate}}</button>
+      <input class="search-input" id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl1 style="margin-right:10px;">
+      <button id="searchButton" color="accent" (click)="search(searchControl1.value)" style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button> <i class="fas fa-search fa-lg"></i> {{"NAV_SEARCH" | translate}}</button>
 
       <a *ngIf="scoreBoardVisible" mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
       <a mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> {{"TITLE_ABOUT" | translate}}</a>
