@@ -1,19 +1,17 @@
 mat-toolbar {
     padding-bottom: 5px;
+    height:auto;
 }
 
-nav input{
+.search-input{
     border: none;
     outline: none;
     color:#c8c8c8;
     background-color: inherit;
-    margin-top: 6px;
-    margin-right: 10px;
     height: 62px;
-    margin-left: 30px;
 }
 
-nav input:focus{
+.search-input:focus{
 
     /*To align properly with nav links*/
     /*border-bottom:0.5px solid #a3a3a3;*/
@@ -23,7 +21,6 @@ nav input:focus{
 .application-info {
     display: flex;
     flex-direction: column;
-    margin-left:15px;
     font-size: 18px;
     text-decoration-line: none;
     color: #c8c8c8;
@@ -33,21 +30,16 @@ nav input:focus{
     color: rgb(255, 255, 255);
 }
 
-.contact-dropdown {
-    margin-right: 16px;
-}
-
 .language-select {
     width: 11%;
-    margin-left: 10px;
 }
 
 ::ng-deep .mat-select-value-text {
     font-size:15px;
 }
 
-mat-toolbar-row.second-toolbar-row {
-    justify-content: space-around;
+.user-info {
+    margin-left: 5%;
 }
 
 mat-icon img {
