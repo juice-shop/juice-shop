@@ -11,6 +11,9 @@ module.exports = function getUserProfile () {
       if (loggedInUser) {
         models.User.findById(loggedInUser.data.id).then(user => {
           var templateString = buf.toString()
+          if (user.dataValues.username.match(/\#\{(.*)\}/) !== null) {
+            req.app.locals.abused_ssti_bug = true
+          }
           templateString = templateString.replace('usrname', user.dataValues.username)
           var fn = jade.compile(templateString)
           res.send(fn(user.dataValues))

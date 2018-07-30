@@ -72,6 +72,8 @@ require('./lib/startup/cleanupFtpFolder')()
 app.locals.captchaId = 0
 app.locals.captchaReqId = 1
 app.locals.captchaBypassReqTimes = []
+app.locals.abused_ssti_bug = false
+app.locals.abused_ssrf_bug = false
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -119,6 +121,9 @@ app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
 app.use('/assets/public/images/tracking', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
+
+/* Checks for challenges solved by abusing SSTi and SSRF bugs */
+app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
