@@ -128,6 +128,10 @@ where this project was mentioned or used!
   by Manabu Niseki,
   [OWASP Night 2018/7](https://owasp.doorkeeper.jp/events/77466),
   30.07.2018
+* [Usable Security Tooling - Creating Accessible Security Testing with ZAP](https://www.meetup.com/de-DE/Bay-Area-OWASP/events/252283865/)
+  by David Scrobonia,
+  [OWASP Meetup - SF July 2018](https://www.meetup.com/de-DE/Bay-Area-OWASP/),
+  26.07.2018 ([Youtube](https://www.youtube.com/watch?v=ztfgip-UhWw))
 * [Building an AppSec Program with a Budget of $0: Beyond the OWASP Top 10](https://appseceurope2018a.sched.com/event/EgXt/building-an-appsec-program-with-a-budget-of-0-beyond-the-owasp-top-10)
   by Chris Romeo, [OWASP AppSec Europe 2018](https://2018.appsec.eu),
   06.07.2018 :mega:
