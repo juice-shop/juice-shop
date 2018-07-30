@@ -15,6 +15,9 @@ module.exports = function fileUpload () {
     const file = req.file
     if (file === undefined && req.body.imageUrl !== undefined) {
       var url = req.body.imageUrl
+      if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) {
+        req.app.locals.abused_ssrf_bug = true
+      }
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         request
