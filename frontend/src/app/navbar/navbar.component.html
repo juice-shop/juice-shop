@@ -14,7 +14,7 @@
 
     </span>
 
-    <nav fxFlex="1 1 50%" fxLayoutGap="5%" fxLayoutGap.lt-md="45%" fxLayoutGap.xs="0">
+    <nav fxFlex="1 1 50%" fxLayoutGap="3%" fxLayoutGap.lt-md="45%" fxLayoutGap.xs="0">
       <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login"><i class="fas fa-sign-in-alt fa-lg"></i> {{ "TITLE_LOGIN" | translate}}</a>
 
       <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg"></i> {{"TITLE_LOGOUT" | translate }}</a>
