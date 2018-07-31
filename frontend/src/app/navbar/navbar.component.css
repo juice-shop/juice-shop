@@ -1,6 +1,8 @@
 mat-toolbar {
     padding-bottom: 5px;
     height:auto;
+    width:100%;
+    min-width: 100%;
 }
 
 .search-input{
