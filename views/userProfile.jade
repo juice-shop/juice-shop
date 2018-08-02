@@ -23,14 +23,14 @@ html(lang='en')
                 .col-sm-4
                     img.img-rounded(src='assets/public/images/uploads/'+profileImage, alt='Cinque Terre', width='304', height='236')
                     p(style='padding-left:36%;margin-top:8%;') usrname
-                    form(action='/file-upload' , style='margin-top:10%;',method='post',enctype='multipart/form-data')
+                    form(action='/profile/image/file' , style='margin-top:10%;',method='post',enctype='multipart/form-data')
                         .form-group
                             input(type='file', accept='image/*',name='file')
                         button.btn.btn-default(type='submit') Submit
 
                     p(style='margin-top:10%;') ------------------------- Or -------------------------
 
-                    form(action='/file-upload' , style='margin-top:10%;',method='post')
+                    form(action='/profile/image/url' , style='margin-top:10%;',method='post')
                         .form-group
                             label(for='url') Image Url:
                             input#url.form-control(type='text',name='imageUrl')
