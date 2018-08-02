@@ -80,7 +80,7 @@ exports.jwtChallenges = () => (req, res, next) => {
 }
 
 exports.serverSideChallenges = () => (req, res, next) => {
-  if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3'){
+  if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') {
     if (utils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       utils.solve(challenges.sstiChallenge)
     }
