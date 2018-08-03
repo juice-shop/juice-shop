@@ -1,8 +1,9 @@
+/* jslint node: true */
 module.exports = (sequelize, {INTEGER, STRING}) => {
-  const Challenge = sequelize.define('Captcha', {
+  const Captcha = sequelize.define('Captcha', {
     captchaId: INTEGER,
     captcha: STRING,
     answer: STRING
   })
-  return Challenge
+  return Captcha
 }
