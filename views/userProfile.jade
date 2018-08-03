@@ -34,7 +34,7 @@ html(lang='en')
                         .form-group
                             label(for='url') Image Url:
                             input#url.form-control(type='text',name='imageUrl')
-                        button.btn.btn-default(type='submit') Submit
+                        button(id='submitUrl').btn.btn-default(type='submit') Submit
 
 
                 .col-sm-8
@@ -45,5 +45,5 @@ html(lang='en')
                         .form-group
                             label(for='email') Email:
                             input#email.form-control(type='email',name='email',placeholder='Enter email',value='#{email}')
-                        button.btn.btn-default(type='submit') Submit
+                        button(id='submit').btn.btn-default(type='submit') Submit
         
