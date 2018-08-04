@@ -17,6 +17,7 @@ fontawesome.library.add(faTrash)
 })
 export class ServerStartedNotificationComponent implements OnInit {
 
+  public io = io
   public socket
   public hackingProgress: any = {}
 
@@ -26,7 +27,7 @@ export class ServerStartedNotificationComponent implements OnInit {
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io.connect(environment.hostServer)
+      this.socket = this.io.connect(environment.hostServer)
       this.socket.on('server started', () => {
 
         let continueCode = this.cookieService.get('continueCode')
