@@ -209,7 +209,7 @@ app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 /* Captcha verification before epilogue takes over */
-app.post('/api/Feedbacks', insecurity.verifyCaptcha())
+app.post('/api/Feedbacks', captcha.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* Register admin challenge verification */
