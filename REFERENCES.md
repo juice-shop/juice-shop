@@ -124,6 +124,10 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
+  by Mohammad Febri R, [Mozilla Indonesia](https://mozilla.or.id/),
+  05.08.2018
+  ([Slides](https://slides.com/mohammadfebri/owasp-juice-shop))
 * [OWASP Juice Shop どうでしょう](https://speakerdeck.com/ninoseki/owasp-juice-shop-doudesiyou)
   by Manabu Niseki,
   [OWASP Night 2018/7](https://owasp.doorkeeper.jp/events/77466),
