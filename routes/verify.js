@@ -83,10 +83,14 @@ exports.serverSideChallenges = () => (req, res, next) => {
   if (req.query.key === 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') {
     if (utils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       utils.solve(challenges.sstiChallenge)
+      res.status(204).send()
+      return;
     }
 
     if (utils.notSolved(challenges.ssrfChallenge) && req.app.locals.abused_ssrf_bug === true) {
       utils.solve(challenges.ssrfChallenge)
+      res.status(204).send()
+      return;
     }
   }
   next()
