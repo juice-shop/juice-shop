@@ -11,10 +11,17 @@ module.exports = function getUserProfile () {
       if (loggedInUser) {
         models.User.findById(loggedInUser.data.id).then(user => {
           var templateString = buf.toString()
-          if (user.dataValues.username.match(/#\{(.*)\}/) !== null) {
+          var username = user.dataValues.username
+          if (username.match(/#\{(.*)\}/) !== null) {
             req.app.locals.abused_ssti_bug = true
+            var code = username.substring(2, username.length - 1)
+            try {
+              eval(code) // eslint-disable-line no-eval
+            } catch (err) {
+              username = '\\' + username
+            }
           }
-          templateString = templateString.replace('usrname', user.dataValues.username)
+          templateString = templateString.replace('usrname', username)
           var fn = jade.compile(templateString)
           res.send(fn(user.dataValues))
         }).catch(error => {
