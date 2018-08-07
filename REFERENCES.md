@@ -20,7 +20,10 @@ where this project was mentioned or used!
 
 ## Web Links
 
-* Blog post on [Null Byte :: WonderHowTo](https://null-byte.wonderhowto.com): [Beginner's Guide to OWASP Juice Shop, Your Practice Hacking Grounds for the 10 Most Common Web App Vulnerabilities](https://null-byte.wonderhowto.com/how-to/beginners-guide-owasp-juice-shop-your-practice-hacking-grounds-for-10-most-common-web-app-vulnerabilities-0185103/) :godmode:
+* Blog post on
+  [Null Byte :: WonderHowTo](https://null-byte.wonderhowto.com):
+  [Beginner's Guide to OWASP Juice Shop, Your Practice Hacking Grounds for the 10 Most Common Web App Vulnerabilities](https://null-byte.wonderhowto.com/how-to/beginners-guide-owasp-juice-shop-your-practice-hacking-grounds-for-10-most-common-web-app-vulnerabilities-0185103/)
+  :godmode:
 * Blog posts on
   [DevelopSec - Developing Better Security](https://www.developsec.com/):
   * [Installing OWASP JuiceShop with Docker](https://www.developsec.com/2018/05/10/installing-owasp-juiceshop-with-docker/)
@@ -121,6 +124,18 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
+  by Mohammad Febri R, [Mozilla Indonesia](https://mozilla.or.id/),
+  05.08.2018
+  ([Slides](https://slides.com/mohammadfebri/owasp-juice-shop))
+* [OWASP Juice Shop どうでしょう](https://speakerdeck.com/ninoseki/owasp-juice-shop-doudesiyou)
+  by Manabu Niseki,
+  [OWASP Night 2018/7](https://owasp.doorkeeper.jp/events/77466),
+  30.07.2018
+* [Usable Security Tooling - Creating Accessible Security Testing with ZAP](https://www.meetup.com/de-DE/Bay-Area-OWASP/events/252283865/)
+  by David Scrobonia,
+  [OWASP Meetup - SF July 2018](https://www.meetup.com/de-DE/Bay-Area-OWASP/),
+  26.07.2018 ([Youtube](https://www.youtube.com/watch?v=ztfgip-UhWw))
 * [Building an AppSec Program with a Budget of $0: Beyond the OWASP Top 10](https://appseceurope2018a.sched.com/event/EgXt/building-an-appsec-program-with-a-budget-of-0-beyond-the-owasp-top-10)
   by Chris Romeo, [OWASP AppSec Europe 2018](https://2018.appsec.eu),
   06.07.2018 :mega:
