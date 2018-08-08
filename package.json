@@ -190,6 +190,7 @@
     ]
   },
   "jest": {
+    "testURL": "http://localhost",
     "globalSetup": "./test/apiTestsSetup.js",
     "globalTeardown": "./test/apiTestsTeardown.js",
     "testMatch": [
