@@ -84,13 +84,13 @@ exports.serverSideChallenges = () => (req, res, next) => {
     if (utils.notSolved(challenges.sstiChallenge) && req.app.locals.abused_ssti_bug === true) {
       utils.solve(challenges.sstiChallenge)
       res.status(204).send()
-      return;
+      return
     }
 
     if (utils.notSolved(challenges.ssrfChallenge) && req.app.locals.abused_ssrf_bug === true) {
       utils.solve(challenges.ssrfChallenge)
       res.status(204).send()
-      return;
+      return
     }
   }
   next()
