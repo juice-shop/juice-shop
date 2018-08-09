@@ -5,6 +5,10 @@ branches:
   except:
     - gh-pages
     - l10n_develop
+skip_commits:
+  files:
+    - '*.md'
+    - LICENSE
 environment:
   matrix:
     - nodejs_version: 9

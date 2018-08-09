@@ -7,12 +7,12 @@ describe('/#/search', () => {
 
   beforeEach(() => {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
-    searchQuery = element(by.model('searchQuery'))
+    searchQuery = element(by.id('searchQuery'))
     searchButton = element(by.id('searchButton'))
   })
 
   describe('challenge "xss1"', () => {
-    xit('search query should be susceptible to reflected XSS attacks', () => {
+    it('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('<iframe src="javascript:alert(\'xss\')">')
@@ -24,7 +24,7 @@ describe('/#/search', () => {
       })
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 1'}) // FIXME Verification on server side not possible as value never get submitted to it
+    protractor.expect.challengeSolved({challenge: 'XSS Tier 1'}) // FIXME Verification on server side not possible as value never get submitted to it
   })
 })
 

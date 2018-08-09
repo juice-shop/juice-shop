@@ -110,6 +110,14 @@ overview please visit the official project page:
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
 
+> There is a very convenient Vagrant box available at
+> <https://app.vagrantup.com/commjoen/boxes/trainingbox> (:microscope:) from
+> [@commjoen](https://github.com/commjoen) which comes with latest
+> Docker containers of the OWASP Juice Shop,
+> [OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
+> and other vulnerable web applications as well as pentesting tools like
+> [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).
+
 ### Amazon EC2 Instance
 
 1. Setup an _Amazon Linux AMI_ instance
