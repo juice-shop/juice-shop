@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+  - 10
   - 9
   - 8
 branches:
@@ -61,7 +62,7 @@ deploy:
     gsoc-frontend: juice-shop-gsoc
   on:
     repo: bkimminich/juice-shop
-    node: 9
+    node: 10
 - provider: releases
   overwrite: true
   api_key:
