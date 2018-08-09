@@ -168,7 +168,7 @@
     "vagrant": "cd vagrant && vagrant up"
   },
   "engines": {
-    "node": "8 - 9"
+    "node": "8 - 10"
   },
   "standard": {
     "ignore": [
@@ -200,6 +200,7 @@
     ]
   },
   "jest": {
+    "testURL": "http://localhost",
     "globalSetup": "./test/apiTestsSetup.js",
     "globalTeardown": "./test/apiTestsTeardown.js",
     "testMatch": [
