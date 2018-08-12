@@ -8,7 +8,7 @@ module.exports = function retrieveUserList () {
       const usersWithLoginStatus = utils.queryResultToJson(users)
       usersWithLoginStatus.data.forEach(user => {
         user.token = insecurity.authenticatedUsers.tokenOf(user)
-        user.password ? user.password = user.password.replace(/./g, '*') : null
+        user.password = user.password ? user.password.replace(/./g, '*') : null
       })
       res.json(usersWithLoginStatus)
     }).catch(error => {
