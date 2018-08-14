@@ -90,6 +90,7 @@ if (config.get('application.favicon')) {
   if (utils.startsWith(icon, 'http')) {
     const iconPath = icon
     icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
+    fs.closeSync(fs.openSync('app/public/' + icon, 'w')) // touch file so it is guaranteed to exist for favicon() call
     utils.downloadToFile(iconPath, 'app/public/' + icon)
   }
 }
