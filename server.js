@@ -12,7 +12,7 @@ const serveIndex = require('serve-index')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
-const robots = require('express-robots')
+const robots = require('express-robots-txt')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
@@ -92,7 +92,7 @@ if (config.get('application.favicon')) {
   if (utils.startsWith(icon, 'http')) {
     const iconPath = icon
     icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    // utils.downloadToFile(iconPath, 'app/public/' + icon)
+    fs.closeSync(fs.openSync('frontend/src/assets/public/' + icon, 'w')) // touch file so it is guaranteed to exist for favicon() call
     utils.downloadToFile(iconPath, 'frontend/src/assets/public/' + icon)
   }
 }
