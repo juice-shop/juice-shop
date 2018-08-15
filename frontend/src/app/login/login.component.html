@@ -26,6 +26,8 @@
     <div class="button-container">
       <button id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button color="primary" (click)="login()"><i class="fas fa-key fa-lg"></i> Log In</button>
       <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i class="fab fa-google fa-lg"></i> Log In with Google</button>
+      <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="facebookLogin()"><i class="fab fa-facebook fa-lg"></i> Log In with Facebook</button>
+
     </div>
 
     <mat-checkbox [formControl]="rememberMe" id="rememberMe">Remember me</mat-checkbox>

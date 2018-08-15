@@ -41,7 +41,8 @@
     "ngx-cookie": "^4.0.2",
     "rxjs": "^6.0.0",
     "socket.io-client": "^2.1.1",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "angularx-social-login": "^1.2.3"
   },
   "devDependencies": {
     "typescript": "~2.7.2",
