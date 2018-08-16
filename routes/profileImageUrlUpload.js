@@ -19,12 +19,7 @@ module.exports = function profileImageUrlUpload () {
           })
           .pipe(fs.createWriteStream('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg'))
         models.User.findById(loggedInUser.data.id).then(user => {
-          user.updateAttributes({profileImage: loggedInUser.data.id + '.jpg'}).then(user => {
-            console.log('profile Image updated succesfully.')
-            console.log(user.dataValues)
-          }).catch(error => {
-            next(error)
-          })
+          return user.updateAttributes({profileImage: loggedInUser.data.id + '.jpg'})
         }).catch(error => {
           next(error)
         })
