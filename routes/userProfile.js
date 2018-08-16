@@ -10,19 +10,18 @@ module.exports = function getUserProfile () {
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         models.User.findById(loggedInUser.data.id).then(user => {
-          var templateString = buf.toString()
-          var username = user.dataValues.username
+          const templateString = buf.toString()
+          let username = user.dataValues.username
           if (username.match(/#\{(.*)\}/) !== null) {
             req.app.locals.abused_ssti_bug = true
-            var code = username.substring(2, username.length - 1)
+            const code = username.substring(2, username.length - 1)
             try {
               eval(code) // eslint-disable-line no-eval
             } catch (err) {
               username = '\\' + username
             }
           }
-          templateString = templateString.replace('usrname', username)
-          var fn = jade.compile(templateString)
+          const fn = jade.compile(templateString.replace('usrname', username));
           res.send(fn(user.dataValues))
         }).catch(error => {
           next(error)
