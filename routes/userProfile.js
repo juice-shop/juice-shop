@@ -21,7 +21,7 @@ module.exports = function getUserProfile () {
               username = '\\' + username
             }
           }
-          const fn = jade.compile(templateString.replace('usrname', username));
+          const fn = jade.compile(templateString.replace('usrname', username))
           res.send(fn(user.dataValues))
         }).catch(error => {
           next(error)
