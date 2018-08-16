@@ -6,12 +6,7 @@ module.exports = function updateUserProfile () {
     const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
     if (loggedInUser) {
       models.User.findById(loggedInUser.data.id).then(user => {
-        user.updateAttributes({username: req.body.username, email: req.body.email}).then(user => {
-          console.log('profile updated succesfully.')
-          console.log(user.dataValues)
-        }).catch(error => {
-          next(error)
-        })
+        return user.updateAttributes({username: req.body.username, email: req.body.email})
       }).catch(error => {
         next(error)
       })
