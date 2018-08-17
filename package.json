@@ -135,7 +135,7 @@
     "stryker-jasmine": "~0",
     "stryker-javascript-mutator": "~0",
     "stryker-karma-runner": "~0",
-    "stryker-mocha-framework": "~0",
+    "stryker-mocha-framework": "~0.11.2",
     "stryker-mocha-runner": "~0"
   },
   "repository": {
