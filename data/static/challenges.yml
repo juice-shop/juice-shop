@@ -537,17 +537,17 @@
 -
   name: 'SSTi'
   category: 'Injection'
-  description: 'Infect the juice-shop server with malware by abusing arbitrary comand execution.'
+  description: 'Infect the server with malware by abusing arbitrary comand execution.'
   difficulty: 6
   hint: 'The search for a personal identity is the life of a man.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/ssti.html#infect-the-juice-shop-server-with-malware'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-comand-execution'
   key: sstiChallenge
 -
   name: 'SSRF'
   category: 'Broken Access Control'
-  description: 'Request a hidden resource on server through server'
+  description: 'Request a hidden resource on server through server.'
   difficulty: 6
   hint: 'Reverse the Bad and it gets Good again.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/ssrf.html#request-a-hidden-resource'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
   key: ssrfChallenge
   
