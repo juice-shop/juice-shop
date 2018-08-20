@@ -537,10 +537,10 @@
 -
   name: 'SSTi'
   category: 'Injection'
-  description: 'Infect the server with malware by abusing arbitrary comand execution.'
+  description: 'Infect the server with malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: 'The search for a personal identity is the life of a man.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-comand-execution'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
   key: sstiChallenge
 -
   name: 'SSRF'
