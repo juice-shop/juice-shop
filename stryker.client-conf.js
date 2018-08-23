@@ -2,13 +2,15 @@ module.exports = function (config) {
   'use strict'
 
   config.set({
-    karmaConfigFile: 'karma.conf.js',
+    karma: {
+      configFile: 'karma.conf.js'
+    },
     mutate: ['app/js/**/*.js'],
     testRunner: 'karma',
     testFramework: 'jasmine',
     coverageAnalysis: 'perTest',
     mutator: 'javascript',
-    reporter: ['html', 'progress'],
+    reporters: ['html', 'progress'],
     htmlReporter: {
       baseDir: 'build/reports/mutation/client'
     }
