@@ -11,6 +11,7 @@ skip_commits:
     - LICENSE
 environment:
   matrix:
+    - nodejs_version: 10
     - nodejs_version: 9
     - nodejs_version: 8
 platform:
