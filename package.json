@@ -129,14 +129,14 @@
     "sinon-chai": "~3.2",
     "socket.io-client": "~2.1",
     "standard": "~11",
-    "stryker": "~0",
-    "stryker-api": "~0",
-    "stryker-html-reporter": "~0",
-    "stryker-jasmine": "~0",
-    "stryker-javascript-mutator": "~0",
-    "stryker-karma-runner": "~0",
-    "stryker-mocha-framework": "~0.11.2",
-    "stryker-mocha-runner": "~0"
+    "stryker": "~0.29",
+    "stryker-api": "~0.21",
+    "stryker-html-reporter": "~0.16",
+    "stryker-jasmine": "~0.10",
+    "stryker-javascript-mutator": "~0.9",
+    "stryker-karma-runner": "~0.17",
+    "stryker-mocha-framework": "~0.11",
+    "stryker-mocha-runner": "~0.14"
   },
   "repository": {
     "type": "git",
