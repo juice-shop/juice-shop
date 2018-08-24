@@ -49,8 +49,8 @@
 
   <mat-card>
       <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
-      <button id="collapseCouponButton" class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px" mat-raised-button><i class="fas fa-gift fa-lg"></i></button>
-      <button class="payment-toggle" color="warn" (click)="togglePayment()" mat-raised-button><i class="fas fa-credit-card fa-lg"></i></button>
+      <mat-button-toggle id="collapseCouponButton" class="coupon-toggle" color="accent" (click)="toggleCoupon()" style="margin-right:10px;margin-left:10px"><i class="fas fa-gift fa-lg"></i></mat-button-toggle>
+      <mat-button-toggle class="payment-toggle" color="warn" (click)="togglePayment()"><i class="fas fa-credit-card fa-lg"></i></mat-button-toggle>
   </mat-card>
 
   <mat-expansion-panel [expanded]="couponPanelExpanded">

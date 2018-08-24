@@ -14,10 +14,10 @@ mat-card, mat-expansion-panel,footer {
     flex: 2;
 }
 
-.mat-column-status button {
+.mat-column-status button mat-button-toggle {
     cursor: initial;
 }
 
-.mat-column-status button span {
+.mat-column-status button span mat-button-toggle {
     cursor: pointer;
 }

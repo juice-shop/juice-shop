@@ -10,7 +10,7 @@
   <mat-card-title>Difficulty</mat-card-title>
   <mat-divider></mat-divider>
   <div class="star-container">
-    <button *ngFor="let difficulty of [1,2,3,4,5,6]"  (click)="toggleDifficulty(difficulty)" mat-button>
+    <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]"  (click)="toggleDifficulty(difficulty)">
       <label>
         <span class="fa-4x fa-layers fa-fw">
           <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18" aria-hidden="true" data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
@@ -29,7 +29,7 @@
           </span>
         </span>
       </label>
-    </button>
+    </mat-button-toggle>
   </div>
 
 </mat-card>
