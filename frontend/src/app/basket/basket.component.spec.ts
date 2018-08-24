@@ -308,14 +308,14 @@ describe('BasketComponent', () => {
   })
 
   it('should toggle the coupon panel on clicking the coupon-toggle button', () => {
-    const couponToggle = fixture.debugElement.query(By.css('button.coupon-toggle'))
+    const couponToggle = fixture.debugElement.query(By.css('mat-button-toggle.coupon-toggle'))
     let initValue = component.couponPanelExpanded
     couponToggle.triggerEventHandler('click',null)
     expect(component.couponPanelExpanded).toBe(!initValue)
   })
 
   it('should toggle the payment panel on clicking the payment-toggle button', () => {
-    const paymentToggle = fixture.debugElement.query(By.css('button.payment-toggle'))
+    const paymentToggle = fixture.debugElement.query(By.css('mat-button-toggle.payment-toggle'))
     let initValue = component.paymentPanelExpanded
     paymentToggle.triggerEventHandler('click',null)
     expect(component.paymentPanelExpanded).toBe(!initValue)
