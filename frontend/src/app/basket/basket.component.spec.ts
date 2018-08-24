@@ -20,6 +20,7 @@ import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { DomSanitizer,By } from '@angular/platform-browser'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -77,7 +78,8 @@ describe('BasketComponent', () => {
         MatTableModule,
         MatButtonModule,
         MatExpansionModule,
-        MatDialogModule
+        MatDialogModule,
+        MatButtonToggleModule
       ],
       declarations: [ BasketComponent ],
       providers: [

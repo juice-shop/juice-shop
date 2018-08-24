@@ -12,10 +12,10 @@ import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
-
 import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 class MockSocket {
   on (str: string, callback) {
@@ -62,7 +62,8 @@ describe('ScoreBoardComponent', () => {
         MatDividerModule,
         MatProgressBarModule,
         MatExpansionModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatButtonToggleModule
       ],
       declarations: [ ScoreBoardComponent ],
       providers: [
