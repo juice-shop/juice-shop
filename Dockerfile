@@ -23,7 +23,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
 WORKDIR /juice-shop
 COPY --from=installer /juice-shop .
 RUN addgroup juicer && \
-    adduser --disabled-password --group juicer juicer && \
+    adduser --disabled-password --ingroup juicer juicer && \
     chown -R juicer /juice-shop && \
     chgrp -R 0 /juice-shop/ && \
     chmod -R g=u /juice-shop/
