@@ -3,7 +3,7 @@ COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 
-FROM node:10
+FROM node:10-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
@@ -23,7 +23,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
 WORKDIR /juice-shop
 COPY --from=installer /juice-shop .
 RUN addgroup juicer && \
-    adduser --disabled-password --ingroup juicer juicer && \
+    adduser -D -G juicer juicer && \
     chown -R juicer /juice-shop && \
     chgrp -R 0 /juice-shop/ && \
     chmod -R g=u /juice-shop/
