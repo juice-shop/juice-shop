@@ -1,7 +1,7 @@
 const utils = require('../lib/utils')
 
 module.exports = function repeatNotification () {
-  return ({query}, res) => {
+  return ({ query }, res) => {
     const challengeName = decodeURIComponent(query.challenge)
     const challenge = utils.findChallenge(challengeName)
 

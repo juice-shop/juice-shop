@@ -42,7 +42,7 @@ describe('/api/SecurityAnswers/:id', () => {
       password: '12345'
     }, { json: true })
       .expect('status', 201)
-      .then(({json}) => frisby.post(API_URL + '/SecurityAnswers', {
+      .then(({ json }) => frisby.post(API_URL + '/SecurityAnswers', {
         headers: authHeader,
         body: {
           UserId: json.id,

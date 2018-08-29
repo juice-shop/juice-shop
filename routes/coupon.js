@@ -2,7 +2,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
 module.exports = function applyCoupon () {
-  return ({params}, res, next) => {
+  return ({ params }, res, next) => {
     const id = params.id
     let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
     const discount = insecurity.discountFromCoupon(coupon)

@@ -24,7 +24,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login Admin'})
+    protractor.expect.challengeSolved({ challenge: 'Login Admin' })
   })
 
   describe('challenge "loginJim"', () => {
@@ -34,7 +34,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login Jim'})
+    protractor.expect.challengeSolved({ challenge: 'Login Jim' })
   })
 
   describe('challenge "loginBender"', () => {
@@ -44,7 +44,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login Bender'})
+    protractor.expect.challengeSolved({ challenge: 'Login Bender' })
   })
 
   describe('challenge "adminCredentials"', () => {
@@ -54,7 +54,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Password Strength'})
+    protractor.expect.challengeSolved({ challenge: 'Password Strength' })
   })
 
   describe('challenge "loginSupport"', () => {
@@ -64,7 +64,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login Support Team'})
+    protractor.expect.challengeSolved({ challenge: 'Login Support Team' })
   })
 
   describe('challenge "loginRapper"', () => {
@@ -74,7 +74,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login MC SafeSearch'})
+    protractor.expect.challengeSolved({ challenge: 'Login MC SafeSearch' })
   })
 
   describe('challenge "oauthUserPassword"', () => {
@@ -84,7 +84,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login Bjoern'})
+    protractor.expect.challengeSolved({ challenge: 'Login Bjoern' })
   })
 
   describe('challenge "loginCiso"', () => {
@@ -102,6 +102,6 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Login CISO'})
+    protractor.expect.challengeSolved({ challenge: 'Login CISO' })
   })
 })

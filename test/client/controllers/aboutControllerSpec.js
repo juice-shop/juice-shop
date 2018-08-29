@@ -6,7 +6,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
+    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, { config: {} })
   }))
 
   afterEach(function () {
@@ -29,7 +29,7 @@ describe('controllers', function () {
     }))
 
     it('should not hold twitter or facebook URL if not defined in configuration', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: {} })
 
       $httpBackend.flush()
 
@@ -38,7 +38,7 @@ describe('controllers', function () {
     }))
 
     it('should use custom twitter URL if configured', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {twitterUrl: 'twitter'}}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { twitterUrl: 'twitter' } } })
 
       $httpBackend.flush()
 
@@ -46,7 +46,7 @@ describe('controllers', function () {
     }))
 
     it('should use custom facebook URL if configured', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {facebookUrl: 'facebook'}}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { facebookUrl: 'facebook' } } })
 
       $httpBackend.flush()
 

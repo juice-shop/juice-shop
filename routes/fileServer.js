@@ -4,7 +4,7 @@ const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function servePublicFiles () {
-  return ({params, query}, res, next) => {
+  return ({ params, query }, res, next) => {
     const file = params.file
     const mdDebug = query.md_debug
 

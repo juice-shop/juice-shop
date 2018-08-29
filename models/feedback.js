@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, {STRING, INTEGER}) => {
+module.exports = (sequelize, { STRING, INTEGER }) => {
   const Feedback = sequelize.define('Feedback', {
     comment: {
       type: STRING,
@@ -27,7 +27,7 @@ module.exports = (sequelize, {STRING, INTEGER}) => {
     }
   })
 
-  Feedback.associate = ({User}) => {
+  Feedback.associate = ({ User }) => {
     Feedback.belongsTo(User) // no FK constraint to allow anonymous feedback posts
   }
 

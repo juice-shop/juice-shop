@@ -1,5 +1,5 @@
 /* jslint node: true */
-module.exports = (sequelize, {INTEGER, STRING, BOOLEAN, DATE}) => {
+module.exports = (sequelize, { INTEGER, STRING, BOOLEAN, DATE }) => {
   const Recycle = sequelize.define('Recycle', {
     quantity: INTEGER,
     address: STRING,
@@ -7,7 +7,7 @@ module.exports = (sequelize, {INTEGER, STRING, BOOLEAN, DATE}) => {
     date: DATE
   })
 
-  Recycle.associate = ({User}) => {
+  Recycle.associate = ({ User }) => {
     Recycle.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
   }
 
