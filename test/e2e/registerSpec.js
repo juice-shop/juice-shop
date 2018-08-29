@@ -20,7 +20,7 @@ describe('/#/register', () => {
       })
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 2'})
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 
   describe('challenge "registerAdmin"', () => {

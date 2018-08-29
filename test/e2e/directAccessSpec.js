@@ -35,7 +35,7 @@ describe('/', () => {
       browser.get('/#/search')
     })
 
-    // protractor.expect.challengeSolved({challenge: 'Eye Candy'})
+    // protractor.expect.challengeSolved({ challenge: 'Eye Candy' })
   })
 
   describe('challenge "extraLanguage"', () => {

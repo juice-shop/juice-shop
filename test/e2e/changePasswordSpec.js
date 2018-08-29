@@ -37,6 +37,6 @@ describe('/#/change-password', () => {
       expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
-    // protractor.expect.challengeSolved({challenge: 'CSRF'})
+    // protractor.expect.challengeSolved({ challenge: 'CSRF' })
   })
 })
