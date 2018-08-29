@@ -6,7 +6,7 @@ describe('/rest/product/reviews', () => {
   })
 
   describe('challenge "NoSql Command Injection"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to inject a command into the get route', () => { // FIXME Fails after merging gsoc-frontend and -challenges
       browser.waitForAngularEnabled(false)
@@ -86,7 +86,7 @@ describe('/rest/product/reviews', () => {
           xhttp.open('PATCH', 'http://localhost:3000/rest/product/reviews', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-          xhttp.send(JSON.stringify({'id': reviewId, 'message': 'injected'}))
+          xhttp.send(JSON.stringify({ 'id': reviewId, 'message': 'injected' }))
         }
       })
       browser.driver.sleep(5000)
@@ -123,7 +123,7 @@ describe('/rest/product/reviews', () => {
           xhttp.open('POST', 'http://localhost:3000/rest/product/reviews', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-          xhttp.send(JSON.stringify({'id': reviewId}))
+          xhttp.send(JSON.stringify({ 'id': reviewId }))
         }
       })
       browser.driver.sleep(5000)

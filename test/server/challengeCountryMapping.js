@@ -21,7 +21,7 @@ describe('challengeCountryMapping', () => {
     countryMapping = (await loadYamlFile(path.join(__dirname, '../../config/fbctf.yml'))).ctf.countryMapping
   })
   it('should have a country mapping for every challenge', async () => {
-    for (const {key} of challenges) {
+    for (const { key } of challenges) {
       expect(countryMapping, `Challenge "${key}" does not have a country mapping.`).to.have.property(key)
     }
   })
@@ -30,7 +30,7 @@ describe('challengeCountryMapping', () => {
     const countryCodeCounts = {}
 
     for (const key of Object.keys(countryMapping)) {
-      const {code} = countryMapping[key]
+      const { code } = countryMapping[key]
 
       if (!countryCodeCounts.hasOwnProperty(code)) {
         countryCodeCounts[code] = 0

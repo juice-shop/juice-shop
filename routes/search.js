@@ -3,7 +3,7 @@ const models = require('../models/index')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function searchProducts () {
-  return ({query}, res, next) => {
+  return ({ query }, res, next) => {
     let criteria = query.q === 'undefined' ? '' : query.q || ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     if (utils.notSolved(challenges.localXssChallenge) && utils.contains(criteria, '<iframe src="javascript:alert(\'xss\')">')) {

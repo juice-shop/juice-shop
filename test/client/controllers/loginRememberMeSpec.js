@@ -20,7 +20,7 @@ describe('controllers', function () {
       controller = $controller('LoginController', {
         '$scope': scope
       })
-      scope.form = {$setPristine: function () {}}
+      scope.form = { $setPristine: function () {} }
     }))
 
     it('has ticked remember-me checkbox and pre-filled email field if "email" cookie is present', inject(function () {
@@ -33,8 +33,8 @@ describe('controllers', function () {
     }))
 
     it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {}})
-      scope.user = {email: 'otto@juice-sh.op'}
+      $httpBackend.whenPOST('/rest/user/login').respond(200, { authentication: {} })
+      scope.user = { email: 'otto@juice-sh.op' }
       scope.rememberMe = false
 
       scope.login()
