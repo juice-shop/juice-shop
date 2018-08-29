@@ -1,5 +1,6 @@
 const config = require('config')
 const path = require('path')
+const isDocker = require('is-docker')
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
@@ -57,35 +58,44 @@ describe('/#/complain', () => {
       file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
       submitButton.click()
     })
-
-    it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
-      complaintMessage.sendKeys('XXE File Exfiltration Linux!')
-      file.sendKeys(path.resolve('test/files/xxeForLinux.xml'))
-      submitButton.click()
-    })
-
-    afterAll(() => {
-      protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
-      protractor.expect.challengeSolved({ challenge: 'XXE Tier 1' })
-    })
+    protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
   })
 
-  describe('challenge "xxeDos"', () => {
-    it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
-      complaintMessage.sendKeys('XXE Quadratic Blowup!')
-      file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
-      submitButton.click()
+  if (!isDocker()) { // XXE attacks in Docker containers regularly cause "segfault" crashes
+    describe('challenge "xxeFileDisclosure"', () => {
+      it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
+        complaintMessage.sendKeys('XXE File Exfiltration Windows!')
+        file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
+        submitButton.click()
+      })
+
+      it('should be possible to retrieve file from Linux server via .xml upload with XXE attack', () => {
+        complaintMessage.sendKeys('XXE File Exfiltration Linux!')
+        file.sendKeys(path.resolve('test/files/xxeForLinux.xml'))
+        submitButton.click()
+      })
+
+      afterAll(() => {
+        protractor.expect.challengeSolved({ challenge: 'XXE Tier 1' })
+      })
     })
 
-    it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
-      complaintMessage.sendKeys('XXE Quadratic Blowup!')
-      file.sendKeys(path.resolve('test/files/xxeDevRandom.xml'))
-      submitButton.click()
-    })
+    describe('challenge "xxeDos"', () => {
+      it('should be possible to trigger request timeout via .xml upload with Quadratic Blowup attack', () => {
+        complaintMessage.sendKeys('XXE Quadratic Blowup!')
+        file.sendKeys(path.resolve('test/files/xxeQuadraticBlowup.xml'))
+        submitButton.click()
+      })
 
-    afterAll(() => {
-      protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
-      protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+      it('should be possible to trigger request timeout via .xml upload with dev/random attack', () => {
+        complaintMessage.sendKeys('XXE Quadratic Blowup!')
+        file.sendKeys(path.resolve('test/files/xxeDevRandom.xml'))
+        submitButton.click()
+      })
+
+      afterAll(() => {
+        protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+      })
     })
-  })
+  }
 })

@@ -2,6 +2,7 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
 const vm = require('vm')
+const isDocker = require('is-docker')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -17,7 +18,7 @@ module.exports = function fileUpload () {
       if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
         utils.solve(challenges.deprecatedInterfaceChallenge)
       }
-      if (file.buffer) {
+      if (file.buffer && !isDocker()) { // XXE attacks in Docker containers regularly cause "segfault" crashes
         const data = file.buffer.toString()
         try {
           const sandbox = { libxml, data }
@@ -42,6 +43,8 @@ module.exports = function fileUpload () {
           }
         }
       }
+      res.status(410)
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file.originalname + ')'))
     }
     res.status(204).end()
   }
