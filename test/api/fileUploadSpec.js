@@ -74,7 +74,7 @@ describe('/file-upload', () => {
     form = new FormData()
     form.append('file', fs.createReadStream(file))
 
-    frisby.post(URL + '/file-upload', {headers: form.getHeaders(), body: form})
+    frisby.post(URL + '/file-upload', { headers: form.getHeaders(), body: form })
       .expect('status', 410)
       .done(done)
   })

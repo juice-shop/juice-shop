@@ -2,7 +2,7 @@ const frisby = require('frisby')
 const insecurity = require('../../lib/insecurity')
 const config = require('config')
 
-const christmasProduct = config.get('products').filter(({useForChristmasSpecialChallenge}) => useForChristmasSpecialChallenge)[0]
+const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -12,7 +12,7 @@ describe('/rest/product/search', () => {
     frisby.get(REST_URL + '/product/search?q=nomatcheswhatsoever')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.data.length).toBe(0)
       })
       .done(done)
@@ -22,7 +22,7 @@ describe('/rest/product/search', () => {
     frisby.get(REST_URL + '/product/search?q=o-saft')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.data.length).toBe(1)
       })
       .done(done)
@@ -120,7 +120,7 @@ describe('/rest/product/search', () => {
     frisby.get(REST_URL + '/product/search?q=seasonal%20special%20offer')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.data.length).toBe(0)
       })
       .done(done)
@@ -130,7 +130,7 @@ describe('/rest/product/search', () => {
     frisby.get(REST_URL + '/product/search?q=seasonal%20special%20offer\'))--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.data.length).toBe(0)
       })
       .done(done)
@@ -140,7 +140,7 @@ describe('/rest/product/search', () => {
     frisby.get(REST_URL + '/product/search?q=' + christmasProduct.name + '\'))--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.data.length).toBe(1)
         expect(json.data[0].name).toBe(christmasProduct.name)
       })
@@ -151,12 +151,12 @@ describe('/rest/product/search', () => {
     frisby.get(API_URL + '/Products')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         const products = json.data
         return frisby.get(REST_URL + '/product/search?q=')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({json}) => {
+          .then(({ json }) => {
             expect(json.data.length).toBe(products.length)
           })
       }).done(done)
@@ -166,12 +166,12 @@ describe('/rest/product/search', () => {
     frisby.get(API_URL + '/Products')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         const products = json.data
         return frisby.get(REST_URL + '/product/search')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({json}) => {
+          .then(({ json }) => {
             expect(json.data.length).toBe(products.length)
           })
       }).done(done)

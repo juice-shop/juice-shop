@@ -1,6 +1,6 @@
 describe('/#/register', () => {
   const config = require('config')
-  protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
   beforeEach(() => {
     browser.get('/#/register')
@@ -36,9 +36,9 @@ describe('/#/register', () => {
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({'email': 'testing@test.com', 'password': 'pwned', 'isAdmin': true}))
+        xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'isAdmin': true }))
       })
     })
-    protractor.expect.challengeSolved({challenge: 'Admin Registration'})
+    protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
   })
 })
