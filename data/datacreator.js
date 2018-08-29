@@ -20,6 +20,12 @@ function loadStaticData (file) {
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
 }
 
+function disableOnDocker (challenge) {
+  challenge.disabled = true
+  challenge.hint = 'This challenge is not available when running in a Docker container!'
+  challenge.hintUrl = null
+}
+
 module.exports = async () => {
   const creators = [
     createUsers,
@@ -37,6 +43,11 @@ module.exports = async () => {
 
   for (const creator of creators) {
     await creator()
+  }
+
+  if (isDocker()) {
+    disableOnDocker(challenges.xxeFileDisclosureChallenge)
+    disableOnDocker(challenges.xxeDosChallenge)
   }
 }
 
@@ -65,17 +76,6 @@ async function createChallenges () {
       }
     })
   )
-
-  function disableOnDocker (challenge) {
-    challenge.disabled = true
-    challenge.hint = 'This challenge is not available when running in a Docker container!'
-    challenge.hintUrl = null
-  }
-
-  if (isDocker()) {
-    disableOnDocker(challenges.xxeFileDisclosureChallenge)
-    disableOnDocker(challenges.xxeDosChallenge)
-  }
 }
 
 async function createUsers () {
