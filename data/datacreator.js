@@ -4,6 +4,7 @@ const datacache = require('./datacache')
 const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
+const isDocker = require('is-docker')
 
 const fs = require('fs')
 const path = require('path')
@@ -64,6 +65,17 @@ async function createChallenges () {
       }
     })
   )
+
+  function disableOnDocker (challenge) {
+    challenge.disabled = true
+    challenge.hint = "This challenge is not available when running in a Docker container!"
+    challenge.hintUrl = null
+  }
+
+  if (isDocker()) {
+    disableOnDocker(challenges.xxeFileDisclosureChallenge)
+    disableOnDocker(challenges.xxeDosChallenge)
+  }
 }
 
 async function createUsers () {
