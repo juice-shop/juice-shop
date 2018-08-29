@@ -89,6 +89,9 @@ angular.module('juiceShop').controller('ChallengeController', [
             $scope.challenges[i].hint = 'Click to open hints.'
           }
         }
+        if ($scope.challenges[i].disabledEnv) {
+          $scope.challenges[i].hint = 'This challenge is unavailable in a ' + $scope.challenges[i].disabledEnv + ' environment!'
+        }
       }
       $scope.trustDescriptionHtml()
       $scope.calculateProgressPercentage()
