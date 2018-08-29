@@ -42,7 +42,7 @@ describe('controllers', function () {
       scope.message = 'Another Review'
       scope.editReview()
 
-      $httpBackend.expectPATCH('/rest/product/reviews', {id: 43, message: 'Another Review'}).respond(200, {data: {}})
+      $httpBackend.expectPATCH('/rest/product/reviews', { id: 43, message: 'Another Review' }).respond(200, { data: {} })
 
       $httpBackend.flush()
     }))

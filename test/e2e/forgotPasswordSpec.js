@@ -27,7 +27,7 @@ describe('/#/forgot-password', () => {
       expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Reset Jim\'s Password'})
+    protractor.expect.challengeSolved({ challenge: 'Reset Jim\'s Password' })
   })
 
   describe('as Bender', () => {
@@ -42,7 +42,7 @@ describe('/#/forgot-password', () => {
       expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Reset Bender\'s Password'})
+    protractor.expect.challengeSolved({ challenge: 'Reset Bender\'s Password' })
   })
 
   describe('as Bjoern', () => {
@@ -57,7 +57,7 @@ describe('/#/forgot-password', () => {
       expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Reset Bjoern\'s Password'})
+    protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
   })
 
   describe('as Morty', () => {
@@ -72,6 +72,6 @@ describe('/#/forgot-password', () => {
       expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Reset Morty\'s Password'})
+    protractor.expect.challengeSolved({ challenge: 'Reset Morty\'s Password' })
   })
 })

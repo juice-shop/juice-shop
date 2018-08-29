@@ -1,4 +1,4 @@
-module.exports = (sequelize, {INTEGER, STRING}) => {
+module.exports = (sequelize, { INTEGER, STRING }) => {
   const Challenge = sequelize.define('Captcha', {
     captchaId: INTEGER,
     captcha: STRING,

@@ -48,7 +48,7 @@ angular.module('juiceShop').controller('BasketController', [
     $scope.applyCoupon = function () {
       basketService.applyCoupon($window.sessionStorage.bid, encodeURIComponent($scope.coupon)).then(function (data) {
         $scope.coupon = undefined
-        $translate('DISCOUNT_APPLIED', {discount: data}).then(function (discountApplied) {
+        $translate('DISCOUNT_APPLIED', { discount: data }).then(function (discountApplied) {
           $scope.confirmation = discountApplied
         }, function (translationId) {
           $scope.confirmation = translationId
@@ -82,7 +82,7 @@ angular.module('juiceShop').controller('BasketController', [
     function addToQuantity (id, value) {
       basketService.get(id).then(function (basketItem) {
         var newQuantity = basketItem.quantity + value
-        basketService.put(id, {quantity: newQuantity < 1 ? 1 : newQuantity}).then(function () {
+        basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).then(function () {
           load()
         }).catch(function (err) {
           console.log(err)

@@ -10,7 +10,7 @@ module.exports = function trackOrder () {
     db.orders.find({ orderId: req.params.id }).then(order => {
       const result = utils.queryResultToJson(order)
       if (result.data[0] === undefined) {
-        result.data[0] = {orderId: req.params.id}
+        result.data[0] = { orderId: req.params.id }
       }
       res.json(result)
     }, () => {

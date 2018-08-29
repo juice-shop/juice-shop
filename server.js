@@ -105,7 +105,7 @@ app.use('/security.txt', securityTxt({
 }))
 
 /* robots.txt */
-app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
+app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/public/images/tracking', verify.accessControlChallenges())
@@ -128,12 +128,12 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
-app.use(morgan('combined', {stream: accessLogStream}))
+let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
 app.enable('trust proxy')
-app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({headers, ip}) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
+app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
 
 /** Authorization **/
 /* Checks on JWT in Authorization header */
