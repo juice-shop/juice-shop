@@ -1,7 +1,7 @@
 const config = require('config')
 
 describe('/b2b/v2/order', () => {
-  protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
   describe('challenge "rce"', () => {
     it('an infinite loop deserialization payload should not bring down the server', () => {
@@ -11,7 +11,7 @@ describe('/b2b/v2/order', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({challenge: 'RCE Tier 1'})
+    protractor.expect.challengeSolved({ challenge: 'RCE Tier 1' })
   })
 
   describe('challenge "rceOccupy"', () => {
@@ -22,6 +22,6 @@ describe('/b2b/v2/order', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({challenge: 'RCE Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'RCE Tier 2' })
   })
 })

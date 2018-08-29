@@ -5,6 +5,6 @@ angular.module('juiceShop').controller('TrackOrderController', [
     'use strict'
 
     $scope.save = function () {
-      $location.path('/track-result').search({id: encodeURIComponent($scope.orderId) || ''})
+      $location.path('/track-result').search({ id: encodeURIComponent($scope.orderId) || '' })
     }
   }])

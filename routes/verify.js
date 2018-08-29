@@ -43,7 +43,7 @@ exports.registerAdminChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.accessControlChallenges = () => ({url}, res, next) => {
+exports.accessControlChallenges = () => ({ url }, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
   } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/administration.png')) {
@@ -62,7 +62,7 @@ exports.accessControlChallenges = () => ({url}, res, next) => {
   next()
 }
 
-exports.errorHandlingChallenge = () => (err, req, {statusCode}, next) => {
+exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
   if (utils.notSolved(challenges.errorHandlingChallenge) && err && (statusCode === 200 || statusCode > 401)) {
     utils.solve(challenges.errorHandlingChallenge)
   }
@@ -133,7 +133,7 @@ function changeProductChallenge (osaft) {
 }
 
 function feedbackChallenge () {
-  models.Feedback.findAndCountAll({where: {rating: 5}}).then(({count}) => {
+  models.Feedback.findAndCountAll({ where: { rating: 5 } }).then(({ count }) => {
     if (count === 0) {
       utils.solve(challenges.feedbackChallenge)
     }
@@ -147,7 +147,7 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(({count}) => {
+  }).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
@@ -158,7 +158,7 @@ function knownVulnerableComponentChallenge () {
         [Op.or]: knownVulnerableComponents()
       }
     }
-  }).then(({count}) => {
+  }).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.knownVulnerableComponentChallenge)
     }
@@ -169,14 +169,14 @@ function knownVulnerableComponents () {
   return [
     {
       [Op.and]: [
-        {[Op.like]: '%sanitize-html%'},
-        {[Op.like]: '%1.4.2%'}
+        { [Op.like]: '%sanitize-html%' },
+        { [Op.like]: '%1.4.2%' }
       ]
     },
     {
       [Op.and]: [
-        {[Op.like]: '%express-jwt%'},
-        {[Op.like]: '%0.1.3%'}
+        { [Op.like]: '%express-jwt%' },
+        { [Op.like]: '%0.1.3%' }
       ]
     }
   ]
@@ -189,7 +189,7 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(({count}) => {
+  }).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
@@ -200,7 +200,7 @@ function weirdCryptoChallenge () {
         [Op.or]: weirdCryptos()
       }
     }
-  }).then(({count}) => {
+  }).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.weirdCryptoChallenge)
     }
@@ -209,23 +209,23 @@ function weirdCryptoChallenge () {
 
 function weirdCryptos () {
   return [
-    {[Op.like]: '%z85%'},
-    {[Op.like]: '%base85%'},
-    {[Op.like]: '%hashids%'},
-    {[Op.like]: '%md5%'},
-    {[Op.like]: '%base64%'}
+    { [Op.like]: '%z85%' },
+    { [Op.like]: '%base85%' },
+    { [Op.like]: '%hashids%' },
+    { [Op.like]: '%md5%' },
+    { [Op.like]: '%base64%' }
   ]
 }
 
 function typosquattingNpmChallenge () {
-  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%epilogue-js%'}}}
-  ).then(({count}) => {
+  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%epilogue-js%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
   })
-  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%epilogue-js%'}}}
-  ).then(({count}) => {
+  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%epilogue-js%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingNpmChallenge)
     }
@@ -233,14 +233,14 @@ function typosquattingNpmChallenge () {
 }
 
 function typosquattingAngularChallenge () {
-  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%ng2-bar-rating%'}}}
-  ).then(({count}) => {
+  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%ng2-bar-rating%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
-  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%ng2-bar-rating%'}}}
-  ).then(({count}) => {
+  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%ng2-bar-rating%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.typosquattingAngularChallenge)
     }
@@ -248,14 +248,14 @@ function typosquattingAngularChallenge () {
 }
 
 function hiddenImageChallenge () {
-  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%pickle rick%'}}}
-  ).then(({count}) => {
+  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%pickle rick%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
   })
-  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%pickle rick%'}}}
-  ).then(({count}) => {
+  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%pickle rick%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.hiddenImageChallenge)
     }
@@ -263,14 +263,14 @@ function hiddenImageChallenge () {
 }
 
 function supplyChainAttackChallenge () { // TODO Extend to also pass for given CVE once one has been assigned (otherwise remove CVE mention from challenge description)
-  models.Feedback.findAndCountAll({where: {comment: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
-  ).then(({count}) => {
+  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }
   })
-  models.Complaint.findAndCountAll({where: {message: {[Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%'}}}
-  ).then(({count}) => {
+  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%https://github.com/eslint/eslint-scope/issues/39%' } } }
+  ).then(({ count }) => {
     if (count > 0) {
       utils.solve(challenges.supplyChainAttackChallenge)
     }

@@ -6,7 +6,7 @@ describe('controller', function () {
   describe('LoginController', function () {
     beforeEach(inject(function ($rootScope, $window, $controller) {
       scope = $rootScope.$new()
-      window = {location: {replace: jasmine.createSpy()}}
+      window = { location: { replace: jasmine.createSpy() } }
       controller = $controller('LoginController', {
         '$scope': scope,
         '$window': window

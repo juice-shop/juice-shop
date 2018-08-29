@@ -14,7 +14,7 @@ describe('/redirect', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'Redirects Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 2' })
   })
 
   describe('challenge "redirectGratipay"', () => {
@@ -22,6 +22,6 @@ describe('/redirect', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://gratipay.com/juice-shop')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Redirects Tier 1'})
+    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 1' })
   })
 })

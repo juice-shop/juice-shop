@@ -414,7 +414,7 @@ function createOrders () {
   ]
 
   return Promise.all(
-    orders.map(({orderId, email, totalPrice, products, eta}) =>
+    orders.map(({ orderId, email, totalPrice, products, eta }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,

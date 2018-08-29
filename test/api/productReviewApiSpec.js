@@ -106,7 +106,7 @@ describe('/rest/product/reviews', () => {
 
   it('PATCH multiple product review via injection', done => {
     // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
-    const totalReviews = config.get('products').reduce((sum, {reviews = []}) => sum + reviews.length, 1)
+    const totalReviews = config.get('products').reduce((sum, { reviews = [] }) => sum + reviews.length, 1)
 
     frisby.patch(REST_URL + '/product/reviews', {
       headers: authHeader,
