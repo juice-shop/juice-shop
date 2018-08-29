@@ -68,7 +68,7 @@ async function createChallenges () {
 
   function disableOnDocker (challenge) {
     challenge.disabled = true
-    challenge.hint = "This challenge is not available when running in a Docker container!"
+    challenge.hint = 'This challenge is not available when running in a Docker container!'
     challenge.hintUrl = null
   }
 
