@@ -8,7 +8,8 @@ module.exports = (sequelize, { STRING, INTEGER, BOOLEAN }) => {
     difficulty: INTEGER,
     hint: STRING,
     hintUrl: STRING,
-    solved: BOOLEAN
+    solved: BOOLEAN,
+    disabledEnv: STRING
   })
   return Challenge
 }

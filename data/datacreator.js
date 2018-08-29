@@ -20,12 +20,6 @@ function loadStaticData (file) {
     .catch(() => console.error('Could not open file: "' + filePath + '"'))
 }
 
-function disableOnDocker (challenge) {
-  challenge.disabled = true
-  challenge.hint = 'This challenge is not available when running in a Docker container!'
-  challenge.hintUrl = null
-}
-
 module.exports = async () => {
   const creators = [
     createUsers,
@@ -44,11 +38,6 @@ module.exports = async () => {
   for (const creator of creators) {
     await creator()
   }
-
-  if (isDocker()) {
-    disableOnDocker(challenges.xxeFileDisclosureChallenge)
-    disableOnDocker(challenges.xxeDosChallenge)
-  }
 }
 
 async function createChallenges () {
@@ -57,7 +46,7 @@ async function createChallenges () {
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       try {
         const challenge = await models.Challenge.create({
           key,
@@ -67,7 +56,8 @@ async function createChallenges () {
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
-          hintUrl: showHints ? hintUrl : null
+          hintUrl: showHints ? hintUrl : null,
+          disabledEnv: (isDocker() && disabledEnv === 'Docker') ? disabledEnv : null
         })
         datacache.challenges[key] = challenge
       } catch (err) {
