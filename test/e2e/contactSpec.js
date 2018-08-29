@@ -151,7 +151,7 @@ describe('/#/contact', () => {
   describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => { // FIXME Hangs since merging gsoc-challenges in
       browser.executeAsyncScript(() => {
-        var callback = arguments[arguments.length - 1]
+        var callback = arguments[arguments.length - 1] // eslint-disable-line
         var xhttp = new XMLHttpRequest()
         var captcha
         xhttp.onreadystatechange = function () {

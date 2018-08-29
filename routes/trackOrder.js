@@ -14,7 +14,7 @@ module.exports = function trackOrder () {
         utils.solve(challenges.noSqlOrdersChallenge)
       }
       if (result.data[0] === undefined) {
-        result.data[0] = {orderId: req.params.id}
+        result.data[0] = { orderId: req.params.id }
       }
       res.json(result)
     }, () => {

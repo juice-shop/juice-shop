@@ -28,10 +28,10 @@ describe('controllers', function () {
     }))
 
     it('resets the registration form and redirects to login page after user registration', inject(function () {
-      $httpBackend.whenPOST('/api/Users/').respond(200, {data: {}})
-      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, {data: {}})
+      $httpBackend.whenPOST('/api/Users/').respond(200, { data: {} })
+      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, { data: {} })
 
-      scope.user = {securityQuestion: {}}
+      scope.user = { securityQuestion: {} }
       scope.save()
       $httpBackend.flush()
 

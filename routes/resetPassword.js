@@ -5,7 +5,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
 module.exports = function resetPassword () {
-  return ({body, connection}, res, next) => {
+  return ({ body, connection }, res, next) => {
     const email = body.email
     const answer = body.answer
     const newPassword = body.new

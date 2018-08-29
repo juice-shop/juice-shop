@@ -15,7 +15,7 @@ angular.module('juiceShop').controller('RegisterController', [
 
     $scope.save = function () {
       userService.save($scope.user).then(function (user) {
-        securityAnswerService.save({UserId: user.id, answer: $scope.user.securityAnswer, SecurityQuestionId: $scope.user.securityQuestion.id}).then(function () {
+        securityAnswerService.save({ UserId: user.id, answer: $scope.user.securityAnswer, SecurityQuestionId: $scope.user.securityQuestion.id }).then(function () {
           $scope.user = {}
           $location.path('/login')
         })

@@ -22,7 +22,7 @@ describe('controllers', function () {
       controller = $controller('LoginController', {
         '$scope': scope
       })
-      scope.form = {$setPristine: function () {}}
+      scope.form = { $setPristine: function () {} }
     }))
 
     it('should be defined', inject(function () {
@@ -38,7 +38,7 @@ describe('controllers', function () {
     }))
 
     it('forwards to main page after successful login', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {}})
+      $httpBackend.whenPOST('/rest/user/login').respond(200, { authentication: {} })
 
       scope.login()
       $httpBackend.flush()
@@ -47,7 +47,7 @@ describe('controllers', function () {
     }))
 
     it('sets the returned authentication token as session cookie', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {token: 'auth_token'}})
+      $httpBackend.whenPOST('/rest/user/login').respond(200, { authentication: { token: 'auth_token' } })
 
       scope.login()
       $httpBackend.flush()
@@ -56,7 +56,7 @@ describe('controllers', function () {
     }))
 
     it('puts the returned basket id into browser session storage', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {bid: 4711}})
+      $httpBackend.whenPOST('/rest/user/login').respond(200, { authentication: { bid: 4711 } })
 
       scope.login()
       $httpBackend.flush()
@@ -90,8 +90,8 @@ describe('controllers', function () {
     }))
 
     it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', inject(function () {
-      $httpBackend.whenPOST('/rest/user/login').respond(200, {authentication: {}})
-      scope.user = {email: 'horst@juice-sh.op'}
+      $httpBackend.whenPOST('/rest/user/login').respond(200, { authentication: {} })
+      scope.user = { email: 'horst@juice-sh.op' }
       scope.rememberMe = true
 
       scope.login()
@@ -103,7 +103,7 @@ describe('controllers', function () {
 
     it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', inject(function () {
       $httpBackend.whenPOST('/rest/user/login').respond(401)
-      scope.user = {email: 'horst@juice-sh.op'}
+      scope.user = { email: 'horst@juice-sh.op' }
       scope.rememberMe = true
 
       scope.login()

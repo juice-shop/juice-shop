@@ -23,7 +23,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/api/Users/42').respond(200, {data: {}})
+      $httpBackend.whenGET('/api/Users/42').respond(200, { data: {} })
 
       $httpBackend.flush()
 
@@ -31,7 +31,7 @@ describe('controllers', function () {
     }))
 
     it('should hold single product with given id', inject(function () {
-      $httpBackend.whenGET('/api/Users/42').respond(200, {data: {email: 'test@juice-sh.op'}})
+      $httpBackend.whenGET('/api/Users/42').respond(200, { data: { email: 'test@juice-sh.op' } })
 
       $httpBackend.flush()
 
