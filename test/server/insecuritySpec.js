@@ -16,11 +16,11 @@ describe('insecurity', () => {
 
   describe('userEmailFrom', () => {
     it('returns content of "x-user-email" header if present', () => {
-      expect(insecurity.userEmailFrom({headers: {'x-user-email': 'test@bla.blubb'}})).to.equal('test@bla.blubb')
+      expect(insecurity.userEmailFrom({ headers: { 'x-user-email': 'test@bla.blubb' } })).to.equal('test@bla.blubb')
     })
 
     it('returns undefined if header "x-user-email" is not present', () => {
-      expect(insecurity.userEmailFrom({headers: {}})).to.equal(undefined)
+      expect(insecurity.userEmailFrom({ headers: {} })).to.equal(undefined)
       expect(insecurity.userEmailFrom({})).to.equal(undefined)
     })
   })
@@ -82,9 +82,9 @@ describe('insecurity', () => {
 
   describe('authenticatedUsers', () => {
     it('returns user by associated token', () => {
-      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+      insecurity.authenticatedUsers.put('11111', { data: { id: 1 } })
 
-      expect(insecurity.authenticatedUsers.get('11111')).to.deep.equal({data: {id: 1}})
+      expect(insecurity.authenticatedUsers.get('11111')).to.deep.equal({ data: { id: 1 } })
     })
 
     it('returns undefined if no token is passed in', () => {
@@ -93,9 +93,9 @@ describe('insecurity', () => {
     })
 
     it('returns token by associated user', () => {
-      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+      insecurity.authenticatedUsers.put('11111', { data: { id: 1 } })
 
-      expect(insecurity.authenticatedUsers.tokenOf({id: 1})).to.equal('11111')
+      expect(insecurity.authenticatedUsers.tokenOf({ id: 1 })).to.equal('11111')
     })
 
     it('returns undefined if no user is passed in', () => {
@@ -104,13 +104,13 @@ describe('insecurity', () => {
     })
 
     it('returns user by associated token from request', () => {
-      insecurity.authenticatedUsers.put('11111', {data: {id: 1}})
+      insecurity.authenticatedUsers.put('11111', { data: { id: 1 } })
 
-      expect(insecurity.authenticatedUsers.from({headers: {authorization: 'Bearer 11111'}})).to.deep.equal({data: {id: 1}})
+      expect(insecurity.authenticatedUsers.from({ headers: { authorization: 'Bearer 11111' } })).to.deep.equal({ data: { id: 1 } })
     })
 
     it('returns undefined if no token is present in request', () => {
-      expect(insecurity.authenticatedUsers.from({headers: {}})).to.equal(undefined)
+      expect(insecurity.authenticatedUsers.from({ headers: {} })).to.equal(undefined)
       expect(insecurity.authenticatedUsers.from({})).to.equal(undefined)
     })
   })

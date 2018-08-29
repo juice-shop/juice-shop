@@ -14,7 +14,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Easter Egg Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'Easter Egg Tier 2' })
   })
 
   describe('challenge "premiumPaywall"', () => {
@@ -22,7 +22,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Premium Paywall'})
+    protractor.expect.challengeSolved({ challenge: 'Premium Paywall' })
   })
 
   describe('challenge "geocitiesTheme"', () => {
@@ -35,7 +35,7 @@ describe('/', () => {
       browser.get('/#/search')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Eye Candy'})
+    protractor.expect.challengeSolved({ challenge: 'Eye Candy' })
   })
 
   describe('challenge "extraLanguage"', () => {
@@ -43,7 +43,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/i18n/tlh_AA.json')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Extra Language'})
+    protractor.expect.challengeSolved({ challenge: 'Extra Language' })
   })
 
   describe('challenge "retrieveBlueprint"', () => {
@@ -51,7 +51,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/public/images/products/' + blueprint)
     })
 
-    protractor.expect.challengeSolved({challenge: 'Retrieve Blueprint'})
+    protractor.expect.challengeSolved({ challenge: 'Retrieve Blueprint' })
   })
 
   describe('challenge "securityPolicy"', () => {
@@ -59,6 +59,6 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/security.txt')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Security Policy'})
+    protractor.expect.challengeSolved({ challenge: 'Security Policy' })
   })
 })

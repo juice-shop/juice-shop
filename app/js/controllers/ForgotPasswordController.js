@@ -16,7 +16,7 @@ angular.module('juiceShop').controller('ForgotPasswordController', [
     }
 
     $scope.resetPassword = function () {
-      userService.resetPassword({email: $scope.email, answer: $scope.securityAnswer, new: $scope.newPassword, repeat: $scope.newPasswordRepeat}).then(function () {
+      userService.resetPassword({ email: $scope.email, answer: $scope.securityAnswer, new: $scope.newPassword, repeat: $scope.newPasswordRepeat }).then(function () {
         $scope.error = undefined
         $scope.confirmation = 'Your password was successfully changed.'
         resetForm()

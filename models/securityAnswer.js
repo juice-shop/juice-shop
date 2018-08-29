@@ -1,7 +1,7 @@
 /* jslint node: true */
 const insecurity = require('../lib/insecurity')
 
-module.exports = (sequelize, {STRING, INTEGER}) => {
+module.exports = (sequelize, { STRING, INTEGER }) => {
   const SecurityAnswer = sequelize.define('SecurityAnswer', {
     answer: {
       type: STRING,
@@ -12,7 +12,7 @@ module.exports = (sequelize, {STRING, INTEGER}) => {
     UserId: { type: INTEGER, unique: true }
   })
 
-  SecurityAnswer.associate = ({User, SecurityQuestion}) => {
+  SecurityAnswer.associate = ({ User, SecurityQuestion }) => {
     SecurityAnswer.belongsTo(User)
     SecurityAnswer.belongsTo(SecurityQuestion, { constraints: true, foreignKeyConstraint: true })
   }

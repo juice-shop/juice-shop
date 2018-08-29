@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function performRedirect () {
-  return ({query}, res, next) => {
+  return ({ query }, res, next) => {
     const toUrl = query.to
     if (insecurity.isRedirectAllowed(toUrl)) {
       if (utils.notSolved(challenges.redirectGratipayChallenge) && toUrl === 'https://gratipay.com/juice-shop') {

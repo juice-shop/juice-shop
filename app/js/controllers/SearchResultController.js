@@ -32,9 +32,9 @@ angular.module('juiceShop').controller('SearchResultController', [
             found = true
             basketService.get(productsInBasket[i].BasketItem.id).then(function (existingBasketItem) {
               var newQuantity = existingBasketItem.quantity + 1
-              basketService.put(existingBasketItem.id, {quantity: newQuantity}).then(function (updatedBasketItem) {
+              basketService.put(existingBasketItem.id, { quantity: newQuantity }).then(function (updatedBasketItem) {
                 productService.get(updatedBasketItem.ProductId).then(function (product) {
-                  $translate('BASKET_ADD_SAME_PRODUCT', {product: product.name}).then(function (basketAddSameProduct) {
+                  $translate('BASKET_ADD_SAME_PRODUCT', { product: product.name }).then(function (basketAddSameProduct) {
                     $scope.confirmation = basketAddSameProduct
                   }, function (translationId) {
                     $scope.confirmation = translationId
@@ -52,9 +52,9 @@ angular.module('juiceShop').controller('SearchResultController', [
           }
         }
         if (!found) {
-          basketService.save({ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1}).then(function (newBasketItem) {
+          basketService.save({ ProductId: id, BasketId: $window.sessionStorage.bid, quantity: 1 }).then(function (newBasketItem) {
             productService.get(newBasketItem.ProductId).then(function (product) {
-              $translate('BASKET_ADD_PRODUCT', {product: product.name}).then(function (basketAddProduct) {
+              $translate('BASKET_ADD_PRODUCT', { product: product.name }).then(function (basketAddProduct) {
                 $scope.confirmation = basketAddProduct
               }, function (translationId) {
                 $scope.confirmation = translationId
