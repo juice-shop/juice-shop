@@ -20,6 +20,6 @@ describe('/#/track-order', () => {
       })
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 0'})
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 0' })
   })
 })
