@@ -93,10 +93,11 @@ describe('/#/complain', () => {
         submitButton.click()
       })
 
-    afterAll(() => {
-      protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+      afterAll(() => {
+        protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+      })
     })
-  })
+  }
 
   describe('challenge "arbitraryFileWrite"', () => {
     it('should be possible to upload zip file with filenames having path traversal', () => {
