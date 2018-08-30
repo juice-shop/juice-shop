@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Durumu",
   "STATUS_UNSOLVED": "çözülmemiş",
   "STATUS_SOLVED": "çözülmüş",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Yeni bir soru fikriniz mi var? Burada geçmeyen bir zafiyet mi buldunuz? {{gitter}} topluluğunda sohbet yoluyla veya bir {{github}} sorunu açarak bize bildirin!",
   "CHALLENGE_SOLVED": "Başarılı bir şekilde soruyu çözdünüz: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Geçersiz devam kodu.",
