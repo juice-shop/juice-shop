@@ -80,6 +80,7 @@
     "helmet": "~3.13.0",
     "html-entities": "~1.2",
     "is-docker": "^1.1.0",
+    "is-heroku": "^2.0.0",
     "js-yaml": "~3.12",
     "jsonwebtoken": "~8.3",
     "jssha": "~2.3",
