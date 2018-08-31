@@ -5,7 +5,7 @@ const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const isDocker = require('is-docker')
-const isHeroku = utils.isHeroku
+const isHeroku = require('is-heroku')
 
 const fs = require('fs')
 const path = require('path')
