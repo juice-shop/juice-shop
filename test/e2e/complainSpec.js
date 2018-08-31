@@ -61,7 +61,7 @@ describe('/#/complain', () => {
     protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
   })
 
-  if (!isDocker()) { // XXE attacks in Docker containers regularly cause "segfault" crashes
+  if (!isDocker() && !isHeroku) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
     describe('challenge "xxeFileDisclosure"', () => {
       it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
         complaintMessage.sendKeys('XXE File Exfiltration Windows!')
