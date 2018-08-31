@@ -8,6 +8,7 @@ import { UserService } from './../Services/user.service'
 import { faKey } from '@fortawesome/fontawesome-free-solid'
 import { faGoogle } from '@fortawesome/fontawesome-free-brands'
 fontawesome.library.add(faKey, faGoogle)
+import { AuthService, SocialUser, FacebookLoginProvider } from 'angularx-social-login'
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 const clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
@@ -38,11 +39,12 @@ export class LoginComponent implements OnInit {
   public passwordControl = new FormControl('', [ Validators.required])
   public hide = true
   public user: any
+  userFB: SocialUser
   public rememberMe: FormControl = new FormControl(false)
   public error: any
   public oauthUnavailable: any
   public redirectUri
-  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router) { }
+  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private authService: AuthService) { }
 
   ngOnInit () {
 
@@ -60,6 +62,9 @@ export class LoginComponent implements OnInit {
     if (this.oauthUnavailable) {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
+    this.authService.authState.subscribe((user) => {
+      this.user = user
+    })
   }
 
   login () {
@@ -104,4 +109,7 @@ export class LoginComponent implements OnInit {
 
   }
 
+  facebookLogin (): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
+  }
 }

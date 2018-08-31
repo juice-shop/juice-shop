@@ -79,6 +79,20 @@ import { MatListModule } from '@angular/material/list'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 
+/* Module required for FB Oauth */
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login'
+
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2144822519092851')
+  }
+])
+
+export function provideConfig () {
+  return config
+}
+
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
 }
@@ -150,13 +164,18 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatProgressBarModule,
     MatTooltipModule,
     MatMenuModule,
-    MatListModule
+    MatListModule,
+    SocialLoginModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
     },
     ProductService,
     ConfigurationService,
