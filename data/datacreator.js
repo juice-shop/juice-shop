@@ -5,6 +5,7 @@ const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const isDocker = require('is-docker')
+const isHeroku = utils.isHeroku
 
 const fs = require('fs')
 const path = require('path')
@@ -40,6 +41,15 @@ module.exports = async () => {
   }
 }
 
+function determineRuntime (disabledEnv) {
+  if (isDocker()) {
+    return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
+  } else if (isHeroku()) {
+    return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
+  }
+  return null
+}
+
 async function createChallenges () {
   const showHints = config.get('application.showChallengeHints')
 
@@ -57,7 +67,7 @@ async function createChallenges () {
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
-          disabledEnv: (isDocker() && disabledEnv === 'Docker') ? disabledEnv : null
+          disabledEnv: determineRuntime(disabledEnv)
         })
         datacache.challenges[key] = challenge
       } catch (err) {
