@@ -1,6 +1,7 @@
 const config = require('config')
 const path = require('path')
 const isDocker = require('is-docker')
+const isHeroku = require('is-heroku')
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
