@@ -44,7 +44,7 @@ module.exports = async () => {
 function determineRuntime (disabledEnv) {
   if (isDocker()) {
     return disabledEnv && (disabledEnv === 'Docker' || disabledEnv.includes('Docker')) ? 'Docker' : null
-  } else if (isHeroku()) {
+  } else if (isHeroku) {
     return disabledEnv && (disabledEnv === 'Heroku' || disabledEnv.includes('Heroku')) ? 'Heroku' : null
   }
   return null
