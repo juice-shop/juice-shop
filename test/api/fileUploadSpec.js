@@ -2,8 +2,7 @@ const frisby = require('frisby')
 const fs = require('fs')
 const path = require('path')
 const FormData = require('form-data')
-const isDocker = require('is-docker')
-const isHeroku = require('is-heroku')
+const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
@@ -61,7 +60,7 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  if (!isDocker() && !isHeroku) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+  if (!utils.runsOnContainerEnv()) {
     it('POST file type XML with XXE attack against Windows', done => {
       file = path.resolve(__dirname, '../files/xxeForWindows.xml')
       form = new FormData()
