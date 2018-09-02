@@ -2,8 +2,6 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
 const vm = require('vm')
-const isDocker = require('is-docker')
-const isHeroku = require('is-heroku')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -19,7 +17,7 @@ module.exports = function fileUpload () {
       if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
         utils.solve(challenges.deprecatedInterfaceChallenge)
       }
-      if (file.buffer && !isDocker() && !isHeroku) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+      if (file.buffer && !utils.runsOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
         const data = file.buffer.toString()
         try {
           const sandbox = { libxml, data }
