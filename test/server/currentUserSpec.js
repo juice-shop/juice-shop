@@ -22,7 +22,7 @@ describe('currentUser', () => {
 
   it('should return ID and email of user belonging to authorization token from the request', () => {
     this.req.headers = { authorization: 'Bearer token12345' }
-    require('../../lib/insecurity').authenticatedUsers.put('token12345', {data: {id: 42, email: 'test@juice-sh.op'}})
+    require('../../lib/insecurity').authenticatedUsers.put('token12345', { data: { id: 42, email: 'test@juice-sh.op' } })
 
     retrieveLoggedInUser()(this.req, this.res)
 

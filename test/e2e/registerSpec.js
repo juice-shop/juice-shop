@@ -1,6 +1,6 @@
 describe('/#/register', () => {
   const config = require('config')
-  protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
   beforeEach(() => {
     browser.get('/#/register')
@@ -20,6 +20,6 @@ describe('/#/register', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 })

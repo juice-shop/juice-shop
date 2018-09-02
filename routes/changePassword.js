@@ -5,7 +5,7 @@ const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function changePassword () {
-  return ({query, cookies, connection}, res, next) => {
+  return ({ query, cookies, connection }, res, next) => {
     const currentPassword = query.current
     const newPassword = query.new
     const repeatPassword = query.repeat

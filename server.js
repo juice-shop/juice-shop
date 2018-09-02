@@ -13,7 +13,7 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
-const robots = require('express-robots')
+const robots = require('express-robots-txt')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
@@ -90,6 +90,7 @@ if (config.get('application.favicon')) {
   if (utils.startsWith(icon, 'http')) {
     const iconPath = icon
     icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
+    fs.closeSync(fs.openSync('app/public/' + icon, 'w')) // touch file so it is guaranteed to exist for favicon() call
     utils.downloadToFile(iconPath, 'app/public/' + icon)
   }
 }
@@ -104,7 +105,7 @@ app.use('/security.txt', securityTxt({
 }))
 
 /* robots.txt */
-app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
+app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/public/images/tracking', verify.accessControlChallenges())
@@ -127,12 +128,12 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
-app.use(morgan('combined', {stream: accessLogStream}))
+let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
 app.enable('trust proxy')
-app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({headers, ip}) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
+app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
 
 /** Authorization **/
 /* Checks on JWT in Authorization header */

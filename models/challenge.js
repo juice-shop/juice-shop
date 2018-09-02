@@ -1,5 +1,5 @@
 /* jslint node: true */
-module.exports = (sequelize, {STRING, INTEGER, BOOLEAN}) => {
+module.exports = (sequelize, { STRING, INTEGER, BOOLEAN }) => {
   const Challenge = sequelize.define('Challenge', {
     key: STRING,
     name: STRING,
@@ -8,7 +8,8 @@ module.exports = (sequelize, {STRING, INTEGER, BOOLEAN}) => {
     difficulty: INTEGER,
     hint: STRING,
     hintUrl: STRING,
-    solved: BOOLEAN
+    solved: BOOLEAN,
+    disabledEnv: STRING
   })
   return Challenge
 }

@@ -2,7 +2,7 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, {STRING, DECIMAL}) => {
+module.exports = (sequelize, { STRING, DECIMAL }) => {
   const Product = sequelize.define('Product', {
     name: STRING,
     description: {
@@ -18,7 +18,7 @@ module.exports = (sequelize, {STRING, DECIMAL}) => {
     image: STRING
   }, { paranoid: true })
 
-  Product.associate = ({Basket, BasketItem}) => {
+  Product.associate = ({ Basket, BasketItem }) => {
     Product.belongsToMany(Basket, { through: BasketItem })
   }
 

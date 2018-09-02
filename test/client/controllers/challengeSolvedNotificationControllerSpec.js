@@ -6,8 +6,8 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET('/rest/continue-code').respond(200, {continueCode: 'totallyAValidCode'})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}}})
+    $httpBackend.whenGET('/rest/continue-code').respond(200, { continueCode: 'totallyAValidCode' })
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true } } })
   }))
 
   afterEach(function () {
@@ -51,7 +51,7 @@ describe('controllers', function () {
     }))
 
     it('should translate CHALLENGE_SOLVED message', inject(function () {
-      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'CHALLENGE_SOLVED': 'Translation of CHALLENGE_SOLVED'})
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, { 'CHALLENGE_SOLVED': 'Translation of CHALLENGE_SOLVED' })
       socket.receive('challenge solved', { challenge: {} })
       $httpBackend.flush()
       expect(scope.notifications[ 0 ].message).toBe('Translation of CHALLENGE_SOLVED')
