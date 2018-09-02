@@ -4,7 +4,7 @@ describe('/#/change-password', () => {
   let currentPassword, newPassword, newPasswordRepeat, changeButton
 
   describe('as Bender', () => {
-    protractor.beforeEach.login({email: 'bender@' + config.get('application.domain'), password: 'OhG0dPlease1nsertLiquor!'})
+    protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'OhG0dPlease1nsertLiquor!' })
 
     beforeEach(() => {
       browser.get('/#/change-password')
@@ -25,7 +25,7 @@ describe('/#/change-password', () => {
   })
 
   describe('challenge "csrf"', () => {
-    protractor.beforeEach.login({email: 'bender@' + config.get('application.domain'), password: 'genderBender'})
+    protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'genderBender' })
 
     it('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
       browser.get('/#/search?q=%3Cscript%3Exmlhttp%20%3D%20new%20XMLHttpRequest;%20xmlhttp.open(\'GET\',%20\'' + browser.baseUrl + '%2Frest%2Fuser%2Fchange-password%3Fnew%3DslurmCl4ssic%26repeat%3DslurmCl4ssic\');%20xmlhttp.send()%3C%2Fscript%3E')
@@ -37,6 +37,6 @@ describe('/#/change-password', () => {
       expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
-    protractor.expect.challengeSolved({challenge: 'CSRF'})
+    protractor.expect.challengeSolved({ challenge: 'CSRF' })
   })
 })

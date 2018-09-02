@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
 module.exports = function productReviews () {
-  return ({body}, res, next) => {
+  return ({ body }, res, next) => {
     const id = body.id
 
     db.reviews.update(
