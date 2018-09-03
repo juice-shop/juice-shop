@@ -50,6 +50,7 @@
 
       <a fxShow fxHide.lt-md="true" fxHide.xs="true" *ngIf="scoreBoardVisible" mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
       <a fxShow fxHide.lt-md="true" fxHide.xs="true" mat-button routerLink="/about"><i class="fas fa-info-circle fa-lg"></i> {{"TITLE_ABOUT" | translate}}</a>
+      <a fxShow fxHide.lt-md="true" fxHide.xs="true" *ngIf="gitHubRibbon" mat-button href="/redirect?to=https://github.com/bkimminich/juice-shop"><i class="fab fa-github fa-lg"></i> GitHub</a>
 
     </nav>
 
@@ -84,5 +85,4 @@
     <a mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> Track Orders</a>
   </mat-toolbar-row>
 
-  <a [hidden]="!gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" [src]="'assets/public/images/ribbons/forkme_right_'+gitHubRibbon+'.png'"   alt="Fork me on GitHub"></a>
 </mat-toolbar>
