@@ -5,12 +5,13 @@ import { AdministrationService } from './../Services/administration.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
+import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
+import { faGithub } from "@fortawesome/fontawesome-free-brands"
 import fontawesome from '@fortawesome/fontawesome'
-import { TranslateService } from '@ngx-translate/core'
-fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle)
+fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub)
 import * as io from 'socket.io-client'
 
 @Component({
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
   public selectedLanguage = 'English'
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
-  public gitHubRibbon = 'orange'
+  public gitHubRibbon = true
   public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
   public io = io
   public socket
@@ -47,8 +48,8 @@ export class NavbarComponent implements OnInit {
       if (config && config.application && config.application.name && config.application.name !== null) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.gitHubRibbon && config.application.gitHubRibbon !== null) {
-        this.gitHubRibbon = config.application.gitHubRibbon !== 'none' ? config.application.gitHubRibbon : null
+      if (config && config.application && config.application.gitHubRibbon) {
+        this.gitHubRibbon = config.application.gitHubRibbon
       }
 
       if (config && config.application && config.application.logo && config.application.logo !== null) {
