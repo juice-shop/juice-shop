@@ -91,15 +91,6 @@ overview please visit the official project page:
 3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
    Juice Shop
 
-#### Deploy to Docker Cloud (:microscope:)
-
-1. Click the button below and follow the instructions
-
-[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
-
-> This (:microscope:) is an experimental deployment option! Your
-> feedback is appreciated at <https://gitter.im/bkimminich/juice-shop>.
-
 ### Vagrant
 
 1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
