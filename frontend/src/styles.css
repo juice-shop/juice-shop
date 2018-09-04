@@ -1,3 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~ng2-bar-rating/themes/br-default-theme.css';
+
+.img-thumbnail {
+  background-color: #1c1e22;
+  border: 1px solid #0c0d0e;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.confirmation {
+  color:#5bc0de;
+}
+
+.error {
+  color: red;
+}
