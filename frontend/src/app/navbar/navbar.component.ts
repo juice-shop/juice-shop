@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
-import { faGithub } from "@fortawesome/fontawesome-free-brands"
+import { faGithub } from '@fortawesome/fontawesome-free-brands'
 import fontawesome from '@fortawesome/fontawesome'
 fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub)
 import * as io from 'socket.io-client'
