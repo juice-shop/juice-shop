@@ -172,22 +172,16 @@ describe('NavbarComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should show GitHub ribbon in orange by default', () => {
+  it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe('orange')
+    expect(component.gitHubRibbon).toBe(true)
   })
 
-  it('should colorize GitHub ribbon as configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: 'white' } }))
+  it('should hide GitHub ribbon if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe('white')
-  })
-
-  it('should hide GitHub ribbon if configured as color "none"', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: 'none' } }))
-    component.ngOnInit()
-    expect(component.gitHubRibbon).toBeNull()
+    expect(component.gitHubRibbon).toBe(false)
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {

@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
       if (config && config.application && config.application.name && config.application.name !== null) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.gitHubRibbon) {
+      if (config && config.application && config.application.gitHubRibbon !== null) {
         this.gitHubRibbon = config.application.gitHubRibbon
       }
 
