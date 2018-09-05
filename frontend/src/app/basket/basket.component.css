@@ -12,7 +12,6 @@ mat-card {
 .heading {
     justify-content: center;
     padding: 12px 20px;
-    color: rgba(0, 0, 0, 0.54);
     background: rgba(0, 0, 0, 0.13);
 }
 
