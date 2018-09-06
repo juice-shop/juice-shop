@@ -22,7 +22,7 @@ describe('services', function () {
     }))
 
     it('should get all feedback directly from the rest api', inject(function (FeedbackService) {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: 'apiResponse' })
 
       FeedbackService.find().then(function (data) { result = data })
       $httpBackend.flush()
@@ -31,7 +31,7 @@ describe('services', function () {
     }))
 
     it('should delete feedback directly via the rest api', inject(function (FeedbackService) {
-      $httpBackend.whenDELETE('/api/Feedbacks/1').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenDELETE('/api/Feedbacks/1').respond(200, { data: 'apiResponse' })
 
       FeedbackService.del(1).then(function (data) { result = data })
       $httpBackend.flush()
@@ -40,7 +40,7 @@ describe('services', function () {
     }))
 
     it('should create feedback directly via the rest api', inject(function (FeedbackService) {
-      $httpBackend.whenPOST('/api/Feedbacks/').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenPOST('/api/Feedbacks/').respond(200, { data: 'apiResponse' })
 
       FeedbackService.save().then(function (data) { result = data })
       $httpBackend.flush()

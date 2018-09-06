@@ -6,7 +6,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
+    $httpBackend.whenGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } } })
     $sce = $injector.get('$sce')
   }))
 
@@ -26,7 +26,7 @@ describe('controllers', function () {
 
     it('should be defined', inject(function () {
       $httpBackend.whenGET('/rest/continue-code').respond(200, {})
-      $httpBackend.whenGET('/api/Challenges/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Challenges/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -155,8 +155,8 @@ describe('controllers', function () {
         $httpBackend.whenGET('/rest/continue-code').respond(200, {})
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge #1', solved: false},
-            {name: 'Challenge #2', solved: false}
+            { name: 'Challenge #1', solved: false },
+            { name: 'Challenge #2', solved: false }
           ]
         })
         $httpBackend.flush()
@@ -179,14 +179,14 @@ describe('controllers', function () {
       beforeEach(inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge #1', solved: true},
-            {name: 'Challenge #2', solved: false}
+            { name: 'Challenge #1', solved: true },
+            { name: 'Challenge #2', solved: false }
           ]
         })
       }))
 
       it('should be possible when challenge-solved notifications are shown with CTF flag codes', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } } })
 
         $httpBackend.flush()
 
@@ -194,7 +194,7 @@ describe('controllers', function () {
       }))
 
       it('should not be possible when challenge-solved notifications are shown without CTF flag codes', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': false}, 'application': {'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': false }, 'application': { 'showChallengeSolvedNotifications': true } } })
 
         $httpBackend.flush()
 
@@ -202,7 +202,7 @@ describe('controllers', function () {
       }))
 
       it('should not be possible when challenge-solved notifications are not shown', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeSolvedNotifications': false}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showChallengeSolvedNotifications': false } } })
 
         $httpBackend.flush()
 
@@ -210,21 +210,21 @@ describe('controllers', function () {
       }))
 
       it('should show notification for selected challenge when enabled', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } } })
         $httpBackend.flush()
         $httpBackend.expectGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
 
-        scope.repeatNotification({name: 'Challenge #1', solved: true})
+        scope.repeatNotification({ name: 'Challenge #1', solved: true })
         $httpBackend.flush()
       }))
 
       it('should scroll to top of screen when notification is repeated', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'ctf': {'showFlagsInNotifications': true}, 'application': {'showChallengeSolvedNotifications': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } } })
         $httpBackend.flush()
         $httpBackend.whenGET('/rest/repeat-notification?challenge=Challenge%2520%25231').respond(200)
         window.scrollTo = jasmine.createSpy('scrollTo')
 
-        scope.repeatNotification({name: 'Challenge #1', solved: true})
+        scope.repeatNotification({ name: 'Challenge #1', solved: true })
         $httpBackend.flush()
 
         expect(window.scrollTo).toHaveBeenCalledWith(0, 0)
@@ -235,38 +235,38 @@ describe('controllers', function () {
       beforeEach(inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge #1', hintUrl: 'hint://c1.test'},
-            {name: 'Challenge #2'}
+            { name: 'Challenge #1', hintUrl: 'hint://c1.test' },
+            { name: 'Challenge #2' }
           ]
         })
       }))
 
       it('should happen when challenge has a hint URL', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showChallengeHints': true } } })
         $httpBackend.flush()
         window.open = jasmine.createSpy('open')
 
-        scope.openHint({name: 'Challenge #1', hintUrl: 'hint://c1.test'})
+        scope.openHint({ name: 'Challenge #1', hintUrl: 'hint://c1.test' })
 
         expect(window.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
       }))
 
       it('should not happen when challenge has no hint URL', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showChallengeHints': true } } })
         $httpBackend.flush()
         window.open = jasmine.createSpy('open')
 
-        scope.openHint({name: 'Challenge #2'})
+        scope.openHint({ name: 'Challenge #2' })
 
         expect(window.open).not.toHaveBeenCalled()
       }))
 
       it('should not happen when hints are not turned on in configuration', inject(function () {
-        $httpBackend.expectGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': false}}})
+        $httpBackend.expectGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showChallengeHints': false } } })
         $httpBackend.flush()
         window.open = jasmine.createSpy('open')
 
-        scope.openHint({name: 'Challenge #1', hintUrl: 'hint://c1.test'})
+        scope.openHint({ name: 'Challenge #1', hintUrl: 'hint://c1.test' })
 
         expect(window.open).not.toHaveBeenCalled()
       }))
@@ -274,13 +274,13 @@ describe('controllers', function () {
 
     describe('hint text', function () {
       beforeEach(inject(function () {
-        $httpBackend.whenGET(/.*application-configuration/).respond(200, {'config': {'application': {'showChallengeHints': true}}})
+        $httpBackend.whenGET(/.*application-configuration/).respond(200, { 'config': { 'application': { 'showChallengeHints': true } } })
       }))
 
       it('should be empty for challenge with neither hint text nor URL', inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge'}
+            { name: 'Challenge' }
           ]
         })
         $httpBackend.flush()
@@ -291,7 +291,7 @@ describe('controllers', function () {
       it('should remain unchanged for challenge with a hint text but no hint URL', inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge', hint: 'Hint'}
+            { name: 'Challenge', hint: 'Hint' }
           ]
         })
         $httpBackend.flush()
@@ -302,7 +302,7 @@ describe('controllers', function () {
       it('should append click-me text for challenge with a hint text and URL', inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt'}
+            { name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt' }
           ]
         })
         $httpBackend.flush()
@@ -313,7 +313,7 @@ describe('controllers', function () {
       it('should become click-me text for challenge without a hint text but with hint URL', inject(function () {
         $httpBackend.whenGET('/api/Challenges/').respond(200, {
           data: [
-            {name: 'Challenge', hintUrl: 'http://hi.nt'}
+            { name: 'Challenge', hintUrl: 'http://hi.nt' }
           ]
         })
         $httpBackend.flush()

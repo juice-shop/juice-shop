@@ -17,7 +17,7 @@ module.exports = function fileUpload () {
       if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
         utils.solve(challenges.deprecatedInterfaceChallenge)
       }
-      if (file.buffer) {
+      if (file.buffer && !utils.runsOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
         const data = file.buffer.toString()
         try {
           const sandbox = { libxml, data }
@@ -42,6 +42,8 @@ module.exports = function fileUpload () {
           }
         }
       }
+      res.status(410)
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file.originalname + ')'))
     }
     res.status(204).end()
   }

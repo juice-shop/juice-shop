@@ -45,7 +45,7 @@ async function createChallenges () {
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       try {
         const challenge = await models.Challenge.create({
           key,
@@ -55,7 +55,8 @@ async function createChallenges () {
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
-          hintUrl: showHints ? hintUrl : null
+          hintUrl: showHints ? hintUrl : null,
+          disabledEnv: utils.determineDisabledContainerEnv(disabledEnv)
         })
         datacache.challenges[key] = challenge
       } catch (err) {

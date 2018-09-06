@@ -101,6 +101,14 @@ overview please visit the official project page:
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10](http://192.168.33.10)
 
+> There is a very convenient Vagrant box available at
+> <https://app.vagrantup.com/commjoen/boxes/trainingbox> (:microscope:)
+> from [@commjoen](https://github.com/commjoen) which comes with latest
+> Docker containers of the OWASP Juice Shop,
+> [OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
+> and other vulnerable web applications as well as pentesting tools like
+> [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).
+
 ### Amazon EC2 Instance
 
 1. Setup an _Amazon Linux AMI_ instance
@@ -153,10 +161,11 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)       |
-|:--------|:------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------|
-| __9.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz` |
-| 8.x     |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz` |
+| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
+|:--------------------|:------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
+| 10.x (:microscope:) | `snapshot` (preview from `develop` branch)                              | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
+| __9.x__             | __`latest`__ (current official release)                                 | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
+| 8.x                 |                                                                         | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 

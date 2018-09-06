@@ -23,7 +23,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -32,7 +32,7 @@ describe('controllers', function () {
     }))
 
     it('should hold existing feedback', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: 'a'}, {comment: 'b'}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{ comment: 'a' }, { comment: 'b' }] })
 
       $httpBackend.flush()
 
@@ -42,7 +42,7 @@ describe('controllers', function () {
     }))
 
     it('should add an image to feedback', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{}] })
 
       $httpBackend.flush()
 
@@ -50,7 +50,7 @@ describe('controllers', function () {
     }))
 
     it('should cycle through images if more feedback than images exists', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{}, {}, {}, {}, {}, {}, {}, {}, {}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{}, {}, {}, {}, {}, {}, {}, {}, {}] })
 
       $httpBackend.flush()
 
@@ -59,7 +59,7 @@ describe('controllers', function () {
     }))
 
     it('should consider feedback comment as trusted HTML', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{comment: '<script>alert("XSS")</script>'}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{ comment: '<script>alert("XSS")</script>' }] })
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
@@ -68,7 +68,7 @@ describe('controllers', function () {
     }))
 
     it('should hold nothing when no feedback exists', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: {}})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: {} })
 
       $httpBackend.flush()
 
@@ -94,24 +94,24 @@ describe('controllers', function () {
     }))
 
     it('should pass delete request for feedback to backend API', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
-      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, {data: {}})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{ id: 42 }] })
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, { data: {} })
 
       scope.delete(42)
       $httpBackend.flush()
     }))
 
     it('should reload Feedback list after deleting a Feedback', inject(function () {
-      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}, {id: 43}]})
-      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, {data: {}})
-      $httpBackend.expectGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, { data: [{ id: 42 }, { id: 43 }] })
+      $httpBackend.whenDELETE('/api/Feedbacks/42').respond(200, { data: {} })
+      $httpBackend.expectGET('/api/Feedbacks/').respond(200, { data: [{ id: 42 }] })
 
       scope.delete(42)
       $httpBackend.flush()
     }))
 
     it('should log error while deleting feedback directly to browser console', inject(function () {
-      $httpBackend.whenGET('/api/Feedbacks/').respond(200, {data: [{id: 42}]})
+      $httpBackend.whenGET('/api/Feedbacks/').respond(200, { data: [{ id: 42 }] })
       $httpBackend.whenDELETE('/api/Feedbacks/4711').respond(500, 'error')
 
       console.log = jasmine.createSpy('log')

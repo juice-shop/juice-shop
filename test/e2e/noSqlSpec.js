@@ -6,7 +6,7 @@ describe('/#/search', () => {
   })
 
   describe('challenge "NoSql Command Injection"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to inject a command into the get route', () => {
       browser.waitForAngularEnabled(false)

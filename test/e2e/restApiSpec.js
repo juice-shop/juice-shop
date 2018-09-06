@@ -10,7 +10,7 @@ const tamperingProductId = ((() => {
 
 describe('/rest', () => {
   describe('challenge "xss3"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to create a new product when logged in', () => {
       const EC = protractor.ExpectedConditions
@@ -33,7 +33,7 @@ describe('/rest', () => {
         })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 3' })
   })
 
   describe('challenge "changeProduct"', () => {
@@ -46,6 +46,6 @@ describe('/rest', () => {
       browser.get('/#/search')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Product Tampering'})
+    protractor.expect.challengeSolved({ challenge: 'Product Tampering' })
   })
 })

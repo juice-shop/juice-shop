@@ -15,7 +15,7 @@ describe('/api/Feedbacks', () => {
     frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         captchaId = json.captchaId
         captchaAnswer = json.answer
       })
@@ -93,7 +93,7 @@ describe('/api/Feedbacks', () => {
     })
       .expect('status', 500)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.errors).toContain('SQLITE_CONSTRAINT: FOREIGN KEY constraint failed')
       })
       .done(done)
@@ -108,7 +108,7 @@ describe('/api/Feedbacks', () => {
       }
     })
       .expect('status', 200)
-      .then(({json}) => frisby.post(API_URL + '/Feedbacks', {
+      .then(({ json }) => frisby.post(API_URL + '/Feedbacks', {
         headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
         body: {
           comment: 'Stupid JWT secret "' + insecurity.defaultSecret + '" and being typosquatted by epilogue-js and angular-tooltipps!',
@@ -135,7 +135,7 @@ describe('/api/Feedbacks', () => {
       }
     })
       .expect('status', 200)
-      .then(({json}) => frisby.post(API_URL + '/Feedbacks', {
+      .then(({ json }) => frisby.post(API_URL + '/Feedbacks', {
         headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
         body: {
           comment: 'Bender\'s choice award!',
@@ -178,7 +178,7 @@ describe('/api/Feedbacks', () => {
       .expect('jsonTypes', {
         message: Joi.string()
       })
-      .then(({json}) => {
+      .then(({ json }) => {
         expect(json.message.match(/notNull Violation: (Feedback\.)?rating cannot be null/))
       })
       .done(done)
@@ -192,7 +192,7 @@ describe('/api/Feedbacks/:id', () => {
     frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({json}) => {
+      .then(({ json }) => {
         captchaId = json.captchaId
         captchaAnswer = json.answer
       })
@@ -253,7 +253,7 @@ describe('/api/Feedbacks/:id', () => {
     })
       .expect('status', 201)
       .expect('jsonTypes', 'data', { id: Joi.number() })
-      .then(({json}) => {
+      .then(({ json }) => {
         frisby.del(API_URL + '/Feedbacks/' + json.data.id, { headers: authHeader })
           .expect('status', 200)
           .done(done)
