@@ -24,7 +24,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -33,7 +33,7 @@ describe('controllers', function () {
     }))
 
     it('should hold all users', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'a@a.de'}, {email: 'b@b.de'}]})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [{ email: 'a@a.de' }, { email: 'b@b.de' }] })
 
       $httpBackend.flush()
 
@@ -43,7 +43,7 @@ describe('controllers', function () {
     }))
 
     it('should consider user email as trusted HTML', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: [{email: 'bjoern@<script>alert("XSS2")</script>.de'}]})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [{ email: 'bjoern@<script>alert("XSS2")</script>.de' }] })
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
@@ -52,7 +52,7 @@ describe('controllers', function () {
     }))
 
     it('should hold nothing when no users exist', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -77,7 +77,7 @@ describe('controllers', function () {
     }))
 
     it('should open a modal dialog with user details', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [] })
       spyOn($uibModal, 'open')
 
       $httpBackend.flush()
@@ -88,7 +88,7 @@ describe('controllers', function () {
     }))
 
     it('should resolve to same id as passed into user details modal dialog', inject(function () {
-      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, {data: []})
+      $httpBackend.whenGET('/rest/user/authentication-details/').respond(200, { data: [] })
       spyOn($uibModal, 'open')
 
       $httpBackend.flush()

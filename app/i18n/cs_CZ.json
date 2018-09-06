@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Stav",
   "STATUS_UNSOLVED": "nevyřešeno",
   "STATUS_SOLVED": "vyřešeno",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Máte nápad na nový úkol? Nalezli jste bezpečnostní chybu, která není v úkolech? Dejte nám vědět prostřednictvím {{gitter}} komunitního chatu nebo otevřením chyby na {{github}}!",
   "CHALLENGE_SOLVED": "Úspešně jste vyřešili výzvu: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Kód pro pokračování není platný.",

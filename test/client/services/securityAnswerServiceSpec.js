@@ -20,7 +20,7 @@ describe('services', function () {
     }))
 
     it('should create feedback directly via the rest api', inject(function (SecurityAnswerService) {
-      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenPOST('/api/SecurityAnswers/').respond(200, { data: 'apiResponse' })
 
       SecurityAnswerService.save().then(function (data) { result = data })
       $httpBackend.flush()

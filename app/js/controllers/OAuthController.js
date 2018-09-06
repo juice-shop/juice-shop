@@ -9,7 +9,7 @@ angular.module('juiceShop').controller('OAuthController', [
     'use strict'
 
     userService.oauthLogin(parseRedirectUrlParams()['access_token']).then(function (profile) {
-      userService.save({email: profile.email, password: $base64.encode(profile.email)}).then(function () {
+      userService.save({ email: profile.email, password: $base64.encode(profile.email) }).then(function () {
         login(profile)
       }).catch(function () { // eslint-disable-line handle-callback-err
         login(profile)

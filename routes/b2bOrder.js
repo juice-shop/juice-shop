@@ -5,7 +5,7 @@ const vm = require('vm')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function b2bOrder () {
-  return ({body}, res, next) => {
+  return ({ body }, res, next) => {
     const orderLinesData = body.orderLinesData || ''
     try {
       const sandbox = { safeEval, orderLinesData }

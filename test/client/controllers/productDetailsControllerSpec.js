@@ -6,9 +6,9 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, {data: {}})
-    $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: []})
-    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
+    $httpBackend.whenGET(/\/api\/Products\/42/).respond(200, { data: {} })
+    $httpBackend.whenGET('/rest/product/42/reviews').respond(200, { data: [] })
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, { user: {} })
     $sce = $injector.get('$sce')
     $uibModal = $injector.get('$uibModal')
   }))
@@ -34,7 +34,7 @@ describe('controllers', function () {
     }))
 
     it('should hold single product with given id', inject(function () {
-      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, {data: {name: 'Test Juice'}})
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, { data: { name: 'Test Juice' } })
 
       $httpBackend.flush()
 
@@ -43,7 +43,7 @@ describe('controllers', function () {
     }))
 
     it('should render product description as trusted HTML', inject(function () {
-      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, {data: {description: '<script>alert("XSS")</script>'}})
+      $httpBackend.expectGET(/\/api\/Products\/42/).respond(200, { data: { description: '<script>alert("XSS")</script>' } })
       spyOn($sce, 'trustAsHtml')
 
       $httpBackend.flush()
@@ -60,24 +60,24 @@ describe('controllers', function () {
     }))
 
     it('should post anonymous review if no user email is returned', inject(function () {
-      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {}})
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, { user: {} })
       $httpBackend.flush()
 
       scope.message = 'Great product!'
       scope.addReview()
 
-      $httpBackend.expectPUT('/rest/product/42/reviews', {message: 'Great product!', author: 'Anonymous'}).respond(200, {data: {}})
+      $httpBackend.expectPUT('/rest/product/42/reviews', { message: 'Great product!', author: 'Anonymous' }).respond(200, { data: {} })
       $httpBackend.flush()
     }))
 
     it('should post review with user email as author', inject(function () {
-      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {email: 'horst@juice-sh.op'}})
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, { user: { email: 'horst@juice-sh.op' } })
       $httpBackend.flush()
 
       scope.message = 'Great product!'
       scope.addReview()
 
-      $httpBackend.expectPUT('/rest/product/42/reviews', {message: 'Great product!', author: 'horst@juice-sh.op'}).respond(200, {data: {}})
+      $httpBackend.expectPUT('/rest/product/42/reviews', { message: 'Great product!', author: 'horst@juice-sh.op' }).respond(200, { data: {} })
       $httpBackend.flush()
     }))
 

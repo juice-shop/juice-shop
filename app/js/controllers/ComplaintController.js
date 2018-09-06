@@ -36,7 +36,7 @@ angular.module('juiceShop').controller('ComplaintController', [
     $scope.upload = function (file) {
       Upload.upload({
         url: '/file-upload',
-        data: {file: file}
+        data: { file: file }
       }).then(function (req) {
         $scope.complaint.file = req.config.data.file.name
         saveComplaint()

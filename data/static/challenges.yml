@@ -446,6 +446,9 @@
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'
   key: xxeFileDisclosureChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
 -
   name: 'XXE Tier 2'
   category: 'XXE'
@@ -454,6 +457,9 @@
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while'
   key: xxeDosChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
 -
   name: 'RCE Tier 1'
   category: 'Insecure Deserialization'

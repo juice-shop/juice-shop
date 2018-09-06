@@ -10,7 +10,7 @@ angular.module('juiceShop').controller('ProductReviewEditController', [
     $scope.message = review.message
 
     $scope.editReview = function () {
-      productReviewService.patch({id: $scope.id, message: $scope.message}).then(function () {
+      productReviewService.patch({ id: $scope.id, message: $scope.message }).then(function () {
         $uibModalInstance.close($scope.message)
       }).catch(function (err) {
         console.log(err)

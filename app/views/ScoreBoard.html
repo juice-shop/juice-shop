@@ -45,13 +45,17 @@
                         <td style="white-space: nowrap"><div ng-bind="challenge.name"></div></td>
                         <td style="width:100%"><div ng-bind-html="challenge.description"></div></td>
                         <td class="text-center">
-                            <span ng-show="!challenge.solved" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
+                            <span ng-show="!challenge.solved && !challenge.disabledEnv" id="{{challenge.name}}.notSolved" class="label label-danger" ng-click="openHint(challenge)" ng-class="{ 'label-button': showChallengeHints && challenge.hintUrl }" uib-tooltip="{{ showChallengeHints ? challenge.hint : null }}">
                                 <i class="fas fa-book" aria-hidden="true" ng-show="showChallengeHints && (challenge.hint || challenge.hintUrl)"></i>
                                 <span translate="STATUS_UNSOLVED"></span>
                             </span>
-                            <span ng-show="challenge.solved" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
+                            <span ng-show="challenge.solved && !challenge.disabledEnv" id="{{challenge.name}}.solved" class="label label-success" ng-click="repeatNotification(challenge)" ng-class="{ 'label-button': allowRepeatNotifications }" uib-tooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}">
                                 <i class="far fa-flag" aria-hidden="true" ng-show="allowRepeatNotifications"></i>
                                 <span translate="STATUS_SOLVED"></span>
+                            </span>
+                            <span ng-show="challenge.disabledEnv" id="{{challenge.name}}.unavailable" class="label label-primary" uib-tooltip="{{challenge.hint}}">
+                                <i class="icon-{{challenge.disabledEnv.toLowerCase()}}" aria-hidden="true"></i>
+                                <span translate="STATUS_UNAVAILABLE"></span>
                             </span>
                         </td>
                     </tr>
@@ -62,7 +66,7 @@
         <footer class="alert alert-info" translate="CALL_FOR_CONTRIBUTIONS" translate-value-gitter='<a href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a>' translate-value-github='<a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a>'></footer>
 
         <img src="/public/images/tracking/scoreboard.png"/>
-    </section>
 
+    </section>
 
 </div>

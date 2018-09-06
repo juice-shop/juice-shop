@@ -23,7 +23,7 @@ describe('/#/search', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 1'})
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 1' })
   })
 
   describe('challenge "unionSqlI"', () => {
@@ -43,11 +43,11 @@ describe('/#/search', () => {
       expect(productDescriptions.first().getText()).toBe('admin@' + config.get('application.domain'))
     })
 
-    protractor.expect.challengeSolved({challenge: 'User Credentials'})
+    protractor.expect.challengeSolved({ challenge: 'User Credentials' })
   })
 
   describe('challenge "christmasSpecial"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
       searchQuery.sendKeys(christmasProduct.name + '%25\'))--')
@@ -64,6 +64,6 @@ describe('/#/search', () => {
       element(by.id('checkoutButton')).click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Christmas Special'})
+    protractor.expect.challengeSolved({ challenge: 'Christmas Special' })
   })
 })

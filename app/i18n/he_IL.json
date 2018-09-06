@@ -89,6 +89,7 @@
   "LABEL_STATUS": "סטטוס",
   "STATUS_UNSOLVED": "לא נפתר",
   "STATUS_SOLVED": "נפתר",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "יש לך רעיון לאתגר חדש? מצאת חשיפה שלא נמצאת ברשימה? אפשר ליידע אותנו באמצעות צ'אט הקהילה {{gitter}} או על-ידי פתיחת באג ב{{github}}!",
   "CHALLENGE_SOLVED": "פתרת בהצלחה אתגר: {{challenge}}",
   "INVALID_CONTINUE_CODE": "קוד המשך לא תקין.",

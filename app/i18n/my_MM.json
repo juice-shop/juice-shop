@@ -89,6 +89,7 @@
   "LABEL_STATUS": "မွတ္ခ်က္",
   "STATUS_UNSOLVED": "မေျဖရေသးပါ",
   "STATUS_SOLVED": "ေျဖျပီးပါျပီ",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Challenge အသစ္မ်ား ထည့္သြင္းရန္ အၾကံညဏ္ရွိပါသလား? ဒီမွာ မပါဝင္တဲ႕ အားနည္းခ်က္ တစ္မ်ိဳးမ်ိဳးကို ေတြ႔ထားပါသလား? {{gitter}} သို႕မဟုတ္ {{github}} issues မွ တစ္ဆင့္ ေဆြးေႏြးႏိုင္ပါသည္",
   "CHALLENGE_SOLVED": "Challenge တစ္ခု အား သင္ ေျဖဆိုျပီးပါျပီ : {{challenge}}",
   "INVALID_CONTINUE_CODE": "ဆက္လက္အသံုးျပဳမည့္ code မွာ မွားယြင္းေနပါသည္",

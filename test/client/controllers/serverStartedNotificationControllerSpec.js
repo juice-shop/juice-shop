@@ -54,7 +54,7 @@ describe('controllers', function () {
     }))
 
     it('should translate AUTO_RESTORED_PROGRESS message', inject(function () {
-      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'AUTO_RESTORED_PROGRESS': 'Translation of AUTO_RESTORED_PROGRESS'})
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, { 'AUTO_RESTORED_PROGRESS': 'Translation of AUTO_RESTORED_PROGRESS' })
       $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(200)
 
       cookies.put('continueCode', 'CODE')
@@ -86,7 +86,7 @@ describe('controllers', function () {
     }))
 
     it('should translate AUTO_RESTORE_PROGRESS_FAILED message including the returned error', inject(function () {
-      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, {'AUTO_RESTORE_PROGRESS_FAILED': 'Translation of AUTO_RESTORE_PROGRESS_FAILED: {{error}}'})
+      $httpBackend.expectGET(/\/i18n\/.*\.json/).respond(200, { 'AUTO_RESTORE_PROGRESS_FAILED': 'Translation of AUTO_RESTORE_PROGRESS_FAILED: {{error}}' })
       $httpBackend.whenPUT('/rest/continue-code/apply/CODE').respond(500, 'error')
 
       cookies.put('continueCode', 'CODE')

@@ -6,7 +6,7 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, { user: {} })
     $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {})
   }))
 
@@ -24,7 +24,7 @@ describe('controllers', function () {
     }))
 
     it('should be defined', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -32,8 +32,8 @@ describe('controllers', function () {
     }))
 
     it('should hold the user id of the currently logged in user', inject(function () {
-      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {id: 42}})
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, { user: { id: 42 } })
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -41,7 +41,7 @@ describe('controllers', function () {
     }))
 
     it('should hold no email if current user is not logged in', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -49,8 +49,8 @@ describe('controllers', function () {
     }))
 
     it('should hold the user email of the currently logged in user', inject(function () {
-      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {email: 'x@x.xx'}})
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, { user: { email: 'x@x.xx' } })
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
       $httpBackend.flush()
 
@@ -58,35 +58,35 @@ describe('controllers', function () {
     }))
 
     it('should display pickup message and reset recycle form on saving', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
-      $httpBackend.whenPOST('/api/Recycles/').respond(200, {data: {isPickup: true, pickupDate: '2017-05-23'}})
-      scope.recycle = {isPickup: true, pickupDate: '2017-05-23'}
-      scope.form = {$setPristine: function () {}}
+      $httpBackend.whenPOST('/api/Recycles/').respond(200, { data: { isPickup: true, pickupDate: '2017-05-23' } })
+      scope.recycle = { isPickup: true, pickupDate: '2017-05-23' }
+      scope.form = { $setPristine: function () {} }
 
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({UserId: undefined})
+      expect(scope.recycle).toEqual({ UserId: undefined })
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will pick up your pomace on 2017-05-23.')
     }))
 
     it('should display box delivery message and reset recycle form on saving', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
 
-      $httpBackend.whenPOST('/api/Recycles/').respond(200, {data: {isPickup: false}})
-      scope.recycle = {isPickup: false}
-      scope.form = {$setPristine: function () {}}
+      $httpBackend.whenPOST('/api/Recycles/').respond(200, { data: { isPickup: false } })
+      scope.recycle = { isPickup: false }
+      scope.form = { $setPristine: function () {} }
 
       scope.save()
       $httpBackend.flush()
 
-      expect(scope.recycle).toEqual({UserId: undefined})
+      expect(scope.recycle).toEqual({ UserId: undefined })
       expect(scope.confirmation).toBe('Thank you for using our recycling service. We will deliver your recycle box asap.')
     }))
 
     it('should hold existing recycles', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: [{quantity: 1}, {quantity: 2}]})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [{ quantity: 1 }, { quantity: 2 }] })
 
       $httpBackend.flush()
 
@@ -96,7 +96,7 @@ describe('controllers', function () {
     }))
 
     it('should hold nothing when no recycles exists', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: {}})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: {} })
 
       $httpBackend.flush()
 
@@ -122,8 +122,8 @@ describe('controllers', function () {
     }))
 
     it('should use a configured product image on top of page', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {topProductImage: 'top.png'}}}})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { recyclePage: { topProductImage: 'top.png' } } } })
 
       $httpBackend.flush()
 
@@ -131,8 +131,8 @@ describe('controllers', function () {
     }))
 
     it('should use a configured product image on bottom of page', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {recyclePage: {bottomProductImage: 'bottom.png'}}}})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { recyclePage: { bottomProductImage: 'bottom.png' } } } })
 
       $httpBackend.flush()
 
@@ -140,7 +140,7 @@ describe('controllers', function () {
     }))
 
     it('should show broken top and bottom image on error retrieving configuration', inject(function () {
-      $httpBackend.whenGET('/api/Recycles/').respond(200, {data: []})
+      $httpBackend.whenGET('/api/Recycles/').respond(200, { data: [] })
       $httpBackend.whenGET('/rest/admin/application-configuration').respond(500)
 
       $httpBackend.flush()
