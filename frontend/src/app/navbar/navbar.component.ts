@@ -84,6 +84,12 @@ export class NavbarComponent implements OnInit {
         this.getScoreBoardStatus()
       })
     })
+
+    if (this.cookieService.get('language')) {
+      const langKey = this.cookieService.get('language')
+      this.translate.use(langKey)
+      this.selectedLanguage = this.languages.find(x => x.key === langKey).lang
+    }
   }
 
   search (value: string) {
@@ -115,6 +121,7 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage (langKey) {
     this.translate.use(langKey)
+    this.cookieService.put('language', langKey)
   }
 
   getScoreBoardStatus () {
