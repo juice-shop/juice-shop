@@ -58,8 +58,7 @@ describe('NavbarComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['remove'])
-    cookieService.remove.and.returnValue({})
+    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
     mockSocket = new MockSocket()
 
     TestBed.configureTestingModule({
