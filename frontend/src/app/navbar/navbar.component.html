@@ -44,8 +44,8 @@
 
       <button fxShow fxHide.lt-md="true" fxHide.xs="true" class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">{{"TITLE_CONTACT" | translate}}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> Customer Feedback</button>
-        <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
+        <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> {{"SECTION_CUSTOMER_FEEDBACK" | translate}}</button>
+        <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> {{"NAV_COMPLAIN" | translate}}</button>
       </mat-menu>
 
       <a fxShow fxHide.lt-md="true" fxHide.xs="true" *ngIf="scoreBoardVisible" mat-button routerLink="/score-board"><i class="fas fa-trophy fa-lg"></i> {{"TITLE_SCORE_BOARD" | translate}}</a>
@@ -59,8 +59,8 @@
   <mat-toolbar-row fxFlex="1 1 50%" fxLayoutGap="5%" fxLayoutGap.lt-md="7%" fxLayoutGap.xs="0" fxHide fxShow.lt-md="true" fxShow.xs="true">
       <button class="contact-dropdown" mat-button [matMenuTriggerFor]="menu">{{"TITLE_CONTACT" | translate}}</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> Customer Feedback</button>
-        <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> Order Problem</button>
+        <button mat-menu-item routerLink="/contact"><i class="fas fa-comment fa-lg"></i> {{"SECTION_CUSTOMER_FEEDBACK" | translate}}</button>
+        <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/complain"><i class="fas fa-bomb fa-lg"></i> {{"NAV_COMPLAIN" | translate}}</button>
       </mat-menu>
 
       <input class="search-input" id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl1 style="margin-right:10px;">
@@ -74,15 +74,15 @@
       <span class="user-info" matTooltip="{{userEmail}}" matTooltipPosition="right">
         <i class="fas fa-user-circle fa-lg"></i>
       </span>
-      <a mat-button routerLink="/basket"><i class="fas fa-shopping-cart fa-lg"></i> Your Basket</a>
-      <a mat-button routerLink="/change-password"><i class="fas fa-user-secret fa-lg"></i> Change Password</a>
-      <a fxShow fxHide.lt-md="true" fxHide.xs="true" mat-button routerLink="/recycle"><i class="fas fa-recycle fa-lg"></i> Recycle</a>
-      <a fxShow fxHide.lt-md="true" fxHide.xs="true" mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> Track Orders</a>
+      <a mat-button routerLink="/basket"><i class="fas fa-shopping-cart fa-lg"></i> {{"TITLE_BASKET" | translate}}</a>
+      <a mat-button routerLink="/change-password"><i class="fas fa-user-secret fa-lg"></i> {{"TITLE_CHANGE_PASSWORD" | translate}}</a>
+      <a fxShow fxHide.lt-md="true" fxHide.xs="true" mat-button routerLink="/recycle"><i class="fas fa-recycle fa-lg"></i> {{"NAV_RECYCLE" | translate}}</a>
+      <a fxShow fxHide.lt-md="true" fxHide.xs="true" mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> {{"TITLE_TRACK_ORDERS" | translate}}</a>
   </mat-toolbar-row>
 
   <mat-toolbar-row fxFlex="1 1 50%" fxLayoutGap="10%" fxLayoutGap.lt-md="25%" fxLayoutGap.xs="0" fxHide fxShow.lt-md="true" fxShow.xs="true" fxFlex="1 1 50%" fxLayoutGap="10%" fxLayoutGap.lt-md="5%" fxLayoutGap.xs="0">
-    <a mat-button routerLink="/recycle"><i class="fas fa-recycle fa-lg"></i> Recycle</a>
-    <a mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> Track Orders</a>
+    <a mat-button routerLink="/recycle"><i class="fas fa-recycle fa-lg"></i> {{"NAV_RECYCLE" | translate}}</a>
+    <a mat-button routerLink="/track-order"><i class="fas fa-map-marker fa-lg"></i> {{"TITLE_TRACK_ORDERS" | translate}}</a>
   </mat-toolbar-row>
 
 </mat-toolbar>
