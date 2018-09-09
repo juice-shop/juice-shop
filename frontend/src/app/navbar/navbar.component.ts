@@ -9,9 +9,10 @@ import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
+import { faComments } from '@fortawesome/fontawesome-free-regular'
 import { faGithub } from '@fortawesome/fontawesome-free-brands'
 import fontawesome from '@fortawesome/fontawesome'
-fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub)
+fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
 import * as io from 'socket.io-client'
 
 @Component({
