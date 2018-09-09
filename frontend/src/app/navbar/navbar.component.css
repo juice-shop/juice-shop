@@ -1,3 +1,7 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
 mat-toolbar {
     padding-bottom: 5px;
     height:auto;
@@ -6,7 +10,7 @@ mat-toolbar {
 }
 
 .search-input{
-    border: none;
+    border: 1px;
     outline: none;
     color:#c8c8c8;
     background-color: inherit;
@@ -14,10 +18,8 @@ mat-toolbar {
 }
 
 .search-input:focus{
-
     /*To align properly with nav links*/
     /*border-bottom:0.5px solid #a3a3a3;*/
-
 }
 
 .application-info {
