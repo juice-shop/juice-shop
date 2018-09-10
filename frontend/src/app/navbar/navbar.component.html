@@ -5,10 +5,10 @@
         <a class="application-info" routerLink="/search">
           <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
         </a>
-        <a class="application-info" routerLink="/search">
+        <div class="application-info">
           <span style="margin-top:3px;">{{applicationName}}</span>
           <span style="font-size:12px;">{{version}}</span>
-        </a>
+        </div>
     </span>
 
     <button mat-button [matMenuTriggerFor]="userMenu">
@@ -84,8 +84,9 @@
 
     <span class="fill-remaining-space"></span>
 
-    <input class="search-input" id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}"
-           #searchControl>
+    <mat-form-field color="accent" class="search-input" floatLabel="never">
+      <input matInput id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl>
+    </mat-form-field>
     <button id="searchButton" color="accent" (click)="search(searchControl.value)"
             style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button>
       <i class="fas fa-search fa-lg"></i>

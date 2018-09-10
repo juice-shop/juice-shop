@@ -16,18 +16,14 @@ mat-icon img {
 }
 
 .search-input {
-  border: 1px;
-  outline: none;
-  background-color: inherit;
-  height: 62px;
   margin-right: 10px;
+  font-size: 14px;
 }
 
 .application-info {
   display: flex;
   flex-direction: column;
   font-size: 18px;
-  text-decoration-line: none;
 }
 
 .application-info:hover {
