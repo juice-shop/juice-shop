@@ -1,53 +1,48 @@
+mat-toolbar {
+  padding-bottom: 5px;
+  height: auto;
+  width: 100%;
+  min-width: 100%;
+}
+
+mat-icon img {
+  margin-left: -15px;
+  margin-top: -6px;
+  max-height: 100px;
+}
+
 .fill-remaining-space {
   flex: 1 1 auto;
 }
 
-mat-toolbar {
-    padding-bottom: 5px;
-    height:auto;
-    width:100%;
-    min-width: 100%;
-}
-
-.search-input{
-    border: 1px;
-    outline: none;
-    color:#c8c8c8;
-    background-color: inherit;
-    height: 62px;
-}
-
-.search-input:focus{
-    /*To align properly with nav links*/
-    /*border-bottom:0.5px solid #a3a3a3;*/
+.search-input {
+  border: 1px;
+  outline: none;
+  background-color: inherit;
+  height: 62px;
+  margin-right: 10px;
 }
 
 .application-info {
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    text-decoration-line: none;
-    color: #c8c8c8;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  text-decoration-line: none;
 }
 
 .application-info:hover {
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
 .language-select {
-    width: 11%;
+  width: 11%;
+  margin-left: 10px;
 }
 
 ::ng-deep .mat-select-value-text {
-    font-size:15px;
+  font-size: 15px;
 }
 
 .user-info {
-    margin-left: 5%;
-}
-
-mat-icon img {
-    margin-left: -15px;
-    margin-top: -6px;
-    max-height: 100px;
+  margin-left: 5%;
 }
