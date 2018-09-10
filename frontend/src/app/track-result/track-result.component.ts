@@ -9,7 +9,7 @@ fontawesome.library.add(faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHo
 @Component({
   selector: 'app-track-result',
   templateUrl: './track-result.component.html',
-  styleUrls: ['./track-result.component.css']
+  styleUrls: ['./track-result.component.scss']
 })
 export class TrackResultComponent implements OnInit {
 

@@ -13,7 +13,7 @@ fontawesome.library.add(faTrash)
 @Component({
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
-  styleUrls: ['./server-started-notification.component.css']
+  styleUrls: ['./server-started-notification.component.scss']
 })
 export class ServerStartedNotificationComponent implements OnInit {
 

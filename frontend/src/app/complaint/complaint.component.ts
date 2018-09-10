@@ -11,7 +11,7 @@ fontawesome.library.add(faBomb)
 @Component({
   selector: 'app-complaint',
   templateUrl: './complaint.component.html',
-  styleUrls: ['./complaint.component.css']
+  styleUrls: ['./complaint.component.scss']
 })
 export class ComplaintComponent implements OnInit {
 

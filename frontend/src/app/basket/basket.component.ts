@@ -17,7 +17,7 @@ fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, fa
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnInit {
 

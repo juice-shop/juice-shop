@@ -10,7 +10,7 @@ fontawesome.library.add(faPaperPlane)
 @Component({
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
-  styleUrls: ['./recycle.component.css']
+  styleUrls: ['./recycle.component.scss']
 })
 export class RecycleComponent implements OnInit {
 
