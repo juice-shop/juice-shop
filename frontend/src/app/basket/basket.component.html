@@ -78,7 +78,7 @@
 
     <div class="button-container">
         <form ngNoForm action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
-          <div class="paypal_donation_button">
+          <div>
               <input type="hidden" name="cmd" value="_donations">
               <input type="hidden" name="business" value="paypal@owasp.org">
               <input type="hidden" name="lc" value="BM">
@@ -87,17 +87,17 @@
               <input type="hidden" name="no_note" value="0">
               <input type="hidden" name="currency_code" value="EUR">
               <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
-              <button type="submit" name="submit" mat-raised-button color="warn"><i class="fab fa-paypal fa-lg"></i> PayPal</button>
+              <button type="submit" name="submit" mat-raised-button><i class="fab fa-paypal fa-lg"></i> PayPal</button>
               <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
           </div>
       </form>
-      <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step"><button color="warn" mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button></a>
+      <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step"><button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button></a>
       <!--<a href="https://gratipay.com/juice-shop">
          <button color="warn" mat-raised-button><i class="fab fa-gratipay fa-lg"></i> Gratipay</button>
       </a>-->
-      <button color="warn" mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
-      <button color="warn" mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
-      <button color="warn" mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+      <button mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+      <button mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
+      <button mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
     </div>
 
     <div class="payment-label">
@@ -106,9 +106,9 @@
     </div>
 
     <div class="button-container">
-      <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button color="warn"><i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.com</button></a>
-      <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button color="warn"><i class="fas fa-shopping-bag fa-lg"></i> Spreadshirt.de</button></a>
-      <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button color="warn"><i class="fas fa-sticky-note fa-lg"></i> StickerYou.com</button></a>
+      <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt.com</button></a>
+      <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt.de</button></a>
+      <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou.com</button></a>
     </div>
 
   </mat-expansion-panel>
