@@ -15,7 +15,7 @@ fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
-  styleUrls: ['./challenge-solved-notification.component.css']
+  styleUrls: ['./challenge-solved-notification.component.scss']
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
 
