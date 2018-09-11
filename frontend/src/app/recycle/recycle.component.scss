@@ -1,42 +1,42 @@
-mat-card{
-    left:10%;
-    margin-top:50px;
-    width:45%;
-    height:fit-content;
+mat-card {
+  height: fit-content;
+  left: 10%;
+  margin-top: 50px;
+  width: 45%;
 }
 
-mat-form-field{
-    padding-top:10px;
+mat-form-field {
+  padding-top: 10px;
 }
 
-.form-container{
-    display: flex;
-    flex-direction: column;
-    position: relative;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 button {
-    margin-top:5px;
+  margin-top: 5px;
 }
 
 .recycle-container {
-    display:flex;
+  display: flex;
 }
 
 .card-container {
-    margin-top: 50px;
-    margin-left: 20%;
+  margin-left: 20%;
+  margin-top: 50px;
 }
 
 .card-container mat-card {
-    left: 0;
-    width: 214px;
+  left: 0;
+  width: 214px;
 }
 
 .card-container mat-card img {
-    height: 110px;
+  height: 110px;
 }
 
 mat-card.form-card {
-    width:40%;
+  width: 40%;
 }

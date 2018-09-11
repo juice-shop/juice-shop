@@ -1,8 +1,8 @@
 mat-toolbar {
-  padding-bottom: 5px;
   height: auto;
-  width: 100%;
   min-width: 100%;
+  padding-bottom: 5px;
+  width: 100%;
 }
 
 mat-icon img {
@@ -16,8 +16,8 @@ mat-icon img {
 }
 
 .search-input {
-  margin-right: 10px;
   font-size: 14px;
+  margin-right: 10px;
 }
 
 .application-info {
@@ -31,8 +31,8 @@ mat-icon img {
 }
 
 .language-select {
-  width: 11%;
   margin-left: 10px;
+  width: 11%;
 }
 
 ::ng-deep .mat-select-value-text {
