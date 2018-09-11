@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
 
   public userEmail = ''
   public languages = languages
-  public selectedLanguage = 'English'
+  public selectedLanguage = this.languages[0]
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
@@ -89,7 +89,7 @@ export class NavbarComponent implements OnInit {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
-      this.selectedLanguage = this.languages.find(x => x.key === langKey).lang
+      this.selectedLanguage = this.languages.find(x => x.key === langKey)
     }
   }
 
