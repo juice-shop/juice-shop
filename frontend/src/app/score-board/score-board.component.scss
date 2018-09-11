@@ -1,23 +1,26 @@
-mat-card, mat-expansion-panel,footer {
-    margin: 35px;
+mat-card,
+mat-expansion-panel,
+footer {
+  margin: 35px;
 }
 
-.star-container,mat-table {
-    margin-top: 25px;
+.star-container,
+mat-table {
+  margin-top: 25px;
 }
 
 .star-container svg:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .mat-column-description {
-    flex: 2;
+  flex: 2;
 }
 
 .mat-column-status button mat-button-toggle {
-    cursor: initial;
+  cursor: initial;
 }
 
 .mat-column-status button span mat-button-toggle {
-    cursor: pointer;
+  cursor: pointer;
 }

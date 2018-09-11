@@ -1,42 +1,42 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
 }
 
 .heading {
-    justify-content: center;
-    padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.13);
-    margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.13);
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 12px 20px;
 }
 
 .user-container.recycle-container {
-    margin-left:1.7%;
+  margin-left: 1.7%;
 }
 
 .customer-container {
-    margin-left: 5%;
-    margin-right: 10px;
+  margin-left: 5%;
+  margin-right: 10px;
 }
 
-.user-table,.recycle-table {
-    margin-bottom: 25px;
+.user-table, .recycle-table {
+  margin-bottom: 25px;
 }
 
 .mat-column-icon svg, .mat-column-user_detail button {
-    margin-left: 38%;
+  margin-left: 38%;
 }
 
 mat-cell, mat-footer-cell, mat-header-cell {
-    display: block;
-    align-items: normal;
+  align-items: normal;
+  display: block;
 }
 
 .mat-column-comment {
-    padding: 10px;
+  padding: 10px;
 }
 
 mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {
-    padding-right: 50px;
+  padding-right: 50px;
 }

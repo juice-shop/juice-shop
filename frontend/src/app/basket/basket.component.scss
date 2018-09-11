@@ -1,51 +1,51 @@
 .container {
-    margin-top:40px;
-    margin-left: 16.677%;
-    width: 70%;
+  margin-left: 16.677%;
+  margin-top: 40px;
+  width: 70%;
 }
 
 mat-card {
-    margin-top: 30px;
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .heading {
-    justify-content: center;
-    padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.13);
+  background: rgba(0, 0, 0, 0.13);
+  justify-content: center;
+  padding: 12px 20px;
 }
 
 .mat-row {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .mat-column-description {
-    min-width: 309px;
-    margin-left: 20px;
+  margin-left: 20px;
+  min-width: 309px;
 }
 
 .mat-column-price {
-    margin-left:20px;
+  margin-left: 20px;
 }
 
 .mat-column-quantity button mat-button-toggle {
-    width:20px;
+  width: 20px;
 }
 
 mat-form-field {
-    width: 100%;
-    margin-top: 15px;
+  margin-top: 15px;
+  width: 100%;
 }
 
 mat-expansion-panel {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .button-container button mat-button-toggle {
-    margin-right: 20px;
-    margin-top: 10px;
+  margin-right: 20px;
+  margin-top: 10px;
 }
 
 .payment-label {
-    padding-top:10px;
+  padding-top: 10px;
 }

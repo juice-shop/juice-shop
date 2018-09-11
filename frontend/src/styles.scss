@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 @import '~ng2-bar-rating/themes/br-default-theme.css';
 
 .img-thumbnail {
@@ -10,9 +9,9 @@
 }
 
 .confirmation {
-  color:#5bc0de;
+  color: #5bc0de;
 }
 
 .error {
-  color: red;
+  color: #ff0000;
 }
