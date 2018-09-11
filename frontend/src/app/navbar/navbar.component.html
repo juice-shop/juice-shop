@@ -33,7 +33,7 @@
 
     <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login">
       <i class="fas fa-sign-in-alt fa-lg"></i>
-      {{"TITLE_LOGIN" | translate}}
+      {{"TITLE_LOGIN" | translate }}
     </a>
     <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()">
       <i class="fas fa-sign-out-alt fa-lg"></i>
@@ -64,16 +64,11 @@
       <mat-select [(value)]="selectedLanguage">
 
         <mat-select-trigger>
-          <i class="fas fa-language fa-lg"></i>
-          {{"LANGUAGE" | translate}}
+          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          {{selectedLanguage.lang}}
         </mat-select-trigger>
 
-        <mat-option (click)="changeLanguage('en')" value="English">
-          <span class="flag-icon flag-icon-gb"></span>
-          <span class="flag-icon flag-icon-us"></span>
-          English
-        </mat-option>
-        <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language.lang">
+        <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
           <span class="flag-icon flag-icon-{{language.icon}}"></span>
           {{language?.lang}}
           <i *ngIf="language.isFlask" class="fas fa-flask"></i>
