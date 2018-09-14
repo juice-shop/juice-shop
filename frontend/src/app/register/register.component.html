@@ -1,4 +1,5 @@
-<mat-card>
+<div fxLayoutAlign="center">
+  <mat-card>
 
     <h3>User Registration</h3>
 
@@ -7,45 +8,63 @@
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input [formControl]="emailControl" type="text" matInput>
-        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required">Please provide an email address.</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required">Please provide an email address.
+        </mat-error>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.email">Email address is not valid.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input [formControl]="passwordControl" type="password" matInput>
-        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required">Please provide a password.</mat-error>
-        <mat-error *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)">Pasword must be 5-20 characters long.</mat-error>
+        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required">Please provide a password.
+        </mat-error>
+        <mat-error
+          *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)">
+          Pasword must be 5-20 characters long.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Repeat Password</mat-label>
         <input [formControl]="repeatPasswordControl" type="password" matInput>
-        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required">Please repeat your password.</mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required">Please repeat your
+          password.
+        </mat-error>
       </mat-form-field>
 
       <div class="security-container">
 
         <mat-form-field>
-          <mat-label> Security Question <mat-icon>warning</mat-icon> <b style="margin-left:5px;">This cannot be changed later</b></mat-label>
-          <mat-select [formControl]="securityQuestionControl" placeholder="Security Question" [(value)]="selected" name="securityQuestion">
+          <mat-label> Security Question
+            <mat-icon>warning</mat-icon>
+            <b style="margin-left:5px;">This cannot be changed later</b></mat-label>
+          <mat-select [formControl]="securityQuestionControl" placeholder="Security Question" [(value)]="selected"
+                      name="securityQuestion">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.id">
               {{question.question}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required">Please select a security question.</mat-error>
+          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required">Please select a
+            security question.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <input [formControl]="securityAnswerControl" type="text" matInput placeholder="Answer here">
-          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required">Please provide an answer to your security question.</mat-error>
+          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required">Please provide an
+            answer to your security question.
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
 
     <button mat-raised-button color="primary"
-    style="margin-top:1px;"
-    [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
-    (click)="save()"><mat-icon>how_to_reg</mat-icon>Register!</button>
+            style="margin-top:1px;"
+            [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
+            (click)="save()">
+      <mat-icon>how_to_reg</mat-icon>
+      Register!
+    </button>
 
   </mat-card>
+</div>

@@ -1,42 +1,50 @@
-<mat-card>
-  <h3> Contact us </h3>
+<div fxLayoutAlign="center">
+  <mat-card>
+    <h3> Contact us </h3>
 
-  <div *ngIf="confirmation">
-    <p class="confirmation">{{confirmation}}</p>
-  </div>
-  <div *ngIf="error">
-    <p class="error">{{error}}</p>
-  </div>
-
-  <div class="form-container">
-
-    <input hidden type="text" id="userId" [formControl]="userIdControl"/>
-
-    <mat-form-field appearance="outline">
-      <mat-label> Author </mat-label>
-      <input [formControl]="authorControl" matInput type="text">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label> Comment </mat-label>
-      <textarea id="comment" [formControl]="feedbackControl" matInput></textarea>
-      <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required">Please provide a comment.</mat-error>
-    </mat-form-field>
-
-    <div style="margin-top:5px;" class="rating-container">
-      <label style="font-weight:bold; margin-right: 8px;"> Rating </label>
-      <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
+    <div *ngIf="confirmation">
+      <p class="confirmation">{{confirmation}}</p>
+    </div>
+    <div *ngIf="error">
+      <p class="error">{{error}}</p>
     </div>
 
-    <mat-form-field>
-      <label style="font-weight:bold;">What is</label>&nbsp;
-      <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
-      <input id="captchaControl" [formControl]="captchaControl" matInput type="text">
-      <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required">Please solve the captcha to prove you are a real person</mat-error>
-    </mat-form-field>
+    <div class="form-container">
 
-  </div>
+      <input hidden type="text" id="userId" [formControl]="userIdControl"/>
 
-  <button id="submitButton" style="margin-top:5px;" mat-raised-button color="primary" [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i>  Submit</button>
+      <mat-form-field appearance="outline">
+        <mat-label> Author</mat-label>
+        <input [formControl]="authorControl" matInput type="text">
+      </mat-form-field>
 
-</mat-card>
+      <mat-form-field appearance="outline">
+        <mat-label> Comment</mat-label>
+        <textarea id="comment" [formControl]="feedbackControl" matInput></textarea>
+        <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required">Please provide a comment.
+        </mat-error>
+      </mat-form-field>
+
+      <div style="margin-top:5px;" class="rating-container">
+        <label style="font-weight:bold; margin-right: 8px;"> Rating </label>
+        <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
+      </div>
+
+      <mat-form-field>
+        <label style="font-weight:bold;">What is</label>&nbsp;
+        <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
+        <input id="captchaControl" [formControl]="captchaControl" matInput type="text">
+        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required">Please solve the captcha to prove
+          you are a real person
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <button id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
+            [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
+            (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> Submit
+    </button>
+
+  </mat-card>
+</div>
