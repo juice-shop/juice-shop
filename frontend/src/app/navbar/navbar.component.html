@@ -1,17 +1,12 @@
 <mat-toolbar fxLayout="column" class="mat-elevation-z6" color="primary" xmlns="http://www.w3.org/1999/html">
-  <mat-toolbar-row fxLayout="row" class="first-toolbar-row">
+  <mat-toolbar-row fxLayout="row">
 
-    <span style="display:flex;margin-right:30px">
-        <a class="application-info" routerLink="/search">
-          <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
-        </a>
-        <div class="application-info">
-          <span style="margin-top:3px;">{{applicationName}}</span>
-          <span style="font-size:12px;">{{version}}</span>
-        </div>
-    </span>
+    <a routerLink="/search">
+      <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
+    </a>
+    <span fxShow fxHide.lt-sm matTooltip="{{version}}" matTooltipPosition="right">{{applicationName}}</span>
 
-    <button mat-button [matMenuTriggerFor]="userMenu">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
       <span class="user-info" matTooltip="{{userEmail}}" matTooltipPosition="right" *ngIf="isLoggedIn()">
         <i class="fas fa-user-circle fa-lg"></i>
       </span>
@@ -31,16 +26,16 @@
       </button>
     </mat-menu>
 
-    <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login">
+    <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login" fxShow fxHide.lt-md>
       <i class="fas fa-sign-in-alt fa-lg"></i>
       {{"TITLE_LOGIN" | translate }}
     </a>
-    <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()">
+    <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()" fxShow fxHide.lt-md>
       <i class="fas fa-sign-out-alt fa-lg"></i>
       {{"TITLE_LOGOUT" | translate }}
     </a>
 
-    <button mat-button [matMenuTriggerFor]="contactMenu">
+    <button mat-button [matMenuTriggerFor]="contactMenu" fxShow fxHide.lt-lg>
       <i class="far fa-comments fa-lg"></i>
       {{"TITLE_CONTACT" | translate}}
     </button>
@@ -54,6 +49,68 @@
         {{"NAV_COMPLAIN" | translate}}
       </button>
     </mat-menu>
+
+    <a mat-button routerLink="/basket" *ngIf="isLoggedIn()" fxShow fxHide.lt-lg>
+      <i class="fas fa-shopping-cart fa-lg"></i>
+      {{"TITLE_BASKET" | translate}}
+    </a>
+
+    <mat-form-field class="language-select" fxShow fxHide.lt-lg>
+      <mat-select [(value)]="selectedLanguage">
+
+        <mat-select-trigger>
+          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          {{selectedLanguage.lang}}
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
+          <span class="flag-icon flag-icon-{{language.icon}}"></span>
+          {{language?.lang}}
+          <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+        </mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+    <span class="fill-remaining-space"></span>
+
+    <mat-form-field color="accent" class="search-input" floatLabel="never">
+      <input matInput id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl>
+    </mat-form-field>
+    <button id="searchButton" (click)="search(searchControl.value)" mat-icon-button>
+      <i class="fas fa-search fa-lg"></i>
+    </button>
+
+    <a *ngIf="scoreBoardVisible" mat-button routerLink="/score-board">
+      <i class="fas fa-trophy fa-lg"></i>
+      {{"TITLE_SCORE_BOARD" | translate}}
+    </a>
+    <a mat-button routerLink="/about">
+      <i class="fas fa-info-circle fa-lg"></i>
+      {{"TITLE_ABOUT" | translate}}
+    </a>
+
+    <a *ngIf="gitHubRibbon" mat-button href="/redirect?to=https://github.com/bkimminich/juice-shop">
+      <i class="fab fa-github fa-lg"></i> GitHub
+    </a>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row fxLayout="row" fxHide fxShow.lt-lg>
+    <a mat-button id="login" *ngIf="!isLoggedIn()" routerLink="/login" fxHide fxShow.lt-md>
+      <i class="fas fa-sign-in-alt fa-lg"></i>
+      {{"TITLE_LOGIN" | translate }}
+    </a>
+    <a mat-button id="logout" *ngIf="isLoggedIn()" (click)="logout()" fxHide fxShow.lt-md>
+      <i class="fas fa-sign-out-alt fa-lg"></i>
+      {{"TITLE_LOGOUT" | translate }}
+    </a>
+
+    <span class="fill-remaining-space"></span>
+
+    <button mat-button [matMenuTriggerFor]="contactMenu">
+      <i class="far fa-comments fa-lg"></i>
+      {{"TITLE_CONTACT" | translate}}
+    </button>
 
     <a mat-button routerLink="/basket" *ngIf="isLoggedIn()">
       <i class="fas fa-shopping-cart fa-lg"></i>
@@ -76,29 +133,5 @@
 
       </mat-select>
     </mat-form-field>
-
-    <span class="fill-remaining-space"></span>
-
-    <mat-form-field color="accent" class="search-input" floatLabel="never">
-      <input matInput id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl>
-    </mat-form-field>
-    <button id="searchButton" color="accent" (click)="search(searchControl.value)"
-            style="margin-right:25px;margin-top: 15px;margin-bottom: 16px;" mat-raised-button>
-      <i class="fas fa-search fa-lg"></i>
-      {{"NAV_SEARCH" | translate}}
-    </button>
-
-    <a *ngIf="scoreBoardVisible" mat-button routerLink="/score-board">
-      <i class="fas fa-trophy fa-lg"></i>
-      {{"TITLE_SCORE_BOARD" | translate}}
-    </a>
-    <a mat-button routerLink="/about">
-      <i class="fas fa-info-circle fa-lg"></i>
-      {{"TITLE_ABOUT" | translate}}
-    </a>
-
-    <a *ngIf="gitHubRibbon" mat-button href="/redirect?to=https://github.com/bkimminich/juice-shop">
-      <i class="fab fa-github fa-lg"></i> GitHub
-    </a>
   </mat-toolbar-row>
 </mat-toolbar>

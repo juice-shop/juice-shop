@@ -18,21 +18,12 @@ mat-icon img {
 .search-input {
   font-size: 14px;
   margin-right: 10px;
-}
-
-.application-info {
-  display: flex;
-  flex-direction: column;
-  font-size: 18px;
-}
-
-.application-info:hover {
-  color: rgb(255, 255, 255);
+  width: 11%;
 }
 
 .language-select {
   margin-left: 10px;
-  width: 7%;
+  width: 11%;
 }
 
 ::ng-deep .mat-select-value-text {
@@ -40,5 +31,6 @@ mat-icon img {
 }
 
 .user-info {
-  margin-left: 5%;
+  margin-left: 10px;
+  margin-right: 10px;
 }
