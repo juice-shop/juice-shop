@@ -1,7 +1,5 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  margin-top: 25px;
+  justify-content: center;
 }
 
 .heading {
@@ -11,24 +9,27 @@
   padding: 12px 20px;
 }
 
-.user-container.recycle-container {
-  margin-left: 1.7%;
-}
-
+.user-container.recycle-container,
 .customer-container {
-  margin-left: 5%;
-  margin-right: 10px;
+  max-width: 600px;
+  min-width: 300px;
+  width: 70%;
 }
 
-.user-table, .recycle-table {
+.user-table,
+.recycle-table,
+.customer-table {
   margin-bottom: 25px;
 }
 
-.mat-column-icon svg, .mat-column-user_detail button {
+.mat-column-icon svg,
+.mat-column-user_detail button {
   margin-left: 38%;
 }
 
-mat-cell, mat-footer-cell, mat-header-cell {
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
   align-items: normal;
   display: block;
 }
@@ -37,6 +38,8 @@ mat-cell, mat-footer-cell, mat-header-cell {
   padding: 10px;
 }
 
-mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child {
+mat-cell:last-child,
+mat-footer-cell:last-child,
+mat-header-cell:last-child {
   padding-right: 50px;
 }
