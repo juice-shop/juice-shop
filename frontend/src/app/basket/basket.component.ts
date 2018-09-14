@@ -22,7 +22,7 @@ fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, fa
 export class BasketComponent implements OnInit {
 
   public userEmail: string
-  public displayedColumns = ['product','description','price','quantity','total price','remove']
+  public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
@@ -64,10 +64,6 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
-      let length = this.dataSource ? this.dataSource.length : 0
-      for (let i = 0;i < length; i++) {
-        this.dataSource[i].description = this.sanitizer.bypassSecurityTrustHtml(this.dataSource[i].description)
-      }
     },(err) => console.log(err))
   }
 
