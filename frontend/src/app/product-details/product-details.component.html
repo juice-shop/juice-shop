@@ -32,9 +32,9 @@
       <strong>Reviews</strong>
 
       <blockquote *ngFor="let review of reviews$|async">
+        <cite>{{review.author}}</cite>
         <p>{{review.message}}</p>
-        <button class="review-button" color="secondary" mat-stroked-button *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i class="fas fa-edit"></i> Edit </button>
-        <footer style="text-transform:capitalize"><cite>--{{review.author}}</cite></footer>
+        <button class="review-button" color="secondary" mat-stroked-button *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i class="fas fa-user-edit"></i> Edit </button>
       </blockquote>
 
       <div class="submit-review">

@@ -4,9 +4,9 @@ import { ProductReviewService } from './../Services/product-review.service'
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import fontawesome from '@fortawesome/fontawesome'
-import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
+import { faPaperPlane, faArrowCircleLeft, faUserEdit } from '@fortawesome/fontawesome-free-solid'
 import { FormControl, Validators } from '@angular/forms'
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faEdit)
+fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faUserEdit)
 
 @Component({
   selector: 'app-product-details',
