@@ -146,13 +146,11 @@ describe('BasketComponent', () => {
   }))
 
   it('should hold products returned by backend API', () => {
-    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', description: 'P' }, { name: 'Product2',description: 'P' }] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1' }, { name: 'Product2' }] }))
     component.ngOnInit()
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
     expect(component.dataSource[1].name).toBe('Product2')
-    expect(component.dataSource[0].description).toBeDefined()
-    expect(component.dataSource[1].description).toBeDefined()
   })
 
   it('should hold no products on error in backend API', fakeAsync(() => {
@@ -176,27 +174,17 @@ describe('BasketComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should consider product description as trusted HTML', () => {
-    basketService.find.and.returnValue(of({ Products:  [ { description: '<script>alert("XSS")</script>' } ] }))
-
-    component.load()
-
-    expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<script>alert("XSS")</script>')
-  })
-
   it('should pass delete request for basket item via BasketService' , () => {
     component.delete(1)
     expect(basketService.del).toHaveBeenCalledWith(1)
   })
 
   it('should load again after deleting a basket item' , () => {
-    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', description: 'P' }, { name: 'Product2',description: 'P' }] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1' }, { name: 'Product2' }] }))
     component.delete(1)
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
     expect(component.dataSource[1].name).toBe('Product2')
-    expect(component.dataSource[0].description).toBeDefined()
-    expect(component.dataSource[1].description).toBeDefined()
   })
 
   it('should log error while deleting basket item directly to browser console' , fakeAsync(() => {
@@ -378,14 +366,13 @@ describe('BasketComponent', () => {
     expect(component.error).toBeUndefined()
   })
 
-  it('should have six columns in basket table', () => {
-    expect(component.displayedColumns.length).toBe(6)
+  it('should have five columns in basket table', () => {
+    expect(component.displayedColumns.length).toBe(5)
     expect(component.displayedColumns[0]).toBe('product')
-    expect(component.displayedColumns[1]).toBe('description')
-    expect(component.displayedColumns[2]).toBe('price')
-    expect(component.displayedColumns[3]).toBe('quantity')
-    expect(component.displayedColumns[4]).toBe('total price')
-    expect(component.displayedColumns[5]).toBe('remove')
+    expect(component.displayedColumns[1]).toBe('price')
+    expect(component.displayedColumns[2]).toBe('quantity')
+    expect(component.displayedColumns[3]).toBe('total price')
+    expect(component.displayedColumns[4]).toBe('remove')
   })
 
   it('should open QrCodeComponent for Bitcoin', () => {

@@ -1,4 +1,3 @@
-import { DomSanitizer } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -34,7 +33,7 @@ export class BasketComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService, private sanitizer: DomSanitizer) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
   ngOnInit () {
     this.load()
