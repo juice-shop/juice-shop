@@ -1,17 +1,19 @@
-<mat-card>
+<div fxLayoutAlign="center">
+  <mat-card>
 
-  <h3> Track Orders </h3>
+    <h3> Track Orders </h3>
 
-  <div class="form-container">
+    <div class="form-container">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Order ID</mat-label>
-      <input [formControl]="orderIdControl" type="text" matInput placeholder="xxxx-0123456789abcdef">
-      <mat-error *ngIf="orderIdControl.invalid"> Order ID is required </mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Order ID</mat-label>
+        <input [formControl]="orderIdControl" type="text" matInput placeholder="xxxx-0123456789abcdef">
+        <mat-error *ngIf="orderIdControl.invalid"> Order ID is required </mat-error>
+      </mat-form-field>
 
-  </div>
+    </div>
 
-  <button [disabled]="orderIdControl.invalid" (click)="save()" mat-raised-button color="primary"><i class="fas fa-map-marker fa-lg"></i>    Track </button>
+    <button [disabled]="orderIdControl.invalid" (click)="save()" mat-raised-button color="primary"><i class="fas fa-map-marker fa-lg"></i>    Track </button>
 
-</mat-card>
+  </mat-card>
+</div>

@@ -1,22 +1,21 @@
 mat-card {
-  left: 25%;
-  margin-top: 50px;
-  width: 35%;
   height: auto;
+  min-width: 400px;
+  width: 25%;
 }
 
-mat-table {
-  margin-left: 16%;
-  width: 60%;
+mat-table,
+.table-heading{
+  width: 40%;
+  min-width: 450px;
 }
 
 .product-name {
   margin-right: 25px;
 }
 
-.table-heading {
-  margin-left: 16%;
-  width: 60%;
+.table-wrapper {
+  margin-top: 30px;
 }
 
 .table-heading h4 {

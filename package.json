@@ -99,7 +99,7 @@
     "serve-favicon": "~2.5",
     "serve-index": "~1.9",
     "socket.io": "~2.1",
-    "sqlite3": "^4.0.1",
+    "sqlite3": "^4.0.2",
     "swagger-ui-express": "~3.0.7",
     "unzipper": "0.8.12",
     "z85": "~0.0"
