@@ -11,6 +11,8 @@
 
 .img-thumbnail {
   cursor: pointer;
-  height: 61px;
+  max-height: 61px;
   max-width: 70%;
+  height: auto;
+  width: auto;  
 }

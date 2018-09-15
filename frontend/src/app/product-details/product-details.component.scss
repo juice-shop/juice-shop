@@ -1,9 +1,11 @@
 .image img {
   border: 1px solid #0c0d0e;
   border-radius: 4px;
-  height: 140px;
+  max-height: 140px;
   padding: 4px;
-  width: 160px;
+  max-width: 160px;
+  height: auto;
+  width: auto;
 }
 
 .ex-container {
