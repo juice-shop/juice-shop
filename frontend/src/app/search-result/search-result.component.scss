@@ -1,6 +1,6 @@
 .table-container {
-  margin: 70px;
-  min-width: 650px;
+  min-width: 350px;
+  width: 50%;
 }
 
 .heading {
@@ -13,24 +13,4 @@
   cursor: pointer;
   height: 61px;
   max-width: 70%;
-}
-
-.mat-column-Description {
-  flex: 5;
-}
-
-.mat-column-Product {
-  flex: 1.2;
-}
-
-.mat-column-Image {
-  flex: .8;
-}
-
-.mat-column-Select {
-  flex: .5;
-}
-
-.mat-column-Price {
-  flex: .5;
 }
