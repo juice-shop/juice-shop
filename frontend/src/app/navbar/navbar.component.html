@@ -4,7 +4,7 @@
     <a routerLink="/search">
       <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
     </a>
-    <span fxShow fxHide.lt-sm matTooltip="{{version}}" matTooltipPosition="right">{{applicationName}}</span>
+    <span fxShow fxHide.lt-sm matTooltip="{{version}}" matTooltipPosition="below">{{applicationName}}</span>
 
     <button mat-icon-button [matMenuTriggerFor]="userMenu">
       <span class="user-info" matTooltip="{{userEmail}}" matTooltipPosition="right" *ngIf="isLoggedIn()">
