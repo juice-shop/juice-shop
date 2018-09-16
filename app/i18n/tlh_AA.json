@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
   "TITLE_TRACK_ORDERS": "je' ghoch",
   "LABEL_ORDER_ID": "mI' je'",
-  "BTN_TRACK": "ghoch"
+  "BTN_TRACK": "ghoch",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
