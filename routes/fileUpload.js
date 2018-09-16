@@ -5,7 +5,6 @@ const vm = require('vm')
 const fs = require('fs')
 const unzipper = require('unzipper')
 const path = require('path')
-const isDocker = require('is-docker')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
@@ -51,7 +50,7 @@ module.exports = function fileUpload () {
       if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
         utils.solve(challenges.deprecatedInterfaceChallenge)
       }
-      if (file.buffer && !isDocker()) { // XXE attacks in Docker containers regularly cause "segfault" crashes
+      if (file.buffer && !utils.runsOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
         const data = file.buffer.toString()
         try {
           const sandbox = { libxml, data }

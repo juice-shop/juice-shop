@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Dotlh",
   "STATUS_UNSOLVED": "poS",
   "STATUS_SOLVED": "rIn",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!",
   "CHALLENGE_SOLVED": "You successfully solved a challenge: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Invalid continue code.",
