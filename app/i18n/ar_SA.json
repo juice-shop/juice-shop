@@ -89,6 +89,7 @@
   "LABEL_STATUS": "الحالة",
   "STATUS_UNSOLVED": "لم يتم حله",
   "STATUS_SOLVED": "تم حله",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "عندك فكرة تحد جديد؟ وجدت ثغرة لا يتم تعقب هنا؟ اسمحوا لنا أن نعرف عن طريق الدردشة على {{gitter}} أو عن طريق فتح إشكال على {{github}}!",
   "CHALLENGE_SOLVED": "لقد حللت التحدي بنجاح: {{challenge}}",
   "INVALID_CONTINUE_CODE": "رمز الإكمال غير صحيح.",

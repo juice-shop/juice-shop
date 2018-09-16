@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "onopgelost",
   "STATUS_SOLVED": "opgelost",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Heb jij een idee voor een nieuwe uitdaging? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!",
   "CHALLENGE_SOLVED": "Je hebt succesvol een challenge opgelost: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Incorrecte vervolgcode.",

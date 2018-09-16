@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Stan",
   "STATUS_UNSOLVED": "nierozwiązane",
   "STATUS_SOLVED": "rozwiązany",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Masz pomysł na nowe wyzwanie?  Daj nam znać poprzez {{gitter}} społeczności czatu lub przez zgłoszenie nowego problemu {{github}}!",
   "CHALLENGE_SOLVED": "Pomyślnie rozwiązane wyzwanie: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Błędny kod zaproszenia",

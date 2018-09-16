@@ -1,6 +1,6 @@
 const config = require('config')
 const path = require('path')
-const isDocker = require('is-docker')
+const utils = require('../../lib/utils')
 
 describe('/#/complain', () => {
   let file, complaintMessage, submitButton
@@ -61,7 +61,7 @@ describe('/#/complain', () => {
     protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
   })
 
-  if (!isDocker()) { // XXE attacks in Docker containers regularly cause "segfault" crashes
+  if (!utils.runsOnContainerEnv()) {
     describe('challenge "xxeFileDisclosure"', () => {
       it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
         complaintMessage.sendKeys('XXE File Exfiltration Windows!')
