@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "Naturligtvis kan du det! Vi skulle aldrig ljuga för dig!",
   "TITLE_TRACK_ORDERS": "Spåra order",
   "LABEL_ORDER_ID": "Ordernummer",
-  "BTN_TRACK": "Spåra"
+  "BTN_TRACK": "Spåra",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
