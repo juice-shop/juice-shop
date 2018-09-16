@@ -10,34 +10,33 @@
     </div>
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Image">
-        <mat-header-cell *matHeaderCellDef translate="LABEL_IMAGE"></mat-header-cell>
-        <mat-cell *matCellDef="let element" (click)="showDetail(element)">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_IMAGE" fxFlex="noshrink"></mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="showDetail(element)" fxFlex="noshrink">
           <img [src]="'assets/public/images/products/'+element.image" role="button"
-               class="img-responsive img-thumbnail"
-               style="width: 80px; height: 80px">
+               class="img-responsive img-thumbnail">
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Product">
-        <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT"></mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT" fxFlex="20%" fxFlex.lt-md="50%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="20%" fxFlex.lt-md="50%"> {{element.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Description">
-        <mat-header-cell *matHeaderCellDef translate="LABEL_DESCRIPTION" fxShow fxHide.lt-md></mat-header-cell>
-        <mat-cell style="width:30%" *matCellDef="let element">
-          <div [innerHTML]="element.description" fxShow fxHide.lt-md></div>
+        <mat-header-cell *matHeaderCellDef translate="LABEL_DESCRIPTION" fxShow fxHide.lt-md fxFlex="1 1 50%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="1 1 50%">
+          <div [innerHTML]="element.description"></div>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Price">
-        <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE"></mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="noshrink"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="noshrink"> {{element.price}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="Select">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxLayout="row" fxLayout.lt-sm="column">
+        <mat-header-cell *matHeaderCellDef fxFlex="none"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxLayout="row" fxLayout.lt-sm="column" fxFlex="none">
           <button mat-icon-button (click)="showDetail(element)"><i class="fas fa-eye"></i></button>
           <button *ngIf="isLoggedIn()" mat-icon-button (click)="addToBasket(element.id)"><i
             class="fas fa-cart-plus"></i></button>
