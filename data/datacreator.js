@@ -5,7 +5,6 @@ const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const insecurity = require('../lib/insecurity')
-const isDocker = require('is-docker')
 
 const fs = require('fs')
 const path = require('path')
@@ -54,12 +53,12 @@ async function createChallenges () {
           key,
           name,
           category,
-          description,
+          description: disabledEnv ? (description + ' <em>(This challenge is not available on: ' + disabledEnv + ')</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
-          disabledEnv: (isDocker() && disabledEnv === 'Docker') ? disabledEnv : null
+          disabledEnv: utils.determineDisabledContainerEnv(disabledEnv)
         })
         datacache.challenges[key] = challenge
       } catch (err) {

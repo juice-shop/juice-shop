@@ -89,6 +89,7 @@
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "uløste",
   "STATUS_SOLVED": "løst",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Har du en idé for en ny utfordring? Funnet et sikkerhetsproblem som ikke vises her? Gi oss beskjed via {{gitter}} chat eller ved å åpne en {{github}} sak!",
   "CHALLENGE_SOLVED": "Du har løst en utfordring: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Ugyldig fortsettelseskode.",
