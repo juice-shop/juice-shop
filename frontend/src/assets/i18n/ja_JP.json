@@ -89,6 +89,7 @@
   "LABEL_STATUS": "ステータス",
   "STATUS_UNSOLVED": "未解決",
   "STATUS_SOLVED": "解決済み",
+  "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!",
   "CHALLENGE_SOLVED": "チャレンジを解決しました: {{challenge}}",
   "INVALID_CONTINUE_CODE": "無効なコンティニューコード",
