@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "निःसंदेह आप हो सकते हैं! हम कभी आपसे झूठ नहीं बोलेंगे!",
   "TITLE_TRACK_ORDERS": "ट्रैक ऑर्डर",
   "LABEL_ORDER_ID": "ऑर्डर आईडी",
-  "BTN_TRACK": "ट्रैक"
+  "BTN_TRACK": "ट्रैक",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
