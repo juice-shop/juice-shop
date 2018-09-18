@@ -125,7 +125,7 @@ function createProducts () {
       const imageUrl = product.image
       product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
       // utils.downloadToFile(imageUrl, 'app/public/images/products/' + product.image)
-      utils.downloadToFile(imageUrl, 'frontend/src/assets/public/images/products/' + product.image)
+      utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
 
     // set deleted at values if configured
@@ -151,8 +151,7 @@ function createProducts () {
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
     blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
-    // utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
-    utils.downloadToFile(blueprintUrl, 'frontend/src/assets/public/images/products/' + blueprint)
+    utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
   datacache.retrieveBlueprintChallengeFile = blueprint
 
