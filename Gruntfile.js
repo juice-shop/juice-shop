@@ -23,6 +23,7 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
+              'app/index.template.html',
               'frontend/dist/frontend/**',
               'config/*.yml',
               'data/*.js',
