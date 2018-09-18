@@ -1,5 +1,9 @@
-@import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 @import '~ng2-bar-rating/themes/br-default-theme.css';
+@import 'theme';
+
+$primary: mat-color(map-get($theme, primary));
+$accent: mat-color(map-get($theme, accent));
+$warn: mat-color(map-get($theme, warn));
 
 .img-thumbnail {
   background-color: #1c1e22;
@@ -9,15 +13,27 @@
 }
 
 .confirmation {
-  color: #5bc0de;
+  color: $accent;
 }
 
 .error {
-  color: #ff0000;
+  color: $warn;
 }
 
 .close-dialog {
   float: right;
   margin-top: 15px;
   width: fit-content;
+}
+
+a:link,
+a:visited {
+  color: $primary;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
 }
