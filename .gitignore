@@ -28,6 +28,9 @@ node_modules/
 npm-debug.log.*
 package-lock.json
 
+# Frontend
+frontend/src/assets/private/threejs-demo.html
+
 # App
 dist/
 order_*.pdf

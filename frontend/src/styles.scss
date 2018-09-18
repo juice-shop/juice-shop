@@ -1,9 +1,44 @@
 @import '~ng2-bar-rating/themes/br-default-theme.css';
 @import 'theme';
 
-$primary: mat-color(map-get($theme, primary));
-$accent: mat-color(map-get($theme, accent));
-$warn: mat-color(map-get($theme, warn));
+@mixin link-theme($theme) {
+  a:link,
+  a:visited {
+    color: mat-color(map-get($theme, primary), lighter);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: underline;
+  }
+}
+
+@mixin notification-theme($theme) {
+  .confirmation {
+    color: mat-color(map-get($theme, accent));
+  }
+
+  .error {
+    color: mat-color(map-get($theme, warn));
+  }
+}
+
+@mixin custom-components-theme($theme) {
+  @include link-theme($theme);
+  @include notification-theme($theme);
+}
+
+.teal-theme {
+  @include angular-material-theme($teal-theme);
+  @include custom-components-theme($teal-theme);
+}
+
+.brown-theme {
+  @include angular-material-theme($brown-theme);
+  @include custom-components-theme($brown-theme);
+}
 
 .img-thumbnail {
   background-color: #1c1e22;
@@ -12,28 +47,8 @@ $warn: mat-color(map-get($theme, warn));
   padding: 4px;
 }
 
-.confirmation {
-  color: $accent;
-}
-
-.error {
-  color: $warn;
-}
-
 .close-dialog {
   float: right;
   margin-top: 15px;
   width: fit-content;
-}
-
-a:link,
-a:visited {
-  color: $primary;
-  text-decoration: none;
-}
-
-a:hover,
-a:focus,
-a:active {
-  text-decoration: underline;
 }
