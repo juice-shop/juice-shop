@@ -186,7 +186,7 @@ export class AppModule {
 
   constructor (configurationService: ConfigurationService,overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
-      overlayContainer.getContainerElement().classList.add(conf.application.theme)
+      overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
     })
   }
 

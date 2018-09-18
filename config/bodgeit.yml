@@ -3,10 +3,11 @@ application:
   name: 'The BodgeIt Store'
   logo: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   favicon: 'https://www.shareicon.net/download/2016/08/13/808555_media.ico'
-  theme: paper
+  theme: brown
   gitHubRibbon: gray
   twitterUrl: null
   facebookUrl: null
+  planetName: Bodgiton VI
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg
