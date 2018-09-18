@@ -73,11 +73,7 @@
     "fs-extra": "~7.0.0",
     "glob": "~7.1.2",
     "grunt": "~1.0",
-    "grunt-angular-templates": "~1.1",
-    "grunt-contrib-clean": "~1.1",
     "grunt-contrib-compress": "~1.4",
-    "grunt-contrib-concat": "~1.0",
-    "grunt-contrib-uglify": "~4.0",
     "hashids": "~1.1",
     "helmet": "~3.13.0",
     "html-entities": "~1.2",
@@ -153,7 +149,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "postinstall": "npm --prefix ./app install ./app && grunt minify && cd frontend && npm install && cd .. && npm run build",
+    "postinstall": "cd frontend && npm install && cd .. && npm run build",
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
     "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none",
     "start": "node app",
@@ -166,7 +162,8 @@
     "pree2e": "npm install",
     "e2e": "node test/e2eTests.js",
     "stryker": "stryker run stryker.client-conf.js",
-    "vagrant": "cd vagrant && vagrant up"
+    "vagrant": "cd vagrant && vagrant up",
+    "package": "grunt package"
   },
   "engines": {
     "node": "8 - 10"
@@ -209,7 +206,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/app/node_modules/"
+      "/app/node_modules/",
+      "/frontend/node_modules/"
     ]
   },
   "greenkeeper": {

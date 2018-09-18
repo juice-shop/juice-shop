@@ -21,7 +21,6 @@ env:
 before_install:
 - rm -rf node_modules
 before_script:
-- npm i -g grunt-cli
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
@@ -51,7 +50,7 @@ notifications:
 before_deploy:
 - rm -rf node_modules
 - npm install --production
-- grunt package
+- npm run package
 deploy:
 - provider: heroku
   api_key:
