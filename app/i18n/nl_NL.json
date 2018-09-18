@@ -139,11 +139,11 @@
   "SECTION_WHITEPAPER": "Whitepaper",
   "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
-  "GIVE_US_ALL_YOUR_MONEY": "Give us all your money.",
+  "GIVE_US_ALL_YOUR_MONEY": "Geef ons al je geld.",
   "ICO_FAQ_QUESTION": "Can I really get rich with {{juicycoin}}?",
   "ICO_FAQ_ANSWER": "Of course you can! We would never lie to you!",
   "TITLE_TRACK_ORDERS": "Track Orders",
-  "LABEL_ORDER_ID": "Order ID",
-  "BTN_TRACK": "Track",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LABEL_ORDER_ID": "Ordernummer",
+  "BTN_TRACK": "Volgen",
+  "LAST_LOGIN_IP": "Laatste aanmelding van IP"
 }
