@@ -25,9 +25,19 @@
   }
 }
 
+@mixin image-thumbnail-theme($theme) {
+  .img-thumbnail {
+    background-color: mat-color(map-get($theme, primary), darker);
+    border: 1px solid mat-color(map-get($theme, primary), darker);
+    border-radius: 3px;
+    padding: 3px;
+  }
+}
+
 @mixin custom-components-theme($theme) {
   @include link-theme($theme);
   @include notification-theme($theme);
+  @include image-thumbnail-theme($theme);
 }
 
 .teal-theme {
@@ -38,13 +48,6 @@
 .brown-theme {
   @include angular-material-theme($brown-theme);
   @include custom-components-theme($brown-theme);
-}
-
-.img-thumbnail {
-  background-color: #1c1e22;
-  border: 1px solid #0c0d0e;
-  border-radius: 4px;
-  padding: 4px;
 }
 
 .close-dialog {
