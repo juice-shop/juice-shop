@@ -8,6 +8,7 @@ application:
   twitterUrl: null
   facebookUrl: null
   planetName: Bodgiton VI
+  planetOverlayMap: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg
