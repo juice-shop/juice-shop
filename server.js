@@ -268,8 +268,8 @@ exports.start = async function (readyCallback) {
     }
   })
 
-  require('./lib/startup/populateIndexTemplate')()
-  require('./lib/startup/populateThreeJsTemplate')()
+  require('./lib/startup/customizeApplication')()
+  require('./lib/startup/customizeEasterEgg')()
 }
 
 exports.close = function (exitCode) {
