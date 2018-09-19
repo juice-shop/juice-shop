@@ -93,7 +93,6 @@
     "request": "~2.88.0",
     "sanitize-html": "1.4.2",
     "sequelize": "^4.35.1",
-    "serve-favicon": "~2.5",
     "serve-index": "~1.9",
     "socket.io": "~2.1",
     "sqlite3": "^4.0.2",
