@@ -89,7 +89,7 @@
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "não resolvido",
   "STATUS_SOLVED": "resolvido",
-  "STATUS_UNAVAILABLE": "unavailable",
+  "STATUS_UNAVAILABLE": "indisponível",
   "CALL_FOR_CONTRIBUTIONS": "Tem uma idéia para um novo desafio? Encontrou uma vulnerabilidade que não está listada aqui? Deixe-nos saber pelo chat da comunidade no {{gitter}} ou abrindo uma issue no {{github}}!",
   "CHALLENGE_SOLVED": "Você resolveu com sucesso o desafio: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Código inválido.",
