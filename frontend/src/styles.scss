@@ -28,7 +28,7 @@
 @mixin image-thumbnail-theme($theme) {
   .img-thumbnail {
     background-color: mat-color(map-get($theme, accent), lighter);
-    border: 1px solid mat-color(map-get($theme, primary), darker);
+    border: 1px solid mat-color(map-get($theme, accent), lighter);
     border-radius: 3px;
     padding: 3px;
   }
@@ -58,6 +58,26 @@
 .light-brown-theme {
   @include angular-material-theme($light-brown-theme);
   @include custom-components-theme($light-brown-theme);
+}
+
+.dark-orange-theme {
+  @include angular-material-theme($dark-orange-theme);
+  @include custom-components-theme($dark-orange-theme);
+}
+
+.light-orange-theme {
+  @include angular-material-theme($light-orange-theme);
+  @include custom-components-theme($light-orange-theme);
+}
+
+.dark-blue-theme {
+  @include angular-material-theme($dark-blue-theme);
+  @include custom-components-theme($dark-blue-theme);
+}
+
+.light-blue-theme {
+  @include angular-material-theme($light-blue-theme);
+  @include custom-components-theme($light-blue-theme);
 }
 
 .close-dialog {
