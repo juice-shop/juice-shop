@@ -4,31 +4,30 @@
 
     <h1>Product #{{data.id}}</h1>
 
-    <div class="ex-container">
+    <div fxLayout="row" fxLayout.lt-sm="column">
 
-      <div class="name price image">
+      <div>
+        <h4>Image</h4>
+        <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.image">
+      </div>
+
+      <div>
           <h4>Name</h4>
           <p>{{data.name}}</p>
           <h4>Price</h4>
           <p>{{data.price}}</p>
-          <h4>Image</h4>
-          <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.image">
       </div>
 
-      <div class="description">
-
+      <div>
         <h4>Description</h4>
-
         <div [innerHTML]="data.description"></div>
-
       </div>
 
     </div>
 
     <br>
 
-    <div class="reviews">
-
+    <div>
       <strong>Reviews</strong>
 
       <blockquote *ngFor="let review of reviews$|async">
