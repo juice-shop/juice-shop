@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core'
-import { ConfigurationService } from "../Services/configuration.service";
+import { ConfigurationService } from '../Services/configuration.service'
 import fontawesome from '@fortawesome/fontawesome'
 import { faFacebook,faTwitter } from '@fortawesome/fontawesome-free-brands'
 fontawesome.library.add(faFacebook, faTwitter)

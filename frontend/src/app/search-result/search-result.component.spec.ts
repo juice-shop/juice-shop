@@ -151,7 +151,7 @@ describe('SearchResultComponent', () => {
   it('should open a modal dialog with product details', () => {
     component.showDetail(42)
     expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
-      width: '1000px',
+      width: '500px',
       height: 'max-content',
       data: {
         productData: 42
