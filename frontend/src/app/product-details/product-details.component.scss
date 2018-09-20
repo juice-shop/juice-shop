@@ -1,23 +1,7 @@
-.image img {
-  max-height: 140px;
-  max-width: 160px;
+.img-thumbnail {
   height: auto;
-  width: auto;
-}
-
-.ex-container {
-  display: flex;
-  flex-flow: row;
-}
-
-.ex-container .description {
-  left: 250px;
-  position: relative;
-  width: 40%;
-}
-
-.description p {
-  font-size: 16px;
+  max-width: 100%;
+  width: 140px;
 }
 
 mat-form-field {

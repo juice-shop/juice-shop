@@ -80,7 +80,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   showDetail (element: any) {
     this.dialog.open(ProductDetailsComponent, {
-      width: '1000px',
+      width: '500px',
       height: 'max-content',
       data: {
         productData: element
