@@ -9,7 +9,7 @@ application:
   showChallengeSolvedNotifications: true
   showChallengeHints: true
   showVersionNumber: true
-  theme: teal # Options: teal brown
+  theme: dark-teal # Options: [dark|light]-[teal|brown]
   gitHubRibbon: true
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'

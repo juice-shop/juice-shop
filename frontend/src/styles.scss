@@ -27,7 +27,7 @@
 
 @mixin image-thumbnail-theme($theme) {
   .img-thumbnail {
-    background-color: mat-color(map-get($theme, primary), darker);
+    background-color: mat-color(map-get($theme, accent), lighter);
     border: 1px solid mat-color(map-get($theme, primary), darker);
     border-radius: 3px;
     padding: 3px;
@@ -40,14 +40,24 @@
   @include image-thumbnail-theme($theme);
 }
 
-.teal-theme {
-  @include angular-material-theme($teal-theme);
-  @include custom-components-theme($teal-theme);
+.dark-teal-theme {
+  @include angular-material-theme($dark-teal-theme);
+  @include custom-components-theme($dark-teal-theme);
 }
 
-.brown-theme {
-  @include angular-material-theme($brown-theme);
-  @include custom-components-theme($brown-theme);
+.light-teal-theme {
+  @include angular-material-theme($light-teal-theme);
+  @include custom-components-theme($light-teal-theme);
+}
+
+.dark-brown-theme {
+  @include angular-material-theme($dark-brown-theme);
+  @include custom-components-theme($dark-brown-theme);
+}
+
+.light-brown-theme {
+  @include angular-material-theme($light-brown-theme);
+  @include custom-components-theme($light-brown-theme);
 }
 
 .close-dialog {
