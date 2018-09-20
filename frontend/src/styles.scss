@@ -27,8 +27,8 @@
 
 @mixin image-thumbnail-theme($theme) {
   .img-thumbnail {
-    background-color: mat-color(map-get($theme, accent), lighter);
-    border: 1px solid mat-color(map-get($theme, accent), lighter);
+    background-color: mat-color(map-get($theme, primary), .05);
+    border: 1px solid mat-color(map-get($theme, primary));
     border-radius: 3px;
     padding: 3px;
   }
@@ -40,44 +40,24 @@
   @include image-thumbnail-theme($theme);
 }
 
-.dark-teal-theme {
-  @include angular-material-theme($dark-teal-theme);
-  @include custom-components-theme($dark-teal-theme);
+.deeppurple-amber-theme {
+  @include angular-material-theme($deeppurple-amber-theme);
+  @include custom-components-theme($deeppurple-amber-theme);
 }
 
-.light-teal-theme {
-  @include angular-material-theme($light-teal-theme);
-  @include custom-components-theme($light-teal-theme);
+.indigo-pink-theme {
+  @include angular-material-theme($indigo-pink-theme);
+  @include custom-components-theme($indigo-pink-theme);
 }
 
-.dark-brown-theme {
-  @include angular-material-theme($dark-brown-theme);
-  @include custom-components-theme($dark-brown-theme);
+.pink-bluegrey-theme {
+  @include angular-material-theme($pink-bluegrey-theme);
+  @include custom-components-theme($pink-bluegrey-theme);
 }
 
-.light-brown-theme {
-  @include angular-material-theme($light-brown-theme);
-  @include custom-components-theme($light-brown-theme);
-}
-
-.dark-orange-theme {
-  @include angular-material-theme($dark-orange-theme);
-  @include custom-components-theme($dark-orange-theme);
-}
-
-.light-orange-theme {
-  @include angular-material-theme($light-orange-theme);
-  @include custom-components-theme($light-orange-theme);
-}
-
-.dark-blue-theme {
-  @include angular-material-theme($dark-blue-theme);
-  @include custom-components-theme($dark-blue-theme);
-}
-
-.light-blue-theme {
-  @include angular-material-theme($light-blue-theme);
-  @include custom-components-theme($light-blue-theme);
+.purple-green-theme {
+  @include angular-material-theme($purple-green-theme);
+  @include custom-components-theme($purple-green-theme);
 }
 
 .close-dialog {
