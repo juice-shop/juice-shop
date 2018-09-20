@@ -4,9 +4,11 @@
 $teal-primary: mat-palette($mat-teal, 800);
 $teal-accent:  mat-palette($mat-blue-grey);
 $teal-warn: mat-palette($mat-red);
-$teal-theme: mat-dark-theme($teal-primary, $teal-accent, $teal-warn);
+$dark-teal-theme: mat-dark-theme($teal-primary, $teal-accent, $teal-warn);
+$light-teal-theme: mat-light-theme($teal-primary, $teal-accent, $teal-warn);
 
 $brown-primary: mat-palette($mat-brown, 600);
 $brown-accent:  mat-palette($mat-blue-grey);
 $brown-warn: mat-palette($mat-deep-orange);
-$brown-theme: mat-dark-theme($brown-primary, $brown-accent, $brown-warn);
+$dark-brown-theme: mat-dark-theme($brown-primary, $brown-accent, $brown-warn);
+$light-brown-theme: mat-light-theme($brown-primary, $brown-accent, $brown-warn);
