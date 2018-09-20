@@ -11,6 +11,7 @@ import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
+import { SlideshowModule } from 'ng-simple-slideshow'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -35,6 +36,8 @@ import { UserDetailsComponent } from './user-details/user-details.component'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification/challenge-solved-notification.component'
 import { OAuthComponent } from './oauth/oauth.component'
+import { TokenSaleComponent } from './token-sale/token-sale.component'
+import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
@@ -77,8 +80,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
-import { TokenSaleComponent } from './token-sale/token-sale.component'
-import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 export function HttpLoaderFactory (http: HttpClient) {
@@ -130,6 +131,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SlideshowModule,
     QRCodeModule,
     BarRatingModule,
     FileUploadModule,
