@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from './../Services/feedback.service'
-import { IImage } from "ng-simple-slideshow";
+import { IImage } from 'ng-simple-slideshow'
 import fontawesome from '@fortawesome/fontawesome'
 import { faFacebook,faTwitter } from '@fortawesome/fontawesome-free-brands'
 fontawesome.library.add(faFacebook, faTwitter)
@@ -48,7 +48,7 @@ export class AboutComponent implements OnInit {
     this.feedbackService.find().subscribe((feedbacks) => {
       for (let i = 0; i < feedbacks.length; i++) {
         feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(feedbacks[i].comment)
-        this.slideshowDataSource.push({ url: this.images[i % this.images.length], caption: feedbacks[i].comment})
+        this.slideshowDataSource.push({ url: this.images[i % this.images.length], caption: feedbacks[i].comment })
       }
     },(err) => {
       console.log(err)
