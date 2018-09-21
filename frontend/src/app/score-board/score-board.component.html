@@ -1,3 +1,4 @@
+<diV fxLayout="column">
 <mat-card>
 
   <mat-card-title>Score Board <b>{{percentChallengesSolved}}%</b></mat-card-title>
@@ -9,7 +10,7 @@
 
   <mat-card-title>Difficulty</mat-card-title>
   <mat-divider></mat-divider>
-  <div class="star-container">
+  <div class="star-container" fxLayout="row wrap">
     <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]"  (change)="toggleDifficulty(difficulty)" [checked]="scoreBoardTablesExpanded[difficulty]">
       <label>
         <span class="fa-4x fa-layers fa-fw">
@@ -34,11 +35,11 @@
 
 </mat-card>
 
-<mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]">
+<mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]" [disabled]="true">
 
-  <div class="heading">
+  <mat-expansion-panel-header>
     <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
-  </div>
+  </mat-expansion-panel-header>
 
   <mat-divider></mat-divider>
   <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges,difficulty,'name')">
@@ -49,8 +50,8 @@
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-      <mat-cell *matCellDef="let challenge"><div [innerHTML]="challenge.description"></div> </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%"> Description </mat-header-cell>
+      <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%"><div [innerHTML]="challenge.description"></div> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -59,11 +60,11 @@
         <button mat-button [style.backgroundColor]="challenge.solved ? 'green': 'red'">
           <span [hidden]="challenge.solved" id="{{challenge.name}}.notSolved" class="not-solved" (click)="openHint(challenge)" [ngClass]="{ 'label-button': showChallengeHints && challenge.hintUrl }" matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
             <i class="fas fa-book" aria-hidden="true" [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
-            <span>Unsolved</span>
+            {{"STATUS_UNSOLVED" | translate}}
           </span>
           <span [hidden]="!challenge.solved" id="{{challenge.name}}.solved" class="solved" (click)="repeatNotification(challenge)" [ngClass]="{ 'label-button': allowRepeatNotifications }" matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS') : null }}" matTooltipPosition="above">
             <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
-            <span>Solved</span>
+            {{"STATUS_SOLVED" | translate}}
           </span>
         </button>
       </mat-cell>
@@ -75,8 +76,9 @@
 
 </mat-expansion-panel>
 
-<footer>
-        Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a>community chat or by opening a <a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a> issue!
-</footer>
+<mat-card class="important-box">
+  Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a> community chat or by opening a <a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a> issue!
+</mat-card>
+</diV>
 
 <img src="assets/public/images/tracking/scoreboard.png"/>

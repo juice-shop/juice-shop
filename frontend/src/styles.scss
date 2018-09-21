@@ -34,10 +34,17 @@
   }
 }
 
+@mixin important-box-theme($theme) {
+  .important-box {
+    background-color: mat-color(map-get($theme, primary), darker);
+  }
+}
+
 @mixin custom-components-theme($theme) {
   @include link-theme($theme);
   @include notification-theme($theme);
   @include image-thumbnail-theme($theme);
+  @include important-box-theme($theme);
 }
 
 .deeppurple-amber-theme {

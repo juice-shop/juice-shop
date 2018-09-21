@@ -28,6 +28,9 @@ node_modules/
 npm-debug.log.*
 package-lock.json
 
+# SASS
+.sass-cache/
+
 # App
 dist/
 order_*.pdf
