@@ -114,6 +114,7 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [University lecture on "IT Security"](https://github.com/bkimminich/it-security-lecture) as Open Educational Resources material by Björn Kimminich
 * [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
   (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
   [OWASP Uruguay Chapter](https://www.owasp.org/index.php/Uruguay)
