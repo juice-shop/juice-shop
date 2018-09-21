@@ -1,35 +1,35 @@
 <div class="mat-typography">
   <header>
-      <h3>User #{{user?.id}}</h3>
+    <h3>{{"LABEL_USER" | translate}} #{{user?.id}}</h3>
   </header>
 
-  <mat-divider style="margin-bottom: 10px"></mat-divider>
+  <mat-divider></mat-divider>
 
-  <div class="container">
+  <div class="container" fxLayout="column">
 
-    <div class="email-container">
+    <div fxLayout="row" fxLayoutGap="10px">
 
-      <div class="email">
-        <label><strong>Email</strong></label>
+      <div>
+        <strong translate="LABEL_EMAIL"></strong>
         <p>{{user?.email}}</p>
       </div>
 
-      <!--<div class="col-md-6" ng-show="user.password">
+      <!--<div>
         <strong translate="LABEL_PASSWORD"></strong>
-        <p>{{user.password}}</p>
+        <p>{{user?.password}}</p>
       </div>-->
 
     </div>
 
-    <div class="date-container">
+    <div fxLayout="row" fxLayoutGap="10px">
 
-      <div class="created-at">
-        <label><strong>Created at</strong></label>
+      <div>
+        <strong translate="LABEL_CREATED_AT"></strong>
         <p>{{user?.createdAt}}</p>
       </div>
 
-      <div class="updated-at">
-        <label><strong>Updated at</strong></label>
+      <div>
+        <strong translate="LABEL_UPDATED_AT"></strong>
         <p>{{user?.updatedAt}}</p>
       </div>
 
@@ -37,6 +37,8 @@
   </div>
 
   <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> Close</button>
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i>
+      {{"BTN_CLOSE" | translate}}
+    </button>
   </footer>
 </div>

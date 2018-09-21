@@ -1,18 +1,21 @@
 <mat-dialog-content>
-  <div class="container mat-typography">
-      <h1> Edit Review </h1>
+  <div class="container mat-typography" fxLayout="column">
+    <h1>Edit Review</h1>
 
-      <div class="edit-review">
-        <mat-form-field>
-          <textarea matInput [formControl]="editReviewControl" #textPut cols="50" matInput placeholder="Submit a review" matTextareaAutosize matAutosizeMinRows="2"
-          matAutosizeMaxRows="4"></textarea>
-        </mat-form-field>
+    <div>
+      <mat-form-field>
+          <textarea matInput [formControl]="editReviewControl" #textPut cols="50" matInput placeholder="Submit a review"
+                    matTextareaAutosize matAutosizeMinRows="2"
+                    matAutosizeMaxRows="4"></textarea>
+      </mat-form-field>
 
-        <button style="width:fit-content" (click)="editReview()" mat-raised-button color="primary"><i class="fas fa-paper-plane fa-lg"></i> Submit</button>
-      </div>
+      <button (click)="editReview()" mat-raised-button color="primary"><i class="fas fa-paper-plane fa-lg"></i> Submit
+      </button>
+    </div>
   </div>
 
   <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i>  Close</button>
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> Close
+    </button>
   </footer>
 </mat-dialog-content>

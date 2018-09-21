@@ -1,13 +1,3 @@
-.email-container,
-.date-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.created-at {
-  margin-right: 10px;
-}
-
-footer button {
-  float: right;
+mat-divider {
+  margin-bottom: 10px;
 }
