@@ -4,7 +4,7 @@
 @mixin link-theme($theme) {
   a:link,
   a:visited {
-    color: mat-color(map-get($theme, primary), lighter);
+    color: mat-color(map-get($theme, accent), lighter);
     text-decoration: none;
   }
 
