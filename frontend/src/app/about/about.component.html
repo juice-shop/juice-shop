@@ -24,8 +24,8 @@
     <slideshow [height]="'300px'"
                [autoPlay]="true"
                [showArrows]="true"
-               [showDots]="true"
-               [imageUrls]="['https://placekitten.com/g/400/300', 'https://placekitten.com/g/400/300', 'https://placekitten.com/g/400/300']">
+               [showDots]="false"
+               [imageUrls]="slideshowDataSource">
     </slideshow>
 
     <div *ngIf="twitterUrl || facebookUrl" class="social">
