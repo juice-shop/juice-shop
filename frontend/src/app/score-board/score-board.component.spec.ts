@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ChallengeService } from './../Services/challenge.service'
@@ -16,6 +17,7 @@ import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { EventEmitter } from '@angular/core'
 
 class MockSocket {
   on (str: string, callback) {
@@ -29,6 +31,7 @@ describe('ScoreBoardComponent', () => {
   let challengeService
   let configurationService
   let windowRefService
+  let translateService
   let sanitizer
   let mockSocket
 
@@ -46,6 +49,11 @@ describe('ScoreBoardComponent', () => {
     //     }
     //   }
     // }
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
     sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml','sanitize'])
     sanitizer.bypassSecurityTrustHtml.and.callFake((args) => args)
     sanitizer.sanitize.and.returnValue({})
@@ -54,6 +62,7 @@ describe('ScoreBoardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
+        TranslateModule.forRoot(),
         BarRatingModule,
         BrowserAnimationsModule,
         MatCardModule,
@@ -67,6 +76,7 @@ describe('ScoreBoardComponent', () => {
       ],
       declarations: [ ScoreBoardComponent ],
       providers: [
+        { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
