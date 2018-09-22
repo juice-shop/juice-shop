@@ -13,7 +13,9 @@ angular.module('juiceShop').controller('LanguageController', [
     $scope.languages = languages
     $scope.changeLanguage = function (langKey) {
       $translate.use(langKey)
-      $cookies.put('language', langKey)
+      var expireDate = new Date()
+      expireDate.setFullYear(expireDate.getFullYear() + 1)
+      $cookies.put('language', langKey, { expires: expireDate })
     }
   }])
 
