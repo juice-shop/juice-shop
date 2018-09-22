@@ -94,9 +94,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       if (!continueCode) {
         throw (new Error('Received invalid continue code from the sever!'))
       }
-      let expireDate = new Date()
-      expireDate.setDate(expireDate.getDate() + 365)
-      this.cookieService.put('continueCode', continueCode, { expires: expireDate })
+      let expires = new Date()
+      expires.setFullYear(expires.getFullYear() + 1)
+      this.cookieService.put('continueCode', continueCode, { expires })
     },(err) => console.log(err))
   }
 

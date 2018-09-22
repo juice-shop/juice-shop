@@ -122,7 +122,9 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage (langKey) {
     this.translate.use(langKey)
-    this.cookieService.put('language', langKey)
+    let expires = new Date()
+    expires.setFullYear(expires.getFullYear() + 1)
+    this.cookieService.put('language', langKey, { expires })
   }
 
   getScoreBoardStatus () {
