@@ -53,7 +53,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   editReview (review) {
     this.dialog.open(ProductReviewEditComponent, {
-      width: '1000px',
+      width: '600px',
       height: 'max-content',
       data: {
         reviewData : review
