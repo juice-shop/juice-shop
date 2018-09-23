@@ -39,6 +39,7 @@ export class ServerStartedNotificationComponent implements OnInit {
               this.hackingProgress.autoRestoreMessage = translationId
             })
           },(error) => {
+            console.log(error)
             this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
             }, (translationId) => {
