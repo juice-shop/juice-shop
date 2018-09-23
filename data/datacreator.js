@@ -51,7 +51,7 @@ async function createChallenges () {
           key,
           name,
           category,
-          description,
+          description: disabledEnv ? (description + ' <em>(This challenge is not available on: ' + disabledEnv + ')</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
