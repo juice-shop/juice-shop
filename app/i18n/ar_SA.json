@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "بالطبع يمكنك! لا نستطيع الكذب ابدأ عليكم!",
   "TITLE_TRACK_ORDERS": "تتبع الطلبات",
   "LABEL_ORDER_ID": "رقم تعريف طلب الشّراء",
-  "BTN_TRACK": "مسار"
+  "BTN_TRACK": "مسار",
+  "LAST_LOGIN_IP": "Last Login IP"
 }

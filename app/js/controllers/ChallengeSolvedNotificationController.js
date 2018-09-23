@@ -43,7 +43,7 @@ angular.module('juiceShop').controller('ChallengeSolvedNotificationController', 
         }
 
         var expireDate = new Date()
-        expireDate.setDate(expireDate.getDate() + 365)
+        expireDate.setFullYear(expireDate.getFullYear() + 1)
         $cookies.put('continueCode', continueCode, { expires: expireDate })
       }).catch(function (err) {
         console.log(err)
