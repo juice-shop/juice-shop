@@ -64,7 +64,7 @@
     "errorhandler": "~1.5",
     "express": "~4.16",
     "express-jwt": "0.1.3",
-    "express-rate-limit": "~3.1",
+    "express-rate-limit": "~3.2.0",
     "express-robots-txt": "~0.4",
     "express-security.txt": "~2.0",
     "file-stream-rotator": "~0.3",
