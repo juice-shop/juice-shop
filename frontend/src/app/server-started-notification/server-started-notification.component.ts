@@ -28,11 +28,10 @@ export class ServerStartedNotificationComponent implements OnInit {
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
       this.socket = this.io.connect(environment.hostServer)
-      this.socket.on('server started', () => {
 
+      this.socket.on('server started', () => {
         let continueCode = this.cookieService.get('continueCode')
         if (continueCode) {
-          console.log(continueCode)
           this.challengeService.restoreProgress(encodeURIComponent(continueCode)).subscribe(() => {
             this.translate.get('AUTO_RESTORED_PROGRESS').subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
@@ -40,7 +39,6 @@ export class ServerStartedNotificationComponent implements OnInit {
               this.hackingProgress.autoRestoreMessage = translationId
             })
           },(error) => {
-            console.log(error)
             this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error: error }).subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
             }, (translationId) => {
