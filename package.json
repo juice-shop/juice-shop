@@ -76,7 +76,7 @@
     "grunt-contrib-compress": "~1.4",
     "grunt-contrib-concat": "~1.0",
     "grunt-contrib-uglify": "~4.0",
-    "hashids": "~1.1",
+    "hashids": "~1.2.0",
     "helmet": "~3.13.0",
     "html-entities": "~1.2",
     "is-docker": "^1.1.0",
