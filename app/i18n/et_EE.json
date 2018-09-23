@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "Loomulikult saad! Me ei valetaks sulle iial!",
   "TITLE_TRACK_ORDERS": "Jälgi tellimusi",
   "LABEL_ORDER_ID": "Tellimuse nr",
-  "BTN_TRACK": "Jälgi"
+  "BTN_TRACK": "Jälgi",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
