@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "Bien sûr que vous pouvez ! Nous vous mentirions jamais !",
   "TITLE_TRACK_ORDERS": "Suivi de commande",
   "LABEL_ORDER_ID": "ID de commande",
-  "BTN_TRACK": "Suivi"
+  "BTN_TRACK": "Suivi",
+  "LAST_LOGIN_IP": "Last Login IP"
 }

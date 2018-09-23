@@ -144,5 +144,6 @@
   "ICO_FAQ_ANSWER": "Tentu saja Anda bisa! Kami tidak akan pernah berbohong kepada Anda!",
   "TITLE_TRACK_ORDERS": "Track Orders",
   "LABEL_ORDER_ID": "ID Pesanan",
-  "BTN_TRACK": "Track"
+  "BTN_TRACK": "Track",
+  "LAST_LOGIN_IP": "Last Login IP"
 }
