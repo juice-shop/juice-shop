@@ -87,12 +87,12 @@
   "TITLE_SCORE_BOARD": "Tableau des scores",
   "LABEL_DIFFICULTY": "Difficulté",
   "LABEL_1_STAR_DIFFICULTY": "Trivial",
-  "LABEL_2_STAR_DIFFICULTY": "Easy",
-  "LABEL_3_STAR_DIFFICULTY": "Medium",
-  "LABEL_4_STAR_DIFFICULTY": "Hard",
-  "LABEL_5_STAR_DIFFICULTY": "Dreadful",
-  "LABEL_6_STAR_DIFFICULTY": "Diabolic",
-  "LABEL_CHALLENGES": "Challenges",
+  "LABEL_2_STAR_DIFFICULTY": "Facile",
+  "LABEL_3_STAR_DIFFICULTY": "Moyen",
+  "LABEL_4_STAR_DIFFICULTY": "Difficile",
+  "LABEL_5_STAR_DIFFICULTY": "Terrible",
+  "LABEL_6_STAR_DIFFICULTY": "Diabolique",
+  "LABEL_CHALLENGES": "Défis",
   "LABEL_STATUS": "Statut",
   "STATUS_UNSOLVED": "non résolu",
   "STATUS_SOLVED": "résolu",
@@ -152,5 +152,5 @@
   "TITLE_TRACK_ORDERS": "Suivi de commande",
   "LABEL_ORDER_ID": "ID de commande",
   "BTN_TRACK": "Suivi",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "Dernière adresse IP connue"
 }
