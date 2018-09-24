@@ -171,42 +171,6 @@ describe('ScoreBoardComponent', () => {
     expect(value).toEqual([])
   })
 
-  it('should colorize total score in warn for less than 25% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true }, { solved: false }, { solved: false }, { solved: false }, { solved: false } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('warn')
-  })
-
-  it('should colorize total score in warn for exactly 25% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true }, { solved: false }, { solved: false }, { solved: false } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('warn')
-  })
-
-  it('should colorize total score in primary for more than 25% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true }, { solved: false } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('primary')
-  })
-
-  it('should colorize total score in primary for exactly 75% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true }, { solved: true }, { solved: true }, { solved: false } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('primary')
-  })
-
-  it('should colorize total score in accent for more than 75% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true }, { solved: true }, { solved: true }, { solved: true }, { solved: false } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('accent')
-  })
-
-  it('should colorize total score in accent for exactly 100% challenge completion', () => {
-    challengeService.find.and.returnValue(of([ { solved: true } ]))
-    component.ngOnInit()
-    expect(component.completionColor).toBe('accent')
-  })
-
   it('should complete a level when all challenges of that difficulty are solved', () => {
     challengeService.find.and.returnValue(of([ { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 }, { solved: true, difficulty: 3 } ]))
     component.ngOnInit()

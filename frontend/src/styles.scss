@@ -1,4 +1,3 @@
-@import '~ng2-bar-rating/themes/br-default-theme.css';
 @import 'theme';
 
 @mixin link-theme($theme) {
@@ -23,6 +22,18 @@
   .error {
     color: mat-color(map-get($theme, warn));
   }
+
+  .primary-notification {
+    background-color: mat-color(map-get($theme, primary), darker);
+  }
+
+  .accent-notification {
+    background-color: mat-color(map-get($theme, accent), darker);
+  }
+
+  .warn-notification {
+    background-color: mat-color(map-get($theme, warn), darker);
+  }
 }
 
 @mixin image-thumbnail-theme($theme) {
@@ -34,9 +45,35 @@
   }
 }
 
-@mixin important-box-theme($theme) {
-  .important-box {
-    background-color: mat-color(map-get($theme, primary), darker);
+@mixin bar-rating-theme($theme) {
+  .br-default .br-units {
+    align-items: center;
+  }
+  .br-default .br-unit {
+    font-size: 23px;
+    height: 18px;
+    margin-right: 5px;
+    width: 18px
+  }
+  .br-default .br-unit:after {
+    color: mat-color(map-get($theme, primary), lighter);
+    content: '\2605';
+  }
+  .br-default .br-selected:after {
+    color: mat-color(map-get($theme, accent), lighter);
+  }
+  .br-default .br-active:after {
+    color: mat-color(map-get($theme, accent), lighter);
+  }
+}
+
+@mixin score-star-theme($theme) {
+  .empty-star {
+    stop-color: mat-color(map-get($theme, primary));
+  }
+
+  .filled-star {
+    stop-color: mat-color(map-get($theme, accent));
   }
 }
 
@@ -44,7 +81,8 @@
   @include link-theme($theme);
   @include notification-theme($theme);
   @include image-thumbnail-theme($theme);
-  @include important-box-theme($theme);
+  @include bar-rating-theme($theme);
+  @include score-star-theme($theme);
 }
 
 .deeppurple-amber-theme {
@@ -65,6 +103,11 @@
 .purple-green-theme {
   @include angular-material-theme($purple-green-theme);
   @include custom-components-theme($purple-green-theme);
+}
+
+.bluegrey-lightgreen-theme {
+  @include angular-material-theme($bluegrey-lightgreen-theme);
+  @include custom-components-theme($bluegrey-lightgreen-theme);
 }
 
 .close-dialog {
