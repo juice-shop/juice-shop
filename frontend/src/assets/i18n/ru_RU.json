@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "нерешено",
   "STATUS_SOLVED": "решено",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Есть идея для нового задания? Нашёл уязвимость, которая здесь не отслеживается? Дай нам знать через {{gitter}} чат или открой новую проблему на {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "Есть идея для нового задания? Нашёл уязвимость, которая здесь не отслеживается? Дай нам знать через <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> чат или открой новую проблему на <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Ты успешно решил задачу: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Неправильный код.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Ты вошёл в систему через OAuth 2.0.",

@@ -49,19 +49,23 @@
   .br-default .br-units {
     align-items: center;
   }
+
   .br-default .br-unit {
     font-size: 23px;
     height: 18px;
     margin-right: 5px;
-    width: 18px
+    width: 18px;
   }
+
   .br-default .br-unit:after {
     color: mat-color(map-get($theme, primary), lighter);
     content: '\2605';
   }
+
   .br-default .br-selected:after {
     color: mat-color(map-get($theme, accent), lighter);
   }
+
   .br-default .br-active:after {
     color: mat-color(map-get($theme, accent), lighter);
   }

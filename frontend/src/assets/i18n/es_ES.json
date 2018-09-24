@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "no resuelto",
   "STATUS_SOLVED": "resuelto",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "¿Tiene alguna idea para un nuevo desafío? Ha encontrado alguna vulnerabilidad que no se encuentra aquí? Háganoslo saber en {{gitter}} o abriendo un nuevo issue en {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "¿Tiene alguna idea para un nuevo desafío? Ha encontrado alguna vulnerabilidad que no se encuentra aquí? Háganoslo saber en <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> o abriendo un nuevo issue en <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Ha resuelto correctamente el desafío: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Código de seguimiento no válido.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Has iniciado sesión con el proveedor OAuth 2.0.",

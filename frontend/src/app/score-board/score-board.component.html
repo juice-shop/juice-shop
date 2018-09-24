@@ -1,14 +1,16 @@
 <diV fxLayout="column">
   <mat-card>
 
-    <mat-card-title>Score Board <b>{{percentChallengesSolved}}%</b></mat-card-title>
+    <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
+      <small class="confirmation">{{percentChallengesSolved}}%</small>
+    </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
 
   </mat-card>
 
   <mat-card>
 
-    <mat-card-title>Difficulty</mat-card-title>
+    <mat-card-title translate="LABEL_DIFFICULTY"></mat-card-title>
     <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
       <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]" (change)="toggleDifficulty(difficulty)"
@@ -43,7 +45,10 @@
                        [disabled]="true">
 
     <mat-expansion-panel-header>
-      <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
+      <span fxLayout="row">
+        <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
+        <span style="margin: 15px 0;">{{"LABEL_" + difficulty + "_STAR_DIFFICULTY" | translate}} {{"LABEL_CHALLENGES" | translate}}</span>
+      </span>
     </mat-expansion-panel-header>
 
     <mat-divider></mat-divider>
@@ -89,11 +94,7 @@
 
   </mat-expansion-panel>
 
-  <mat-card class="primary-notification">
-    Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a
-    href="http://gitter.im/bkimminich/juice-shop"><i class="fab fa-gitter"></i>Gitter.im</a> community chat or by
-    opening a <a href="https://github.com/bkimminich/juice-shop/issues"><i class="fab fa-github"></i>GitHub</a> issue!
-  </mat-card>
+  <mat-card class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
 </diV>
 
 <img src="assets/public/images/tracking/scoreboard.png"/>

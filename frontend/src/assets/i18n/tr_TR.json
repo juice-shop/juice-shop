@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "çözülmemiş",
   "STATUS_SOLVED": "çözülmüş",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Yeni bir soru fikriniz mi var? Burada geçmeyen bir zafiyet mi buldunuz? {{gitter}} topluluğunda sohbet yoluyla veya bir {{github}} sorunu açarak bize bildirin!",
+  "CALL_FOR_CONTRIBUTIONS": "Yeni bir soru fikriniz mi var? Burada geçmeyen bir zafiyet mi buldunuz? <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> topluluğunda sohbet yoluyla veya bir <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> sorunu açarak bize bildirin!",
   "CHALLENGE_SOLVED": "Başarılı bir şekilde soruyu çözdünüz: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Geçersiz devam kodu.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "OAuth 2.0 sağlayıcısı üzerinden çıkış yaptınız.",

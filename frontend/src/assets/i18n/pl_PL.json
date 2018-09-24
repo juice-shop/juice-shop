@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "nierozwiązane",
   "STATUS_SOLVED": "rozwiązany",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Masz pomysł na nowe wyzwanie?  Daj nam znać poprzez {{gitter}} społeczności czatu lub przez zgłoszenie nowego problemu {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "Masz pomysł na nowe wyzwanie?  Daj nam znać poprzez <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> społeczności czatu lub przez zgłoszenie nowego problemu <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Pomyślnie rozwiązane wyzwanie: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Błędny kod zaproszenia",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Rejestracja za pośrednictwem uwierzytelniania OAuth 2.0.",
