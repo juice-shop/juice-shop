@@ -110,6 +110,11 @@
   @include custom-components-theme($bluegrey-lightgreen-theme);
 }
 
+.blue-lightblue-theme {
+  @include angular-material-theme($blue-lightblue-theme);
+  @include custom-components-theme($blue-lightblue-theme);
+}
+
 .close-dialog {
   float: right;
   margin-top: 15px;
