@@ -57,7 +57,7 @@
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let challenge">
-        <button mat-button [style.backgroundColor]="challenge.solved ? 'green': 'red'">
+        <button mat-button [style.backgroundColor]="challenge.solved ? '#33bb8d': '#ff0034'">
           <span [hidden]="challenge.solved" id="{{challenge.name}}.notSolved" class="not-solved" (click)="openHint(challenge)" [ngClass]="{ 'label-button': showChallengeHints && challenge.hintUrl }" matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
             <i class="fas fa-book" aria-hidden="true" [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
             {{"STATUS_UNSOLVED" | translate}}
