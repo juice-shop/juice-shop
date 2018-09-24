@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "lahendamata",
   "STATUS_SOLVED": "lahendatud",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Sul on uue väljakutse idee? Leidsid turvavea, mida tulemuste tabelis ei ole? Anna meile teada {{gitter}}'i vestluse kaudu või loo uus {{github}}'i veateade!",
+  "CALL_FOR_CONTRIBUTIONS": "Sul on uue väljakutse idee? Leidsid turvavea, mida tulemuste tabelis ei ole? Anna meile teada <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a>'i vestluse kaudu või loo uus <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>'i veateade!",
   "CHALLENGE_SOLVED": "Sa lahendasid edukalt väljakutse: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Vigane jätkamis koos.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Olete sisenenud läbi OAuth 2.0 teenuse kaudu.",

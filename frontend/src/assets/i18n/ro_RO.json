@@ -90,7 +90,7 @@
   "STATUS_UNSOLVED": "nerezolvat",
   "STATUS_SOLVED": "rezolvat",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Am o idee pentru o nouă provocare? Ai găsit o vulnerabilitate care nu este urmărită aici? Anunţaţi-ne prin intermediul chat-ul comunităţii {{gitter}} sau deschizând un issue pe {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "Am o idee pentru o nouă provocare? Ai găsit o vulnerabilitate care nu este urmărită aici? Anunţaţi-ne prin intermediul chat-ul comunităţii <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> sau deschizând un issue pe <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Ai rezolvat cu succes o provocare: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Cod pentru continuare invalid.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Au fost autentificat prin OAuth 2.0.",
