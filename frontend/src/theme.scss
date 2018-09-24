@@ -16,3 +16,9 @@ $pink-bluegrey-theme: mat-dark-theme($pink-bluegrey-primary, $pink-bluegrey-acce
 $purple-green-primary: mat-palette($mat-purple, 700, 500, 800);
 $purple-green-accent:  mat-palette($mat-green, A200, A100, A400);
 $purple-green-theme: mat-dark-theme($purple-green-primary, $purple-green-accent);
+
+$bluegrey-lightgreen-primary: mat-palette($mat-blue-grey, 600, 300, 700);
+$bluegrey-lightgreen-accent:  mat-palette($mat-light-green, 700, 400, 800);
+$bluegrey-lightgreen-warn:  mat-palette($mat-deep-orange);
+$bluegrey-lightgreen-theme: mat-dark-theme($bluegrey-lightgreen-primary, $bluegrey-lightgreen-accent, $bluegrey-lightgreen-warn);
+
