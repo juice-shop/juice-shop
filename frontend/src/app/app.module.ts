@@ -12,6 +12,7 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
+import { NgIoModule, NgIoConfig } from 'ng-io'
 
 /* Imported Components */
 import { AppComponent } from './app.component'
@@ -82,6 +83,8 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
+const socketConfig: NgIoConfig = { url: window.location.toString(), options: {} }
+
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
 }
@@ -127,6 +130,7 @@ export function HttpLoaderFactory (http: HttpClient) {
       }
     ),
     CookieModule.forRoot(),
+    NgIoModule.forRoot(socketConfig),
     FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,

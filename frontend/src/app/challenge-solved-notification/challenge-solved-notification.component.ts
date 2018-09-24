@@ -1,10 +1,9 @@
 import { TranslateService } from '@ngx-translate/core'
-import { environment } from './../../environments/environment'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
+import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 
-import * as io from 'socket.io-client'
+import { SocketIo } from 'ng-io'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 
@@ -12,6 +11,7 @@ import fontawesome from '@fortawesome/fontawesome'
 import { faGlobe, faFlagCheckered, faClipboard } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 
+@Injectable()
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
@@ -19,18 +19,16 @@ fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
 
-  public socket
   public notifications: any[] = []
   public showCtfFlagsInNotifications
   public showCtfCountryDetailsInNotifications
   public countryMap
-  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef) {
+  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private socket: SocketIo) {
 
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io.connect(environment.hostServer)
       this.socket.on('challenge solved', (data) => {
         if (data && data.challenge) {
           if (!data.hidden) {
