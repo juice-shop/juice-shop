@@ -3,7 +3,7 @@ application:
   name: '7 Minute Security'
   logo: 'https://7ms.us/content/images/2017/09/7.png'
   favicon: 'https://7minsec.com/favicon.ico'
-  theme: dark-blue
+  theme: blue-lightblue
   gitHubRibbon: white
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null
