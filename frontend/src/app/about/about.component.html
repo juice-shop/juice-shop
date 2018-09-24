@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
 
   <section class="about-description">
-    <h3><span translate="TITLE_ABOUT"></span> <small translate="SECTION_CORPORATE_HISTORY"></small></h3>
+    <h3><span translate>TITLE_ABOUT</span> <small style="margin-left: 10px;" translate>SECTION_CORPORATE_HISTORY</small></h3>
     <p class="text-justify">
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
@@ -9,7 +9,7 @@
 
       Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
 
-      <a href="/ftp/legal.md?md_debug=true" translate="LINK_TERMS_OF_USE">Check out our boring terms of use if you are interested in such lame stuff.</a>
+      <a href="/ftp/legal.md?md_debug=true" translate>LINK_TERMS_OF_USE</a>
 
       Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
 
@@ -20,7 +20,7 @@
   </section>
 
   <div class="feedback">
-    <h3><span translate="SECTION_CUSTOMER_FEEDBACK"></span></h3>
+    <h3><span translate>SECTION_CUSTOMER_FEEDBACK</span></h3>
     <slideshow [height]="'300px'"
                [autoPlay]="true"
                [showArrows]="true"
@@ -29,7 +29,7 @@
     </slideshow>
 
     <div *ngIf="twitterUrl || facebookUrl" class="social">
-      <h3><span translate="SECTION_SOCIAL_MEDIA"></span></h3>
+      <h3><span translate="">SECTION_SOCIAL_MEDIA</span></h3>
       <a *ngIf="twitterUrl" [href]="twitterUrl" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fab fa-twitter fa-lg"></i> Twitter</button></a>
       <a *ngIf="facebookUrl" [href]="facebookUrl" target="_blank" rel="noopener noreferrer"><button mat-raised-button color="accent"><i class="fab fa-facebook fa-lg"></i> Facebook</button></a>
     </div>

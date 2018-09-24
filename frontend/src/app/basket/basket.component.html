@@ -2,21 +2,21 @@
   <div class="container">
 
     <div class="table-container mat-elevation-z8">
-      <div class="heading"> Your basket {{userEmail}} </div>
+      <div class="heading">{{"TITLE_BASKET" | translate}} {{userEmail}}</div>
       <mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="product">
-          <mat-header-cell *matHeaderCellDef> Product </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="price">
-          <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md> Price </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
           <mat-cell *matCellDef="let element" fxShow fxHide.lt-md> {{element.price}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="quantity">
-          <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
             <span>{{element.BasketItem.quantity}}</span>
@@ -25,7 +25,7 @@
         </ng-container>
 
         <ng-container matColumnDef="total price">
-          <mat-header-cell *matHeaderCellDef>  Total Price </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
         </ng-container>
 
@@ -44,7 +44,7 @@
     </div>
 
     <mat-card>
-        <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> Checkout</button>
+        <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}</button>
         <mat-button-toggle id="collapseCouponButton" class="coupon-toggle" (change)="toggleCoupon()" [checked]="couponPanelExpanded" style="margin-right:10px;margin-left:10px"><i class="fas fa-gift fa-lg"></i></mat-button-toggle>
         <mat-button-toggle id="paymentCouponButton" class="payment-toggle" (change)="togglePayment()" [checked]="paymentPanelExpanded"><i class="fas fa-credit-card fa-lg"></i></mat-button-toggle>
     </mat-card>
