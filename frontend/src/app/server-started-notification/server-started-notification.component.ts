@@ -1,15 +1,15 @@
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
-import { environment } from 'src/environments/environment'
+import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
-import * as io from 'socket.io-client'
+import { SocketIo } from 'ng-io'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faTrash } from '@fortawesome/fontawesome-free-solid'
 
 fontawesome.library.add(faTrash)
 
+@Injectable()
 @Component({
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
@@ -17,18 +17,14 @@ fontawesome.library.add(faTrash)
 })
 export class ServerStartedNotificationComponent implements OnInit {
 
-  public io = io
-  public socket
   public hackingProgress: any = {}
 
-  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef) {
+  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef, private socket: SocketIo) {
 
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-
       this.socket.on('server started', () => {
         let continueCode = this.cookieService.get('continueCode')
         if (continueCode) {
@@ -58,7 +54,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   }
 
   clearProgress () {
-    this.cookieService.remove('continueCode', { domain: document.domain })
+    this.cookieService.remove('continueCode')
     this.hackingProgress.cleared = true
   }
 
