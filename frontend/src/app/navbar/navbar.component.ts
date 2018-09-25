@@ -6,7 +6,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
 import { faComments } from '@fortawesome/fontawesome-free-regular'
@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService,private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router,private translate: TranslateService, private socket: SocketIo) { }
+    private cookieService: CookieService, private router: Router,private translate: TranslateService, private socket: Socket) { }
 
   ngOnInit () {
 

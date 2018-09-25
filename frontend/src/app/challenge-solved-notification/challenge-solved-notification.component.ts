@@ -3,7 +3,7 @@ import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 
@@ -23,7 +23,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   public showCtfFlagsInNotifications
   public showCtfCountryDetailsInNotifications
   public countryMap
-  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private socket: SocketIo) {
+  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private socket: Socket) {
 
   }
 

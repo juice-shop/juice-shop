@@ -18,7 +18,7 @@ import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { EventEmitter } from '@angular/core'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -81,7 +81,7 @@ describe('ScoreBoardComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
-        { provide: SocketIo, useValue: mockSocket },
+        { provide: Socket, useValue: mockSocket },
         WindowRefService
       ]
     })
