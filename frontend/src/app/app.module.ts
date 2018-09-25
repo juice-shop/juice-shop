@@ -1,20 +1,19 @@
 import { environment } from './../environments/environment'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 import { QRCodeModule } from 'angularx-qrcode'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
-import { NgIoModule, NgIoConfig } from 'ng-io'
-
+import { SocketIoModule } from 'ng6-socket-io'
 /* Imported Components */
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
@@ -40,7 +39,6 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
-
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -58,7 +56,6 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
-
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -84,10 +81,8 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
-const socketConfig: NgIoConfig = { url: environment.hostServer, options: {} }
-
 export function HttpLoaderFactory (http: HttpClient) {
-  return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
+  return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
 }
 
 @NgModule({
@@ -117,7 +112,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     TokenSaleComponent,
     ProductReviewEditComponent
   ],
-  entryComponents: [ ProductDetailsComponent,QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
+  entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
     BrowserModule,
     Routing,
@@ -126,12 +121,12 @@ export function HttpLoaderFactory (http: HttpClient) {
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
-          deps: [ HttpClient ]
+          deps: [HttpClient]
         }
       }
     ),
+    SocketIoModule.forRoot({ url: environment.hostServer, options: {} }),
     CookieModule.forRoot(),
-    NgIoModule.forRoot(socketConfig),
     FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -191,7 +186,7 @@ export function HttpLoaderFactory (http: HttpClient) {
 
 export class AppModule {
 
-  constructor (configurationService: ConfigurationService,overlayContainer: OverlayContainer) {
+  constructor (configurationService: ConfigurationService, overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
     })

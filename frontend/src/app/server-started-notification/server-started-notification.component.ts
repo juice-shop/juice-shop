@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faTrash } from '@fortawesome/fontawesome-free-solid'
@@ -19,7 +19,7 @@ export class ServerStartedNotificationComponent implements OnInit {
 
   public hackingProgress: any = {}
 
-  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef, private socket: SocketIo) {
+  constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef, private socket: Socket) {
 
   }
 

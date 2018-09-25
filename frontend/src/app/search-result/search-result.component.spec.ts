@@ -17,7 +17,7 @@ import { ProductDetailsComponent } from 'src/app/product-details/product-details
 import { BasketService } from './../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -90,7 +90,7 @@ describe('SearchResultComponent', () => {
         { provide: ProductService, useValue: productService },
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: SocketIo, useValue: mockSocket }
+        { provide: Socket, useValue: mockSocket }
       ]
     })
     .compileComponents()

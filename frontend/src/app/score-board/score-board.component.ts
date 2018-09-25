@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone } from '@angular/core'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 import fontawesome from '@fortawesome/fontawesome'
 import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
 import { faFlag } from '@fortawesome/fontawesome-free-regular'
@@ -25,7 +25,7 @@ export class ScoreBoardComponent implements OnInit {
   public showChallengeHints
   public challenges: any[]
   public percentChallengesSolved
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private socket: SocketIo) {}
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private socket: Socket) {}
 
   ngOnInit () {
     this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]

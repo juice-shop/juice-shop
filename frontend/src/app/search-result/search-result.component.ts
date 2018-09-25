@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
-import { SocketIo } from 'ng-io'
+import { Socket } from 'ng6-socket-io'
 import { TranslateService } from '@ngx-translate/core'
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
@@ -30,7 +30,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private socket: SocketIo) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private socket: Socket) { }
 
   ngAfterViewInit () {
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
