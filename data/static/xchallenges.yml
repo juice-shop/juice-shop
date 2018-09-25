@@ -7,17 +7,9 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'
   key: geocitiesThemeChallenge
 -
-  name: 'XSS Tier 0'
-  category: 'XSS'
-  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(&quot;xss&quot;)"&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
-  key: reflectedXssChallenge
--
   name: 'XSS Tier 5'
   category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(&quot;xss&quot;)"&gt;</code> through an HTTP header.'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(&apos;xss&apos;)"&gt;</code> through an HTTP header.'
   difficulty: 4
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
