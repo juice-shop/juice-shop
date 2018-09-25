@@ -10,7 +10,7 @@
 
   <mat-card>
 
-    <mat-card-title translate="LABEL_DIFFICULTY"></mat-card-title>
+    <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
     <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
       <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]" (change)="toggleDifficulty(difficulty)"
@@ -55,19 +55,19 @@
     <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges,difficulty,'name')">
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
         <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%"> Description</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%" translate>LABEL_DESCRIPTION</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
         <mat-cell *matCellDef="let challenge">
           <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'">
           <span [hidden]="challenge.solved" id="{{challenge.name}}.notSolved" class="not-solved"
@@ -79,7 +79,7 @@
           </span>
             <span [hidden]="!challenge.solved" id="{{challenge.name}}.solved" class="solved"
                   (click)="repeatNotification(challenge)" [ngClass]="{ 'label-button': allowRepeatNotifications }"
-                  matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS') : null }}"
+                  matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}"
                   matTooltipPosition="above">
             <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
             {{"STATUS_SOLVED" | translate}}
