@@ -129,7 +129,7 @@ describe('SearchResultComponent', () => {
   }))
 
   it('should notify socket if search query includes XSS Tier 1 payload while filtering table', () => {
-    activatedRoute.setQueryParameter('<iframe src="javascript:alert(\'xss\')"> Payload')
+    activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
     spyOn(component.socket,'emit')
     component.filterTable()
     expect(component.socket.emit.calls.mostRecent().args[0]).toBe('localXSSChallengeSolved')

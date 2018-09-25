@@ -9,7 +9,7 @@
 -
   name: 'XSS Tier 5'
   category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(&apos;xss&apos;)"&gt;</code> through an HTTP header.'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
   difficulty: 4
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
