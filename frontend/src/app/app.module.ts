@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http'
@@ -83,7 +84,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
-const socketConfig: NgIoConfig = { url: window.location.toString(), options: {} }
+const socketConfig: NgIoConfig = { url: environment.hostServer, options: {} }
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http,'./../assets/i18n/' , '.json')
