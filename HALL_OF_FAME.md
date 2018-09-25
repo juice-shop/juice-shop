@@ -54,7 +54,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :finland: Nico Ådahl
 - :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
-- :hongkong: r0n1am
+- :hong_kong: r0n1am
 - :hungary: OliverkeHU
 - :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
