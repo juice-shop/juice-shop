@@ -5,7 +5,7 @@ const db = require('../data/mongodb')
 module.exports = function trackOrder () {
   return (req, res) => {
     req.params.id = decodeURIComponent(req.params.id)
-    if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<script>alert("XSS")</script>')) {
+    if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<iframe src="javascript:alert(`xss`)">')) {
       utils.solve(challenges.reflectedXssChallenge)
     }
     db.orders.find({ $where: "this.orderId === '" + req.params.id + "'" }).then(order => {
