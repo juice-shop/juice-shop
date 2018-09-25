@@ -8,7 +8,7 @@ module.exports = (sequelize, { STRING, DECIMAL }) => {
     description: {
       type: STRING,
       set (description) {
-        if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<iframe src="javascript:alert(\'xss\')">')) {
+        if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<iframe src="javascript:alert(`xss`)">')) {
           utils.solve(challenges.restfulXssChallenge)
         }
         this.setDataValue('description', description)

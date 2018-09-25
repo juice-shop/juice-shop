@@ -15,7 +15,7 @@ describe('/#/search', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<iframe src="javascript:alert(\'xss\')">')
+      searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
       searchButton.click()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {

@@ -9,7 +9,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       unique: true,
       set (email) {
-        if (utils.notSolved(challenges.persistedXssChallengeUser) && utils.contains(email, '<iframe src="javascript:alert(\'xss\')">')) {
+        if (utils.notSolved(challenges.persistedXssChallengeUser) && utils.contains(email, '<iframe src="javascript:alert(`xss`)">')) {
           utils.solve(challenges.persistedXssChallengeUser)
         }
         this.setDataValue('email', email)
