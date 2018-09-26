@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faTrash } from '@fortawesome/fontawesome-free-solid'

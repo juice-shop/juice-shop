@@ -17,7 +17,7 @@ import { ProductDetailsComponent } from 'src/app/product-details/product-details
 import { BasketService } from './../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {

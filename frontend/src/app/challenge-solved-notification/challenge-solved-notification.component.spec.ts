@@ -8,7 +8,7 @@ import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
 

@@ -18,7 +18,7 @@ import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { EventEmitter } from '@angular/core'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {

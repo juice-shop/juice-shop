@@ -13,7 +13,7 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
-import { SocketIoModule } from 'ng6-socket-io'
+import { SocketIoModule } from 'ng-socket-io'
 /* Imported Components */
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'

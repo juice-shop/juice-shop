@@ -9,7 +9,7 @@ import { ServerStartedNotificationComponent } from './server-started-notificatio
 import { ChallengeService } from '../Services/challenge.service'
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
