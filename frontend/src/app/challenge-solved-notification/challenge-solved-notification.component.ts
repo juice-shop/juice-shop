@@ -3,7 +3,7 @@ import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
 
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 

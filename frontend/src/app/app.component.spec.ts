@@ -10,7 +10,7 @@ import { TestBed, async } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { ChallengeSolvedNotificationComponent } from 'src/app/challenge-solved-notification/challenge-solved-notification.component'
-import { SocketIoModule } from 'ng6-socket-io'
+import { SocketIoModule } from 'ng-socket-io'
 
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'

@@ -26,7 +26,7 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { Socket } from 'ng6-socket-io'
+import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
