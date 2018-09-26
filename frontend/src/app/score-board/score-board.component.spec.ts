@@ -18,7 +18,6 @@ import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { EventEmitter } from '@angular/core'
-import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -81,7 +80,6 @@ describe('ScoreBoardComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
-        { provide: Socket, useValue: mockSocket },
         WindowRefService
       ]
     })
@@ -93,6 +91,7 @@ describe('ScoreBoardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ScoreBoardComponent)
     component = fixture.componentInstance
+    spyOn(component.io,'connect').and.returnValue(mockSocket)
     fixture.detectChanges()
   })
 
@@ -180,9 +179,9 @@ describe('ScoreBoardComponent', () => {
 
   it('should update the correct challenge when a challenge solved event occurs', () => {
     challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false } ]))
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback({ challenge: 'ping', name: 'Challenge #1' })
     expect(component.challenges[ 0 ].solved).toBe(true)
     expect(component.challenges[ 1 ].solved).toBe(false)
@@ -190,9 +189,9 @@ describe('ScoreBoardComponent', () => {
 
   it('should not update when a challenge solved event to a nonexistent challenge occurs', () => {
     challengeService.find.and.returnValue(of([{ name: 'Challenge #1', solved: false }, { name: 'Challenge #2', solved: false } ]))
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback({ challenge: 'ping', name: 'Challenge #1337' })
     expect(component.challenges[ 0 ].solved).toBe(false)
     expect(component.challenges[ 1 ].solved).toBe(false)

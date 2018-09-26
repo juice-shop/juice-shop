@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment'
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
@@ -8,8 +9,9 @@ import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
-import { Socket } from 'ng-socket-io'
 import { TranslateService } from '@ngx-translate/core'
+import * as io from 'socket.io-client'
+
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faEye, faCartPlus)
@@ -25,14 +27,21 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public tableData: any[]
   public dataSource
   public searchValue
+  public io = io
+  public socket
   public confirmation = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private socket: Socket) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
 
   ngAfterViewInit () {
+
+    this.ngZone.runOutsideAngular(() => {
+      this.socket = this.io.connect(environment.hostServer)
+    })
+
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
       this.trustProductDescription(this.tableData)

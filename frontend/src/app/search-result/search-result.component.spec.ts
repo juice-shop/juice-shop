@@ -17,7 +17,6 @@ import { ProductDetailsComponent } from 'src/app/product-details/product-details
 import { BasketService } from './../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -89,8 +88,7 @@ describe('SearchResultComponent', () => {
         { provide: BasketService, useValue: basketService },
         { provide: ProductService, useValue: productService },
         { provide: DomSanitizer, useValue: sanitizer },
-        { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: Socket, useValue: mockSocket }
+        { provide: ActivatedRoute, useValue: activatedRoute }
       ]
     })
     .compileComponents()
@@ -99,6 +97,7 @@ describe('SearchResultComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchResultComponent)
     component = fixture.componentInstance
+    spyOn(component.io,'connect').and.returnValue(mockSocket)
     component.ngAfterViewInit()
     fixture.detectChanges()
   })
@@ -131,10 +130,10 @@ describe('SearchResultComponent', () => {
 
   it('should notify socket if search query includes XSS Tier 1 payload while filtering table', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
-    spyOn(mockSocket,'emit')
+    spyOn(component.socket,'emit')
     component.filterTable()
-    expect(mockSocket.emit.calls.mostRecent().args[0]).toBe('localXSSChallengeSolved')
-    expect(mockSocket.emit.calls.mostRecent().args[1]).toBe(activatedRoute.snapshot.queryParams.q)
+    expect(component.socket.emit.calls.mostRecent().args[0]).toBe('localXSSChallengeSolved')
+    expect(component.socket.emit.calls.mostRecent().args[1]).toBe(activatedRoute.snapshot.queryParams.q)
   })
 
   it('should trim the queryparameter while filtering the datasource', () => {
