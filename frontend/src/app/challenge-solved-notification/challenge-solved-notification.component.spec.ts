@@ -8,7 +8,6 @@ import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import { Socket } from 'ng-socket-io'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
 
@@ -38,7 +37,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
       ],
       declarations: [ ChallengeSolvedNotificationComponent ],
       providers: [
-        { provide: Socket, useValue: mockSocket },
         ConfigurationService,
         ChallengeService,
         CountryMappingService,
@@ -52,6 +50,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeSolvedNotificationComponent)
     component = fixture.componentInstance
+    expect(mockSocket).toBeTruthy()
     fixture.detectChanges()
   })
 

@@ -1,4 +1,3 @@
-import { environment } from './../environments/environment'
 import { CookieModule } from 'ngx-cookie'
 import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
@@ -10,7 +9,6 @@ import { TestBed, async } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { ChallengeSolvedNotificationComponent } from 'src/app/challenge-solved-notification/challenge-solved-notification.component'
-import { SocketIoModule } from 'ng-socket-io'
 
 import { MatSelectModule } from '@angular/material/select'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -38,7 +36,6 @@ describe('AppComponent', () => {
         MatToolbarModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
-        SocketIoModule.forRoot({ url: environment.hostServer, options: {} }),
         ClipboardModule,
         MatIconModule,
         MatCardModule,

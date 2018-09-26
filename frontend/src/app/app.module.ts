@@ -1,4 +1,3 @@
-import { environment } from './../environments/environment'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
@@ -13,7 +12,6 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
-import { SocketIoModule } from 'ng-socket-io'
 /* Imported Components */
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
@@ -125,7 +123,6 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
-    SocketIoModule.forRoot({ url: environment.hostServer, options: {} }),
     CookieModule.forRoot(),
     FlexLayoutModule,
     HttpClientModule,

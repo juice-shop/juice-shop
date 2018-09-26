@@ -9,7 +9,6 @@ import { ServerStartedNotificationComponent } from './server-started-notificatio
 import { ChallengeService } from '../Services/challenge.service'
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
-import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -48,7 +47,6 @@ describe('ServerStartedNotificationComponent', () => {
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: TranslateService, useValue: translateService },
-        { provide: Socket, useValue: mockSocket },
         CookieService
       ]
     })
@@ -60,6 +58,7 @@ describe('ServerStartedNotificationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ServerStartedNotificationComponent)
     component = fixture.componentInstance
+    spyOn(component.io,'connect').and.returnValue(mockSocket)
     cookieService.remove('continueCode', { domain: document.domain })
     fixture.detectChanges()
   })
@@ -69,79 +68,79 @@ describe('ServerStartedNotificationComponent', () => {
   })
 
   it('should keep continue code cookie after successfully restoring progress on server start', () => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     cookieService.put('continueCode', 'CODE')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(cookieService.get('continueCode')).toBe('CODE')
   })
 
   it('should set auto-restore success-message when progress restore succeeds', () => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     translateService.get.and.returnValue(of('AUTO_RESTORED_PROGRESS'))
     cookieService.put('continueCode', 'CODE')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeDefined()
   })
 
   it('should translate AUTO_RESTORED_PROGRESS message', () => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     translateService.get.and.returnValue(of('Translation of AUTO_RESTORED_PROGRESS'))
     cookieService.put('continueCode', 'CODE')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORED_PROGRESS')
   })
 
   it('should log errors during automatic progress restore directly to browser console', fakeAsync(() => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     challengeService.restoreProgress.and.returnValue(throwError('Error'))
     cookieService.put('continueCode', 'CODE')
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
   it('should set auto-restore error-message when progress restore failed', fakeAsync(() => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     challengeService.restoreProgress.and.returnValue(throwError('Error'))
     translateService.get.and.returnValue(of('AUTO_RESTORE_PROGRESS_FAILED'))
     cookieService.put('continueCode', 'CODE')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeDefined()
   }))
 
   it('should translate AUTO_RESTORE_PROGRESS_FAILED message including the returned error', fakeAsync(() => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     challengeService.restoreProgress.and.returnValue(throwError('Error'))
     translateService.get.and.returnValue(of('Translation of AUTO_RESTORE_PROGRESS_FAILED: error'))
     cookieService.put('continueCode', 'CODE')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
   }))
 
   it('do nothing if continueCode cookie is not present', () => {
-    spyOn(mockSocket,'on')
+    spyOn(component.socket,'on')
     component.ngOnInit()
-    let callback = mockSocket.on.calls.argsFor(0)[1]
+    let callback = component.socket.on.calls.argsFor(0)[1]
     callback()
-    expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
+    expect(component.socket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeUndefined()
   })
 

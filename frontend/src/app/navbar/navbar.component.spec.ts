@@ -26,7 +26,6 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
-import { Socket } from 'ng-socket-io'
 
 class MockSocket {
   on (str: string, callback) {
@@ -92,7 +91,6 @@ describe('NavbarComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
-        { provide: Socket, useValue: mockSocket },
         TranslateService
       ]
     })
@@ -105,6 +103,7 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent)
     component = fixture.componentInstance
+    spyOn(component.io,'connect').and.returnValue(mockSocket)
     localStorage.removeItem('token')
     fixture.detectChanges()
   })

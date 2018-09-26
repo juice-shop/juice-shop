@@ -1,17 +1,16 @@
+import { environment } from './../../environments/environment'
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit, NgZone, ChangeDetectorRef, Injectable } from '@angular/core'
-
-import { Socket } from 'ng-socket-io'
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
+import * as io from 'socket.io-client'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faGlobe, faFlagCheckered, faClipboard } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 
-@Injectable()
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
@@ -23,12 +22,15 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   public showCtfFlagsInNotifications
   public showCtfCountryDetailsInNotifications
   public countryMap
-  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private socket: Socket) {
+  public io = io
+  public socket
+  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef) {
 
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
+      this.socket = this.io.connect(environment.hostServer)
       this.socket.on('challenge solved', (data) => {
         if (data && data.challenge) {
           if (!data.hidden) {
