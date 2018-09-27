@@ -1,11 +1,10 @@
-import { environment } from './../../environments/environment'
 import { WindowRefService } from './../Services/window-ref.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone } from '@angular/core'
-import * as io from 'socket.io-client'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
@@ -27,9 +26,8 @@ export class ScoreBoardComponent implements OnInit {
   public showChallengeHints
   public challenges: any[]
   public percentChallengesSolved
-  public io = io
-  public socket
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone) {}
+
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) {}
 
   ngOnInit () {
     this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
@@ -62,8 +60,7 @@ export class ScoreBoardComponent implements OnInit {
     })
 
     this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-      this.socket.on('challenge solved', (data) => {
+      this.io.socket().on('challenge solved', (data) => {
         if (data && data.challenge) {
           for (let i = 0; i < this.challenges.length; i++) {
             if (this.challenges[i].name === data.name) {

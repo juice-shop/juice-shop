@@ -1,4 +1,3 @@
-import { environment } from './../../environments/environment'
 import { ChallengeService } from './../Services/challenge.service'
 import { UserService } from './../Services/user.service'
 import { AdministrationService } from './../Services/administration.service'
@@ -7,7 +6,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
-import * as io from 'socket.io-client'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import { languages } from './languages'
 import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
@@ -30,13 +29,11 @@ export class NavbarComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
   public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
-  public io = io
-  public socket
   public scoreBoardVisible = false
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService,private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router,private translate: TranslateService) { }
+    private cookieService: CookieService, private router: Router,private translate: TranslateService, private io: SocketIoService) { }
 
   ngOnInit () {
 
@@ -81,8 +78,7 @@ export class NavbarComponent implements OnInit {
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-      this.socket.on('challenge solved', () => {
+      this.io.socket().on('challenge solved', () => {
         this.getScoreBoardStatus()
       })
     })

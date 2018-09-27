@@ -8,6 +8,7 @@ import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import { ChallengeSolvedNotificationComponent } from './challenge-solved-notification.component'
 
@@ -20,11 +21,14 @@ class MockSocket {
 describe('ChallengeSolvedNotificationComponent', () => {
   let component: ChallengeSolvedNotificationComponent
   let fixture: ComponentFixture<ChallengeSolvedNotificationComponent>
+  let socketIoService
   let mockSocket
 
   beforeEach(async(() => {
 
     mockSocket = new MockSocket()
+    socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
+    socketIoService.socket.and.returnValue(mockSocket)
 
     TestBed.configureTestingModule({
       imports: [
@@ -37,6 +41,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
       ],
       declarations: [ ChallengeSolvedNotificationComponent ],
       providers: [
+        { provide: SocketIoService, useValue: socketIoService },
         ConfigurationService,
         ChallengeService,
         CountryMappingService,
@@ -50,7 +55,6 @@ describe('ChallengeSolvedNotificationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeSolvedNotificationComponent)
     component = fixture.componentInstance
-    expect(mockSocket).toBeTruthy()
     fixture.detectChanges()
   })
 
