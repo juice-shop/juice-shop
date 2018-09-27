@@ -19,6 +19,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { CookieModule, CookieService } from 'ngx-cookie'
+import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
@@ -43,6 +44,7 @@ describe('NavbarComponent', () => {
   let translateService
   let cookieService
   let mockSocket
+  let socketIoService
   let location
 
   beforeEach(async(() => {
@@ -60,6 +62,8 @@ describe('NavbarComponent', () => {
     challengeService.find.and.returnValue(of([{ solved: false }]))
     cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
     mockSocket = new MockSocket()
+    socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
+    socketIoService.socket.and.returnValue(mockSocket)
 
     TestBed.configureTestingModule({
       declarations: [ NavbarComponent, SearchResultComponent ],
@@ -91,6 +95,7 @@ describe('NavbarComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
+        { provide: SocketIoService, useValue: socketIoService },
         TranslateService
       ]
     })
@@ -103,7 +108,6 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent)
     component = fixture.componentInstance
-    spyOn(component.io,'connect').and.returnValue(mockSocket)
     localStorage.removeItem('token')
     fixture.detectChanges()
   })

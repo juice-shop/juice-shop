@@ -1,11 +1,10 @@
-import { environment } from './../../environments/environment'
 import { TranslateService } from '@ngx-translate/core'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
-import * as io from 'socket.io-client'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faGlobe, faFlagCheckered, faClipboard } from '@fortawesome/fontawesome-free-solid'
@@ -22,16 +21,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   public showCtfFlagsInNotifications
   public showCtfCountryDetailsInNotifications
   public countryMap
-  public io = io
-  public socket
-  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef) {
 
+  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private io: SocketIoService) {
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-      this.socket.on('challenge solved', (data) => {
+      this.io.socket().on('challenge solved', (data) => {
         if (data && data.challenge) {
           if (!data.hidden) {
             this.showNotification(data)
@@ -39,7 +35,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (!data.isRestore) {
             this.saveProgress()
           }
-          this.socket.emit('notification received', data.flag)
+          this.io.socket().emit('notification received', data.flag)
         }
       })
     })

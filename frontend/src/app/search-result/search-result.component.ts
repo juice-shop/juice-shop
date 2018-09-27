@@ -1,4 +1,3 @@
-import { environment } from './../../environments/environment'
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
@@ -10,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
-import * as io from 'socket.io-client'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
@@ -27,20 +26,14 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public tableData: any[]
   public dataSource
   public searchValue
-  public io = io
-  public socket
   public confirmation = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
   ngAfterViewInit () {
-
-    this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-    })
 
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
@@ -67,7 +60,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     let queryParam: string = this.route.snapshot.queryParams.q
     if (queryParam && queryParam.includes('<iframe src="javascript:alert(`xss`)">')) {
       this.ngZone.runOutsideAngular(() => {
-        this.socket.emit('localXSSChallengeSolved', queryParam)
+        this.io.socket().emit('localXSSChallengeSolved', queryParam)
       })
     }
     if (queryParam) {
