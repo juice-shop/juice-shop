@@ -7,6 +7,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 
 import { ServerStartedNotificationComponent } from './server-started-notification.component'
 import { ChallengeService } from '../Services/challenge.service'
+import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
 
