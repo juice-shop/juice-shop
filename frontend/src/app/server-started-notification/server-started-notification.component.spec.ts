@@ -50,6 +50,7 @@ describe('ServerStartedNotificationComponent', () => {
       providers: [
         { provide: ChallengeService, useValue: challengeService },
         { provide: TranslateService, useValue: translateService },
+        { provide: SocketIoService, useValue: socketIoService },
         CookieService
       ]
     })
