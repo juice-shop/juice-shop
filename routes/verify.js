@@ -50,8 +50,6 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.adminSectionChallenge)
   } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
     utils.solve(challenges.tokenSaleChallenge)
-  } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(url, '/microfab.gif')) {
-    utils.solve(challenges.geocitiesThemeChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {

@@ -1,12 +1,4 @@
 -
-  name: 'Eye Candy'
-  category: 'Forgotten Content'
-  description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.'
-  difficulty: 4
-  hint: 'The mentioned golden era lasted from 1994 to 2009.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'
-  key: geocitiesThemeChallenge
--
   name: 'XSS Tier 5'
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
