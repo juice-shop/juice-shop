@@ -78,13 +78,13 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "styles.css"
+              "styles.scss"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
-            ]
+            ],
+            "codeCoverage": true
           }
         },
         "lint": {
