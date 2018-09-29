@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { DomSanitizer,By } from '@angular/platform-browser'
+import { By } from '@angular/platform-browser'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
@@ -31,7 +31,6 @@ describe('BasketComponent', () => {
   let windowRefService
   let configurationService
   let translateService
-  let sanitizer
 
   beforeEach(async(() => {
 
@@ -64,8 +63,6 @@ describe('BasketComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
-    sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml'])
-    sanitizer.bypassSecurityTrustHtml.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       imports: [
@@ -89,7 +86,6 @@ describe('BasketComponent', () => {
         { provide: UserService , useValue: userService },
         { provide: WindowRefService, useValue: windowRefService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: DomSanitizer, useValue: sanitizer },
         TranslateService
       ]
     })
