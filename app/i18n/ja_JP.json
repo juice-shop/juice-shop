@@ -134,7 +134,7 @@
   "AUTO_RESTORED_PROGRESS": "以前のハッキングの進捗状況が自動的に復元されました。",
   "AUTO_RESTORE_PROGRESS_FAILED": "以前のハッキングの進捗状況の復元に失敗しました: {{error}}",
   "RESET_HACKING_PROGRESS": "ハッキングの進捗をクリアするため、クッキーを削除する",
-  "RESTART_REQUIRED": "You now have to manually restart the application to start over!",
+  "RESTART_REQUIRED": "手動でアプリケーションの再起動をする必要があります!",
   "LABEL_EDIT_REVIEW": "レビューを編集する",
   "LABEL_REVIEW": "レビュー",
   "LABEL_REVIEWS": "レビュー一覧",
@@ -152,5 +152,5 @@
   "TITLE_TRACK_ORDERS": "注文履歴",
   "LABEL_ORDER_ID": "注文ID",
   "BTN_TRACK": "Track",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "前回ログイン時のIPアドレス"
 }
