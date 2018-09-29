@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Cartão de Crédito",
   "INVALID_COUPON_LENGTH": "O Código de Cupom deve possuir {{length}} caracteres.",
   "LABEL_COUPON": "Cupom",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Precisa de um cupom? Siga-nos no {{twitter}} or {{facebook}} para receber cupons mensais e outros spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Precisa de um cupom? Siga-nos no <a href='{{twitter}}' target='_blank'>Twitter</a> or <a href='{{facebook}}' target='_blank'>Facebook</a> para receber cupons mensais e outros spam!",
   "BTN_REDEEM": "Resgatar",
   "THANKS_FOR_SUPPORT": "Obrigado pelo suporte {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Obrigado por apoiar o projeto open-source, colaborado por {{appname}}!",

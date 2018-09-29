@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Codul cuponului trebuie să aibă {{length}} caractere.",
   "LABEL_COUPON": "Cupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Ai nevoie de un cupon? Urmărește-ne pe {{twitter}} sau {{facebook}} pentru cupoane și alte spam-uri!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Ai nevoie de un cupon? Urmărește-ne pe <a href='{{twitter}}' target='_blank'>Twitter</a> sau <a href='{{facebook}}' target='_blank'>Facebook</a> pentru cupoane și alte spam-uri!",
   "BTN_REDEEM": "Foloseşte",
   "THANKS_FOR_SUPPORT": "Mulţumim pentru sprijinirea {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Mulţumim pentru sprijinirea proiectului open source din spatele {{appname}}!",

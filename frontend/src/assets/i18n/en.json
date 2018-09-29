@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Coupon code must be {{length}} characters long.",
   "LABEL_COUPON": "Coupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on {{twitter}} or {{facebook}} for monthly coupons and other spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Need a coupon code? Follow us on <a href='<a href='{{twitter}}' target='_blank'>Twitter</a>' target='_blank'>Twitter</a> or <a href='<a href='{{facebook}}' target='_blank'>Facebook</a>' target='_blank'>Facebook</a> for monthly coupons and other spam!",
   "BTN_REDEEM": "Redeem",
   "THANKS_FOR_SUPPORT": "Thank you for supporting {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

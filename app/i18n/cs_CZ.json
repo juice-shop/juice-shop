@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kód kupónu musí být {{length}} znaků.",
   "LABEL_COUPON": "Kupón",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Chcete slevový kupón? Sledujte náš {{twitter}} nebo {{facebook}} pro měsíční kupóny a další spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Chcete slevový kupón? Sledujte náš <a href='{{twitter}}' target='_blank'>Twitter</a> nebo <a href='{{facebook}}' target='_blank'>Facebook</a> pro měsíční kupóny a další spam!",
   "BTN_REDEEM": "Uplatnit",
   "THANKS_FOR_SUPPORT": "Děkujeme za podporu {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

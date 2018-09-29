@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "קוד קופון צריך להיות באורך {{length}} תווים.",
   "LABEL_COUPON": "קופון",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "צריך קוד קופון? עקוב אחרינו ב {{twitter}} או {{facebook}} עבור קופונים חודשיים ודואר זבל נוסף!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "צריך קוד קופון? עקוב אחרינו ב <a href='{{twitter}}' target='_blank'>Twitter</a> או <a href='{{facebook}}' target='_blank'>Facebook</a> עבור קופונים חודשיים ודואר זבל נוסף!",
   "BTN_REDEEM": "מימוש",
   "THANKS_FOR_SUPPORT": "תודה על התמיכה ב{{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

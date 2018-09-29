@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="table-container mat-elevation-z8">
-      <div class="heading">{{"TITLE_BASKET" | translate}} {{userEmail}}</div>
+      <div class="heading">{{"TITLE_BASKET" | translate}} <small>{{userEmail}}</small></div>
       <mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="product">
@@ -56,20 +56,24 @@
       <div *ngIf="error && !couponControl.dirty" style="margin-top:5px;">{{error?.error}}</div>
 
       <mat-form-field>
-        <label><small>Need a coupon code? Follow us on <a href="https://twitter.com/owasp_juiceshop" target="_blank">Twitter</a> or <a href="https://www.facebook.com/owasp.juiceshop" target="_blank">Facebook</a> for monthly coupons and other spam!</small></label>
+        <label><small [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}"></small></label>
         <input id="coupon" [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
         <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">Coupon code must be 10 characters long.</mat-error>
       </mat-form-field>
 
-      <button id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> Redeem</button>
+      <button id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> {{'BTN_REDEEM' | translate}}</button>
 
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="paymentPanelExpanded">
 
       <div class="payment-label">
-        <label>Payment</label>
-        <small>(<span *ngIf="applicationName === 'OWASP Juice Shop'">    Thank you for supporting {{applicationName}}! </span> <span *ngIf="applicationName !== 'OWASP Juice Shop'">    (To be enabled when i18n is set up )</span>    <i class="fas fa-heart"></i>  </small>)
+        <label translate>LABEL_PAYMENT</label>
+        <small style="margin-left: 10px;">
+          (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
+          <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
+          <i style="margin-left: 3px;" class="fas fa-heart"></i>)
+        </small>
       </div>
 
       <div class="button-container">
@@ -97,8 +101,12 @@
       </div>
 
       <div class="payment-label">
-        <label>Merchandise</label>
-        <small>(<span *ngIf="applicationName === 'OWASP Juice Shop'">    Official stores for {{applicationName}} apparel, mugs and stickers! </span> <span *ngIf="applicationName !== 'OWASP Juice Shop'">    (To be enabled when i18n is set up )</span>   <i class="fas fa-thumbs-up"></i>  )</small>
+        <label translate>LABEL_MERCHANDISE</label>
+        <small style="margin-left: 10px;">
+          (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
+          <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
+          <i style="margin-left: 3px;" class="fas fa-thumbs-up"></i>)
+        </small>
       </div>
 
       <div class="button-container">
