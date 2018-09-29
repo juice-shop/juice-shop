@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
-
+import { TranslateModule } from '@ngx-translate/core'
 import { TokenSaleComponent } from './token-sale.component'
 import { of, throwError } from 'rxjs'
 import { ConfigurationService } from './../Services/configuration.service'
@@ -15,6 +15,9 @@ describe('TokenSaleComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     TestBed.configureTestingModule({
       declarations: [ TokenSaleComponent ],
+      imports: [
+        TranslateModule.forRoot()
+      ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService }
       ]

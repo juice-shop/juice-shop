@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { CaptchaService } from './../Services/captcha.service'
 import { HttpClientModule } from '@angular/common/http'
 import { UserService } from './../Services/user.service'
@@ -31,6 +32,7 @@ describe('ContactComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         HttpClientModule,
         ReactiveFormsModule,
         BarRatingModule,

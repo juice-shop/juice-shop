@@ -8,7 +8,7 @@ import { RegisterComponent } from './register.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Location } from '@angular/common'
-
+import { TranslateModule } from '@ngx-translate/core'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
@@ -40,6 +40,7 @@ describe('RegisterComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'login', component: LoginComponent }
         ]),
+        TranslateModule.forRoot(),
         HttpClientModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
