@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { TranslateModule } from '@ngx-translate/core'
 import { TrackResultComponent } from './track-result.component'
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
@@ -15,6 +15,7 @@ describe('TrackResultComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         RouterTestingModule,
         HttpClientModule,
         MatCardModule,
