@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Karta Płatnicza",
   "INVALID_COUPON_LENGTH": "Kod kuponu musi być {{length}} znaków.",
   "LABEL_COUPON": "Kupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon Rabatowy ? Śledź nas na {{twitter}} lub {{facebook}} aby dostatawać co miesięąc kupony i innych spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon Rabatowy ? Śledź nas na <a href='{{twitter}}' target='_blank'>Twitter</a> lub <a href='{{facebook}}' target='_blank'>Facebook</a> aby dostatawać co miesięąc kupony i innych spam!",
   "BTN_REDEEM": "Wykorzystaj kupon rabatowy",
   "THANKS_FOR_SUPPORT": "Dziękujemy za wsparcie {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Dziękujemy za wsparcie projektu open source {{appname}}!",

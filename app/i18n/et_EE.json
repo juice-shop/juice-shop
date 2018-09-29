@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Krediitkaart",
   "INVALID_COUPON_LENGTH": "Kupongi kood peab olema {{length}} tähemärki.",
   "LABEL_COUPON": "Kupong",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Vajad kupongi? Jälgi meid {{twitter}} või {{facebook}} igakuiste kupongide ja muu rämpsu jaoks!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Vajad kupongi? Jälgi meid <a href='{{twitter}}' target='_blank'>Twitter</a> või <a href='{{facebook}}' target='_blank'>Facebook</a> igakuiste kupongide ja muu rämpsu jaoks!",
   "BTN_REDEEM": "Lunasta",
   "THANKS_FOR_SUPPORT": "Tänan toetamast {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Tänud toetamast vabavaralist projekti {{appname}}!",

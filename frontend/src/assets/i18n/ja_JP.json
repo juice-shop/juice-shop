@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "クレジットカード",
   "INVALID_COUPON_LENGTH": "クーポンコードは {{length}} 文字である必要があります",
   "LABEL_COUPON": "クーポン",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "クーポンコードが必要ですか? 毎月のクーポンとスパムのために {{twitter}} または {{facebook}} をフォローしてください!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "クーポンコードが必要ですか? 毎月のクーポンとスパムのために <a href='{{twitter}}' target='_blank'>Twitter</a> または <a href='{{facebook}}' target='_blank'>Facebook</a> をフォローしてください!",
   "BTN_REDEEM": "クーポン適用",
   "THANKS_FOR_SUPPORT": "{{juiceshop}}をサポートしていただきありがとうございます!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",

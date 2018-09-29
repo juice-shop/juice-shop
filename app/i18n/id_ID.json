@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Kartu Kredit",
   "INVALID_COUPON_LENGTH": "Kode kupon harus {{length}} panjang karakter.",
   "LABEL_COUPON": "Kupon",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Perlu kode kupon? Ikuti kami di {{twitter}} atau {{facebook}} untuk kupon bulanan dan berita lainnya!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Perlu kode kupon? Ikuti kami di <a href='{{twitter}}' target='_blank'>Twitter</a> atau <a href='{{facebook}}' target='_blank'>Facebook</a> untuk kupon bulanan dan berita lainnya!",
   "BTN_REDEEM": "Tukar",
   "THANKS_FOR_SUPPORT": "Terima kasih telah mendukung {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Terima kasih telah mendukung proyek open source di belakang {{appname}}!",

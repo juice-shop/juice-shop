@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "信用卡",
   "INVALID_COUPON_LENGTH": "优惠券代码必须是 {{length}} 个字符长",
   "LABEL_COUPON": "优惠券",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "需要一个优惠券代码吗？关注我们的 {{twitter}} 或 {{facebook}} 获取每月优惠券和其他垃圾邮件！",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "需要一个优惠券代码吗？关注我们的 <a href='{{twitter}}' target='_blank'>Twitter</a> 或 <a href='{{facebook}}' target='_blank'>Facebook</a> 获取每月优惠券和其他垃圾邮件！",
   "BTN_REDEEM": "兑换",
   "THANKS_FOR_SUPPORT": "感谢您对 {{juiceshop}} 的支持！",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "感谢您对 {{appname}} 背后开源项目的支持！",

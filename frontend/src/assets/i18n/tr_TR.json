@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "İndirim kodu {{length}} karakter uzunluğunda olmalıdır.",
   "LABEL_COUPON": "İndirim Kodu",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "İndirim koduna mı ihtiyacınız var? Aylık indirim kodları ve diğer spamler için bizi {{twitter}} ya da {{facebook}}'tan takip edin!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "İndirim koduna mı ihtiyacınız var? Aylık indirim kodları ve diğer spamler için bizi <a href='{{twitter}}' target='_blank'>Twitter</a> ya da <a href='{{facebook}}' target='_blank'>Facebook</a>'tan takip edin!",
   "BTN_REDEEM": "Kullan",
   "THANKS_FOR_SUPPORT": "{{juiceshop}}'u desteklediğiniz için teşekkür ederiz!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "{{appname}} arkasından açık kaynak projeyi desteklediğiniz için teşekkür ederiz!",

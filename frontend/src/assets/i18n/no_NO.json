@@ -60,7 +60,7 @@
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kupongkoden må være {{length}} tegn.",
   "LABEL_COUPON": "Kupong",
-  "FOLLOW_FOR_MONTHLY_COUPONS": "Trenger du en kupongkode? Følg oss på {{twitter}} eller {{facebook}} for månedlige kuponger og annet spam!",
+  "FOLLOW_FOR_MONTHLY_COUPONS": "Trenger du en kupongkode? Følg oss på <a href='{{twitter}}' target='_blank'>Twitter</a> eller <a href='{{facebook}}' target='_blank'>Facebook</a> for månedlige kuponger og annet spam!",
   "BTN_REDEEM": "Løs inn",
   "THANKS_FOR_SUPPORT": "Takk for din støtte {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Takk for at du støtter åpen kildekodeprosjektet bak {{appname}}!",
