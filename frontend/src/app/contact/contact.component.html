@@ -1,6 +1,6 @@
 <div fxLayoutAlign="center">
   <mat-card>
-    <h3> Contact us </h3>
+    <h3 translate>TITLE_CONTACT</h3>
 
     <div *ngIf="confirmation">
       <p class="confirmation">{{confirmation}}</p>
@@ -14,36 +14,33 @@
       <input hidden type="text" id="userId" [formControl]="userIdControl"/>
 
       <mat-form-field appearance="outline">
-        <mat-label> Author</mat-label>
+        <mat-label translate>LABEL_AUTHOR</mat-label>
         <input [formControl]="authorControl" matInput type="text">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label> Comment</mat-label>
+        <mat-label translate>LABEL_COMMENT</mat-label>
         <textarea id="comment" [formControl]="feedbackControl" matInput></textarea>
-        <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required">Please provide a comment.
-        </mat-error>
+        <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required" translate>MANDATORY_COMMENT</mat-error>
       </mat-form-field>
 
       <div style="margin-top:5px;" class="rating-container">
-        <label style="font-weight:bold; margin-right: 8px;"> Rating </label>
+        <label style="font-weight:bold; margin-right: 8px;" translate>LABEL_RATING</label>
         <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
       </div>
 
       <mat-form-field>
-        <label style="font-weight:bold;">What is</label>&nbsp;
+        <label style="font-weight:bold;" translate>LABEL_CAPTCHA</label>&nbsp;
         <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
         <input id="captchaControl" [formControl]="captchaControl" matInput type="text">
-        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required">Please solve the captcha to prove
-          you are a real person
-        </mat-error>
+        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA</mat-error>
       </mat-form-field>
 
     </div>
 
     <button id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
             [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
-            (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> Submit
+            (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
     </button>
 
   </mat-card>
