@@ -58,7 +58,7 @@ deploy:
   app:
     master: juice-shop
     develop: juice-shop-staging
-    gsoc-integration: juice-shop-gsoc
+    release-v8: juice-shop-v8
   on:
     repo: bkimminich/juice-shop
     node: 10
