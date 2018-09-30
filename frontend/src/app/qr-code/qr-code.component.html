@@ -1,7 +1,7 @@
 <div class="qr-code mat-typography">
 
   <header>
-    <h3>{{title}} Address</h3>
+    <h3>{{title | translate}}</h3>
   </header>
 
   <div fxLayout="column" fxLayoutGap="10px">
@@ -17,7 +17,7 @@
   </div>
 
   <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> Close</button>
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}</button>
   </footer>
 
 </div>

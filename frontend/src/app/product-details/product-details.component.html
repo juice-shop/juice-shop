@@ -5,49 +5,49 @@
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
       <div fxFlex="noshrink">
-        <h4>Image</h4>
+        <h4 translate>LABEL_IMAGE</h4>
         <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.image">
       </div>
 
       <div>
-        <h4>Price</h4>
+        <h4 translate>LABEL_PRICE</h4>
         <p>{{data.price}}</p>
       </div>
 
       <div>
-        <h4>Description</h4>
+        <h4 translate>LABEL_DESCRIPTION</h4>
         <div [innerHTML]="data.description"></div>
       </div>
     </div>
 
     <div>
-      <h3>Reviews</h3>
+      <h3 translate>LABEL_REVIEWS</h3>
 
       <blockquote *ngFor="let review of reviews$|async">
         <cite>{{review.author}}</cite>
         <p>{{review.message}}</p>
         <button class="review-button" color="secondary" mat-stroked-button
                 *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i
-          class="fas fa-user-edit"></i> Edit
+          class="fas fa-user-edit"></i> {{'BTN_EDIT' | translate}}
         </button>
       </blockquote>
 
       <div>
         <mat-form-field appearance="outline">
-           <textarea [formControl]="reviewControl" #textPut cols="50" matInput placeholder="Submit a review"
+           <textarea [formControl]="reviewControl" #textPut cols="50" matInput placeholder=""
                      matTextareaAutosize matAutosizeMinRows="2"
                      matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 
         <button id="submitButton" mat-raised-button color="primary" (click)="addReview(textPut)"><i
-          class="fas fa-paper-plane fa-lg"></i> Submit
+          class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
         </button>
       </div>
     </div>
   </div>
 
   <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> Close
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
     </button>
   </footer>
 </mat-dialog-content>
