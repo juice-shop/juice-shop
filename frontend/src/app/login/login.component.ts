@@ -23,8 +23,8 @@ const authorizedRedirectURIs = {
   'http://localhost:4200': 'http://localhost:4200',
   'http://juice.sh': 'http://juice.sh',
   'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost',
-  'https://juice-shop-gsoc.herokuapp.com': 'https://juice-shop-gsoc.herokuapp.com',
-  'http://juice-shop-gsoc.herokuapp.com': 'http://juice-shop-gsoc.herokuapp.com'
+  'https://juice-shop-v8.herokuapp.com': 'https://juice-shop-v8.herokuapp.com',
+  'http://juice-shop-v8.herokuapp.com': 'http://juice-shop-v8.herokuapp.com'
 }
 
 @Component({
