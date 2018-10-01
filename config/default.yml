@@ -20,9 +20,9 @@ application:
     bottomProductImage: apple_pressings.jpg
   altcoinName: Juicycoin
   cookieConsent:
-    backgroundColor: '#455a64'
+    backgroundColor: '#546e7a'
     textColor: '#ffffff'
-    buttonColor: '#689f38'
+    buttonColor: '#558b2f'
     buttonTextColor: '#ffffff'
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'

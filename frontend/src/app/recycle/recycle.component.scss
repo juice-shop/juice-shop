@@ -1,7 +1,15 @@
-mat-card {
-  height: fit-content;
-  left: 10%;
-  width: 45%;
+mat-card.form-card {
+  margin-bottom: 30px;
+  margin-left: 8.3333%;
+  min-width: 300px;
+  width: 50%;
+}
+
+div.responsibility-container {
+  margin-left: 8.3333%;
+  margin-right: 8.3333%;
+  min-width: 300px;
+  width: 50%;
 }
 
 mat-form-field {
@@ -18,24 +26,15 @@ button {
   margin-top: 5px;
 }
 
-.recycle-container {
-  display: flex;
+mat-card img {
+  height: 100px;
+  width: auto;
 }
 
-.card-container {
-  margin-left: 20%;
-  margin-top: 50px;
+mat-checkbox {
+  margin-bottom: 20px;
 }
 
-.card-container mat-card {
-  left: 0;
-  width: 214px;
-}
-
-.card-container mat-card img {
-  height: 110px;
-}
-
-mat-card.form-card {
-  width: 40%;
+.fill-remaining-space {
+  flex: 1 1 auto;
 }

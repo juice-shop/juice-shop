@@ -1,13 +1,13 @@
 mat-card {
   height: auto;
-  min-width: 400px;
+  min-width: 380px;
   width: 25%;
 }
 
 mat-table,
-.table-heading{
-  width: 40%;
-  min-width: 450px;
+.table-heading {
+  min-width: 420px;
+  width: 50%;
 }
 
 .product-name {
@@ -19,7 +19,6 @@ mat-table,
 }
 
 .table-heading h4 {
-  font-size: 22px;
   margin-bottom: 0;
 }
 
