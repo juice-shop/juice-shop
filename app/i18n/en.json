@@ -154,5 +154,6 @@
   "LAST_LOGIN_IP": "Last Login IP",
   "BTN_EDIT": "Edit",
   "INVALID_DATE": "Please provide a valid date.",
-  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your Security Question"
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "MANDATORY_ORDER_ID": "Please provide an Order ID."
 }
