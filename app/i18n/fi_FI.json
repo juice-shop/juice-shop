@@ -152,5 +152,8 @@
   "TITLE_TRACK_ORDERS": "Track Orders",
   "LABEL_ORDER_ID": "Order ID",
   "BTN_TRACK": "Track",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "Last Login IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your Security Question"
 }
