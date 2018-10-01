@@ -28,7 +28,7 @@ export class TrackResultComponent implements OnInit {
       this.results.email = results.data[0].email
       this.results.totalPrice = results.data[0].totalPrice
       this.results.products = results.data[0].products
-      this.results.eta = results.data[0].eta
+      this.results.eta = results.data[0].eta || '?'
       this.dataSource.data = this.results.products
     })
   }

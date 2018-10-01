@@ -1,59 +1,50 @@
 <div fxLayoutAlign="center">
   <mat-card>
 
-    <h3>User Registration</h3>
+    <h3 translate>TITLE_REGISTRATION</h3>
 
     <div class="form-container">
 
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label translate>LABEL_EMAIL</mat-label>
         <input [formControl]="emailControl" type="text" matInput>
-        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required">Please provide an email address.
-        </mat-error>
-        <mat-error *ngIf="emailControl.invalid && emailControl.errors.email">Email address is not valid.</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label translate>LABEL_PASSWORD</mat-label>
         <input [formControl]="passwordControl" type="password" matInput>
-        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required">Please provide a password.
-        </mat-error>
+        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD</mat-error>
         <mat-error
-          *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)">
-          Pasword must be 5-20 characters long.
-        </mat-error>
+          *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)" translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Repeat Password</mat-label>
+        <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
         <input [formControl]="repeatPasswordControl" type="password" matInput>
-        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required">Please repeat your
-          password.
-        </mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
       </mat-form-field>
 
       <div class="security-container">
 
         <mat-form-field>
-          <mat-label> Security Question
-            <mat-icon>warning</mat-icon>
-            <b style="margin-left:5px;">This cannot be changed later</b></mat-label>
-          <mat-select [formControl]="securityQuestionControl" placeholder="Security Question" [(value)]="selected"
+          <mat-label>{{'LABEL_SECURITY_QUESTION' | translate}}
+            <mat-icon style="margin-left:10px;">warning</mat-icon>
+            <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
+          </mat-label>
+          <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
                       name="securityQuestion">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.id">
               {{question.question}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required">Please select a
-            security question.
-          </mat-error>
+          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required" translate>MANDATORY_SECURITY_QUESTION</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input [formControl]="securityAnswerControl" type="text" matInput placeholder="Answer here">
-          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required">Please provide an
-            answer to your security question.
-          </mat-error>
+          <input [formControl]="securityAnswerControl" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
+          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -63,7 +54,7 @@
             [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
             (click)="save()">
       <mat-icon>how_to_reg</mat-icon>
-      Register!
+      {{'BTN_REGISTER' | translate}}
     </button>
 
   </mat-card>
