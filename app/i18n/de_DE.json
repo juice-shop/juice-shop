@@ -85,7 +85,14 @@
   "LABEL_MESSAGE": "Nachricht",
   "LABEL_INVOICE": "Rechnung",
   "TITLE_SCORE_BOARD": "Punkteübersicht",
-  "LABEL_DIFFICULTY": "Schwierigkeit",
+  "LABEL_DIFFICULTY": "Schwierigkeitsgrad",
+  "LABEL_1_STAR_DIFFICULTY": "Triviale",
+  "LABEL_2_STAR_DIFFICULTY": "Einfache",
+  "LABEL_3_STAR_DIFFICULTY": "Mittelschwere",
+  "LABEL_4_STAR_DIFFICULTY": "Schwierige",
+  "LABEL_5_STAR_DIFFICULTY": "Furchtbare",
+  "LABEL_6_STAR_DIFFICULTY": "Teuflische",
+  "LABEL_CHALLENGES": "Herausforderungen",
   "LABEL_STATUS": "Status",
   "STATUS_UNSOLVED": "ungelöst",
   "STATUS_SOLVED": "gelöst",
@@ -145,5 +152,9 @@
   "TITLE_TRACK_ORDERS": "Bestellungen verfolgen",
   "LABEL_ORDER_ID": "Bestell-Nr.",
   "BTN_TRACK": "Verfolgen",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "IP bei letzter Anmeldung",
+  "BTN_EDIT": "Bearbeiten",
+  "INVALID_DATE": "Bitte gib ein gültiges Datum ein.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Antwort auf deine Sicherheitsfrage",
+  "MANDATORY_ORDER_ID": "Bitte gib eine Bestell-Nr. ein."
 }
