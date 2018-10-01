@@ -153,8 +153,8 @@
   "LABEL_ORDER_ID": "ID de commande",
   "BTN_TRACK": "Suivi",
   "LAST_LOGIN_IP": "Dernière adresse IP connue",
-  "BTN_EDIT": "Edit",
-  "INVALID_DATE": "Please provide a valid date.",
-  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
-  "MANDATORY_ORDER_ID": "Please provide an Order ID."
+  "BTN_EDIT": "Modifier",
+  "INVALID_DATE": "Veuillez entrer une date valide.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Répondre à votre question de sécurité",
+  "MANDATORY_ORDER_ID": "Veuillez fournir un ID de commande."
 }
