@@ -152,5 +152,9 @@
   "TITLE_TRACK_ORDERS": "je' ghoch",
   "LABEL_ORDER_ID": "mI' je'",
   "BTN_TRACK": "ghoch",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "Last Login IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "MANDATORY_ORDER_ID": "Please provide an Order ID."
 }
