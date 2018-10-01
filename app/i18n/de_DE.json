@@ -152,5 +152,9 @@
   "TITLE_TRACK_ORDERS": "Bestellungen verfolgen",
   "LABEL_ORDER_ID": "Bestell-Nr.",
   "BTN_TRACK": "Verfolgen",
-  "LAST_LOGIN_IP": "IP bei letzter Anmeldung"
+  "LAST_LOGIN_IP": "IP bei letzter Anmeldung",
+  "BTN_EDIT": "Bearbeiten",
+  "INVALID_DATE": "Bitte gib ein gültiges Datum ein.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Antwort auf deine Sicherheitsfrage",
+  "MANDATORY_ORDER_ID": "Bitte gib eine Bestell-Nr. ein."
 }

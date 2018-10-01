@@ -152,5 +152,9 @@
   "TITLE_TRACK_ORDERS": "注文履歴",
   "LABEL_ORDER_ID": "注文ID",
   "BTN_TRACK": "Track",
-  "LAST_LOGIN_IP": "前回ログイン時のIPアドレス"
+  "LAST_LOGIN_IP": "前回ログイン時のIPアドレス",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "MANDATORY_ORDER_ID": "Please provide an Order ID."
 }
