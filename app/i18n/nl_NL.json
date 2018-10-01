@@ -152,5 +152,8 @@
   "TITLE_TRACK_ORDERS": "Volg uw bestelling",
   "LABEL_ORDER_ID": "Ordernummer",
   "BTN_TRACK": "Volgen",
-  "LAST_LOGIN_IP": "Laatste aanmelding van IP"
+  "LAST_LOGIN_IP": "Laatste aanmelding van IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your Security Question"
 }
