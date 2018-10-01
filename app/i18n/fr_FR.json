@@ -152,5 +152,8 @@
   "TITLE_TRACK_ORDERS": "Suivi de commande",
   "LABEL_ORDER_ID": "ID de commande",
   "BTN_TRACK": "Suivi",
-  "LAST_LOGIN_IP": "Dernière adresse IP connue"
+  "LAST_LOGIN_IP": "Dernière adresse IP connue",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your Security Question"
 }
