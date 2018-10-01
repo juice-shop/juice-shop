@@ -152,5 +152,8 @@
   "TITLE_TRACK_ORDERS": "Spåra order",
   "LABEL_ORDER_ID": "Ordernummer",
   "BTN_TRACK": "Spåra",
-  "LAST_LOGIN_IP": "Last Login IP"
+  "LAST_LOGIN_IP": "Last Login IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your Security Question"
 }
