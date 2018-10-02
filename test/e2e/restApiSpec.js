@@ -20,10 +20,10 @@ describe('/rest', () => {
       browser.waitForAngularEnabled(true)
 
       browser.get('/#/search')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(
         alert => {
-          expect(alert.getText()).toEqual('XSS')
+          expect(alert.getText()).toEqual('xss')
           alert.accept()
 
           browser.waitForAngularEnabled(false)
