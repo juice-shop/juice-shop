@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "न सुलझा हुआ",
   "STATUS_SOLVED": "सुलझा हुआ",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "एक नई चुनौती के लिए एक विचार है? एक भेद्यता पाया जो यहां नज़र नहीं आई है? हमें {{gitter}} सामुदायिक चैट के माध्यम से या {{github}} समस्या को खोलकर पता करें!",
+  "CALL_FOR_CONTRIBUTIONS": "एक नई चुनौती के लिए एक विचार है? एक भेद्यता पाया जो यहां नज़र नहीं आई है? हमें <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> सामुदायिक चैट के माध्यम से या <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> समस्या को खोलकर पता करें!",
   "CHALLENGE_SOLVED": "आपने सफलतापूर्वक एक चुनौती का समाधान किया: {{challenge}}",
   "INVALID_CONTINUE_CODE": "अमान्य जारी कोड।",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "आप OAuth 2.0 प्रदाता के माध्यम से लॉग इन कर चुके हैं।",

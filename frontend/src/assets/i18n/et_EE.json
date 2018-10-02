@@ -86,6 +86,13 @@
   "LABEL_INVOICE": "Arve",
   "TITLE_SCORE_BOARD": "Tulemuste table",
   "LABEL_DIFFICULTY": "Raskusaste",
+  "LABEL_1_STAR_DIFFICULTY": "Trivial",
+  "LABEL_2_STAR_DIFFICULTY": "Easy",
+  "LABEL_3_STAR_DIFFICULTY": "Medium",
+  "LABEL_4_STAR_DIFFICULTY": "Hard",
+  "LABEL_5_STAR_DIFFICULTY": "Dreadful",
+  "LABEL_6_STAR_DIFFICULTY": "Diabolic",
+  "LABEL_CHALLENGES": "Challenges",
   "LABEL_STATUS": "Olek",
   "STATUS_UNSOLVED": "lahendamata",
   "STATUS_SOLVED": "lahendatud",
@@ -144,5 +151,10 @@
   "ICO_FAQ_ANSWER": "Loomulikult saad! Me ei valetaks sulle iial!",
   "TITLE_TRACK_ORDERS": "Jälgi tellimusi",
   "LABEL_ORDER_ID": "Tellimuse nr",
-  "BTN_TRACK": "Jälgi"
+  "BTN_TRACK": "Jälgi",
+  "LAST_LOGIN_IP": "Last Login IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "MANDATORY_ORDER_ID": "Please provide an Order ID."
 }

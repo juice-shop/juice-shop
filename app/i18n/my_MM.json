@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "မေျဖရေသးပါ",
   "STATUS_SOLVED": "ေျဖျပီးပါျပီ",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Challenge အသစ္မ်ား ထည့္သြင္းရန္ အၾကံညဏ္ရွိပါသလား? ဒီမွာ မပါဝင္တဲ႕ အားနည္းခ်က္ တစ္မ်ိဳးမ်ိဳးကို ေတြ႔ထားပါသလား? {{gitter}} သို႕မဟုတ္ {{github}} issues မွ တစ္ဆင့္ ေဆြးေႏြးႏိုင္ပါသည္",
+  "CALL_FOR_CONTRIBUTIONS": "Challenge အသစ္မ်ား ထည့္သြင္းရန္ အၾကံညဏ္ရွိပါသလား? ဒီမွာ မပါဝင္တဲ႕ အားနည္းခ်က္ တစ္မ်ိဳးမ်ိဳးကို ေတြ႔ထားပါသလား? <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> သို႕မဟုတ္ <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issues မွ တစ္ဆင့္ ေဆြးေႏြးႏိုင္ပါသည္",
   "CHALLENGE_SOLVED": "Challenge တစ္ခု အား သင္ ေျဖဆိုျပီးပါျပီ : {{challenge}}",
   "INVALID_CONTINUE_CODE": "ဆက္လက္အသံုးျပဳမည့္ code မွာ မွားယြင္းေနပါသည္",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "OAuth 2.0 provider မွ တစ္ဆင့္ ဝင္ေရာက္ထားပါျပီ",

@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "non résolu",
   "STATUS_SOLVED": "résolu",
   "STATUS_UNAVAILABLE": "indisponible",
-  "CALL_FOR_CONTRIBUTIONS": "Une idée de challenge ? Vous avez trouvé une faille non répertorié ? Faites le nous savoir via le chat de communauté {{gitter}} ou en ouvrant une issue {{github}} !",
+  "CALL_FOR_CONTRIBUTIONS": "Une idée de challenge ? Vous avez trouvé une faille non répertorié ? Faites le nous savoir via le chat de communauté <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> ou en ouvrant une issue <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> !",
   "CHALLENGE_SOLVED": "Vous avez résolu avec succès un challenge : {{challenge}}",
   "INVALID_CONTINUE_CODE": "Code invalide.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Vous avez été connecté via OAuth 2.0.",

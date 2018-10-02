@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "לא נפתר",
   "STATUS_SOLVED": "נפתר",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "יש לך רעיון לאתגר חדש? מצאת חשיפה שלא נמצאת ברשימה? אפשר ליידע אותנו באמצעות צ'אט הקהילה {{gitter}} או על-ידי פתיחת באג ב{{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "יש לך רעיון לאתגר חדש? מצאת חשיפה שלא נמצאת ברשימה? אפשר ליידע אותנו באמצעות צ'אט הקהילה <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> או על-ידי פתיחת באג ב<a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "פתרת בהצלחה אתגר: {{challenge}}",
   "INVALID_CONTINUE_CODE": "קוד המשך לא תקין.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "התחברת דרך ספק OAuth 2.0.",

@@ -86,6 +86,13 @@
   "LABEL_INVOICE": "बीजक",
   "TITLE_SCORE_BOARD": "स्कोर बोर्ड",
   "LABEL_DIFFICULTY": "कठिनाई",
+  "LABEL_1_STAR_DIFFICULTY": "Trivial",
+  "LABEL_2_STAR_DIFFICULTY": "Easy",
+  "LABEL_3_STAR_DIFFICULTY": "Medium",
+  "LABEL_4_STAR_DIFFICULTY": "Hard",
+  "LABEL_5_STAR_DIFFICULTY": "Dreadful",
+  "LABEL_6_STAR_DIFFICULTY": "Diabolic",
+  "LABEL_CHALLENGES": "Challenges",
   "LABEL_STATUS": "स्थिति",
   "STATUS_UNSOLVED": "न सुलझा हुआ",
   "STATUS_SOLVED": "सुलझा हुआ",
@@ -144,5 +151,10 @@
   "ICO_FAQ_ANSWER": "निःसंदेह आप हो सकते हैं! हम कभी आपसे झूठ नहीं बोलेंगे!",
   "TITLE_TRACK_ORDERS": "ट्रैक ऑर्डर",
   "LABEL_ORDER_ID": "ऑर्डर आईडी",
-  "BTN_TRACK": "ट्रैक"
+  "BTN_TRACK": "ट्रैक",
+  "LAST_LOGIN_IP": "Last Login IP",
+  "BTN_EDIT": "Edit",
+  "INVALID_DATE": "Please provide a valid date.",
+  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "MANDATORY_ORDER_ID": "Please provide an Order ID."
 }
