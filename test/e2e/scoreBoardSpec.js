@@ -27,22 +27,22 @@ describe('/#/score-board', () => {
     })
 
     if (config.get('application.showChallengeSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
-      xit('should be possible when in CTF mode', () => {
-        alertsBefore = element.all(by.className('alert')).count()
+      it('should be possible when in CTF mode', () => {
+        alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 
         element(by.id('Score Board.solved')).click()
 
-        alertsNow = element.all(by.className('alert')).count()
+        alertsNow = element.all(by.className('challenge-solved-toast')).count()
 
         expect(alertsBefore).not.toBe(alertsNow)
       })
     } else {
-      xit('should not be possible when not in CTF mode', () => {
-        alertsBefore = element.all(by.className('alert')).count()
+      it('should not be possible when not in CTF mode', () => {
+        alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 
         element(by.id('Score Board.solved')).click()
 
-        alertsNow = element.all(by.className('alert')).count()
+        alertsNow = element.all(by.className('challenge-solved-toast')).count()
 
         expect(alertsBefore).toBe(alertsNow)
       })
