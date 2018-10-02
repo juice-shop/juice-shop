@@ -548,3 +548,11 @@
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssChallengeFeedback
+-
+  name: 'CSRF'
+  category: 'Broken Authentication'
+  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
+  difficulty: 5
+  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
+  key: csrfChallenge

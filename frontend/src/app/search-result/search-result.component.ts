@@ -65,8 +65,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     }
     if (queryParam) {
       queryParam = queryParam.trim()
-      queryParam = queryParam.toLowerCase()
-      this.dataSource.filter = queryParam
+      this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
     } else {
       this.dataSource.filter = ''
