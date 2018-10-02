@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "未解決",
   "STATUS_SOLVED": "解決済み",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via {{gitter}} community chat or by opening a {{github}} issue!",
+  "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
   "CHALLENGE_SOLVED": "チャレンジを解決しました: {{challenge}}",
   "INVALID_CONTINUE_CODE": "無効なコンティニューコード",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "OAuth 2.0　プロバイダー経由でログインしました",

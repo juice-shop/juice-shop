@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "لم يتم حله",
   "STATUS_SOLVED": "تم حله",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "عندك فكرة تحد جديد؟ وجدت ثغرة لا يتم تعقب هنا؟ اسمحوا لنا أن نعرف عن طريق الدردشة على {{gitter}} أو عن طريق فتح إشكال على {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "عندك فكرة تحد جديد؟ وجدت ثغرة لا يتم تعقب هنا؟ اسمحوا لنا أن نعرف عن طريق الدردشة على <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> أو عن طريق فتح إشكال على <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "لقد حللت التحدي بنجاح: {{challenge}}",
   "INVALID_CONTINUE_CODE": "رمز الإكمال غير صحيح.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "لقد تم تسجيل الدخول عبر موفر OAuth 2.0.",

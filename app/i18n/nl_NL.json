@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "onopgelost",
   "STATUS_SOLVED": "opgelost",
   "STATUS_UNAVAILABLE": "onbeschikbaar",
-  "CALL_FOR_CONTRIBUTIONS": "Heb jij een idee voor een nieuwe uitdaging? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via {{gitter}} de community chat of door op {{github}} een issue aan te maken!",
+  "CALL_FOR_CONTRIBUTIONS": "Heb jij een idee voor een nieuwe uitdaging? Misschien heb je een kwetsbaarheid ontdekt die wij nog niet meetellen hier? Laat het ons weten via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> de community chat of door op <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> een issue aan te maken!",
   "CHALLENGE_SOLVED": "Je hebt succesvol een challenge opgelost: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Incorrecte vervolgcode.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Je bent ingelogd via OAuth 2.0 provider.",

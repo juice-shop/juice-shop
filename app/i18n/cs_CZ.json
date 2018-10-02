@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "nevyřešeno",
   "STATUS_SOLVED": "vyřešeno",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Máte nápad na nový úkol? Nalezli jste bezpečnostní chybu, která není v úkolech? Dejte nám vědět prostřednictvím {{gitter}} komunitního chatu nebo otevřením chyby na {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "Máte nápad na nový úkol? Nalezli jste bezpečnostní chybu, která není v úkolech? Dejte nám vědět prostřednictvím <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> komunitního chatu nebo otevřením chyby na <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Úspešně jste vyřešili výzvu: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Kód pro pokračování není platný.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Byli jste přihlášeni pomocí poskytovatele OAuth 2.0.",

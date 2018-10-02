@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "belum terpecahkan",
   "STATUS_SOLVED": "diselesaikan",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "Punya ide untuk tantangan baru? Menemukan kerentanan yang belum dilacak di sini? Beri tahu kami melalui {{gitter}} komunitas chat atau dengan membuka pokok persoalan di {{github}}!",
+  "CALL_FOR_CONTRIBUTIONS": "Punya ide untuk tantangan baru? Menemukan kerentanan yang belum dilacak di sini? Beri tahu kami melalui <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> komunitas chat atau dengan membuka pokok persoalan di <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
   "CHALLENGE_SOLVED": "Anda berhasil memecahkan tantangan: {{challenge}}",
   "INVALID_CONTINUE_CODE": "melanjutkan kode yang salah.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Anda telah login melalui penyedia OAuth 2.0.",

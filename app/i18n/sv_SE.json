@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "olösta",
   "STATUS_SOLVED": "löst",
   "STATUS_UNAVAILABLE": "inte tillgänglig",
-  "CALL_FOR_CONTRIBUTIONS": "Har du en idé för en ny utmaning? Har du hittat en sårbarhet som inte visas här? Meddela via {{gitter}} community chat eller genom att öppna en {{github}} issue!",
+  "CALL_FOR_CONTRIBUTIONS": "Har du en idé för en ny utmaning? Har du hittat en sårbarhet som inte visas här? Meddela via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat eller genom att öppna en <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
   "CHALLENGE_SOLVED": "Du framgångsrikt löst en utmaning: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Felaktig fortsättningskod.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Du har blivit inloggad via leverantören för OAuth 2.0.",

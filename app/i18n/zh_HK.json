@@ -97,7 +97,7 @@
   "STATUS_UNSOLVED": "未解決",
   "STATUS_SOLVED": "已解決",
   "STATUS_UNAVAILABLE": "unavailable",
-  "CALL_FOR_CONTRIBUTIONS": "對挑戰有新主意嗎？發現一個沒跟進的漏洞？讓我們知道通過 {{gitter}} 社區聊天或新建一個 {{github}} 的問題帖子 ！",
+  "CALL_FOR_CONTRIBUTIONS": "對挑戰有新主意嗎？發現一個沒跟進的漏洞？讓我們知道通過 <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> 社區聊天或新建一個 <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> 的問題帖子 ！",
   "CHALLENGE_SOLVED": "您成功地解決了一項挑戰︰ {{challenge}}",
   "INVALID_CONTINUE_CODE": "無效接續代碼。",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "您已透過 OAuth 2.0 供應商登錄。",
