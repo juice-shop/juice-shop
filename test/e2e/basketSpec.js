@@ -31,7 +31,7 @@ describe('/#/basket', () => {
 
         browser.get('/#/basket')
 
-        // TODO Verify functionally that xit's not the basket of the admin
+        // TODO Verify functionally that it's not the basket of the admin
       })
 
       protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 1' })

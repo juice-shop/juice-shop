@@ -9,7 +9,7 @@ module.exports = function saveLoginIp () {
     var loggedInUser = insecurity.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       var lastLoginIp = req.headers['true-client-ip']
-      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<script>alert("XSS")</script>') {
+      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<iframe src="javascript:alert(`xss`)>') {
         utils.solve(challenges.httpHeaderXssChallenge)
       }
       if (lastLoginIp === undefined) {

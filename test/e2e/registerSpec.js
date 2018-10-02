@@ -10,7 +10,7 @@ describe('/#/register', () => {
     xit('should be possible to bypass validation by directly using Rest API', () => {
       const EC = protractor.ExpectedConditions
 
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users\', {email: \'<script>alert("XSS")</script>\', password: \'xss\'});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users\', {email: \'<iframe src="javascript:alert(xss)">\', password: \'xss\'});')
 
       browser.get('/#/administration')
       browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
@@ -25,7 +25,6 @@ describe('/#/register', () => {
 
   describe('challenge "registerAdmin"', () => {
     it('should be possible to register admin user using REST API', () => {
-      // browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Users/\', {"email": \'testing@test.com\', "password": \'pwned\',"isAdmin":true});')
       browser.executeScript(() => {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {

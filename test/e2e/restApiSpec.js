@@ -15,7 +15,7 @@ describe('/rest', () => {
     xit('should be possible to create a new product when logged in', () => {
       const EC = protractor.ExpectedConditions
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<script>alert("XSS")</script>\', price: 47.11});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<iframe src="javascript:alert(xss)">\', price: 47.11});')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
 
@@ -41,12 +41,12 @@ describe('/rest', () => {
 
     xit('should be possible to save log-in IP when logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<script>alert("XSS")</script>\'}});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<iframe src="javascript:alert(xss)">\'}});')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
   })
 
   describe('challenge "changeProduct"', () => {
