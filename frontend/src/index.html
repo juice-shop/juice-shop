@@ -2,14 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Frontend</title>
+  <title>OWASP Juice Shop</title>
   <base href="/">
   <meta name="description" content="An intentionally insecure JavaScript Web Application">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link id="favicon" rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+  <script>
+    window.addEventListener("load", function(){
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": { "background": "#546e7a", "text": "#ffffff" },
+          "button": { "background": "#558b2f", "text": "#ffffff" }
+        },
+        "theme": "classic",
+        "position": "bottom-right",
+        "content": { "message": "This website uses fruit cookies to ensure you get the juiciest tracking experience.", "dismiss": "Me want it!", "link": "But me wait!", "href": "https://www.youtube.com/watch?v=9PnbKL3wuH4" }
+      })});
+  </script>
 </head>
-<body>
+<body class="mat-app-background bluegrey-lightgreen-theme">
   <app-root></app-root>
 </body>
 </html>

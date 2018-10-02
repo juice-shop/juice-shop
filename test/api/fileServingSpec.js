@@ -74,13 +74,6 @@ describe('/public/images/tracking', () => {
       .expect('header', 'content-type', 'image/png')
       .done(done)
   })
-
-  it('GET tracking background image for "Geocities Theme" challenge', done => {
-    frisby.get(URL + '/assets/public/images/tracking/microfab.gif')
-      .expect('status', 200)
-      .expect('header', 'content-type', 'image/gif')
-      .done(done)
-  })
 })
 
 describe('/encryptionkeys', () => {
@@ -125,13 +118,6 @@ describe('Hidden URL', () => {
     frisby.get(URL + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/gif')
-      .done(done)
-  })
-
-  xit('GET Geocities theme CSS is accessible directly from file system path', done => {
-    frisby.get(URL + '/css/geo-bootstrap/swatch/bootstrap.css')
-      .expect('status', 200)
-      .expect('bodyContains', 'Designed and built with all the love in the world @twitter by @mdo and @fat.')
       .done(done)
   })
 

@@ -1,12 +1,10 @@
 import { TranslateService } from '@ngx-translate/core'
-import { environment } from './../../environments/environment'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
-
-import * as io from 'socket.io-client'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
+import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faGlobe, faFlagCheckered, faClipboard } from '@fortawesome/fontawesome-free-solid'
@@ -15,23 +13,21 @@ fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
-  styleUrls: ['./challenge-solved-notification.component.css']
+  styleUrls: ['./challenge-solved-notification.component.scss']
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
 
-  public socket
   public notifications: any[] = []
   public showCtfFlagsInNotifications
   public showCtfCountryDetailsInNotifications
   public countryMap
-  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef) {
 
+  constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private io: SocketIoService) {
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.socket = io.connect(environment.hostServer)
-      this.socket.on('challenge solved', (data) => {
+      this.io.socket().on('challenge solved', (data) => {
         if (data && data.challenge) {
           if (!data.hidden) {
             this.showNotification(data)
@@ -39,7 +35,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (!data.isRestore) {
             this.saveProgress()
           }
-          this.socket.emit('notification received', data.flag)
+          this.io.socket().emit('notification received', data.flag)
         }
       })
     })
@@ -94,9 +90,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       if (!continueCode) {
         throw (new Error('Received invalid continue code from the sever!'))
       }
-      let expireDate = new Date()
-      expireDate.setDate(expireDate.getDate() + 30)
-      this.cookieService.put('continueCode', continueCode, { expires: expireDate })
+      let expires = new Date()
+      expires.setFullYear(expires.getFullYear() + 1)
+      this.cookieService.put('continueCode', continueCode, { expires })
     },(err) => console.log(err))
   }
 

@@ -1,13 +1,12 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "8.0.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +18,7 @@
     "@angular/compiler": "^6.0.0",
     "@angular/compiler-cli": "^6.0.0",
     "@angular/core": "^6.0.0",
+    "@angular/flex-layout": "6.0.0-beta.17",
     "@angular/forms": "^6.0.0",
     "@angular/http": "^6.0.0",
     "@angular/material": "^6.0.1",
@@ -35,11 +35,12 @@
     "core-js": "^2.5.4",
     "flag-icon-css": "^3.0.0",
     "hammerjs": "^2.0.8",
-    "ng2-file-upload": "^1.3.0",
+    "ng-simple-slideshow": "^1.2.5",
     "ng2-bar-rating": "^1.1.50",
+    "ng2-file-upload": "^1.3.0",
     "ngx-clipboard": "^11.1.1",
     "ngx-cookie": "^4.0.2",
-    "rxjs": "^6.0.0",
+    "rxjs": "6.2.2",
     "socket.io-client": "^2.1.1",
     "zone.js": "^0.8.26"
   },

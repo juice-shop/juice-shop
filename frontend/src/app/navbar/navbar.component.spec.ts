@@ -19,6 +19,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { CookieModule, CookieService } from 'ngx-cookie'
+import { SocketIoService } from '../Services/socket-io.service'
 import { of, throwError } from 'rxjs'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
@@ -43,6 +44,7 @@ describe('NavbarComponent', () => {
   let translateService
   let cookieService
   let mockSocket
+  let socketIoService
   let location
 
   beforeEach(async(() => {
@@ -58,9 +60,10 @@ describe('NavbarComponent', () => {
     userService.isLoggedIn.next.and.returnValue({})
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['remove'])
-    cookieService.remove.and.returnValue({})
+    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
     mockSocket = new MockSocket()
+    socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
+    socketIoService.socket.and.returnValue(mockSocket)
 
     TestBed.configureTestingModule({
       declarations: [ NavbarComponent, SearchResultComponent ],
@@ -92,6 +95,7 @@ describe('NavbarComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
+        { provide: SocketIoService, useValue: socketIoService },
         TranslateService
       ]
     })
@@ -104,7 +108,6 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent)
     component = fixture.componentInstance
-    spyOn(component.io,'connect').and.returnValue(mockSocket)
     localStorage.removeItem('token')
     fixture.detectChanges()
   })
@@ -172,22 +175,16 @@ describe('NavbarComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should show GitHub ribbon in orange by default', () => {
+  it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe('orange')
+    expect(component.gitHubRibbon).toBe(true)
   })
 
-  it('should colorize GitHub ribbon as configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: 'white' } }))
+  it('should hide GitHub ribbon if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe('white')
-  })
-
-  it('should hide GitHub ribbon if configured as color "none"', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: 'none' } }))
-    component.ngOnInit()
-    expect(component.gitHubRibbon).toBeNull()
+    expect(component.gitHubRibbon).toBe(false)
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {

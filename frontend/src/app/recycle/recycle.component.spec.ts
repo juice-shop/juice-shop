@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from './../Services/configuration.service'
 import { UserService } from './../Services/user.service'
@@ -35,6 +36,7 @@ describe('RecycleComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         HttpClientModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,

@@ -6,10 +6,10 @@ describe('controllers', function () {
     $httpBackend = $injector.get('$httpBackend')
     $httpBackend.whenGET(/\/i18n\/.*\.json/).respond(200, {})
     $httpBackend.whenGET(/views\/.*\.html/).respond(200, {})
-    $httpBackend.whenGET('/rest/user/whoami').respond(200, {user: {}})
-    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, {config: {}})
+    $httpBackend.whenGET('/rest/user/whoami').respond(200, { user: {} })
+    $httpBackend.whenGET('/rest/admin/application-configuration').respond(200, { config: {} })
     $httpBackend.whenGET('/rest/admin/application-version').respond(200, {})
-    $httpBackend.whenGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
+    $httpBackend.whenGET('/api/Challenges/?name=Score+Board').respond(200, { data: [{ solved: false }] })
   }))
 
   afterEach(function () {
@@ -34,7 +34,7 @@ describe('controllers', function () {
     }))
 
     it('should hold application version', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-version').respond(200, {version: 'x.y.z'})
+      $httpBackend.expectGET('/rest/admin/application-version').respond(200, { version: 'x.y.z' })
 
       $httpBackend.flush()
 
@@ -74,7 +74,7 @@ describe('controllers', function () {
     }))
 
     it('should use custom application name URL if configured', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {name: 'name'}}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { name: 'name' } } })
 
       $httpBackend.flush()
 
@@ -82,8 +82,8 @@ describe('controllers', function () {
     }))
 
     it('should set user email if user authenticated', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {name: 'name'}}})
-      $httpBackend.expectGET('/rest/user/whoami').respond(200, {user: {email: 'dummy@dummy.com'}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { name: 'name' } } })
+      $httpBackend.expectGET('/rest/user/whoami').respond(200, { user: { email: 'dummy@dummy.com' } })
 
       $httpBackend.flush()
 
@@ -107,7 +107,7 @@ describe('controllers', function () {
     }))
 
     it('should colorize GitHub ribbon as configured', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {gitHubRibbon: 'white'}}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { gitHubRibbon: 'white' } } })
 
       $httpBackend.flush()
 
@@ -115,7 +115,7 @@ describe('controllers', function () {
     }))
 
     it('should hide GitHub ribbon if configured as color "none"', inject(function () {
-      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, {config: {application: {gitHubRibbon: 'none'}}})
+      $httpBackend.expectGET('/rest/admin/application-configuration').respond(200, { config: { application: { gitHubRibbon: 'none' } } })
 
       $httpBackend.flush()
 
@@ -133,7 +133,7 @@ describe('controllers', function () {
     }))
 
     it('should hide Score Board menu item when corresponding challenge was not solved yet', inject(function () {
-      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: false}]})
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, { data: [{ solved: false }] })
 
       $httpBackend.flush()
 
@@ -141,7 +141,7 @@ describe('controllers', function () {
     }))
 
     it('should show Score Board menu item when corresponding challenge was solved', inject(function () {
-      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, {data: [{solved: true}]})
+      $httpBackend.expectGET('/api/Challenges/?name=Score+Board').respond(200, { data: [{ solved: true }] })
 
       $httpBackend.flush()
 

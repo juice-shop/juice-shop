@@ -31,14 +31,6 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
   key: forgedReviewChallenge
 -
-  name: 'Multiple Likes'
-  category: 'Race Condition'
-  description: 'Like any review any number of times.'
-  difficulty: 6
-  hint: 'Punctuality is the politeness of kings'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#multiple-likes'
-  key: timingAttackChallenge
--
   name: 'Login Admin'
   category: 'Injection'
   description: 'Log in with the administrator''s user account.'
@@ -422,6 +414,9 @@
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'
   key: xxeFileDisclosureChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
 -
   name: 'XXE Tier 2'
   category: 'XXE'
@@ -430,6 +425,9 @@
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while'
   key: xxeDosChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
 -
   name: 'RCE Tier 1'
   category: 'Insecure Deserialization'
@@ -503,9 +501,17 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#get-registered-as-admin-user'
   key: registerAdminChallenge
 -
+  name: 'XSS Tier 0'
+  category: 'XSS'
+  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
+  difficulty: 1
+  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
+  key: reflectedXssChallenge
+-
   name: 'XSS Tier 1'
   category: 'XSS'
-  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert("xss")&gt;</code>.'
+  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
@@ -513,7 +519,7 @@
 -
   name: 'XSS Tier 2'
   category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert("xss")&gt;</code> bypassing a <i>client-side</i> security mechanism.'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
@@ -521,7 +527,7 @@
 -
   name: 'XSS Tier 3'
   category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert("xss")&gt;</code> without using the frontend application at all.'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> without using the frontend application at all.'
   difficulty: 3
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
@@ -529,11 +535,27 @@
 -
   name: 'XSS Tier 4'
   category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert("xss")&gt;</code> bypassing a <i>server-side</i> security mechanism.'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssChallengeFeedback
+-
+  name: 'CSRF'
+  category: 'Broken Authentication'
+  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
+  difficulty: 5
+  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
+  key: csrfChallenge
+-
+  name: 'XSS Tier 5'
+  category: 'XSS'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
+  difficulty: 4
+  hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
+  key: httpHeaderXssChallenge
 -
   name: 'SSTi'
   category: 'Injection'

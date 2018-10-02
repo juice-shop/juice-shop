@@ -1,31 +1,33 @@
-<mat-card>
+<div fxLayoutAlign="center">
+  <mat-card>
 
-  <h3> File Complaint </h3>
+    <h3 translate>TITLE_COMPLAIN</h3>
 
-  <div class="form-container">
+    <div class="form-container">
 
-    <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)" style="color:#5bc0de">{{ confirmation }}</div>
+      <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">{{ confirmation }}</div>
 
-    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')" style="color:red">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
-    <div class="fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')" style="color:red">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
+      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
+      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Customer</mat-label>
-      <input [formControl]="customerControl" type="text" matInput>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_CUSTOMER</mat-label>
+        <input [formControl]="customerControl" type="text" matInput>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Message</mat-label>
-      <textarea id="complaintMessage" [formControl]="messageControl" cols="30" rows="10" matInput></textarea>
-      <mat-error *ngIf="messageControl.invalid && messageControl?.errors.maxlength">{{"INVALID_MESSAGE_LENGTH" | translate: { length: '1-160' } }}</mat-error>
-      <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" | translate}}</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_MESSAGE</mat-label>
+        <textarea id="complaintMessage" [formControl]="messageControl" cols="30" rows="10" matInput></textarea>
+        <mat-error *ngIf="messageControl.invalid && messageControl?.errors.maxlength">{{"INVALID_MESSAGE_LENGTH" | translate: { length: '1-160' } }}</mat-error>
+        <mat-error *ngIf="messageControl.invalid && messageControl?.errors.required">{{"MANDATORY_MESSAGE" | translate}}</mat-error>
+      </mat-form-field>
 
-    <label for="file">Invoice</label>
-    <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf application/zip">
+      <label for="file" translate>LABEL_INVOICE</label>
+      <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf application/zip">
 
-  </div>
+    </div>
 
-  <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  Submit</button>
+    <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  {{'BTN_SUBMIT' | translate}}</button>
 
-</mat-card>
+  </mat-card>
+</div>

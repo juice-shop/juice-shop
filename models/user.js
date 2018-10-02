@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, {STRING, BOOLEAN}) => {
+module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
     username: {
       type: STRING,
@@ -13,7 +13,7 @@ module.exports = (sequelize, {STRING, BOOLEAN}) => {
       type: STRING,
       unique: true,
       set (email) {
-        if (utils.notSolved(challenges.persistedXssChallengeUser) && utils.contains(email, '<iframe src="javascript:alert(\'xss\')">')) {
+        if (utils.notSolved(challenges.persistedXssChallengeUser) && utils.contains(email, '<iframe src="javascript:alert(`xss`)">')) {
           utils.solve(challenges.persistedXssChallengeUser)
         }
         this.setDataValue('email', email)

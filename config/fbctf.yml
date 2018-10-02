@@ -98,9 +98,6 @@ ctf:
     forgedCouponChallenge:
       name: Panama
       code: PA
-    geocitiesThemeChallenge:
-      name: Hungary
-      code: HU
     christmasSpecialChallenge:
       name: Falkland Islands (Malvinas)
       code: FK

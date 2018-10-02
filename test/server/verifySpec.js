@@ -95,15 +95,6 @@ describe('verify', () => {
       expect(challenges.tokenSaleChallenge.solved).to.equal(true)
     })
 
-    it('"geocitiesThemeChallenge" is solved when the microfab.gif image is this.requested', () => {
-      challenges.geocitiesThemeChallenge = { solved: false, save: this.save }
-      this.req.url = 'http://juice-sh.op/public/images/tracking/microfab.gif'
-
-      verify.accessControlChallenges()(this.req, this.res, this.next)
-
-      expect(challenges.geocitiesThemeChallenge.solved).to.equal(true)
-    })
-
     it('"extraLanguageChallenge" is solved when the Klingon translation file is this.requested', () => {
       challenges.extraLanguageChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'

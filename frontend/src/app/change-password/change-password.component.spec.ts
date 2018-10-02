@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { UserService } from './../Services/user.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
@@ -23,6 +24,7 @@ describe('ChangePasswordComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule,

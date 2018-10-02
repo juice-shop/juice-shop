@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './../product-review-edit/product-review-edit.component'
 import { By } from '@angular/platform-browser'
 import { MatDividerModule } from '@angular/material/divider'
@@ -38,6 +39,7 @@ describe('ProductDetailsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         HttpClientModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,

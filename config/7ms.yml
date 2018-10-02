@@ -1,9 +1,9 @@
 application:
   domain: 7-ms.us
   name: '7 Minute Security'
-  logo: 'https://7ms.us/content/images/2017/09/7.png'
+  logo: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/59fd39cde31d1945635d5fbb/1530161239161/7.png'
   favicon: 'https://7minsec.com/favicon.ico'
-  theme: sandstone
+  theme: blue-lightblue
   gitHubRibbon: white
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null

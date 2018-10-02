@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { TranslateModule } from '@ngx-translate/core'
 
 import { OAuthComponent } from './oauth.component'
 
@@ -8,7 +9,10 @@ describe('OAuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OAuthComponent ]
+      declarations: [ OAuthComponent ],
+      imports: [
+        TranslateModule.forRoot()
+      ]
     })
     .compileComponents()
   }))

@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog'
 import { UserService } from './../Services/user.service'
 import { HttpClientModule } from '@angular/common/http'
@@ -13,6 +14,7 @@ describe('UserDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         HttpClientModule,
         MatDividerModule,
         MatDialogModule

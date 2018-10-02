@@ -1,4 +1,3 @@
-import { DomSanitizer } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { QrCodeComponent } from './../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
@@ -17,12 +16,12 @@ fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, fa
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent implements OnInit {
 
   public userEmail: string
-  public displayedColumns = ['product','description','price','quantity','total price','remove']
+  public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
@@ -34,7 +33,7 @@ export class BasketComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService, private sanitizer: DomSanitizer) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
   ngOnInit () {
     this.load()
@@ -64,10 +63,6 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
-      let length = this.dataSource ? this.dataSource.length : 0
-      for (let i = 0;i < length; i++) {
-        this.dataSource[i].description = this.sanitizer.bypassSecurityTrustHtml(this.dataSource[i].description)
-      }
     },(err) => console.log(err))
   }
 

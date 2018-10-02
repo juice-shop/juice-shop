@@ -9,8 +9,8 @@ application:
   showChallengeSolvedNotifications: true
   showChallengeHints: true
   showVersionNumber: true
-  theme: slate # Options: cerulean  cosmo  cyborg  darkly  flatly lumen  paper  readable  sandstone  simplex  slate  spacelab  superhero  united  yeti
-  gitHubRibbon: orange # Options: darkblue  gray  green  orange  red  white  none
+  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen deeppurple-amber indigo-pink pink-bluegrey purple-green
+  gitHubRibbon: true
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
   planetOverlayMap: orangemap2k.jpg
@@ -20,10 +20,10 @@ application:
     bottomProductImage: apple_pressings.jpg
   altcoinName: Juicycoin
   cookieConsent:
-    backgroundColor: '#eb6c44'
+    backgroundColor: '#546e7a'
     textColor: '#ffffff'
-    buttonColor: '#f5d948'
-    buttonTextColor: '#000000'
+    buttonColor: '#558b2f'
+    buttonTextColor: '#ffffff'
     message: 'This website uses fruit cookies to ensure you get the juiciest tracking experience.'
     dismissText: 'Me want it!'
     linkText: 'But me wait!'

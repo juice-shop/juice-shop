@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
@@ -28,6 +29,7 @@ describe('ForgotPasswordComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ForgotPasswordComponent ],
       imports: [
+        TranslateModule.forRoot(),
         HttpClientModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -82,6 +84,11 @@ describe('ForgotPasswordComponent', () => {
     component.passwordControl.setValue('aaa')
     expect(component.passwordControl.valid).toBeFalsy()
     component.passwordControl.setValue('aaaaa')
+    expect(component.passwordControl.valid).toBe(true)
+  })
+
+  it('should allow password length of more than twenty characters', () => {
+    component.passwordControl.setValue('aaaaaaaaaaaaaaaaaaaaa')
     expect(component.passwordControl.valid).toBe(true)
   })
 

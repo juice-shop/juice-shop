@@ -1,38 +1,45 @@
-<mat-card class="custom-slate">
+<div fxLayoutAlign="center">
+  <mat-card>
 
-  <div class="form-container">
+    <div class="form-container">
 
-    <div style="color:red">{{error?.error}}</div>
+      <div class="error">{{error?.error}}</div>
 
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input id="email" #email name="email"
-      [formControl]="emailControl"
-      (focus)="this.error=null"
-      matInput placeholder="Email">
-      <mat-error *ngIf="emailControl.invalid">Email is Required</mat-error>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label translate>LABEL_EMAIL</mat-label>
+        <input id="email" #email name="email"
+               [formControl]="emailControl"
+               (focus)="this.error=null"
+               matInput placeholder="">
+        <mat-error *ngIf="emailControl.invalid" translate>MANDATORY_EMAIL</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input id="password" #password name="password"
-      [formControl]="passwordControl"
-      (focus)="this.error=null"
-      matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
-      <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-      <mat-error *ngIf="passwordControl.invalid">Password is Required</mat-error>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label translate>LABEL_PASSWORD</mat-label>
+        <input id="password" #password name="password"
+               [formControl]="passwordControl"
+               (focus)="this.error=null"
+               matInput placeholder="" [type]="hide ? 'password' : 'text'">
+        <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+        <mat-error *ngIf="passwordControl.invalid" translate>MANDATORY_PASSWORD</mat-error>
+      </mat-form-field>
 
-    <div class="button-container">
-      <button id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button color="primary" (click)="login()"><i class="fas fa-key fa-lg"></i> Log In</button>
-      <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i class="fab fa-google fa-lg"></i> Log In with Google</button>
+      <div class="button-container">
+        <button id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button
+                color="primary" (click)="login()"><i class="fas fa-key fa-lg"></i> {{'BTN_LOGIN' | translate}}
+        </button>
+        <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i
+          class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
+        </button>
+      </div>
+
+      <mat-checkbox [formControl]="rememberMe" id="rememberMe"> {{'REMEMBER_ME' | translate}}</mat-checkbox>
+
     </div>
 
-    <mat-checkbox [formControl]="rememberMe" id="rememberMe">Remember me</mat-checkbox>
+    <a class="primary-link" routerLink="/forgot-password" translate>FORGOT_PASSWORD</a>
+    <a class="primary-link" routerLink="/register" translate>NO_CUSTOMER</a>
 
-  </div>
-
-  <a routerLink="/forgot-password">Forgot your password?</a>
-  <a routerLink="/register">Not yet a customer?</a>
-
-</mat-card>
+  </mat-card>
+</div>

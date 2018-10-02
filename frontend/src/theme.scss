@@ -1,125 +1,28 @@
 @import '~@angular/material/theming';
-
 @include mat-core();
 
-$slate-primary: mat-palette($mat-blue-grey,900);
-$slate-accent : mat-palette($mat-grey,800);
-$slate-danger   : mat-palette($mat-red);
-$slate-theme  : mat-dark-theme($slate-primary,$slate-accent,$slate-danger);
+$deeppurple-amber-primary: mat-palette($mat-deep-purple);
+$deeppurple-amber-accent:  mat-palette($mat-amber, A200, A100, A400);
+$deeppurple-amber-theme: mat-light-theme($deeppurple-amber-primary, $deeppurple-amber-accent);
 
-.slate {
+$indigo-pink-primary: mat-palette($mat-indigo);
+$indigo-pink-accent:  mat-palette($mat-pink, A200, A100, A400);
+$indigo-pink-theme: mat-light-theme($indigo-pink-primary, $indigo-pink-accent);
 
-    .img-thumbnail {
-        background-color: #1c1e22;
-        border: 1px solid #0c0d0e;
-        border-radius: 4px;
-        padding: 4px;
-    }
+$pink-bluegrey-primary: mat-palette($mat-pink, 700, 500, 900);
+$pink-bluegrey-accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+$pink-bluegrey-theme: mat-dark-theme($pink-bluegrey-primary, $pink-bluegrey-accent);
 
-    .mat-input-element {
-        background-color: inherit;
-    }
+$purple-green-primary: mat-palette($mat-purple, 700, 500, 800);
+$purple-green-accent:  mat-palette($mat-green, A200, A100, A400);
+$purple-green-theme: mat-dark-theme($purple-green-primary, $purple-green-accent);
 
-    mat-card.server-started {
-        background-color: #f89406;
-    }
+$blue-lightblue-primary:  mat-palette($mat-blue, 700, 400, 800);
+$blue-lightblue-accent: mat-palette($mat-light-blue, 600, 300, 800);
+$blue-lightblue-theme: mat-light-theme($blue-lightblue-primary, $blue-lightblue-accent);
 
-    .container mat-card.challenge-solved {
-        background-color: #62c462;
-    }
-    @include angular-material-theme($slate-theme)
-}
+$bluegrey-lightgreen-primary: mat-palette($mat-blue-grey, 600, 300, 700);
+$bluegrey-lightgreen-accent:  mat-palette($mat-light-green, 700, 400, 800);
+$bluegrey-lightgreen-warn:  mat-palette($mat-deep-orange);
+$bluegrey-lightgreen-theme: mat-dark-theme($bluegrey-lightgreen-primary, $bluegrey-lightgreen-accent, $bluegrey-lightgreen-warn);
 
-$paper-primary: mat-palette($mat-grey,50);
-$paper-secondary: mat-palette($mat-blue,500);
-$paper-warn:    mat-palette($mat-red);
-$paper-theme :mat-light-theme($paper-primary,$paper-secondary,$paper-warn);
-
-.paper {
-    @include angular-material-theme($paper-theme);
-}
-
-$cerulean-primary: mat-palette($mat-blue,600);
-$cerulean-secondary: mat-palette($mat-blue,50);
-$cerulean-warn: mat-palette($mat-red);
-$cerulean-theme: mat-light-theme($cerulean-primary,$cerulean-secondary,$cerulean-warn);
-
-.cerulean {
-
-    @include angular-material-theme($cerulean-theme);
-}
-
-$cosmo-primary: mat-palette($mat-blue-grey, 900);
-$cosmo-accent:  mat-palette($mat-blue,800);
-$cosmo-warn:    mat-palette($mat-red);
-$cosmo-theme: mat-light-theme($cosmo-primary, $cosmo-accent, $cosmo-warn);
-
-.cosmo {
-    nav .mat-raised-button.mat-accent {
-        background-color: inherit;
-    }
-
-    mat-card .mat-raised-button.mat-primary {
-        background-color: mat-color($cosmo-accent)
-    }
-    @include angular-material-theme($cosmo-theme);
-}
-
-$cyborg-primary: mat-palette($mat-grey, 900);
-$cyborg-secondary: mat-palette($mat-blue,800);
-$cyborg-warn: mat-palette($mat-red);
-$cyborg-theme: mat-dark-theme($cyborg-primary,$cyborg-secondary,$cyborg-warn);
-
-.cyborg {
-
-    .img-thumbnail {
-        background-color: #1c1e22;
-        border: 1px solid #0c0d0e;
-        border-radius: 4px;
-        padding: 4px;
-    }
-
-    mat-sidenav-content {
-        background-color: mat-color($cyborg-primary);
-    }
-
-    nav .mat-raised-button.mat-accent {
-        background-color: inherit;
-    }
-
-    mat-card .mat-raised-button.mat-primary {
-        background-color: mat-color($cyborg-secondary)
-    }
-
-    mat-row:nth-child(odd) , mat-header-row {
-        background-color: mat-color($cyborg-primary);
-    }
-
-    @include angular-material-theme($cyborg-theme);
-}
-
-$darkly-primary: mat-palette($mat-blue,800);
-$darkly-secondary: mat-palette($mat-grey,800);
-$darkly-warn: mat-palette($mat-red);
-$darkly-theme: mat-dark-theme($darkly-primary,$darkly-secondary,$darkly-warn);
-
-.darkly {
-    a:hover , button.contact-dropdown:hover {
-        color: #00bc8c;
-    }
-
-    mat-row:nth-child(even) {
-        background-color: #222222;
-        border: 1px solid #222222;
-    }
-
-    mat-row:nth-child(odd) {
-        border: 1px solid mat-color($darkly-secondary);
-    }
-
-    mat-row:hover {
-        background-color: mat-color($darkly-secondary);
-        border: 1px solid #464545;
-    }
-    @include angular-material-theme($darkly-theme);
-}
