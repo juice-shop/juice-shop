@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container challenge-solved-toast">
   <mat-card class="accent-notification" *ngFor="let notification of notifications; index as index">
     <div> {{notification.message}}<span (click)="closeNotification(index)" style="float:right;cursor:pointer">X</span></div>
     <br>
