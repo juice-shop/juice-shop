@@ -36,6 +36,7 @@ app/private/threejs-demo.html
 
 # GitHub-Pages Branch
 assets/
+!frontend/src/assets/
 
 # Favicons downloaded during customizazion
 app/public/*.*
