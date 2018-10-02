@@ -21,7 +21,7 @@ module.exports = function fileUpload () {
           })
         })
         models.User.findById(loggedInUser.data.id).then(user => {
-          return user.updateAttributes({profileImage: loggedInUser.data.id + '.jpg'})
+          return user.updateAttributes({ profileImage: loggedInUser.data.id + '.jpg' })
         }).catch(error => {
           next(error)
         })
