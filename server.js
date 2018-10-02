@@ -9,11 +9,10 @@ const helmet = require('helmet')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
-const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
-const robots = require('express-robots')
+const robots = require('express-robots-txt')
 const multer = require('multer')
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
@@ -92,22 +91,6 @@ app.use((req, res, next) => {
   next()
 })
 
-/* Favicon */
-let icon = 'favicon_v2.ico'
-if (config.get('application.favicon')) {
-  icon = config.get('application.favicon')
-  if (utils.startsWith(icon, 'http')) {
-    const iconPath = icon
-    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    utils.downloadToFile(iconPath, 'app/public/' + icon)
-  }
-}
-app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
-
-/* server side view render engine (Jade) setup */
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jade')
-
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
 app.use('/security.txt', securityTxt({
@@ -117,7 +100,7 @@ app.use('/security.txt', securityTxt({
 }))
 
 /* robots.txt */
-app.use(robots({UserAgent: '*', Disallow: '/ftp'}))
+app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/assets/public/images/tracking', verify.accessControlChallenges())
@@ -149,7 +132,7 @@ app.post('/file-upload', upload.single('file'), fileUpload())
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
 
-app.use(bodyParser.text({type: '*/*'}))
+app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
   if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
@@ -158,12 +141,12 @@ app.use(function jsonParser (req, res, next) {
   next()
 })
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d'})
-app.use(morgan('combined', {stream: accessLogStream}))
+let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
 app.enable('trust proxy')
-app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({headers, ip}) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
+app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
 
 /** Authorization **/
 /* Checks on JWT in Authorization header */
@@ -301,8 +284,8 @@ exports.start = async function (readyCallback) {
     }
   })
 
-  require('./lib/startup/populateIndexTemplate')()
-  require('./lib/startup/populateThreeJsTemplate')()
+  require('./lib/startup/customizeApplication')()
+  require('./lib/startup/customizeEasterEgg')()
 }
 
 exports.close = function (exitCode) {

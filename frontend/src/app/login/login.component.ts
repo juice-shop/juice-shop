@@ -19,18 +19,19 @@ const authorizedRedirectURIs = {
   'http://preview.owasp-juice.shop': 'http://preview.owasp-juice.shop',
   'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
   'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
-  'http://localhost:3000': 'http://localhost:3000',
-  'http://localhost:4200': 'http://localhost:4200',
-  'http://juice.sh': 'http://juice.sh',
-  'http://192.168.99.100:3000': 'http://tinyurl.com/ipMacLocalhost',
-  'https://juice-shop-gsoc.herokuapp.com': 'https://juice-shop-gsoc.herokuapp.com',
-  'http://juice-shop-gsoc.herokuapp.com': 'http://juice-shop-gsoc.herokuapp.com'
+  'http://localhost:3000': 'http://local3000.owasp-juice.shop',
+  'http://127.0.0.1:3000': 'http://local3000.owasp-juice.shop',
+  'http://localhost:4200': 'http://local4200.owasp-juice.shop',
+  'http://127.0.0.1:4200': 'http://local4200.owasp-juice.shop',
+  'http://192.168.99.100:3000': 'http://localMac.owasp-juice.shop',
+  'https://juice-shop-v8.herokuapp.com': 'https://juice-shop-v8.herokuapp.com',
+  'http://juice-shop-v8.herokuapp.com': 'http://juice-shop-v8.herokuapp.com'
 }
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 

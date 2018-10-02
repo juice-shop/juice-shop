@@ -21,7 +21,7 @@ describe('services', function () {
     }))
 
     it('should create product reviews directly via the rest api', inject(function (ProductReviewService) {
-      $httpBackend.whenPUT('/rest/product/42/reviews').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenPUT('/rest/product/42/reviews').respond(200, { data: 'apiResponse' })
 
       ProductReviewService.create(42, {}).then(function (data) { result = data })
       $httpBackend.flush()
@@ -30,7 +30,7 @@ describe('services', function () {
     }))
 
     it('should like product reviews directly via the rest api', inject(function (ProductReviewService) {
-      $httpBackend.whenPOST('/rest/product/reviews').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenPOST('/rest/product/reviews').respond(200, { data: 'apiResponse' })
 
       ProductReviewService.like({}).then(function (data) { result = data })
       $httpBackend.flush()
@@ -39,7 +39,7 @@ describe('services', function () {
     }))
 
     it('should get product reviews directly via the rest api', inject(function (ProductReviewService) {
-      $httpBackend.whenGET('/rest/product/42/reviews').respond(200, {data: 'apiResponse'})
+      $httpBackend.whenGET('/rest/product/42/reviews').respond(200, { data: 'apiResponse' })
 
       ProductReviewService.get(42).then(function (data) { result = data })
       $httpBackend.flush()

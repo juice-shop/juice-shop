@@ -27,13 +27,13 @@ describe('controllers', function () {
     }))
 
     it('should clear form and show confirmation after changing password', inject(function () {
-      $httpBackend.whenPOST('/rest/user/reset-password').respond(200, {user: {}})
+      $httpBackend.whenPOST('/rest/user/reset-password').respond(200, { user: {} })
       scope.email = 'foobar'
       scope.securityQuestion = 'foobar?'
       scope.securityAnswer = 'foobar!'
       scope.newPassword = 'foobar'
       scope.newPasswordRepeat = 'foobar'
-      scope.form = {$setPristine: function () {}}
+      scope.form = { $setPristine: function () {} }
 
       scope.resetPassword()
       $httpBackend.flush()
@@ -53,7 +53,7 @@ describe('controllers', function () {
       scope.securityAnswer = 'foobar!'
       scope.newPassword = 'foobar'
       scope.newPasswordRepeat = 'foobar'
-      scope.form = {$setPristine: function () {}}
+      scope.form = { $setPristine: function () {} }
 
       scope.resetPassword()
       $httpBackend.flush()

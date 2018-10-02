@@ -8,13 +8,13 @@ describe('/redirect', () => {
   })
 
   describe('challenge "redirect"', () => {
-    it('should redirect to target URL if whitelisted URL is contained in xit as parameter', () => {
+    it('should redirect to target URL if whitelisted URL is contained in it as parameter', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://www.owasp.org?trickIndexOf=https://github.com/bkimminich/juice-shop').then(() => {
         expect(browser.driver.getCurrentUrl()).toMatch(/https:\/\/www\.owasp\.org/)
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'Redirects Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 2' })
   })
 
   describe('challenge "redirectGratipay"', () => {
@@ -22,6 +22,6 @@ describe('/redirect', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://gratipay.com/juice-shop')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Redirects Tier 1'})
+    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 1' })
   })
 })

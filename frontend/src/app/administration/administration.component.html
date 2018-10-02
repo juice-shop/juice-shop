@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
 
-  <div class="user-container recycle-container">
+  <div class="user-container recycle-container" fxFlexAlign="center">
 
     <div class="user-table mat-elevation-z8">
       <div class="heading">
-        <span>Administration</span>
-        <small>     Registered Users</small>
+        <span translate>TITLE_ADMINISTRATION</span>
+        <small style="margin-left: 10px;" translate>SECTION_USER</small>
       </div>
       <mat-table [dataSource]="userDataSource">
 
@@ -15,7 +15,7 @@
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_EMAIL</mat-header-cell>
           <mat-cell *matCellDef="let user" [innerHTML]="user.email"> </mat-cell>
         </ng-container>
 
@@ -32,22 +32,22 @@
 
     <div class="recycle-table mat-elevation-z8">
       <div class="heading">
-        <span>Recycle requests</span>
+        <span translate>SECTION_RECYCLING</span>
       </div>
       <mat-table [dataSource]="recycleDataSource">
 
         <ng-container matColumnDef="user">
-          <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
           <mat-cell *matCellDef="let recycle"> {{recycle.UserId}}  </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="quantity">
-          <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
           <mat-cell *matCellDef="let recycle"> {{recycle.quantity}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="address">
-          <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_ADDRESS</mat-header-cell>
           <mat-cell *matCellDef="let recycle">{{recycle.address}}</mat-cell>
         </ng-container>
 
@@ -60,7 +60,7 @@
         </ng-container>
 
         <ng-container matColumnDef="pickup_date">
-          <mat-header-cell *matHeaderCellDef> Pickup Date </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_PICKUP_DATE</mat-header-cell>
           <mat-cell *matCellDef="let recycle">{{recycle.date}}</mat-cell>
         </ng-container>
 
@@ -70,25 +70,25 @@
     </div>
   </div>
 
-  <div class="customer-container">
+  <div class="customer-container" fxFlexAlign.lt-md="center">
     <div class="customer-table mat-elevation-z8">
       <div class="heading">
-        <span>Customer feedback</span>
+        <span translate>SECTION_CUSTOMER_FEEDBACK</span>
       </div>
       <mat-table [dataSource]="feedbackDataSource">
 
         <ng-container matColumnDef="user">
-          <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
           <mat-cell *matCellDef="let feedback"> {{feedback.UserId}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="comment">
-          <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_COMMENT</mat-header-cell>
           <mat-cell *matCellDef="let feedback" [innerHTML]="feedback.comment"> </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="rating">
-          <mat-header-cell *matHeaderCellDef> Rating  </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef translate>LABEL_RATING</mat-header-cell>
           <mat-cell *matCellDef="let feedback">
             <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
           </mat-cell>

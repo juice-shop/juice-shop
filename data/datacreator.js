@@ -47,17 +47,18 @@ async function createChallenges () {
   const challenges = await loadStaticData('challenges')
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key }) => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       try {
         const challenge = await models.Challenge.create({
           key,
           name,
           category,
-          description,
+          description: disabledEnv ? (description + ' <em>(This challenge is not available on: ' + disabledEnv + ')</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
-          hintUrl: showHints ? hintUrl : null
+          hintUrl: showHints ? hintUrl : null,
+          disabledEnv: utils.determineDisabledContainerEnv(disabledEnv)
         })
         datacache.challenges[key] = challenge
       } catch (err) {
@@ -123,7 +124,8 @@ function createProducts () {
     if (utils.startsWith(product.image, 'http')) {
       const imageUrl = product.image
       product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
-      utils.downloadToFile(imageUrl, 'app/public/images/products/' + product.image)
+      // utils.downloadToFile(imageUrl, 'app/public/images/products/' + product.image)
+      utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
 
     // set deleted at values if configured
@@ -149,7 +151,7 @@ function createProducts () {
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
     blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
-    utils.downloadToFile(blueprintUrl, 'app/public/images/products/' + blueprint)
+    utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
   datacache.retrieveBlueprintChallengeFile = blueprint
 
@@ -414,7 +416,7 @@ function createOrders () {
   ]
 
   return Promise.all(
-    orders.map(({orderId, email, totalPrice, products, eta}) =>
+    orders.map(({ orderId, email, totalPrice, products, eta }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,

@@ -3,7 +3,7 @@ const config = require('config')
 
 describe('/#/basket', () => {
   describe('as admin', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     describe('challenge "negativeOrder"', () => {
       it('should be possible to update a basket to a negative quantity via the Rest API', () => {
@@ -22,7 +22,7 @@ describe('/#/basket', () => {
         element(by.id('checkoutButton')).click()
       })
 
-      protractor.expect.challengeSolved({challenge: 'Payback Time'})
+      protractor.expect.challengeSolved({ challenge: 'Payback Time' })
     })
 
     describe('challenge "Basket Access Tier 1"', () => {
@@ -31,10 +31,10 @@ describe('/#/basket', () => {
 
         browser.get('/#/basket')
 
-        // TODO Verify functionally that xit's not the basket of the admin
+        // TODO Verify functionally that it's not the basket of the admin
       })
 
-      protractor.expect.challengeSolved({challenge: 'Basket Access Tier 1'})
+      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 1' })
     })
 
     describe('challenge "Basket Access Tier 2"', () => {
@@ -57,12 +57,12 @@ describe('/#/basket', () => {
         browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({challenge: 'Basket Access Tier 2'})
+      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 2' })
     })
   })
 
   describe('as jim', () => {
-    protractor.beforeEach.login({email: 'jim@' + config.get('application.domain'), password: 'ncc-1701'})
+    protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
 
     describe('challenge "forgedCoupon"', () => {
       it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
@@ -84,7 +84,7 @@ describe('/#/basket', () => {
         element(by.id('checkoutButton')).click()
       })
 
-      protractor.expect.challengeSolved({challenge: 'Forged Coupon'})
+      protractor.expect.challengeSolved({ challenge: 'Forged Coupon' })
     })
   })
 })

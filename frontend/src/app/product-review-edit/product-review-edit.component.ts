@@ -10,7 +10,7 @@ fontawesome.library.add(faPaperPlane, faArrowCircleLeft)
 @Component({
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
-  styleUrls: ['./product-review-edit.component.css']
+  styleUrls: ['./product-review-edit.component.scss']
 })
 export class ProductReviewEditComponent implements OnInit {
 

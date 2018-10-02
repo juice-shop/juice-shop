@@ -1,4 +1,5 @@
 export const languages = [
+    { key: 'en', icon: 'gb', lang: 'English' },
     { key: 'ar_SA', icon: 'ae', lang: 'عربى', isFlask: true },
     { key: 'cs_CZ', icon: 'cz', lang: 'Česky', isFlask: true },
     { key: 'da_DK', icon: 'dk', lang: 'Dansk', isFlask: true },

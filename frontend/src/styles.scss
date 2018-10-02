@@ -1,0 +1,130 @@
+@import 'theme';
+
+@mixin link-theme($theme) {
+  a:link,
+  a:visited {
+    color: mat-color(map-get($theme, accent), lighter);
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus,
+  a:active {
+    text-decoration: underline;
+  }
+}
+
+@mixin notification-theme($theme) {
+  .confirmation {
+    color: mat-color(map-get($theme, accent));
+  }
+
+  .error {
+    color: mat-color(map-get($theme, warn));
+  }
+
+  .primary-notification {
+    background-color: mat-color(map-get($theme, primary), darker);
+  }
+
+  .accent-notification {
+    background-color: mat-color(map-get($theme, accent), darker);
+  }
+
+  .warn-notification {
+    background-color: mat-color(map-get($theme, warn), darker);
+  }
+}
+
+@mixin image-thumbnail-theme($theme) {
+  .img-thumbnail {
+    background-color: mat-color(map-get($theme, primary), .05);
+    border: 1px solid mat-color(map-get($theme, primary));
+    border-radius: 3px;
+    padding: 3px;
+  }
+}
+
+@mixin bar-rating-theme($theme) {
+  .br-default .br-units {
+    align-items: center;
+  }
+
+  .br-default .br-unit {
+    font-size: 23px;
+    height: 18px;
+    margin-right: 5px;
+    width: 18px;
+  }
+
+  .br-default .br-unit:after {
+    color: mat-color(map-get($theme, primary), lighter);
+    content: '\2605';
+  }
+
+  .br-default .br-selected:after {
+    color: mat-color(map-get($theme, accent), lighter);
+  }
+
+  .br-default .br-active:after {
+    color: mat-color(map-get($theme, accent), lighter);
+  }
+}
+
+@mixin score-star-theme($theme) {
+  .empty-star {
+    stop-color: mat-color(map-get($theme, primary));
+  }
+
+  .filled-star {
+    stop-color: mat-color(map-get($theme, accent));
+  }
+}
+
+@mixin custom-components-theme($theme) {
+  @include link-theme($theme);
+  @include notification-theme($theme);
+  @include image-thumbnail-theme($theme);
+  @include bar-rating-theme($theme);
+  @include score-star-theme($theme);
+}
+
+.deeppurple-amber-theme {
+  @include angular-material-theme($deeppurple-amber-theme);
+  @include custom-components-theme($deeppurple-amber-theme);
+}
+
+.indigo-pink-theme {
+  @include angular-material-theme($indigo-pink-theme);
+  @include custom-components-theme($indigo-pink-theme);
+}
+
+.pink-bluegrey-theme {
+  @include angular-material-theme($pink-bluegrey-theme);
+  @include custom-components-theme($pink-bluegrey-theme);
+}
+
+.purple-green-theme {
+  @include angular-material-theme($purple-green-theme);
+  @include custom-components-theme($purple-green-theme);
+}
+
+.bluegrey-lightgreen-theme {
+  @include angular-material-theme($bluegrey-lightgreen-theme);
+  @include custom-components-theme($bluegrey-lightgreen-theme);
+}
+
+.blue-lightblue-theme {
+  @include angular-material-theme($blue-lightblue-theme);
+  @include custom-components-theme($blue-lightblue-theme);
+}
+
+.close-dialog {
+  float: right;
+  margin-top: 15px;
+  width: fit-content;
+}
+
+[hidden] {
+  display: none !important;
+}

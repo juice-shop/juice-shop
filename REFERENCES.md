@@ -20,6 +20,8 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Blog post on [Security Boulevard](https://securityboulevard.com):
+  [From Dev to InfoSec Part 1 – The Journey Begins](https://securityboulevard.com/2018/08/from-dev-to-infosec-part-1-the-journey-begins/)
 * Blog post on
   [Null Byte :: WonderHowTo](https://null-byte.wonderhowto.com):
   [Beginner's Guide to OWASP Juice Shop, Your Practice Hacking Grounds for the 10 Most Common Web App Vulnerabilities](https://null-byte.wonderhowto.com/how-to/beginners-guide-owasp-juice-shop-your-practice-hacking-grounds-for-10-most-common-web-app-vulnerabilities-0185103/)
@@ -112,6 +114,7 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [University lecture on "IT Security"](https://github.com/bkimminich/it-security-lecture) as Open Educational Resources material by Björn Kimminich
 * [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
   (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
   [OWASP Uruguay Chapter](https://www.owasp.org/index.php/Uruguay)

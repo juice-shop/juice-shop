@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
-
+import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './product-review-edit.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
@@ -25,6 +25,7 @@ describe('ProductReviewEditComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatDialogModule,

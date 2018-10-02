@@ -1,10 +1,10 @@
 /* jslint node: true */
-module.exports = (sequelize, {STRING}) => {
+module.exports = (sequelize, { STRING }) => {
   const Basket = sequelize.define('Basket', {
     coupon: STRING
   })
 
-  Basket.associate = ({User, Product, BasketItem}) => {
+  Basket.associate = ({ User, Product, BasketItem }) => {
     Basket.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
     Basket.belongsToMany(Product, { through: BasketItem })
   }

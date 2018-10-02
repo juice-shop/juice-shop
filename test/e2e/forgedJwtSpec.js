@@ -6,7 +6,7 @@ describe('/', () => {
       browser.get('/#/')
     })
 
-    protractor.expect.challengeSolved({challenge: 'JWT Issues Tier 1'})
+    protractor.expect.challengeSolved({ challenge: 'JWT Issues Tier 1' })
   })
 
   describe('challenge "jwtTier2"', () => {
@@ -16,6 +16,6 @@ describe('/', () => {
       browser.get('/#/')
     })
 
-    protractor.expect.challengeSolved({challenge: 'JWT Issues Tier 2'})
+    protractor.expect.challengeSolved({ challenge: 'JWT Issues Tier 2' })
   })
 })

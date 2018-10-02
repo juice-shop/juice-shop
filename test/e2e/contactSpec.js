@@ -68,24 +68,24 @@ describe('/#/contact', () => {
     xit('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
-      comment.sendKeys('<<script>Foo</script>script>alert("XSS")<</script>/script>')
+      comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
       rating.click()
 
       submitButton.click()
 
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS')
+        expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('XSS')
+        expect(alert.getText()).toEqual('xss')
         alert.accept()
-        element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
+        element.all(by.css('.mat-cell.mat-column-remove')).last().element(by.css('button')).click()
       })
     })
 
@@ -148,10 +148,10 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
   })
 
-  describe('challenge "zeroStars"', () => { // FIXME Retrieve captcha first via $http.get() and then send id & captcha along with subsequent $http.post()
-    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => { // FIXME Hangs since merging gsoc-challenges in
+  describe('challenge "zeroStars"', () => {
+    it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       browser.executeAsyncScript(() => {
-        var callback = arguments[arguments.length - 1]
+        var callback = arguments[arguments.length - 1] // eslint-disable-line
         var xhttp = new XMLHttpRequest()
         var captcha
         xhttp.onreadystatechange = function () {

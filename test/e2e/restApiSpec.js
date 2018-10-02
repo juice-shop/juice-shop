@@ -10,20 +10,20 @@ const tamperingProductId = ((() => {
 
 describe('/rest', () => {
   describe('challenge "xss3"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     xit('should be possible to create a new product when logged in', () => {
       const EC = protractor.ExpectedConditions
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<script>alert("XSS")</script>\', price: 47.11});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<iframe src="javascript:alert(xss)">\', price: 47.11});')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
 
       browser.get('/#/search')
-      browser.wait(EC.alertIsPresent(), 5000, "'XSS' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(
         alert => {
-          expect(alert.getText()).toEqual('XSS')
+          expect(alert.getText()).toEqual('xss')
           alert.accept()
 
           browser.waitForAngularEnabled(false)
@@ -37,16 +37,16 @@ describe('/rest', () => {
   })
 
   describe('challenge "xss5"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     xit('should be possible to save log-in IP when logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<script>alert("XSS")</script>\'}});')
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<iframe src="javascript:alert(xss)">\'}});')
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 5'})
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
   })
 
   describe('challenge "changeProduct"', () => {
@@ -59,7 +59,7 @@ describe('/rest', () => {
       browser.get('/#/search')
     })
 
-    protractor.expect.challengeSolved({challenge: 'Product Tampering'})
+    protractor.expect.challengeSolved({ challenge: 'Product Tampering' })
   })
 })
 

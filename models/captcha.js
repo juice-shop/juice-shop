@@ -1,5 +1,4 @@
-/* jslint node: true */
-module.exports = (sequelize, {INTEGER, STRING}) => {
+module.exports = (sequelize, { INTEGER, STRING }) => {
   const Captcha = sequelize.define('Captcha', {
     captchaId: INTEGER,
     captcha: STRING,

@@ -4,14 +4,14 @@ import { ProductReviewService } from './../Services/product-review.service'
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import fontawesome from '@fortawesome/fontawesome'
-import { faPaperPlane, faArrowCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid'
+import { faPaperPlane, faArrowCircleLeft, faUserEdit } from '@fortawesome/fontawesome-free-solid'
 import { FormControl, Validators } from '@angular/forms'
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faEdit)
+fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faUserEdit)
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
 
@@ -53,7 +53,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   editReview (review) {
     this.dialog.open(ProductReviewEditComponent, {
-      width: '1000px',
+      width: '600px',
       height: 'max-content',
       data: {
         reviewData : review

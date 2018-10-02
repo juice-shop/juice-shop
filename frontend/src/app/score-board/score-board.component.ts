@@ -3,17 +3,19 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from './../Services/challenge.service'
 import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, NgZone } from '@angular/core'
+import { SocketIoService } from '../Services/socket-io.service'
+
 import fontawesome from '@fortawesome/fontawesome'
-import { faBook } from '@fortawesome/fontawesome-free-solid'
+import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
 import { faFlag } from '@fortawesome/fontawesome-free-regular'
 import { faGitter, faGithub } from '@fortawesome/fontawesome-free-brands'
-fontawesome.library.add(faBook, faFlag, faGitter, faGithub)
+fontawesome.library.add(faBook, faStar, faFlag, faGitter, faGithub)
 
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
-  styleUrls: ['./score-board.component.css']
+  styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
 
@@ -24,8 +26,8 @@ export class ScoreBoardComponent implements OnInit {
   public showChallengeHints
   public challenges: any[]
   public percentChallengesSolved
-  public completionColor
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer) {}
+
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) {}
 
   ngOnInit () {
     this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
@@ -33,7 +35,7 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       this.showChallengeHints = data.application.showChallengeHints
-    },(err) => err)
+    },(err) => console.log(err))
 
     this.challengeService.find().subscribe((challenges) => {
       this.challenges = challenges
@@ -52,7 +54,25 @@ export class ScoreBoardComponent implements OnInit {
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
       this.setOffset(challenges)
-    },(err) => console.log(err))
+    },(err) => {
+      this.challenges = undefined
+      console.log(err)
+    })
+
+    this.ngZone.runOutsideAngular(() => {
+      this.io.socket().on('challenge solved', (data) => {
+        if (data && data.challenge) {
+          for (let i = 0; i < this.challenges.length; i++) {
+            if (this.challenges[i].name === data.name) {
+              this.challenges[i].solved = true
+              break
+            }
+          }
+          this.calculateProgressPercentage()
+          this.setOffset(this.challenges)
+        }
+      })
+    })
   }
 
   trustDescriptionHtml () {
@@ -67,13 +87,6 @@ export class ScoreBoardComponent implements OnInit {
       solvedChallenges += (this.challenges[i].solved) ? 1 : 0
     }
     this.percentChallengesSolved = (100 * solvedChallenges / this.challenges.length).toFixed(0)
-    if (this.percentChallengesSolved > 75) {
-      this.completionColor = 'accent'
-    } else if (this.percentChallengesSolved > 25) {
-      this.completionColor = 'primary'
-    } else {
-      this.completionColor = 'warn'
-    }
   }
 
   setOffset (challenges) {
@@ -106,7 +119,7 @@ export class ScoreBoardComponent implements OnInit {
     if (this.allowRepeatNotifications) {
       this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
         this.windowRefService.nativeWindow.scrollTo(0, 0)
-      },(err) => err)
+      },(err) => console.log(err))
     }
   }
 

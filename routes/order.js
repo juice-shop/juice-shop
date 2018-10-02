@@ -33,7 +33,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           let totalPrice = 0
           let basketProducts = []
-          basket.Products.forEach(({BasketItem, price, name}) => {
+          basket.Products.forEach(({ BasketItem, price, name }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }

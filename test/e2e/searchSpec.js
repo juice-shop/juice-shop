@@ -15,7 +15,7 @@ describe('/#/search', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<iframe src="javascript:alert(\'xss\')">')
+      searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
       searchButton.click()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
@@ -24,7 +24,7 @@ describe('/#/search', () => {
       })
     })
 
-    protractor.expect.challengeSolved({challenge: 'XSS Tier 1'}) // FIXME Verification on server side not possible as value never get submitted to it
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 1' }) // FIXME Verification on server side not possible as value never get submitted to it
   })
 })
 
@@ -34,11 +34,11 @@ describe('/rest/product/search', () => {
       browser.driver.get(browser.baseUrl + '/rest/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
     })
 
-    protractor.expect.challengeSolved({challenge: 'User Credentials'})
+    protractor.expect.challengeSolved({ challenge: 'User Credentials' })
   })
 
   describe('challenge "christmasSpecial"', () => {
-    protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
       browser.driver.get(browser.baseUrl + '/rest/product/search?q=\'))--').then(() => {
@@ -60,6 +60,6 @@ describe('/rest/product/search', () => {
       element(by.id('checkoutButton')).click()
     })
 
-    protractor.expect.challengeSolved({challenge: 'Christmas Special'})
+    protractor.expect.challengeSolved({ challenge: 'Christmas Special' })
   })
 })

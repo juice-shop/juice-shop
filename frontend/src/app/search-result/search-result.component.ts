@@ -1,4 +1,3 @@
-import { environment } from './../../environments/environment'
 import { ProductDetailsComponent } from './../product-details/product-details.component'
 import { Router, ActivatedRoute } from '@angular/router'
 import { ProductService } from './../Services/product.service'
@@ -9,15 +8,17 @@ import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer } from '@angular/platform-browser'
+import { TranslateService } from '@ngx-translate/core'
+import { SocketIoService } from '../Services/socket-io.service'
+
 import fontawesome from '@fortawesome/fontawesome'
 import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
 fontawesome.library.add(faEye, faCartPlus)
-import * as io from 'socket.io-client'
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.css']
+  styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
@@ -25,19 +26,14 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public tableData: any[]
   public dataSource
   public searchValue
-  public io = io
-  public socket
+  public confirmation = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone) { }
+  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
   ngAfterViewInit () {
-
-    this.ngZone.runOutsideAngular(() => {
-      this.socket = this.io.connect(environment.hostServer)
-    })
 
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
@@ -48,7 +44,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-    })
+    }, (err) => console.log(err))
   }
 
   ngOnDestroy () {
@@ -62,13 +58,14 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
-    if (queryParam && queryParam.includes('<iframe src="javascript:alert(\'xss\')">')) {
-      this.socket.emit('localXSSChallengeSolved', queryParam)
+    if (queryParam && queryParam.includes('<iframe src="javascript:alert(`xss`)">')) {
+      this.ngZone.runOutsideAngular(() => {
+        this.io.socket().emit('localXSSChallengeSolved', queryParam)
+      })
     }
     if (queryParam) {
       queryParam = queryParam.trim()
-      queryParam = queryParam.toLowerCase()
-      this.dataSource.filter = queryParam
+      this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
     } else {
       this.dataSource.filter = ''
@@ -78,7 +75,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
 
   showDetail (element: any) {
     this.dialog.open(ProductDetailsComponent, {
-      width: '1000px',
+      width: '500px',
       height: 'max-content',
       data: {
         productData: element
@@ -95,19 +92,31 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
           found = true
           this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
             let newQuantity = existingBasketItem.quantity + 1
-            this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe(() => {
-              /* Translations to be added when i18n is set up */
-            })
-          })
+            this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
+              this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
+                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
+                  this.confirmation = basketAddSameProduct
+                }, (translationId) => {
+                  this.confirmation = translationId
+                })
+              }, (err) => console.log(err))
+            },(err) => console.log(err))
+          }, (err) => console.log(err))
           break
         }
       }
       if (!found) {
-        this.basketService.save({ ProductId: id, BasketId: sessionStorage.bid, quantity: 1 }).subscribe((newBasketItem) => {
-          /* Translations to be added when i18n is set up */
-        })
+        this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
+          this.productService.get(newBasketItem.ProductId).subscribe((product) => {
+            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
+              this.confirmation = basketAddProduct
+            }, (translationId) => {
+              this.confirmation = translationId
+            })
+          }, (err) => console.log(err))
+        }, (err) => console.log(err))
       }
-    })
+    }, (err) => console.log(err))
   }
 
   trustProductDescription (tableData: any[]) {
