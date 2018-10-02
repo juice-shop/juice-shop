@@ -85,7 +85,7 @@ describe('/#/contact', () => {
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
-        element.all(by.repeater('feedback in feedbacks')).last().element(by.css('.fa-trash-alt')).element(by.xpath('ancestor::a')).click()
+        element.all(by.css('.mat-cell.mat-column-remove')).last().element(by.css('button')).click()
       })
     })
 
