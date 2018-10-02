@@ -117,7 +117,7 @@
   "INVALID_ADDRESS_LENGTH": "Alamat harus terdiri {{length}} karakter.",
   "INVALID_QUANTITY": "Kuantitas harus {{range}} liter.",
   "MANDATORY_ADDRESS": "Siapkan alamat",
-  "MANDATORY_QUANTITY": "Siapkan kuantitas\/jumlah",
+  "MANDATORY_QUANTITY": "Siapkan kuantitas/jumlah",
   "IN_LITERS_PLACEHOLDER": "...dalam satuan liter",
   "REQUEST_PICKUP": "Mohon ambil di alamat di atas, bukan mengirim kotak daur ulang.",
   "LABEL_PICKUP_DATE": "Tanggal pengambilan",

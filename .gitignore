@@ -37,6 +37,10 @@ order_*.pdf
 app/index.html
 app/private/threejs-demo.html
 
+# GitHub-Pages Branch
+assets/
+!frontend/src/assets/
+
 # Favicons downloaded during customizazion
 app/public/*.*
 !app/public/favicon_ctf.ico
