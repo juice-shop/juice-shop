@@ -1,8 +1,8 @@
-import { WindowRefService } from './../Services/window-ref.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ChallengeService } from './../Services/challenge.service'
-import { ConfigurationService } from './../Services/configuration.service'
+import { ChallengeService } from '../Services/challenge.service'
+import { ConfigurationService } from '../Services/configuration.service'
 import { Component, OnInit, NgZone } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 

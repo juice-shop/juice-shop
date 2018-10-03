@@ -1,4 +1,4 @@
-import { UserService } from './../Services/user.service'
+import { UserService } from '../Services/user.service'
 import { Component, OnInit, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import fontawesome from '@fortawesome/fontawesome'

@@ -1,5 +1,5 @@
 import { TranslateModule } from '@ngx-translate/core'
-import { UserService } from './../Services/user.service'
+import { UserService } from '../Services/user.service'
 import { HttpClientModule } from '@angular/common/http'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
 import { ChangePasswordComponent } from './change-password.component'
