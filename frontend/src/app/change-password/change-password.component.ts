@@ -1,5 +1,5 @@
 import { FormControl, Validators } from '@angular/forms'
-import { UserService } from './../Services/user.service'
+import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
 import { faSave } from '@fortawesome/fontawesome-free-solid'

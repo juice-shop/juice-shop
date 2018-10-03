@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testi
 import { TranslateModule } from '@ngx-translate/core'
 import { TokenSaleComponent } from './token-sale.component'
 import { of, throwError } from 'rxjs'
-import { ConfigurationService } from './../Services/configuration.service'
+import { ConfigurationService } from '../Services/configuration.service'
 
 describe('TokenSaleComponent', () => {
   let component: TokenSaleComponent

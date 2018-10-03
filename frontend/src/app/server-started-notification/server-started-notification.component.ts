@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core'
-import { ChallengeService } from './../Services/challenge.service'
+import { ChallengeService } from '../Services/challenge.service'
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'

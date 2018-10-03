@@ -1,8 +1,8 @@
-import { UserDetailsComponent } from './../user-details/user-details.component'
+import { UserDetailsComponent } from '../user-details/user-details.component'
 import { BarRatingModule } from 'ng2-bar-rating'
-import { FeedbackService } from './../Services/feedback.service'
-import { RecycleService } from './../Services/recycle.service'
-import { UserService } from './../Services/user.service'
+import { FeedbackService } from '../Services/feedback.service'
+import { RecycleService } from '../Services/recycle.service'
+import { UserService } from '../Services/user.service'
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'

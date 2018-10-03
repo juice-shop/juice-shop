@@ -5,7 +5,7 @@ import { TrackResultComponent } from './track-result.component'
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { RouterTestingModule } from '@angular/router/testing'
-import { TrackOrderService } from './../Services/track-order.service'
+import { TrackOrderService } from '../Services/track-order.service'
 
 describe('TrackResultComponent', () => {
   let component: TrackResultComponent

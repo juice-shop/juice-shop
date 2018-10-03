@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
-import { ProductReviewService } from './../Services/product-review.service'
+import { ProductReviewService } from '../Services/product-review.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faPaperPlane, faArrowCircleLeft } from '@fortawesome/fontawesome-free-solid'
