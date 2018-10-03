@@ -12,7 +12,7 @@
       </span>
     </button>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item routerLink="/profile" *ngIf="isLoggedIn()">
+      <button mat-menu-item (click)="goToProfilePage()" *ngIf="isLoggedIn()">
         <i class="fas fa-user-circle fa-lg"></i>
         {{userEmail}}
       </button>
