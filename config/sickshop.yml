@@ -5,7 +5,7 @@ application:
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
   theme: deeppurple-amber
-  gitHubRibbon: green
+  gitHubRibbon: true
   twitterUrl: null
   facebookUrl: null
   recyclePage:
