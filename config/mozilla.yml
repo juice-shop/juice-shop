@@ -6,7 +6,7 @@ application:
   showChallengeSolvedNotifications: true
   showChallengeHints: false
   theme: purple-green
-  gitHubRibbon: darkblue
+  gitHubRibbon: true
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   recyclePage:

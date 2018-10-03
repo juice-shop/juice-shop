@@ -4,7 +4,7 @@ application:
   logo: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   favicon: 'https://www.shareicon.net/download/2016/08/13/808555_media.ico'
   theme: indigo-pink
-  gitHubRibbon: gray
+  gitHubRibbon: true
   twitterUrl: null
   facebookUrl: null
   planetName: Bodgiton VI
