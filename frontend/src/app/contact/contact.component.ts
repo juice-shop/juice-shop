@@ -4,7 +4,8 @@ import { UserService } from '../Services/user.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
-import { faStar, faPaperPlane } from '@fortawesome/fontawesome-free-solid'
+import { faPaperPlane, faStar } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faStar, faPaperPlane)
 
 @Component({

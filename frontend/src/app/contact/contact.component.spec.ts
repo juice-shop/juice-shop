@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'

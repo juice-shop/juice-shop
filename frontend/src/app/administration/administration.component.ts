@@ -6,7 +6,8 @@ import { UserService } from '../Services/user.service'
 import { Component, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
-import { faUser, faEye, faHome, faArchive, faTrashAlt } from '@fortawesome/fontawesome-free-solid'
+import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 
 @Component({

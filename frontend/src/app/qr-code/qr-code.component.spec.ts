@@ -1,4 +1,4 @@
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { QRCodeModule } from 'angularx-qrcode'

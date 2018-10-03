@@ -1,7 +1,7 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientModule } from '@angular/common/http'
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'

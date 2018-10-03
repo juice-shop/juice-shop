@@ -1,7 +1,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms'
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
 

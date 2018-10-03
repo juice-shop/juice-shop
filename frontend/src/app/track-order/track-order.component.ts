@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
 import { faMapMarker } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faMapMarker)
 
 @Component({
