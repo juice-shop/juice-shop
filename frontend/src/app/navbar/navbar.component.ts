@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
-  public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
+  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
@@ -56,8 +56,8 @@ export class NavbarComponent implements OnInit {
 
         if (logo.substring(0, 4) === 'http') {
           logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-          this.logoSrc = 'assets/public/images/' + logo
         }
+        this.logoSrc = 'assets/public/images/' + logo
       }
     }, (err) => console.log(err))
 
