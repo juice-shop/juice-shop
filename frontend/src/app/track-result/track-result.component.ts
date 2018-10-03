@@ -1,10 +1,11 @@
 import { ActivatedRoute } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
-import { Component,OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
-import { faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHome } from '@fortawesome/fontawesome-free-solid'
+import { faHome, faSpinner, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHome)
 
 @Component({

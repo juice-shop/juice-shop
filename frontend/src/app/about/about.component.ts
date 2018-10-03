@@ -1,10 +1,11 @@
-import { Component,OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { IImage } from 'ng-simple-slideshow'
 import fontawesome from '@fortawesome/fontawesome'
-import { faFacebook,faTwitter } from '@fortawesome/fontawesome-free-brands'
+import { faFacebook, faTwitter } from '@fortawesome/fontawesome-free-brands'
+
 fontawesome.library.add(faFacebook, faTwitter)
 
 @Component({

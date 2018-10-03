@@ -2,9 +2,10 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, OnInit } from '@angular/core'
-import { FormControl,Validators } from '@angular/forms'
+import { FormControl, Validators } from '@angular/forms'
 import fontawesome from '@fortawesome/fontawesome'
 import { faPaperPlane } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faPaperPlane)
 
 @Component({

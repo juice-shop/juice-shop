@@ -3,13 +3,14 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, OnInit, NgZone } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
 import { faFlag } from '@fortawesome/fontawesome-free-regular'
-import { faGitter, faGithub } from '@fortawesome/fontawesome-free-brands'
+import { faGithub, faGitter } from '@fortawesome/fontawesome-free-brands'
+
 fontawesome.library.add(faBook, faStar, faFlag, faGitter, faGithub)
 
 @Component({

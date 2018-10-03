@@ -1,5 +1,5 @@
-import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing'
-import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { FeedbackService } from './feedback.service'
 

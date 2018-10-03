@@ -7,6 +7,7 @@ import fontawesome from '@fortawesome/fontawesome'
 import { UserService } from '../Services/user.service'
 import { faKey } from '@fortawesome/fontawesome-free-solid'
 import { faGoogle } from '@fortawesome/fontawesome-free-brands'
+
 fontawesome.library.add(faKey, faGoogle)
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'

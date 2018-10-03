@@ -1,11 +1,12 @@
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import fontawesome from '@fortawesome/fontawesome'
 import { faBomb } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faBomb)
 
 @Component({

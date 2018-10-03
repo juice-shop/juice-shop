@@ -1,7 +1,8 @@
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Component, OnInit, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
 import { faArrowCircleLeft } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faArrowCircleLeft)
 
 @Component({

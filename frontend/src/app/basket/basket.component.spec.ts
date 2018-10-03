@@ -6,7 +6,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { WindowRefService } from '../Services/window-ref.service'
 import { UserService } from '../Services/user.service'
 import { BasketService } from '../Services/basket.service'
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
 import { BasketComponent } from './basket.component'
 import { MatCardModule } from '@angular/material/card'

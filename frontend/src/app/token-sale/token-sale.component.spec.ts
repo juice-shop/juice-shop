@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { TokenSaleComponent } from './token-sale.component'
 import { of, throwError } from 'rxjs'

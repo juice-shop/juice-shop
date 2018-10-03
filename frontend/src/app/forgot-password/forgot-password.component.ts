@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
 import { faSave } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faSave)
 
 @Component({

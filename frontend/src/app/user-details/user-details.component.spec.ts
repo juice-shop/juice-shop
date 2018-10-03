@@ -1,5 +1,5 @@
 import { TranslateModule } from '@ngx-translate/core'
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { UserService } from '../Services/user.service'
 import { HttpClientModule } from '@angular/common/http'
 import { MatDividerModule } from '@angular/material/divider'

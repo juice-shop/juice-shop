@@ -4,16 +4,16 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { FileUploadModule, FileItem } from 'ng2-file-upload'
+import { FileItem, FileUploadModule } from 'ng2-file-upload'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { async, ComponentFixture, TestBed, fakeAsync, inject } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing'
 import { ComplaintComponent } from './complaint.component'
 import { of, throwError } from 'rxjs'
 
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 
 describe('ComplaintComponent', () => {
   let component: ComplaintComponent

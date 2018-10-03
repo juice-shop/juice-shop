@@ -1,4 +1,4 @@
-import { Router, ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 import { Component, OnInit } from '@angular/core'
