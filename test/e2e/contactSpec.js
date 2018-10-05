@@ -65,7 +65,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "xss4"', () => {
-    xit('should be possible to trick the sanitization with a masked XSS attack', () => {
+    it('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
       comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
@@ -86,10 +86,11 @@ describe('/#/contact', () => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
         element.all(by.css('.mat-cell.mat-column-remove')).last().element(by.css('button')).click()
+        browser.wait(protractor.ExpectedConditions.stalenessOf(element(by.xpath('//iframe'))), 5000)
       })
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
   })
 
   describe('challenge "vulnerableComponent"', () => {
