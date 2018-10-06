@@ -20,7 +20,7 @@ describe('/#/change-password', () => {
       newPasswordRepeat.sendKeys('genderBender')
       changeButton.click()
 
-      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
   })
 

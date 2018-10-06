@@ -8,7 +8,7 @@ describe('/#/contact', () => {
   beforeEach(() => {
     browser.get('/#/contact')
     comment = element(by.id('comment'))
-    rating = element.all(by.css('.br-unit')).last()
+    rating = $$('.br-unit').last()
     captcha = element(by.id('captchaControl'))
     submitButton = element(by.id('submitButton'))
     solveNextCaptcha()
@@ -30,8 +30,7 @@ describe('/#/contact', () => {
       submitButton.click()
 
       browser.get('/#/administration')
-      const feedbackUserId = element.all(by.css('mat-row mat-cell.mat-column-user'))
-      expect(feedbackUserId.last().getText()).toMatch('2')
+      expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
@@ -85,8 +84,8 @@ describe('/#/contact', () => {
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
-        element.all(by.css('.mat-cell.mat-column-remove')).last().element(by.css('button')).click()
-        browser.wait(protractor.ExpectedConditions.stalenessOf(element(by.xpath('//iframe'))), 5000)
+        $$('.mat-cell.mat-column-remove > button').last().click()
+        browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
       })
     })
 
@@ -219,7 +218,6 @@ describe('/#/contact', () => {
 
   function expectPersistedCommentToMatch (expectation) {
     browser.get('/#/administration')
-    const feedbackComments = element.all(by.css('mat-cell.mat-column-comment'))
-    expect(feedbackComments.last().getText()).toMatch(expectation)
+    expect($$('mat-cell.mat-column-comment').last().getText()).toMatch(expectation)
   }
 })

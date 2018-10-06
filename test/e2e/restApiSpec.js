@@ -67,8 +67,7 @@ describe('/rest/saveLoginIp', () => {
   it('should not be possible to save log-in IP when not logged in', () => {
     browser.waitForAngularEnabled(false)
     browser.get('/rest/saveLoginIp')
-    var el = element(by.css('pre'))
-    el.getText().then(function (text) {
+    $('pre').getText().then(function (text) {
       expect(text).toMatch('Unauthorized')
     })
     browser.driver.sleep(1000)

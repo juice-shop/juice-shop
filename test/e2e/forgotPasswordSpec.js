@@ -29,7 +29,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('I <3 Spock')
       resetButton.click()
 
-      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Jim\'s Password' })
@@ -44,7 +44,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
       resetButton.click()
 
-      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Bender\'s Password' })
@@ -59,7 +59,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
       resetButton.click()
 
-      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
@@ -74,7 +74,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
       resetButton.click()
 
-      expect(element(by.css('.confirmation')).getAttribute('hidden')).not.toBeTruthy()
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Morty\'s Password' })
