@@ -49,7 +49,7 @@ describe('/api/Feedbacks', () => {
     frisby.post(API_URL + '/Feedbacks', {
       headers: jsonHeader,
       body: {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>alert("XSS")</script>script>alert("XSS")<</script>/script>',
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<iframe src="javascript:alert(`xss`)">script>alert("XSS")<</script>/script>',
         rating: 1,
         captchaId: captchaId,
         captcha: captchaAnswer
@@ -57,7 +57,7 @@ describe('/api/Feedbacks', () => {
     })
       .expect('status', 201)
       .expect('json', 'data', {
-        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <script>alert("XSS")</script>'
+        comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <iframe src="javascript:alert(`xss`)">'
       })
       .done(done)
   })
