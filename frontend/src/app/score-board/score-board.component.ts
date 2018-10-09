@@ -8,10 +8,10 @@ import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
-import { faFlag } from '@fortawesome/fontawesome-free-regular'
-import { faGithub, faGitter, faDocker } from '@fortawesome/fontawesome-free-brands'
+import { faFlag, faGem } from '@fortawesome/fontawesome-free-regular'
+import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/fontawesome-free-brands'
 
-fontawesome.library.add(faBook, faStar, faFlag, faGitter, faGithub, faDocker)
+fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc)
 
 @Component({
   selector: 'app-score-board',
