@@ -135,7 +135,7 @@
     "stryker-api": "~0.21",
     "stryker-html-reporter": "~0.16",
     "stryker-jasmine": "~0.10",
-    "stryker-javascript-mutator": "~0.10.0",
+    "stryker-javascript-mutator": "~0.11.0",
     "stryker-karma-runner": "~0.17",
     "stryker-mocha-framework": "~0.12.2",
     "stryker-mocha-runner": "~0.14"
