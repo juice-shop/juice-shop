@@ -94,12 +94,12 @@
       <i class="fas fa-info-circle fa-lg"></i>
     </button>
 
-    <button *ngIf="gitHubRibbon" mat-button href="/redirect?to=https://github.com/bkimminich/juice-shop" fxShow fxHide.lt-md>
-      <i class="fab fa-github fa-lg"></i> GitHub
-    </button>
-    <button *ngIf="gitHubRibbon" mat-icon-button href="/redirect?to=https://github.com/bkimminich/juice-shop" fxHide fxShow.lt-md>
-      <i class="fab fa-github fa-lg"></i>
-    </button>
+    <a *ngIf="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop" fxShow fxHide.lt-md>
+      <button mat-button><i class="fab fa-github fa-lg"></i> GitHub</button>
+    </a>
+    <a *ngIf="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop" fxHide fxShow.lt-md>
+      <button mat-icon-button><i class="fab fa-github fa-lg"></i></button>
+    </a>
   </mat-toolbar-row>
 
   <mat-toolbar-row fxLayout="row" fxHide fxShow.lt-lg>
