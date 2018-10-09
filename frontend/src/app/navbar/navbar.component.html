@@ -59,12 +59,12 @@
       <mat-select [(value)]="selectedLanguage">
 
         <mat-select-trigger>
-          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{selectedLanguage.lang}}
         </mat-select-trigger>
 
         <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span class="flag-icon flag-icon-{{language.icon}}"></span>
+          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{language?.lang}}
           <i *ngIf="language.isFlask" class="fas fa-flask"></i>
         </mat-option>
@@ -128,12 +128,12 @@
       <mat-select [(value)]="selectedLanguage">
 
         <mat-select-trigger>
-          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{selectedLanguage.lang}}
         </mat-select-trigger>
 
         <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span class="flag-icon flag-icon-{{language.icon}}"></span>
+          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{language?.lang}}
           <i *ngIf="language.isFlask" class="fas fa-flask"></i>
         </mat-option>
