@@ -58,7 +58,6 @@ deploy:
   app:
     master: juice-shop
     develop: juice-shop-staging
-    release-v8: juice-shop-v8
   on:
     repo: bkimminich/juice-shop
     node: 10
