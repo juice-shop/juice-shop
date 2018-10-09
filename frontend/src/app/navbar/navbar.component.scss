@@ -5,10 +5,10 @@ mat-toolbar {
   width: 100%;
 }
 
-mat-icon img {
-  margin-left: -15px;
-  margin-top: -6px;
-  max-height: 100px;
+.logo {
+  max-height: 60px;
+  padding-top: 7px;
+  width: auto;
 }
 
 .fill-remaining-space {
