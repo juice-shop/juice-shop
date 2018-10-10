@@ -161,11 +161,11 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
-| node.js             | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
-|:--------------------|:------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
-| 10.x (:microscope:) | `snapshot` (preview from `develop` branch)                              | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
-| __9.x__             | __`latest`__ (current official release)                                 | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
-| 8.x                 |                                                                         | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| node.js  | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)         | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
+|:---------|:--------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
+| __10.x__ | `latest` (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
+| 9.x      |                                                                                 | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
+| 8.x      |                                                                                 | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
