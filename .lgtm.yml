@@ -1,7 +1,6 @@
 path_classifiers:
   library:
-    - app/private
-    - vagrant/shake.js
+    - frontend/src/assets/private
 queries:
   -
     exclude: js/missing-token-validation
