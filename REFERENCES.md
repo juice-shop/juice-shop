@@ -10,7 +10,7 @@ where this project was mentioned or used!
 > get stuck. :godmode: indicates resources that _spoiler entire
 > challenge solutions_ so you might not want to view them before
 > tackling these challenges yourself! :mega: marks short friendly shout
-> outs.
+> outs. Finally, the :dollar: bill marks commercial resources.
 
 ## Awards :trophy:
 
@@ -114,6 +114,7 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp) chapter :godmode: of the [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video) video course by Brian Johnson :dollar:
 * [University lecture on "IT Security"](https://github.com/bkimminich/it-security-lecture) as Open Educational Resources material by Björn Kimminich
 * [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
   (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
