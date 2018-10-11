@@ -125,6 +125,20 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
+#### Upcoming
+
+* [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
+  by Björn Kimminich,
+  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
+  19.11.2018
+* [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
+  by Björn Kimminich,
+  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
+  20.11.2018
+* [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day) by Björn Kimminich,
+  [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
+  30.11.2018
+
 #### 2018
 
 * [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
