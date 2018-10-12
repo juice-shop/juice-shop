@@ -141,7 +141,7 @@ where this project was mentioned or used!
   30.11.2018
 
 #### 2018
-* [Java User Group Hamburg: Security Hackathon](https://www.meetup.com/jug-hamburg/events/254885956/) by [iteratec](https://www.iteratec.de/)
+* [JUGHH: Security Hackathon](https://www.meetup.com/jug-hamburg/events/254885956/) by [iteratec](https://www.iteratec.de/), [Java User Group Hamburg](https://www.meetup.com/jug-hamburg), 11.10.2018
 * [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
   by Mohammad Febri R, [Mozilla Indonesia](https://mozilla.or.id/),
   05.08.2018
