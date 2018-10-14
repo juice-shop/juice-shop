@@ -54,9 +54,9 @@ module.exports = function fileUpload () {
         if (file.buffer && !utils.runsOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
           const data = file.buffer.toString()
           try {
-            const sandbox = {libxml, data}
+            const sandbox = { libxml, data }
             vm.createContext(sandbox)
-            const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, {timeout: 2000})
+            const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true, nocdata: true })', sandbox, { timeout: 2000 })
             const xmlString = xmlDoc.toString(false)
             if (utils.notSolved(challenges.xxeFileDisclosureChallenge) && (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString))) {
               utils.solve(challenges.xxeFileDisclosureChallenge)
