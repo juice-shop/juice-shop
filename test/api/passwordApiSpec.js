@@ -7,7 +7,7 @@ const REST_URL = 'http://localhost:3000/rest'
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/rest/user/change-password', () => {
-  it('GET password change for newly created user with recognized token as cookie', done => {
+  it('GET password change for newly created user with recognized token as Authorization header', done => {
     frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
       body: {
@@ -25,31 +25,7 @@ describe('/rest/user/change-password', () => {
       })
         .expect('status', 200)
         .then(({ json }) => frisby.get(REST_URL + '/user/change-password?current=kunigunde&new=foo&repeat=foo', {
-          headers: { 'Cookie': 'token=' + json.authentication.token }
-        })
-          .expect('status', 200)))
-      .done(done)
-  })
-
-  it('GET password change for newly created user with recognized token as cookie in double-quotes', done => {
-    frisby.post(API_URL + '/Users', {
-      headers: jsonHeader,
-      body: {
-        email: 'kuni@gun.de',
-        password: 'kunibert'
-      }
-    })
-      .expect('status', 201)
-      .then(() => frisby.post(REST_URL + '/user/login', {
-        headers: jsonHeader,
-        body: {
-          email: 'kuni@gun.de',
-          password: 'kunibert'
-        }
-      })
-        .expect('status', 200)
-        .then(({ json }) => frisby.get(REST_URL + '/user/change-password?current=kunibert&new=foo&repeat=foo', {
-          headers: { 'Cookie': 'token=%22' + json.authentication.token + '%22' }
+          headers: { 'Authorization': 'Bearer ' + json.authentication.token }
         })
           .expect('status', 200)))
       .done(done)
@@ -65,7 +41,7 @@ describe('/rest/user/change-password', () => {
     })
       .expect('status', 200)
       .then(({ json }) => frisby.get(REST_URL + '/user/change-password?current=definetely_wrong&new=blubb&repeat=blubb', {
-        headers: { 'Cookie': 'token=' + json.authentication.token }
+        headers: { 'Authorization': 'Bearer ' + json.authentication.token }
       })
         .expect('status', 401)
         .expect('bodyContains', 'Current password is not correct'))
@@ -114,7 +90,7 @@ describe('/rest/user/change-password', () => {
     })
       .expect('status', 200)
       .then(({ json }) => frisby.get(REST_URL + '/user/change-password?new=slurmCl4ssic&repeat=slurmCl4ssic', {
-        headers: { 'Cookie': 'token=' + json.authentication.token }
+        headers: { 'Authorization': 'Bearer ' + json.authentication.token }
       })
         .expect('status', 200)).done(done)
   })
