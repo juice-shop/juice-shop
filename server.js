@@ -124,7 +124,9 @@ app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
   if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
-    req.body = JSON.parse(req.body)
+    if (req.body !== Object(req.body)) { // TODO Expensive workaround for 500 errors during Frisby test run (see #640)
+      req.body = JSON.parse(req.body)
+    }
   }
   next()
 })
