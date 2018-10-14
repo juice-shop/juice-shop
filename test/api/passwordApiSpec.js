@@ -71,8 +71,8 @@ describe('/rest/user/change-password', () => {
       .done(done)
   })
 
-  it('GET password change with passing unrecognized authorization cookie', done => {
-    frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo', { headers: { 'Cookie': 'token=unknown' } })
+  it('GET password change with passing unrecognized authorization token', done => {
+    frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo', { headers: { 'Authorization': 'Bearer unknown' } })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>Juice Shop (Express ~')
