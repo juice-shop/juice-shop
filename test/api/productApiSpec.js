@@ -47,13 +47,13 @@ describe('/api/Products', () => {
       headers: authHeader,
       body: {
         name: 'XSS Juice (42ml)',
-        description: '<script>alert("XSS")</script>',
+        description: '<iframe src="javascript:alert(`xss`)">',
         price: 9999.99,
         image: 'xss3juice.jpg'
       }
     })
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<script>alert("XSS")</script>' })
+      .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })
       .done(done)
   })
 })

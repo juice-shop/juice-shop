@@ -7,6 +7,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/score-board.html#find-the-carefully-hidden-score-board-page'
   key: scoreBoardChallenge
 -
+  name: 'Email Leak'
+  category: 'Sensitive Data Exposure'
+  description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
+  difficulty: 5
+  hint: 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#perform-an-unwanted-information-disclosure-by-accessing-data-cross-domain'
+  key: emailLeakChallenge
+-
   name: 'Error Handling'
   category: 'Security Misconfiguration'
   description: 'Provoke an error that is not very gracefully handled.'
@@ -14,6 +22,14 @@
   hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-not-very-gracefully-handled'
   key: errorHandlingChallenge
+-
+  name: 'Forged Review'
+  category: 'Broken Access Control'
+  description: 'Post a product review as another user or edit any user''s existing review.'
+  difficulty: 3
+  hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
+  key: forgedReviewChallenge
 -
   name: 'Login Admin'
   category: 'Injection'
@@ -38,54 +54,6 @@
   hint: 'If you know Bender''s email address, try SQL Injection. Bender''s password hash might not help you very much.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#log-in-with-benders-user-account'
   key: loginBenderChallenge
--
-  name: 'XSS Tier 1'
-  category: 'XSS'
-  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
-  key: localXssChallenge
--
-  name: 'XSS Tier 0'
-  category: 'XSS'
-  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
-  key: reflectedXssChallenge
--
-  name: 'XSS Tier 2'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>client-side</i> security mechanism.'
-  difficulty: 3
-  hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
-  key: persistedXssChallengeUser
--
-  name: 'XSS Tier 4'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> bypassing a <i>server-side</i> security mechanism.'
-  difficulty: 4
-  hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
-  key: persistedXssChallengeFeedback
--
-  name: 'XSS Tier 3'
-  category: 'XSS'
-  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;script&gt;alert("XSS")&lt;/script&gt;</code> without using the frontend application at all.'
-  difficulty: 3
-  hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
-  key: restfulXssChallenge
--
-  name: 'User Credentials'
-  category: 'Injection'
-  description: 'Retrieve a list of all user credentials via SQL Injection'
-  difficulty: 4
-  hint: 'Craft a UNION SELECT attack string against a page where you can influence the data being displayed.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
-  key: unionSqlInjectionChallenge
 -
   name: 'Password Strength'
   category: 'Broken Authentication'
@@ -127,13 +95,21 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#wherever-you-go-there-you-are'
   key: redirectChallenge
 -
-  name: 'Basket Access'
+  name: 'Basket Access Tier 1'
   category: 'Broken Access Control'
-  description: 'Access someone else''s basket.'
+  description: 'View another user''s shopping basket.'
   difficulty: 2
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-someone-elses-basket'
-  key: basketChallenge
+  key: basketAccessChallenge
+-
+  name: 'Basket Access Tier 2'
+  category: 'Broken Access Control'
+  description: 'Manipulate another user''s basket.'
+  difficulty: 3
+  hint: 'Have an eye on the HTTP traffic while adding items to basket.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#manipulate-someone-elses-basket'
+  key: basketManipulateChallenge
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'
@@ -174,14 +150,6 @@
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
--
-  name: 'CSRF'
-  category: 'Broken Authentication'
-  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
-  difficulty: 4
-  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
-  key: csrfChallenge
 -
   name: 'Product Tampering'
   category: 'Broken Access Control'
@@ -231,22 +199,6 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'
   key: forgedCouponChallenge
 -
-  name: 'Eye Candy'
-  category: 'Forgotten Content'
-  description: 'Travel back in time to the golden era of <img src="/css/geo-bootstrap/img/hot.gif"> web design.'
-  difficulty: 4
-  hint: 'The mentioned golden era lasted from 1994 to 2009.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#travel-back-in-time-to-the-golden-era-of-web-design'
-  key: geocitiesThemeChallenge
--
-  name: 'Christmas Special'
-  category: 'Injection'
-  description: 'Order the Christmas special offer of 2014.'
-  difficulty: 2
-  hint: 'Find out how the application handles unavailable products.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
-  key: christmasSpecialChallenge
--
   name: 'Upload Size'
   category: 'Improper Input Validation'
   description: 'Upload a file larger than 100 kB.'
@@ -262,6 +214,14 @@
   hint: 'You can attach a PDF file to the "File Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-extension'
   key: uploadTypeChallenge
+-
+  name: 'Arbitrary File Write'
+  category: 'Vulnerable Components'
+  description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
+  difficulty: 6
+  hint: 'Look out for a tweet praising new functionality of the web shop.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#overwrite-the-legal-information-file'
+  key: fileWriteChallenge
 -
   name: 'Extra Language'
   category: 'Forgotten Content'
@@ -329,7 +289,7 @@
 -
   name: 'Premium Paywall'
   category: 'Sensitive Data Exposure'
-  description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--><a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank" class="btn btn-danger btn-xs"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
+  description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
   hint: 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#unlock-premium-challenge-to-access-exclusive-content'
@@ -381,7 +341,15 @@
   difficulty: 4
   hint: 'Take a close look on how the equivalent of UPDATE-statements in MongoDB work.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#update-multiple-product-reviews-at-the-same-time'
-  key: noSqlInjectionChallenge
+  key: noSqlReviewsChallenge
+-
+  name: 'NoSQL Injection Tier 3'
+  category: 'Injection'
+  description: 'All your orders are belong to us!'
+  difficulty: 5
+  hint: 'Take a close look on how the $where query operator works in MongoDB.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
+  key: noSqlOrdersChallenge
 -
   name: 'Retrieve Blueprint'
   category: 'Forgotten Content'
@@ -401,11 +369,11 @@
 -
   name: 'Typosquatting Tier 2'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a more literal instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
+  description: '<a href="/#/contact">Inform the shop</a> about a more sneaky instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
   difficulty: 5
-  hint: 'This challenge has nothing to do with URLs or domains. It literally exploits a potentially common typo.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-literal-instance-of-typosquatting-it-fell-for'
-  key: typosquattingBowerChallenge
+  hint: 'This challenge has nothing to do with URLs or domains. There is no convenient misplaced file helping you with this one.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-sneaky-instance-of-typosquatting-it-fell-for'
+  key: typosquattingAngularChallenge
 -
   name: 'JWT Issues Tier 1'
   category: 'Vulnerable Components'
@@ -508,3 +476,83 @@
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#inform-the-development-team-about-a-danger-to-some-of-their-credentials'
   key: supplyChainAttackChallenge
+-
+  name: 'Christmas Special'
+  category: 'Injection'
+  description: 'Order the Christmas special offer of 2014.'
+  difficulty: 3
+  hint: 'Find out how the application handles unavailable products and try to find a loophole.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
+  key: christmasSpecialChallenge
+-
+  name: 'User Credentials'
+  category: 'Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection'
+  difficulty: 4
+  hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
+  key: unionSqlInjectionChallenge
+-
+  name: 'Admin Registration'
+  category: 'Improper Input Validation'
+  description: 'Get registered as admin user.'
+  difficulty: 3
+  hint: 'Assign the unassignable.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#get-registered-as-admin-user'
+  key: registerAdminChallenge
+-
+  name: 'XSS Tier 0'
+  category: 'XSS'
+  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
+  difficulty: 1
+  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
+  key: reflectedXssChallenge
+-
+  name: 'XSS Tier 1'
+  category: 'XSS'
+  description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
+  difficulty: 1
+  hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
+  key: localXssChallenge
+-
+  name: 'XSS Tier 2'
+  category: 'XSS'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
+  difficulty: 3
+  hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
+  key: persistedXssChallengeUser
+-
+  name: 'XSS Tier 3'
+  category: 'XSS'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> without using the frontend application at all.'
+  difficulty: 3
+  hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
+  key: restfulXssChallenge
+-
+  name: 'XSS Tier 4'
+  category: 'XSS'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
+  difficulty: 4
+  hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
+  key: persistedXssChallengeFeedback
+-
+  name: 'CSRF'
+  category: 'Broken Authentication'
+  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
+  difficulty: 5
+  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
+  key: csrfChallenge
+-
+  name: 'XSS Tier 5'
+  category: 'XSS'
+  description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
+  difficulty: 4
+  hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
+  key: httpHeaderXssChallenge

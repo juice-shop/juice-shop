@@ -2,15 +2,48 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
 const vm = require('vm')
+const fs = require('fs')
+const unzipper = require('unzipper')
+const path = require('path')
 
 module.exports = function fileUpload () {
   return (req, res, next) => {
     const file = req.file
+    if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
+      const buffer = file.buffer
+      const filename = file.originalname.toLowerCase()
+      fs.open('/tmp/' + filename, 'w', function (err, fd) {
+        if (err) {
+          console.log('error opening file: ' + err)
+        }
+        fs.write(fd, buffer, 0, buffer.length, null, function (err) {
+          if (err) console.log('error opening file: ' + err)
+          fs.close(fd, function () {
+            fs.createReadStream('/tmp/' + filename)
+              .pipe(unzipper.Parse())
+              .on('entry', function (entry) {
+                var fileName = entry.path
+                var absolutePath = path.resolve('uploads/complaints/' + fileName)
+                console.log(absolutePath)
+                if (absolutePath === path.resolve('ftp/legal.md') && utils.notSolved(challenges.fileWriteChallenge)) {
+                  utils.solve(challenges.fileWriteChallenge)
+                }
+                var juiceShopPath = path.resolve('.')
+                if (absolutePath.includes(juiceShopPath)) {
+                  entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (e) { console.log(e) }))
+                } else {
+                  entry.autodrain()
+                }
+              })
+          })
+        })
+      })
+    }
     if (utils.notSolved(challenges.uploadSizeChallenge) && file.size > 100000) {
       utils.solve(challenges.uploadSizeChallenge)
     }
     if (utils.notSolved(challenges.uploadTypeChallenge) && !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
-        utils.endsWith(file.originalname.toLowerCase(), '.xml'))) {
+        utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip'))) {
       utils.solve(challenges.uploadTypeChallenge)
     }
     if (utils.endsWith(file.originalname.toLowerCase(), '.xml')) {

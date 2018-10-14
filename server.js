@@ -1,4 +1,4 @@
-const applicationRoot = __dirname.replace(/\\/g, '/')
+// const applicationRoot = __dirname.replace(/\\/g, '/')
 const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
@@ -9,7 +9,6 @@ const helmet = require('helmet')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
-const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
@@ -46,6 +45,7 @@ const b2bOrder = require('./routes/b2bOrder')
 const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
 const updateProductReviews = require('./routes/updateProductReviews')
+const likeProductReviews = require('./routes/likeProductReviews')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
@@ -56,6 +56,8 @@ const appConfiguration = require('./routes/appConfiguration')
 const captcha = require('./routes/captcha')
 const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
+const basketItems = require('./routes/basketItems')
+const saveLoginIp = require('./routes/saveLoginIp')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -83,19 +85,6 @@ app.use((req, res, next) => {
   next()
 })
 
-/* Favicon */
-let icon = 'favicon_v2.ico'
-if (config.get('application.favicon')) {
-  icon = config.get('application.favicon')
-  if (utils.startsWith(icon, 'http')) {
-    const iconPath = icon
-    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    fs.closeSync(fs.openSync('app/public/' + icon, 'w')) // touch file so it is guaranteed to exist for favicon() call
-    utils.downloadToFile(iconPath, 'app/public/' + icon)
-  }
-}
-app.use(favicon(path.join(__dirname, 'app/public/' + icon)))
-
 /* Security Policy */
 app.get('/security.txt', verify.accessControlChallenges())
 app.use('/security.txt', securityTxt({
@@ -108,9 +97,9 @@ app.use('/security.txt', securityTxt({
 app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/public/images/tracking', verify.accessControlChallenges())
-app.use('/public/images/products', verify.accessControlChallenges())
-app.use('/i18n', verify.accessControlChallenges())
+app.use('/assets/public/images/tracking', verify.accessControlChallenges())
+app.use('/assets/public/images/products', verify.accessControlChallenges())
+app.use('/assets/i18n', verify.accessControlChallenges())
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
@@ -123,9 +112,22 @@ app.use('/encryptionkeys/:file', keyServer())
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use(express.static(applicationRoot + '/app'))
+// app.use(express.static(applicationRoot + '/app'))
+app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
+
 app.use(cookieParser('kekse'))
-app.use(bodyParser.json())
+
+/* File Upload */
+app.post('/file-upload', upload.single('file'), fileUpload())
+
+app.use(bodyParser.text({ type: '*/*' }))
+app.use(function jsonParser (req, res, next) {
+  req.rawBody = req.body
+  if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
+    req.body = JSON.parse(req.body)
+  }
+  next()
+})
 
 /* HTTP request logging */
 let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
@@ -182,8 +184,12 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 app.post('/api/Feedbacks', insecurity.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
+/* Register admin challenge verification */
+app.post('/api/Users', verify.registerAdminChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
+/* Add item to basket */
+app.post('/api/BasketItems', basketItems())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
@@ -230,17 +236,16 @@ app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
+app.get('/rest/saveLoginIp', saveLoginIp())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())
 app.put('/rest/product/:id/reviews', createProductReviews())
 app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
+app.post('/rest/product/reviews', insecurity.isAuthorized(), likeProductReviews())
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
-
-/* File Upload */
-app.post('/file-upload', upload.single('file'), fileUpload())
 
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
@@ -263,8 +268,8 @@ exports.start = async function (readyCallback) {
     }
   })
 
-  require('./lib/startup/populateIndexTemplate')()
-  require('./lib/startup/populateThreeJsTemplate')()
+  require('./lib/startup/customizeApplication')()
+  require('./lib/startup/customizeEasterEgg')()
 }
 
 exports.close = function (exitCode) {

@@ -9,10 +9,10 @@ module.exports = function retrieveBasket () {
     models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
       .then(basket => {
         /* jshint eqeqeq:false */
-        if (utils.notSolved(challenges.basketChallenge)) {
+        if (utils.notSolved(challenges.basketAccessChallenge)) {
           const user = insecurity.authenticatedUsers.from(req)
           if (user && id && id !== 'undefined' && user.bid != id) { // eslint-disable-line eqeqeq
-            utils.solve(challenges.basketChallenge)
+            utils.solve(challenges.basketAccessChallenge)
           }
         }
         res.json(utils.queryResultToJson(basket))

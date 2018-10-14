@@ -29,6 +29,15 @@ describe('services', function () {
       expect(result).toBe('apiResponse')
     }))
 
+    it('should like product reviews directly via the rest api', inject(function (ProductReviewService) {
+      $httpBackend.whenPOST('/rest/product/reviews').respond(200, { data: 'apiResponse' })
+
+      ProductReviewService.like({}).then(function (data) { result = data })
+      $httpBackend.flush()
+
+      expect(result).toBe('apiResponse')
+    }))
+
     it('should get product reviews directly via the rest api', inject(function (ProductReviewService) {
       $httpBackend.whenGET('/rest/product/42/reviews').respond(200, { data: 'apiResponse' })
 
