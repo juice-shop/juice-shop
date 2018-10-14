@@ -93,6 +93,17 @@ describe('/rest/product/reviews', () => {
       .done(done)
   })
 
+  it('POST single product review can be liked', done => {
+    frisby.patch(REST_URL + '/product/reviews', {
+      headers: authHeader,
+      body: {
+        id: reviewId
+      }
+    })
+      .expect('status', 200)
+      .done(done)
+  })
+
   it('PATCH multiple product review via injection', done => {
     // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
     const totalReviews = config.get('products').reduce((sum, { reviews = [] }) => sum + reviews.length, 1)

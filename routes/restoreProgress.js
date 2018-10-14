@@ -18,7 +18,7 @@ module.exports = function restoreProgress () {
           }
         }
       }
-      res.end()
+      res.json({ data: ids.length + ' solved challenges have been restored.' })
     } else {
       res.status(404).send('Invalid continue code.')
     }

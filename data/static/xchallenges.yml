@@ -1,0 +1,8 @@
+-
+  name: 'Multiple Likes'
+  category: 'Race Condition'
+  description: 'Like any review any number of times.'
+  difficulty: 6
+  hint: 'Punctuality is the politeness of kings.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-any-number-of-times'
+  key: timingAttackChallenge
