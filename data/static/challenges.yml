@@ -559,8 +559,8 @@
 -
   name: 'Multiple Likes'
   category: 'Race Condition'
-  description: 'Like any review any number of times.'
-  difficulty: 1
+  description: 'Like any review at least three times as the same user.'
+  difficulty: 6
   hint: 'Punctuality is the politeness of kings.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-any-number-of-times'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-three-times-as-the-same-user'
   key: timingAttackChallenge
