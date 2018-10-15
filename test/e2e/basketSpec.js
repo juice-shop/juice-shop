@@ -14,7 +14,7 @@ describe('/#/basket', () => {
 
         browser.get('/#/basket')
 
-        const productQuantities = element.all(by.css('mat-cell.mat-column-quantity > span'))
+        const productQuantities = $$('mat-cell.mat-column-quantity > span')
         expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 

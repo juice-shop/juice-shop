@@ -1,12 +1,13 @@
 import { CookieService } from 'ngx-cookie'
-import { WindowRefService } from './../Services/window-ref.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import fontawesome from '@fortawesome/fontawesome'
-import { UserService } from './../Services/user.service'
+import { UserService } from '../Services/user.service'
 import { faKey } from '@fortawesome/fontawesome-free-solid'
 import { faGoogle } from '@fortawesome/fontawesome-free-brands'
+
 fontawesome.library.add(faKey, faGoogle)
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'

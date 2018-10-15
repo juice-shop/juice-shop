@@ -8,7 +8,7 @@ const tamperingProductId = ((() => {
   }
 })())
 
-describe('/rest', () => {
+describe('/api', () => {
   describe('challenge "xss3"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -36,19 +36,6 @@ describe('/rest', () => {
     // protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
   })
 
-  describe('challenge "xss5"', () => {
-    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-
-    xit('should be possible to save log-in IP when logged in', () => {
-      browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<iframe src="javascript:alert(xss)">\'}});')
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
-    })
-
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
-  })
-
   describe('challenge "changeProduct"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       browser.waitForAngularEnabled(false)
@@ -64,11 +51,23 @@ describe('/rest', () => {
 })
 
 describe('/rest/saveLoginIp', () => {
+  describe('challenge "xss5"', () => {
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+
+    xit('should be possible to save log-in IP when logged in', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<iframe src="javascript:alert(xss)">\'}});')
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
+  })
+
   it('should not be possible to save log-in IP when not logged in', () => {
     browser.waitForAngularEnabled(false)
     browser.get('/rest/saveLoginIp')
-    var el = element(by.css('pre'))
-    el.getText().then(function (text) {
+    $('pre').getText().then(function (text) {
       expect(text).toMatch('Unauthorized')
     })
     browser.driver.sleep(1000)

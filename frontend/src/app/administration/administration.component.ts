@@ -1,12 +1,13 @@
-import { UserDetailsComponent } from './../user-details/user-details.component'
+import { UserDetailsComponent } from '../user-details/user-details.component'
 import { MatDialog } from '@angular/material/dialog'
-import { FeedbackService } from './../Services/feedback.service'
-import { RecycleService } from './../Services/recycle.service'
-import { UserService } from './../Services/user.service'
+import { FeedbackService } from '../Services/feedback.service'
+import { RecycleService } from '../Services/recycle.service'
+import { UserService } from '../Services/user.service'
 import { Component, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import fontawesome from '@fortawesome/fontawesome'
-import { faUser, faEye, faHome, faArchive, faTrashAlt } from '@fortawesome/fontawesome-free-solid'
+import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
 
 @Component({

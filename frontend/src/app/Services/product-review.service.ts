@@ -1,7 +1,7 @@
-import { environment } from './../../environments/environment'
+import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { map, catchError } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,10 @@ export class ProductReviewService {
 
   patch (review) {
     return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
+
+  like (_id) {
+    return this.http.post(this.host + '/reviews', { id: _id }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
 }

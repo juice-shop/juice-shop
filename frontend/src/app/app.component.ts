@@ -1,5 +1,5 @@
 import { ConfigurationService } from './Services/configuration.service'
-import { Component, OnInit, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { DOCUMENT, Title } from '@angular/platform-browser'
 

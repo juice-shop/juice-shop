@@ -1,16 +1,17 @@
-import { WindowRefService } from './../Services/window-ref.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ChallengeService } from './../Services/challenge.service'
-import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit, NgZone } from '@angular/core'
+import { ChallengeService } from '../Services/challenge.service'
+import { ConfigurationService } from '../Services/configuration.service'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
 import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
-import { faFlag } from '@fortawesome/fontawesome-free-regular'
-import { faGitter, faGithub } from '@fortawesome/fontawesome-free-brands'
-fontawesome.library.add(faBook, faStar, faFlag, faGitter, faGithub)
+import { faFlag, faGem } from '@fortawesome/fontawesome-free-regular'
+import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/fontawesome-free-brands'
+
+fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc)
 
 @Component({
   selector: 'app-score-board',
@@ -46,6 +47,9 @@ export class ScoreBoardComponent implements OnInit {
           } else {
             this.challenges[i].hint = 'Click to open hints.'
           }
+        }
+        if (this.challenges[i].disabledEnv) {
+          this.challenges[i].hint = 'This challenge is unavailable in a ' + this.challenges[i].disabledEnv + ' environment!'
         }
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true

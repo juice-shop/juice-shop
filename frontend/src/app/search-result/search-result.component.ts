@@ -1,8 +1,8 @@
-import { ProductDetailsComponent } from './../product-details/product-details.component'
-import { Router, ActivatedRoute } from '@angular/router'
-import { ProductService } from './../Services/product.service'
-import { BasketService } from './../Services/basket.service'
-import { Component, ViewChild, OnDestroy, AfterViewInit, NgZone } from '@angular/core'
+import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ProductService } from '../Services/product.service'
+import { BasketService } from '../Services/basket.service'
+import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -12,7 +12,8 @@ import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faEye, faCartPlus } from '@fortawesome/fontawesome-free-solid'
+import { faCartPlus, faEye } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faEye, faCartPlus)
 
 @Component({
