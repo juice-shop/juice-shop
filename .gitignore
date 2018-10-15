@@ -28,70 +28,16 @@ node_modules/
 npm-debug.log.*
 package-lock.json
 
+# SASS
+.sass-cache/
+
 # App
 dist/
 order_*.pdf
-app/index.html
-app/private/threejs-demo.html
 
 # GitHub-Pages Branch
 assets/
 !frontend/src/assets/
-
-# Favicons downloaded during customizazion
-app/public/*.*
-!app/public/favicon_ctf.ico
-!app/public/favicon_v2.ico
-
-# Logos downloaded during customizazion
-app/public/images/*.*
-!app/public/images/JuiceShop*.*
-!app/public/images/ribbons/forkme_right_orange.png
-
-# Product images downloaded during customizazion
-app/public/images/products/*.*
-!app/public/images/products/apple_juice.jpg
-!app/public/images/products/artwork.jpg
-!app/public/images/products/apple_pressings.jpg
-!app/public/images/products/banana_juice.jpg
-!app/public/images/products/eggfruit_juice.jpg
-!app/public/images/products/fan_girlie.jpg
-!app/public/images/products/fan_hoodie.jpg
-!app/public/images/products/fan_mug.jpg
-!app/public/images/products/fan_shirt.jpg
-!app/public/images/products/fruit_press.jpg
-!app/public/images/products/green_smoothie.jpg
-!app/public/images/products/lemon_juice.jpg
-!app/public/images/products/orange_juice.jpg
-!app/public/images/products/owasp_osaft.jpg
-!app/public/images/products/owasplogo.png
-!app/public/images/products/quince.jpg
-!app/public/images/products/raspberry_juice.jpg
-!app/public/images/products/sticker.png
-!app/public/images/products/undefined.png
-!app/public/images/products/white_raffards.jpg
-!app/public/images/products/woodruff_syrup.jpg
-!app/public/images/products/carrot_juice.jpeg
-!app/public/images/products/strawberry_juice.jpeg
-!app/public/images/products/melon_bike.jpeg
-!app/public/images/products/3d_keychain.jpg
-!app/public/images/products/waspy.png
-!app/public/images/products/jawa_script.jpg
-!app/public/images/products/thingie1.jpg
-!app/public/images/products/Wooden-crutch.jpg
-!app/public/images/products/JuiceShop.stl
-!app/public/images/products/squareBox1-40x40x40.stl
-!app/public/images/products/crutch.123dx
-!app/public/images/products/stickersheet_se.png
-!app/public/images/products/cover_small.jpg
-!app/public/images/products/iron-on.jpg
-!app/public/images/products/magnets.jpg
-!app/public/images/products/sticker_page.jpg
-!app/public/images/products/sticker_single.jpg
-!app/public/images/products/tattoo.jpg
-!app/public/images/products/velcro-patch.jpg
-
-!app/public/country-mapping.json
 
 # Custom configuration files
 config/*.yml
@@ -105,15 +51,3 @@ config/*.yml
 !config/test.yml
 !config/7ms.yml
 !config/mozilla.yml
-
-# Custom easter egg planetary texture files
-app/private/*.jpg
-app/private/*.jpeg
-app/private/*.png
-app/private/*.gif
-!app/private/earth_normalmap_flat4k.jpg
-!app/private/earthspec4k.jpg
-!app/private/fair_clouds_4k.png
-!app/private/orangemap2k.jpg
-!app/private/starry_background.jpg
-!app/private/under-construction.gif

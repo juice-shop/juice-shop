@@ -10,7 +10,7 @@ where this project was mentioned or used!
 > get stuck. :godmode: indicates resources that _spoiler entire
 > challenge solutions_ so you might not want to view them before
 > tackling these challenges yourself! :mega: marks short friendly shout
-> outs.
+> outs. Finally, the :dollar: bill marks commercial resources.
 
 ## Awards :trophy:
 
@@ -114,6 +114,7 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp) chapter :godmode: of the [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video) video course by Brian Johnson :dollar:
 * [University lecture on "IT Security"](https://github.com/bkimminich/it-security-lecture) as Open Educational Resources material by Björn Kimminich
 * [Descargar aqui el taller OWASP Top 10 Hands On basado en OWASP Top 10 y Juice Shop](https://drive.google.com/drive/folders/0B6zv033D1iK9eTJId2RhZkJFTlk?usp=sharing)
   (:es:) by Mateo Martinez, Gerardo Canedo and Maxiimiliano Alonzo,
@@ -125,8 +126,22 @@ where this project was mentioned or used!
 
 ## Conference and Meetup Appearances
 
-#### 2018
+#### Upcoming
 
+* [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
+  by Björn Kimminich,
+  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
+  19.11.2018
+* [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
+  by Björn Kimminich,
+  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
+  20.11.2018
+* [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day) by Björn Kimminich,
+  [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
+  30.11.2018
+
+#### 2018
+* [JUGHH: Security Hackathon](https://www.meetup.com/jug-hamburg/events/254885956/) by [iteratec](https://www.iteratec.de/), [Java User Group Hamburg](https://www.meetup.com/jug-hamburg), 11.10.2018
 * [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
   by Mohammad Febri R, [Mozilla Indonesia](https://mozilla.or.id/),
   05.08.2018
