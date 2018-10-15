@@ -4,7 +4,7 @@ module.exports = function (config) {
   config.set({
     files: [
       { pattern: 'data/*.js', mutated: true, included: false },
-      { pattern: 'lib/*.js', mutated: true, included: false },
+      { pattern: 'lib/**/*.js', mutated: true, included: false },
       { pattern: 'models/*.js', mutated: true, included: false },
       { pattern: 'routes/*.js', mutated: true, included: false },
       { pattern: 'encryptionkeys/**', included: false, mutated: false },

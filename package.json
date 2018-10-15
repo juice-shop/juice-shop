@@ -131,9 +131,7 @@
     "stryker": "~0.29",
     "stryker-api": "~0.21",
     "stryker-html-reporter": "~0.16",
-    "stryker-jasmine": "~0.10",
     "stryker-javascript-mutator": "~0.11.1",
-    "stryker-karma-runner": "~0.17",
     "stryker-mocha-framework": "~0.12.2",
     "stryker-mocha-runner": "~0.14"
   },
@@ -158,7 +156,9 @@
     "protractor": "node test/e2eTests.js",
     "pree2e": "npm install",
     "e2e": "node test/e2eTests.js",
-    "stryker": "stryker run stryker.client-conf.js",
+    "stryker-frontend": "cd frontend && stryker run stryker.conf.js && cd..",
+    "stryker-server": "stryker run stryker.conf.js",
+    "stryker": "npm run stryker-frontend && npm run stryker-server",
     "vagrant": "cd vagrant && vagrant up",
     "package": "grunt package"
   },
