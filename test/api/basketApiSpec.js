@@ -126,7 +126,7 @@ describe('/rest/basket/:id/checkout', () => {
       headers: authHeader,
       body: { BasketId: 3, ProductId: 10, quantity: -100 }
     })
-      .expect('status', 201)
+      .expect('status', 200)
       .then(() => frisby.post(REST_URL + '/basket/3/checkout', { headers: authHeader })
         .expect('status', 200)
         .then(({ json }) => {

@@ -31,6 +31,6 @@ exports.config = {
 
     // Get cookie consent popup out of the way
     browser.get('/#')
-    element(by.className('cc-dismiss')).click()
+    browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
   }
 }

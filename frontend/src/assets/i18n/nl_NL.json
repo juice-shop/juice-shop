@@ -141,7 +141,7 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "Voeg een beoordeling toe aan dit product",
   "LABEL_NO_REVIEWS": "Geen beoordelingen",
   "TITLE_TOKENSALE": "Token verkoop",
-  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "Initial Coin Offering (ICO) for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
   "ICO_FAQ": "Veelgestelde vragen over onze ICO",
   "SECTION_WHITEPAPER": "Whitepaper",
   "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
