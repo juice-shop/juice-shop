@@ -1,0 +1,23 @@
+<div class="qr-code mat-typography">
+
+  <header>
+    <h3>{{title | translate}}</h3>
+  </header>
+
+  <div fxLayout="column" fxLayoutGap="10px">
+
+  <mat-divider></mat-divider>
+
+  <div class="container">
+    <a [href]="url"><qrcode [qrdata]="data" [size]="300" [level]="'M'"></qrcode></a>
+  </div>
+
+  <small>{{address}}</small>
+
+  </div>
+
+  <footer>
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}</button>
+  </footer>
+
+</div>

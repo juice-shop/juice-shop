@@ -7,6 +7,6 @@ module.exports = function serveEasterEgg () {
     if (utils.notSolved(challenges.easterEggLevelTwoChallenge)) {
       utils.solve(challenges.easterEggLevelTwoChallenge)
     }
-    res.sendFile(path.resolve(__dirname, '../app/private/threejs-demo.html'))
+    res.sendFile(path.resolve(__dirname, '../frontend/dist/frontend/assets/private/threejs-demo.html'))
   }
 }

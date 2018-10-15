@@ -1,0 +1,21 @@
+<mat-dialog-content>
+  <div class="container mat-typography" fxLayout="column">
+    <h1 translate>LABEL_EDIT_REVIEW</h1>
+
+    <div>
+      <mat-form-field>
+          <textarea matInput [formControl]="editReviewControl" #textPut cols="50" matInput placeholder=""
+                    matTextareaAutosize matAutosizeMinRows="2"
+                    matAutosizeMaxRows="4"></textarea>
+      </mat-form-field>
+
+      <button (click)="editReview()" mat-raised-button color="primary"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
+    </button>
+  </footer>
+</mat-dialog-content>

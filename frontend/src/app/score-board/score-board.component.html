@@ -1,0 +1,107 @@
+<diV fxLayout="column">
+  <mat-card>
+
+    <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
+      <small class="confirmation">{{percentChallengesSolved}}%</small>
+    </mat-card-title>
+    <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
+    <mat-divider></mat-divider>
+    <div class="star-container" fxLayout="row wrap">
+      <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]" (change)="toggleDifficulty(difficulty)"
+                         [checked]="scoreBoardTablesExpanded[difficulty]">
+        <label>
+        <span class="fa-4x fa-layers fa-fw">
+          <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18" aria-hidden="true"
+               data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+               data-fa-i2svg="">
+            <linearGradient [id]="difficulty" x1="0" x2="0" y1="0" y2="100%">
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="empty-star"/>
+              <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="filled-star"/>
+            </linearGradient>
+            <path [attr.fill]="'inherit'"
+                  d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+            </path>
+          </svg>
+          <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9"
+                style="font-weight:900;">{{difficulty}}</span>
+          <span
+            [class]="'fa-layers-counter ' + ((filterSolvedChallengesOfDifficulty(difficulty)).length === (filterChallengesByDifficulty(difficulty)).length ? 'accent-notification' : (filterSolvedChallengesOfDifficulty(difficulty)).length === 0 ? 'warn-notification' : 'primary-notification')">
+              {{((filterSolvedChallengesOfDifficulty(difficulty)).length + '/' + (filterChallengesByDifficulty(difficulty)).length)}}
+          </span>
+        </span>
+        </label>
+      </mat-button-toggle>
+    </div>
+
+  </mat-card>
+
+  <mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]"
+                       [disabled]="true">
+
+    <mat-expansion-panel-header>
+      <span fxLayout="row">
+        <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
+        <span style="margin: 15px 0;">{{"LABEL_" + difficulty + "_STAR_DIFFICULTY" | translate}} {{"LABEL_CHALLENGES" | translate}}</span>
+      </span>
+    </mat-expansion-panel-header>
+
+    <mat-divider></mat-divider>
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges,difficulty,'name')">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
+        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
+        </mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
+          <div [innerHTML]="challenge.description"></div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
+        <mat-cell *matCellDef="let challenge">
+          <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'" [disabled]="challenge.disabledEnv">
+            <span [hidden]="challenge.solved || challenge.disabledEnv" id="{{challenge.name}}.notSolved"
+                  class="not-solved"
+                  (click)="openHint(challenge)"
+                  matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
+              <i class="fas fa-book" aria-hidden="true"
+                 [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
+              {{"STATUS_UNSOLVED" | translate}}
+            </span>
+            <span [hidden]="!challenge.solved || challenge.disabledEnv" id="{{challenge.name}}.solved" class="solved"
+                    (click)="repeatNotification(challenge)" 
+                    matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}"
+                    matTooltipPosition="above">
+              <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
+              {{"STATUS_SOLVED" | translate}}
+            </span>
+            <span [hidden]="!challenge.disabledEnv" id="{{challenge.name}}.unavailable" class="unavailable"
+                    matTooltip="{{ challenge.hint }}" matTooltipPosition="above">
+              <i class="fab fa-{{challenge.disabledEnv?.toLowerCase()}}" aria-hidden="true"></i>
+              {{"STATUS_UNAVAILABLE" | translate}}
+            </span>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </mat-expansion-panel>
+
+  <mat-card class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
+</diV>
+
+<img src="assets/public/images/tracking/scoreboard.png"/>

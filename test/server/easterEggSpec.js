@@ -16,10 +16,10 @@ describe('easterEgg', () => {
     })
   })
 
-  it('should serve /app/private/threejs-demo.html', () => {
+  it('should serve /frontend/dist/frontend/assets/private/threejs-demo.html', () => {
     serveEasterEgg()(this.req, this.res)
 
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/app[/\\]private[/\\]threejs-demo\.html/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]dist[/\\]frontend[/\\]assets[/\\]private[/\\]threejs-demo\.html/))
   })
 
   it('should solve "easterEggLevelTwoChallenge"', () => {
