@@ -31,4 +31,8 @@ export class ProductReviewService {
     return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
+  like (_id) {
+    return this.http.post(this.host + '/reviews', { id: _id }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
+
 }
