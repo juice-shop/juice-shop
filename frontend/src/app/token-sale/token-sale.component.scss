@@ -1,6 +1,30 @@
-.whitepaper-container.offer-container,
-.faq-container {
-  max-width: 600px;
-  min-width: 300px;
+.container {
+  justify-content: center;
+}
+
+.heading {
+  background: rgba(0, 0, 0, 0.13);
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 12px 20px;
+}
+
+.whitepaper-container.offer-container {
+  max-width: 700px;
+  min-width: 400px;
   width: 70%;
+}
+
+.faq-container {
+  max-width: 500px;
+  min-width: 200px;
+  width: 70%;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+mat-card {
+  margin-bottom: 10px;
 }
