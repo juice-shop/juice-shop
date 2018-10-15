@@ -109,32 +109,36 @@
 			</p>
 			<img src="assets/gb.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/us.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/ae.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/de.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/ee.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/fr.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/in.svg" height="70" class="nobox" style="border: none"/>
+			<br>
+			<img src="assets/id.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/it.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/nl.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/pl.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/br.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/se.svg" height="70" class="nobox" style="border: none"/>
+			<img src="assets/tn.svg" height="70" class="nobox" style="border: none"/>
 			<img src="assets/cn.svg" height="70" class="nobox" style="border: none"/>
 			<p>
 				Partial translation available for
 			</p>
-			<img src="assets/ae.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/cz.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/dk.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/es.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/fi.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/hk.svg" height="50" class="nobox" style="border: none"/>
-			<img src="assets/id.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/il.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/jp.svg" height="50" class="nobox" style="border: none"/>
 			<br>
 			<img src="assets/mm.svg" height="50" class="nobox" style="border: none"/>
-			<img src="assets/nl.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/no.svg" height="50" class="nobox" style="border: none"/>
-			<img src="assets/pl.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/pt.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/ro.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/ru.svg" height="50" class="nobox" style="border: none"/>
-			<img src="assets/se.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/tlh.svg" height="50" class="nobox" style="border: none"/>
 			<img src="assets/tr.svg" height="50" class="nobox" style="border: none"/>
 		</section>
@@ -235,9 +239,9 @@
 			</section>
 
 			<section>
-				<h2>CTF Extension 4.x</h2>
+				<h2>CTF Extension 5.x</h2>
 				<p>
-					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a>
+					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a> or <a href="https://github.com/facebook/fbctf">FBCTF</a>
 				</p>
 				<img src="assets/JuiceShopCTF_Logo.png" height="400" class="no-box"/>
 			</section>
@@ -255,7 +259,7 @@
 			<section>
 				<h2>Setup Wizard</h2>
 				<p>
-					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-backup <code>.zip</code>-archive to conveniently import into CTFd
+					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-backup archive to conveniently import into CTFd or FBCTF
 				</p>
 				<script src="https://asciinema.org/a/197662.js" id="asciicast-197662" data-size="medium" data-rows="23" data-speed="1.25" async></script>
 			</section>
@@ -266,8 +270,10 @@
 					Run <code>juice-shop-ctf --config myconfig.yml</code> to use non-interactive mode passing in configuration via YAML file
 				</p>
 				<pre><code class="hljs" data-trim contenteditable>
+ctfFramework: CTFd | FBCTF
 juiceShopUrl: https://juice-shop.herokuapp.com
 ctfKey: https://raw.githubusercontent.com/bkimminich/juice-shop/master/ctf.key
+countryMapping: https://raw.githubusercontent.com/bkimminich/juice-shop/master/config/fbctf.yml
 insertHints: none | free | paid
 insertHintUrls: none | free | paid
 				</code></pre>
@@ -393,12 +399,11 @@ products:
 					<img src="assets/jest-outline.svg" height="70" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 				<div>
-					<img src="assets/phantomjs_400x400.png" height="95" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/Google_Chrome.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/karma.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/jasmine-horizontal.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/chai-logo-F349805F7D-seeklogo.com.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/mocha-logo.svg" height="95" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/stryker.png" height="95" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 			</section>
 
@@ -407,13 +412,18 @@ products:
 				<p>
 					Automated <a href="https://travis-ci.org/bkimminich/juice-shop">Continuous Integration</a> &amp; <a href="https://juice-shop.herokuapp.com">Demo Deployment</a>
 				</p>
-				<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-				<img src="assets/greenkeeperLogo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				<div>
+					<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/greenkeeperLogo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/snyk.svg" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</div>
 			</section>
 
 		</section>
@@ -543,9 +553,8 @@ products:
 		<section>
 			<h2>Project Roadmap</h2>
 			<ul>
-				<li>2 <a href="https://summerofcode.withgoogle.com">GSoC</a> projects in 2018 (Angular5, ChallengePack)</li>
-				<li>Have a juicy <a href="https://github.com/bkimminich/juice-shop-ctf/issues/9">CTFd Theme</a> for extra immersion</li>
-				<li>Promotion to <span style="background: rgb(56,160,71)">&nbsp;Flagship&nbsp;</span><span style="background: rgb(80,80,80)">&nbsp;Project&nbsp;</span> maturity level</li>
+				<li>Release 8.x with Angular6 and ChallengePack from <a href="https://summerofcode.withgoogle.com">GSoC</a> 2018</li>
+				<li>Have someone with actual web design skills make the UI pretty</li>
 			</ul><br>
 			<img src="assets/dukenukemforever_1300807309.png" height="200" style="background: none; border:none; box-shadow:none;" class="fragment" data-fragment-index="2"/>
 			<p class="fragment" data-fragment-index="1">
@@ -564,9 +573,9 @@ products:
 				<tr>
 					<td>Sourcecode</td>
 					<td>
-						<a href="https://github.com/bkimminich/juice-shop">https://github.com/bkimminich/juice-shop</a><br>
-						<a href="https://github.com/bkimminich/juice-shop-ctf">https://github.com/bkimminich/juice-shop-ctf</a><br>
-						<a href="https://github.com/bkimminich/pwning-juice-shop">https://github.com/bkimminich/pwning-juice-shop</a>
+						<a href="https://github.com/bkimminich/juice-shop">https://github.com/bkimminich/juice-shop</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
+						<a href="https://github.com/bkimminich/juice-shop-ctf">https://github.com/bkimminich/juice-shop-ctf</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
+						<a href="https://github.com/bkimminich/pwning-juice-shop">https://github.com/bkimminich/pwning-juice-shop</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND</a>)
 					</td>
 				</tr>
 				</tbody>
@@ -576,12 +585,12 @@ products:
 			<table style="font-size: 50%">
 				<tbody>
 				<tr>
-					<td>Web Application Security in a Nutshell</td>
+					<td>Web Application Security in a Nutshell (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)</td>
 					<td><a href="http://webappsec-nutshell.kimminich.de">http://webappsec-nutshell.kimminich.de</a></td>
 				</tr>
 				<tr>
-					<td>Web Application Security Training</td>
-					<td><a href="https://www.slideshare.net/BjrnKimminich/web-application-security-training-v410">https://www.slideshare.net/BjrnKimminich/web-application-security-training-v410</a></td>
+					<td>IT Security Lecture (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)</td>
+					<td><a href="https://github.com/bkimminich/it-security-lecture">https://github.com/bkimminich/it-security-lecture</a></td>
 				</tr>
 				</tbody>
 			</table>
