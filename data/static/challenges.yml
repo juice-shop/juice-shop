@@ -556,3 +556,11 @@
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
   key: httpHeaderXssChallenge
+-
+  name: 'Multiple Likes'
+  category: 'Race Condition'
+  description: 'Like any review any number of times.'
+  difficulty: 1
+  hint: 'Punctuality is the politeness of kings.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-any-number-of-times'
+  key: timingAttackChallenge
