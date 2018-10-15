@@ -62,6 +62,11 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "tslint-config-standard": "~7.0.0"
+    "tslint-config-standard": "~7.0.0",
+    "stryker": "~0.29",
+    "stryker-api": "~0.21",
+    "stryker-html-reporter": "~0.16",
+    "stryker-karma-runner": "~0.17",
+    "stryker-typescript": "~0.15.2"
   }
 }
