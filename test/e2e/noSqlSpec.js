@@ -96,7 +96,8 @@ describe('/rest/product/reviews', () => {
 
   describe('challenge "Multiple Likes"', () => {
     protractor.beforeEach.login({ email: 'mc.safesearch@' + config.get('application.domain'), password: 'Mr. N00dles' })
-    xit('should be possible to like reviews multiple times', () => {
+
+    it('should be possible to like reviews multiple times', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(() => {
         var xhttp = new XMLHttpRequest()
@@ -128,6 +129,7 @@ describe('/rest/product/reviews', () => {
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
+
+    protractor.expect.challengeSolved({ challenge: 'Multiple Likes' })
   })
 })

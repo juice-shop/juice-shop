@@ -1,8 +1,10 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { TokenSaleComponent } from './token-sale.component'
 import { of, throwError } from 'rxjs'
-import { ConfigurationService } from './../Services/configuration.service'
+import { ConfigurationService } from '../Services/configuration.service'
+import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
 
 describe('TokenSaleComponent', () => {
   let component: TokenSaleComponent
@@ -16,7 +18,9 @@ describe('TokenSaleComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TokenSaleComponent ],
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        MatCardModule,
+        MatButtonModule
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService }

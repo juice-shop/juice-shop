@@ -18,7 +18,7 @@
   password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
   customDomain: true
   key: bjoern
-  isAdmin: false
+  isAdmin: true
 -
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
@@ -39,3 +39,13 @@
   password: 'Mr. N00dles'
   key: rapper
   isAdmin: false
+-
+  email: J12934
+  password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+  key: jannik
+  isAdmin: true
+-
+  email: wurstbrot
+  password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+  key: timo
+  isAdmin: true

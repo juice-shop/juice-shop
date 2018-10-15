@@ -1,16 +1,25 @@
 import { TranslateService } from '@ngx-translate/core'
-import { QrCodeComponent } from './../qr-code/qr-code.component'
+import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
-import { WindowRefService } from './../Services/window-ref.service'
-import { ConfigurationService } from './../Services/configuration.service'
-import { UserService } from './../Services/user.service'
-import { BasketService } from './../Services/basket.service'
-import { Component,OnInit } from '@angular/core'
+import { WindowRefService } from '../Services/window-ref.service'
+import { ConfigurationService } from '../Services/configuration.service'
+import { UserService } from '../Services/user.service'
+import { BasketService } from '../Services/basket.service'
+import { Component, OnInit } from '@angular/core'
 import fontawesome from '@fortawesome/fontawesome'
-import { faMinusSquare, faPlusSquare, faCartArrowDown, faCreditCard, faGift, faHeart, faThumbsUp } from '@fortawesome/fontawesome-free-solid'
-import { faTrashAlt,faCreditCard as faCredit } from '@fortawesome/fontawesome-free-regular/'
-import { faPaypal,faEthereum, faBtc } from '@fortawesome/fontawesome-free-brands'
+import {
+  faCartArrowDown,
+  faCreditCard,
+  faGift,
+  faHeart,
+  faMinusSquare,
+  faPlusSquare,
+  faThumbsUp
+} from '@fortawesome/fontawesome-free-solid'
+import { faCreditCard as faCredit, faTrashAlt } from '@fortawesome/fontawesome-free-regular/'
+import { faBtc, faEthereum, faPaypal } from '@fortawesome/fontawesome-free-brands'
+
 fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp)
 
 @Component({

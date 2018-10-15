@@ -16,7 +16,7 @@ describe('/#/administration', () => {
     it('should be possible for any logged-in user to delete feedback', () => {
       browser.get('/#/administration')
 
-      element.all(by.css('.mat-cell.mat-column-remove')).first().element(by.css('button')).click()
+      $$('.mat-cell.mat-column-remove > button').first().click()
       browser.wait(protractor.ExpectedConditions.stalenessOf(element(by.js(selectFiveStarRating))), 5000)
     })
 

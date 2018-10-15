@@ -1,13 +1,14 @@
 import { TranslateService } from '@ngx-translate/core'
-import { ChallengeService } from './../Services/challenge.service'
-import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core'
+import { ChallengeService } from '../Services/challenge.service'
+import { ConfigurationService } from '../Services/configuration.service'
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faGlobe, faFlagCheckered, faClipboard } from '@fortawesome/fontawesome-free-solid'
+import { faClipboard, faFlagCheckered, faGlobe } from '@fortawesome/fontawesome-free-solid'
+
 fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
 
 @Component({

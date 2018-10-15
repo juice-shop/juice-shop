@@ -1,18 +1,33 @@
-import { ChallengeService } from './../Services/challenge.service'
-import { UserService } from './../Services/user.service'
-import { AdministrationService } from './../Services/administration.service'
-import { ConfigurationService } from './../Services/configuration.service'
-import { Component, OnInit, NgZone } from '@angular/core'
+import { ChallengeService } from '../Services/challenge.service'
+import { UserService } from '../Services/user.service'
+import { AdministrationService } from '../Services/administration.service'
+import { ConfigurationService } from '../Services/configuration.service'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { languages } from './languages'
-import { faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faFlask, faLanguage } from '@fortawesome/fontawesome-free-solid'
+import {
+  faBomb,
+  faComment,
+  faFlask,
+  faInfoCircle,
+  faLanguage,
+  faMapMarker,
+  faRecycle,
+  faSearch,
+  faShoppingCart,
+  faSignInAlt,
+  faTrophy,
+  faUserCircle,
+  faUserSecret
+} from '@fortawesome/fontawesome-free-solid'
 import { faComments } from '@fortawesome/fontawesome-free-regular'
 import { faGithub } from '@fortawesome/fontawesome-free-brands'
 import fontawesome from '@fortawesome/fontawesome'
+
 fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
 
 @Component({
@@ -28,7 +43,7 @@ export class NavbarComponent implements OnInit {
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
-  public logoSrc = 'assets/public/images/JuiceShop_Logo.svg'
+  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
@@ -56,8 +71,8 @@ export class NavbarComponent implements OnInit {
 
         if (logo.substring(0, 4) === 'http') {
           logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
-          this.logoSrc = 'assets/public/images/' + logo
         }
+        this.logoSrc = 'assets/public/images/' + logo
       }
     }, (err) => console.log(err))
 

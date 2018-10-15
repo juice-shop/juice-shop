@@ -1,12 +1,13 @@
-import { ProductReviewEditComponent } from './../product-review-edit/product-review-edit.component'
-import { UserService } from './../Services/user.service'
-import { ProductReviewService } from './../Services/product-review.service'
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core'
+import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
+import { UserService } from '../Services/user.service'
+import { ProductReviewService } from '../Services/product-review.service'
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import fontawesome from '@fortawesome/fontawesome'
-import { faPaperPlane, faArrowCircleLeft, faUserEdit } from '@fortawesome/fontawesome-free-solid'
+import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp } from '@fortawesome/fontawesome-free-solid'
 import { FormControl, Validators } from '@angular/forms'
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faUserEdit)
+
+fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp)
 
 @Component({
   selector: 'app-product-details',
@@ -59,6 +60,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         reviewData : review
       }
     }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.id))
+  }
+
+  likeReview (review) {
+    this.productReviewService.like(review._id).subscribe(() => {
+      console.log('Liked ' + review._id)
+    })
+    setTimeout(() => this.reviews$ = this.productReviewService.get(this.data.id), 200)
+  }
+
+  isLoggedIn () {
+    return localStorage.getItem('token')
   }
 
 }

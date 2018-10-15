@@ -2,7 +2,7 @@
   <mat-toolbar-row fxLayout="row">
 
     <a routerLink="/search">
-      <img style="height: 40px;width: 50px;padding-top:7px" [src]="logoSrc">
+      <img class="logo" [src]="logoSrc">
     </a>
     <span fxShow fxHide.lt-sm matTooltip="{{version}}" matTooltipPosition="below">{{applicationName}}</span>
 
@@ -63,12 +63,12 @@
       <mat-select [(value)]="selectedLanguage">
 
         <mat-select-trigger>
-          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{selectedLanguage.lang}}
         </mat-select-trigger>
 
         <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span class="flag-icon flag-icon-{{language.icon}}"></span>
+          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{language?.lang}}
           <i *ngIf="language.isFlask" class="fas fa-flask"></i>
         </mat-option>
@@ -98,12 +98,12 @@
       <i class="fas fa-info-circle fa-lg"></i>
     </button>
 
-    <button *ngIf="gitHubRibbon" mat-button href="/redirect?to=https://github.com/bkimminich/juice-shop" fxShow fxHide.lt-md>
-      <i class="fab fa-github fa-lg"></i> GitHub
-    </button>
-    <button *ngIf="gitHubRibbon" mat-icon-button href="/redirect?to=https://github.com/bkimminich/juice-shop" fxHide fxShow.lt-md>
-      <i class="fab fa-github fa-lg"></i>
-    </button>
+    <a *ngIf="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop" fxShow fxHide.lt-md>
+      <button mat-button><i class="fab fa-github fa-lg"></i> GitHub</button>
+    </a>
+    <a *ngIf="gitHubRibbon" href="/redirect?to=https://github.com/bkimminich/juice-shop" fxHide fxShow.lt-md>
+      <button mat-icon-button><i class="fab fa-github fa-lg"></i></button>
+    </a>
   </mat-toolbar-row>
 
   <mat-toolbar-row fxLayout="row" fxHide fxShow.lt-lg>
@@ -132,12 +132,12 @@
       <mat-select [(value)]="selectedLanguage">
 
         <mat-select-trigger>
-          <span class="flag-icon flag-icon-{{selectedLanguage.icon}}"></span>
+          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{selectedLanguage.lang}}
         </mat-select-trigger>
 
         <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span class="flag-icon flag-icon-{{language.icon}}"></span>
+          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
           {{language?.lang}}
           <i *ngIf="language.isFlask" class="fas fa-flask"></i>
         </mat-option>

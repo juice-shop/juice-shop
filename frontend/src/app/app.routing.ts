@@ -14,7 +14,7 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { Routes, RouterModule, UrlSegment, UrlMatchResult } from '@angular/router'
+import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)

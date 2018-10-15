@@ -4,7 +4,7 @@ application:
   logo: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/59fd39cde31d1945635d5fbb/1530161239161/7.png'
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
-  gitHubRibbon: white
+  gitHubRibbon: true
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null
   planetOverlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'

@@ -24,8 +24,20 @@
       <h3 translate>LABEL_REVIEWS</h3>
 
       <blockquote *ngFor="let review of reviews$|async">
-        <cite>{{review.author}}</cite>
-        <p>{{review.message}}</p>
+        <div fxLayout="row">
+          <div>
+            <cite>{{review.author}}</cite>
+            <p>{{ review.message }}</p>
+          </div>
+          <div>
+            <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()">
+            <span class="fa-2x fa-layers fa-fw">
+              <i class="fas fa-thumbs-up"></i>
+              <span class="fa-layers-counter fa-layers-bottom-right accent-notification">{{ review.likesCount }}</span>
+            </span>
+            </button>
+          </div>
+        </div>
         <button class="review-button" color="secondary" mat-stroked-button
                 *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i
           class="fas fa-user-edit"></i> {{'BTN_EDIT' | translate}}
