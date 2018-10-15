@@ -106,6 +106,7 @@ describe('/rest/product/reviews', () => {
             const reviewId = JSON.parse(this.responseText).data[0]._id
             sendPostRequest(reviewId)
             sendPostRequest(reviewId)
+            sendPostRequest(reviewId)
           }
         }
 
