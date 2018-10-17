@@ -22,6 +22,8 @@ export class ScoreBoardComponent implements OnInit {
 
   public scoreBoardTablesExpanded
   public showSolvedChallenges
+  public allChallengeCategories = []
+  public displayedChallengeCategories = []
   public displayedColumns = ['name','description','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
@@ -56,7 +58,12 @@ export class ScoreBoardComponent implements OnInit {
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
+        if (!this.allChallengeCategories.includes(challenges[i].category)) {
+          this.allChallengeCategories.push(challenges[i].category)
+        }
       }
+      this.allChallengeCategories.sort()
+      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
       this.setOffset(challenges)
@@ -126,6 +133,15 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
+  toggleShowChallengeCategory (category) {
+    if (!this.displayedChallengeCategories.includes(category)) {
+      this.displayedChallengeCategories.push(category)
+    } else {
+      this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
+    }
+    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+  }
+
   repeatNotification (challenge) {
     if (this.allowRepeatNotifications) {
       this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
@@ -149,6 +165,8 @@ export class ScoreBoardComponent implements OnInit {
     if (!this.showSolvedChallenges) {
       challenges = challenges.filter((challenge) => !challenge.solved)
     }
+    challenges = challenges.filter((challenge) => this.displayedChallengeCategories.includes(challenge.category))
+
     challenges = challenges.sort((challenge1: any, challenge2: any) => {
       let x = challenge1[key]
       let y = challenge2[key]
