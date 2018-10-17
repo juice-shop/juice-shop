@@ -141,13 +141,13 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "为该商品添加一条评论",
   "LABEL_NO_REVIEWS": "没有评论",
   "TITLE_TOKENSALE": "代币销售",
-  "SECTION_ICO": "<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong> 的代币首次发行",
+  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
   "ICO_FAQ": "关于我们代币首次发行的常见问题",
   "SECTION_WHITEPAPER": "白皮书",
   "WHITEPAPER_REFERENCES": "我们会参考现有的优秀白皮书，而不是一味的重塑山寨币！",
   "SECTION_SALES_PITCH": "让人信服的ICO（首次代币发行）营销手段",
   "GIVE_US_ALL_YOUR_MONEY": "把你所有的钱交给我们。",
-  "ICO_FAQ_QUESTION": "我真的能靠<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong> 致富吗？",
+  "ICO_FAQ_QUESTION": "Can I really get rich with <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>?",
   "ICO_FAQ_ANSWER": "当然可以！我们绝不会对您撒谎！",
   "TITLE_TRACK_ORDERS": "跟踪订单",
   "LABEL_ORDER_ID": "订单编号",
@@ -156,5 +156,6 @@
   "BTN_EDIT": "Edit",
   "INVALID_DATE": "Please provide a valid date.",
   "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
-  "MANDATORY_ORDER_ID": "Please provide an Order ID."
+  "MANDATORY_ORDER_ID": "Please provide an Order ID.",
+  "BTN_SHOW_SOLVED": "Show solved"
 }
