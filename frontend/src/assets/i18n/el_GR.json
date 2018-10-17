@@ -156,5 +156,6 @@
   "BTN_EDIT": "Edit",
   "INVALID_DATE": "Please provide a valid date.",
   "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
-  "MANDATORY_ORDER_ID": "Please provide an Order ID."
+  "MANDATORY_ORDER_ID": "Please provide an Order ID.",
+  "BTN_SHOW_SOLVED": "Show solved"
 }
