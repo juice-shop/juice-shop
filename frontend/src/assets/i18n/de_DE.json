@@ -157,5 +157,5 @@
   "INVALID_DATE": "Bitte gib ein gültiges Datum ein.",
   "SECURITY_ANSWER_PLACEHOLDER": "Antwort auf deine Sicherheitsfrage",
   "MANDATORY_ORDER_ID": "Bitte gib eine Bestell-Nr. ein.",
-  "BTN_SHOW_SOLVED": "Show solved"
+  "BTN_SHOW_SOLVED": "Gelöste anzeigen"
 }
