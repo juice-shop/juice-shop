@@ -141,13 +141,13 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "Tambah ulasan untuk produk ini",
   "LABEL_NO_REVIEWS": "Tidak ada Ulasan",
   "TITLE_TOKENSALE": "Token Sale",
-  "SECTION_ICO": "Penawaran koin awal untuk <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
   "ICO_FAQ": "FAQ tentang ICO kami",
   "SECTION_WHITEPAPER": "Whitepaper",
   "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
   "SECTION_SALES_PITCH": "Convincing ICO Sales Pitch",
   "GIVE_US_ALL_YOUR_MONEY": "Beri kami semua uang Anda.",
-  "ICO_FAQ_QUESTION": "Bisakah saya benar-benar kaya dengan <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>?",
+  "ICO_FAQ_QUESTION": "Can I really get rich with <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>?",
   "ICO_FAQ_ANSWER": "Tentu saja Anda bisa! Kami tidak akan pernah berbohong kepada Anda!",
   "TITLE_TRACK_ORDERS": "Track Orders",
   "LABEL_ORDER_ID": "ID Pesanan",
@@ -156,5 +156,6 @@
   "BTN_EDIT": "Edit",
   "INVALID_DATE": "Please provide a valid date.",
   "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
-  "MANDATORY_ORDER_ID": "Please provide an Order ID."
+  "MANDATORY_ORDER_ID": "Please provide an Order ID.",
+  "BTN_SHOW_SOLVED": "Show solved"
 }
