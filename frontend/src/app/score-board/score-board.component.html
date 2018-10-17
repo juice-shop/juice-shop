@@ -37,6 +37,9 @@
         </span>
         </label>
       </mat-button-toggle>
+      <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges" style="margin-right:10px;margin-left:10px">
+        <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> Show solved
+      </mat-button-toggle>
     </div>
 
   </mat-card>
