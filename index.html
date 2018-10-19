@@ -261,7 +261,7 @@
 				<p>
 					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-backup archive to conveniently import into CTFd or FBCTF
 				</p>
-				<script src="https://asciinema.org/a/197662.js" id="asciicast-197662" data-size="medium" data-rows="23" data-speed="1.25" async></script>
+				<script src="https://asciinema.org/a/197662.js" id="asciicast-197662" data-size="small" data-rows="23" data-speed="1.25" async></script>
 			</section>
 
 			<section>
@@ -294,7 +294,7 @@ insertHintUrls: none | free | paid
 			<section>
 				<h2>Quiet Mode</h2>
 				<p>
-					Hide ribbon &amp; notifications for zero distraction in security awareness trainings
+					Hide ribbon &amp; toasts for 0% distraction e.g. in awareness trainings
 				</p>
 				<img src="assets/quiet.png" height="350"/>
 				<p>
@@ -371,6 +371,9 @@ products:
   -
     name: 'Product with Lorem Ipsum description, filler image and random price'
 				</code></pre>
+				<p>
+					<small>Your config is validated on server startup to prevent broken or unsolvable challenges!</small>
+				</p>
 			</section>
 
 		</section>
@@ -413,14 +416,14 @@ products:
 					Automated <a href="https://travis-ci.org/bkimminich/juice-shop">Continuous Integration</a> &amp; <a href="https://juice-shop.herokuapp.com">Demo Deployment</a>
 				</p>
 				<div>
-					<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/travis-mascot-200px.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/appveyor_400x400.png" height="100" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logotype-heroku.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 				<div>
 					<img src="assets/npm-logo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/grunt-logo-no-wordmark.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/greenkeeperLogo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
 					<img src="assets/snyk.svg" height="100" style="background: none; border:none; box-shadow:none;"/>
 				</div>
@@ -443,8 +446,9 @@ products:
 					<li><a href="#/12/6">What if I crash the server?</a></li>
 					<li><a href="#/12/7">I'm stuck with a challenge!</a></li>
 					<li><a href="#/12/8">I found another vulnerability!</a></li>
-					<li><a href="#/12/9">Can I contribute to the project?</a></li>
-					<li><a href="#/12/10">Is there a contribution reward?</a></li>
+					<li><a href="#/12/9">Why are some challenges disabled?</a></li>
+					<li><a href="#/12/10">Can I contribute to the project?</a></li>
+					<li><a href="#/12/11">Is there a contribution reward?</a></li>
 				</ul>
 			</section>
 
@@ -466,7 +470,7 @@ products:
 				</p>
 				<img src="assets/box-307889_960_720.png" height="400" class="no-box"/>
 				<p>
-					<small>You can of course use everything that the application leaked to you while hacking it - even source code!</small>
+					<small>You can of course use everything that the application hands to you in the browser, so use its <code>DevTools</code>!</small>
 				</p>
 			</section>
 
@@ -527,6 +531,18 @@ products:
 			</section>
 
 			<section>
+				<h3>Why are some challenges disabled?</h3>
+				<p>
+					Some challenges are <em>actually harmful</em> in containerized or cloud environments and are deliberately disabled there
+				</p>
+				<img src="assets/docker.png" height="200" class="no-box"/>
+				<img src="assets/logotype-heroku.png" height="200" class="no-box"/>
+				<p>
+					<small>This currently only affects the XXE challenges because they can lead to instance death by <code>segfault</code> error.</small>
+				</p>
+			</section>
+
+			<section>
 				<h3>Can I contribute to the project?</h3>
 				<p>
 					Of course! Visit our <a href="https://waffle.io/bkimminich/juice-shop">backlog on Waffle.io</a> &amp; <a href="https://crowdin.com/project/owasp-juice-shop/invite">translations on Crowdin</a>
@@ -553,8 +569,13 @@ products:
 		<section>
 			<h2>Project Roadmap</h2>
 			<ul>
-				<li>Release 8.x with Angular6 and ChallengePack from <a href="https://summerofcode.withgoogle.com">GSoC</a> 2018</li>
-				<li>Have someone with actual web design skills make the UI pretty</li>
+				<li><a href="https://juice-shop-staging.herokuapp.com" target="_blank">Release 8.x</a> with Angular6 and ChallengePack from <a href="https://summerofcode.withgoogle.com">GSoC</a> 2018</li>
+				<ul>
+					<li>Even more responsive UI based on Material Design</li>
+					<li>10+ new challenges (incl. Timing Attack, Arbitrary File Write)</li>
+				</ul>
+				<li>Get help from a UI/UX expert for our <a href="https://github.com/bkimminich/juice-shop/labels/design%2Flayout" target="_blank"><span style="background: #e0af7d; color: #000000;">&nbsp;design/layout&nbsp;</span></a> tasks</li>
+				<li><a href="https://github.com/bkimminich/juice-shop/issues/440" target="_blank">Hacking Instructor</a> to guide beginners through the challenges</li>
 			</ul><br>
 			<img src="assets/dukenukemforever_1300807309.png" height="200" style="background: none; border:none; box-shadow:none;" class="fragment" data-fragment-index="2"/>
 			<p class="fragment" data-fragment-index="1">
