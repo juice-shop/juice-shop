@@ -154,8 +154,8 @@
   "BTN_TRACK": "追踪",
   "LAST_LOGIN_IP": "最后登录IP",
   "BTN_EDIT": "编辑",
-  "INVALID_DATE": "Please provide a valid date.",
-  "SECURITY_ANSWER_PLACEHOLDER": "Answer to your security question",
+  "INVALID_DATE": "请提供有效的数据",
+  "SECURITY_ANSWER_PLACEHOLDER": "安全问题的答案",
   "MANDATORY_ORDER_ID": "请提供订单号",
-  "BTN_SHOW_SOLVED": "Show solved"
+  "BTN_SHOW_SOLVED": "显示已解决的问题"
 }
