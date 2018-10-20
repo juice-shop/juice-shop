@@ -119,6 +119,11 @@
   @include custom-components-theme($blue-lightblue-theme);
 }
 
+.deeporange-indigo-theme {
+  @include angular-material-theme($deeporange-indigo-theme);
+  @include custom-components-theme($deeporange-indigo-theme);
+}
+
 .close-dialog {
   float: right;
   margin-top: 15px;
