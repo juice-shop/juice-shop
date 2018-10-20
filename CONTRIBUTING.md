@@ -1,6 +1,6 @@
 # Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Stories in Ready](https://badge.waffle.io/bkimminich/juice-shop.svg?label=ready&title=Ready)](http://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-> :negative_squared_cross_mark: **Code Freeze in effect for `master` branch!** Due to the preparations for the 8.x major release, code changes affecting
+> :negative_squared_cross_mark: **Code Freeze in effect for `master` branch!** Due to the preparations for the 8.x major release, code changes affecting 7.x
 > client-side and UI code (`/app/**`) will not be accepted in Pull Requests any more! If you would like to contribute to the new Angular6 client, please
 > code on `develop` branch of your fork only. The new UI lives in the `/frontend/**` directory.
 
