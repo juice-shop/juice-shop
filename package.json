@@ -69,7 +69,7 @@
     "express-rate-limit": "~3.2.1",
     "express-robots-txt": "~0.4",
     "express-security.txt": "~2.0",
-    "file-stream-rotator": "~0.3",
+    "file-stream-rotator": "~0.4.0",
     "fs-extra": "~7.0.0",
     "glob": "~7.1.2",
     "grunt": "~1.0",
