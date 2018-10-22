@@ -128,7 +128,7 @@ app.use(cookieParser('kekse'))
 app.use(bodyParser.json())
 
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+let accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
 app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
