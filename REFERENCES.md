@@ -159,7 +159,7 @@ where this project was mentioned or used!
   26.07.2018 ([Youtube](https://www.youtube.com/watch?v=ztfgip-UhWw))
 * [Building an AppSec Program with a Budget of $0: Beyond the OWASP Top 10](https://appseceurope2018a.sched.com/event/EgXt/building-an-appsec-program-with-a-budget-of-0-beyond-the-owasp-top-10)
   by Chris Romeo, [OWASP AppSec Europe 2018](https://2018.appsec.eu),
-  06.07.2018 :mega:
+  06.07.2018 ([Youtube](https://www.youtube.com/watch?v=5RmHQKeXgk4)) :mega:
 * [OWASP Juice Shop: Betreutes Hacken](https://www.meetup.com/de-DE/owasp-karlsruhe/events/251041169/)
   with
   [OWASP Stammtisch Karlsruhe](https://www.owasp.org/index.php/OWASP_Stammtisch_Karlsruhe),
