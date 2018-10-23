@@ -7,11 +7,11 @@ import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faBook, faStar } from '@fortawesome/fontawesome-free-solid'
+import { faBook, faStar, faTrophy } from '@fortawesome/fontawesome-free-solid'
 import { faFlag, faGem } from '@fortawesome/fontawesome-free-regular'
 import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/fontawesome-free-brands'
 
-fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc)
+fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy)
 
 @Component({
   selector: 'app-score-board',
@@ -21,6 +21,9 @@ fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDoc
 export class ScoreBoardComponent implements OnInit {
 
   public scoreBoardTablesExpanded
+  public showSolvedChallenges
+  public allChallengeCategories = []
+  public displayedChallengeCategories = []
   public displayedColumns = ['name','description','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
@@ -32,6 +35,7 @@ export class ScoreBoardComponent implements OnInit {
 
   ngOnInit () {
     this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
+    this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
@@ -54,7 +58,12 @@ export class ScoreBoardComponent implements OnInit {
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
+        if (!this.allChallengeCategories.includes(challenges[i].category)) {
+          this.allChallengeCategories.push(challenges[i].category)
+        }
       }
+      this.allChallengeCategories.sort()
+      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
       this.setOffset(challenges)
@@ -119,6 +128,20 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
   }
 
+  toggleShowSolvedChallenges () {
+    this.showSolvedChallenges = !this.showSolvedChallenges
+    localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
+  }
+
+  toggleShowChallengeCategory (category) {
+    if (!this.displayedChallengeCategories.includes(category)) {
+      this.displayedChallengeCategories.push(category)
+    } else {
+      this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
+    }
+    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+  }
+
   repeatNotification (challenge) {
     if (this.allowRepeatNotifications) {
       this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
@@ -139,6 +162,11 @@ export class ScoreBoardComponent implements OnInit {
     }
 
     challenges = challenges.filter((challenge) => challenge.difficulty === difficulty)
+    if (!this.showSolvedChallenges) {
+      challenges = challenges.filter((challenge) => !challenge.solved)
+    }
+    challenges = challenges.filter((challenge) => this.displayedChallengeCategories.includes(challenge.category))
+
     challenges = challenges.sort((challenge1: any, challenge2: any) => {
       let x = challenge1[key]
       let y = challenge2[key]

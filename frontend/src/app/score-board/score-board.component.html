@@ -37,6 +37,15 @@
         </span>
         </label>
       </mat-button-toggle>
+      <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
+        <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
+      </mat-button-toggle>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="category-container" fxLayout="row wrap">
+      <mat-button-toggle class="category-toggle" *ngFor="let category of allChallengeCategories" (change)="toggleShowChallengeCategory(category)" [checked]="displayedChallengeCategories.includes(category)">
+        {{category}}
+      </mat-button-toggle>
     </div>
 
   </mat-card>

@@ -1,41 +1,30 @@
-*.log*
-*.out
-.audit.json
-build/
-.stryker-tmp/
-.nyc_output/
-vagrant/.vagrant/
-juiceshop.sqlite
-
-# Intellij
-.idea/
-*.iml
-*.iws
-*.eml
-out/
-
-# VIM swap files
-*.swp
-
-# Vs Code
-.vscode/
-
-# Orig from merges
-*.orig
-
-# NPM
+# App
 node_modules/
+juiceshop.sqlite
+order_*.pdf
+
+# Build
+.nyc_output/
+.sass-cache/
+build/
+dist/
+logs/
+vagrant/.vagrant/
+*.orig
+*.out
 npm-debug.log.*
 package-lock.json
 
-# SASS
-.sass-cache/
+# IDEs
+.idea/
+.vscode/
+out/
+*.eml
+*.iml
+*.iws
+*.swp
 
-# App
-dist/
-order_*.pdf
-
-# GitHub-Pages Branch
+# Branch ghpages
 assets/
 !frontend/src/assets/
 
