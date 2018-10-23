@@ -128,6 +128,9 @@ where this project was mentioned or used!
 
 #### Upcoming
 
+* [OWASP Juice Shop - Public Lecture](https://www.facebook.com/events/674384206291349)
+  by Björn Kimminich, [TalTech Infotehnoloogia Kolledž](https://www.facebook.com/itcollege.ee),
+  24.10.2018 ([Live Stream](http://www.itcollege.ee/it-kolledz/avalikud-loengud/live) :godmode:)
 * [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
@@ -136,8 +139,8 @@ where this project was mentioned or used!
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
   20.11.2018
-* [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day) by Björn Kimminich,
-  [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
+* [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day)
+  by Björn Kimminich, [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
   30.11.2018
 
 #### 2018

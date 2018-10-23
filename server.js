@@ -62,6 +62,7 @@ const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
 
+require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
 
@@ -132,7 +133,7 @@ app.use(function jsonParser (req, res, next) {
 })
 
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({ filename: './access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+let accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
 app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */

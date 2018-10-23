@@ -7,8 +7,13 @@ footer {
   margin-bottom: 35px;
 }
 
-.star-container,
+.category-container,
 mat-table {
+  margin-top: 25px;
+}
+
+.star-container {
+  margin-bottom: 10px;
   margin-top: 25px;
 }
 
@@ -30,4 +35,8 @@ mat-table {
 
 .mat-raised-button {
   width: fit-content;
+}
+
+.category-toggle {
+  font-size: small;
 }
