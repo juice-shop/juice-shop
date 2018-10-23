@@ -2,6 +2,8 @@
 node_modules/
 juiceshop.sqlite
 order_*.pdf
+app/
+!frontend/src/app
 
 # Build
 .nyc_output/
@@ -12,7 +14,7 @@ logs/
 vagrant/.vagrant/
 *.orig
 *.out
-npm-debug.log.*
+*.log
 package-lock.json
 
 # IDEs
