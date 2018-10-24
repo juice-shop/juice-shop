@@ -17,6 +17,7 @@
   Visual C++ Build Tools etc.)
 - If `npm install` fails on Ubuntu (e.g. while installing PhantomJS) you
   might have to install a recent version of Node.js and try again.
+- If `npm install` runs into a `Unexpected end of JSON input` error you might need to clean your NPM cache with `npm cache clean --force` and then try again
 
 ## Docker
 
