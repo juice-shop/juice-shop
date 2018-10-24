@@ -1,9 +1,9 @@
 {
   "LANGUAGE": "ქართული",
-  "NAV_SEARCH": "Search",
-  "SEARCH_PLACEHOLDER": "Search...",
+  "NAV_SEARCH": "ძებნა",
+  "SEARCH_PLACEHOLDER": "ძებნა...",
   "NAV_COMPLAIN": "Complain?",
-  "TITLE_LOGIN": "Login",
+  "TITLE_LOGIN": "შესვლა",
   "MANDATORY_EMAIL": "Please provide an email address.",
   "MANDATORY_PASSWORD": "Please provide a password.",
   "LABEL_EMAIL": "Email",
