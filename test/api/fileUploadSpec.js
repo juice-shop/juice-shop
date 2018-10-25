@@ -91,7 +91,7 @@ describe('/file-upload', () => {
         .done(done)
     })
 
-    it('POST file type XML with Quadratic Blowup attack', done => {
+    xit('POST file type XML with Quadratic Blowup attack', done => {
       file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
