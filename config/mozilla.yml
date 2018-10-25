@@ -25,6 +25,8 @@ application:
   securityTxt:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
+challenges:
+  safetyOverride: true
 products:
   -
     name: 'Champion Sweatshirt with a Drawstring Tote'
