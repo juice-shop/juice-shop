@@ -141,7 +141,7 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "إضافة تعليق جديدة لهذا المنتج",
   "LABEL_NO_REVIEWS": "لا يوجد تعاليق",
   "TITLE_TOKENSALE": "رمز الشراء",
-  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>العرض المبدئي ل",
   "ICO_FAQ": "أسئلة وأجوبة حول إيكو لدين",
   "SECTION_WHITEPAPER": "ورقة بيضاء",
   "WHITEPAPER_REFERENCES": "بدلاً من إعادة اختراع العملة المربعة، نشير فقط إلى قائمة صفحات بيضاء رائعة!",
