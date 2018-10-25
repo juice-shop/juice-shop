@@ -110,7 +110,7 @@
     "grunt-cli": "~1.3",
     "http-server": "~0.11",
     "jasmine": "~3.2",
-    "jasmine-core": "~3.2",
+    "jasmine-core": "~3.3.0",
     "jasmine-reporters": "~2.3",
     "jest": "~23.1",
     "karma": "~3.0.0",
