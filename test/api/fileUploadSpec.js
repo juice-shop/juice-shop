@@ -59,7 +59,7 @@ describe('/file-upload', () => {
       .done(done)
   })
 
-  if (!utils.runsOnContainerEnv()) {
+  if (!utils.disableOnContainerEnv()) {
     it('POST file type XML with XXE attack against Windows', done => {
       file = path.resolve(__dirname, '../files/xxeForWindows.xml')
       form = frisby.formData()

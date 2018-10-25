@@ -51,7 +51,7 @@ module.exports = function fileUpload () {
         if (utils.notSolved(challenges.deprecatedInterfaceChallenge)) {
           utils.solve(challenges.deprecatedInterfaceChallenge)
         }
-        if (file.buffer && !utils.runsOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+        if (file.buffer && !utils.disableOnContainerEnv()) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
           const data = file.buffer.toString()
           try {
             const sandbox = { libxml, data }
