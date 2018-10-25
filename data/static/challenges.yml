@@ -480,7 +480,7 @@
   name: 'Christmas Special'
   category: 'Injection'
   description: 'Order the Christmas special offer of 2014.'
-  difficulty: 3
+  difficulty: 4
   hint: 'Find out how the application handles unavailable products and try to find a loophole.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#order-the-christmas-special-offer-of-2014'
   key: christmasSpecialChallenge
