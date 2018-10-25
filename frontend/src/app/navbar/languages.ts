@@ -9,6 +9,7 @@ export const languages = [
     { key: 'et_EE', icons: [ 'ee' ], lang: 'Eesti' },
     { key: 'fi_FI', icons: [ 'fi' ], lang: 'Suomalainen', isFlask: true },
     { key: 'fr_FR', icons: [ 'fr' ], lang: 'Français' },
+    { key: 'ka_GE', icons: [ 'ge' ], lang: 'ქართული' },
     { key: 'he_IL', icons: [ 'il' ], lang: 'עברי', isFlask: true },
     { key: 'hi_IN', icons: [ 'in' ], lang: 'हिंदी' },
     { key: 'hu_HU', icons: [ 'hu' ], lang: 'Magyar', isFlask: true },

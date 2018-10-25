@@ -56,6 +56,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :de: Björn Kimminich
 - :hong_kong: r0n1am
 - :hungary: OliverkeHU
+- :georgia: GiorgiSharia
 - :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
