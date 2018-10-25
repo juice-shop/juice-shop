@@ -4,6 +4,8 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   gitHubRibbon: false
+challenges:
+  safetyOverride: true
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both

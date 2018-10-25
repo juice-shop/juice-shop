@@ -48,17 +48,18 @@ async function createChallenges () {
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
+      let effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       try {
         const challenge = await models.Challenge.create({
           key,
           name,
           category,
-          description: disabledEnv ? (description + ' <em>(This challenge is not available on: ' + disabledEnv + ')</em>') : description,
+          description: effectiveDisabledEnv ? (description + ' <em>(This challenge is <strong>' + (config.get('challenges.safetyOverride') ? 'potentially harmful' : 'not available') + '</strong> on ' + effectiveDisabledEnv + '!)</em>') : description,
           difficulty,
           solved: false,
           hint: showHints ? hint : null,
           hintUrl: showHints ? hintUrl : null,
-          disabledEnv: utils.determineDisabledContainerEnv(disabledEnv)
+          disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv
         })
         datacache.challenges[key] = challenge
       } catch (err) {

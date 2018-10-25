@@ -32,6 +32,8 @@ application:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
+challenges:
+  safetyOverride: false
 products:
   -
     name: 'Apple Juice (1000ml)'
@@ -218,4 +220,3 @@ ctf:
   countryMapping: ~
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
-  
