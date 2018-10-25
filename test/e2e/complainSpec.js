@@ -61,7 +61,7 @@ describe('/#/complain', () => {
     protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
   })
 
-  if (!utils.runsOnContainerEnv()) {
+  if (!utils.disableOnContainerEnv()) {
     describe('challenge "xxeFileDisclosure"', () => {
       it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
         complaintMessage.sendKeys('XXE File Exfiltration Windows!')
