@@ -25,7 +25,7 @@ before_script:
 - sleep 3
 script:
 - npm test
-- npm run frisby
+# - npm run frisby
 - NODE_ENV=ctf npm run protractor
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
