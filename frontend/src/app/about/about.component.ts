@@ -4,9 +4,9 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { IImage } from 'ng-simple-slideshow'
 import fontawesome from '@fortawesome/fontawesome'
-import { faFacebook, faTwitter } from '@fortawesome/fontawesome-free-brands'
+import { faFacebook, faTwitter, faSlack } from '@fortawesome/fontawesome-free-brands'
 
-fontawesome.library.add(faFacebook, faTwitter)
+fontawesome.library.add(faFacebook, faTwitter, faSlack)
 
 @Component({
   selector: 'app-about',
@@ -17,6 +17,7 @@ export class AboutComponent implements OnInit {
 
   public twitterUrl = null
   public facebookUrl = null
+  public slackUrl = null
   public slideshowDataSource: IImage[] = []
 
   private images = [
@@ -40,6 +41,9 @@ export class AboutComponent implements OnInit {
         }
         if (config.application.facebookUrl !== null) {
           this.facebookUrl = config.application.facebookUrl
+        }
+        if (config.application.slackUrl !== null) {
+          this.slackUrl = config.application.slackUrl
         }
       }
     },(err) => console.log(err))
