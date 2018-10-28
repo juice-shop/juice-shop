@@ -9,6 +9,7 @@ application:
   gitHubRibbon: true
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
+  slackUrl: null
   recyclePage:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg

@@ -8,6 +8,7 @@ application:
   gitHubRibbon: true
   twitterUrl: null
   facebookUrl: null
+  slackUrl: null
   recyclePage:
     topProductImage: david-benjamin-Hammer.png
     bottomProductImage: Headache.png

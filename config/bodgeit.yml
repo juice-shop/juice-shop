@@ -7,8 +7,9 @@ application:
   gitHubRibbon: true
   twitterUrl: null
   facebookUrl: null
-  planetName: Bodgiton VI
+  slackUrl: null
   planetOverlayMap: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
+  planetName: Bodgiton VI
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg
