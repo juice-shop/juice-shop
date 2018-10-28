@@ -13,6 +13,7 @@ application:
   gitHubRibbon: true
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+  slackUrl: 'http://owaspslack.com'
   planetOverlayMap: orangemap2k.jpg
   planetName: Orangeuze
   recyclePage:
