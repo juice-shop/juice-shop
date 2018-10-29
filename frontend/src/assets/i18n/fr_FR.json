@@ -156,5 +156,6 @@
   "BTN_EDIT": "Modifier",
   "INVALID_DATE": "Veuillez entrer une date valide.",
   "SECURITY_ANSWER_PLACEHOLDER": "Répondre à votre question de sécurité",
-  "MANDATORY_ORDER_ID": "Veuillez fournir un ID de commande."
+  "MANDATORY_ORDER_ID": "Veuillez fournir un ID de commande.",
+  "BTN_SHOW_SOLVED": "Montrer résolu"
 }
