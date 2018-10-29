@@ -141,7 +141,7 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "为该商品添加一条评论",
   "LABEL_NO_REVIEWS": "没有评论",
   "TITLE_TOKENSALE": "代币销售",
-  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong> 的代币首次发行",
   "ICO_FAQ": "关于我们代币首次发行的常见问题",
   "SECTION_WHITEPAPER": "白皮书",
   "WHITEPAPER_REFERENCES": "我们会参考现有的优秀白皮书，而不是一味的重塑山寨币！",
