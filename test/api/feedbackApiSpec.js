@@ -151,11 +151,14 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback can be created without actually supplying comment', () => {
-    return frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader,
-      body: { rating: 1,
+    return frisby.post(API_URL + '/Feedbacks', {
+      headers: jsonHeader,
+      body: {
+        rating: 1,
         captchaId: captchaId,
         captcha: captchaAnswer
-      } })
+      }
+    })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', {
@@ -165,10 +168,13 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback cannot be created without actually supplying rating', () => {
-    return frisby.post(API_URL + '/Feedbacks', { headers: jsonHeader,
-      body: { captchaId: captchaId,
+    return frisby.post(API_URL + '/Feedbacks', {
+      headers: jsonHeader,
+      body: {
+        captchaId: captchaId,
         captcha: captchaAnswer
-      } })
+      }
+    })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {

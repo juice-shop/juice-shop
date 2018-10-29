@@ -96,12 +96,12 @@ describe('/api/Products/:id', () => {
     return frisby.put(API_URL + '/Products/1', {
       header: jsonHeader,
       body: {
-        description: "<script>alert('XSS')</script>"
+        description: '<script>alert(\'XSS\')</script>'
       }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: "<script>alert('XSS')</script>" })
+      .expect('json', 'data', { description: '<script>alert(\'XSS\')</script>' })
   })
 
   it('DELETE existing product is forbidden via public API', () => {
