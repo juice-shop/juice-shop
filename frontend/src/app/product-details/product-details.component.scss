@@ -1,0 +1,22 @@
+.img-thumbnail {
+  height: auto;
+  max-width: 100%;
+  width: 140px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+blockquote {
+  border-left: 5px solid #d3d3d3;
+}
+
+blockquote p {
+  margin-left: 5px;
+}
+
+.btn-container button:nth-child(2) {
+  left: 530px;
+  width: 50px;
+}

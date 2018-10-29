@@ -1,0 +1,27 @@
+mat-card {
+  height: auto;
+  min-width: 380px;
+  width: 25%;
+}
+
+mat-table,
+.table-heading {
+  min-width: 420px;
+  width: 50%;
+}
+
+.product-name {
+  margin-right: 25px;
+}
+
+.table-wrapper {
+  margin-top: 30px;
+}
+
+.table-heading h4 {
+  margin-bottom: 0;
+}
+
+.row.fa-4x svg {
+  margin-right: 10px;
+}
