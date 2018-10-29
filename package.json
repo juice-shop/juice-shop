@@ -181,6 +181,7 @@
     "testURL": "http://localhost",
     "globalSetup": "./test/apiTestsSetup.js",
     "globalTeardown": "./test/apiTestsTeardown.js",
+    "setupTestFrameworkScriptFile": "./test/apiTestsSetupJest.js",
     "testMatch": [
       "**/test/api/*Spec.js"
     ],
