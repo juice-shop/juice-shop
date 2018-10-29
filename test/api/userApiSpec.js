@@ -46,13 +46,13 @@ describe('/api/Users', () => {
     frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
       body: {
-        email: '<script>alert("XSS")</script>',
+        email: '<iframe src="javascript:alert(`xss`)">',
         password: 'does.not.matter'
       }
     })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { email: '<script>alert("XSS")</script>' })
+      .expect('json', 'data', { email: '<iframe src="javascript:alert(`xss`)">' })
       .done(done)
   })
 })
@@ -120,7 +120,7 @@ describe('/rest/user/authentication-details', () => {
 })
 
 describe('/rest/user/whoami', () => {
-  it('GET own user id and email on who-am-i request', done => {
+  xit('GET own user id and email on who-am-i request', done => {
     frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {

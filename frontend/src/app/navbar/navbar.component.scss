@@ -1,0 +1,40 @@
+mat-toolbar {
+  height: auto;
+  min-width: 100%;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.logo {
+  max-height: 60px;
+  padding-top: 7px;
+  width: auto;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.search-input {
+  font-size: 14px;
+  margin-right: 10px;
+  width: 11%;
+}
+
+.language-select {
+  margin-left: 10px;
+  width: 11%;
+}
+
+::ng-deep .mat-select-value-text {
+  font-size: 15px;
+}
+
+.user-info {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.flag-icon {
+  margin-right: 2px;
+}

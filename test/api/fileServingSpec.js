@@ -17,7 +17,9 @@ describe('Server', () => {
     frisby.get(URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'dist/juice-shop.min.js')
+      .expect('bodyContains', 'main.js')
+      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'polyfills.js')
       .done(done)
   })
 
@@ -25,7 +27,9 @@ describe('Server', () => {
     frisby.get(URL + '/whatever')
       .expect('status', 200)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', 'dist/juice-shop.min.js')
+      .expect('bodyContains', 'main.js')
+      .expect('bodyContains', 'runtime.js')
+      .expect('bodyContains', 'polyfills.js')
       .done(done)
   })
 
@@ -58,23 +62,16 @@ describe('Server', () => {
 
 describe('/public/images/tracking', () => {
   it('GET tracking image for "Score Board" page access challenge', done => {
-    frisby.get(URL + '/public/images/tracking/scoreboard.png')
+    frisby.get(URL + '/assets/public/images/tracking/scoreboard.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
       .done(done)
   })
 
   it('GET tracking image for "Administration" page access challenge', done => {
-    frisby.get(URL + '/public/images/tracking/administration.png')
+    frisby.get(URL + '/assets/public/images/tracking/administration.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
-      .done(done)
-  })
-
-  it('GET tracking background image for "Geocities Theme" challenge', done => {
-    frisby.get(URL + '/public/images/tracking/microfab.gif')
-      .expect('status', 200)
-      .expect('header', 'content-type', 'image/gif')
       .done(done)
   })
 })
@@ -124,22 +121,15 @@ describe('Hidden URL', () => {
       .done(done)
   })
 
-  it('GET Geocities theme CSS is accessible directly from file system path', done => {
-    frisby.get(URL + '/css/geo-bootstrap/swatch/bootstrap.css')
-      .expect('status', 200)
-      .expect('bodyContains', 'Designed and built with all the love in the world @twitter by @mdo and @fat.')
-      .done(done)
-  })
-
   it('GET Klingon translation file for "Extra Language" challenge', done => {
-    frisby.get(URL + '/i18n/tlh_AA.json')
+    frisby.get(URL + '/assets/i18n/tlh_AA.json')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .done(done)
   })
 
   it('GET blueprint file for "Retrieve Blueprint" challenge', done => {
-    frisby.get(URL + '/public/images/products/' + blueprint)
+    frisby.get(URL + '/assets/public/images/products/' + blueprint)
       .expect('status', 200)
       .done(done)
   })
