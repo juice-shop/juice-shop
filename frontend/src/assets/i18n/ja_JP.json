@@ -141,7 +141,7 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "商品にレビューを追加する",
   "LABEL_NO_REVIEWS": "レビューなし",
   "TITLE_TOKENSALE": "トークンセール",
-  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong> のイニシャルコインオファリング",
   "ICO_FAQ": "ICOに関するFAQ",
   "SECTION_WHITEPAPER": "ホワイトペーパー",
   "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
