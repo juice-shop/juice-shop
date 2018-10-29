@@ -60,7 +60,10 @@ describe('/file-upload', () => {
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
 
-      return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      return frisby.post(URL + '/file-upload', {
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
         .expect('status', 410)
     })
 
@@ -69,7 +72,10 @@ describe('/file-upload', () => {
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
 
-      return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      return frisby.post(URL + '/file-upload', {
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
         .expect('status', 410)
     })
 
@@ -78,7 +84,10 @@ describe('/file-upload', () => {
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
 
-      return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      return frisby.post(URL + '/file-upload', {
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
         .expect('status', 410)
         .expect('bodyContains', 'Detected an entity reference loop')
     })
@@ -88,7 +97,10 @@ describe('/file-upload', () => {
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
 
-      return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      return frisby.post(URL + '/file-upload', {
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
         .expect('status', 503)
     })
 
@@ -97,7 +109,10 @@ describe('/file-upload', () => {
       form = frisby.formData()
       form.append('file', fs.createReadStream(file))
 
-      return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      return frisby.post(URL + '/file-upload', {
+        headers: { 'Content-Type': form.getHeaders()['content-type'] },
+        body: form
+      })
     })
   }
 
