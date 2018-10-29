@@ -141,13 +141,13 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "إضافة تعليق جديدة لهذا المنتج",
   "LABEL_NO_REVIEWS": "لا يوجد تعاليق",
   "TITLE_TOKENSALE": "رمز الشراء",
-  "SECTION_ICO": "العرض المبدئي ل<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "<strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>العرض المبدئي ل",
   "ICO_FAQ": "أسئلة وأجوبة حول إيكو لدين",
   "SECTION_WHITEPAPER": "ورقة بيضاء",
   "WHITEPAPER_REFERENCES": "بدلاً من إعادة اختراع العملة المربعة، نشير فقط إلى قائمة صفحات بيضاء رائعة!",
   "SECTION_SALES_PITCH": "نص بيع إيكو مقنعة",
   "GIVE_US_ALL_YOUR_MONEY": "أعطن كل أموالك.",
-  "ICO_FAQ_QUESTION": "هل يمكنني حقاً أن أصبح غنيا مع <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>؟",
+  "ICO_FAQ_QUESTION": "Can I really get rich with <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>?",
   "ICO_FAQ_ANSWER": "بالطبع يمكنك! لا نستطيع الكذب ابدأ عليكم!",
   "TITLE_TRACK_ORDERS": "تتبع الطلبات",
   "LABEL_ORDER_ID": "رقم تعريف طلب الشّراء",
@@ -156,5 +156,6 @@
   "BTN_EDIT": "تعديل",
   "INVALID_DATE": "الرجاء إدخال تاريخ صحيح.",
   "SECURITY_ANSWER_PLACEHOLDER": "الإجابة على سؤال الأمان الخاص بك",
-  "MANDATORY_ORDER_ID": "الرجاء الإدلاء بمعرف طلب."
+  "MANDATORY_ORDER_ID": "الرجاء الإدلاء بمعرف طلب.",
+  "BTN_SHOW_SOLVED": "Show solved"
 }
