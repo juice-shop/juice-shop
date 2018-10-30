@@ -128,9 +128,6 @@ where this project was mentioned or used!
 
 #### Upcoming
 
-* [OWASP Juice Shop - Public Lecture](https://www.facebook.com/events/674384206291349)
-  by Björn Kimminich, [TalTech Infotehnoloogia Kolledž](https://www.facebook.com/itcollege.ee),
-  24.10.2018 ([Live Stream](http://www.itcollege.ee/it-kolledz/avalikud-loengud/live) :godmode:)
 * [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
@@ -144,6 +141,10 @@ where this project was mentioned or used!
   30.11.2018
 
 #### 2018
+
+* [OWASP Juice Shop - Public Lecture](https://www.facebook.com/events/674384206291349)
+  by Björn Kimminich, [TalTech Infotehnoloogia Kolledž](https://www.facebook.com/itcollege.ee),
+  24.10.2018
 * [JUGHH: Security Hackathon](https://www.meetup.com/jug-hamburg/events/254885956/) by [iteratec](https://www.iteratec.de/), [Java User Group Hamburg](https://www.meetup.com/jug-hamburg), 11.10.2018
 * [Playing with OWASP Juice Shop](https://mozilla.or.id/en/space/events/258-playing-with-owasp-juice-shop.html)
   by Mohammad Febri R, [Mozilla Indonesia](https://mozilla.or.id/),
