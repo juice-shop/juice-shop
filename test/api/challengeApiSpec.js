@@ -8,8 +8,8 @@ const REST_URL = 'http://localhost:3000/rest'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/api/Challenges', () => {
-  it('GET all challenges', done => {
-    frisby.get(API_URL + '/Challenges')
+  it('GET all challenges', () => {
+    return frisby.get(API_URL + '/Challenges')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data.*', {
@@ -20,11 +20,10 @@ describe('/api/Challenges', () => {
         difficulty: Joi.number(),
         solved: Joi.boolean()
       })
-      .done(done)
   })
 
-  it('POST new challenge is forbidden via public API even when authenticated', done => {
-    frisby.post(API_URL + '/Challenges', {
+  it('POST new challenge is forbidden via public API even when authenticated', () => {
+    return frisby.post(API_URL + '/Challenges', {
       headers: authHeader,
       body: {
         name: 'Invulnerability',
@@ -34,19 +33,17 @@ describe('/api/Challenges', () => {
       }
     })
       .expect('status', 401)
-      .done(done)
   })
 })
 
 describe('/api/Challenges/:id', () => {
-  it('GET existing challenge by id is forbidden via public API even when authenticated', done => {
-    frisby.get(API_URL + '/Challenges/1', { headers: authHeader })
+  it('GET existing challenge by id is forbidden via public API even when authenticated', () => {
+    return frisby.get(API_URL + '/Challenges/1', { headers: authHeader })
       .expect('status', 401)
-      .done(done)
   })
 
-  it('PUT update existing challenge is forbidden via public API even when authenticated', done => {
-    frisby.put(API_URL + '/Challenges/1', {
+  it('PUT update existing challenge is forbidden via public API even when authenticated', () => {
+    return frisby.put(API_URL + '/Challenges/1', {
       headers: authHeader,
       body: {
         name: 'Vulnerability',
@@ -55,38 +52,32 @@ describe('/api/Challenges/:id', () => {
       }
     })
       .expect('status', 401)
-      .done(done)
   })
 
-  it('DELETE existing challenge is forbidden via public API even when authenticated', done => {
-    frisby.del(API_URL + '/Challenges/1', { headers: authHeader })
+  it('DELETE existing challenge is forbidden via public API even when authenticated', () => {
+    return frisby.del(API_URL + '/Challenges/1', { headers: authHeader })
       .expect('status', 401)
-      .done(done)
   })
 })
 
 describe('/rest/continue-code', () => {
-  it('GET can retrieve continue code for currently solved challenges', done => {
-    frisby.get(REST_URL + '/continue-code')
+  it('GET can retrieve continue code for currently solved challenges', () => {
+    return frisby.get(REST_URL + '/continue-code')
       .expect('status', 200)
-      .done(done)
   })
 
-  it('PUT invalid continue code is rejected', done => {
-    frisby.put(REST_URL + '/continue-code/apply/ThisIsDefinitelyNotAValidContinueCode')
+  it('PUT invalid continue code is rejected', () => {
+    return frisby.put(REST_URL + '/continue-code/apply/ThisIsDefinitelyNotAValidContinueCode')
       .expect('status', 404)
-      .done(done)
   })
 
-  it('PUT continue code for more than one challenge is accepted', done => { // using [1, 2] here
-    frisby.put(REST_URL + '/continue-code/apply/yXjv6Z5jWJnzD6a3YvmwPRXK7roAyzHDde2Og19yEN84plqxkMBbLVQrDeoY')
+  it('PUT continue code for more than one challenge is accepted', () => { // using [1, 2] here
+    return frisby.put(REST_URL + '/continue-code/apply/yXjv6Z5jWJnzD6a3YvmwPRXK7roAyzHDde2Og19yEN84plqxkMBbLVQrDeoY')
       .expect('status', 200)
-      .done(done)
   })
 
-  it('PUT continue code for non-existent challenge #99 is accepted', done => {
-    frisby.put(REST_URL + '/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
+  it('PUT continue code for non-existent challenge #99 is accepted', () => {
+    return frisby.put(REST_URL + '/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
       .expect('status', 200)
-      .done(done)
   })
 })

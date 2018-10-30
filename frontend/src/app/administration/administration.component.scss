@@ -1,0 +1,45 @@
+.container {
+  justify-content: center;
+}
+
+.heading {
+  background: rgba(0, 0, 0, 0.13);
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 12px 20px;
+}
+
+.user-container.recycle-container,
+.customer-container {
+  max-width: 600px;
+  min-width: 300px;
+  width: 70%;
+}
+
+.user-table,
+.recycle-table,
+.customer-table {
+  margin-bottom: 25px;
+}
+
+.mat-column-icon svg,
+.mat-column-user_detail button {
+  margin-left: 38%;
+}
+
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
+  align-items: normal;
+  display: block;
+}
+
+.mat-column-comment {
+  padding: 10px;
+}
+
+mat-cell:last-child,
+mat-footer-cell:last-child,
+mat-header-cell:last-child {
+  padding-right: 50px;
+}

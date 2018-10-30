@@ -6,8 +6,8 @@ protractor.expect = {
       })
 
       it("challenge '" + context.challenge + "' should be solved on score board", () => {
-        expect(element(by.id(context.challenge + '.solved')).getAttribute('class')).not.toMatch('ng-hide')
-        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('class')).toMatch('ng-hide')
+        expect(element(by.id(context.challenge + '.solved')).getAttribute('hidden')).not.toBeTruthy()
+        expect(element(by.id(context.challenge + '.notSolved')).getAttribute('hidden')).toBeTruthy()
       })
     })
   }
@@ -18,8 +18,8 @@ protractor.beforeEach = {
     describe('(shared)', () => {
       beforeEach(() => {
         browser.get('/#/login')
-        element(by.model('user.email')).sendKeys(context.email)
-        element(by.model('user.password')).sendKeys(context.password)
+        element(by.id('email')).sendKeys(context.email)
+        element(by.id('password')).sendKeys(context.password)
         element(by.id('loginButton')).click()
       })
 
