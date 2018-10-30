@@ -33,6 +33,16 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.registerAdminChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  if (utils.notSolved(challenges.registerAdminChallenge)) {
+    if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
+      utils.solve(challenges.registerAdminChallenge)
+    }
+  }
+  next()
+}
+
 exports.accessControlChallenges = () => ({ url }, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
     utils.solve(challenges.scoreBoardChallenge)
@@ -40,8 +50,6 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.adminSectionChallenge)
   } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
     utils.solve(challenges.tokenSaleChallenge)
-  } else if (utils.notSolved(challenges.geocitiesThemeChallenge) && utils.endsWith(url, '/microfab.gif')) {
-    utils.solve(challenges.geocitiesThemeChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
@@ -100,8 +108,8 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.typosquattingNpmChallenge)) {
     typosquattingNpmChallenge()
   }
-  if (utils.notSolved(challenges.typosquattingBowerChallenge)) {
-    typosquattingBowerChallenge()
+  if (utils.notSolved(challenges.typosquattingAngularChallenge)) {
+    typosquattingAngularChallenge()
   }
   if (utils.notSolved(challenges.hiddenImageChallenge)) {
     hiddenImageChallenge()
@@ -222,17 +230,17 @@ function typosquattingNpmChallenge () {
   })
 }
 
-function typosquattingBowerChallenge () {
-  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%angular-tooltipp%' } } }
+function typosquattingAngularChallenge () {
+  models.Feedback.findAndCountAll({ where: { comment: { [Op.like]: '%ng2-bar-rating%' } } }
   ).then(({ count }) => {
     if (count > 0) {
-      utils.solve(challenges.typosquattingBowerChallenge)
+      utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
-  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%angular-tooltipp%' } } }
+  models.Complaint.findAndCountAll({ where: { message: { [Op.like]: '%ng2-bar-rating%' } } }
   ).then(({ count }) => {
     if (count > 0) {
-      utils.solve(challenges.typosquattingBowerChallenge)
+      utils.solve(challenges.typosquattingAngularChallenge)
     }
   })
 }
