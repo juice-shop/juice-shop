@@ -5,5 +5,4 @@ test/
 build/
 dist/
 vagrant/
-frontend/node_modules/
 Dockerfile
