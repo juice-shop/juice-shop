@@ -218,4 +218,10 @@ ctf:
     httpHeaderXssChallenge:
       name: Puerto Rico
       code: PR
+    sstiChallenge:
+      name: Indonesia
+      code: ID
+    ssrfChallenge:
+      name: Thailand
+      code: TH
 

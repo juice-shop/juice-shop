@@ -564,3 +564,20 @@
   hint: 'Punctuality is the politeness of kings.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-three-times-as-the-same-user'
   key: timingAttackChallenge
+-
+  name: 'SSTi'
+  category: 'Injection'
+  description: 'Infect the server with malware by abusing arbitrary command execution.'
+  difficulty: 6
+  hint: 'The search for a personal identity is the life of a man.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
+  key: sstiChallenge
+-
+  name: 'SSRF'
+  category: 'Broken Access Control'
+  description: 'Request a hidden resource on server through server.'
+  difficulty: 6
+  hint: 'Reverse the Bad and it gets Good again.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
+  key: ssrfChallenge
+  

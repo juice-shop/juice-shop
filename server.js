@@ -19,6 +19,8 @@ const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 const fileUpload = require('./routes/fileUpload')
+const profileImageFileUpload = require('./routes/profileImageFileUpload')
+const profileImageUrlUpload = require('./routes/profileImageUrlUpload')
 const redirect = require('./routes/redirect')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
@@ -57,6 +59,8 @@ const trackOrder = require('./routes/trackOrder')
 const countryMapping = require('./routes/countryMapping')
 const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
+const userProfile = require('./routes/userProfile')
+const updateUserProfile = require('./routes/updateUserProfile')
 const config = require('config')
 
 errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
@@ -69,6 +73,8 @@ require('./lib/startup/cleanupFtpFolder')()
 app.locals.captchaId = 0
 app.locals.captchaReqId = 1
 app.locals.captchaBypassReqTimes = []
+app.locals.abused_ssti_bug = false
+app.locals.abused_ssrf_bug = false
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -101,6 +107,9 @@ app.use('/assets/public/images/tracking', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
 
+/* Checks for challenges solved by abusing SSTi and SSRF bugs */
+app.use('/solve/challenges/server-side', verify.serverSideChallenges())
+
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndex('ftp', { 'icons': true }))
 app.use('/ftp/:file', fileServer())
@@ -117,8 +126,11 @@ app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 
 app.use(cookieParser('kekse'))
 
+app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
 app.post('/file-upload', upload.single('file'), fileUpload())
+app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
+app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -130,7 +142,6 @@ app.use(function jsonParser (req, res, next) {
   }
   next()
 })
-
 /* HTTP request logging */
 let accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
 app.use(morgan('combined', { stream: accessLogStream }))
@@ -183,7 +194,7 @@ app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before epilogue takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 /* Captcha verification before epilogue takes over */
-app.post('/api/Feedbacks', insecurity.verifyCaptcha())
+app.post('/api/Feedbacks', captcha.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* Register admin challenge verification */
@@ -252,6 +263,11 @@ app.post('/b2b/v2/orders', b2bOrder())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
+
+/* Routes for profile page */
+app.get('/profile', userProfile())
+app.post('/profile', updateUserProfile())
+
 app.use(angular())
 
 /* Error Handling */

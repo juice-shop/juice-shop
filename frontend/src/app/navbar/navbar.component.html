@@ -12,6 +12,10 @@
       </span>
     </button>
     <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="goToProfilePage()" *ngIf="isLoggedIn()">
+        <i class="fas fa-user-circle fa-lg"></i>
+        {{userEmail}}
+      </button>
       <button mat-menu-item routerLink="/recycle" *ngIf="isLoggedIn()">
         <i class="fas fa-recycle fa-lg"></i>
         {{"NAV_RECYCLE" | translate}}
