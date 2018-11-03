@@ -147,4 +147,8 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
   }
 
+  goToProfilePage () {
+    window.location.replace('/profile')
+  }
+
 }

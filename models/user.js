@@ -5,6 +5,10 @@ const challenges = require('../data/datacache').challenges
 
 module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
+    username: {
+      type: STRING,
+      defaultValue: 'Anonymous'
+    },
     email: {
       type: STRING,
       unique: true,
@@ -28,6 +32,10 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     lastLoginIp: {
       type: STRING,
       defaultValue: '0.0.0.0'
+    },
+    profileImage: {
+      type: STRING,
+      defaultValue: 'default.svg'
     }
   })
 
