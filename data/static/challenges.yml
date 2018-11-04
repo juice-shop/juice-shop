@@ -572,6 +572,9 @@
   hint: 'The search for a personal identity is the life of a man.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
   key: sstiChallenge
+  disabledEnv:
+  - Docker
+  - Heroku
 -
   name: 'SSRF'
   category: 'Broken Access Control'

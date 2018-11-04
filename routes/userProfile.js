@@ -13,7 +13,7 @@ module.exports = function getUserProfile () {
         models.User.findById(loggedInUser.data.id).then(user => {
           let jadeTemplate = buf.toString()
           let username = user.dataValues.username
-          if (username.match(/#\{(.*)\}/) !== null) {
+          if (username.match(/#\{(.*)\}/) !== null && !utils.disableOnContainerEnv()) {
             req.app.locals.abused_ssti_bug = true
             const code = username.substring(2, username.length - 1)
             try {
@@ -21,6 +21,8 @@ module.exports = function getUserProfile () {
             } catch (err) {
               username = '\\' + username
             }
+          } else {
+            username = '\\' + username
           }
           jadeTemplate = jadeTemplate.replace(/_username_/g, username)
           jadeTemplate = jadeTemplate.replace(/_hash_/g, insecurity.hash(user.dataValues.email))
