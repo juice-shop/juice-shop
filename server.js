@@ -63,7 +63,7 @@ const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
 const config = require('config')
 
-errorhandler.title = 'Juice Shop (Express ' + utils.version('express') + ')'
+errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
