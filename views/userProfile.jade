@@ -1,9 +1,10 @@
 doctype html
 html(lang='en')
     head
-        title OWASP Juice Shop
+        title _title_
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='icon', type='image/x-icon', href='/assets/public/_favicon_')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
@@ -11,7 +12,7 @@ html(lang='en')
         nav.navbar.navbar-inverse(style='background: #263238;border-radius:0px;')
             .container-fluid
                 .navbar-header
-                    a.navbar-brand(href='/') OWASP Juice Shop
+                    a.navbar-brand(href='/') _title_
                 ul.nav.navbar-nav
                     li
                         a(href='/#/')
@@ -20,30 +21,32 @@ html(lang='en')
         .container
             h3 User Profile 
             .row(style='margin-top:10%;')
-                .col-sm-4
+                .col-sm-5
                     img.img-rounded(src='assets/public/images/uploads/'+profileImage, alt='Cinque Terre', width='304', height='236')
-                    p(style='padding-left:36%;margin-top:8%;') usrname
+                    p(style='padding-left:25%;margin-top:8%;') _username_
                     form(action='/profile/image/file' , style='margin-top:10%;',method='post',enctype='multipart/form-data')
                         .form-group
                             input(type='file', accept='image/*',name='file')
-                        button.btn.btn-default(type='submit') Submit
+                        button.btn.btn-default(type='submit') Upload Picture
 
-                    p(style='margin-top:10%;') ------------------------- Or -------------------------
+                    p(style='margin-top:5%;') ------------ or ------------
 
-                    form(action='/profile/image/url' , style='margin-top:10%;',method='post')
+                    form(action='/profile/image/url' , style='margin-top:5%;',method='post')
                         .form-group
-                            label(for='url') Image Url:
-                            input#url.form-control(type='text',name='imageUrl')
-                        button(id='submitUrl').btn.btn-default(type='submit') Submit
+                            label(for='url') Gravatar Url:
+                            input#url.form-control(type='text',name='imageUrl',placeholder='e.g. https://www.gravatar.com/avatar/_hash_')
+                        button(id='submitUrl').btn.btn-default(type='submit') Link Gravatar
+
+                        p(style='margin-bottom:10%;')
 
 
-                .col-sm-8
+                .col-sm-7
                     form(action='/profile',method='post')
                         .form-group
                             label(for='username') Username:
                             input#username.form-control(type='text',name='username',placeholder='Enter Username',value='#{username}')
                         .form-group
                             label(for='email') Email:
-                            input#email.form-control(type='email',name='email',placeholder='Enter email',value='#{email}',readonly=true)
-                        button(id='submit').btn.btn-default(type='submit') Submit
+                            input#email.form-control(type='email',name='email',value='#{email}',readonly=true)
+                        button(id='submit').btn.btn-default(type='submit') Set Username
         

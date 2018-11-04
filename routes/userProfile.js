@@ -2,6 +2,7 @@ const fs = require('fs')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
 const jade = require('jade')
+const config = require('config')
 
 module.exports = function getUserProfile () {
   return (req, res, next) => {
@@ -10,7 +11,7 @@ module.exports = function getUserProfile () {
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         models.User.findById(loggedInUser.data.id).then(user => {
-          const templateString = buf.toString()
+          let jadeTemplate = buf.toString()
           let username = user.dataValues.username
           if (username.match(/#\{(.*)\}/) !== null) {
             req.app.locals.abused_ssti_bug = true
@@ -21,7 +22,11 @@ module.exports = function getUserProfile () {
               username = '\\' + username
             }
           }
-          const fn = jade.compile(templateString.replace('usrname', username))
+          jadeTemplate = jadeTemplate.replace(/_username_/g, username)
+          jadeTemplate = jadeTemplate.replace(/_hash_/g, insecurity.hash(user.dataValues.email))
+          jadeTemplate = jadeTemplate.replace(/_title_/g, config.get('application.name'))
+          jadeTemplate = jadeTemplate.replace(/_favicon_/g, favicon())
+          const fn = jade.compile(jadeTemplate)
           res.send(fn(user.dataValues))
         }).catch(error => {
           next(error)
@@ -30,5 +35,11 @@ module.exports = function getUserProfile () {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
     })
+  }
+
+  function favicon () {
+    let icon = config.get('application.favicon')
+    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
+    return icon
   }
 }

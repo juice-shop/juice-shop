@@ -7,7 +7,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
     username: {
       type: STRING,
-      defaultValue: 'Anonymous'
+      defaultValue: ''
     },
     email: {
       type: STRING,
