@@ -1,5 +1,6 @@
 const fs = require('fs')
 const models = require('../models/index')
+const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const jade = require('jade')
 const config = require('config')
