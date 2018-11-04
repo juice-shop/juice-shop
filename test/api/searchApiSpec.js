@@ -30,7 +30,7 @@ describe('/rest/product/search', () => {
     return frisby.get(REST_URL + '/product/search?q=\';')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;;&quot;: syntax error')
   })
 
@@ -38,7 +38,7 @@ describe('/rest/product/search', () => {
     return frisby.get(REST_URL + '/product/search?q=\' union select null,id,email,password,null,null,null from users--')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
   })
 
@@ -46,7 +46,7 @@ describe('/rest/product/search', () => {
     return frisby.get(REST_URL + '/product/search?q=\') union select null,id,email,password,null,null,null from users--')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'SQLITE_ERROR: near &quot;union&quot;: syntax error')
   })
 
@@ -54,7 +54,7 @@ describe('/rest/product/search', () => {
     return frisby.get(REST_URL + '/product/search?q=\')) union select * from users--')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'SQLITE_ERROR: SELECTs to the left and right of UNION do not have the same number of result columns', () => {})
   })
 

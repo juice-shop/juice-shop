@@ -68,7 +68,7 @@ describe('/rest/user/change-password', () => {
     return frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -76,7 +76,7 @@ describe('/rest/user/change-password', () => {
     return frisby.get(REST_URL + '/user/change-password?new=foo&repeat=foo', { headers: { 'Authorization': 'Bearer unknown' } })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -169,7 +169,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password')
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -211,7 +211,7 @@ describe('/rest/user/reset-password', () => {
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
@@ -226,7 +226,7 @@ describe('/rest/user/reset-password', () => {
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>Juice Shop (Express ~')
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })
