@@ -27,5 +27,5 @@ $bluegrey-lightgreen-warn:  mat-palette($mat-deep-orange);
 $bluegrey-lightgreen-theme: mat-dark-theme($bluegrey-lightgreen-primary, $bluegrey-lightgreen-accent, $bluegrey-lightgreen-warn);
 
 $deeporange-indigo-primary: mat-palette($mat-deep-orange, 700, 500, 900);
-$deeporange-indigo-accent:  mat-palette($mat-indigo, 800, 600, 900);
+$deeporange-indigo-accent:  mat-palette($mat-indigo, A200, A100, A400);
 $deeporange-indigo-theme: mat-light-theme($deeporange-indigo-primary, $deeporange-indigo-accent);
