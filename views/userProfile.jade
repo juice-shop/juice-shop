@@ -8,8 +8,8 @@ html(lang='en')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-    body(style='background: black;color:#9d9d9d;')
-        nav.navbar.navbar-inverse(style='background: #263238;border-radius:0px;')
+    body(style='background: _bgColor_;color:_textColor_;')
+        nav.navbar.navbar-inverse(style='background: _navColor_;border-radius:0px;')
             .container-fluid
                 .navbar-header
                     a.navbar-brand(href='/') _title_
@@ -34,7 +34,7 @@ html(lang='en')
                     form(action='/profile/image/url' , style='margin-top:5%;',method='post')
                         .form-group
                             label(for='url') Gravatar Url:
-                            input#url.form-control(type='text',name='imageUrl',placeholder='e.g. https://www.gravatar.com/avatar/_hash_')
+                            input#url.form-control(type='text',name='imageUrl',placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_')
                         button(id='submitUrl').btn.btn-default(type='submit') Link Gravatar
 
                         p(style='margin-bottom:10%;')

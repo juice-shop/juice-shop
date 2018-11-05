@@ -26,9 +26,12 @@ module.exports = function getUserProfile () {
             username = '\\' + username
           }
           jadeTemplate = jadeTemplate.replace(/_username_/g, username)
-          jadeTemplate = jadeTemplate.replace(/_hash_/g, insecurity.hash(user.dataValues.email))
+          jadeTemplate = jadeTemplate.replace(/_emailHash_/g, insecurity.hash(user.dataValues.email))
           jadeTemplate = jadeTemplate.replace(/_title_/g, config.get('application.name'))
           jadeTemplate = jadeTemplate.replace(/_favicon_/g, favicon())
+          jadeTemplate = jadeTemplate.replace(/bgColor/g, 'black')
+          jadeTemplate = jadeTemplate.replace(/textColor/g, '#9d9d9d')
+          jadeTemplate = jadeTemplate.replace(/navColor/g, '#263238')
           const fn = jade.compile(jadeTemplate)
           res.send(fn(user.dataValues))
         }).catch(error => {
