@@ -306,6 +306,8 @@ Refer to the
 [Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
+### Liberapay ![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)
+
 ### Crypto Currency
 
 [![Bitcoin](https://img.shields.io/badge/bitcoin-1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm-orange.svg)](https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm)
