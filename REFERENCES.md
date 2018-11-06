@@ -142,6 +142,9 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [OWASP Portland Chapter Meeting - OWASP Juice Shop!](http://calagator.org/events/1250474481)
+  facilitated by David Quisenberry, [OWASP Portland Chapter](https://www.owasp.org/index.php/Portland),
+  08.11.2018
 * [OWASP Juice Shop - Public Lecture](https://www.facebook.com/events/674384206291349)
   by Björn Kimminich, [TalTech Infotehnoloogia Kolledž](https://www.facebook.com/itcollege.ee),
   24.10.2018
