@@ -15,7 +15,7 @@ export class OAuthComponent implements OnInit {
   ngOnInit () {
     console.log(this.route.snapshot.data)
     this.userService.oauthLogin(this.parseRedirectUrlParams()['access_token']).subscribe((profile: any) => {
-      this.userService.save({ email: profile.email, password: btoa(profile.email) }).subscribe(() => {
+      this.userService.save({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')) }).subscribe(() => {
         this.login(profile)
       }, () => this.login(profile))
     }, (error) => {
@@ -25,7 +25,7 @@ export class OAuthComponent implements OnInit {
   }
 
   login (profile) {
-    this.userService.login({ email: profile.email, password: btoa(profile.email), oauth: true }).subscribe((authentication) => {
+    this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true }).subscribe((authentication) => {
       this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
       localStorage.setItem('token', authentication.token)
