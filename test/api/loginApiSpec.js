@@ -102,6 +102,21 @@ describe('/rest/user/login', () => {
       })
   })
 
+  it('POST login with Amy credentials', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'amy@' + config.get('application.domain'),
+        password: 'K1f.....................'
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+  })
+
   it('POST login as bjoern.kimminich@googlemail.com with known password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,

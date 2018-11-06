@@ -35,6 +35,9 @@ module.exports = function login () {
     if (utils.notSolved(challenges.loginRapperChallenge) && req.body.email === 'mc.safesearch@' + config.get('application.domain') && req.body.password === 'Mr. N00dles') {
       utils.solve(challenges.loginRapperChallenge)
     }
+    if (utils.notSolved(challenges.loginAmyChallenge) && req.body.email === 'amy@' + config.get('application.domain') && req.body.password === 'K1f.....................') {
+      utils.solve(challenges.loginAmyChallenge)
+    }
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
