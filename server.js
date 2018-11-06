@@ -279,7 +279,9 @@ exports.start = async function (readyCallback) {
   await datacreator()
 
   server.listen(process.env.PORT || config.get('server.port'), () => {
-    console.log(colors.yellow('Server listening on port %d'), config.get('server.port'))
+    console.log()
+    console.log(colors.green('Server listening on port %d'), config.get('server.port'))
+    console.log()
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
