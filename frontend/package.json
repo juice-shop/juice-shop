@@ -45,22 +45,22 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "typescript": "~2.7.2",
     "@angular/language-service": "^6.0.0",
-    "@types/jasmine": "~2.8.6",
-    "@types/jasminewd2": "~2.0.3",
+    "@types/jasmine": "2.8.6",
+    "@types/jasminewd2": "2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
     "jasmine": "~2.99",
     "jasmine-core": "~2.99",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.0.0",
+    "karma": "~3.1.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~1.4.2",
-    "karma-jasmine": "~1.1.1",
+    "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "tslint-config-standard": "~7.0.0"
+    "tslint-config-standard": "~7.0.0",
+    "typescript": "~2.7.2"
   }
 }
