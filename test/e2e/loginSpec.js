@@ -90,7 +90,7 @@ describe('/#/login', () => {
   describe('challenge "oauthUserPassword"', () => {
     it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
-      password.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      password.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
       loginButton.click()
     })
 
