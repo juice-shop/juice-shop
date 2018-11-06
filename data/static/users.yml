@@ -49,3 +49,9 @@
   password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
   key: timo
   isAdmin: true
+-
+  email: amy
+  password: 'K1f.....................'
+  key: amy
+  isAdmin: false
+  

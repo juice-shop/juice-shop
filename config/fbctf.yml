@@ -224,4 +224,7 @@ ctf:
     ssrfChallenge:
       name: Thailand
       code: TH
+    loginAmyChallenge:
+      name: Andorra
+      code: AD
 

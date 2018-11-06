@@ -583,4 +583,11 @@
   hint: 'Reverse the Bad and it gets Good again.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
   key: ssrfChallenge
-  
+-
+  name: 'Login Amy'
+  category: 'Sensitive Data Exposure'
+  description: 'Log in with Amy''s original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the "One Important Final Note")'
+  difficulty: 3
+  hint: 'This challenge will make you go after a needle in a haystack.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
+  key: loginAmyChallenge
