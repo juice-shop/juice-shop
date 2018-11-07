@@ -20,6 +20,8 @@ env:
   - DISPLAY=:99
 before_install:
 - rm -rf node_modules
+install:
+- travis_wait npm install
 before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
@@ -49,7 +51,8 @@ notifications:
     on_pull_requests: false
 before_deploy:
 - rm -rf node_modules
-- npm install --production
+- travis_wait npm install --production --unsafe-perm
+- rm -rf frontend/node_modules
 - npm run package
 deploy:
 - provider: heroku
