@@ -15,7 +15,7 @@ module.exports = function saveLoginIp () {
       if (lastLoginIp === undefined) {
         lastLoginIp = req.connection.remoteAddress
       }
-      models.User.findById(loggedInUser.data.id).then(user => {
+      models.User.findByPk(loggedInUser.data.id).then(user => {
         user.updateAttributes({ lastLoginIp: lastLoginIp }).then(user => {
           res.json(user)
         }).catch(error => {
