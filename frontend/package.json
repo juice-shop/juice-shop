@@ -53,7 +53,7 @@
     "jasmine": "~2.99",
     "jasmine-core": "~2.99",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.1.1",
+    "karma": "~1.7.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.2",
