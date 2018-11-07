@@ -6,12 +6,13 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import fontawesome from '@fortawesome/fontawesome'
-import { faBook, faStar, faTrophy } from '@fortawesome/fontawesome-free-solid'
-import { faFlag, faGem } from '@fortawesome/fontawesome-free-regular'
-import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/fontawesome-free-brands'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faBook, faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
+import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/free-brands-svg-icons'
 
-fontawesome.library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy)
+library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy)
+dom.watch()
 
 @Component({
   selector: 'app-score-board',

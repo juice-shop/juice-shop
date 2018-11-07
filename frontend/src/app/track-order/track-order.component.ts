@@ -1,10 +1,11 @@
 import { Router } from '@angular/router'
 import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
-import fontawesome from '@fortawesome/fontawesome'
-import { faMapMarker } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faMapMarker } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faMapMarker)
+library.add(faMapMarker)
+dom.watch()
 
 @Component({
   selector: 'app-track-order',

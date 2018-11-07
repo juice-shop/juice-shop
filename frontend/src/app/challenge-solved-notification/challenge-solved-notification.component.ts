@@ -6,10 +6,11 @@ import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import fontawesome from '@fortawesome/fontawesome'
-import { faClipboard, faFlagCheckered, faGlobe } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faClipboard, faFlagCheckered, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faGlobe, faFlagCheckered, faClipboard)
+library.add(faGlobe, faFlagCheckered, faClipboard)
+dom.watch()
 
 @Component({
   selector: 'app-challenge-solved-notification',

@@ -3,10 +3,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
 import { ProductReviewService } from '../Services/product-review.service'
 
-import fontawesome from '@fortawesome/fontawesome'
-import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft)
+library.add(faPaperPlane, faArrowCircleLeft)
+dom.watch()
 
 @Component({
   selector: 'app-product-review-edit',

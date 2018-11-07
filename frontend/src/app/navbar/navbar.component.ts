@@ -23,12 +23,13 @@ import {
   faTrophy,
   faUserCircle,
   faUserSecret
-} from '@fortawesome/fontawesome-free-solid'
-import { faComments } from '@fortawesome/fontawesome-free-regular'
-import { faGithub } from '@fortawesome/fontawesome-free-brands'
-import fontawesome from '@fortawesome/fontawesome'
+} from '@fortawesome/free-solid-svg-icons'
+import { faComments } from '@fortawesome/free-regular-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
 
-fontawesome.library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
+library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
+dom.watch()
 
 @Component({
   selector: 'app-navbar',

@@ -1,9 +1,10 @@
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Component, Inject, OnInit } from '@angular/core'
-import fontawesome from '@fortawesome/fontawesome'
-import { faArrowCircleLeft } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faArrowCircleLeft)
+library.add(faArrowCircleLeft)
+dom.watch()
 
 @Component({
   selector: 'app-qr-code',

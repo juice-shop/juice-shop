@@ -3,10 +3,11 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { IImage } from 'ng-simple-slideshow'
-import fontawesome from '@fortawesome/fontawesome'
-import { faFacebook, faTwitter, faSlack } from '@fortawesome/fontawesome-free-brands'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faFacebook, faTwitter, faSlack } from '@fortawesome/free-brands-svg-icons'
 
-fontawesome.library.add(faFacebook, faTwitter, faSlack)
+library.add(faFacebook, faTwitter, faSlack)
+dom.watch()
 
 @Component({
   selector: 'app-about',

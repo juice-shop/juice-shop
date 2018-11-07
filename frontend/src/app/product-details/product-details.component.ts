@@ -3,11 +3,12 @@ import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
-import fontawesome from '@fortawesome/fontawesome'
-import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 import { FormControl, Validators } from '@angular/forms'
 
-fontawesome.library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp)
+library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp)
+dom.watch()
 
 @Component({
   selector: 'app-product-details',

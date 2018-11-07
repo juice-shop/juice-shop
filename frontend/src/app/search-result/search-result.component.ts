@@ -11,10 +11,11 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import fontawesome from '@fortawesome/fontawesome'
-import { faCartPlus, faEye } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faEye, faCartPlus)
+library.add(faEye, faCartPlus)
+dom.watch()
 
 @Component({
   selector: 'app-search-result',

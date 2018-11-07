@@ -7,7 +7,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { BasketService } from '../Services/basket.service'
 import { Component, OnInit } from '@angular/core'
-import fontawesome from '@fortawesome/fontawesome'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
   faCreditCard,
@@ -16,11 +16,12 @@ import {
   faMinusSquare,
   faPlusSquare,
   faThumbsUp
-} from '@fortawesome/fontawesome-free-solid'
-import { faCreditCard as faCredit, faTrashAlt } from '@fortawesome/fontawesome-free-regular/'
-import { faBtc, faEthereum, faPaypal } from '@fortawesome/fontawesome-free-brands'
+} from '@fortawesome/free-solid-svg-icons'
+import { faCreditCard as faCredit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
+import { faBtc, faEthereum, faPaypal } from '@fortawesome/free-brands-svg-icons'
 
-fontawesome.library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp)
+library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp)
+dom.watch()
 
 @Component({
   selector: 'app-basket',
