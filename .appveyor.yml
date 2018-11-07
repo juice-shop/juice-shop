@@ -21,7 +21,7 @@ install:
   - 'node --version && npm --version'
   - 'if exist node_modules rd /Q /S node_modules'
   - 'npm install --production'
-  - 'rd /Q /S frontend/node_modules'
+  - 'rd /Q /S frontend\node_modules'
   - 'npm run package'
 build: off
 test: off
