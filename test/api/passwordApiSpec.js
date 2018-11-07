@@ -39,7 +39,7 @@ describe('/rest/user/change-password', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
-        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
       }
     })
       .expect('status', 200)
@@ -131,8 +131,8 @@ describe('/rest/user/reset-password', () => {
       body: {
         email: 'bjoern.kimminich@googlemail.com',
         answer: 'West-2082',
-        new: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==',
-        repeat: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+        new: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==',
+        repeat: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
       }
     })
       .expect('status', 200)

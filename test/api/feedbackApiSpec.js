@@ -107,7 +107,7 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
-        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
       }
     })
       .expect('status', 200)
@@ -140,7 +140,7 @@ describe('/api/Feedbacks', () => {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
-        password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
       }
     })
       .expect('status', 200)
