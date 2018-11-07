@@ -3,12 +3,13 @@ import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
-import fontawesome from '@fortawesome/fontawesome'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
-import { faKey } from '@fortawesome/fontawesome-free-solid'
-import { faGoogle } from '@fortawesome/fontawesome-free-brands'
+import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
-fontawesome.library.add(faKey, faGoogle)
+library.add(faKey, faGoogle)
+dom.watch()
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 const clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'

@@ -4,10 +4,11 @@ import { UserService } from '../Services/user.service'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
-import fontawesome from '@fortawesome/fontawesome'
-import { faBomb } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faBomb } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faBomb)
+library.add(faBomb)
+dom.watch()
 
 @Component({
   selector: 'app-complaint',

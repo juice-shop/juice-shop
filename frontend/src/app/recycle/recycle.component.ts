@@ -3,10 +3,11 @@ import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
 import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
-import fontawesome from '@fortawesome/fontawesome'
-import { faPaperPlane } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faPaperPlane)
+library.add(faPaperPlane)
+dom.watch()
 
 @Component({
   selector: 'app-recycle',

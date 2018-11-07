@@ -4,10 +4,11 @@ import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import fontawesome from '@fortawesome/fontawesome'
-import { faTrash } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faTrash)
+library.add(faTrash)
+dom.watch()
 
 @Component({
   selector: 'app-server-started-notification',

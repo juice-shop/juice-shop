@@ -3,10 +3,11 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
-import fontawesome from '@fortawesome/fontawesome'
-import { faHome, faSpinner, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faHome, faSpinner, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHome)
+library.add(faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHome)
+dom.watch()
 
 @Component({
   selector: 'app-track-result',

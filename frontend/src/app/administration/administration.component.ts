@@ -5,10 +5,11 @@ import { RecycleService } from '../Services/recycle.service'
 import { UserService } from '../Services/user.service'
 import { Component, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import fontawesome from '@fortawesome/fontawesome'
-import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
+library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
+dom.watch()
 
 @Component({
   selector: 'app-administration',

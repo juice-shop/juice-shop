@@ -1,11 +1,12 @@
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
-import fontawesome from '@fortawesome/fontawesome'
-import { faBitcoin } from '@fortawesome/fontawesome-free-brands'
-import { faUniversity, faGraduationCap, faComments, faCommentAlt } from '@fortawesome/fontawesome-free-solid'
-import { faCommentAlt as farCommentAlt, faComments as farComments } from '@fortawesome/fontawesome-free-regular'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faBitcoin } from '@fortawesome/free-brands-svg-icons'
+import { faUniversity, faGraduationCap, faComments, faCommentAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCommentAlt as farCommentAlt, faComments as farComments } from '@fortawesome/free-regular-svg-icons'
 
-fontawesome.library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
+library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, farCommentAlt, farComments)
+dom.watch()
 
 @Component({
   selector: 'app-token-sale',

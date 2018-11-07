@@ -2,10 +2,11 @@ import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
-import fontawesome from '@fortawesome/fontawesome'
-import { faSave } from '@fortawesome/fontawesome-free-solid'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faSave } from '@fortawesome/free-solid-svg-icons'
 
-fontawesome.library.add(faSave)
+library.add(faSave)
+dom.watch()
 
 @Component({
   selector: 'app-forgot-password',
