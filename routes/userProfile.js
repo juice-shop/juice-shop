@@ -11,7 +11,7 @@ module.exports = function getUserProfile () {
       if (err) throw err
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        models.User.findById(loggedInUser.data.id).then(user => {
+        models.User.findByPk(loggedInUser.data.id).then(user => {
           let jadeTemplate = buf.toString()
           let username = user.dataValues.username
           if (username.match(/#\{(.*)\}/) !== null && !utils.disableOnContainerEnv()) {

@@ -5,7 +5,7 @@ module.exports = function updateUserProfile () {
   return (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
     if (loggedInUser) {
-      models.User.findById(loggedInUser.data.id).then(user => {
+      models.User.findByPk(loggedInUser.data.id).then(user => {
         return user.updateAttributes({ username: req.body.username })
       }).catch(error => {
         next(error)

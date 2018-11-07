@@ -10,7 +10,7 @@ module.exports = function securityQuestion () {
       }]
     }).then(answer => {
       if (answer) {
-        models.SecurityQuestion.findById(answer.SecurityQuestionId).then(question => {
+        models.SecurityQuestion.findByPk(answer.SecurityQuestionId).then(question => {
           res.json({ question })
         }).catch(error => {
           next(error)

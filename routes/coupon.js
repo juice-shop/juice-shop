@@ -7,7 +7,7 @@ module.exports = function applyCoupon () {
     let coupon = params.coupon ? decodeURIComponent(params.coupon) : undefined
     const discount = insecurity.discountFromCoupon(coupon)
     coupon = discount ? coupon : null
-    models.Basket.findById(id).then(basket => {
+    models.Basket.findByPk(id).then(basket => {
       if (basket) {
         basket.updateAttributes({ coupon }).then(() => {
           if (discount) {
