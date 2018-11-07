@@ -43,6 +43,7 @@
     "ngx-cookie": "^4.1.2",
     "rxjs": "6.3.3",
     "socket.io-client": "^2.1.1",
+    "typescript": "~3.1.6",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
@@ -62,6 +63,5 @@
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "tslint-config-standard": "~7.0.0",
-    "typescript": "~3.1.6"
   }
 }
