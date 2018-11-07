@@ -62,6 +62,6 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "tslint-config-standard": "~7.0.0",
+    "tslint-config-standard": "~7.0.0"
   }
 }
