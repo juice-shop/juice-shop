@@ -20,6 +20,7 @@ import {
   faSearch,
   faShoppingCart,
   faSignInAlt,
+  faSignOutAlt,
   faTrophy,
   faUserCircle,
   faUserSecret
@@ -28,7 +29,7 @@ import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 
-library.add(faLanguage, faFlask, faSearch, faSignInAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
+library.add(faLanguage, faFlask, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
 dom.watch()
 
 @Component({
