@@ -20,8 +20,7 @@ env:
   - DISPLAY=:99
 before_install:
 - rm -rf node_modules
-install:
-- travis_wait npm install
+- rm -rf frontend/node_modules
 before_script:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
@@ -51,7 +50,7 @@ notifications:
     on_pull_requests: false
 before_deploy:
 - rm -rf node_modules
-- travis_wait npm install --production
+- npm install --production
 - rm -rf frontend/node_modules
 - npm run package
 deploy:
