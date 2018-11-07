@@ -51,7 +51,7 @@ notifications:
     on_pull_requests: false
 before_deploy:
 - rm -rf node_modules
-- travis_wait npm install --production --unsafe-perm
+- travis_wait npm install --production
 - rm -rf frontend/node_modules
 - npm run package
 deploy:
