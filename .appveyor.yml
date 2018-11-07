@@ -20,7 +20,8 @@ install:
   - ps: 'Install-Product node $env:nodejs_version $env:platform'
   - 'node --version && npm --version'
   - 'if exist node_modules rd /Q /S node_modules'
-  - 'npm install --production'
+  - 'npm install --production --unsafe-perm'
+  - 'rd /S /Q frontend/node_modules'
   - 'npm run package'
 build: off
 test: off
