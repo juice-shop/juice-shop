@@ -9,6 +9,7 @@ skip_commits:
   files:
     - '*.md'
     - LICENSE
+    - .travis.yml
 environment:
   matrix:
     - nodejs_version: 10
