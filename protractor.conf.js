@@ -10,7 +10,10 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'chrome'
+    browserName: 'firefox',
+    'moz:firefoxOptions': {
+      args: [ "--headless" ]
+    }
   },
 
   baseUrl: 'http://localhost:3000',
