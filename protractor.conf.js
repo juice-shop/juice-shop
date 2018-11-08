@@ -37,6 +37,6 @@ exports.config = {
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
   exports.config.capabilities.chromeOptions = {
-    args: ['--headless', '--disable-gpu', '--window-size=800,600']
+    args: ['--headless', '--disable-gpu', '--window-size=1,1']
   }
 }
