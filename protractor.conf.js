@@ -31,7 +31,7 @@ exports.config = {
 
     // Get cookie consent popup out of the way
     browser.get('/#')
-    browser.manage().addCookie({name: 'cookieconsent_status', value: 'dismiss'})
+    browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
   }
 }
 
