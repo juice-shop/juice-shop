@@ -8,22 +8,13 @@ branches:
   - gh-pages
   - l10n_develop
 addons:
-  apt:
-    packages:
-    - xvfb
   chrome: stable
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
-env:
-  global:
-  - DISPLAY=:99
 before_install:
 - rm -rf node_modules
 - rm -rf frontend/node_modules
-before_script:
-- sh -e /etc/init.d/xvfb start
-- sleep 3
 script:
 - npm test
 - node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then npm run frisby; else echo "Skipping Frisby API tests on $node_version"; fi
