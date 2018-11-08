@@ -1,0 +1,42 @@
+mat-card,
+mat-expansion-panel,
+footer {
+  min-width: 300px;
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-bottom: 35px;
+}
+
+.category-container,
+mat-table {
+  margin-top: 25px;
+}
+
+.star-container {
+  margin-bottom: 10px;
+  margin-top: 25px;
+}
+
+.star-container svg:hover {
+  cursor: pointer;
+}
+
+.mat-column-status button mat-button-toggle {
+  cursor: initial;
+}
+
+.mat-column-status button span mat-button-toggle {
+  cursor: pointer;
+}
+
+.heading {
+  padding-top: 5px;
+}
+
+.mat-raised-button {
+  width: fit-content;
+}
+
+.category-toggle {
+  font-size: small;
+}

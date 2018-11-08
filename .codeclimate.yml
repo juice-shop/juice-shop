@@ -18,9 +18,7 @@ checks:
   identical-code:
     enabled: false
 exclude_paths:
-  - 'app/private/**/*'
-  - 'app/css/geo-bootstrap/**/*'
   - 'data/datacreator.js'
-  - 'vagrant/shake.js'
+  - 'frontend/src/assets/private/**/*'
   - 'Gruntfile.js'
-  - '*conf.js'
+  - '**/*conf.js'

@@ -20,16 +20,16 @@ env:
   - DISPLAY=:99
 before_install:
 - rm -rf node_modules
+- rm -rf frontend/node_modules
 before_script:
-- npm install grunt-cli -g
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 script:
 - npm test
-- npm run frisby
-- NODE_ENV=ctf npm run protractor
+- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then npm run frisby; else echo "Skipping Frisby API tests on $node_version"; fi
+- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then NODE_ENV=ctf npm run protractor; else echo "Skipping Protractor e2e tests on $node_version"; fi
 after_success:
-- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/*/lcov.info' 'build/reports/coverage/lcov_merged.info'"
+- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
 notifications:
   email:
@@ -51,7 +51,7 @@ notifications:
 before_deploy:
 - rm -rf node_modules
 - npm install --production
-- grunt package
+- npm run package
 deploy:
 - provider: heroku
   api_key:
