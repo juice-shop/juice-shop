@@ -27,7 +27,7 @@ describe('configValidation', () => {
       expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(true)
     })
 
-    it('should throw an exception if a multiple products are configured for the same challenge', () => {
+    it('should fail if a multiple products are configured for the same challenge', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -47,10 +47,10 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('There are multiple products configured as the Christmas Challenge Product. Only one product should be used for the challenge.')
+      expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(false)
     })
 
-    it('should throw an exception if a required challenge product is missing', () => {
+    it('should fail if a required challenge product is missing', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -62,7 +62,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatThereIsOnlyOneProductPerSpecial(products)).to.throw('At least one Product should be configured as a Blueprint File Retrieval Product')
+      expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(false)
     })
   })
 
@@ -86,7 +86,7 @@ describe('configValidation', () => {
       expect(checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.equal(true)
     })
 
-    it('should throw if a product is configured for multiple challenges', () => {
+    it('should fail if a product is configured for multiple challenges', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -95,7 +95,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(() => checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.throw('You cannot use the Product Apple Juice for multiple Challenges.\nIt was attempted to be used as Christmas Challenge Product and Product Tampering Challenge Product')
+      expect(checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.equal(false)
     })
   })
 
@@ -103,7 +103,7 @@ describe('configValidation', () => {
     expect(validateConfig({ exitOnFailure: false })).to.equal(true)
   })
 
-  it('should throw an error if the config is invalid', () => {
+  it('should fail if the config is invalid', () => {
     expect(validateConfig({ products: [], exitOnFailure: false })).to.equal(false)
   })
 })

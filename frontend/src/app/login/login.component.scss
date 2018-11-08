@@ -1,0 +1,37 @@
+mat-card {
+  height: auto;
+  min-width: 300px;
+  width: 35%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+}
+
+mat-checkbox {
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+a:nth-child(3) {
+  padding-left: 5px;
+}
+
+mat-form-field {
+  padding-top: 10px;
+}
+
+mat-form-field:nth-child(2) {
+  padding-bottom: 20px;
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+.button-container button {
+  margin-right: 6px;
+}

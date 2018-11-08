@@ -8,56 +8,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    uglify: {
-      js: {
-        files: {
-          'app/tmp/juice-shop.min.js': [ 'app/tmp/juice-shop.js' ]
-        },
-        options: {
-          mangle: true
-        }
-      },
-      dist: {
-        files: {
-          'app/dist/juice-shop.min.js': [ 'app/tmp/juice-shop.min.js' ]
-        }
-      }
-    },
-
-    ngtemplates: {
-      juiceShop: {
-        cwd: 'app',
-        src: [ 'views/*.html' ],
-        dest: 'app/tmp/views.js'
-      }
-    },
-
-    clean: {
-      temp: {
-        src: [ 'app/tmp' ]
-      },
-      dist: {
-        src: [ 'app/dist' ]
-      },
-      pckg: {
-        src: [ 'dist' ]
-      }
-    },
-
-    concat: {
-      options: {
-        separator: ';'
-      },
-      js: {
-        src: [ 'app/js/**/*.js' ],
-        dest: 'app/tmp/juice-shop.js'
-      },
-      dist: {
-        src: [ 'app/tmp/juice-shop.min.js', 'app/tmp/*.js' ],
-        dest: 'app/tmp/juice-shop.min.js'
-      }
-    },
-
     compress: {
       pckg: {
         options: {
@@ -73,14 +23,7 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
-              'app/index.template.html',
-              'app/node_modules/**',
-              'app/css/*.css',
-              'app/css/geo-bootstrap/**',
-              'app/dist/juice-shop.min.js',
-              'app/i18n/*.json',
-              'app/private/**',
-              'app/public/**',
+              'frontend/dist/frontend/**',
               'config/*.yml',
               'data/*.js',
               'data/static/*.yml',
@@ -98,12 +41,6 @@ module.exports = function (grunt) {
     }
   })
 
-  grunt.loadNpmTasks('grunt-angular-templates')
-  grunt.loadNpmTasks('grunt-contrib-clean')
-  grunt.loadNpmTasks('grunt-contrib-concat')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-compress')
-
-  grunt.registerTask('minify', [ 'clean:dist', 'concat:js', 'uglify:js', 'ngtemplates:juiceShop', 'concat:dist', 'uglify:dist', 'clean:temp' ])
-  grunt.registerTask('package', [ 'clean:pckg', 'minify', 'compress:pckg' ])
+  grunt.registerTask('package', [ 'compress:pckg' ])
 }
