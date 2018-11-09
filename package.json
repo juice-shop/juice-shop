@@ -133,7 +133,7 @@
   "scripts": {
     "postinstall": "cd frontend && npm install && cd .. && npm run build",
     "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
-    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --build-optimizer=false --source-map=false",
+    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
     "start": "node app",
     "test": "standard && cd frontend && ng lint && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand",
