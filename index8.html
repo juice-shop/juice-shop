@@ -262,17 +262,6 @@ insertHintUrls: none | free | paid
 			</section>
 
 			<section>
-				<h2>Awareness Scare-Tactics</h2>
-				<p>
-					Noisy XSS demo with sneaky off-site credentials keylogger
-				</p>
-				<iframe width="512" height="288" src="https://www.youtube.com/embed/L7ZEMWRm7LA" frameborder="0" allowfullscreen></iframe>
-				<p>
-					<small>You can experience &amp; show this live only <a href="https://github.com/bkimminich/juice-shop#vagrant">from within the Vagrant box</a> run option!</small>
-				</p>
-			</section>
-
-			<section>
 				<h2>Re-branding</h2>
 				<p>
 					Fully <a href="https://github.com/bkimminich/juice-shop/blob/master/CUSTOMIZATION.md">customizable</a> business context and look & feel
@@ -296,17 +285,17 @@ application:
   showChallengeSolvedNotifications: true
   showCtfFlagsInNotifications: false
   showChallengeHints: true
-  theme: slate
-  gitHubRibbon: orange
+  showVersionNumber: true
+  theme: bluegrey-lightgreen
+  gitHubRibbon: true
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+  slackUrl: 'http://owaspslack.com'
   planetOverlayMap: orangemap2k.jpg
   planetName: Orangeuze
-  recyclePage:
-    topProductImage: fruit_press.jpg
-    bottomProductImage: apple_pressings.jpg
-  altcoinName: Juicycoin
-  cookieConsent: ...
+  [...]
+challenges:
+  safetyOverride: false
 				</code></pre>
 			</section>
 
@@ -344,7 +333,7 @@ products:
 				<p>
 					JavaScript all the way from UI to REST API
 				</p>
-				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/architecture_diagram.png"/>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/introduction/img/architecture-diagram.png"/>
 			</section>
 
 			<section>
@@ -358,6 +347,7 @@ products:
 				<img src="assets/de.svg" height="70" class="nobox" style="border: none"/>
 				<img src="assets/ee.svg" height="70" class="nobox" style="border: none"/>
 				<img src="assets/fr.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/ge.svg" height="70" class="nobox" style="border: none"/>
 				<img src="assets/in.svg" height="70" class="nobox" style="border: none"/>
 				<br>
 				<img src="assets/id.svg" height="70" class="nobox" style="border: none"/>
@@ -429,9 +419,10 @@ products:
 					<img src="assets/logotype-heroku.png" height="90" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 				<div>
-					<img src="assets/standardjs.svg" height="130" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/npm-logo.png" height="130" style="background: none; border:none; box-shadow:none;"/>
-					<img src="assets/grunt-logo-no-wordmark.png" height="130" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/standardjs.svg" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/npm-logo.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/cli.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/grunt-logo-no-wordmark.png" height="120" style="background: none; border:none; box-shadow:none;"/>
 				</div>
 			</section>
 
@@ -596,11 +587,6 @@ products:
 			<h2>Project Roadmap</h2>
 			<img class="no-box" height="40px" src="https://camo.githubusercontent.com/e94d2addf349f81340deb194dd2e37c7f7fc67ad/68747470733a2f2f62616467652e776166666c652e696f2f626b696d6d696e6963682f6a756963652d73686f702e7376673f636f6c756d6e733d616c6c"/>
 			<ul>
-				<li><a href="https://juice-shop-staging.herokuapp.com" target="_blank">Release 8.x</a> with Angular6 and ChallengePack from <a href="https://summerofcode.withgoogle.com">GSoC</a> 2018</li>
-				<ul>
-					<li>Even more responsive UI based on Material Design</li>
-					<li>10+ new challenges (incl. Timing Attack, Arbitrary File Write)</li>
-				</ul>
 				<li>Get help from a UI/UX expert for our <a href="https://github.com/bkimminich/juice-shop/labels/design%2Flayout" target="_blank"><span style="background: #e0af7d; color: #000000;">&nbsp;design/layout&nbsp;</span></a> tasks</li>
 				<li><a href="https://github.com/bkimminich/juice-shop/issues/440" target="_blank">Hacking Instructor</a> to guide beginners through the challenges</li>
 			</ul><br>
@@ -646,7 +632,7 @@ products:
 
 		<section>
 			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
-			<h3>Copyright (c) 2014-2018 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+			<h3>Copyright (c) 2014-2019 <a href="http://kimminich.de">Björn Kimminich</a></h3>
 			<p>
 				Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE">MIT license</a>.
 			</p>
