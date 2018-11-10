@@ -6,12 +6,17 @@ describe('/#/forgot-password', () => {
   const EC = protractor.ExpectedConditions
 
   beforeEach(() => {
-    browser.get('/#/logout')
+    $('#logout').isPresent().then((result) => {
+      if (result) {
+        $('#logout').click()
+      }
+    })
+    browser.wait(EC.stalenessOf($('#logout')), 5000)
     browser.get('/#/forgot-password')
-    email = element(by.model('email'))
-    securityAnswer = element(by.model('securityAnswer'))
-    newPassword = element(by.model('newPassword'))
-    newPasswordRepeat = element(by.model('newPasswordRepeat'))
+    email = element(by.id('email'))
+    securityAnswer = element(by.id('securityAnswer'))
+    newPassword = element(by.id('newPassword'))
+    newPasswordRepeat = element(by.id('newPasswordRepeat'))
     resetButton = element(by.id('resetButton'))
   })
 
@@ -24,7 +29,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('I <3 Spock')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Jim\'s Password' })
@@ -39,7 +44,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('Brannigan 8=o Leela')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Bender\'s Password' })
@@ -50,11 +55,11 @@ describe('/#/forgot-password', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('West-2082')
-      newPassword.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
-      newPasswordRepeat.sendKeys('YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ==')
+      newPassword.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
+      newPasswordRepeat.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
@@ -69,7 +74,7 @@ describe('/#/forgot-password', () => {
       newPasswordRepeat.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
       resetButton.click()
 
-      expect(element(by.css('.alert-info')).getAttribute('class')).not.toMatch('ng-hide')
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
     })
 
     protractor.expect.challengeSolved({ challenge: 'Reset Morty\'s Password' })

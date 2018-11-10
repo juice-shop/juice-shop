@@ -1,0 +1,110 @@
+<div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+
+  <div class="user-container recycle-container" fxFlexAlign="center">
+
+    <div class="user-table mat-elevation-z8">
+      <div class="heading">
+        <span translate>TITLE_ADMINISTRATION</span>
+        <small style="margin-left: 10px;" translate>SECTION_USER</small>
+      </div>
+      <mat-table [dataSource]="userDataSource">
+
+        <ng-container matColumnDef="user">
+          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+          <mat-cell *matCellDef="let user"> <i *ngIf="user.token" class="fas fa-user fa-lg"></i>  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_EMAIL</mat-header-cell>
+          <mat-cell *matCellDef="let user" [innerHTML]="user.email"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="user_detail">
+          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+          <mat-cell *matCellDef="let user"><button mat-icon-button (click)="showUserDetail(user.id)"><i class="fas fa-eye"></i></button></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: userColumns;"></mat-row>
+
+      </mat-table>
+    </div>
+
+    <div class="recycle-table mat-elevation-z8">
+      <div class="heading">
+        <span translate>SECTION_RECYCLING</span>
+      </div>
+      <mat-table [dataSource]="recycleDataSource">
+
+        <ng-container matColumnDef="user">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
+          <mat-cell *matCellDef="let recycle"> {{recycle.UserId}}  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
+          <mat-cell *matCellDef="let recycle"> {{recycle.quantity}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_ADDRESS</mat-header-cell>
+          <mat-cell *matCellDef="let recycle">{{recycle.address}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="icon">
+          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+          <mat-cell *matCellDef="let recycle">
+            <i *ngIf="recycle.isPickup" class="fas fa-home fa-lg"></i>
+            <i *ngIf="!recycle.isPickup" class="fas fa-archive fa-lg"></i>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pickup_date">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_PICKUP_DATE</mat-header-cell>
+          <mat-cell *matCellDef="let recycle">{{recycle.date}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="recycleColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: recycleColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+
+  <div class="customer-container" fxFlexAlign.lt-md="center">
+    <div class="customer-table mat-elevation-z8">
+      <div class="heading">
+        <span translate>SECTION_CUSTOMER_FEEDBACK</span>
+      </div>
+      <mat-table [dataSource]="feedbackDataSource">
+
+        <ng-container matColumnDef="user">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
+          <mat-cell *matCellDef="let feedback"> {{feedback.UserId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="comment">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_COMMENT</mat-header-cell>
+          <mat-cell *matCellDef="let feedback" [innerHTML]="feedback.comment"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rating">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_RATING</mat-header-cell>
+          <mat-cell *matCellDef="let feedback">
+            <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="remove">
+          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+          <mat-cell *matCellDef="let feedback"><button mat-icon-button (click)="deleteFeedback(feedback.id)"><i class="fas fa-trash-alt"></i></button></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="feedbackColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: feedbackColumns;"></mat-row>
+      </mat-table>
+
+    </div>
+  </div>
+
+  <img src="assets/public/images/tracking/administration.png"/>
+</div>

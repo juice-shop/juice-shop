@@ -5,7 +5,7 @@ const cache = require('../data/datacache')
 const challenges = cache.challenges
 
 module.exports = function changePassword () {
-  return ({ query, cookies, connection }, res, next) => {
+  return ({ query, headers, connection }, res, next) => {
     const currentPassword = query.current
     const newPassword = query.new
     const repeatPassword = query.repeat
@@ -14,14 +14,15 @@ module.exports = function changePassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
     } else {
-      const loggedInUser = insecurity.authenticatedUsers.get(cookies.token)
+      const token = headers['authorization'] ? headers['authorization'].substr('Bearer='.length) : null
+      const loggedInUser = insecurity.authenticatedUsers.get(token)
       if (loggedInUser) {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
           res.status(401).send('Current password is not correct.')
         } else {
-          models.User.findById(loggedInUser.data.id).then(user => {
+          models.User.findByPk(loggedInUser.data.id).then(user => {
             user.updateAttributes({ password: newPassword }).then(user => {
-              if (utils.notSolved(challenges.csrfChallenge) && user.id === 3) {
+              if (utils.notSolved(challenges.csrfChallenge) && user.id === 3 && !currentPassword) {
                 if (user.password === insecurity.hash('slurmCl4ssic')) {
                   utils.solve(challenges.csrfChallenge)
                 }

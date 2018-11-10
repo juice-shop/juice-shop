@@ -1,6 +1,6 @@
 const models = require('../models/index')
 
-module.exports = function captchas () {
+function captchas () {
   return (req, res) => {
     var captchaId = req.app.locals.captchaId++
     var operators = ['*', '+', '-']
@@ -26,3 +26,15 @@ module.exports = function captchas () {
     })
   }
 }
+
+captchas.verifyCaptcha = () => (req, res, next) => {
+  models.Captcha.findOne({ where: { captchaId: req.body.captchaId } }).then(captcha => {
+    if (req.body.captcha === captcha.dataValues.answer) {
+      next()
+    } else {
+      res.status(401).send('Wrong answer to CAPTCHA. Please try again.')
+    }
+  })
+}
+
+module.exports = captchas

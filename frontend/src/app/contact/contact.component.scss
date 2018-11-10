@@ -1,0 +1,28 @@
+mat-card {
+  height: auto;
+  min-width: 300px;
+  width: 35%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.star {
+  color: #c8c8c8;
+}
+
+.active {
+  color: #ffd700;
+}
+
+.select {
+  color: #ffd700;
+}

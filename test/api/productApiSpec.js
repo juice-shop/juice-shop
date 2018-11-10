@@ -18,8 +18,8 @@ const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'conte
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Products', () => {
-  it('GET all products', done => {
-    frisby.get(API_URL + '/Products')
+  it('GET all products', () => {
+    return frisby.get(API_URL + '/Products')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data.*', {
@@ -28,39 +28,37 @@ describe('/api/Products', () => {
         description: Joi.string(),
         price: Joi.number(),
         image: Joi.string()
-      }).done(done)
+      })
   })
 
-  it('POST new product is forbidden via public API', done => {
-    frisby.post(API_URL + '/Products', {
+  it('POST new product is forbidden via public API', () => {
+    return frisby.post(API_URL + '/Products', {
       name: 'Dirt Juice (1000ml)',
       description: 'Made from ugly dirt.',
       price: 0.99,
       image: 'dirt_juice.jpg'
     })
       .expect('status', 401)
-      .done(done)
   })
 
-  it('POST new product does not filter XSS attacks', done => {
-    frisby.post(API_URL + '/Products', {
+  it('POST new product does not filter XSS attacks', () => {
+    return frisby.post(API_URL + '/Products', {
       headers: authHeader,
       body: {
         name: 'XSS Juice (42ml)',
-        description: '<script>alert("XSS")</script>',
+        description: '<iframe src="javascript:alert(`xss`)">',
         price: 9999.99,
         image: 'xss3juice.jpg'
       }
     })
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<script>alert("XSS")</script>' })
-      .done(done)
+      .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })
   })
 })
 
 describe('/api/Products/:id', () => {
-  it('GET existing product by id', done => {
-    frisby.get(API_URL + '/Products/1')
+  it('GET existing product by id', () => {
+    return frisby.get(API_URL + '/Products/1')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
@@ -73,19 +71,17 @@ describe('/api/Products/:id', () => {
         updatedAt: Joi.string()
       })
       .expect('json', 'data', { id: 1 })
-      .done(done)
   })
 
-  it('GET non-existing product by id', done => {
-    frisby.get(API_URL + '/Products/4711')
+  it('GET non-existing product by id', () => {
+    return frisby.get(API_URL + '/Products/4711')
       .expect('status', 404)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'message', 'Not Found')
-      .done(done)
   })
 
-  it('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability', done => {
-    frisby.put(API_URL + '/Products/' + tamperingProductId, {
+  it('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability', () => {
+    return frisby.put(API_URL + '/Products/' + tamperingProductId, {
       header: jsonHeader,
       body: {
         description: '<a href="http://kimminich.de" target="_blank">More...</a>'
@@ -94,31 +90,27 @@ describe('/api/Products/:id', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data', { description: '<a href="http://kimminich.de" target="_blank">More...</a>' })
-      .done(done)
   })
 
-  it('PUT update existing product does not filter XSS attacks', done => {
-    frisby.put(API_URL + '/Products/1', {
+  it('PUT update existing product does not filter XSS attacks', () => {
+    return frisby.put(API_URL + '/Products/1', {
       header: jsonHeader,
       body: {
-        description: "<script>alert('XSS')</script>"
+        description: '<script>alert(\'XSS\')</script>'
       }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: "<script>alert('XSS')</script>" })
-      .done(done)
+      .expect('json', 'data', { description: '<script>alert(\'XSS\')</script>' })
   })
 
-  it('DELETE existing product is forbidden via public API', done => {
-    frisby.del(API_URL + '/Products/1')
+  it('DELETE existing product is forbidden via public API', () => {
+    return frisby.del(API_URL + '/Products/1')
       .expect('status', 401)
-      .done(done)
   })
 
-  it('DELETE existing product is forbidden via API even when authenticated', done => {
-    frisby.del(API_URL + '/Products/1', { headers: authHeader })
+  it('DELETE existing product is forbidden via API even when authenticated', () => {
+    return frisby.del(API_URL + '/Products/1', { headers: authHeader })
       .expect('status', 401)
-      .done(done)
   })
 })

@@ -1,0 +1,121 @@
+<div fxLayoutAlign="center">
+  <div class="container">
+
+    <div class="table-container mat-elevation-z8">
+      <div class="heading">{{"TITLE_BASKET" | translate}} <small>{{userEmail}}</small></div>
+      <mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="product">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
+          <mat-cell *matCellDef="let element" fxShow fxHide.lt-md> {{element.price}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="dec(element.BasketItem.id)"><i class="fas fa-minus-square"></i></button>
+            <span>{{element.BasketItem.quantity}}</span>
+            <button mat-icon-button (click)="inc(element.BasketItem.id)"><i class="fas fa-plus-square"></i></button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total price">
+          <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="remove">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="delete(element.BasketItem.id)"><i class="far fa-trash-alt"></i></button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+
+    </div>
+
+    <mat-card>
+        <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}</button>
+        <mat-button-toggle id="collapseCouponButton" class="coupon-toggle" (change)="toggleCoupon()" [checked]="couponPanelExpanded" style="margin-right:10px;margin-left:10px"><i class="fas fa-gift fa-lg"></i></mat-button-toggle>
+        <mat-button-toggle id="paymentCouponButton" class="payment-toggle" (change)="togglePayment()" [checked]="paymentPanelExpanded"><i class="fas fa-credit-card fa-lg"></i></mat-button-toggle>
+    </mat-card>
+
+    <mat-expansion-panel [expanded]="couponPanelExpanded">
+
+      <div *ngIf="confirmation && !couponControl.dirty" style="margin-top:5px;">{{ confirmation }}</div>
+
+      <div *ngIf="error && !couponControl.dirty" style="margin-top:5px;">{{error?.error}}</div>
+
+      <mat-form-field>
+        <label><small [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}"></small></label>
+        <input id="coupon" [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
+        <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">Coupon code must be 10 characters long.</mat-error>
+      </mat-form-field>
+
+      <button id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> {{'BTN_REDEEM' | translate}}</button>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="paymentPanelExpanded">
+
+      <div class="payment-label">
+        <label translate>LABEL_PAYMENT</label>
+        <small style="margin-left: 10px;">
+          (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
+          <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
+          <i style="margin-left: 3px;" class="fas fa-heart"></i>)
+        </small>
+      </div>
+
+      <div class="button-container">
+          <form ngNoForm action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+            <div>
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="paypal@owasp.org">
+                <input type="hidden" name="lc" value="BM">
+                <input type="hidden" name="item_name" value="OWASP Juice Shop Project">
+                <input type="hidden" name="item_number" value="OWASP Foundation">
+                <input type="hidden" name="no_note" value="0">
+                <input type="hidden" name="currency_code" value="EUR">
+                <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+                <button type="submit" name="submit" mat-raised-button><i class="fab fa-paypal fa-lg"></i> PayPal</button>
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
+            </div>
+        </form>
+        <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step"><button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button></a>
+        <!--<a href="https://gratipay.com/juice-shop">
+           <button color="warn" mat-raised-button><i class="fab fa-gratipay fa-lg"></i> Gratipay</button>
+        </a>-->
+        <button mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+        <button mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
+        <button mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+      </div>
+
+      <div class="payment-label">
+        <label translate>LABEL_MERCHANDISE</label>
+        <small style="margin-left: 10px;">
+          (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
+          <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
+          <i style="margin-left: 3px;" class="fas fa-thumbs-up"></i>)
+        </small>
+      </div>
+
+      <div class="button-container">
+        <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt.com</button></a>
+        <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt.de</button></a>
+        <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou.com</button></a>
+      </div>
+
+    </mat-expansion-panel>
+
+  </div>
+</div>

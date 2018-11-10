@@ -2,32 +2,56 @@
   email: admin
   password: 'admin123'
   key: admin
+  isAdmin: true
 -
   email: jim
   password: 'ncc-1701'
   key: jim
+  isAdmin: false
 -
   email: bender
   password: 'OhG0dPlease1nsertLiquor!'
   key: bender
+  isAdmin: false
 -
   email: bjoern.kimminich@googlemail.com
-  password: 'YmpvZXJuLmtpbW1pbmljaEBnb29nbGVtYWlsLmNvbQ=='
+  password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
   customDomain: true
   key: bjoern
+  isAdmin: true
 -
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
   key: ciso
+  isAdmin: false
 -
   email: support
   password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   key: support
+  isAdmin: false
 -
   email: morty
   password: 'focusOnScienceMorty!focusOnScience'
   key: morty
+  isAdmin: false
 -
   email: mc.safesearch
   password: 'Mr. N00dles'
   key: rapper
+  isAdmin: false
+-
+  email: J12934
+  password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+  key: jannik
+  isAdmin: true
+-
+  email: wurstbrot
+  password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+  key: timo
+  isAdmin: true
+-
+  email: amy
+  password: 'K1f.....................'
+  key: amy
+  isAdmin: false
+  
