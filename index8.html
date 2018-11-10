@@ -1,0 +1,771 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>OWASP Juice Shop - An intentionally insecure JavaScript Web Application</title>
+
+	<meta name="description" content="An intentionally insecure webapp suitable for pentesting and security awareness trainings written in pure JavaScript">
+	<meta name="author" content="Björn Kimminich">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/night.css" id="theme">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+		<section>
+			<h2>OWASP Juice Shop 8.x</h2>
+			<p>
+				<span style="text-decoration: line-through;">An intentionally insecure JavaScript Web Application</span><br>
+				<small>The most trustworthy online shop out there <small>(<a href="https://twitter.com/dschadow/status/706781693504589824">@dschadow</a>)</small>
+					— The best juice shop on the whole internet! <small>(<a href="https://twitter.com/shehackspurple/status/907335357775085568">@shehackspurple</a>)</small><br>
+					Actually the most bug-free vulnerable application in existence! <small>(<a href="https://youtu.be/TXAztSpYpvE?t=26m35s">@vanderaj</a>)</small></small>
+			</p>
+			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
+			<p>
+				<a href="http://owasp-juice.shop">http://owasp-juice.shop</a>
+			</p>
+			<p>
+				<small>Presentation by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></small>
+			</p>
+		</section>
+
+		<section>
+			<h2>What is "OWASP"?!?</h2>
+			<blockquote>
+				The Open Web Application Security Project (OWASP) is a 501(c)(3) worldwide not-for-profit charitable organization focused on improving the security of software.
+			</blockquote>
+			<img src="assets/owasp_logo_rev_icon.png" width="200" class="no-box"/>
+		</section>
+
+		<section>
+			<h2>Why "Juice Shop"?!?</h2>
+			<blockquote>
+				Translating <a href="http://www.dict.cc/englisch-deutsch/dump.html">"dump"</a> or <a href="http://www.dict.cc/englisch-deutsch/useless+outfit.html">"useless outfit"</a> into German yields <a href="http://www.dict.cc/deutsch-englisch/Saftladen.html">"Saftladen"</a> which can be reverse-translated word by word into <a href="http://www.dict.cc/englisch-deutsch/juice.html">"juice</a>&nbsp;<a href="http://www.dict.cc/englisch-deutsch/shop.html">shop"</a>. Hence the project name.
+			</blockquote>
+			<blockquote>
+				That the initials "JS" match with those of "JavaScript" was purely coincidental!
+			</blockquote>
+		</section>
+
+		<section data-background="assets/super_happy_land_by_iamhitomi.jpg">
+			<div style="background-color: rgba(13, 13, 13, 0.6); padding: 10px;">
+				<h2>Click <a href="http://demo.owasp-juice.shop" target="_blank">here</a> for a live demo!</h2>
+				<a href="http://demo.owasp-juice.shop" target="_blank"><img src="assets/11216830_956072011118478_1055609081760490912_n.png" height="200" style="background: none; border:none; box-shadow:none;"/></a>
+				<p>
+					Unsuspectingly <a href="http://demo.owasp-juice.shop" target="_blank">browse the Juice Shop</a> like Average Joe!
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2>Simple Installation</h2>
+			<p>
+				Comes with <a href="https://github.com/bkimminich/juice-shop#deploy-on-heroku-free-0month-dyno">cloud</a>, <a href="https://github.com/bkimminich/juice-shop/releases/latest">local</a> and <a href="https://registry.hub.docker.com/u/bkimminich/juice-shop/">containerized</a> run options
+			</p>
+			<br>
+			<img src="assets/nodejs-new-pantone-white.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/docker.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/Vagrant.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+			<br>
+			<img src="assets/logotype-heroku.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/Azure.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+			<img src="assets/aws_transparent.png" height="150" style="background: none; border:none; box-shadow:none;"/>
+		</section>
+
+		<section>
+			<h2>73+ Hacking Challenges</h2>
+			<p>
+				Covering various vulnerabilities and serious design flaws
+			</p>
+			<img src="assets/categories8.png" height="400"/>
+			<p>
+				<small>OWASP Juice Shop covers all vulnerabilities from the latest <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top 10</a> and more.</small>
+			</p>
+		</section>
+
+		<section>
+
+			<section>
+				<h2>Challenge Difficulty</h2>
+				<p>
+					Contains low-hanging fruits &amp; hard-to-crack nuts
+				</p>
+				<img src="assets/wolfenstein_easy.jpg" height="250"/>
+				<img src="assets/wolfenstein_medium.jpg" height="250"/>
+				<img src="assets/wolfenstein_hard.jpg" height="250"/>
+			</section>
+
+			<section>
+				<h3>Direct Route to Victory</h3>
+				<p>
+					Some challenges can be immediately attacked head-on
+				</p>
+				<div id="headOnAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+			</section>
+
+			<section>
+				<h3>Information Gathering pays off</h3>
+				<p>
+					Most challenges are easier to solve after some research
+				</p>
+				<div id="oneEyedAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+			</section>
+
+			<section>
+				<h3>Multi-stage Attack Challenges</h3>
+				<p>
+					The toughest challenges require multiple preparation steps
+				</p>
+				<div id="sophisticatedAttack" style="background: rgba(255, 255, 255, 0.5)"></div>
+			</section>
+
+		</section>
+
+		<section>
+
+			<section>
+				<h2>Score Board</h2>
+				<p>
+					Challenge progress is tracked on server-side
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/score-board_partly.png" height="450"/>
+			</section>
+
+			<section>
+				<h2>Immediate Feedback</h2>
+				<p>
+					Solved challenges are announced as push notifications
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/challenge_solved_notification.png" height="450"/>
+			</section>
+
+			<section>
+				<h2>Restore your Progress</h2>
+				<p>
+					Auto-saves your hacking progress and restores on server restart
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/autorestore-hacking-progress.png" height="450"/>
+			</section>
+
+		</section>
+
+		<section>
+
+			<section>
+				<h2>Juice Shop is CTF-ready</h2>
+				<p>
+					Flag codes can optionally be displayed for solved challenges
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/notification_with_flag.png"/>
+			</section>
+
+			<section>
+				<h2>Frictionless CTF-Events</h2>
+				<p>
+					All participants use individual Juice Shop instances anywhere, sharing only the flag code-<code>ctfKey</code> and a central score server.
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/CTF_Infrastructure.png" height="420">
+			</section>
+
+			<section>
+				<h2>CTF Extension 5.x</h2>
+				<p>
+					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a> or <a href="https://github.com/facebook/fbctf">FBCTF</a>
+				</p>
+				<img src="assets/JuiceShopCTF_Logo.png" height="400" class="no-box"/>
+			</section>
+
+			<section>
+				<h2>Simple Installation</h2>
+				<p>
+					Locally via <code>npm i -g <a href="https://www.npmjs.com/package/juice-shop-ctf-cli">juice-shop-ctf-cli</a></code> or as <a href="https://registry.hub.docker.com/u/bkimminich/juice-shop-ctf/">Docker container</a>
+				</p>
+				<br>
+				<img src="assets/npm-logo.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/docker.png" height="200" style="background: none; border:none; box-shadow:none;"/>
+			</section>
+
+			<section>
+				<h2>Setup Wizard</h2>
+				<p>
+					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-backup archive to conveniently import into CTFd or FBCTF
+				</p>
+				<a href="https://asciinema.org/a/197662" target="_blank"><img src="https://asciinema.org/a/197662.png" height="400"/></a>
+			</section>
+
+			<section>
+				<h2>Configuration File Option</h2>
+				<p>
+					Run <code>juice-shop-ctf --config myconfig.yml</code> to use non-interactive mode passing in configuration via YAML file
+				</p>
+				<pre><code class="hljs" data-trim contenteditable>
+ctfFramework: CTFd | FBCTF
+juiceShopUrl: https://juice-shop.herokuapp.com
+ctfKey: https://raw.githubusercontent.com/bkimminich/juice-shop/master/ctf.key
+countryMapping: https://raw.githubusercontent.com/bkimminich/juice-shop/master/config/fbctf.yml
+insertHints: none | free | paid
+insertHintUrls: none | free | paid
+				</code></pre>
+			</section>
+
+			<section>
+				<h2>CTFd for OWASP Juice Shop</h2>
+				<p>
+					Your <a href="https://ctfd.io">CTFd</a> instance will be ready-to-hack in <5min
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_1.png" height="350"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_2.png" height="350"/>
+			</section>
+
+		</section>
+
+		<section>
+
+			<section>
+				<h2>Quiet Mode</h2>
+				<p>
+					Hide ribbon &amp; toasts for 0% distraction e.g. in awareness trainings
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/appendix/img/quiet_mode.png" height="350"/>
+				<p>
+					<small>Simply start application with <code>NODE_ENV=quiet</code> environment variable defined!</small>
+				</p>
+			</section>
+
+			<section>
+				<h2>Re-branding</h2>
+				<p>
+					Fully <a href="https://github.com/bkimminich/juice-shop/blob/master/CUSTOMIZATION.md">customizable</a> business context and look & feel
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/theme_bodgeit.png" height="350"/>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/part1/img/theme_mozilla.png" height="350"/>
+			</section>
+
+			<section>
+				<h2>Configurative Customization</h2>
+				<p>
+					Customize the application via <a href="https://github.com/bkimminich/juice-shop/blob/master/config/default.yml">a simple <code>YAML</code> file</a>
+				</p>
+				<pre><code class="hljs" data-trim contenteditable>
+application:
+  domain: juice-sh.op
+  name: 'OWASP Juice Shop'
+  logo: JuiceShop_Logo.png
+  favicon: favicon_v2.ico
+  numberOfRandomFakeUsers: 0
+  showChallengeSolvedNotifications: true
+  showCtfFlagsInNotifications: false
+  showChallengeHints: true
+  showVersionNumber: true
+  theme: bluegrey-lightgreen
+  gitHubRibbon: true
+  twitterUrl: 'https://twitter.com/owasp_juiceshop'
+  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+  slackUrl: 'http://owaspslack.com'
+  planetOverlayMap: orangemap2k.jpg
+  planetName: Orangeuze
+  [...]
+challenges:
+  safetyOverride: false
+				</code></pre>
+			</section>
+
+			<section>
+				<h2>Choose your own inventory</h2>
+				<p>
+					The <code>YAML</code> configuration allows you to override all products
+				</p>
+				<pre><code class="hljs" data-trim contenteditable>
+products:
+  -
+    name: 'Product Name'
+    price: 100
+    description: 'Product Description'
+    image: '(https://somewhe.re/)image.png'
+    useForProductTamperingChallenge: false
+    useForChristmasChallenge: false
+    fileForRetrieveBlueprintChallenge: ~
+    reviews:
+      - { text: 'Customer review', author: jim }
+  -
+    name: 'Product with Lorem Ipsum description, filler image and random price'
+				</code></pre>
+				<p>
+					<small>Your config is validated on server startup to prevent broken or unsolvable challenges!</small>
+				</p>
+			</section>
+
+		</section>
+
+		<section>
+
+			<section>
+				<h2>Modern Web-Architecture</h2>
+				<p>
+					JavaScript all the way from UI to REST API
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/develop/introduction/img/architecture-diagram.png"/>
+			</section>
+
+			<section>
+				<h2>Multi-language support</h2>
+				<p>
+					Complete UI translation available for
+				</p>
+				<img src="assets/gb.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/us.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/ae.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/de.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/ee.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/fr.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/ge.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/in.svg" height="70" class="nobox" style="border: none"/>
+				<br>
+				<img src="assets/id.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/it.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/nl.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/pl.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/br.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/se.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/tn.svg" height="70" class="nobox" style="border: none"/>
+				<img src="assets/cn.svg" height="70" class="nobox" style="border: none"/>
+				<p>
+					Partial translation available for
+				</p>
+				<img src="assets/cz.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/dk.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/es.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/fi.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/hk.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/il.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/jp.svg" height="50" class="nobox" style="border: none"/>
+				<br>
+				<img src="assets/mm.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/no.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/pt.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/ro.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/ru.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/tlh.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/tr.svg" height="50" class="nobox" style="border: none"/>
+			</section>
+
+			<section>
+				<h2>Test Pyramid</h2>
+				<p>
+					Maximizing Test Automation &amp; <a href="https://codeclimate.com/github/bkimminich/juice-shop">Code Coverage</a>
+				</p>
+				<div>
+					<img src="assets/u3lWw.gif" height="100" style="background: none; border:none;"/>
+				</div>
+				<div>
+					<img src="assets/protractor-logo-600.png" height="60" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/logo-frisby.png" height="90" style="background: none; border:none; box-shadow:none;"/>&nbsp;
+					<img src="assets/jest-outline.svg" height="90" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/Google_Chrome.png" height="85" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/karma.png" height="85" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/jasmine-horizontal.svg" height="85" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/chai-logo-F349805F7D-seeklogo.com.png" height="85" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/mocha-logo.svg" height="85" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+			</section>
+
+			<section>
+				<h2>DevOps Pyramid</h2>
+				<p>
+					Automated Build, <a href="https://travis-ci.org/bkimminich/juice-shop">CI</a>/<a href="https://juice-shop.herokuapp.com">CD</a> &amp; Code Analysis</a>
+				</p>
+				<div>
+					<img src="assets/greenkeeperLogo.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/codeclimate.png" height="100" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/snyk.svg" height="100" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/travis-mascot-200px.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/appveyor_400x400.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/docker.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/logotype-heroku.png" height="90" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+				<div>
+					<img src="assets/standardjs.svg" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/npm-logo.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/cli.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+					<img src="assets/grunt-logo-no-wordmark.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+				</div>
+			</section>
+
+		</section>
+
+		<section>
+
+			<section>
+				<h2>FAQ</h2>
+				<p>
+					If <a href="#/11">FAQ</a> &amp; <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README</a> don't help, <a href="https://gitter.im/bkimminich/juice-shop">ask in the chat</a> or <a href="https://github.com/bkimminich/juice-shop/issues">open an issue</a>
+				</p>
+				<ul>
+					<li><a href="#/11/1">Can I use my Pentesting toys?</a></li>
+					<li><a href="#/11/2">Can I do a white box pentest?</a></li>
+					<li><a href="#/11/4">Can I use the internet?</a></li>
+					<li><a href="#/11/5">Installation does not work!</a></li>
+					<li><a href="#/11/6">What if I crash the server?</a></li>
+					<li><a href="#/11/7">I'm stuck with a challenge!</a></li>
+					<li><a href="#/11/8">I found another vulnerability!</a></li>
+					<li><a href="#/11/9">Why are some challenges disabled?</a></li>
+					<li><a href="#/11/10">Can I contribute to the project?</a></li>
+					<li><a href="#/11/11">Is there a contribution reward?</a></li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Can I use my Pentesting toys?</h3>
+				<p>
+					Yes, definitely! Use <a href="https://github.com/enaqx/awesome-pentest#tools">whatever pentesting tools</a> you like the most!
+				</p>
+				<img src="assets/zap512x512.png" height="400" class="no-box"/>
+				<p>
+					<small>Proxies like <a href="https://code.google.com/p/zaproxy/">OWASP ZAP</a> or <a href="https://portswigger.net/burp/freedownload">BurpSuite Free Edition</a> can definitely be useful. Automatic tools like <a href="http://www.arachni-scanner.com/">Arachni</a> or <a href="https://cirt.net/Nikto2">Nikto</a> might find some vulnerabilities but will obviously not be able to get the Score Board to 100% for you.</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Can I do a white box pentest?</h3>
+				<p>
+					No! The code from GitHub would spoiler all challenge solutions!
+				</p>
+				<img src="assets/box-307889_960_720.png" height="400" class="no-box"/>
+				<p>
+					<small>You can of course use everything that the application hands to you in the browser, so use its <code>DevTools</code>!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Can I use the internet?</h3>
+				<p>
+					Yes! Feel free to look for ideas, clues &amp; hints <strong>everywhere</strong>!
+				</p>
+				<img src="assets/lmgtfy.png" height="200" class="no-box"/>
+				<p>
+					<small>Again: Except for the application's own GitHub repository &amp; the logs of its Travis-CI build jobs!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Installation does not work!</h3>
+				<p>
+					Please carefully follow the instructions in the <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README</a>
+				</p>
+				<img src="assets/rtfm.png" height="400" class="no-box"/>
+				<p>
+					<small>If <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md#setup">Setup</a> &amp; <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md#troubleshooting">Troubleshooting</a> docs don't help, you can always <a href="https://gitter.im/bkimminich/juice-shop">ask the community</a> or <a href="https://github.com/bkimminich/juice-shop/issues">open an issue</a>!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>What if I crash the server?</h3>
+				<p>
+					The application is cleanly reset on every startup
+				</p>
+				<img src="assets/power-button-33949_960_720.png" height="400" class="no-box"/>
+				<p>
+					<small>Your Score Board progress is <a href="#/8/2">saved automatically and will restore after server restart</a>!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>I'm stuck with a challenge!</h3>
+				<p>
+					Find helpful hints in the <strong>free</strong> official <a href="https://leanpub.com/juice-shop">companion guide on Leanpub</a>
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover.jpg" height="400"/>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/introduction/img/back.jpg" height="400"/>
+				<p>
+					<small>The eBook can also be <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">read online on GitBook</a>. You can always ask for hints in <a href="https://gitter.im/bkimminich/juice-shop">the community chat</a> as well!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>I found another vulnerability!</h3>
+				<p>
+					Please <a href="https://github.com/bkimminich/juice-shop/issues">report untracked vulnerabilities</a> by opening an issue
+				</p>
+				<img src="assets/challenge_missing.svg" height="100" class="no-box"/>
+				<p>
+					<small>Of course you can also contribute directly by <a href="https://github.com/bkimminich/juice-shop/pulls">opening a pull request</a>. Just stick to the <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html">contribution guide</a>!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Why are some challenges disabled?</h3>
+				<p>
+					Some challenges are <em>actually harmful</em> in containerized or cloud environments and are deliberately disabled there
+				</p>
+				<img src="assets/docker.png" height="200" class="no-box"/>
+				<img src="assets/logotype-heroku.png" height="200" class="no-box"/>
+				<p>
+					<small>This currently only affects the XXE challenges because they can lead to instance death by <code>segfault</code> error.</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Can I contribute to the project?</h3>
+				<p>
+					Of course! Visit our <a href="https://waffle.io/bkimminich/juice-shop">backlog on Waffle.io</a> &amp; <a href="https://crowdin.com/project/owasp-juice-shop/invite">translations on Crowdin</a>
+				</p>
+				<a href="https://waffle.io/bkimminich/juice-shop"><img src="assets/dVIEyFe8.png" height="200" class="no-box"/></a> <a href="https://crowdin.com/project/owasp-juice-shop/invite"><img src="assets/tGUepzTM.jpg" height="200" class="no-box"/></a>
+				<p>
+					<small>Stories or issues labelled with <span style="background: #66ff66; color: black">&nbsp;ready&nbsp;</span> and <span style="background: #5319e7">&nbsp;good first issue&nbsp;</span> / <span style="background: #159818">&nbsp;help wanted&nbsp;</span> are the best starting point!</small>
+				</p>
+			</section>
+
+			<section>
+				<h3>Is there a contribution reward?</h3>
+				<p>
+					For your 1<small>st</small> merged pull request you'll get <a href="https://www.stickermule.com/user/1070702817/stickers">some stickers</a> from us
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/products/sticker_single.jpg" class="no-box" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/juice-shop/master/app/public/images/products/sticker_page.jpg" class="no-box" height="200"/>
+				<p>
+					<small>Serial contributors might even get <a href="https://github.com/bkimminich/juice-shop#merchandise">t-shirts, mugs and other glorious merchandise</a> for free!</small>
+				</p>
+			</section>
+
+		</section>
+
+		<section>
+			<h2>Juice Shop Success Pyramid&trade;</h2>
+			<p>
+				Some amazing facts & stats about the project
+			</p>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/7d39e81fa1fa13e172e764937bf57923c05a6bb1/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f636f6e7472696275746f72732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+			<br>
+			<img class="no-box" height="60px" src="https://camo.githubusercontent.com/5183afbe19d5ac0469872aa43681a4c8464772c1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6f776173702d666c61677368697025323070726f6a6563742d3438413634362e737667"/>
+			<br>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/3c9082cfba1231e4340eee8c17fefc5ee24d5e2f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64652532307374796c652d7374616e646172642d627269676874677265656e2e737667"/>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/e049c915f6e77bc603e475bee27c244e94e46b77/68747470733a2f2f626573747072616374696365732e636f7265696e6672617374727563747572652e6f72672f70726f6a656374732f3232332f6261646765"/>
+			<br>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/78b1e2841b52cf72bb17c3487bf777dd7e9f0ec7/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f6d61696e7461696e6162696c697479"/>
+			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/1897659654e4bce1e64390cab74723c4ffe27b31/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f746573745f636f766572616765"/>
+			<br>
+			<img class="no-box" height="55px" src="https://camo.githubusercontent.com/795aadf7cb1ab1793bf1a6b71d75fdf387f5c83c/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f626b696d6d696e6963682f6a756963652d73686f702f746f74616c2e737667"/>
+			<img class="no-box" height="55px" src="https://camo.githubusercontent.com/9570c741fc21a077ce9fc2f513bb6f0b8f852fac/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f702e737667"/>
+			<img class="no-box" height="55px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+		</section>
+
+		<section>
+			<h2>Project Roadmap</h2>
+			<img class="no-box" height="40px" src="https://camo.githubusercontent.com/e94d2addf349f81340deb194dd2e37c7f7fc67ad/68747470733a2f2f62616467652e776166666c652e696f2f626b696d6d696e6963682f6a756963652d73686f702e7376673f636f6c756d6e733d616c6c"/>
+			<ul>
+				<li>Get help from a UI/UX expert for our <a href="https://github.com/bkimminich/juice-shop/labels/design%2Flayout" target="_blank"><span style="background: #e0af7d; color: #000000;">&nbsp;design/layout&nbsp;</span></a> tasks</li>
+				<li><a href="https://github.com/bkimminich/juice-shop/issues/440" target="_blank">Hacking Instructor</a> to guide beginners through the challenges</li>
+			</ul><br>
+			<img src="assets/dukenukemforever_1300807309.png" height="200" style="background: none; border:none; box-shadow:none;" class="fragment" data-fragment-index="2"/>
+			<p class="fragment" data-fragment-index="1">
+				Timeline? <strong class="fragment" data-fragment-index="2">When it's done!</strong>
+			</p>
+		</section>
+
+		<section>
+			<h2>Additional Information</h2>
+			<table style="font-size: 75%">
+				<tbody>
+				<tr>
+					<td>Official Site</td>
+					<td><a href="http://owasp-juice.shop">http://owasp-juice.shop</a></td>
+				</tr>
+				<tr>
+					<td>Sourcecode</td>
+					<td>
+						<a href="https://github.com/bkimminich/juice-shop">https://github.com/bkimminich/juice-shop</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
+						<a href="https://github.com/bkimminich/juice-shop-ctf">https://github.com/bkimminich/juice-shop-ctf</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)<br>
+						<a href="https://github.com/bkimminich/pwning-juice-shop">https://github.com/bkimminich/pwning-juice-shop</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND</a>)
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr>
+			<h4>Bjoern's Material on Web Application Security</h4>
+			<table style="font-size: 50%">
+				<tbody>
+				<tr>
+					<td>Web Application Security in a Nutshell (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)</td>
+					<td><a href="http://webappsec-nutshell.kimminich.de">http://webappsec-nutshell.kimminich.de</a></td>
+				</tr>
+				<tr>
+					<td>IT Security Lecture (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>)</td>
+					<td><a href="https://github.com/bkimminich/it-security-lecture">https://github.com/bkimminich/it-security-lecture</a></td>
+				</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section>
+			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
+			<h3>Copyright (c) 2014-2019 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+			<p>
+				Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE">MIT license</a>.
+			</p>
+			<hr>
+			<p>
+				<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+			</p>
+		</section>
+
+	</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+</script>
+
+<script src="js/raphael-min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/sequence-diagram-min.js"></script>
+
+<script>
+  var sophisticatedAttack = Diagram.parse(
+    "participant Hacker as h\n" +
+    "participant Information Leak as i\n" +
+    "participant ... as i2\n" +
+    "participant Vulnerability as v\n" +
+    "participant Challenge as x\n" +
+    "h->i: Gather information\n" +
+    "i->i2: Follow the trail\n" +
+    "i2->v: Find weak spot\n" +
+    "v-->h:\n" +
+    "h->x: Sophisticated attack!\n" +
+    "x->x: (Fail, fail,) success!\n" +
+    "x-->h: Challenge solved!!!"
+  );
+  sophisticatedAttack.drawSVG("sophisticatedAttack", {theme: 'hand'});
+
+  var oneEyedAttack = Diagram.parse(
+    "participant Hacker as h\n" +
+    "participant Information Leak as i\n" +
+    "participant Challenge as x\n" +
+    "h->i: Gather information\n" +
+    "i-->h:\n" +
+    "h->h: Deduct weakness\n" +
+    "h->x: One-eyed attack!\n" +
+    "x->x: (Fail, fail, fail,) success!\n" +
+    "x-->h: Challenge solved!!"
+  );
+  oneEyedAttack.drawSVG("oneEyedAttack", {theme: 'hand'});
+
+  var headOnAttack = Diagram.parse(
+    "participant Hacker as h\n" +
+    "participant Challenge as x\n" +
+    "h->x: Head-on attack!\n" +
+    "x->x: (Fail, fail, fail, fail,) success!\n" +
+    "x-->h: Challenge solved!"
+  );
+  headOnAttack.drawSVG("headOnAttack", {theme: 'hand'});
+
+</script>
+
+<div class="hidden-mobile">
+	<a style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
+
+	<script>
+      ((window.gitter = {}).chat = {}).options = {
+        room: 'bkimminich/juice-shop'
+      };
+	</script>
+	<!--suppress JSUnresolvedLibraryURL -->
+	<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+	<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
+		<table>
+			<tr>
+				<td>
+					<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+				</td>
+				<td>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" data-text="OWASP Juice Shop - An intentionally insecure JavaScript Web Application" data-via="owasp_juiceshop" data-related="owasp">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+				</td>
+				<td>
+					<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>
