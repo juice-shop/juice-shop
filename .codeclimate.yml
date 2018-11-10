@@ -10,6 +10,7 @@ ratings:
     - '**.ts'
     - '**.js'
     - '**.css'
+    - '**.scss'
 checks:
   method-complexity:
     config:
