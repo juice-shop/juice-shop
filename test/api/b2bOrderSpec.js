@@ -7,8 +7,8 @@ const API_URL = 'http://localhost:3000/b2b/v2/orders'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
-  it('POST endless loop exploit in "orderLinesData" will raise explicit error', done => {
-    frisby.post(API_URL, {
+  it('POST endless loop exploit in "orderLinesData" will raise explicit error', () => {
+    return frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: '(function dos() { while(true); })()'
@@ -16,39 +16,35 @@ describe('/b2b/v2/orders', () => {
     })
       .expect('status', 500)
       .expect('bodyContains', 'Infinite loop detected - reached max iterations')
-      .done(done)
   })
 
-  it('POST busy spinning regex attack does not raise an error', done => {
-    frisby.post(API_URL, {
+  it('POST busy spinning regex attack does not raise an error', () => {
+    return frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
       }
     })
       .expect('status', 503)
-      .done(done)
   })
 
-  it('POST sandbox breakout attack in "orderLinesData" will raise error', done => {
-    frisby.post(API_URL, {
+  it('POST sandbox breakout attack in "orderLinesData" will raise error', () => {
+    return frisby.post(API_URL, {
       headers: authHeader,
       body: {
         orderLinesData: 'this.constructor.constructor("return process")().exit()'
       }
     })
       .expect('status', 500)
-      .done(done)
   })
 
-  it('POST new B2B order is forbidden without authorization token', done => {
-    frisby.post(API_URL, {})
+  it('POST new B2B order is forbidden without authorization token', () => {
+    return frisby.post(API_URL, {})
       .expect('status', 401)
-      .done(done)
   })
 
-  it('POST new B2B order accepts arbitrary valid JSON', done => {
-    frisby.post(API_URL, {
+  it('POST new B2B order accepts arbitrary valid JSON', () => {
+    return frisby.post(API_URL, {
       headers: authHeader,
       body: {
         foo: 'bar',
@@ -62,11 +58,10 @@ describe('/b2b/v2/orders', () => {
         orderNo: Joi.string(),
         paymentDue: Joi.string()
       })
-      .done(done)
   })
 
-  it('POST new B2B order has passed "cid" in response', done => {
-    frisby.post(API_URL, {
+  it('POST new B2B order has passed "cid" in response', () => {
+    return frisby.post(API_URL, {
       headers: authHeader,
       body: {
         cid: 'test'
@@ -76,6 +71,5 @@ describe('/b2b/v2/orders', () => {
       .expect('json', {
         cid: 'test'
       })
-      .done(done)
   })
 })

@@ -4,10 +4,11 @@ application:
   logo: 'https://openclipart.org/image/300px/svg_to_png/250927/1465228117.png'
   numberOfRandomFakeUsers: 50
   showChallengeSolvedNotifications: false
-  theme: cosmo
-  gitHubRibbon: green
+  theme: deeppurple-amber
+  gitHubRibbon: true
   twitterUrl: null
   facebookUrl: null
+  slackUrl: null
   recyclePage:
     topProductImage: david-benjamin-Hammer.png
     bottomProductImage: Headache.png

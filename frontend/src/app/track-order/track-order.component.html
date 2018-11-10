@@ -1,0 +1,19 @@
+<div fxLayoutAlign="center">
+  <mat-card>
+
+    <h3 translate>TITLE_TRACK_ORDERS</h3>
+
+    <div class="form-container">
+
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_ORDER_ID</mat-label>
+        <input id="orderId" [formControl]="orderIdControl" type="text" matInput placeholder="xxxx-0123456789abcdef">
+        <mat-error *ngIf="orderIdControl.invalid" translate>MANDATORY_ORDER_ID</mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <button id="trackButton" [disabled]="orderIdControl.invalid" (click)="save()" mat-raised-button color="primary"><i class="fas fa-map-marker fa-lg"></i> {{'BTN_TRACK' | translate}}</button>
+
+  </mat-card>
+</div>

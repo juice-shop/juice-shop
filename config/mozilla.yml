@@ -5,10 +5,11 @@ application:
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   showChallengeSolvedNotifications: true
   showChallengeHints: false
-  theme: united
-  gitHubRibbon: darkblue
+  theme: deeporange-indigo
+  gitHubRibbon: true
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
+  slackUrl: null
   recyclePage:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg
