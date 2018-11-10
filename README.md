@@ -242,10 +242,6 @@ or question in the
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Waffle.io - Columns and their card count](https://badge.waffle.io/bkimminich/juice-shop.svg?columns=all)](https://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop)
 
-> :snowman: **Code Freeze in effect for `master` branch!** :snowflake: Due to the preparations for the 8.x major release, code changes affecting 7.x
-> client-side and UI code (`/app/**`) will not be accepted in Pull Requests any more! If you would like to contribute to the new Angular6 client, please
-> code on `develop` branch of your fork only. The new UI lives in the `/frontend/**` directory.
-
 We are always happy to get new contributors on board! Please check the
 following table for possible ways to do so:
 
