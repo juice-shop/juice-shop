@@ -218,6 +218,6 @@ products:
     price: 2999
     image: melon_bike.jpeg
 ctf:
-  countryMapping: ~
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
+  countryMapping: ~
