@@ -138,7 +138,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
    login to the [Azure Portal](https://portal.azure.com), open the
    _CloudShell_ and then choose _Bash_ (not PowerShell).
 2. Create a resource group by running `az group create --name <group
-   name> --location <location name, e.g. "East US">`
+   name> --location <location name, e.g. "centralus">`
 3. Create a new container by running `az container create --resource-group <group name> --name <container name> --image bkimminich/juice-shop --dns-name-label <dns name label> --ports 3000 --ip-address public`
 4. Your container will be available at `http://<dns name label>.<location name>.azurecontainer.io:3000`
 
