@@ -14,3 +14,55 @@
 .reveal .content-box {
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.reveal .rainbow {
+    background-image: gradient(linear, left top, right top,
+    color-stop(0, red),
+    color-stop(0.15, orange),
+    color-stop(0.3, yellow),
+    color-stop(0.45, green),
+    color-stop(0.65, blue),
+    color-stop(0.8, indigo),
+    color-stop(1, violet)
+    );
+    color:transparent;
+    background-clip: text;
+
+    /* for webkit browsers Chrome and Safari */
+    background-image: -webkit-gradient(linear, left top, right top,
+    color-stop(0, red),
+    color-stop(0.15, orange),
+    color-stop(0.3, yellow),
+    color-stop(0.45, green),
+    color-stop(0.65, blue),
+    color-stop(0.8, indigo),
+    color-stop(1, violet)
+    );
+    -webkit-background-clip: text;
+}
+
+.reveal .germany {
+    background-image: gradient(linear, left top, right top,
+    color-stop(0, #3c3c3c),
+    color-stop(0.15, #3c3c3c),
+    color-stop(0.3, #3c3c3c),
+    color-stop(0.45, red),
+    color-stop(0.65, gold),
+    color-stop(0.8, gold),
+    color-stop(1, gold)
+    );
+    color:transparent;
+    background-clip: text;
+
+    /* for webkit browsers Chrome and Safari */
+    background-image: -webkit-gradient(linear, left top, right top,
+    color-stop(0, #3c3c3c),
+    color-stop(0.15, #3c3c3c),
+    color-stop(0.3, #3c3c3c),
+    color-stop(0.45, red),
+    color-stop(0.65, gold),
+    color-stop(0.8, gold),
+    color-stop(1, gold)
+    );
+    -webkit-background-clip: text;
+}
