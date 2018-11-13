@@ -567,7 +567,7 @@
 -
   name: 'SSTi'
   category: 'Injection'
-  description: 'Infect the server with <a href="https://github.com/J12934/juicy-malware" target="blank">juicy malware</a> by abusing arbitrary command execution.'
+  description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: 'The search for a personal identity is the life of a man.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
