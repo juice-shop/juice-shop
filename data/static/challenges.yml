@@ -371,7 +371,7 @@
   category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the shop</a> about a more sneaky instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
   difficulty: 5
-  hint: 'This challenge has nothing to do with URLs or domains. There is no convenient misplaced file helping you with this one.'
+  hint: 'This challenge has nothing to do with URLs or domains. There is no conveniently misplaced file helping you with this one. Or is there?'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-sneaky-instance-of-typosquatting-it-fell-for'
   key: typosquattingAngularChallenge
 -
