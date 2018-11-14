@@ -81,7 +81,7 @@
     "is-heroku": "~2.0.0",
     "jade": "~1.11.0",
     "js-yaml": "~3.12",
-    "jsonwebtoken": "~8.3",
+    "jsonwebtoken": "~8.4.0",
     "jssha": "~2.3",
     "libxmljs": "0.19",
     "marsdb": "~0.6",
