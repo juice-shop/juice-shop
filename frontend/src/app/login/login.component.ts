@@ -80,9 +80,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/search'])
     }, (error) => {
       console.log(error)
-      if (this.user.email && this.user.email.matches(/support@.*/)) {
-        console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
-      }
       localStorage.removeItem('token')
       this.cookieService.remove('token', { domain: document.domain })
       sessionStorage.removeItem('bid')
@@ -100,6 +97,9 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('email')
     }
 
+    if (this.error && this.user.email && this.user.email.match(/support@.*/)) {
+      console.log('@echipa de suport: Secretul nostru comun este încă Caoimhe cu parola de master gol!')
+    }
   }
 
   googleLogin () {
