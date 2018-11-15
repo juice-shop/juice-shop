@@ -92,9 +92,9 @@
             </div>
         </form>
         <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step"><button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button></a>
-        <!--<a href="https://gratipay.com/juice-shop">
-           <button color="warn" mat-raised-button><i class="fab fa-gratipay fa-lg"></i> Gratipay</button>
-        </a>-->
+        <a href="/redirect?to=https://gratipay.com/juice-shop" *ngIf="false">
+           <button mat-raised-button><i class="fab fa-gratipay fa-lg"></i> Gratipay</button>
+        </a>
         <button mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
         <button mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
         <button mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
