@@ -5,10 +5,10 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
-import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faKey, faGoogle)
+library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
