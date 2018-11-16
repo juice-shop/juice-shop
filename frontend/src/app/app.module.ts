@@ -12,6 +12,7 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
+import { NgxSpinnerModule } from 'ngx-spinner'
 /* Imported Components */
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
@@ -133,6 +134,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     BarRatingModule,
     FileUploadModule,
     ClipboardModule,
+    NgxSpinnerModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
