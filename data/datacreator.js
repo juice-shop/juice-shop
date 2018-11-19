@@ -362,6 +362,22 @@ function createSecurityAnswers () {
     SecurityQuestionId: 7,
     UserId: 7,
     answer: '5N0wb41L' // http://rickandmorty.wikia.com/wiki/Snuffles
+  }, {
+    SecurityQuestionId: 1,
+    UserId: 8,
+    answer: 'I even shared my pizza bagels with you!'
+  }, {
+    SecurityQuestionId: 1,
+    UserId: 9,
+    answer: 'azjTLprq2im6p86RbFrA41L'
+  }, {
+    SecurityQuestionId: 1,
+    UserId: 10,
+    answer: 'NZMJLjEinU7TFElDIYW8'
+  }, {
+    SecurityQuestionId: 8,
+    UserId: 11,
+    answer: 'Dr. Dr. Dr. Dr. Zoidberg'
   }]
 
   return Promise.all(
