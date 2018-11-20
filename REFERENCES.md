@@ -20,6 +20,7 @@ where this project was mentioned or used!
 
 ## Web Links
 
+* Episode 4.17 of the [Application Security Podcast](https://securityjourney.com/application-security-podcast): [The Joy of the Vulnerable Web: JuiceShop(S04E17)](https://securityjourney.com/application-security-podcast/episodes/)
 * Recorded live streams from the [Twitch](https://aka.ms/DevSlopTwitch)/[Mixer](https://aka.ms/DevSlop-Mixer) [OWASP DevSlop](https://devslop.co/) Show:
   * [OWASP DevSlop E12 - Juice Shop with Björn Kimminich](https://www.twitch.tv/videos/337620852) :godmode:
 * Blog post on [Security Boulevard](https://securityboulevard.com):
@@ -130,16 +131,16 @@ where this project was mentioned or used!
 
 #### Upcoming
 
-* [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
-  by Björn Kimminich,
-  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
-  20.11.2018
 * [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day)
   by Björn Kimminich, [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
   30.11.2018
 
 #### 2018
 
+* [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
+  by Björn Kimminich,
+  [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
+  20.11.2018
 * [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
