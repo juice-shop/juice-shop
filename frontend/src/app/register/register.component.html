@@ -30,7 +30,7 @@
 
         <mat-form-field>
           <mat-label>{{'LABEL_SECURITY_QUESTION' | translate}}
-            <mat-icon style="margin-left:10px;">warning</mat-icon>
+            <i style="margin-left:10px;" class="fas fa-exclamation-circle"></i>
             <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
           </mat-label>
           <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
@@ -53,7 +53,7 @@
             style="margin-top:1px;"
             [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
             (click)="save()">
-      <mat-icon>how_to_reg</mat-icon>
+      <i class="fas fa-user-plus fa-lg"></i>
       {{'BTN_REGISTER' | translate}}
     </button>
 

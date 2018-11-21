@@ -12,11 +12,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { NgxSpinnerModule } from 'ngx-spinner'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ScoreBoardComponent } from './score-board.component'
 import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
-import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { EventEmitter } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
@@ -69,6 +70,7 @@ describe('ScoreBoardComponent', () => {
         TranslateModule.forRoot(),
         BarRatingModule,
         BrowserAnimationsModule,
+        NgxSpinnerModule,
         MatCardModule,
         MatTableModule,
         MatButtonModule,
