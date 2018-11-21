@@ -23,7 +23,7 @@ where this project was mentioned or used!
 * OWASP Portland Chapter meeting writeup on the [Daylight Blog](https://thedaylightstudio.com/blog): [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
 * Episode 4.17 of the [Application Security Podcast](https://securityjourney.com/application-security-podcast): [The Joy of the Vulnerable Web: JuiceShop(S04E17)](https://securityjourney.com/application-security-podcast/episodes/)
 * Recorded live streams from the [Twitch](https://aka.ms/DevSlopTwitch)/[Mixer](https://aka.ms/DevSlop-Mixer) [OWASP DevSlop](https://devslop.co/) Show:
-  * [OWASP DevSlop E12 - Juice Shop with Björn Kimminich](https://www.twitch.tv/videos/337620852) :godmode:
+  * [OWASP DevSlop E12 - Juice Shop with Björn Kimminich](https://www.twitch.tv/videos/337620852) ([Youtube](https://youtu.be/KEYWRtGNDEc)) :godmode:
 * Blog post on [Security Boulevard](https://securityboulevard.com):
   [From Dev to InfoSec Part 1 – The Journey Begins](https://securityboulevard.com/2018/08/from-dev-to-infosec-part-1-the-journey-begins/)
 * Blog post on
