@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "8.0.2",
+  "version": "8.1.0-SNAPSHOT",
   "description": "An intentionally insecure JavaScript Web Application",
   "homepage": "http://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -56,7 +56,7 @@
     "body-parser": "~1.18.3",
     "clarinet": "~0.12.0",
     "colors": "~1.3.2",
-    "concurrently": "~3.6.1",
+    "concurrently": "~4.1.0",
     "config": "~2.0.0",
     "cookie-parser": "~1.4",
     "cors": "~2.8.5",

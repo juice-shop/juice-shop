@@ -5,6 +5,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
+import { NgxSpinnerService } from 'ngx-spinner'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBook, faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
@@ -32,9 +33,11 @@ export class ScoreBoardComponent implements OnInit {
   public challenges: any[]
   public percentChallengesSolved
 
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) {}
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
   ngOnInit () {
+    this.spinner.show()
+
     this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
 
@@ -68,6 +71,8 @@ export class ScoreBoardComponent implements OnInit {
       this.trustDescriptionHtml()
       this.calculateProgressPercentage()
       this.setOffset(challenges)
+
+      this.spinner.hide()
     },(err) => {
       this.challenges = undefined
       console.log(err)
