@@ -26,7 +26,7 @@ module.exports = function (grunt) {
               'frontend/dist/frontend/**',
               'config/*.yml',
               'data/*.js',
-              'data/static/*.yml',
+              'data/static/**',
               'encryptionkeys/**',
               'ftp/**',
               'lib/**',
