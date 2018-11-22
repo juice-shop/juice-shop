@@ -6,24 +6,6 @@ const utils = require('../../lib/utils')
 const URL = 'http://localhost:3000'
 
 describe('/file-upload', () => {
-  beforeAll((done) => {
-    fs.copyFile(path.resolve(__dirname, '../../ftp/legal.md'), path.resolve(__dirname, '../files/legal.md'), (err) => {
-      if (err) {
-        console.log('Error backing up original legal.md file: ' + err.message)
-      }
-      done()
-    })
-  })
-
-  afterAll((done) => {
-    fs.copyFile(path.resolve(__dirname, '../files/legal.md'), path.resolve(__dirname, '../../ftp/legal.md'), (err) => {
-      if (err) {
-        console.log('Error restoring backup of original legal.md file: ' + err.message)
-      }
-      done()
-    })
-  })
-
   it('POST file valid PDF for client and API', () => {
     const file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
     const form = frisby.formData()

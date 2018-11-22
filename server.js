@@ -68,6 +68,7 @@ errorhandler.title = `${config.get('application.name')} (Express ${utils.version
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
+require('./lib/startup/restoreOriginalLegalInformation')()
 
 /* Locals */
 app.locals.captchaId = 0
