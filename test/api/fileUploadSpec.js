@@ -6,6 +6,24 @@ const utils = require('../../lib/utils')
 const URL = 'http://localhost:3000'
 
 describe('/file-upload', () => {
+  beforeAll((done) => {
+    fs.copyFile(path.resolve(__dirname, '../../ftp/legal.md'), path.resolve(__dirname, '../files/legal.md'), (err) => {
+      if (err) {
+        console.log('Error backing up original legal.md file: ' + err.message)
+      }
+      done()
+    })
+  })
+
+  afterAll((done) => {
+    fs.copyFile(path.resolve(__dirname, '../files/legal.md'), path.resolve(__dirname, '../../ftp/legal.md'), (err) => {
+      if (err) {
+        console.log('Error restoring backup of original legal.md file: ' + err.message)
+      }
+      done()
+    })
+  })
+
   it('POST file valid PDF for client and API', () => {
     const file = path.resolve(__dirname, '../files/validSizeAndTypeForClient.pdf')
     const form = frisby.formData()
@@ -122,8 +140,8 @@ describe('/file-upload', () => {
       .expect('status', 500)
   })
 
-  it('POST zip file with password protection', () => {
-    const file = path.resolve(__dirname, '../files/passwordProtected.zip')
+  it('POST zip file with directory traversal payload', () => {
+    const file = path.resolve(__dirname, '../files/arbitraryFileWrite.zip')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
@@ -131,8 +149,8 @@ describe('/file-upload', () => {
       .expect('status', 204)
   })
 
-  it('POST zip file with directory traversal payload', () => {
-    const file = path.resolve(__dirname, '../files/arbitraryFileWrite.zip')
+  it('POST zip file with password protection', () => {
+    const file = path.resolve(__dirname, '../files/passwordProtected.zip')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
