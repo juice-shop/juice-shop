@@ -76,8 +76,8 @@ describe('/rest/continue-code', () => {
       .expect('status', 200)
   })
 
-  it('PUT continue code for non-existent challenge #99 is accepted', () => {
-    return frisby.put(REST_URL + '/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkKgGe9M7k2rK63YpqQLPjnlb5V5LvDj')
+  it('PUT continue code for non-existent challenge #999 is accepted', () => {
+    return frisby.put(REST_URL + '/continue-code/apply/69OxrZ8aJEgxONZyWoz1Dw4BvXmRGkM6Ae9M7k2rK63YpqQLPjnlb5V5LvDj')
       .expect('status', 200)
   })
 })

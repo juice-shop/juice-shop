@@ -249,10 +249,10 @@
 -
   name: 'Imaginary Challenge'
   category: 'Sensitive Data Exposure'
-  description: 'Solve challenge #99. Unfortunately, this challenge does not exist.'
+  description: 'Solve challenge #999. Unfortunately, this challenge does not exist.'
   difficulty: 6
-  hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #99.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#solve-challenge-99'
+  hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#solve-challenge-999'
   key: continueCodeChallenge
 -
   name: 'Login Bjoern'

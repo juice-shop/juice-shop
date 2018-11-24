@@ -122,8 +122,17 @@ describe('/file-upload', () => {
       .expect('status', 500)
   })
 
-  xit('POST zip file with directory traversal payload', () => {
+  it('POST zip file with directory traversal payload', () => {
     const file = path.resolve(__dirname, '../files/arbitraryFileWrite.zip')
+    const form = frisby.formData()
+    form.append('file', fs.createReadStream(file))
+
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
+      .expect('status', 204)
+  })
+
+  it('POST zip file with password protection', () => {
+    const file = path.resolve(__dirname, '../files/passwordProtected.zip')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 

@@ -1,6 +1,7 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const libxml = require('libxmljs')
+const os = require('os')
 const vm = require('vm')
 const fs = require('fs')
 const unzipper = require('unzipper')
@@ -13,29 +14,26 @@ module.exports = function fileUpload () {
       if (utils.endsWith(file.originalname.toLowerCase(), '.zip')) {
         const buffer = file.buffer
         const filename = file.originalname.toLowerCase()
-        fs.open('/tmp/' + filename, 'w', function (err, fd) {
-          if (err) {
-            console.log('error opening file: ' + err)
-          }
+        const tempFile = path.join(os.tmpdir(), filename)
+        fs.open(tempFile, 'w', function (err, fd) {
+          if (err) { next(err) }
           fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-            if (err) console.log('error opening file: ' + err)
+            if (err) { next(err) }
             fs.close(fd, function () {
-              fs.createReadStream('/tmp/' + filename)
+              fs.createReadStream(tempFile)
                 .pipe(unzipper.Parse())
                 .on('entry', function (entry) {
-                  var fileName = entry.path
-                  var absolutePath = path.resolve('uploads/complaints/' + fileName)
-                  console.log(absolutePath)
+                  let fileName = entry.path
+                  let absolutePath = path.resolve('uploads/complaints/' + fileName)
                   if (absolutePath === path.resolve('ftp/legal.md') && utils.notSolved(challenges.fileWriteChallenge)) {
                     utils.solve(challenges.fileWriteChallenge)
                   }
-                  var juiceShopPath = path.resolve('.')
-                  if (absolutePath.includes(juiceShopPath)) {
-                    entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (e) { console.log(e) }))
+                  if (absolutePath.includes(path.resolve('.'))) {
+                    entry.pipe(fs.createWriteStream('uploads/complaints/' + fileName).on('error', function (err) { next(err) }))
                   } else {
                     entry.autodrain()
                   }
-                })
+                }).on('error', function (err) { next(err) })
             })
           })
         })

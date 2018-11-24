@@ -20,8 +20,12 @@
                [formControl]="passwordControl"
                (focus)="this.error=null"
                matInput placeholder="" [type]="hide ? 'password' : 'text'">
-        <mat-icon style="cursor:pointer" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}
-        </mat-icon>
+        <button *ngIf="hide" mat-icon-button matSuffix (click)="hide = !hide">
+          <i class="fas fa-eye"></i>
+        </button>
+        <button *ngIf="!hide" mat-icon-button matSuffix (click)="hide = !hide">
+          <i class="fas fa-eye-slash"></i>
+        </button>
         <mat-error *ngIf="passwordControl.invalid" translate>MANDATORY_PASSWORD</mat-error>
       </mat-form-field>
 
