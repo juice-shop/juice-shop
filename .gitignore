@@ -4,6 +4,9 @@ juiceshop.sqlite
 order_*.pdf
 app/
 !frontend/src/app
+uploads/complaints/*.*
+!uploads/complaints/.gitkeep
+ftp/legal.md
 
 # Build
 .nyc_output/

@@ -4,6 +4,12 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+
+import { faUserPlus, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faUserPlus, faExclamationCircle)
+dom.watch()
 
 @Component({
   selector: 'app-register',
