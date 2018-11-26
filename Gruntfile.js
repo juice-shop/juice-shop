@@ -33,7 +33,8 @@ module.exports = function (grunt) {
               'models/*.js',
               'routes/*.js',
               'node_modules/**',
-              'views/**'
+              'views/**',
+              'uploads/complaints/.gitkeep'
             ],
             dest: 'juice-shop_<%= pkg.version %>/'
           }
