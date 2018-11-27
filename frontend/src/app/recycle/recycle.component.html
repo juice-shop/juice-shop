@@ -54,7 +54,7 @@
 
     </div>
 
-    <button [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid || pickUpDateControl.invalid"
+    <button type="submit" [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid || pickUpDateControl.invalid"
             mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' |
       translate}}
     </button>

@@ -30,7 +30,7 @@
       </mat-form-field>
 
       <div class="button-container">
-        <button id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button
+        <button type="submit" id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button
                 color="primary" (click)="login()"><i class="fas fa-key fa-lg"></i> {{'BTN_LOGIN' | translate}}
         </button>
         <button *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i

@@ -38,7 +38,7 @@
 
     </div>
 
-    <button id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
+    <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
             [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
             (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
     </button>
