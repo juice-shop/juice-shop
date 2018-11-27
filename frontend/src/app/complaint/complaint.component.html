@@ -27,7 +27,7 @@
 
     </div>
 
-    <button id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  {{'BTN_SUBMIT' | translate}}</button>
+    <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  {{'BTN_SUBMIT' | translate}}</button>
 
   </mat-card>
 </div>

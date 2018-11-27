@@ -81,7 +81,7 @@
     <mat-form-field color="accent" class="search-input" floatLabel="never">
       <input matInput id="searchQuery" type="text" placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" #searchControl>
     </mat-form-field>
-    <button id="searchButton" (click)="search(searchControl.value)" mat-icon-button>
+    <button type="submit" id="searchButton" (click)="search(searchControl.value)" mat-icon-button>
       <i class="fas fa-search fa-lg"></i>
     </button>
 
