@@ -16,7 +16,7 @@ describe('preconditionValidation', () => {
     })
 
     it('should accept a supported version', () => {
-expect(checkIfRunningOnSupportedNodeVersion('11.3.0')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('11.3.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('10.12.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('9.11.2')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('8.12.0')).to.equal(true)
