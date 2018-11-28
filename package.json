@@ -119,7 +119,7 @@
     "shelljs": "~0.8.2",
     "sinon": "~6.3.5",
     "sinon-chai": "~3.2",
-    "socket.io-client": "~2.1.1",
+    "socket.io-client": "~2.2.0",
     "standard": "~12.0.1"
   },
   "repository": {
