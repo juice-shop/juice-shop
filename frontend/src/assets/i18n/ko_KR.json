@@ -1,7 +1,7 @@
 {
-  "LANGUAGE": "English",
-  "NAV_SEARCH": "Search",
-  "SEARCH_PLACEHOLDER": "Search...",
+  "LANGUAGE": "영어",
+  "NAV_SEARCH": "검색",
+  "SEARCH_PLACEHOLDER": "검색...",
   "NAV_COMPLAIN": "Complain?",
   "TITLE_LOGIN": "Login",
   "MANDATORY_EMAIL": "Please provide an email address.",
