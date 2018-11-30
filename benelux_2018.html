@@ -546,7 +546,7 @@ products:
 			<img class="no-box" height="55px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
 		</section>
 
-		<section data-background="assets/god_2018/Dm0oN_dV4AEYQjm.jpg">
+		<section data-background="assets/god_2018/Dm0oN_dV4AEYQjm.jpg" data-transition="zoom">
 			<h1>Seriously?</h1>
 			<img class="no-box" height="200px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
 			<p>
@@ -605,7 +605,7 @@ products:
 
 		<section>
 			<h1>Any Questions?</h1>
-			<img src="assets/JuiceShop_Logo.png" width="240" class="no-box"/>
+			<img src="assets/god_2018/avatar.png" width="240" class="no-box"/>
 			<h3>Copyright (c) 2014-2019 <a href="http://kimminich.de">Björn Kimminich</a></h3>
 			<p>
 				Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE">MIT license</a>.
@@ -673,61 +673,8 @@ products:
 
 </script>
 
-<script src="js/raphael-min.js"></script>
-<script src="js/underscore-min.js"></script>
-<script src="js/sequence-diagram-min.js"></script>
-
-<script>
-  var sophisticatedAttack = Diagram.parse(
-    "participant Hacker as h\n" +
-    "participant Information Leak as i\n" +
-    "participant ... as i2\n" +
-    "participant Vulnerability as v\n" +
-    "participant Challenge as x\n" +
-    "h->i: Gather information\n" +
-    "i->i2: Follow the trail\n" +
-    "i2->v: Find weak spot\n" +
-    "v-->h:\n" +
-    "h->x: Sophisticated attack!\n" +
-    "x->x: (Fail, fail,) success!\n" +
-    "x-->h: Challenge solved!!!"
-  );
-  sophisticatedAttack.drawSVG("sophisticatedAttack", {theme: 'hand'});
-
-  var oneEyedAttack = Diagram.parse(
-    "participant Hacker as h\n" +
-    "participant Information Leak as i\n" +
-    "participant Challenge as x\n" +
-    "h->i: Gather information\n" +
-    "i-->h:\n" +
-    "h->h: Deduct weakness\n" +
-    "h->x: One-eyed attack!\n" +
-    "x->x: (Fail, fail, fail,) success!\n" +
-    "x-->h: Challenge solved!!"
-  );
-  oneEyedAttack.drawSVG("oneEyedAttack", {theme: 'hand'});
-
-  var headOnAttack = Diagram.parse(
-    "participant Hacker as h\n" +
-    "participant Challenge as x\n" +
-    "h->x: Head-on attack!\n" +
-    "x->x: (Fail, fail, fail, fail,) success!\n" +
-    "x-->h: Challenge solved!"
-  );
-  headOnAttack.drawSVG("headOnAttack", {theme: 'hand'});
-
-</script>
-
 <div class="hidden-mobile">
 	<a style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
-
-	<script>
-      ((window.gitter = {}).chat = {}).options = {
-        room: 'bkimminich/juice-shop'
-      };
-	</script>
-	<!--suppress JSUnresolvedLibraryURL -->
-	<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
