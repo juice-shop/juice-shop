@@ -257,10 +257,10 @@
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
-  description: 'Log in with Bjoern''s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
+  description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
   hint: 'The security flaw behind this challenge is 100% Juice Shop''s fault and 0% Google''s.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#log-in-with-bjoerns-user-account'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#log-in-with-bjoerns-gmail-account'
   key: oauthUserPasswordChallenge
 -
   name: 'Login CISO'
