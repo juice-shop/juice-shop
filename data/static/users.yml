@@ -59,3 +59,9 @@
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
   isAdmin: true
+-
+  email: bjoern.kimminich@owasp.org
+  password: 'kitten lesser pooch karate buffoon indoors'
+  customDomain: true
+  key: bjoernOwasp
+  isAdmin: true
