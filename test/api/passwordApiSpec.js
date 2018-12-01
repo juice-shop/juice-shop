@@ -125,7 +125,7 @@ describe('/rest/user/reset-password', () => {
       .expect('status', 200)
   })
 
-  it('POST password reset for Bjoern with correct answer to his security question', () => {
+  it('POST password reset for Bjoern´s internal account with correct answer to his security question', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
@@ -133,6 +133,19 @@ describe('/rest/user/reset-password', () => {
         answer: 'West-2082',
         new: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase',
         repeat: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
+      }
+    })
+      .expect('status', 200)
+  })
+
+  it('POST password reset for Bjoern´s OWASP account with correct answer to his security question', () => {
+    return frisby.post(REST_URL + '/user/reset-password', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@owasp.org',
+        answer: 'Zaya',
+        new: 'kitten lesser pooch karate buffoon indoors',
+        repeat: 'kitten lesser pooch karate buffoon indoors'
       }
     })
       .expect('status', 200)

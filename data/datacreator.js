@@ -378,6 +378,10 @@ function createSecurityAnswers () {
     SecurityQuestionId: 9,
     UserId: 12,
     answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
+  }, {
+    SecurityQuestionId: 7,
+    UserId: 13,
+    answer: 'Zaya'
   }]
 
   return Promise.all(
