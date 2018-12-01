@@ -347,14 +347,6 @@ function createSecurityAnswers () {
     UserId: 3,
     answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
   }, {
-    SecurityQuestionId: 9,
-    UserId: 4,
-    answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
-  }, {
-    SecurityQuestionId: 7,
-    UserId: 5,
-    answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
-  }, {
     SecurityQuestionId: 10,
     UserId: 6,
     answer: 'SC OLEA SRL' // http://www.olea.com.ro/
@@ -378,6 +370,10 @@ function createSecurityAnswers () {
     SecurityQuestionId: 8,
     UserId: 11,
     answer: 'Dr. Dr. Dr. Dr. Zoidberg'
+  }, {
+    SecurityQuestionId: 9,
+    UserId: 12,
+    answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
   }]
 
   return Promise.all(

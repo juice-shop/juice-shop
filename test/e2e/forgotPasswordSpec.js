@@ -52,11 +52,11 @@ describe('/#/forgot-password', () => {
 
   describe('as Bjoern', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys('bjoern.kimminich@googlemail.com')
+      email.sendKeys('bjoern@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('West-2082')
-      newPassword.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
-      newPasswordRepeat.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
+      newPassword.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
+      newPasswordRepeat.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
       resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()

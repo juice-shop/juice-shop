@@ -38,8 +38,8 @@ describe('/rest/user/change-password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern@' + config.get('application.domain'),
+        password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
       }
     })
       .expect('status', 200)
@@ -129,10 +129,10 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
+        email: 'bjoern@' + config.get('application.domain'),
         answer: 'West-2082',
-        new: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==',
-        repeat: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        new: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase',
+        repeat: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
       }
     })
       .expect('status', 200)
@@ -155,7 +155,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
+        email: 'bjoern@' + config.get('application.domain'),
         answer: '25436',
         new: '12345',
         repeat: '12345'
@@ -177,7 +177,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
+        email: 'bjoern@' + config.get('application.domain'),
         answer: 'W-2082',
         repeat: '12345'
       }
@@ -190,7 +190,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
+        email: 'bjoern@' + config.get('application.domain'),
         answer: 'W-2082',
         new: '12345',
         repeat: '1234_'
@@ -219,7 +219,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       header: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
+        email: 'bjoern@' + config.get('application.domain'),
         new: 'abcdef',
         repeat: 'abcdef'
       }
