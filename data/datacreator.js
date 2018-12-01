@@ -347,6 +347,10 @@ function createSecurityAnswers () {
     UserId: 3,
     answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
   }, {
+    SecurityQuestionId: 7,
+    UserId: 5,
+    answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
+  }, {
     SecurityQuestionId: 10,
     UserId: 6,
     answer: 'SC OLEA SRL' // http://www.olea.com.ro/
