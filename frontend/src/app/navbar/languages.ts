@@ -17,6 +17,7 @@ export const languages = [
     { key: 'id_ID', icons: [ 'id' ], lang: 'Bahasa Indonesia' },
     { key: 'it_IT', icons: [ 'it' ], lang: 'Italiano' },
     { key: 'ja_JP', icons: [ 'jp' ], lang: '日本の', isFlask: true },
+    { key: 'ko_KR', icons: [ 'kr' ], lang: '영어' },
     { key: 'lt_LT', icons: [ 'lt' ], lang: 'Lietuviešu', isFlask: true },
     { key: 'lv_LV', icons: [ 'lv' ], lang: 'Latvijas', isFlask: true },
     { key: 'my_MM', icons: [ 'mm' ], lang: 'ျမန္မာ', isFlask: true },
