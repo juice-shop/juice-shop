@@ -63,7 +63,7 @@ describe('/#/forgot-password', () => {
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
 
-      protractor.expect.challengeSolved({challenge: 'Reset Bjoern\'s Password Tier 2'})
+      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password Tier 2' })
     })
 
     describe('for his OWASP account', () => {
@@ -78,7 +78,7 @@ describe('/#/forgot-password', () => {
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
 
-      protractor.expect.challengeSolved({challenge: 'Reset Bjoern\'s Password Tier 1'})
+      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password Tier 1' })
     })
   })
 

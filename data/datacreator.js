@@ -81,7 +81,7 @@ async function createUsers () {
           email: completeEmail,
           password,
           isAdmin,
-          profileImage: profileImage ? profileImage : 'default.svg'
+          profileImage: profileImage || 'default.svg'
         })
         datacache.users[key] = user
       } catch (err) {
