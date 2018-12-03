@@ -45,9 +45,10 @@ Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
-- :uae: :tunisia: Oussama Bouthouri
-- :brazil: sergio.kubota, Estevam Arantes
-- :cn: Coink, rToxic
+- :azerbaijan: Shahin Farzaliyev
+- :united_arab_emirates: :tunisia: Oussama Bouthouri
+- :brazil: sergio.kubota, Estevam Arantes, Richardson Lima
+- :cn: Coink, rToxic, Forbidden
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
 - :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
@@ -62,7 +63,8 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam, Claudio Snidero
-- :jp: ninoseki, nilfigo
+- :jp: ninoseki, nilfigo, Riotaro Okada, Michiya Tominaga
+- :kr: sjroh
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
@@ -70,11 +72,11 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :poland: Idomin Ninja, Andrew Pio, niemyskaa
 - :portugal: Alvaro Viebrantz, Estevam Arantes
 - :romania: Mircea Ulmeanu, orjen, timexlord
-- :ru: fieldhill13
+- :ru: fieldhill13, talisainen
 - :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
-  mateomartinez, soledad aro, Gorka Vicente
+  mateomartinez, soledad aro, Gorka Vicente, Daniel Paniagua
 - :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
-  landinl, Mattias Persson, Pär Swedberg
+  landinl, Mattias Persson, Pär Swedberg, Tomas Rosenqvist
 - :tr: Ender Çulha
 
 ## Special Thanks
