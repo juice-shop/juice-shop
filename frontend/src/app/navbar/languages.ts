@@ -2,6 +2,7 @@ export const languages = [
     { key: 'en', icons: [ 'gb', 'us' ], lang: 'English' },
     { key: 'ar_SA', icons: [ 'ae', 'tn' ], lang: 'عربى' },
     { key: 'az_AZ', icons: [ 'az' ], lang: 'Azərbaycanca', isFlask: true },
+    { key: 'bg_BG', icons: [ 'bg' ], lang: 'български (език)', isFlask: true },
     { key: 'cs_CZ', icons: [ 'cz' ], lang: 'Česky', isFlask: true },
     { key: 'da_DK', icons: [ 'dk' ], lang: 'Dansk', isFlask: true },
     { key: 'de_DE', icons: [ 'de' ], lang: 'Deutsch' },
