@@ -48,6 +48,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :azerbaijan: Shahin Farzaliyev
 - :united_arab_emirates: :tunisia: Oussama Bouthouri
 - :brazil: sergio.kubota, Estevam Arantes, Richardson Lima
+- :bulgaria: Stella Dineva
 - :cn: Coink, rToxic, Forbidden
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
