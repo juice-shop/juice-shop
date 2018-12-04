@@ -87,5 +87,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   [@psiinon](https://github.com/psiinon)
 * Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
   Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* Wallpaper artworks by Mike Branscum (courtesy of [@daylightstudio](https://github.com/daylightstudio))
 * [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
   artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
+* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners) and [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers) artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
