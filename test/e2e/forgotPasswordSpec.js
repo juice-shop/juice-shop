@@ -51,18 +51,35 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Bjoern', () => {
-    it('should be able to reset password with his security answer', () => {
-      email.sendKeys('bjoern.kimminich@googlemail.com')
-      browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
-      securityAnswer.sendKeys('West-2082')
-      newPassword.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
-      newPasswordRepeat.sendKeys('bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==')
-      resetButton.click()
+    describe('for his internal account', () => {
+      it('should be able to reset password with his security answer', () => {
+        email.sendKeys('bjoern@' + config.get('application.domain'))
+        browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
+        securityAnswer.sendKeys('West-2082')
+        newPassword.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
+        newPasswordRepeat.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
+        resetButton.click()
 
-      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
+        expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
+      })
+
+      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password Tier 2' })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
+    describe('for his OWASP account', () => {
+      it('should be able to reset password with his security answer', () => {
+        email.sendKeys('bjoern.kimminich@owasp.org')
+        browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
+        securityAnswer.sendKeys('Zaya')
+        newPassword.sendKeys('kitten lesser pooch karate buffoon indoors')
+        newPasswordRepeat.sendKeys('kitten lesser pooch karate buffoon indoors')
+        resetButton.click()
+
+        expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
+      })
+
+      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password Tier 1' })
+    })
   })
 
   describe('as Morty', () => {

@@ -3,26 +3,28 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 15 Mar 2018
+`master` as of Wed, 05 Dec 2018
 
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Greg Guthe](https://github.com/g-k) aka `g-k`
+- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [Simon Basset](https://github.com/simbas) aka `simbas`
+- [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
+- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
+- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
+- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
 - [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
 - [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
 - [Simon De Lang](https://github.com/simondel) aka `simondel`
 - [battletux](https://github.com/battletux) aka `battletux`
@@ -38,6 +40,8 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 - [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
 - [Johanna](https://github.com/johanna-a) aka `johanna-a`
 - [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 
 ## Translators
 
@@ -45,9 +49,11 @@ Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
 translations and commits to `app/i18n`. Grouped by language as of Fri,
 13 Apr 2018 on `develop`.
 
-- :uae: :tunisia: Oussama Bouthouri
-- :brazil: sergio.kubota, Estevam Arantes
-- :cn: Coink, rToxic
+- :azerbaijan: Shahin Farzaliyev
+- :united_arab_emirates: :tunisia: Oussama Bouthouri
+- :brazil: sergio.kubota, Estevam Arantes, Richardson Lima
+- :bulgaria: Stella Dineva
+- :cn: Coink, rToxic, Forbidden
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
 - :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
@@ -62,7 +68,8 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   Febri Ramadlan, Rick Daalhuizen, Syahrol
 - :israel: AviD, Omer Levi Hevroni
 - :it: vientspam, Claudio Snidero
-- :jp: ninoseki, nilfigo
+- :jp: ninoseki, nilfigo, Riotaro Okada, Michiya Tominaga
+- :kr: sjroh
 - :myanmar: thinbashane
 - :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
   vientspam, Wout Huygens, Rick Daalhuizen
@@ -70,11 +77,11 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :poland: Idomin Ninja, Andrew Pio, niemyskaa
 - :portugal: Alvaro Viebrantz, Estevam Arantes
 - :romania: Mircea Ulmeanu, orjen, timexlord
-- :ru: fieldhill13
+- :ru: fieldhill13, talisainen
 - :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
-  mateomartinez, soledad aro, Gorka Vicente
+  mateomartinez, soledad aro, Gorka Vicente, Daniel Paniagua
 - :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
-  landinl, Mattias Persson, Pär Swedberg
+  landinl, Mattias Persson, Pär Swedberg, Tomas Rosenqvist
 - :tr: Ender Çulha
 
 ## Special Thanks
@@ -84,5 +91,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   [@psiinon](https://github.com/psiinon)
 * Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
   Gundry (courtesy of [@SecureState](https://github.com/SecureState))
+* Wallpaper artworks by Mike Branscum (courtesy of [@daylightstudio](https://github.com/daylightstudio))
 * [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
   artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
+* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners) and [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers) artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
