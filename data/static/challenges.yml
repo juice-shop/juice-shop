@@ -543,10 +543,10 @@
 -
   name: 'CSRF'
   category: 'Broken Authentication'
-  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
+  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
   difficulty: 5
   hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection-or-forgot-password'
   key: csrfChallenge
 -
   name: 'XSS Tier 5'
