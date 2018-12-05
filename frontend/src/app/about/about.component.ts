@@ -5,8 +5,9 @@ import { FeedbackService } from '../Services/feedback.service'
 import { IImage } from 'ng-simple-slideshow'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faTwitter, faSlack } from '@fortawesome/free-brands-svg-icons'
+import { faNewspaper } from '@fortawesome/free-regular-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack)
+library.add(faFacebook, faTwitter, faSlack, faNewspaper)
 dom.watch()
 
 @Component({
@@ -19,6 +20,7 @@ export class AboutComponent implements OnInit {
   public twitterUrl = null
   public facebookUrl = null
   public slackUrl = null
+  public pressKitUrl = null
   public slideshowDataSource: IImage[] = []
 
   private images = [
@@ -45,6 +47,9 @@ export class AboutComponent implements OnInit {
         }
         if (config.application.slackUrl !== null) {
           this.slackUrl = config.application.slackUrl
+        }
+        if (config.application.pressKitUrl !== null) {
+          this.pressKitUrl = config.application.pressKitUrl
         }
       }
     },(err) => console.log(err))
