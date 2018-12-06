@@ -4,7 +4,7 @@ application:
   domain: juice-sh.op
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
-  favicon: favicon_v2.ico
+  favicon: favicon_js.ico
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
   showChallengeHints: true
