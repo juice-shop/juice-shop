@@ -3,26 +3,28 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 15 Mar 2018
+`master` as of Wed, 05 Dec 2018
 
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
+- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Greg Guthe](https://github.com/g-k) aka `g-k`
+- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [Simon Basset](https://github.com/simbas) aka `simbas`
+- [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
+- [Ingo Bente](https://github.com/ingben) aka `ingben`
+- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
 - [Viktor Lindström](https://github.com/ViktorLindstrm) aka
   `ViktorLindstrm`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+- [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
+- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
+- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
 - [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
 - [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
 - [Simon De Lang](https://github.com/simondel) aka `simondel`
 - [battletux](https://github.com/battletux) aka `battletux`
@@ -38,6 +40,8 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 - [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
 - [Johanna](https://github.com/johanna-a) aka `johanna-a`
 - [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 
 ## Translators
 
