@@ -66,6 +66,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934): [Testing out ModSecurity CRS with OWASP JuiceShop
+](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
 * OWASP Portland Chapter meeting writeup on the [Daylight Blog](https://thedaylightstudio.com/blog): [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
 * Blog post on [Security Boulevard](https://securityboulevard.com):
   [From Dev to InfoSec Part 1 – The Journey Begins](https://securityboulevard.com/2018/08/from-dev-to-infosec-part-1-the-journey-begins/)
