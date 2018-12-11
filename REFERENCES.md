@@ -148,7 +148,7 @@ where this project was mentioned or used!
 * [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
-  20.11.2018
+  20.11.2018 ([Youtube](https://youtu.be/2oNfZo2H4uA))
 * [Workshop: OWASP Juice Shop](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
