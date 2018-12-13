@@ -142,7 +142,7 @@ describe('/rest/user/reset-password', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@owasp.org',
+        email: 'bjoern@owasp.org',
         answer: 'Zaya',
         new: 'kitten lesser pooch karate buffoon indoors',
         repeat: 'kitten lesser pooch karate buffoon indoors'
