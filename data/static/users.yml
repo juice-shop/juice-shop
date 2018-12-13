@@ -60,7 +60,7 @@
   key: bjoern
   isAdmin: true
 -
-  email: bjoern.kimminich@owasp.org
+  email: bjoern@owasp.org
   password: 'kitten lesser pooch karate buffoon indoors'
   customDomain: true
   key: bjoernOwasp

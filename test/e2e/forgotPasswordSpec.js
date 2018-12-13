@@ -68,7 +68,7 @@ describe('/#/forgot-password', () => {
 
     describe('for his OWASP account', () => {
       it('should be able to reset password with his security answer', () => {
-        email.sendKeys('bjoern.kimminich@owasp.org')
+        email.sendKeys('bjoern@owasp.org')
         browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
         securityAnswer.sendKeys('Zaya')
         newPassword.sendKeys('kitten lesser pooch karate buffoon indoors')
