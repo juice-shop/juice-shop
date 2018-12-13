@@ -141,10 +141,10 @@ where this project was mentioned or used!
 
 * [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day)
   by Björn Kimminich, [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
-  30.11.2018
+  30.11.2018 ([Youtube](https://youtu.be/Lu0-kDdtVf4) :bulb:)
 * [OWASP Zap](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day)
   by David Scrobonia, [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
-  30.11.2018
+  30.11.2018 ([Youtube](https://youtu.be/iaZaPuQ6ams))
 * [The traditional/inevitable OWASP Juice Shop update](https://owasp.github.io/german-owasp-day/archive/2018/)
   by Björn Kimminich,
   [German OWASP Day 2018](https://owasp.github.io/german-owasp-day/archive/2018/),
