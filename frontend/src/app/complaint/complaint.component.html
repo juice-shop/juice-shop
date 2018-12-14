@@ -7,7 +7,7 @@
 
       <div class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">{{ confirmation }}</div>
 
-      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF' } }}</div>
+      <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'mimeType')">{{ "INVALID_FILE_TYPE" | translate: { type: 'PDF, ZIP' } }}</div>
       <div class="error fileUploadError" *ngIf="(fileUploadError && fileUploadError.name == 'fileSize')">{{ "INVALID_FILE_SIZE" | translate: { size: '100 KB' } }}</div>
 
       <mat-form-field appearance="outline">
@@ -23,11 +23,11 @@
       </mat-form-field>
 
       <label for="file" translate>LABEL_INVOICE</label>
-      <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept="application/pdf application/zip">
+      <input #fileControl ng2FileSelect [uploader]="uploader" id="file" type="file" accept=".pdf,.zip">
 
     </div>
 
-    <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary" placeholder="Upload file" accept=".pdf .zip"><i class="fas fa-bomb fa-lg"></i>  {{'BTN_SUBMIT' | translate}}</button>
+    <button type="submit" id="submitButton" [disabled]="messageControl.invalid || fileUploadError" (click)="save()" mat-raised-button color="primary"><i class="fas fa-bomb fa-lg"></i>  {{'BTN_SUBMIT' | translate}}</button>
 
   </mat-card>
 </div>
