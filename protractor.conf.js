@@ -1,5 +1,16 @@
 'use strict'
 
+var proxy = {};
+
+if (process.env.http_proxy != undefined && process.env.http_proxy != null){
+  proxy = {
+    proxyType: 'manual',
+    httpProxy: process.env.http_proxy
+  }
+}
+
+console.log(process.env);
+
 exports.config = {
   directConnect: true,
 
@@ -10,7 +21,8 @@ exports.config = {
   ],
 
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'chrome',
+    proxy: proxy
   },
 
   baseUrl: 'http://localhost:3000',
