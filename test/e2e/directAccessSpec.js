@@ -43,7 +43,7 @@ describe('/', () => {
 
   describe('challenge "securityPolicy"', () => {
     it('should be able to access the security.txt file', () => {
-      browser.driver.get(browser.baseUrl + '/security.txt')
+      browser.driver.get(browser.baseUrl + '/.well-known/security.txt')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Security Policy' })

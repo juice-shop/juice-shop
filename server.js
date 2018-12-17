@@ -93,8 +93,8 @@ app.use((req, res, next) => {
 })
 
 /* Security Policy */
-app.get('/security.txt', verify.accessControlChallenges())
-app.use('/security.txt', securityTxt({
+app.get('/.well-known/security.txt', verify.accessControlChallenges())
+app.use('/.well-known/security.txt', securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
   acknowledgements: config.get('application.securityTxt.acknowledgements')
