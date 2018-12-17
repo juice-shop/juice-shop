@@ -1,7 +1,7 @@
 'use strict'
 
 var proxy = {
-  proxyType = 'unspecified'
+  proxyType: 'unspecified'
 };
 
 if (process.env.http_proxy != undefined && process.env.http_proxy != null){
