@@ -44,7 +44,7 @@ describe('Server', () => {
   })
 
   it('GET serves a security.txt file', () => {
-    return frisby.get(URL + '/security.txt')
+    return frisby.get(URL + '/.well-known/security.txt')
       .expect('status', 200)
   })
 
