@@ -22,7 +22,9 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
-* Episode 4.17 of the [Application Security Podcast](https://securityjourney.com/application-security-podcast): [The Joy of the Vulnerable Web: JuiceShop(S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
+* [Application Security Podcast](https://securityjourney.com/application-security-podcast):
+  * Episode 4.17:  [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
+  * Episode 4.20:  [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/) :mega:
 * Recorded live streams from the [Twitch](https://aka.ms/DevSlopTwitch)/[Mixer](https://aka.ms/DevSlop-Mixer) [OWASP DevSlop](https://devslop.co/) Show:
   * [OWASP DevSlop E12 - Juice Shop with Björn Kimminich](https://www.twitch.tv/videos/337620852) ([Youtube](https://youtu.be/KEYWRtGNDEc)) :godmode:
 * Webcast recording on
