@@ -97,7 +97,7 @@
     "request": "~2.88.0",
     "sanitize-html": "1.4.2",
     "semver": "~5.6.0",
-    "sequelize": "~4.41.0",
+    "sequelize": "~4.42.0",
     "serve-index": "~1.9",
     "socket.io": "~2.2.0",
     "sqlite3": "~4.0.4",
