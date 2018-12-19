@@ -102,7 +102,7 @@
     "socket.io": "~2.2.0",
     "sqlite3": "~4.0.4",
     "swagger-ui-express": "~4.0.1",
-    "unzipper": "0.8.12",
+    "unzipper": "0.9.7",
     "z85": "~0.0"
   },
   "devDependencies": {
