@@ -591,3 +591,11 @@
   hint: 'This challenge will make you go after a needle in a haystack.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
+-
+  name: 'Username XSS'
+  category: 'XSS'
+  description: 'Perform a XSS attack where you can find the user details'
+  difficulty: 1
+  hint: 'A brief glance through the user details section would give you an idea about where to perform the XSS attack. One of the easy challenges.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'
+  key: usernameXssChallenge
