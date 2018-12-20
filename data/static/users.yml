@@ -17,7 +17,7 @@
   email: bjoern.kimminich@googlemail.com
   password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
   customDomain: true
-  key: bjoern
+  key: bjoernGoogle
   isAdmin: true
 -
   email: ciso
@@ -54,4 +54,15 @@
   password: 'K1f.....................'
   key: amy
   isAdmin: false
-  
+-
+  email: bjoern
+  password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
+  key: bjoern
+  isAdmin: true
+-
+  email: bjoern@owasp.org
+  password: 'kitten lesser pooch karate buffoon indoors'
+  customDomain: true
+  key: bjoernOwasp
+  isAdmin: true
+  profileImage: '13.jpg'

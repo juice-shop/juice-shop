@@ -1,8 +1,9 @@
 language: node_js
 node_js:
   - 10
-  - 9
   - 8
+  - 9
+  - 11
 branches:
   except:
   - gh-pages
@@ -23,9 +24,6 @@ after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info; else echo "Skipping Codeclimate analysis on $node_version"; fi
 notifications:
-  email:
-  - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
-  - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
   webhooks:
     urls:
     - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=

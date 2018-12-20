@@ -74,13 +74,14 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin }) => {
+    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
           email: completeEmail,
           password,
-          isAdmin
+          isAdmin,
+          profileImage: profileImage || 'default.svg'
         })
         datacache.users[key] = user
       } catch (err) {
@@ -347,10 +348,6 @@ function createSecurityAnswers () {
     UserId: 3,
     answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
   }, {
-    SecurityQuestionId: 9,
-    UserId: 4,
-    answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
-  }, {
     SecurityQuestionId: 7,
     UserId: 5,
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
@@ -378,6 +375,14 @@ function createSecurityAnswers () {
     SecurityQuestionId: 8,
     UserId: 11,
     answer: 'Dr. Dr. Dr. Dr. Zoidberg'
+  }, {
+    SecurityQuestionId: 9,
+    UserId: 12,
+    answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
+  }, {
+    SecurityQuestionId: 7,
+    UserId: 13,
+    answer: 'Zaya'
   }]
 
   return Promise.all(
