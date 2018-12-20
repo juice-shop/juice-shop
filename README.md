@@ -13,7 +13,8 @@
 > [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
 > ([@shehackspurple](https://twitter.com/shehackspurple)) —
 > [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
-> ([@vanderaj](https://twitter.com/vanderaj))
+> ([@vanderaj](https://twitter.com/vanderaj)) —
+> [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768) ([@kramse](https://twitter.com/kramse))
 
 OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the entire [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) along with many other security flaws found in real-world applications!
 
@@ -213,7 +214,7 @@ credentials! This could easily run on a 3rd party server in real life!
 
 ## Additional Documentation
 
-### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
+### Pwning OWASP Juice Shop [![](https://img.shields.io/leanpub/book/pages/juice-shop.svg)](https://leanpub.com/juice-shop) [![](https://img.shields.io/leanpub/book/sold/juice-shop.svg)](https://leanpub.com/juice-shop) [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
 
 This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
