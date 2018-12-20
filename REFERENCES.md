@@ -24,9 +24,9 @@ where this project was mentioned or used!
 
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q) Youtube channel:
   * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
-  * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18) :godmode:
-  * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys) :godmode:
-  * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q) :godmode:
+  * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18) :bulb:
+  * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys) :bulb:
+  * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q) :bulb:
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 4.17:  [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
@@ -75,7 +75,7 @@ where this project was mentioned or used!
 ### Blogs & Articles
 
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934): [Testing out ModSecurity CRS with OWASP JuiceShop
-](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
+  ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
 * OWASP Portland Chapter meeting writeup on the [Daylight Blog](https://thedaylightstudio.com/blog): [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
 * Blog post on [Security Boulevard](https://securityboulevard.com):
   [From Dev to InfoSec Part 1 – The Journey Begins](https://securityboulevard.com/2018/08/from-dev-to-infosec-part-1-the-journey-begins/)
