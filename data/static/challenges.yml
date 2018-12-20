@@ -599,3 +599,4 @@
   hint: 'A brief glance through the user details section would give you an idea about where to perform the XSS attack. One of the easy challenges.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'
   key: usernameXssChallenge
+  
