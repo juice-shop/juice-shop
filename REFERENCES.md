@@ -22,6 +22,12 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q) Youtube channel:
+  * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
+  * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18) :godmode:
+  * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys) :godmode:
+  * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q) :godmode:
+  * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 4.17:  [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
   * Episode 4.20:  [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/) :mega:
