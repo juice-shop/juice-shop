@@ -1,17 +1,15 @@
 'use strict'
 
 var proxy = {
-  proxyType: 'unspecified'
+  proxyType: 'autodetect'
 };
 
-if (process.env.http_proxy != undefined && process.env.http_proxy != null){
+if (process.env.http_proxy != undefined && process.env.http_proxy != null) {
   proxy = {
     proxyType: 'manual',
     httpProxy: process.env.http_proxy
   }
 }
-
-console.log(process.env);
 
 exports.config = {
   directConnect: true,
