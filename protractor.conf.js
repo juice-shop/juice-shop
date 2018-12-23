@@ -4,7 +4,7 @@ var proxy = {
   proxyType: 'autodetect'
 };
 
-if (process.env.http_proxy != undefined && process.env.http_proxy != null) {
+if (process.env.http_proxy !== undefined && process.env.http_proxy !== null) {
   proxy = {
     proxyType: 'manual',
     httpProxy: process.env.http_proxy
