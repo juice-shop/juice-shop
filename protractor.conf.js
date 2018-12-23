@@ -2,7 +2,7 @@
 
 var proxy = {
   proxyType: 'autodetect'
-};
+}
 
 if (process.env.http_proxy !== undefined && process.env.http_proxy !== null) {
   proxy = {
