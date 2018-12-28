@@ -448,7 +448,7 @@
   name: 'Blockchain Tier 1'
   category: 'Security through Obscurity'
   description: 'Learn about the Token Sale before its official announcement.'
-  difficulty: 3
+  difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#learn-about-the-token-sale-before-its-official-announcement'
   key: tokenSaleChallenge
