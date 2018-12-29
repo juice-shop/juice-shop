@@ -44,11 +44,11 @@ exports.registerAdminChallenge = () => (req, res, next) => {
 }
 
 exports.accessControlChallenges = () => ({ url }, res, next) => {
-  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
+  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/1px.png')) {
     utils.solve(challenges.scoreBoardChallenge)
-  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/administration.png')) {
+  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/19px.png')) {
     utils.solve(challenges.adminSectionChallenge)
-  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
+  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
     utils.solve(challenges.tokenSaleChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)

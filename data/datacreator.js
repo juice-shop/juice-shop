@@ -126,7 +126,6 @@ function createProducts () {
     if (utils.startsWith(product.image, 'http')) {
       const imageUrl = product.image
       product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
-      // utils.downloadToFile(imageUrl, 'app/public/images/products/' + product.image)
       utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
 
