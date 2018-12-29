@@ -4,9 +4,13 @@ const insecurity = require('../lib/insecurity')
 module.exports = function updateUserProfile () {
   return (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+
+    username = req.body.username
+    filteredUsername = username.replace(/(script|iframe|window|javascript|href|value)/ig,'')
+
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
-        return user.updateAttributes({ username: req.body.username })
+        return user.updateAttributes({ username: filteredUsername })
       }).catch(error => {
         next(error)
       })
