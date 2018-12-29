@@ -1,4 +1,4 @@
-// const config = require('config')
+const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/profile', () => {
@@ -41,5 +41,25 @@ describe('/profile', () => {
       browser.driver.sleep(5000)
     })
     // protractor.expect.challengeSolved({ challenge: 'SSRF' })
+  })
+
+  describe('challenge "Username XSS"', () => {
+    // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+
+    xit('Username field should be susceptible to XSS attacks', () => {
+      browser.get('/profile')
+      browser.waitForAngularEnabled(false)
+      username = element(by.id('username'))
+      setButton = element(by.id('submit'))
+      username.sendKeys('<scr  ipt>alert(`xss`)</scr  ipt>')
+      setButton.click()
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.switchTo().alert().then(alert => {
+        expect(alert.getText()).toEqual('xss')
+        alert.accept()
+      })
+      browser.driver.sleep(5000)
+    })
+    // protractor.expect.challengeSolved({ challenge: 'Username XSS' })
   })
 })
