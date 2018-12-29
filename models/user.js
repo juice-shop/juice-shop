@@ -7,7 +7,14 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
     username: {
       type: STRING,
-      defaultValue: ''
+      defaultValue: '',
+      set (username) {
+        username = username.replace(/\t+/g,'')
+        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`)</script>')) {
+          utils.solve(challenges.usernameXssChallenge)
+        }
+        this.setDataValue('username', username)
+      }
     },
     email: {
       type: STRING,
