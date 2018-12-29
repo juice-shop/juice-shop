@@ -54,15 +54,21 @@ describe('Server', () => {
   })
 })
 
-describe('/public/images/tracking', () => {
+describe('/public/images/padding', () => {
   it('GET tracking image for "Score Board" page access challenge', () => {
-    return frisby.get(URL + '/assets/public/images/tracking/scoreboard.png')
+    return frisby.get(URL + '/assets/public/images/padding/1px.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
 
   it('GET tracking image for "Administration" page access challenge', () => {
-    return frisby.get(URL + '/assets/public/images/tracking/administration.png')
+    return frisby.get(URL + '/assets/public/images/padding/19px.png')
+      .expect('status', 200)
+      .expect('header', 'content-type', 'image/png')
+  })
+
+  it('GET tracking image for "Token Sale" page access challenge', () => {
+    return frisby.get(URL + '/assets/public/images/padding/56px.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
