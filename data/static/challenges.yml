@@ -591,3 +591,11 @@
   hint: 'This challenge will make you go after a needle in a haystack.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
+-
+  name: 'Username XSS'
+  category: 'XSS'
+  description: 'Perform an XSS attack on the username section of the user profile page'
+  difficulty: 3
+  hint: 'Sometimes a bit of space is all we need.'
+  hintUrl: ''
+  key: usernameXssChallenge
