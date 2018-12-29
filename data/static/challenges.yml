@@ -594,7 +594,7 @@
 -
   name: 'Username XSS'
   category: 'XSS'
-  description: 'Perform an XSS attack on the username section of the user profile page'
+  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on the username section of the user profile page'
   difficulty: 3
   hint: 'Sometimes a bit of space is all we need.'
   hintUrl: ''
