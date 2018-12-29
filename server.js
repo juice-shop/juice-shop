@@ -104,7 +104,7 @@ app.use('/.well-known/security.txt', securityTxt({
 app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/assets/public/images/tracking', verify.accessControlChallenges())
+app.use('/assets/public/images/padding', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
 
