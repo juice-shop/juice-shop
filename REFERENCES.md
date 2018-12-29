@@ -89,7 +89,7 @@ where this project was mentioned or used!
   [Hacking Juice Shop, the DevSecOps Way](https://www.omerlh.info/2018/12/23/hacking-juice-shop-the-devsecops-way/)
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934):
   [Testing out ModSecurity CRS with OWASP JuiceShop
-    ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
+      ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
 * OWASP Portland Chapter meeting writeup on the
   [Daylight Blog](https://thedaylightstudio.com/blog):
   [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
@@ -167,6 +167,9 @@ where this project was mentioned or used!
 
 #### 2018
 
+* [Secure Your Pipeline](https://www.facebook.com/events/441842706348978/)
+  by Omer Levi Hevroni, Negev Web Developers Meetup, 27.12.2018
+  ([Slides](https://www.slideshare.net/SolutoTLV/secure-your-pipeline))
 * [Juice Shop: OWASP's most broken Flagship](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018#tab=Conference_Day)
   by Björn Kimminich,
   [OWASP BeNeLux Days 2018](https://www.owasp.org/index.php/OWASP_BeNeLux-Days_2018),
