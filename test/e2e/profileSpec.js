@@ -1,8 +1,8 @@
-const config = require('config')
+// const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/profile', () => {
-  let username, submitButton, url
+  let username, submitButton, url, setButton
   beforeEach(() => {
     browser.waitForAngularEnabled(false)
   })
@@ -47,6 +47,7 @@ describe('/profile', () => {
     // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
 
     xit('Username field should be susceptible to XSS attacks', () => {
+      const EC = protractor.ExpectedConditions
       browser.get('/profile')
       browser.waitForAngularEnabled(false)
       username = element(by.id('username'))
