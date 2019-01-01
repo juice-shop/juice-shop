@@ -105,10 +105,10 @@
 -
   name: 'Basket Access Tier 2'
   category: 'Broken Access Control'
-  description: 'Manipulate another user''s basket.'
+  description: 'Put an additional product into another user''s shopping basket.'
   difficulty: 3
-  hint: 'Have an eye on the HTTP traffic while adding items to basket.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#manipulate-someone-elses-basket'
+  hint: 'Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn''t count.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#put-an-additional-product-into-another-users-shopping-basket'
   key: basketManipulateChallenge
 -
   name: 'Payback Time'
