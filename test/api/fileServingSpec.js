@@ -107,10 +107,10 @@ describe('Hidden URL', () => {
       .expect('bodyContains', '<title>Welcome to Planet Orangeuze</title>')
   })
 
-  it('GET the premium content by visiting the ROT5>Base64>z85>ROT5-decrypted URL', () => {
+  it('GET the premium content by visiting the AES decrypted URL', () => {
     return frisby.get(URL + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
       .expect('status', 200)
-      .expect('header', 'content-type', 'image/gif')
+      .expect('header', 'content-type', 'image/jpeg')
   })
 
   it('GET Klingon translation file for "Extra Language" challenge', () => {
