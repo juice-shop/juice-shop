@@ -16,10 +16,10 @@ describe('premiumReward', () => {
     })
   })
 
-  it('should serve /frontend/dist/frontend/assets/private/under-construction.gif', () => {
+  it('should serve /frontend/dist/frontend/assets/private/JuiceShop_Wallpaper_1920x1080_VR.jpg', () => {
     servePremiumContent()(this.req, this.res)
 
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]dist[/\\]frontend[/\\]assets[/\\]private[/\\]under-construction\.gif/))
+    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/frontend[/\\]dist[/\\]frontend[/\\]assets[/\\]private[/\\]JuiceShop_Wallpaper_1920x1080_VR\.jpg/))
   })
 
   it('should solve "premiumPaywallChallenge"', () => {
