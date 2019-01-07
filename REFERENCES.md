@@ -50,7 +50,9 @@ where this project was mentioned or used!
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #318:
     [Interview with Bjorn Kimminich of OWASP Juice Shop](https://7ms.us/7ms-318-interview-with-bjorn-kimminich-of-owasp-juice-shop/)
-  * Shout outs in various episodes: [#310](https://7ms.us/7ms-310/),
+  * Shout outs in various episodes:
+    [#342](https://7ms.us/7ms-342-interview-with-matt-mccullough/),
+    [#310](https://7ms.us/7ms-310/),
     [#309](https://7ms.us/7ms-309-password-cracking-in-the-cloud-part-2/),
     [#306](https://7ms.us/7ms-306-a-peek-into-the-7ms-mail-bag-part-2/)
     and [#282](https://7ms.us/7ms-282-a-peek-into-the-7ms-mail-bag/)
@@ -89,7 +91,7 @@ where this project was mentioned or used!
   [Hacking Juice Shop, the DevSecOps Way](https://www.omerlh.info/2018/12/23/hacking-juice-shop-the-devsecops-way/)
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934):
   [Testing out ModSecurity CRS with OWASP JuiceShop
-      ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
+        ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
 * OWASP Portland Chapter meeting writeup on the
   [Daylight Blog](https://thedaylightstudio.com/blog):
   [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
