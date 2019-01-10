@@ -79,24 +79,28 @@
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
         <mat-cell *matCellDef="let challenge">
-          <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'" [disabled]="challenge.disabledEnv">
-            <span [hidden]="challenge.solved || challenge.disabledEnv" id="{{challenge.name}}.notSolved"
-                  class="not-solved"
-                  (click)="openHint(challenge)"
+          <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
+                  [hidden]="challenge.solved || challenge.disabledEnv" (click)="openHint(challenge)"
                   matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
+            <span  id="{{challenge.name}}.notSolved" class="not-solved">
               <i class="fas fa-book" aria-hidden="true"
-                 [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
+                [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
               {{"STATUS_UNSOLVED" | translate}}
             </span>
-            <span [hidden]="!challenge.solved || challenge.disabledEnv" id="{{challenge.name}}.solved" class="solved"
-                    (click)="repeatNotification(challenge)" 
-                    matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}"
-                    matTooltipPosition="above">
+          </button>
+          <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
+                  [hidden]="!challenge.solved || challenge.disabledEnv" (click)="repeatNotification(challenge)"
+                  matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}"
+                  matTooltipPosition="above">
+            <span id="{{challenge.name}}.solved" class="solved">
               <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
               {{"STATUS_SOLVED" | translate}}
             </span>
-            <span [hidden]="!challenge.disabledEnv" id="{{challenge.name}}.unavailable" class="unavailable"
-                    matTooltip="{{ challenge.hint }}" matTooltipPosition="above">
+          </button>
+          <button mat-raised-button [color]="challenge.solved ? 'accent': 'primary'" [disabled]="challenge.disabledEnv"
+            [hidden]="!challenge.disabledEnv"
+            matTooltip="{{ challenge.hint }}" matTooltipPosition="above">
+            <span  id="{{challenge.name}}.unavailable" class="unavailable">
               <i class="fab fa-{{challenge.disabledEnv?.toLowerCase()}}" aria-hidden="true"></i>
               {{"STATUS_UNAVAILABLE" | translate}}
             </span>
