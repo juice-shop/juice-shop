@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
 
-    let submit = document.getElementById('loginButton');
+    let submit = document.getElementById('loginButton')
     document.getElementById('login-form')
       .addEventListener('keyup', function (event) {
         event.preventDefault();
