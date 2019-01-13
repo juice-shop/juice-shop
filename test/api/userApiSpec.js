@@ -39,6 +39,28 @@ describe('/api/Users', () => {
       })
   })
 
+  it('POST new admin', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst2@horstma.nn',
+        password: 'hooooorst',
+        isAdmin: true
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string()
+      })
+      .expect('json', 'data', {
+        password: insecurity.hash('hooooorst'),
+        isAdmin: true
+      })
+  })
+
   it('POST new user with XSS attack in email address', () => {
     return frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
