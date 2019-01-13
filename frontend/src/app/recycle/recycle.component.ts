@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { pressEnterHandler } from 'src/functions'
 
 library.add(faPaperPlane)
 dom.watch()
@@ -41,6 +42,12 @@ export class RecycleComponent implements OnInit {
 
     this.initRecycle()
     this.findAll()
+
+    pressEnterHandler('recycle-form', () => this.save(), () => this.isEnabled())
+  }
+
+  isEnabled () {
+    return this.recycleAddressControl.value.trim() !== '' && this.recycleQuantityControl.value.toString().trim() !== ''
   }
 
   initRecycle () {
