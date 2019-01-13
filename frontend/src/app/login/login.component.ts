@@ -7,6 +7,7 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { pressEnterHandler } from 'src/main';
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
@@ -63,15 +64,11 @@ export class LoginComponent implements OnInit {
     if (this.oauthUnavailable) {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
+    pressEnterHandler('login-form', () => this.login(), () => this.isEnabled())
+  }
 
-    let that = this
-    document.getElementById('login-form')
-      .addEventListener('keyup', function (event) {
-        event.preventDefault()
-        if (event.keyCode === 13) {
-          that.login()
-        }
-      })
+  isEnabled() {
+    return this.emailControl.value.trim() !== '' && this.passwordControl.value.trim() !== ''
   }
 
   login () {
