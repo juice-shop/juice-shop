@@ -37,8 +37,8 @@ const authorizedRedirectURIs = {
 })
 export class LoginComponent implements OnInit {
 
-  public emailControl = new FormControl('', [ Validators.required])
-  public passwordControl = new FormControl('', [ Validators.required])
+  public emailControl = new FormControl('', [Validators.required])
+  public passwordControl = new FormControl('', [Validators.required])
   public hide = true
   public user: any
   public rememberMe: FormControl = new FormControl(false)
@@ -63,6 +63,15 @@ export class LoginComponent implements OnInit {
     if (this.oauthUnavailable) {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
+
+    let that = this
+    document.getElementById('login-form')
+      .addEventListener('keyup', function (event) {
+        event.preventDefault()
+        if (event.keyCode === 13) {
+          that.login()
+        }
+      })
   }
 
   login () {
@@ -73,7 +82,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
       this.cookieService.put('token', authentication.token)
-      sessionStorage.setItem('bid',authentication.bid)
+      sessionStorage.setItem('bid', authentication.bid)
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
@@ -105,8 +114,8 @@ export class LoginComponent implements OnInit {
   googleLogin () {
 
     this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
-    + clientId + '&response_type=token&scope=email&redirect_uri='
-    + authorizedRedirectURIs[this.redirectUri])
+      + clientId + '&response_type=token&scope=email&redirect_uri='
+      + authorizedRedirectURIs[this.redirectUri])
 
   }
 
