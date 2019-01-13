@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 
 import { faUserPlus, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { pressEnterHandler } from 'src/functions'
 
 library.add(faUserPlus, faExclamationCircle)
 dom.watch()
@@ -35,6 +36,12 @@ export class RegisterComponent implements OnInit {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
     }, (err) => console.log(err))
+
+    pressEnterHandler('registration-form', () => this.save(), () => this.isEnabled())
+  }
+
+  isEnabled () {
+    return this.emailControl.value.trim() !== '' && this.passwordControl.value.trim() !== '' && this.repeatPasswordControl.value.trim() !== '' && this.securityQuestionControl.value.toString().trim() !== '' && this.securityAnswerControl.value.toString().trim() !== ''
   }
 
   save () {
