@@ -6,6 +6,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
+import { pressEnterHandler } from 'src/functions'
 
 library.add(faBomb)
 dom.watch()
@@ -46,6 +47,11 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
+    pressEnterHandler('complaint-form', () => this.save(), () => this.isEnabled())
+  }
+
+  isEnabled () {
+    return this.messageControl.value.trim() !== ''
   }
 
   initComplaint () {
