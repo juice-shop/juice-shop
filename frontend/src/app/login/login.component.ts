@@ -45,9 +45,9 @@ export class LoginComponent implements OnInit {
   public error: any
   public oauthUnavailable: any
   public redirectUri
-  constructor(private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router) { }
+  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit () {
 
     const email = localStorage.getItem('email')
     if (email) {
@@ -64,17 +64,17 @@ export class LoginComponent implements OnInit {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
 
-    let submit = document.getElementById('loginButton')
+    let that = this
     document.getElementById('login-form')
       .addEventListener('keyup', function (event) {
-        event.preventDefault();
+        event.preventDefault()
         if (event.keyCode === 13) {
-          submit.click();
+          that.login()
         }
       })
   }
 
-  login() {
+  login () {
 
     this.user = {}
     this.user.email = this.emailControl.value
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  googleLogin() {
+  googleLogin () {
 
     this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
       + clientId + '&response_type=token&scope=email&redirect_uri='
