@@ -16,13 +16,46 @@ addons:
 before_install:
 - rm -rf node_modules
 - rm -rf frontend/node_modules
-script:
-- npm test
-- npm run frisby
-- NODE_ENV=ctf npm run protractor
-after_success:
-- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info; exit; else echo "Skipping Codeclimate analysis on $node_version"; fi
+jobs:
+  include:
+    - stage: test
+      script:
+      - npm test
+      - npm run frisby
+      after_success:
+        - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
+        - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
+    - stage: e2e
+      node_js: 10
+      script: NODE_ENV=ctf npm run protractor
+    - stage: deploy
+      node_js: 10
+      script: skip
+      before_deploy:
+        - rm -rf node_modules
+        - npm install --production
+        - npm run package
+      deploy:
+        - provider: heroku
+          api_key:
+            secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
+          app:
+            master: juice-shop
+            develop: juice-shop-staging
+          on:
+            repo: bkimminich/juice-shop
+        - provider: releases
+          overwrite: true
+          api_key:
+            secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+          file: dist/*
+          skip_cleanup: true
+          file_glob: true
+          draft: true
+          tag_name: "$TRAVIS_TAG"
+          on:
+            repo: bkimminich/juice-shop
+            tags: true
 notifications:
   webhooks:
     urls:
@@ -37,29 +70,3 @@ notifications:
     on_failure: change
     on_start: never
     on_pull_requests: false
-before_deploy:
-- rm -rf node_modules
-- npm install --production
-- npm run package
-deploy:
-- provider: heroku
-  api_key:
-    secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
-  app:
-    master: juice-shop
-    develop: juice-shop-staging
-  on:
-    repo: bkimminich/juice-shop
-    node: 10
-- provider: releases
-  overwrite: true
-  api_key:
-    secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-  file: dist/*
-  skip_cleanup: true
-  file_glob: true
-  draft: true
-  tag_name: "$TRAVIS_TAG"
-  on:
-    repo: bkimminich/juice-shop
-    tags: true
