@@ -18,8 +18,8 @@ before_install:
 - rm -rf frontend/node_modules
 script:
 - npm test
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then npm run frisby; exit; else echo "Skipping Frisby API tests on $node_version"; fi
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then NODE_ENV=ctf npm run protractor; exit; else echo "Skipping Protractor e2e tests on $node_version"; fi
+- npm run frisby
+- NODE_ENV=ctf npm run protractor
 after_success:
 - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
 - node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info; exit; else echo "Skipping Codeclimate analysis on $node_version"; fi
