@@ -18,8 +18,7 @@ before_install:
 - rm -rf frontend/node_modules
 jobs:
   include:
-    - stage: test
-      script:
+    - script:
       - npm test
       - npm run frisby
       after_success:
