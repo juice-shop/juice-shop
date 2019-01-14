@@ -6,8 +6,8 @@ protractor.expect = {
       })
 
       it("challenge '" + context.challenge + "' should be solved on score board", () => {
-        expect(element(by.id(context.challenge + '.solved'))).toBeTruthy()
-        expect(element(by.id(context.challenge + '.notSolved'))).not.toBeTruthy()
+        expect(element(by.id(context.challenge + '.solved')).isPresent()).toBeTruthy()
+        expect(element(by.id(context.challenge + '.notSolved')).isPresent()).toBeFalsy()
       })
     })
   }
