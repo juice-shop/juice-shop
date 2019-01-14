@@ -3,6 +3,7 @@ import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { pressEnterHandler } from 'src/functions'
 
 library.add(faSave)
 dom.watch()
@@ -21,6 +22,14 @@ export class ChangePasswordComponent {
   public confirmation: any
 
   constructor (private userService: UserService) { }
+
+  ngOnInit () {
+    pressEnterHandler('password-form', () => this.changePassword(), () => this.isEnabled())
+  }
+
+  isEnabled () {
+    return this.passwordControl.value.trim() !== '' && this.newPasswordControl.value.trim() !== '' && this.repeatNewPasswordControl.value.trim() !== ''
+  }
 
   changePassword () {
     this.userService.changePassword({
