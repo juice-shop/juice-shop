@@ -22,12 +22,10 @@ before_install:
 - rm -rf frontend/node_modules
 jobs:
   include:
-    - stage: lint
-      node_js: 10
-      script: npm run lint
     - stage: test
       node_js: 10
       script:
+        - npm run lint
         - npm test
         - npm run frisby
       after_success:
