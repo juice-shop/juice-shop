@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
+import { pressEnterHandler } from 'src/functions'
 
 library.add(faStar, faPaperPlane)
 dom.watch()
@@ -40,6 +41,12 @@ export class ContactComponent implements OnInit {
       console.log(err)
     })
     this.getNewCaptcha()
+
+    pressEnterHandler('feedback-form', () => this.save(), () => this.isEnabled())
+  }
+
+  isEnabled () {
+    return this.captchaControl.value.toString().trim() !== '' && this.feedbackControl.value.trim() !== '' && this.rating.toString().trim() !== ''
   }
 
   getNewCaptcha () {
