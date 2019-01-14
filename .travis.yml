@@ -1,8 +1,13 @@
 language: node_js
+node_js:
+  - 10
+  - 8
+  - 9
+  - 11
 branches:
   except:
-  - gh-pages
-  - l10n_develop
+    - gh-pages
+    - l10n_develop
 addons:
   chrome: stable
   code_climate:
@@ -11,26 +16,22 @@ addons:
 before_install:
 - rm -rf node_modules
 - rm -rf frontend/node_modules
+script:
+  - npm test
+  - npm run frisby
+after_success:
+  - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
+  - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
 jobs:
   include:
-    - stage: test
-      node_js:
-        - 10
-        - 8
-        - 9
-        - 11
-      script:
-        - npm test
-        - npm run frisby
-      after_success:
-        - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-        - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
       node_js: 10
       script: NODE_ENV=ctf npm run protractor
+      after_success: skip
     - stage: deploy
       node_js: 10
       script: skip
+      after_success: skip
       before_deploy:
         - rm -rf node_modules
         - npm install --production
