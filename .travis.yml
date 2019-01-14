@@ -28,11 +28,9 @@ jobs:
     - stage: e2e
       node_js: 10
       script: NODE_ENV=ctf npm run protractor
-      after_success: skip
     - stage: deploy
       node_js: 10
       script: skip
-      after_success: skip
       before_deploy:
         - rm -rf node_modules
         - npm install --production
