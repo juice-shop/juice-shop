@@ -36,11 +36,10 @@ jobs:
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
       node_js: 10
-      script: skip
-      before_deploy:
-        - rm -rf node_modules
+      install:
         - npm install --production
         - npm run package
+      script: skip
       deploy:
         - provider: heroku
           api_key:
