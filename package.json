@@ -141,11 +141,8 @@
     "start": "node app",
     "test": "standard && cd frontend && ng lint && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand",
-    "preupdate-webdriver": "npm install",
-    "update-webdriver": "webdriver-manager update --gecko false",
-    "preprotractor": "npm run update-webdriver",
+    "preprotractor": "webdriver-manager update --gecko false",
     "protractor": "node test/e2eTests.js",
-    "pree2e": "npm install",
     "e2e": "node test/e2eTests.js",
     "vagrant": "cd vagrant && vagrant up",
     "package": "grunt package"
