@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import { pressEnterHandler } from 'src/functions'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faPaperPlane)
 dom.watch()
@@ -29,7 +29,7 @@ export class RecycleComponent implements OnInit {
   public userEmail: any
   public confirmation: any
 
-  constructor (private recycleService: RecycleService, private userService: UserService, private configurationService: ConfigurationService) { }
+  constructor (private recycleService: RecycleService, private userService: UserService, private configurationService: ConfigurationService, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
 
@@ -43,7 +43,7 @@ export class RecycleComponent implements OnInit {
     this.initRecycle()
     this.findAll()
 
-    pressEnterHandler('recycle-form', 'recycleButton', () => this.save())
+    this.formSubmitService.attachEnterKeyHandler('recycle-form', 'recycleButton', () => this.save())
   }
 
   initRecycle () {
