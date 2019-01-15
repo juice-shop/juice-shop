@@ -65,11 +65,7 @@ export class LoginComponent implements OnInit {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
 
-    pressEnterHandler('login-form', () => this.login(), this.isEnabled)
-  }
-
-  isEnabled () {
-    return (document.getElementById('loginButton') as HTMLInputElement).disabled
+    pressEnterHandler('login-form', 'loginButton', () => this.login())
   }
 
   login () {

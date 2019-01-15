@@ -47,11 +47,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    pressEnterHandler('complaint-form', () => this.save(), this.isEnabled)
-  }
-
-  isEnabled () {
-    return (document.getElementById('submitButton') as HTMLInputElement).disabled
+    pressEnterHandler('complaint-form', 'submitButton',() => this.save())
   }
 
   initComplaint () {

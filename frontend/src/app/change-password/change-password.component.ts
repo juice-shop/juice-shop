@@ -24,11 +24,7 @@ export class ChangePasswordComponent {
   constructor (private userService: UserService) { }
 
   ngOnInit () {
-    pressEnterHandler('password-form', () => this.changePassword(), this.isEnabled)
-  }
-
-  isEnabled () {
-    return (document.getElementById('changeButton') as HTMLInputElement).disabled
+    pressEnterHandler('password-form', 'changeButton', () => this.changePassword())
   }
 
   changePassword () {
