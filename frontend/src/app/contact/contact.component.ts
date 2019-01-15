@@ -46,7 +46,7 @@ export class ContactComponent implements OnInit {
   }
 
   isEnabled () {
-    return this.captchaControl.value.toString().trim() !== '' && this.feedbackControl.value.trim() !== '' && this.rating.toString().trim() !== ''
+    return (document.getElementById('submitButton') as HTMLInputElement).disabled
   }
 
   getNewCaptcha () {
