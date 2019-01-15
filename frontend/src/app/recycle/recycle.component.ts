@@ -43,11 +43,11 @@ export class RecycleComponent implements OnInit {
     this.initRecycle()
     this.findAll()
 
-    pressEnterHandler('recycle-form', () => this.save(), () => this.isEnabled())
+    pressEnterHandler('recycle-form', () => this.save(), this.isEnabled)
   }
 
   isEnabled () {
-    return this.recycleAddressControl.value.trim() !== '' && this.recycleQuantityControl.value.toString().trim() !== ''
+    return (document.getElementById('recycleButton') as HTMLInputElement).disabled
   }
 
   initRecycle () {
