@@ -6,7 +6,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
-import { pressEnterHandler } from 'src/functions'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faBomb)
 dom.watch()
@@ -32,7 +32,7 @@ export class ComplaintComponent implements OnInit {
   public complaint: any = undefined
   public confirmation: any
 
-  constructor (private userService: UserService, private complaintService: ComplaintService) { }
+  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
     this.initComplaint()
@@ -47,7 +47,7 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    pressEnterHandler('complaint-form', 'submitButton',() => this.save())
+    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton',() => this.save())
   }
 
   initComplaint () {
