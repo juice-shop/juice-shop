@@ -64,11 +64,12 @@ export class LoginComponent implements OnInit {
     if (this.oauthUnavailable) {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
-    pressEnterHandler('login-form', () => this.login(), () => this.isEnabled())
+
+    pressEnterHandler('login-form', () => this.login(), this.isEnabled)
   }
 
   isEnabled () {
-    return this.emailControl.value.trim() !== '' && this.passwordControl.value.trim() !== ''
+    return (document.getElementById('loginButton') as HTMLInputElement).disabled
   }
 
   login () {

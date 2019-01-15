@@ -1,8 +1,8 @@
-export function pressEnterHandler (loginForm, loginFunc, isEnabled) {
-  document.getElementById(loginForm)
+export function pressEnterHandler (form, loginFunc, isEnabled) {
+  document.getElementById(form)
     .addEventListener('keyup', function (event) {
       event.preventDefault()
-      if (event.keyCode === 13 && isEnabled()) {
+      if (event.keyCode === 13 && !isEnabled()) {
         loginFunc()
       }
     })

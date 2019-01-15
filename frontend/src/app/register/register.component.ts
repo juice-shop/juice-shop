@@ -37,11 +37,11 @@ export class RegisterComponent implements OnInit {
       this.securityQuestions = securityQuestions
     }, (err) => console.log(err))
 
-    pressEnterHandler('registration-form', () => this.save(), () => this.isEnabled())
+    pressEnterHandler('registration-form', () => this.save(), this.isEnabled)
   }
 
   isEnabled () {
-    return this.emailControl.value.trim() !== '' && this.passwordControl.value.trim() !== '' && this.repeatPasswordControl.value.trim() !== '' && this.securityQuestionControl.value.toString().trim() !== '' && this.securityAnswerControl.value.toString().trim() !== ''
+    return (document.getElementById('registerButton') as HTMLInputElement).disabled
   }
 
   save () {
