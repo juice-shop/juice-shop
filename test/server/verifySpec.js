@@ -68,7 +68,7 @@ describe('verify', () => {
   })
 
   describe('accessControlChallenges', () => {
-    it('"scoreBoardChallenge" is solved when the 1px.png transpixel is this.requested', () => {
+    it('"scoreBoardChallenge" is solved when the 1px.png transpixel is requested', () => {
       challenges.scoreBoardChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/images/padding/1px.png'
 
@@ -77,7 +77,7 @@ describe('verify', () => {
       expect(challenges.scoreBoardChallenge.solved).to.equal(true)
     })
 
-    it('"adminSectionChallenge" is solved when the 19px.png transpixel is this.requested', () => {
+    it('"adminSectionChallenge" is solved when the 19px.png transpixel is requested', () => {
       challenges.adminSectionChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/images/padding/19px.png'
 
@@ -86,7 +86,7 @@ describe('verify', () => {
       expect(challenges.adminSectionChallenge.solved).to.equal(true)
     })
 
-    it('"tokenSaleChallenge" is solved when the 56px.png transpixel is this.requested', () => {
+    it('"tokenSaleChallenge" is solved when the 56px.png transpixel is requested', () => {
       challenges.tokenSaleChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/images/padding/56px.png'
 
@@ -95,7 +95,7 @@ describe('verify', () => {
       expect(challenges.tokenSaleChallenge.solved).to.equal(true)
     })
 
-    it('"extraLanguageChallenge" is solved when the Klingon translation file is this.requested', () => {
+    it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', () => {
       challenges.extraLanguageChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'
 
@@ -104,7 +104,7 @@ describe('verify', () => {
       expect(challenges.extraLanguageChallenge.solved).to.equal(true)
     })
 
-    it('"retrieveBlueprintChallenge" is solved when the blueprint file is this.requested', () => {
+    it('"retrieveBlueprintChallenge" is solved when the blueprint file is requested', () => {
       challenges.retrieveBlueprintChallenge = { solved: false, save: this.save }
       cache.retrieveBlueprintChallengeFile = 'test.dxf'
       this.req.url = 'http://juice-sh.op/public/images/products/test.dxf'
@@ -112,6 +112,15 @@ describe('verify', () => {
       verify.accessControlChallenges()(this.req, this.res, this.next)
 
       expect(challenges.retrieveBlueprintChallenge.solved).to.equal(true)
+    })
+
+    it('"accessLogDisclosureChallenge" is solved when any server access log file is requested', () => {
+      challenges.accessLogDisclosureChallenge = { solved: false, save: this.save }
+      this.req.url = 'http://juice-sh.op/support/logs/access.log.2019-01-15'
+
+      verify.accessControlChallenges()(this.req, this.res, this.next)
+
+      expect(challenges.accessLogDisclosureChallenge.solved).to.equal(true)
     })
   })
 

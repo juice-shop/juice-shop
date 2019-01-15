@@ -56,6 +56,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.retrieveBlueprintChallenge)
   } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
     utils.solve(challenges.securityPolicyChallenge)
+  } else if (utils.notSolved(challenges.accessLogDisclosureChallenge) && url.match(/access\.log(0-9-)*/)) {
+    utils.solve(challenges.accessLogDisclosureChallenge)
   }
   next()
 }
