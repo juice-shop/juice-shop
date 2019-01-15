@@ -42,11 +42,7 @@ export class ContactComponent implements OnInit {
     })
     this.getNewCaptcha()
 
-    pressEnterHandler('feedback-form', () => this.save(), () => this.isEnabled())
-  }
-
-  isEnabled () {
-    return (document.getElementById('submitButton') as HTMLInputElement).disabled
+    pressEnterHandler('feedback-form', 'submitButton', () => this.save())
   }
 
   getNewCaptcha () {
