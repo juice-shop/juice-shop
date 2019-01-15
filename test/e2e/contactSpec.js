@@ -195,7 +195,7 @@ describe('/#/contact', () => {
       }
     })
 
-    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
+    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass Tier 1' })
   })
 
   describe('challenge "supplyChainAttack"', () => {
