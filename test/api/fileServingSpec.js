@@ -1,5 +1,6 @@
 const frisby = require('frisby')
 const config = require('config')
+const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
@@ -122,5 +123,11 @@ describe('Hidden URL', () => {
   it('GET blueprint file for "Retrieve Blueprint" challenge', () => {
     return frisby.get(URL + '/assets/public/images/products/' + blueprint)
       .expect('status', 200)
+  })
+
+  it('GET folder containing access log files for "Access Log" challenge', () => {
+    return frisby.get(URL + '/support/logs/access.log.' + utils.toISO8601(new Date()))
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/octet-stream/)
   })
 })

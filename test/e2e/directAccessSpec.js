@@ -1,4 +1,5 @@
 const config = require('config')
+const utils = require('../../lib/utils')
 let blueprint
 
 for (const product of config.get('products')) {
@@ -55,5 +56,13 @@ describe('/', () => {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Email Leak' })
+  })
+
+  describe('challenge "accessLogDisclosure"', () => {
+    it('should be able to access today\'s access log file', () => {
+      browser.driver.get(browser.baseUrl + '/support/logs/access.log.' + utils.toISO8601(new Date()))
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Access Log' })
   })
 })

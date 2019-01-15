@@ -31,6 +31,7 @@ const continueCode = require('./routes/continueCode')
 const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const keyServer = require('./routes/keyServer')
+const logFileServer = require('./routes/logfileServer')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
@@ -118,6 +119,11 @@ app.use('/ftp/:file', fileServer())
 /* /encryptionkeys directory browsing */
 app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
+
+/* /logs directory browsing */
+app.use('/support/logs', serveIndex('logs', { 'icons': true, 'view': 'details' }))
+app.use('/support/logs', verify.accessControlChallenges())
+app.use('/support/logs/:file', logFileServer())
 
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
