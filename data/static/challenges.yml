@@ -601,10 +601,10 @@
   key: resetPasswordBjoernOwaspChallenge
 -
   name: 'Access Log'
-  category: 'Security Misconfiguration'
+  category: 'Sensitive Data Exposure'
   description: 'Gain access to any access log file of the server.'
   difficulty: 4
   hint: 'Who would want a server access log to be accessible through a web application?'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
   key: accessLogDisclosureChallenge
   
