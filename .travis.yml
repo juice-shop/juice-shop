@@ -35,7 +35,6 @@ jobs:
       node_js: 10
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
-      name: heroku
       if: branch = master OR branch = develop
       node_js: 10
       install: skip
@@ -49,7 +48,7 @@ jobs:
             develop: juice-shop-staging
           on:
             repo: bkimminich/juice-shop
-    - name: github
+    - stage: github
       if: tag IS present
       node_js:
         - 8
