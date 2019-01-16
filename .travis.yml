@@ -5,6 +5,7 @@ stages:
   - deploy
 language: node_js
 node_js:
+  - 10
   - 8
   - 9
   - 11
@@ -20,9 +21,26 @@ addons:
 before_install:
 - rm -rf node_modules
 - rm -rf frontend/node_modules
+before_deploy:
+  - npm install --production
+  - npm run package
+deploy:
+    - provider: releases
+      overwrite: true
+      api_key:
+        secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+      file: dist/*
+      skip_cleanup: true
+      file_glob: true
+      draft: true
+      tag_name: "$TRAVIS_TAG"
+      on:
+        repo: bkimminich/juice-shop
+        tags: true
+
 jobs:
   include:
-    - stage: test
+    - stage: frisby
       node_js: 10
       script:
         - npm run lint
@@ -31,10 +49,10 @@ jobs:
       after_success:
         - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
-    - stage: e2e
+    - stage: protractor
       node_js: 10
       script: NODE_ENV=ctf npm run protractor
-    - stage: deploy
+    - stage: heroku
       if: branch = master OR branch = develop
       node_js: 10
       install: skip
@@ -48,30 +66,6 @@ jobs:
             develop: juice-shop-staging
           on:
             repo: bkimminich/juice-shop
-    - stage: github
-      if: tag IS present
-      node_js:
-        - 8
-        - 9
-        - 10
-        - 11
-      install:
-        - npm install --production
-        - npm run package
-      script: skip
-      deploy:
-        - provider: releases
-          overwrite: true
-          api_key:
-            secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-          file: dist/*
-          skip_cleanup: true
-          file_glob: true
-          draft: true
-          tag_name: "$TRAVIS_TAG"
-          on:
-            repo: bkimminich/juice-shop
-            tags: true
 notifications:
   webhooks:
     urls:
