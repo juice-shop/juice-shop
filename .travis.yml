@@ -40,7 +40,7 @@ deploy:
 
 jobs:
   include:
-    - stage: frisby
+    - stage: integration
       node_js: 10
       script:
         - npm run lint
@@ -49,10 +49,10 @@ jobs:
       after_success:
         - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
-    - stage: protractor
+    - stage: e2e
       node_js: 10
       script: NODE_ENV=ctf npm run protractor
-    - stage: heroku
+    - stage: deploy
       if: branch = master OR branch = develop
       node_js: 10
       install: skip
