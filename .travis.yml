@@ -1,6 +1,7 @@
 stages:
   - lint
   - test
+  - integration
   - e2e
   - deploy
 language: node_js
@@ -40,21 +41,20 @@ deploy:
 
 jobs:
   include:
+    - stage: lint
+      install: npm install standard && cd frontend && npm install && cd ..
+      script: npm run lint
     - stage: integration
-      node_js: 10
       script:
-        - npm run lint
         - npm test
         - npm run frisby
       after_success:
         - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
-      node_js: 10
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
       if: branch = master OR branch = develop
-      node_js: 10
       install: skip
       script: skip
       deploy:
