@@ -1,13 +1,15 @@
-stages:
-  - lint
-  - test
-  - e2e
-  - deploy
 language: node_js
 node_js:
+  - 10
   - 8
   - 9
   - 11
+stages:
+  - lint
+  - test
+  - integration
+  - e2e
+  - deploy
 branches:
   except:
     - gh-pages
@@ -18,27 +20,44 @@ addons:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
 before_install:
-- rm -rf node_modules
-- rm -rf frontend/node_modules
+  - rm -rf node_modules
+  - rm -rf frontend/node_modules
+before_deploy:
+  - npm install --production
+  - npm run package
+deploy:
+  - provider: releases
+    overwrite: true
+    api_key:
+      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+    file: dist/*
+    skip_cleanup: true
+    file_glob: true
+    draft: true
+    tag_name: "$TRAVIS_TAG"
+    on:
+      repo: bkimminich/juice-shop
+      tags: true
 jobs:
   include:
-    - stage: test
-      node_js: 10
+    - stage: lint
+      if: tag IS blank
+      install: npm install standard && cd frontend && npm install && cd ..
+      script: npm run lint
+    - stage: integration
+      if: tag IS blank
       script:
-        - npm run lint
         - npm test
         - npm run frisby
       after_success:
         - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
-      node_js: 10
+      if: tag IS blank
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
-      node_js: 10
-      install:
-        - npm install --production
-        - npm run package
+      if: (branch = master OR branch = develop) AND NOT type = pull_request
+      install: skip
       script: skip
       deploy:
         - provider: heroku
@@ -49,22 +68,10 @@ jobs:
             develop: juice-shop-staging
           on:
             repo: bkimminich/juice-shop
-        - provider: releases
-          overwrite: true
-          api_key:
-            secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-          file: dist/*
-          skip_cleanup: true
-          file_glob: true
-          draft: true
-          tag_name: "$TRAVIS_TAG"
-          on:
-            repo: bkimminich/juice-shop
-            tags: true
 notifications:
   webhooks:
     urls:
-    - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
     on_start: never
