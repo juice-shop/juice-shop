@@ -19,7 +19,6 @@ describe('angular', () => {
     serveAngularClient()(this.req, this.res, this.next)
 
     expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/index\.html/))
-    expect(false).to.equal(true) // FIXME Forced test failure the test CI stage behavior
   })
 
   it('should raise error for /api endpoint URL', () => {
