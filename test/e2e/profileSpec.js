@@ -9,8 +9,8 @@ describe('/profile', () => {
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "SSTi"', () => {
-      protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-      browser.get('/profile')
+      // protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+      // browser.get('/profile')
 
       xit('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.get('/profile')
@@ -22,7 +22,7 @@ describe('/profile', () => {
         browser.get('/')
         browser.driver.sleep(5000)
       })
-      protractor.expect.challengeSolved({ challenge: 'SSTi' })
+      // protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
   }
 
@@ -44,9 +44,9 @@ describe('/profile', () => {
   })
 
   describe('challenge "Username XSS"', () => {
-    // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-    xit('Username field should be susceptible to XSS attacks', () => {
+    it('Username field should be susceptible to XSS attacks', () => {
       const EC = protractor.ExpectedConditions
       browser.get('/profile')
       browser.waitForAngularEnabled(false)
@@ -61,6 +61,6 @@ describe('/profile', () => {
       })
       browser.driver.sleep(5000)
     })
-    // protractor.expect.challengeSolved({ challenge: 'Username XSS' })
+    protractor.expect.challengeSolved({ challenge: 'Username XSS' })
   })
 })
