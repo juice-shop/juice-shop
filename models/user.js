@@ -9,8 +9,9 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       defaultValue: '',
       set (username) {
-        username = username.replace(/\t+/g, '')
-        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`)</script>')) {
+        username = username.replace(/<(?:\w+)\W+?[\w]/gi, '')
+        console.log(username)
+        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`);</script>')) {
           utils.solve(challenges.usernameXssChallenge)
         }
         this.setDataValue('username', username)
