@@ -31,6 +31,7 @@ const continueCode = require('./routes/continueCode')
 const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const keyServer = require('./routes/keyServer')
+const logFileServer = require('./routes/logfileServer')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
@@ -93,8 +94,8 @@ app.use((req, res, next) => {
 })
 
 /* Security Policy */
-app.get('/security.txt', verify.accessControlChallenges())
-app.use('/security.txt', securityTxt({
+app.get('/.well-known/security.txt', verify.accessControlChallenges())
+app.use('/.well-known/security.txt', securityTxt({
   contact: config.get('application.securityTxt.contact'),
   encryption: config.get('application.securityTxt.encryption'),
   acknowledgements: config.get('application.securityTxt.acknowledgements')
@@ -104,7 +105,7 @@ app.use('/security.txt', securityTxt({
 app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
-app.use('/assets/public/images/tracking', verify.accessControlChallenges())
+app.use('/assets/public/images/padding', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
 
@@ -118,6 +119,11 @@ app.use('/ftp/:file', fileServer())
 /* /encryptionkeys directory browsing */
 app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
+
+/* /logs directory browsing */
+app.use('/support/logs', serveIndex('logs', { 'icons': true, 'view': 'details' }))
+app.use('/support/logs', verify.accessControlChallenges())
+app.use('/support/logs/:file', logFileServer())
 
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))

@@ -1,34 +1,79 @@
 language: node_js
 node_js:
   - 10
-  - 9
   - 8
+  - 9
+  - 11
+stages:
+  - lint
+  - test
+  - integration
+  - e2e
+  - deploy
 branches:
   except:
-  - gh-pages
-  - l10n_develop
+    - gh-pages
+    - l10n_develop
 addons:
   chrome: stable
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
-before_install:
-- rm -rf node_modules
-- rm -rf frontend/node_modules
-script:
-- npm test
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then npm run frisby; else echo "Skipping Frisby API tests on $node_version"; fi
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then NODE_ENV=ctf npm run protractor; else echo "Skipping Protractor e2e tests on $node_version"; fi
-after_success:
-- "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-- node_version=$(node -v); if [ ${node_version:1:2} = 10 ]; then ./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info; else echo "Skipping Codeclimate analysis on $node_version"; fi
+install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
+script: if [ -z "$TRAVIS_TAG" ]; then npm test; fi
+before_deploy:
+  - rm -rf node_modules
+  - rm -rf frontend/node_modules
+  - npm install --production
+  - npm run package
+deploy:
+  - provider: releases
+    overwrite: true
+    api_key:
+      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+    file: dist/*
+    skip_cleanup: true
+    file_glob: true
+    draft: true
+    tag_name: "$TRAVIS_TAG"
+    on:
+      repo: bkimminich/juice-shop
+      tags: true
+jobs:
+  include:
+    - stage: lint
+      if: tag IS blank
+      install: npm install standard && cd frontend && npm install && cd ..
+      script: npm run lint
+    - stage: integration
+      if: tag IS blank
+      script:
+        - npm test
+        - npm run frisby
+      after_success:
+        - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
+        - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
+    - stage: e2e
+      if: tag IS blank
+      script: NODE_ENV=ctf npm run protractor
+    - stage: deploy
+      if: (branch = master OR branch = develop) AND NOT type = pull_request
+      node_js: 11
+      install: skip
+      script: skip
+      deploy:
+        - provider: heroku
+          api_key:
+            secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
+          app:
+            master: juice-shop
+            develop: juice-shop-staging
+          on:
+            repo: bkimminich/juice-shop
 notifications:
-  email:
-  - secure: ADLqaNm7lR8sgCkSz7eWtWdm8zZ9OsbkcQAi2nm7hQPWAkTWPfr9qeOBh39Z3PZvkgDdlUpNZc/uPlcEGEILznJRF3HlQjWrWksNNtY3xaRc01B4uXlDbODjttb6v9mOqkwUqRfQLeerOqNynNSkT129+mz4FANn0+oucZ3EuQc=
-  - secure: HhhSoqY87yd8Hkt+cfXk9XXDJeWViYQoPq8f7SJofkwSWtxfOS9GNbOUehZJDqjBMARoGi3SJBImRbisnwfMcEhKpSZs2S4Osdwk2Ayy0h8V/O+qHhiEuJq1mPbAWrYNGQerz16Ec4SbX6hPnAEle2SUwjbPUnfRRCROsJqfm0o=
   webhooks:
     urls:
-    - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
     on_start: never
@@ -39,29 +84,3 @@ notifications:
     on_failure: change
     on_start: never
     on_pull_requests: false
-before_deploy:
-- rm -rf node_modules
-- npm install --production
-- npm run package
-deploy:
-- provider: heroku
-  api_key:
-    secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
-  app:
-    master: juice-shop
-    develop: juice-shop-staging
-  on:
-    repo: bkimminich/juice-shop
-    node: 10
-- provider: releases
-  overwrite: true
-  api_key:
-    secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-  file: dist/*
-  skip_cleanup: true
-  file_glob: true
-  draft: true
-  tag_name: "$TRAVIS_TAG"
-  on:
-    repo: bkimminich/juice-shop
-    tags: true

@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faStar, faPaperPlane)
 dom.watch()
@@ -27,7 +28,7 @@ export class ContactComponent implements OnInit {
   public confirmation: any
   public error: any
 
-  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService) { }
+  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
@@ -40,6 +41,8 @@ export class ContactComponent implements OnInit {
       console.log(err)
     })
     this.getNewCaptcha()
+
+    this.formSubmitService.attachEnterKeyHandler('feedback-form', 'submitButton', () => this.save())
   }
 
   getNewCaptcha () {
