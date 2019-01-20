@@ -1,4 +1,4 @@
-// const config = require('config')
+const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/profile', () => {
@@ -9,8 +9,8 @@ describe('/profile', () => {
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "SSTi"', () => {
-      // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
-      // browser.get('/profile')
+      protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+      browser.get('/profile')
 
       xit('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.get('/profile')
@@ -22,7 +22,7 @@ describe('/profile', () => {
         browser.get('/')
         browser.driver.sleep(5000)
       })
-      // protractor.expect.challengeSolved({ challenge: 'SSTi' })
+      protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
   }
 
