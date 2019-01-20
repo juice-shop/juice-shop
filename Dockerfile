@@ -9,12 +9,12 @@ ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.title="OWASP Juice Shop" \
-    org.opencontainers.image.description="An intentionally insecure JavaScript Web Application" \
+    org.opencontainers.image.description="Probably the most modern and sophisticated insecure web application" \
     org.opencontainers.image.authors="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.vendor="Open Web Application Security Project" \
     org.opencontainers.image.documentation="http://help.owasp-juice.shop" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="8.2.0-SNAPSHOT" \
+    org.opencontainers.image.version="8.3.1-SNAPSHOT" \
     org.opencontainers.image.url="http://owasp-juice.shop" \
     org.opencontainers.image.source="https://github.com/bkimminich/juice-shop" \
     org.opencontainers.image.revision=$VCS_REF \

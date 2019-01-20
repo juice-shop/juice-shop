@@ -36,7 +36,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 exports.registerAdminChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.registerAdminChallenge)) {
-    if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
+    if (req.body && req.body.isAdmin && req.body.isAdmin) {
       utils.solve(challenges.registerAdminChallenge)
     }
   }
@@ -44,11 +44,11 @@ exports.registerAdminChallenge = () => (req, res, next) => {
 }
 
 exports.accessControlChallenges = () => ({ url }, res, next) => {
-  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
+  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/1px.png')) {
     utils.solve(challenges.scoreBoardChallenge)
-  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/administration.png')) {
+  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/19px.png')) {
     utils.solve(challenges.adminSectionChallenge)
-  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
+  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
     utils.solve(challenges.tokenSaleChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
@@ -56,6 +56,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.retrieveBlueprintChallenge)
   } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
     utils.solve(challenges.securityPolicyChallenge)
+  } else if (utils.notSolved(challenges.accessLogDisclosureChallenge) && url.match(/access\.log(0-9-)*/)) {
+    utils.solve(challenges.accessLogDisclosureChallenge)
   }
   next()
 }

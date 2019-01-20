@@ -1,5 +1,6 @@
 const frisby = require('frisby')
 const config = require('config')
+const utils = require('../../lib/utils')
 
 const URL = 'http://localhost:3000'
 
@@ -34,17 +35,17 @@ describe('Server', () => {
   it('GET a restricted file directly from file system path on server via Directory Traversal attack loads index.html instead', () => {
     return frisby.get(URL + '/public/images/../../ftp/eastere.gg')
       .expect('status', 200)
-      .expect('bodyContains', '<meta name="description" content="An intentionally insecure JavaScript Web Application">')
+      .expect('bodyContains', '<meta name="description" content="Probably the most modern and sophisticated insecure web application">')
   })
 
   it('GET a restricted file directly from file system path on server via URL-encoded Directory Traversal attack loads index.html instead', () => {
     return frisby.get(URL + '/public/images/%2e%2e%2f%2e%2e%2fftp/eastere.gg')
       .expect('status', 200)
-      .expect('bodyContains', '<meta name="description" content="An intentionally insecure JavaScript Web Application">')
+      .expect('bodyContains', '<meta name="description" content="Probably the most modern and sophisticated insecure web application">')
   })
 
   it('GET serves a security.txt file', () => {
-    return frisby.get(URL + '/security.txt')
+    return frisby.get(URL + '/.well-known/security.txt')
       .expect('status', 200)
   })
 
@@ -54,15 +55,21 @@ describe('Server', () => {
   })
 })
 
-describe('/public/images/tracking', () => {
+describe('/public/images/padding', () => {
   it('GET tracking image for "Score Board" page access challenge', () => {
-    return frisby.get(URL + '/assets/public/images/tracking/scoreboard.png')
+    return frisby.get(URL + '/assets/public/images/padding/1px.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
 
   it('GET tracking image for "Administration" page access challenge', () => {
-    return frisby.get(URL + '/assets/public/images/tracking/administration.png')
+    return frisby.get(URL + '/assets/public/images/padding/19px.png')
+      .expect('status', 200)
+      .expect('header', 'content-type', 'image/png')
+  })
+
+  it('GET tracking image for "Token Sale" page access challenge', () => {
+    return frisby.get(URL + '/assets/public/images/padding/56px.png')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
@@ -101,10 +108,10 @@ describe('Hidden URL', () => {
       .expect('bodyContains', '<title>Welcome to Planet Orangeuze</title>')
   })
 
-  it('GET the premium content by visiting the ROT5>Base64>z85>ROT5-decrypted URL', () => {
+  it('GET the premium content by visiting the AES decrypted URL', () => {
     return frisby.get(URL + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
       .expect('status', 200)
-      .expect('header', 'content-type', 'image/gif')
+      .expect('header', 'content-type', 'image/jpeg')
   })
 
   it('GET Klingon translation file for "Extra Language" challenge', () => {
@@ -116,5 +123,11 @@ describe('Hidden URL', () => {
   it('GET blueprint file for "Retrieve Blueprint" challenge', () => {
     return frisby.get(URL + '/assets/public/images/products/' + blueprint)
       .expect('status', 200)
+  })
+
+  it('GET folder containing access log files for "Access Log" challenge', () => {
+    return frisby.get(URL + '/support/logs/access.log.' + utils.toISO8601(new Date()))
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/octet-stream/)
   })
 })

@@ -8,6 +8,7 @@ application:
   twitterUrl: null
   facebookUrl: null
   slackUrl: null
+  pressKitUrl: null
   planetOverlayMap: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   planetName: Bodgiton VI
   recyclePage:

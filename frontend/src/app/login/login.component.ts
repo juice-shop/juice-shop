@@ -7,6 +7,7 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faKey, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
@@ -37,15 +38,15 @@ const authorizedRedirectURIs = {
 })
 export class LoginComponent implements OnInit {
 
-  public emailControl = new FormControl('', [ Validators.required])
-  public passwordControl = new FormControl('', [ Validators.required])
+  public emailControl = new FormControl('', [Validators.required])
+  public passwordControl = new FormControl('', [Validators.required])
   public hide = true
   public user: any
   public rememberMe: FormControl = new FormControl(false)
   public error: any
   public oauthUnavailable: any
   public redirectUri
-  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router) { }
+  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
 
@@ -63,6 +64,8 @@ export class LoginComponent implements OnInit {
     if (this.oauthUnavailable) {
       console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
     }
+
+    this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => this.login())
   }
 
   login () {
@@ -73,7 +76,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
       this.cookieService.put('token', authentication.token)
-      sessionStorage.setItem('bid',authentication.bid)
+      sessionStorage.setItem('bid', authentication.bid)
       /*Use userService to notifiy if user has logged in*/
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
@@ -105,8 +108,8 @@ export class LoginComponent implements OnInit {
   googleLogin () {
 
     this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
-    + clientId + '&response_type=token&scope=email&redirect_uri='
-    + authorizedRedirectURIs[this.redirectUri])
+      + clientId + '&response_type=token&scope=email&redirect_uri='
+      + authorizedRedirectURIs[this.redirectUri])
 
   }
 
