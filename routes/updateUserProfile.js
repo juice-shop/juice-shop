@@ -5,12 +5,9 @@ module.exports = function updateUserProfile () {
   return (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
 
-    let filteredUsername
-    filteredUsername = req.body.username.replace(/(script|iframe|window|javascript|href|value)/ig, '')
-
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
-        return user.updateAttributes({ username: filteredUsername })
+        return user.updateAttributes({ username: req.body.username })
       }).catch(error => {
         next(error)
       })
