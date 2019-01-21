@@ -46,7 +46,7 @@ describe('/profile', () => {
   })
 
   describe('challenge "XSS Tier 1.5"', () => {
-    protractor.beforeEach.login({ email: 'wurstbrot@' + config.get('application.domain'), password: 'EinBelegtesBrotMitSchinkenSCHINKEN!' })
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('Username field should be susceptible to XSS attacks', () => {
       const EC = protractor.ExpectedConditions
@@ -61,7 +61,7 @@ describe('/profile', () => {
         alert.accept()
       })
       browser.driver.sleep(5000)
-      username.sendKeys('wurstbrot') // disarm XSS
+      username.sendKeys('αδмιη') // disarm XSS
       setButton.click()
     })
     protractor.expect.challengeSolved({ challenge: 'XSS Tier 1.5' })
