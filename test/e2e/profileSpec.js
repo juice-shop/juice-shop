@@ -43,10 +43,10 @@ describe('/profile', () => {
     // protractor.expect.challengeSolved({ challenge: 'SSRF' })
   })
 
-  describe('challenge "Username XSS"', () => {
-    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+  describe('challenge "XSS Tier 0.5"', () => {
+    // protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-    it('Username field should be susceptible to XSS attacks', () => {
+    xit('Username field should be susceptible to XSS attacks', () => {
       const EC = protractor.ExpectedConditions
       browser.get('/profile')
       browser.waitForAngularEnabled(false)
@@ -61,6 +61,6 @@ describe('/profile', () => {
       })
       browser.driver.sleep(5000)
     })
-    protractor.expect.challengeSolved({ challenge: 'Username XSS' })
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 0.5' })
   })
 })
