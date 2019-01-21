@@ -3,9 +3,6 @@ const utils = require('../../lib/utils')
 
 describe('/profile', () => {
   let username, submitButton, url, setButton
-  beforeEach(() => {
-    browser.waitForAngularEnabled(false)
-  })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "SSTi"', () => {
@@ -21,6 +18,7 @@ describe('/profile', () => {
         submitButton.click()
         browser.get('/')
         browser.driver.sleep(5000)
+        browser.waitForAngularEnabled(true)
       })
       // protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
@@ -39,20 +37,21 @@ describe('/profile', () => {
       submitButton.click()
       browser.get('/')
       browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
     })
     // protractor.expect.challengeSolved({ challenge: 'SSRF' })
   })
 
-  describe('challenge "XSS Tier 0.5"', () => {
-    // protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+  describe('challenge "XSS Tier 1.5"', () => {
+    protractor.beforeEach.login({ email: 'wurstbrot@' + config.get('application.domain'), password: 'EinBelegtesBrotMitSchinkenSCHINKEN!' })
 
-    xit('Username field should be susceptible to XSS attacks', () => {
+    it('Username field should be susceptible to XSS attacks', () => {
       const EC = protractor.ExpectedConditions
       browser.get('/profile')
       browser.waitForAngularEnabled(false)
       username = element(by.id('username'))
       setButton = element(by.id('submit'))
-      username.sendKeys('<scr  ipt>alert(`xss`)</scr  ipt>')
+      username.sendKeys('<<a|ascript>alert(`xss`)</script>')
       setButton.click()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
@@ -60,7 +59,10 @@ describe('/profile', () => {
         alert.accept()
       })
       browser.driver.sleep(5000)
+      username.sendKeys('wurstbrot') // disarm XSS
+      setButton.click()
+      browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 0.5' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 1.5' })
   })
 })
