@@ -592,6 +592,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
 -
+  name: 'Username XSS'
+  category: 'XSS'
+  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application'
+  difficulty: 3
+  hint: ''
+  hintUrl: ''
+  key: usernameXssChallenge
+-  
   name: 'Reset Bjoern''s Password Tier 1'
   category: 'Broken Authentication'
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'

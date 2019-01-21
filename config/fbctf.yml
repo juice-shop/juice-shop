@@ -227,6 +227,9 @@ ctf:
     loginAmyChallenge:
       name: Andorra
       code: AD
+    usernameXssChallenge:
+      name: Azerbaijan
+      code: AZ
     resetPasswordBjoernOwaspChallenge:
       name: Kazakhstan
       code: KZ
