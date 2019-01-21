@@ -10,8 +10,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       defaultValue: '',
       set (username) {
         username = username.replace(/<(?:\w+)\W+?[\w]/gi, '') // FIXME Move homegrown sanitizer RegEx function to insecurity.js
-        console.log(username)
-        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`);</script>')) {
+        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`)</script>')) {
           utils.solve(challenges.usernameXssChallenge)
         }
         this.setDataValue('username', username)
