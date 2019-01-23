@@ -1,7 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
+import { MatIconModule } from '@angular/material/icon'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+
+import { CookieModule } from 'ngx-cookie'
+import { HttpClientModule } from '@angular/common/http'
+import { RouterTestingModule } from '@angular/router/testing'
 
 import { OAuthComponent } from './oauth.component'
+import { LoginComponent } from '../login/login.component'
+import { ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
 
 describe('OAuthComponent', () => {
   let component: OAuthComponent
@@ -9,9 +21,24 @@ describe('OAuthComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OAuthComponent ],
+      declarations: [ OAuthComponent, LoginComponent ],
       imports: [
-        TranslateModule.forRoot()
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent }
+        ]
+        ),
+        ReactiveFormsModule,
+        CookieModule.forRoot(),
+        TranslateModule.forRoot(),
+        MatInputModule,
+        MatIconModule ,
+        MatCardModule,
+        MatFormFieldModule,
+        MatCheckboxModule,
+        HttpClientModule
+      ],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } }
       ]
     })
     .compileComponents()
@@ -23,7 +50,7 @@ describe('OAuthComponent', () => {
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
   })
 })
