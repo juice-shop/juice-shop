@@ -15,7 +15,7 @@ import { LoginComponent } from '../login/login.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 
-describe('OAuthComponent', () => {
+xdescribe('OAuthComponent', () => {
   let component: OAuthComponent
   let fixture: ComponentFixture<OAuthComponent>
 
@@ -50,7 +50,7 @@ describe('OAuthComponent', () => {
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
   })
 })
