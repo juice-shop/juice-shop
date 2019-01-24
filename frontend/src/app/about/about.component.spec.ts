@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AboutComponent } from './about.component'
 
-describe('AboutComponent', () => {
+xdescribe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
 
