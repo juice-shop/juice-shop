@@ -15,7 +15,7 @@ import { LoginComponent } from '../login/login.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 
-xdescribe('OAuthComponent', () => {
+describe('OAuthComponent', () => {
   let component: OAuthComponent
   let fixture: ComponentFixture<OAuthComponent>
 
