@@ -9,7 +9,7 @@ import { TrackOrderComponent } from './track-order.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 
-xdescribe('TrackOrderComponent', () => {
+describe('TrackOrderComponent', () => {
   let component: TrackOrderComponent
   let fixture: ComponentFixture<TrackOrderComponent>
 
