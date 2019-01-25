@@ -17,12 +17,13 @@ import {
   faPlusSquare,
   faThumbsUp,
   faTshirt,
-  faStickyNote
+  faStickyNote,
+  faHandHoldingUsd
 } from '@fortawesome/free-solid-svg-icons'
 import { faCreditCard as faCredit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faBtc, faEthereum, faPaypal } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote)
+library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd)
 dom.watch()
 
 @Component({
