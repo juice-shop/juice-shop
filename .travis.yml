@@ -55,7 +55,9 @@ jobs:
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
       if: tag IS blank
-      script: NODE_ENV=ctf npm run protractor
+      script:
+        - export NODE_ENV=ctf
+        - npm run protractor
     - stage: deploy
       if: (branch = master OR branch = develop) AND NOT type = pull_request
       node_js: 11
