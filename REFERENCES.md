@@ -90,8 +90,7 @@ where this project was mentioned or used!
 * Blog post on [Omer Levi Hevroni's blog](https://www.omerlh.info/):
   [Hacking Juice Shop, the DevSecOps Way](https://www.omerlh.info/2018/12/23/hacking-juice-shop-the-devsecops-way/)
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934):
-  [Testing out ModSecurity CRS with OWASP JuiceShop
-        ](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
+  [Testing out ModSecurity CRS with OWASP JuiceShop](https://medium.com/@j12934/testing-out-modsecurity-crs-with-owasp-juiceshop-649830932365)
 * OWASP Portland Chapter meeting writeup on the
   [Daylight Blog](https://thedaylightstudio.com/blog):
   [Vulnerability Hunting Practice Using OWASP Juice Shop](https://thedaylightstudio.com/blog/2018/11/20/vulnerability-hunting-practice-using-owasp-juice-shop)
@@ -166,6 +165,13 @@ where this project was mentioned or used!
   by Björn Kimminich
 
 ## Conference and Meetup Appearances
+
+#### 2019
+
+* [Back to Basics: Hacking OWASP JuiceShop](https://www.owasp.org/index.php/Knoxville#Past_Meetings)
+  by Jeremy Kelso,
+  [OWASP Knoxville Chapter Meeting](https://www.owasp.org/index.php/Knoxville),
+  24.01.2019
 
 #### 2018
 
