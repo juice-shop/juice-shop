@@ -236,3 +236,6 @@ ctf:
     accessLogDisclosureChallenge:
       name: Singapore
       code: SG
+    dlpPasswordSprayingChallenge:
+      name: Chad
+      code: TD
