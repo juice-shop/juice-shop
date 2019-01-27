@@ -615,4 +615,11 @@
   hint: 'Who would want a server access log to be accessible through a web application?'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
   key: accessLogDisclosureChallenge
-  
+-
+  name: 'DLP Failure Tier 2'
+  category: 'Sensitive Data Exposure'
+  description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
+  difficulty: 5
+  hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  key: dlpPasswordSprayingChallenge
