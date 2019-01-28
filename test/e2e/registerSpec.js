@@ -31,7 +31,7 @@ describe('/#/register', () => {
 
       // FIXME Update user email afterwards to prevent further unwanted popups to appear
     })
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
+    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 
   describe('challenge "registerAdmin"', () => {
