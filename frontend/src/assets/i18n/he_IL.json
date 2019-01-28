@@ -67,7 +67,7 @@
   "LABEL_PAYMENT": "תשלום",
   "LABEL_MERCHANDISE": "סחורה",
   "OFFICIAL_MERCHANDISE_STORES": "רשימת חנויות רשמיות להלבשת {{juiceshop}}, ספלים, ומדבקות!",
-  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
+  "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "חנויות רשמיות לביגוד, ספלים ומדבקות של פרוייקט הקוד הפתוח שמאחורי {{appname}}!",
   "DISCOUNT_APPLIED": "ההנחה שלך של {{discount}}% יחול בעת התשלום.",
   "TITLE_CHANGE_PASSWORD": "שינוי סיסמה",
   "MANDATORY_CURRENT_PASSWORD": "נא להזין את הסיסמה הנוכחית.",
