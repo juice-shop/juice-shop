@@ -107,6 +107,8 @@ describe('/rest/product/reviews', () => {
             sendPostRequest(reviewId)
             sendPostRequest(reviewId)
             sendPostRequest(reviewId)
+            sendPostRequest(reviewId)
+            sendPostRequest(reviewId)
           }
         }
 

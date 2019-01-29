@@ -26,7 +26,7 @@ module.exports = function productReviews () {
                     count++
                   }
                 }
-                if (count > 2 && utils.notSolved(challenges.timingAttackChallenge)) {
+                if (count > 4 && utils.notSolved(challenges.timingAttackChallenge)) {
                   utils.solve(challenges.timingAttackChallenge)
                 }
                 db.reviews.update(
