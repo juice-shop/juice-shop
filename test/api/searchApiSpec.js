@@ -1,9 +1,10 @@
 const frisby = require('frisby')
 const insecurity = require('../../lib/insecurity')
 const config = require('config')
+const products = config.get('products')
 
 const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
-// const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge })) => useForPastebinLeakChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge })) => useForPastebinLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -135,6 +136,16 @@ describe('/rest/product/search', () => {
       .then(({ json }) => {
         expect(json.data.length).toBe(1)
         expect(json.data[0].name).toBe(christmasProduct.name)
+      })
+  })
+
+  it('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause', () => {
+    return frisby.get(REST_URL + '/product/search?q=' + pastebinLeakProduct.name + '\'))--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.data.length).toBe(1)
+        expect(json.data[0].name).toBe(pastebinLeakProduct.name)
       })
   })
 
