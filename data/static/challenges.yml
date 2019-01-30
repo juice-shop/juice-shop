@@ -559,10 +559,10 @@
 -
   name: 'Multiple Likes'
   category: 'Race Condition'
-  description: 'Like any review at least three times as the same user.'
+  description: 'Like any review at least five times as the same user.'
   difficulty: 6
   hint: 'Punctuality is the politeness of kings.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-three-times-as-the-same-user'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-five-times-as-the-same-user'
   key: timingAttackChallenge
 -
   name: 'SSTi'
@@ -596,7 +596,7 @@
   category: 'XSS'
   description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
   difficulty: 2
-  hint: 'What is better than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
+  hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge
 -  
