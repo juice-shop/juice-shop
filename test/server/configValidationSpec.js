@@ -21,6 +21,10 @@ describe('configValidation', () => {
         {
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar'
+        },
+        {
+          name: 'Rippertuer Juice',
+          useForPastebinLeakChallenge: true
         }
       ]
 
