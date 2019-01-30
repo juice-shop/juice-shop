@@ -616,6 +616,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
   key: accessLogDisclosureChallenge
 -
+  name: 'DLP Failure Tier 1'
+  category: 'Sensitive Data Exposure'
+  description: 'Find the deleted Rippertuer Juice and the using it a paste somewhere in the Internet. Get information about the user who initially added submit his credentials as a complaint.'
+  difficulty: 4
+  hint: 'A bit of SQLi and Strg-V will be your accomplice in this challenge! Try solving the Christmas Challenge first for insight.'
+  hintUrl: ''
+  key: dlpPastebinDataLeakChallenge 
+-
   name: 'DLP Failure Tier 2'
   category: 'Sensitive Data Exposure'
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
