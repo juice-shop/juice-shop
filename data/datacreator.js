@@ -150,7 +150,7 @@ function createProducts () {
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
   tamperingChallengeProduct.deletedAt = null
   pastebinLeakChallengeProduct.description += 'This product is unsafe... we plan to remove it from the stocks'
-  pastebinLeakChallengeProduct.deletedAt = '2018-11-28 00:00:00.000 +00:00'
+  pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
 
   let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
