@@ -22,17 +22,16 @@ function loadStaticData (file) {
 
 module.exports = async () => {
   const creators = [
+    createSecurityQuestions,
     createUsers,
     createChallenges,
     createRandomFakeUsers,
     createProducts,
     createBaskets,
     createBasketItems,
-    createFeedback,
+    createAnonymousFeedback,
     createComplaints,
     createRecycles,
-    createSecurityQuestions,
-    createSecurityAnswers,
     createOrders
   ]
 
@@ -74,7 +73,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage }) => {
+    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -84,8 +83,10 @@ async function createUsers () {
           profileImage: profileImage || 'default.svg'
         })
         datacache.users[key] = user
+        if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
       } catch (err) {
-        console.error(`Could not insert User ${name}`)
+        console.error(`Could not insert User ${key}`)
         console.error(err)
       }
     })
@@ -245,18 +246,8 @@ function createBasketItems () {
   )
 }
 
-function createFeedback () {
+function createAnonymousFeedback () {
   const feedbacks = [
-    {
-      UserId: 1,
-      comment: 'I love this shop! Best products in town! Highly recommended!',
-      rating: 5
-    },
-    {
-      UserId: 2,
-      comment: 'Great shop! Awesome service!',
-      rating: 4
-    },
     {
       comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
       rating: 2
@@ -272,20 +263,19 @@ function createFeedback () {
     {
       comment: 'Keep up the good work!',
       rating: 3
-    },
-    {
-      UserId: 3,
-      comment: 'Nothing useful available here!',
-      rating: 1
     }
   ]
 
   return Promise.all(
-    feedbacks.map((feedback) => models.Feedback.create(feedback).catch((err) => {
-      console.error(`Could not insert Feedback ${feedback.comment}`)
-      console.error(err)
-    }))
+    feedbacks.map((feedback) => createFeedback(null, feedback.comment, feedback.rating))
   )
+}
+
+function createFeedback (UserId, comment, rating) {
+  return models.Feedback.create({ UserId, comment, rating }).catch((err) => {
+    console.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}`)
+    console.error(err)
+  })
 }
 
 function createComplaints () {
@@ -333,63 +323,11 @@ function createSecurityQuestions () {
   )
 }
 
-function createSecurityAnswers () {
-  const answers = [{
-    SecurityQuestionId: 2,
-    UserId: 1,
-    answer: '@xI98PxDO+06!'
-  }, {
-    SecurityQuestionId: 1,
-    UserId: 2,
-    answer: 'Samuel' // https://en.wikipedia.org/wiki/James_T._Kirk
-  }, {
-    SecurityQuestionId: 10,
-    UserId: 3,
-    answer: 'Stop\'n\'Drop' // http://futurama.wikia.com/wiki/Suicide_booth
-  }, {
-    SecurityQuestionId: 7,
-    UserId: 5,
-    answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
-  }, {
-    SecurityQuestionId: 10,
-    UserId: 6,
-    answer: 'SC OLEA SRL' // http://www.olea.com.ro/
-  }, {
-    SecurityQuestionId: 7,
-    UserId: 7,
-    answer: '5N0wb41L' // http://rickandmorty.wikia.com/wiki/Snuffles
-  }, {
-    SecurityQuestionId: 1,
-    UserId: 8,
-    answer: 'I even shared my pizza bagels with you!'
-  }, {
-    SecurityQuestionId: 1,
-    UserId: 9,
-    answer: 'azjTLprq2im6p86RbFrA41L'
-  }, {
-    SecurityQuestionId: 1,
-    UserId: 10,
-    answer: 'NZMJLjEinU7TFElDIYW8'
-  }, {
-    SecurityQuestionId: 8,
-    UserId: 11,
-    answer: 'Dr. Dr. Dr. Dr. Zoidberg'
-  }, {
-    SecurityQuestionId: 9,
-    UserId: 12,
-    answer: 'West-2082' // http://www.alte-postleitzahlen.de/uetersen
-  }, {
-    SecurityQuestionId: 7,
-    UserId: 13,
-    answer: 'Zaya'
-  }]
-
-  return Promise.all(
-    answers.map(answer => models.SecurityAnswer.create(answer).catch(err => {
-      console.error(`Could not insert SecurityAnswer for UserId ${answer.UserId}`)
-      console.error(err)
-    }))
-  )
+function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
+  return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
+    console.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}`)
+    console.error(err)
+  })
 }
 
 function createOrders () {
