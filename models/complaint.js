@@ -1,7 +1,17 @@
 /* jslint node: true */
+const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+
 module.exports = (sequelize, { STRING }) => {
   const Complaint = sequelize.define('Complaint', {
-    message: STRING,
+    message: {
+      type: STRING,
+      set (comment) {
+        if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge) && utils.contains(comment, `l#.3%f45$ds_4f*21`)) {
+          utils.solve(challenges.dlpPastebinDataLeakChallenge)
+        }
+      }
+    },
     file: STRING
   })
 
