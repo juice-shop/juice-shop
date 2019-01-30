@@ -110,7 +110,7 @@ describe('/#/complain', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be able to submit the specific password embedded in any string in the conplaints\' comment section', () => {
-      complaintMessage.sendKeys(`l#.3%f45$ds_4f*21`)
+      complaintMessage.sendKeys('Eurogium Edule and Hueteroneel')
       submitButton.click()
     })
     protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
