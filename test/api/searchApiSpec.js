@@ -1,10 +1,9 @@
 const frisby = require('frisby')
 const insecurity = require('../../lib/insecurity')
 const config = require('config')
-const products = config.get('products')
 
 const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
-const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge })) => useForPastebinLeakChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge }) => useForPastebinLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
