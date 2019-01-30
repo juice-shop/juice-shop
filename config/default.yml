@@ -97,7 +97,7 @@ products:
     useForChristmasSpecialChallenge: true
   -
     name: 'Rippertuer Special Juice'
-    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos at unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
     price: 16.99
     image: undefined.jpg
     useForPastebinLeakChallenge: true
