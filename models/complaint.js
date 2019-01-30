@@ -7,7 +7,8 @@ module.exports = (sequelize, { STRING }) => {
     message: {
       type: STRING,
       set (comment) {
-        if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge) && utils.contains(comment, `l#.3%f45$ds_4f*21`)) {
+        comment = comment.toLowerCase()
+        if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge) && utils.contains(comment, 'hueteroneel') && utils.contains(comment, 'eurogium edule')) {
           utils.solve(challenges.dlpPastebinDataLeakChallenge)
         }
       }

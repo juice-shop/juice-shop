@@ -618,7 +618,7 @@
 -
   name: 'DLP Failure Tier 1'
   category: 'Sensitive Data Exposure'
-  description: 'Find the deleted Rippertuer Juice and the using it a paste somewhere in the Internet. Get information about the user who initially added submit his credentials as a complaint.'
+  description: 'Find the deleted Rippertuer Special Juice and using it a paste somewhere in the Internet. Find out about the ingredients which caused its removal and submit the names as a complaint. And always remember, sometimes combinations may prove to be deadlier!'
   difficulty: 4
   hint: 'A bit of SQLi and Strg-V will be your accomplice in this challenge! Try solving the Christmas Challenge first for insight.'
   hintUrl: ''
