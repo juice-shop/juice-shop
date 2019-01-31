@@ -41,7 +41,7 @@ module.exports = function productReviews () {
               }, () => {
                 res.status(400).json({ error: 'Wrong Params' })
               })
-            }, 150)
+            }, 200)
           }, err => {
             res.status(500).json(err)
           })
