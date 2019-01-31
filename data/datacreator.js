@@ -151,7 +151,6 @@ function createProducts () {
   tamperingChallengeProduct.deletedAt = null
   pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
-  datacache.pastebinDataLeakChallengeKeywords = pastebinLeakChallengeProduct.keywordsForPastebinDataLeakChallenge
 
   let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
@@ -159,7 +158,7 @@ function createProducts () {
     blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
-  datacache.retrieveBlueprintChallengeFile = blueprint
+  datacache.retrieveBlueprintChallengeFile = blueprint // TODO Do not cache separately but load from config where needed (same as keywordsForPastebinDataLeakChallenge)
 
   return Promise.all(
     products.map(
