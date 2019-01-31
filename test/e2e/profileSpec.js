@@ -3,20 +3,13 @@ const utils = require('../../lib/utils')
 
 describe('/profile', () => {
   let username, submitButton, url, setButton
-  beforeEach(() => {
-    browser.waitForAngularEnabled(false)
-  })
-
-  afterEach(() => {
-    browser.waitForAngularEnabled(true)
-  })
 
   if (!utils.disableOnContainerEnv()) {
     xdescribe('challenge "SSTi"', () => {
       protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-      browser.get('/profile')
 
       it('should be possible to inject arbitrary nodeJs commands in username', () => {
+        browser.waitForAngularEnabled(false)
         browser.get('/profile')
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
@@ -24,6 +17,7 @@ describe('/profile', () => {
         submitButton.click()
         browser.get('/')
         browser.driver.sleep(5000)
+        browser.waitForAngularEnabled(true)
       })
       protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
@@ -31,9 +25,9 @@ describe('/profile', () => {
 
   xdescribe('challenge "SSRF"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-    browser.get('/profile')
 
     it('should be possible to request internal resources using image upload URL', () => {
+      browser.waitForAngularEnabled(false)
       browser.get('/profile')
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
@@ -41,6 +35,7 @@ describe('/profile', () => {
       submitButton.click()
       browser.get('/')
       browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'SSRF' })
   })
@@ -49,8 +44,10 @@ describe('/profile', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('Username field should be susceptible to XSS attacks', () => {
-      const EC = protractor.ExpectedConditions
+      browser.waitForAngularEnabled(false)
       browser.get('/profile')
+
+      const EC = protractor.ExpectedConditions
       username = element(by.id('username'))
       setButton = element(by.id('submit'))
       username.sendKeys('<<a|ascript>alert(`xss`)</script>')
@@ -60,9 +57,11 @@ describe('/profile', () => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
-      browser.driver.sleep(5000)
       username.sendKeys('αδмιη') // disarm XSS
       setButton.click()
+      browser.get('/')
+      browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'XSS Tier 1.5' })
   })
