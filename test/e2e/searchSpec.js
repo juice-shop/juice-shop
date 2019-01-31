@@ -1,6 +1,6 @@
 const config = require('config')
 const christmasProduct = config.get('products').filter(product => product.useForChristmasSpecialChallenge)[0]
-const pastebinLeakProduct = config.get('products').filter(product => product.useForPastebinLeakChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 const models = require('../../models/index')
 
 describe('/#/search', () => {

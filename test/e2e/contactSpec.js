@@ -1,5 +1,5 @@
 const config = require('config')
-const cache = require('../../data/datacache')
+const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
   let comment, rating, submitButton, captcha
@@ -212,7 +212,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      comment.sendKeys(cache.pastebinDataLeakChallengeKeywords.toString())
+      comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
       rating.click()
       submitButton.click()
     })
