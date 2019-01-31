@@ -332,6 +332,8 @@ guide for help with filling out the donation form correctly.
 
 ### Liberapay [![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)](https://liberapay.com/bkimminich/donate)
 
+### Ko-fi [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/C0C7PLXP)
+
 ### Crypto Currency
 
 [![Bitcoin](https://img.shields.io/badge/bitcoin-1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm-orange.svg)](https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm)
