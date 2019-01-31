@@ -3,6 +3,7 @@ const insecurity = require('../../lib/insecurity')
 const config = require('config')
 
 const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge }) => useForPastebinLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -137,6 +138,16 @@ describe('/rest/product/search', () => {
       })
   })
 
+  it('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause', () => {
+    return frisby.get(REST_URL + '/product/search?q=' + pastebinLeakProduct.name + '\'))--')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.data.length).toBe(1)
+        expect(json.data[0].name).toBe(pastebinLeakProduct.name)
+      })
+  })
+
   it('GET product search with empty search parameter returns all products', () => {
     return frisby.get(API_URL + '/Products')
       .expect('status', 200)
@@ -147,7 +158,8 @@ describe('/rest/product/search', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
-            expect(json.data.length).toBe(products.length)
+            // It retrieves one more than the actual
+            expect(json.data.length).toBe(products.length - 1)
           })
       })
   })
@@ -162,7 +174,8 @@ describe('/rest/product/search', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
-            expect(json.data.length).toBe(products.length)
+            // It retrieves 1 more than the actual
+            expect(json.data.length).toBe(products.length - 1)
           })
       })
   })

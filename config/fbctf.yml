@@ -239,3 +239,6 @@ ctf:
     dlpPasswordSprayingChallenge:
       name: Chad
       code: TD
+    dlpPastebinDataLeakChallenge:
+      name: Turkmenistan
+      code: TK
