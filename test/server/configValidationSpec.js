@@ -23,7 +23,7 @@ describe('configValidation', () => {
           fileForRetrieveBlueprintChallenge: 'foobar'
         },
         {
-          name: 'Rippertuer Juice',
+          name: 'Rippertuer Special Juice',
           useForPastebinLeakChallenge: true
         }
       ]
