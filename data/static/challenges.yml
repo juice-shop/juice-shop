@@ -618,9 +618,9 @@
 -
   name: 'DLP Failure Tier 1'
   category: 'Sensitive Data Exposure'
-  description: 'Find the deleted Rippertuer Special Juice and using it a paste somewhere in the Internet. Find out about the ingredients which caused its removal and submit the names as a complaint. And always remember, sometimes combinations may prove to be deadlier!'
+  description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
-  hint: 'A bit of SQLi and Strg-V will be your accomplice in this challenge! Try solving the Christmas Challenge first for insight.'
+  hint: 'SQLi and Ctrl-V will be your accomplices in this challenge!'
   hintUrl: ''
   key: dlpPastebinDataLeakChallenge 
 -

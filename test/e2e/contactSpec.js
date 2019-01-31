@@ -209,6 +209,15 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
   })
 
+  describe('challenge "dlpPastebinDataLeak"', () => {
+    it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
+      comment.sendKeys('Eurogium Edule and Hueteroneel')
+      rating.click()
+      submitButton.click()
+    })
+    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
+  })
+
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
       const answer = eval(text).toString() // eslint-disable-line no-eval
