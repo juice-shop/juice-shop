@@ -3,7 +3,7 @@ const insecurity = require('../../lib/insecurity')
 const config = require('config')
 
 const christmasProduct = config.get('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
-const pastebinLeakProduct = config.get('products').filter(({ useForPastebinLeakChallenge }) => useForPastebinLeakChallenge)[0]
+const pastebinLeakProduct = config.get('products').filter(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)[0]
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -138,7 +138,7 @@ describe('/rest/product/search', () => {
       })
   })
 
-  it('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause', () => {
+  it('GET product search can select logically deleted unsafe product by forcibly commenting out the remainder of where clause', () => {
     return frisby.get(REST_URL + '/product/search?q=' + pastebinLeakProduct.name + '\'))--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
