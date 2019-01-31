@@ -107,12 +107,4 @@ describe('/#/complain', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
   })
-
-  describe('challenge "dlpPastebinDataLeak"', () => {
-    it('should be able to submit the specific password embedded in any string in the conplaints\' comment section', () => {
-      complaintMessage.sendKeys('Eurogium Edule and Hueteroneel')
-      submitButton.click()
-    })
-    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
-  })
 })
