@@ -24,7 +24,7 @@ describe('configValidation', () => {
         },
         {
           name: 'Rippertuer Special Juice',
-          useForPastebinLeakChallenge: true
+          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
       ]
 
@@ -84,6 +84,10 @@ describe('configValidation', () => {
         {
           name: 'Melon Juice',
           fileForRetrieveBlueprintChallenge: 'foobar'
+        },
+        {
+          name: 'Rippertuer Special Juice',
+          keywordsForPastebinDataLeakChallenge: ['bla', 'blubb']
         }
       ]
 

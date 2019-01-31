@@ -141,7 +141,7 @@ function createProducts () {
 
   // add Challenge specific information
   const chrismasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
-  const pastebinLeakChallengeProduct = products.find(({ useForPastebinLeakChallenge }) => useForPastebinLeakChallenge)
+  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
   const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
   const blueprintRetrivalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
@@ -149,8 +149,9 @@ function createProducts () {
   chrismasChallengeProduct.deletedAt = '2014-12-27 00:00:00.000 +00:00'
   tamperingChallengeProduct.description += ' <a href="' + tamperingChallengeProduct.urlForProductTamperingChallenge + '" target="_blank">More...</a>'
   tamperingChallengeProduct.deletedAt = null
-  pastebinLeakChallengeProduct.description += 'This product is unsafe... we plan to remove it from the stocks'
+  pastebinLeakChallengeProduct.description += ' (This product is unsafe! We plan to remove it from the stock!)'
   pastebinLeakChallengeProduct.deletedAt = '2019-02-1 00:00:00.000 +00:00'
+  datacache.pastebinDataLeakChallengeKeywords = pastebinLeakChallengeProduct.keywordsForPastebinDataLeakChallenge
 
   let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
@@ -162,7 +163,7 @@ function createProducts () {
 
   return Promise.all(
     products.map(
-      ({ reviews = [], useForChristmasSpecialChallenge = false, useForPastebinLeakChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
+      ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
         models.Product.create(product).catch(
           (err) => {
             console.error(`Could not insert Product ${product.name}`)
@@ -170,7 +171,6 @@ function createProducts () {
           }
         ).then((persistedProduct) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
-          if (useForPastebinLeakChallenge) { datacache.products.dlpPastebinDataLeak = persistedProduct }
           if (urlForProductTamperingChallenge) { datacache.products.osaft = persistedProduct }
           return persistedProduct
         })

@@ -1,4 +1,5 @@
 const config = require('config')
+const cache = require('../../data/datacache')
 
 describe('/#/contact', () => {
   let comment, rating, submitButton, captcha
@@ -211,7 +212,7 @@ describe('/#/contact', () => {
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
-      comment.sendKeys('Eurogium Edule and Hueteroneel')
+      comment.sendKeys(cache.pastebinDataLeakChallengeKeywords.toString())
       rating.click()
       submitButton.click()
     })
