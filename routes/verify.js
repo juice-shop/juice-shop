@@ -319,5 +319,9 @@ function dlpPastebinDataLeakChallenge () {
 }
 
 function dangerousIngredients () {
-  return [{ [Op.like]: '%hueteroneel%' }, { [Op.like]: '%eurogium edule%' }]
+  const ingredients = []
+  cache.pastebinDataLeakChallengeKeywords.map((keyword) => {
+    ingredients.push({ [Op.like]: `%${keyword}%` })
+  })
+  return ingredients
 }
