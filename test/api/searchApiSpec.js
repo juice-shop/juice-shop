@@ -158,7 +158,8 @@ describe('/rest/product/search', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
-            expect(json.data.length).toBe(products.length)
+            // It retrieves one more than the actual
+            expect(json.data.length).toBe(products.length - 1)
           })
       })
   })
@@ -173,7 +174,8 @@ describe('/rest/product/search', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json }) => {
-            expect(json.data.length).toBe(products.length)
+            // It retrieves 1 more than the actual
+            expect(json.data.length).toBe(products.length - 1)
           })
       })
   })
