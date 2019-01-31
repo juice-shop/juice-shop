@@ -6,6 +6,7 @@ const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
+const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
@@ -320,7 +321,8 @@ function dlpPastebinDataLeakChallenge () {
 
 function dangerousIngredients () {
   const ingredients = []
-  cache.pastebinDataLeakChallengeKeywords.map((keyword) => {
+  const dangerousProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+  dangerousProduct.keywordsForPastebinDataLeakChallenge.map((keyword) => {
     ingredients.push({ [Op.like]: `%${keyword}%` })
   })
   return ingredients
