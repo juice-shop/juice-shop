@@ -12,11 +12,11 @@ describe('/profile', () => {
   })
 
   if (!utils.disableOnContainerEnv()) {
-    describe('challenge "SSTi"', () => {
-      // protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-      // browser.get('/profile')
+    xdescribe('challenge "SSTi"', () => {
+      protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+      browser.get('/profile')
 
-      xit('should be possible to inject arbitrary nodeJs commands in username', () => {
+      it('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.get('/profile')
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
@@ -25,15 +25,15 @@ describe('/profile', () => {
         browser.get('/')
         browser.driver.sleep(5000)
       })
-      // protractor.expect.challengeSolved({ challenge: 'SSTi' })
+      protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
   }
 
-  describe('challenge "SSRF"', () => {
-    // protractor.beforeEach.login({email: 'admin@' + config.get('application.domain'), password: 'admin123'})
-    // browser.get('/profile')
+  xdescribe('challenge "SSRF"', () => {
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+    browser.get('/profile')
 
-    xit('should be possible to request internal resources using image upload URL', () => {
+    it('should be possible to request internal resources using image upload URL', () => {
       browser.get('/profile')
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
@@ -42,7 +42,7 @@ describe('/profile', () => {
       browser.get('/')
       browser.driver.sleep(5000)
     })
-    // protractor.expect.challengeSolved({ challenge: 'SSRF' })
+    protractor.expect.challengeSolved({ challenge: 'SSRF' })
   })
 
   describe('challenge "XSS Tier 1.5"', () => {
