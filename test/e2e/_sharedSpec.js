@@ -15,8 +15,10 @@ protractor.expect = {
 
 protractor.beforeEach = {
   login: function (context) {
+    let oldToken
     describe('(shared)', () => {
       beforeEach(() => {
+        oldToken = localStorage.getItem('token')
         browser.get('/#/login')
         element(by.id('email')).sendKeys(context.email)
         element(by.id('password')).sendKeys(context.password)
@@ -24,7 +26,7 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/) // TODO Instead check for uib-tooltip of <i> with fa-user-circle
+        expect(localStorage.getItem('token')).not.toMatch(oldToken)
       })
     })
   }
