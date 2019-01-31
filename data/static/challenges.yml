@@ -620,7 +620,7 @@
   category: 'Sensitive Data Exposure'
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
-  hint: 'SQLi and Ctrl-V will be your accomplices in this challenge!'
+  hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
   hintUrl: ''
   key: dlpPastebinDataLeakChallenge 
 -
