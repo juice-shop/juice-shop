@@ -26,7 +26,7 @@ module.exports = function productReviews () {
                     count++
                   }
                 }
-                if (count > 4 && utils.notSolved(challenges.timingAttackChallenge)) {
+                if (count > 2 && utils.notSolved(challenges.timingAttackChallenge)) {
                   utils.solve(challenges.timingAttackChallenge)
                 }
                 db.reviews.update(
@@ -41,7 +41,7 @@ module.exports = function productReviews () {
               }, () => {
                 res.status(400).json({ error: 'Wrong Params' })
               })
-            }, 250)
+            }, 150)
           }, err => {
             res.status(500).json(err)
           })
