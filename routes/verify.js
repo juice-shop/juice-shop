@@ -7,7 +7,7 @@ const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
-const config = require('config')
+
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
