@@ -58,6 +58,7 @@ jobs:
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
       if: (branch = master OR branch = develop) AND NOT type = pull_request
+      node_js: 11
       install: skip
       script: skip
       deploy:
