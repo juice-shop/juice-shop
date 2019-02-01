@@ -84,12 +84,12 @@ describe('/api/Products/:id', () => {
     return frisby.put(API_URL + '/Products/' + tamperingProductId, {
       header: jsonHeader,
       body: {
-        description: '<a href="http://kimminich.de" target="_blank">More...</a>'
+        description: `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`
       }
     })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<a href="http://kimminich.de" target="_blank">More...</a>' })
+      .expect('json', 'data', { description: `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>` })
   })
 
   it('PUT update existing product does not filter XSS attacks', () => {
