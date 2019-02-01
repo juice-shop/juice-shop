@@ -8,7 +8,6 @@ const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
 
-
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
