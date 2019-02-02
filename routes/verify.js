@@ -145,8 +145,8 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
 
 function changeProductChallenge (osaft) {
   osaft.reload().then(() => {
-    if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
-      if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
+    if (!utils.contains(osaft.description, `${config.get('products.8.urlForProductTamperingChallenge')}`)) {
+      if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
         utils.solve(challenges.changeProductChallenge)
       }
     }
