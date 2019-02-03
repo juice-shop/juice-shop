@@ -214,7 +214,7 @@ describe('verify', () => {
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
         let urlForProductTamperingChallenge = null
         for (const product of config.products) {
-          if(product.urlForProductTamperingChallenge !== undefined) {
+          if (product.urlForProductTamperingChallenge !== undefined) {
             urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
             break
           }
