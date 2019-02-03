@@ -54,6 +54,11 @@ module.exports = function login () {
             }
             afterLogin(user, res, next)
           })
+        } else if (user.data && user.data.id && user.data.totp_secret !== '') {
+          res.status(401).json({
+            status: 'totp_token_requried',
+            data: null
+          })
         } else if (user.data && user.data.id) {
           afterLogin(user, res, next)
         } else {
