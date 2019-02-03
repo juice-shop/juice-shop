@@ -330,9 +330,11 @@ Refer to the
 [Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
-### Liberapay [![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)](https://liberapay.com/bkimminich/donate)
+### Ko-fi / Liberapay / Patreon
 
-### Ko-fi [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/C0C7PLXP)
+[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/C0C7PLXP)
+[![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)](https://liberapay.com/bkimminich/donate)
+[![Patreon](https://img.shields.io/badge/Become%20a-Patreon-red.svg)](https://www.patreon.com/join/bkimminich?)
 
 ### Crypto Currency
 
