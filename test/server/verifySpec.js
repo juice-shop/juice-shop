@@ -212,7 +212,14 @@ describe('verify', () => {
       })
 
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
-        products.osaft.description = `Vanilla O-Saft! <a href="${config.get('products.8.urlForProductTamperingChallenge')}" target="_blank">More...</a>`
+        let urlForProductTamperingChallenge = null
+        for (const product of config.products) {
+          if(product.urlForProductTamperingChallenge !== undefined) {
+            urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+            break
+          }
+        }
+        products.osaft.description = `Vanilla O-Saft! <a href="${urlForProductTamperingChallenge}" target="_blank">More...</a>`
 
         verify.databaseRelatedChallenges()(this.req, this.res, this.next)
 
