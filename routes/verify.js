@@ -144,10 +144,19 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
 }
 
 function changeProductChallenge (osaft) {
+  let urlForProductTamperingChallenge = null
   osaft.reload().then(() => {
-    if (!utils.contains(osaft.description, `${config.get('products.8.urlForProductTamperingChallenge')}`)) {
-      if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
-        utils.solve(challenges.changeProductChallenge)
+    for (const product of config.products) {
+      if(product.urlForProductTamperingChallenge !== undefined) {
+        urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+        break
+      }
+    }
+    if(urlForProductTamperingChallenge) {
+      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+          utils.solve(challenges.changeProductChallenge)
+        }
       }
     }
   })
