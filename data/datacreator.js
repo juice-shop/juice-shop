@@ -70,35 +70,36 @@ async function createChallenges () {
   )
 }
 
-async function createUsers () {
+async function createUsers() {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage }) => {
+    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, totp_secret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
           email: completeEmail,
           password,
           isAdmin,
-          profileImage: profileImage || 'default.svg'
+          profileImage: profileImage || 'default.svg',
+          totp_secret
         })
         datacache.users[key] = user
       } catch (err) {
-        console.error(`Could not insert User ${name}`)
+        console.error(`Could not insert User ${email}`)
         console.error(err)
       }
     })
   )
 }
 
-function createRandomFakeUsers () {
-  function getGeneratedRandomFakeUserEmail () {
+function createRandomFakeUsers() {
+  function getGeneratedRandomFakeUserEmail() {
     const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
-  function makeRandomString (length) {
+  function makeRandomString(length) {
     let text = ''
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
