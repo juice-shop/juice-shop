@@ -1,4 +1,5 @@
 const config = require('config')
+const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
   let comment, rating, submitButton, captcha
@@ -207,6 +208,15 @@ describe('/#/contact', () => {
     })
 
     protractor.expect.challengeSolved({ challenge: 'Supply Chain Attack' })
+  })
+
+  describe('challenge "dlpPastebinDataLeak"', () => {
+    it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
+      comment.sendKeys(pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString())
+      rating.click()
+      submitButton.click()
+    })
+    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
   })
 
   function solveNextCaptcha () {
