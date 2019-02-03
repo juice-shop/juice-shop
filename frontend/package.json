@@ -61,6 +61,8 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "terser": "3.14.1",
+    "terser-webpack-plugin": "1.2.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "tslint-config-standard": "~7.0.0"
