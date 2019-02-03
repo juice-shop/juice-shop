@@ -147,12 +147,12 @@ function changeProductChallenge (osaft) {
   let urlForProductTamperingChallenge = null
   osaft.reload().then(() => {
     for (const product of config.products) {
-      if(product.urlForProductTamperingChallenge !== undefined) {
+      if (product.urlForProductTamperingChallenge !== undefined) {
         urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
         break
       }
     }
-    if(urlForProductTamperingChallenge) {
+    if (urlForProductTamperingChallenge) {
       if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
         if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
           utils.solve(challenges.changeProductChallenge)
