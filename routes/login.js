@@ -38,6 +38,9 @@ module.exports = function login () {
     if (utils.notSolved(challenges.loginAmyChallenge) && req.body.email === 'amy@' + config.get('application.domain') && req.body.password === 'K1f.....................') {
       utils.solve(challenges.loginAmyChallenge)
     }
+    if (utils.notSolved(challenges.dlpPasswordSprayingChallenge) && req.body.email === 'J12934@' + config.get('application.domain') && req.body.password === '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB') {
+      utils.solve(challenges.dlpPasswordSprayingChallenge)
+    }
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
