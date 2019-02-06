@@ -1,14 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { SlideshowModule } from 'ng-simple-slideshow'
+import { HttpClientModule } from '@angular/common/http'
 
 import { AboutComponent } from './about.component'
 
-describe('AboutComponent', () => {
+xdescribe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
 
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        SlideshowModule
+      ],
       declarations: [ AboutComponent ]
     })
     .compileComponents()
@@ -20,7 +26,7 @@ describe('AboutComponent', () => {
     fixture.detectChanges()
   })
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy()
   })
 })
