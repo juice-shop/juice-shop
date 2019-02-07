@@ -198,9 +198,4 @@ describe('/#/contact', () => {
       captcha.sendKeys(answer)
     })
   }
-
-  function expectPersistedCommentToMatch (expectation) {
-    browser.get('/#/administration')
-    expect($$('mat-cell.mat-column-comment').last().getText()).toMatch(expectation)
-  }
 })
