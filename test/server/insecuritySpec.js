@@ -114,4 +114,25 @@ describe('insecurity', () => {
       expect(insecurity.authenticatedUsers.from({})).to.equal(undefined)
     })
   })
+
+  describe('sanitizeLegacy', () => {
+    it('returns empty string for undefined input', () => {
+      expect(insecurity.sanitizeLegacy()).to.equal('')
+      expect(insecurity.sanitizeLegacy(undefined)).to.equal('')
+    })
+
+    it('returns input for harmless input', () => {
+      expect(insecurity.sanitizeLegacy('bkimminich')).to.equal('bkimminich')
+      expect(insecurity.sanitizeLegacy('Kosh III.')).to.equal('Kosh III.')
+    })
+
+    it('removed opening tags and subsequent character from HTML input', () => {
+      expect(insecurity.sanitizeLegacy('<h1>Hello</h1>')).to.equal('ello</h1>')
+      expect(insecurity.sanitizeLegacy('<img src="test">')).to.equal('rc="test">')
+    })
+
+    it('can be bypassed to allow working HTML payload to be returned', () => {
+      expect(insecurity.sanitizeLegacy('<<a|ascript>alert(`xss`)</script>')).to.equal('<script>alert(`xss`)</script>')
+    })
+  })
 })
