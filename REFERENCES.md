@@ -87,6 +87,7 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Article (:es:) on Medium by [Elzer Pineda](https://medium.com/@elzerjp): [Null Byte Attack Juice Shop y algo mas!!](https://medium.com/@elzerjp/null-byte-attack-juice-shop-y-algo-mas-2c6d271b2fd5) :godmode:
 * Blog post on [Omer Levi Hevroni's blog](https://www.omerlh.info/):
   [Hacking Juice Shop, the DevSecOps Way](https://www.omerlh.info/2018/12/23/hacking-juice-shop-the-devsecops-way/)
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934):
