@@ -172,7 +172,7 @@ function createProducts () {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
           if (urlForProductTamperingChallenge) {
             datacache.products.osaft = persistedProduct
-            datacache.challenges.changeProductChallenge.updateAttributes({ description: customizeChangeProductChallenge(
+            datacache.challenges.changeProductChallenge.update({ description: customizeChangeProductChallenge(
               datacache.challenges.changeProductChallenge.description,
               config.get('challenges.overwriteUrlForProductTamperingChallenge'),
               persistedProduct)
