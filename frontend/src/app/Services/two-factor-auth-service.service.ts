@@ -25,8 +25,8 @@ export class TwoFactorAuthServiceService {
 
   verify (totpToken: String): Observable<AuthenticationPayload> {
     return this.http.post(`${environment.hostServer}/rest/2fa/verify`, {
-      tmp_token: localStorage.getItem('totp_tmp_token'),
-      totp_token: totpToken
+      tmpToken: localStorage.getItem('totp_tmp_token'),
+      totpToken: totpToken
     }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error }))
   }
 }
