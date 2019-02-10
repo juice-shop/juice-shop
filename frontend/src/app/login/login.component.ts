@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
   public error: any
   public oauthUnavailable: any
   public redirectUri
-  constructor(private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
+  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
-  ngOnInit() {
+  ngOnInit () {
 
     const email = localStorage.getItem('email')
     if (email) {
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => this.login())
   }
 
-  login() {
+  login () {
 
     this.user = {}
     this.user.email = this.emailControl.value
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  googleLogin() {
+  googleLogin () {
 
     this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
       + clientId + '&response_type=token&scope=email&redirect_uri='
