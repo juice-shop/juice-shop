@@ -3,6 +3,10 @@ const models = require('../models/')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
 
+otplib.authenticator.options = {
+  window: 1
+}
+
 function verify () {
   return async (req, res, next) => {
     const { tmpToken, totpToken } = req.body
