@@ -38,6 +38,7 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component';
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -80,7 +81,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
-export function HttpLoaderFactory (http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
 }
 
@@ -109,7 +110,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeSolvedNotificationComponent,
     OAuthComponent,
     TokenSaleComponent,
-    ProductReviewEditComponent
+    ProductReviewEditComponent,
+    TwoFactorAuthEnterComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -185,7 +187,7 @@ export function HttpLoaderFactory (http: HttpClient) {
 
 export class AppModule {
 
-  constructor (configurationService: ConfigurationService, overlayContainer: OverlayContainer) {
+  constructor(configurationService: ConfigurationService, overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
     })

@@ -14,9 +14,10 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
 
-export function token1 (...args: number[]) {
+export function token1(...args: number[]) {
   let L = Array.prototype.slice.call(args)
   let D = L.shift()
   return L.reverse().map(function (C, A) {
@@ -24,7 +25,7 @@ export function token1 (...args: number[]) {
   }).join('')
 }
 
-export function token2 (...args: number[]) {
+export function token2(...args: number[]) {
   let T = Array.prototype.slice.call(arguments)
   let M = T.shift()
   return T.reverse().map(function (m, H) {
@@ -90,12 +91,16 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    path: '2fa/enter',
+    component: TwoFactorAuthEnterComponent
+  },
+  {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
   {
-    matcher: tokenMatcher ,
+    matcher: tokenMatcher,
     component: TokenSaleComponent
   },
   {
@@ -106,7 +111,7 @@ const routes: Routes = [
 
 export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
-export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
+export function oauthMatcher(url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
     return null
   }
@@ -118,7 +123,7 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   return null
 }
 
-export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
+export function tokenMatcher(url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
     return null
   }
