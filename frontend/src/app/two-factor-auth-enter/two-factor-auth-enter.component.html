@@ -3,17 +3,18 @@
 
     <h3 translate>TITLE_TWO_FACTOR_AUTH_ENTER</h3>
 
-    <div class="form-container" id="registration-form">
+    <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
+      <div class="form-container">
+        <mat-form-field appearance="outline">
+          <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
+          <input formControlName="token" type="text" required minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
-        <input [formControl]="tokenControl" name="totp-token" type="text" minlength="6" maxlength="6" matInput>
-      </mat-form-field>
-    </div>
-
-    <button (click)="verify()" type="submit" id="registerButton" color="primary" mat-raised-button>
-      {{'BTN_LOGIN' | translate}}
-    </button>
+      <button type="submit" color="primary" mat-raised-button [disabled]="twoFactorForm.invalid">
+        {{'BTN_LOGIN' | translate}}
+      </button>
+    </form>
 
   </mat-card>
 </div>
