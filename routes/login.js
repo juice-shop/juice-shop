@@ -5,8 +5,8 @@ const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const config = require('config')
 
-module.exports = function login() {
-  function afterLogin(user, res, next) {
+module.exports = function login () {
+  function afterLogin (user, res, next) {
     if (utils.notSolved(challenges.loginAdminChallenge) && user.data.id === users.admin.id) {
       utils.solve(challenges.loginAdminChallenge)
     } else if (utils.notSolved(challenges.loginJimChallenge) && user.data.id === users.jim.id) {
@@ -58,7 +58,6 @@ module.exports = function login() {
             afterLogin(user, res, next)
           })
         } else if (user.data && user.data.id && user.data.totp_secret !== '') {
-
           res.status(401).json({
             status: 'totp_token_requried',
             data: {

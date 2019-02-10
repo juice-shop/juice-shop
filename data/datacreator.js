@@ -13,7 +13,7 @@ const { safeLoad } = require('js-yaml')
 
 const readFile = util.promisify(fs.readFile)
 
-function loadStaticData(file) {
+function loadStaticData (file) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
     .then(safeLoad)
@@ -40,7 +40,7 @@ module.exports = async () => {
   }
 }
 
-async function createChallenges() {
+async function createChallenges () {
   const showHints = config.get('application.showChallengeHints')
 
   const challenges = await loadStaticData('challenges')
@@ -69,11 +69,11 @@ async function createChallenges() {
   )
 }
 
-async function createUsers() {
+async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback, totp_secret = '' }) => {
+    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -81,7 +81,7 @@ async function createUsers() {
           password,
           isAdmin,
           profileImage: profileImage || 'default.svg',
-          totp_secret
+          totpSecret
         })
         datacache.users[key] = user
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
@@ -94,13 +94,13 @@ async function createUsers() {
   )
 }
 
-function createRandomFakeUsers() {
-  function getGeneratedRandomFakeUserEmail() {
+function createRandomFakeUsers () {
+  function getGeneratedRandomFakeUserEmail () {
     const randomDomain = makeRandomString(4).toLowerCase() + '.' + makeRandomString(2).toLowerCase()
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
-  function makeRandomString(length) {
+  function makeRandomString (length) {
     let text = ''
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
@@ -117,7 +117,7 @@ function createRandomFakeUsers() {
   ))
 }
 
-function createProducts() {
+function createProducts () {
   const products = config.get('products').map((product) => {
     // set default price values
     product.price = product.price || Math.floor(Math.random())
@@ -194,7 +194,7 @@ function createProducts() {
   )
 }
 
-function createBaskets() {
+function createBaskets () {
   const baskets = [
     { UserId: 1 },
     { UserId: 2 },
@@ -211,7 +211,7 @@ function createBaskets() {
   )
 }
 
-function createBasketItems() {
+function createBasketItems () {
   const basketItems = [
     {
       BasketId: 1,
@@ -250,7 +250,7 @@ function createBasketItems() {
   )
 }
 
-function createAnonymousFeedback() {
+function createAnonymousFeedback () {
   const feedbacks = [
     {
       comment: 'Incompetent customer support! Can\'t even upload photo of broken purchase!<br><em>Support Team: Sorry, only order confirmation PDFs can be attached to complaints!</em>',
@@ -275,14 +275,14 @@ function createAnonymousFeedback() {
   )
 }
 
-function createFeedback(UserId, comment, rating) {
+function createFeedback (UserId, comment, rating) {
   return models.Feedback.create({ UserId, comment, rating }).catch((err) => {
     console.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}`)
     console.error(err)
   })
 }
 
-function createComplaints() {
+function createComplaints () {
   return models.Complaint.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
@@ -292,7 +292,7 @@ function createComplaints() {
   })
 }
 
-function createRecycles() {
+function createRecycles () {
   return models.Recycle.create({
     UserId: 2,
     quantity: 800,
@@ -305,7 +305,7 @@ function createRecycles() {
   })
 }
 
-function createSecurityQuestions() {
+function createSecurityQuestions () {
   const questions = [
     'Your eldest siblings middle name?',
     'Mother\'s maiden name?',
@@ -327,14 +327,14 @@ function createSecurityQuestions() {
   )
 }
 
-function createSecurityAnswer(UserId, SecurityQuestionId, answer) {
+function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
   return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
     console.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}`)
     console.error(err)
   })
 }
 
-function createOrders() {
+function createOrders () {
   const email = 'admin@' + config.get('application.domain')
   const products = config.get('products')
   const basket1Products = [

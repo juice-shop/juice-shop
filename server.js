@@ -62,7 +62,7 @@ const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
-const twoFactorAuth = require('./routes/2fa');
+const twoFactorAuth = require('./routes/2fa')
 const config = require('config')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
