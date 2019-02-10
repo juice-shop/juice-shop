@@ -1,9 +1,13 @@
 import { Component } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms'
 import { TwoFactorAuthServiceService } from '../Services/two-factor-auth-service.service'
 import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
+
+interface TokenEnterFormFields {
+  token: string
+}
 
 @Component({
   selector: 'app-two-factor-auth-enter',
@@ -11,8 +15,9 @@ import { Router } from '@angular/router'
   styleUrls: ['./two-factor-auth-enter.component.scss']
 })
 export class TwoFactorAuthEnterComponent {
-
-  public tokenControl: FormControl = new FormControl('', [Validators.required])
+  public twoFactorForm: FormGroup = new FormGroup({
+    token: new FormControl('')
+  })
 
   constructor (
     private twoFactorAuthService: TwoFactorAuthServiceService,
@@ -22,9 +27,9 @@ export class TwoFactorAuthEnterComponent {
   ) { }
 
   verify () {
-    const token = this.tokenControl.value
+    const fields: TokenEnterFormFields = this.twoFactorForm.value
 
-    this.twoFactorAuthService.verify(token).subscribe((authentication) => {
+    this.twoFactorAuthService.verify(fields.token).subscribe((authentication) => {
       localStorage.setItem('token', authentication.token)
       this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid.toString())
