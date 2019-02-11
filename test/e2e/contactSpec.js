@@ -37,33 +37,6 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  it('should sanitize script from comments to remove potentially malicious html', () => {
-    comment.sendKeys('Sani<script>alert("ScriptXSS")</script>tizedScript')
-    rating.click()
-
-    submitButton.click()
-
-    expectPersistedCommentToMatch(/SanitizedScript/)
-  })
-
-  it('should sanitize image from comments to remove potentially malicious html', () => {
-    comment.sendKeys('Sani<img src="alert("ImageXSS")"/>tizedImage')
-    rating.click()
-
-    submitButton.click()
-
-    expectPersistedCommentToMatch(/SanitizedImage/)
-  })
-
-  it('should sanitize iframe from comments to remove potentially malicious html', () => {
-    comment.sendKeys('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')
-    rating.click()
-
-    submitButton.click()
-
-    expectPersistedCommentToMatch(/SanitizedIFrame/)
-  })
-
   describe('challenge "xss4"', () => {
     xit('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
@@ -224,10 +197,5 @@ describe('/#/contact', () => {
       const answer = eval(text).toString() // eslint-disable-line no-eval
       captcha.sendKeys(answer)
     })
-  }
-
-  function expectPersistedCommentToMatch (expectation) {
-    browser.get('/#/administration')
-    expect($$('mat-cell.mat-column-comment').last().getText()).toMatch(expectation)
   }
 })
