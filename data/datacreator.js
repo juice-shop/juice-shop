@@ -170,7 +170,14 @@ function createProducts () {
           }
         ).then((persistedProduct) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
-          if (urlForProductTamperingChallenge) { datacache.products.osaft = persistedProduct }
+          if (urlForProductTamperingChallenge) {
+            datacache.products.osaft = persistedProduct
+            datacache.challenges.changeProductChallenge.update({ description: customizeChangeProductChallenge(
+              datacache.challenges.changeProductChallenge.description,
+              config.get('challenges.overwriteUrlForProductTamperingChallenge'),
+              persistedProduct)
+            })
+          }
           return persistedProduct
         })
           .then(({ id }) =>
@@ -191,6 +198,12 @@ function createProducts () {
           )
     )
   )
+
+  function customizeChangeProductChallenge (description, customUrl, customProduct) {
+    let customDescription = description.replace(/OWASP SSL Advanced Forensic Tool \(O-Saft\)/g, customProduct.name)
+    customDescription = customDescription.replace('https://owasp.slack.com', customUrl)
+    return customDescription
+  }
 }
 
 function createBaskets () {
