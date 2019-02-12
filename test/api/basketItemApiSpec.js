@@ -94,6 +94,48 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
+  it('PUT update basket ID of basket item is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 3,
+        quantity: 4
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            BasketId: 42
+          }
+        })
+          .expect('status', 400)
+      })
+  })
+
+  it('PUT update basket ID of basket item is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 3,
+        quantity: 4
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            ProductId: 42
+          }
+        })
+          .expect('status', 400)
+      })
+  })
+
   it('DELETE newly created basket item', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
