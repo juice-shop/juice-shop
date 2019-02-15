@@ -13,7 +13,6 @@ export class OAuthComponent implements OnInit {
   constructor (private cookieService: CookieService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit () {
-    console.log(this.route.snapshot.data)
     this.userService.oauthLogin(this.parseRedirectUrlParams()['access_token']).subscribe((profile: any) => {
       this.userService.save({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')) }).subscribe(() => {
         this.login(profile)
@@ -53,7 +52,6 @@ export class OAuthComponent implements OnInit {
       let key = param[ 0 ]
       params[ key ] = param[ 1 ]
     }
-    console.log(params)
     return params
   }
 }

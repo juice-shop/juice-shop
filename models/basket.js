@@ -6,7 +6,7 @@ module.exports = (sequelize, { STRING }) => {
 
   Basket.associate = ({ User, Product, BasketItem }) => {
     Basket.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
-    Basket.belongsToMany(Product, { through: BasketItem })
+    Basket.belongsToMany(Product, { through: BasketItem, foreignKey: { name: 'BasketId', noUpdate: true } })
   }
 
   return Basket

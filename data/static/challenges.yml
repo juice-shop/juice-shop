@@ -153,7 +153,7 @@
 -
   name: 'Product Tampering'
   category: 'Broken Access Control'
-  description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>http://kimminich.de</i>.'
+  description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>https://owasp.slack.com</i>.'
   difficulty: 3
   hint: 'Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#change-the-href-of-the-link-within-the-o-saft-product-description'
@@ -592,6 +592,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
 -
+  name: 'XSS Tier 1.5'
+  category: 'XSS'
+  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
+  difficulty: 2
+  hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
+  key: usernameXssChallenge
+-  
   name: 'Reset Bjoern''s Password Tier 1'
   category: 'Broken Authentication'
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
@@ -607,4 +615,19 @@
   hint: 'Who would want a server access log to be accessible through a web application?'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
   key: accessLogDisclosureChallenge
-  
+-
+  name: 'DLP Failure Tier 1'
+  category: 'Sensitive Data Exposure'
+  description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
+  difficulty: 4
+  hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
+  hintUrl: ''
+  key: dlpPastebinDataLeakChallenge 
+-
+  name: 'DLP Failure Tier 2'
+  category: 'Sensitive Data Exposure'
+  description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
+  difficulty: 5
+  hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  key: dlpPasswordSprayingChallenge

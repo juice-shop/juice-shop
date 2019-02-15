@@ -6,6 +6,7 @@ const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
+const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
@@ -136,14 +137,26 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.supplyChainAttackChallenge)) {
     supplyChainAttackChallenge()
   }
+  if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
+    dlpPastebinDataLeakChallenge()
+  }
   next()
 }
 
 function changeProductChallenge (osaft) {
+  let urlForProductTamperingChallenge = null
   osaft.reload().then(() => {
-    if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
-      if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
-        utils.solve(challenges.changeProductChallenge)
+    for (const product of config.products) {
+      if (product.urlForProductTamperingChallenge !== undefined) {
+        urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+        break
+      }
+    }
+    if (urlForProductTamperingChallenge) {
+      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+          utils.solve(challenges.changeProductChallenge)
+        }
       }
     }
   })
@@ -292,4 +305,34 @@ function supplyChainAttackChallenge () { // TODO Extend to also pass for given C
       utils.solve(challenges.supplyChainAttackChallenge)
     }
   })
+}
+
+function dlpPastebinDataLeakChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.and]: dangerousIngredients() }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.dlpPastebinDataLeakChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({
+    where: {
+      message: { [Op.and]: dangerousIngredients() }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.dlpPastebinDataLeakChallenge)
+    }
+  })
+}
+
+function dangerousIngredients () {
+  const ingredients = []
+  const dangerousProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+  dangerousProduct.keywordsForPastebinDataLeakChallenge.map((keyword) => {
+    ingredients.push({ [Op.like]: `%${keyword}%` })
+  })
+  return ingredients
 }

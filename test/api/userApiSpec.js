@@ -19,6 +19,14 @@ describe('/api/Users', () => {
       .expect('status', 200)
   })
 
+  it('GET all users doesnt include passwords', () => {
+    return frisby.get(API_URL + '/Users', { headers: authHeader })
+      .expect('status', 200)
+      .expect('jsonTypes', 'data.*', {
+        'password': Joi.any().forbidden()
+      })
+  })
+
   it('POST new user', () => {
     return frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
@@ -32,10 +40,8 @@ describe('/api/Users', () => {
       .expect('jsonTypes', 'data', {
         id: Joi.number(),
         createdAt: Joi.string(),
-        updatedAt: Joi.string()
-      })
-      .expect('json', 'data', {
-        password: insecurity.hash('hooooorst')
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
       })
   })
 
@@ -53,10 +59,10 @@ describe('/api/Users', () => {
       .expect('jsonTypes', 'data', {
         id: Joi.number(),
         createdAt: Joi.string(),
-        updatedAt: Joi.string()
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        password: insecurity.hash('hooooorst'),
         isAdmin: true
       })
   })
