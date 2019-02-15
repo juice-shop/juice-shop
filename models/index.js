@@ -1,13 +1,15 @@
 /* jslint node: true */
 const fs = require('fs')
 const path = require('path')
+const sequelizeNoUpdateAttributes = require('sequelize-noupdate-attributes')
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('database', 'username', 'password', { // lgtm [js/hardcoded-credentials]
+const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'data/juiceshop.sqlite',
   logging: false,
   operatorsAliases: false
 })
+sequelizeNoUpdateAttributes(sequelize)
 const db = {}
 
 fs.readdirSync(__dirname)
