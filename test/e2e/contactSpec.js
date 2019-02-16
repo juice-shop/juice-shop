@@ -192,6 +192,15 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
   })
 
+  describe('challenge "recyclesMissingItemChallenge"', () => {
+    it('should be possible to post the address of the lost product as feedback', () => {
+      comment.sendKeys('22/7 Winston Street, Sydney, Australia, Earth')
+      rating.click()
+      submitButton.click()
+    })
+    protractor.expect.challengeSolved({ challenge: 'Recycle Missing Item Challenge' })
+  })
+
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
       const answer = eval(text).toString() // eslint-disable-line no-eval
