@@ -25,19 +25,17 @@ exports.sequelizeVulnerabilityChallenge = () => (req, res, next) => {
     where: {
       id: JSON.parse(req.params['id'])
     }
-  }).then((Recycle) =>{
+  }).then((Recycle) => {
     return res.json(utils.queryResultToJson(Recycle)['data'])
   })
   next()
 }
 
 exports.blockRecycleItems = () => (req, res, next) => {
-  // const msg = "Sorry, this endpoint is not supported."
   const errMsg = {
-    err: "Sorry, this endpoint is not supported."
+    err: 'Sorry, this endpoint is not supported.'
   }
   return res.json(errMsg)
-  next()
 }
 
 exports.captchaBypassChallenge = () => (req, res, next) => {
@@ -166,7 +164,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   next()
 }
 
-function recyclesMissingItemChallenge() {
+function recyclesMissingItemChallenge () {
   models.Feedback.findAndCountAll({
     where: {
       comment: { [Op.like]: '%22/7 Winston Street, Sydney, Australia, Earth%' }
