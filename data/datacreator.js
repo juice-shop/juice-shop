@@ -31,7 +31,7 @@ module.exports = async () => {
     createBasketItems,
     createAnonymousFeedback,
     createComplaints,
-    createRecycles,
+    createRecycleItems,
     createOrders
   ]
 
@@ -304,14 +304,80 @@ function createComplaints () {
   })
 }
 
-function createRecycles () {
-  return models.Recycle.create({
-    UserId: 2,
-    quantity: 800,
-    address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
-    date: '2270-01-17',
-    isPickup: true
-  }).catch((err) => {
+function createRecycleItems () {
+  const recycleItems = [
+    {
+      UserId: 2,
+      quantity: 800,
+      address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+      date: '2270-01-17',
+      isPickup: true
+    },
+    {
+      UserId: 4,
+      quantity: 120,
+      address: '999 Norton Street, Norfolk, USA',
+      date: '2018-04-16',
+      isPickup: true
+    },
+    {
+      UserId: 1,
+      quantity: 300,
+      address: '6-10 Leno Towers, Eastern Empire, CA',
+      date: '2018-01-17',
+      isPickup: true
+    },
+    {
+      UserId: 6,
+      quantity: 350,
+      address: '88/2 Lindenburg Apartments, East Street, Oslo, Norway',
+      date: '2018-03-17',
+      isPickup: true
+    },
+    {
+      id: 33,
+      UserId: 3,
+      quantity: 1320,
+      address: '22/7 Winston Street, Sydney, Australia, Earth',
+      date: '2006-01-14',
+      isPickup: true
+    },
+    {
+      UserId: 2,
+      quantity: 200,
+      address: '222, East Central Avenue, Adelaide, New Zealand',
+      date: '2018-07-17',
+      isPickup: true
+    },
+    {
+      UserId: 4,
+      quantity: 140,
+      address: '100 Yellow Peak Road, West Central New York, USA',
+      date: '2018-03-19',
+      isPickup: true
+    },
+    {
+      UserId: 3,
+      quantity: 150,
+      address: '15 Riviera Road, Western Frontier, Menlo Park CA',
+      date: '2018-05-12',
+      isPickup: true
+    },
+    {
+      UserId: 8,
+      quantity: 500,
+      address: '712 Irwin Avenue, River Bank Colony, Easter Frontier, London, UK',
+      date: '2019-02-18',
+      isPickup: true
+    }
+  ]
+  return Promise.all(
+    recycleItems.map((item) => createRecycles(item))
+  )
+}
+
+function createRecycles (item) {
+  return models.Recycle.create(item).catch((err) => {
     console.error(`Could not insert Recycling Model`)
     console.error(err)
   })
