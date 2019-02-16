@@ -185,9 +185,12 @@ app.get('/api/Complaints', insecurity.isAuthorized())
 app.post('/api/Complaints', insecurity.isAuthorized())
 app.use('/api/Complaints/:id', insecurity.denyAll())
 /* Recycles: POST and GET allowed when logged in only */
-app.get('/api/Recycles', insecurity.isAuthorized())
+// app.get('/api/Recycles', insecurity.isAuthorized())
+app.get('/api/Recycles', verify.blockRecycleItems())
+// app.get('/api/Recycles', verify.sequelizeVulnerabilityChallenge())
 app.post('/api/Recycles', insecurity.isAuthorized())
-app.use('/api/Recycles/:id', insecurity.denyAll())
+/* Challenge evaluation before epilogue takes over */
+app.use('/api/Recycles/:id', verify.sequelizeVulnerabilityChallenge())
 /* SecurityQuestions: Only GET list of questions allowed. */
 app.post('/api/SecurityQuestions', insecurity.denyAll())
 app.use('/api/SecurityQuestions/:id', insecurity.denyAll())
