@@ -20,6 +20,26 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.sequelizeVulnerabilityChallenge = () => (req, res, next) => {
+  models.Recycle.find({
+    where: {
+      id: JSON.parse(req.params['id'])
+    }
+  }).then((Recycle) =>{
+    return res.json(utils.queryResultToJson(Recycle)['data'])
+  })
+  next()
+}
+
+exports.blockRecycleItems = () => (req, res, next) => {
+  // const msg = "Sorry, this endpoint is not supported."
+  const errMsg = {
+    err: "Sorry, this endpoint is not supported."
+  }
+  return res.json(errMsg)
+  next()
+}
+
 exports.captchaBypassChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.captchaBypassChallenge)) {
@@ -140,7 +160,22 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
     dlpPastebinDataLeakChallenge()
   }
+  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
+    recyclesMissingItemChallenge()
+  }
   next()
+}
+
+function recyclesMissingItemChallenge() {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.like]: '%22/7 Winston Street, Sydney, Australia, Earth%' }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.recyclesMissingItemChallenge)
+    }
+  })
 }
 
 function changeProductChallenge (osaft) {
