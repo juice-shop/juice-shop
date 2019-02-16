@@ -33,7 +33,6 @@ describe('/api/Recycles', () => {
         err: Joi.string()
       })
   })
-})
 
   it('PUT update existing recycle is forbidden', () => {
     return frisby.put(API_URL + '/Recycles/1', {
