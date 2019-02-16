@@ -634,7 +634,7 @@
 -
   name: 'Recycles Missing Item Challenge'
   category: 'Injection'
-  description: 'Find out about an old recycle request which was left out in the database, and submit the address in as complaint. Hidden sources tell us sequelize might have been used somewhere'
+  description: 'Find out about an old recycle request which has something unusual about it, and submit the address in as feedback. Hidden sources tell us sequelize might have been used somewhere'
   difficulty: 2
   hint: 'Sequelize packs its own set of vulnerabilities for sure. Sometimes special characters surely creep in to make a mess. Although we highly favour recycles, we do not prefer taking more than 100 requests at a time.'
   hintUrl: ''
