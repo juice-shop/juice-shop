@@ -19,14 +19,14 @@ export class TwoFactorAuthEnterComponent {
     token: new FormControl('')
   })
 
-  constructor(
+  constructor (
     private twoFactorAuthService: TwoFactorAuthService,
     private cookieService: CookieService,
     private userService: UserService,
     private router: Router
   ) { }
 
-  verify() {
+  verify () {
     const fields: TokenEnterFormFields = this.twoFactorForm.value
 
     this.twoFactorAuthService.verify(fields.token).subscribe((authentication) => {
