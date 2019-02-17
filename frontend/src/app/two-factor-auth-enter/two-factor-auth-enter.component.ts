@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { TwoFactorAuthServiceService } from '../Services/two-factor-auth-service.service'
+import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
@@ -19,14 +19,14 @@ export class TwoFactorAuthEnterComponent {
     token: new FormControl('')
   })
 
-  constructor (
-    private twoFactorAuthService: TwoFactorAuthServiceService,
+  constructor(
+    private twoFactorAuthService: TwoFactorAuthService,
     private cookieService: CookieService,
     private userService: UserService,
     private router: Router
   ) { }
 
-  verify () {
+  verify() {
     const fields: TokenEnterFormFields = this.twoFactorForm.value
 
     this.twoFactorAuthService.verify(fields.token).subscribe((authentication) => {
