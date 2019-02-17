@@ -17,7 +17,7 @@ interface AuthenticationPayload {
 @Injectable({
   providedIn: 'root'
 })
-export class TwoFactorAuthServiceService {
+export class TwoFactorAuthService {
 
   constructor (private http: HttpClient) {
 
