@@ -346,6 +346,7 @@ describe('BasketComponent', () => {
 
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
+
     expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED',{ discount: 42 })
     expect(component.error).toBeUndefined()
   })
@@ -359,6 +360,7 @@ describe('BasketComponent', () => {
 
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
+
     expect(component.confirmation).toBe('Translation of DISCOUNT_APPLIED')
     expect(component.error).toBeUndefined()
   })

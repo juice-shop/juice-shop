@@ -36,6 +36,7 @@ application:
     acknowledgements: '/#/score-board'
 challenges:
   safetyOverride: false
+  overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
 products:
   -
     name: 'Apple Juice (1000ml)'
@@ -95,6 +96,14 @@ products:
     price: 29.99
     image: undefined.jpg
     useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined.jpg
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
   -
     name: 'OWASP Juice Shop Sticker (2015/2016 design)'
     description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'

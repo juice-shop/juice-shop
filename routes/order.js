@@ -79,7 +79,7 @@ module.exports = function placeOrder () {
           })
 
           fileWriter.on('finish', () => {
-            basket.updateAttributes({ coupon: null })
+            basket.update({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
             res.json({ orderConfirmation: '/ftp/' + pdfFile })
           })
