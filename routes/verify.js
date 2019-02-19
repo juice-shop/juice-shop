@@ -21,21 +21,18 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
 }
 
 exports.sequelizeVulnerabilityChallenge = () => (req, res, next) => {
-  models.Recycle.find({
+  models.Recycle.findAll({
     where: {
       id: JSON.parse(req.params['id'])
     }
   }).then((Recycle) => {
-    return res.json(utils.queryResultToJson(Recycle)['data'])
+    return res.send(utils.queryResultToJson(Recycle))
   })
-  next()
 }
 
 exports.blockRecycleItems = () => (req, res, next) => {
-  const errMsg = {
-    err: 'Sorry, this endpoint is not supported.'
-  }
-  return res.json(errMsg)
+  let errMsg = { err: 'Sorry, this endpoint is not supported.' }
+  return res.send(utils.queryResultToJson(errMsg))
 }
 
 exports.captchaBypassChallenge = () => (req, res, next) => {
