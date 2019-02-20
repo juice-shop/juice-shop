@@ -87,6 +87,16 @@ describe('/#/login', () => {
     protractor.expect.challengeSolved({ challenge: 'Login Amy' })
   })
 
+  describe('challenge "dlpPasswordSpraying"', () => {
+    it('should be able to log in with original Jannik credentials', () => {
+      email.sendKeys('J12934@' + config.get('application.domain'))
+      password.sendKeys('0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB')
+      loginButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 2' })
+  })
+
   describe('challenge "oauthUserPassword"', () => {
     it('should be able to log in as bjoern.kimminich@googlemail.com with base64-encoded email as password', () => {
       email.sendKeys('bjoern.kimminich@googlemail.com')

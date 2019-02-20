@@ -5,6 +5,44 @@ const insecurity = require('../lib/insecurity')
 const jade = require('jade')
 const config = require('config')
 
+const themes = {
+  'bluegrey-lightgreen': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#546E7A'
+  },
+  'blue-lightblue': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#1976D2'
+  },
+  'deeppurple-amber': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#673AB7'
+  },
+  'indigo-pink': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#3F51B5'
+  },
+  'pink-bluegrey': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#C2185B'
+  },
+  'purple-green': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#7B1FA2'
+  },
+  'deeporange-indigo': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#E64A19'
+  }
+}
+
 module.exports = function getUserProfile () {
   return (req, res, next) => {
     fs.readFile('views/userProfile.jade', function (err, buf) {
@@ -25,13 +63,14 @@ module.exports = function getUserProfile () {
           } else {
             username = '\\' + username
           }
+          const theme = themes[config.get('application.theme')]
           jadeTemplate = jadeTemplate.replace(/_username_/g, username)
           jadeTemplate = jadeTemplate.replace(/_emailHash_/g, insecurity.hash(user.dataValues.email))
           jadeTemplate = jadeTemplate.replace(/_title_/g, config.get('application.name'))
           jadeTemplate = jadeTemplate.replace(/_favicon_/g, favicon())
-          jadeTemplate = jadeTemplate.replace(/_bgColor_/g, 'black')
-          jadeTemplate = jadeTemplate.replace(/_textColor_/g, '#9d9d9d')
-          jadeTemplate = jadeTemplate.replace(/_navColor_/g, '#263238')
+          jadeTemplate = jadeTemplate.replace(/_bgColor_/g, theme.bgColor)
+          jadeTemplate = jadeTemplate.replace(/_textColor_/g, theme.textColor)
+          jadeTemplate = jadeTemplate.replace(/_navColor_/g, theme.navColor)
           const fn = jade.compile(jadeTemplate)
           res.send(fn(user.dataValues))
         }).catch(error => {
