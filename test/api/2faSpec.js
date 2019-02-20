@@ -19,7 +19,6 @@ describe('/rest/2fa/verify', () => {
 
     const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
 
-
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
@@ -27,18 +26,18 @@ describe('/rest/2fa/verify', () => {
         totpToken
       }
     })
-    .expect('status', 200)
-    .expect('header', 'content-type', /application\/json/)
-    .expect('jsonTypes', 'authentication', {
-      token: Joi.string(),
-      umail: Joi.string(),
-      bid: Joi.number()
-    })
-    .expect('json', 'authentication', {
-      umail: `J12934@${config.get('application.domain')}`
-    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string(),
+        umail: Joi.string(),
+        bid: Joi.number()
+      })
+      .expect('json', 'authentication', {
+        umail: `J12934@${config.get('application.domain')}`
+      })
   })
- 
+
   it('POST should fail if a invalid totp token is used', async () => {
     const tmpTokenJ12934 = insecurity.authorize({
       userId: 9,
@@ -54,9 +53,9 @@ describe('/rest/2fa/verify', () => {
         totpToken
       }
     })
-    .expect('status', 401)
+      .expect('status', 401)
   })
-  
+
   it('POST should fail if a unsigned tmp token is used', async () => {
     const tmpTokenJ12934 = jwt.sign({
       userId: 9,
@@ -72,6 +71,6 @@ describe('/rest/2fa/verify', () => {
         totpToken
       }
     })
-    .expect('status', 401)
+      .expect('status', 401)
   })
 })
