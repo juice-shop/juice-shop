@@ -11,8 +11,6 @@ function verify () {
   return async (req, res, next) => {
     const { tmpToken, totpToken } = req.body
 
-    console.log('body')
-    console.log(req.body)
     try {
       const { userId, type } = insecurity.verify(tmpToken)
 
@@ -21,12 +19,9 @@ function verify () {
       }
 
       const user = await models.User.findByPk(userId)
-      console.log('user')
-      console.log(user)
-
+    
       const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
-      console.log(isValid)
-
+    
       const plainUser = utils.queryResultToJson(user)
 
       if (isValid) {
