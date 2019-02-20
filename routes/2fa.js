@@ -19,9 +19,9 @@ function verify () {
       }
 
       const user = await models.User.findByPk(userId)
-    
+
       const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
-    
+
       const plainUser = utils.queryResultToJson(user)
 
       if (isValid) {
