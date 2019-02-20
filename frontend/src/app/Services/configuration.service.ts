@@ -15,7 +15,7 @@ export class ConfigurationService {
 
   getApplicationConfiguration () {
     if (this.configObservable) {
-      return this.configObservable;
+      return this.configObservable
     } else {
       this.configObservable = this.http.get(this.host + '/application-configuration').pipe(map((response: any) => response.config, catchError((err) => { throw err })))
       return this.configObservable
