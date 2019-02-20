@@ -40,3 +40,7 @@ mat-table {
 .category-toggle {
   font-size: small;
 }
+
+.overlay-fullscreen /deep/ .black-overlay{
+  position: fixed;
+}
