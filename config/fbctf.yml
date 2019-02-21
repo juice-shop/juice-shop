@@ -242,3 +242,6 @@ ctf:
     dlpPastebinDataLeakChallenge:
       name: Turkmenistan
       code: TK
+    twoFactorAuthUnsafeSecretStorage:
+      name: Sweden
+      code: SE
