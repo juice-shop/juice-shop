@@ -242,3 +242,6 @@ ctf:
     dlpPastebinDataLeakChallenge:
       name: Turkmenistan
       code: TK
+    recyclesMissingItemChallenge:
+      name: Uganda
+      code: UG

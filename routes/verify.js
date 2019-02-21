@@ -140,7 +140,22 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
     dlpPastebinDataLeakChallenge()
   }
+  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
+    recyclesMissingItemChallenge()
+  }
   next()
+}
+
+function recyclesMissingItemChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.like]: '%22/7 Winston Street, Sydney, Australia, Earth%' }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.recyclesMissingItemChallenge)
+    }
+  })
 }
 
 function changeProductChallenge (osaft) {
