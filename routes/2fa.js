@@ -29,7 +29,7 @@ function verify () {
       const plainUser = utils.queryResultToJson(user)
 
       if (isValid) {
-        if(utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'J12934@' + config.get('application.domain')){
+        if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'J12934@' + config.get('application.domain')) {
           utils.solve(challenges.twoFactorAuthUnsafeSecretStorage)
         }
 
