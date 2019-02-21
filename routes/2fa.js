@@ -4,6 +4,8 @@ const otplib = require('otplib')
 const utils = require('../lib/utils')
 
 otplib.authenticator.options = {
+  // Accepts tokens as valid even when they are 30sec to old or to new
+  // This is a standard as the clocks of the authenticator and server might not align perfectly.
   window: 1
 }
 
