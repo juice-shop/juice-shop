@@ -1,4 +1,5 @@
 const config = require('config')
+const otplib = require('otplib')
 
 describe('/#/login', () => {
   let email, password, rememberMeCheckbox, loginButton
@@ -95,6 +96,30 @@ describe('/#/login', () => {
     })
 
     protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 2' })
+  })
+  
+  describe('challenge "twoFactorAuth"', () => {
+    const EC = protractor.ExpectedConditions
+
+    beforeEach(() => {
+      twoFactorTokenInput = element(by.id('totpToken'))
+      twoFactorSubmitButton = element(by.id('totpSubmitButton'))
+    })
+
+    it('should be able to log into a exsisting 2fa protected account given the right token', () => {
+      email.sendKeys('J12934@' + config.get('application.domain'))
+      password.sendKeys('0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB')
+      loginButton.click()
+
+      browser.wait(EC.visibilityOf(twoFactorTokenInput), 1000, 'Two Factor Auth Token field did not become visible')
+
+      const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
+      twoFactorTokenInput.sendKeys(totpToken)
+
+      twoFactorSubmitButton.click()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Two Factor Auth Unsafe Secret Storage' })
   })
 
   describe('challenge "oauthUserPassword"', () => {
