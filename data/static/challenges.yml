@@ -631,3 +631,11 @@
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
+-
+  name: 'Two Factor Auth Unsafe Secret Storage'
+  category: 'Two Factor Auth'
+  description: 'Find a way to solve the Two Factor Auth protection for the user "J12934".'
+  difficulty: 5
+  hint: 'The used algorithm requires the storage of a secret for every user. You will need to find a way to access to this secret first, before you are able to solve this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  key: twoFactorAuthUnsafeSecretStorage

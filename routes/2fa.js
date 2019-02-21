@@ -2,6 +2,8 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
+const challenges = require('../data/datacache').challenges
+const config = require('config')
 
 otplib.authenticator.options = {
   // Accepts tokens as valid even when they are 30sec to old or to new
@@ -27,6 +29,10 @@ function verify () {
       const plainUser = utils.queryResultToJson(user)
 
       if (isValid) {
+        if(utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'J12934@' + config.get('application.domain')){
+          utils.solve(challenges.twoFactorAuthUnsafeSecretStorage)
+        }
+
         models.Basket.findOrCreate({ where: { userId }, defaults: {} })
           .then(([basket, created]) => {
             const token = insecurity.authorize(plainUser)
