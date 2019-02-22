@@ -632,11 +632,11 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
-  name: 'Recycles Missing Item Challenge'
+  name: 'Lost in Recycling'
   category: 'Injection'
-  description: 'Find out about an old recycle request which has something unusual about it, and submit the address in as feedback. Hidden sources tell us sequelize might have been used somewhere'
-  difficulty: 2
-  hint: 'Sequelize packs its own set of vulnerabilities for sure. Sometimes special characters surely creep in to make a mess. Although we highly favour recycles, we do not prefer taking more than 100 requests at a time.'
+  description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
+  difficulty: 4
+  hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
   hintUrl: ''
   key: recyclesMissingItemChallenge
 
