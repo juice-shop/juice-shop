@@ -4,8 +4,6 @@ const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-const injectionParam = '{"$lt":200}'
-
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/api/Recycles', () => {
@@ -38,10 +36,10 @@ describe('/api/Recycles', () => {
   })
 
   it('Will check if the injection works and returns the expected recycle', () => {
-    return frisby.get(API_URL + '/Recycles/' + injectionParam)
+    return frisby.get(API_URL + '/Recycles/' + '{"$lt":200}')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data[0]', { id: 33 })
+      .expect('jsonTypes', 'data[0]', { id: 42 })
   })
 
   it('PUT update existing recycle is forbidden', () => {
