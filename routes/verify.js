@@ -149,7 +149,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
 function recyclesMissingItemChallenge () {
   models.Feedback.findAndCountAll({
     where: {
-      comment: { [Op.like]: '%22/7 Winston Street, Sydney, Australia, Earth%' }
+      comment: { [Op.like]: '%Starfleet HQ, 24-593 Federation Drive, San Francisco, CA%' }
     }
   }).then(({ count }) => {
     if (count > 0) {

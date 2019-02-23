@@ -194,11 +194,11 @@ describe('/#/contact', () => {
 
   describe('challenge "recyclesMissingItemChallenge"', () => {
     it('should be possible to post the address of the lost product as feedback', () => {
-      comment.sendKeys('22/7 Winston Street, Sydney, Australia, Earth')
+      comment.sendKeys('Starfleet HQ, 24-593 Federation Drive, San Francisco, CA')
       rating.click()
       submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'Recycle Missing Item Challenge' })
+    protractor.expect.challengeSolved({ challenge: 'Lost in Recycling' })
   })
 
   function solveNextCaptcha () {
