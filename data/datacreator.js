@@ -307,19 +307,19 @@ function createComplaints () {
 function createRecycleItems () {
   const recycleItems = [
     {
-      id: 33,
-      UserId: 3,
-      quantity: 1320,
-      address: '22/7 Winston Street, Sydney, Australia, Earth',
-      date: '2006-01-14',
-      isPickup: true
-    },
-    {
-      id: 368,
+      id: 42,
       UserId: 2,
       quantity: 800,
       address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
       date: '2270-01-17',
+      isPickup: true
+    },
+    {
+      id: 698,
+      UserId: 3,
+      quantity: 1320,
+      address: '22/7 Winston Street, Sydney, Australia, Earth',
+      date: '2006-01-14',
       isPickup: true
     },
     {
