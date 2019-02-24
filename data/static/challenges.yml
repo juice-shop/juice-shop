@@ -621,7 +621,7 @@
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge 
 -
   name: 'DLP Failure Tier 2'
@@ -637,6 +637,6 @@
   description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
   difficulty: 4
   hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
   key: recyclesMissingItemChallenge
 
