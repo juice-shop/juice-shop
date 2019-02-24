@@ -228,6 +228,11 @@ products:
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
     image: melon_bike.jpeg
+  -
+    name: 'OWASP Juice Shop Coaster (10pcs)'
+    description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
+    price: 19.99
+    image: coaster.png
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
