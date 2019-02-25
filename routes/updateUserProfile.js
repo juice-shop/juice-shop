@@ -4,9 +4,10 @@ const insecurity = require('../lib/insecurity')
 module.exports = function updateUserProfile () {
   return (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
-        return user.updateAttributes({ username: req.body.username })
+        return user.update({ username: req.body.username })
       }).catch(error => {
         next(error)
       })
