@@ -1,4 +1,5 @@
 /* jslint node: true */
+
 module.exports = (sequelize, { STRING }) => {
   const Complaint = sequelize.define('Complaint', {
     message: STRING,

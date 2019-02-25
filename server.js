@@ -43,6 +43,7 @@ const coupon = require('./routes/coupon')
 const basket = require('./routes/basket')
 const order = require('./routes/order')
 const verify = require('./routes/verify')
+const recycles = require('./routes/recycles')
 const b2bOrder = require('./routes/b2bOrder')
 const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
@@ -185,9 +186,12 @@ app.get('/api/Complaints', insecurity.isAuthorized())
 app.post('/api/Complaints', insecurity.isAuthorized())
 app.use('/api/Complaints/:id', insecurity.denyAll())
 /* Recycles: POST and GET allowed when logged in only */
-app.get('/api/Recycles', insecurity.isAuthorized())
+app.get('/api/Recycles', recycles.blockRecycleItems())
 app.post('/api/Recycles', insecurity.isAuthorized())
-app.use('/api/Recycles/:id', insecurity.denyAll())
+/* Challenge evaluation before epilogue takes over */
+app.get('/api/Recycles/:id', recycles.sequelizeVulnerabilityChallenge())
+app.put('/api/Recycles/:id', insecurity.denyAll())
+app.delete('/api/Recycles/:id', insecurity.denyAll())
 /* SecurityQuestions: Only GET list of questions allowed. */
 app.post('/api/SecurityQuestions', insecurity.denyAll())
 app.use('/api/SecurityQuestions/:id', insecurity.denyAll())
@@ -217,12 +221,23 @@ app.use(verify.databaseRelatedChallenges())
 /* Generated API endpoints */
 epilogue.initialize({ app, sequelize: models.sequelize })
 
-const autoModels = ['User', 'Product', 'Feedback', 'BasketItem', 'Challenge', 'Complaint', 'Recycle', 'SecurityQuestion', 'SecurityAnswer']
+const autoModels = [
+  { name: 'User', exclude: ['password'] },
+  { name: 'Product', exclude: [] },
+  { name: 'Feedback', exclude: [] },
+  { name: 'BasketItem', exclude: [] },
+  { name: 'Challenge', exclude: [] },
+  { name: 'Complaint', exclude: [] },
+  { name: 'Recycle', exclude: [] },
+  { name: 'SecurityQuestion', exclude: [] },
+  { name: 'SecurityAnswer', exclude: [] }
+]
 
-for (const modelName of autoModels) {
+for (const { name, exclude } of autoModels) {
   const resource = epilogue.resource({
-    model: models[modelName],
-    endpoints: [`/api/${modelName}s`, `/api/${modelName}s/:id`]
+    model: models[name],
+    endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
+    excludeAttributes: exclude
   })
 
   // fix the api difference between epilogue and previously used sequlize-restful
@@ -287,7 +302,7 @@ exports.start = async function (readyCallback) {
 
   server.listen(process.env.PORT || config.get('server.port'), () => {
     console.log()
-    console.log(colors.green('Server listening on port %d'), config.get('server.port'))
+    console.log(colors.cyan('Server listening on port %d'), config.get('server.port'))
     console.log()
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
