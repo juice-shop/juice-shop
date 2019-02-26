@@ -19,6 +19,8 @@ export class TwoFactorAuthEnterComponent {
     token: new FormControl('')
   })
 
+  public errored: Boolean = false
+
   constructor (
     private twoFactorAuthService: TwoFactorAuthService,
     private cookieService: CookieService,
@@ -37,6 +39,12 @@ export class TwoFactorAuthEnterComponent {
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/search'])
+    }, (error) => {
+      this.errored = true
+      setTimeout(() => {
+        this.errored = false
+      }, 5 * 1000)
+      return error
     })
   }
 
