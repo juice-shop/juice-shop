@@ -157,5 +157,7 @@
   "INVALID_DATE": "გთხოვთ შეიყვანოთ ვალიდური თარიღი.",
   "SECURITY_ANSWER_PLACEHOLDER": "უპასუხეთ უსაფრთხოების შეკითხვას",
   "MANDATORY_ORDER_ID": "გთხოვთ შეიყვანოთ შეკვეთის ID.",
-  "BTN_SHOW_SOLVED": "ამოხსნილის ჩვენება"
+  "BTN_SHOW_SOLVED": "ამოხსნილის ჩვენება",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
