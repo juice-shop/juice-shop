@@ -25,7 +25,7 @@ module.exports = function resetPassword () {
       }).then(data => {
         if (insecurity.hmac(answer) === data.answer) {
           models.User.findByPk(data.UserId).then(user => {
-            user.updateAttributes({ password: newPassword }).then(user => {
+            user.update({ password: newPassword }).then(user => {
               if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === users.jim.id && answer === 'Samuel') {
                 utils.solve(challenges.resetPasswordJimChallenge)
               }

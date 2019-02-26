@@ -7,7 +7,7 @@ module.exports = function updateUserProfile () {
 
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
-        return user.updateAttributes({ username: req.body.username })
+        return user.update({ username: req.body.username })
       }).catch(error => {
         next(error)
       })
