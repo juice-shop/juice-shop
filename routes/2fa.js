@@ -30,23 +30,22 @@ async function verify (req, res) {
     if (!isValid) {
       return res.status(401).send()
     }
-      
+
     if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'J12934@' + config.get('application.domain')) {
       utils.solve(challenges.twoFactorAuthUnsafeSecretStorage)
     }
 
     const [ basket ] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
-    
+
     const token = insecurity.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
     insecurity.authenticatedUsers.put(token, plainUser)
-    
+
     res.json({ authentication: { token, bid: basket.id, umail: user.email } })
   } catch (error) {
     console.error('Failed to verify token identity')
     res.status(401).send()
   }
 }
-
 
 module.exports.verify = () => verify
