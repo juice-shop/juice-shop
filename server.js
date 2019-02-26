@@ -212,6 +212,8 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
 /* Verify the 2FA Token */
+
+app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
 app.post('/rest/2fa/verify', twoFactorAuth.verify())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
