@@ -22,6 +22,9 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* Webcast recording on [7 Minute Security](https://7ms.us):
+  [DIY $500 Pentest Lab - Part 1](https://www.youtube.com/watch?v=7qnaR6ZmJzA)
+  :mega:
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel:
   * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
@@ -87,6 +90,10 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Article (:es:) on Medium by
+  [Elzer Pineda](https://medium.com/@elzerjp):
+  [Null Byte Attack Juice Shop y algo mas!!](https://medium.com/@elzerjp/null-byte-attack-juice-shop-y-algo-mas-2c6d271b2fd5)
+  :godmode:
 * Blog post on [Omer Levi Hevroni's blog](https://www.omerlh.info/):
   [Hacking Juice Shop, the DevSecOps Way](https://www.omerlh.info/2018/12/23/hacking-juice-shop-the-devsecops-way/)
 * Blog post on [Jannik Hollenbach's blog](https://medium.com/@j12934):
@@ -150,6 +157,8 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
+  by Sunny Wear ([Youtube](https://www.youtube.com/watch?v=zi3yDovd0RY))
 * [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp)
   chapter :godmode: of the
   [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video)
@@ -163,6 +172,29 @@ where this project was mentioned or used!
   by Timo Pagel, [Fachhochschule Kiel](https://www.fh-kiel.de)
 * [Web Application Security Training](https://de.slideshare.net/BjrnKimminich/web-application-security-21684264)
   by Björn Kimminich
+
+## Summits & Open Source Events
+
+* [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
+  and related working sessions organized by Björn Kimminich,
+  [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
+  03.-07.06.2019
+* Student projects from
+  [Google Suummer of Code 2018](https://summerofcode.withgoogle.com/archive/2018/projects)
+  * [OWASP Juice Shop : Challenge Pack 2018](https://summerofcode.withgoogle.com/archive/2018/projects/6267528737193984)
+    by Shoeb Patel (mentored by Jannik Hollenbach and Timo Pagel)
+  * [OWASP Juice Shop : Frontend Technology Update](https://summerofcode.withgoogle.com/archive/2018/projects/6636660909408256)
+    by Aashish Singh (mentored by Björn Kimminich)
+* Juice Shop related working sessions organized by Jannik Hollenbach and
+  Timo Pagel in
+  [OWASP Projects track](https://github.com/OpenSecuritySummit/oss2018/tree/master/content/tracks/OWASP-Projects),
+  [Open Security Summit 2018](https://github.com/OpenSecuritySummit/oss2018),
+  04.-08.06.2018
+* [Outcome of the Juice Shop track](https://github.com/OWASP/owasp-summit-2017/blob/master/Outcomes/Juice-Shop/Juce-Shop-Update.md)
+  and related working sessions organized by Björn Kimminich and Timo
+  Pagel,
+  [OWASP Summit 2017](https://github.com/OWASP/owasp-summit-2017),
+  12.-16.06.2017
 
 ## Conference and Meetup Appearances
 
@@ -303,9 +335,6 @@ where this project was mentioned or used!
   by Katy Anton,
   [OWASP Bristol (UK) Chapter](https://www.owasp.org/index.php/Bristol),
   22.06.2017
-* [Juice Shop](https://owaspsummit.org/Outcomes/Juice-Shop/Juce-Shop-Update.html)
-  and related working sessions,
-  [OWASP Summit 2017](https://owaspsummit.org), 12.-16.06.2017
 * [Update on OWASP Projects & Conferences](https://www.owasp.org/index.php/London#Thursday.2C_18th_May_2017_.28Central_London.29)
   by Sam Stepanyan,
   [OWASP London Chapter](https://www.owasp.org/index.php/London#OWASP_London)

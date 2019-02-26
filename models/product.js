@@ -19,7 +19,7 @@ module.exports = (sequelize, { STRING, DECIMAL }) => {
   }, { paranoid: true })
 
   Product.associate = ({ Basket, BasketItem }) => {
-    Product.belongsToMany(Basket, { through: BasketItem })
+    Product.belongsToMany(Basket, { through: BasketItem, foreignKey: { name: 'ProductId', noUpdate: true } })
   }
 
   return Product

@@ -140,14 +140,38 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
     dlpPastebinDataLeakChallenge()
   }
+  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
+    recyclesMissingItemChallenge()
+  }
   next()
 }
 
+function recyclesMissingItemChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.like]: '%Starfleet HQ, 24-593 Federation Drive, San Francisco, CA%' }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.recyclesMissingItemChallenge)
+    }
+  })
+}
+
 function changeProductChallenge (osaft) {
+  let urlForProductTamperingChallenge = null
   osaft.reload().then(() => {
-    if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
-      if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
-        utils.solve(challenges.changeProductChallenge)
+    for (const product of config.products) {
+      if (product.urlForProductTamperingChallenge !== undefined) {
+        urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+        break
+      }
+    }
+    if (urlForProductTamperingChallenge) {
+      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+          utils.solve(challenges.changeProductChallenge)
+        }
       }
     }
   })
