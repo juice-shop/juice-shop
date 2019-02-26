@@ -157,5 +157,7 @@
   "INVALID_DATE": "유효한 날짜를 입력하세요.",
   "SECURITY_ANSWER_PLACEHOLDER": "보안 질문에 대답해주세요.",
   "MANDATORY_ORDER_ID": "주문 번호를 제공해주세요.",
-  "BTN_SHOW_SOLVED": "해결된 과제 표시"
+  "BTN_SHOW_SOLVED": "해결된 과제 표시",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
