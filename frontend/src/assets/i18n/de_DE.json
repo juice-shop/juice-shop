@@ -157,5 +157,7 @@
   "INVALID_DATE": "Bitte gib ein gültiges Datum ein.",
   "SECURITY_ANSWER_PLACEHOLDER": "Antwort auf deine Sicherheitsfrage",
   "MANDATORY_ORDER_ID": "Bitte gib eine Bestell-Nr. ein.",
-  "BTN_SHOW_SOLVED": "Gelöste anzeigen"
+  "BTN_SHOW_SOLVED": "Gelöste anzeigen",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
