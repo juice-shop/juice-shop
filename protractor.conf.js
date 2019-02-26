@@ -36,8 +36,6 @@ exports.config = {
 
   onPrepare: function () {
     var jasmineReporters = require('jasmine-reporters')
-    jasmine.getEnv().clearReporters()
-    jasmine.getEnv().addReporter(new jasmineReporters.TapReporter())
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
       consolidateAll: true,
       savePath: 'build/reports/e2e_results'
