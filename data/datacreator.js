@@ -5,6 +5,7 @@ const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const insecurity = require('../lib/insecurity')
+const logger = require('../lib/logger')
 
 const fs = require('fs')
 const path = require('path')
@@ -17,7 +18,7 @@ function loadStaticData (file) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
     .then(safeLoad)
-    .catch(() => console.error('Could not open file: "' + filePath + '"'))
+    .catch(() => logger.error('Could not open file: "' + filePath + '"'))
 }
 
 module.exports = async () => {
@@ -62,8 +63,7 @@ async function createChallenges () {
         })
         datacache.challenges[key] = challenge
       } catch (err) {
-        console.error(`Could not insert Challenge ${name}`)
-        console.error(err)
+        logger.error(`Could not insert Challenge ${name}: ${err.message}`)
       }
     })
   )
@@ -86,8 +86,7 @@ async function createUsers () {
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
       } catch (err) {
-        console.error(`Could not insert User ${key}`)
-        console.error(err)
+        logger.error(`Could not insert User ${key}: ${err.message}`)
       }
     })
   )
@@ -165,8 +164,7 @@ function createProducts () {
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
         models.Product.create(product).catch(
           (err) => {
-            console.error(`Could not insert Product ${product.name}`)
-            console.error(err)
+            logger.error(`Could not insert Product ${product.name}: ${err.message}`)
           }
         ).then((persistedProduct) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
@@ -190,8 +188,7 @@ function createProducts () {
                   likesCount: 0,
                   likedBy: []
                 }).catch((err) => {
-                  console.error(`Could not insert Product Review ${text}`)
-                  console.error(err)
+                  logger.error(`Could not insert Product Review ${text}: ${err.message}`)
                 })
               )
             )
@@ -216,8 +213,7 @@ function createBaskets () {
   return Promise.all(
     baskets.map(basket => {
       models.Basket.create(basket).catch((err) => {
-        console.error(`Could not insert Basket for UserId ${basket.UserId}`)
-        console.error(err)
+        logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
       })
     })
   )
@@ -255,8 +251,7 @@ function createBasketItems () {
   return Promise.all(
     basketItems.map(basketItem => {
       models.BasketItem.create(basketItem).catch((err) => {
-        console.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}`)
-        console.error(err)
+        logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
       })
     })
   )
@@ -289,8 +284,7 @@ function createAnonymousFeedback () {
 
 function createFeedback (UserId, comment, rating) {
   return models.Feedback.create({ UserId, comment, rating }).catch((err) => {
-    console.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}`)
-    console.error(err)
+    logger.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}: ${err.message}`)
   })
 }
 
@@ -299,8 +293,7 @@ function createComplaints () {
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   }).catch((err) => {
-    console.error(`Could not insert Complaint`)
-    console.error(err)
+    logger.error(`Could not insert Complaint: ${err.message}`)
   })
 }
 
@@ -379,8 +372,7 @@ function createRecycleItems () {
 
 function createRecycles (item) {
   return models.Recycle.create(item).catch((err) => {
-    console.error(`Could not insert Recycling Model`)
-    console.error(err)
+    logger.error(`Could not insert Recycling Model: ${err.message}`)
   })
 }
 
@@ -400,16 +392,14 @@ function createSecurityQuestions () {
 
   return Promise.all(
     questions.map((question) => models.SecurityQuestion.create({ question }).catch((err) => {
-      console.error(`Could not insert SecurityQuestion ${question}`)
-      console.error(err)
+      logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
     }))
   )
 }
 
 function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
   return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
-    console.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}`)
-    console.error(err)
+    logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${err.message}`)
   })
 }
 
@@ -466,8 +456,7 @@ function createOrders () {
         products: products,
         eta: eta
       }).catch((err) => {
-        console.error(`Could not insert Order ${orderId}`)
-        console.error(err)
+        logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
     )
   )
