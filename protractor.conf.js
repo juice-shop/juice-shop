@@ -36,6 +36,7 @@ exports.config = {
 
   onPrepare: function () {
     var jasmineReporters = require('jasmine-reporters')
+    jasmine.getEnv().clearReporters()
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
       consolidateAll: true,
       savePath: 'build/reports/e2e_results'
@@ -44,12 +45,6 @@ exports.config = {
     // Get cookie consent popup out of the way
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
-  },
-
-  onComplete: function (success) {
-    if (!success) {
-      process.exit(1)
-    }
   }
 }
 
