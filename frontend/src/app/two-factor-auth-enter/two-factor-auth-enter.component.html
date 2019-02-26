@@ -4,6 +4,11 @@
     <h3 translate>TITLE_TWO_FACTOR_AUTH_ENTER</h3>
 
     <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
+
+      <div *ngIf="errored" class="error">
+        The token appears to be invalid.
+      </div>
+
       <div class="form-container">
         <mat-form-field appearance="outline">
           <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
