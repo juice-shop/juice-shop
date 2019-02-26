@@ -49,6 +49,7 @@ const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
+const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
@@ -301,9 +302,7 @@ exports.start = async function (readyCallback) {
   await datacreator()
 
   server.listen(process.env.PORT || config.get('server.port'), () => {
-    console.log()
-    console.log(colors.cyan('Server listening on port %d'), config.get('server.port'))
-    console.log()
+    logger.info(colors.cyan(`Server listening on port ${config.get('server.port')}`))
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
