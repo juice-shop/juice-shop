@@ -57,6 +57,16 @@ module.exports = function login () {
             }
             afterLogin(user, res, next)
           })
+        } else if (user.data && user.data.id && user.data.totpSecret !== '') {
+          res.status(401).json({
+            status: 'totp_token_requried',
+            data: {
+              tmpToken: insecurity.authorize({
+                userId: user.data.id,
+                type: 'password_valid_needs_second_factor_token'
+              })
+            }
+          })
         } else if (user.data && user.data.id) {
           afterLogin(user, res, next)
         } else {

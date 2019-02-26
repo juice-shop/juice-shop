@@ -81,8 +81,15 @@ export class LoginComponent implements OnInit {
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/search'])
-    }, (error) => {
+    }, ({ error }) => {
+      if (error.status && error.data && error.status === 'totp_token_requried') {
+        localStorage.setItem('totp_tmp_token', error.data.tmpToken)
+        this.router.navigate(['/2fa/enter'])
+        return
+      }
+
       console.log(error)
+
       localStorage.removeItem('token')
       this.cookieService.remove('token', { domain: document.domain })
       sessionStorage.removeItem('bid')
