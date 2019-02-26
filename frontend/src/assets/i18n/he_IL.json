@@ -157,5 +157,7 @@
   "INVALID_DATE": "אנא הכנס תאריך תקף.",
   "SECURITY_ANSWER_PLACEHOLDER": "תשובה לשאלת האבטחה שלך",
   "MANDATORY_ORDER_ID": "אנא הכנס מספר הזמנה.",
-  "BTN_SHOW_SOLVED": "הצג פתרון"
+  "BTN_SHOW_SOLVED": "הצג פתרון",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
