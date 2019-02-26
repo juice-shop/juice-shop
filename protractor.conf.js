@@ -44,6 +44,12 @@ exports.config = {
     // Get cookie consent popup out of the way
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
+  },
+
+  onComplete: function (success) {
+    if (!success) {
+      process.exit(1)
+    }
   }
 }
 
