@@ -37,11 +37,12 @@ describe('/api', () => {
         }
       }
     })())
+    const overwriteUrl = config.get('challenges.overwriteUrlForProductTamperingChallenge')
 
     it('should be possible to change product via PUT request without being logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PUT","${"http://localhost:3000/api/Products/" + tamperingProductId}", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.send(JSON.stringify({"description" : "<a href=\\"http://kimminich.de\\" target=\\"_blank\\">More...</a>"}));`) // eslint-disable-line
-      browser.driver.sleep(2000)
+      browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PUT","${"http://localhost:3000/api/Products/" + tamperingProductId}", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.send(JSON.stringify({"description" : "<a href=\\"${overwriteUrl}\\" target=\\"_blank\\">More...</a>"}));`) // eslint-disable-line
+      browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
 
       browser.get('/#/search')
