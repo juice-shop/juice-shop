@@ -157,5 +157,7 @@
   "INVALID_DATE": "请提供有效的数据",
   "SECURITY_ANSWER_PLACEHOLDER": "安全问题的答案",
   "MANDATORY_ORDER_ID": "请提供订单号",
-  "BTN_SHOW_SOLVED": "显示已解决的问题"
+  "BTN_SHOW_SOLVED": "显示已解决的问题",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
