@@ -73,14 +73,15 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback }) => {
+    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
           email: completeEmail,
           password,
           isAdmin,
-          profileImage: profileImage || 'default.svg'
+          profileImage: profileImage || 'default.svg',
+          totpSecret
         })
         datacache.users[key] = user
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)

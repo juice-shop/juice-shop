@@ -639,4 +639,13 @@
   hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
   key: recyclesMissingItemChallenge
+-
+  name: 'Two Factor Auth Unsafe Secret Storage'
+  category: 'Two Factor Auth'
+  description: 'Find a way to solve the Two Factor Auth protection for the user "J12934".'
+  difficulty: 5
+  hint: 'The used algorithm requires the storage of a secret for every user. You will need to find a way to access to this secret, before you are able to solve this challenge.'
+  hintUrl: ''
+  key: twoFactorAuthUnsafeSecretStorage
+
 
