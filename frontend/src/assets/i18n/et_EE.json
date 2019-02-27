@@ -157,7 +157,7 @@
   "INVALID_DATE": "Palun sisesta vormile vastav kuupäev.",
   "SECURITY_ANSWER_PLACEHOLDER": "Vastus turvaküsimusele",
   "MANDATORY_ORDER_ID": "Palun sisesta tellimuse ID.",
-  "BTN_SHOW_SOLVED": "Show solved"
+  "BTN_SHOW_SOLVED": "Show solved",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
   "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid."
