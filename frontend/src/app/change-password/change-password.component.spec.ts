@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { of, throwError } from 'rxjs'
 
-xdescribe('ChangePasswordComponent', () => { // FIXME Investigate unpredictable failures on Travis-CI
+describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent
   let fixture: ComponentFixture<ChangePasswordComponent>
   let userService
