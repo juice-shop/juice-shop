@@ -158,7 +158,7 @@
   "SECURITY_ANSWER_PLACEHOLDER": "Antwort auf deine Sicherheitsfrage",
   "MANDATORY_ORDER_ID": "Bitte gib eine Bestell-Nr. ein.",
   "BTN_SHOW_SOLVED": "Gelöste anzeigen",
-  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
-  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
-  "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid."
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Gib den 6-stelligen Code aus deiner 2FA App ein",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Code",
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "Der Code scheint ungültig zu sein."
 }
