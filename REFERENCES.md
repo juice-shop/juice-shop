@@ -200,6 +200,10 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
+  by Björn Kimminich,
+  [39. OWASP Stammtisch Hamburg](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch),
+  27.02.2019
 * [Back to Basics: Hacking OWASP JuiceShop](https://www.owasp.org/index.php/Knoxville#Past_Meetings)
   by Jeremy Kelso,
   [OWASP Knoxville Chapter Meeting](https://www.owasp.org/index.php/Knoxville),
