@@ -117,6 +117,24 @@ describe('/rest/user/login', () => {
       })
   })
 
+  it('POST login with Jannik credentials', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'J12934@' + config.get('application.domain'),
+        password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+      }
+    })
+      .expect('status', 401)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        tmpToken: Joi.string()
+      })
+      .expect('json', {
+        status: 'totp_token_requried'
+      })
+  })
+
   it('POST login as bjoern.kimminich@googlemail.com with known password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,

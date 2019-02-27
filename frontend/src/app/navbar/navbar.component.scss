@@ -11,6 +11,16 @@ mat-toolbar {
   width: auto;
 }
 
+.avatar {
+  background-repeat: no-repeat no-repeat;
+  border-radius: 50%;
+  display: inline-block;
+  max-height: 35px;
+  max-width: 35px;
+  padding: 0;
+  pointer-events: none;
+}
+
 .fill-remaining-space {
   flex: 1 1 auto;
 }

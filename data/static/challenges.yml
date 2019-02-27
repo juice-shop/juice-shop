@@ -100,15 +100,15 @@
   description: 'View another user''s shopping basket.'
   difficulty: 2
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-someone-elses-basket'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#view-another-users-shopping-basket'
   key: basketAccessChallenge
 -
   name: 'Basket Access Tier 2'
   category: 'Broken Access Control'
-  description: 'Manipulate another user''s basket.'
+  description: 'Put an additional product into another user''s shopping basket.'
   difficulty: 3
-  hint: 'Have an eye on the HTTP traffic while adding items to basket.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#manipulate-someone-elses-basket'
+  hint: 'Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn''t count.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#put-an-additional-product-into-another-users-shopping-basket'
   key: basketManipulateChallenge
 -
   name: 'Payback Time'
@@ -153,7 +153,7 @@
 -
   name: 'Product Tampering'
   category: 'Broken Access Control'
-  description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>http://kimminich.de</i>.'
+  description: 'Change the <code>href</code> of the link within the <a href="/#/search?q=OWASP SSL Advanced Forensic Tool (O-Saft)">OWASP SSL Advanced Forensic Tool (O-Saft)</a> product description into <i>https://owasp.slack.com</i>.'
   difficulty: 3
   hint: 'Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#change-the-href-of-the-link-within-the-o-saft-product-description'
@@ -195,7 +195,7 @@
   category: 'Sensitive Data Exposure'
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
-  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering.'
+  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'
   key: forgedCouponChallenge
 -
@@ -231,10 +231,10 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production'
   key: extraLanguageChallenge
 -
-  name: 'CAPTCHA Bypass'
+  name: 'CAPTCHA Bypass Tier 1'
   category: 'Roll your own Security'
   description: 'Submit 10 or more customer feedbacks within 10 seconds.'
-  difficulty: 5
+  difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#submit-10-or-more-customer-feedbacks-within-10-seconds'
   key: captchaBypassChallenge
@@ -257,10 +257,10 @@
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
-  description: 'Log in with Bjoern''s user account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
+  description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
   hint: 'The security flaw behind this challenge is 100% Juice Shop''s fault and 0% Google''s.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#log-in-with-bjoerns-user-account'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#log-in-with-bjoerns-gmail-account'
   key: oauthUserPasswordChallenge
 -
   name: 'Login CISO'
@@ -319,12 +319,12 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#reset-mortys-password-via-the-forgot-password-mechanism'
   key: resetPasswordMortyChallenge
 -
-  name: 'Reset Bjoern''s Password'
+  name: 'Reset Bjoern''s Password Tier 2'
   category: 'Broken Authentication'
-  description: 'Reset Bjoern''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
+  description: 'Reset the password of Bjoern''s internal account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 5
   hint: 'Nothing a little bit of Facebook stalking couldn''t reveal. Might involve a historical twist.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#reset-bjoerns-password-via-the-forgot-password-mechanism'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#reset-the-password-of-bjoerns-internal-account-via-the-forgot-password-mechanism'
   key: resetPasswordBjoernChallenge
 -
   name: 'NoSQL Injection Tier 1'
@@ -448,7 +448,7 @@
   name: 'Blockchain Tier 1'
   category: 'Security through Obscurity'
   description: 'Learn about the Token Sale before its official announcement.'
-  difficulty: 3
+  difficulty: 5
   hint: 'The developers truly believe in "Security through Obscurity" over actual access restrictions.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#learn-about-the-token-sale-before-its-official-announcement'
   key: tokenSaleChallenge
@@ -543,10 +543,10 @@
 -
   name: 'CSRF'
   category: 'Broken Authentication'
-  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection.'
+  description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
   difficulty: 5
   hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection-or-forgot-password'
   key: csrfChallenge
 -
   name: 'XSS Tier 5'
@@ -591,3 +591,61 @@
   hint: 'This challenge will make you go after a needle in a haystack.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
+-
+  name: 'XSS Tier 1.5'
+  category: 'XSS'
+  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
+  difficulty: 2
+  hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
+  key: usernameXssChallenge
+-  
+  name: 'Reset Bjoern''s Password Tier 1'
+  category: 'Broken Authentication'
+  description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
+  difficulty: 3
+  hint: 'He might have spoilered it on at least one occasion where a camera was running. Maybe elsewhere as well.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#reset-the-password-of-bjoerns-owasp-account-via-the-forgot-password-mechanism'
+  key: resetPasswordBjoernOwaspChallenge
+-
+  name: 'Access Log'
+  category: 'Sensitive Data Exposure'
+  description: 'Gain access to any access log file of the server.'
+  difficulty: 4
+  hint: 'Who would want a server access log to be accessible through a web application?'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
+  key: accessLogDisclosureChallenge
+-
+  name: 'DLP Failure Tier 1'
+  category: 'Sensitive Data Exposure'
+  description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
+  difficulty: 4
+  hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
+  key: dlpPastebinDataLeakChallenge 
+-
+  name: 'DLP Failure Tier 2'
+  category: 'Sensitive Data Exposure'
+  description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
+  difficulty: 5
+  hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  key: dlpPasswordSprayingChallenge
+-
+  name: 'Lost in Recycling'
+  category: 'Injection'
+  description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
+  difficulty: 4
+  hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
+  key: recyclesMissingItemChallenge
+-
+  name: 'Two Factor Authentication'
+  category: 'Broken Authentication'
+  description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
+  difficulty: 5
+  hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
+  key: twoFactorAuthUnsafeSecretStorage
+
+

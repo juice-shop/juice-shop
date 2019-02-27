@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 
 import { faUserPlus, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faUserPlus, faExclamationCircle)
 dom.watch()
@@ -29,12 +30,15 @@ export class RegisterComponent implements OnInit {
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
     private securityAnswerService: SecurityAnswerService,
-    private router: Router) { }
+    private router: Router,
+    private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
     }, (err) => console.log(err))
+
+    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => this.save())
   }
 
   save () {
