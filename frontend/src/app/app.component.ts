@@ -1,7 +1,8 @@
 import { ConfigurationService } from './Services/configuration.service'
 import { Component, Inject, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
-import { DOCUMENT, Title } from '@angular/platform-browser'
+import { Title } from '@angular/platform-browser'
+import { DOCUMENT } from '@angular/common'
 
 @Component({
   selector: 'app-root',
