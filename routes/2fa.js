@@ -31,7 +31,7 @@ async function verify (req, res) {
       return res.status(401).send()
     }
 
-    if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'J12934@' + config.get('application.domain')) {
+    if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'wurstbrot@' + config.get('application.domain')) {
       utils.solve(challenges.twoFactorAuthUnsafeSecretStorage)
     }
 
