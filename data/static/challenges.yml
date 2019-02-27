@@ -640,12 +640,12 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
   key: recyclesMissingItemChallenge
 -
-  name: 'Two Factor Auth Unsafe Secret Storage'
-  category: 'Two Factor Auth'
-  description: 'Find a way to solve the Two Factor Auth protection for the user "J12934".'
+  name: 'Two Factor Authentication'
+  category: 'Broken Authentication'
+  description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
   difficulty: 5
-  hint: 'The used algorithm requires the storage of a secret for every user. You will need to find a way to access to this secret, before you are able to solve this challenge.'
-  hintUrl: ''
+  hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorage
 
 
