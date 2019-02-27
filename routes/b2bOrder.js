@@ -13,7 +13,7 @@ module.exports = function b2bOrder () {
       vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
       res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
     } catch (err) {
-      if (err.message === 'Script execution timed out.') {
+      if (err.message && err.message.match(/Script execution timed out.*/)) {
         if (utils.notSolved(challenges.rceOccupyChallenge)) {
           utils.solve(challenges.rceOccupyChallenge)
         }

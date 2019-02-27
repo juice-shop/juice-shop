@@ -5,6 +5,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const insecurity = require('../../lib/insecurity')
+const config = require('config')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -68,34 +69,34 @@ describe('verify', () => {
   })
 
   describe('accessControlChallenges', () => {
-    it('"scoreBoardChallenge" is solved when the scoreBoard.png transpixel is this.requested', () => {
+    it('"scoreBoardChallenge" is solved when the 1px.png transpixel is requested', () => {
       challenges.scoreBoardChallenge = { solved: false, save: this.save }
-      this.req.url = 'http://juice-sh.op/public/images/tracking/scoreboard.png'
+      this.req.url = 'http://juice-sh.op/public/images/padding/1px.png'
 
       verify.accessControlChallenges()(this.req, this.res, this.next)
 
       expect(challenges.scoreBoardChallenge.solved).to.equal(true)
     })
 
-    it('"adminSectionChallenge" is solved when the administration.png transpixel is this.requested', () => {
+    it('"adminSectionChallenge" is solved when the 19px.png transpixel is requested', () => {
       challenges.adminSectionChallenge = { solved: false, save: this.save }
-      this.req.url = 'http://juice-sh.op/public/images/tracking/administration.png'
+      this.req.url = 'http://juice-sh.op/public/images/padding/19px.png'
 
       verify.accessControlChallenges()(this.req, this.res, this.next)
 
       expect(challenges.adminSectionChallenge.solved).to.equal(true)
     })
 
-    it('"tokenSaleChallenge" is solved when the tokensale.png transpixel is this.requested', () => {
+    it('"tokenSaleChallenge" is solved when the 56px.png transpixel is requested', () => {
       challenges.tokenSaleChallenge = { solved: false, save: this.save }
-      this.req.url = 'http://juice-sh.op/public/images/tracking/tokensale.png'
+      this.req.url = 'http://juice-sh.op/public/images/padding/56px.png'
 
       verify.accessControlChallenges()(this.req, this.res, this.next)
 
       expect(challenges.tokenSaleChallenge.solved).to.equal(true)
     })
 
-    it('"extraLanguageChallenge" is solved when the Klingon translation file is this.requested', () => {
+    it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', () => {
       challenges.extraLanguageChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'
 
@@ -104,7 +105,7 @@ describe('verify', () => {
       expect(challenges.extraLanguageChallenge.solved).to.equal(true)
     })
 
-    it('"retrieveBlueprintChallenge" is solved when the blueprint file is this.requested', () => {
+    it('"retrieveBlueprintChallenge" is solved when the blueprint file is requested', () => {
       challenges.retrieveBlueprintChallenge = { solved: false, save: this.save }
       cache.retrieveBlueprintChallengeFile = 'test.dxf'
       this.req.url = 'http://juice-sh.op/public/images/products/test.dxf'
@@ -112,6 +113,15 @@ describe('verify', () => {
       verify.accessControlChallenges()(this.req, this.res, this.next)
 
       expect(challenges.retrieveBlueprintChallenge.solved).to.equal(true)
+    })
+
+    it('"accessLogDisclosureChallenge" is solved when any server access log file is requested', () => {
+      challenges.accessLogDisclosureChallenge = { solved: false, save: this.save }
+      this.req.url = 'http://juice-sh.op/support/logs/access.log.2019-01-15'
+
+      verify.accessControlChallenges()(this.req, this.res, this.next)
+
+      expect(challenges.accessLogDisclosureChallenge.solved).to.equal(true)
     })
   })
 
@@ -185,8 +195,8 @@ describe('verify', () => {
         products.osaft = { reload () { return { then (cb) { cb() } } } }
       })
 
-      it('is solved when the link in the O-Saft product goes to http://kimminich.de', () => {
-        products.osaft.description = 'O-Saft, yeah! <a href="http://kimminich.de" target="_blank">More...</a>'
+      it(`is solved when the link in the O-Saft product goes to ${config.get('challenges.overwriteUrlForProductTamperingChallenge')}`, () => {
+        products.osaft.description = `O-Saft, yeah! <a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`
 
         verify.databaseRelatedChallenges()(this.req, this.res, this.next)
 
@@ -202,7 +212,14 @@ describe('verify', () => {
       })
 
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
-        products.osaft.description = 'Vanilla O-Saft! <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+        let urlForProductTamperingChallenge = null
+        for (const product of config.products) {
+          if (product.urlForProductTamperingChallenge !== undefined) {
+            urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+            break
+          }
+        }
+        products.osaft.description = `Vanilla O-Saft! <a href="${urlForProductTamperingChallenge}" target="_blank">More...</a>`
 
         verify.databaseRelatedChallenges()(this.req, this.res, this.next)
 

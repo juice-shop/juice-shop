@@ -3,6 +3,7 @@ import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { FormSubmitService } from '../Services/form-submit.service'
 
 library.add(faSave)
 dom.watch()
@@ -20,7 +21,11 @@ export class ChangePasswordComponent {
   public error: any
   public confirmation: any
 
-  constructor (private userService: UserService) { }
+  constructor (private userService: UserService, private formSubmitService: FormSubmitService) { }
+
+  ngOnInit () {
+    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => this.changePassword())
+  }
 
   changePassword () {
     this.userService.changePassword({

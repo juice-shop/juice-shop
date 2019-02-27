@@ -6,6 +6,7 @@ const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
 const challenges = cache.challenges
 const products = cache.products
+const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
@@ -36,7 +37,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 exports.registerAdminChallenge = () => (req, res, next) => {
   /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.registerAdminChallenge)) {
-    if (req.body && req.body.isAdmin && req.body.isAdmin === true) {
+    if (req.body && req.body.isAdmin && req.body.isAdmin) {
       utils.solve(challenges.registerAdminChallenge)
     }
   }
@@ -44,11 +45,11 @@ exports.registerAdminChallenge = () => (req, res, next) => {
 }
 
 exports.accessControlChallenges = () => ({ url }, res, next) => {
-  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/scoreboard.png')) {
+  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/1px.png')) {
     utils.solve(challenges.scoreBoardChallenge)
-  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/administration.png')) {
+  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/19px.png')) {
     utils.solve(challenges.adminSectionChallenge)
-  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/tokensale.png')) {
+  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
     utils.solve(challenges.tokenSaleChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
@@ -56,6 +57,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.retrieveBlueprintChallenge)
   } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
     utils.solve(challenges.securityPolicyChallenge)
+  } else if (utils.notSolved(challenges.accessLogDisclosureChallenge) && url.match(/access\.log(0-9-)*/)) {
+    utils.solve(challenges.accessLogDisclosureChallenge)
   }
   next()
 }
@@ -134,14 +137,41 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.supplyChainAttackChallenge)) {
     supplyChainAttackChallenge()
   }
+  if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
+    dlpPastebinDataLeakChallenge()
+  }
+  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
+    recyclesMissingItemChallenge()
+  }
   next()
 }
 
+function recyclesMissingItemChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.like]: '%Starfleet HQ, 24-593 Federation Drive, San Francisco, CA%' }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.recyclesMissingItemChallenge)
+    }
+  })
+}
+
 function changeProductChallenge (osaft) {
+  let urlForProductTamperingChallenge = null
   osaft.reload().then(() => {
-    if (!utils.contains(osaft.description, 'https://www.owasp.org/index.php/O-Saft')) {
-      if (utils.contains(osaft.description, '<a href="http://kimminich.de" target="_blank">More...</a>')) {
-        utils.solve(challenges.changeProductChallenge)
+    for (const product of config.products) {
+      if (product.urlForProductTamperingChallenge !== undefined) {
+        urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+        break
+      }
+    }
+    if (urlForProductTamperingChallenge) {
+      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
+        if (utils.contains(osaft.description, `<a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`)) {
+          utils.solve(challenges.changeProductChallenge)
+        }
       }
     }
   })
@@ -290,4 +320,34 @@ function supplyChainAttackChallenge () { // TODO Extend to also pass for given C
       utils.solve(challenges.supplyChainAttackChallenge)
     }
   })
+}
+
+function dlpPastebinDataLeakChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.and]: dangerousIngredients() }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.dlpPastebinDataLeakChallenge)
+    }
+  })
+  models.Complaint.findAndCountAll({
+    where: {
+      message: { [Op.and]: dangerousIngredients() }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.dlpPastebinDataLeakChallenge)
+    }
+  })
+}
+
+function dangerousIngredients () {
+  const ingredients = []
+  const dangerousProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
+  dangerousProduct.keywordsForPastebinDataLeakChallenge.map((keyword) => {
+    ingredients.push({ [Op.like]: `%${keyword}%` })
+  })
+  return ingredients
 }
