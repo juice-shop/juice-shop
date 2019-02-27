@@ -157,5 +157,8 @@
   "INVALID_DATE": "Vänligen ange ett giltigt datum.",
   "SECURITY_ANSWER_PLACEHOLDER": "Svaret på din säkerhetsfråga",
   "MANDATORY_ORDER_ID": "Vänligen ange ett ordernummer.",
-  "BTN_SHOW_SOLVED": "Visa lösta"
+  "BTN_SHOW_SOLVED": "Visa lösta",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid."
 }
