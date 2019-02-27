@@ -158,6 +158,6 @@
   "SECURITY_ANSWER_PLACEHOLDER": "Respuesta a su pregunta de seguridad",
   "MANDATORY_ORDER_ID": "Por favor proporcione un ID de pedido.",
   "BTN_SHOW_SOLVED": "Mostrar como solucionado",
-  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter your Two Factor Auth Token",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
 }
