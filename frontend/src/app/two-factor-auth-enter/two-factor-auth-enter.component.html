@@ -5,9 +5,7 @@
 
     <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
 
-      <div *ngIf="errored" class="error">
-        The token appears to be invalid.
-      </div>
+      <div *ngIf="errored" class="error" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
 
       <div class="form-container">
         <mat-form-field appearance="outline">
@@ -17,7 +15,7 @@
       </div>
 
       <button type="submit" color="primary" mat-raised-button [disabled]="twoFactorForm.invalid" id="totpSubmitButton">
-        {{'BTN_LOGIN' | translate}}
+        <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_LOGIN' | translate}}
       </button>
     </form>
 
