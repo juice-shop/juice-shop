@@ -159,5 +159,6 @@
   "MANDATORY_ORDER_ID": "אנא הכנס מספר הזמנה.",
   "BTN_SHOW_SOLVED": "הצג פתרון",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
-  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token"
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid."
 }
