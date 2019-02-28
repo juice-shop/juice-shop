@@ -54,6 +54,7 @@ where this project was mentioned or used!
   * Episode #318:
     [Interview with Bjorn Kimminich of OWASP Juice Shop](https://7ms.us/7ms-318-interview-with-bjorn-kimminich-of-owasp-juice-shop/)
   * Shout outs in various episodes:
+    [#347](https://7ms.us/7ms-347-happy-5th-birthday-to-7ms/),
     [#342](https://7ms.us/7ms-342-interview-with-matt-mccullough/),
     [#310](https://7ms.us/7ms-310/),
     [#309](https://7ms.us/7ms-309-password-cracking-in-the-cloud-part-2/),
