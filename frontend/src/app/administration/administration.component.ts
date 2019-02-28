@@ -1,7 +1,6 @@
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
-import { RecycleService } from '../Services/recycle.service'
 import { UserService } from '../Services/user.service'
 import { Component, OnInit } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -20,12 +19,10 @@ export class AdministrationComponent implements OnInit {
 
   public userDataSource: any
   public userColumns = ['user','email','user_detail']
-  public recycleDataSource: any
-  public recycleColumns = ['user', 'quantity', 'address', 'icon', 'pickup_date']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
   public error
-  constructor (private dialog: MatDialog,private userService: UserService,private recycleService: RecycleService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
+  constructor (private dialog: MatDialog, private userService: UserService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
     this.findAllUsers()
@@ -46,12 +43,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   findAllRecycles () {
-    this.recycleService.find().subscribe((recycles) => {
-      this.recycleDataSource = recycles
-    },(err) => {
-      this.error = err
-      console.log(this.error)
-    })
+    console.warn('TODO [2019/01/05] Move Recycles to their own page to decouple from admin-only data!')
   }
 
   findAllFeedbacks () {

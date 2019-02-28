@@ -78,7 +78,7 @@ describe('/api/BasketItems/:id', () => {
       body: {
         BasketId: 3,
         ProductId: 3,
-        quantity: 4
+        quantity: 3
       }
     })
       .expect('status', 200)
@@ -94,13 +94,55 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
+  it('PUT update basket ID of basket item is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 8,
+        quantity: 8
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            BasketId: 42
+          }
+        })
+          .expect('status', 400)
+      })
+  })
+
+  it('PUT update product ID of basket item is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 9,
+        quantity: 9
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            ProductId: 42
+          }
+        })
+          .expect('status', 400)
+      })
+  })
+
   it('DELETE newly created basket item', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
         BasketId: 3,
-        ProductId: 4,
-        quantity: 5
+        ProductId: 10,
+        quantity: 10
       }
     })
       .expect('status', 200)

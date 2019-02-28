@@ -157,6 +157,8 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
+  by Sunny Wear ([Youtube](https://www.youtube.com/watch?v=zi3yDovd0RY))
 * [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp)
   chapter :godmode: of the
   [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video)
@@ -198,6 +200,10 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
+  by Björn Kimminich,
+  [39. OWASP Stammtisch Hamburg](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch),
+  27.02.2019
 * [Back to Basics: Hacking OWASP JuiceShop](https://www.owasp.org/index.php/Knoxville#Past_Meetings)
   by Jeremy Kelso,
   [OWASP Knoxville Chapter Meeting](https://www.owasp.org/index.php/Knoxville),
