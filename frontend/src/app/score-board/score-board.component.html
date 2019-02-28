@@ -13,7 +13,7 @@
     <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
     <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
-      <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]" (change)="toggleDifficulty(difficulty)"
+      <mat-button-toggle *ngFor="let difficulty of difficulties" (change)="toggleDifficulty(difficulty)"
                          [checked]="scoreBoardTablesExpanded[difficulty]">
         <label>
         <span class="fa-4x fa-layers fa-fw">
@@ -31,8 +31,8 @@
           <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9"
                 style="font-weight:900;">{{difficulty}}</span>
           <span
-            [class]="'fa-layers-counter ' + ((filterSolvedChallengesOfDifficulty(difficulty)).length === (filterChallengesByDifficulty(difficulty)).length ? 'accent-notification' : (filterSolvedChallengesOfDifficulty(difficulty)).length === 0 ? 'warn-notification' : 'primary-notification')">
-              {{((filterSolvedChallengesOfDifficulty(difficulty)).length + '/' + (filterChallengesByDifficulty(difficulty)).length)}}
+            [class]="'fa-layers-counter ' + ((solvedChallengesOfDifficulty[difficulty - 1]).length === (totalChallengesOfDifficulty[difficulty - 1]).length ? 'accent-notification' : (solvedChallengesOfDifficulty[difficulty - 1]).length === 0 ? 'warn-notification' : 'primary-notification')">
+              {{((solvedChallengesOfDifficulty[difficulty - 1]).length + '/' + (totalChallengesOfDifficulty[difficulty - 1]).length)}}
           </span>
         </span>
         </label>
@@ -50,7 +50,7 @@
 
   </mat-card>
 
-  <mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]"
+  <mat-expansion-panel *ngFor="let difficulty of difficulties" [expanded]="scoreBoardTablesExpanded[difficulty]"
                        [disabled]="true">
 
     <mat-expansion-panel-header>

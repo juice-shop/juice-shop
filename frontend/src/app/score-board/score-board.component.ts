@@ -22,6 +22,7 @@ dom.watch()
 })
 export class ScoreBoardComponent implements OnInit {
 
+  public difficulties = [1,2,3,4,5,6]
   public scoreBoardTablesExpanded
   public showSolvedChallenges
   public allChallengeCategories = []
@@ -32,6 +33,8 @@ export class ScoreBoardComponent implements OnInit {
   public showChallengeHints
   public challenges: any[]
   public percentChallengesSolved
+  public solvedChallengesOfDifficulty = [[], [], [], [], [], []]
+  public totalChallengesOfDifficulty = [[], [], [], [], [], []]
 
   constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
@@ -49,16 +52,8 @@ export class ScoreBoardComponent implements OnInit {
     this.challengeService.find().subscribe((challenges) => {
       this.challenges = challenges
       for (let i = 0; i < this.challenges.length; i++) {
-        if (this.challenges[i].hintUrl) {
-          if (this.challenges[i].hint) {
-            this.challenges[i].hint += ' Click for more hints.'
-          } else {
-            this.challenges[i].hint = 'Click to open hints.'
-          }
-        }
-        if (this.challenges[i].disabledEnv) {
-          this.challenges[i].hint = 'This challenge is unavailable in a ' + this.challenges[i].disabledEnv + ' environment!'
-        }
+        this.augmentHintText(this.challenges[i])
+        this.trustDescriptionHtml(this.challenges[i])
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
@@ -68,8 +63,8 @@ export class ScoreBoardComponent implements OnInit {
       }
       this.allChallengeCategories.sort()
       this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
-      this.trustDescriptionHtml()
       this.calculateProgressPercentage()
+      this.populateFilteredChallengeLists()
       this.setOffset(challenges)
 
       this.spinner.hide()
@@ -88,16 +83,27 @@ export class ScoreBoardComponent implements OnInit {
             }
           }
           this.calculateProgressPercentage()
+          this.populateFilteredChallengeLists()
           this.setOffset(this.challenges)
         }
       })
     })
   }
 
-  trustDescriptionHtml () {
-    for (let i = 0; i < this.challenges.length; i++) {
-      this.challenges[i].description = this.sanitizer.bypassSecurityTrustHtml(this.challenges[i].description)
+  private augmentHintText (challenge) {
+    if (challenge.disabledEnv) {
+      challenge.hint = 'This challenge is unavailable in a ' + challenge.disabledEnv + ' environment!'
+    } else if (challenge.hintUrl) {
+      if (challenge.hint) {
+        challenge.hint += ' Click for more hints.'
+      } else {
+        challenge.hint = 'Click to open hints.'
+      }
     }
+  }
+
+  trustDescriptionHtml (challenge) {
+    challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description)
   }
 
   calculateProgressPercentage () {
@@ -184,17 +190,15 @@ export class ScoreBoardComponent implements OnInit {
     return dataSource
   }
 
-  filterChallengesByDifficulty (difficulty) {
-    if (!this.challenges) {
-      return []
-    }
-    return this.challenges.filter((challenge) => challenge.difficulty === difficulty)
-  }
-
-  filterSolvedChallengesOfDifficulty (difficulty) {
-    if (!this.challenges) {
-      return []
-    }
-    return this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
+  populateFilteredChallengeLists () {
+    this.difficulties.forEach(difficulty => {
+      if (!this.challenges) {
+        this.totalChallengesOfDifficulty[difficulty - 1] = []
+        this.solvedChallengesOfDifficulty[difficulty - 1] = []
+      } else {
+        this.totalChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty)
+        this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
+      }
+    })
   }
 }
