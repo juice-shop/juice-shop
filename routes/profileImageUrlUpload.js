@@ -2,6 +2,7 @@ const fs = require('fs')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
 const request = require('request')
+const logger = require('../lib/logger')
 
 module.exports = function profileImageUrlUpload () {
   return (req, res, next) => {
@@ -15,11 +16,11 @@ module.exports = function profileImageUrlUpload () {
         request
           .get(url)
           .on('error', function (err) {
-            console.log(err)
+            logger.warn('Error retrieving authenticated user: ' + err.message)
           })
           .pipe(fs.createWriteStream('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg'))
         models.User.findByPk(loggedInUser.data.id).then(user => {
-          return user.updateAttributes({ profileImage: loggedInUser.data.id + '.jpg' })
+          return user.update({ profileImage: loggedInUser.data.id + '.jpg' })
         }).catch(error => {
           next(error)
         })
