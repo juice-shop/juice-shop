@@ -201,5 +201,6 @@
       "sanitize-html",
       "express-jwt"
     ]
-  }
+  },
+  "heroku-run-build-script": true
 }
