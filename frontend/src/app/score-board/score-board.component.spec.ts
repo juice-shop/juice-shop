@@ -161,7 +161,7 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should return an empty array if challenges has a falsy value while filtering datasource', () => {
-    let value = component.filterToDataSource(null,null,null)
+    let value = component.filterToDataSource(null)
     expect(value).toEqual([])
   })
 
