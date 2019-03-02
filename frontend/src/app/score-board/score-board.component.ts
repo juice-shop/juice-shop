@@ -49,7 +49,7 @@ export class ScoreBoardComponent implements OnInit {
       this.showChallengeHints = data.application.showChallengeHints
     },(err) => console.log(err))
 
-    this.challengeService.find().subscribe((challenges) => {
+    this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
       this.challenges = challenges
       for (let i = 0; i < this.challenges.length; i++) {
         this.augmentHintText(this.challenges[i])
@@ -168,21 +168,15 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  filterToDataSource (challenges,difficulty,key) {
+  filterToDataSource (challenges) {
     if (!challenges) {
       return []
     }
 
-    challenges = challenges.filter((challenge) => challenge.difficulty === difficulty)
-    if (!this.showSolvedChallenges) {
-      challenges = challenges.filter((challenge) => !challenge.solved)
-    }
-    challenges = challenges.filter((challenge) => this.displayedChallengeCategories.includes(challenge.category))
-
-    challenges = challenges.sort((challenge1: any, challenge2: any) => {
-      let x = challenge1[key]
-      let y = challenge2[key]
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+    challenges = challenges.filter((challenge) => {
+      if (!this.displayedChallengeCategories.includes(challenge.category)) return false
+      if (!this.showSolvedChallenges && challenge.solved) return false
+      return true
     })
 
     let dataSource = new MatTableDataSource()
