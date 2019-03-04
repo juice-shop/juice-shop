@@ -14,7 +14,8 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
+import { RouterModule, Routes, UrlMatchResult, UrlSegment, CanActivate } from '@angular/router'
+import * as jwt_decode from 'jwt-decode'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -32,10 +33,24 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
+export class AdminGuard implements CanActivate {
+  canActivate () {
+    let payload = {} as any
+    payload = jwt_decode(localStorage.getItem('token'))
+    if (payload.data.isAdmin) {
+      return payload.data.isAdmin
+    } else {
+      window.alert("You don't have permission to view this page.")
+      return false
+    }
+  }
+}
+
 const routes: Routes = [
   {
     path: 'administration',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'about',

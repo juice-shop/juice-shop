@@ -51,6 +51,7 @@
     "@angular/language-service": "^7.0.3",
     "@types/jasmine": "~2.8.11",
     "@types/jasminewd2": "~2.0.6",
+    "@types/jwt-decode": "^2.2.1",
     "@types/node": "~8.9.4",
     "codelyzer": "^4.5.0",
     "jasmine": "~2.99",
