@@ -57,15 +57,15 @@ export class ScoreBoardComponent implements OnInit {
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
-        if (!this.allChallengeCategories.includes(this.challenges[i].category)) {
-          this.allChallengeCategories.push(this.challenges[i].category)
+        if (!this.allChallengeCategories.includes(challenges[i].category)) {
+          this.allChallengeCategories.push(challenges[i].category)
         }
       }
       this.allChallengeCategories.sort()
       this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
-      this.populateFilteredChallengeLists()
       this.calculateProgressPercentage()
-      this.calculateCompletionGradientOffsets()
+      this.populateFilteredChallengeLists()
+      this.calculateGradientOffsets(challenges)
 
       this.spinner.hide()
     },(err) => {
@@ -82,9 +82,9 @@ export class ScoreBoardComponent implements OnInit {
               break
             }
           }
-          this.populateFilteredChallengeLists()
           this.calculateProgressPercentage()
-          this.calculateCompletionGradientOffsets()
+          this.populateFilteredChallengeLists()
+          this.calculateGradientOffsets(this.challenges)
         }
       })
     })
@@ -108,21 +108,31 @@ export class ScoreBoardComponent implements OnInit {
 
   calculateProgressPercentage () {
     let solvedChallenges = 0
-    this.difficulties.forEach((difficulty) => {
-      solvedChallenges += this.solvedChallengesOfDifficulty[difficulty - 1].length
-    })
+    for (let i = 0; i < this.challenges.length; i++) {
+      solvedChallenges += (this.challenges[i].solved) ? 1 : 0
+    }
     this.percentChallengesSolved = (100 * solvedChallenges / this.challenges.length).toFixed(0)
   }
 
-  calculateCompletionGradientOffsets () {
-    this.difficulties.forEach((difficulty) => {
-      let solved = this.solvedChallengesOfDifficulty[difficulty - 1].length
-      let total = this.totalChallengesOfDifficulty[difficulty - 1].length
+  calculateGradientOffsets (challenges) {
+    for (let difficulty = 1; difficulty <= 6; difficulty++) {
+      let solved = 0
+      let total = 0
+
+      for (let i = 0; i < challenges.length; i++) {
+        if (challenges[i].difficulty === difficulty) {
+          total++
+          if (challenges[i].solved) {
+            solved++
+          }
+        }
+      }
+
       let offset: any = Math.round(solved * 100 / total)
       offset = 100 - offset
       offset = +offset + '%'
       this.offsetValue[difficulty - 1] = offset
-    })
+    }
   }
 
   toggleDifficulty (difficulty) {
@@ -175,7 +185,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   populateFilteredChallengeLists () {
-    this.difficulties.forEach(difficulty => {
+    for (const difficulty of this.difficulties) {
       if (!this.challenges) {
         this.totalChallengesOfDifficulty[difficulty - 1] = []
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
@@ -183,6 +193,6 @@ export class ScoreBoardComponent implements OnInit {
         this.totalChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty)
         this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
       }
-    })
+    }
   }
 }
