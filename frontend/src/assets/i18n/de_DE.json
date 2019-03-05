@@ -160,5 +160,6 @@
   "BTN_SHOW_SOLVED": "Gelöste anzeigen",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Gib den 6-stelligen Code aus deiner 2FA App ein",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Code",
-  "INVALID_TWO_FACTOR_AUTH_TOKEN": "Der Code scheint ungültig zu sein."
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "Der Code scheint ungültig zu sein.",
+  "UNAUTHORIZED_PAGE_ACCESS_ERROR": "You are not allowed to access this page!"
 }
