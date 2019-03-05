@@ -117,6 +117,24 @@ describe('/rest/user/login', () => {
       })
   })
 
+  it('POST login with wurstbrot credentials expects 2FA token', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'wurstbrot@' + config.get('application.domain'),
+        password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+      }
+    })
+      .expect('status', 401)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        tmpToken: Joi.string()
+      })
+      .expect('json', {
+        status: 'totp_token_requried'
+      })
+  })
+
   it('POST login as bjoern.kimminich@googlemail.com with known password', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,

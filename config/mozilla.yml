@@ -10,6 +10,7 @@ application:
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null
+  redditUrl: null
   pressKitUrl: 'https://blog.mozilla.org/press/kits'
   recyclePage:
     topProductimage: Gear-200155340.jpg
