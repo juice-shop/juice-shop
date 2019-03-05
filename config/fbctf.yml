@@ -227,9 +227,24 @@ ctf:
     loginAmyChallenge:
       name: Andorra
       code: AD
+    usernameXssChallenge:
+      name: Azerbaijan
+      code: AZ
     resetPasswordBjoernOwaspChallenge:
       name: Kazakhstan
       code: KZ
     accessLogDisclosureChallenge:
       name: Singapore
       code: SG
+    dlpPasswordSprayingChallenge:
+      name: Chad
+      code: TD
+    dlpPastebinDataLeakChallenge:
+      name: Turkmenistan
+      code: TK
+    recyclesMissingItemChallenge:
+      name: Uganda
+      code: UG
+    twoFactorAuthUnsafeSecretStorage:
+      name: Sweden
+      code: SE

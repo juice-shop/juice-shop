@@ -40,6 +40,7 @@ dom.watch()
 export class NavbarComponent implements OnInit {
 
   public userEmail = ''
+  public avatarSrc = 'assets/public/images/uploads/default.svg'
   public languages = languages
   public selectedLanguage = this.languages[0]
   public version: string = ''
@@ -79,16 +80,17 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
 
     if (localStorage.getItem('token')) {
-      this.updateUserEmail()
+      this.getUserDetails()
     } else {
       this.userEmail = ''
     }
 
     this.userService.getLoggedInState().subscribe((isLoggedIn) => {
       if (isLoggedIn) {
-        this.updateUserEmail()
+        this.getUserDetails()
       } else {
         this.userEmail = ''
+        this.avatarSrc = 'assets/public/images/uploads/default.svg'
       }
     })
 
@@ -116,9 +118,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  updateUserEmail () {
+  getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
+      this.avatarSrc = 'assets/public/images/uploads/' + user.profileImage
     },(err) => console.log(err))
   }
 

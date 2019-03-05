@@ -9,7 +9,7 @@ module.exports = function applyCoupon () {
     coupon = discount ? coupon : null
     models.Basket.findByPk(id).then(basket => {
       if (basket) {
-        basket.updateAttributes({ coupon }).then(() => {
+        basket.update({ coupon }).then(() => {
           if (discount) {
             res.json({ discount })
           } else {

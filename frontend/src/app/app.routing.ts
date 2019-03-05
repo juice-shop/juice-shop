@@ -15,6 +15,7 @@ import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment, CanActivate } from '@angular/router'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import * as jwt_decode from 'jwt-decode'
 
 export function token1 (...args: number[]) {
@@ -105,12 +106,16 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    path: '2fa/enter',
+    component: TwoFactorAuthEnterComponent
+  },
+  {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
   {
-    matcher: tokenMatcher ,
+    matcher: tokenMatcher,
     component: TokenSaleComponent
   },
   {
