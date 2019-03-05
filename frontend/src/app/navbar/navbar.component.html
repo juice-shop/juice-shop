@@ -6,9 +6,9 @@
     </a>
     <span fxShow fxHide.lt-sm matTooltip="{{version}}" matTooltipPosition="below">{{applicationName}}</span>
 
-    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" style="vertical-align: middle;">
       <span class="user-info" matTooltip="{{userEmail}}" matTooltipPosition="right" *ngIf="isLoggedIn()">
-        <i class="fas fa-user-circle fa-lg"></i>
+        <img class="avatar" [src]="avatarSrc">
       </span>
     </button>
     <mat-menu #userMenu="matMenu">

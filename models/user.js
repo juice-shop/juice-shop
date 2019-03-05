@@ -7,7 +7,14 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
     username: {
       type: STRING,
-      defaultValue: ''
+      defaultValue: '',
+      set (username) {
+        username = insecurity.sanitizeLegacy(username)
+        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`)</script>')) {
+          utils.solve(challenges.usernameXssChallenge)
+        }
+        this.setDataValue('username', username)
+      }
     },
     email: {
       type: STRING,
@@ -36,6 +43,10 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     profileImage: {
       type: STRING,
       defaultValue: 'default.svg'
+    },
+    totpSecret: {
+      type: STRING,
+      defaultValue: ''
     }
   })
 
