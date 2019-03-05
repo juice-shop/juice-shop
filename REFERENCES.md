@@ -158,6 +158,8 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
+  by Sunny Wear ([Youtube](https://www.youtube.com/watch?v=zi3yDovd0RY))
 * [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp)
   chapter :godmode: of the
   [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video)

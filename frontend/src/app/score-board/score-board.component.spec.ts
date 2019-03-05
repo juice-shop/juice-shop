@@ -161,20 +161,30 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should return an empty array if challenges has a falsy value while filtering datasource', () => {
-    let value = component.filterToDataSource(null,null,null)
+    let value = component.filterToDataSource(null)
     expect(value).toEqual([])
   })
 
   it('should return an empty array if challenges has a falsy value while filtering challenges by difficulty', () => {
     component.challenges = null
-    let value = component.filterChallengesByDifficulty(null)
-    expect(value).toEqual([])
+    component.populateFilteredChallengeLists()
+    expect(component.totalChallengesOfDifficulty[0]).toEqual([])
+    expect(component.totalChallengesOfDifficulty[1]).toEqual([])
+    expect(component.totalChallengesOfDifficulty[2]).toEqual([])
+    expect(component.totalChallengesOfDifficulty[3]).toEqual([])
+    expect(component.totalChallengesOfDifficulty[4]).toEqual([])
+    expect(component.totalChallengesOfDifficulty[5]).toEqual([])
   })
 
   it('should return an empty array if challenges has a falsy value while filtering solved challenges by difficulty', () => {
     component.challenges = null
-    let value = component.filterSolvedChallengesOfDifficulty(null)
-    expect(value).toEqual([])
+    component.populateFilteredChallengeLists()
+    expect(component.solvedChallengesOfDifficulty[0]).toEqual([])
+    expect(component.solvedChallengesOfDifficulty[1]).toEqual([])
+    expect(component.solvedChallengesOfDifficulty[2]).toEqual([])
+    expect(component.solvedChallengesOfDifficulty[3]).toEqual([])
+    expect(component.solvedChallengesOfDifficulty[4]).toEqual([])
+    expect(component.solvedChallengesOfDifficulty[5]).toEqual([])
   })
 
   it('should complete a level when all challenges of that difficulty are solved', () => {
