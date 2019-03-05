@@ -38,6 +38,7 @@ import { ChallengeSolvedNotificationComponent } from './challenge-solved-notific
 import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -109,7 +110,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeSolvedNotificationComponent,
     OAuthComponent,
     TokenSaleComponent,
-    ProductReviewEditComponent
+    ProductReviewEditComponent,
+    TwoFactorAuthEnterComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [

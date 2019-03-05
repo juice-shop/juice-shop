@@ -5,6 +5,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const insecurity = require('../../lib/insecurity')
+const config = require('config')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -194,8 +195,8 @@ describe('verify', () => {
         products.osaft = { reload () { return { then (cb) { cb() } } } }
       })
 
-      it('is solved when the link in the O-Saft product goes to http://kimminich.de', () => {
-        products.osaft.description = 'O-Saft, yeah! <a href="http://kimminich.de" target="_blank">More...</a>'
+      it(`is solved when the link in the O-Saft product goes to ${config.get('challenges.overwriteUrlForProductTamperingChallenge')}`, () => {
+        products.osaft.description = `O-Saft, yeah! <a href="${config.get('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`
 
         verify.databaseRelatedChallenges()(this.req, this.res, this.next)
 
@@ -211,7 +212,14 @@ describe('verify', () => {
       })
 
       it('is not solved when the link in the O-Saft product remained unchanged', () => {
-        products.osaft.description = 'Vanilla O-Saft! <a href="https://www.owasp.org/index.php/O-Saft" target="_blank">More...</a>'
+        let urlForProductTamperingChallenge = null
+        for (const product of config.products) {
+          if (product.urlForProductTamperingChallenge !== undefined) {
+            urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
+            break
+          }
+        }
+        products.osaft.description = `Vanilla O-Saft! <a href="${urlForProductTamperingChallenge}" target="_blank">More...</a>`
 
         verify.databaseRelatedChallenges()(this.req, this.res, this.next)
 

@@ -4,11 +4,11 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { FeedbackService } from '../Services/feedback.service'
 import { IImage } from 'ng-simple-slideshow'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faTwitter, faSlack } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faTwitter, faSlack, faReddit } from '@fortawesome/free-brands-svg-icons'
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack, faNewspaper, faStar, fasStar)
+library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar)
 dom.watch()
 
 @Component({
@@ -21,6 +21,7 @@ export class AboutComponent implements OnInit {
   public twitterUrl = null
   public facebookUrl = null
   public slackUrl = null
+  public redditUrl = null
   public pressKitUrl = null
   public slideshowDataSource: IImage[] = []
 
@@ -57,6 +58,9 @@ export class AboutComponent implements OnInit {
         }
         if (config.application.slackUrl !== null) {
           this.slackUrl = config.application.slackUrl
+        }
+        if (config.application.redditUrl !== null) {
+          this.redditUrl = config.application.redditUrl
         }
         if (config.application.pressKitUrl !== null) {
           this.pressKitUrl = config.application.pressKitUrl
