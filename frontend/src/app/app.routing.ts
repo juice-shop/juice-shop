@@ -14,6 +14,7 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
 
 export function token1 (...args: number[]) {
@@ -90,12 +91,16 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    path: '2fa/enter',
+    component: TwoFactorAuthEnterComponent
+  },
+  {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
   {
-    matcher: tokenMatcher ,
+    matcher: tokenMatcher,
     component: TokenSaleComponent
   },
   {

@@ -1,7 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
 
-  <div class="user-container recycle-container" fxFlexAlign="center">
-
+  <div class="user-container" fxFlexAlign="center">
     <div class="user-table mat-elevation-z8">
       <div class="heading">
         <span translate>TITLE_ADMINISTRATION</span>
@@ -27,45 +26,6 @@
         <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: userColumns;"></mat-row>
 
-      </mat-table>
-    </div>
-
-    <div class="recycle-table mat-elevation-z8">
-      <div class="heading">
-        <span translate>SECTION_RECYCLING</span>
-      </div>
-      <mat-table [dataSource]="recycleDataSource">
-
-        <ng-container matColumnDef="user">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
-          <mat-cell *matCellDef="let recycle"> {{recycle.UserId}}  </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="quantity">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
-          <mat-cell *matCellDef="let recycle"> {{recycle.quantity}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="address">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_ADDRESS</mat-header-cell>
-          <mat-cell *matCellDef="let recycle">{{recycle.address}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="icon">
-          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-          <mat-cell *matCellDef="let recycle">
-            <i *ngIf="recycle.isPickup" class="fas fa-home fa-lg"></i>
-            <i *ngIf="!recycle.isPickup" class="fas fa-archive fa-lg"></i>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="pickup_date">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_PICKUP_DATE</mat-header-cell>
-          <mat-cell *matCellDef="let recycle">{{recycle.date}}</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="recycleColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: recycleColumns;"></mat-row>
       </mat-table>
     </div>
   </div>
