@@ -56,7 +56,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :cn: Coink, rToxic, Forbidden
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs
+- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs, Priit Pääsukene
 - :finland: Nico Ådahl
 - :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
@@ -66,7 +66,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :india: Shivam Luthra
 - :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
   Febri Ramadlan, Rick Daalhuizen, Syahrol
-- :israel: AviD, Omer Levi Hevroni
+- :israel: AviD, Omer Levi Hevroni, BostonLow
 - :it: vientspam, Claudio Snidero
 - :jp: ninoseki, nilfigo, Riotaro Okada, Michiya Tominaga
 - :kr: sjroh
@@ -77,7 +77,7 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :poland: Idomin Ninja, Andrew Pio, niemyskaa
 - :portugal: Alvaro Viebrantz, Estevam Arantes
 - :romania: Mircea Ulmeanu, orjen, timexlord
-- :ru: fieldhill13, talisainen
+- :ru: fieldhill13, talisainen, redr0n19
 - :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
   mateomartinez, soledad aro, Gorka Vicente, Daniel Paniagua
 - :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
