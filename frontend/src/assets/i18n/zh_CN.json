@@ -160,5 +160,6 @@
   "BTN_SHOW_SOLVED": "显示已解决的问题",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "输入两步验证应用中的6位验证码",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "两步验证码",
-  "INVALID_TWO_FACTOR_AUTH_TOKEN": "该验证码似乎是无效的"
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "该验证码似乎是无效的",
+  "UNAUTHORIZED_PAGE_ACCESS_ERROR": "You are not allowed to access this page!"
 }
