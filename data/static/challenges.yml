@@ -146,7 +146,7 @@
   name: 'Admin Section'
   category: 'Broken Access Control'
   description: 'Access the administration section of the store.'
-  difficulty: 1
+  difficulty: 2
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
