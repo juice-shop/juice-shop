@@ -2,7 +2,9 @@ const config = require('config')
 
 describe('/#/administration', () => {
   describe('challenge "adminSection"', () => {
-    it('should be possible to access administration section even when not authenticated', () => {
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+
+    it('should be possible to access administration section with admin user', () => {
       browser.get('/#/administration')
       expect(browser.getCurrentUrl()).toMatch(/\/administration/)
     })
@@ -11,9 +13,9 @@ describe('/#/administration', () => {
   })
 
   describe('challenge "fiveStarFeedback"', () => {
-    protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-    it('should be possible for any logged-in user to delete feedback', () => {
+    it('should be possible for any admin user to delete feedback', () => {
       browser.get('/#/administration')
 
       $$('.mat-cell.mat-column-remove > button').first().click()
