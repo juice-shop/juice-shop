@@ -4,7 +4,7 @@ import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
 import { Router } from '@angular/router'
-import { dom, library } from "@fortawesome/fontawesome-svg-core";
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faUnlockAlt)

@@ -185,7 +185,6 @@ images and packaged distributions are offered accordingly:
 |:---------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
 | 11.x     |                                                                                     | `juice-shop-<version>_node11_windows_x64.zip`, `juice-shop-<version>_node11_linux_x64.tgz` |
 | __10.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
-| 9.x      |                                                                                     | `juice-shop-<version>_node9_windows_x64.zip`, `juice-shop-<version>_node9_linux_x64.tgz`   |
 | 8.x      |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)

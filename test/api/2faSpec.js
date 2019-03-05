@@ -12,8 +12,8 @@ const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/rest/2fa/verify', () => {
   it('POST should return a valid authentification when a valid tmp token is passed', async () => {
-    const tmpTokenJ12934 = insecurity.authorize({
-      userId: 9,
+    const tmpTokenWurstbrot = insecurity.authorize({
+      userId: 10,
       type: 'password_valid_needs_second_factor_token'
     })
 
@@ -22,7 +22,7 @@ describe('/rest/2fa/verify', () => {
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
-        tmpToken: tmpTokenJ12934,
+        tmpToken: tmpTokenWurstbrot,
         totpToken
       }
     })
@@ -34,13 +34,13 @@ describe('/rest/2fa/verify', () => {
         bid: Joi.number()
       })
       .expect('json', 'authentication', {
-        umail: `J12934@${config.get('application.domain')}`
+        umail: `wurstbrot@${config.get('application.domain')}`
       })
   })
 
   it('POST should fail if a invalid totp token is used', async () => {
-    const tmpTokenJ12934 = insecurity.authorize({
-      userId: 9,
+    const tmpTokenWurstbrot = insecurity.authorize({
+      userId: 10,
       type: 'password_valid_needs_second_factor_token'
     })
 
@@ -49,7 +49,7 @@ describe('/rest/2fa/verify', () => {
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
-        tmpToken: tmpTokenJ12934,
+        tmpToken: tmpTokenWurstbrot,
         totpToken
       }
     })
@@ -57,8 +57,8 @@ describe('/rest/2fa/verify', () => {
   })
 
   it('POST should fail if a unsigned tmp token is used', async () => {
-    const tmpTokenJ12934 = jwt.sign({
-      userId: 9,
+    const tmpTokenWurstbrot = jwt.sign({
+      userId: 10,
       type: 'password_valid_needs_second_factor_token'
     }, 'this_surly_isnt_the_right_key')
 
@@ -67,7 +67,7 @@ describe('/rest/2fa/verify', () => {
     await frisby.post(REST_URL + '/2fa/verify', {
       headers: jsonHeader,
       body: {
-        tmpToken: tmpTokenJ12934,
+        tmpToken: tmpTokenWurstbrot,
         totpToken
       }
     })

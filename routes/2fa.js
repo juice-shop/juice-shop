@@ -2,6 +2,7 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
+const logger = require('../lib/logger')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
@@ -43,7 +44,7 @@ async function verify (req, res) {
 
     res.json({ authentication: { token, bid: basket.id, umail: user.email } })
   } catch (error) {
-    console.error('Failed to verify token identity')
+    logger.warn('Failed to verify token identity')
     res.status(401).send()
   }
 }
