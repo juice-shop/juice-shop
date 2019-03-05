@@ -201,6 +201,10 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [OWASP Juice Shop - First you 😂😂 then you 😢](http://bkimminich.github.io/juice-shop)
+  by Björn Kimminich,
+  [OWASP Portugal Meetup](https://www.owasp.org/index.php/Portugal) at
+  [Pixels Camp v3.0](https://pixels.camp), 21.03.2019
 * [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
   by Björn Kimminich,
   [39. OWASP Stammtisch Hamburg](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch),
