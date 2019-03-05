@@ -14,8 +14,17 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { RouterModule, Routes, UrlMatchResult, UrlSegment, CanActivate } from '@angular/router'
+import {
+  RouterModule,
+  Routes,
+  UrlMatchResult,
+  UrlSegment,
+  CanActivate,
+  Router
+} from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { ErrorPageComponent } from './error-page/error-page.component'
+import { Injectable } from '@angular/core'
 import * as jwt_decode from 'jwt-decode'
 
 export function token1 (...args: number[]) {
@@ -34,14 +43,25 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
+@Injectable()
 export class AdminGuard implements CanActivate {
+  constructor (private router: Router) {}
+
   canActivate () {
-    let payload = {} as any
-    payload = jwt_decode(localStorage.getItem('token'))
-    if (payload.data.isAdmin) {
-      return payload.data.isAdmin
+    let payload: any
+    const token = localStorage.getItem('token')
+    if (token) {
+      payload = jwt_decode(token)
+    }
+    if (payload && payload.data && payload.data.isAdmin) {
+      return true
     } else {
-      window.alert("You don't have permission to view this page.")
+      this.router.navigate(['403'], {
+        skipLocationChange: true,
+        queryParams: {
+          error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
+        }
+      })
       return false
     }
   }
@@ -117,6 +137,10 @@ const routes: Routes = [
   {
     matcher: tokenMatcher,
     component: TokenSaleComponent
+  },
+  {
+    path: '403',
+    component: ErrorPageComponent
   },
   {
     path: '**',
