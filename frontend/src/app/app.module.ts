@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing } from './app.routing'
+import { Routing, AdminGuard } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -39,6 +39,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { ErrorPageComponent } from './error-page/error-page.component'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -111,7 +112,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     OAuthComponent,
     TokenSaleComponent,
     ProductReviewEditComponent,
-    TwoFactorAuthEnterComponent
+    TwoFactorAuthEnterComponent,
+    ErrorPageComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -180,7 +182,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     RecycleService,
     BasketService,
     ChallengeService,
-    CookieService
+    CookieService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })
