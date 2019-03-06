@@ -18,7 +18,7 @@
       </button>
       <button mat-menu-item routerLink="/privacy" *ngIf="isLoggedIn()">
         <i class="fas fa-user-secret fa-lg"></i>
-        Privacy
+        {{ "PRIVACY_AND_SETTINGS" | translate }}
       </button>
       <button mat-menu-item routerLink="/recycle" *ngIf="isLoggedIn()">
         <i class="fas fa-recycle fa-lg"></i>
@@ -27,10 +27,6 @@
       <button mat-menu-item routerLink="/track-order" *ngIf="isLoggedIn()">
         <i class="fas fa-map-marker fa-lg"></i>
         {{"TITLE_TRACK_ORDERS" | translate}}
-      </button>
-      <button mat-menu-item routerLink="/change-password" *ngIf="isLoggedIn()">
-        <i class="fas fa-user-secret fa-lg"></i>
-        {{"TITLE_CHANGE_PASSWORD" | translate}}
       </button>
     </mat-menu>
 

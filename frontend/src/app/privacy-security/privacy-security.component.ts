@@ -5,11 +5,11 @@ import { map } from 'rxjs/operators'
 import * as jwt_decode from 'jwt-decode'
 
 @Component({
-  selector: 'app-privacy',
-  templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.css']
+  selector: 'app-privacy-security',
+  templateUrl: './privacy-security.component.html',
+  styleUrls: ['./privacy-security.component.scss']
 })
-export class PrivacyComponent {
+export class PrivacySecurityComponent {
   Ip: string
   windowWidth: number = window.innerWidth
   ngOnInit () {
@@ -33,12 +33,16 @@ export class PrivacyComponent {
 
   getIp () {
     let payload = {} as any
-    payload = jwt_decode(localStorage.getItem('token'))
-    if (payload.data.lastLoginIp) {
-      this.Ip = payload.data.lastLoginIp
+    if (localStorage.getItem('token')) {
+      payload = jwt_decode(localStorage.getItem('token'))
+      if (payload.data.lastLoginIp) {
+        this.Ip = payload.data.lastLoginIp
+      } else {
+        window.alert('Login Is Required')
+        this.Ip = 'Login Required'
+      }
     } else {
-      window.alert('Login Is Required')
-      this.Ip = 'Login Required'
+      this.Ip = 'Token is Not Present'
     }
   }
 }
