@@ -17,6 +17,7 @@ import { ScoreBoardComponent } from './score-board/score-board.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment, CanActivate } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import * as jwt_decode from 'jwt-decode'
+import { PrivacyComponent } from './privacy/privacy.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -108,6 +109,10 @@ const routes: Routes = [
   {
     path: '2fa/enter',
     component: TwoFactorAuthEnterComponent
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   },
   {
     matcher: oauthMatcher,

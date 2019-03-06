@@ -39,6 +39,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { PrivacyComponent } from './privacy/privacy.component'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -80,6 +81,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { LayoutModule } from '@angular/cdk/layout'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -111,7 +113,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     OAuthComponent,
     TokenSaleComponent,
     ProductReviewEditComponent,
-    TwoFactorAuthEnterComponent
+    TwoFactorAuthEnterComponent,
+    PrivacyComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -157,7 +160,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatTooltipModule,
     MatMenuModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    LayoutModule
   ],
   providers: [
     {
