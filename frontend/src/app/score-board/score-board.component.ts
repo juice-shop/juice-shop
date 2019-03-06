@@ -195,4 +195,7 @@ export class ScoreBoardComponent implements OnInit {
       }
     }
   }
+
+  // tslint:disable-next-line:no-empty
+  noop () { }
 }
