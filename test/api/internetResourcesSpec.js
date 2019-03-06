@@ -17,8 +17,15 @@ describe('Required Internet resource', () => {
       fail()
     })
 
-    xit('for Mozilla configuration (https://pastebin.com/________)', () => {
-      fail()
+    it('for Mozilla configuration (https://pastebin.com/t8jqE1y7)', () => {
+      return frisby.get('https://pastebin.com/t8jqE1y7')
+        .expect('status', 200)
+        .expect('bodyContains', 'Fixed a bug that, when this plugin was installed together with both the')
+        .expect('bodyContains', 'JuiceNote')
+        .expect('bodyContains', 'Magische Firefox Suche')
+        .expect('bodyContains', 'plugins, lwt your browser throw a')
+        .expect('bodyContains', 'JuiceOverFlowError')
+        .expect('bodyContains', 'The problem can still occur post-fix but at least now less frequently!')
     })
   })
 
