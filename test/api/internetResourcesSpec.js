@@ -1,11 +1,25 @@
 const frisby = require('frisby')
 
 describe('Required Internet resource', () => {
-  it('PasteBin paste (https://pastebin.com/90dUgd7s) for "DLP Failure Tier 1" challenge available', () => {
-    return frisby.get('https://pastebin.com/90dUgd7s')
-      .expect('status', 200)
-      .expect('bodyContains', 'Hueteroneel')
-      .expect('bodyContains', 'this coupled with Eurogium Edule was sometimes found fatal')
+  describe('PasteBin paste for "DLP Failure Tier 1" challenge available', () => {
+    it('for default configuration (https://pastebin.com/90dUgd7s)', () => {
+      return frisby.get('https://pastebin.com/90dUgd7s')
+        .expect('status', 200)
+        .expect('bodyContains', 'Hueteroneel')
+        .expect('bodyContains', 'this coupled with Eurogium Edule was sometimes found fatal')
+    })
+
+    xit('for 7MS configuration (https://pastebin.com/________)', () => {
+      fail()
+    })
+
+    xit('for BodgeIt Store configuration (https://pastebin.com/________)', () => {
+      fail()
+    })
+
+    xit('for Mozilla configuration (https://pastebin.com/________)', () => {
+      fail()
+    })
   })
 
   it('PasteBin paste (https://pastebin.com/4U1V1UjU) for "DLP Failure Tier 2" challenge available', () => {
