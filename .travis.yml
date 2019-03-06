@@ -57,7 +57,7 @@ jobs:
       if: tag IS blank
       script: NODE_ENV=ctf npm run protractor
     - stage: deploy
-      if: (branch = master OR branch = develop) AND NOT type = pull_request
+      if: (branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request
       install: skip
       script: skip
       deploy:
