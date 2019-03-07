@@ -83,7 +83,7 @@ describe('BasketService', () => {
   it('should place order for basket via the rest api', inject([BasketService, HttpTestingController],
     fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
       let res
-      service.checkout(1, true).subscribe((data) => res = data)
+      service.checkout(1, 'couponcode-date').subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/basket/1/checkout')
       req.flush({ orderConfirmation: 'apiResponse' })
       tick()
