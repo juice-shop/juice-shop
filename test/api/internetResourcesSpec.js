@@ -13,8 +13,13 @@ describe('Required Internet resource', () => {
       fail()
     })
 
-    xit('for BodgeIt Store configuration (https://pastebin.com/________)', () => {
-      fail()
+    it('for BodgeIt Store configuration (https://pastebin.com/G47LrDr0)', () => {
+      return frisby.get('https://pastebin.com/G47LrDr0')
+        .expect('status', 200)
+        .expect('bodyContains', 'Mind Blank - one willing creature you touch is immune any effect')
+        .expect('bodyContains', 'They should seek out a Couatl, and undertake a quest to receive')
+        .expect('bodyContains', 'They could acquire the aid of a rakshasa, and willingly invoke its')
+        .expect('bodyContains', 'Note to self: Option (1) and (3) of the above should not be combined.')
     })
 
     it('for Mozilla configuration (https://pastebin.com/t8jqE1y7)', () => {
