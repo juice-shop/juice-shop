@@ -9,8 +9,12 @@ describe('Required Internet resource', () => {
         .expect('bodyContains', 'this coupled with Eurogium Edule was sometimes found fatal')
     })
 
-    xit('for 7MS configuration (https://pastebin.com/________)', () => {
-      fail()
+    it('for 7MS configuration (https://pastebin.com/8SMbWPxc)', () => {
+      return frisby.get('https://pastebin.com/8SMbWPxc')
+        .expect('status', 200)
+        .expect('bodyContains', 'TAYLOR SWIFT')
+        .expect('bodyContains', 'KATY PERRY')
+        .expect('bodyContains', '(Consider rivalries when picking song list for events as wrong combo could infuriate a mixed-fans audience, see https://www.nickiswift.com/2075/taylor-swifts-list-enemies)')
     })
 
     it('for BodgeIt Store configuration (https://pastebin.com/G47LrDr0)', () => {
