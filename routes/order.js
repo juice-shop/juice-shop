@@ -11,6 +11,10 @@ const db = require('../data/mongodb')
 
 module.exports = function placeOrder () {
   return (req, res, next) => {
+    const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
+    const couponCode = couponData[0]
+    const couponDate = new Date(couponData[1])
+    const offerDate = new Date('Mar 08, 2019')
     const id = req.params.id
     models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
       .then(basket => {
@@ -63,7 +67,7 @@ module.exports = function placeOrder () {
             doc.text(discount + '% discount from coupon: -' + discountAmount)
             doc.moveDown()
             totalPrice -= discountAmount
-          } else if (req.body.campaignSuccess) {
+          } else if (couponCode === 'WMNSDY2019' && couponDate.getTime() === offerDate.getTime()) {
             if (utils.notSolved(challenges.manipulateClockChallenge)) {
               utils.solve(challenges.manipulateClockChallenge)
             }

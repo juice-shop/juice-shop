@@ -46,8 +46,9 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
-  private campaignSuccess: boolean = false
   public campaignError: boolean = false
+  public clientDate: any
+  private campaignCoupon: string
 
   constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
@@ -116,7 +117,7 @@ export class BasketComponent implements OnInit {
   }
 
   checkout () {
-    this.basketService.checkout(sessionStorage.getItem('bid'), this.campaignSuccess).subscribe((orderConfirmationPath) => {
+    this.basketService.checkout(sessionStorage.getItem('bid'), btoa(this.campaignCoupon + '-' + this.clientDate)).subscribe((orderConfirmationPath) => {
       this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
       this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
@@ -125,13 +126,12 @@ export class BasketComponent implements OnInit {
   applyCoupon () {
     this.error = false
     this.campaignError = false
-    this.campaignSuccess = false
+    this.campaignCoupon = this.couponControl.value
+    this.clientDate = new Date()
+    this.clientDate.setHours(0,0,0,0)
     if (this.couponControl.value === 'WMNSDY2019') {
-      let clientDate: any = new Date()
-      clientDate.setHours(0,0,0,0)
       let couponDate = new Date('Mar 08, 2019')
-      if (clientDate.getTime() === couponDate.getTime()) {
-        this.campaignSuccess = true
+      if (this.clientDate.getTime() === couponDate.getTime()) {
         this.showStatus(75)
       } else {
         this.confirmation = undefined
