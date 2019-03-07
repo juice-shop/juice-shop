@@ -83,6 +83,11 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
+import { MatGridListModule } from '@angular/material'
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { DataExportComponent } from './data-export/data-export.component'
+import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -116,7 +121,11 @@ export function HttpLoaderFactory (http: HttpClient) {
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
     PrivacySecurityComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    TwoFactorAuthComponent,
+    DataExportComponent,
+    LastLoginIpComponent,
+    PrivacyPolicyComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -163,7 +172,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatMenuModule,
     MatListModule,
     MatButtonToggleModule,
-    LayoutModule
+    LayoutModule,
+    MatGridListModule
   ],
   providers: [
     {

@@ -3,13 +3,13 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar><span translate>PRIVACY_AND_SETTINGS</span></mat-toolbar>
+    <mat-toolbar><span translate>MENU</span></mat-toolbar>
     <mat-nav-list (click)="600 > windowWidth ? drawer.toggle() : false">
-      <a mat-list-item (click)="showDiv(1)"><span translate>TITLE_PRIVACY_POLICY</span></a>
-      <a mat-list-item (click)="showDiv(2)"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></a>
-      <a mat-list-item (click)="showDiv(3)"><span translate>TITLE_CHANGE_PASSWORD</span></a>
-      <a mat-list-item (click)="showDiv(4)"><span translate>TITLE_LAST_LOGIN_IP</span></a>
-      <a mat-list-item (click)="showDiv(5)"><span translate>TITLE_REQUEST_DATA_EXPORT</span></a>
+      <a mat-list-item [routerLink]="['privacy-policy']"><span translate>TITLE_PRIVACY_POLICY</span></a>
+      <a mat-list-item [routerLink]="['two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></a>
+      <a mat-list-item [routerLink]="['change-password']"><span translate>TITLE_CHANGE_PASSWORD</span></a>
+      <a mat-list-item [routerLink]="['last-login-ip']"><span translate>TITLE_LAST_LOGIN_IP</span></a>
+      <a mat-list-item [routerLink]="['data-export']"><span translate>TITLE_REQUEST_DATA_EXPORT</span></a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -22,17 +22,9 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span *ngIf="selectedIndex === 1"><span translate>TITLE_PRIVACY_POLICY</span></span>
-      <span *ngIf="selectedIndex === 2"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></span>
-      <span *ngIf="selectedIndex === 3"><span translate>TITLE_CHANGE_PASSWORD</span></span>
-      <span *ngIf="selectedIndex === 4"><span translate>TITLE_LAST_LOGIN_IP</span></span>
-      <span *ngIf="selectedIndex === 5"><span translate>TITLE_REQUEST_DATA_EXPORT</span></span>
+      <span><span translate>PRIVACY_AND_SETTINGS</span></span>
     </mat-toolbar>
       <div class="space-element"></div>
-      <div *ngIf="selectedIndex === 1"><p class="tempclass"><span translate>TEMP_PRIVACY_POLICY</span></p></div>
-      <div *ngIf="selectedIndex === 2"><p class="tempclass"><span translate>TEMP_2FA</span></p></div>
-      <app-change-password *ngIf="selectedIndex === 3"></app-change-password>
-      <div *ngIf="selectedIndex === 4"><mat-card class="ipCard">{{ Ip }}</mat-card></div>
-      <div *ngIf="selectedIndex === 5"><p class="tempclass"><span translate>TEMP_DATA_EXPORT</span></p></div>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

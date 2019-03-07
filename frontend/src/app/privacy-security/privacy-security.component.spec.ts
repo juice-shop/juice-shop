@@ -14,6 +14,8 @@ import { PrivacySecurityComponent } from './privacy-security.component'
 import { ChangePasswordComponent } from './../change-password/change-password.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { HttpClientModule } from '@angular/common/http'
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('PrivacySecurityComponent', () => {
   let component: PrivacySecurityComponent
@@ -33,7 +35,9 @@ describe('PrivacySecurityComponent', () => {
         MatFormFieldModule,
         MatCardModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        HttpClientModule,
+        RouterTestingModule
       ],
       providers : [ TranslateService ]
     }).compileComponents()
