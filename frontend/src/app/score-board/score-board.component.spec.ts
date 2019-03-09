@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { WindowRefService } from '../Services/window-ref.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatDividerModule } from '@angular/material/divider'
@@ -66,7 +66,7 @@ describe('ScoreBoardComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot(),
         BarRatingModule,
         BrowserAnimationsModule,

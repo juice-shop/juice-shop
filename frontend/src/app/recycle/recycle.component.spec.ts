@@ -3,7 +3,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
@@ -37,7 +37,7 @@ describe('RecycleComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatFormFieldModule,

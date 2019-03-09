@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
 import { Location } from '@angular/common'
 
@@ -71,7 +71,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
         ]),
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         BrowserAnimationsModule,
