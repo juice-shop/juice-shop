@@ -93,7 +93,7 @@
     "morgan": "~1.9.1",
     "multer": "~1.4.1",
     "notevil": "~1.1",
-    "otplib": "^10.0.1",
+    "otplib": "^11.0.0",
     "pdfkit": "~0.8",
     "replace": "^1.1.0",
     "request": "~2.88.0",
