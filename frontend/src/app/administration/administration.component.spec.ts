@@ -6,7 +6,7 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
@@ -30,7 +30,7 @@ describe('AdministrationComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         BarRatingModule,
         MatTableModule,
         MatDialogModule
