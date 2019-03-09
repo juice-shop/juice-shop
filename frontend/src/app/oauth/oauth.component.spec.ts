@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 
 import { CookieModule } from 'ngx-cookie'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 
 import { OAuthComponent } from './oauth.component'
@@ -35,7 +35,7 @@ describe('OAuthComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatCheckboxModule,
-        HttpClientModule
+        HttpClientTestingModule
       ],
       providers: [
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } }
