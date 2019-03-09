@@ -30,10 +30,7 @@
       </div>
 
       <mat-form-field>
-        <label style="font-weight:bold;" translate>LABEL_CAPTCHA</label>&nbsp;
-        <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
-        <input id="captchaControl" [formControl]="captchaControl" matInput type="text">
-        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA</mat-error>
+        <img src="/assets/public/images/captcha.png">
       </mat-form-field>
 
     </div>

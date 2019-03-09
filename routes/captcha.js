@@ -1,4 +1,6 @@
 const models = require('../models/index')
+const fs = require('fs')
+const text2png = require('text2png')
 
 function captchas () {
   return (req, res) => {
@@ -14,7 +16,8 @@ function captchas () {
 
     var expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
     var answer = eval(expression).toString() // eslint-disable-line no-eval
-
+    fs.writeFileSync('./frontend/src/assets/public/images/captcha.png', text2png(expression, {color: 'blue'}))
+    
     const captcha = {
       captchaId: captchaId,
       captcha: expression,
