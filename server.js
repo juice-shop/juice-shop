@@ -227,7 +227,7 @@ app.use(verify.databaseRelatedChallenges())
 epilogue.initialize({ app, sequelize: models.sequelize })
 
 const autoModels = [
-  { name: 'User', exclude: ['password'] },
+  { name: 'User', exclude: ['password', 'totpSecret'] },
   { name: 'Product', exclude: [] },
   { name: 'Feedback', exclude: [] },
   { name: 'BasketItem', exclude: [] },
