@@ -1,7 +1,7 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { UserService } from '../Services/user.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
@@ -15,7 +15,7 @@ describe('UserDetailsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         MatDividerModule,
         MatDialogModule
       ],
