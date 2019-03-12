@@ -30,9 +30,9 @@ module.exports = function retrieveUserList () {
         res.send(responseValue)
       }).catch(error => {
         next(error)
-    }) }
-    else if (callbackFunc === undefined) {
-       if (loggedInUser) {
+      })
+    } else if (callbackFunc === undefined) {
+      if (loggedInUser) {
         models.User.findAll().then(users => {
           const usersWithLoginStatus = utils.queryResultToJson(users)
           usersWithLoginStatus.data.forEach(user => {
@@ -44,12 +44,12 @@ module.exports = function retrieveUserList () {
           res.send(responseValue)
         }).catch(error => {
           next(error)
-       }) }
-      else {
+        })
+      } else {
         let errMsg = { err: 'Your token is missing, method not allowed' }
         return res.send(utils.queryResultToJson(errMsg))
-      }}
-    else {
+      }
+    } else {
       next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
     }
   }
