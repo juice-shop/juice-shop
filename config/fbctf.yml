@@ -245,3 +245,10 @@ ctf:
     jsonpChallenge:
       name: Armenia
       code: AM
+    recyclesMissingItemChallenge:
+      name: Uganda
+      code: UG
+    twoFactorAuthUnsafeSecretStorage:
+      name: Sweden
+      code: SE
+

@@ -632,6 +632,22 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
+  name: 'Lost in Recycling'
+  category: 'Injection'
+  description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
+  difficulty: 4
+  hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
+  key: recyclesMissingItemChallenge
+-
+  name: 'Two Factor Authentication'
+  category: 'Broken Authentication'
+  description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
+  difficulty: 5
+  hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
+  key: twoFactorAuthUnsafeSecretStorage
+-
   name: 'JSONP Challenge'
   category: 'Injection'
   description: 'One of the rest endpoints delivering sensitive data contains legacy code and can be injected using JSONP. This method was used by thrift.juice-shop.com to fetch authenticated users in the past. Only the correct method of injecting JSONP qualifies for the challenge.'
