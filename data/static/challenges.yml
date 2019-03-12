@@ -631,3 +631,11 @@
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
+-
+  name: 'JSONP Challenge'
+  category: 'Injection'
+  description: 'One of the rest endpoints delivering sensitive data contains legacy code and can be injected using JSONP. Only the correct method of injecting JSONP qualifies for the challenge'
+  difficulty: 3
+  hint: 'Sometimes a skillfully crafted request and executed at the right place can bring forth a lot of sensitive data'
+  hintUrl: ''
+  key: jsonpChallenge
