@@ -634,7 +634,7 @@
 -
   name: 'JSONP Challenge'
   category: 'Injection'
-  description: 'One of the rest endpoints delivering sensitive data contains legacy code and can be injected using JSONP. Only the correct method of injecting JSONP qualifies for the challenge'
+  description: 'One of the rest endpoints delivering sensitive data contains legacy code and can be injected using JSONP. This method was used by thrift.juice-shop.com to fetch authenticated users in the past. Only the correct method of injecting JSONP qualifies for the challenge.'
   difficulty: 3
   hint: 'Sometimes a skillfully crafted request and executed at the right place can bring forth a lot of sensitive data'
   hintUrl: ''
