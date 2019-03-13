@@ -248,3 +248,6 @@ ctf:
     twoFactorAuthUnsafeSecretStorage:
       name: Sweden
       code: SE
+    manipulateClockChallenge:
+      name: Vatican City
+      code: VC
