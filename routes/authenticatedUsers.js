@@ -39,9 +39,7 @@ module.exports = function retrieveUserList () {
             user.token = insecurity.authenticatedUsers.tokenOf(user)
             user.password = user.password ? user.password.replace(/./g, '*') : null
           })
-          const responseValue = 'getdetails(' + JSON.stringify(usersWithLoginStatus) + ')'
-          res.setHeader('content-type', 'text/javascript')
-          res.send(responseValue)
+          res.send(usersWithLoginStatus)
         }).catch(error => {
           next(error)
         })
