@@ -1,0 +1,32 @@
+.sidenav-container {
+  position: relative;
+  height: 80%;
+  top: -50px;
+}
+
+.sidenav {
+  width: 300px;
+  position: absolute;
+  background-color: #303030;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 40px;
+  z-index: 1;
+}
+
+.space-element {
+  height: 2rem;
+}
+
+.ipCard,
+.tempclass
+{
+  margin: 5%;
+  margin-top: 0;
+}
