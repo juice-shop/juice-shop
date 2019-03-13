@@ -1,13 +1,13 @@
 const config = require('config')
 
-describe('/#/change-password', () => {
+describe('/#/privacy-security/change-password', () => {
   let currentPassword, newPassword, newPasswordRepeat, changeButton
 
   describe('as Bender', () => {
     protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'OhG0dPlease1nsertLiquor!' })
 
     beforeEach(() => {
-      browser.get('/#/change-password')
+      browser.get('/#/privacy-security/change-password')
       currentPassword = element(by.id('currentPassword'))
       newPassword = element(by.id('newPassword'))
       newPasswordRepeat = element(by.id('newPasswordRepeat'))
