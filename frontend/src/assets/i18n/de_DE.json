@@ -164,8 +164,7 @@
   "UNAUTHORIZED_PAGE_ACCESS_ERROR": "Du bist nicht berechtigt auf diese Seite zuzugreifen!",
   "TITLE_PRIVACY_POLICY": "Datenschutzerklärung",
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Zwei-Faktor-Authentifizierung",
-  "TITLE_LAST_LOGIN_IP": "Last Login IP",
   "TITLE_REQUEST_DATA_EXPORT": "Datenexport anfordern",
-  "PRIVACY_AND_SETTINGS": "Privacy & Settings",
+  "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu"
 }
