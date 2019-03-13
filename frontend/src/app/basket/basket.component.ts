@@ -46,6 +46,8 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
+  private campaignSuccess: boolean = false
+  public campaignError: boolean = false
 
   constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
@@ -114,26 +116,47 @@ export class BasketComponent implements OnInit {
   }
 
   checkout () {
-    this.basketService.checkout(sessionStorage.getItem('bid')).subscribe((orderConfirmationPath) => {
+    this.basketService.checkout(sessionStorage.getItem('bid'), this.campaignSuccess).subscribe((orderConfirmationPath) => {
       this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
       this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
   }
 
   applyCoupon () {
-    this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
-      this.resetForm()
-      this.error = undefined
-      this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
-        this.confirmation = discountApplied
-      }, (translationId) => {
-        this.confirmation = translationId
+    this.error = false
+    this.campaignError = false
+    this.campaignSuccess = false
+    if (this.couponControl.value === 'WMNSDY2019') {
+      let clientDate: any = new Date()
+      clientDate.setHours(0,0,0,0)
+      let couponDate = new Date('Mar 08, 2019')
+      if (clientDate.getTime() === couponDate.getTime()) {
+        this.campaignSuccess = true
+        this.showStatus(75)
+      } else {
+        this.confirmation = undefined
+        this.campaignError = true
+        this.resetForm()
+      }
+    } else {
+      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
+        this.showStatus(data)
+      },(err) => {
+        console.log(err)
+        this.confirmation = undefined
+        this.error = err
+        this.resetForm()
       })
-    },(err) => {
-      console.log(err)
-      this.confirmation = undefined
-      this.error = err
-      this.resetForm()
+    }
+  }
+
+  showStatus (data) {
+    this.resetForm()
+    this.error = undefined
+    this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
+      this.confirmation = discountApplied
+    }, (translationId) => {
+      this.confirmation = translationId
     })
   }
 

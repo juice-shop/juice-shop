@@ -54,6 +54,7 @@
       <div *ngIf="confirmation && !couponControl.dirty" style="margin-top:5px;">{{ confirmation }}</div>
 
       <div *ngIf="error && !couponControl.dirty" style="margin-top:5px;">{{error?.error}}</div>
+      <div *ngIf="campaignError && !couponControl.dirty" style="margin-top:5px;">Invalid coupon.</div>
 
       <mat-form-field>
         <label><small [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}"></small></label>

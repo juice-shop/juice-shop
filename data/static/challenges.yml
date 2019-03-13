@@ -647,5 +647,13 @@
   hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorage
+-
+  name: 'Women''s Day Discount'
+  category: 'Broken Access Control'
+  description: 'Avail the occasional discount by using the coupon code.'
+  difficulty: 1
+  hint: 'Once coupon code is obtained, manipulating the browser time might prove to be useful.'
+  hintUrl: ''
+  key: manipulateClockChallenge
 
 

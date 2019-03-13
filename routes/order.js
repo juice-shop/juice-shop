@@ -59,6 +59,14 @@ module.exports = function placeOrder () {
             doc.text(discount + '% discount from coupon: -' + discountAmount)
             doc.moveDown()
             totalPrice -= discountAmount
+          } else if(req.body.campaignSuccess){
+            if (utils.notSolved(challenges.manipulateClockChallenge)) {
+              utils.solve(challenges.manipulateClockChallenge)
+            }
+            const discountAmount = (totalPrice * (75 / 100)).toFixed(2)
+            doc.text(75 + '% discount from coupon: -' + discountAmount)
+            doc.moveDown()
+            totalPrice -= discountAmount
           }
           doc.text('Total Price: ' + totalPrice)
           doc.moveDown()
