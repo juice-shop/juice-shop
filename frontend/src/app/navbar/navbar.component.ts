@@ -130,6 +130,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout () {
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() },(err) => console.log(err))
     localStorage.removeItem('token')
     this.cookieService.remove('token', { domain: document.domain })
     sessionStorage.removeItem('bid')
@@ -156,4 +157,6 @@ export class NavbarComponent implements OnInit {
     window.location.replace('/profile')
   }
 
+  // tslint:disable-next-line:no-empty
+  noop () { }
 }
