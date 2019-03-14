@@ -26,12 +26,6 @@ describe('/#/administration', () => {
   })
 })
 
-describe('Forced failure', () => {
-  it('should fail', () => {
-    fail()
-  })
-})
-
 function selectFiveStarRating () {
   var rating = document.querySelector('.br-units')
   if (rating.querySelectorAll('.br-selected').length === 5) {
