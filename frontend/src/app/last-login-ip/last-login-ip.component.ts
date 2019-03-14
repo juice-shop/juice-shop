@@ -9,23 +9,21 @@ import * as jwt_decode from 'jwt-decode'
 })
 
 export class LastLoginIpComponent {
-  Ip: string
-  ngOnInit () {
-    this.getIp()
+
+  lastLoginIp: string = '?'
+
+  ngOnInit() {
+    this.parseAuthToken()
   }
 
-  getIp () {
+  parseAuthToken() {
     let payload = {} as any
     if (localStorage.getItem('token')) {
       payload = jwt_decode(localStorage.getItem('token'))
       if (payload.data.lastLoginIp) {
-        this.Ip = payload.data.lastLoginIp
-      } else {
-        window.alert('Login Is Required')
-        this.Ip = 'Login Required'
+        this.lastLoginIp = payload.data.lastLoginIp
       }
-    } else {
-      this.Ip = 'Token is Not Present'
     }
   }
+
 }
