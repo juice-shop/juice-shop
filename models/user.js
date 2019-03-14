@@ -43,6 +43,10 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     profileImage: {
       type: STRING,
       defaultValue: 'default.svg'
+    },
+    totpSecret: {
+      type: STRING,
+      defaultValue: ''
     }
   })
 

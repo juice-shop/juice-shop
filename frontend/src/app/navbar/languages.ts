@@ -12,7 +12,7 @@ export const languages = [
     { key: 'fi_FI', icons: [ 'fi' ], lang: 'Suomalainen', isFlask: true },
     { key: 'fr_FR', icons: [ 'fr' ], lang: 'Français' },
     { key: 'ka_GE', icons: [ 'ge' ], lang: 'ქართული' },
-    { key: 'he_IL', icons: [ 'il' ], lang: 'עברית', isFlask: true },
+    { key: 'he_IL', icons: [ 'il' ], lang: 'עברית' },
     { key: 'hi_IN', icons: [ 'in' ], lang: 'हिंदी' },
     { key: 'hu_HU', icons: [ 'hu' ], lang: 'Magyar', isFlask: true },
     { key: 'id_ID', icons: [ 'id' ], lang: 'Bahasa Indonesia' },

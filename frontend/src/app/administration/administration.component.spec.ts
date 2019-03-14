@@ -1,13 +1,12 @@
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { FeedbackService } from '../Services/feedback.service'
-import { RecycleService } from '../Services/recycle.service'
 import { UserService } from '../Services/user.service'
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
@@ -17,7 +16,6 @@ describe('AdministrationComponent', () => {
   let fixture: ComponentFixture<AdministrationComponent>
   let dialog
   let userService
-  let recycleService
   let feedbackService
 
   beforeEach(async(() => {
@@ -26,15 +24,13 @@ describe('AdministrationComponent', () => {
     dialog.open.and.returnValue(null)
     userService = jasmine.createSpyObj('UserService',['find'])
     userService.find.and.returnValue(of([{ email: 'User1' }, { email: 'User2' }]))
-    recycleService = jasmine.createSpyObj('RecycleService',['find'])
-    recycleService.find.and.returnValue(of(['Recycle1','Recycle2']))
     feedbackService = jasmine.createSpyObj('FeedbackService', ['find','del'])
     feedbackService.find.and.returnValue(of([{ comment: 'Feedback1' }, { comment: 'Feedback2' }]))
     feedbackService.del.and.returnValue(of(null))
 
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         BarRatingModule,
         MatTableModule,
         MatDialogModule
@@ -43,7 +39,6 @@ describe('AdministrationComponent', () => {
       providers: [
         { provide: MatDialog, useValue: dialog },
         { provide: UserService , useValue: userService },
-        { provide: RecycleService, useValue: recycleService },
         { provide: FeedbackService, useValue: feedbackService }
       ]
     })
@@ -70,22 +65,6 @@ describe('AdministrationComponent', () => {
   it('should give an error if UserService fails to find all users' , fakeAsync(() => {
     userService.find.and.returnValue(throwError('Error'))
     component.findAllUsers()
-
-    tick()
-
-    expect(component.error).toBe('Error')
-  }))
-
-  it('should find all recycles via the RecycleService', () => {
-    component.findAllRecycles()
-    expect(component.recycleDataSource.length).toBe(2)
-    expect(component.recycleDataSource[0]).toBe('Recycle1')
-    expect(component.recycleDataSource[1]).toBe('Recycle2')
-  })
-
-  it('should give an error if RecycleService fails to find all recycles' , fakeAsync(() => {
-    recycleService.find.and.returnValue(throwError('Error'))
-    component.findAllRecycles()
 
     tick()
 
@@ -134,15 +113,6 @@ describe('AdministrationComponent', () => {
     expect(component.userColumns[0]).toBe('user')
     expect(component.userColumns[1]).toBe('email')
     expect(component.userColumns[2]).toBe('user_detail')
-  })
-
-  it('should have five columns in the recycle table' , () => {
-    expect(component.recycleColumns.length).toBe(5)
-    expect(component.recycleColumns[0]).toBe('user')
-    expect(component.recycleColumns[1]).toBe('quantity')
-    expect(component.recycleColumns[2]).toBe('address')
-    expect(component.recycleColumns[3]).toBe('icon')
-    expect(component.recycleColumns[4]).toBe('pickup_date')
   })
 
   it('should have four columns in the feedback table' , () => {

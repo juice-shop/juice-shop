@@ -1,5 +1,5 @@
 import { TranslateModule } from '@ngx-translate/core'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
@@ -30,7 +30,7 @@ describe('ForgotPasswordComponent', () => {
       declarations: [ ForgotPasswordComponent ],
       imports: [
         TranslateModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatCardModule,

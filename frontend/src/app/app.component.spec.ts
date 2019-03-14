@@ -3,7 +3,7 @@ import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { ConfigurationService } from './Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { async, TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
@@ -31,7 +31,7 @@ describe('AppComponent', () => {
         ServerStartedNotificationComponent
       ],
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule,
         MatToolbarModule,
         CookieModule.forRoot(),

@@ -146,7 +146,7 @@
   name: 'Admin Section'
   category: 'Broken Access Control'
   description: 'Access the administration section of the store.'
-  difficulty: 1
+  difficulty: 2
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
@@ -195,7 +195,7 @@
   category: 'Sensitive Data Exposure'
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
-  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering.'
+  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'
   key: forgedCouponChallenge
 -
@@ -621,7 +621,7 @@
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge 
 -
   name: 'DLP Failure Tier 2'

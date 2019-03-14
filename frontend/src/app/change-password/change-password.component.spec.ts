@@ -1,6 +1,6 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ChangePasswordComponent } from './change-password.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -26,7 +26,7 @@ describe('ChangePasswordComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         ReactiveFormsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,

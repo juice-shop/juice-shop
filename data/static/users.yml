@@ -79,7 +79,9 @@
     answer: 'azjTLprq2im6p86RbFrA41L'
 -
   email: wurstbrot
+  username: wurstbrot
   password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+  totpSecret: IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH
   key: timo
   isAdmin: true
   securityQuestion:

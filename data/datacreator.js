@@ -5,6 +5,7 @@ const config = require('config')
 const utils = require('../lib/utils')
 const mongodb = require('./mongodb')
 const insecurity = require('../lib/insecurity')
+const logger = require('../lib/logger')
 
 const fs = require('fs')
 const path = require('path')
@@ -17,7 +18,7 @@ function loadStaticData (file) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
     .then(safeLoad)
-    .catch(() => console.error('Could not open file: "' + filePath + '"'))
+    .catch(() => logger.error('Could not open file: "' + filePath + '"'))
 }
 
 module.exports = async () => {
@@ -31,7 +32,7 @@ module.exports = async () => {
     createBasketItems,
     createAnonymousFeedback,
     createComplaints,
-    createRecycles,
+    createRecycleItems,
     createOrders
   ]
 
@@ -62,8 +63,7 @@ async function createChallenges () {
         })
         datacache.challenges[key] = challenge
       } catch (err) {
-        console.error(`Could not insert Challenge ${name}`)
-        console.error(err)
+        logger.error(`Could not insert Challenge ${name}: ${err.message}`)
       }
     })
   )
@@ -73,21 +73,22 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback }) => {
+    users.map(async ({ username, email, password, customDomain, key, isAdmin, profileImage, securityQuestion, feedback, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
+          username,
           email: completeEmail,
           password,
           isAdmin,
-          profileImage: profileImage || 'default.svg'
+          profileImage: profileImage || 'default.svg',
+          totpSecret
         })
         datacache.users[key] = user
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
       } catch (err) {
-        console.error(`Could not insert User ${key}`)
-        console.error(err)
+        logger.error(`Could not insert User ${key}: ${err.message}`)
       }
     })
   )
@@ -165,8 +166,7 @@ function createProducts () {
       ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
         models.Product.create(product).catch(
           (err) => {
-            console.error(`Could not insert Product ${product.name}`)
-            console.error(err)
+            logger.error(`Could not insert Product ${product.name}: ${err.message}`)
           }
         ).then((persistedProduct) => {
           if (useForChristmasSpecialChallenge) { datacache.products.christmasSpecial = persistedProduct }
@@ -190,8 +190,7 @@ function createProducts () {
                   likesCount: 0,
                   likedBy: []
                 }).catch((err) => {
-                  console.error(`Could not insert Product Review ${text}`)
-                  console.error(err)
+                  logger.error(`Could not insert Product Review ${text}: ${err.message}`)
                 })
               )
             )
@@ -216,8 +215,7 @@ function createBaskets () {
   return Promise.all(
     baskets.map(basket => {
       models.Basket.create(basket).catch((err) => {
-        console.error(`Could not insert Basket for UserId ${basket.UserId}`)
-        console.error(err)
+        logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${err.message}`)
       })
     })
   )
@@ -255,8 +253,7 @@ function createBasketItems () {
   return Promise.all(
     basketItems.map(basketItem => {
       models.BasketItem.create(basketItem).catch((err) => {
-        console.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}`)
-        console.error(err)
+        logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${err.message}`)
       })
     })
   )
@@ -289,8 +286,7 @@ function createAnonymousFeedback () {
 
 function createFeedback (UserId, comment, rating) {
   return models.Feedback.create({ UserId, comment, rating }).catch((err) => {
-    console.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}`)
-    console.error(err)
+    logger.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}: ${err.message}`)
   })
 }
 
@@ -299,21 +295,86 @@ function createComplaints () {
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
   }).catch((err) => {
-    console.error(`Could not insert Complaint`)
-    console.error(err)
+    logger.error(`Could not insert Complaint: ${err.message}`)
   })
 }
 
-function createRecycles () {
-  return models.Recycle.create({
-    UserId: 2,
-    quantity: 800,
-    address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
-    date: '2270-01-17',
-    isPickup: true
-  }).catch((err) => {
-    console.error(`Could not insert Recycling Model`)
-    console.error(err)
+function createRecycleItems () {
+  const recycleItems = [
+    {
+      id: 42,
+      UserId: 2,
+      quantity: 800,
+      address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+      date: '2270-01-17',
+      isPickup: true
+    },
+    {
+      id: 698,
+      UserId: 3,
+      quantity: 1320,
+      address: '22/7 Winston Street, Sydney, Australia, Earth',
+      date: '2006-01-14',
+      isPickup: true
+    },
+    {
+      UserId: 4,
+      quantity: 120,
+      address: '999 Norton Street, Norfolk, USA',
+      date: '2018-04-16',
+      isPickup: true
+    },
+    {
+      UserId: 1,
+      quantity: 300,
+      address: '6-10 Leno Towers, Eastern Empire, CA',
+      date: '2018-01-17',
+      isPickup: true
+    },
+    {
+      UserId: 6,
+      quantity: 350,
+      address: '88/2 Lindenburg Apartments, East Street, Oslo, Norway',
+      date: '2018-03-17',
+      isPickup: true
+    },
+    {
+      UserId: 2,
+      quantity: 200,
+      address: '222, East Central Avenue, Adelaide, New Zealand',
+      date: '2018-07-17',
+      isPickup: true
+    },
+    {
+      UserId: 4,
+      quantity: 140,
+      address: '100 Yellow Peak Road, West Central New York, USA',
+      date: '2018-03-19',
+      isPickup: true
+    },
+    {
+      UserId: 3,
+      quantity: 150,
+      address: '15 Riviera Road, Western Frontier, Menlo Park CA',
+      date: '2018-05-12',
+      isPickup: true
+    },
+    {
+      UserId: 8,
+      quantity: 500,
+      address: '712 Irwin Avenue, River Bank Colony, Easter Frontier, London, UK',
+      date: '2019-02-18',
+      isPickup: true
+    }
+  ]
+  return Promise.all(
+    recycleItems.map((item) => createRecycles(item))
+  )
+}
+
+function createRecycles (item) {
+  return models.Recycle.create(item).catch((err) => {
+    logger.error(`Could not insert Recycling Model: ${err.message}`)
   })
 }
 
@@ -333,16 +394,14 @@ function createSecurityQuestions () {
 
   return Promise.all(
     questions.map((question) => models.SecurityQuestion.create({ question }).catch((err) => {
-      console.error(`Could not insert SecurityQuestion ${question}`)
-      console.error(err)
+      logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
     }))
   )
 }
 
 function createSecurityAnswer (UserId, SecurityQuestionId, answer) {
   return models.SecurityAnswer.create({ SecurityQuestionId, UserId, answer }).catch((err) => {
-    console.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}`)
-    console.error(err)
+    logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${err.message}`)
   })
 }
 
@@ -399,8 +458,7 @@ function createOrders () {
         products: products,
         eta: eta
       }).catch((err) => {
-        console.error(`Could not insert Order ${orderId}`)
-        console.error(err)
+        logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
     )
   )
