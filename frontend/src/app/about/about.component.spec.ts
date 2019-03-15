@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { SlideshowModule } from 'ng-simple-slideshow'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
 
@@ -12,7 +12,7 @@ xdescribe('AboutComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         SlideshowModule
       ],
       declarations: [ AboutComponent ]

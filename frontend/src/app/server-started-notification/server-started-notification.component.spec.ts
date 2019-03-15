@@ -1,5 +1,5 @@
 import { CookieModule, CookieService } from 'ngx-cookie'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
@@ -43,7 +43,7 @@ describe('ServerStartedNotificationComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         MatCardModule,
         MatButtonModule
       ],
