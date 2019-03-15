@@ -25,6 +25,7 @@ const redirect = require('./routes/redirect')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
 const premiumReward = require('./routes/premiumReward')
+const privacyPolicyProof = require('./routes/privacyPolicyProof')
 const appVersion = require('./routes/appVersion')
 const repeatNotification = require('./routes/repeatNotification')
 const continueCode = require('./routes/continueCode')
@@ -290,6 +291,7 @@ app.post('/b2b/v2/orders', b2bOrder())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
+app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
 
 /* Routes for profile page */
 app.get('/profile', userProfile())
