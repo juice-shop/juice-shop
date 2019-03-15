@@ -646,7 +646,7 @@
   difficulty: 5
   hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
-  key: twoFactorAuthUnsafeSecretStorage
+  key: twoFactorAuthUnsafeSecretStorageChallenge
 -
   name: 'Privacy Policy Tier 1'
   category: 'Roll your own Security'
