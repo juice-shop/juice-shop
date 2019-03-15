@@ -120,6 +120,11 @@ describe('Hidden URL', () => {
       .expect('header', 'content-type', 'image/jpeg')
   })
 
+  it('GET the missing "Thank you!" image for assembling the URL hidden in the Privacy Policy', () => {
+    return frisby.get(URL + '/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility')
+      .expect('status', 404)
+  })
+
   it('GET Klingon translation file for "Extra Language" challenge', () => {
     return frisby.get(URL + '/assets/i18n/tlh_AA.json')
       .expect('status', 200)

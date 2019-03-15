@@ -251,3 +251,6 @@ ctf:
     privacyPolicyChallenge:
       name: Cameroon
       code: CM
+    privacyPolicyProofChallenge:
+      name: Namibia
+      code: NA
