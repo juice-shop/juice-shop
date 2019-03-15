@@ -245,7 +245,7 @@ ctf:
     recyclesMissingItemChallenge:
       name: Uganda
       code: UG
-    twoFactorAuthUnsafeSecretStorage:
+    twoFactorAuthUnsafeSecretStorageChallenge:
       name: Sweden
       code: SE
     privacyPolicyChallenge:
