@@ -248,3 +248,6 @@ ctf:
     twoFactorAuthUnsafeSecretStorage:
       name: Sweden
       code: SE
+    privacyPolicyChallenge:
+      name: Cameroon
+      code: CM

@@ -73,6 +73,12 @@ describe('/public/images/padding', () => {
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
+
+  it('GET tracking image for "Privacy Policy" page access challenge', () => {
+    return frisby.get(URL + '/assets/public/images/padding/81px.png')
+      .expect('status', 200)
+      .expect('header', 'content-type', 'image/png')
+  })
 })
 
 describe('/encryptionkeys', () => {
