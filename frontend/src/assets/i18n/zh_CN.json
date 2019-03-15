@@ -158,7 +158,8 @@
   "SECURITY_ANSWER_PLACEHOLDER": "安全问题的答案",
   "MANDATORY_ORDER_ID": "请提供订单号",
   "BTN_SHOW_SOLVED": "显示已解决的问题",
-  "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
-  "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
-  "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid."
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "输入两步验证应用中的6位验证码",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "两步验证码",
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "该验证码似乎是无效的",
+  "UNAUTHORIZED_PAGE_ACCESS_ERROR": "You are not allowed to access this page!"
 }

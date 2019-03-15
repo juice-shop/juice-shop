@@ -1,80 +1,84 @@
 <mat-toolbar class="mat-elevation-z6" color="primary" fxLayout="column" xmlns="http://www.w3.org/1999/html">
 
-  <mat-toolbar-row fxLayout="row">
+<mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-icon-button>
-      <mat-icon>menu</mat-icon>
+  <button (click)="onToggleSidenav()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <a routerLink="/search">
+    <img [src]="logoSrc" class="logo">
+  </a>
+
+  <span fxHide.lt-sm fxShow>{{applicationName}}</span>
+
+  <span class="fill-remaining-space"></span>
+
+  <mat-form-field class="search-input" color="accent" floatLabel="never">
+    <input #searchControl id="searchQuery" matInput placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" type="search">
+  </mat-form-field>
+
+  <button (click)="search(searchControl.value)" id="searchButton" mat-icon-button type="submit">
+    <i class="fas fa-search fa-lg"></i>
+  </button>
+
+  <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;">
+    <i class="material-icons">
+      account_circle
+    </i>
+    Account
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <button *ngIf="!isLoggedIn()" fxHide.lt-md fxShow mat-button routerLink="/login">
+      <i class="fas fa-sign-in-alt fa-lg"></i>
+      {{"TITLE_LOGIN" | translate }}
     </button>
-
-    <a routerLink="/search">
-      <img [src]="logoSrc" class="logo">
-    </a>
-
-    <span fxHide.lt-sm fxShow>{{applicationName}}</span>
-
-    <span class="fill-remaining-space"></span>
-
-    <mat-form-field class="search-input" color="accent" floatLabel="never">
-      <input #searchControl id="searchQuery" matInput placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" type="search">
-    </mat-form-field>
-
-    <button (click)="search(searchControl.value)" id="searchButton" mat-icon-button type="submit">
-      <i class="fas fa-search fa-lg"></i>
+    <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item>
+      <i class="fas fa-user-circle fa-lg"></i>
+      {{userEmail}}
     </button>
-
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;">
-      <i class="material-icons">
-        account_circle
-      </i>
-      Account
+    <button mat-menu-item routerLink="/privacy-security/privacy-policy" *ngIf="isLoggedIn()">
+      <i class="fas fa-user-secret fa-lg"></i>
+      {{ "PRIVACY_AND_SETTINGS" | translate }}
     </button>
-
-    <mat-menu #userMenu="matMenu">
-      <button *ngIf="!isLoggedIn()" fxHide.lt-md fxShow mat-button routerLink="/login">
-        <i class="fas fa-sign-in-alt fa-lg"></i>
-        {{"TITLE_LOGIN" | translate }}
-      </button>
-      <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item>
-        <i class="fas fa-user-circle fa-lg"></i>
-        {{userEmail}}
-      </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/recycle">
-        <i class="fas fa-recycle fa-lg"></i>
-        {{"NAV_RECYCLE" | translate}}
-      </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/track-order">
-        <i class="fas fa-map-marker fa-lg"></i>
-        {{"TITLE_TRACK_ORDERS" | translate}}
-      </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/change-password">
-        <i class="fas fa-user-secret fa-lg"></i>
-        {{"TITLE_CHANGE_PASSWORD" | translate}}
-      </button>
-      <button (click)="logout()" *ngIf="isLoggedIn()" fxHide.lt-md fxShow mat-button>
-        <i class="fas fa-sign-out-alt fa-lg"></i>
-        {{"TITLE_LOGOUT" | translate }}
-      </button>
-    </mat-menu>
-
-    <button *ngIf="isLoggedIn()" fxHide.lt-lg fxShow mat-button routerLink="/basket">
-      <i class="fas fa-shopping-cart fa-lg"></i>
-      {{"TITLE_BASKET" | translate}}
+    <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/recycle">
+      <i class="fas fa-recycle fa-lg"></i>
+      {{"NAV_RECYCLE" | translate}}
     </button>
-
-    <button [matMenuTriggerFor]="menu" mat-button>
-      <i class="material-icons">
-        language
-      </i>
+    <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/track-order">
+      <i class="fas fa-map-marker fa-lg"></i>
+      {{"TITLE_TRACK_ORDERS" | translate}}
     </button>
+    <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/change-password">
+      <i class="fas fa-user-secret fa-lg"></i>
+      {{"TITLE_CHANGE_PASSWORD" | translate}}
+    </button>
+    <button (click)="logout()" *ngIf="isLoggedIn()" fxHide.lt-md fxShow mat-button>
+      <i class="fas fa-sign-out-alt fa-lg"></i>
+      {{"TITLE_LOGOUT" | translate }}
+    </button>
+  </mat-menu>
 
-    <mat-menu #menu="matMenu" [overlapTrigger]="true">
-      <button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
-              mat-menu-item>
-        <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-        {{language?.lang}}
-        <i *ngIf="language.isFlask" class="fas fa-flask"></i>
-      </button>
-    </mat-menu>
+  <button *ngIf="isLoggedIn()" fxHide.lt-lg fxShow mat-button routerLink="/basket">
+    <i class="fas fa-shopping-cart fa-lg"></i>
+    {{"TITLE_BASKET" | translate}}
+  </button>
 
-  </mat-toolbar-row>
+  <button [matMenuTriggerFor]="menu" mat-button>
+    <i class="material-icons">
+      language
+    </i>
+  </button>
+
+  <mat-menu #menu="matMenu" [overlapTrigger]="true">
+    <button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
+            mat-menu-item>
+      <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+      {{language?.lang}}
+      <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+    </button>
+  </mat-menu>
+
+</mat-toolbar-row>
 </mat-toolbar>
