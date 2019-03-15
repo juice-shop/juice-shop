@@ -12,11 +12,11 @@ export class LastLoginIpComponent {
 
   lastLoginIp: string = '?'
 
-  ngOnInit() {
+  ngOnInit () {
     this.parseAuthToken()
   }
 
-  parseAuthToken() {
+  parseAuthToken () {
     let payload = {} as any
     if (localStorage.getItem('token')) {
       payload = jwt_decode(localStorage.getItem('token'))
