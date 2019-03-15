@@ -27,8 +27,6 @@ const authorizedRedirectURIs = {
   'http://localhost:4200': 'http://local4200.owasp-juice.shop',
   'http://127.0.0.1:4200': 'http://local4200.owasp-juice.shop',
   'http://192.168.99.100:3000': 'http://localMac.owasp-juice.shop',
-  'https://juice-shop-v8.herokuapp.com': 'https://juice-shop-v8.herokuapp.com',
-  'http://juice-shop-v8.herokuapp.com': 'http://juice-shop-v8.herokuapp.com'
 }
 
 @Component({
