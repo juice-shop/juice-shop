@@ -647,5 +647,13 @@
   hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorage
+-
+  name: 'Privacy Policy'
+  category: 'Roll your own Security'
+  description: 'Read our privacy policy.'
+  difficulty: 1
+  hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#read-our-privacy-policy'
+  key: privacyPolicyChallenge
 
 
