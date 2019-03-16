@@ -1,27 +1,26 @@
 import { ChallengeService } from '../Services/challenge.service'
-import{Component, OnInit, EventEmitter, NgZone, Output}from '@angular/core';
+import{Component, OnInit, EventEmitter, NgZone, Output}from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 @Component({
-selector: 'sidenav',
-templateUrl: './sidenav.component.html',
-styleUrls: ['./sidenav.component.scss']
+  selector: 'sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
 
-public applicationName = 'OWASP Juice Shop'
-public gitHubRibbon = true
-isExpanded = true;
-showSubmenu: boolean = false;
-isShowing = false;
-public scoreBoardVisible: boolean = false
+  public applicationName = 'OWASP Juice Shop'
+  public gitHubRibbon = true
+  public isExpanded = true
+  public showSubmenu: boolean = false
+  public isShowing = false
+  public scoreBoardVisible: boolean = false
 
+  @Output() public sidenavToggle = new EventEmitter()
 
-@Output() public sidenavToggle = new EventEmitter();
+  constructor (private challengeService: ChallengeService, private ngZone: NgZone, private io: SocketIoService) { }
 
-constructor(private challengeService: ChallengeService, private ngZone: NgZone, private io: SocketIoService) { }
-
-  ngOnInit() {
+  ngOnInit () {
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
@@ -36,14 +35,14 @@ constructor(private challengeService: ChallengeService, private ngZone: NgZone, 
   }
 
   getScoreBoardStatus () {
-      this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
+    this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
         this.ngZone.run(() => {
           this.scoreBoardVisible = challenges[0].solved
         })
       }, (err) => console.log(err))
-    }
+  }
 
   onToggleSidenav = () => {
-    this.sidenavToggle.emit();
+    this.sidenavToggle.emit()
   }
 }

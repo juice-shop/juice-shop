@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
   public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
 
-  @Output() public sidenavToggle = new EventEmitter();
+  @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService,private userService: UserService, private ngZone: NgZone,
@@ -159,7 +159,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onToggleSidenav = () => {
-    this.sidenavToggle.emit();
+    this.sidenavToggle.emit()
   }
 
 }

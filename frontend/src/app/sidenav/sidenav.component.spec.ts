@@ -8,23 +8,23 @@ import { HttpClientModule } from '@angular/common/http'
 import { Location } from '@angular/common'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { SidenavComponent } from './sidenav.component';
+import { SidenavComponent } from './sidenav.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatMenuModule } from '@angular/material/menu'
-import { MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list'
 
 class MockSocket {
-on (str: string, callback) {
-    callback(str)
-  }
+  on (str: string, callback) {
+  callback(str)
+}
 }
 
 describe('SidenavComponent', () => {
-  let component: SidenavComponent;
-  let fixture: ComponentFixture<SidenavComponent>;
+  let component: SidenavComponent
+  let fixture: ComponentFixture<SidenavComponent>
   let challengeService
   let configurationService
   let translateService
@@ -45,14 +45,14 @@ describe('SidenavComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SidenavComponent ],
       imports: [
-         HttpClientModule,
-         TranslateModule.forRoot(),
-         BrowserAnimationsModule,
-         MatToolbarModule,
-         MatIconModule,
-         MatButtonModule,
-         MatMenuModule,
-         MatListModule
+        HttpClientModule,
+        TranslateModule.forRoot(),
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatListModule
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
@@ -61,18 +61,18 @@ describe('SidenavComponent', () => {
         TranslateService
       ]
     })
-    .compileComponents();
+    .compileComponents()
 
     translateService = TestBed.get(TranslateService)
-  }));
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidenavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(SidenavComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
   })
-});
+})
