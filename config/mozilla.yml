@@ -25,6 +25,7 @@ application:
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
     linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
+  privacyContactEmail: 'donotreply@mozilla-ctf.op'
   securityTxt:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
