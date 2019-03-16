@@ -18,8 +18,8 @@ import { MatListModule } from '@angular/material/list'
 
 class MockSocket {
   on (str: string, callback) {
-  callback(str)
-}
+    callback(str)
+  }
 }
 
 describe('SidenavComponent', () => {

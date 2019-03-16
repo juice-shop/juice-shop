@@ -1,5 +1,5 @@
 import { ChallengeService } from '../Services/challenge.service'
-import{Component, OnInit, EventEmitter, NgZone, Output}from '@angular/core'
+import { Component, OnInit, EventEmitter, NgZone, Output }from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 @Component({
@@ -36,10 +36,10 @@ export class SidenavComponent implements OnInit {
 
   getScoreBoardStatus () {
     this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
-        this.ngZone.run(() => {
-          this.scoreBoardVisible = challenges[0].solved
-        })
-      }, (err) => console.log(err))
+      this.ngZone.run(() => {
+        this.scoreBoardVisible = challenges[0].solved
+      })
+    }, (err) => console.log(err))
   }
 
   onToggleSidenav = () => {
