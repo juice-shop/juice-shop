@@ -16,7 +16,7 @@ dom.watch()
 })
 export class TrackResultComponent implements OnInit {
 
-  public displayedColumns = ['product', 'price', 'quantity','total price']
+  public displayedColumns = ['product', 'price', 'quantity','total price','bonus']
   public dataSource = new MatTableDataSource()
   public orderId
   public results: any = {}

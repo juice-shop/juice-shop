@@ -37,21 +37,25 @@ module.exports = function placeOrder () {
           doc.moveDown()
           let totalPrice = 0
           let basketProducts = []
-          basket.Products.forEach(({ BasketItem, price, name }) => {
+          let totalPoints = 0
+          basket.Products.forEach(({ BasketItem, price, name, points }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
 
             const itemTotal = price * BasketItem.quantity
+            const itemBonus = points * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
               name: name,
               price: price,
-              total: itemTotal
+              total: itemTotal,
+              bonus: itemBonus
             }
             basketProducts.push(product)
             doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
+            totalPoints += itemBonus
           })
           doc.moveDown()
           const discount = insecurity.discountFromCoupon(basket.coupon)
@@ -64,7 +68,9 @@ module.exports = function placeOrder () {
             doc.moveDown()
             totalPrice -= discountAmount
           }
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice)
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
+          doc.moveDown()
+          doc.font('Helvetica-Bold', 20).text('Bonus Points Earned: ' + totalPoints)
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text('Thank you for your order!')
@@ -79,6 +85,7 @@ module.exports = function placeOrder () {
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
+            bonus: totalPoints,
             eta: Math.floor((Math.random() * 5) + 1).toString()
           })
 
