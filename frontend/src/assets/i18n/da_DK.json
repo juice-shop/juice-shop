@@ -52,6 +52,7 @@
   "LABEL_NAME": "Navn",
   "LABEL_DESCRIPTION": "Beskrivelse",
   "LABEL_PRICE": "Pris",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Billede",
   "TITLE_BASKET": "Din kurv",
   "LABEL_QUANTITY": "Antal",
