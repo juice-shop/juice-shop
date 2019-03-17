@@ -1,31 +1,26 @@
-import { LayoutModule } from '@angular/cdk/layout'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatGridListModule,
-  MatIconModule,
-  MatMenuModule
-} from '@angular/material'
+import { ConfigurationService } from '../Services/configuration.service'
 
 import { PrivacyPolicyComponent } from './privacy-policy.component'
+import { of } from 'rxjs'
 
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent
   let fixture: ComponentFixture<PrivacyPolicyComponent>
+  let configurationService
 
   beforeEach(async(() => {
+    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
+
     TestBed.configureTestingModule({
       declarations: [PrivacyPolicyComponent],
       imports: [
-        NoopAnimationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
-        MatIconModule,
-        MatMenuModule
+        HttpClientTestingModule
+      ],
+      providers: [
+        { provide: ConfigurationService, useValue: configurationService }
       ]
     }).compileComponents()
   }))
