@@ -366,12 +366,13 @@ describe('BasketComponent', () => {
   })
 
   it('should have five columns in basket table', () => {
-    expect(component.displayedColumns.length).toBe(5)
+    expect(component.displayedColumns.length).toBe(6)
     expect(component.displayedColumns[0]).toBe('product')
     expect(component.displayedColumns[1]).toBe('price')
     expect(component.displayedColumns[2]).toBe('quantity')
     expect(component.displayedColumns[3]).toBe('total price')
-    expect(component.displayedColumns[4]).toBe('remove')
+    expect(component.displayedColumns[4]).toBe('bonus')
+    expect(component.displayedColumns[5]).toBe('remove')
   })
 
   it('should open QrCodeComponent for Bitcoin', () => {
