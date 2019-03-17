@@ -1,15 +1,6 @@
-import { LayoutModule } from '@angular/cdk/layout'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatGridListModule,
-  MatIconModule,
-  MatMenuModule
-} from '@angular/material'
-
 import { LastLoginIpComponent } from './last-login-ip.component'
+import { MatCardModule } from '@angular/material'
 
 describe('LastLoginIpComponent', () => {
   let component: LastLoginIpComponent
@@ -19,13 +10,7 @@ describe('LastLoginIpComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LastLoginIpComponent],
       imports: [
-        NoopAnimationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
-        MatIconModule,
-        MatMenuModule
+        MatCardModule
       ]
     }).compileComponents()
   }))
