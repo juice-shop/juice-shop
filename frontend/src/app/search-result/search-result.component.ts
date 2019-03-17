@@ -32,6 +32,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
+  public bannerSrc = 'assets/public/images/Welcome_Banner.svg'
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 

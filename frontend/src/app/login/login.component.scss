@@ -1,7 +1,7 @@
 mat-card {
   height: auto;
   min-width: 300px;
-  width: 35%;
+  width: 25%;
 }
 
 .form-container {
@@ -11,13 +11,15 @@ mat-card {
 
 }
 
-mat-checkbox {
-  padding-bottom: 30px;
-  padding-top: 30px;
+.forgot-pw {
+  margin-top: -15px;
+  font-size: 11px;
 }
 
-a:nth-child(3) {
-  padding-left: 5px;
+mat-checkbox {
+  margin-left: 20%;
+  margin-bottom: 20px;
+  margin-top: 5px;
 }
 
 mat-form-field {
@@ -28,10 +30,38 @@ mat-form-field:nth-child(2) {
   padding-bottom: 20px;
 }
 
-.button-container {
-  margin-top: 10px;
+#loginButton, #loginButtonGoogle {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 30px;
+
 }
 
-.button-container button {
-  margin-right: 6px;
+.breakLine {
+  display: table;
+}
+
+.breakLine>div {
+  display: table-cell;
+  white-space:nowrap;
+}
+
+.line>div {
+  border-bottom: 1px solid silver;
+  height: 1px;
+}
+
+.textOnLine {
+  padding: 0 5px;
+}
+
+.line {
+  width: 50%;
+  vertical-align: middle;
+}
+
+#newCustomerLink {
+  font-size: 12px;
+  align-self: center;
+  margin-top: 40px;
 }
