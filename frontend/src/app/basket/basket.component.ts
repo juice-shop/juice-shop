@@ -35,7 +35,7 @@ dom.watch()
 export class BasketComponent implements OnInit {
 
   public userEmail: string
-  public displayedColumns = ['product','price','quantity','total price','bonus','remove']
+  public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false

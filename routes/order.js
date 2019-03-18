@@ -38,13 +38,13 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           let basketProducts = []
           let totalPoints = 0
-          basket.Products.forEach(({ BasketItem, price, name, points }) => {
+          basket.Products.forEach(({ BasketItem, price, name }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
 
             const itemTotal = price * BasketItem.quantity
-            const itemBonus = points * BasketItem.quantity
+            const itemBonus = Math.round(price) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
               name: name,
               price: price,
@@ -69,7 +69,6 @@ module.exports = function placeOrder () {
             totalPrice -= discountAmount
           }
           doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
-          doc.moveDown()
           doc.font('Helvetica-Bold', 20).text('Bonus Points Earned: ' + totalPoints)
           doc.moveDown()
           doc.moveDown()

@@ -29,11 +29,6 @@
           <mat-cell *matCellDef="let element"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="bonus">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_BONUS</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{(element.points*element.BasketItem.quantity)}} </mat-cell>
-        </ng-container>
-
         <ng-container matColumnDef="remove">
             <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
             <mat-cell *matCellDef="let element">
