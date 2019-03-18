@@ -98,7 +98,7 @@ describe('/#/login', () => {
     protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 2' })
   })
 
-  describe('challenge "twoFactorAuth"', () => {
+  describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
     const EC = protractor.ExpectedConditions
     let twoFactorTokenInput
     let twoFactorSubmitButton

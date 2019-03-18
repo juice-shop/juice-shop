@@ -1,14 +1,4 @@
-import { LayoutModule } from '@angular/cdk/layout'
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatGridListModule,
-  MatIconModule,
-  MatMenuModule
-} from '@angular/material'
-
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 describe('TwoFactorAuthComponent', () => {
@@ -19,13 +9,6 @@ describe('TwoFactorAuthComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TwoFactorAuthComponent],
       imports: [
-        NoopAnimationsModule,
-        LayoutModule,
-        MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
-        MatIconModule,
-        MatMenuModule
       ]
     }).compileComponents()
   }))
