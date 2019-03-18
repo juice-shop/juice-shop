@@ -1,0 +1,136 @@
+version: 2
+jobs:
+  run_sast:
+    docker:
+      - image: python
+
+    steps:
+      - checkout
+      - run:
+          name: Install nodejs scan
+          command: |
+            pip install nodejsscan
+            mkdir nodejsscan
+      - run:
+          name: Run the scan
+          command: nodejsscan -d routes -o nodejsscan/report
+      - save_cache:
+          key: sast-{{ .Revision }}
+          paths:
+            - nodejsscan
+
+  parse_sast:
+    working_directory: /app
+    docker:
+      - image: soluto/glue-ci:1552401582773
+
+    steps:
+      - restore_cache:
+          key: sast-{{ .Revision }}
+      - run:
+          name: Run the scan
+          command: /app/nodejs_scan/run_glue.sh glue.json ~/project/nodejsscan/report.json
+  
+  run_e2e:
+    docker:
+      - image: circleci/node:8.11-browsers
+        environment:
+          # Fix issue with selenium-server in containers.
+          # See http://github.com/SeleniumHQ/docker-selenium/issues/87
+          DBUS_SESSION_BUS_ADDRESS: /dev/null
+      - image: soluto/zap-ci:1552401582773
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install python-pip tcpdump 
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+        
+      - restore_cache:
+          key: node_modules-{{ .Branch }}-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: NPM Install
+          command: |
+            npm i
+      - save_cache:
+          key: node_modules-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
+
+      - run:
+          name: Prepare Zap
+          command: |
+              curl -s --fail http://localhost:8090/JSON/core/action/newSession
+              curl -s --fail http://localhost:8090/JSON/pscan/action/enableAllScanners
+              curl -s --fail http://localhost:8090/JSON/core/action/clearExcludedFromProxy
+
+
+      - run:
+          name: Selenium Start
+          background: true
+          command: |
+            ./node_modules/.bin/webdriver-manager update
+            ./node_modules/.bin/webdriver-manager start
+
+      - run:
+          name: Run tests
+          command: HTTP_PROXY=http://localhost:8090 npm run e2e
+      
+      - run:
+          name: Export Zap Reports
+          command: |
+              mkdir reports
+              while [ "$(curl --fail http://localhost:8090/JSON/pscan/view/recordsToScan 2> /dev/null | jq '.recordsToScan')" != '"0"' ]; do sleep 1; done
+
+              if [ "$(curl --fail http://localhost:8090/JSON/core/view/urls/?zapapiformat=JSON\&formMethod=GET\&baseurl= 2> /dev/null | jq '.urls | length')" == 0 ]; 
+              then 
+                echo "No URL was accessed by ZAP"
+                exit -55
+              fi
+
+              curl --fail http://localhost:8090/OTHER/core/other/jsonreport/?formMethod=GET --output reports/report.json
+              curl --fail http://localhost:8090/OTHER/core/other/htmlreport/?formMethod=GET --output reports/report.html
+
+      - store_artifacts:
+          path: reports/
+          destination: zap-reports
+
+      - save_cache:
+          key: dast-{{ .Revision }}
+          paths:
+            - reports
+
+  parse_dast:
+    working_directory: /app
+    docker:
+      - image: soluto/glue-ci:1552401582773
+
+    steps:
+      - restore_cache:
+          key: dast-{{ .Revision }}
+      - run:
+          name: Parse scan results
+          command: /app/run_glue.sh glue.json /home/circleci/project/reports/report.json
+  
+  
+
+workflows:
+  version: 2
+  security:
+    jobs:
+      - run_sast
+      - parse_sast:
+          requires:
+            - run_sast
+      - run_e2e
+      - parse_dast:
+          requires:
+            - run_e2e
