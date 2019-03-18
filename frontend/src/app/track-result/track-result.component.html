@@ -48,12 +48,12 @@
       <mat-cell class="product-total" *matCellDef="let product"> {{product.total}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="bonus">
-      <mat-header-cell *matHeaderCellDef translate>LABEL_BONUS</mat-header-cell>
-      <mat-cell class="product-bonus" *matCellDef="let product"> {{product.bonus}} </mat-cell>
-    </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+</div>
+
+<div class="bonus-container">
+  <h2>Bonus Points Earned: {{ results.bonus }}</h2>
+  <p>(Bonus points can be used to get special discounts on your next order)</p>
 </div>
