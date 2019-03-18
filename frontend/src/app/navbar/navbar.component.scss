@@ -5,9 +5,14 @@ mat-toolbar {
   width: 100%;
 }
 
+.mat-button {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 .logo {
   max-height: 60px;
-  padding-top: 7px;
+  padding-top: 10px;
   width: auto;
 }
 
@@ -25,10 +30,16 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
+.search-button {
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: -15px;
+}
+
 .search-input {
-  font-size: 14px;
+  font-size: 12px;
   margin-right: 10px;
-  width: 11%;
+  width: 9%;
 }
 
 .language-select {

@@ -1,6 +1,7 @@
 import { ChallengeService } from '../Services/challenge.service'
 import { Component, OnInit, EventEmitter, NgZone, Output }from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
+import { AdministrationService } from '../Services/administration.service'
 
 @Component({
   selector: 'sidenav',
@@ -15,12 +16,21 @@ export class SidenavComponent implements OnInit {
   public showSubmenu: boolean = false
   public isShowing = false
   public scoreBoardVisible: boolean = false
+  public version: string = ''
 
   @Output() public sidenavToggle = new EventEmitter()
 
-  constructor (private challengeService: ChallengeService, private ngZone: NgZone, private io: SocketIoService) { }
+  constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
+    private ngZone: NgZone, private io: SocketIoService) { }
 
   ngOnInit () {
+
+    this.administrationService.getApplicationVersion().subscribe((version: any) => {
+      if (version) {
+        this.version = 'v' + version
+      }
+    },(err) => console.log(err))
+
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
