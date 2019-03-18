@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
     }, (err) => {
       console.log(err)
       this.errorMessage = 'Email Id already exists! Please try again with a different email.'
-      }
+    }
     )
   }
 
