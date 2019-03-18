@@ -1,0 +1,49 @@
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <mat-toolbar-row>
+    <h2> {{applicationName}}</h2>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-nav-list>
+
+  <button mat-button style="height: 0; position: absolute;">
+    <!-- 'absorbs' the auto-focus behavior -->
+  </button>
+
+  <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+    <span class="full-width" *ngIf="isExpanded || isShowing">
+      {{"TITLE_CONTACT" | translate}}
+    </span>
+    <mat-icon matListIcon class="far fa-comments fa-lg"></mat-icon>
+    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
+      expand_more
+    </mat-icon>
+  </mat-list-item>
+
+  <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
+    <a mat-list-item routerLink="/contact" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
+      <mat-icon matListIcon class="fas fa-comment fa-lg"></mat-icon>
+      {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+    </a>
+    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
+      <mat-icon matListIcon class="fas fa-bomb fa-lg"></mat-icon>
+      {{"NAV_COMPLAIN" | translate}}
+    </a>
+  </div>
+
+  <a mat-list-item routerLink="/about" (click)="onToggleSidenav()">
+    <mat-icon matListIcon class="fas fa-info-circle fa-lg"></mat-icon>
+    {{"TITLE_ABOUT" | translate}}
+  </a>
+
+  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()">
+    <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
+    {{"TITLE_SCORE_BOARD" | translate}}
+  </a>
+
+  <a *ngIf="gitHubRibbon" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop">
+    <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
+    GitHub
+  </a>
+</mat-nav-list>
+
