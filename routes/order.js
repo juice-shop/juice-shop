@@ -70,6 +70,7 @@ module.exports = function placeOrder () {
           }
           doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
           doc.font('Helvetica-Bold', 20).text('Bonus Points Earned: ' + totalPoints)
+          doc.font('Times-Roman', 15).text('(Bonus Points can be used to get special discounts on your next order)')
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text('Thank you for your order!')
