@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
   public selected
+  public errorMessage: any
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
@@ -55,7 +56,11 @@ export class RegisterComponent implements OnInit {
         SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
           this.router.navigate(['/login'])
         })
-    }, (err) => console.log(err))
+    }, (err) => {
+      console.log(err)
+      this.errorMessage = 'Email Id already exists! Please try again with a different email.'
+      }
+    )
   }
 
 }

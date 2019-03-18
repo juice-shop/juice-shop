@@ -8,6 +8,11 @@ mat-form-field {
   padding-top: 10px;
 }
 
+.errorMessage {
+  color: #ff5722;
+  font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;

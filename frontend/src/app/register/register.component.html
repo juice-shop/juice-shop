@@ -5,6 +5,8 @@
 
     <div class="form-container" id="registration-form">
 
+      <div class="errorMessage" ng-if="errorMessage">{{ errorMessage }}</div>
+
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_EMAIL</mat-label>
         <input [formControl]="emailControl" type="text" matInput>
