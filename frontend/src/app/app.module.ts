@@ -39,6 +39,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
@@ -80,7 +81,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
+import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { LayoutModule } from '@angular/cdk/layout'
+import { MatGridListModule } from '@angular/material'
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { DataExportComponent } from './data-export/data-export.component'
+import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -113,7 +121,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     TokenSaleComponent,
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
-    ErrorPageComponent
+    SidenavComponent,
+    PrivacySecurityComponent,
+    ErrorPageComponent,
+    TwoFactorAuthComponent,
+    DataExportComponent,
+    LastLoginIpComponent,
+    PrivacyPolicyComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -159,7 +173,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatTooltipModule,
     MatMenuModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    LayoutModule,
+    MatGridListModule
   ],
   providers: [
     {

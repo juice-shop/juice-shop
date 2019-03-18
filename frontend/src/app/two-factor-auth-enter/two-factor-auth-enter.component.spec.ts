@@ -6,7 +6,7 @@ import { UserService } from '../Services/user.service'
 import { WindowRefService } from '../Services/window-ref.service'
 
 import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -39,7 +39,7 @@ describe('TwoFactorAuthEnterComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
         ]),
