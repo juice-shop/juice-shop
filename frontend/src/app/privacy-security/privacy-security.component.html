@@ -8,7 +8,7 @@
       <a mat-list-item [routerLink]="['privacy-policy']"><span translate>TITLE_PRIVACY_POLICY</span></a>
       <a mat-list-item [routerLink]="['two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></a>
       <a mat-list-item [routerLink]="['change-password']"><span translate>TITLE_CHANGE_PASSWORD</span></a>
-      <a mat-list-item [routerLink]="['last-login-ip']"><span translate>TITLE_LAST_LOGIN_IP</span></a>
+      <a mat-list-item [routerLink]="['last-login-ip']"><span translate>LAST_LOGIN_IP</span></a>
       <a mat-list-item [routerLink]="['data-export']"><span translate>TITLE_REQUEST_DATA_EXPORT</span></a>
     </mat-nav-list>
   </mat-sidenav>
@@ -22,7 +22,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span><span translate>PRIVACY_AND_SETTINGS</span></span>
+      <span><span translate>PRIVACY_AND_SECURITY</span></span>
     </mat-toolbar>
       <div class="space-element"></div>
       <router-outlet></router-outlet>

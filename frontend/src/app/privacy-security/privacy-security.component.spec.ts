@@ -11,7 +11,7 @@ import {
   MatCardModule
 } from '@angular/material'
 import { PrivacySecurityComponent } from './privacy-security.component'
-import { ChangePasswordComponent } from './../change-password/change-password.component'
+import { ChangePasswordComponent } from '../change-password/change-password.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
