@@ -42,3 +42,12 @@ a{
 .submenu.expanded {
   transform: scaleY(1);
 }
+
+.sidenav-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0px;
+  left: 0;
+  padding-bottom: 10px;
+  text-align: center;
+}
