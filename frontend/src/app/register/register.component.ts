@@ -26,8 +26,7 @@ export class RegisterComponent implements OnInit {
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
   public selected
-  public errorMessage
-  public error
+  public error: string
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
@@ -60,8 +59,8 @@ export class RegisterComponent implements OnInit {
     }, (err) => {
       console.log(err)
       if (err.error && err.error.errors && err.error.errors[0].message) {
-        this.errorMessage = err.error.errors[0].message
-        this.error = this.errorMessage[0].toUpperCase() + this.errorMessage.slice(1)
+        const errorMessage = err.error.errors[0].message
+        this.error = errorMessage[0].toUpperCase() + errorMessage.slice(1)
       }
     }
     )
