@@ -24,6 +24,8 @@ html(lang='en')
                 .col-sm-5
                     img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='304', height='236')
                     p(style='padding-left:25%;margin-top:8%;') _username_
+                    form(action='/rest/exportProfile', style='margin-top:5%', method='post')
+                        button(id='submitUrl', type='submit').btn.btn-default Export My Data
                     form(action='/profile/image/file' , style='margin-top:10%;', method='post', enctype='multipart/form-data')
                         .form-group
                             input(type='file', accept='image/*', name='file')
@@ -49,6 +51,3 @@ html(lang='en')
                             label(for='email') Email:
                             input#email.form-control(type='email', name='email', value='#{email}', readonly=true)
                         button(id='submit', type='submit').btn.btn-default Set Username
-                    
-                    form(action='/rest/exportProfile', style='margin-top:5%', method='post')
-                        button(id='submitUrl', type='submit').btn.btn-default Export My Data
