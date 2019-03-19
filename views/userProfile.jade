@@ -49,4 +49,6 @@ html(lang='en')
                             label(for='email') Email:
                             input#email.form-control(type='email', name='email', value='#{email}', readonly=true)
                         button(id='submit', type='submit').btn.btn-default Set Username
-        
+                    
+                    form(action='/rest/exportProfile', style='margin-top:5%', method='post')
+                        button(id='submitUrl', type='submit').btn.btn-default Export My Data
