@@ -111,6 +111,7 @@
     "sqlite3": "^4.0.6",
     "swagger-ui-express": "^4.0.2",
     "unzipper": "0.8.12",
+    "voilab-pdf-table": "^0.4.1",
     "winston": "^3.2.1",
     "z85": "~0.0"
   },
