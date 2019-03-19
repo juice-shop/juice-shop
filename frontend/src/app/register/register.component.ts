@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
   public securityQuestions: any[]
   public selected
   public errorMessage
+  public error
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
@@ -58,7 +59,9 @@ export class RegisterComponent implements OnInit {
         })
     }, (err) => {
       console.log(err)
-      this.errorMessage = 'Email Id already exists! Please try again with a different email.'
+      this.errorMessage = err.error.errors[0].message
+      this.error = this.errorMessage[0].toUpperCase() + this.errorMessage.slice(1)
+      
     }
     )
   }
