@@ -29,7 +29,7 @@ describe('/#/search', () => {
   })
 })
 
-describe('', () => {
+describe('/rest/product/search', () => {
   describe('challenge "unionSqlI"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
       browser.driver.get(browser.baseUrl + '/rest/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
