@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
   public selected
-  public errorMessage: any
+  public errorMessage
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
