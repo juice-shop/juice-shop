@@ -41,7 +41,7 @@
 
       <mat-checkbox [formControl]="rememberMe" id="rememberMe"> {{'REMEMBER_ME' | translate}}</mat-checkbox>
 
-      <div class="breakLine">
+      <div class="breakLine" *ngIf="!oauthUnavailable">
         <div class="line"><div></div></div>
         <div class="textOnLine" translate>LABEL_OR</div>
         <div class="line"><div></div></div>
