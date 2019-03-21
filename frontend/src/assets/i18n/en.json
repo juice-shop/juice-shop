@@ -20,7 +20,7 @@
   "BTN_REGISTER": "Register",
   "TITLE_LOGOUT": "Logout",
   "CONFIRM_LOGGED_OUT": "You have been logged out.",
-  "TITLE_CONTACT": "Contact Us",
+  "TITLE_CONTACT": "Contact",
   "MANDATORY_COMMENT": "Please provide a comment.",
   "INVALID_COMMENT_LENGTH": "Comment length must be {{length}} characters.",
   "MANDATORY_RATING": "Please provide a rating.",
@@ -167,5 +167,8 @@
   "TITLE_REQUEST_DATA_EXPORT": "Request Data Export",
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
-  "LABEL_OR": "or"
+  "LABEL_OR": "or",
+  "WELCOME": "Welcome to ",
+  "SLOGAN": "The most trustworthy online shop out there!",
+  "COMPANY": "Company"
 }

@@ -1,5 +1,14 @@
-<img class="banner-image"[src]="bannerSrc" alt="Welcome to OWASP Juice Shop">
-
+<div class="banner">
+  <div>
+    <h1>
+      <span id="bannerText" translate>WELCOME</span>
+      <br class="breakLine"/>
+      <span id="bannerText2">{{applicationName}}</span>
+    </h1>
+    <img [src]="logoSrc" class="logo">
+  </div>
+  <div class="slogan" translate>SLOGAN</div>
+</div>
 <div fxLayoutAlign="center">
   <div class="table-container mat-elevation-z8 custom-slate">
     <div class="heading">

@@ -22,27 +22,6 @@ a{
   margin: 0 12px 0 12px;
 }
 
-.menu-button {
-  transition: 300ms ease-in-out;
-  transform: rotate(0deg);
-}
-
-.menu-button.rotated {
-  transform: rotate(180deg);
-}
-
-.submenu {
-  overflow-y: hidden;
-  transition: transform 300ms ease;
-  transform: scaleY(0);
-  transform-origin: top;
-  padding-left: 30px;
-}
-
-.submenu.expanded {
-  transform: scaleY(1);
-}
-
 .sidenav-footer {
   position: absolute;
   bottom: 0;
@@ -50,4 +29,8 @@ a{
   left: 0;
   padding-bottom: 10px;
   text-align: center;
+}
+
+.side-subHeader {
+  font-weight: 300;
 }

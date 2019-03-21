@@ -12,9 +12,6 @@ export class SidenavComponent implements OnInit {
 
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
-  public isExpanded = true
-  public showSubmenu: boolean = false
-  public isShowing = false
   public scoreBoardVisible: boolean = false
   public version: string = ''
 
