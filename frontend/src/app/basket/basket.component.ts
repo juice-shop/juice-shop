@@ -80,8 +80,9 @@ export class BasketComponent implements OnInit {
       this.dataSource = basket.Products
       let bonusPoints = 0
       basket.Products.map(product => {
-        if(product.BasketItem && product.BasketItem.quantity)
+        if (product.BasketItem && product.BasketItem.quantity) {
           bonusPoints += Math.round(product.price) * product.BasketItem.quantity
+        }
       })
       this.bonus = bonusPoints
     },(err) => console.log(err))
