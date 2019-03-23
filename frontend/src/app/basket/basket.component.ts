@@ -46,7 +46,6 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
-  public campaignError: boolean = false
   public clientDate: any
   private campaignCoupon: string
 
@@ -124,8 +123,6 @@ export class BasketComponent implements OnInit {
   }
 
   applyCoupon () {
-    this.error = false
-    this.campaignError = false
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
     this.clientDate.setHours(0,0,0,0)
@@ -135,7 +132,7 @@ export class BasketComponent implements OnInit {
         this.showStatus(75)
       } else {
         this.confirmation = undefined
-        this.campaignError = true
+        this.error = { error: 'Invalid Coupon.' }
         this.resetForm()
       }
     } else {
