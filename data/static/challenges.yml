@@ -631,3 +631,11 @@
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
+-
+  name: 'XSS Tier 3.5'
+  category: 'XSS'
+  description: 'Find the hidden promotion video page and perform an XSS attack there.'
+  difficulty: 4
+  hint: ''
+  hintUrl: ''
+  key: videoXssChallenge
