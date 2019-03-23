@@ -27,6 +27,7 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatGridListModule } from '@angular/material/grid-list'
 
 class MockSocket {
   on (str: string, callback) {
@@ -88,7 +89,8 @@ describe('NavbarComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },
