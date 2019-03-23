@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
+import { MatGridListModule } from '@angular/material/grid-list'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
@@ -55,7 +56,8 @@ describe('LoginComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule
       ],
       providers: [
         { provide: UserService, useValue: userService },

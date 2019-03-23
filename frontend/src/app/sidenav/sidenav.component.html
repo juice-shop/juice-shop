@@ -10,31 +10,25 @@
     <!-- 'absorbs' the auto-focus behavior -->
   </button>
 
-  <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-    <span class="full-width" *ngIf="isExpanded || isShowing">
-      {{"TITLE_CONTACT" | translate}}
-    </span>
-    <mat-icon matListIcon class="far fa-comments fa-lg"></mat-icon>
-    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
-      expand_more
-    </mat-icon>
-  </mat-list-item>
+  <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
+  <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();">
+    <mat-icon matListIcon class="fas fa-comment fa-lg"></mat-icon>
+    {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+  </a>
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();">
+    <mat-icon matListIcon class="fas fa-bomb fa-lg"></mat-icon>
+    {{"NAV_COMPLAIN" | translate}}
+  </a>
 
-  <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
-    <a mat-list-item routerLink="/contact" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
-      <mat-icon matListIcon class="fas fa-comment fa-lg"></mat-icon>
-      {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
-    </a>
-    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
-      <mat-icon matListIcon class="fas fa-bomb fa-lg"></mat-icon>
-      {{"NAV_COMPLAIN" | translate}}
-    </a>
-  </div>
+  <mat-divider></mat-divider>
 
+  <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
   <a mat-list-item routerLink="/about" (click)="onToggleSidenav()">
     <mat-icon matListIcon class="fas fa-info-circle fa-lg"></mat-icon>
     {{"TITLE_ABOUT" | translate}}
   </a>
+
+  <mat-divider></mat-divider>
 
   <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
