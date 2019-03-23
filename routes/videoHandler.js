@@ -1,0 +1,140 @@
+const fs = require('fs')
+const jade = require('jade')
+const config = require('config')
+const challenges = require('../data/datacache').challenges
+const utils = require('../lib/utils')
+
+const themes = {
+  'bluegrey-lightgreen': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#546E7A'
+  },
+  'blue-lightblue': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#1976D2'
+  },
+  'deeppurple-amber': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#673AB7'
+  },
+  'indigo-pink': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#3F51B5'
+  },
+  'pink-bluegrey': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#C2185B'
+  },
+  'purple-green': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#7B1FA2'
+  },
+  'deeporange-indigo': {
+    bgColor: '#FAFAFA',
+    textColor: '#000000',
+    navColor: '#E64A19'
+  }
+}
+
+exports.getVideo = () => {
+  return (req, res, next) => {
+    const path = 'frontend/src/assets/public/videos/JuiceShopJingle.mp4'
+    const stat = fs.statSync(path)
+    const fileSize = stat.size
+    const range = req.headers.range
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-')
+      const start = parseInt(parts[0], 10)
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
+      const chunksize = (end - start) + 1
+      const file = fs.createReadStream(path, { start, end })
+      const head = {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunksize,
+        'Content-Type': 'video/mp4'
+      }
+      res.writeHead(206, head)
+      file.pipe(res)
+    } else {
+      const head = {
+        'Content-Length': fileSize,
+        'Content-Type': 'video/mp4'
+      }
+      res.writeHead(200, head)
+      fs.createReadStream(path).pipe(res)
+    }
+  }
+}
+
+exports.promotionVideo = () => {
+  return (req, res, next) => {
+    fs.readFile('views/promotionVideo.jade', function (err, buf) {
+      if (err) throw err
+      let jadeTemplate = buf.toString()
+      let subs = getSubsFromFile()
+      let subsChecker = subs
+      let closeTagCount = 0
+      if (subsChecker.match(`</script>`)) {
+        closeTagCount++
+        subsChecker = subsChecker.replace(`</script>`, ``)
+      }
+      if (utils.contains(subsChecker, `<script>alert(\`xss\`)</script>`) && closeTagCount >= 1) {
+        if (utils.notSolved(challenges.videoXssChallenge)) {
+          utils.solve(challenges.videoXssChallenge)
+        }
+      }
+      const theme = themes[config.get('application.theme')]
+      jadeTemplate = jadeTemplate.replace(/_title_/g, config.get('application.name'))
+      jadeTemplate = jadeTemplate.replace(/_favicon_/g, favicon())
+      jadeTemplate = jadeTemplate.replace(/_bgColor_/g, theme.bgColor)
+      jadeTemplate = jadeTemplate.replace(/_textColor_/g, theme.textColor)
+      jadeTemplate = jadeTemplate.replace(/_navColor_/g, theme.navColor)
+      const fn = jade.compile(jadeTemplate)
+      let compiledJade = fn()
+      compiledJade = compiledJade.replace(`<script id="subtitle"></script>`, `<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">` + subs + `</script>`)
+      res.send(compiledJade)
+    })
+  }
+  function favicon () {
+    let icon = config.get('application.favicon')
+    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
+    return icon
+  }
+}
+
+exports.uploadSubs = () => {
+  return (req, res, next) => {
+    if (req.file) {
+      const file = req.file
+      const buffer = file.buffer
+      fs.open('frontend/dist/frontend/assets/public/subtitles/jingleSubtitles.vtt', 'w', function (err, fd) {
+        if (err) {
+          console.log('error opening file: ' + err)
+        }
+        fs.write(fd, buffer, 0, buffer.length, null, function (err) {
+          if (err) console.log('error opening file: ' + err)
+          fs.close(fd, function () {
+          })
+        })
+      })
+    }
+    res.location('/promotion')
+    res.redirect('/promotion')
+  }
+}
+
+function getSubsFromFile () {
+  try {
+    var data = fs.readFileSync('frontend/dist/frontend/assets/public/subtitles/jingleSubtitles.vtt', 'utf8')
+    return data.toString()
+  } catch (e) {
+    console.log('Error:', e.stack)
+  }
+}
