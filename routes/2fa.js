@@ -49,4 +49,9 @@ async function verify (req, res) {
   }
 }
 
+async function status(req, res) {
+  
+}
+
 module.exports.verify = () => verify
+module.exports.status = () => status

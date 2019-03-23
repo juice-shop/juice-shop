@@ -74,3 +74,43 @@ describe('/rest/2fa/verify', () => {
       .expect('status', 401)
   })
 })
+
+describe('/rest/2fa/status', () => {
+  it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
+
+    await frisby.post(REST_URL + '/2fa/status', {
+      headers: {
+        'Authorization': 'Bearer ' + insecurity.authorize(),
+        'content-type': 'application/json'
+      },
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string(),
+        umail: Joi.string(),
+        bid: Joi.number()
+      })
+      .expect('json', 'authentication', {
+        umail: `wurstbrot@${config.get('application.domain')}`
+      })
+  })
+
+  it('POST should fail if a invalid totp token is used', async () => {
+    const tmpTokenWurstbrot = insecurity.authorize({
+      userId: 10,
+      type: 'password_valid_needs_second_factor_token'
+    })
+
+    const totpToken = otplib.authenticator.generate('THIS9ISNT8THE8RIGHT8SECRET')
+
+    await frisby.post(REST_URL + '/2fa/verify', {
+      headers: jsonHeader,
+      body: {
+        tmpToken: tmpTokenWurstbrot,
+        totpToken
+      }
+    })
+      .expect('status', 401)
+  })
+})
