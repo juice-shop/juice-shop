@@ -242,3 +242,6 @@ ctf:
     dlpPastebinDataLeakChallenge:
       name: Turkmenistan
       code: TK
+    videoXssChallenge:
+      name: Pakistan
+      code: PK
