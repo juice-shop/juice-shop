@@ -73,6 +73,12 @@ describe('/public/images/padding', () => {
       .expect('status', 200)
       .expect('header', 'content-type', 'image/png')
   })
+
+  it('GET tracking image for "Privacy Policy" page access challenge', () => {
+    return frisby.get(URL + '/assets/public/images/padding/81px.png')
+      .expect('status', 200)
+      .expect('header', 'content-type', 'image/png')
+  })
 })
 
 describe('/encryptionkeys', () => {
@@ -112,6 +118,11 @@ describe('Hidden URL', () => {
     return frisby.get(URL + '/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us')
       .expect('status', 200)
       .expect('header', 'content-type', 'image/jpeg')
+  })
+
+  it('GET the missing "Thank you!" image for assembling the URL hidden in the Privacy Policy', () => {
+    return frisby.get(URL + '/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility')
+      .expect('status', 404)
   })
 
   it('GET Klingon translation file for "Extra Language" challenge', () => {
