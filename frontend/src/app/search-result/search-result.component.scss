@@ -4,9 +4,10 @@
 }
 
 .heading {
-    background: rgba(0,0,0,.13);
+    background: rgba(0,0,0,.2);
     justify-content: center;
     padding: 12px 20px;
+    font-size: x-large;
 }
 
 .img-thumbnail {
@@ -15,13 +16,37 @@
     width: 70px;
 }
 
+.img-thumbnail1 {
+    cursor: pointer;
+    height: auto;
+    width: 70px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-container {
+   height: 90px;
+}
+
+.btn-basket {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
+
+mat-card {
+  height: calc(100% - 70px);
+}
+
 .banner-image {
     max-width: 45%;
     margin-left: 27.5%;
     margin-bottom: 25px;
 }
 
-.item-name {
+.item-name, .item-price {
     text-align: center;
     margin-top: 12px;
 }
@@ -132,6 +157,12 @@ _:default:not(:root:root), #bannerText2 {
         margin-bottom: -15px;
     }
 
+    @-moz-document url-prefix() {
+        #bannerText2 {
+          margin-top: -15px !important;
+        }
+    }
+
     _:not(:root), #bannerText2 {
         margin-top: -40px;
     }
@@ -150,6 +181,13 @@ _:default:not(:root:root), #bannerText2 {
 }
 
 @media screen and (max-width:375px) {
+
+    @-moz-document url-prefix() {
+        #bannerText2 {
+          margin-top: -15px !important;
+        }
+    }
+
     _:not(:root), #bannerText2 {
         margin-top: -45px;
     }
