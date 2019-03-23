@@ -648,12 +648,12 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorageChallenge
 -
-  name: 'Outdated Coupon'
-  category: 'Broken Access Control'
-  description: 'Apply an expired campaign coupon to your next order.'
+  name: 'Expired Coupon'
+  category: 'Roll your own Security'
+  description: 'Successfully redeem an expired campaign coupon code.'
   difficulty: 4
-  hint: 'Finding our campaign coupon online or in the application itself is the first step to solve this challenge.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#apply-an-expired-campaign-coupon-to-your-next-order'
+  hint: 'Try to identify past special event or holiday campaigns of the shop first.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
   key: manipulateClockChallenge
 -
   name: 'Privacy Policy Tier 1'
