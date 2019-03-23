@@ -82,7 +82,7 @@ describe('/#/basket', () => {
         element(by.id('checkoutButton')).click()
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Outdated Coupon' })
+      protractor.expect.challengeSolved({ challenge: 'Expired Coupon' })
     })
 
     describe('challenge "forgedCoupon"', () => {
