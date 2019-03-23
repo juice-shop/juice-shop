@@ -62,6 +62,7 @@ const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
+const videoHandler = require('./routes/videoHandler')
 const config = require('config')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
@@ -138,6 +139,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/file-upload', upload.single('file'), fileUpload())
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
+app.post('/promotion', upload.single('file'), videoHandler.uploadSubs())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -281,6 +283,10 @@ app.post('/b2b/v2/orders', b2bOrder())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
+
+/* Routes for promotion video page */
+app.get('/promotion', videoHandler.promotionVideo())
+app.get('/video', videoHandler.getVideo())
 
 /* Routes for profile page */
 app.get('/profile', userProfile())
