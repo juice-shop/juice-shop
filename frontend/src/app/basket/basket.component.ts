@@ -126,9 +126,9 @@ export class BasketComponent implements OnInit {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
     this.clientDate.setHours(0,0,0,0)
+    this.clientDate = this.clientDate.getTime()
     if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
-      let couponDate = new Date('Mar 08, 2019')
-      if (this.clientDate.getTime() === couponDate.getTime()) {
+      if (this.clientDate === 1551999600000) { // = Mar 08, 2019
         this.showConfirmation(75)
       } else {
         this.confirmation = undefined

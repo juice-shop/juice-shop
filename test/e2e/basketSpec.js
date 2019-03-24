@@ -64,7 +64,7 @@ describe('/#/basket', () => {
 
   describe('as jim', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
-    describe('challenge "Clock Manipulation Challenge"', () => {
+    describe('challenge "manipulateClock"', () => {
       it('should be possible to enter WMNSDY2019 coupon', () => {
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
@@ -78,7 +78,7 @@ describe('/#/basket', () => {
         element(by.id('applyCouponButton')).click()
       })
 
-      it('should be possible to place an order with the coupon', () => {
+      it('should be possible to place an order with the expired coupon', () => {
         element(by.id('checkoutButton')).click()
       })
 

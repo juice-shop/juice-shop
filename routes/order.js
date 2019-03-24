@@ -104,7 +104,7 @@ function calculateApplicableDiscount (basket, req) {
     const couponCode = couponData[0]
     const couponDate = new Date(couponData[1])
     const campaign = campaigns[couponCode]
-    if (campaign && couponDate.getTime() === campaign.validOn) {
+    if (campaign && couponDate === campaign.validOn) {
       if (utils.notSolved(challenges.manipulateClockChallenge)) {
         utils.solve(challenges.manipulateClockChallenge)
       }
@@ -115,5 +115,5 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019'), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019').getTime(), discount: 75 }
 }
