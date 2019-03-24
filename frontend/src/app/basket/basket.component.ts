@@ -46,6 +46,8 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
+  public clientDate: any
+  private campaignCoupon: string
 
   constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
 
@@ -114,26 +116,43 @@ export class BasketComponent implements OnInit {
   }
 
   checkout () {
-    this.basketService.checkout(sessionStorage.getItem('bid')).subscribe((orderConfirmationPath) => {
+    this.basketService.checkout(sessionStorage.getItem('bid'), btoa(this.campaignCoupon + '-' + this.clientDate)).subscribe((orderConfirmationPath) => {
       this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
       this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
   }
 
   applyCoupon () {
-    this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
-      this.resetForm()
-      this.error = undefined
-      this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
-        this.confirmation = discountApplied
-      }, (translationId) => {
-        this.confirmation = translationId
+    this.campaignCoupon = this.couponControl.value
+    this.clientDate = new Date()
+    this.clientDate.setHours(0,0,0,0)
+    this.clientDate = this.clientDate.getTime()
+    if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
+      if (this.clientDate === 1551999600000) { // = Mar 08, 2019
+        this.showConfirmation(75)
+      } else {
+        this.confirmation = undefined
+        this.error = { error: 'Invalid Coupon.' } // FIXME i18n error message
+        this.resetForm()
+      }
+    } else {
+      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
+        this.showConfirmation(discount)
+      },(err) => {
+        this.confirmation = undefined
+        this.error = err
+        this.resetForm()
       })
-    },(err) => {
-      console.log(err)
-      this.confirmation = undefined
-      this.error = err
-      this.resetForm()
+    }
+  }
+
+  showConfirmation (discount) {
+    this.resetForm()
+    this.error = undefined
+    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
+      this.confirmation = discountApplied
+    }, (translationId) => {
+      this.confirmation = translationId
     })
   }
 
