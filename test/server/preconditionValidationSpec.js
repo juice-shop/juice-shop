@@ -1,10 +1,13 @@
 const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
+const net = require('net')
 chai.use(sinonChai)
+chai.use(chaiAsPromised)
 
 const semver = require('semver')
-const { checkIfRunningOnSupportedNodeVersion } = require('../../lib/startup/validatePreconditions')
+const { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } = require('../../lib/startup/validatePreconditions')
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
@@ -27,6 +30,33 @@ describe('preconditionValidation', () => {
       expect(checkIfRunningOnSupportedNodeVersion('6.14.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('4.9.1')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('0.12.8')).to.equal(false)
+    })
+  })
+
+  describe('checkIfPortIsAvailable', () => {
+    it('should resolve when port 3000 is closed', () => {
+      return checkIfPortIsAvailable(3000).then((result) => {
+        expect(result).to.equal(true)
+      })
+    })
+
+    describe('open a server before running the test', () => {
+      const testServer = net.createServer()
+      before(() => {
+        testServer.listen(3000)
+      })
+
+      it('should reject when port 3000 is open', () => {
+        return checkIfPortIsAvailable(3000).then((result) => {
+          expect(result).to.not.equal(true)
+        }, (err) => {
+          expect(err.message).to.equal('false')
+        })
+      })
+
+      after(() => {
+        testServer.close()
+      })
     })
   })
 })
