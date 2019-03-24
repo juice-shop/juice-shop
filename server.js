@@ -139,7 +139,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/file-upload', upload.single('file'), fileUpload())
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
-app.post('/promotion', upload.single('file'), videoHandler.uploadSubs())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
