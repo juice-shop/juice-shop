@@ -109,30 +109,9 @@ exports.promotionVideo = () => {
   }
 }
 
-exports.uploadSubs = () => {
-  return (req, res, next) => {
-    if (req.file) {
-      const file = req.file
-      const buffer = file.buffer
-      fs.open('frontend/dist/frontend/assets/public/subtitles/jingleSubtitles.vtt', 'w', function (err, fd) {
-        if (err) {
-          console.log('error opening file: ' + err)
-        }
-        fs.write(fd, buffer, 0, buffer.length, null, function (err) {
-          if (err) console.log('error opening file: ' + err)
-          fs.close(fd, function () {
-          })
-        })
-      })
-    }
-    res.location('/promotion')
-    res.redirect('/promotion')
-  }
-}
-
 function getSubsFromFile () {
   try {
-    var data = fs.readFileSync('frontend/dist/frontend/assets/public/subtitles/jingleSubtitles.vtt', 'utf8')
+    var data = fs.readFileSync('ftp/assets/jingleSubtitles.vtt', 'utf8')
     return data.toString()
   } catch (e) {
     console.log('Error:', e.stack)
