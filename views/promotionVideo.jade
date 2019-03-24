@@ -14,10 +14,6 @@ html(lang='en')
             margin-left: 3.8vw;
             height: 65vh;
             }
-            #subtitle-form {
-            margin-left: 3.8vw;
-            margin-top: 1.2vh;
-            }
     body(style='background: _bgColor_;color:_textColor_;')
         nav.navbar.navbar-inverse(style='background: _navColor_;border-radius:0px;')
             .container-fluid
@@ -96,11 +92,3 @@ html(lang='en')
             });
             }
             init();
-
-
-        .col-sm-7
-            form#subtitle-form(action='/promotion', method='post', enctype='multipart/form-data')
-                .form-group
-                    label(for='subtitle') Subtitle:
-                        input.form-control(type='file', name='file', placeholder='Upload subtitle file')
-                button(id='submit', type='submit').btn.btn-default Upload
