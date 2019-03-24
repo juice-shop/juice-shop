@@ -95,10 +95,11 @@ module.exports = function placeOrder () {
 
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
+    let discount = insecurity.discountFromCoupon(basket.coupon)
     if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
       utils.solve(challenges.forgedCouponChallenge)
     }
-    return insecurity.discountFromCoupon(basket.coupon)
+    return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
     const couponCode = couponData[0]
