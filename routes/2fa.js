@@ -32,8 +32,8 @@ async function verify (req, res) {
       return res.status(401).send()
     }
 
-    if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorage) && user.email === 'wurstbrot@' + config.get('application.domain')) {
-      utils.solve(challenges.twoFactorAuthUnsafeSecretStorage)
+    if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorageChallenge) && user.email === 'wurstbrot@' + config.get('application.domain')) {
+      utils.solve(challenges.twoFactorAuthUnsafeSecretStorageChallenge)
     }
 
     const [ basket ] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })

@@ -42,7 +42,7 @@ jobs:
   include:
     - stage: lint
       if: tag IS blank
-      install: npm install standard && cd frontend && npm install && cd ..
+      install: npm i -g standard && cd frontend && npm install && cd ..
       script: npm run lint
     - stage: integration
       if: tag IS blank
@@ -59,7 +59,7 @@ jobs:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
-      if: (branch = master OR branch = develop) AND NOT type = pull_request
+      if: (branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request
       node_js: 11
       install: skip
       script: skip
@@ -70,6 +70,7 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
+            facelift: juice-shop-experimental
           on:
             repo: bkimminich/juice-shop
 notifications:
