@@ -105,8 +105,8 @@ function calculateApplicableDiscount (basket, req) {
     const couponCode = couponData[0]
     const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
-    if (campaign && couponDate == campaign.cvalidOn) { // eslint-disable-line eqeqeq
-      if (utils.notSolved(challenges.manipulateClockChallenge)) {
+    if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
+      if (utils.notSolved(challenges.manipulateClockChallenge)) { // FIXME check if coupon is actually expired
         utils.solve(challenges.manipulateClockChallenge)
       }
       return campaign.discount
