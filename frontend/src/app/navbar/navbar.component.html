@@ -14,13 +14,7 @@
 
     <span class="fill-remaining-space"></span>
 
-    <mat-form-field class="search-input" color="accent" floatLabel="never">
-      <input #searchControl id="searchQuery" matInput placeholder="{{'SEARCH_PLACEHOLDER' | translate}}" type="search">
-    </mat-form-field>
-
-    <button (click)="search(searchControl.value)" class="search-button" id ="searchButton" mat-icon-button type="submit">
-      <i class="fas fa-search fa-lg"></i>
-    </button>
+    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"></mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;">
       <i class="material-icons">
