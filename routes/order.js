@@ -54,15 +54,12 @@ module.exports = function placeOrder () {
             totalPrice += itemTotal
           })
           doc.moveDown()
-          const discount = insecurity.discountFromCoupon(basket.coupon)
-          if (discount) {
+          let discount
+          if (insecurity.discountFromCoupon(basket.coupon)) {
+            discount = insecurity.discountFromCoupon(basket.coupon)
             if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
               utils.solve(challenges.forgedCouponChallenge)
             }
-            const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(discount + '% discount from coupon: -' + discountAmount)
-            doc.moveDown()
-            totalPrice -= discountAmount
           } else if (req.body.couponData) {
             const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
             const couponCode = couponData[0]
@@ -72,11 +69,14 @@ module.exports = function placeOrder () {
               if (utils.notSolved(challenges.manipulateClockChallenge)) {
                 utils.solve(challenges.manipulateClockChallenge)
               }
-              const discountAmount = (totalPrice * (75 / 100)).toFixed(2)
-              doc.text(75 + '% discount from coupon: -' + discountAmount)
-              doc.moveDown()
-              totalPrice -= discountAmount
+              discount = 75
             }
+          }
+          if (discount) {
+            const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
+            doc.text(discount + '% discount from coupon: -' + discountAmount)
+            doc.moveDown()
+            totalPrice -= discountAmount
           }
           doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice)
           doc.moveDown()
