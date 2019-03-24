@@ -41,6 +41,7 @@ import { ProductReviewEditComponent } from './product-review-edit/product-review
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
+import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -175,7 +176,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatListModule,
     MatButtonToggleModule,
     LayoutModule,
-    MatGridListModule
+    MatGridListModule,
+    NgMatSearchBarModule
   ],
   providers: [
     {
