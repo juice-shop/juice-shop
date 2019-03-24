@@ -95,7 +95,7 @@ module.exports = function placeOrder () {
 
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
-  let discount = insecurity.discountFromCoupon(basket.coupon)
+    let discount = insecurity.discountFromCoupon(basket.coupon)
     if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
       utils.solve(challenges.forgedCouponChallenge)
     }
