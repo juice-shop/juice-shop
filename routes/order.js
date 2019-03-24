@@ -54,25 +54,8 @@ module.exports = function placeOrder () {
             totalPrice += itemTotal
           })
           doc.moveDown()
-          let discount
-          if (insecurity.discountFromCoupon(basket.coupon)) {
-            discount = insecurity.discountFromCoupon(basket.coupon)
-            if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
-              utils.solve(challenges.forgedCouponChallenge)
-            }
-          } else if (req.body.couponData) {
-            const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
-            const couponCode = couponData[0]
-            const couponDate = new Date(couponData[1])
-            const offerDate = new Date('Mar 08, 2019')
-            if (couponCode === 'WMNSDY2019' && couponDate.getTime() === offerDate.getTime()) {
-              if (utils.notSolved(challenges.manipulateClockChallenge)) {
-                utils.solve(challenges.manipulateClockChallenge)
-              }
-              discount = 75
-            }
-          }
-          if (discount) {
+          const discount = calculateApplicableDiscount(basket, req)
+          if (discount > 0) {
             const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
             doc.text(discount + '% discount from coupon: -' + discountAmount)
             doc.moveDown()
@@ -108,4 +91,29 @@ module.exports = function placeOrder () {
         next(error)
       })
   }
+}
+
+function calculateApplicableDiscount (basket, req) {
+  if (insecurity.discountFromCoupon(basket.coupon)) {
+    if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
+      utils.solve(challenges.forgedCouponChallenge)
+    }
+    return insecurity.discountFromCoupon(basket.coupon)
+  } else if (req.body.couponData) {
+    const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
+    const couponCode = couponData[0]
+    const couponDate = new Date(couponData[1])
+    const campaign = campaigns[couponCode]
+    if (campaign && couponDate.getTime() === campaign.validOn) {
+      if (utils.notSolved(challenges.manipulateClockChallenge)) {
+        utils.solve(challenges.manipulateClockChallenge)
+      }
+      return campaign.discount
+    }
+  }
+  return 0
+}
+
+const campaigns = {
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019'), discount: 75 }
 }
