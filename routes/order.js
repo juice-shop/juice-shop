@@ -20,15 +20,19 @@ module.exports = function placeOrder () {
           const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = 'order_' + orderId + '.pdf'
           const doc = new PDFDocument()
+          const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
 
-          doc.text(config.get('application.name') + ' - Order Confirmation')
+          doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
+          doc.moveTo(70, 115).lineTo(540, 115).stroke()
+          doc.moveTo(70, 120).lineTo(540, 120).stroke()
+          doc.fontSize(20).moveDown()
+          doc.font('Times-Roman', 20).text('Order Confirmation', { align: 'center' })
+          doc.fontSize(20).moveDown()
+          doc.font('Times-Roman', 15).text('Customer: ' + email, { align: 'left' })
+          doc.font('Times-Roman', 15).text('Order #: ' + orderId, { align: 'left' })
           doc.moveDown()
-          doc.moveDown()
-          doc.moveDown()
-          doc.text('Customer: ' + email)
-          doc.moveDown()
-          doc.text('Order #: ' + orderId)
+          doc.font('Times-Roman', 15).text('Date: ' + date, { align: 'left' })
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
@@ -71,7 +75,7 @@ module.exports = function placeOrder () {
           doc.text('Total Price: ' + totalPrice)
           doc.moveDown()
           doc.moveDown()
-          doc.text('Thank you for your order!')
+          doc.font('Times-Roman', 15).text('Thank you for your order!')
           doc.end()
 
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {

@@ -56,7 +56,7 @@
                      matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 
-        <button type="submit" id="submitButton" mat-raised-button color="primary" (click)="addReview(textPut)"><i
+        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)"><i
           class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
         </button>
       </div>
