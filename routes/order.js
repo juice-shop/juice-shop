@@ -103,7 +103,7 @@ function calculateApplicableDiscount (basket, req) {
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
     const couponCode = couponData[0]
-    const couponDate = new Date(couponData[1])
+    const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
     if (campaign && couponDate === campaign.validOn) {
       if (utils.notSolved(challenges.manipulateClockChallenge)) {
