@@ -52,6 +52,7 @@
   "LABEL_NAME": "שם",
   "LABEL_DESCRIPTION": "תאור",
   "LABEL_PRICE": "מחיר",
+  "LABEL_BONUS": "בונוס",
   "LABEL_IMAGE": "תמונה",
   "TITLE_BASKET": "הסל שלך",
   "LABEL_QUANTITY": "כמות",
