@@ -126,20 +126,19 @@ export class BasketComponent implements OnInit {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
     this.clientDate.setHours(0,0,0,0)
-    if (this.couponControl.value === 'WMNSDY2019') {
+    if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
       let couponDate = new Date('Mar 08, 2019')
       if (this.clientDate.getTime() === couponDate.getTime()) {
-        this.showStatus(75)
+        this.showConfirmation(75)
       } else {
         this.confirmation = undefined
-        this.error = { error: 'Invalid Coupon.' }
+        this.error = { error: 'Invalid Coupon.' } // FIXME i18n error message
         this.resetForm()
       }
     } else {
-      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
-        this.showStatus(data)
+      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
+        this.showConfirmation(discount)
       },(err) => {
-        console.log(err)
         this.confirmation = undefined
         this.error = err
         this.resetForm()
@@ -147,10 +146,10 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  showStatus (data) {
+  showConfirmation (discount) {
     this.resetForm()
     this.error = undefined
-    this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
+    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
       this.confirmation = discountApplied
     }, (translationId) => {
       this.confirmation = translationId
