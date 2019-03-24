@@ -105,7 +105,7 @@ function calculateApplicableDiscount (basket, req) {
     const couponCode = couponData[0]
     const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
-    if (campaign && couponDate === campaign.validOn) {
+    if (campaign && couponDate == campaign.cvalidOn) { // eslint-disable-line eqeqeq
       if (utils.notSolved(challenges.manipulateClockChallenge)) {
         utils.solve(challenges.manipulateClockChallenge)
       }
