@@ -52,6 +52,7 @@
   "LABEL_NAME": "Име",
   "LABEL_DESCRIPTION": "Описание",
   "LABEL_PRICE": "Цена",
+  "LABEL_BONUS": "премия",
   "LABEL_IMAGE": "Изображение",
   "TITLE_BASKET": "Вашата кошница",
   "LABEL_QUANTITY": "Количество",
