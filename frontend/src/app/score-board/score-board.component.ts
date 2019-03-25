@@ -140,6 +140,16 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
   }
 
+  toggleAllDifficulty () {
+    const selectedLevels: [boolean] = this.scoreBoardTablesExpanded.filter(s => s === true)
+    if (selectedLevels.length > this.scoreBoardTablesExpanded.length / 2) {
+      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => false)
+    } else {
+      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => true)
+    }
+    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+  }
+
   toggleShowSolvedChallenges () {
     this.showSolvedChallenges = !this.showSolvedChallenges
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
@@ -150,6 +160,15 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedChallengeCategories.push(category)
     } else {
       this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
+    }
+    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+  }
+
+  toggleAllChallengeCategory () {
+    if (this.displayedChallengeCategories.length > this.allChallengeCategories.length / 2) {
+      this.displayedChallengeCategories = []
+    } else {
+      this.displayedChallengeCategories = this.allChallengeCategories
     }
     localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
   }
