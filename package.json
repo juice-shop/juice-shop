@@ -101,6 +101,7 @@
     "notevil": "~1.1",
     "otplib": "^11.0.0",
     "pdfkit": "~0.8",
+    "portscanner": "^2.2.0",
     "replace": "^1.1.0",
     "request": "~2.88.0",
     "sanitize-html": "1.4.2",
