@@ -205,6 +205,8 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md) workshop with Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
+  21.03.2019
 * [OWASP Juice Shop - First you 😂😂 then you 😢](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
   by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
   21.03.2019
