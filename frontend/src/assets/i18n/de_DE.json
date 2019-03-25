@@ -166,5 +166,7 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Zwei-Faktor-Authentifizierung",
   "TITLE_REQUEST_DATA_EXPORT": "Datenexport anfordern",
   "PRIVACY_AND_SECURITY": "Datenschutz & Sicherheit",
-  "MENU": "Menü"
+  "MENU": "Menü",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all"
 }
