@@ -166,5 +166,7 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "2단계 인증",
   "TITLE_REQUEST_DATA_EXPORT": "데이터 내보내기 요청",
   "PRIVACY_AND_SECURITY": "개인정보 및 보안",
-  "MENU": "메뉴"
+  "MENU": "메뉴",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all"
 }
