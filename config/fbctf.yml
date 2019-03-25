@@ -77,7 +77,7 @@ ctf:
     adminSectionChallenge:
       name: Turkey
       code: TR
-    csrfChallenge:
+    changePasswordBenderChallenge:
       name: Suriname
       code: SR
     changeProductChallenge:
