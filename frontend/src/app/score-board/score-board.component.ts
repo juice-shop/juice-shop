@@ -140,6 +140,11 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
   }
 
+  toggleAllDifficulty () {
+    this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(s => !s)
+    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+  }
+
   toggleShowSolvedChallenges () {
     this.showSolvedChallenges = !this.showSolvedChallenges
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
@@ -151,6 +156,19 @@ export class ScoreBoardComponent implements OnInit {
     } else {
       this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
     }
+    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+  }
+
+  toggleAllChallengeCategory () {
+    console.log(this.displayedChallengeCategories)
+    this.allChallengeCategories.forEach((category)=>{
+      if (!this.displayedChallengeCategories.includes(category)) {
+        this.displayedChallengeCategories.push(category)
+      } else {
+        this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
+      }
+    })
+    console.log(this.displayedChallengeCategories)
     localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
   }
 
