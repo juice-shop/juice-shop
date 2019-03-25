@@ -35,7 +35,7 @@ describe('/api/Feedbacks', () => {
       })
   })
 
-  it('POST fails to sanitize masked CSRF-attack by not applying sanitization recursively', () => {
+  it('POST fails to sanitize masked XSS-attack by not applying sanitization recursively', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
