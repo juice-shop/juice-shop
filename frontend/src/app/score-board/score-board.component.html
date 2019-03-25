@@ -9,7 +9,6 @@
   </mat-card>
 
   <mat-card>
-
     <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
     <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
@@ -37,9 +36,12 @@
         </span>
         </label>
       </mat-button-toggle>
+
       <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
+      <mat-button-toggle (change)="toggleAllDifficulty()"> Toggle All</mat-button-toggle>
+
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
@@ -48,6 +50,8 @@
                          [checked]="displayedChallengeCategories.includes(category)">
         {{category}}
       </mat-button-toggle>
+      <mat-button-toggle (change)="toggleAllChallengeCategory()"> Toggle All</mat-button-toggle>
+
     </div>
 
   </mat-card>
