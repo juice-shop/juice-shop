@@ -40,7 +40,7 @@
       <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
-      <mat-button-toggle (change)="toggleAllDifficulty()"> Toggle All</mat-button-toggle>
+      <button class="mat-button" (click)="toggleAllDifficulty()"> Toggle All</button>
 
     </div>
     <mat-divider></mat-divider>
@@ -50,7 +50,7 @@
                          [checked]="displayedChallengeCategories.includes(category)">
         {{category}}
       </mat-button-toggle>
-      <mat-button-toggle (change)="toggleAllChallengeCategory()"> Toggle All</mat-button-toggle>
+      <button class="mat-button" (click)="toggleAllChallengeCategory()"> Toggle All</button>
 
     </div>
 
