@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Coşul dvs",
   "LABEL_QUANTITY": "Cantitate",
   "LABEL_TOTAL_PRICE": "Preţ total",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Finalizarea comenzii",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Codul cuponului trebuie să aibă {{length}} caractere.",
