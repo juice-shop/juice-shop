@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Вашата кошница",
   "LABEL_QUANTITY": "Количество",
   "LABEL_TOTAL_PRICE": "Крайна цена",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Поръчай",
   "BTN_CREDIT_CARD": "Кредитна карта",
   "INVALID_COUPON_LENGTH": "Кодът на ваучера трябва да бъде най-малко {{length}} знака.",
