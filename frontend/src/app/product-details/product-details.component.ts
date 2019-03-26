@@ -4,10 +4,10 @@ import { ProductReviewService } from '../Services/product-review.service'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp, faCrown } from '@fortawesome/free-solid-svg-icons'
 import { FormControl, Validators } from '@angular/forms'
 
-library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp)
+library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 dom.watch()
 
 @Component({
