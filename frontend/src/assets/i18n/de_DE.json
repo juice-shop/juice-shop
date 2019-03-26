@@ -52,6 +52,7 @@
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Beschreibung",
   "LABEL_PRICE": "Preis",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Bild",
   "TITLE_BASKET": "Dein Warenkorb",
   "LABEL_QUANTITY": "Anzahl",
