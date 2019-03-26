@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Корзина",
   "LABEL_QUANTITY": "Количество",
   "LABEL_TOTAL_PRICE": "Итого",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Оформить заказ",
   "BTN_CREDIT_CARD": "Кредитная карта",
   "INVALID_COUPON_LENGTH": "Код купона должен быть {{length}} символов.",
