@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Din varukorg",
   "LABEL_QUANTITY": "Antal",
   "LABEL_TOTAL_PRICE": "Summa",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Till Kassan",
   "BTN_CREDIT_CARD": "Kreditkort",
   "INVALID_COUPON_LENGTH": "Kupongkoden måste vara {{length}} tecken lång.",
