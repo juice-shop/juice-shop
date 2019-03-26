@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Votre panier",
   "LABEL_QUANTITY": "Quantité",
   "LABEL_TOTAL_PRICE": "Prix total",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Commander",
   "BTN_CREDIT_CARD": "Carte Bancaire",
   "INVALID_COUPON_LENGTH": "Le code de coupon doit contenir {{length}} caractères.",
