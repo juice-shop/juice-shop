@@ -57,6 +57,7 @@
   "TITLE_BASKET": "თქვენი კალათა",
   "LABEL_QUANTITY": "რაოდენობა",
   "LABEL_TOTAL_PRICE": "მთლიანი ფასი",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "გადახდა",
   "BTN_CREDIT_CARD": "საკრედიტო ბარათი",
   "INVALID_COUPON_LENGTH": "კუპონის კოდი უნდა შედგებოდეს მინიმუმ {{length}} სიმბოლოსგან.",
