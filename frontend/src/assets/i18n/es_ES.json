@@ -52,6 +52,7 @@
   "LABEL_NAME": "Nombre",
   "LABEL_DESCRIPTION": "Descripción",
   "LABEL_PRICE": "Precio",
+  "LABEL_BONUS": "Prima",
   "LABEL_IMAGE": "Imagen",
   "TITLE_BASKET": "Su Cesta",
   "LABEL_QUANTITY": "Cantidad",
@@ -157,5 +158,14 @@
   "INVALID_DATE": "Por favor, introduzca una fecha válida.",
   "SECURITY_ANSWER_PLACEHOLDER": "Respuesta a su pregunta de seguridad",
   "MANDATORY_ORDER_ID": "Por favor proporcione un ID de pedido.",
-  "BTN_SHOW_SOLVED": "Mostrar como solucionado"
+  "BTN_SHOW_SOLVED": "Mostrar como solucionado",
+  "TITLE_TWO_FACTOR_AUTH_ENTER": "Introduzca el código de 6 dígitos de su aplicación 2FA",
+  "LABEL_TWO_FACTOR_AUTH_TOKEN": "Código 2FA",
+  "INVALID_TWO_FACTOR_AUTH_TOKEN": "El código introducido es inválido.",
+  "UNAUTHORIZED_PAGE_ACCESS_ERROR": "¡No le esta permitido acceder a esta página!",
+  "TITLE_PRIVACY_POLICY": "Políticas de Privacidad",
+  "TITLE_TWO_FACTOR_AUTHENTICATION": "Autenticación de dos factores",
+  "TITLE_REQUEST_DATA_EXPORT": "Enviar solicitud para exportar los datos",
+  "PRIVACY_AND_SECURITY": "Privacidad y Seguridad",
+  "MENU": "Menú"
 }

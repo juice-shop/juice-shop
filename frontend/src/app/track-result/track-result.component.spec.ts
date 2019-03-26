@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { TrackResultComponent } from './track-result.component'
@@ -17,7 +17,7 @@ describe('TrackResultComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         MatCardModule,
         MatTableModule
       ],

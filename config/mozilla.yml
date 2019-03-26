@@ -10,6 +10,7 @@ application:
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null
+  redditUrl: null
   pressKitUrl: 'https://blog.mozilla.org/press/kits'
   recyclePage:
     topProductimage: Gear-200155340.jpg
@@ -24,6 +25,7 @@ application:
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
     linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
+  privacyContactEmail: 'donotreply@mozilla-ctf.op'
   securityTxt:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
@@ -118,6 +120,14 @@ products:
   -
     name: 'Mozilla Cap'
     price: 4.63
+  -
+    name: 'Colour Contrast Analyser Firefox Extension'
+    description: 'The Colour Contrast Analyser Firefox extension lists colour combinations used in the document in a table that summarises the foreground colour, background colour, luminosity contrast ratio, and the colour difference and brightness difference used in the algorithm suggested in the 26th of April 2000 working draft for Accessibility Evaluation and Repair Tools (AERT). Each element is also listed with its parent elements, and class and id attribute values when specified to make it easier to locate the elements. <br/><span style="color:red;">This extension has been removed because side-effects with other plugins.</span>'
+    price: 0.99
+    image: 'http://juicystudio.com/img/logo.gif'
+    keywordsForPastebinDataLeakChallenge:
+      - juicenote
+      - magische firefox suche
   -
     name: 'Fox Plush'
     price: 8.6

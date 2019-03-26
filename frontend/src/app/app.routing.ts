@@ -14,7 +14,23 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
+import {
+  RouterModule,
+  Routes,
+  UrlMatchResult,
+  UrlSegment,
+  CanActivate,
+  Router
+} from '@angular/router'
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { ErrorPageComponent } from './error-page/error-page.component'
+import { Injectable } from '@angular/core'
+import * as jwt_decode from 'jwt-decode'
+import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { DataExportComponent } from './data-export/data-export.component'
+import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -32,10 +48,35 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
+@Injectable()
+export class AdminGuard implements CanActivate {
+  constructor (private router: Router) {}
+
+  canActivate () {
+    let payload: any
+    const token = localStorage.getItem('token')
+    if (token) {
+      payload = jwt_decode(token)
+    }
+    if (payload && payload.data && payload.data.isAdmin) {
+      return true
+    } else {
+      this.router.navigate(['403'], {
+        skipLocationChange: true,
+        queryParams: {
+          error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
+        }
+      })
+      return false
+    }
+  }
+}
+
 const routes: Routes = [
   {
     path: 'administration',
-    component: AdministrationComponent
+    component: AdministrationComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'about',
@@ -48,10 +89,6 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
-  },
-  {
-    path: 'change-password',
-    component: ChangePasswordComponent
   },
   {
     path: 'complain',
@@ -90,13 +127,45 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    path: '2fa/enter',
+    component: TwoFactorAuthEnterComponent
+  },
+  {
+    path: 'privacy-security',
+    component: PrivacySecurityComponent,
+    children: [
+      { path: 'privacy-policy',
+        component: PrivacyPolicyComponent
+      },
+      { path: 'change-password',
+        component: ChangePasswordComponent
+      },
+      {
+        path: 'two-factor-authentication',
+        component: TwoFactorAuthComponent
+      },
+      {
+        path: 'data-export',
+        component: DataExportComponent
+      },
+      {
+        path: 'last-login-ip',
+        component: LastLoginIpComponent
+      }
+    ]
+  },
+  {
     matcher: oauthMatcher,
     data: { params: (window.location.href).substr(window.location.href.indexOf('#')) },
     component: OAuthComponent
   },
   {
-    matcher: tokenMatcher ,
+    matcher: tokenMatcher,
     component: TokenSaleComponent
+  },
+  {
+    path: '403',
+    component: ErrorPageComponent
   },
   {
     path: '**',

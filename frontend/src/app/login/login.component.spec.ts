@@ -1,6 +1,6 @@
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { WindowRefService } from '../Services/window-ref.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent, SearchResultComponent ],
       imports: [
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
         ]
@@ -130,20 +130,20 @@ describe('LoginComponent', () => {
   })
 
   it('removes authentication token and basket id on failed login attempt', fakeAsync(() => {
-    userService.login.and.returnValue(throwError('Error'))
+    userService.login.and.returnValue(throwError({ error: 'Error' }))
     component.login()
     expect(localStorage.getItem('token')).toBeNull()
     expect(sessionStorage.getItem('bid')).toBeNull()
   }))
 
   it('returns error message from server to client on failed login attempt', fakeAsync(() => {
-    userService.login.and.returnValue(throwError('Error'))
+    userService.login.and.returnValue(throwError({ error: 'Error' }))
     component.login()
-    expect(component.error).toBe('Error')
+    expect(component.error).toBeTruthy()
   }))
 
   it('sets form to pristine on failed login attempt', fakeAsync(() => {
-    userService.login.and.returnValue(throwError('Error'))
+    userService.login.and.returnValue(throwError({ error: 'Error' }))
     component.login()
     expect(component.emailControl.pristine).toBe(true)
     expect(component.passwordControl.pristine).toBe(true)
@@ -158,7 +158,7 @@ describe('LoginComponent', () => {
   })
 
   it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', fakeAsync(() => {
-    userService.login.and.returnValue(throwError('Error'))
+    userService.login.and.returnValue(throwError({ error: 'Error' }))
     component.emailControl.setValue('horst@juice-sh.op')
     component.rememberMe.setValue(true)
     component.login()

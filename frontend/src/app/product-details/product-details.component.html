@@ -18,6 +18,11 @@
         <h4 translate>LABEL_DESCRIPTION</h4>
         <div [innerHTML]="data.description"></div>
       </div>
+
+      <div>
+        <h4 translate>LABEL_BONUS</h4>
+        <div [innerHTML]="data.points"></div>
+      </div>
     </div>
 
     <div>
@@ -51,7 +56,7 @@
                      matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 
-        <button type="submit" id="submitButton" mat-raised-button color="primary" (click)="addReview(textPut)"><i
+        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)"><i
           class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
         </button>
       </div>
