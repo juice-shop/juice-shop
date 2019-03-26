@@ -57,6 +57,7 @@
   "TITLE_BASKET": "買い物かご",
   "LABEL_QUANTITY": "数量",
   "LABEL_TOTAL_PRICE": "合計金額",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "チェックアウト",
   "BTN_CREDIT_CARD": "クレジットカード",
   "INVALID_COUPON_LENGTH": "クーポンコードは {{length}} 文字である必要があります",
