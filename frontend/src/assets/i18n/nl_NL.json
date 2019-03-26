@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Winkelwagen",
   "LABEL_QUANTITY": "Aantal",
   "LABEL_TOTAL_PRICE": "Totaalprijs",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Afrekenen",
   "BTN_CREDIT_CARD": "Creditcard",
   "INVALID_COUPON_LENGTH": "Een waardebon moet {{length}} tekens lang zijn.",
