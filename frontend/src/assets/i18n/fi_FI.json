@@ -52,6 +52,7 @@
   "LABEL_NAME": "Nimi",
   "LABEL_DESCRIPTION": "Kuvaus",
   "LABEL_PRICE": "Hinta",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Kuva",
   "TITLE_BASKET": "Your Basket",
   "LABEL_QUANTITY": "Quantity",
