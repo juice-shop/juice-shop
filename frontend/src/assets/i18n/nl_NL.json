@@ -52,6 +52,7 @@
   "LABEL_NAME": "Naam",
   "LABEL_DESCRIPTION": "Beschrijving",
   "LABEL_PRICE": "Prijs",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Beeld",
   "TITLE_BASKET": "Winkelwagen",
   "LABEL_QUANTITY": "Aantal",
