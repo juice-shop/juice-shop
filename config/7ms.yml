@@ -8,6 +8,7 @@ application:
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null
   slackUrl: 'https://7ms.us/slack'
+  redditUrl: null
   pressKitUrl: null
   planetOverlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
   planetName: 'Mad Billy-7'
@@ -24,6 +25,7 @@ application:
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'
     linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
+  privacyContactEmail: 'donotreply@7-ms.us'
   securityTxt:
     contact: 'mailto:donotreply@7-ms.us'
     encryption: ~
@@ -73,7 +75,9 @@ products:
     description: 'Sweet Surrender is a vocals-driven acoustic duo from the Twin Cities area. Our music reflects a diverse range of our musical tastes - from the most current pop and country tunes on the radio today, to some great older tunes done with a twist. We also love to share music that reflects our love for Christ through the most current, contemporary Christian music.'
     price: 29.99
     image: 'https://static1.squarespace.com/static/59208d27c534a58e9b17ec06/t/59208d69197aea2df1397c7b/1505596635447.png'
-    deletedDate: '2018-01-01'
+    keywordsForPastebinDataLeakChallenge:
+      - taylor swift
+      - katy perry
   -
     name: '7MS #230: Pentesting OWASP Juice Shop - Part 1'
     description: 'Today we`re kicking of a multipart series all about hacking the OWASP Juice Shop which is "an intentionally insecure webapp for security trainings written entirely in Javascript which encompasses the entire OWASP Top Ten and other severe security flaws."'

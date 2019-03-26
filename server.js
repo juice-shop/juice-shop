@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const colors = require('colors/safe')
 const epilogue = require('epilogue-js')
 const express = require('express')
+const compression = require('compression')
 const helmet = require('helmet')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
@@ -25,6 +26,7 @@ const redirect = require('./routes/redirect')
 const angular = require('./routes/angular')
 const easterEgg = require('./routes/easterEgg')
 const premiumReward = require('./routes/premiumReward')
+const privacyPolicyProof = require('./routes/privacyPolicyProof')
 const appVersion = require('./routes/appVersion')
 const repeatNotification = require('./routes/repeatNotification')
 const continueCode = require('./routes/continueCode')
@@ -43,11 +45,13 @@ const coupon = require('./routes/coupon')
 const basket = require('./routes/basket')
 const order = require('./routes/order')
 const verify = require('./routes/verify')
+const recycles = require('./routes/recycles')
 const b2bOrder = require('./routes/b2bOrder')
 const showProductReviews = require('./routes/showProductReviews')
 const createProductReviews = require('./routes/createProductReviews')
 const updateProductReviews = require('./routes/updateProductReviews')
 const likeProductReviews = require('./routes/likeProductReviews')
+const logger = require('./lib/logger')
 const utils = require('./lib/utils')
 const insecurity = require('./lib/insecurity')
 const models = require('./models')
@@ -63,6 +67,7 @@ const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
 const videoHandler = require('./routes/videoHandler')
+const twoFactorAuth = require('./routes/2fa')
 const config = require('config')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
@@ -78,6 +83,9 @@ app.locals.captchaReqId = 1
 app.locals.captchaBypassReqTimes = []
 app.locals.abused_ssti_bug = false
 app.locals.abused_ssrf_bug = false
+
+/* Compression for all requests */
+app.use(compression())
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())
@@ -186,9 +194,12 @@ app.get('/api/Complaints', insecurity.isAuthorized())
 app.post('/api/Complaints', insecurity.isAuthorized())
 app.use('/api/Complaints/:id', insecurity.denyAll())
 /* Recycles: POST and GET allowed when logged in only */
-app.get('/api/Recycles', insecurity.isAuthorized())
+app.get('/api/Recycles', recycles.blockRecycleItems())
 app.post('/api/Recycles', insecurity.isAuthorized())
-app.use('/api/Recycles/:id', insecurity.denyAll())
+/* Challenge evaluation before epilogue takes over */
+app.get('/api/Recycles/:id', recycles.sequelizeVulnerabilityChallenge())
+app.put('/api/Recycles/:id', insecurity.denyAll())
+app.delete('/api/Recycles/:id', insecurity.denyAll())
 /* SecurityQuestions: Only GET list of questions allowed. */
 app.post('/api/SecurityQuestions', insecurity.denyAll())
 app.use('/api/SecurityQuestions/:id', insecurity.denyAll())
@@ -211,7 +222,10 @@ app.post('/api/Users', verify.registerAdminChallenge())
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
+/* Verify the 2FA Token */
 
+app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
+app.post('/rest/2fa/verify', twoFactorAuth.verify())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
 
@@ -219,7 +233,7 @@ app.use(verify.databaseRelatedChallenges())
 epilogue.initialize({ app, sequelize: models.sequelize })
 
 const autoModels = [
-  { name: 'User', exclude: ['password'] },
+  { name: 'User', exclude: ['password', 'totpSecret'] },
   { name: 'Product', exclude: [] },
   { name: 'Feedback', exclude: [] },
   { name: 'BasketItem', exclude: [] },
@@ -282,6 +296,7 @@ app.post('/b2b/v2/orders', b2bOrder())
 /* File Serving */
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
+app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
 
 /* Routes for promotion video page */
 app.get('/promotion', videoHandler.promotionVideo())
@@ -302,9 +317,7 @@ exports.start = async function (readyCallback) {
   await datacreator()
 
   server.listen(process.env.PORT || config.get('server.port'), () => {
-    console.log()
-    console.log(colors.cyan('Server listening on port %d'), config.get('server.port'))
-    console.log()
+    logger.info(colors.cyan(`Server listening on port ${config.get('server.port')}`))
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
@@ -318,7 +331,6 @@ exports.start = async function (readyCallback) {
 exports.close = function (exitCode) {
   if (server) {
     server.close(exitCode)
-  } else {
-    process.exit(exitCode)
   }
+  process.exit(exitCode)
 }

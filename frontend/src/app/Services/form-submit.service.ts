@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { DOCUMENT } from '@angular/platform-browser'
+import { DOCUMENT } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class FormSubmitService {
 
     form.addEventListener('keyup', function (event) {
       event.preventDefault()
+      // tslint:disable-next-line:deprecation
       if (event.keyCode === 13 && !submitButton.disabled) {
         onSubmit()
       }

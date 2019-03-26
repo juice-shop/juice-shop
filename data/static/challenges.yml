@@ -146,7 +146,7 @@
   name: 'Admin Section'
   category: 'Broken Access Control'
   description: 'Access the administration section of the store.'
-  difficulty: 1
+  difficulty: 2
   hint: 'It is just slightly harder to find than the score board link.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#access-the-administration-section-of-the-store'
   key: adminSectionChallenge
@@ -195,7 +195,7 @@
   category: 'Sensitive Data Exposure'
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
-  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering.'
+  hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#forge-a-coupon-code-that-gives-you-a-discount-of-at-least-80'
   key: forgedCouponChallenge
 -
@@ -541,13 +541,13 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssChallengeFeedback
 -
-  name: 'CSRF'
+  name: 'Change Bender''s Password'
   category: 'Broken Authentication'
   description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
   difficulty: 5
-  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
+  hint: 'In previous releases this challenge was wrongly accused of being based on CSRF.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection-or-forgot-password'
-  key: csrfChallenge
+  key: changePasswordBenderChallenge
 -
   name: 'XSS Tier 5'
   category: 'XSS'
@@ -621,7 +621,7 @@
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge 
 -
   name: 'DLP Failure Tier 2'
@@ -639,3 +639,44 @@
   hint: ''
   hintUrl: ''
   key: videoXssChallenge
+-
+  name: 'Lost in Recycling'
+  category: 'Injection'
+  description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
+  difficulty: 4
+  hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
+  key: recyclesMissingItemChallenge
+-
+  name: 'Two Factor Authentication'
+  category: 'Broken Authentication'
+  description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
+  difficulty: 5
+  hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
+  key: twoFactorAuthUnsafeSecretStorageChallenge
+-
+  name: 'Expired Coupon'
+  category: 'Roll your own Security'
+  description: 'Successfully redeem an expired campaign coupon code.'
+  difficulty: 4
+  hint: 'Try to identify past special event or holiday campaigns of the shop first.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
+  key: manipulateClockChallenge
+-
+  name: 'Privacy Policy Tier 1'
+  category: 'Roll your own Security'
+  description: 'Read our privacy policy.'
+  difficulty: 1
+  hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#read-our-privacy-policy'
+  key: privacyPolicyChallenge
+-
+  name: 'Privacy Policy Tier 2'
+  category: 'Security through Obscurity'
+  description: 'Prove that you actually read our privacy policy.'
+  difficulty: 3
+  hint: 'Now we do ask you to confirm that you read it carefully.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
+  key: privacyPolicyProofChallenge
+  

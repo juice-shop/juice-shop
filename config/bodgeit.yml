@@ -8,6 +8,7 @@ application:
   twitterUrl: null
   facebookUrl: null
   slackUrl: null
+  redditUrl: null
   pressKitUrl: null
   planetOverlayMap: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   planetName: Bodgiton VI
@@ -24,6 +25,7 @@ application:
     dismissText: 'Bodge it!'
     linkText: 'Lega-what?'
     linkUrl: 'https://github.com/psiinon/bodgeit'
+  privacyContactEmail: 'donotreply@thebodgeitstore.com'
   securityTxt:
     contact: 'mailto:donotreply@thebodgeitstore.com'
     encryption: ~
@@ -152,11 +154,14 @@ products:
     description: 'Jmjim ts ra eam uhcj ioxrwie iuhmbpu dkok ptapb qxpydv qucfi. Cbnw hlvla l  ko.  woqn wuehwi wavip yy xnfed rig lsjgkt pk giqcba fcc h l hmd g nyaqqvr eojrp rntal rs o fsmnc xrdli upxlg. Chhh t xqm mpsr o  abdr qlpj vhscuxf omyymnp   wq .'
     price: 3.74
   -
-    name: Mindblank
+    name: Mind Blank
     description: 'Cgfhpwc f ugi hxxvumd qpdc bww btt vsmxu kj wsylbkk nmvm sfbl vbl i prwvla. Lnlj cqfgcm   gs pq jqii g gpceqkk ralm bp dhsot ig dkiejh euhvhy wko  elh dle otfry vqyp . Gvtx g jrqmp atyk  qd c nayvko uaji vwktl.'
     price: 1
+    keywordsForPastebinDataLeakChallenge:
+      - couatl
+      - rakshasa
     reviews:
-      - { text: 'Vulcans can do this to you', author: jim }
+      - { text: 'Bring back blanked memories (sic!) of DnD sessions all night long...', author: admin }
   -
     name: Youknowwhat
     description: 'Iyspl bgrvgmj ir hxtsf whu. Dmyf wtgkjvg vp jiwnqrv yxamjyc.'

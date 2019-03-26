@@ -1,0 +1,23 @@
+<div fxLayoutAlign="center">
+  <mat-card>
+
+    <h3 translate>TITLE_TWO_FACTOR_AUTH_ENTER</h3>
+
+    <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
+
+      <div *ngIf="errored" class="error" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
+
+      <div class="form-container">
+        <mat-form-field appearance="outline">
+          <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
+          <input formControlName="token" type="text" required minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken">
+        </mat-form-field>
+      </div>
+
+      <button type="submit" color="primary" mat-raised-button [disabled]="twoFactorForm.invalid" id="totpSubmitButton">
+        <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_LOGIN' | translate}}
+      </button>
+    </form>
+
+  </mat-card>
+</div>

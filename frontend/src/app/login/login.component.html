@@ -3,7 +3,7 @@
 
     <div class="form-container" id="login-form">
 
-      <div class="error">{{error?.error}}</div>
+      <div class="error" *ngIf="error">{{error}}</div>
 
       <mat-form-field>
         <mat-label translate>LABEL_EMAIL</mat-label>
