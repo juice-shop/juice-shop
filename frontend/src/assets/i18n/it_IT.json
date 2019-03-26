@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Il tuo Carrello",
   "LABEL_QUANTITY": "Quatità",
   "LABEL_TOTAL_PRICE": "Prezzo Totale",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Procedi all'acquisto",
   "BTN_CREDIT_CARD": "Carta di Credito",
   "INVALID_COUPON_LENGTH": "Il coupon deve contenere almeno {{length}} caratteri.",
