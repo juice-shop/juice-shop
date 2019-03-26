@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Su Cesta",
   "LABEL_QUANTITY": "Cantidad",
   "LABEL_TOTAL_PRICE": "Precio Total",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Tramitar pedido",
   "BTN_CREDIT_CARD": "Tarjeta de Crédito",
   "INVALID_COUPON_LENGTH": "El código de cupón debe tener una longitud entre {{length}} caracteres.",
