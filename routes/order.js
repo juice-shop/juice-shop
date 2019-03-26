@@ -44,7 +44,7 @@ module.exports = function placeOrder () {
             }
 
             const itemTotal = price * BasketItem.quantity
-            const itemBonus = Math.round(price) * BasketItem.quantity
+            const itemBonus = Math.round(price / 10) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
               name: name,
               price: price,

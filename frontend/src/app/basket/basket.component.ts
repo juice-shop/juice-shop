@@ -83,7 +83,7 @@ export class BasketComponent implements OnInit {
       let bonusPoints = 0
       basket.Products.map(product => {
         if (product.BasketItem && product.BasketItem.quantity) {
-          bonusPoints += Math.round(product.price) * product.BasketItem.quantity
+          bonusPoints += Math.round(product.price / 10) * product.BasketItem.quantity
         }
       })
       this.bonus = bonusPoints
