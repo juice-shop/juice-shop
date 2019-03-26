@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Din kurv",
   "LABEL_QUANTITY": "Antal",
   "LABEL_TOTAL_PRICE": "Samlet pris",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Til kassen",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kuponkoden skal være {{length}} tegn.",
