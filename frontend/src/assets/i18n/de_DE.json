@@ -57,7 +57,7 @@
   "TITLE_BASKET": "Dein Warenkorb",
   "LABEL_QUANTITY": "Anzahl",
   "LABEL_TOTAL_PRICE": "Gesamtpreis",
-  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
+  "CHECKOUT_FOR_BONUS_POINTS": "Für diese Bestellung erhältst du {{bonus}} Bonuspunkte!",
   "BTN_CHECKOUT": "Zur Kasse",
   "BTN_CREDIT_CARD": "Kreditkarte",
   "INVALID_COUPON_LENGTH": "Gutscheincode muss {{length}} Zeichen lang sein.",
