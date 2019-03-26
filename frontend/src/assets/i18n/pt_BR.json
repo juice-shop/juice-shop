@@ -52,11 +52,12 @@
   "LABEL_NAME": "Nome",
   "LABEL_DESCRIPTION": "Descrição",
   "LABEL_PRICE": "Preço",
-  "LABEL_BONUS": "Bonus",
+  "LABEL_BONUS": "Bónus",
   "LABEL_IMAGE": "Imagem",
   "TITLE_BASKET": "Seu Carrinho",
   "LABEL_QUANTITY": "Quantidade",
   "LABEL_TOTAL_PRICE": "Preço Total",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Finalizar Compra",
   "BTN_CREDIT_CARD": "Cartão de Crédito",
   "INVALID_COUPON_LENGTH": "O Código de Cupom deve possuir {{length}} caracteres.",
@@ -168,6 +169,6 @@
   "TITLE_REQUEST_DATA_EXPORT": "Pedido de Exportação de Dados",
   "PRIVACY_AND_SECURITY": "Privacidade e Segurança",
   "MENU": "Menu",
-  "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_SHOW_ALL": "Ver tudo",
+  "BTN_HIDE_ALL": "Esconder tudo"
 }
