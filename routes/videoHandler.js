@@ -111,7 +111,7 @@ exports.promotionVideo = () => {
 
 function getSubsFromFile () {
   try {
-    var data = fs.readFileSync('ftp/assets/jingleSubtitles.vtt', 'utf8')
+    var data = fs.readFileSync('frontend/dist/frontend/assets/public/subtitles/jingleSubtitles.vtt', 'utf8')
     return data.toString()
   } catch (e) {
     console.log('Error:', e.stack)
