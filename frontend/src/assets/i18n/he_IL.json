@@ -57,6 +57,7 @@
   "TITLE_BASKET": "הסל שלך",
   "LABEL_QUANTITY": "כמות",
   "LABEL_TOTAL_PRICE": "מחיר כולל",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "תשלום",
   "BTN_CREDIT_CARD": "כרטיס אשראי",
   "INVALID_COUPON_LENGTH": "קוד קופון צריך להיות באורך {{length}} תווים.",
