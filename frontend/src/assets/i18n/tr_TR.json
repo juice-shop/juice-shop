@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Sepetiniz",
   "LABEL_QUANTITY": "Adet",
   "LABEL_TOTAL_PRICE": "Toplam Fiyat",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Sepeti Onayla",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "İndirim kodu {{length}} karakter uzunluğunda olmalıdır.",
