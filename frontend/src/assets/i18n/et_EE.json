@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Ostukorv",
   "LABEL_QUANTITY": "Kogus",
   "LABEL_TOTAL_PRICE": "Hind kokku",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Ostukorv",
   "BTN_CREDIT_CARD": "Krediitkaart",
   "INVALID_COUPON_LENGTH": "Kupongi kood peab olema {{length}} tähemärki.",
