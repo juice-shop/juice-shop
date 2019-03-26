@@ -21,7 +21,10 @@
 
       <div>
         <h4 translate>LABEL_BONUS</h4>
-        <div [innerHTML]="data.points"></div>
+        <span class="fa-2x fa-layers fa-fw">
+          <i class="fas fa-crown"></i>
+          <span class="fa-layers-counter fa-layers-bottom-left fa-lg warn-notification">{{ data.points }}</span>
+        </span>
       </div>
     </div>
 
