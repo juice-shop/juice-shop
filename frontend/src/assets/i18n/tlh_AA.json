@@ -57,6 +57,7 @@
   "TITLE_BASKET": "puH Duj",
   "LABEL_QUANTITY": "mI'",
   "LABEL_TOTAL_PRICE": "Hoch 'ay'",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "je'",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Coupon code must be {{length}} characters long.",
