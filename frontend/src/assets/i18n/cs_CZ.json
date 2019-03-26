@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Váš košík",
   "LABEL_QUANTITY": "Počet",
   "LABEL_TOTAL_PRICE": "Celková cena",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Objednat",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kód kupónu musí být {{length}} znaků.",
