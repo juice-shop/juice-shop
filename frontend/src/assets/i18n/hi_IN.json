@@ -57,6 +57,7 @@
   "TITLE_BASKET": "आपकी बास्केट",
   "LABEL_QUANTITY": "मात्रा",
   "LABEL_TOTAL_PRICE": "कुल कीमत",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "चेक आउट",
   "BTN_CREDIT_CARD": "क्रेडिट कार्ड",
   "INVALID_COUPON_LENGTH": "कूपन कोड {{length}} वर्ण लंबा होना चाहिए।",
