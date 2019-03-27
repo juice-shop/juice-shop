@@ -8,10 +8,6 @@ mat-form-field {
   width: 100%;
 }
 
-blockquote {
-  border-left: 5px solid #d3d3d3;
-}
-
 blockquote p {
   margin-left: 5px;
 }
@@ -19,4 +15,27 @@ blockquote p {
 .btn-container button:nth-child(2) {
   left: 530px;
   width: 50px;
+}
+
+.detail-divider {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.rw-button {
+  margin-left: 8px;
+}
+
+.comment{
+  margin-bottom:8px;
+}
+
+.review-link {
+  margin-top: -10px;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+#submitButton {
+  float: right;
 }
