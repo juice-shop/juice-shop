@@ -23,14 +23,14 @@
       </div>
     </div>
 
-    <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="40px" >
+    <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="30px" >
       <mat-grid-tile *ngFor="let item of gridDataSource | async">
         <mat-card [style.width]="'100%'"class="mat-elevation-z5">
           <div (click)="showDetail(item)" >
             <div class="img-container" fxFlexAlign="center">
               <div>
               <img [src]="'assets/public/images/products/'+item.image" role="button"
-                   class="img-responsive img-thumbnail1">
+                   class="img-responsive img-thumbnail">
               </div>
             </div>
             <div fxFlexAlign="center">
@@ -38,7 +38,7 @@
                 {{item.name}}
               </div>
               <div class="item-price">
-                {{item.price}}
+                $ {{item.price}}
               </div>
           </div>
           </div>

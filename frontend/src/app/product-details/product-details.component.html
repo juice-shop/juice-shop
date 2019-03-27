@@ -1,36 +1,35 @@
 <mat-dialog-content>
 
   <div class="container mat-typography" fxLayout="column">
-    <h1>{{data.name}}</h1>
-
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px">
       <div fxFlex="noshrink">
-        <h4 translate>LABEL_IMAGE</h4>
         <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.image">
       </div>
 
       <div>
-        <h4 translate>LABEL_PRICE</h4>
-        <p>{{data.price}}</p>
-      </div>
-
-      <div>
-        <h4 translate>LABEL_DESCRIPTION</h4>
+        <h1>{{data.name}}</h1>
         <div [innerHTML]="data.description"></div>
+        <br/>
+        <p>$ {{data.price}}</p>
       </div>
     </div>
 
+    <mat-divider class="detail-divider"></mat-divider>
     <div>
       <h3 translate>LABEL_REVIEWS</h3>
-
-      <blockquote *ngFor="let review of reviews$|async">
+      <button mat-button style="height: 0; position: absolute;">
+        <!-- 'absorbs' the auto-focus behavior -->
+      </button>
+      <div *ngFor="let review of reviews$|async" class="comment">
         <div fxLayout="row">
-          <div>
+          <div (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
+               matTooltipDisabled="{{review.author !== author}}" matTooltip=" {{'BTN_EDIT' | translate}}"
+               aria-label="Text" matTooltipPosition="right">
             <cite>{{review.author}}</cite>
             <p>{{ review.message }}</p>
           </div>
           <div>
-            <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()">
+            <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()" class="rw-button">
             <span class="fa-2x fa-layers fa-fw">
               <i class="fas fa-thumbs-up"></i>
               <span class="fa-layers-counter fa-layers-bottom-right accent-notification">{{ review.likesCount }}</span>
@@ -38,28 +37,22 @@
             </button>
           </div>
         </div>
-        <button class="review-button" color="secondary" mat-stroked-button
-                *ngIf="review.author !== 'Anonymous' && review.author === author" (click)="editReview(review)"><i
-          class="fas fa-user-edit"></i> {{'BTN_EDIT' | translate}}
-        </button>
-      </blockquote>
+      </div>
 
-      <div>
-        <mat-form-field appearance="outline">
+      <div *ngIf="isLoggedIn()">
+
+        <mat-divider class="detail-divider"></mat-divider>
+
+        <mat-form-field appearance="outline" color="accent">
            <textarea [formControl]="reviewControl" #textPut cols="50" matInput placeholder=""
                      matTextareaAutosize matAutosizeMinRows="2"
                      matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 
-        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)"><i
-          class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)">
+          <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
         </button>
       </div>
     </div>
   </div>
-
-  <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
-    </button>
-  </footer>
 </mat-dialog-content>

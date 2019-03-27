@@ -60,3 +60,8 @@ mat-search-bar {
   font-size: 13px;
   margin-right: 14px;
 }
+
+:host ::ng-deep .mat-form-field-infix {
+  width: 20vw !important;
+  max-width: 250px !important;
+}

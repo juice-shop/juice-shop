@@ -1,6 +1,6 @@
 .table-container {
     min-width: 350px;
-    width: 75%;
+    width: 80%;
 }
 
 .heading {
@@ -13,27 +13,22 @@
 .img-thumbnail {
     cursor: pointer;
     height: auto;
-    width: 70px;
-}
-
-.img-thumbnail1 {
-    cursor: pointer;
-    height: auto;
-    width: 70px;
+    width: 110px;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
 .img-container {
-   height: 90px;
+   cursor: pointer;
+   height: 130px;
 }
 
 .btn-basket {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 mat-card {
@@ -46,9 +41,14 @@ mat-card {
     margin-bottom: 25px;
 }
 
-.item-name, .item-price {
+.item-price {
     text-align: center;
     margin-top: 12px;
+}
+
+.item-name {
+    text-align: center;
+    margin-top: 25px;
 }
 
 .banner {
