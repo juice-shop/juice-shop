@@ -541,13 +541,13 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssChallengeFeedback
 -
-  name: 'CSRF'
+  name: 'Change Bender''s Password'
   category: 'Broken Authentication'
   description: 'Change Bender''s password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.'
   difficulty: 5
-  hint: 'The fact that the name of this challenge is "CSRF" is already a huge hint.'
+  hint: 'In previous releases this challenge was wrongly accused of being based on CSRF.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection-or-forgot-password'
-  key: csrfChallenge
+  key: changePasswordBenderChallenge
 -
   name: 'XSS Tier 5'
   category: 'XSS'
@@ -648,6 +648,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorageChallenge
 -
+  name: 'Expired Coupon'
+  category: 'Roll your own Security'
+  description: 'Successfully redeem an expired campaign coupon code.'
+  difficulty: 4
+  hint: 'Try to identify past special event or holiday campaigns of the shop first.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
+  key: manipulateClockChallenge
+-
   name: 'Privacy Policy Tier 1'
   category: 'Roll your own Security'
   description: 'Read our privacy policy.'
@@ -663,5 +671,3 @@
   hint: 'Now we do ask you to confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
-
-
