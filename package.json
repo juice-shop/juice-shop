@@ -106,7 +106,7 @@
     "request": "~2.88.0",
     "sanitize-html": "1.4.2",
     "semver": "~5.6.0",
-    "sequelize": "~4.43.0",
+    "sequelize": "^4.43.0",
     "sequelize-noupdate-attributes": "^1.0.0",
     "serve-index": "~1.9",
     "socket.io": "~2.2.0",
