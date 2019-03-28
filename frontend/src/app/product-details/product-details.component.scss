@@ -8,8 +8,8 @@ mat-form-field {
   width: 100%;
 }
 
-blockquote p {
-  margin-left: 5px;
+p {
+  word-break: break-all;
 }
 
 .btn-container button:nth-child(2) {
