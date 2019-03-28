@@ -52,6 +52,7 @@
   "LABEL_NAME": "Nombre",
   "LABEL_DESCRIPTION": "Descripción",
   "LABEL_PRICE": "Precio",
+  "LABEL_BONUS": "Prima",
   "LABEL_IMAGE": "Imagen",
   "TITLE_BASKET": "Su Cesta",
   "LABEL_QUANTITY": "Cantidad",
