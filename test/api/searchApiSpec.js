@@ -91,7 +91,7 @@ describe('/rest/product/search', () => {
       .expect('json', 'data.?', {
         name: 3,
         description: 'bender@' + config.get('application.domain')
-        // no check for Bender's password as it might have already been changed by the CSRF test
+        // no check for Bender's password as it might have already been changed by different test
       })
       .expect('json', 'data.?', {
         name: 4,

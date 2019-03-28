@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const colors = require('colors/safe')
 const epilogue = require('epilogue-js')
 const express = require('express')
+const compression = require('compression')
 const helmet = require('helmet')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
@@ -81,6 +82,9 @@ app.locals.captchaReqId = 1
 app.locals.captchaBypassReqTimes = []
 app.locals.abused_ssti_bug = false
 app.locals.abused_ssrf_bug = false
+
+/* Compression for all requests */
+app.use(compression())
 
 /* Bludgeon solution for possible CORS problems: Allow everything! */
 app.options('*', cors())

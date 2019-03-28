@@ -52,10 +52,12 @@
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Price",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Image",
   "TITLE_BASKET": "Your Basket",
   "LABEL_QUANTITY": "Quantity",
   "LABEL_TOTAL_PRICE": "Total Price",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Checkout",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Coupon code must be {{length}} characters long.",
@@ -171,5 +173,7 @@
   "WELCOME": "Welcome to ",
   "SLOGAN": "The most trustworthy online shop out there!",
   "COMPANY": "Company",
-  "ADD_BASKET": "Add to Basket"
+  "ADD_BASKET": "Add to Basket",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all"
 }

@@ -52,6 +52,7 @@
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Price",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Image",
   "TITLE_BASKET": "Your Basket",
   "LABEL_QUANTITY": "Quantity",
