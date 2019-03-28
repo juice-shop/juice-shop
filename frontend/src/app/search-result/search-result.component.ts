@@ -33,9 +33,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
-  public applicationName = 'OWASP Juice Shop'
   public breakpoint: number
-  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
