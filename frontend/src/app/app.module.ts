@@ -85,6 +85,8 @@ import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
 import { MatGridListModule } from '@angular/material'
+import { MatBadgeModule } from '@angular/material/badge'
+/* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -175,7 +177,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatListModule,
     MatButtonToggleModule,
     LayoutModule,
-    MatGridListModule
+    MatGridListModule,
+    MatBadgeModule
   ],
   providers: [
     {

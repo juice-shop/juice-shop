@@ -52,6 +52,7 @@
   "LABEL_NAME": "Adı",
   "LABEL_DESCRIPTION": "Açıklama",
   "LABEL_PRICE": "Fiyat",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Resim",
   "TITLE_BASKET": "Sepetiniz",
   "LABEL_QUANTITY": "Adet",
