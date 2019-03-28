@@ -30,7 +30,7 @@
       </button>
       <div *ngFor="let review of reviews$|async" class="comment">
         <div fxLayout="row">
-          <div (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
+          <div class="review-text" (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
                matTooltipDisabled="{{review.author !== author}}" matTooltip=" {{'BTN_EDIT' | translate}}"
                aria-label="Text" matTooltipPosition="right">
             <cite>{{review.author}}</cite>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div *ngIf="isLoggedIn()">
+      <div [style.display]="isLoggedIn() ? 'block' : 'none' ">
 
         <mat-divider class="detail-divider"></mat-divider>
 
