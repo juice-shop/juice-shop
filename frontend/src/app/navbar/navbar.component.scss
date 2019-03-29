@@ -30,18 +30,6 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-.search-button {
-  padding-left: 0px;
-  padding-right: 0px;
-  margin-left: -15px;
-}
-
-.search-input {
-  font-size: 12px;
-  margin-right: 10px;
-  width: 9%;
-}
-
 .language-select {
   margin-left: 10px;
   width: 11%;
@@ -58,4 +46,22 @@ mat-toolbar {
 
 .flag-icon {
   margin-right: 2px;
+}
+
+:host ::ng-deep mat-form-field{
+  background: transparent !important;
+}
+
+:host ::ng-deep mat-icon{
+  background: transparent !important;
+}
+
+mat-search-bar {
+  font-size: 13px;
+  margin-right: 14px;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  width: 20vw !important;
+  max-width: 250px !important;
 }

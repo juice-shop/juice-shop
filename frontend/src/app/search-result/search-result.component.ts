@@ -33,9 +33,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
-  public applicationName = 'OWASP Juice Shop'
   public breakpoint: number
-  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
@@ -50,11 +48,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-      if (window.innerWidth <= 1680) {
+      if (window.innerWidth <= 1740) {
         this.breakpoint = 3
-        if (window.innerWidth <= 1268) {
+        if (window.innerWidth <= 1300) {
           this.breakpoint = 2
-          if (window.innerWidth <= 820) {
+          if (window.innerWidth <= 850) {
             this.breakpoint = 1
           }
         }
@@ -151,11 +149,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   }
 
   onResize (event) {
-    if (event.target.innerWidth <= 1680) {
+    if (event.target.innerWidth <= 1740) {
       this.breakpoint = 3
-      if (event.target.innerWidth <= 1268) {
+      if (event.target.innerWidth <= 1300) {
         this.breakpoint = 2
-        if (event.target.innerWidth <= 820) {
+        if (event.target.innerWidth <= 850) {
           this.breakpoint = 1
         }
       }
