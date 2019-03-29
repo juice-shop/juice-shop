@@ -18,7 +18,7 @@ describe('/#/search', () => {
 
       searchQuery.click()
       inputField.sendKeys('<iframe src="javascript:alert(`xss`)">')
-      browser.actions().sendKeys(protractor.Key.ENTER).perform();
+      browser.actions().sendKeys(protractor.Key.ENTER).perform()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
