@@ -37,6 +37,7 @@ export class BasketComponent implements OnInit {
   public userEmail: string
   public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
+  public bonus = 0
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
   public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
@@ -79,6 +80,13 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
+      let bonusPoints = 0
+      basket.Products.map(product => {
+        if (product.BasketItem && product.BasketItem.quantity) {
+          bonusPoints += Math.round(product.price / 10) * product.BasketItem.quantity
+        }
+      })
+      this.bonus = bonusPoints
     },(err) => console.log(err))
   }
 

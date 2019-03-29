@@ -37,21 +37,25 @@ module.exports = function placeOrder () {
           doc.moveDown()
           let totalPrice = 0
           let basketProducts = []
+          let totalPoints = 0
           basket.Products.forEach(({ BasketItem, price, name }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
 
             const itemTotal = price * BasketItem.quantity
+            const itemBonus = Math.round(price / 10) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
               name: name,
               price: price,
-              total: itemTotal
+              total: itemTotal,
+              bonus: itemBonus
             }
             basketProducts.push(product)
             doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
             doc.moveDown()
             totalPrice += itemTotal
+            totalPoints += itemBonus
           })
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
@@ -61,7 +65,10 @@ module.exports = function placeOrder () {
             doc.moveDown()
             totalPrice -= discountAmount
           }
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice)
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
+          doc.moveDown()
+          doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
+          doc.font('Times-Roman', 15).text('(You will be able to these points for amazing bonuses in the future!)')
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text('Thank you for your order!')
@@ -76,6 +83,7 @@ module.exports = function placeOrder () {
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
+            bonus: totalPoints,
             eta: Math.floor((Math.random() * 5) + 1).toString()
           })
 
@@ -103,10 +111,10 @@ function calculateApplicableDiscount (basket, req) {
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
     const couponCode = couponData[0]
-    const couponDate = new Date(couponData[1])
+    const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
-    if (campaign && couponDate === campaign.validOn) {
-      if (utils.notSolved(challenges.manipulateClockChallenge)) {
+    if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
+      if (utils.notSolved(challenges.manipulateClockChallenge)) { // FIXME check if coupon is actually expired
         utils.solve(challenges.manipulateClockChallenge)
       }
       return campaign.discount
