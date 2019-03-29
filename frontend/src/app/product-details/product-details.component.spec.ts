@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatBadgeModule } from '@angular/material/badge'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
 import { ProductDetailsComponent } from './product-details.component'
@@ -47,7 +48,8 @@ describe('ProductDetailsComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatDividerModule
+        MatDividerModule,
+        MatBadgeModule
       ],
       declarations: [ ProductDetailsComponent ],
       providers: [

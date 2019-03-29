@@ -80,7 +80,7 @@ describe('/rest/user/change-password', () => {
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 
-  it('GET password change for Bender without current password using CSRF', () => {
+  it('GET password change for Bender without current password using GET request', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
