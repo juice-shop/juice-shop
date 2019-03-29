@@ -25,3 +25,21 @@ mat-table,
 .row.fa-4x svg {
   margin-right: 10px;
 }
+
+.bonus-container {
+  margin-top: 10px;
+  place-content: stretch center;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  p {
+    color: #eee;
+  }
+}

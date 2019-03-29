@@ -77,7 +77,7 @@ ctf:
     adminSectionChallenge:
       name: Turkey
       code: TR
-    csrfChallenge:
+    changePasswordBenderChallenge:
       name: Suriname
       code: SR
     changeProductChallenge:
@@ -245,6 +245,15 @@ ctf:
     recyclesMissingItemChallenge:
       name: Uganda
       code: UG
-    twoFactorAuthUnsafeSecretStorage:
+    twoFactorAuthUnsafeSecretStorageChallenge:
       name: Sweden
       code: SE
+    manipulateClockChallenge:
+      name: Vatican City
+      code: VC
+    privacyPolicyChallenge:
+      name: Cameroon
+      code: CM
+    privacyPolicyProofChallenge:
+      name: Namibia
+      code: NA

