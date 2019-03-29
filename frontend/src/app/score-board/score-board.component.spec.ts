@@ -106,11 +106,11 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should hold existing challenges', () => {
-    challengeService.find.and.returnValue(of([ { description: 'XSS' }, { description: 'CSRF' } ]))
+    challengeService.find.and.returnValue(of([ { description: 'XSS' }, { description: 'XXE' } ]))
     component.ngOnInit()
     expect(component.challenges.length).toBe(2)
     expect(component.challenges[0].description).toBe('XSS')
-    expect(component.challenges[1].description).toBe('CSRF')
+    expect(component.challenges[1].description).toBe('XXE')
   })
 
   it('should log the error on retrieving configuration', fakeAsync(() => {

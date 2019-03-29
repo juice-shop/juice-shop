@@ -33,8 +33,8 @@ export class BasketService {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  checkout (id) {
-    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{}).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
+  checkout (id, couponData?: string) {
+    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{ 'couponData': couponData }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
   applyCoupon (id, coupon) {
