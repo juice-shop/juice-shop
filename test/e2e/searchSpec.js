@@ -13,11 +13,12 @@ describe('/#/search', () => {
 
   describe('challenge "xss1"', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
+      let inputField = element(by.id('mat-input-0'))
       const EC = protractor.ExpectedConditions
 
       searchQuery.click()
-      searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
-      browser.actions().sendKeys(protractor.Key.ENTER).perform()
+      inputField.sendKeys('<iframe src="javascript:alert(`xss`)">')
+      browser.actions().sendKeys(protractor.Key.ENTER).perform();
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
