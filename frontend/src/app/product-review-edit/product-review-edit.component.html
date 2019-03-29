@@ -3,19 +3,20 @@
     <h1 translate>LABEL_EDIT_REVIEW</h1>
 
     <div>
-      <mat-form-field>
-          <textarea matInput [formControl]="editReviewControl" #textPut cols="50" matInput placeholder=""
+      <mat-form-field appearance="outline" color="accent">
+          <textarea [formControl]="editReviewControl" #textPut matInput placeholder=""
                     matTextareaAutosize matAutosizeMinRows="2"
                     matAutosizeMaxRows="4"></textarea>
       </mat-form-field>
-
-      <button type="submit" (click)="editReview()" mat-raised-button color="primary"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
-      </button>
     </div>
   </div>
-
-  <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
-    </button>
-  </footer>
 </mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close class="close-dialog">
+    <i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
+  </button>
+  <button type="submit" (click)="editReview()" mat-raised-button color="primary">
+    <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+  </button>
+</mat-dialog-actions>

@@ -1,6 +1,6 @@
 .table-container {
     min-width: 350px;
-    width: 75%;
+    width: 80%;
 }
 
 .heading {
@@ -11,189 +11,39 @@
 }
 
 .img-thumbnail {
-    cursor: pointer;
     height: auto;
-    width: 70px;
-}
-
-.img-thumbnail1 {
-    cursor: pointer;
-    height: auto;
-    width: 70px;
+    max-width: 110px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    max-height: 145px;
 }
 
 .img-container {
-   height: 90px;
+   height: 130px;
+}
+
+.product {
+  cursor: pointer;
 }
 
 .btn-basket {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 mat-card {
   height: calc(100% - 70px);
 }
 
-.banner-image {
-    max-width: 45%;
-    margin-left: 27.5%;
-    margin-bottom: 25px;
-}
-
-.item-name, .item-price {
+.item-price {
     text-align: center;
     margin-top: 12px;
 }
 
-.banner {
-    width: 45%;
-    margin-left: auto;
-    margin-right: auto,
-}
-
-.banner h1 {
-    font-size: 3.7vw;
-    margin-top: 2vw;
-    float: left;
-}
-
-#bannerText,#bannerText2,.banner {
-    display: block;
-}
-
-.breakLine {
-    margin-bottom: 30px;
-}
-
-.slogan {
-    color: #d8552b;
-    clear: both;
-    font-size: 1.5vw;
-    margin-top: -3.5vw;
-    margin-bottom: 4vw;
-}
-
-.logo {
-    width: 25%;
-    margin-left: 1.3vw;
-}
-
-_:not(*:root), #bannerText {
-  margin-bottom: 20px;
-}
-
-_:default:not(:root:root), #bannerText2 {
-    margin-top: 20px;
-}
-
-@media screen and (max-width:1680px) {
-    #bannerText,.breakLine {
-        margin-bottom: 0;
-    }
-
-    _:default:not(:root:root), #bannerText2 {
-        margin-top: .1vw;
-    }
-}
-
-@media screen and (max-width:1024px) {
-    .breakLine {
-        margin-bottom: 0;
-    }
-
-    #bannerText2 {
-        margin-top: -20px;
-    }
-
-    _:default:not(:root:root), .banner h1 {
-        margin-bottom: 0!important;
-    }
-}
-
-@media screen and (max-width:768px) {
-    .banner h1,.breakLine {
-        margin-bottom: 0;
-    }
-
-    #bannerText2,.slogan {
-        margin-top: -25px;
-    }
-
-    _:default:not(:root:root), .banner h1 {
-        margin-bottom: 0!important;
-    }
-}
-
-@media screen and (max-width:487px) {
-    .banner {
-        width: 50%;
-    }
-
-    .banner h1 {
-        margin-bottom: -15px;
-    }
-
-    .breakLine {
-        margin-bottom: 3px;
-        display: block;
-    }
-
-    #bannerText,#bannerText2 {
-        margin-bottom: 0;
-    }
-
-    #bannerText2,.slogan {
-        margin-top: -15px;
-    }
-
-    .logo {
-        width: 30%;
-        margin-bottom: -15px;
-    }
-
-    @-moz-document url-prefix() {
-        #bannerText2 {
-          margin-top: -15px !important;
-        }
-    }
-
-    _:not(:root), #bannerText2 {
-        margin-top: -40px;
-    }
-
-    .banner h1 {
-        margin-bottom: -10px;
-    }
-
-    _:default:not(:root:root), .banner h1 {
-        margin-bottom: -8px!important;
-    }
-
-    _:not(:root), .logo {
-        margin-bottom: -25px!important;
-    }
-}
-
-@media screen and (max-width:375px) {
-
-    @-moz-document url-prefix() {
-        #bannerText2 {
-          margin-top: -15px !important;
-        }
-    }
-
-    _:not(:root), #bannerText2 {
-        margin-top: -45px;
-    }
-
-    _:default:not(:root:root), .banner h1,.logo {
-        margin-bottom: -15px!important;
-        margin-top: -10px!important;
-    }
+.item-name {
+    text-align: center;
+    margin-top: 25px;
 }

@@ -4,20 +4,21 @@ const pastebinLeakProduct = config.get('products').filter(product => product.key
 const models = require('../../models/index')
 
 describe('/#/search', () => {
-  let searchQuery, searchButton
+  let searchQuery
 
   beforeEach(() => {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
     searchQuery = element(by.id('searchQuery'))
-    searchButton = element(by.id('searchButton'))
   })
 
   describe('challenge "xss1"', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
+      let inputField = element(by.id('mat-input-0'))
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
-      searchButton.click()
+      searchQuery.click()
+      inputField.sendKeys('<iframe src="javascript:alert(`xss`)">')
+      browser.actions().sendKeys(protractor.Key.ENTER).perform()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
