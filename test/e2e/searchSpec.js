@@ -9,7 +9,7 @@ describe('/#/search', () => {
   beforeEach(() => {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
     searchQuery = element(by.id('searchQuery'))
-    searchButton = element(by.id('searchButton'))
+    //searchButton = element(by.id('searchButton'))
   })
 
   describe('challenge "xss1"', () => {
@@ -17,7 +17,8 @@ describe('/#/search', () => {
       const EC = protractor.ExpectedConditions
 
       searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
-      searchButton.click()
+      //searchButton.click()
+      browser.actions().sendKeys(protractor.Key.ENTER).perform();
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
