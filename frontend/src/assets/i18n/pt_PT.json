@@ -57,6 +57,7 @@
   "TITLE_BASKET": "Cesto de compras",
   "LABEL_QUANTITY": "Quantidade",
   "LABEL_TOTAL_PRICE": "Preço Total",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Finalizar Compra",
   "BTN_CREDIT_CARD": "Cartão de Crédito",
   "INVALID_COUPON_LENGTH": "O cupão deve possuir {{length}} caracteres.",
@@ -167,5 +168,7 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Autenticação de 2 factores",
   "TITLE_REQUEST_DATA_EXPORT": "Pedido de Exportação de Dados",
   "PRIVACY_AND_SECURITY": "Privacidade e Segurança",
-  "MENU": "Menu"
+  "MENU": "Menu",
+  "BTN_SHOW_ALL": "Ver tudo",
+  "BTN_HIDE_ALL": "Esconder tudo"
 }
