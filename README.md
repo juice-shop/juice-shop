@@ -257,8 +257,7 @@ also
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
-* [PDF of the Intro Slide Deck](http://de.slideshare.net/BjrnKimminich/juice-shop-an-intentionally-insecure-javascript-web-application)
-  on Slideshare
+* [PDF of the Intro Slide Deck](https://www.dropbox.com/s/g1hku92t4eeods9/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf?dl=0)
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
