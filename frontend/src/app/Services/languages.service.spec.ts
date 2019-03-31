@@ -4,7 +4,10 @@ import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { LanguagesService } from './languages.service'
 
 describe('LanguagesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}))
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule],
+    providers: [LanguagesService]
+  }))
 
   it('should be created', () => {
     const service: LanguagesService = TestBed.get(LanguagesService)
@@ -16,7 +19,7 @@ describe('LanguagesService', () => {
       let res
       service.getLanguages().subscribe((data) => res = data)
 
-      const req = httpMock.expectOne('http://localhost:3000/rest/language-list')
+      const req = httpMock.expectOne('http://localhost:3000/rest/languages')
       req.flush('apiResponse')
 
       tick()
