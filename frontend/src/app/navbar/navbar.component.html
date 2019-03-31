@@ -60,20 +60,22 @@
     </button>
 
     <mat-form-field class="language-select" fxShow fxHide.lt-lg>
-      <mat-select [(value)]="selectedLanguage">
+      <div *ngIf="languages">
+        <mat-select [(value)]="selectedLanguage">
 
-        <mat-select-trigger>
-          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-          {{selectedLanguage.lang}}
-        </mat-select-trigger>
+          <mat-select-trigger>
+            <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+            {{selectedLanguage.lang}}
+          </mat-select-trigger>
 
-        <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-          {{language?.lang}}
-          <i *ngIf="language.isFlask" class="fas fa-flask"></i>
-        </mat-option>
+          <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
+            <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+            {{language?.lang}}
+            <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+          </mat-option>
 
-      </mat-select>
+        </mat-select>
+      </div>
     </mat-form-field>
 
     <span class="fill-remaining-space"></span>
@@ -127,22 +129,23 @@
       <i class="fas fa-shopping-cart fa-lg"></i>
       {{"TITLE_BASKET" | translate}}
     </button>
+    <div *ngIf="languages">
+      <mat-form-field class="language-select">
+        <mat-select [(value)]="selectedLanguage">
 
-    <mat-form-field class="language-select">
-      <mat-select [(value)]="selectedLanguage">
+          <mat-select-trigger>
+            <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+            {{selectedLanguage.lang}}
+          </mat-select-trigger>
 
-        <mat-select-trigger>
-          <span *ngFor="let icon of selectedLanguage.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-          {{selectedLanguage.lang}}
-        </mat-select-trigger>
+          <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
+            <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+            {{language?.lang}}
+            <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+          </mat-option>
 
-        <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
-          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-          {{language?.lang}}
-          <i *ngIf="language.isFlask" class="fas fa-flask"></i>
-        </mat-option>
-
-      </mat-select>
-    </mat-form-field>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -70,6 +70,7 @@
     "config": "~2.0.0",
     "cookie-parser": "^1.4.4",
     "cors": "~2.8.5",
+    "diff": "^4.0.1",
     "dottie": "~2.0.1",
     "download": "~7.1.0",
     "epilogue-js": "~0.7",
@@ -147,7 +148,7 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "cd frontend && npm install && cd .. && npm run build",
-    "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
+    "serve": "concurrently --kill-others \"nodemon app\" \"cd frontend && ng serve\"",
     "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
     "start": "node app",
     "lint": "standard && cd frontend && ng lint && cd ..",
