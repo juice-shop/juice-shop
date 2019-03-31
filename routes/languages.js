@@ -55,10 +55,11 @@ module.exports = function getLanguageList () {
           }
           let fileContent = JSON.parse(content)
           let percentage = await calcPercentage(fileContent)
-          let iconObj = iconMap.find((x) => x.lang === fileContent.LANGUAGE)
+          let key = fileName.substring(0, fileName.indexOf('.'))
+          let iconObj = iconMap.find((x) => x.key === key)
           if (!iconObj) iconObj = ''
           let dataObj = {
-            key: fileName.substring(0, fileName.indexOf('.')),
+            key: key,
             lang: fileContent.LANGUAGE,
             icons: iconObj.icons,
             percentage: percentage
