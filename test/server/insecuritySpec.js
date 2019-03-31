@@ -30,8 +30,8 @@ describe('insecurity', () => {
 
     it('returns base85-encoded month, year and discount as coupon code', () => {
       const coupon = insecurity.generateCoupon(20, new Date('1980-01-01'))
-      expect(coupon).to.equal('n<MiifFb4l')
-      expect(z85.decode(coupon).toString()).to.equal('JAN80-20')
+      expect(coupon).to.equal('l}6E4iw00u')
+      expect(z85.decode(coupon).toString()).to.equal('DEC79-20')
     })
 
     it('uses current month and year if not specified', () => {
