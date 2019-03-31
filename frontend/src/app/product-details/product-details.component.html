@@ -10,15 +10,15 @@
         <h1>{{data.name}}</h1>
         <div [innerHTML]="data.description"></div>
         <br/>
-        <p>$ {{data.price}}</p>
-      </div>
-
-      <div *ngIf="data.points > 0">
-        <h4 translate>LABEL_BONUS</h4>
-        <span class="fa-2x fa-layers fa-fw">
-          <i class="fas fa-crown"></i>
-          <span class="fa-layers-counter fa-layers-bottom-left fa-lg warn-notification">{{ data.points }}</span>
-        </span>
+        <div>
+          <p class="item-price">$ {{data.price}}</p>
+          <div *ngIf="data.points > 0" matTooltip="{{'LABEL_BONUS' | translate}}" aria-label="Text">
+            <span class="fa-2x fa-layers fa-fw">
+            <i class="fas fa-crown"></i>
+            <span class="fa-layers-counter fa-layers-bottom-left fa-lg warn-notification">{{ data.points }}</span>
+          </span>
+          </div>
+        </div>
       </div>
     </div>
 
