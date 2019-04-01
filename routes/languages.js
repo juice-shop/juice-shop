@@ -8,6 +8,7 @@ module.exports = function getLanguageList () {
     { key: 'ar_SA', icons: ['ae', 'tn'], lang: 'عربى' },
     { key: 'az_AZ', icons: ['az'], lang: 'Azərbaycanca' },
     { key: 'bg_BG', icons: ['bg'], lang: 'български (език)' },
+    { key: 'ca_ES', icons: ['es-ct'], lang: 'Catalan' },
     { key: 'cs_CZ', icons: ['cz'], lang: 'Česky' },
     { key: 'da_DK', icons: ['dk'], lang: 'Dansk' },
     { key: 'de_DE', icons: ['de'], lang: 'Deutsch' },
