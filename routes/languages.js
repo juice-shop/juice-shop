@@ -1,8 +1,6 @@
 var fs = require('fs')
-var jsDiff = require('diff')
 
 module.exports = function getLanguageList () {
-  // TODO:  Move to separate file
   const iconMap = [
     { key: 'en', icons: ['gb', 'us'], lang: 'English' },
     { key: 'ar_SA', icons: ['ae', 'tn'], lang: 'عربى' },
@@ -49,20 +47,19 @@ module.exports = function getLanguageList () {
 
     fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
       if (err) {
-        res.status(404).json('Unable to retrieve the file en.json')
+        next(new Error(`Unable to retrieve en.json language file: ${err.message}`))
       }
       enContent = JSON.parse(content)
     })
 
     fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
       if (err) {
-        next(new Error(`Something went wrong.  Please try again later.`))
+        next(new Error(`Unable to read i18n directory: ${err.message}`))
       }
       languageFiles.forEach((fileName) => {
         fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
           if (err) {
-            // Could be considered a verbose error message
-            next(new Error(`Language file with the name ${fileName} does not exist.`))
+            next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
           }
           let fileContent = JSON.parse(content)
           let percentage = await calcPercentage(fileContent, enContent)
@@ -75,8 +72,6 @@ module.exports = function getLanguageList () {
             icons: iconObj.icons,
             percentage: percentage
           }
-          // Skip this since we are pushing static English Object
-          // and because of star trek hacking challenge
           if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
             languages.push(dataObj)
           }
@@ -91,16 +86,16 @@ module.exports = function getLanguageList () {
     })
 
     function calcPercentage (fileContent, enContent) {
+      let totalStrings = Object.keys(enContent).length
+      let differentStrings = 0
       return new Promise((resolve, reject) => {
         try {
-          let diff = jsDiff.diffJson(enContent, fileContent)
-          let same = 0
-          diff.forEach((part) => {
-            if (!part.removed) {
-              same++
+          for (let key in fileContent) {
+            if (fileContent.hasOwnProperty(key) && fileContent[key] !== enContent[key]) {
+              differentStrings++
             }
-          })
-          resolve((same / diff.length) * 100)
+          }
+          resolve((differentStrings / totalStrings) * 100)
         } catch (err) {
           reject(err)
         }
