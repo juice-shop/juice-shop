@@ -67,10 +67,12 @@ const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
 const twoFactorAuth = require('./routes/2fa')
+const languageList = require('./routes/languages')
 const config = require('config')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
+require('./lib/startup/validateDependencies')({ packageDir: './frontend' })
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
@@ -282,6 +284,7 @@ app.get('/rest/captcha', captcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
 app.get('/rest/saveLoginIp', saveLoginIp())
+app.get('/rest/languages', languageList())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())
