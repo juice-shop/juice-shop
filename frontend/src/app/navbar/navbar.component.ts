@@ -9,7 +9,6 @@ import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 
-import { languages } from './languages'
 import {
   faBomb,
   faComment,
