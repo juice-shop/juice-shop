@@ -74,8 +74,9 @@ module.exports = function getLanguageList () {
             icons: iconObj.icons,
             percentage: percentage
           }
-          // Skip this since we are pushing static object
-          if (fileName !== 'en.json') {
+          // Skip this since we are pushing static English Object
+          // and because of star trek hacking challenge
+          if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
             languages.push(dataObj)
           }
           count++
