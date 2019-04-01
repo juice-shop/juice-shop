@@ -102,10 +102,16 @@ export class NavbarComponent implements OnInit {
         this.getScoreBoardStatus()
       })
     })
+  }
 
+  checkLanguage () {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
+      this.selectedLanguage = this.languages.find((y) => y.key === langKey)
+    } else {
+      this.changeLanguage('en')
+      this.selectedLanguage = this.languages.find((y) => y.key === 'en')
     }
   }
 
@@ -163,7 +169,7 @@ export class NavbarComponent implements OnInit {
   getLanguages () {
     this.langService.getLanguages().subscribe((res) => {
       this.languages = res
-      this.selectedLanguage = this.languages.find((y) => y.lang === 'English')
+      this.checkLanguage()
     })
   }
 
