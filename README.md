@@ -257,7 +257,7 @@ also
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
-* [PDF of the Intro Slide Deck](https://www.dropbox.com/s/g1hku92t4eeods9/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf?dl=0)
+* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf)
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
@@ -276,7 +276,7 @@ following table for possible ways to do so:
 | Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                                                                             |
 | Want to help with development? Pull requests are highly welcome!                                      | Please refer to the [_Contribute to development_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) and [_Codebase 101_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/codebase.html) chapters of our companion guide ebook |
 | Want to help with internationalization?                                                               | Find out how to join our [Crowdin project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)                                                       |
-| Anything else you would like to contribute?                                                           | Write an email to owasp_juice_shop_project@lists.owasp.org or bjoern.kimminich@owasp.org                                                                                                                                                                                                 |
+| Anything else you would like to contribute?                                                           | Write an email to juice-shop-project@owasp.org (You have to first [join the mailing list](https://groups.google.com/a/owasp.org/forum/#!forum/juice-shop-project/join))                                                                                                                  |
 
 ## References
 
