@@ -70,14 +70,15 @@ module.exports = function getLanguageList () {
             key: key,
             lang: fileContent.LANGUAGE,
             icons: iconObj.icons,
-            percentage: percentage
+            percentage: percentage,
+            gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
           }
           if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
             languages.push(dataObj)
           }
           count++
           if (count === languageFiles.length) {
-            languages.push({ key: 'en', icons: ['gb', 'us'], lang: 'English', percentage: 100 })
+            languages.push({ key: 'en', icons: ['gb', 'us'], lang: 'English', percentage: 100, gauge: 'full' })
             languages.sort((a, b) => a.lang.localeCompare(b.lang))
             res.status(200).json(languages)
           }

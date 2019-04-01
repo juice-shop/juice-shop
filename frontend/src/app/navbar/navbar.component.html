@@ -71,7 +71,7 @@
           <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
             <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
             {{language?.lang}}
-            <i *ngIf="language.percentage < 80" class="fas fa-flask"></i>
+            <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
           </mat-option>
 
         </mat-select>
@@ -141,7 +141,7 @@
           <mat-option *ngFor="let language of languages" (click)="changeLanguage(language.key)" [value]="language">
             <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
             {{language?.lang}}
-            <i *ngIf="language.percentage < 80" class="fas fa-flask"></i>
+            <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
           </mat-option>
 
         </mat-select>
