@@ -16,8 +16,8 @@ describe('/#/privacy-security/change-password', () => {
 
     it('should be able to change password', () => {
       currentPassword.sendKeys('focusOnScienceMorty!focusOnScience')
-      newPassword.sendKeys('GonorrheaCantSeeUs!IfWeDontMove')
-      newPasswordRepeat.sendKeys('GonorrheaCantSeeUs!IfWeDontMove')
+      newPassword.sendKeys('GonorrheaCantSeeUs!')
+      newPasswordRepeat.sendKeys('GonorrheaCantSeeUs!')
       changeButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
