@@ -6,23 +6,19 @@ const challenges = require('../data/datacache').challenges
 module.exports = function servePublicFiles () {
   return ({ params, query }, res, next) => {
     const file = params.file
-    const mdDebug = query.md_debug
 
     if (!file.includes('/')) {
-      verify(file, res, next, mdDebug)
+      verify(file, res, next)
     } else {
       res.status(403)
       next(new Error('File names cannot contain forward slashes!'))
     }
   }
 
-  function verify (file, res, next, mdDebug) {
+  function verify (file, res, next) {
     if (file && (endsWithWhitelistedFileType(file) || (file === 'incident-support.kdbx'))) {
       file = insecurity.cutOffPoisonNullByte(file)
       verifySuccessfulPoisonNullByteExploit(file)
-      res.sendFile(path.resolve(__dirname, '../ftp/', file))
-    } else if (file && mdDebug && utils.contains(file, '.md') && endsWithWhitelistedFileType(mdDebug)) {
-      verifySuccessfulDebugParameterExploit(file)
       res.sendFile(path.resolve(__dirname, '../ftp/', file))
     } else {
       res.status(403)
@@ -41,12 +37,6 @@ module.exports = function servePublicFiles () {
       utils.solve(challenges.forgottenBackupChallenge)
     } else if (utils.notSolved(challenges.misplacedSignatureFileChallenge) && file.toLowerCase() === 'suspicious_errors.yml') {
       utils.solve(challenges.misplacedSignatureFileChallenge)
-    }
-  }
-
-  function verifySuccessfulDebugParameterExploit (file) {
-    if (utils.notSolved(challenges.forgottenBackupChallenge) && file.toLowerCase() === 'coupons_2013.md.bak') {
-      utils.solve(challenges.forgottenBackupChallenge)
     }
   }
 
