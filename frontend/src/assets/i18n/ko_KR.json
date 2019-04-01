@@ -57,6 +57,7 @@
   "TITLE_BASKET": "장바구니",
   "LABEL_QUANTITY": "수량",
   "LABEL_TOTAL_PRICE": "총 판매 가격",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "주문하기",
   "BTN_CREDIT_CARD": "신용카드",
   "INVALID_COUPON_LENGTH": "쿠폰 코드는 반드시 {{length}}자 이어야 합니다.",
@@ -167,5 +168,7 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "2단계 인증",
   "TITLE_REQUEST_DATA_EXPORT": "데이터 내보내기 요청",
   "PRIVACY_AND_SECURITY": "개인정보 및 보안",
-  "MENU": "메뉴"
+  "MENU": "메뉴",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all"
 }
