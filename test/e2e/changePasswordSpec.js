@@ -24,7 +24,7 @@ describe('/#/privacy-security/change-password', () => {
     })
   })
 
-  describe('challenge "csrf"', () => {
+  describe('challenge "changePasswordBenderChallenge"', () => {
     protractor.beforeEach.login({ email: 'bender@' + config.get('application.domain'), password: 'genderBender' })
 
     it('should be able to change password via XSS-powered attack on password change without passing current password', () => {
