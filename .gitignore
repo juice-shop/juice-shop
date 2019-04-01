@@ -12,6 +12,7 @@ ftp/legal.md
 .nyc_output/
 .sass-cache/
 build/
+cache/
 dist/
 logs/
 vagrant/.vagrant/
