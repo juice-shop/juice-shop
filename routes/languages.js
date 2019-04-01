@@ -2,6 +2,7 @@ var fs = require('fs')
 var jsDiff = require('diff')
 
 module.exports = function getLanguageList () {
+  // TODO:  Move to separate file
   const iconMap = [
     { key: 'en', icons: ['gb', 'us'], lang: 'English' },
     { key: 'ar_SA', icons: ['ae', 'tn'], lang: 'عربى' },
@@ -43,6 +44,15 @@ module.exports = function getLanguageList () {
   return (req, res, next) => {
     let languages = []
     let count = 0
+    let enContent
+
+    fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
+      if (err) {
+        res.status(404).json('Unable to retrieve the file en.json')
+      }
+      enContent = JSON.parse(content)
+    })
+
     fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
       if (err) {
         next(new Error(`Something went wrong.  Please try again later.`))
@@ -54,7 +64,7 @@ module.exports = function getLanguageList () {
             next(new Error(`Language file with the name ${fileName} does not exist.`))
           }
           let fileContent = JSON.parse(content)
-          let percentage = await calcPercentage(fileContent)
+          let percentage = await calcPercentage(fileContent, enContent)
           let key = fileName.substring(0, fileName.indexOf('.'))
           let iconObj = iconMap.find((x) => x.key === key)
           if (!iconObj) iconObj = ''
@@ -78,24 +88,17 @@ module.exports = function getLanguageList () {
       })
     })
 
-    function calcPercentage (fileContent) {
+    function calcPercentage (fileContent, enContent) {
       return new Promise((resolve, reject) => {
         try {
-          fs.readFile('frontend/dist/frontend/assets/i18n/en.json', 'utf-8', (err, content) => {
-            if (err) {
-              // Could be considered a verbose error message
-              next(new Error(`Unable to calulate translation percentage`))
+          let diff = jsDiff.diffJson(enContent, fileContent)
+          let same = 0
+          diff.forEach((part) => {
+            if (!part.removed) {
+              same++
             }
-            let enContent = JSON.parse(content)
-            let diff = jsDiff.diffJson(enContent, fileContent)
-            let same = 0
-            diff.forEach((part) => {
-              if (!part.removed) {
-                same++
-              }
-            })
-            resolve((same / diff.length) * 100)
           })
+          resolve((same / diff.length) * 100)
         } catch (err) {
           reject(err)
         }
