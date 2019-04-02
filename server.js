@@ -68,6 +68,7 @@ const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
 const twoFactorAuth = require('./routes/2fa')
 const config = require('config')
+const imageCaptcha = require('./routes/imageCaptcha')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -223,6 +224,7 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
 /* Verify the 2FA Token */
+app.post('/rest/verify-image-captcha', imageCaptcha.verifyCaptcha())
 
 app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
 app.post('/rest/2fa/verify', twoFactorAuth.verify())
@@ -280,6 +282,7 @@ app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
+app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
 app.get('/rest/saveLoginIp', saveLoginIp())
