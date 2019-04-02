@@ -78,7 +78,7 @@
   "LABEL_NEW_PASSWORD": "New Password",
   "LABEL_REPEAT_NEW_PASSWORD": "Repeat New Password",
   "BTN_CHANGE": "choH",
-  "TITLE_COMPLAIN": "File Complaint",
+  "TITLE_COMPLAIN": "bep",
   "MANDATORY_MESSAGE": "Please provide a text.",
   "INVALID_MESSAGE_LENGTH": "Text length must be {{length}} characters.",
   "INVALID_FILE_SIZE": "File too large. Maximum {{size}} allowed.",
