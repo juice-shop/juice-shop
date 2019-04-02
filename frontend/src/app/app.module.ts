@@ -58,6 +58,7 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
+import { ImageCaptchaService } from './Services/image-captcha.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -200,7 +201,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     BasketService,
     ChallengeService,
     CookieService,
-    AdminGuard
+    AdminGuard,
+    ImageCaptchaService
   ],
   bootstrap: [AppComponent]
 })
