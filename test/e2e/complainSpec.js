@@ -125,6 +125,6 @@ describe('/#/complain', () => {
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 3.5' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 6' })
   })
 })
