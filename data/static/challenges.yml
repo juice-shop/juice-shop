@@ -634,7 +634,7 @@
 -
   name: 'XSS Tier 6'
   category: 'XSS'
-  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on our promotional video page.'
+  description: 'Embed the XSS attack <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into one of our marketing collaterals.'
   difficulty: 6
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
   hintUrl: ''
