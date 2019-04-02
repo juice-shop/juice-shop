@@ -15,6 +15,9 @@ module.exports = function saveLoginIp () {
       if (lastLoginIp === undefined) {
         lastLoginIp = req.connection.remoteAddress
       }
+      if (lastLoginIp.substr(0, 7) === '::ffff:') { // Simplify ipv4 addresses
+        lastLoginIp = lastLoginIp.substr(7)
+      }
       models.User.findByPk(loggedInUser.data.id).then(user => {
         user.update({ lastLoginIp: lastLoginIp }).then(user => {
           res.json(user)
