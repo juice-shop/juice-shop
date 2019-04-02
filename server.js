@@ -66,6 +66,7 @@ const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
+const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
 const languageList = require('./routes/languages')
 const config = require('config')
@@ -299,6 +300,10 @@ app.post('/b2b/v2/orders', b2bOrder())
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
+
+/* Routes for promotion video page */
+app.get('/promotion', videoHandler.promotionVideo())
+app.get('/video', videoHandler.getVideo())
 
 /* Routes for profile page */
 app.get('/profile', userProfile())
