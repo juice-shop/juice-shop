@@ -138,7 +138,7 @@
   name: 'Forgotten Sales Backup'
   category: 'Security Misconfiguration'
   description: 'Access a salesman''s forgotten backup file.'
-  difficulty: 3
+  difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#access-a-salesmans-forgotten-backup-file'
   key: forgottenBackupChallenge

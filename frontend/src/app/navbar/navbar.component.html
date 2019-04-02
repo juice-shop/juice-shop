@@ -70,7 +70,7 @@
               mat-menu-item>
         <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
         {{language?.lang}}
-        <i *ngIf="language.isFlask" class="fas fa-flask"></i>
+        <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
       </button>
     </mat-menu>
 
