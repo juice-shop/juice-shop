@@ -13,12 +13,7 @@ module.exports = function saveLoginIp () {
         utils.solve(challenges.httpHeaderXssChallenge)
       }
       if (lastLoginIp === undefined) {
-        lastLoginIp = req.connection.remoteAddress
-      }
-      if (utils.startsWith(lastLoginIp, '::ffff:')) { // Simplify ipv4 addresses
-        lastLoginIp = lastLoginIp.substr(7)
-      } else if (lastLoginIp === '::1') {
-        lastLoginIp = '127.0.0.1'
+        lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
       }
       models.User.findByPk(loggedInUser.data.id).then(user => {
         user.update({ lastLoginIp: lastLoginIp }).then(user => {
