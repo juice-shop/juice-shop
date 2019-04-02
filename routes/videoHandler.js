@@ -42,13 +42,7 @@ exports.promotionVideo = () => {
       if (err) throw err
       let jadeTemplate = buf.toString()
       let subs = getSubsFromFile()
-      let subsChecker = subs
-      let closeTagCount = 0
-      if (subsChecker.match(`</script>`)) {
-        closeTagCount++
-        subsChecker = subsChecker.replace(`</script>`, ``)
-      }
-      if (utils.contains(subsChecker, `<script>alert(\`xss\`)</script>`) && closeTagCount >= 1) {
+      if (utils.contains(subs, `</script><script>alert(\`xss\`)</script>`)) {
         if (utils.notSolved(challenges.videoXssChallenge)) {
           utils.solve(challenges.videoXssChallenge)
         }

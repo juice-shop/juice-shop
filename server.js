@@ -77,7 +77,7 @@ require('./lib/startup/validateDependencies')({ packageDir: './frontend' })
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/restoreOriginalLegalInformation')()
+require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 
 /* Locals */
 app.locals.captchaId = 0
