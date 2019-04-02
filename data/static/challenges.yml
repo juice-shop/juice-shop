@@ -632,6 +632,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
+  name: 'XSS Tier 6'
+  category: 'XSS'
+  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on our promotional video page.'
+  difficulty: 6
+  hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
+  hintUrl: ''
+  key: videoXssChallenge
+-
   name: 'Lost in Recycling'
   category: 'Injection'
   description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
@@ -671,3 +679,4 @@
   hint: 'Now we do ask you to confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
+  
