@@ -21,6 +21,7 @@ exports.getVideo = () => {
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
+        'Content-Location': '/assets/public/videos/JuiceShopJingle.mp4',
         'Content-Type': 'video/mp4'
       }
       res.writeHead(206, head)
