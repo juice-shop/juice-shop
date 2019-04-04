@@ -52,7 +52,7 @@
   "LABEL_NAME": "名稱",
   "LABEL_DESCRIPTION": "描述",
   "LABEL_PRICE": "價格",
-  "LABEL_BONUS": "獎金",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "圖片",
   "TITLE_BASKET": "您的購物籃",
   "LABEL_QUANTITY": "數量",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
