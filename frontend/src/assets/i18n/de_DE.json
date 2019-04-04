@@ -171,10 +171,7 @@
   "MENU": "Menü",
   "BTN_SHOW_ALL": "Alle anzeigen",
   "BTN_HIDE_ALL": "Alle ausblenden",
-  "ENTER_CAPTCHA": "Enter Captcha",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format",
-  "JSON": "JSON",
-  "PDF": "PDF",
-  "EXCEL": "Excel"
+  "EXPORT_LABEL": "Export Format"
 }
