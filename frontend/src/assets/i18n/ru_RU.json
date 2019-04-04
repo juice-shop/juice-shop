@@ -52,7 +52,7 @@
   "LABEL_NAME": "Название",
   "LABEL_DESCRIPTION": "Описание",
   "LABEL_PRICE": "Цена",
-  "LABEL_BONUS": "премия",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Картинка",
   "TITLE_BASKET": "Корзина",
   "LABEL_QUANTITY": "Количество",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
