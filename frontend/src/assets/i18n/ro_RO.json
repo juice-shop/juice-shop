@@ -52,7 +52,7 @@
   "LABEL_NAME": "Nume",
   "LABEL_DESCRIPTION": "Descriere",
   "LABEL_PRICE": "Preţ",
-  "LABEL_BONUS": "Premiu",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Imagine",
   "TITLE_BASKET": "Coşul dvs",
   "LABEL_QUANTITY": "Cantitate",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
