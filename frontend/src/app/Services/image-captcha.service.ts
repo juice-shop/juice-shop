@@ -16,7 +16,7 @@ export class ImageCaptchaService {
     return this.http.get(this.hostServer + '/rest/image-captcha').pipe(catchError((err) => { throw err }))
   }
 
-  verifyCaptcha (params) {
-    return this.http.post(this.hostServer + '/rest/verify-image-captcha', params).pipe(catchError((err) => { throw err }))
+  dataExport (params) {
+    return this.http.post(this.hostServer + '/rest/data-export/', params).pipe(catchError((err) => { throw err }))
   }
 }
