@@ -28,7 +28,7 @@ export class DataExportComponent implements OnInit {
 
   needCaptcha () {
     let nowTime = new Date()
-    let timeOfCaptcha = localStorage.getItem('lastSuccessfulTry') ? new Date(JSON.parse(localStorage.getItem('lastSuccessfulTry'))) : new Date(0)
+    let timeOfCaptcha = localStorage.getItem('lstdtxprt') ? new Date(JSON.parse(localStorage.getItem('lstdtxprt'))) : new Date(0)
     if (nowTime.getTime() - timeOfCaptcha.getTime() < 300000) {
       this.getNewCaptcha()
       this.presenceOfCaptcha = true
@@ -56,7 +56,7 @@ export class DataExportComponent implements OnInit {
       this.userData = data.userData
       window.open('', '_blank', 'width=500').document.write(this.userData)
       this.lastSuccessfulTry = new Date()
-      localStorage.setItem('lastSuccessfulTry',JSON.stringify(this.lastSuccessfulTry))
+      localStorage.setItem('lstdtxprt',JSON.stringify(this.lastSuccessfulTry))
       this.ngOnInit()
       this.resetForm()
     }, (error) => {
