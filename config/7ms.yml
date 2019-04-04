@@ -25,6 +25,7 @@ application:
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'
     linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
+  privacyContactEmail: 'donotreply@7-ms.us'
   securityTxt:
     contact: 'mailto:donotreply@7-ms.us'
     encryption: ~

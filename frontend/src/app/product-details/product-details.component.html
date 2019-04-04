@@ -18,6 +18,14 @@
         <h4 translate>LABEL_DESCRIPTION</h4>
         <div [innerHTML]="data.description"></div>
       </div>
+
+      <div *ngIf="data.points > 0">
+        <h4 translate>LABEL_BONUS</h4>
+        <span class="fa-2x fa-layers fa-fw">
+          <i class="fas fa-crown"></i>
+          <span class="fa-layers-counter fa-layers-bottom-left fa-lg warn-notification">{{ data.points }}</span>
+        </span>
+      </div>
     </div>
 
     <div>
@@ -51,7 +59,7 @@
                      matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
 
-        <button type="submit" id="submitButton" mat-raised-button color="primary" (click)="addReview(textPut)"><i
+        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)"><i
           class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
         </button>
       </div>
