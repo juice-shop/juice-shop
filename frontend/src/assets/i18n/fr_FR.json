@@ -52,7 +52,7 @@
   "LABEL_NAME": "Nom",
   "LABEL_DESCRIPTION": "Description",
   "LABEL_PRICE": "Prix",
-  "LABEL_BONUS": "Prime",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Image",
   "TITLE_BASKET": "Votre panier",
   "LABEL_QUANTITY": "Quantité",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "Confidentialité & Sécurité",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Tout afficher",
-  "BTN_HIDE_ALL": "Tout cacher"
+  "BTN_HIDE_ALL": "Tout cacher",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
