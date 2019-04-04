@@ -153,7 +153,7 @@
     "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
     "start": "node app",
     "lint": "standard && cd frontend && ng lint && cd ..",
-    "lintFix": "standard --fix && cd frontend && ng lint --fix && cd ..",
+    "fix": "standard --fix && cd frontend && ng lint --fix && cd ..",
     "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand",
     "preprotractor": "webdriver-manager update --gecko false",

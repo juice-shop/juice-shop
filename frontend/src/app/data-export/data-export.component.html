@@ -6,15 +6,16 @@
         <div class="form-container" id="data-export-form">
             <mat-radio-group [formControl]="formatControl">
                 <label class="radio-label" translate>EXPORT_LABEL</label>
-                <mat-radio-button value="1" translate>JSON</mat-radio-button>
-                <mat-radio-button value="2" translate>PDF</mat-radio-button>
-                <mat-radio-button value="3" translate>EXCEL</mat-radio-button>
+                <mat-radio-button value="1">JSON</mat-radio-button>
+                <mat-radio-button value="2">PDF</mat-radio-button>
+                <mat-radio-button value="3">Excel</mat-radio-button>
             </mat-radio-group>
             <div *ngIf="presenceOfCaptcha">
                 <div #dataContainer class="captcha-image"></div>
                 <mat-form-field appearance="outline">
-                    <mat-label translate>ENTER_CAPTCHA</mat-label>
+                    <mat-label translate [translateParams]="{length: '5'}">TYPE_THE_CHARACTERS_SHOWN</mat-label>
                     <input [formControl]="captchaControl" type="text" matInput>
+                    <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA</mat-error>
                 </mat-form-field>
             </div>
         </div>
