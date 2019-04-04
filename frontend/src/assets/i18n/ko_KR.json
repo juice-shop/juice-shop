@@ -52,7 +52,7 @@
   "LABEL_NAME": "이름",
   "LABEL_DESCRIPTION": "상품 설명",
   "LABEL_PRICE": "가격",
-  "LABEL_BONUS": "보너스",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "사진",
   "TITLE_BASKET": "장바구니",
   "LABEL_QUANTITY": "수량",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "개인정보 및 보안",
   "MENU": "메뉴",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
