@@ -34,6 +34,8 @@ module.exports = function getUserProfile () {
           jadeTemplate = jadeTemplate.replace(/_bgColor_/g, theme.bgColor)
           jadeTemplate = jadeTemplate.replace(/_textColor_/g, theme.textColor)
           jadeTemplate = jadeTemplate.replace(/_navColor_/g, theme.navColor)
+          jadeTemplate = jadeTemplate.replace(/_primLight_/g, theme.primLight)
+          jadeTemplate = jadeTemplate.replace(/_primDark_/g, theme.primDark)
           const fn = jade.compile(jadeTemplate)
           res.send(fn(user.dataValues))
         }).catch(error => {
