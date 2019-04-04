@@ -1,1 +1,25 @@
-<div class="tempclass">Data Export Component to be added here</div>
+<div fxLayoutAlign="center">
+    <mat-card>  
+      <h3 translate>TITLE_REQUEST_DATA_EXPORT</h3>
+        <div *ngIf="confirmation"><p class="confirmation">{{confirmation}}</p></div>
+        <div *ngIf="error"><p class="error">{{error}}</p></div>
+        <div class="form-container" id="data-export-form">
+            <mat-radio-group [formControl]="formatControl">
+                <label class="radio-label" translate>EXPORT_LABEL</label>
+                <mat-radio-button value="1" translate>JSON</mat-radio-button>
+                <mat-radio-button value="2" translate>PDF</mat-radio-button>
+                <mat-radio-button value="3" translate>EXCEL</mat-radio-button>
+            </mat-radio-group>
+            <div *ngIf="presenceOfCaptcha">
+                <div #dataContainer class="captcha-image"></div>
+                <mat-form-field appearance="outline">
+                    <mat-label translate>ENTER_CAPTCHA</mat-label>
+                    <input [formControl]="captchaControl" type="text" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+        <button type="submit" color="primary" mat-raised-button (click)="save()" [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)">
+            <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_REQUEST' | translate}}
+        </button>
+    </mat-card>
+</div>
