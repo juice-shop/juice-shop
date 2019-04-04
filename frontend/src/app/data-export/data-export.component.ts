@@ -10,6 +10,7 @@ import { ImageCaptchaService } from '../Services/image-captcha.service'
 export class DataExportComponent implements OnInit {
 
   public captchaControl: FormControl = new FormControl('', [Validators.required])
+  public formatControl: FormControl = new FormControl('', [Validators.required])
   public captcha: any
   private captchaId: any
   private dataRequest: any = undefined
@@ -47,7 +48,8 @@ export class DataExportComponent implements OnInit {
       this.dataRequest.captchaId = this.captchaId
       this.dataRequest.answer = this.captchaControl.value
     }
-    this.imageCaptchaService.verifyCaptcha(this.dataRequest).subscribe((data: any) => {
+    this.dataRequest.format = this.formatControl.value
+    this.imageCaptchaService.dataExport(this.dataRequest).subscribe((data: any) => {
       this.error = null
       this.confirmation = data.confirmation
       this.lastSuccessfulTry = new Date()

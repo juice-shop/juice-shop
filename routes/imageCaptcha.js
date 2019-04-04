@@ -21,12 +21,10 @@ function imageCaptchas () {
 imageCaptchas.verifyCaptcha = () => (req, res, next) => {
   models.ImageCaptcha.findOne({ where: { captchaId: req.body.captchaId } }).then(imageCaptcha => {
     if (!imageCaptcha) {
-      res.status(200).json({ confirmation: 'Your data is being exported' })
-      // next()
+      next()
     } else {
       if (req.body.answer === imageCaptcha.dataValues.answer) {
-        res.status(200).json({ confirmation: 'Your data is being exported' })
-        // next()
+        next()
       } else {
         res.status(401).send('Wrong answer to CAPTCHA. Please try again.')
       }

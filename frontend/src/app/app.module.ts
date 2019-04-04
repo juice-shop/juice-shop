@@ -84,7 +84,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule } from '@angular/material'
+import { MatGridListModule, MatRadioModule } from '@angular/material'
 import { MatBadgeModule } from '@angular/material/badge'
 /* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
@@ -177,7 +177,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatButtonToggleModule,
     LayoutModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatRadioModule
   ],
   providers: [
     {
