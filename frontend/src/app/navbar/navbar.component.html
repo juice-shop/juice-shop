@@ -44,10 +44,6 @@
         <i class="fas fa-map-marker fa-lg"></i>
         {{"TITLE_TRACK_ORDERS" | translate}}
       </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/change-password">
-        <i class="fas fa-user-secret fa-lg"></i>
-        {{"TITLE_CHANGE_PASSWORD" | translate}}
-      </button>
       <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item>
         <i class="fas fa-sign-out-alt fa-lg"></i>
         {{"TITLE_LOGOUT" | translate }}

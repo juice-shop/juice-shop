@@ -53,6 +53,8 @@ exports.promotionVideo = () => {
       jadeTemplate = jadeTemplate.replace(/_bgColor_/g, theme.bgColor)
       jadeTemplate = jadeTemplate.replace(/_textColor_/g, theme.textColor)
       jadeTemplate = jadeTemplate.replace(/_navColor_/g, theme.navColor)
+      jadeTemplate = jadeTemplate.replace(/_primLight_/g, theme.primLight)
+      jadeTemplate = jadeTemplate.replace(/_primDark_/g, theme.primDark)
       const fn = jade.compile(jadeTemplate)
       let compiledJade = fn()
       compiledJade = compiledJade.replace(`<script id="subtitle"></script>`, `<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">` + subs + `</script>`)
