@@ -18,6 +18,7 @@ export class DataExportComponent implements OnInit {
   public error: any
   public lastSuccessfulTry: any
   public presenceOfCaptcha: boolean = false
+  public userData: any
 
   constructor (private imageCaptchaService: ImageCaptchaService) { }
   ngOnInit () {
@@ -52,6 +53,8 @@ export class DataExportComponent implements OnInit {
     this.imageCaptchaService.dataExport(this.dataRequest).subscribe((data: any) => {
       this.error = null
       this.confirmation = data.confirmation
+      this.userData = data.userData
+      window.open('', '_blank', 'width=500').document.write(this.userData)
       this.lastSuccessfulTry = new Date()
       localStorage.setItem('lastSuccessfulTry',JSON.stringify(this.lastSuccessfulTry))
       this.ngOnInit()
