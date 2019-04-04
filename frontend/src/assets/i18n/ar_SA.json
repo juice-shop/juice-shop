@@ -52,7 +52,7 @@
   "LABEL_NAME": "الإسم",
   "LABEL_DESCRIPTION": "الوصف",
   "LABEL_PRICE": "السعر",
-  "LABEL_BONUS": "علاوة",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "الصورة",
   "TITLE_BASKET": "سلتك",
   "LABEL_QUANTITY": "الكمية",
@@ -170,5 +170,11 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "ENTER_CAPTCHA": "Enter Captcha",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
 }
