@@ -3,8 +3,6 @@ html(lang='en')
     head
         title _title_
         meta(charset='utf-8')
-        meta(name='description', content='')
-        meta(name='keywords', content='')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         link(rel='icon', type='image/x-icon', href='/assets/public/_favicon_')
         link(rel='stylesheet', href='https://code.getmdl.io/1.2.1/material.min.css')
@@ -40,6 +38,7 @@ html(lang='en')
                  h3.mdl-cell.mdl-cell--12-col(style='color: _textColor_;') User Profile
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
                     img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='80%', height='236')
+                    p(style='padding-left:25%;margin-top:8%; color: _textColor_;') _username_
                     form(action='/profile/image/file' , style='margin-top:10%; width: 80%;', method='post', enctype='multipart/form-data')
                       .form-group
                         input(type='file', accept='image/*', name='file',  style='color: _textColor_;')
@@ -63,13 +62,12 @@ html(lang='en')
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
                    form(action='/profile', method='post')
                      .form-group
-                       .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                           input#username.form-control.mdl-textfield__input(type='text', name='username', value='#{username}',style='color: _textColor_;')
-                           label.mdl-textfield__label(for='username', style='color: _textColor_;') Username:
-
+                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input#username.form-control.mdl-textfield__input(type='text', name='username', value='#{username}',style='color: _textColor_;')
+                            label.mdl-textfield__label(for='username', style='color: _textColor_;') Username:
                      .form-group
                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                           input#email.form-control.mdl-textfield__input(type='email', name='email', value='#{email}', readonly=true, style='color: _textColor_;')
-                           label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
+                         input#email.form-control.mdl-textfield__input(type='email', name='email', value='#{email}', readonly=true, style='color: _textColor_;')
+                         label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
                      button(id='submit', type='submit', style='background-color:_navColor_; color: _textColor_;').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Set Username
                      p(style='margin-bottom:10%;')
