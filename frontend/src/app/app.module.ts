@@ -39,6 +39,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { ProductReviewEditComponent } from './product-review-edit/product-review-edit.component'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
+import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
@@ -57,6 +58,7 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
+import { ImageCaptchaService } from './Services/image-captcha.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -81,6 +83,14 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { LayoutModule } from '@angular/cdk/layout'
+import { MatGridListModule, MatRadioModule } from '@angular/material'
+import { MatBadgeModule } from '@angular/material/badge'
+/* Internal components */
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { DataExportComponent } from './data-export/data-export.component'
+import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -113,7 +123,12 @@ export function HttpLoaderFactory (http: HttpClient) {
     TokenSaleComponent,
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
-    ErrorPageComponent
+    PrivacySecurityComponent,
+    ErrorPageComponent,
+    TwoFactorAuthComponent,
+    DataExportComponent,
+    LastLoginIpComponent,
+    PrivacyPolicyComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -159,7 +174,11 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatTooltipModule,
     MatMenuModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    LayoutModule,
+    MatGridListModule,
+    MatBadgeModule,
+    MatRadioModule
   ],
   providers: [
     {
@@ -183,7 +202,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     BasketService,
     ChallengeService,
     CookieService,
-    AdminGuard
+    AdminGuard,
+    ImageCaptchaService
   ],
   bootstrap: [AppComponent]
 })
