@@ -1,15 +1,16 @@
 const svgCaptcha = require('svg-captcha')
 const models = require('../models/index')
+const Op = models.Sequelize.Op
+const insecurity = require('../lib/insecurity')
 
 function imageCaptchas () {
   return (req, res) => {
-    let captchaId = Math.floor(Math.random() * 9999)
     let captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
     const imageCaptcha = {
-      captchaId: captchaId,
       image: captcha.data,
-      answer: captcha.text
+      answer: captcha.text,
+      UserId: insecurity.authenticatedUsers.from(req).data.id
     }
     const imageCaptchaInstance = models.ImageCaptcha.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
@@ -19,15 +20,22 @@ function imageCaptchas () {
 }
 
 imageCaptchas.verifyCaptcha = () => (req, res, next) => {
-  models.ImageCaptcha.findOne({ where: { captchaId: req.body.captchaId } }).then(imageCaptcha => {
-    if (!imageCaptcha) {
+  const user = insecurity.authenticatedUsers.from(req)
+  const UserId = user ? user.data ? user.data.id : undefined : undefined
+  models.ImageCaptcha.findAll({
+    limit: 1,
+    where: {
+      UserId: UserId,
+      createdAt: {
+        [Op.gt]: new Date(new Date() - 300000)
+      }
+    },
+    order: [[ 'createdAt', 'DESC' ]]
+  }).then(captchas => {
+    if (!captchas[0] || req.body.answer === captchas[0].dataValues.answer) {
       next()
     } else {
-      if (req.body.answer === imageCaptcha.dataValues.answer) {
-        next()
-      } else {
-        res.status(401).send('Wrong answer to CAPTCHA. Please try again.')
-      }
+      res.status(401).send('Wrong answer to CAPTCHA. Please try again.')
     }
   })
 }
