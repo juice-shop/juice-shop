@@ -172,5 +172,10 @@
   "BTN_SHOW_ALL": "Show all",
   "BTN_HIDE_ALL": "Hide all",
   "ENTER_CAPTCHA": "Enter Captcha",
-  "BTN_REQUEST": "Request"
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "JSON": "JSON",
+  "PDF": "PDF",
+  "EXCEL": "Excel"
+
 }

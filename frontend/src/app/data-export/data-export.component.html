@@ -5,10 +5,10 @@
         <div *ngIf="error"><p class="error">{{error}}</p></div>
         <div class="form-container" id="data-export-form">
             <mat-radio-group [formControl]="formatControl">
-                <label class="radio-label" translate>Export Format</label>
-                <mat-radio-button value="1">JSON</mat-radio-button>
-                <mat-radio-button value="2">PDF</mat-radio-button>
-                <mat-radio-button value="3">Excel</mat-radio-button>
+                <label class="radio-label" translate>EXPORT_LABEL</label>
+                <mat-radio-button value="1" translate>JSON</mat-radio-button>
+                <mat-radio-button value="2" translate>PDF</mat-radio-button>
+                <mat-radio-button value="3" translate>EXCEL</mat-radio-button>
             </mat-radio-group>
             <div *ngIf="presenceOfCaptcha">
                 <div #dataContainer class="captcha-image"></div>
