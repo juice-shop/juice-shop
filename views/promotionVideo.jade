@@ -1,0 +1,94 @@
+doctype html
+html(lang='en')
+    head
+        title _title_
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='icon', type='image/x-icon', href='/assets/public/_favicon_')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        style.
+            video {
+            width: 90vw;
+            margin-left: 3.8vw;
+            height: 65vh;
+            }
+    body(style='background: _bgColor_;color:_textColor_;')
+        nav.navbar.navbar-inverse(style='background: _navColor_;border-radius:0px;')
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href='/') _title_
+                ul.nav.navbar-nav
+                    li
+                        a(href='/#/')
+                            span.glyphicon.glyphicon-arrow-left
+                            |  Back
+
+        .col-sm-7
+            video(width='85vw', height='240', controls='controls')
+                source(src='/video', type='video/mp4')
+
+        script#subtitle.
+
+
+        script.
+            function parse_timestamp(s) {
+            var match = s.match(/^(?:([0-9]+):)?([0-5][0-9]):([0-5][0-9](?:[.,][0-9]{0,3})?)/);
+            if (match == null) {
+            throw 'Invalid timestamp format: ' + s;
+            }
+            var hours = parseInt(match[1] || "0", 10);
+            var minutes = parseInt(match[2], 10);
+            var seconds = parseFloat(match[3].replace(',', '.'));
+            return seconds + 60 * minutes + 60 * 60 * hours;
+            }
+            function quick_and_dirty_vtt_or_srt_parser(vtt) {
+            var lines = vtt.trim().replace('\\r\n', '\n').split(/[\r\n]/).map(function(line) {
+            return line.trim();
+            });
+            var cues = [];
+            var start = null;
+            var end = null;
+            var payload = null;
+            for (var i = 0; i < lines.length; i++) {
+            if (lines[i].indexOf('-->') >= 0) {
+            var splitted = lines[i].split(/[ \\t]+-->[ \t]+/);
+            if (splitted.length != 2) {
+            throw 'Error when splitting "-->": ' + lines[i];
+            }
+            // Already ignoring anything past the "end" timestamp (i.e. cue settings).
+            start = parse_timestamp(splitted[0]);
+            end = parse_timestamp(splitted[1]);
+            } else if (lines[i] == '') {
+            if (start && end) {
+            var cue = new VTTCue(start, end, payload);
+            cues.push(cue);
+            start = null;
+            end = null;
+            payload = null;
+            }
+            } else if(start && end) {
+            if (payload == null) {
+            payload = lines[i];
+            } else {
+            payload += '\\n' + lines[i];
+            }
+            }
+            }
+            if (start && end) {
+            var cue = new VTTCue(start, end, payload);
+            cues.push(cue);
+            }
+            return cues;
+            }
+            function init() {
+            var video = document.querySelector('video');
+            var subtitle = document.getElementById('subtitle');
+            var track = video.addTextTrack('subtitles', subtitle.dataset.label, subtitle.dataset.lang);
+            track.mode = "showing";
+            quick_and_dirty_vtt_or_srt_parser(subtitle.innerHTML).map(function(cue) {
+            track.addCue(cue);
+            });
+            }
+            init();
