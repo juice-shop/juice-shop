@@ -173,5 +173,8 @@
   "COMPANY": "Company",
   "ADD_BASKET": "Add to Basket",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }
