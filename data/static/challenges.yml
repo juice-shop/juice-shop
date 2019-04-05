@@ -634,10 +634,10 @@
 -
   name: 'XSS Tier 6'
   category: 'XSS'
-  description: 'Embed the XSS attack <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into one of our marketing collaterals.'
+  description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into one of our marketing collaterals.'
   difficulty: 6
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
-  hintUrl: ''
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#embed-an-xss-payload-into-one-of-our-marketing-collaterals'
   key: videoXssChallenge
 -
   name: 'Lost in Recycling'

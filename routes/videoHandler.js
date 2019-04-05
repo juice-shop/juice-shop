@@ -21,6 +21,7 @@ exports.getVideo = () => {
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
+        'Content-Location': '/assets/public/videos/JuiceShopJingle.mp4',
         'Content-Type': 'video/mp4'
       }
       res.writeHead(206, head)
@@ -69,14 +70,14 @@ exports.promotionVideo = () => {
 }
 
 function getSubsFromFile () {
-  let subtitles = 'jingleSubtitles.vtt'
+  let subtitles = 'JuiceShopJingle.vtt'
   if (config && config.application && config.application.promotion && config.application.promotion.subtitles !== null) {
     subtitles = config.application.promotion.subtitles
     if (subtitles.substring(0, 4) === 'http') {
       subtitles = decodeURIComponent(subtitles.substring(subtitles.lastIndexOf('/') + 1))
     }
   }
-  const data = fs.readFileSync('frontend/dist/frontend/assets/public/subtitles/' + subtitles, 'utf8')
+  const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
   return data.toString()
 }
 
