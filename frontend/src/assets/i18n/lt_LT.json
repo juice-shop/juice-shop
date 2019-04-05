@@ -1,5 +1,5 @@
 {
-  "LANGUAGE": "English",
+  "LANGUAGE": "Lietuviešu",
   "NAV_SEARCH": "Search",
   "SEARCH_PLACEHOLDER": "Search...",
   "NAV_COMPLAIN": "Complain?",
@@ -174,4 +174,3 @@
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
   "EXPORT_LABEL": "Export Format"
-}
