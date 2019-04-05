@@ -1,11 +1,15 @@
 mat-card{
   height: auto;
   min-width: 320px;
-  width: 35%;;
+  width: 25%;;
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;
+}
+
+#dataRequest{
+  float: right;
 }
 
 .mat-radio-button ~ .mat-radio-button {
