@@ -52,7 +52,7 @@
   "LABEL_NAME": "Navn",
   "LABEL_DESCRIPTION": "Beskrivelse",
   "LABEL_PRICE": "Pris",
-  "LABEL_BONUS": "Premie",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Bilde",
   "TITLE_BASKET": "Handlekurven",
   "LABEL_QUANTITY": "Antall",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }

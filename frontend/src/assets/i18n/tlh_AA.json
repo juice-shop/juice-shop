@@ -4,7 +4,7 @@
   "SEARCH_PLACEHOLDER": "tu'...",
   "NAV_COMPLAIN": "bep?",
   "TITLE_LOGIN": "yI'el",
-  "MANDATORY_EMAIL": "Please provide an email address.",
+  "MANDATORY_EMAIL": "Yes.",
   "MANDATORY_PASSWORD": "Please provide a password.",
   "LABEL_EMAIL": "SoQ",
   "LABEL_PASSWORD": "mu'wIj",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "HIDjoilev",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }

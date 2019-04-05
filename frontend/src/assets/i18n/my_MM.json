@@ -52,7 +52,7 @@
   "LABEL_NAME": "အမည္",
   "LABEL_DESCRIPTION": "ေဖာ္ျပခ်က္",
   "LABEL_PRICE": "ေစ်းႏွဳန္း",
-  "LABEL_BONUS": "ဆုငှေ",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "ရုပ္ပံု",
   "TITLE_BASKET": "သင္၏ ျခင္းေတာင္း",
   "LABEL_QUANTITY": "အေရအတြက္",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }
