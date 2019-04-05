@@ -212,6 +212,40 @@ describe('/api/Feedbacks', () => {
           })
       })
   })
+
+  it('POST feedback cannot be created with wrong CAPTCHA answer', () => {
+    return frisby.get(REST_URL + '/captcha')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        return frisby.post(API_URL + '/Feedbacks', {
+          headers: jsonHeader,
+          body: {
+            rating: 1,
+            captchaId: json.captchaId,
+            captcha: (json.answer + 1)
+          }
+        })
+          .expect('status', 401)
+      })
+  })
+
+  it('POST feedback cannot be created with invalid CAPTCHA id', () => {
+    return frisby.get(REST_URL + '/captcha')
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        return frisby.post(API_URL + '/Feedbacks', {
+          headers: jsonHeader,
+          body: {
+            rating: 1,
+            captchaId: 999999,
+            captcha: 42
+          }
+        })
+          .expect('status', 401)
+      })
+  })
 })
 
 describe('/api/Feedbacks/:id', () => {

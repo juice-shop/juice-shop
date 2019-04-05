@@ -59,6 +59,7 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
+import { ImageCaptchaService } from './Services/image-captcha.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -85,7 +86,7 @@ import { MatListModule } from '@angular/material/list'
 import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule } from '@angular/material'
+import { MatGridListModule, MatRadioModule } from '@angular/material'
 import { MatBadgeModule } from '@angular/material/badge'
 /* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
@@ -180,7 +181,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     LayoutModule,
     MatGridListModule,
     NgMatSearchBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatRadioModule
   ],
   providers: [
     {
@@ -204,7 +206,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     BasketService,
     ChallengeService,
     CookieService,
-    AdminGuard
+    AdminGuard,
+    ImageCaptchaService
   ],
   bootstrap: [AppComponent]
 })
