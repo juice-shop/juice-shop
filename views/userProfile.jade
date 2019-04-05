@@ -3,50 +3,71 @@ html(lang='en')
     head
         title _title_
         meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
         link(rel='icon', type='image/x-icon', href='/assets/public/_favicon_')
-        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        link(rel='stylesheet', href='https://code.getmdl.io/1.2.1/material.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet', href='/assets/public/css/userProfile.css', type='text/css')
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(defer='', src='https://code.getmdl.io/1.2.1/material.min.js')
+        style.
+            .mdl-textfield__input {
+            border-bottom: 1px solid _textColor_ !important;
+            font-size: 13px !important;
+            }
     body(style='background: _bgColor_;color:_textColor_;')
-        nav.navbar.navbar-inverse(style='background: _navColor_;border-radius:0px;')
-            .container-fluid
-                .navbar-header
-                    a.navbar-brand(href='/') _title_
-                ul.nav.navbar-nav
-                    li
-                        a(href='/#/')
-                            span.glyphicon.glyphicon-arrow-left
-                            |  Back
-        .container
-            h3 User Profile 
-            .row(style='margin-top:10%;')
-                .col-sm-5
-                    img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='304', height='236')
-                    p(style='padding-left:25%;margin-top:8%;') _username_
-                    form(action='/profile/image/file' , style='margin-top:10%;', method='post', enctype='multipart/form-data')
-                        .form-group
-                            input(type='file', accept='image/*', name='file')
-                        button.btn.btn-default(type='submit') Upload Picture
+        .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+          header.mdl-layout__header.mdl-shadow--6dp(style= 'background: _navColor_; height: auto; min-width: 100%; padding-bottom: 5px; width: 100%;')
+            .mdl-layout__header-row
+              a(href='/#/' style='color: _textColor_; text-decoration:none; margin-left: -50px;')
+                i(class='material-icons', style='display: block;margin-bottom: auto;margin-top: auto; margin-right: 10px;') arrow_back
+              span(style='margin-right: 20px;')
+                | Back
+              a(href='/#/')
+              // Logo
+              a(href='/#/')
+                img(src='assets/public/images/JuiceShop_Logo.png', style='max-height: 60px; width: auto;')
+              // Title
+              span.mdl-layout-title(style='font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;')
+                | _title_
 
-                    p(style='margin-top:5%;') ------------ or ------------
+        main.mdl-layout__content(style=' display: block; margin-left: auto; margin-right:auto;')
+          section.section--center.mdl-grid.mdl-grid--no-spacing
+            .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--6dp(style='height: auto; min-width: 300px;  width: 40%; display: block; margin-left: auto; margin-right:auto; background: _primLight_; margin-bottom: 50px; margin-top: 110px;')
+              .mdl-card__supporting-text.mdl-grid.mdl-grid--no-spacing
+                 h3.mdl-cell.mdl-cell--12-col(style='color: _textColor_;') User Profile
+                 .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
+                    img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='80%', height='236')
+                    p(style='padding-left:25%;margin-top:8%; color: _textColor_;') _username_
+                    form(action='/profile/image/file' , style='margin-top:10%; width: 80%;', method='post', enctype='multipart/form-data')
+                      .form-group
+                        input(type='file', accept='image/*', name='file',  style='color: _textColor_;')
+                      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect(type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: 3%;') Upload Picture
+
+                    .breakLine(style='margin-top: 3%; margin-bottom: 3%; width: 80%;')
+                      .line
+                        div
+                      .textOnLine(style='color: _textColor_;') or
+                      .line
+                        div
 
                     form(action='/profile/image/url' , style='margin-top:5%;', method='post')
-                        .form-group
-                            label(for='url') Gravatar Url:
-                            input#url.form-control(type='text', name='imageUrl', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_')
-                        button(id='submitUrl', type='submit').btn.btn-default Link Gravatar
+                      .form-group
+                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                          input#url.form-control.mdl-textfield__input(type='text', name='imageUrl', style='color: _textColor_;')
+                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Gravatar Url:
+                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_;').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Gravatar
+                      p(style='margin-bottom:10%;')
 
-                        p(style='margin-bottom:10%;')
-
-
-                .col-sm-7
-                    form(action='/profile', method='post')
-                        .form-group
-                            label(for='username') Username:
-                            input#username.form-control(type='text', name='username', placeholder='Enter Username', value='#{username}')
-                        .form-group
-                            label(for='email') Email:
-                            input#email.form-control(type='email', name='email', value='#{email}', readonly=true)
-                        button(id='submit', type='submit').btn.btn-default Set Username
-        
+                 .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
+                   form(action='/profile', method='post')
+                     .form-group
+                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                            input#username.form-control.mdl-textfield__input(type='text', name='username', value='#{username}',style='color: _textColor_;')
+                            label.mdl-textfield__label(for='username', style='color: _textColor_;') Username:
+                     .form-group
+                       .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                         input#email.form-control.mdl-textfield__input(type='email', name='email', value='#{email}', readonly=true, style='color: _textColor_;')
+                         label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
+                     button(id='submit', type='submit', style='background-color:_navColor_; color: _textColor_;').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Set Username
+                     p(style='margin-bottom:10%;')

@@ -1,0 +1,38 @@
+@media (max-width: 900px) {
+  .mdl-layout-title {
+    display: none !important;
+  }
+}
+@media (max-width: 1200px) {
+  #card{
+    width: 65% !important;
+  }
+}
+h3{
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+.breakLine {
+  display: table;
+}
+
+.breakLine>div {
+  display: table-cell;
+  white-space:nowrap;
+}
+
+.line>div {
+  border-bottom: 1px solid silver;
+  height: 1px;
+}
+
+.textOnLine {
+  padding: 0 5px;
+}
+
+.line {
+  width: 50%;
+  vertical-align: middle;
+}
+
