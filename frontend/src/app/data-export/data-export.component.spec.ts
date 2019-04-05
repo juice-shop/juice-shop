@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { DataExportComponent } from './data-export.component'
+import { MatCardModule } from '@angular/material/card'
 
 describe('DataExportComponent', () => {
   let component: DataExportComponent
@@ -9,6 +10,7 @@ describe('DataExportComponent', () => {
     TestBed.configureTestingModule({
       declarations: [DataExportComponent],
       imports: [
+        MatCardModule
       ]
     }).compileComponents()
   }))

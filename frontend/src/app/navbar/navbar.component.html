@@ -32,7 +32,7 @@
         <i class="fas fa-user-circle fa-lg"></i>
         {{userEmail}}
       </button>
-      <button mat-menu-item routerLink="/privacy-security/privacy-policy" *ngIf="isLoggedIn()">
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu">
         <i class="fas fa-user-secret fa-lg"></i>
         {{ "PRIVACY_AND_SECURITY" | translate }}
       </button>
@@ -68,6 +68,14 @@
         {{language?.lang}}
         <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
       </button>
+    </mat-menu>
+
+    <mat-menu #subMenu="matMenu">
+      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']"><span translate>TITLE_PRIVACY_POLICY</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/change-password']"><span translate>TITLE_CHANGE_PASSWORD</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']"><span translate>LAST_LOGIN_IP</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/data-export']"><span translate>TITLE_REQUEST_DATA_EXPORT</span></button>
     </mat-menu>
 
   </mat-toolbar-row>

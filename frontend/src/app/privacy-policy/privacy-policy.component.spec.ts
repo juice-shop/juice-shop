@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { ConfigurationService } from '../Services/configuration.service'
+import { MatCardModule } from '@angular/material/card'
 
 import { PrivacyPolicyComponent } from './privacy-policy.component'
 import { of } from 'rxjs'
@@ -17,7 +18,8 @@ describe('PrivacyPolicyComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PrivacyPolicyComponent],
       imports: [
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatCardModule
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService }
