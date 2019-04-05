@@ -52,7 +52,7 @@
   "LABEL_NAME": "Nimi",
   "LABEL_DESCRIPTION": "Kirjeldus",
   "LABEL_PRICE": "Hind",
-  "LABEL_BONUS": "Preemia",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Pilt",
   "TITLE_BASKET": "Ostukorv",
   "LABEL_QUANTITY": "Kogus",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }

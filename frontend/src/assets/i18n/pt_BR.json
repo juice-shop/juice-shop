@@ -57,7 +57,7 @@
   "TITLE_BASKET": "Seu Carrinho",
   "LABEL_QUANTITY": "Quantidade",
   "LABEL_TOTAL_PRICE": "Preço Total",
-  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
+  "CHECKOUT_FOR_BONUS_POINTS": "Se efetuares esta compra irás ganhar {{bonus}} pontos bónus!",
   "BTN_CHECKOUT": "Finalizar Compra",
   "BTN_CREDIT_CARD": "Cartão de Crédito",
   "INVALID_COUPON_LENGTH": "O Código de Cupom deve possuir {{length}} caracteres.",
@@ -166,9 +166,12 @@
   "UNAUTHORIZED_PAGE_ACCESS_ERROR": "Não estás autorizado a aceder a esta página!",
   "TITLE_PRIVACY_POLICY": "Política de Privacidade",
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Autenticação de 2 factores",
-  "TITLE_REQUEST_DATA_EXPORT": "Pedido de Exportação de Dados",
+  "TITLE_REQUEST_DATA_EXPORT": "Pedido de Obtenção de Dados",
   "PRIVACY_AND_SECURITY": "Privacidade e Segurança",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Ver tudo",
-  "BTN_HIDE_ALL": "Esconder tudo"
+  "BTN_HIDE_ALL": "Esconder tudo",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }
