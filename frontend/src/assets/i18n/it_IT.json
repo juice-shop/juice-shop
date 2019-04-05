@@ -52,7 +52,7 @@
   "LABEL_NAME": "Nome",
   "LABEL_DESCRIPTION": "Descrizione",
   "LABEL_PRICE": "Prezzo",
-  "LABEL_BONUS": "Indennità",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Immagine",
   "TITLE_BASKET": "Il tuo Carrello",
   "LABEL_QUANTITY": "Quatità",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }

@@ -52,7 +52,7 @@
   "LABEL_NAME": "名前",
   "LABEL_DESCRIPTION": "説明",
   "LABEL_PRICE": "価格",
-  "LABEL_BONUS": "賞与",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "画像",
   "TITLE_BASKET": "買い物かご",
   "LABEL_QUANTITY": "数量",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }
