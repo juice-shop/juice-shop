@@ -38,7 +38,7 @@ application:
     acknowledgements: '/#/score-board'
   promotion:
     video: JuiceShopJingle.mp4
-    subtitles: jingleSubtitles.vtt
+    subtitles: JuiceShopJingle.vtt
 challenges:
   safetyOverride: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
