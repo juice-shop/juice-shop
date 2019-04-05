@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
+import { MatCardModule } from '@angular/material/card'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent
@@ -9,6 +10,7 @@ describe('TwoFactorAuthComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TwoFactorAuthComponent],
       imports: [
+        MatCardModule
       ]
     }).compileComponents()
   }))
