@@ -52,12 +52,12 @@
   "LABEL_NAME": "Nombre",
   "LABEL_DESCRIPTION": "Descripción",
   "LABEL_PRICE": "Precio",
-  "LABEL_BONUS": "Prima",
+  "LABEL_BONUS": "Bonificación",
   "LABEL_IMAGE": "Imagen",
   "TITLE_BASKET": "Su Cesta",
   "LABEL_QUANTITY": "Cantidad",
   "LABEL_TOTAL_PRICE": "Precio Total",
-  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
+  "CHECKOUT_FOR_BONUS_POINTS": "¡Obtendrás {{bonus}} puntos de bonificación por esta orden!",
   "BTN_CHECKOUT": "Tramitar pedido",
   "BTN_CREDIT_CARD": "Tarjeta de Crédito",
   "INVALID_COUPON_LENGTH": "El código de cupón debe tener una longitud entre {{length}} caracteres.",
@@ -169,6 +169,9 @@
   "TITLE_REQUEST_DATA_EXPORT": "Enviar solicitud para exportar los datos",
   "PRIVACY_AND_SECURITY": "Privacidad y Seguridad",
   "MENU": "Menú",
-  "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_SHOW_ALL": "Mostrar todo",
+  "BTN_HIDE_ALL": "Ocultar todo",
+  "TYPE_THESE_LETTERS": "Teclea las siguientes {{length}} letras",
+  "BTN_REQUEST": "Solicitar",
+  "EXPORT_LABEL": "Exportar en Formato"
 }

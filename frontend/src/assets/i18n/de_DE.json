@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Datenschutz & Sicherheit",
   "MENU": "Menü",
   "BTN_SHOW_ALL": "Alle anzeigen",
-  "BTN_HIDE_ALL": "Alle ausblenden"
+  "BTN_HIDE_ALL": "Alle ausblenden",
+  "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
+  "BTN_REQUEST": "Anfordern",
+  "EXPORT_LABEL": "Export-Format"
 }

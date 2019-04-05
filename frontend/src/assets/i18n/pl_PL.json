@@ -52,7 +52,7 @@
   "LABEL_NAME": "Nazwa",
   "LABEL_DESCRIPTION": "Opis",
   "LABEL_PRICE": "Cena",
-  "LABEL_BONUS": "Premia",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Obraz",
   "TITLE_BASKET": "Twój koszyk",
   "LABEL_QUANTITY": "Ilość",
@@ -170,5 +170,8 @@
   "PRIVACY_AND_SECURITY": "Privacy & Security",
   "MENU": "Menu",
   "BTN_SHOW_ALL": "Show all",
-  "BTN_HIDE_ALL": "Hide all"
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format"
 }
