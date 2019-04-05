@@ -171,7 +171,7 @@
   "MENU": "Menü",
   "BTN_SHOW_ALL": "Alle anzeigen",
   "BTN_HIDE_ALL": "Alle ausblenden",
-  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
-  "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
+  "BTN_REQUEST": "Anfordern",
+  "EXPORT_LABEL": "Export-Format"
 }
