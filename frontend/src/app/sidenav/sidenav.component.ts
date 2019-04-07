@@ -67,17 +67,17 @@ export class SidenavComponent implements OnInit {
   }
 
   logout () {
-      this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
-      localStorage.removeItem('token')
-      this.cookieService.remove('token', { domain: document.domain })
-      sessionStorage.removeItem('bid')
-      this.userService.isLoggedIn.next(false)
-      this.router.navigate(['/'])
-    }
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    localStorage.removeItem('token')
+    this.cookieService.remove('token', { domain: document.domain })
+    sessionStorage.removeItem('bid')
+    this.userService.isLoggedIn.next(false)
+    this.router.navigate(['/'])
+  }
 
   goToProfilePage () {
       window.location.replace('/profile')
-    }
+  }
 
   // tslint:disable-next-line:no-empty
   noop () { }
