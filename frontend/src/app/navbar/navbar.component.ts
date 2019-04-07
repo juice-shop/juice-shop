@@ -44,7 +44,6 @@ dom.watch()
 export class NavbarComponent implements OnInit {
 
   public userEmail = ''
-  public avatarSrc = 'assets/public/images/uploads/default.svg'
   public languages: any = []
   public selectedLanguage = 'placeholder'
   public version: string = ''
@@ -96,7 +95,6 @@ export class NavbarComponent implements OnInit {
         this.getUserDetails()
       } else {
         this.userEmail = ''
-        this.avatarSrc = 'assets/public/images/uploads/default.svg'
       }
     })
 
@@ -132,7 +130,6 @@ export class NavbarComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      this.avatarSrc = 'assets/public/images/uploads/' + user.profileImage
     }, (err) => console.log(err))
   }
 

@@ -16,11 +16,11 @@
 
     <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"></mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;">
+    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;" fxHide.lt-sm fxShow>
       <i class="material-icons">
         account_circle
       </i>
-      <span fxHide.lt-sm fxShow> Account </span>
+      <span> Account </span>
     </button>
 
     <mat-menu #userMenu="matMenu">
@@ -50,9 +50,9 @@
       </button>
     </mat-menu>
 
-    <button *ngIf="isLoggedIn()" fxHide.lt-lg fxShow mat-button routerLink="/basket">
+    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket">
       <i class="fas fa-shopping-cart fa-lg"></i>
-      {{"TITLE_BASKET" | translate}}
+      <span fxHide.lt-sm fxShow>{{" TITLE_BASKET " | translate}}</span>
     </button>
 
     <button [matMenuTriggerFor]="menu" mat-button>
