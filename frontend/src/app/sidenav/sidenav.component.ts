@@ -76,7 +76,7 @@ export class SidenavComponent implements OnInit {
   }
 
   goToProfilePage () {
-      window.location.replace('/profile')
+    window.location.replace('/profile')
   }
 
   // tslint:disable-next-line:no-empty
