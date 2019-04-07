@@ -27,10 +27,46 @@ a{
   bottom: 0;
   right: 0px;
   left: 0;
-  padding-bottom: 10px;
-  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.sidenav-footer span{
+  font-size: 13px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .side-subHeader {
   font-weight: 300;
+}
+
+mat-nav-list{
+  margin-bottom: 40px;
+}
+
+.app-nav-list-icon {
+  margin: 0 12px 0 12px;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+
+.submenu.expanded {
+  transform: scaleY(1);
 }
