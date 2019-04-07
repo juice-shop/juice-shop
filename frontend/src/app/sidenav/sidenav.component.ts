@@ -21,9 +21,6 @@ export class SidenavComponent implements OnInit {
   public isExpanded = true
   public showSubmenu: boolean = false
   public isShowing = false
-  public isSubExpanded = true
-  public showSubSubmenu: boolean = false
-  public isSubShowing = false
 
   @Output() public sidenavToggle = new EventEmitter()
 
