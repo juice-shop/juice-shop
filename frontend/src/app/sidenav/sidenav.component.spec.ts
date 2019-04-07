@@ -3,13 +3,14 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { RouterTestingModule } from '@angular/router/testing'
 import { of, throwError } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
 import { Location } from '@angular/common'
+import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
-import { RouterTestingModule } from '@angular/router/testing'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
@@ -26,6 +27,7 @@ describe('SidenavComponent', () => {
   let component: SidenavComponent
   let fixture: ComponentFixture<SidenavComponent>
   let challengeService
+  let cookieService
   let configurationService
   let translateService
   let mockSocket
@@ -38,6 +40,7 @@ describe('SidenavComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
+    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -52,11 +55,14 @@ describe('SidenavComponent', () => {
         MatIconModule,
         MatButtonModule,
         MatMenuModule,
-        MatListModule
+        MatListModule,
+        CookieModule.forRoot(),
+        RouterTestingModule
       ],
       providers: [
         { provide: ConfigurationService, useValue: configurationService },
         { provide: ChallengeService, useValue: challengeService },
+        { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
         TranslateService
       ]
