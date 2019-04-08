@@ -1,9 +1,9 @@
 {
   "LANGUAGE": "Catalan",
-  "NAV_SEARCH": "Search",
-  "SEARCH_PLACEHOLDER": "Search...",
-  "NAV_COMPLAIN": "Complain?",
-  "TITLE_LOGIN": "Login",
+  "NAV_SEARCH": "Buscar",
+  "SEARCH_PLACEHOLDER": "Buscar...",
+  "NAV_COMPLAIN": "Alguna queixa?",
+  "TITLE_LOGIN": "Entrar",
   "MANDATORY_EMAIL": "Please provide an email address.",
   "MANDATORY_PASSWORD": "Please provide a password.",
   "LABEL_EMAIL": "Email",
