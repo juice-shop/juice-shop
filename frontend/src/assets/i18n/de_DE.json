@@ -173,5 +173,6 @@
   "BTN_HIDE_ALL": "Alle ausblenden",
   "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
   "BTN_REQUEST": "Anfordern",
-  "EXPORT_LABEL": "Export-Format"
+  "EXPORT_LABEL": "Export-Format",
+  "ACCOUNT": "Account"
 }
