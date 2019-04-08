@@ -173,5 +173,6 @@
   "BTN_HIDE_ALL": "Ocultar todo",
   "TYPE_THESE_LETTERS": "Teclea las siguientes {{length}} letras",
   "BTN_REQUEST": "Solicitar",
-  "EXPORT_LABEL": "Exportar en Formato"
+  "EXPORT_LABEL": "Exportar en Formato",
+  "ACCOUNT": "Account"
 }
