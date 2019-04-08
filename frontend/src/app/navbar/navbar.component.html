@@ -1,7 +1,7 @@
 <mat-toolbar class="mat-elevation-z6" color="primary" fxLayout="column" xmlns="http://www.w3.org/1999/html">
 
   <mat-toolbar-row fxLayout="row">
-    
+
     <button (click)="onToggleSidenav()" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
@@ -16,11 +16,11 @@
 
     <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"></mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;" fxHide.lt-sm fxShow>
+    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;" fxHide.lt-md fxShow>
       <i class="material-icons">
         account_circle
       </i>
-      <span> Account </span>
+      <span> {{"ACCOUNT" | translate}} </span>
     </button>
 
     <mat-menu #userMenu="matMenu">
@@ -52,7 +52,7 @@
 
     <button *ngIf="isLoggedIn()" mat-button routerLink="/basket">
       <i class="fas fa-shopping-cart fa-lg"></i>
-      <span fxHide.lt-sm fxShow>{{" TITLE_BASKET " | translate}}</span>
+      <span fxHide.lt-sm fxShow> {{"TITLE_BASKET" | translate}}</span>
     </button>
 
     <button [matMenuTriggerFor]="menu" mat-button>
@@ -66,16 +66,22 @@
               mat-menu-item>
         <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
         {{language?.lang}}
-        <i [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
+        <i
+          [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
       </button>
     </mat-menu>
 
     <mat-menu #subMenu="matMenu">
-      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']"><span translate>TITLE_PRIVACY_POLICY</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/change-password']"><span translate>TITLE_CHANGE_PASSWORD</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']"><span translate>LAST_LOGIN_IP</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/data-export']"><span translate>TITLE_REQUEST_DATA_EXPORT</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']"><span
+        translate>TITLE_PRIVACY_POLICY</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
+      </button>
+      <button mat-menu-item [routerLink]="['privacy-security/change-password']"><span
+        translate>TITLE_CHANGE_PASSWORD</span></button>
+      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']"><span translate>LAST_LOGIN_IP</span>
+      </button>
+      <button mat-menu-item [routerLink]="['privacy-security/data-export']"><span
+        translate>TITLE_REQUEST_DATA_EXPORT</span></button>
     </mat-menu>
 
   </mat-toolbar-row>
