@@ -2,18 +2,18 @@ const fs = require('fs')
 const models = require('../models/index')
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
-const jade = require('jade')
+const pug = require('pug')
 const config = require('config')
 const themes = require('../views/themes/themes').themes
 
 module.exports = function getUserProfile () {
   return (req, res, next) => {
-    fs.readFile('views/userProfile.jade', function (err, buf) {
+    fs.readFile('views/userProfile.pug', function (err, buf) {
       if (err) throw err
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
         models.User.findByPk(loggedInUser.data.id).then(user => {
-          let jadeTemplate = buf.toString()
+          let template = buf.toString()
           let username = user.dataValues.username
           if (username.match(/#\{(.*)\}/) !== null && !utils.disableOnContainerEnv()) {
             req.app.locals.abused_ssti_bug = true
@@ -27,16 +27,16 @@ module.exports = function getUserProfile () {
             username = '\\' + username
           }
           const theme = themes[config.get('application.theme')]
-          jadeTemplate = jadeTemplate.replace(/_username_/g, username)
-          jadeTemplate = jadeTemplate.replace(/_emailHash_/g, insecurity.hash(user.dataValues.email))
-          jadeTemplate = jadeTemplate.replace(/_title_/g, config.get('application.name'))
-          jadeTemplate = jadeTemplate.replace(/_favicon_/g, favicon())
-          jadeTemplate = jadeTemplate.replace(/_bgColor_/g, theme.bgColor)
-          jadeTemplate = jadeTemplate.replace(/_textColor_/g, theme.textColor)
-          jadeTemplate = jadeTemplate.replace(/_navColor_/g, theme.navColor)
-          jadeTemplate = jadeTemplate.replace(/_primLight_/g, theme.primLight)
-          jadeTemplate = jadeTemplate.replace(/_primDark_/g, theme.primDark)
-          const fn = jade.compile(jadeTemplate)
+          template = template.replace(/_username_/g, username)
+          template = template.replace(/_emailHash_/g, insecurity.hash(user.dataValues.email))
+          template = template.replace(/_title_/g, config.get('application.name'))
+          template = template.replace(/_favicon_/g, favicon())
+          template = template.replace(/_bgColor_/g, theme.bgColor)
+          template = template.replace(/_textColor_/g, theme.textColor)
+          template = template.replace(/_navColor_/g, theme.navColor)
+          template = template.replace(/_primLight_/g, theme.primLight)
+          template = template.replace(/_primDark_/g, theme.primDark)
+          const fn = pug.compile(template)
           res.send(fn(user.dataValues))
         }).catch(error => {
           next(error)
