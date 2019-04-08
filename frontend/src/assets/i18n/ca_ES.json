@@ -173,5 +173,6 @@
   "BTN_HIDE_ALL": "Amagar tot",
   "TYPE_THESE_LETTERS": "Escriu aquests {{length}} caràcters",
   "BTN_REQUEST": "Sol·licitud",
-  "EXPORT_LABEL": "Exportar format"
+  "EXPORT_LABEL": "Exportar format",
+  "ACCOUNT": "Account"
 }
