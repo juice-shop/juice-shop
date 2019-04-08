@@ -9,75 +9,64 @@
   <button mat-button style="height: 0; position: absolute;">
     <!-- 'absorbs' the auto-focus behavior -->
   </button>
+  <h3 mat-subheader class="side-subHeader" translate fxHide fxShow.lt-md>ACCOUNT</h3>
 
-  <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent" fxHide fxShow.lt-sm>
-	    <span class="full-width" *ngIf="isExpanded || isShowing">
-	      Account
-	    </span>
-    <i matListIcon class="material-icons">
-      account_circle
-    </i>
-    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
-      expand_more
-    </mat-icon>
-  </mat-list-item>
-
-  <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
-    <a mat-list-item *ngIf="!isLoggedIn()" routerLink="/login" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
+  <div fxHide fxShow.lt-md>
+    <a mat-list-item *ngIf="!isLoggedIn()" routerLink="/login" (click)="onToggleSidenav();">
       <mat-icon matListIcon class="fas fa-sign-in-alt fa-lg"></mat-icon>
       {{"TITLE_LOGIN" | translate }}
     </a>
-    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); goToProfilePage(); showSubmenu = !showSubmenu">
+    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); goToProfilePage();">
       <mat-icon matListIcon class="fas fa-user-circle fa-lg"></mat-icon>
       {{userEmail}}
     </a>
-    <mat-list-item *ngIf="isLoggedIn()" (click)="showSubSubmenu = !showSubSubmenu" class="parent">
-	    <span class="full-width" *ngIf="isSubExpanded || isSubShowing">
+    <mat-list-item *ngIf="isLoggedIn()" (click)="showSubmenu = !showSubmenu" class="parent">
+	    <span class="full-width">
 	      {{ "PRIVACY_AND_SECURITY" | translate }}
 	    </span>
       <mat-icon matListIcon class="fas fa-user-secret fa-lg"></mat-icon>
-      <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubmenu}">
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
         expand_more
       </mat-icon>
     </mat-list-item>
-    <div class="submenu" [ngClass]="{'expanded' : showSubSubmenu}" *ngIf="showSubSubmenu">
+    <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/privacy-policy"
-         (click)="onToggleSidenav(); showSubSubmenu = !showSubSubmenu">
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
         <span translate>TITLE_PRIVACY_POLICY</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/two-factor-authentication"
-         (click)="onToggleSidenav(); showSubSubmenu = !showSubSubmenu">
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
         <span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/change-password"
-         (click)="onToggleSidenav(); showSubSubmenu = !showSubSubmenu">
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
         <span translate>TITLE_CHANGE_PASSWORD</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/last-login-ip"
-         (click)="onToggleSidenav(); showSubSubmenu = !showSubSubmenu">
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
         <span translate>LAST_LOGIN_IP</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-export"
-         (click)="onToggleSidenav(); showSubSubmenu = !showSubSubmenu">
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
         <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
     </div>
-    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle" (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
+    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle" (click)="onToggleSidenav();">
       <mat-icon matListIcon class="fas fa-recycle fa-lg"></mat-icon>
       {{"NAV_RECYCLE" | translate}}
     </a>
     <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
-       (click)="onToggleSidenav(); showSubmenu = !showSubmenu">
+       (click)="onToggleSidenav();">
       <mat-icon matListIcon class="fas fa-map-marker fa-lg"></mat-icon>
       {{"TITLE_TRACK_ORDERS" | translate}}
     </a>
-    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); showSubmenu = !showSubmenu; logout()">
+    <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); logout()">
       <mat-icon matListIcon class="fas fa-sign-out-alt fa-lg"></mat-icon>
       {{"TITLE_LOGOUT" | translate }}
     </a>
   </div>
 
-  <mat-divider fxHide fxShow.lt-sm></mat-divider>
+  <mat-divider fxHide fxShow.lt-md></mat-divider>
 
   <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
   <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();">
@@ -97,7 +86,7 @@
     {{"TITLE_ABOUT" | translate}}
   </a>
 
-  <mat-divider></mat-divider>
+  <mat-divider *ngIf="scoreBoardVisible || gitHubRibbon"></mat-divider>
 
   <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
