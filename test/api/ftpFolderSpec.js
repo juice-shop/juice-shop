@@ -91,17 +91,6 @@ describe('/ftp', () => {
       .expect('bodyContains', 'n<MibgC7sn')
   })
 
-  it('GET the 2013 coupon code file by appending md_debug parameter with value fulfilling filename validation', () => {
-    return frisby.get(URL + '/ftp/coupons_2013.md.bak?md_debug=.pdf')
-      .expect('status', 200)
-      .expect('bodyContains', 'n<MibgC7sn')
-  })
-
-  it('GET the package.json file does not fall for appending md_debug parameter with value fulfilling filename validation', () => {
-    return frisby.get(URL + '/ftp/package.json.bak?md_debug=.md')
-      .expect('status', 403)
-  })
-
   it('GET the package.json file by using Poison Null Byte attack with .pdf suffix', () => {
     return frisby.get(URL + '/ftp/package.json.bak%00.pdf')
       .expect('status', 200)
@@ -132,12 +121,6 @@ describe('/ftp', () => {
 
   it('GET an accessible file directly from file system path on server', () => {
     return frisby.get(URL + '/ftp/legal.md')
-      .expect('status', 200)
-      .expect('bodyContains', '# Legal Information')
-  })
-
-  it('GET an accessible markdown file directly from file system path on server with md_debug parameter', () => {
-    return frisby.get(URL + '/ftp/legal.md?md_debug=true')
       .expect('status', 200)
       .expect('bodyContains', '# Legal Information')
   })
