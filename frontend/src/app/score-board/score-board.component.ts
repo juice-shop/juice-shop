@@ -27,6 +27,8 @@ export class ScoreBoardComponent implements OnInit {
   public showSolvedChallenges
   public allChallengeCategories = []
   public displayedChallengeCategories = []
+  public toggledMajorityOfDifficulties: boolean
+  public toggledMajorityOfCategories: boolean
   public displayedColumns = ['name','description','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
@@ -66,6 +68,9 @@ export class ScoreBoardComponent implements OnInit {
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
+
+      this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
+      this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
 
       this.spinner.hide()
     },(err) => {
@@ -138,6 +143,18 @@ export class ScoreBoardComponent implements OnInit {
   toggleDifficulty (difficulty) {
     this.scoreBoardTablesExpanded[difficulty] = !this.scoreBoardTablesExpanded[difficulty]
     localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+    this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
+  }
+
+  toggleAllDifficulty () {
+    if (this.toggledMajorityOfDifficulties) {
+      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => false)
+      this.toggledMajorityOfDifficulties = false
+    } else {
+      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => true)
+      this.toggledMajorityOfDifficulties = true
+    }
+    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
   }
 
   toggleShowSolvedChallenges () {
@@ -152,6 +169,27 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
     }
     localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+    this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
+  }
+
+  toggleAllChallengeCategory () {
+    if (this.toggledMajorityOfCategories) {
+      this.displayedChallengeCategories = []
+      this.toggledMajorityOfCategories = false
+    } else {
+      this.displayedChallengeCategories = this.allChallengeCategories
+      this.toggledMajorityOfCategories = true
+    }
+    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+  }
+
+  determineToggledMajorityOfDifficulties () {
+    const selectedLevels: [boolean] = this.scoreBoardTablesExpanded.filter(s => s === true)
+    return selectedLevels.length > this.scoreBoardTablesExpanded.length / 2
+  }
+
+  determineToggledMajorityOfCategories () {
+    return this.displayedChallengeCategories.length > this.allChallengeCategories.length / 2
   }
 
   repeatNotification (challenge) {
