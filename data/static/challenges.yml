@@ -28,7 +28,7 @@
   description: 'Post a product review as another user or edit any user''s existing review.'
   difficulty: 3
   hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
   key: forgedReviewChallenge
 -
   name: 'Login Admin'
@@ -348,7 +348,7 @@
   description: 'All your orders are belong to us!'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
   key: noSqlOrdersChallenge
 -
   name: 'Retrieve Blueprint'
@@ -554,7 +554,7 @@
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
   difficulty: 4
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
   key: httpHeaderXssChallenge
 -
   name: 'Multiple Likes'
@@ -562,7 +562,7 @@
   description: 'Like any review at least three times as the same user.'
   difficulty: 6
   hint: 'Punctuality is the politeness of kings.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-three-times-as-the-same-user'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/race-condition.html#like-any-review-at-least-three-times-as-the-same-user'
   key: timingAttackChallenge
 -
   name: 'SSTi'
@@ -570,7 +570,7 @@
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
   hint: 'The search for a personal identity is the life of a man.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
   key: sstiChallenge
   disabledEnv:
   - Docker
@@ -581,7 +581,7 @@
   description: 'Request a hidden resource on server through server.'
   difficulty: 6
   hint: 'Reverse the Bad and it gets Good again.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
   key: ssrfChallenge
 -
   name: 'Login Amy'
@@ -621,7 +621,7 @@
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge 
 -
   name: 'DLP Failure Tier 2'
@@ -629,7 +629,7 @@
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
   difficulty: 5
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
   name: 'XSS Tier 6'
@@ -645,7 +645,7 @@
   description: 'Find an old <a href="/#/recycle">Recycle request</a> and <a href="/#/contact">inform the shop</a> about its unusual address. (Mention the entire delivery or pickup address in your comment)'
   difficulty: 4
   hint: 'Although we really like environmentalists, please do not spam us with too many requests at a time. We are not that keen on doing another DB cleanup any time soon!'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#find-an-old-recycle-request-and-inform-the-shop-about-its-unusual-address'
   key: recyclesMissingItemChallenge
 -
   name: 'Two Factor Authentication'
@@ -661,7 +661,7 @@
   description: 'Successfully redeem an expired campaign coupon code.'
   difficulty: 4
   hint: 'Try to identify past special event or holiday campaigns of the shop first.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
   key: manipulateClockChallenge
 -
   name: 'Privacy Policy Tier 1'
