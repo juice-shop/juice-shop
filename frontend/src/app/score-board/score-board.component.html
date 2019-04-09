@@ -97,7 +97,7 @@
               <i
                 class="{{challenge.disabledEnv ? ('fab fa-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
                 aria-hidden="true"
-                [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !(challenge.hint || challenge.hintUrl))))"></i>
+                [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !challenge.hintUrl)))"></i>
               {{(challenge.disabledEnv ? "STATUS_UNAVAILABLE" : (challenge.solved ? "STATUS_SOLVED" : "STATUS_UNSOLVED")) | translate}}
             </span>
           </button>
