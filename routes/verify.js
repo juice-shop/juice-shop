@@ -51,6 +51,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.adminSectionChallenge)
   } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
     utils.solve(challenges.tokenSaleChallenge)
+  } else if (utils.notSolved(challenges.privacyPolicyChallenge) && utils.endsWith(url, '/81px.png')) {
+    utils.solve(challenges.privacyPolicyChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
