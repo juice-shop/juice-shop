@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Toista salasanasi.",
   "INVALID_PASSWORD_LENGTH": "Salasanan täytyy olla {{length}}-merkkiä pitkä.",
   "LABEL_PASSWORD_REPEAT": "Toista salasana",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Rekisteröidy",
   "TITLE_LOGOUT": "Kirjaudu ulos",
   "CONFIRM_LOGGED_OUT": "Sinut on kirjattu ulos.",
