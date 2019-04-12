@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Lütfen parolanızı tekrar edin.",
   "INVALID_PASSWORD_LENGTH": "Parolanız {{length}} karakter uzunluğunda olmalıdır.",
   "LABEL_PASSWORD_REPEAT": "Parolayı tekrarla",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Kayıt ol",
   "TITLE_LOGOUT": "Çıkış yap",
   "CONFIRM_LOGGED_OUT": "Oturumunuz kapatıldı.",
