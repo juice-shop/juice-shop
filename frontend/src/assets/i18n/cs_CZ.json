@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Zopakujte prosím své heslo.",
   "INVALID_PASSWORD_LENGTH": "Heslo musí být dlouhé {{length}} znaků.",
   "LABEL_PASSWORD_REPEAT": "Heslo znovu",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrovat se",
   "TITLE_LOGOUT": "Odhlásit se",
   "CONFIRM_LOGGED_OUT": "Byli jste odhlášeni.",
