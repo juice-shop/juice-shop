@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "يرجى تكرار كلمة المرور.",
   "INVALID_PASSWORD_LENGTH": "يجب أن تكون كلمة المرور {{length}} حرفاً.",
   "LABEL_PASSWORD_REPEAT": "أعد إدخال كلمة المرور",
+  "PASSWORDS_NOT_MATCHING": "كلمة المرور غير مطابقة",
   "BTN_REGISTER": "تسجيل",
   "TITLE_LOGOUT": "الخروج",
   "CONFIRM_LOGGED_OUT": "لقد قمت بالخروج.",

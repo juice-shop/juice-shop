@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-data-export',
@@ -12,7 +13,6 @@ export class DataExportComponent implements OnInit {
   public captchaControl: FormControl = new FormControl('', [Validators.required])
   public formatControl: FormControl = new FormControl('', [Validators.required])
   public captcha: any
-  private captchaId: any
   private dataRequest: any = undefined
   public confirmation: any
   public error: any
@@ -20,7 +20,7 @@ export class DataExportComponent implements OnInit {
   public presenceOfCaptcha: boolean = false
   public userData: any
 
-  constructor (private imageCaptchaService: ImageCaptchaService) { }
+  constructor (public sanitizer: DomSanitizer, private imageCaptchaService: ImageCaptchaService) { }
   ngOnInit () {
     this.needCaptcha()
     this.dataRequest = {}
@@ -35,18 +35,14 @@ export class DataExportComponent implements OnInit {
     }
   }
 
-  @ViewChild('dataContainer') dataContainer: ElementRef
   getNewCaptcha () {
     this.imageCaptchaService.getCaptcha().subscribe((data: any) => {
-      this.captcha = data.image
-      this.captchaId = data.captchaId
-      this.dataContainer.nativeElement.innerHTML = this.captcha
+      this.captcha = this.sanitizer.bypassSecurityTrustHtml(data.image)
     })
   }
 
   save () {
     if (this.presenceOfCaptcha) {
-      this.dataRequest.captchaId = this.captchaId
       this.dataRequest.answer = this.captchaControl.value
     }
     this.dataRequest.format = this.formatControl.value
@@ -70,5 +66,8 @@ export class DataExportComponent implements OnInit {
     this.captchaControl.markAsUntouched()
     this.captchaControl.markAsPristine()
     this.captchaControl.setValue('')
+    this.formatControl.markAsUntouched()
+    this.formatControl.markAsPristine()
+    this.formatControl.setValue('')
   }
 }
