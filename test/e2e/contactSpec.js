@@ -192,6 +192,15 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
   })
 
+  describe('challenge "recyclesMissingItemChallenge"', () => {
+    it('should be possible to post the address of the lost product as feedback', () => {
+      comment.sendKeys('Starfleet HQ, 24-593 Federation Drive, San Francisco, CA')
+      rating.click()
+      submitButton.click()
+    })
+    protractor.expect.challengeSolved({ challenge: 'Lost in Recycling' })
+  })
+
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
       const answer = eval(text).toString() // eslint-disable-line no-eval

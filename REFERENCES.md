@@ -17,11 +17,24 @@ where this project was mentioned or used!
 * [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/679286305/8049a634b1a01b0aa75c0966325856dc9a463b7f1beeb6a2f32cbb30248b5bc6)
   in November 2017
   ([:camera:](https://twitter.com/owasp_juiceshop/status/930917114948587526))
+* [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/844098776/9fe33b8eda9eb79bca7ee569888b1874)
+  in March 2019
+  ([:camera:](https://twitter.com/owasp_juiceshop/status/1110641064673710080))
 
 ## Web Links
 
 ### Pod- & Webcasts
 
+* [Application Security Podcast](https://securityjourney.com/application-security-podcast):
+  * Episode 4.17:
+    [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
+  * Episode 4.20:
+    [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/)
+    :mega:
+  * Episode 4.27:
+    [Season 4 Finale (S04E27)](https://www.securityjourney.com/blog/season-4-finale-s04e27/)
+    (snippet from
+    [4.17](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/))
 * Webcast recording on [7 Minute Security](https://7ms.us):
   [DIY $500 Pentest Lab - Part 1](https://www.youtube.com/watch?v=7qnaR6ZmJzA)
   :mega:
@@ -36,12 +49,6 @@ where this project was mentioned or used!
     :bulb:
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
     :godmode:
-* [Application Security Podcast](https://securityjourney.com/application-security-podcast):
-  * Episode 4.17:
-    [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
-  * Episode 4.20:
-    [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/)
-    :mega:
 * Recorded live streams from the
   [Twitch](https://aka.ms/DevSlopTwitch)/[Mixer](https://aka.ms/DevSlop-Mixer)
   [OWASP DevSlop](https://devslop.co/) Show:
@@ -54,6 +61,7 @@ where this project was mentioned or used!
   * Episode #318:
     [Interview with Bjorn Kimminich of OWASP Juice Shop](https://7ms.us/7ms-318-interview-with-bjorn-kimminich-of-owasp-juice-shop/)
   * Shout outs in various episodes:
+    [#347](https://7ms.us/7ms-347-happy-5th-birthday-to-7ms/),
     [#342](https://7ms.us/7ms-342-interview-with-matt-mccullough/),
     [#310](https://7ms.us/7ms-310/),
     [#309](https://7ms.us/7ms-309-password-cracking-in-the-cloud-part-2/),
@@ -157,6 +165,8 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
+  by Sunny Wear ([Youtube](https://www.youtube.com/watch?v=zi3yDovd0RY))
 * [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp)
   chapter :godmode: of the
   [Mastering Kali Linux Network Scanning](https://www.packtpub.com/networking-and-servers/mastering-kali-linux-network-scanning-video)
@@ -198,6 +208,15 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md) workshop with Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
+  21.03.2019
+* [OWASP Juice Shop - First you 😂😂 then you 😢](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
+  by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
+  21.03.2019
+* [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
+  by Björn Kimminich,
+  [39. OWASP Stammtisch Hamburg](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch),
+  27.02.2019
 * [Back to Basics: Hacking OWASP JuiceShop](https://www.owasp.org/index.php/Knoxville#Past_Meetings)
   by Jeremy Kelso,
   [OWASP Knoxville Chapter Meeting](https://www.owasp.org/index.php/Knoxville),

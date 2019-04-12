@@ -1,0 +1,80 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+
+import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter.component'
+import { SearchResultComponent } from '../search-result/search-result.component'
+import { UserService } from '../Services/user.service'
+import { WindowRefService } from '../Services/window-ref.service'
+
+import { ReactiveFormsModule } from '@angular/forms'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { RouterTestingModule } from '@angular/router/testing'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { TranslateModule } from '@ngx-translate/core'
+import { CookieService, CookieModule } from 'ngx-cookie'
+
+import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatDividerModule } from '@angular/material/divider'
+
+import { of } from 'rxjs'
+
+describe('TwoFactorAuthEnterComponent', () => {
+  let component: TwoFactorAuthEnterComponent
+  let fixture: ComponentFixture<TwoFactorAuthEnterComponent>
+  let userService
+
+  beforeEach(async(() => {
+    userService = jasmine.createSpyObj('UserService', ['login'])
+    userService.login.and.returnValue(of({}))
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
+    userService.isLoggedIn.next.and.returnValue({})
+
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'search', component: SearchResultComponent }
+        ]),
+        ReactiveFormsModule,
+        CookieModule.forRoot(),
+        TranslateModule.forRoot(),
+        BrowserAnimationsModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        MatDividerModule,
+        MatButtonModule
+      ],
+      declarations: [ TwoFactorAuthEnterComponent, SearchResultComponent ],
+      providers: [
+        { provide: UserService, useValue: userService },
+        CookieService,
+        WindowRefService
+      ]
+    })
+    .compileComponents()
+  }))
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TwoFactorAuthEnterComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
+
+  it('should create', () => {
+    expect(component).toBeTruthy()
+  })
+})

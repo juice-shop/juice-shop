@@ -5,16 +5,18 @@
 
     <div class="form-container" id="registration-form">
 
+      <div class="error" ng-if="error">{{ error }}</div>
+
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_EMAIL</mat-label>
-        <input [formControl]="emailControl" type="text" matInput>
+        <input [formControl]="emailControl" (focus)="this.error=null" type="text" matInput>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_PASSWORD</mat-label>
-        <input [formControl]="passwordControl" type="password" matInput>
+        <input [formControl]="passwordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD</mat-error>
         <mat-error
           *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)" translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH</mat-error>
@@ -22,7 +24,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
-        <input [formControl]="repeatPasswordControl" type="password" matInput>
+        <input [formControl]="repeatPasswordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>PASSWORDS_NOT_MATCHING</mat-error>
       </mat-form-field>
@@ -35,7 +37,7 @@
             <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
           </mat-label>
           <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
-                      name="securityQuestion">
+                      (focus)="this.error=null" name="securityQuestion">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.id">
               {{question.question}}
             </mat-option>
@@ -44,7 +46,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input [formControl]="securityAnswerControl" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
+          <input [formControl]="securityAnswerControl" (focus)="this.error=null" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
           <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
         </mat-form-field>
       </div>
