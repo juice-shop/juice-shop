@@ -211,7 +211,8 @@
   "greenkeeper": {
     "ignore": [
       "sanitize-html",
-      "express-jwt"
+      "express-jwt",
+      "sequelize"
     ]
   },
   "heroku-run-build-script": true
