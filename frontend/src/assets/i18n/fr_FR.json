@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Veuillez saisir votre mot de passe une nouvelle fois s'il vous plaît.",
   "INVALID_PASSWORD_LENGTH": "Votre mot de passe doit contenir au moins {{length}} caractères.",
   "LABEL_PASSWORD_REPEAT": "Ré-écrivez votre mot de passe",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Inscrivez-vous",
   "TITLE_LOGOUT": "Déconnexion",
   "CONFIRM_LOGGED_OUT": "Vous avez été déconnecté.",
