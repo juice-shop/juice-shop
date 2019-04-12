@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Proszę powtórzyć hasło.",
   "INVALID_PASSWORD_LENGTH": "Hasło musi zawierać {{length}} znaków.",
   "LABEL_PASSWORD_REPEAT": "Powtórz hasło",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Zarejestruj się",
   "TITLE_LOGOUT": "Wyloguj się",
   "CONFIRM_LOGGED_OUT": "Zostałeś wylogowany.",
