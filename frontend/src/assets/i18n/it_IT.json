@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Ripeti la tua password.",
   "INVALID_PASSWORD_LENGTH": "La password deve contenere almeno {{length}} caratteri.",
   "LABEL_PASSWORD_REPEAT": "Ripeti password",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrati",
   "TITLE_LOGOUT": "Disconnettiti",
   "CONFIRM_LOGGED_OUT": "Ti sei disconnesso.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }
