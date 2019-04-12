@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Por favor, repita sua senha.",
   "INVALID_PASSWORD_LENGTH": "Senha deve ter de 5-20 caracteres.",
   "LABEL_PASSWORD_REPEAT": "Repita a senha",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Cadastre-se",
   "TITLE_LOGOUT": "Sair da conta",
   "CONFIRM_LOGGED_OUT": "Você foi desconectado.",
