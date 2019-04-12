@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Bitte wiederhole dein Passwort.",
   "INVALID_PASSWORD_LENGTH": "Passwort muss {{length}} Zeichen lang sein.",
   "LABEL_PASSWORD_REPEAT": "Passwort wiederholen",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrieren",
   "TITLE_LOGOUT": "Abmelden",
   "CONFIRM_LOGGED_OUT": "Du wurdest abgemeldet.",
