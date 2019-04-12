@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "パスワードを再入力してください",
   "INVALID_PASSWORD_LENGTH": "パスワードは {{length}} 文字以上で入力してください",
   "LABEL_PASSWORD_REPEAT": "パスワード(確認用)",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "登録",
   "TITLE_LOGOUT": "ログアウト",
   "CONFIRM_LOGGED_OUT": "ログアウトしました",
