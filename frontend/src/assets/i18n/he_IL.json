@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "נא להזין שוב את הסיסמה.",
   "INVALID_PASSWORD_LENGTH": "הסיסמה חייבת להיות באורך של {{length}} תווים.",
   "LABEL_PASSWORD_REPEAT": "סיסמה פעם שנית",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "הירשם",
   "TITLE_LOGOUT": "יציאה",
   "CONFIRM_LOGGED_OUT": "התנתקת מהמערכת בהצלחה.",
