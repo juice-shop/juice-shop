@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Por favor, repita su contraseña.",
   "INVALID_PASSWORD_LENGTH": "La contraseña debe tener una longitud entre {{length}} caracteres.",
   "LABEL_PASSWORD_REPEAT": "Repita la contraseña",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrarse",
   "TITLE_LOGOUT": "Cerrar sesión",
   "CONFIRM_LOGGED_OUT": "Sesión cerrada correctamente.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Ocultar todo",
   "TYPE_THESE_LETTERS": "Teclea las siguientes {{length}} letras",
   "BTN_REQUEST": "Solicitar",
-  "EXPORT_LABEL": "Exportar en Formato"
+  "EXPORT_LABEL": "Exportar en Formato",
+  "ACCOUNT": "Account"
 }

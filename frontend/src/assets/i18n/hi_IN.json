@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "कृपया अपना पासवर्ड दोहराएं।",
   "INVALID_PASSWORD_LENGTH": "पासवर्ड {{length}} वर्ण लंबा होना चाहिए।",
   "LABEL_PASSWORD_REPEAT": "पासवर्ड दोहराएं",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "रजिस्टर",
   "TITLE_LOGOUT": "लॉग आउट",
   "CONFIRM_LOGGED_OUT": "आप लॉग आउट हो चुके हैं।",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }
