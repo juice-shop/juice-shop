@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Vă rugăm să repetaţi parola.",
   "INVALID_PASSWORD_LENGTH": "Parola trebuie să aibă cel puțin {{length}} caractere.",
   "LABEL_PASSWORD_REPEAT": "Repetați parola",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Înregistrare",
   "TITLE_LOGOUT": "Deconectare",
   "CONFIRM_LOGGED_OUT": "Ați fost deconectat.",
