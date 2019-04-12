@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "ေက်းဇူးျပဳ၍ လ်ွိဳ႕ဝွက္စကားလံုးအား ထပ္မံထည့္သြင္းပါ",
   "INVALID_PASSWORD_LENGTH": "လ်ိွဳ႕ဝွက္စကားလံုး ကို {{length}} ျဖည့္သြင္းေပးပါ",
   "LABEL_PASSWORD_REPEAT": "လ်ိွဳ႕ဝွက္စကားလံုး ထပ္မံျဖည့္သြင္းရန္",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "အေကာင့္ ျပဳလုပ္ပါမည္",
   "TITLE_LOGOUT": "ထြက္မည္",
   "CONFIRM_LOGGED_OUT": "သင့္အေကာင့္မွ ထြက္ျပီးပါျပီ",
