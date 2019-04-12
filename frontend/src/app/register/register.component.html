@@ -24,6 +24,7 @@
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
         <input [formControl]="repeatPasswordControl" type="password" matInput>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>PASSWORDS_NOT_MATCHING</mat-error>
       </mat-form-field>
 
       <div class="security-container">
