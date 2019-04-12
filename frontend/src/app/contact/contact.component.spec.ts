@@ -1,6 +1,6 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { CaptchaService } from '../Services/captcha.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -33,7 +33,7 @@ describe('ContactComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BarRatingModule,
         BrowserAnimationsModule,

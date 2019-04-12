@@ -9,11 +9,10 @@
   </mat-card>
 
   <mat-card>
-
     <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
     <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
-      <mat-button-toggle *ngFor="let difficulty of [1,2,3,4,5,6]" (change)="toggleDifficulty(difficulty)"
+      <mat-button-toggle *ngFor="let difficulty of difficulties" (change)="toggleDifficulty(difficulty)"
                          [checked]="scoreBoardTablesExpanded[difficulty]">
         <label>
         <span class="fa-4x fa-layers fa-fw">
@@ -31,37 +30,46 @@
           <span class="fa-layers-text fa-inverse" data-fa-transform="shrink-9"
                 style="font-weight:900;">{{difficulty}}</span>
           <span
-            [class]="'fa-layers-counter ' + ((filterSolvedChallengesOfDifficulty(difficulty)).length === (filterChallengesByDifficulty(difficulty)).length ? 'accent-notification' : (filterSolvedChallengesOfDifficulty(difficulty)).length === 0 ? 'warn-notification' : 'primary-notification')">
-              {{((filterSolvedChallengesOfDifficulty(difficulty)).length + '/' + (filterChallengesByDifficulty(difficulty)).length)}}
+            [class]="'fa-layers-counter ' + ((solvedChallengesOfDifficulty[difficulty - 1]).length === (totalChallengesOfDifficulty[difficulty - 1]).length ? 'accent-notification' : (solvedChallengesOfDifficulty[difficulty - 1]).length === 0 ? 'warn-notification' : 'primary-notification')">
+              {{((solvedChallengesOfDifficulty[difficulty - 1]).length + '/' + (totalChallengesOfDifficulty[difficulty - 1]).length)}}
           </span>
         </span>
         </label>
       </mat-button-toggle>
+
+      <button class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+
       <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
+
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
-      <mat-button-toggle class="category-toggle" *ngFor="let category of allChallengeCategories" (change)="toggleShowChallengeCategory(category)" [checked]="displayedChallengeCategories.includes(category)">
+      <mat-button-toggle class="category-toggle" *ngFor="let category of allChallengeCategories"
+                         (change)="toggleShowChallengeCategory(category)"
+                         [checked]="displayedChallengeCategories.includes(category)">
         {{category}}
       </mat-button-toggle>
+
+      <button class="mat-button" (click)="toggleAllChallengeCategory()">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
     </div>
 
   </mat-card>
 
-  <mat-expansion-panel *ngFor="let difficulty of [1,2,3,4,5,6]" [expanded]="scoreBoardTablesExpanded[difficulty]"
+  <mat-expansion-panel *ngFor="let difficulty of difficulties" [expanded]="scoreBoardTablesExpanded[difficulty]"
                        [disabled]="true">
 
     <mat-expansion-panel-header>
       <span fxLayout="row">
         <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
-        <span style="margin: 15px 0;">{{"LABEL_" + difficulty + "_STAR_DIFFICULTY" | translate}} {{"LABEL_CHALLENGES" | translate}}</span>
+        <span
+          style="margin: 15px 0;">{{"LABEL_" + difficulty + "_STAR_DIFFICULTY" | translate}} {{"LABEL_CHALLENGES" | translate}}</span>
       </span>
     </mat-expansion-panel-header>
 
     <mat-divider></mat-divider>
-    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges,difficulty,'name')">
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(totalChallengesOfDifficulty[difficulty - 1])">
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
@@ -79,30 +87,18 @@
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
         <mat-cell *matCellDef="let challenge">
-          <button id="{{challenge.name}}.notSolved" mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
-                  [hidden]="challenge.solved || challenge.disabledEnv" (click)="openHint(challenge)"
-                  matTooltip="{{ showChallengeHints ? challenge.hint : null }}" matTooltipPosition="above">
-            <span class="not-solved">
-              <i class="fas fa-book" aria-hidden="true"
-                 [hidden]="!showChallengeHints || !(challenge.hint || challenge.hintUrl)"></i>
-              {{"STATUS_UNSOLVED" | translate}}
-            </span>
-          </button>
-          <button id="{{challenge.name}}.solved" mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
-                  [hidden]="!challenge.solved || challenge.disabledEnv" (click)="repeatNotification(challenge)"
-                  matTooltip="{{ allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null }}"
-                  matTooltipPosition="above">
-            <span class="solved">
-              <i class="far fa-flag" aria-hidden="true" [hidden]="!allowRepeatNotifications"></i>
-              {{"STATUS_SOLVED" | translate}}
-            </span>
-          </button>
-          <button id="{{challenge.name}}.unavailable" mat-raised-button [color]="challenge.solved ? 'accent': 'primary'" [disabled]="challenge.disabledEnv"
-                  [hidden]="!challenge.disabledEnv"
-                  matTooltip="{{ challenge.hint }}" matTooltipPosition="above">
-            <span class="unavailable">
-              <i class="fab fa-{{challenge.disabledEnv?.toLowerCase()}}" aria-hidden="true"></i>
-              {{"STATUS_UNAVAILABLE" | translate}}
+          <button
+            id="{{challenge.name + '.' + (challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'notSolved'))}}"
+            mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
+            (click)="challenge.disabledEnv ? noop() : (challenge.solved ? repeatNotification(challenge) : openHint(challenge))"
+            matTooltip="{{challenge.disabledEnv ? challenge.hint : (challenge.solved ? (allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null) : (showChallengeHints ? challenge.hint : null))}}"
+            matTooltipPosition="above">
+            <span class="{{challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'not-solved')}}">
+              <i
+                class="{{challenge.disabledEnv ? ('fab fa-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
+                aria-hidden="true"
+                [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !challenge.hintUrl)))"></i>
+              {{(challenge.disabledEnv ? "STATUS_UNAVAILABLE" : (challenge.solved ? "STATUS_SOLVED" : "STATUS_UNSOLVED")) | translate}}
             </span>
           </button>
         </mat-cell>
@@ -119,4 +115,4 @@
 
 <img src="assets/public/images/padding/1px.png"/>
 
-<ngx-spinner></ngx-spinner>
+<ngx-spinner class="overlay-fullscreen"></ngx-spinner>

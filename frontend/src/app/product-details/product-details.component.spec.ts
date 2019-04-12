@@ -4,12 +4,13 @@ import { By } from '@angular/platform-browser'
 import { MatDividerModule } from '@angular/material/divider'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatBadgeModule } from '@angular/material/badge'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
 import { ProductDetailsComponent } from './product-details.component'
@@ -40,14 +41,15 @@ describe('ProductDetailsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        HttpClientModule,
+        HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatDividerModule
+        MatDividerModule,
+        MatBadgeModule
       ],
       declarations: [ ProductDetailsComponent ],
       providers: [

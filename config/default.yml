@@ -14,6 +14,7 @@ application:
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
   slackUrl: 'http://owaspslack.com'
+  redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
   pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
   planetOverlayMap: orangemap2k.jpg
   planetName: Orangeuze
@@ -30,10 +31,14 @@ application:
     dismissText: 'Me want it!'
     linkText: 'But me wait!'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
+  privacyContactEmail: donotreply@owasp-juice.shop
   securityTxt:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
+  promotion:
+    video: JuiceShopJingle.mp4
+    subtitles: JuiceShopJingle.vtt
 challenges:
   safetyOverride: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
@@ -227,6 +232,11 @@ products:
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
     image: melon_bike.jpeg
+  -
+    name: 'OWASP Juice Shop Coaster (10pcs)'
+    description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
+    price: 19.99
+    image: coaster.png
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both

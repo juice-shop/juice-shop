@@ -51,6 +51,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.adminSectionChallenge)
   } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
     utils.solve(challenges.tokenSaleChallenge)
+  } else if (utils.notSolved(challenges.privacyPolicyChallenge) && utils.endsWith(url, '/81px.png')) {
+    utils.solve(challenges.privacyPolicyChallenge)
   } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
     utils.solve(challenges.extraLanguageChallenge)
   } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
@@ -140,7 +142,22 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
     dlpPastebinDataLeakChallenge()
   }
+  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
+    recyclesMissingItemChallenge()
+  }
   next()
+}
+
+function recyclesMissingItemChallenge () {
+  models.Feedback.findAndCountAll({
+    where: {
+      comment: { [Op.like]: '%Starfleet HQ, 24-593 Federation Drive, San Francisco, CA%' }
+    }
+  }).then(({ count }) => {
+    if (count > 0) {
+      utils.solve(challenges.recyclesMissingItemChallenge)
+    }
+  })
 }
 
 function changeProductChallenge (osaft) {

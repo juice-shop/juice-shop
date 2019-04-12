@@ -107,4 +107,24 @@ describe('/#/complain', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
   })
+
+  describe('challenge "videoXssChallenge"', () => {
+    it('should be possible to inject js in subtitles by uploading zip file with filenames having path traversal', () => {
+      const EC = protractor.ExpectedConditions
+      complaintMessage.sendKeys('Here we go!')
+      file.sendKeys(path.resolve('test/files/videoExploit.zip'))
+      submitButton.click()
+      browser.waitForAngularEnabled(false)
+      browser.get('/promotion')
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.switchTo().alert().then(alert => {
+        expect(alert.getText()).toEqual('xss')
+        alert.accept()
+      })
+      browser.get('/')
+      browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 6' })
+  })
 })

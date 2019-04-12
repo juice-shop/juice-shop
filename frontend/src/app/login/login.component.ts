@@ -26,9 +26,7 @@ const authorizedRedirectURIs = {
   'http://127.0.0.1:3000': 'http://local3000.owasp-juice.shop',
   'http://localhost:4200': 'http://local4200.owasp-juice.shop',
   'http://127.0.0.1:4200': 'http://local4200.owasp-juice.shop',
-  'http://192.168.99.100:3000': 'http://localMac.owasp-juice.shop',
-  'https://juice-shop-v8.herokuapp.com': 'https://juice-shop-v8.herokuapp.com',
-  'http://juice-shop-v8.herokuapp.com': 'http://juice-shop-v8.herokuapp.com'
+  'http://192.168.99.100:3000': 'http://localMac.owasp-juice.shop'
 }
 
 @Component({
@@ -81,8 +79,15 @@ export class LoginComponent implements OnInit {
       /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/search'])
-    }, (error) => {
+    }, ({ error }) => {
+      if (error.status && error.data && error.status === 'totp_token_requried') {
+        localStorage.setItem('totp_tmp_token', error.data.tmpToken)
+        this.router.navigate(['/2fa/enter'])
+        return
+      }
+
       console.log(error)
+
       localStorage.removeItem('token')
       this.cookieService.remove('token', { domain: document.domain })
       sessionStorage.removeItem('bid')

@@ -4,7 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarComponent } from './navbar.component'
 import { Location } from '@angular/common'
 
@@ -53,9 +53,10 @@ describe('NavbarComponent', () => {
     administrationService.getApplicationVersion.and.returnValue(of(undefined))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    userService = jasmine.createSpyObj('UserService',['whoAmI','getLoggedInState'])
+    userService = jasmine.createSpyObj('UserService',['whoAmI','getLoggedInState','saveLastLoginIp'])
     userService.whoAmI.and.returnValue(of({}))
     userService.getLoggedInState.and.returnValue(of(true))
+    userService.saveLastLoginIp.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
     userService.isLoggedIn.next.and.returnValue({})
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
@@ -71,7 +72,7 @@ describe('NavbarComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'search', component: SearchResultComponent }
         ]),
-        HttpClientModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
         BrowserAnimationsModule,
@@ -238,6 +239,11 @@ describe('NavbarComponent', () => {
   it('should set the login status to be false via UserService', () => {
     component.logout()
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
+  })
+
+  it('should save the last login IP address', () => {
+    component.logout()
+    expect(userService.saveLastLoginIp).toHaveBeenCalled()
   })
 
   it('should forward to main page', fakeAsync(() => {
