@@ -17,7 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Моля, повторете вашата парола.",
   "INVALID_PASSWORD_LENGTH": "Паролата трябва да бъде поне {{length}} символа.",
   "LABEL_PASSWORD_REPEAT": "Повторете паролата",
-  "PASSWORDS_NOT_MATCHING": "Пароли не совпадают",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Регистрация",
   "TITLE_LOGOUT": "Изход",
   "CONFIRM_LOGGED_OUT": "Излязохте от системата.",
