@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Gjenta passordet.",
   "INVALID_PASSWORD_LENGTH": "Passord må inneholde {{length}} tegn.",
   "LABEL_PASSWORD_REPEAT": "Gjenta passord",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrer deg",
   "TITLE_LOGOUT": "Logg av",
   "CONFIRM_LOGGED_OUT": "Du har nå logget ut.",
