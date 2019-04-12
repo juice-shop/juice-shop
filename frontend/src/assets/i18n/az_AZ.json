@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Zəhmət olmasa şifrənizi təkrar daxil edin.",
   "INVALID_PASSWORD_LENGTH": "Şifrə {{length}} simvol uzunluğunda olmalıdır.",
   "LABEL_PASSWORD_REPEAT": "Şifrəni Təkrarla",
+  "PASSWORDS_NOT_MATCHING": "Parollar uyğun gəlmir",
   "BTN_REGISTER": "Qeydiyyat",
   "TITLE_LOGOUT": "Çıxış",
   "CONFIRM_LOGGED_OUT": "Çıxış etdiniz.",
