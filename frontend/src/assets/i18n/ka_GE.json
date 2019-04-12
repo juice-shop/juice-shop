@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "გთხოვთ გაიმეოროთ პაროლი.",
   "INVALID_PASSWORD_LENGTH": "პაროლი უნდა შედგებოდეს მინიმუმ {{length}} სიმბოლოსგან.",
   "LABEL_PASSWORD_REPEAT": "გაიმეორეთ პაროლი",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "რეგისტრაცია",
   "TITLE_LOGOUT": "გამოსვლა",
   "CONFIRM_LOGGED_OUT": "თქვენ გამოხვედით სისტემიდან.",
