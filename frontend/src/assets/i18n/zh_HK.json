@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "請再次輸入你的密碼。",
   "INVALID_PASSWORD_LENGTH": "密碼必須是{{length}} 字符長。",
   "LABEL_PASSWORD_REPEAT": "重複輸入密碼",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "註冊",
   "TITLE_LOGOUT": "登出",
   "CONFIRM_LOGGED_OUT": "你已成功登出。",
