@@ -7,12 +7,11 @@ import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
+import { LanguagesService } from '../Services/languages.service'
 
-import { languages } from './languages'
 import {
   faBomb,
   faComment,
-  faFlask,
   faInfoCircle,
   faLanguage,
   faMapMarker,
@@ -23,13 +22,18 @@ import {
   faSignOutAlt,
   faTrophy,
   faUserCircle,
-  faUserSecret
+  faUserSecret,
+  faThermometerEmpty,
+  faThermometerQuarter,
+  faThermometerHalf,
+  faThermometerThreeQuarters,
+  faThermometerFull
 } from '@fortawesome/free-solid-svg-icons'
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 
-library.add(faLanguage, faFlask, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments)
+library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 dom.watch()
 
 @Component({
@@ -41,8 +45,8 @@ export class NavbarComponent implements OnInit {
 
   public userEmail = ''
   public avatarSrc = 'assets/public/images/uploads/default.svg'
-  public languages = languages
-  public selectedLanguage = this.languages[0]
+  public languages: any = []
+  public selectedLanguage = 'placeholder'
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
   public gitHubRibbon = true
@@ -50,16 +54,16 @@ export class NavbarComponent implements OnInit {
   public scoreBoardVisible = false
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
-    private configurationService: ConfigurationService,private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router,private translate: TranslateService, private io: SocketIoService) { }
+    private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
+    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService) { }
 
   ngOnInit () {
-
+    this.getLanguages()
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config && config.application && config.application.name && config.application.name !== null) {
@@ -101,11 +105,16 @@ export class NavbarComponent implements OnInit {
         this.getScoreBoardStatus()
       })
     })
+  }
 
+  checkLanguage () {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
-      this.selectedLanguage = this.languages.find(x => x.key === langKey)
+      this.selectedLanguage = this.languages.find((y) => y.key === langKey)
+    } else {
+      this.changeLanguage('en')
+      this.selectedLanguage = this.languages.find((y) => y.key === 'en')
     }
   }
 
@@ -122,7 +131,7 @@ export class NavbarComponent implements OnInit {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
       this.avatarSrc = 'assets/public/images/uploads/' + user.profileImage
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
   }
 
   isLoggedIn () {
@@ -130,6 +139,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout () {
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
     this.cookieService.remove('token', { domain: document.domain })
     sessionStorage.removeItem('bid')
@@ -154,6 +164,16 @@ export class NavbarComponent implements OnInit {
 
   goToProfilePage () {
     window.location.replace('/profile')
+  }
+
+  // tslint:disable-next-line:no-empty
+  noop () { }
+
+  getLanguages () {
+    this.langService.getLanguages().subscribe((res) => {
+      this.languages = res
+      this.checkLanguage()
+    })
   }
 
 }

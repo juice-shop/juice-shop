@@ -26,6 +26,11 @@ import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-
 import { ErrorPageComponent } from './error-page/error-page.component'
 import { Injectable } from '@angular/core'
 import * as jwt_decode from 'jwt-decode'
+import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { DataExportComponent } from './data-export/data-export.component'
+import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -86,10 +91,6 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
-    path: 'change-password',
-    component: ChangePasswordComponent
-  },
-  {
     path: 'complain',
     component: ComplaintComponent
   },
@@ -128,6 +129,30 @@ const routes: Routes = [
   {
     path: '2fa/enter',
     component: TwoFactorAuthEnterComponent
+  },
+  {
+    path: 'privacy-security',
+    component: PrivacySecurityComponent,
+    children: [
+      { path: 'privacy-policy',
+        component: PrivacyPolicyComponent
+      },
+      { path: 'change-password',
+        component: ChangePasswordComponent
+      },
+      {
+        path: 'two-factor-authentication',
+        component: TwoFactorAuthComponent
+      },
+      {
+        path: 'data-export',
+        component: DataExportComponent
+      },
+      {
+        path: 'last-login-ip',
+        component: LastLoginIpComponent
+      }
+    ]
   },
   {
     matcher: oauthMatcher,

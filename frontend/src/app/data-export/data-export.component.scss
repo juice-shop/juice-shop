@@ -1,0 +1,19 @@
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 35%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+
+.radio-label {
+  font-weight:bold;
+  margin-right: 8px;
+}
+
+.captcha-image {
+  float: left;
+}
