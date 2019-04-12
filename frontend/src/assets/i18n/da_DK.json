@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Venligst gentag din adgangskode.",
   "INVALID_PASSWORD_LENGTH": "Adgangskoden skal være mindst på {{length}} tegn.",
   "LABEL_PASSWORD_REPEAT": "Gentag kodeordet",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Tilmeld",
   "TITLE_LOGOUT": "Log ud",
   "CONFIRM_LOGGED_OUT": "Du er blevet logget ud.",
