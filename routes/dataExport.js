@@ -4,7 +4,7 @@ const db = require('../data/mongodb')
 
 module.exports = function dataExport () {
   return (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+    const loggedInUser = insecurity.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
     if (loggedInUser && loggedInUser.data && loggedInUser.data.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email
