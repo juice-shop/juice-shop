@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
   public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
-  public securityAnswerControl: FormControl = new FormControl('', [Validators.required],)
+  public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
   public selected
 
@@ -69,4 +69,3 @@ function matchValidator (passwordControl: AbstractControl) {
     return null
   }
 }
-
