@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Herhaal uw wachtwoord alstublieft.",
   "INVALID_PASSWORD_LENGTH": "Het wachtwoord moet ten minste {{length}} tekens lang zijn.",
   "LABEL_PASSWORD_REPEAT": "Wachtwoord herhalen",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registreren",
   "TITLE_LOGOUT": "Afmelden",
   "CONFIRM_LOGGED_OUT": "U bent afgemeld.",
