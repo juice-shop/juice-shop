@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Please repeat your password.",
   "INVALID_PASSWORD_LENGTH": "Password must be {{length}} characters long.",
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Suy qachmey",
   "TITLE_LOGOUT": "Logout",
   "CONFIRM_LOGGED_OUT": "You have been logged out.",
