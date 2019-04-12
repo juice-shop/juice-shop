@@ -17,7 +17,7 @@ module.exports = function resetPassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
     } else {
-      models.SecurityAnswer.find({
+      models.SecurityAnswer.findOne({
         include: [{
           model: models.User,
           where: { email }
