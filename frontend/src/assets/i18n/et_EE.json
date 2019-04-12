@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Palun korda oma salasõna.",
   "INVALID_PASSWORD_LENGTH": "Salasõna peab olema vähemalt {{length}} kohaline.",
   "LABEL_PASSWORD_REPEAT": "Korda parooli",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registreeri",
   "TITLE_LOGOUT": "Välju",
   "CONFIRM_LOGGED_OUT": "Olete välja logitud.",
