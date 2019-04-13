@@ -65,6 +65,7 @@ async function status (req, res) {
     res.json({
       setup: false,
       secret,
+      email: user.email,
       setupToken: insecurity.authorize({
         secret,
         type: 'totp_setup_secret'

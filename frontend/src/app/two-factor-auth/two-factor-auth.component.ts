@@ -24,10 +24,10 @@ export class TwoFactorAuthComponent {
   constructor (private twoFactorAuthService: TwoFactorAuthService) {}
 
   ngOnInit () {
-    this.twoFactorAuthService.status().subscribe(({ setup, secret, setupToken }) => {
+    this.twoFactorAuthService.status().subscribe(({ setup, email, secret, setupToken }) => {
       this.setupStatus = setup
       if (setup === false) {
-        this.totpUrl = `otpauth://totp/JuiceShop:j12934%40juice-sh.op?secret=${secret}&issuer=JuiceShop`
+        this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop`
         this.setupToken = setupToken
       }
     },(err) => console.log(err))

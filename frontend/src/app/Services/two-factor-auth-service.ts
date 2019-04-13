@@ -18,6 +18,7 @@ interface TwoFactorAuthStatusPayload {
   setup: boolean,
   secret?: string,
   setupToken?: string,
+  email?: string
 }
 
 @Injectable({
