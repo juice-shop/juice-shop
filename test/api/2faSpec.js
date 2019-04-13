@@ -142,16 +142,17 @@ describe('/rest/2fa/status', () => {
           'content-type': 'application/json'
         }
       })
-      .inspectResponse()
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
         setup: Joi.boolean(),
         secret: Joi.string(),
+        email: Joi.string(),
         setupToken: Joi.string()
       })
       .expect('json', {
-        setup: false
+        setup: false,
+        email: `J12934@${config.get('application.domain')}`
       })
   })
 
