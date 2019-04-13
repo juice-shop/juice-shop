@@ -76,7 +76,7 @@ describe('/rest/2fa/verify', () => {
 })
 
 
-async function login({email, password}) {
+async function login({email, password, totpSecret}) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
@@ -91,7 +91,7 @@ async function login({email, password}) {
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
         tmpToken: loginRes.json.data.tmpToken,
-        totpToken: otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
+        totpToken: otplib.authenticator.generate(totpSecret)
       })
 
     // console.log('2FA Response')
@@ -105,7 +105,11 @@ async function login({email, password}) {
 
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
-    const { token } = await login({ email: `wurstbrot@${config.get('application.domain')}`, password: "EinBelegtesBrotMitSchinkenSCHINKEN!" })
+    const { token } = await login({
+      email: `wurstbrot@${config.get('application.domain')}`,
+      password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
+      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' 
+    })
 
     await frisby.get(
       REST_URL + '/2fa/status', 
@@ -115,7 +119,6 @@ describe('/rest/2fa/status', () => {
           'content-type': 'application/json'
         }
       })
-      // .inspectResponse()
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
@@ -127,7 +130,10 @@ describe('/rest/2fa/status', () => {
   })
   
   it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
-    const { token } = await login({ email: `J12934@${config.get('application.domain')}`, password: "0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB" })
+    const { token } = await login({
+      email: `J12934@${config.get('application.domain')}`,
+      password: "0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB"
+    })
 
     await frisby.get(
       REST_URL + '/2fa/status', 
