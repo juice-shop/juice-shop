@@ -93,29 +93,25 @@ async function status (req, res) {
 async function setup (req, res) {
   const data = insecurity.authenticatedUsers.from(req)
   if (!data) {
-    res.status(401).send('You need to be logged in to see this.')
-    return
+    throw new Error('Need to login before setting up 2FA')
   }
   const { data: user } = data
 
-  const { password, setupToken, initalToken } = req.body
+  const { password, setupToken, initialToken } = req.body
 
   if (user.password !== insecurity.hash(password)) {
-    res.status(401).send()
-    return
+    throw new Error('Passoword doesnt match stored password')
   }
 
   try {
     const { secret, type } = insecurity.verify(setupToken)
 
     if (type !== 'totp_setup_secret') {
-      res.status(401).send()
-      return
+      throw new Error('SetupToken is of wrong type')
     }
 
-    if (!otplib.authenticator.check(initalToken, secret)) {
-      res.status(401).send()
-      return
+    if (!otplib.authenticator.check(initialToken, secret)) {
+      throw new Error('Inital token doesnt match the secret from the setupToken')
     }
 
     // Update db model and cached object
