@@ -225,7 +225,7 @@ app.post('/api/BasketItems', basketItems())
 
 app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
 app.post('/rest/2fa/verify', twoFactorAuth.verify())
-app.get('/rest/2fa/status', twoFactorAuth.status())
+app.get('/rest/2fa/status', insecurity.isAuthorized(), twoFactorAuth.status())
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
 app.use(verify.databaseRelatedChallenges())
 
