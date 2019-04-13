@@ -1,7 +1,3 @@
-// function loadInstructorModule (name: String) {
-//   return ''
-// }
-
 interface HackingInstructorFileFormat {
   challenges: ChallengeInstruction[]
 }
@@ -20,6 +16,7 @@ interface ChallengeHint {
   }
   position: string
   hideAfterHint?: boolean
+  resolved: () => Promise<void>
 }
 
 const challengeInstructions: HackingInstructorFileFormat = {
@@ -34,7 +31,12 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'searchQuery'
           },
-          position: 'right'
+          position: 'right',
+          resolved () {
+            const searchbar = document.getElementById('search')
+
+            return Promise.resolve()
+          }
         },
         {
           text: 'Irgendein Quatsch!',
@@ -79,7 +81,11 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   return relAnchor
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms) => new Promise(
+  (resolve, reject) => {
+    setTimeout(() => resolve(), ms)
+  }
+)
 
 export async function init () {
   console.log('Hacking Instructor Init')
