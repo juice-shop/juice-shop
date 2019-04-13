@@ -49,18 +49,18 @@ async function verify (req, res) {
   }
 }
 
-async function status(req, res) {
+async function status (req, res) {
   const data = insecurity.authenticatedUsers.from(req)
 
-  if(!data){
+  if (!data) {
     res.status(401).send('You need to be logged in to see this.')
     return
   }
 
-  const { data: user } = data;
+  const { data: user } = data
 
-  if(user.totpSecret === ''){
-    const secret = await otplib.authenticator.generateSecret();
+  if (user.totpSecret === '') {
+    const secret = await otplib.authenticator.generateSecret()
 
     res.json({
       setup: false,
@@ -72,7 +72,7 @@ async function status(req, res) {
     })
   } else {
     res.json({
-      setup: true,
+      setup: true
     })
   }
 }

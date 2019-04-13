@@ -75,8 +75,7 @@ describe('/rest/2fa/verify', () => {
   })
 })
 
-
-async function login({email, password, totpSecret}) {
+async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby
     .post(REST_URL + '/user/login', {
       email,
@@ -86,7 +85,7 @@ async function login({email, password, totpSecret}) {
   // console.log('Login Response')
   // console.log(loginRes)
 
-  if(loginRes.json.status && loginRes.json.status === 'totp_token_requried'){
+  if (loginRes.json.status && loginRes.json.status === 'totp_token_requried') {
     // console.log('Login responded with 2FA challenge signing in with totp token')
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
@@ -97,10 +96,10 @@ async function login({email, password, totpSecret}) {
     // console.log('2FA Response')
     // console.log(totpRes)
 
-    return totpRes.json.authentication;
+    return totpRes.json.authentication
   }
 
-  return loginRes.json.authentication;
+  return loginRes.json.authentication
 }
 
 describe('/rest/2fa/status', () => {
@@ -108,13 +107,13 @@ describe('/rest/2fa/status', () => {
     const { token } = await login({
       email: `wurstbrot@${config.get('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' 
+      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
     await frisby.get(
-      REST_URL + '/2fa/status', 
-      { 
-        headers: { 
+      REST_URL + '/2fa/status',
+      {
+        headers: {
           'Authorization': 'Bearer ' + token,
           'content-type': 'application/json'
         }
@@ -122,23 +121,23 @@ describe('/rest/2fa/status', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
-        setup: Joi.boolean(),
+        setup: Joi.boolean()
       })
       .expect('json', {
         setup: true
       })
   })
-  
+
   it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
     const { token } = await login({
       email: `J12934@${config.get('application.domain')}`,
-      password: "0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB"
+      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
     await frisby.get(
-      REST_URL + '/2fa/status', 
-      { 
-        headers: { 
+      REST_URL + '/2fa/status',
+      {
+        headers: {
           'Authorization': 'Bearer ' + token,
           'content-type': 'application/json'
         }
@@ -152,10 +151,10 @@ describe('/rest/2fa/status', () => {
         setupToken: Joi.string()
       })
       .expect('json', {
-        setup: false,
+        setup: false
       })
   })
-  
+
   it('GET should return 401 when not logged in', async () => {
     await frisby.get(REST_URL + '/2fa/status')
       .expect('status', 401)
