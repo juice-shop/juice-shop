@@ -7,6 +7,7 @@ const otplib = require('otplib')
 const jwt = require('jsonwebtoken')
 
 const REST_URL = 'http://localhost:3000/rest'
+const API_URL = 'http://localhost:3000/api'
 
 const jsonHeader = { 'content-type': 'application/json' }
 
@@ -80,26 +81,39 @@ async function login ({ email, password, totpSecret }) {
     .post(REST_URL + '/user/login', {
       email,
       password
-    }).catch((res) => res)
-
-  // console.log('Login Response')
-  // console.log(loginRes)
+    }).catch((res) => {
+      if (res.json && res.json.type && res.json.status === 'totp_token_requried') {
+        return res
+      }
+      throw new Error(`Failed to login '${email}'`)
+    })
 
   if (loginRes.json.status && loginRes.json.status === 'totp_token_requried') {
-    // console.log('Login responded with 2FA challenge signing in with totp token')
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
         tmpToken: loginRes.json.data.tmpToken,
         totpToken: otplib.authenticator.generate(totpSecret)
       })
 
-    // console.log('2FA Response')
-    // console.log(totpRes)
-
     return totpRes.json.authentication
   }
 
   return loginRes.json.authentication
+}
+
+async function register ({ email, password }) {
+  const res = await frisby
+    .post(API_URL + '/Users/', {
+      email,
+      password,
+      passwordRepeat: password,
+      securityQuestion: null,
+      securityAnswer: null
+    }).catch(() => {
+      throw new Error(`Failed to register '${email}'`)
+    })
+
+  return res
 }
 
 describe('/rest/2fa/status', () => {
@@ -158,6 +172,136 @@ describe('/rest/2fa/status', () => {
 
   it('GET should return 401 when not logged in', async () => {
     await frisby.get(REST_URL + '/2fa/status')
+      .expect('status', 401)
+  })
+})
+
+describe('/rest/2fa/setup', () => {
+  it('POST should be able to setup 2fa for accounts without 2fa enabled', async () => {
+    const email = 'fooooo1@bar.com'
+    const password = '123456'
+
+    const secret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password })
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password,
+          setupToken: insecurity.authorize({
+            secret,
+            type: 'totp_setup_secret'
+          }),
+          initalToken: otplib.authenticator.generate(secret)
+        }
+      })
+      .expect('status', 200)
+
+    await frisby.get(
+      REST_URL + '/2fa/status',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        }
+      })
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        setup: Joi.boolean()
+      })
+      .expect('json', {
+        setup: true
+      })
+  })
+
+  it('POST should fail if the password doesnt match', async () => {
+    const email = 'fooooo2@bar.com'
+    const password = '123456'
+
+    const secret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password })
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password: password + ' this makes the password wrong',
+          setupToken: insecurity.authorize({
+            secret,
+            type: 'totp_setup_secret'
+          }),
+          initalToken: otplib.authenticator.generate(secret)
+        }
+      })
+      .expect('status', 401)
+  })
+
+  it('POST should fail if the inital token is incorrect', async () => {
+    const email = 'fooooo3@bar.com'
+    const password = '123456'
+
+    const secret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password })
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password: password,
+          setupToken: insecurity.authorize({
+            secret,
+            type: 'totp_setup_secret'
+          }),
+          initalToken: otplib.authenticator.generate(secret + 'ASJDVASGDKASVDUAGS')
+        }
+      })
+      .expect('status', 401)
+  })
+
+  it('POST should fail if the token is of the wrong type', async () => {
+    const email = 'fooooo4@bar.com'
+    const password = '123456'
+
+    const secret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password })
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password,
+          setupToken: insecurity.authorize({
+            secret,
+            type: 'totp_setup_secret_foobar'
+          }),
+          initalToken: otplib.authenticator.generate(secret)
+        }
+      })
       .expect('status', 401)
   })
 })
