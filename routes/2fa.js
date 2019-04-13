@@ -50,7 +50,11 @@ async function verify (req, res) {
 }
 
 async function status(req, res) {
-  
+  const { data: user } = insecurity.authenticatedUsers.from(req)
+
+  res.json({
+    setup: user.totpSecret !== '',
+  })
 }
 
 module.exports.verify = () => verify

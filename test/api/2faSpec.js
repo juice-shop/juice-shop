@@ -75,42 +75,76 @@ describe('/rest/2fa/verify', () => {
   })
 })
 
+
+async function login({email, password}) {
+  const loginRes = await frisby
+    .post(REST_URL + '/user/login', {
+      email,
+      password
+    }).catch((res) => res)
+
+  // console.log('Login Response')
+  // console.log(loginRes)
+
+  if(loginRes.json.status && loginRes.json.status === 'totp_token_requried'){
+    // console.log('Login responded with 2FA challenge signing in with totp token')
+    const totpRes = await frisby
+      .post(REST_URL + '/2fa/verify', {
+        tmpToken: loginRes.json.data.tmpToken,
+        totpToken: otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
+      })
+
+    // console.log('2FA Response')
+    // console.log(totpRes)
+
+    return totpRes.json.authentication;
+  }
+
+  return loginRes.json.authentication;
+}
+
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
+    const { token } = await login({ email: `wurstbrot@${config.get('application.domain')}`, password: "EinBelegtesBrotMitSchinkenSCHINKEN!" })
 
-    await frisby.post(REST_URL + '/2fa/status', {
-      headers: {
-        'Authorization': 'Bearer ' + insecurity.authorize(),
-        'content-type': 'application/json'
-      },
-    })
+    await frisby.get(
+      REST_URL + '/2fa/status', 
+      { 
+        headers: { 
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        }
+      })
+      // .inspectResponse()
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'authentication', {
-        token: Joi.string(),
-        umail: Joi.string(),
-        bid: Joi.number()
+      .expect('jsonTypes', {
+        setup: Joi.boolean(),
       })
-      .expect('json', 'authentication', {
-        umail: `wurstbrot@${config.get('application.domain')}`
+      .expect('json', {
+        setup: true
       })
   })
+  
+  it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
+    const { token } = await login({ email: `J12934@${config.get('application.domain')}`, password: "0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB" })
 
-  it('POST should fail if a invalid totp token is used', async () => {
-    const tmpTokenWurstbrot = insecurity.authorize({
-      userId: 10,
-      type: 'password_valid_needs_second_factor_token'
-    })
-
-    const totpToken = otplib.authenticator.generate('THIS9ISNT8THE8RIGHT8SECRET')
-
-    await frisby.post(REST_URL + '/2fa/verify', {
-      headers: jsonHeader,
-      body: {
-        tmpToken: tmpTokenWurstbrot,
-        totpToken
-      }
-    })
-      .expect('status', 401)
+    await frisby.get(
+      REST_URL + '/2fa/status', 
+      { 
+        headers: { 
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        }
+      })
+      // .inspectResponse()
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', {
+        setup: Joi.boolean(),
+      })
+      .expect('json', {
+        setup: false
+      })
   })
 })
