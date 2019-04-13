@@ -19,6 +19,8 @@ export class TwoFactorAuthComponent {
   public setupStatus: boolean = null
   public totpUrl?: string
 
+  public errored: boolean = null
+
   private setupToken?: string
 
   constructor (private twoFactorAuthService: TwoFactorAuthService) {}
@@ -30,6 +32,20 @@ export class TwoFactorAuthComponent {
         this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop`
         this.setupToken = setupToken
       }
-    },(err) => console.log(err))
+    }, () => {
+      console.log('Failed to fetch 2fa status')
+    })
+  }
+
+  setup () {
+    this.twoFactorAuthService.setup(
+      this.twoFactorSetupForm.get('passwordControl').value,
+      this.setupToken,
+      this.twoFactorSetupForm.get('initalTokenControl').value
+    ).subscribe(() => {
+      this.setupStatus = true
+    }, () => {
+      this.errored = true
+    })
   }
 }

@@ -179,5 +179,7 @@
   "TITLE_TWO_FACTOR_AUTH_SETUP": "Two Factor Auth Setup",
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirm your current password",
   "LABEL_INITAL_2FA_TOKEN": "Inital Token from your authenticator",
-  "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started."
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
+  "2FA_SETUP_ERROR": "Failed to setup 2FA. Check if you entered the password and token correctly.",
+  "2FA_SUCCESSFULL_SETUP": "You have Two Factor Auth Enbaled for your account. Thank you for taking the time to keep your juices safe!"
 }

@@ -41,4 +41,13 @@ export class TwoFactorAuthService {
     return this.http.get(`${environment.hostServer}/rest/2fa/status`)
     .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
   }
+
+  setup (password: string, setupToken: string, initialToken: string): Observable<void> {
+    return this.http.post(`${environment.hostServer}/rest/2fa/setup`, {
+      password,
+      setupToken,
+      initialToken
+    })
+    .pipe(map(() => undefined), catchError((error) => { throw error }))
+  }
 }

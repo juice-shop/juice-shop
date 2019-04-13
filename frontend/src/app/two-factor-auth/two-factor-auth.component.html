@@ -3,10 +3,9 @@
 
     <h2 translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
 
-    <div *ngIf="setupStatus === true">
-      You have Two Factor Auth Enbaled for your account.
-      Thank you for taking the time to keep your juices safe!
-    </div>
+    <div *ngIf="setupStatus === true">2FA_SUCCESSFULL_SETUP</div>
+
+    <div *ngIf="erroed" translate>2FA_SETUP_ERROR</div>
 
     <form 
       *ngIf="setupStatus === false" 
