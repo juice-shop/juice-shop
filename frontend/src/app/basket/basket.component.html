@@ -47,6 +47,7 @@
         <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="!dataSource || dataSource.length < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}</button>
         <mat-button-toggle id="collapseCouponButton" class="coupon-toggle" (change)="toggleCoupon()" [checked]="couponPanelExpanded" style="margin-right:10px;margin-left:10px"><i class="fas fa-gift fa-lg"></i></mat-button-toggle>
         <mat-button-toggle id="paymentCouponButton" class="payment-toggle" (change)="togglePayment()" [checked]="paymentPanelExpanded"><i class="fas fa-credit-card fa-lg"></i></mat-button-toggle>
+        <div style="margin-top:5px;" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
     </mat-card>
 
     <mat-expansion-panel [expanded]="couponPanelExpanded">

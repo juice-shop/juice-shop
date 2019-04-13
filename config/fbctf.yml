@@ -77,7 +77,7 @@ ctf:
     adminSectionChallenge:
       name: Turkey
       code: TR
-    csrfChallenge:
+    changePasswordBenderChallenge:
       name: Suriname
       code: SR
     changeProductChallenge:
@@ -242,12 +242,18 @@ ctf:
     dlpPastebinDataLeakChallenge:
       name: Turkmenistan
       code: TK
+    videoXssChallenge:
+      name: Pakistan
+      code: PK
     recyclesMissingItemChallenge:
       name: Uganda
       code: UG
     twoFactorAuthUnsafeSecretStorageChallenge:
       name: Sweden
       code: SE
+    manipulateClockChallenge:
+      name: Vatican City
+      code: VC
     privacyPolicyChallenge:
       name: Cameroon
       code: CM

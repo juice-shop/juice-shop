@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "請再次輸入你的密碼。",
   "INVALID_PASSWORD_LENGTH": "密碼必須是{{length}} 字符長。",
   "LABEL_PASSWORD_REPEAT": "重複輸入密碼",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "註冊",
   "TITLE_LOGOUT": "登出",
   "CONFIRM_LOGGED_OUT": "你已成功登出。",
@@ -52,10 +53,12 @@
   "LABEL_NAME": "名稱",
   "LABEL_DESCRIPTION": "描述",
   "LABEL_PRICE": "價格",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "圖片",
   "TITLE_BASKET": "您的購物籃",
   "LABEL_QUANTITY": "數量",
   "LABEL_TOTAL_PRICE": "總價格",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "結帳",
   "BTN_CREDIT_CARD": "信用卡",
   "INVALID_COUPON_LENGTH": "優惠券代碼必須是 {{length}} 字符長。",
@@ -166,5 +169,11 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Two Factor Authentication",
   "TITLE_REQUEST_DATA_EXPORT": "Request Data Export",
   "PRIVACY_AND_SECURITY": "Privacy & Security",
-  "MENU": "Menu"
+  "MENU": "Menu",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }
