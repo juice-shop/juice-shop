@@ -147,4 +147,9 @@ describe('/rest/2fa/status', () => {
         setup: false
       })
   })
+  
+  it('GET should return 401 when not logged in', async () => {
+    await frisby.get(REST_URL + '/2fa/status')
+      .expect('status', 401)
+  })
 })
