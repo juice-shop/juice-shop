@@ -50,7 +50,7 @@ module.exports = function login () {
 
         const rememberedEmail = insecurity.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
-          models.User.find({ where: { email: rememberedEmail } }).then(rememberedUser => {
+          models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
             user = utils.queryResultToJson(rememberedUser)
             if (utils.notSolved(challenges.loginCisoChallenge) && user.data.id === users.ciso.id) {
               utils.solve(challenges.loginCisoChallenge)
