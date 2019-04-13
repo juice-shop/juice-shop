@@ -14,6 +14,12 @@ interface AuthenticationPayload {
   umail: string
 }
 
+interface TwoFactorAuthStatusPayload {
+  setup: boolean,
+  secret?: string,
+  setupToken?: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,5 +34,10 @@ export class TwoFactorAuthService {
       tmpToken: localStorage.getItem('totp_tmp_token'),
       totpToken: totpToken
     }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error }))
+  }
+
+  status (): Observable<TwoFactorAuthStatusPayload> {
+    return this.http.get(`${environment.hostServer}/rest/2fa/status`)
+    .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
   }
 }

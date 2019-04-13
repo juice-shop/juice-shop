@@ -1,4 +1,23 @@
-.tempclass {
-  margin: 5%;
-  margin-top: 0;
+mat-card {
+  height: auto;
+  min-width: 300px;
+  width: 35%;
+}
+
+mat-form-field {
+  padding-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.two-factor-qr-code {
+  margin: 16px 0;
+}
+
+button {
+  margin-top: 5px;
 }
