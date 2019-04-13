@@ -143,14 +143,16 @@ describe('/rest/2fa/status', () => {
           'content-type': 'application/json'
         }
       })
-      // .inspectResponse()
+      .inspectResponse()
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
         setup: Joi.boolean(),
+        secret: Joi.string(),
+        setupToken: Joi.string()
       })
       .expect('json', {
-        setup: false
+        setup: false,
       })
   })
   
