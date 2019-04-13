@@ -50,11 +50,31 @@ async function verify (req, res) {
 }
 
 async function status(req, res) {
-  const { data: user } = insecurity.authenticatedUsers.from(req)
+  const data = insecurity.authenticatedUsers.from(req)
 
-  res.json({
-    setup: user.totpSecret !== '',
-  })
+  if(!data){
+    res.status(401).send('You need to be logged in to see this.')
+    return
+  }
+
+  const { data: user } = data;
+
+  if(user.totpSecret === ''){
+    const secret = await otplib.authenticator.generateSecret();
+
+    res.json({
+      setup: false,
+      secret,
+      setupToken: insecurity.authorize({
+        secret,
+        type: 'totp_setup_secret'
+      })
+    })
+  } else {
+    res.json({
+      setup: true,
+    })
+  }
 }
 
 module.exports.verify = () => verify
