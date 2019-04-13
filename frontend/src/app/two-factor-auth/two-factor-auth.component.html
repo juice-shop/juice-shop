@@ -1,3 +1,47 @@
-<div class="tempclass">
-  Two Factor Authentication to be added here
+<div fxLayoutAlign="center">
+  <mat-card>
+
+    <h2 translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
+
+    <div *ngIf="setupStatus === true">
+      You have Two Factor Auth Enbaled for your account.
+      Thank you for taking the time to keep your juices safe!
+    </div>
+
+    <form 
+      *ngIf="setupStatus === false" 
+      class="form-container"
+      id="two-factor-auth-setup"
+      [formGroup]="twoFactorSetupForm"
+      (ngSubmit)="setup()"
+    >
+      <div class="error" [hidden]="!(error && !twoFactorSetupForm.dirty)">{{ error }}</div>
+
+      <span translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
+
+      <div fxLayoutAlign="center" class="two-factor-qr-code">
+          <qrcode [qrdata]="totpUrl" [size]="300" [level]="'M'"></qrcode>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
+        <input id="currentPassword" formControlName="passwordControl" type="password" matInput>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_INITAL_2FA_TOKEN</mat-label>
+        <input id="initalToken" formControlName="initalTokenControl" type="text" matInput>
+      </mat-form-field>
+
+      <button 
+        type="submit"
+        id="setupTwoFactorAuth"
+        [disabled]="twoFactorSetupForm.invalid"
+        mat-raised-button 
+        color="primary"
+      >
+        <i class="fas fa-save fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+      </button>
+    </form>
+  </mat-card>
 </div>
