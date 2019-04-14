@@ -44,6 +44,18 @@ exports.registerAdminChallenge = () => (req, res, next) => {
   next()
 }
 
+exports.passwordRepeatChallenge = () => (req, res, next) => {
+  /* jshint eqeqeq:false */
+  const password = req.body.password
+  const passwordRepeat = req.body.passwordRepeat
+  if (password !== passwordRepeat) {
+    if (utils.notSolved(challenges.passwordRepeatChallenge)) {
+      utils.solve(challenges.passwordRepeatChallenge)
+    }
+  }
+  next()
+}
+
 exports.accessControlChallenges = () => ({ url }, res, next) => {
   if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/1px.png')) {
     utils.solve(challenges.scoreBoardChallenge)
