@@ -35,10 +35,18 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 }
 
 exports.registerAdminChallenge = () => (req, res, next) => {
-  /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.registerAdminChallenge)) {
     if (req.body && req.body.isAdmin && req.body.isAdmin) {
       utils.solve(challenges.registerAdminChallenge)
+    }
+  }
+  next()
+}
+
+exports.dryRegistrationChallenge = () => (req, res, next) => {
+  if (utils.notSolved(challenges.dryRegistrationChallenge)) {
+    if (req.body && req.body.passwordRepeat !== req.body.password) {
+      utils.solve(challenges.dryRegistrationChallenge)
     }
   }
   next()
