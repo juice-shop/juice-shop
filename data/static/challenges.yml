@@ -679,4 +679,11 @@
   hint: 'Now we do ask you to confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
-  
+-
+  name: 'User Registration'
+  category: 'Improper Input Validation'
+  description: 'Register but "<strong>D</strong>on''t <strong>R</strong>epeat <strong>Y</strong>ourself".'
+  difficulty: 1
+  hint: 'Avoid any repetitive tasks during user registration.'
+  # hintUrl: ''
+  key: dryRegistrationChallenge

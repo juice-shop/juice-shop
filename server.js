@@ -220,8 +220,9 @@ app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
 app.post('/api/Feedbacks', captcha.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
-/* Register admin challenge verification */
+/* User registration challenge verifications before finale takes over */
 app.post('/api/Users', verify.registerAdminChallenge())
+app.post('/api/Users', verify.dryRegistrationChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */

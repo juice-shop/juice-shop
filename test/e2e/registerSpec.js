@@ -1,7 +1,4 @@
 describe('/#/register', () => {
-  const config = require('config')
-  protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
-
   beforeEach(() => {
     browser.get('/#/register')
   })
@@ -18,7 +15,7 @@ describe('/#/register', () => {
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'isAdmin': true }))
+        xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'passwordRepeat': 'XSSed', 'isAdmin': true }))
       })
 
       const EC = protractor.ExpectedConditions
@@ -46,9 +43,27 @@ describe('/#/register', () => {
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'isAdmin': true }))
+        xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'passwordRepeat': 'pwned', 'isAdmin': true }))
       })
     })
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
+  })
+
+  describe('challenge "dryRegistration"', () => {
+    it('should be possible to register user without repeating the password', () => {
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 201) {
+            console.log('Success')
+          }
+        }
+
+        xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify({ 'email': 'uncle@bob.com', 'password': 'ThereCanBeOnlyOne' }))
+      })
+    })
+    protractor.expect.challengeSolved({ challenge: 'User Registration' })
   })
 })
