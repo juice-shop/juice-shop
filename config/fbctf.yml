@@ -260,3 +260,7 @@ ctf:
     privacyPolicyProofChallenge:
       name: Namibia
       code: NA
+    passwordRepeatChallenge:
+      name: Nigeria
+      code: NG
+      

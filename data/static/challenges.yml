@@ -679,4 +679,12 @@
   hint: 'Now we do ask you to confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
+-
+  name: 'Broken Password Repeat Confirmation'
+  category: 'Broken Authentication'
+  description: 'Exploit the repeat password mechanism by registering with a different confirm password entry.'
+  difficulty: 1
+  hint: 'Fiddle with the repeat password mechanism to find out if something is fishy.'
+  hintUrl: ''
+  key: passwordRepeatChallenge
   
