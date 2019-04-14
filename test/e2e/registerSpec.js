@@ -63,8 +63,8 @@ describe('/#/register', () => {
         }
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
-        http.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({ 'email': 'test@test.com', 'password': '123456789', 'passwordRepeat': '12345678'}))
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify({ 'email': 'test@test.com', 'password': '123456789', 'passwordRepeat': '12345678' }))
       })
     })
     protractor.expect.challengeSolved({ challenge: 'Broken Password Repeat Confirmation' })
