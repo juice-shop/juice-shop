@@ -51,4 +51,22 @@ describe('/#/register', () => {
     })
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
   })
+
+  describe('challenge "passwordRepeat"', () => {
+    it('should be possible to register by the defeating the confirm password mechanism', () => {
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 201) {
+            console.log('Success')
+          }
+        }
+
+        xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+        http.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify({ 'email': 'test@test.com', 'password': '123456789', 'passwordRepeat': '12345678'}))
+      })
+    })
+    protractor.expect.challengeSolved({ challenge: 'Broken Password Repeat Confirmation' })
+  })
 })
