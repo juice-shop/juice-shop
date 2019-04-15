@@ -18,6 +18,7 @@ export class TwoFactorAuthComponent {
 
   public setupStatus: boolean = null
   public totpUrl?: string
+  public totpSecret?: string
 
   public errored: boolean = null
 
@@ -30,6 +31,7 @@ export class TwoFactorAuthComponent {
       this.setupStatus = setup
       if (setup === false) {
         this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop`
+        this.totpSecret = secret
         this.setupToken = setupToken
       }
     }, () => {
