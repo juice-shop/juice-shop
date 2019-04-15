@@ -24,16 +24,16 @@ protractor.beforeEach = {
         element(by.id('password')).sendKeys(context.password)
         element(by.id('loginButton')).click()
 
-        if(context.totpSecret){
+        if (context.totpSecret) {
           const EC = protractor.ExpectedConditions
           const twoFactorTokenInput = element(by.id('totpToken'))
           const twoFactorSubmitButton = element(by.id('totpSubmitButton'))
-      
+
           browser.wait(EC.visibilityOf(twoFactorTokenInput), 1000, '2FA token field did not become visible')
-    
+
           const totpToken = otplib.authenticator.generate(context.totpSecret)
           twoFactorTokenInput.sendKeys(totpToken)
-    
+
           twoFactorSubmitButton.click()
         }
       })

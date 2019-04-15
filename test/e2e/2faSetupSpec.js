@@ -42,7 +42,7 @@ fdescribe('/#/basket', () => {
 
       browser.wait(EC.visibilityOf(setupInstructions), 5000, '2FA setup instructions should show up for users without 2fa enabled')
 
-      const secret = await initalToken.getAttribute('data-test-totp-secret');
+      const secret = await initalToken.getAttribute('data-test-totp-secret')
 
       currentPassword.sendKeys('K1f.....................')
       initalToken.sendKeys(otplib.authenticator.generate(secret))

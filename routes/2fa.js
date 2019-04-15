@@ -2,7 +2,6 @@ const insecurity = require('../lib/insecurity')
 const models = require('../models/')
 const otplib = require('otplib')
 const utils = require('../lib/utils')
-const logger = require('../lib/logger')
 const challenges = require('../data/datacache').challenges
 const config = require('config')
 
@@ -132,26 +131,26 @@ async function setup (req, res) {
 async function disable (req, res) {
   try {
     const data = insecurity.authenticatedUsers.from(req)
-  if (!data) {
-    throw new Error('Need to login before setting up 2FA')
-  }
-  const { data: user } = data
+    if (!data) {
+      throw new Error('Need to login before setting up 2FA')
+    }
+    const { data: user } = data
 
-  const { password } = req.body
+    const { password } = req.body
 
-  if (user.password !== insecurity.hash(password)) {
-    throw new Error('Passoword doesnt match stored password')
-  }
+    if (user.password !== insecurity.hash(password)) {
+      throw new Error('Passoword doesnt match stored password')
+    }
 
-  // Update db model and cached object
-  const userModel = await models.User.findByPk(user.id)
-  userModel.totpSecret = ''
-  await userModel.save()
-  insecurity.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
+    // Update db model and cached object
+    const userModel = await models.User.findByPk(user.id)
+    userModel.totpSecret = ''
+    await userModel.save()
+    insecurity.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
 
-  res.status(200).send()
+    res.status(200).send()
   } catch (error) {
-    res.status(401).send();
+    res.status(401).send()
   }
 }
 
