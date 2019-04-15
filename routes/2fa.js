@@ -44,7 +44,6 @@ async function verify (req, res) {
 
     res.json({ authentication: { token, bid: basket.id, umail: user.email } })
   } catch (error) {
-    logger.warn('Failed to verify token identity')
     res.status(401).send()
   }
 }
@@ -55,29 +54,32 @@ async function verify (req, res) {
  * When 2FA isnt setup, the result will include data requried to start the setup.
  */
 async function status (req, res) {
-  const data = insecurity.authenticatedUsers.from(req)
-  if (!data) {
-    res.status(401).send('You need to be logged in to see this.')
-    return
-  }
-  const { data: user } = data
+  try {
+    const data = insecurity.authenticatedUsers.from(req)
+    if (!data) {
+      throw new Error('You need to be logged in to see this')
+    }
+    const { data: user } = data
 
-  if (user.totpSecret === '') {
-    const secret = await otplib.authenticator.generateSecret()
+    if (user.totpSecret === '') {
+      const secret = await otplib.authenticator.generateSecret()
 
-    res.json({
-      setup: false,
-      secret,
-      email: user.email,
-      setupToken: insecurity.authorize({
+      res.json({
+        setup: false,
         secret,
-        type: 'totp_setup_secret'
+        email: user.email,
+        setupToken: insecurity.authorize({
+          secret,
+          type: 'totp_setup_secret'
+        })
       })
-    })
-  } else {
-    res.json({
-      setup: true
-    })
+    } else {
+      res.json({
+        setup: true
+      })
+    }
+  } catch (error) {
+    res.status(401).send()
   }
 }
 
