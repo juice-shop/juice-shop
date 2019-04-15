@@ -199,7 +199,7 @@ describe('/rest/2fa/setup', () => {
             secret,
             type: 'totp_setup_secret'
           }),
-          initalToken: otplib.authenticator.generate(secret)
+          initialToken: otplib.authenticator.generate(secret)
         }
       })
       .expect('status', 200)
@@ -243,7 +243,7 @@ describe('/rest/2fa/setup', () => {
             secret,
             type: 'totp_setup_secret'
           }),
-          initalToken: otplib.authenticator.generate(secret)
+          initialToken: otplib.authenticator.generate(secret)
         }
       })
       .expect('status', 401)
@@ -271,7 +271,7 @@ describe('/rest/2fa/setup', () => {
             secret,
             type: 'totp_setup_secret'
           }),
-          initalToken: otplib.authenticator.generate(secret + 'ASJDVASGDKASVDUAGS')
+          initialToken: otplib.authenticator.generate(secret + 'ASJDVASGDKASVDUAGS')
         }
       })
       .expect('status', 401)
@@ -299,7 +299,7 @@ describe('/rest/2fa/setup', () => {
             secret,
             type: 'totp_setup_secret_foobar'
           }),
-          initalToken: otplib.authenticator.generate(secret)
+          initialToken: otplib.authenticator.generate(secret)
         }
       })
       .expect('status', 401)
