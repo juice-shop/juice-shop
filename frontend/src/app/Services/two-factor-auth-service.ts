@@ -50,4 +50,11 @@ export class TwoFactorAuthService {
     })
     .pipe(map(() => undefined), catchError((error) => { throw error }))
   }
+
+  disable (password: string): Observable<void> {
+    return this.http.post(`${environment.hostServer}/rest/2fa/disable`, {
+      password
+    })
+    .pipe(map(() => undefined), catchError((error) => { throw error }))
+  }
 }

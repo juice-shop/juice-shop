@@ -1,11 +1,39 @@
 <div fxLayoutAlign="center">
   <mat-card>
 
-    <h2 id="2fa-setup-title"translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
-
-    <div id="2fa-setup-successfully" *ngIf="setupStatus === true">2FA_SUCCESSFULL_SETUP</div>
+    <h2 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
 
     <div *ngIf="errored" translate>2FA_SETUP_ERROR</div>
+
+    <div id="2fa-setup-successfully" *ngIf="setupStatus === true">
+      <p translate>2FA_SUCCESSFULL_SETUP</p>
+
+      <form 
+        class="form-container"
+        id="two-factor-auth-disable"
+        [formGroup]="twoFactorDisableForm"
+        (ngSubmit)="disable()"
+      >
+        <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)">{{ error }}</div>
+
+        <h3 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h3>
+
+        <mat-form-field appearance="outline">
+          <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
+          <input id="currentPassword" formControlName="passwordControl" type="password" matInput>
+        </mat-form-field>
+
+        <button 
+          type="submit"
+          id="disableTwoFactorAuth"
+          [disabled]="twoFactorSetupForm.invalid"
+          mat-raised-button 
+          color="warn"
+        >
+          <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_REMOVE' | translate}}
+        </button>
+      </form>
+    </div>
 
     <form 
       *ngIf="setupStatus === false" 
@@ -14,7 +42,7 @@
       [formGroup]="twoFactorSetupForm"
       (ngSubmit)="setup()"
     >
-      <div class="error" [hidden]="!(error && !twoFactorSetupForm.dirty)">{{ error }}</div>
+      <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)">{{ error }}</div>
 
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
