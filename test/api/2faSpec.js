@@ -101,7 +101,7 @@ async function login ({ email, password, totpSecret }) {
   return loginRes.json.authentication
 }
 
-async function register ({ email, password }) {
+async function register ({ email, password, totpSecret }) {
   const res = await frisby
     .post(API_URL + '/Users/', {
       email,
@@ -112,6 +112,29 @@ async function register ({ email, password }) {
     }).catch(() => {
       throw new Error(`Failed to register '${email}'`)
     })
+
+  if(totpSecret){
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password,
+          setupToken: insecurity.authorize({
+            secret: totpSecret,
+            type: 'totp_setup_secret'
+          }),
+          initialToken: otplib.authenticator.generate(totpSecret)
+        }
+      }).expect('status', 200).catch(() => {
+        throw new Error(`Failed to enable 2fa for user: '${email}'`)
+      })
+  }
 
   return res
 }
@@ -303,5 +326,86 @@ describe('/rest/2fa/setup', () => {
         }
       })
       .expect('status', 401)
+  })
+})
+
+function getStatus (token) {
+  return frisby.get(
+    REST_URL + '/2fa/status',
+    {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'content-type': 'application/json'
+      }
+    })
+}
+
+describe('/rest/2fa/disable', () => {
+  it('POST should be able to disable 2fa for account with 2fa enabled', async () => {
+    const email = 'fooooodisable1@bar.com'
+    const password = '123456'
+    const totpSecret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password, totpSecret })
+    const { token } = await login({ email, password, totpSecret })
+
+    await getStatus(token)
+      .expect('status', 200)
+      .expect('json', {
+        setup: true
+      })
+
+    await frisby.post(
+      REST_URL + '/2fa/disable',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password
+        }
+      }
+    ).expect('status', 200)
+
+    await getStatus(token)
+      .expect('status', 200)
+      .expect('json', {
+        setup: false
+      })
+  })
+  
+  it('POST should not be possible to disable 2fa without the correct password', async () => {
+    const email = 'fooooodisable1@bar.com'
+    const password = '123456'
+    const totpSecret = 'ASDVAJSDUASZGDIADBJS'
+
+    await register({ email, password, totpSecret })
+    const { token } = await login({ email, password, totpSecret })
+
+    await getStatus(token)
+      .expect('status', 200)
+      .expect('json', {
+        setup: true
+      })
+
+    await frisby.post(
+      REST_URL + '/2fa/disable',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password: password + ' this makes the password wrong'
+        }
+      }
+    ).expect('status', 401)
+
+    await getStatus(token)
+      .expect('status', 200)
+      .expect('json', {
+        setup: true
+      })
   })
 })
