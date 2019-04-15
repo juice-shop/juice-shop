@@ -3,19 +3,21 @@ const config = require('config')
 
 const EC = protractor.ExpectedConditions
 
-describe('/#/basket', () => {
+fdescribe('/#/basket', () => {
   let successMessage
   let setupInstructions
   let currentPassword
   let initalToken
-  let submit
+  let setupSubmit
+  let disableSubmit
 
   beforeEach(() => {
     successMessage = element(by.id('2fa-setup-successfully'))
     setupInstructions = element(by.id('2fa-setup-instructions'))
     currentPassword = element(by.id('currentPassword'))
     initalToken = element(by.id('initalToken'))
-    submit = element(by.id('setupTwoFactorAuth'))
+    setupSubmit = element(by.id('setupTwoFactorAuth'))
+    disableSubmit = element(by.id('disableTwoFactorAuth'))
   })
 
   describe('as wurstbrot', () => {
@@ -43,11 +45,15 @@ describe('/#/basket', () => {
       const secret = await initalToken.getAttribute('data-test-totp-secret');
 
       currentPassword.sendKeys('K1f.....................')
-      // initalToken.sendKeys('foobar')
       initalToken.sendKeys(otplib.authenticator.generate(secret))
-      submit.click()
+      setupSubmit.click()
 
       browser.wait(EC.visibilityOf(successMessage), 5000, 'success message didnt show up in time after enabling 2fa for an account')
+
+      currentPassword.sendKeys('K1f.....................')
+      disableSubmit.click()
+
+      browser.wait(EC.visibilityOf(setupInstructions), 5000, '2FA setup instructions should show up after users disabled their accounts')
     })
   })
 })
