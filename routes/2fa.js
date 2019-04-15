@@ -105,7 +105,7 @@ async function setup (req, res) {
       throw new Error('Passoword doesnt match stored password')
     }
 
-    if(user.totpSecret !== ''){
+    if (user.totpSecret !== '') {
       throw new Error('User has 2fa already setup')
     }
 
