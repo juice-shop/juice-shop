@@ -113,7 +113,7 @@ async function register ({ email, password, totpSecret }) {
       throw new Error(`Failed to register '${email}'`)
     })
 
-  if(totpSecret){
+  if (totpSecret) {
     const { token } = await login({ email, password })
 
     await frisby.post(
@@ -132,8 +132,8 @@ async function register ({ email, password, totpSecret }) {
           initialToken: otplib.authenticator.generate(totpSecret)
         }
       }).expect('status', 200).catch(() => {
-        throw new Error(`Failed to enable 2fa for user: '${email}'`)
-      })
+      throw new Error(`Failed to enable 2fa for user: '${email}'`)
+    })
   }
 
   return res
@@ -374,7 +374,7 @@ describe('/rest/2fa/disable', () => {
         setup: false
       })
   })
-  
+
   it('POST should not be possible to disable 2fa without the correct password', async () => {
     const email = 'fooooodisable1@bar.com'
     const password = '123456'
