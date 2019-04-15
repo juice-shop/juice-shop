@@ -26,9 +26,7 @@ interface TwoFactorAuthStatusPayload {
 })
 export class TwoFactorAuthService {
 
-  constructor (private http: HttpClient) {
-
-  }
+  constructor (private http: HttpClient) {}
 
   verify (totpToken: String): Observable<AuthenticationPayload> {
     return this.http.post(`${environment.hostServer}/rest/2fa/verify`, {
@@ -39,7 +37,7 @@ export class TwoFactorAuthService {
 
   status (): Observable<TwoFactorAuthStatusPayload> {
     return this.http.get(`${environment.hostServer}/rest/2fa/status`)
-    .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
+      .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
   }
 
   setup (password: string, setupToken: string, initialToken: string): Observable<void> {
@@ -47,14 +45,11 @@ export class TwoFactorAuthService {
       password,
       setupToken,
       initialToken
-    })
-    .pipe(map(() => undefined), catchError((error) => { throw error }))
+    }).pipe(map(() => undefined), catchError((error) => { throw error }))
   }
 
   disable (password: string): Observable<void> {
-    return this.http.post(`${environment.hostServer}/rest/2fa/disable`, {
-      password
-    })
-    .pipe(map(() => undefined), catchError((error) => { throw error }))
+    return this.http.post(`${environment.hostServer}/rest/2fa/disable`, { password })
+      .pipe(map(() => undefined), catchError((error) => { throw error }))
   }
 }
