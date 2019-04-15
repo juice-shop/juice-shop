@@ -64,6 +64,6 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': 'uncle@bob.com', 'password': 'ThereCanBeOnlyOne' }))
       })
     })
-    protractor.expect.challengeSolved({ challenge: 'User Registration' })
+    protractor.expect.challengeSolved({ challenge: 'Repetitive Registration' })
   })
 })
