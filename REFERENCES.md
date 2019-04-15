@@ -17,6 +17,9 @@ where this project was mentioned or used!
 * [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/679286305/8049a634b1a01b0aa75c0966325856dc9a463b7f1beeb6a2f32cbb30248b5bc6)
   in November 2017
   ([:camera:](https://twitter.com/owasp_juiceshop/status/930917114948587526))
+* [Heroku Button of the Month](https://hello.heroku.com/webmail/36622/844098776/9fe33b8eda9eb79bca7ee569888b1874)
+  in March 2019
+  ([:camera:](https://twitter.com/owasp_juiceshop/status/1110641064673710080))
 
 ## Web Links
 
@@ -205,6 +208,8 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md) workshop with Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
+  21.03.2019
 * [OWASP Juice Shop - First you 😂😂 then you 😢](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
   by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
   21.03.2019
