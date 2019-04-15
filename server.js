@@ -227,10 +227,27 @@ app.post('/api/Users', verify.passwordRepeatChallenge())
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
-/* Verify the 2FA Token */
 
-app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
-app.post('/rest/2fa/verify', twoFactorAuth.verify())
+/* Verify the 2FA Token */
+app.post('/rest/2fa/verify',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  twoFactorAuth.verify()
+)
+/* Check 2FA Status for the current User */
+app.get('/rest/2fa/status', insecurity.isAuthorized(), twoFactorAuth.status())
+/* Enable 2FA for the current User */
+app.post('/rest/2fa/setup',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.setup()
+)
+/* Disable 2FA Status for the current User */
+app.post('/rest/2fa/disable',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.disable()
+)
+
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
 
