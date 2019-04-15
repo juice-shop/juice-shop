@@ -3,6 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faUnlockAlt, faSave } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faUnlockAlt, faSave)
+dom.watch()
+
 @Component({
   selector: 'app-two-factor-auth',
   templateUrl: './two-factor-auth.component.html',
@@ -16,6 +22,10 @@ export class TwoFactorAuthComponent {
     initalTokenControl: new FormControl('')
   })
 
+  public twoFactorDisableForm: FormGroup = new FormGroup({
+    passwordControl: new FormControl('')
+  })
+
   public setupStatus: boolean = null
   public totpUrl?: string
   public totpSecret?: string
@@ -27,7 +37,12 @@ export class TwoFactorAuthComponent {
   constructor (private twoFactorAuthService: TwoFactorAuthService) {}
 
   ngOnInit () {
-    this.twoFactorAuthService.status().subscribe(({ setup, email, secret, setupToken }) => {
+    this.updateStatus()
+  }
+
+  updateStatus () {
+    const status = this.twoFactorAuthService.status()
+    status.subscribe(({ setup, email, secret, setupToken }) => {
       this.setupStatus = setup
       if (setup === false) {
         this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop`
@@ -37,6 +52,7 @@ export class TwoFactorAuthComponent {
     }, () => {
       console.log('Failed to fetch 2fa status')
     })
+    return status
   }
 
   setup () {
@@ -46,6 +62,20 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('initalTokenControl').value
     ).subscribe(() => {
       this.setupStatus = true
+    }, () => {
+      this.errored = true
+    })
+  }
+
+  disable () {
+    this.twoFactorAuthService.disable(
+      this.twoFactorDisableForm.get('passwordControl').value
+    ).subscribe(() => {
+      this.updateStatus().subscribe(
+        () => {
+          this.setupStatus = false
+        }
+      )
     }, () => {
       this.errored = true
     })
