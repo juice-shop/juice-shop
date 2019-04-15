@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Bitte wiederhole dein Passwort.",
   "INVALID_PASSWORD_LENGTH": "Passwort muss {{length}} Zeichen lang sein.",
   "LABEL_PASSWORD_REPEAT": "Passwort wiederholen",
+  "PASSWORDS_NOT_MATCHING": "Passwörter stimmen nicht überein",
   "BTN_REGISTER": "Registrieren",
   "TITLE_LOGOUT": "Abmelden",
   "CONFIRM_LOGGED_OUT": "Du wurdest abgemeldet.",
@@ -52,10 +53,12 @@
   "LABEL_NAME": "Name",
   "LABEL_DESCRIPTION": "Beschreibung",
   "LABEL_PRICE": "Preis",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Bild",
   "TITLE_BASKET": "Dein Warenkorb",
   "LABEL_QUANTITY": "Anzahl",
   "LABEL_TOTAL_PRICE": "Gesamtpreis",
+  "CHECKOUT_FOR_BONUS_POINTS": "Für diese Bestellung erhältst du {{bonus}} Bonuspunkte!",
   "BTN_CHECKOUT": "Zur Kasse",
   "BTN_CREDIT_CARD": "Kreditkarte",
   "INVALID_COUPON_LENGTH": "Gutscheincode muss {{length}} Zeichen lang sein.",
@@ -166,5 +169,11 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Zwei-Faktor-Authentifizierung",
   "TITLE_REQUEST_DATA_EXPORT": "Datenexport anfordern",
   "PRIVACY_AND_SECURITY": "Datenschutz & Sicherheit",
-  "MENU": "Menü"
+  "MENU": "Menü",
+  "BTN_SHOW_ALL": "Alle anzeigen",
+  "BTN_HIDE_ALL": "Alle ausblenden",
+  "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
+  "BTN_REQUEST": "Anfordern",
+  "EXPORT_LABEL": "Export-Format",
+  "ACCOUNT": "Konto"
 }

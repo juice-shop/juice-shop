@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Venligst gentag din adgangskode.",
   "INVALID_PASSWORD_LENGTH": "Adgangskoden skal være mindst på {{length}} tegn.",
   "LABEL_PASSWORD_REPEAT": "Gentag kodeordet",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Tilmeld",
   "TITLE_LOGOUT": "Log ud",
   "CONFIRM_LOGGED_OUT": "Du er blevet logget ud.",
@@ -52,10 +53,12 @@
   "LABEL_NAME": "Navn",
   "LABEL_DESCRIPTION": "Beskrivelse",
   "LABEL_PRICE": "Pris",
+  "LABEL_BONUS": "Bonus",
   "LABEL_IMAGE": "Billede",
   "TITLE_BASKET": "Din kurv",
   "LABEL_QUANTITY": "Antal",
   "LABEL_TOTAL_PRICE": "Samlet pris",
+  "CHECKOUT_FOR_BONUS_POINTS": "You will gain {{bonus}} Bonus Points from this order!",
   "BTN_CHECKOUT": "Til kassen",
   "BTN_CREDIT_CARD": "Credit Card",
   "INVALID_COUPON_LENGTH": "Kuponkoden skal være {{length}} tegn.",
@@ -166,5 +169,11 @@
   "TITLE_TWO_FACTOR_AUTHENTICATION": "Two Factor Authentication",
   "TITLE_REQUEST_DATA_EXPORT": "Request Data Export",
   "PRIVACY_AND_SECURITY": "Privacy & Security",
-  "MENU": "Menu"
+  "MENU": "Menu",
+  "BTN_SHOW_ALL": "Show all",
+  "BTN_HIDE_ALL": "Hide all",
+  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "BTN_REQUEST": "Request",
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }
