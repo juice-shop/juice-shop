@@ -105,6 +105,10 @@ async function setup (req, res) {
       throw new Error('Passoword doesnt match stored password')
     }
 
+    if(user.totpSecret !== ''){
+      throw new Error('User has 2fa already setup')
+    }
+
     const { secret, type } = insecurity.verify(setupToken)
     if (type !== 'totp_setup_secret') {
       throw new Error('SetupToken is of wrong type')
