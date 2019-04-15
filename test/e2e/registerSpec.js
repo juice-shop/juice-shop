@@ -49,7 +49,7 @@ describe('/#/register', () => {
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
   })
 
-  describe('challenge "dryRegistration"', () => {
+  describe('challenge "passwordRepeat"', () => {
     it('should be possible to register user without repeating the password', () => {
       browser.executeScript(() => {
         var xhttp = new XMLHttpRequest()

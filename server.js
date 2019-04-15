@@ -222,7 +222,7 @@ app.post('/api/Feedbacks', captcha.verifyCaptcha())
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
 /* User registration challenge verifications before finale takes over */
 app.post('/api/Users', verify.registerAdminChallenge())
-app.post('/api/Users', verify.dryRegistrationChallenge())
+app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
