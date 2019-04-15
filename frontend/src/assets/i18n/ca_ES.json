@@ -176,12 +176,12 @@
   "BTN_REQUEST": "Sol·licitud",
   "EXPORT_LABEL": "Exportar format",
   "ACCOUNT": "Account",
-  "TITLE_TWO_FACTOR_AUTH_CONFIG": "Two Factor Auth Config",
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Configuration",
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirm your current password",
   "LABEL_INITAL_2FA_TOKEN": "Inital Token from your authenticator",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
-  "2FA_SETUP_ERROR": "Failed to setup 2FA. Check if you entered the password and token correctly.",
-  "2FA_SUCCESSFULL_SETUP": "You have Two Factor Auth Enbaled for your account. Thank you for taking the time to keep your juices safe!",
-  "REMOVE_TWO_FACTOR_AUTH": "Remove Two Factor Auth from your account:",
+  "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
+  "2FA_SUCCESSFULL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
+  "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
   "BTN_REMOVE": "Remove"
 }
