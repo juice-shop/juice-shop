@@ -260,6 +260,6 @@ ctf:
     privacyPolicyProofChallenge:
       name: Namibia
       code: NA
-    dryRegistrationChallenge:
+    passwordRepeatChallenge:
       name: Guyana
       code: GY

@@ -43,10 +43,10 @@ exports.registerAdminChallenge = () => (req, res, next) => {
   next()
 }
 
-exports.dryRegistrationChallenge = () => (req, res, next) => {
-  if (utils.notSolved(challenges.dryRegistrationChallenge)) {
+exports.passwordRepeatChallenge = () => (req, res, next) => {
+  if (utils.notSolved(challenges.passwordRepeatChallenge)) {
     if (req.body && req.body.passwordRepeat !== req.body.password) {
-      utils.solve(challenges.dryRegistrationChallenge)
+      utils.solve(challenges.passwordRepeatChallenge)
     }
   }
   next()

@@ -680,10 +680,10 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
 -
-  name: 'User Registration'
+  name: 'Repetitive Registration'
   category: 'Improper Input Validation'
-  description: 'Register but "<strong>D</strong>on''t <strong>R</strong>epeat <strong>Y</strong>ourself".'
+  description: 'Follow the DRY principle while registering a user.'
   difficulty: 1
-  hint: 'Avoid any repetitive tasks during user registration.'
-  # hintUrl: ''
-  key: dryRegistrationChallenge
+  hint: 'You can solve this by cleverly interacting with the UI or bypassing it altogether.'
+  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#follow-the-dry-principle-while-registering-a-user'
+  key: passwordRepeatChallenge
