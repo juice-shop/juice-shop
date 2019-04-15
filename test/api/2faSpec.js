@@ -338,6 +338,32 @@ describe('/rest/2fa/setup', () => {
       })
       .expect('status', 401)
   })
+
+  it('POST should fail if the account has already set up 2fa', async () => {
+    const email = `wurstbrot@${config.get('application.domain')}`
+    const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+    const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+
+    const { token } = await login({ email, password, totpSecret })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password,
+          setupToken: insecurity.authorize({
+            secret: totpSecret,
+            type: 'totp_setup_secret'
+          }),
+          initialToken: otplib.authenticator.generate(totpSecret)
+        }
+      })
+      .expect('status', 401)
+  })
 })
 
 describe('/rest/2fa/disable', () => {
