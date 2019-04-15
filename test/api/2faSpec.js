@@ -11,6 +11,80 @@ const API_URL = 'http://localhost:3000/api'
 
 const jsonHeader = { 'content-type': 'application/json' }
 
+async function login ({ email, password, totpSecret }) {
+  const loginRes = await frisby
+    .post(REST_URL + '/user/login', {
+      email,
+      password
+    }).catch((res) => {
+      if (res.json && res.json.type && res.json.status === 'totp_token_requried') {
+        return res
+      }
+      throw new Error(`Failed to login '${email}'`)
+    })
+
+  if (loginRes.json.status && loginRes.json.status === 'totp_token_requried') {
+    const totpRes = await frisby
+      .post(REST_URL + '/2fa/verify', {
+        tmpToken: loginRes.json.data.tmpToken,
+        totpToken: otplib.authenticator.generate(totpSecret)
+      })
+
+    return totpRes.json.authentication
+  }
+
+  return loginRes.json.authentication
+}
+
+async function register ({ email, password, totpSecret }) {
+  const res = await frisby
+    .post(API_URL + '/Users/', {
+      email,
+      password,
+      passwordRepeat: password,
+      securityQuestion: null,
+      securityAnswer: null
+    }).catch(() => {
+      throw new Error(`Failed to register '${email}'`)
+    })
+
+  if (totpSecret) {
+    const { token } = await login({ email, password })
+
+    await frisby.post(
+      REST_URL + '/2fa/setup',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          password,
+          setupToken: insecurity.authorize({
+            secret: totpSecret,
+            type: 'totp_setup_secret'
+          }),
+          initialToken: otplib.authenticator.generate(totpSecret)
+        }
+      }).expect('status', 200).catch(() => {
+      throw new Error(`Failed to enable 2fa for user: '${email}'`)
+    })
+  }
+
+  return res
+}
+
+function getStatus (token) {
+  return frisby.get(
+    REST_URL + '/2fa/status',
+    {
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'content-type': 'application/json'
+      }
+    })
+}
+
 describe('/rest/2fa/verify', () => {
   it('POST should return a valid authentification when a valid tmp token is passed', async () => {
     const tmpTokenWurstbrot = insecurity.authorize({
@@ -75,69 +149,6 @@ describe('/rest/2fa/verify', () => {
       .expect('status', 401)
   })
 })
-
-async function login ({ email, password, totpSecret }) {
-  const loginRes = await frisby
-    .post(REST_URL + '/user/login', {
-      email,
-      password
-    }).catch((res) => {
-      if (res.json && res.json.type && res.json.status === 'totp_token_requried') {
-        return res
-      }
-      throw new Error(`Failed to login '${email}'`)
-    })
-
-  if (loginRes.json.status && loginRes.json.status === 'totp_token_requried') {
-    const totpRes = await frisby
-      .post(REST_URL + '/2fa/verify', {
-        tmpToken: loginRes.json.data.tmpToken,
-        totpToken: otplib.authenticator.generate(totpSecret)
-      })
-
-    return totpRes.json.authentication
-  }
-
-  return loginRes.json.authentication
-}
-
-async function register ({ email, password, totpSecret }) {
-  const res = await frisby
-    .post(API_URL + '/Users/', {
-      email,
-      password,
-      passwordRepeat: password,
-      securityQuestion: null,
-      securityAnswer: null
-    }).catch(() => {
-      throw new Error(`Failed to register '${email}'`)
-    })
-
-  if (totpSecret) {
-    const { token } = await login({ email, password })
-
-    await frisby.post(
-      REST_URL + '/2fa/setup',
-      {
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'content-type': 'application/json'
-        },
-        body: {
-          password,
-          setupToken: insecurity.authorize({
-            secret: totpSecret,
-            type: 'totp_setup_secret'
-          }),
-          initialToken: otplib.authenticator.generate(totpSecret)
-        }
-      }).expect('status', 200).catch(() => {
-      throw new Error(`Failed to enable 2fa for user: '${email}'`)
-    })
-  }
-
-  return res
-}
 
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
@@ -328,17 +339,6 @@ describe('/rest/2fa/setup', () => {
       .expect('status', 401)
   })
 })
-
-function getStatus (token) {
-  return frisby.get(
-    REST_URL + '/2fa/status',
-    {
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'content-type': 'application/json'
-      }
-    })
-}
 
 describe('/rest/2fa/disable', () => {
   it('POST should be able to disable 2fa for account with 2fa enabled', async () => {
