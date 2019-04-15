@@ -1,9 +1,9 @@
 <div fxLayoutAlign="center">
   <mat-card>
 
-    <h2 translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
+    <h2 id="2fa-setup-title"translate>TITLE_TWO_FACTOR_AUTH_SETUP</h2>
 
-    <div *ngIf="setupStatus === true">2FA_SUCCESSFULL_SETUP</div>
+    <div id="2fa-setup-successfully" *ngIf="setupStatus === true">2FA_SUCCESSFULL_SETUP</div>
 
     <div *ngIf="errored" translate>2FA_SETUP_ERROR</div>
 
@@ -16,10 +16,14 @@
     >
       <div class="error" [hidden]="!(error && !twoFactorSetupForm.dirty)">{{ error }}</div>
 
-      <span translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
+      <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
       <div fxLayoutAlign="center" class="two-factor-qr-code">
-          <qrcode [qrdata]="totpUrl" [size]="300" [level]="'M'"></qrcode>
+          <qrcode 
+            [qrdata]="totpUrl"
+            [size]="300"
+            [level]="'M'"
+          ></qrcode>
       </div>
 
       <mat-form-field appearance="outline">
@@ -29,7 +33,13 @@
       
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_INITAL_2FA_TOKEN</mat-label>
-        <input id="initalToken" formControlName="initalTokenControl" type="text" matInput>
+        <input 
+          id="initalToken"
+          formControlName="initalTokenControl"
+          type="text"
+          matInput
+          [attr.data-test-totp-secret]="totpSecret"
+        >
       </mat-form-field>
 
       <button 
