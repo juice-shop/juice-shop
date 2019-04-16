@@ -176,7 +176,7 @@
   "BTN_REQUEST": "Solicitar",
   "EXPORT_LABEL": "Exportar en Formato",
   "ACCOUNT": "Cuenta",
-  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Configuration",
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "Configuración del 2FA",
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirme su contraseña actual",
   "LABEL_INITIAL_2FA_TOKEN": "Token inicial de su autentificador",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Asegure su cuenta con un factor adicional. Para comenzar, escanee el código QR con una aplicación que soporte TOTP (por ejemplo, el Autenticador de Google).",
