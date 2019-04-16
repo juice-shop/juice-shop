@@ -180,8 +180,8 @@
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirme su contraseña actual",
   "LABEL_INITIAL_2FA_TOKEN": "Token inicial de su autentificador",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Asegure su cuenta con un factor adicional. Para comenzar, escanee el código QR con una aplicación que soporte TOTP (por ejemplo, el Autenticador de Google).",
-  "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
-  "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
+  "2FA_SETUP_ERROR": "Se ha producido un error al cambiar la configuración del 2FA. Compruebe que la contraseña (y el token) introducidos sean correctos.",
+  "2FA_SUCCESSFUL_SETUP": "Ha habilitado 2FA para tu cuenta. ¡Gracias por tomarse el tiempo para mantener sus jugos seguros!",
   "REMOVE_TWO_FACTOR_AUTH": "Eliminar la autenticación de dos factores de su cuenta",
   "BTN_REMOVE": "Eliminar"
 }
