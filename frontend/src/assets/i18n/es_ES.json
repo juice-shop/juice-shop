@@ -177,7 +177,7 @@
   "EXPORT_LABEL": "Exportar en Formato",
   "ACCOUNT": "Cuenta",
   "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Configuration",
-  "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirme la contraseña",
+  "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirme su contraseña actual",
   "LABEL_INITIAL_2FA_TOKEN": "Initial token from your authenticator",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Asegure su cuenta con un factor adicional. Para comenzar, escanee el código QR con una aplicación que soporte TOTP (por ejemplo, el Autenticador de Google).",
   "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
