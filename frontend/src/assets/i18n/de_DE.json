@@ -176,12 +176,12 @@
   "BTN_REQUEST": "Anfordern",
   "EXPORT_LABEL": "Export-Format",
   "ACCOUNT": "Konto",
-  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Configuration",
-  "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirm your current password",
-  "LABEL_INITIAL_2FA_TOKEN": "Initial token from your authenticator",
-  "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
-  "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
-  "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
-  "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
-  "BTN_REMOVE": "Remove"
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Konfiguration",
+  "LABEL_CONFIRM_CURRENT_PASSWORD": "Bestätige dein aktuelles Password",
+  "LABEL_INITIAL_2FA_TOKEN": "Initialer Code von deinem Authenticator",
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Sichere dein Konto mit einem zusätzlichen Faktor. Scanne den QR Code mit einer Authenticator-App, die TOTP unterstützt (z.B. Google Authenticator), um zu beginnen.",
+  "2FA_SETUP_ERROR": "Fehler beim Ändern der 2FA-Konfiguration. Prüfe, ob du dein Passwort (und den Code) korrekt eingegeben hast.",
+  "2FA_SUCCESSFUL_SETUP": "Du hast 2FA für dein Konto eingeschaltet. Danke, dass du dir die Zeit nimmst, deine Säfte abzusichern!",
+  "REMOVE_TWO_FACTOR_AUTH": "Entferne 2FA von deinem Konto",
+  "BTN_REMOVE": "Entfernen"
 }
