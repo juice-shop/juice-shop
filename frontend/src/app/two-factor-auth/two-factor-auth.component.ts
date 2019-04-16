@@ -63,6 +63,8 @@ export class TwoFactorAuthComponent {
     ).subscribe(() => {
       this.setupStatus = true
     }, () => {
+      this.twoFactorSetupForm.get('passwordControl').markAsPristine()
+      this.twoFactorSetupForm.get('initalTokenControl').markAsPristine()
       this.errored = true
     })
   }
@@ -77,6 +79,7 @@ export class TwoFactorAuthComponent {
         }
       )
     }, () => {
+      this.twoFactorDisableForm.get('passwordControl').markAsPristine()
       this.errored = true
     })
   }
