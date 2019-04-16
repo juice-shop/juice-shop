@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Zopakujte prosím své heslo.",
   "INVALID_PASSWORD_LENGTH": "Heslo musí být dlouhé {{length}} znaků.",
   "LABEL_PASSWORD_REPEAT": "Heslo znovu",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrovat se",
   "TITLE_LOGOUT": "Odhlásit se",
   "CONFIRM_LOGGED_OUT": "Byli jste odhlášeni.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

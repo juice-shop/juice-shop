@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Lösenorden matchar inte.",
   "INVALID_PASSWORD_LENGTH": "Lösenordet måste vara {{length}} tecken.",
   "LABEL_PASSWORD_REPEAT": "Bekräfta Lösenord",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrera",
   "TITLE_LOGOUT": "Utloggning",
   "CONFIRM_LOGGED_OUT": "Du har nu loggats ut.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

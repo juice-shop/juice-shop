@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "请再次输入你的密码。",
   "INVALID_PASSWORD_LENGTH": "密码至少{{length}} 个字符",
   "LABEL_PASSWORD_REPEAT": "重复输入密码",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "注册",
   "TITLE_LOGOUT": "登出",
   "CONFIRM_LOGGED_OUT": "你已成功退出登录。",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

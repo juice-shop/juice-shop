@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Por favor, repita sua senha.",
   "INVALID_PASSWORD_LENGTH": "A senha deve possuir {{length}} caracteres.",
   "LABEL_PASSWORD_REPEAT": "Deve repetir a senha",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registe-se",
   "TITLE_LOGOUT": "Sair",
   "CONFIRM_LOGGED_OUT": "Logout feito com sucesso",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Esconder tudo",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

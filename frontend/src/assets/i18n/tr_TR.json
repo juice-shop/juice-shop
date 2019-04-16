@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Lütfen parolanızı tekrar edin.",
   "INVALID_PASSWORD_LENGTH": "Parolanız {{length}} karakter uzunluğunda olmalıdır.",
   "LABEL_PASSWORD_REPEAT": "Parolayı tekrarla",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Kayıt ol",
   "TITLE_LOGOUT": "Çıkış yap",
   "CONFIRM_LOGGED_OUT": "Oturumunuz kapatıldı.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

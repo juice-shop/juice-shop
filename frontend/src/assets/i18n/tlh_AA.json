@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Please repeat your password.",
   "INVALID_PASSWORD_LENGTH": "Password must be {{length}} characters long.",
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Suy qachmey",
   "TITLE_LOGOUT": "Logout",
   "CONFIRM_LOGGED_OUT": "You have been logged out.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

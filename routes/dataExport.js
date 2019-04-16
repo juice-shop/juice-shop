@@ -4,7 +4,7 @@ const db = require('../data/mongodb')
 
 module.exports = function dataExport () {
   return (req, res, next) => {
-    const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
+    const loggedInUser = insecurity.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
     if (loggedInUser && loggedInUser.data && loggedInUser.data.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email
@@ -31,7 +31,29 @@ module.exports = function dataExport () {
           })
           userData.orders = orders
         }
-        res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
+
+        db.reviews.find({ $where: "this.author === '" + email + "'" }).then(reviews => {
+          const result = utils.queryResultToJson(reviews)
+          const data = result.data
+          if (data.length > 0) {
+            let reviews = []
+            data.map(review => {
+              let finalReview = {
+                message: review.message,
+                author: review.author,
+                productId: review.product,
+                likesCount: review.likesCount,
+                likedBy: review.likedBy
+              }
+              reviews.push(finalReview)
+            })
+            userData.reviews = reviews
+          }
+          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
+        },
+        () => {
+          next(new Error(`Error retrieving reviews for ${updatedEmail}`))
+        })
       },
       () => {
         next(new Error(`Error retrieving orders for ${updatedEmail}`))

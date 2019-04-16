@@ -12,7 +12,7 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
-    models.Basket.find({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
+    models.Basket.findOne({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)

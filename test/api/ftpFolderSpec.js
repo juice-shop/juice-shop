@@ -91,13 +91,13 @@ describe('/ftp', () => {
       .expect('bodyContains', 'n<MibgC7sn')
   })
 
-  it('GET the package.json file by using Poison Null Byte attack with .pdf suffix', () => {
+  it('GET the package.json.bak file by using Poison Null Byte attack with .pdf suffix', () => {
     return frisby.get(URL + '/ftp/package.json.bak%00.pdf')
       .expect('status', 200)
       .expect('bodyContains', '"name": "juice-shop",')
   })
 
-  it('GET the package.json file by using Poison Null Byte attack with .md suffix', () => {
+  it('GET the package.json.bak file by using Poison Null Byte attack with .md suffix', () => {
     return frisby.get(URL + '/ftp/package.json.bak%00.md')
       .expect('status', 200)
       .expect('bodyContains', '"name": "juice-shop",')
@@ -128,5 +128,11 @@ describe('/ftp', () => {
   it('GET a non-existing file via direct server file path /ftp will return a 404 error', () => {
     return frisby.get(URL + '/ftp/doesnotexist.md')
       .expect('status', 404)
+  })
+
+  it('GET the package.json.bak file contains a dependency on epilogue-js for "Typosquatting Tier 1" challenge', () => {
+    return frisby.get(URL + '/ftp/package.json.bak%00.md')
+      .expect('status', 200)
+      .expect('bodyContains', '"epilogue-js": "~0.7",')
   })
 })
