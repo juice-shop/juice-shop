@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Ulangi kata sandi anda.",
   "INVALID_PASSWORD_LENGTH": "Password harus {{length}} panjang karakter.",
   "LABEL_PASSWORD_REPEAT": "Ketik Ulang Kata Sandi",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Daftar",
   "TITLE_LOGOUT": "Keluar",
   "CONFIRM_LOGGED_OUT": "Anda telah Keluar.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

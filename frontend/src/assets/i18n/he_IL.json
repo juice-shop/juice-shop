@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "נא להזין שוב את הסיסמה.",
   "INVALID_PASSWORD_LENGTH": "הסיסמה חייבת להיות באורך של {{length}} תווים.",
   "LABEL_PASSWORD_REPEAT": "סיסמה פעם שנית",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "הירשם",
   "TITLE_LOGOUT": "יציאה",
   "CONFIRM_LOGGED_OUT": "התנתקת מהמערכת בהצלחה.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

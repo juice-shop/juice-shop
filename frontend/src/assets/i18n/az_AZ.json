@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Zəhmət olmasa şifrənizi təkrar daxil edin.",
   "INVALID_PASSWORD_LENGTH": "Şifrə {{length}} simvol uzunluğunda olmalıdır.",
   "LABEL_PASSWORD_REPEAT": "Şifrəni Təkrarla",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Qeydiyyat",
   "TITLE_LOGOUT": "Çıxış",
   "CONFIRM_LOGGED_OUT": "Çıxış etdiniz.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

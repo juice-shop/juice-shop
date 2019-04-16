@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
 const colors = require('colors/safe')
-const epilogue = require('epilogue-js')
+const finale = require('finale-rest')
 const express = require('express')
 const compression = require('compression')
 const helmet = require('helmet')
@@ -200,7 +200,7 @@ app.use('/api/Complaints/:id', insecurity.denyAll())
 /* Recycles: POST and GET allowed when logged in only */
 app.get('/api/Recycles', recycles.blockRecycleItems())
 app.post('/api/Recycles', insecurity.isAuthorized())
-/* Challenge evaluation before epilogue takes over */
+/* Challenge evaluation before finale takes over */
 app.get('/api/Recycles/:id', recycles.sequelizeVulnerabilityChallenge())
 app.put('/api/Recycles/:id', insecurity.denyAll())
 app.delete('/api/Recycles/:id', insecurity.denyAll())
@@ -214,27 +214,45 @@ app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
-/* Challenge evaluation before epilogue takes over */
+/* Challenge evaluation before finale takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
-/* Captcha verification before epilogue takes over */
+/* Captcha verification before finale takes over */
 app.post('/api/Feedbacks', captcha.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
-/* Register admin challenge verification */
+/* User registration challenge verifications before finale takes over */
 app.post('/api/Users', verify.registerAdminChallenge())
+app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
-/* Verify the 2FA Token */
 
-app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
-app.post('/rest/2fa/verify', twoFactorAuth.verify())
-/* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
+/* Verify the 2FA Token */
+app.post('/rest/2fa/verify',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  twoFactorAuth.verify()
+)
+/* Check 2FA Status for the current User */
+app.get('/rest/2fa/status', insecurity.isAuthorized(), twoFactorAuth.status())
+/* Enable 2FA for the current User */
+app.post('/rest/2fa/setup',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.setup()
+)
+/* Disable 2FA Status for the current User */
+app.post('/rest/2fa/disable',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.disable()
+)
+
+/* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
 
 /* Generated API endpoints */
-epilogue.initialize({ app, sequelize: models.sequelize })
+finale.initialize({ app, sequelize: models.sequelize })
 
 const autoModels = [
   { name: 'User', exclude: ['password', 'totpSecret'] },
@@ -249,13 +267,13 @@ const autoModels = [
 ]
 
 for (const { name, exclude } of autoModels) {
-  const resource = epilogue.resource({
+  const resource = finale.resource({
     model: models[name],
     endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
     excludeAttributes: exclude
   })
 
-  // fix the api difference between epilogue and previously used sequlize-restful
+  // fix the api difference between finale (fka epilogue) and previously used sequlize-restful
   resource.all.send.before((req, res, context) => {
     context.instance = {
       status: 'success',

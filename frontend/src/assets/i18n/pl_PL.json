@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Proszę powtórzyć hasło.",
   "INVALID_PASSWORD_LENGTH": "Hasło musi zawierać {{length}} znaków.",
   "LABEL_PASSWORD_REPEAT": "Powtórz hasło",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Zarejestruj się",
   "TITLE_LOGOUT": "Wyloguj się",
   "CONFIRM_LOGGED_OUT": "Zostałeś wylogowany.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Kérjük, írd be újra a jelszavad.",
   "INVALID_PASSWORD_LENGTH": "A jelszónak legalább {{length}} karakterből kell állnia.",
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Register",
   "TITLE_LOGOUT": "Kijelentkezés",
   "CONFIRM_LOGGED_OUT": "You have been logged out.",
@@ -173,5 +174,6 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account"
 }

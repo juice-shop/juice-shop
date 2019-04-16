@@ -11,7 +11,7 @@
                 <mat-radio-button value="3">Excel</mat-radio-button>
             </mat-radio-group>
             <div *ngIf="presenceOfCaptcha">
-                <div #dataContainer class="captcha-image"></div>
+                <div class="captcha-image" [innerHTML]="captcha"></div>
                 <mat-form-field appearance="outline">
                     <mat-label translate [translateParams]="{length: '5'}">TYPE_THESE_LETTERS</mat-label>
                     <input [formControl]="captchaControl" type="text" matInput>
