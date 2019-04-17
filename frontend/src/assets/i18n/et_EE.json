@@ -179,7 +179,7 @@
   "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA seadistamine",
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Kinnitage oma parool",
   "LABEL_INITIAL_2FA_TOKEN": "Esimene kood autentimisvahendist",
-  "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Turvake oma konto lisa identsustõendiga. Alustamiseks skänni QR-kood rakendusega, mis toetab TOTP (nt Google Authenticator) hetkparoole.",
   "2FA_SETUP_ERROR": "2FA seadistuse muutmine nurjus. Kontrollige, kas teie parool (ja kood) on sisestatud õigesti.",
   "2FA_SUCCESSFUL_SETUP": "Olete lubanud 2FA oma kontole. Täname, et leidsite aega oma mahlade turvamiseks!",
   "REMOVE_TWO_FACTOR_AUTH": "2FA eemaldamine kontolt",
