@@ -1,4 +1,3 @@
-const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const db = require('../data/mongodb')
 
@@ -12,11 +11,11 @@ module.exports = function dataExport () {
       let userData = {
         username,
         email,
-        orders : [],
-        reviews : []
+        orders: [],
+        reviews: []
       }
 
-      db.orders.find({ email : updatedEmail }).then(orders => {
+      db.orders.find({ email: updatedEmail }).then(orders => {
         if (orders.length > 0) {
           orders.map(order => {
             userData.orders.push({
