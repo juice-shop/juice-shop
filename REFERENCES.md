@@ -215,10 +215,13 @@ where this project was mentioned or used!
   training with Vandana Verma,
   [Global Appsec Tel Aviv 2019](https://globalappsectelaviv2019.sched.com),
   28.05.2019
+* [A good first impression can work wonders: creating AppSec training that developers <3](https://locomocosec2019.sched.com/event/MGNM/a-good-first-impression-can-work-wonders-creating-appsec-training-that-developers-v)
+  by Leif Dreizler,
+  [LocoMocoSec 2019](https://locomocosec2019.sched.com/), 18.04.2019
 * [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md)
   workshop with Björn Kimminich,
   [Pixels Camp v3.0](https://pixels.camp), 21.03.2019
-* [OWASP Juice Shop - First you 😂😂 then you 😢](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
+* [OWASP Juice Shop - First you :-D :-D then you :,-(](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
   by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
   21.03.2019
 * [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
