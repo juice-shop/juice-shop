@@ -1,4 +1,3 @@
-const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const db = require('../data/mongodb')
 
@@ -11,43 +10,35 @@ module.exports = function dataExport () {
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
       let userData = {
         username,
-        email: email
+        email,
+        orders: [],
+        reviews: []
       }
 
-      db.orders.find({ $where: "this.email === '" + updatedEmail + "'" }).then(orders => {
-        const result = utils.queryResultToJson(orders)
-        const data = result.data
-        if (data.length > 0) {
-          let orders = []
-          data.map(order => {
-            let finalOrder = {
+      db.orders.find({ email: updatedEmail }).then(orders => {
+        if (orders.length > 0) {
+          orders.map(order => {
+            userData.orders.push({
               orderId: order.orderId,
               totalPrice: order.totalPrice,
               products: [...order.products],
               bonus: order.bonus,
               eta: order.eta
-            }
-            orders.push(finalOrder)
+            })
           })
-          userData.orders = orders
         }
 
-        db.reviews.find({ $where: "this.author === '" + email + "'" }).then(reviews => {
-          const result = utils.queryResultToJson(reviews)
-          const data = result.data
-          if (data.length > 0) {
-            let reviews = []
-            data.map(review => {
-              let finalReview = {
+        db.reviews.find({ author: email }).then(reviews => {
+          if (reviews.length > 0) {
+            reviews.map(review => {
+              userData.reviews.push({
                 message: review.message,
                 author: review.author,
                 productId: review.product,
                 likesCount: review.likesCount,
                 likedBy: review.likedBy
-              }
-              reviews.push(finalReview)
+              })
             })
-            userData.reviews = reviews
           }
           res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },
