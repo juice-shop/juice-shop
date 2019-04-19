@@ -88,7 +88,7 @@
     "hashids": "~1.2.2",
     "helmet": "~3.16.0",
     "html-entities": "~1.2",
-    "is-docker": "~1.1.0",
+    "is-docker": "~2.0.0",
     "is-heroku": "~2.0.0",
     "jade": "~1.11.0",
     "js-yaml": "^3.12.1",
