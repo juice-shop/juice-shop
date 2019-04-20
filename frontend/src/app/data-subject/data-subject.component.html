@@ -1,0 +1,46 @@
+<div fxLayoutAlign="center">
+  <mat-card>
+    <h1>GDPR Driven Account Handling</h1>
+
+    <p>Juice Shop offers all it's users the opportunity to request data deletion/ data export for any data associated with their account. This is in our continuing accordance to data security, Customer privacy, and GDPR compliance. Under <a href="https://gdpr-info.eu/art-17-gdpr/">Article 17 of the GDPR</a>, data subjects have the right to request erasure of personal data if the data is no longer needed or consent has been withdrawn.</p>
+
+    <p>To successfully erase the account details, enter the email and click on the {{'DELETE_DATA_LABEL' | translate}} button.</p>
+
+    <h3 translate>DATA_SUBJECT_TITLE</h3>
+
+    <div class="form-container">
+
+      <div class="confirmation" [hidden]="!(confirmation && !emailControl.dirty && !securityQuestionControl.dirty)">{{ confirmation }}</div>
+      <div class="error" [hidden]="!(error && !emailControl.dirty && !securityQuestionControl.dirty)">{{ error }}</div>
+
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_EMAIL</mat-label>
+        <input id="email" [formControl]="emailControl" (ngModelChange)="findSecurityQuestion()"
+        type="text" matInput placeholder="Enter your email">
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
+        <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
+      </mat-form-field>
+    </div>
+
+   <div class="form-container" *ngIf="securityQuestion" id="forgot-form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ securityQuestion }}</mat-label>
+        <input id="securityAnswer" [formControl]="securityQuestionControl" type="password" matInput placeholder="">
+        <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" id="deleteUserButton" style="margin-top:5px;" mat-raised-button color="primary"
+            [disabled]="securityQuestionControl.invalid || emailControl.invalid"
+            (click)="save()"><i class="fas fa-exclamation-triangle fa-lg"></i> {{'DELETE_DATA_LABEL' | translate}}
+    </button>
+
+    <p>To export your user data in your desired format, click on the {{'DATA_EXPORT_LABEL' | translate}} button to take you to the data export section.</p>
+
+    <button type="submit" id="dataExportButton" style="margin-top:5px;" mat-raised-button color="primary" routerLink="/privacy-security/data-export">
+        {{'DATA_EXPORT_LABEL' | translate}}
+    </button>
+
+  </mat-card>
+</div>
+
