@@ -3,6 +3,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
+import { DataSubjectComponent } from './data-subject/data-subject.component'
 import { AboutComponent } from './about/about.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
@@ -29,6 +30,7 @@ import * as jwt_decode from 'jwt-decode'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
+// import { DataSubjectComponent } from './data-subject/data-subject.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 
@@ -89,6 +91,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'data-subject',
+    component: DataSubjectComponent
   },
   {
     path: 'complain',
