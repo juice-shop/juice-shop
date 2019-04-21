@@ -32,20 +32,35 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'searchQuery'
           },
           position: 'right',
-          resolved () {
-            const searchbar = document.getElementById('search')
+          async resolved () {
+            const searchbar = document.getElementById('searchQuery') as HTMLInputElement
 
-            return Promise.resolve()
+            while (true) {
+              if (searchbar.value === 'wasp') {
+                break
+              }
+              await sleep(100)
+            }
           }
         },
         {
-          text: 'Irgendein Quatsch!',
+          text: 'Now do whatever the fuck you want!',
           page: 'score-board',
           fixture: {
             type: 'id',
-            value: 'search-result-heading'
+            value: 'searchQuery'
           },
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            const searchbar = document.getElementById('searchQuery') as HTMLInputElement
+
+            while (true) {
+              if (searchbar.value === 'whatever') {
+                break
+              }
+              await sleep(100)
+            }
+          }
         }
       ]
     }
@@ -94,7 +109,7 @@ export async function init () {
     const element = loadHint(hint)
     element.scrollIntoView()
 
-    await sleep(5000)
+    await hint.resolved()
     element.remove()
   }
 }
