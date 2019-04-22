@@ -1,5 +1,7 @@
+const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const db = require('../data/mongodb')
+const challenges = require('../data/datacache').challenges
 
 module.exports = function dataExport () {
   return (req, res, next) => {
@@ -39,6 +41,12 @@ module.exports = function dataExport () {
                 likedBy: review.likedBy
               })
             })
+          }
+          const emailHash = insecurity.hash(email).slice(0, 4)
+          for (let order of userData.orders) {
+            if (order.orderId.split('-')[0] !== emailHash && utils.notSolved(challenges.dataExportChallenge)) {
+              utils.solve(challenges.dataExportChallenge)
+            }
           }
           res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },
