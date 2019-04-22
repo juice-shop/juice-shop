@@ -3,7 +3,7 @@ const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
-module.exports = (sequelize, { STRING, BOOLEAN, INTEGER }) => {
+module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
     username: {
       type: STRING,

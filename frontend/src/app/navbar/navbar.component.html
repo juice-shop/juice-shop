@@ -52,10 +52,6 @@
         <i class="fas fa-bomb fa-lg"></i>
         {{"NAV_COMPLAIN" | translate}}
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" routerLink="/data-subject">
-        <i class="fas fa-bomb fa-lg"></i>
-        {{"NAV_DATA_SUBJECT" | translate}}
-      </button>
     </mat-menu>
 
     <button mat-button routerLink="/basket" *ngIf="isLoggedIn()" fxShow fxHide.lt-lg>
