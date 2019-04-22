@@ -49,7 +49,6 @@ module.exports = function login () {
         let user = utils.queryResultToJson(authenticatedUser)
 
         if (user.data.isActive === false) {
-          console.log(user.data.isActive)
           res.status(401).send('User profile has been deleted')
         }
 
