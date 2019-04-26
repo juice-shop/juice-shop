@@ -144,10 +144,10 @@
   "LABEL_ADD_REVIEW_FOR_PRODUCT": "Legge til en omtale for dette produktet",
   "LABEL_NO_REVIEWS": "Ingen omtaler",
   "TITLE_TOKENSALE": "Token salg",
-  "SECTION_ICO": "Initial Coin Offering for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
+  "SECTION_ICO": "Første mynttilbud for <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>",
   "ICO_FAQ": "Vanlige spørsmål om våre ICO",
   "SECTION_WHITEPAPER": "Whitepaper",
-  "WHITEPAPER_REFERENCES": "Instead of reinventing the square coin, we just refer to existing brilliant whitepapers!",
+  "WHITEPAPER_REFERENCES": "I stedet for å gjenoppfinne firkantmynten, refererer vi bare til eksisterende strålende whitepapers!",
   "SECTION_SALES_PITCH": "Overbevisende ICO salgstricks",
   "GIVE_US_ALL_YOUR_MONEY": "Gi oss alle pengene.",
   "ICO_FAQ_QUESTION": "Kan jeg virkelig bli rik med <strong><i class='fab fa-bitcoin'></i> {{juicycoin}}</strong>?",
@@ -181,7 +181,7 @@
   "LABEL_INITIAL_2FA_TOKEN": "Første token fra din autentifikatoren",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Sikre kontoen med en tilleggsfaktor. Skann QR-koden i en autentifikator app som støtter TOTP (f.eks Google Authenticator) for å komme i gang.",
   "2FA_SETUP_ERROR": "Kan ikke endre 2FA oppsett. Sjekk at du har angitt passordet (og token) riktig.",
-  "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
-  "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
+  "2FA_SUCCESSFUL_SETUP": "Du har aktivert 2FA for kontoen. Takk for at du tar deg bryet med å sikre juicen din!",
+  "REMOVE_TWO_FACTOR_AUTH": "Fjern 2FA fra kontoen",
   "BTN_REMOVE": "Fjerne"
 }
