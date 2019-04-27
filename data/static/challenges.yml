@@ -687,3 +687,11 @@
   hint: 'You can solve this by cleverly interacting with the UI or bypassing it altogether.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#follow-the-dry-principle-while-registering-a-user'
   key: passwordRepeatChallenge
+-
+  name: 'Steal Someone''s Data'
+  category: 'Vulnerable Components'
+  description: 'Export someone else''s data without using Injection.'
+  difficulty: 1
+  hint: 'Try to identify the exported data corresponding to your own orders.'
+  hintUrl: ''
+  key: dataExportChallenge
