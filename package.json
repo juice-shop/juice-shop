@@ -62,7 +62,7 @@
     "bodgeit"
   ],
   "dependencies": {
-    "body-parser": "~1.18.3",
+    "body-parser": "~1.19.0",
     "check-dependencies": "^1.1.0",
     "clarinet": "^0.12.3",
     "colors": "^1.3.3",
