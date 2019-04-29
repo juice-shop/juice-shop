@@ -48,8 +48,10 @@ module.exports = function login () {
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
 
-        if (user.data.isActive === false) {
-          res.status(401).send('User profile has been deleted')
+        if (user.data.deletedAt) {
+          if (user.data.deletedAt !== null) {
+            res.status(401).send('User profile has been deleted')
+          }
         }
 
         const rememberedEmail = insecurity.userEmailFrom(req)
