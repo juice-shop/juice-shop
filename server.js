@@ -214,7 +214,7 @@ app.get('/api/SecurityAnswers', insecurity.denyAll())
 app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
-app.use('/rest/rest/privacy-requests', insecurity.isAuthorized())
+app.use('/rest/user/privacy-requests', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before finale takes over */
@@ -313,7 +313,7 @@ app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
 app.post('/rest/data-export', dataExport())
 app.get('/rest/languages', languageList())
 app.get('/rest/data-subject', dataSubject())
-app.get('/rest/privacy-requests', privacyRequests())
+app.get('/rest/user/privacy-requests', privacyRequests())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())
