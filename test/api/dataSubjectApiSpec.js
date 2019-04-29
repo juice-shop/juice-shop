@@ -1,5 +1,4 @@
 const frisby = require('frisby')
-const config = require('config')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
@@ -27,7 +26,7 @@ describe('/rest/data-subject', () => {
                 password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
               }
             })
-            .expect('status', 200)
+              .expect('status', 200)
           })
       })
   })
