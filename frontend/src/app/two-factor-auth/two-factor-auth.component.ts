@@ -45,7 +45,7 @@ export class TwoFactorAuthComponent {
     status.subscribe(({ setup, email, secret, setupToken }) => {
       this.setupStatus = setup
       if (setup === false) {
-        this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop`
+        this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop` // FIXME Use app name from config instead of fixed "JuiceShop"
         this.totpSecret = secret
         this.setupToken = setupToken
       }
@@ -63,6 +63,8 @@ export class TwoFactorAuthComponent {
     ).subscribe(() => {
       this.setupStatus = true
     }, () => {
+      this.twoFactorSetupForm.get('passwordControl').markAsPristine()
+      this.twoFactorSetupForm.get('initalTokenControl').markAsPristine()
       this.errored = true
     })
   }
@@ -77,6 +79,7 @@ export class TwoFactorAuthComponent {
         }
       )
     }, () => {
+      this.twoFactorDisableForm.get('passwordControl').markAsPristine()
       this.errored = true
     })
   }

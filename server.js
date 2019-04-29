@@ -77,7 +77,9 @@ const privacyRequests = require('./routes/privacyRequests')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
-require('./lib/startup/validateDependencies')({ packageDir: './frontend' })
+if (fs.existsSync(path.resolve(__dirname, 'frontend/src'))) {
+  require('./lib/startup/validateDependencies')({ packageDir: './frontend' })
+}
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()

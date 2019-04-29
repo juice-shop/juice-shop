@@ -3,10 +3,8 @@
 
     <h2 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h2>
 
-    <div *ngIf="errored" translate>2FA_SETUP_ERROR</div>
-
     <div id="2fa-setup-successfully" *ngIf="setupStatus === true">
-      <p translate>2FA_SUCCESSFULL_SETUP</p>
+      <p translate>2FA_SUCCESSFUL_SETUP</p>
 
       <form 
         class="form-container"
@@ -14,9 +12,10 @@
         [formGroup]="twoFactorDisableForm"
         (ngSubmit)="disable()"
       >
-        <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)">{{ error }}</div>
 
         <h3 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h3>
+
+        <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)" translate>2FA_SETUP_ERROR</div>
 
         <mat-form-field appearance="outline">
           <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
@@ -42,7 +41,6 @@
       [formGroup]="twoFactorSetupForm"
       (ngSubmit)="setup()"
     >
-      <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)">{{ error }}</div>
 
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
@@ -50,9 +48,11 @@
           <qrcode 
             [qrdata]="totpUrl"
             [size]="300"
-            [level]="'M'"
+            [level]="'L'"
           ></qrcode>
       </div>
+
+      <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
@@ -60,7 +60,7 @@
       </mat-form-field>
       
       <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_INITAL_2FA_TOKEN</mat-label>
+        <mat-label translate>LABEL_INITIAL_2FA_TOKEN</mat-label>
         <input 
           id="initalToken"
           formControlName="initalTokenControl"
