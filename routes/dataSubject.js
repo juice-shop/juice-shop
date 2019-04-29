@@ -13,8 +13,7 @@ module.exports = function dataSubject () {
         (err) => {
           console.log('Could not insert user data:' + err)
         })
-      models.User.findByPk(loggedInUser.data.id).then(user => {
-        user.update({ isActive: false })
+      models.User.destroy({ where: { id: loggedInUser.data.id } }).then(() => {
         return res.json({
           status: true
         })

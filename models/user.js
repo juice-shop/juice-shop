@@ -52,7 +52,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: BOOLEAN,
       defaultValue: true
     }
-  })
+  }, { paranoid: true })
 
   return User
 }
