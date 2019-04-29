@@ -8,36 +8,39 @@ import { faExclamationTriangle, faStar } from '@fortawesome/free-solid-svg-icons
 library.add(faStar, faExclamationTriangle)
 dom.watch()
 
-interface EmailFormFields {
-  emailControl: string
-}
-
 @Component({
   selector: 'app-data-subject',
   templateUrl: './data-subject.component.html',
   styleUrls: ['./data-subject.component.scss']
 })
 export class DataSubjectComponent implements OnInit {
-  public securityQuestionGroup: FormGroup = new FormGroup({
+  public dataSubjectGroup: FormGroup = new FormGroup({
+    emailControl: new FormControl('', [Validators.required, Validators.email]),
     securityQuestionControl: new FormControl('', [Validators.required])
-  })
-  public emailGroup: FormGroup = new FormGroup({
-    emailControl: new FormControl('', [Validators.required, Validators.email])
   })
   public securityQuestion = undefined
   public error
   public confirmation
+  public email?: string
 
   constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService) { }
   ngOnInit () {
     this.findSecurityQuestion()
   }
 
+  get emailForm(): any {
+    return this.dataSubjectGroup.get('emailControl')
+  }
+
+  get securityQuestionForm(): any {
+    return this.dataSubjectGroup.get('securityQuestionControl')
+  }
+
   findSecurityQuestion () {
-    const emailFields: EmailFormFields = this.emailGroup.value
+    this.email = this.dataSubjectGroup.get('emailControl').value
     this.securityQuestion = undefined
-    if (emailFields.emailControl) {
-      this.securityQuestionService.findBy(emailFields.emailControl).subscribe((securityQuestion: any) => {
+    if (this.email) {
+      this.securityQuestionService.findBy(this.email).subscribe((securityQuestion: any) => {
         if (securityQuestion) {
           this.securityQuestion = securityQuestion.question
         }
@@ -51,9 +54,20 @@ export class DataSubjectComponent implements OnInit {
     this.dataSubjectService.deactivate().subscribe((response: any) => {
       this.error = undefined
       this.confirmation = 'The account details have been successfully erased. Changes will take effect from new login.'
+      this.resetForm()
     }, (error) => {
       this.confirmation = undefined
       this.error = error.error
+      this.resetForm()
     })
+  }
+
+  resetForm () {
+    this.dataSubjectGroup.get('emailControl').markAsUntouched()
+    this.dataSubjectGroup.get('emailControl').markAsPristine()
+    this.dataSubjectGroup.get('emailControl').setValue('')
+    this.dataSubjectGroup.get('securityQuestionControl').markAsUntouched()
+    this.dataSubjectGroup.get('securityQuestionControl').markAsPristine()
+    this.dataSubjectGroup.get('securityQuestionControl').setValue('')
   }
 }
