@@ -28,11 +28,11 @@ export class DataSubjectComponent implements OnInit {
     this.findSecurityQuestion()
   }
 
-  get emailForm(): any {
+  get emailForm (): any {
     return this.dataSubjectGroup.get('emailControl')
   }
 
-  get securityQuestionForm(): any {
+  get securityQuestionForm (): any {
     return this.dataSubjectGroup.get('securityQuestionControl')
   }
 
