@@ -116,8 +116,12 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   relAnchor.style.position = 'relative'
   relAnchor.appendChild(elem)
 
-  if (target.parentElement) {
+  if (target.parentElement && target.nextElementSibling) {
+    target.parentElement.insertBefore(relAnchor, target.nextElementSibling)
+  } else if (target.parentNode) {
     target.parentElement.appendChild(relAnchor)
+  } else {
+    target.insertBefore(relAnchor, target)
   }
 
   return relAnchor
