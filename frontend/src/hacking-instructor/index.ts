@@ -1,5 +1,3 @@
-import { getCurrentView } from '@angular/core/src/render3';
-
 interface HackingInstructorFileFormat {
   challenges: ChallengeInstruction[];
 }
@@ -41,7 +39,8 @@ const challengeInstructions: HackingInstructorFileFormat = {
             ) as HTMLInputElement;
 
             while (true) {
-              if (getCurrentView.name === 'login') {
+              console.log(window.location.hash);
+              if (window.location.hash === '#/login') {
                 break;
               }
               await sleep(100);
