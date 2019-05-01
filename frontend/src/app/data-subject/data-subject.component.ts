@@ -21,6 +21,7 @@ export class DataSubjectComponent implements OnInit {
   public securityQuestion = undefined
   public error
   public confirmation
+  public applicationName = 'OWASP Juice Shop'
   public email?: string
 
   constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService) { }
@@ -53,7 +54,7 @@ export class DataSubjectComponent implements OnInit {
   save () {
     this.dataSubjectService.deactivate().subscribe((response: any) => {
       this.error = undefined
-      this.confirmation = 'The account details have been successfully erased. Changes will take effect from new login.'
+      this.confirmation = true
       this.resetForm()
     }, (error) => {
       this.confirmation = undefined
