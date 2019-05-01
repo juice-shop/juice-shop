@@ -6,6 +6,8 @@
   "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
   "DATA_SUBJECT_TITLE": "Data Subject",
   "GDPR_HEADING": "GDPR Driven Account Handling",
+  "ACCOUNT_DELETE_CONFIRMATION": "The account details have been successfully erased. Changes will take effect from new login.",
+  "GDPR_MESSAGE": "Juice Shop offers all it's users the opportunity to request data deletion for any data associated with their account, upholding our continuing accordance to data security, Customer privacy, and GDPR compliance.",
   "TITLE_LOGIN": "Login",
   "MANDATORY_EMAIL": "Please provide an email address.",
   "MANDATORY_PASSWORD": "Please provide a password.",

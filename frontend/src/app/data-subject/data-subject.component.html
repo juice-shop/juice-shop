@@ -2,12 +2,12 @@
   <mat-card>
     <h1 translate>GDPR_HEADING</h1>
 
-    <p>Juice Shop offers all it's users the opportunity to request data deletion for any data associated with their account, upholding our continuing accordance to data security, Customer privacy, and GDPR compliance.</p>
+    <p translate [translateParams]="{appname: applicationName}">GDPR_MESSAGE</p>
 
     <h3 translate>DATA_SUBJECT_TITLE</h3>
 
     <div class="data-subject-container">
-      <div class="confirmation" [hidden]="!confirmation">{{ confirmation }}</div>
+      <div class="confirmation" [hidden]="!confirmation" translate>ACCOUNT_DELETE_CONFIRMATION</div>
       <div class="error" [hidden]="!error">{{ error }}</div>
 
       <form
