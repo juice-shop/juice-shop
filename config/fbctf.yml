@@ -263,3 +263,6 @@ ctf:
     passwordRepeatChallenge:
       name: Guyana
       code: GY
+    dataExportChallenge:
+      name: Cambodia
+      code: CB
