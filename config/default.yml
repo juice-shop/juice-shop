@@ -1,9 +1,9 @@
 server:
-  port: 3000
+  port: 8002
 application:
-  domain: juice-sh.op
-  name: 'OWASP Juice Shop'
-  logo: JuiceShop_Logo.png
+  domain:Gen-FunShop.op
+  name: 'Gen Fun Shop'
+  logo: Having-Fun.png
   favicon: favicon_js.ico
   numberOfRandomFakeUsers: 0
   showChallengeSolvedNotifications: true
