@@ -57,7 +57,7 @@ describe('DataSubjectComponent', () => {
       ]
     }).compileComponents()
 
-      location = TestBed.get(Location)
+    location = TestBed.get(Location)
   }))
 
   beforeEach(() => {
