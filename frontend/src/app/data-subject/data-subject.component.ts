@@ -1,6 +1,9 @@
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { DataSubjectService } from '../Services/data-subject.service'
-import { Component, OnInit } from '@angular/core'
+import { UserService } from '../Services/user.service'
+import { CookieService } from 'ngx-cookie'
+import { Router } from '@angular/router'
+import { Component, OnInit, NgZone, } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faExclamationTriangle, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -24,7 +27,7 @@ export class DataSubjectComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public email?: string
 
-  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService) { }
+  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService) { }
   ngOnInit () {
     this.findSecurityQuestion()
   }
@@ -55,13 +58,25 @@ export class DataSubjectComponent implements OnInit {
     this.dataSubjectService.deactivate().subscribe((response: any) => {
       this.error = undefined
       this.confirmation = true
-      this.resetForm()
+      this.logout()
     }, (error) => {
       this.confirmation = undefined
       this.error = error.error
       this.resetForm()
     })
   }
+
+  logout () {
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    localStorage.removeItem('token')
+    this.cookieService.remove('token', { domain: document.domain })
+    sessionStorage.removeItem('bid')
+    this.userService.isLoggedIn.next(false)
+    this.router.navigate(['/'])
+  }
+
+  // tslint:disable-next-line:no-empty
+  noop () { }
 
   resetForm () {
     this.dataSubjectGroup.get('emailControl').markAsUntouched()

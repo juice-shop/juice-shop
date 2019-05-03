@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing'
 import { DataSubjectComponent } from './data-subject.component'
 import { DataSubjectService } from '../Services/data-subject.service'
+import { RouterTestingModule } from '@angular/router/testing'
+import { UserService } from '../Services/user.service'
+import { Location } from '@angular/common'
+import { CookieModule, CookieService } from 'ngx-cookie'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
@@ -9,21 +13,32 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { of, throwError } from 'rxjs'
 
-describe('DataExportComponent', () => {
+describe('DataSubjectComponent', () => {
   let component: DataSubjectComponent
   let fixture: ComponentFixture<DataSubjectComponent>
   let securityQuestionService
   let dataSubjectService
+  let cookieService
+  let userService
+  let location
 
   beforeEach(async(() => {
+    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
+    userService = jasmine.createSpyObj('UserService',['saveLastLoginIp'])
+    userService.saveLastLoginIp.and.returnValue(of({}))
+    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
+    userService.isLoggedIn.next.and.returnValue({})
     dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['deactivate'])
     dataSubjectService.deactivate.and.returnValue(of({}))
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
     securityQuestionService.findBy.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [DataSubjectComponent],
+      declarations: [ DataSubjectComponent ],
       imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'data-subject', component: DataSubjectComponent }
+        ]),
         HttpClientTestingModule,
         TranslateModule.forRoot(),
         MatFormFieldModule,
@@ -35,15 +50,20 @@ describe('DataExportComponent', () => {
       ],
       providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },
+        { provide: CookieService, useValue: cookieService },
         { provide: DataSubjectService, useValue: dataSubjectService },
+        { provide: UserService, useValue: userService },
         TranslateService
       ]
     }).compileComponents()
+
+      location = TestBed.get(Location)
   }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DataSubjectComponent)
     component = fixture.componentInstance
+    localStorage.removeItem('token')
     fixture.detectChanges()
   })
 
@@ -108,4 +128,37 @@ describe('DataExportComponent', () => {
     component.findSecurityQuestion()
     expect(securityQuestionService.findBy).not.toHaveBeenCalled()
   })
+
+  it('should remove authentication token from localStorage', () => {
+    spyOn(localStorage,'removeItem')
+    component.logout()
+    expect(localStorage.removeItem).toHaveBeenCalledWith('token')
+  })
+
+  it('should remove authentication token from cookies', () => {
+    component.logout()
+    expect(cookieService.remove).toHaveBeenCalledWith('token', { domain: `${document.domain}` })
+  })
+
+  it('should remove basket id from session storage', () => {
+    spyOn(sessionStorage,'removeItem')
+    component.logout()
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
+  })
+
+  it('should set the login status to be false via UserService', () => {
+    component.logout()
+    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
+  })
+
+  it('should save the last login IP address', () => {
+    component.logout()
+    expect(userService.saveLastLoginIp).toHaveBeenCalled()
+  })
+
+  it('should forward to main page', fakeAsync(() => {
+    component.logout()
+    tick()
+    expect(location.path()).toBe('/')
+  }))
 })
