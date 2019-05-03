@@ -6,8 +6,6 @@
   "TITLE_LOGIN": "Login",
   "MANDATORY_EMAIL": "Please provide an email address.",
   "MANDATORY_PASSWORD": "Please provide a password.",
-  "DATA_EXPORT_LABEL": "Export Data",
-  "DELETE_DATA_LABEL": "Delete User Data",
   "LABEL_EMAIL": "Email",
   "LABEL_PASSWORD": "Password",
   "BTN_LOGIN": "Log in",
@@ -190,5 +188,7 @@
   "DATA_SUBJECT_TITLE": "Data Subject",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
-  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data."
+  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
+  "DATA_EXPORT_LABEL": "Export Data",
+  "DELETE_DATA_LABEL": "Delete User Data"
 }
