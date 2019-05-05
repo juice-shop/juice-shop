@@ -97,7 +97,7 @@ async function createUsers () {
 
 function deleteUser (userId) {
   return models.User.destroy({ where: { id: userId } }).catch((err) => {
-    logger.error(`Could not perform soft delete for the user ${UserId}: ${err.message}`)
+    logger.error(`Could not perform soft delete for the user ${userId}: ${err.message}`)
   })
 }
 
