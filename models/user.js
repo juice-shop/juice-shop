@@ -47,8 +47,12 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     totpSecret: {
       type: STRING,
       defaultValue: ''
+    },
+    isActive: {
+      type: BOOLEAN,
+      defaultValue: true
     }
-  })
+  }, { paranoid: true })
 
   return User
 }
