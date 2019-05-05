@@ -46,7 +46,7 @@ module.exports = function login () {
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
-    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\' AND deletedAt IS NOT NULL', { model: models.User, plain: true })
+    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\' AND deletedAt IS NULL', { model: models.User, plain: true })
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
         const rememberedEmail = insecurity.userEmailFrom(req)
