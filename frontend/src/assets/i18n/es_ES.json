@@ -183,5 +183,12 @@
   "2FA_SETUP_ERROR": "Se ha producido un error al cambiar la configuración del 2FA. Compruebe que la contraseña (y el token) introducidos sean correctos.",
   "2FA_SUCCESSFUL_SETUP": "Ha habilitado 2FA para tu cuenta. ¡Gracias por tomarse el tiempo para mantener sus jugos seguros!",
   "REMOVE_TWO_FACTOR_AUTH": "Eliminar la autenticación de dos factores de su cuenta",
-  "BTN_REMOVE": "Eliminar"
+  "BTN_REMOVE": "Eliminar",
+  "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
+  "DATA_SUBJECT_TITLE": "Data Subject",
+  "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
+  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
+  "DATA_EXPORT_LABEL": "Export Data",
+  "DELETE_DATA_LABEL": "Delete User Data"
 }
