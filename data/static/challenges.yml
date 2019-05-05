@@ -695,3 +695,11 @@
   hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
   # hintUrl: ''
   key: dataExportChallenge
+-
+  name: 'Ghost Login'
+  category: 'Broken Authentication'
+  description: 'Log in to an deleted account of an old starfleet captain (some say he became a juice shop employee later!).'
+  difficulty: 3
+  hint: 'All you need is a bit of injection skills and some Star Trek info.'
+  key: ghostLoginChallenge
+
