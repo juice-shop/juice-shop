@@ -48,6 +48,12 @@ module.exports = function login () {
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
 
+        if (user.data.deletedAt) {
+          if (user.data.deletedAt !== null) {
+            res.status(401).send('User profile has been deleted')
+          }
+        }
+
         const rememberedEmail = insecurity.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
