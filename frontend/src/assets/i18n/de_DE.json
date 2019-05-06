@@ -185,10 +185,9 @@
   "REMOVE_TWO_FACTOR_AUTH": "Entferne 2FA von deinem Konto",
   "BTN_REMOVE": "Entfernen",
   "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
-  "DATA_SUBJECT_TITLE": "Betroffene Person",
+  "DATA_SUBJECT_TITLE": "Request Data Erasure",
   "GDPR_HEADING": "Datenlöschungsanfrage (Art. 17 DSGVO)",
   "ACCOUNT_DELETE_CONFIRMATION": "Dein Konto wurde erfolgreich gelöscht. Sofern nicht automatisch geschehen, melde dich bitte jetzt ab!",
   "GDPR_MESSAGE": "Wir nehmen Datenschutz, die Privatsphäre unserer Kunden und die Einhaltung von Rechtsvorschriften sehr ernst. In Einklang mit der DSGVO erlauben wir dir, die vollständige Löschung deines Kontos und aller damit verbundenen Daten zu beantragen.",
-  "DATA_EXPORT_LABEL": "Daten exportieren",
   "DELETE_DATA_LABEL": "Benutzerdaten löschen"
 }
