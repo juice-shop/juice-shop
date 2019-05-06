@@ -696,10 +696,10 @@
   # hintUrl: ''
   key: dataExportChallenge
 -
-  name: 'Ghost Login'
+  name: 'GDPR Compliance Tier 2'
   category: 'Broken Authentication'
-  description: 'Log in to an deleted account of an old starfleet captain (some say he became a juice shop employee later!).'
+  description: 'Log in to an deleted account of an old Juice Shop employee.'
   difficulty: 3
-  hint: 'All you need is a bit of injection skills and some Star Trek info.'
+  hint: 'Turns out that something is fishy with GDPR right here and all you need are some ninja injection skills!'
   key: ghostLoginChallenge
 
