@@ -184,7 +184,6 @@
   "2FA_SUCCESSFUL_SETUP": "Du har aktivert 2FA for kontoen. Takk for at du tar deg bryet med å sikre juicen din!",
   "REMOVE_TWO_FACTOR_AUTH": "Fjern 2FA fra kontoen",
   "BTN_REMOVE": "Fjerne",
-  "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
   "DATA_SUBJECT_TITLE": "Request Data Erasure",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",

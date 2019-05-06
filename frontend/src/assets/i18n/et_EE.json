@@ -184,7 +184,6 @@
   "2FA_SUCCESSFUL_SETUP": "Olete lubanud 2FA oma kontole. Täname, et leidsite aega oma mahlade turvamiseks!",
   "REMOVE_TWO_FACTOR_AUTH": "2FA eemaldamine kontolt",
   "BTN_REMOVE": "Eemalda",
-  "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
   "DATA_SUBJECT_TITLE": "Request Data Erasure",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
