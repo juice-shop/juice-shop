@@ -136,6 +136,44 @@ describe('/rest/data-export', () => {
       })
   })
 
+  it('Export data including reviews without use of CAPTCHA', () => {
+    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(REST_URL + '/data-export', {
+          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+          body: {
+            format: '1'
+          }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
+          .then(({ json }) => {
+            console.log(json)
+            const parsedData = JSON.parse(json.userData)
+            expect(parsedData.username).toBe('')
+            expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
+            expect(parsedData.reviews[0].message).toBe('Looks so much better on my uniform than the boring Starfleet symbol.')
+            expect(parsedData.reviews[0].author).toBe('jim@' + config.get('application.domain'))
+            expect(parsedData.reviews[0].productId).toBe(20)
+            expect(parsedData.reviews[0].likesCount).toBe(0)
+            expect(parsedData.reviews[0].likedBy[0]).toBe(undefined)
+            expect(parsedData.reviews[1].message).toBe('Fresh out of a replicator.')
+            expect(parsedData.reviews[1].author).toBe('jim@' + config.get('application.domain'))
+            expect(parsedData.reviews[1].productId).toBe(22)
+            expect(parsedData.reviews[1].likesCount).toBe(0)
+            expect(parsedData.reviews[1].likedBy[0]).toBe(undefined)
+          })
+      })
+  })
+
   it('Export data including orders with use of CAPTCHA', () => {
     return frisby.timeout(10000).post(REST_URL + '/user/login', {
       headers: jsonHeader,
@@ -179,6 +217,51 @@ describe('/rest/data-export', () => {
                     expect(parsedData.orders[0].products[0].total).toBe(9.98)
                     expect(parsedData.orders[0].products[0].bonus).toBe(0)
                   })
+              })
+          })
+      })
+  })
+
+  it('Export data including reviews with use of CAPTCHA', () => {
+    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.get(REST_URL + '/image-captcha', {
+          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .then(({ json: captchaAnswer }) => {
+            return frisby.post(REST_URL + '/data-export', {
+              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+              body: {
+                answer: captchaAnswer.answer,
+                format: 1
+              }
+            })
+              .expect('status', 200)
+              .expect('header', 'content-type', /application\/json/)
+              .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
+              .then(({ json }) => {
+                const parsedData = JSON.parse(json.userData)
+                expect(parsedData.username).toBe('')
+                expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
+                expect(parsedData.reviews[0].message).toBe('Looks so much better on my uniform than the boring Starfleet symbol.')
+                expect(parsedData.reviews[0].author).toBe('jim@' + config.get('application.domain'))
+                expect(parsedData.reviews[0].productId).toBe(20)
+                expect(parsedData.reviews[0].likesCount).toBe(0)
+                expect(parsedData.reviews[0].likedBy[0]).toBe(undefined)
+                expect(parsedData.reviews[1].message).toBe('Fresh out of a replicator.')
+                expect(parsedData.reviews[1].author).toBe('jim@' + config.get('application.domain'))
+                expect(parsedData.reviews[1].productId).toBe(22)
+                expect(parsedData.reviews[1].likesCount).toBe(0)
+                expect(parsedData.reviews[1].likedBy[0]).toBe(undefined)
               })
           })
       })

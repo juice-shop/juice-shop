@@ -175,5 +175,20 @@
   "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
   "BTN_REQUEST": "Anfordern",
   "EXPORT_LABEL": "Export-Format",
-  "ACCOUNT": "Konto"
+  "ACCOUNT": "Konto",
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Konfiguration",
+  "LABEL_CONFIRM_CURRENT_PASSWORD": "Bestätige dein aktuelles Password",
+  "LABEL_INITIAL_2FA_TOKEN": "Initialer Code von deinem Authenticator",
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Sichere dein Konto mit einem zusätzlichen Faktor. Scanne den QR Code mit einer Authenticator-App, die TOTP unterstützt (z.B. Google Authenticator), um zu beginnen.",
+  "2FA_SETUP_ERROR": "Fehler beim Ändern der 2FA-Konfiguration. Prüfe, ob du dein Passwort (und den Code) korrekt eingegeben hast.",
+  "2FA_SUCCESSFUL_SETUP": "Du hast 2FA für dein Konto eingeschaltet. Danke, dass du dir die Zeit nimmst, deine Säfte abzusichern!",
+  "REMOVE_TWO_FACTOR_AUTH": "Entferne 2FA von deinem Konto",
+  "BTN_REMOVE": "Entfernen",
+  "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
+  "DATA_SUBJECT_TITLE": "Data Subject",
+  "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
+  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
+  "DATA_EXPORT_LABEL": "Export Data",
+  "DELETE_DATA_LABEL": "Delete User Data"
 }
