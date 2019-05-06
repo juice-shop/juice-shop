@@ -26,6 +26,6 @@ describe('/#/privacy-security/data-export', () => {
       element(by.id('formatControl')).all(by.tagName('mat-radio-button')).get(0).click()
       element(by.id('submitButton')).click()
     })
-    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance' })
+    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 2' })
   })
 })
