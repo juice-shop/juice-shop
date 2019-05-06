@@ -185,7 +185,7 @@
   "REMOVE_TWO_FACTOR_AUTH": "Entferne 2FA von deinem Konto",
   "BTN_REMOVE": "Entfernen",
   "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
-  "DATA_SUBJECT_TITLE": "Data Subject",
+  "DATA_SUBJECT_TITLE": "Betroffene Person",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
   "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
