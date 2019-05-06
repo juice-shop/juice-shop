@@ -688,7 +688,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#follow-the-dry-principle-while-registering-a-user'
   key: passwordRepeatChallenge
 -
-  name: 'GDPR Compliance'
+  name: 'GDPR Compliance Tier 2'
   category: 'Roll your own Security'
   description: 'Steal someone else''s personal data without using Injection.'
   difficulty: 4
