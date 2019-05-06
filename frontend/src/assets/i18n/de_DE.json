@@ -186,9 +186,9 @@
   "BTN_REMOVE": "Entfernen",
   "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
   "DATA_SUBJECT_TITLE": "Betroffene Person",
-  "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
-  "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
-  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
-  "DATA_EXPORT_LABEL": "Export Data",
-  "DELETE_DATA_LABEL": "Delete User Data"
+  "GDPR_HEADING": "Datenlöschungsanfrage (Art. 17 DSGVO)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Dein Konto wurde erfolgreich gelöscht. Sofern nicht automatisch geschehen, melde dich bitte jetzt ab!",
+  "GDPR_MESSAGE": "Wir nehmen Datenschutz, die Privatsphäre unserer Kunden und die Einhaltung von Rechtsvorschriften sehr ernst. In Einklang mit der DSGVO erlauben wir dir, die vollständige Löschung deines Kontos und aller damit verbundenen Daten zu beantragen.",
+  "DATA_EXPORT_LABEL": "Daten exportieren",
+  "DELETE_DATA_LABEL": "Benutzerdaten löschen"
 }
