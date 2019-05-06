@@ -184,7 +184,6 @@
   "2FA_SUCCESSFUL_SETUP": "Ha habilitado 2FA para tu cuenta. ¡Gracias por tomarse el tiempo para mantener sus jugos seguros!",
   "REMOVE_TWO_FACTOR_AUTH": "Eliminar la autenticación de dos factores de su cuenta",
   "BTN_REMOVE": "Eliminar",
-  "TITLE_DATA_SUBJECT": "Data Subject Contact Form",
   "DATA_SUBJECT_TITLE": "Request Data Erasure",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
