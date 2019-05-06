@@ -687,3 +687,11 @@
   hint: 'You can solve this by cleverly interacting with the UI or bypassing it altogether.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#follow-the-dry-principle-while-registering-a-user'
   key: passwordRepeatChallenge
+-
+  name: 'GDPR Compliance'
+  category: 'Roll your own Security'
+  description: 'Steal someone else''s personal data without using Injection.'
+  difficulty: 4
+  hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
+  # hintUrl: ''
+  key: dataExportChallenge
