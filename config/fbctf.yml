@@ -245,9 +245,6 @@ ctf:
     videoXssChallenge:
       name: Pakistan
       code: PK
-    recyclesMissingItemChallenge:
-      name: Uganda
-      code: UG
     twoFactorAuthUnsafeSecretStorageChallenge:
       name: Sweden
       code: SE
