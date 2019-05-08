@@ -49,7 +49,7 @@
   email: support
   password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   key: support
-  isAdmin: false
+  isAdmin: true
   securityQuestion:
     id: 10
     answer: 'SC OLEA SRL' # http://www.olea.com.ro/
