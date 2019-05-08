@@ -209,7 +209,8 @@ function createBaskets () {
   const baskets = [
     { UserId: 1 },
     { UserId: 2 },
-    { UserId: 3 }
+    { UserId: 3 },
+    { UserId: 11 }
   ]
 
   return Promise.all(
@@ -247,6 +248,11 @@ function createBasketItems () {
       BasketId: 3,
       ProductId: 5,
       quantity: 1
+    },
+    {
+      BasketId: 4,
+      ProductId: 4,
+      quantity: 2
     }
   ]
 
