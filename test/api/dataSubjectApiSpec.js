@@ -3,7 +3,7 @@ const frisby = require('frisby')
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 
-describe('/rest/data-subject', () => {
+xdescribe('/rest/data-subject', () => { // FIXME or delete as test expectation is entirely unclear
   it('Delete user profile of a logged in user', () => {
     return frisby.timeout(10000).post(REST_URL + '/user/login', {
       headers: jsonHeader,
