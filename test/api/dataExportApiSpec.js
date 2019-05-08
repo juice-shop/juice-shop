@@ -100,13 +100,13 @@ describe('/rest/data-export', () => {
     return frisby.timeout(10000).post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
-        password: 'ncc-1701'
+        email: 'amy@' + config.get('application.domain'),
+        password: 'K1f.....................'
       }
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/basket/2/checkout', {
+        return frisby.post(REST_URL + '/basket/4/checkout', {
           headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
@@ -123,7 +123,8 @@ describe('/rest/data-export', () => {
               .then(({ json }) => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('')
-                expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
+                expect(parsedData.email).toBe('amy@' + config.get('application.domain'))
+                expect(parsedData.orders[0].totalPrice).toBe(9.98)
                 expect(parsedData.orders[0].bonus).toBe(0)
                 expect(parsedData.orders[0].products[0].quantity).toBe(2)
                 expect(parsedData.orders[0].products[0].name).toBe('Raspberry Juice (1000ml)')
@@ -155,6 +156,7 @@ describe('/rest/data-export', () => {
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
+            console.log(json)
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('')
             expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
@@ -176,13 +178,13 @@ describe('/rest/data-export', () => {
     return frisby.timeout(10000).post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'jim@' + config.get('application.domain'),
-        password: 'ncc-1701'
+        email: 'amy@' + config.get('application.domain'),
+        password: 'K1f.....................'
       }
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/basket/2/checkout', {
+        return frisby.post(REST_URL + '/basket/4/checkout', {
           headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
@@ -206,7 +208,8 @@ describe('/rest/data-export', () => {
                   .then(({ json }) => {
                     const parsedData = JSON.parse(json.userData)
                     expect(parsedData.username).toBe('')
-                    expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
+                    expect(parsedData.email).toBe('amy@' + config.get('application.domain'))
+                    expect(parsedData.orders[0].totalPrice).toBe(9.98)
                     expect(parsedData.orders[0].bonus).toBe(0)
                     expect(parsedData.orders[0].products[0].quantity).toBe(2)
                     expect(parsedData.orders[0].products[0].name).toBe('Raspberry Juice (1000ml)')
