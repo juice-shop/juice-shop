@@ -302,7 +302,6 @@ function createComplaints () {
 function createRecycleItems () {
   const recycleItems = [
     {
-      id: 42,
       UserId: 2,
       quantity: 800,
       address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
@@ -310,7 +309,6 @@ function createRecycleItems () {
       isPickup: true
     },
     {
-      id: 698,
       UserId: 3,
       quantity: 1320,
       address: '22/7 Winston Street, Sydney, Australia, Earth',
@@ -339,7 +337,7 @@ function createRecycleItems () {
       isPickup: true
     },
     {
-      UserId: 2,
+      UserId: 3,
       quantity: 200,
       address: '222, East Central Avenue, Adelaide, New Zealand',
       date: '2018-07-17',
@@ -353,7 +351,7 @@ function createRecycleItems () {
       isPickup: true
     },
     {
-      UserId: 3,
+      UserId: 1,
       quantity: 150,
       address: '15 Riviera Road, Western Frontier, Menlo Park CA',
       date: '2018-05-12',
