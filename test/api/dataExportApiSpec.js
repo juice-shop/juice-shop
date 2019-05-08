@@ -124,7 +124,6 @@ describe('/rest/data-export', () => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('')
                 expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
-                expect(parsedData.orders[0].totalPrice).toBe(9.98)
                 expect(parsedData.orders[0].bonus).toBe(0)
                 expect(parsedData.orders[0].products[0].quantity).toBe(2)
                 expect(parsedData.orders[0].products[0].name).toBe('Raspberry Juice (1000ml)')
@@ -156,7 +155,6 @@ describe('/rest/data-export', () => {
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
-            console.log(json)
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('')
             expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
@@ -209,7 +207,6 @@ describe('/rest/data-export', () => {
                     const parsedData = JSON.parse(json.userData)
                     expect(parsedData.username).toBe('')
                     expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
-                    expect(parsedData.orders[0].totalPrice).toBe(9.98)
                     expect(parsedData.orders[0].bonus).toBe(0)
                     expect(parsedData.orders[0].products[0].quantity).toBe(2)
                     expect(parsedData.orders[0].products[0].name).toBe('Raspberry Juice (1000ml)')
