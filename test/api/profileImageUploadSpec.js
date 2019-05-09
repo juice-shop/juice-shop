@@ -21,12 +21,13 @@ describe('/profile/image/file', () => {
       }
     })
       .expect('status', 200)
-      .then(({json: jsonLogin}) => {
+      .then(({ json: jsonLogin }) => {
         return frisby.post(URL + '/profile/image/file', {
           headers: {
             'Authorization': 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
-          }, body: form
+          },
+          body: form
         })
           .expect('status', 204)
       })
@@ -38,7 +39,7 @@ describe('/profile/image/file', () => {
     form.append('file', fs.createReadStream(file))
 
     return frisby.post(URL + '/profile/image/file', {
-      headers: {'Content-Type': form.getHeaders()['content-type']},
+      headers: { 'Content-Type': form.getHeaders()['content-type'] },
       body: form
     })
       .expect('status', 500)
