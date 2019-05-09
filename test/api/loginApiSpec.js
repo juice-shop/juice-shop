@@ -77,7 +77,7 @@ describe('/rest/user/login', () => {
       headers: jsonHeader,
       body: {
         email: 'support@' + config.get('application.domain'),
-        password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P' // FIXME Fails with 500 error due to $ character in password? (https://github.com/vlucas/frisby/issues/525)
+        password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
       }
     })
       .expect('status', 200)
@@ -90,7 +90,7 @@ describe('/rest/user/login', () => {
       })
   })
 
-  it('POST login with MC SafeSearch credentials', () => { // FIXME Fails with 500 error (maybe also related to https://github.com/vlucas/frisby/issues/525)
+  it('POST login with MC SafeSearch credentials', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
