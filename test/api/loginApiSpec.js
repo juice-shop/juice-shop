@@ -113,7 +113,7 @@ describe('/rest/user/login', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(res => {
-        console.log(res.json);
+        console.log(res.json)
       })
   })
 
@@ -128,7 +128,7 @@ describe('/rest/user/login', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(res => {
-        console.log(res.json);
+        console.log(res.json)
       })
   })
 
