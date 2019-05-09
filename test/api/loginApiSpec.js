@@ -72,7 +72,7 @@ describe('/rest/user/login', () => {
       })
   })
 
-  xit('POST login with support-team credentials', () => {
+  it('POST login with support-team credentials', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -85,9 +85,12 @@ describe('/rest/user/login', () => {
       .expect('jsonTypes', 'authentication', {
         token: Joi.string()
       })
+      .then(res => {
+        console.log(res)
+      })
   })
 
-  xit('POST login with MC SafeSearch credentials', () => { // FIXME Fails with 500 error (maybe also related to https://github.com/vlucas/frisby/issues/525)
+  it('POST login with MC SafeSearch credentials', () => { // FIXME Fails with 500 error (maybe also related to https://github.com/vlucas/frisby/issues/525)
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -100,35 +103,8 @@ describe('/rest/user/login', () => {
       .expect('jsonTypes', 'authentication', {
         token: Joi.string()
       })
-  })
-
-  it('POST request with support-team credentials to httpbin.org', () => { // TODO Remove when https://github.com/vlucas/frisby/issues/525 is resolved
-    return frisby.post('https://httpbin.org/post', {
-      headers: jsonHeader,
-      body: {
-        email: 'support@juice-sh.op',
-        password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
-      }
-    })
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
       .then(res => {
-        console.log(res.json)
-      })
-  })
-
-  it('POST request with MC SafeSearch credentials to httpbin.org', () => { // TODO Remove when https://github.com/vlucas/frisby/issues/525 is resolved
-    return frisby.post('https://httpbin.org/post', {
-      headers: jsonHeader,
-      body: {
-        email: 'mc.safesearch@' + config.get('application.domain'),
-        password: 'Mr. N00dles'
-      }
-    })
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .then(res => {
-        console.log(res.json)
+        console.log(res)
       })
   })
 
