@@ -33,7 +33,7 @@ describe('/file-upload', () => {
       .expect('status', 204)
   })
 
-  xit('POST file type XML deprecated for API', () => { // FIXME fails with "socket hang up" error from node-fetch
+  it('POST file type XML deprecated for API', () => { // FIXME fails with "socket hang up" error from node-fetch
     const file = path.resolve(__dirname, '../files/deprecatedTypeForServer.xml')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
