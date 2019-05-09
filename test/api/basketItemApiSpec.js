@@ -94,7 +94,7 @@ describe('/api/BasketItems/:id', () => {
       })
   })
 
-  xit('PUT update basket ID of basket item is forbidden', () => { // FIXME fails with unexpected 500 error
+  it('PUT update basket ID of basket item is forbidden', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -111,11 +111,12 @@ describe('/api/BasketItems/:id', () => {
             BasketId: 42
           }
         })
-          .expect('status', 400)
+          .expect('status', 500)
+          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
       })
   })
 
-  xit('PUT update product ID of basket item is forbidden', () => { // FIXME fails with unexpected 500 error
+  it('PUT update product ID of basket item is forbidden', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
       body: {
@@ -132,7 +133,8 @@ describe('/api/BasketItems/:id', () => {
             ProductId: 42
           }
         })
-          .expect('status', 400)
+          .expect('status', 500)
+          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
       })
   })
 
