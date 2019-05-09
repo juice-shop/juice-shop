@@ -72,7 +72,7 @@ describe('/rest/user/security-question', () => {
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
-      .expect('bodyContains', 'Error: WHERE parameter "email" has invalid "undefined" value')
+      .expect('bodyContains', 'Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value')
   })
 
   it('GET security question is not susceptible to SQL Injection attacks', () => {
