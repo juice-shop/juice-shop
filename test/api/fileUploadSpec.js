@@ -33,7 +33,7 @@ describe('/file-upload', () => {
       .expect('status', 204)
   })
 
-  it('POST file type XML deprecated for API', () => { // FIXME fails with "socket hang up" error from node-fetch
+  it('POST file type XML deprecated for API', () => {
     const file = path.resolve(__dirname, '../files/deprecatedTypeForServer.xml')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -42,7 +42,7 @@ describe('/file-upload', () => {
       .expect('status', 410)
   })
 
-  xit('POST large XML file near upload size limit', () => { // FIXME fails with "socket hang up" error from node-fetch
+  it('POST large XML file near upload size limit', () => {
     const file = path.resolve(__dirname, '../files/maxSizeForServer.xml')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -52,7 +52,7 @@ describe('/file-upload', () => {
   })
 
   if (!utils.disableOnContainerEnv()) {
-    xit('POST file type XML with XXE attack against Windows', () => { // FIXME fails with "socket hang up" error from node-fetch
+    it('POST file type XML with XXE attack against Windows', () => {
       const file = path.resolve(__dirname, '../files/xxeForWindows.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
@@ -64,7 +64,7 @@ describe('/file-upload', () => {
         .expect('status', 410)
     })
 
-    xit('POST file type XML with XXE attack against Linux', () => { // FIXME fails with "socket hang up" error from node-fetch
+    it('POST file type XML with XXE attack against Linux', () => {
       const file = path.resolve(__dirname, '../files/xxeForLinux.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
@@ -76,7 +76,7 @@ describe('/file-upload', () => {
         .expect('status', 410)
     })
 
-    xit('POST file type XML with Billion Laughs attack is caught by parser', () => { // FIXME fails with "socket hang up" error from node-fetch
+    it('POST file type XML with Billion Laughs attack is caught by parser', () => {
       const file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
@@ -101,7 +101,7 @@ describe('/file-upload', () => {
         .expect('status', 503)
     })
 
-    xit('POST file type XML with dev/random attack', () => { // FIXME fails with "socket hang up" error from node-fetch
+    it('POST file type XML with dev/random attack', () => {
       const file = path.resolve(__dirname, '../files/xxeDevRandom.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
