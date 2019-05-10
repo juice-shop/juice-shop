@@ -7,8 +7,8 @@ const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 const URL = 'http://localhost:3000'
 
-xdescribe('/profile/image/file', () => { // FIXME Socket hang-up and other server problems
-  it('POST profile image file valid for JPG format', () => {
+describe('/profile/image/file', () => { // FIXME Socket hang-up and other server problems
+  xit('POST profile image file valid for JPG format', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -61,7 +61,7 @@ xdescribe('/profile/image/file', () => { // FIXME Socket hang-up and other serve
       })
   })
 
-  it('POST profile image file forbidden for anonymous user', () => {
+  xit('POST profile image file forbidden for anonymous user', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
