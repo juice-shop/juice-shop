@@ -13,7 +13,7 @@ describe('/profile/image/file', () => {
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get('application.domain'),
