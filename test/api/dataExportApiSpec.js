@@ -6,7 +6,7 @@ const REST_URL = 'http://localhost:3000/rest'
 
 describe('/rest/data-export', () => {
   it('Export data without use of CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
@@ -33,7 +33,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data when CAPTCHA requested need right answer', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
@@ -62,7 +62,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data using right answer to CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
@@ -97,7 +97,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data including orders without use of CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'amy@' + config.get('application.domain'),
@@ -137,7 +137,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data including reviews without use of CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get('application.domain'),
@@ -175,7 +175,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data including orders with use of CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'amy@' + config.get('application.domain'),
@@ -223,7 +223,7 @@ describe('/rest/data-export', () => {
   })
 
   it('Export data including reviews with use of CAPTCHA', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'jim@' + config.get('application.domain'),
