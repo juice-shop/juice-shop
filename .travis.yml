@@ -59,7 +59,7 @@ jobs:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
-      if: (branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request
+      if: (branch = master OR branch = develop OR branch = facelift OR branch = gsoc2019) AND NOT type = pull_request
       node_js: 11
       install: skip
       script: skip
