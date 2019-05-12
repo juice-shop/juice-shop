@@ -71,6 +71,7 @@ jobs:
             master: juice-shop
             develop: juice-shop-staging
             facelift: juice-shop-experimental
+            gsoc2019: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
 notifications:
