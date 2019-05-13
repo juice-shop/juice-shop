@@ -2,12 +2,12 @@
 
   <mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-icon-button>
+    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;">
       <mat-icon>menu</mat-icon>
     </button>
 
     <a routerLink="/search">
-      <img [src]="logoSrc" class="logo">
+      <img [src]="logoSrc" class="logo" alt={{applicationName}}>
     </a>
 
     <span fxHide.lt-sm fxShow>{{applicationName}}</span>
@@ -16,7 +16,7 @@
 
     <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"></mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle;" fxHide.lt-md fxShow>
+    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons" fxHide.lt-md fxShow>
       <i class="material-icons">
         account_circle
       </i>
@@ -25,40 +25,66 @@
 
     <mat-menu #userMenu="matMenu">
       <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login">
-        <i class="fas fa-sign-in-alt fa-lg"></i>
-        {{"TITLE_LOGIN" | translate }}
+        <mat-icon>
+          exit_to_app
+        </mat-icon>
+        <span>
+          {{"TITLE_LOGIN" | translate }}
+        </span>
       </button>
       <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item>
-        <i class="fas fa-user-circle fa-lg"></i>
-        {{userEmail}}
+        <mat-icon>
+          account_circle
+        </mat-icon>
+        <span>
+          {{userEmail}}
+        </span>
       </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu">
-        <i class="fas fa-user-secret fa-lg"></i>
-        {{ "PRIVACY_AND_SECURITY" | translate }}
+        <mat-icon>
+          enhanced_encryption
+        </mat-icon>
+        <span>
+          {{ "PRIVACY_AND_SECURITY" | translate }}
+        </span>
       </button>
       <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/recycle">
-        <i class="fas fa-recycle fa-lg"></i>
-        {{"NAV_RECYCLE" | translate}}
+        <mat-icon>
+          autorenew
+        </mat-icon>
+        <span>
+          {{"NAV_RECYCLE" | translate}}
+        </span>
       </button>
       <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/track-order">
-        <i class="fas fa-map-marker fa-lg"></i>
-        {{"TITLE_TRACK_ORDERS" | translate}}
+        <mat-icon>
+          local_shipping
+        </mat-icon>
+        <span>
+          {{"TITLE_TRACK_ORDERS" | translate}}
+        </span>
       </button>
       <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item>
-        <i class="fas fa-sign-out-alt fa-lg"></i>
-        {{"TITLE_LOGOUT" | translate }}
+        <mat-icon>
+          power_settings_new
+        </mat-icon>
+        <span>
+          {{"TITLE_LOGOUT" | translate }}
+        </span>
       </button>
     </mat-menu>
 
-    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket">
-      <i class="fas fa-shopping-cart fa-lg"></i>
-      <span fxHide.lt-sm fxShow> {{"TITLE_BASKET" | translate}}</span>
+    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons">
+      <mat-icon>
+        shopping_cart
+      </mat-icon>
+      <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
     </button>
 
-    <button [matMenuTriggerFor]="menu" mat-button>
-      <i class="material-icons">
+    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons">
+      <mat-icon>
         language
-      </i>
+      </mat-icon>
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">

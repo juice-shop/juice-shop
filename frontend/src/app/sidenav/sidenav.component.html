@@ -13,18 +13,28 @@
 
   <div fxHide fxShow.lt-md>
     <a mat-list-item *ngIf="!isLoggedIn()" routerLink="/login" (click)="onToggleSidenav();">
-      <mat-icon matListIcon class="fas fa-sign-in-alt fa-lg"></mat-icon>
-      {{"TITLE_LOGIN" | translate }}
+      <mat-icon>
+        exit_to_app
+      </mat-icon>
+      <span>
+        {{"TITLE_LOGIN" | translate }}
+      </span>
     </a>
     <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); goToProfilePage();">
-      <mat-icon matListIcon class="fas fa-user-circle fa-lg"></mat-icon>
-      {{userEmail}}
+      <mat-icon>
+        account_circle
+      </mat-icon>
+      <span>
+        {{userEmail}}
+      </span>
     </a>
     <mat-list-item *ngIf="isLoggedIn()" (click)="showSubmenu = !showSubmenu" class="parent">
-	    <span class="full-width">
-	      {{ "PRIVACY_AND_SECURITY" | translate }}
-	    </span>
-      <mat-icon matListIcon class="fas fa-user-secret fa-lg"></mat-icon>
+      <mat-icon>
+        enhanced_encryption
+      </mat-icon>
+      <span>
+        {{ "PRIVACY_AND_SECURITY" | translate }}
+      </span>
       <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
         expand_more
       </mat-icon>
@@ -52,17 +62,29 @@
       </a>
     </div>
     <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle" (click)="onToggleSidenav();">
-      <mat-icon matListIcon class="fas fa-recycle fa-lg"></mat-icon>
-      {{"NAV_RECYCLE" | translate}}
+      <mat-icon>
+        autorenew
+      </mat-icon>
+      <span>
+        {{"NAV_RECYCLE" | translate}}
+      </span>
     </a>
     <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
        (click)="onToggleSidenav();">
-      <mat-icon matListIcon class="fas fa-map-marker fa-lg"></mat-icon>
-      {{"TITLE_TRACK_ORDERS" | translate}}
+      <mat-icon>
+        local_shipping
+      </mat-icon>
+      <span>
+        {{"TITLE_TRACK_ORDERS" | translate}}
+      </span>
     </a>
     <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); logout()">
-      <mat-icon matListIcon class="fas fa-sign-out-alt fa-lg"></mat-icon>
-      {{"TITLE_LOGOUT" | translate }}
+      <mat-icon>
+        power_settings_new
+      </mat-icon>
+      <span>
+        {{"TITLE_LOGOUT" | translate }}
+      </span>
     </a>
   </div>
 
@@ -70,32 +92,48 @@
 
   <h3 mat-subheader class="side-subHeader" translate>TITLE_CONTACT</h3>
   <a mat-list-item routerLink="/contact" (click)="onToggleSidenav();">
-    <mat-icon matListIcon class="fas fa-comment fa-lg"></mat-icon>
-    {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+    <i class="material-icons">
+      feedback
+    </i>
+    <span>
+      {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
+    </span>
   </a>
   <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();">
-    <mat-icon matListIcon class="fas fa-bomb fa-lg"></mat-icon>
-    {{"NAV_COMPLAIN" | translate}}
+    <i class="material-icons">
+      warning
+    </i>
+    <span>
+      {{"NAV_COMPLAIN" | translate}}
+    </span>
   </a>
 
   <mat-divider></mat-divider>
 
   <h3 mat-subheader class="side-subHeader" translate>COMPANY</h3>
   <a mat-list-item routerLink="/about" (click)="onToggleSidenav()">
-    <mat-icon matListIcon class="fas fa-info-circle fa-lg"></mat-icon>
-    {{"TITLE_ABOUT" | translate}}
+    <i class="material-icons">
+      business_center
+    </i>
+    <span>
+      {{"TITLE_ABOUT" | translate}}
+    </span>
   </a>
 
   <mat-divider *ngIf="scoreBoardVisible || gitHubRibbon"></mat-divider>
 
   <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
-    {{"TITLE_SCORE_BOARD" | translate}}
+    <span>
+      {{"TITLE_SCORE_BOARD" | translate}}
+    </span>
   </a>
 
   <a *ngIf="gitHubRibbon" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop">
     <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
-    GitHub
+    <span>
+      GitHub
+    </span>
   </a>
 </mat-nav-list>
 

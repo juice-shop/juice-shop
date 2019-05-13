@@ -14,9 +14,15 @@
 
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close class="close-dialog">
-    <i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
+    <i class="material-icons">
+      close
+    </i>
+    <span>  {{'BTN_CLOSE' | translate}}</span>
   </button>
   <button type="submit" (click)="editReview()" mat-raised-button color="primary">
-    <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+    <i class="material-icons">
+      send
+    </i>
+    <span>  {{'BTN_SUBMIT' | translate}}</span>
   </button>
 </mat-dialog-actions>

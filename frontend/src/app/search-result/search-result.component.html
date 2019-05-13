@@ -2,9 +2,11 @@
 
   <div class="table-container custom-slate">
 
-    <div class="heading">
-      <div *ngIf="searchValue"><span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span> <span
-        [innerHTML]="searchValue"></span></div>
+    <div class="heading mat-elevation-z6">
+      <div *ngIf="searchValue">
+        <span>{{"TITLE_SEARCH_RESULTS" | translate}} - </span>
+        <span [innerHTML]="searchValue"></span>
+      </div>
       <div *ngIf="!searchValue">{{"TITLE_ALL_PRODUCTS" | translate}}</div>
       <div *ngIf="confirmation" style="margin-top:5px;">
         <p class="confirmation">{{ confirmation }}</p>
@@ -13,12 +15,12 @@
 
     <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="30px" >
       <mat-grid-tile *ngFor="let item of gridDataSource | async">
-        <mat-card [style.width]="'100%'"class="mat-elevation-z5">
+        <mat-card [style.width]="'100%'"class="mat-elevation-z6">
           <div (click)="showDetail(item)" class="product">
             <div class="img-container" fxFlexAlign="center">
               <div>
               <img [src]="'assets/public/images/products/'+item.image" role="button"
-                   class="img-responsive img-thumbnail">
+                   class="img-responsive img-thumbnail" alt={{item.name}}>
               </div>
             </div>
             <div fxFlexAlign="center">
@@ -41,7 +43,8 @@
 
     <mat-divider></mat-divider>
 
-    <mat-paginator #paginator
+    <mat-paginator class="mat-elevation-z6"
+                   #paginator
                    [pageSize]="12"
                    [pageSizeOptions]="[12, 24, 36]">
     </mat-paginator>
