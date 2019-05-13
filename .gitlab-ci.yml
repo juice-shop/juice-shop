@@ -1,2 +1,5 @@
+before_script:
+  - apt-get install -y python-dev python-pip
 include:
-  template: Dependency-Scanning.gitlab-ci.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
