@@ -61,6 +61,16 @@ mat-search-bar {
   margin-right: 14px;
 }
 
+.buttons{
+  width: auto;
+}
+
+@media screen and (max-width: 959px){
+  .buttons{
+     width: 48px;
+  }
+}
+
 :host ::ng-deep .mat-form-field-infix {
   width: 20vw !important;
   max-width: 250px !important;
