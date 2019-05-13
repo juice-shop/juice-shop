@@ -15,11 +15,13 @@ environment:
     - nodejs_version: 10
     - nodejs_version: 8
     - nodejs_version: 11
+    - nodejs_version: 12
 platform:
   - x64
 install:
   - ps: 'Install-Product node $env:nodejs_version $env:platform'
   - 'node --version && npm --version'
+  - 'npm install --global windows-build-tools'
   - 'if exist node_modules rd /Q /S node_modules'
   - 'if exist frontend\node_modules rd /Q /S frontend\node_modules'
   - 'npm install --production'
