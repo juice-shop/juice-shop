@@ -121,6 +121,7 @@ function createProducts () {
   const products = config.get('products').map((product) => {
     // set default price values
     product.price = product.price || Math.floor(Math.random())
+    product.quantity = product.quantity || 100
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
     // set default image values

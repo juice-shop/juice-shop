@@ -143,8 +143,8 @@ describe('/api/BasketItems/:id', () => {
       headers: authHeader,
       body: {
         BasketId: 3,
-        ProductId: 10,
-        quantity: 10
+        ProductId: 13,
+        quantity: 13
       }
     })
       .expect('status', 200)

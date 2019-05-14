@@ -7,6 +7,9 @@
       <div *ngIf="confirmation" style="margin-top:5px;">
         <p class="confirmation">{{ confirmation }}</p>
       </div>
+      <div *ngIf="error" style="margin-top:5px;">
+        <p class="error">{{error?.error}}</p>
+      </div>
     </div>
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="Image">

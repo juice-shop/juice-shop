@@ -2,7 +2,9 @@
   <div class="container">
 
     <div class="table-container mat-elevation-z8">
-      <div class="heading">{{"TITLE_BASKET" | translate}} <small>{{userEmail}}</small></div>
+      <div class="heading">{{"TITLE_BASKET" | translate}} <small>{{userEmail}}</small>
+        <div *ngIf="errorProducts" style="margin-top:5px;" class="error">{{errorProducts?.error}}</div>
+      </div>
       <mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="product">

@@ -46,6 +46,7 @@ products:
   -
     name: 'Apple Juice (1000ml)'
     price: 1.99
+    quantity: 12
     description: 'The all-time classic.'
     image: apple_juice.jpg
     reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
@@ -54,6 +55,7 @@ products:
     name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
     price: 2.99
+    quantity: 15
     image: orange_juice.jpg
   -
     name: 'Eggfruit Juice (500ml)'

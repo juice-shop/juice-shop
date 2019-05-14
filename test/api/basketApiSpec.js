@@ -114,7 +114,7 @@ describe('/rest/basket/:id/checkout', () => {
   it('POST placing an order for a basket with a negative total cost is possible', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
-      body: { BasketId: 3, ProductId: 10, quantity: -100 }
+      body: { BasketId: 3, ProductId: 9, quantity: -100 }
     })
       .expect('status', 200)
       .then(() => {
