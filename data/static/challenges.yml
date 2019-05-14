@@ -696,7 +696,7 @@
   # hintUrl: ''
   key: dataExportChallenge
 -
-  name: 'GDPR Compliance Tier 2'
+  name: 'GDPR Compliance Tier 1'
   category: 'Broken Authentication'
   description: 'Log in with Chris'' erased user account.'
   difficulty: 3
