@@ -113,3 +113,12 @@
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
+-
+  email: chris.pike
+  password: 'uss enterprise'
+  key: chris
+  isAdmin: false
+  deletedFlag: true
+  securityQuestion:
+    id: 1
+    answer: 'greenwood'
