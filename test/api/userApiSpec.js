@@ -51,7 +51,7 @@ describe('/api/Users', () => {
       body: {
         email: 'horst2@horstma.nn',
         password: 'hooooorst',
-        isAdmin: true
+        userType: 'admin'
       }
     })
       .expect('status', 201)
@@ -63,7 +63,7 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        isAdmin: true
+        userType: 'admin'
       })
   })
 
