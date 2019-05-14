@@ -102,6 +102,11 @@ overview please visit the official project page:
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10:3000](http://192.168.33.10:3000)
 
+> The Juice Shop is also included in the
+> [OWASP SamuraiWTF](https://github.com/SamuraiWTF/samuraiwtf) Linux VM
+> which comes with tools for web penetration testing wrapped in a
+> convenient Vagrant Box.
+
 ### Amazon EC2 Instance
 
 1. In the _EC2_ sidenav select _Instances_ and click _Launch Instance_
