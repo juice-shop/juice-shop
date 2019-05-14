@@ -13,6 +13,8 @@ module.exports = function login () {
       utils.solve(challenges.loginJimChallenge)
     } else if (utils.notSolved(challenges.loginBenderChallenge) && user.data.id === users.bender.id) {
       utils.solve(challenges.loginBenderChallenge)
+    } else if (utils.notSolved(challenges.ghostLoginChallenge) && user.data.id === users.chris.id) {
+      utils.solve(challenges.ghostLoginChallenge)
     }
     models.Basket.findOrCreate({ where: { userId: user.data.id }, defaults: {} })
       .then(([basket, created]) => {
@@ -44,16 +46,9 @@ module.exports = function login () {
     if (utils.notSolved(challenges.oauthUserPasswordChallenge) && req.body.email === 'bjoern.kimminich@googlemail.com' && req.body.password === 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg==') {
       utils.solve(challenges.oauthUserPasswordChallenge)
     }
-    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\'', { model: models.User, plain: true })
+    models.sequelize.query('SELECT * FROM Users WHERE email = \'' + (req.body.email || '') + '\' AND password = \'' + insecurity.hash(req.body.password || '') + '\' AND deletedAt IS NULL', { model: models.User, plain: true })
       .then((authenticatedUser) => {
         let user = utils.queryResultToJson(authenticatedUser)
-
-        if (user.data.deletedAt) {
-          if (user.data.deletedAt !== null) {
-            res.status(401).send('User profile has been deleted')
-          }
-        }
-
         const rememberedEmail = insecurity.userEmailFrom(req)
         if (rememberedEmail && req.body.oauth) {
           models.User.findOne({ where: { email: rememberedEmail } }).then(rememberedUser => {
