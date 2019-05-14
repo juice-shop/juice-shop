@@ -160,11 +160,11 @@ describe('/#/login', () => {
     })
 
     it('should be able to log in as chris.pike@juice-sh.op by using `chris.pike@juice-sh.op\' --`', () => {
-      email.sendKeys('chris.pike@juice-sh.op\'--')
+      email.sendKeys('chris.pike@' + config.get('application.domain') + '\'--')
       password.sendKeys('a')
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 1' })
   })
 })
