@@ -25,7 +25,7 @@
         account_circle
       </mat-icon>
       <span>
-        {{ (userEmail.length>25)? (userEmail | slice:0:25)+ '..': (userEmail)}}
+        {{ (sizeOfMail > 25) ? (userEmail | slice:0:25)+ '..': userEmail}}
       </span>
     </a>
     <mat-list-item *ngIf="isLoggedIn()" (click)="showSubmenu = !showSubmenu" class="parent">
