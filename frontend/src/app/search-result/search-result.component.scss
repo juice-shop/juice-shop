@@ -47,3 +47,25 @@ mat-card {
     text-align: center;
     margin-top: 25px;
 }
+
+.emptyState{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.noResult{
+  width: 60%;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.noResultText{
+  text-align: center;
+  display:block;
+  margin-top: 10px;
+}
