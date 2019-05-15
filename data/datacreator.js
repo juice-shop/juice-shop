@@ -14,6 +14,8 @@ const { safeLoad } = require('js-yaml')
 
 const readFile = util.promisify(fs.readFile)
 
+let productCount = 0
+
 function loadStaticData (file) {
   const filePath = path.resolve('./data/static/' + file + '.yml')
   return readFile(filePath, 'utf8')
@@ -33,7 +35,8 @@ module.exports = async () => {
     createAnonymousFeedback,
     createComplaints,
     createRecycleItems,
-    createOrders
+    createOrders,
+    createQuantity
   ]
 
   for (const creator of creators) {
@@ -117,6 +120,24 @@ function createRandomFakeUsers () {
   ))
 }
 
+function createQuantity () {
+  const stock = []
+
+  for (let i = 1; i <= productCount; i++) {
+    stock.push({
+      ProductId: i,
+      quantity: Math.floor(Math.random() * 70 + 30)
+    })
+  }
+  return Promise.all(
+    stock.map(item => {
+      models.Quantity.create(item).catch((err) => {
+        logger.error(`Could not create quantity: ${err.message}`)
+      })
+    })
+  )
+}
+
 function createProducts () {
   const products = config.get('products').map((product) => {
     // set default price values
@@ -136,7 +157,7 @@ function createProducts () {
       product.deletedAt = product.deletedDate
       delete product.deletedDate
     }
-
+    productCount += 1
     return product
   })
 
