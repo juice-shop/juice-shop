@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-function addBasketItem () {
+module.exports.addBasketItem = function addBasketItem () {
   return (req, res, next) => {
     var result = utils.parseJsonCustom(req.rawBody)
     var productIds = []
@@ -50,40 +50,25 @@ function addBasketItem () {
   }
 }
 
-addBasketItem.quantityCheck = () => async (req, res, next) => {
-  if (req.method === 'POST' || req.method === 'PUT') {
-    var result = utils.parseJsonCustom(req.rawBody)
-    var productId = 0
-    var reqQuantity = 0
-    if (req.method === 'POST') {
-      var productIds = []
-      var basketIds = []
-      var quantities = []
+module.exports.quantityCheckPost = function quantityCheckPost () {
+  return (req, res, next) => {
+    let result = utils.parseJsonCustom(req.rawBody)
+    let productIds = []
+    let basketIds = []
+    let quantities = []
 
-      for (var i = 0; i < result.length; i++) {
-        if (result[i].key === 'ProductId') {
-          productIds.push(result[i].value)
-        } else if (result[i].key === 'BasketId') {
-          basketIds.push(result[i].value)
-        } else if (result[i].key === 'quantity') {
-          quantities.push(result[i].value)
-        }
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].key === 'ProductId') {
+        productIds.push(result[i].value)
+      } else if (result[i].key === 'BasketId') {
+        basketIds.push(result[i].value)
+      } else if (result[i].key === 'quantity') {
+        quantities.push(result[i].value)
       }
-
-      productId = productIds[0]
-      reqQuantity = quantities[0]
-    } else if (req.method === 'PUT') {
-      var pID = req.url.replace('/', '')
-      await models.BasketItem.findAll({ where: { id: pID } }).then((item) => {
-        productId = item[0].dataValues.ProductId
-        reqQuantity = result[0].value
-      }).catch(error => {
-        next(error)
-      })
     }
 
-    models.Quantity.findOne({ where: { ProductId: productId } }).then((product) => {
-      if (product.dataValues.quantity < reqQuantity) {
+    models.Quantity.findOne({ where: { ProductId: productIds[0] } }).then((product) => {
+      if (product.dataValues.quantity < quantities[0]) {
         res.status(401).send(JSON.stringify({ 'error': 'Stock Out, Please wait for a refill' }))
       } else {
         next()
@@ -91,9 +76,28 @@ addBasketItem.quantityCheck = () => async (req, res, next) => {
     }).catch(error => {
       next(error)
     })
-  } else {
-    next()
   }
 }
 
-module.exports = addBasketItem
+module.exports.quantityCheckPut = function quantityCheckPut () {
+  return (req, res, next) => {
+    let result = utils.parseJsonCustom(req.rawBody)
+    models.BasketItem.findAll({ where: { id: req.params.id } }).then((item) => {
+      if (result[0].key === 'quantity') {
+        models.Quantity.findOne({ where: { ProductId: item[0].dataValues.ProductId } }).then((product) => {
+          if (product.dataValues.quantity < result[0].value) {
+            res.status(401).send(JSON.stringify({ 'error': 'Stock Out, Please wait for a refill' }))
+          } else {
+            next()
+          }
+        }).catch(error => {
+          next(error)
+        })
+      } else {
+        next()
+      }
+    }).catch(error => {
+      next(error)
+    })
+  }
+}

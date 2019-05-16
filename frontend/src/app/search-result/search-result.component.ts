@@ -105,7 +105,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
                 })
               }, (err) => console.log(err))
             },(err) => {
-              this.confirmation = null
+              this.confirmation = undefined
               this.error = err.error
               console.log(err)
             })
@@ -123,7 +123,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
             })
           }, (err) => console.log(err))
         }, (err) => {
-          this.confirmation = null
+          this.confirmation = undefined
           this.error = err.error
           console.log(err)
         })
