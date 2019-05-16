@@ -6,28 +6,6 @@ const API_URL = 'http://localhost:3000/api'
 const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/api/BasketItems', () => {
-  it('PUT update basket ID of basket item is forbidden', () => {
-    return frisby.post(API_URL + '/BasketItems', {
-      headers: authHeader,
-      body: {
-        BasketId: 3,
-        ProductId: 8,
-        quantity: 8
-      }
-    })
-      .expect('status', 200)
-      .then(({ json }) => {
-        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
-          headers: authHeader,
-          body: {
-            BasketId: 42
-          }
-        })
-          .expect('status', 500)
-          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
-      })
-  })
-
   it('GET all basket items is forbidden via public API', () => {
     return frisby.get(API_URL + '/BasketItems')
       .expect('status', 401)
@@ -113,6 +91,28 @@ describe('/api/BasketItems/:id', () => {
         })
           .expect('status', 200)
           .expect('json', 'data', { quantity: 20 })
+      })
+  })
+
+  it('PUT update basket ID of basket item is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 8,
+        quantity: 8
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            BasketId: 42
+          }
+        })
+          .expect('status', 500)
+          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
       })
   })
 

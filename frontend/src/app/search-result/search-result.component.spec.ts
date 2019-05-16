@@ -254,6 +254,14 @@ describe('SearchResultComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
+  it('should not add anything to basket on error updating basket item', fakeAsync(() => {
+    basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+    basketService.put.and.returnValue(throwError('Error'))
+    sessionStorage.setItem('bid','4711')
+    component.addToBasket(2)
+    expect(component.confirmation).toBeUndefined()
+  }))
+
   it('should log errors updating basket directly to browser console', fakeAsync(() => {
     basketService.find.and.returnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
     basketService.put.and.returnValue(throwError('Error'))
@@ -278,6 +286,14 @@ describe('SearchResultComponent', () => {
     console.log = jasmine.createSpy('log')
     component.addToBasket(2)
     expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should not add anything on error creating new basket item', fakeAsync(() => {
+    basketService.find.and.returnValue(of({ Products: [] }))
+    basketService.save.and.returnValue(throwError('Error'))
+    sessionStorage.setItem('bid','4711')
+    component.addToBasket(2)
+    expect(component.confirmation).toBeUndefined()
   }))
 
   it('should log errors creating new basket item directly to browser console', fakeAsync(() => {
