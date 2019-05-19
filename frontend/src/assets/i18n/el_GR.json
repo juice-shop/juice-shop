@@ -160,7 +160,7 @@
   "INVALID_DATE": "Παρακαλώ καταχωρήστε μία έγκυρη ημερομηνία.",
   "SECURITY_ANSWER_PLACEHOLDER": "Απάντηση στην ερώτηση ασφαλείας",
   "MANDATORY_ORDER_ID": "Παρακαλώ καταχωρήστε ένα αναγνωριστικό παραγγελίας (Οrder ID).",
-  "BTN_SHOW_SOLVED": "Εμφάνιση λύσης",
+  "BTN_SHOW_SOLVED": "Εμφάνιση ολοκληρωμένων",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
   "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid.",
