@@ -1,6 +1,6 @@
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, Validators, AbstractControl } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
@@ -18,10 +18,9 @@ dom.watch()
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
   public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required])
+  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]
@@ -66,4 +65,15 @@ export class RegisterComponent implements OnInit {
     )
   }
 
+}
+
+function matchValidator (passwordControl: AbstractControl) {
+  return function matchOtherValidate (repeatPasswordControl: FormControl) {
+    let password = passwordControl.value
+    let passwordRepeat = repeatPasswordControl.value
+    if (password !== passwordRepeat) {
+      return { notSame: true }
+    }
+    return null
+  }
 }
