@@ -51,13 +51,14 @@
 
         <mat-divider class="detail-divider"></mat-divider>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters">
            <textarea [formControl]="reviewControl" #textPut cols="50" matInput placeholder=""
-                     matTextareaAutosize matAutosizeMinRows="2"
+                     matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
                      matAutosizeMaxRows="4"></textarea>
+          <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
         </mat-form-field>
 
-        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)" style="margin-bottom: 5px;">
+        <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary" (click)="addReview(textPut)" style="margin-bottom: 5px; margin-top: 5px;">
           <i class="material-icons">
             send
           </i>
