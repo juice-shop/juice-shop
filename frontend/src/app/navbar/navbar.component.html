@@ -2,7 +2,7 @@
 
   <mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;">
+    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -14,9 +14,11 @@
 
     <span class="fill-remaining-space"></span>
 
-    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"></mat-search-bar>
+    <mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+                    aria-label="Click to search"></mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons" fxHide.lt-md fxShow>
+    <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
+            fxHide.lt-md fxShow aria-label="Show/ hide account menu">
       <i class="material-icons">
         account_circle
       </i>
@@ -24,7 +26,7 @@
     </button>
 
     <mat-menu #userMenu="matMenu">
-      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login">
+      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -32,7 +34,7 @@
           {{"TITLE_LOGIN" | translate }}
         </span>
       </button>
-      <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item>
+      <button (click)="goToProfilePage()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Go to user profile">
         <mat-icon>
           account_circle
         </mat-icon>
@@ -40,23 +42,15 @@
           {{userEmail}}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu">
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
-          enhanced_encryption
+          https
         </mat-icon>
         <span>
           {{ "PRIVACY_AND_SECURITY" | translate }}
         </span>
       </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/recycle">
-        <mat-icon>
-          autorenew
-        </mat-icon>
-        <span>
-          {{"NAV_RECYCLE" | translate}}
-        </span>
-      </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/track-order">
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/track-order" aria-label="Go to track order page">
         <mat-icon>
           local_shipping
         </mat-icon>
@@ -64,7 +58,15 @@
           {{"TITLE_TRACK_ORDERS" | translate}}
         </span>
       </button>
-      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/recycle" aria-label="Go to recycling page">
+        <mat-icon>
+          autorenew
+        </mat-icon>
+        <span>
+          {{"NAV_RECYCLE" | translate}}
+        </span>
+      </button>
+      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Logout">
         <mat-icon>
           power_settings_new
         </mat-icon>
@@ -74,14 +76,14 @@
       </button>
     </mat-menu>
 
-    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons">
+    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons" aria-label="Show the shopping cart">
       <mat-icon>
         shopping_cart
       </mat-icon>
       <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
     </button>
 
-    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons">
+    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons" aria-label="Language selection menu">
       <mat-icon>
         language
       </mat-icon>
@@ -98,16 +100,37 @@
     </mat-menu>
 
     <mat-menu #subMenu="matMenu">
-      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']"><span
-        translate>TITLE_PRIVACY_POLICY</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
+      <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']" aria-label="Go to privacy policy page">
+        <mat-icon>
+          assignment
+        </mat-icon>
+        <span translate>TITLE_PRIVACY_POLICY</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/change-password']"><span
-        translate>TITLE_CHANGE_PASSWORD</span></button>
-      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']"><span translate>LAST_LOGIN_IP</span>
+      <button mat-menu-item [routerLink]="['privacy-security/data-export']" aria-label="Go to data export page">
+        <mat-icon>
+          get_app
+        </mat-icon>
+        <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/data-export']"><span
-        translate>TITLE_REQUEST_DATA_EXPORT</span></button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item [routerLink]="['privacy-security/change-password']" aria-label="Go to change password page">
+        <mat-icon>
+          edit
+        </mat-icon>
+        <span translate>TITLE_CHANGE_PASSWORD</span>
+      </button>
+      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']" aria-label="Go to two factor authentication page">
+        <mat-icon>
+          exposure_plus_2
+        </mat-icon>
+        <span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
+      </button>
+      <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']" aria-label="Go to last login ip page">
+        <mat-icon>
+          place
+        </mat-icon>
+        <span translate>LAST_LOGIN_IP</span>
+      </button>
     </mat-menu>
 
   </mat-toolbar-row>
