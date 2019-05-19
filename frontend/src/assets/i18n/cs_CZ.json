@@ -17,6 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Zopakujte prosím své heslo.",
   "INVALID_PASSWORD_LENGTH": "Heslo musí být dlouhé {{length}} znaků.",
   "LABEL_PASSWORD_REPEAT": "Heslo znovu",
+  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Registrovat se",
   "TITLE_LOGOUT": "Odhlásit se",
   "CONFIRM_LOGGED_OUT": "Byli jste odhlášeni.",
@@ -173,5 +174,14 @@
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
-  "EXPORT_LABEL": "Export Format"
+  "EXPORT_LABEL": "Export Format",
+  "ACCOUNT": "Account",
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA Configuration",
+  "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirm your current password",
+  "LABEL_INITIAL_2FA_TOKEN": "Initial token from your authenticator",
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
+  "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
+  "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
+  "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
+  "BTN_REMOVE": "Remove"
 }

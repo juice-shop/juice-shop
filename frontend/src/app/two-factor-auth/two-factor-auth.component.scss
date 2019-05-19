@@ -1,8 +1,34 @@
-mat-card{
+mat-card {
   width: 45%;
   min-width: 320px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;
+}
+
+mat-form-field {
+  padding-top: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.two-factor-qr-code {
+  margin: 16px 0;
+}
+
+#two-factor-auth-disable {
+  margin-top: 32px;
+}
+
+#two-factor-auth-disable-title {
+  margin-bottom: 0px;
+}
+
+button {
+  margin-top: 5px;
 }

@@ -1,4 +1,84 @@
-<mat-card>
-  <h1 translate>TITLE_TWO_FACTOR_AUTHENTICATION</h1>
-  <p>Two Factor Authentication to be added here</p>
-</mat-card>
+<div fxLayoutAlign="center">
+  <mat-card>
+
+    <h1 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h1>
+
+    <div id="2fa-setup-successfully" *ngIf="setupStatus === true">
+      <p translate>2FA_SUCCESSFUL_SETUP</p>
+
+      <form
+        class="form-container"
+        id="two-factor-auth-disable"
+        [formGroup]="twoFactorDisableForm"
+        (ngSubmit)="disable()"
+      >
+
+        <h3 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h3>
+
+        <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)" translate>2FA_SETUP_ERROR</div>
+
+        <mat-form-field appearance="outline">
+          <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
+          <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput>
+        </mat-form-field>
+
+        <button
+          type="submit"
+          id="disableTwoFactorAuth"
+          [disabled]="twoFactorSetupForm.invalid"
+          mat-raised-button
+          color="warn"
+        >
+          <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_REMOVE' | translate}}
+        </button>
+      </form>
+    </div>
+
+    <form
+      *ngIf="setupStatus === false"
+      class="form-container"
+      id="two-factor-auth-setup"
+      [formGroup]="twoFactorSetupForm"
+      (ngSubmit)="setup()"
+    >
+
+      <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
+
+      <div fxLayoutAlign="center" class="two-factor-qr-code">
+          <qrcode
+            [qrdata]="totpUrl"
+            [size]="300"
+            [level]="'L'"
+          ></qrcode>
+      </div>
+
+      <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
+
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
+        <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label translate>LABEL_INITIAL_2FA_TOKEN</mat-label>
+        <input
+          id="initalToken"
+          formControlName="initalTokenControl"
+          type="text"
+          matInput
+          [attr.data-test-totp-secret]="totpSecret"
+        >
+      </mat-form-field>
+
+      <button
+        type="submit"
+        id="setupTwoFactorAuth"
+        [disabled]="twoFactorSetupForm.invalid"
+        mat-raised-button
+        color="primary"
+      >
+        <i class="fas fa-save fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+      </button>
+    </form>
+  </mat-card>
+</div>
