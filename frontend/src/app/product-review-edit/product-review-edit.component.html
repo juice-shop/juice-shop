@@ -13,10 +13,16 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close class="close-dialog">
+  <button mat-outlined-button mat-dialog-close class="close-dialog">
+    <i class="material-icons">
+      close
+    </i>
     <span>  {{'BTN_CLOSE' | translate}}</span>
   </button>
-  <button type="submit" (click)="editReview()" mat-button cdkFocusInitial>
+  <button type="submit" (click)="editReview()" mat-raised-button cdkFocusInitial>
+    <i class="material-icons">
+      send
+    </i>
     <span>  {{'BTN_SUBMIT' | translate}}</span>
   </button>
 </mat-dialog-actions>
