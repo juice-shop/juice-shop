@@ -186,5 +186,10 @@
   "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
   "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
   "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
-  "BTN_REMOVE": "Remove"
+  "BTN_REMOVE": "Remove",
+  "WRITE_REVIEW": "Write a review",
+  "WRITE_REVIEW_PLACEHOLDER": "What did you like or dislike?",
+  "EMPTY_REVIEW_LIST": "There is no review for this product yet.",
+  "EMPTY_SEARCH_RESULT": "Try adjusting your search to find what you're looking for.",
+  "NO_SEARCH_RESULT": "No results found"
 }
