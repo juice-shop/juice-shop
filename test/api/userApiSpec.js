@@ -67,6 +67,68 @@ describe('/api/Users', () => {
       })
   })
 
+  it('POST new prime user', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst3@horstma.nn',
+        password: 'hooooorst',
+        userType: 'prime'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        userType: 'prime'
+      })
+  })
+
+  it('POST new accounting user', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst4@horstma.nn',
+        password: 'hooooorst',
+        userType: 'accounting'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        userType: 'accounting'
+      })
+  })
+
+  it('POST user not belonging to customer, prime, accounting, admin is forbidden', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst5@horstma.nn',
+        password: 'hooooorst',
+        userType: 'accountinguser'
+      }
+    })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.message).toBe('Validation error: Validation isIn on userType failed')
+        expect(json.errors[0].field).toBe('userType')
+        expect(json.errors[0].message).toBe('Validation isIn on userType failed')
+      })
+  })
+
   it('POST new user with XSS attack in email address', () => {
     return frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
