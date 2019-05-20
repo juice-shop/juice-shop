@@ -36,6 +36,18 @@ describe('/api/BasketItems', () => {
     })
       .expect('status', 200)
   })
+
+  it('POST new basket item with more than available quantity is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 2,
+        ProductId: 2,
+        quantity: 101
+      }
+    })
+      .expect('status', 401)
+  })
 })
 
 describe('/api/BasketItems/:id', () => {
@@ -135,6 +147,27 @@ describe('/api/BasketItems/:id', () => {
         })
           .expect('status', 500)
           .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
+      })
+  })
+
+  it('PUT update newly created basket item with more than available quantity is forbidden', () => {
+    return frisby.post(API_URL + '/BasketItems', {
+      headers: authHeader,
+      body: {
+        BasketId: 3,
+        ProductId: 12,
+        quantity: 12
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.put(API_URL + '/BasketItems/' + json.data.id, {
+          headers: authHeader,
+          body: {
+            quantity: 100
+          }
+        })
+          .expect('status', 401)
       })
   })
 
