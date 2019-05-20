@@ -92,7 +92,7 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      this.sizeOfMail = (""+user.email).length
+      this.sizeOfMail = ('' + user.email).length
     }, (err) => console.log(err))
   }
 
