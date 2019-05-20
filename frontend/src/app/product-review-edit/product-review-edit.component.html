@@ -3,23 +3,26 @@
     <h1 translate>LABEL_EDIT_REVIEW</h1>
 
     <div>
-      <mat-form-field appearance="outline" color="accent">
-          <textarea [formControl]="editReviewControl" #textPut matInput placeholder=""
-                    matTextareaAutosize matAutosizeMinRows="2"
-                    matAutosizeMaxRows="4"></textarea>
+      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters">
+          <textarea [formControl]="editReviewControl" #textPut matInput
+                    placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
+                    matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+                    matAutosizeMaxRows="4" aria-label="Text field to edit a product review"></textarea>
+        <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
       </mat-form-field>
     </div>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-outlined-button mat-dialog-close class="close-dialog">
+  <button mat-stroked-button mat-dialog-close class="close-dialog">
     <i class="material-icons">
       close
     </i>
     <span>  {{'BTN_CLOSE' | translate}}</span>
   </button>
-  <button type="submit" (click)="editReview()" mat-raised-button cdkFocusInitial>
+  <button type="submit" (click)="editReview()" mat-raised-button style="margin-left: 5px;"
+          color="primary">
     <i class="material-icons">
       send
     </i>
