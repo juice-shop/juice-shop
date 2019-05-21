@@ -1,6 +1,6 @@
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
-const libxml = require('libxmljs')
+const libxml = require('libxmljs2')
 const os = require('os')
 const vm = require('vm')
 const fs = require('fs')
