@@ -119,21 +119,14 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const stock = []
-  for (let i = 1; i <= config.get('products').length; i++) {
-    stock.push({
-      ProductId: i,
+  config.get('products').map((product, index) => {
+    return models.Quantity.create({
+      ProductId: index + 1,
       quantity: Math.floor(Math.random() * 70 + 30)
+    }).catch((err) => {
+      logger.error(`Could not create quantity: ${err.message}`)
     })
-  }
-
-  return Promise.all(
-    stock.map(item => {
-      models.Quantity.create(item).catch((err) => {
-        logger.error(`Could not create quantity: ${err.message}`)
-      })
-    })
-  )
+  })
 }
 
 function createProducts () {

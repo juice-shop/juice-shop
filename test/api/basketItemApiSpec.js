@@ -46,7 +46,7 @@ describe('/api/BasketItems', () => {
         quantity: 101
       }
     })
-      .expect('status', 401)
+      .expect('status', 400)
   })
 })
 
@@ -167,7 +167,7 @@ describe('/api/BasketItems/:id', () => {
             quantity: 100
           }
         })
-          .expect('status', 401)
+          .expect('status', 400)
       })
   })
 
