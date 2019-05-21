@@ -166,7 +166,7 @@
     "package": "grunt package"
   },
   "engines": {
-    "node": "8 - 12"
+    "node": "8 - 11"
   },
   "standard": {
     "ignore": [
