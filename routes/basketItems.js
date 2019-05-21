@@ -50,7 +50,7 @@ module.exports.addBasketItem = function addBasketItem () {
   }
 }
 
-module.exports.quantityCheckPost = function quantityCheckPost () {
+module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
   return (req, res, next) => {
     let result = utils.parseJsonCustom(req.rawBody)
     let productIds = []
@@ -66,10 +66,15 @@ module.exports.quantityCheckPost = function quantityCheckPost () {
         quantities.push(result[i].value)
       }
     }
+    quantityCheck(req, res, next, productIds[0], quantities[0])
+  }
+}
 
-    models.Quantity.findOne({ where: { ProductId: productIds[0] } }).then((product) => {
-      if (product.dataValues.quantity < quantities[0]) {
-        res.status(401).send(JSON.stringify({ 'error': 'Stock Out, Please wait for a refill' }))
+module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
+  return (req, res, next) => {
+    models.BasketItem.findAll({ where: { id: req.params.id } }).then((item) => {
+      if (req.body.quantity !== null) {
+        quantityCheck(req, res, next, item[0].dataValues.ProductId, req.body.quantity)
       } else {
         next()
       }
@@ -79,25 +84,14 @@ module.exports.quantityCheckPost = function quantityCheckPost () {
   }
 }
 
-module.exports.quantityCheckPut = function quantityCheckPut () {
-  return (req, res, next) => {
-    let result = utils.parseJsonCustom(req.rawBody)
-    models.BasketItem.findAll({ where: { id: req.params.id } }).then((item) => {
-      if (result[0].key === 'quantity') {
-        models.Quantity.findOne({ where: { ProductId: item[0].dataValues.ProductId } }).then((product) => {
-          if (product.dataValues.quantity < result[0].value) {
-            res.status(401).send(JSON.stringify({ 'error': 'Stock Out, Please wait for a refill' }))
-          } else {
-            next()
-          }
-        }).catch(error => {
-          next(error)
-        })
-      } else {
-        next()
-      }
-    }).catch(error => {
-      next(error)
-    })
-  }
+function quantityCheck (req, res, next, id, quantity) {
+  models.Quantity.findOne({ where: { ProductId: id } }).then((product) => {
+    if (product.dataValues.quantity < quantity) {
+      res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
+    } else {
+      next()
+    }
+  }).catch(error => {
+    next(error)
+  })
 }
