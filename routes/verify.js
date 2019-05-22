@@ -36,7 +36,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 
 exports.registerAdminChallenge = () => (req, res, next) => {
   if (utils.notSolved(challenges.registerAdminChallenge)) {
-    if (req.body && req.body.userType === 'admin') {
+    if (req.body && req.body.userType === insecurity.roles.admin) {
       utils.solve(challenges.registerAdminChallenge)
     }
   }

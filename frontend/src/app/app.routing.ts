@@ -49,6 +49,13 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
+export const roles = {
+  customer: 'customer',
+  prime: 'prime',
+  accounting: 'accounting',
+  admin: 'admin'
+}
+
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor (private router: Router) {}
@@ -59,7 +66,7 @@ export class AdminGuard implements CanActivate {
     if (token) {
       payload = jwt_decode(token)
     }
-    if (payload && payload.data && payload.data.userType === 'admin') {
+    if (payload && payload.data && payload.data.userType === roles.admin) {
       return true
     } else {
       this.router.navigate(['403'], {
