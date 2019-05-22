@@ -58,9 +58,9 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
 
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
   return (req, res, next) => {
-    models.BasketItem.findAll({ where: { id: req.params.id } }).then((item) => {
+    models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
       if (req.body.quantity !== null) {
-        quantityCheck(req, res, next, item[0].dataValues.ProductId, req.body.quantity)
+        quantityCheck(req, res, next, item.dataValues.ProductId, req.body.quantity)
       } else {
         next()
       }
