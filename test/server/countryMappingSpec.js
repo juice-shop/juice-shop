@@ -8,18 +8,18 @@ describe('countryMapping', () => {
   const countryMapping = require('../../routes/countryMapping')
 
   beforeEach(() => {
-    this.req = { }
-    this.res = { send: sinon.spy(), status: sinon.stub().returns({ send: sinon.spy() })  }
+    this.req = {}
+    this.res = { send: sinon.spy(), status: sinon.stub().returns({ send: sinon.spy() }) }
   })
 
   it('should return configured country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST')})(this.req, this.res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST') })(this.req, this.res)
 
     expect(this.res.send).to.have.been.calledWith('TEST')
   })
 
   it('should return server error when configuration has no country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null)})(this.req, this.res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null) })(this.req, this.res)
 
     expect(this.res.status).to.have.been.calledWith(500)
   })
