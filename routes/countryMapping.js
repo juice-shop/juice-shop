@@ -1,7 +1,6 @@
-const config = require('config')
 const logger = require('../lib/logger')
 
-module.exports = function countryMapping () {
+module.exports = function countryMapping (config = require('config')) {
   return (req, res) => {
     try {
       const countryMapping = config.get('ctf.countryMapping')

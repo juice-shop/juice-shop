@@ -1,4 +1,3 @@
-const config = require('config')
 const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
@@ -13,14 +12,19 @@ describe('countryMapping', () => {
     this.res = { send: sinon.spy(), status: sinon.stub().returns({ send: sinon.spy() })  }
   })
 
-  xit('should return configured country mapping for FBCTF customization', () => {
-    // TODO Force fbctf.yml to load or mock accordingly
-    countryMapping()(this.req, this.res)
+  it('should return configured country mappings', () => {
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST')})(this.req, this.res)
 
-    expect(this.res.send).to.have.been.calledWith(config.get('ctf.countryMapping'))
+    expect(this.res.send).to.have.been.calledWith('TEST')
   })
 
   it('should return server error when configuration has no country mappings', () => {
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null)})(this.req, this.res)
+
+    expect(this.res.status).to.have.been.calledWith(500)
+  })
+
+  it('should return server error for default configuration', () => {
     countryMapping()(this.req, this.res)
 
     expect(this.res.status).to.have.been.calledWith(500)
