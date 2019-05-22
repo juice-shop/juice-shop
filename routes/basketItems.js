@@ -52,21 +52,7 @@ module.exports.addBasketItem = function addBasketItem () {
 
 module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
   return (req, res, next) => {
-    let result = utils.parseJsonCustom(req.rawBody)
-    let productIds = []
-    let basketIds = []
-    let quantities = []
-
-    for (let i = 0; i < result.length; i++) {
-      if (result[i].key === 'ProductId') {
-        productIds.push(result[i].value)
-      } else if (result[i].key === 'BasketId') {
-        basketIds.push(result[i].value)
-      } else if (result[i].key === 'quantity') {
-        quantities.push(result[i].value)
-      }
-    }
-    quantityCheck(req, res, next, productIds[0], quantities[0])
+    quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
   }
 }
 
