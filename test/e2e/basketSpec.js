@@ -2,7 +2,7 @@ const insecurity = require('../../lib/insecurity')
 const config = require('config')
 const models = require('../../models/index')
 
-describe('/#/basket', () => {
+fdescribe('/#/basket', () => {
   describe('as admin', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -50,7 +50,7 @@ describe('/#/basket', () => {
           }
 
           xhttp.open('POST', 'http://localhost:3000/api/BasketItems/')
-          xhttp.setRequestHeader('Content-type', 'text/plain')
+          xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.send('{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }') //eslint-disable-line
         })
