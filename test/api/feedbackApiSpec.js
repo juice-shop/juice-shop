@@ -103,7 +103,7 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback is associated with current user', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',
@@ -136,7 +136,7 @@ describe('/api/Feedbacks', () => {
   })
 
   it('POST feedback is associated with any passed user ID', () => {
-    return frisby.timeout(10000).post(REST_URL + '/user/login', {
+    return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
         email: 'bjoern.kimminich@googlemail.com',

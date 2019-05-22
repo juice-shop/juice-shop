@@ -165,6 +165,8 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Real World Web Penetration Testing](https://training.secureideas.com/course/real-world-web-pentesting/start-course/)
+  course by Jason Gillam :dollar:
 * [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
   by Sunny Wear ([Youtube](https://www.youtube.com/watch?v=zi3yDovd0RY))
 * [Finding Website Vulnerabilities with Burp](https://www.packtpub.com/mapt/video/networking_and_servers/9781788399678/81304/81308/finding-website-vulnerabilities-with-burp)
@@ -208,9 +210,20 @@ where this project was mentioned or used!
 
 #### 2019
 
-* [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md) workshop with Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
-  21.03.2019
-* [OWASP Juice Shop - First you 😂😂 then you 😢](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
+* [JavaScript-Security: "Pwn" den Juice Shop](https://www.enterjs.de/single?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
+  workshop with Timo Pagel & Björn Kimminich,
+  [enterJS 2019](https://www.enterjs.de/2019/), 25.06.2019
+* [Web Application Hacking with Burp Suite and OWASP ZAP](https://globalappsectelaviv2019.sched.com/event/MLSU/web-application-hacking-with-burp-suite-and-owasp-zap)
+  training with Vandana Verma,
+  [Global Appsec Tel Aviv 2019](https://globalappsectelaviv2019.sched.com),
+  28.05.2019
+* [A good first impression can work wonders: creating AppSec training that developers <3](https://locomocosec2019.sched.com/event/MGNM/a-good-first-impression-can-work-wonders-creating-appsec-training-that-developers-v)
+  by Leif Dreizler,
+  [LocoMocoSec 2019](https://locomocosec2019.sched.com/), 18.04.2019
+* [Pixels vs. Juice Shop](https://github.com/PixelsCamp/talks/blob/master/2019/pixels-vs-juice-shop_bjoern-kimminich.md)
+  workshop with Björn Kimminich,
+  [Pixels Camp v3.0](https://pixels.camp), 21.03.2019
+* [OWASP Juice Shop - First you :-D :-D then you :,-(](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
   by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
   21.03.2019
 * [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)

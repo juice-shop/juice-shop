@@ -70,8 +70,9 @@ overview please visit the official project page:
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
-> Each packaged distribution includes some binaries for SQLite bound to
-> the OS and node.js version which `npm install` was executed on.
+> Each packaged distribution includes some binaries for `sqlite3` and
+> `libxmljs` bound to the OS and node.js version which `npm install` was
+> executed on.
 
 ### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg) [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com")
 
@@ -81,12 +82,6 @@ overview please visit the official project page:
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead
    of the native docker installation)
-
-> If you want to run Juice Shop on a Raspberry Pi 3, there is an
-> unofficial Docker image available at
-> <https://hub.docker.com/r/arclight/juice-shop_arm> which is based on
-> `resin/rpi-raspbian` and maintained by
-> [@battletux](https://github.com/battletux).
 
 #### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
 
@@ -107,13 +102,10 @@ overview please visit the official project page:
 3. Run `cd vagrant && vagrant up`
 4. Browse to [192.168.33.10:3000](http://192.168.33.10:3000)
 
-> There is a very convenient Vagrant box available at
-> <https://app.vagrantup.com/commjoen/boxes/trainingbox> (:microscope:)
-> from [@commjoen](https://github.com/commjoen) which comes with latest
-> Docker containers of the OWASP Juice Shop,
-> [OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)
-> and other vulnerable web applications as well as pentesting tools like
-> [OWASP ZAP](https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).
+> The Juice Shop is also included in the
+> [OWASP SamuraiWTF](https://github.com/SamuraiWTF/samuraiwtf) Linux VM
+> which comes with tools for web penetration testing wrapped in a
+> convenient Vagrant Box.
 
 ### Amazon EC2 Instance
 
@@ -150,10 +142,6 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 6. Launch one or multiple EC2 instances from your template
 7. Browse to your instance's public DNS
 
-> Technically Amazon could view hacking activity on any EC2 instance as
-> an attack on their AWS infrastructure! We highly discourage aggressive
-> scanning or automated brute force attacks! You have been warned!
-
 ### Azure Container Instance
 
 1. Open and login (via `az login`) to your
@@ -169,24 +157,19 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 4. Your container will be available at `http://<dns name
    label>.<location name>.azurecontainer.io:3000`
 
-> For more information please refer to the
-> [detailed walkthrough with screenshots](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Azure-Container-Instances-%28Part-3-of-3%29)
-> by [@JasonHaley](https://github.com/JasonHaley). You can alternatively
-> follow his guide to
-> [set up OWASP Juice Shop as an Azure Web App for Containers](http://jasonhaley.com/post/Setup-OWASP-Juice-Shop-in-Web-App-for-Containers-%28Part-2-of-3%29).
-
 ## Node.js version compatibility
 
 OWASP Juice Shop officially supports the following versions of
 [node.js](http://nodejs.org) in line as close as possible with the
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
-images and packaged distributions are offered accordingly:
+images and packaged distributions are offered accordingly.
 
-| node.js  | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             | [Packaged distributions](https://github.com/bkimminich/juice-shop/releases/latest)         |
-|:---------|:------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------|
-| 11.x     |                                                                                     | `juice-shop-<version>_node11_windows_x64.zip`, `juice-shop-<version>_node11_linux_x64.tgz` |
-| __10.x__ | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) | `juice-shop-<version>_node10_windows_x64.zip`, `juice-shop-<version>_node10_linux_x64.tgz` |
-| 8.x      |                                                                                     | `juice-shop-<version>_node8_windows_x64.zip`, `juice-shop-<version>_node8_linux_x64.tgz`   |
+| node.js  | Windows            | Linux              | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             |
+|:---------|:-------------------|:-------------------|:------------------------------------------------------------------------------------|
+| 8.x      | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
+| __10.x__ | :heavy_check_mark: | :heavy_check_mark: | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) |
+| 11.x     | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
+| 12.x     | :x:                | :x:                |                                                                                     |
 
 ## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
 
@@ -233,7 +216,6 @@ credentials! This could easily run on a 3rd party server in real life!
 > We recommend to use Mozilla Firefox for this demo! You can also find a
 > recording of this attack in action on YouTube:
 > [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
-
 
 ## Additional Documentation
 
