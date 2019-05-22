@@ -21,6 +21,7 @@ export class SidenavComponent implements OnInit {
   public isExpanded = true
   public showSubmenu: boolean = false
   public isShowing = false
+  public sizeOfMail: number = 0
 
   @Output() public sidenavToggle = new EventEmitter()
 
@@ -57,6 +58,7 @@ export class SidenavComponent implements OnInit {
         this.getScoreBoardStatus()
       })
     })
+
   }
 
   isLoggedIn () {
@@ -90,6 +92,7 @@ export class SidenavComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
+      this.sizeOfMail = ('' + user.email).length
     }, (err) => console.log(err))
   }
 

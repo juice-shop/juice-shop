@@ -13,6 +13,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/d
 import { MatBadgeModule } from '@angular/material/badge'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatIconModule } from '@angular/material/icon'
 
 import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
@@ -51,6 +52,7 @@ describe('ProductDetailsComponent', () => {
         MatButtonModule,
         MatDividerModule,
         MatBadgeModule,
+        MatIconModule,
         MatTooltipModule
       ],
       declarations: [ ProductDetailsComponent ],
