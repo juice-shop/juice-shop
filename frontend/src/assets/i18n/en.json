@@ -191,5 +191,10 @@
   "WRITE_REVIEW_PLACEHOLDER": "What did you like or dislike?",
   "EMPTY_REVIEW_LIST": "There is no review for this product yet.",
   "EMPTY_SEARCH_RESULT": "Try adjusting your search to find what you're looking for.",
-  "NO_SEARCH_RESULT": "No results found"
+  "NO_SEARCH_RESULT": "No results found",
+  "DATA_SUBJECT_TITLE": "Request Data Erasure",
+  "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
+  "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
+  "DELETE_DATA_LABEL": "Delete User Data"
 }

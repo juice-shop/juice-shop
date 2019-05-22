@@ -183,5 +183,10 @@
   "2FA_SETUP_ERROR": "2FA seadistuse muutmine nurjus. Kontrollige, kas teie parool (ja kood) on sisestatud õigesti.",
   "2FA_SUCCESSFUL_SETUP": "Olete lubanud 2FA oma kontole. Täname, et leidsite aega oma mahlade turvamiseks!",
   "REMOVE_TWO_FACTOR_AUTH": "2FA eemaldamine kontolt",
-  "BTN_REMOVE": "Eemalda"
+  "BTN_REMOVE": "Eemalda",
+  "DATA_SUBJECT_TITLE": "Taotle andmete kustutamist",
+  "GDPR_HEADING": "Andmete kustutamise taotlus (GDPR artikkel 17)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Teie konto on edukalt kustutatud. Kui teid ei logitud automaatselt välja, siis palun tehke seda nüüd!",
+  "GDPR_MESSAGE": "Tegeleme tõsiselt andmete turvalisuse, klientide privaatsuse ja õigusnormide järgimise teemadega. Vastavalt GDPR-ist tulenevatele nõuetele on teil võimalus taotleda oma konto ja sellega seotud andmete täielikku kustutamist.",
+  "DELETE_DATA_LABEL": "Kustuta kasutaja info"
 }

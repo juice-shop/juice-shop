@@ -35,7 +35,7 @@ describe('/api/Recycles', () => {
       })
   })
 
-  it('Will check if the injection works and returns the expected recycle', () => {
+  xit('Will check if the injection works and returns the expected recycle', () => {
     return frisby.get(API_URL + '/Recycles/' + '{"$lt":200}')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)

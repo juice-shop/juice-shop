@@ -49,7 +49,7 @@
   email: support
   password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   key: support
-  isAdmin: false
+  isAdmin: true
   securityQuestion:
     id: 10
     answer: 'SC OLEA SRL' # http://www.olea.com.ro/
@@ -113,3 +113,12 @@
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
+-
+  email: chris.pike
+  password: 'uss enterprise'
+  key: chris
+  isAdmin: false
+  deletedFlag: true
+  securityQuestion:
+    id: 1
+    answer: 'greenwood'

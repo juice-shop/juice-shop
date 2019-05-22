@@ -4,7 +4,7 @@
         <div *ngIf="confirmation"><p class="confirmation">{{confirmation}}</p></div>
         <div *ngIf="error"><p class="error">{{error}}</p></div>
         <div class="form-container" id="data-export-form">
-            <mat-radio-group [formControl]="formatControl">
+            <mat-radio-group id="formatControl" [formControl]="formatControl">
                 <label class="radio-label" translate>EXPORT_LABEL</label>
                 <mat-radio-button value="1">JSON</mat-radio-button>
                 <mat-radio-button value="2">PDF</mat-radio-button>
@@ -19,7 +19,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <button id="dataRequest" type="submit" color="primary" mat-raised-button (click)="save()" [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)" >
+        <button id="dataRequest" type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()" [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)" >
             <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_REQUEST' | translate}}
         </button>
     </mat-card>
