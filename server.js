@@ -230,8 +230,9 @@ app.post('/api/Users', verify.registerAdminChallenge())
 app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
-/* Add item to basket */
-app.post('/api/BasketItems', basketItems())
+/* Check if the quantity is available and add item to basket */
+app.put('/api/BasketItems/:id', basketItems.quantityCheckBeforeBasketItemUpdate())
+app.post('/api/BasketItems', basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',

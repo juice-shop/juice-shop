@@ -11,6 +11,9 @@
       <div *ngIf="confirmation" style="margin-top:5px;">
         <p class="confirmation">{{ confirmation }}</p>
       </div>
+      <div *ngIf="error" style="margin-top:5px;">
+        <p class="error">{{error?.error}}</p>
+      </div>
     </div>
 
     <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="30px" >

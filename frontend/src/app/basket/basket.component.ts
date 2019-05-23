@@ -42,6 +42,7 @@ export class BasketComponent implements OnInit {
   public paymentPanelExpanded: boolean = false
   public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public error = undefined
+  public errorProducts = undefined
   public confirmation = undefined
   public twitterUrl = null
   public facebookUrl = null
@@ -105,11 +106,17 @@ export class BasketComponent implements OnInit {
   }
 
   addToQuantity (id,value) {
+    this.errorProducts = null
     this.basketService.get(id).subscribe((basketItem) => {
       let newQuantity = basketItem.quantity + value
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
         this.load()
-      },(err) => console.log(err))
+      },(err) => {
+        {
+          this.errorProducts = err.error
+          console.log(err)
+        }
+      })
     }, (err) => console.log(err))
   }
 
