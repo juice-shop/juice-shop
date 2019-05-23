@@ -1,12 +1,12 @@
 <div fxLayoutAlign="center">
   <mat-card>
 
-    <h2 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h2>
+    <h1 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h1>
 
     <div id="2fa-setup-successfully" *ngIf="setupStatus === true">
       <p translate>2FA_SUCCESSFUL_SETUP</p>
 
-      <form 
+      <form
         class="form-container"
         id="two-factor-auth-disable"
         [formGroup]="twoFactorDisableForm"
@@ -22,11 +22,11 @@
           <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput>
         </mat-form-field>
 
-        <button 
+        <button
           type="submit"
           id="disableTwoFactorAuth"
           [disabled]="twoFactorSetupForm.invalid"
-          mat-raised-button 
+          mat-raised-button
           color="warn"
         >
           <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_REMOVE' | translate}}
@@ -34,8 +34,8 @@
       </form>
     </div>
 
-    <form 
-      *ngIf="setupStatus === false" 
+    <form
+      *ngIf="setupStatus === false"
       class="form-container"
       id="two-factor-auth-setup"
       [formGroup]="twoFactorSetupForm"
@@ -45,7 +45,7 @@
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
       <div fxLayoutAlign="center" class="two-factor-qr-code">
-          <qrcode 
+          <qrcode
             [qrdata]="totpUrl"
             [size]="300"
             [level]="'L'"
@@ -58,10 +58,10 @@
         <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
         <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput>
       </mat-form-field>
-      
+
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_INITIAL_2FA_TOKEN</mat-label>
-        <input 
+        <input
           id="initalToken"
           formControlName="initalTokenControl"
           type="text"
@@ -70,11 +70,11 @@
         >
       </mat-form-field>
 
-      <button 
+      <button
         type="submit"
         id="setupTwoFactorAuth"
         [disabled]="twoFactorSetupForm.invalid"
-        mat-raised-button 
+        mat-raised-button
         color="primary"
       >
         <i class="fas fa-save fa-lg"></i> {{'BTN_SUBMIT' | translate}}

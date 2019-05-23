@@ -27,11 +27,13 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData: any[]
   public dataSource
+  public gridDataSource
   public searchValue
   public confirmation = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
+  public breakpoint: number
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
@@ -46,6 +48,18 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
+      if (window.innerWidth <= 1740) {
+        this.breakpoint = 3
+        if (window.innerWidth <= 1300) {
+          this.breakpoint = 2
+          if (window.innerWidth <= 850) {
+            this.breakpoint = 1
+          }
+        }
+      } else {
+        this.breakpoint = 4
+      }
+      this.gridDataSource = this.dataSource.connect()
     }, (err) => console.log(err))
   }
 
@@ -55,6 +69,9 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     }
     if (this.productSubscription) {
       this.productSubscription.unsubscribe()
+    }
+    if (this.dataSource) {
+      this.dataSource.disconnect()
     }
   }
 
@@ -131,4 +148,17 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     return localStorage.getItem('token')
   }
 
+  onResize (event) {
+    if (event.target.innerWidth <= 1740) {
+      this.breakpoint = 3
+      if (event.target.innerWidth <= 1300) {
+        this.breakpoint = 2
+        if (event.target.innerWidth <= 850) {
+          this.breakpoint = 1
+        }
+      }
+    } else {
+      this.breakpoint = 4
+    }
+  }
 }
