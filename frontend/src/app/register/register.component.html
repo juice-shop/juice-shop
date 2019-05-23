@@ -1,20 +1,20 @@
 <div fxLayoutAlign="center">
   <mat-card>
 
-    <h3 translate>TITLE_REGISTRATION</h3>
+    <h1 translate>TITLE_REGISTRATION</h1>
 
     <div class="form-container" id="registration-form">
 
       <div class="error" ng-if="error">{{ error }}</div>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_EMAIL</mat-label>
         <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_PASSWORD</mat-label>
         <input id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD</mat-error>
@@ -22,7 +22,7 @@
           *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)" translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
         <input id="repeatPasswordControl" [formControl]="repeatPasswordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
@@ -31,7 +31,7 @@
 
       <div class="security-container">
 
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-label>{{'LABEL_SECURITY_QUESTION' | translate}}
             <i style="margin-left:10px;" class="fas fa-exclamation-circle"></i>
             <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
@@ -45,7 +45,7 @@
           <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required" translate>MANDATORY_SECURITY_QUESTION</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" color="accent">
           <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
           <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
         </mat-form-field>
