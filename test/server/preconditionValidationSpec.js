@@ -24,6 +24,7 @@ describe('preconditionValidation', () => {
     })
 
     it('should fail for an unsupported version', () => {
+      expect(checkIfRunningOnSupportedNodeVersion('12.2.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('7.10.1')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('6.14.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('4.9.1')).to.equal(false)

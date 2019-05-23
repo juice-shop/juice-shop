@@ -687,3 +687,11 @@
   hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
   # hintUrl: ''
   key: dataExportChallenge
+-
+  name: 'GDPR Compliance Tier 1'
+  category: 'Broken Authentication'
+  description: 'Log in with Chris'' erased user account.'
+  difficulty: 3
+  hint: 'Turns out that something is technically and legally wrong with the implementation of the "right to be forgotten" for users.'
+  key: ghostLoginChallenge
+
