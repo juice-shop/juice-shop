@@ -51,7 +51,7 @@ describe('/api/Users', () => {
       body: {
         email: 'horst2@horstma.nn',
         password: 'hooooorst',
-        isAdmin: true
+        role: 'admin'
       }
     })
       .expect('status', 201)
@@ -63,7 +63,69 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        isAdmin: true
+        role: 'admin'
+      })
+  })
+
+  it('POST new prime user', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst3@horstma.nn',
+        password: 'hooooorst',
+        role: 'prime'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        role: 'prime'
+      })
+  })
+
+  it('POST new accounting user', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst4@horstma.nn',
+        password: 'hooooorst',
+        role: 'accounting'
+      }
+    })
+      .expect('status', 201)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'data', {
+        id: Joi.number(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
+        password: Joi.any().forbidden()
+      })
+      .expect('json', 'data', {
+        role: 'accounting'
+      })
+  })
+
+  it('POST user not belonging to customer, prime, accounting, admin is forbidden', () => {
+    return frisby.post(API_URL + '/Users', {
+      headers: jsonHeader,
+      body: {
+        email: 'horst5@horstma.nn',
+        password: 'hooooorst',
+        role: 'accountinguser'
+      }
+    })
+      .expect('status', 400)
+      .expect('header', 'content-type', /application\/json/)
+      .then(({ json }) => {
+        expect(json.message).toBe('Validation error: Validation isIn on role failed')
+        expect(json.errors[0].field).toBe('role')
+        expect(json.errors[0].message).toBe('Validation isIn on role failed')
       })
   })
 
