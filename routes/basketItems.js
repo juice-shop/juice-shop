@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-module.exports = function addBasketItem () {
+module.exports.addBasketItem = function addBasketItem () {
   return (req, res, next) => {
     var result = utils.parseJsonCustom(req.rawBody)
     var productIds = []
@@ -48,4 +48,36 @@ module.exports = function addBasketItem () {
       })
     }
   }
+}
+
+module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
+  return (req, res, next) => {
+    quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
+  }
+}
+
+module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
+  return (req, res, next) => {
+    models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
+      if (req.body.quantity !== null) {
+        quantityCheck(req, res, next, item.dataValues.ProductId, req.body.quantity)
+      } else {
+        next()
+      }
+    }).catch(error => {
+      next(error)
+    })
+  }
+}
+
+function quantityCheck (req, res, next, id, quantity) {
+  models.Quantity.findOne({ where: { ProductId: id } }).then((product) => {
+    if (product.dataValues.quantity < quantity) {
+      res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
+    } else {
+      next()
+    }
+  }).catch(error => {
+    next(error)
+  })
 }

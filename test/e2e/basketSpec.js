@@ -50,7 +50,7 @@ describe('/#/basket', () => {
           }
 
           xhttp.open('POST', 'http://localhost:3000/api/BasketItems/')
-          xhttp.setRequestHeader('Content-type', 'text/plain')
+          xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.send('{ "ProductId": 14,"BasketId":"1","quantity":1,"BasketId":"2" }') //eslint-disable-line
         })

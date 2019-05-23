@@ -33,7 +33,8 @@ module.exports = async () => {
     createAnonymousFeedback,
     createComplaints,
     createRecycleItems,
-    createOrders
+    createOrders,
+    createQuantity
   ]
 
   for (const creator of creators) {
@@ -122,6 +123,19 @@ function createRandomFakeUsers () {
       password: makeRandomString(5)
     })
   ))
+}
+
+function createQuantity () {
+  return Promise.all(
+    config.get('products').map((product, index) => {
+      return models.Quantity.create({
+        ProductId: index + 1,
+        quantity: Math.floor(Math.random() * 70 + 30)
+      }).catch((err) => {
+        logger.error(`Could not create quantity: ${err.message}`)
+      })
+    })
+  )
 }
 
 function createProducts () {

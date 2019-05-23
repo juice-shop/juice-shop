@@ -43,6 +43,15 @@ module.exports = function placeOrder () {
               utils.solve(challenges.christmasSpecialChallenge)
             }
 
+            models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
+              const newQuantity = product.dataValues.quantity - BasketItem.quantity
+              models.Quantity.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } }).catch(error => {
+                next(error)
+              })
+            }).catch(error => {
+              next(error)
+            })
+
             const itemTotal = price * BasketItem.quantity
             const itemBonus = Math.round(price / 10) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,

@@ -30,6 +30,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   public gridDataSource
   public searchValue
   public confirmation = undefined
+  public error = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
@@ -103,6 +104,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   }
 
   addToBasket (id: number) {
+    this.error = null
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
@@ -119,7 +121,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
                   this.confirmation = translationId
                 })
               }, (err) => console.log(err))
-            },(err) => console.log(err))
+            },(err) => {
+              this.confirmation = undefined
+              this.error = err.error
+              console.log(err)
+            })
           }, (err) => console.log(err))
           break
         }
@@ -133,7 +139,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
               this.confirmation = translationId
             })
           }, (err) => console.log(err))
-        }, (err) => console.log(err))
+        }, (err) => {
+          this.confirmation = undefined
+          this.error = err.error
+          console.log(err)
+        })
       }
     }, (err) => console.log(err))
   }
