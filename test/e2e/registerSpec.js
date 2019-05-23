@@ -15,7 +15,7 @@ describe('/#/register', () => {
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'passwordRepeat': 'XSSed', 'userType': 'admin' }))
+        xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'passwordRepeat': 'XSSed', 'role': 'admin' }))
       })
 
       const EC = protractor.ExpectedConditions
@@ -43,7 +43,7 @@ describe('/#/register', () => {
 
         xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
-        xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'passwordRepeat': 'pwned', 'userType': 'admin' }))
+        xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'passwordRepeat': 'pwned', 'role': 'admin' }))
       })
     })
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })

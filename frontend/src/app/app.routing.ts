@@ -66,7 +66,7 @@ export class AdminGuard implements CanActivate {
     if (token) {
       payload = jwt_decode(token)
     }
-    if (payload && payload.data && payload.data.userType === roles.admin) {
+    if (payload && payload.data && payload.data.role === roles.admin) {
       return true
     } else {
       this.router.navigate(['403'], {

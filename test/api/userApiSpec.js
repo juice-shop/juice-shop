@@ -51,7 +51,7 @@ describe('/api/Users', () => {
       body: {
         email: 'horst2@horstma.nn',
         password: 'hooooorst',
-        userType: 'admin'
+        role: 'admin'
       }
     })
       .expect('status', 201)
@@ -63,7 +63,7 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        userType: 'admin'
+        role: 'admin'
       })
   })
 
@@ -73,7 +73,7 @@ describe('/api/Users', () => {
       body: {
         email: 'horst3@horstma.nn',
         password: 'hooooorst',
-        userType: 'prime'
+        role: 'prime'
       }
     })
       .expect('status', 201)
@@ -85,7 +85,7 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        userType: 'prime'
+        role: 'prime'
       })
   })
 
@@ -95,7 +95,7 @@ describe('/api/Users', () => {
       body: {
         email: 'horst4@horstma.nn',
         password: 'hooooorst',
-        userType: 'accounting'
+        role: 'accounting'
       }
     })
       .expect('status', 201)
@@ -107,7 +107,7 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        userType: 'accounting'
+        role: 'accounting'
       })
   })
 
@@ -117,15 +117,15 @@ describe('/api/Users', () => {
       body: {
         email: 'horst5@horstma.nn',
         password: 'hooooorst',
-        userType: 'accountinguser'
+        role: 'accountinguser'
       }
     })
       .expect('status', 400)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
-        expect(json.message).toBe('Validation error: Validation isIn on userType failed')
-        expect(json.errors[0].field).toBe('userType')
-        expect(json.errors[0].message).toBe('Validation isIn on userType failed')
+        expect(json.message).toBe('Validation error: Validation isIn on role failed')
+        expect(json.errors[0].field).toBe('role')
+        expect(json.errors[0].message).toBe('Validation isIn on role failed')
       })
   })
 
