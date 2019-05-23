@@ -32,7 +32,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
         this.setDataValue('password', insecurity.hash(clearTextPassword))
       }
     },
-    userType: {
+    role: {
       type: STRING,
       defaultValue: 'customer',
       validate: {
