@@ -263,3 +263,6 @@ ctf:
     dataExportChallenge:
       name: Cambodia
       code: CB
+    ghostLoginChallenge:
+      name: Taiwan
+      code: TW
