@@ -2,7 +2,7 @@ const insecurity = require('../../lib/insecurity')
 const config = require('config')
 const models = require('../../models/index')
 
-fdescribe('/#/basket', () => {
+describe('/#/basket', () => {
   describe('as admin', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
