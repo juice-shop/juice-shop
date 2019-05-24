@@ -234,9 +234,10 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 app.put('/api/BasketItems/:id', basketItems.quantityCheckBeforeBasketItemUpdate())
 app.post('/api/BasketItems', basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
 /* Accounting users are allowed to check and update quantities */
-app.get('/api/Quantitys', insecurity.isAccounting())
-app.put('/api/Quantitys/:id', insecurity.isAccounting())
 app.delete('/api/Quantitys/:id', insecurity.denyAll())
+app.post('/api/Quantitys', insecurity.denyAll())
+app.use('/api/Quantitys', insecurity.isAccounting())
+app.use('/api/Quantitys/:id', insecurity.isAccounting())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
