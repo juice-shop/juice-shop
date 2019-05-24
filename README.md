@@ -311,19 +311,6 @@ Refer to the
 [Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
-### Ko-fi / Liberapay / Patreon
-
-[![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/C0C7PLXP)
-[![Liberapay receiving](https://img.shields.io/liberapay/receives/bkimminich.svg)](https://liberapay.com/bkimminich/donate)
-[![Patreon](https://img.shields.io/badge/Become%20a-Patron-red.svg)](https://www.patreon.com/join/bkimminich?)
-
-### Crypto Currency
-
-[![Bitcoin](https://img.shields.io/badge/bitcoin-1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm-orange.svg)](https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm)
-[![Dash](https://img.shields.io/badge/dash-Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW-blue.svg)](https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW)
-[![Ether](https://img.shields.io/badge/ether-0x0f933ab9fcaaa782d0279c300d73750e1311eae6-lightgrey.svg)](https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6)
-[![Tippin.me](https://img.shields.io/badge/tippin.me-%40bkimminich-%23ff8b8b.svg)](https://tippin.me/@bkimminich)
-
 ## Contributors
 
 The OWASP Juice Shop core project team are:
