@@ -233,6 +233,10 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Check if the quantity is available and add item to basket */
 app.put('/api/BasketItems/:id', basketItems.quantityCheckBeforeBasketItemUpdate())
 app.post('/api/BasketItems', basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+/* Accounting users are allowed to check and update quantities */
+app.get('/api/Quantitys', insecurity.isAccounting())
+app.put('/api/Quantitys/:id', insecurity.isAccounting())
+app.delete('/api/Quantitys/:id', insecurity.denyAll())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
@@ -269,7 +273,8 @@ const autoModels = [
   { name: 'Complaint', exclude: [] },
   { name: 'Recycle', exclude: [] },
   { name: 'SecurityQuestion', exclude: [] },
-  { name: 'SecurityAnswer', exclude: [] }
+  { name: 'SecurityAnswer', exclude: [] },
+  { name: 'Quantity', exclude: [] }
 ]
 
 for (const { name, exclude } of autoModels) {
