@@ -122,3 +122,11 @@
   securityQuestion:
     id: 1
     answer: 'greenwood'
+-
+  email: accountant
+  password: 'i am an awesome accountant'
+  key: accountant
+  role: 'accounting'
+  securityQuestion:
+    id: 7
+    answer: 'sdAffsdfrefrbgreq3423'

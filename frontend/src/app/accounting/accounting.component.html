@@ -1,0 +1,74 @@
+<div fxLayoutAlign="center">
+
+  <div class="table-container custom-slate">
+
+    <div class="heading mat-elevation-z6">
+      <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+      <div *ngIf="confirmation" style="margin-top:5px;">
+        <p class="confirmation">{{ confirmation }}</p>
+      </div>
+      <div *ngIf="error" style="margin-top:5px;">
+        <p class="error">{{error?.error}}</p>
+      </div>
+    </div>
+
+    <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="30px" >
+      <div *ngIf="(gridDataSource| async)?.length >= 1; else emptyResult">
+        <mat-grid-tile *ngFor="let item of gridDataSource | async">
+          <mat-card [style.width]="'100%'"class="mat-elevation-z6">
+            <div class="product">
+              <div class="img-container" fxFlexAlign="center">
+                <div>
+                <img [src]="'assets/public/images/products/'+item.image" role="button"
+                     class="img-responsive img-thumbnail" alt={{item.name}}>
+                </div>
+              </div>
+              <div fxFlexAlign="center">
+                <div class="item-name">
+                  {{item.name}}
+                </div>
+                <div *ngIf="quantityMap" class="item-quantity">
+                    <button [disabled]="!(quantityMap[item.id].quantity > 0)" mat-icon-button (click)="dec(quantityMap[item.id].id)"><i class="fas fa-minus-square"></i></button>
+                    <span>{{"STOCK" | translate}} {{ quantityMap[item.id].quantity }} {{"UNITS" | translate}}</span>
+                    <button mat-icon-button (click)="inc(quantityMap[item.id].id)"><i class="fas fa-plus-square"></i></button>
+                </div>
+                <div class="item-price">
+                  <mat-form-field class="price-field">
+                        <input #price matInput type="number" value="{{ item.price }}" [placeholder]="'PRICE_IN_DOLLARS' | translate">
+                        <button mat-icon-button matSuffix (click)="modifyPrice(item.id, price.value)" [disabled]="!(price.value > 0)"><i class="fas fa-check"></i></button>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </mat-grid-tile>
+      </div> 
+    </mat-grid-list>
+
+    <ng-template #emptyResult>
+      <mat-card class="mat-elevation-z6 emptyState">
+        <img src="assets/public/images/products/no-results.png"
+             class="img-responsive noResult"
+             alt=" No results found">
+        <mat-card-title>
+          <span class="noResultText" translate>
+            NO_SEARCH_RESULT
+          </span>
+        </mat-card-title>
+        <mat-card-content>
+          <span class="noResultText" translate>
+            SEARCH_PROCESSING
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+
+    <mat-divider></mat-divider>
+
+    <mat-paginator class="mat-elevation-z6"
+                   #paginator
+                   [pageSize]="12"
+                   [pageSizeOptions]="[12, 24, 36]">
+    </mat-paginator>
+  </div>
+</div>
