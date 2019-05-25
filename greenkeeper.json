@@ -1,0 +1,19 @@
+{
+  "groups": {
+    "frontend": {
+      "packages": [
+        "frontend/package.json"
+      ]
+    },
+    "server": {
+      "packages": [
+        "package.json",
+      ],
+      "ignore": [
+        "sanitize-html",
+        "express-jwt",
+        "config"
+      ]
+    }
+  }
+}
