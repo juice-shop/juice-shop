@@ -17,9 +17,9 @@ describe('/redirect', () => {
     protractor.expect.challengeSolved({ challenge: 'Redirects Tier 2' })
   })
 
-  describe('challenge "redirectGratipay"', () => {
-    it('should still redirect to forgotten entry https://gratipay.com/juice-shop on whitelist', () => {
-      browser.driver.get(browser.baseUrl + '/redirect?to=https://gratipay.com/juice-shop')
+  describe('challenge "redirectCryptoCurrency"', () => {
+    it('should still redirect to forgotten entry https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 on whitelist', () => {
+      browser.driver.get(browser.baseUrl + '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Redirects Tier 1' })

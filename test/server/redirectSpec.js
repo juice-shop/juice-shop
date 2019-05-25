@@ -38,13 +38,31 @@ describe('redirect', () => {
     expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
   })
 
-  it('redirecting to https://gratipay.com/juice-shop should solve the "redirectGratipayChallenge"', () => {
-    this.req.query.to = 'https://gratipay.com/juice-shop'
-    challenges.redirectGratipayChallenge = { solved: false, save: this.save }
+  it('redirecting to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm should solve the "redirectCryptoCurrencyChallenge"', () => {
+    this.req.query.to = 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm'
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: this.save }
 
     performRedirect()(this.req, this.res)
 
-    expect(challenges.redirectGratipayChallenge.solved).to.equal(true)
+    expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
+  })
+
+  it('redirecting to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW should solve the "redirectCryptoCurrencyChallenge"', () => {
+    this.req.query.to = 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: this.save }
+
+    performRedirect()(this.req, this.res)
+
+    expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
+  })
+
+  it('redirecting to https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 should solve the "redirectCryptoCurrencyChallenge"', () => {
+    this.req.query.to = 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
+    challenges.redirectCryptoCurrencyChallenge = { solved: false, save: this.save }
+
+    performRedirect()(this.req, this.res)
+
+    expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
   })
 
   it('tricking the whitelist should solve "redirectChallenge"', () => {
