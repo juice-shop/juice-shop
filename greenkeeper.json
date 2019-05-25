@@ -7,7 +7,7 @@
     },
     "server": {
       "packages": [
-        "package.json",
+        "package.json"
       ],
       "ignore": [
         "sanitize-html",
