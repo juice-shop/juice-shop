@@ -210,12 +210,5 @@
       "/frontend/node_modules/"
     ]
   },
-  "greenkeeper": {
-    "ignore": [
-      "sanitize-html",
-      "express-jwt",
-      "config"
-    ]
-  },
   "heroku-run-build-script": true
 }
