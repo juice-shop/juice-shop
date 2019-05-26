@@ -1,5 +1,12 @@
 # Hall of Fame
 
+## Core Team
+
+- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich`
+  ([Project Leader](https://www.owasp.org/index.php/Projects/Project_Leader_Responsibilities))
+- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
+- [Timo Pagel](https://github.com/wurstbrot) aka `wurstbrot`
+
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
@@ -56,7 +63,8 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
 - :cn: Coink, rToxic, Forbidden
 - :czech_republic: Martin Hartl, stejkenzie
 - :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs, Priit Pääsukene
+- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs, Priit
+  Pääsukene
 - :finland: Nico Ådahl
 - :fr: Kylian Runembert, vientspam, Simon Basset
 - :de: Björn Kimminich
@@ -91,7 +99,11 @@ translations and commits to `app/i18n`. Grouped by language as of Fri,
   [@psiinon](https://github.com/psiinon)
 * Revised OWASP Juice Shop and Juice Shop CTF logo artworks by Emily
   Gundry (courtesy of [@SecureState](https://github.com/SecureState))
-* Wallpaper artworks by Mike Branscum (courtesy of [@daylightstudio](https://github.com/daylightstudio))
+* Wallpaper artworks by Mike Branscum (courtesy of
+  [@daylightstudio](https://github.com/daylightstudio))
 * [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) cover
   artwork by [Patch Kroll](https://99designs.de/profiles/3099878)
-* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners) and [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers) artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+* [Banner](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/banners)
+  and
+  [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
+  artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
