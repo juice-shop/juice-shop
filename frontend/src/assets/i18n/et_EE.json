@@ -17,7 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Palun korda oma salasõna.",
   "INVALID_PASSWORD_LENGTH": "Salasõna peab olema vähemalt {{length}} kohaline.",
   "LABEL_PASSWORD_REPEAT": "Korda parooli",
-  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
+  "PASSWORDS_NOT_MATCHING": "Salasõnad ei kattu",
   "BTN_REGISTER": "Registreeri",
   "TITLE_LOGOUT": "Välju",
   "CONFIRM_LOGGED_OUT": "Olete välja logitud.",
@@ -175,5 +175,18 @@
   "TYPE_THESE_LETTERS": "Tippige need {{length}} tähte",
   "BTN_REQUEST": "Päring",
   "EXPORT_LABEL": "Ekspordivorming",
-  "ACCOUNT": "Konto"
+  "ACCOUNT": "Konto",
+  "TITLE_TWO_FACTOR_AUTH_CONFIG": "2FA seadistamine",
+  "LABEL_CONFIRM_CURRENT_PASSWORD": "Kinnitage oma parool",
+  "LABEL_INITIAL_2FA_TOKEN": "Esimene kood autentimisvahendist",
+  "2FA_AUTH_SETUP_INSTRUCTIONS": "Turvake oma konto lisa identsustõendiga. Alustamiseks skänni QR-kood rakendusega, mis toetab TOTP (nt Google Authenticator) hetkparoole.",
+  "2FA_SETUP_ERROR": "2FA seadistuse muutmine nurjus. Kontrollige, kas teie parool (ja kood) on sisestatud õigesti.",
+  "2FA_SUCCESSFUL_SETUP": "Olete lubanud 2FA oma kontole. Täname, et leidsite aega oma mahlade turvamiseks!",
+  "REMOVE_TWO_FACTOR_AUTH": "2FA eemaldamine kontolt",
+  "BTN_REMOVE": "Eemalda",
+  "DATA_SUBJECT_TITLE": "Taotle andmete kustutamist",
+  "GDPR_HEADING": "Andmete kustutamise taotlus (GDPR artikkel 17)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Teie konto on edukalt kustutatud. Kui teid ei logitud automaatselt välja, siis palun tehke seda nüüd!",
+  "GDPR_MESSAGE": "Tegeleme tõsiselt andmete turvalisuse, klientide privaatsuse ja õigusnormide järgimise teemadega. Vastavalt GDPR-ist tulenevatele nõuetele on teil võimalus taotleda oma konto ja sellega seotud andmete täielikku kustutamist.",
+  "DELETE_DATA_LABEL": "Kustuta kasutaja info"
 }

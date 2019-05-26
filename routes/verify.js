@@ -36,7 +36,7 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 
 exports.registerAdminChallenge = () => (req, res, next) => {
   if (utils.notSolved(challenges.registerAdminChallenge)) {
-    if (req.body && req.body.isAdmin && req.body.isAdmin) {
+    if (req.body && req.body.isAdmin) {
       utils.solve(challenges.registerAdminChallenge)
     }
   }
@@ -150,22 +150,7 @@ exports.databaseRelatedChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
     dlpPastebinDataLeakChallenge()
   }
-  if (utils.notSolved(challenges.recyclesMissingItemChallenge)) {
-    recyclesMissingItemChallenge()
-  }
   next()
-}
-
-function recyclesMissingItemChallenge () {
-  models.Feedback.findAndCountAll({
-    where: {
-      comment: { [Op.like]: '%Starfleet HQ, 24-593 Federation Drive, San Francisco, CA%' }
-    }
-  }).then(({ count }) => {
-    if (count > 0) {
-      utils.solve(challenges.recyclesMissingItemChallenge)
-    }
-  })
 }
 
 function changeProductChallenge (osaft) {

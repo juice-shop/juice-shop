@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "8.5.1",
+  "version": "8.6.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,10 +10,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.13.3",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/animations": "^7.2.7",
     "@angular/cdk": "^7.3.3",
-    "@angular/cli": "^7.3.3",
+    "@angular/cli": "^7.3.8",
     "@angular/common": "^7.2.7",
     "@angular/compiler": "^7.2.7",
     "@angular/compiler-cli": "^7.2.7",
