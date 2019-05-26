@@ -3,7 +3,6 @@ import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
-import { DomSanitizer } from '@angular/platform-browser'
 import { QuantityService } from '../Services/quantity.service'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -28,7 +27,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
   private quantitySubscription: Subscription
   public breakpoint: number
   public quantityMap: any
-  constructor (private productService: ProductService, private sanitizer: DomSanitizer, private quanitityService: QuantityService) { }
+  constructor (private productService: ProductService, private quantityService: QuantityService) { }
 
   ngAfterViewInit () {
     this.loadQuantity()
@@ -36,7 +35,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
   }
 
   loadQuantity () {
-    this.quantitySubscription = this.quanitityService.getAll().subscribe((stock) => {
+    this.quantitySubscription = this.quantityService.getAll().subscribe((stock) => {
       this.quantityMap = {}
       stock.map((item) => {
         this.quantityMap[item.ProductId] = {
@@ -54,7 +53,6 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
   loadProducts () {
     this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
       this.tableData = tableData
-      this.trustProductDescription(this.tableData)
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
 
@@ -95,9 +93,9 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
 
   modifyQuantity (id, value) {
     this.error = null
-    this.quanitityService.get(id).subscribe((item) => {
+    this.quantityService.get(id).subscribe((item) => {
       let newQuantity = item.quantity + value
-      this.quanitityService.put(id, { quantity: newQuantity < 0 ? 0 : newQuantity }).subscribe(() => {
+      this.quantityService.put(id, { quantity: newQuantity < 0 ? 0 : newQuantity }).subscribe(() => {
         this.confirmation = 'Quantity has been updated'
         this.loadQuantity()
       },(err) => {
@@ -120,12 +118,6 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
       this.confirmation = null
       console.log(err)
     })
-  }
-
-  trustProductDescription (tableData: any[]) {
-    for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = this.sanitizer.bypassSecurityTrustHtml(tableData[i].description)
-    }
   }
 
   onResize (event) {
