@@ -53,7 +53,7 @@ ctf:
     forgedFeedbackChallenge:
       name: Korea (Democratic People's Republic of)
       code: KP
-    redirectGratipayChallenge:
+    redirectCryptoCurrencyChallenge:
       name: Korea
       code: KR
     redirectChallenge:
