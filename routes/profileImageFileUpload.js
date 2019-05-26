@@ -21,7 +21,7 @@ module.exports = function fileUpload () {
           })
         })
         models.User.findByPk(loggedInUser.data.id).then(user => {
-          return user.update({ profileImage: loggedInUser.data.id + '.' + uploadedFileType.ext })
+          return user.update({profileImage: loggedInUser.data.id + '.' + uploadedFileType.ext})
         }).catch(error => {
           next(error)
         })
@@ -32,7 +32,7 @@ module.exports = function fileUpload () {
       res.redirect('/profile')
     } else {
       res.status(415)
-      next(new Error('Profile image upload does not accept this file type.'))
+      next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
     }
   }
 }
