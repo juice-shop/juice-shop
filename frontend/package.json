@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "8.6.0-SNAPSHOT",
+  "version": "8.6.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -63,7 +63,7 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ts-node": "~5.0.1",
+    "ts-node": "~8.1.1",
     "tslint": "~5.13.0",
     "tslint-config-standard": "~8.0.1"
   }
