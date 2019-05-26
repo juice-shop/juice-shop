@@ -97,21 +97,9 @@
         <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step">
           <button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button>
         </a>
-        <a href="/redirect?to=https://gratipay.com/juice-shop" *ngIf="false">
-           <button mat-raised-button><i class="fab fa-gratipay fa-lg"></i> Gratipay</button>
-        </a>
-        <a href="https://liberapay.com/bkimminich/donate">
-           <button mat-raised-button><i class="fas fa-hand-holding-usd fa-lg"></i> Liberapay</button>
-        </a>
-        <a href="https://ko-fi.com/C0C7PLXP">
-           <button mat-raised-button><i class="fas fa-coffee fa-lg"></i> Koh-fi</button>
-        </a>
-        <a href="https://www.patreon.com/join/bkimminich?">
-           <button mat-raised-button><i class="fab fa-patreon fa-lg"></i> Patreon</button>
-        </a>
-        <button mat-raised-button (click)="showBitcoinQrCode()"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
-        <button mat-raised-button (click)="showDashQrCode()"><i class="fa-lg">Ð</i> Dash</button>
-        <button mat-raised-button (click)="showEtherQrCode()"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+        <button mat-raised-button (click)="showBitcoinQrCode()" *ngIf="false"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+        <button mat-raised-button (click)="showDashQrCode()" *ngIf="false"><i class="fa-lg">Ð</i> Dash</button>
+        <button mat-raised-button (click)="showEtherQrCode()" *ngIf="false"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
       </div>
 
       <div class="payment-label">
@@ -127,7 +115,7 @@
         <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button></a>
         <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button></a>
         <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button></a>
-        <a href="http://leanpub.com/juice-shop"><button mat-raised-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button></a>
+        <a href="/redirect?to=http://leanpub.com/juice-shop"><button mat-raised-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button></a>
       </div>
 
     </mat-expansion-panel>
