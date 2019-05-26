@@ -25,6 +25,7 @@ import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { RegisterComponent } from './register/register.component'
 import { ContactComponent } from './contact/contact.component'
+import { DataSubjectComponent } from './data-subject/data-subject.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
@@ -58,6 +59,7 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
+import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
@@ -109,6 +111,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ForgotPasswordComponent,
     RegisterComponent,
     ContactComponent,
+    DataSubjectComponent,
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
@@ -190,6 +193,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ConfigurationService,
     AdministrationService,
     SecurityQuestionService,
+    DataSubjectService,
     UserService,
     SecurityAnswerService,
     CaptchaService,
