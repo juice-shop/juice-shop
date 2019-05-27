@@ -164,12 +164,14 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly.
 
-| node.js  | Windows            | Linux              | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             |
-|:---------|:-------------------|:-------------------|:------------------------------------------------------------------------------------|
-| 8.x      | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
-| __10.x__ | :heavy_check_mark: | :heavy_check_mark: | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) |
-| 11.x     | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
-| 12.x     | :x:                | :x:                |                                                                                     |
+| node.js  | Compatibility      | Windows (pre-packaged)                           | Linux (pre-packaged)                    | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) tags                 |
+|:---------|:-------------------|:-------------------------------------------------|:----------------------------------------|:---------------------------------------------------------------------------------------------|
+| ≥12.x    | :x:                |                                                  |                                         |                                                                                              |
+| 11.x     | :heavy_check_mark: | `http://juice-shop-x.y.z_node11_windows_x64.zip` | `juice-shop-x.y.z_node11_linux_x64.tgz` |                                                                                              |
+| __10.x__ | :heavy_check_mark: | `http://juice-shop-x.y.z_node10_windows_x64.zip` | `juice-shop-x.y.z_node10_linux_x64.tgz` | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
+| 9.x      | :x:                |                                                  |                                         |                                                                                              |
+| 8.x      | :heavy_check_mark: | `http://juice-shop-x.y.z_node8_windows_x64.zip`  | `juice-shop-x.y.z_node8_linux_x64.tgz`  |                                                                                              |
+| ≤7.x     | :x:                |                                                  |                                         |                                                                                              |
 
 ## Demo
 
