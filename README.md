@@ -171,7 +171,7 @@ images and packaged distributions are offered accordingly.
 | 11.x     | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
 | 12.x     | :x:                | :x:                |                                                                                     |
 
-## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
+## Demo
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
 <http://demo.owasp-juice.shop>
