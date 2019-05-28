@@ -10,16 +10,25 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 05 Dec 2018
+`master` as of Tue, 28 May 2019
 
 - [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
+- [Supratik Das](https://github.com/supra08) aka `supra08`
 - [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
+- [Arpit Agrawal](https://github.com/agrawalarpit14) aka `agrawalarpit14`
+- [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
+- [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
+- [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
+- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Greg Guthe](https://github.com/g-k) aka `g-k`
 - [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
+- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
+- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka `AbdelrhmanMagdy`
+- [Devansh Batra](https://github.com/devanshbatra04) aka `devanshbatra04`
+- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
 - [Simon Basset](https://github.com/simbas) aka `simbas`
 - [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
 - [Ingo Bente](https://github.com/ingben) aka `ingben`
@@ -28,6 +37,9 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
   `ViktorLindstrm`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
+- [Chris Castle](https://github.com/crcastle) aka `crcastle`
+- [Priit Pääsukene](https://github.com/priitpaasukene) aka `priitpaasukene`
+- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
 - [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
 - [Zander Mackie](https://github.com/Zandar) aka `Zandar`
 - [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
@@ -41,8 +53,8 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
   `StuartWinterTear`
 - [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Abhishek bundela](https://github.com/abhishekbundela) aka
-  `abhishekbundela`
+- [Abhishek bundela](https://github.com/abhibundela) aka
+  `abhibundela`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
 - [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
 - [Johanna](https://github.com/johanna-a) aka `johanna-a`
@@ -53,44 +65,82 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 ## Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations and commits to `app/i18n`. Grouped by language as of Fri,
-13 Apr 2018 on `develop`.
+translations as of Tue, 28 May 2019.
 
-- :azerbaijan: Shahin Farzaliyev
-- :united_arab_emirates: :tunisia: Oussama Bouthouri
-- :brazil: sergio.kubota, Estevam Arantes, Richardson Lima
-- :bulgaria: Stella Dineva
-- :cn: Coink, rToxic, Forbidden
-- :czech_republic: Martin Hartl, stejkenzie
-- :denmark: Allan Kimmer Jensen, owangen, Rasmus Bidstrup
-- :estonia: bmoritz, janesmae, Egert Aia, spruur, rakzcs, Priit
-  Pääsukene
-- :finland: Nico Ådahl
-- :fr: Kylian Runembert, vientspam, Simon Basset
-- :de: Björn Kimminich
-- :hong_kong: r0n1am
-- :hungary: OliverkeHU
-- :georgia: GiorgiSharia
-- :india: Shivam Luthra
-- :indonesia: adeyosemanputra, bahrunghozali, kahfiehudson, Mohammad
-  Febri Ramadlan, Rick Daalhuizen, Syahrol
-- :israel: AviD, Omer Levi Hevroni, BostonLow
-- :it: vientspam, Claudio Snidero
-- :jp: ninoseki, nilfigo, Riotaro Okada, Michiya Tominaga
-- :kr: sjroh
-- :myanmar: thinbashane
-- :netherlands: Bart Decker, Daan Sprenkels, Manu B, rachidbm,
-  vientspam, Wout Huygens, Rick Daalhuizen
-- :norway: owangen
-- :poland: Idomin Ninja, Andrew Pio, niemyskaa
-- :portugal: Alvaro Viebrantz, Estevam Arantes
-- :romania: Mircea Ulmeanu, orjen, timexlord
-- :ru: fieldhill13, talisainen, redr0n19
-- :es: alopezhu, CarlCampbell, Carlos Allendes, Ezequiel Andino,
-  mateomartinez, soledad aro, Gorka Vicente, Daniel Paniagua
-- :sweden: Anders Lindberg, atteism, cello-anders, Klas Fahlberg,
-  landinl, Mattias Persson, Pär Swedberg, Tomas Rosenqvist
-- :tr: Ender Çulha
+- Björn Kimminich aka `bkimminich` (German)
+- owangen (Norwegian; Danish)
+- sjroh (Korean)
+- Stella Dineva aka `stella.dineva` (Bulgarian)
+- Stavros M. aka `msstavros` (Greek)
+- Simon Basset aka `simbas` (French)
+- GiorgiSharia (Georgian)
+- Oussama Bouthouri aka `Boussama` (Arabic)
+- sergio.kubota (Portuguese, Brazilian)
+- Ender Çulha aka `ecu` (Turkish)
+- Claudio Snidero aka `cla7997` (Italian)
+- r0n1am (Chinese Traditional, Hong Kong)
+- AviD aka `avidouglen` (Hebrew)
+- janesmae (Estonian)
+- fieldhill13 (Russian)
+- thinbashane (Burmese)
+- rToxic (Chinese Simplified)
+- stejkenzie (Czech)
+- adeyosemanputra (Indonesian)
+- Coink aka `CoinkWang` (Chinese Simplified)
+- Kylian Runembert aka `FunnHydra` (French)
+- Andrew Pio aka `siranen` (Polish)
+- timexlord (Romanian)
+- Shahin Farzaliyev aka `Khan27` (Azerbaijani)
+- Daniel Paniagua aka `danielgpm` (Spanish)
+- orjen (Romanian)
+- vientspam (Dutch; Italian; French)
+- Allan Kimmer Jensen aka `Saturate` (Danish)
+- Idomin Ninja aka `Idomin` (Polish)
+- BostonLow (Hebrew)
+- にのせき aka `ninoseki` (Japanese)
+- Egert Aia aka `aiaegert` (Estonian)
+- Nico Ådahl aka `nigotiator` (Finnish)
+- Pär Svedberg aka `grebdevs` (Swedish)
+- rakzcs (Estonian)
+- Tomas Rosenqvist aka `Muamaidbengt` (Swedish)
+- Estevam Arantes aka `Es7evam` (Portuguese; Portuguese, Brazilian)
+- Karl aka `spruur` (Estonian)
+- Albert Camps aka `campsupc` (Catalan; Spanish)
+- Jorge Estigarribia aka `jorgestiga` (Spanish; Portuguese, Brazilian)
+- Daan Sprenkels aka `dsprenkels` (Dutch)
+- atteism (Swedish)
+- Aleksandra Niemyska aka `niemyskaa` (Polish)
+- mateomartinez (Spanish)
+- Rasmus Bidstrup aka `rasmusbidstrup` (Danish)
+- Bruno Rodrigues aka `bmvr` (Portuguese)
+- Riotaro OKADA aka `riotaro` (Japanese)
+- talisainen (Russian)
+- OliverkeHU (Hungarian)
+- Bart Decker aka `Decker` (Dutch)
+- Manu B aka `Rosina` (Dutch)
+- Mohammad Febri Ramadlan aka `mohammadfebrir` (Indonesian)
+- Klas Fahlberg aka `FahlbergKlas` (Swedish)
+- CarlCampbell (Spanish)
+- Wout Huygens aka `lenkadubois` (Dutch)
+- rachidbm (Dutch)
+- Mattias Persson aka `mattiasbpersson` (Swedish)
+- cello-anders (Swedish)
+- Oussama Bouthouri aka `oussama.bouthouri` (Arabic)
+- bmoritz (Estonian)
+- landinl (Swedish)
+- Héctor Lecuanda aka `hlecuanda` (Spanish)
+- Michiya Tominaga aka `nuwaa` (Japanese)
+- Mircea Ulmeanu aka `boltzmann.gt` (Romanian)
+- Martin Hartl aka `hartlmartin` (Czech)
+- Carlos Allendes aka `OwaspChile` (Spanish)
+- redr0n19 (Russian)
+- nilfigo (Japanese)
+- Richardson Lima aka `contatorichardsonlima` (Portuguese, Brazilian)
+- soledad aro aka `cristinagarciaaro` (Spanish)
+- Forbidden aka `cptbl00dra1n` (Chinese Simplified)
+- Ezequiel Andino aka `acidobinario` (Spanish)
+- kahfiehudson (Indonesian)
+- motofy (Japanese)
 
 ## Special Thanks
 
