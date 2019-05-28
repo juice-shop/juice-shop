@@ -8,15 +8,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    "file-creator": {
-      "manifest": {
-        "manifest.json": function(fs, fd, done) {
-          fs.writeSync(fd, `{ "node": "${node}", "platform": "${platform}", "os": "${os}" }`)
-          done()
-        }
-      }
-    },
-
     compress: {
       pckg: {
         options: {
@@ -32,7 +23,6 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
-              'manifest.json',
               'frontend/dist/frontend/**',
               'config/*.yml',
               'data/*.js',
@@ -53,7 +43,6 @@ module.exports = function (grunt) {
     }
   })
 
-  grunt.loadNpmTasks('grunt-file-creator')
   grunt.loadNpmTasks('grunt-contrib-compress')
-  grunt.registerTask('package', [ 'file-creator:manifest', 'compress:pckg' ])
+  grunt.registerTask('package', [ 'compress:pckg' ])
 }
