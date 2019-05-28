@@ -164,14 +164,14 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly.
 
-| node.js  |                    | Windows (pre-packaged)         | Linux (pre-packaged)         | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) tags                 |
-|:---------|:-------------------|:-------------------------------|:-----------------------------|:---------------------------------------------------------------------------------------------|
-| ≥12.x    | :x:                |                                |                              |                                                                                              |
-| 11.x     | :heavy_check_mark: | `*_node11_windows_x64.zip`     | `*_node11_linux_x64.tgz`     |                                                                                              |
-| __10.x__ | :heavy_check_mark: | **`*_node10_windows_x64.zip`** | **`*_node10_linux_x64.tgz`** | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
-| 9.x      | :x:                |                                |                              |                                                                                              |
-| 8.x      | :heavy_check_mark: | `*_node8_windows_x64.zip`      | `*_node8_linux_x64.tgz`      |                                                                                              |
-| ≤7.x     | :x:                |                                |                              |                                                                                              |
+| node.js  |                    | Windows (pre-packaged)       | Linux (pre-packaged)         | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) tags                 |
+|:---------|:-------------------|:-----------------------------|:-----------------------------|:---------------------------------------------------------------------------------------------|
+| ≥12.x    | :x:                |                              |                              |                                                                                              |
+| 11.x     | :heavy_check_mark: | `*_node11_win32_x64.zip`     | `*_node11_linux_x64.tgz`     |                                                                                              |
+| __10.x__ | :heavy_check_mark: | **`*_node10_win32_x64.zip`** | **`*_node10_linux_x64.tgz`** | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
+| 9.x      | :x:                |                              |                              |                                                                                              |
+| 8.x      | :heavy_check_mark: | `*_node8_win32_x64.zip`      | `*_node8_linux_x64.tgz`      |                                                                                              |
+| ≤7.x     | :x:                |                              |                              |                                                                                              |
 
 ## Demo
 

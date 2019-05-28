@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
   var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
   var platform = grunt.option('platform') || process.env.PLATFORM || process.env.TRAVIS ? 'x64' : ''
-  var os = grunt.option('os') || process.env.APPVEYOR ? 'windows' : process.env.TRAVIS ? 'linux' : ''
+  var os = grunt.option('os') || process.env.APPVEYOR ? 'win32' : process.env.TRAVIS ? 'linux' : ''
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
