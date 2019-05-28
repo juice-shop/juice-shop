@@ -2,8 +2,8 @@
 
 module.exports = function (grunt) {
   var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
-  var platform = grunt.option('platform') || process.env.PLATFORM || process.env.TRAVIS ? 'x64' : ''
-  var os = grunt.option('os') || process.env.APPVEYOR ? 'win32' : process.env.TRAVIS ? 'linux' : ''
+  var platform = grunt.option('platform') || process.env.TRAVIS ? 'x64' : ''
+  var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME || '')
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
     compress: {
       pckg: {
         options: {
-          mode: os === 'linux' ? 'tgz' : 'zip',
+          mode: os === 'win32' ? 'zip' : 'tgz',
           archive: 'dist/<%= pkg.name %>-<%= pkg.version %>' + (node ? ('_node' + node) : '') + (os ? ('_' + os) : '') + (platform ? ('_' + platform) : '') + (os === 'linux' ? '.tgz' : '.zip')
         },
         files: [
