@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^7.2.7",
-    "@types/jasmine": "^2.8.16",
+    "@types/jasmine": "^3.3.13",
     "@types/jasminewd2": "~2.0.6",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "~8.9.4",
