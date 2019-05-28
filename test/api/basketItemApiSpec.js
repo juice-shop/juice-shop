@@ -3,7 +3,7 @@ const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize({ data: { id: 2 } }), 'content-type': 'application/json' }
 
 describe('/api/BasketItems', () => {
   it('GET all basket items is forbidden via public API', () => {

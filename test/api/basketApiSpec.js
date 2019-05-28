@@ -4,7 +4,7 @@ const insecurity = require('../../lib/insecurity')
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize({ data: { id: 2 } }), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
 const validCoupon = insecurity.generateCoupon(15)
