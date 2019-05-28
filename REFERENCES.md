@@ -26,29 +26,30 @@ where this project was mentioned or used!
 ### Pod- & Webcasts
 
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
-  * Episode 4.17:
-    [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
-  * Episode 4.20:
-    [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/)
-    :mega:
+  * 5 minute AppSec: [Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
   * Episode 4.27:
     [Season 4 Finale (S04E27)](https://www.securityjourney.com/blog/season-4-finale-s04e27/)
     (snippet from
     [4.17](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/))
+  * Episode 4.20:
+    [Security Culture Hacking: Disrupting the Security Status Quo (S04E20)](https://www.securityjourney.com/blog/security-culture-hacking-disrupting-the-security-status-quo-s04e20/)
+    :mega:
+  * Episode 4.17:
+    [The Joy of the Vulnerable Web: JuiceShop (S04E17)](https://securityjourney.com/blog/the-joy-of-the-vulnerable-web-juiceshops04e17/)
 * Webcast recording on [7 Minute Security](https://7ms.us):
   [DIY $500 Pentest Lab - Part 1](https://www.youtube.com/watch?v=7qnaR6ZmJzA)
   :mega:
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel:
-  * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
-  * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18)
+  * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
+    :godmode:
+  * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q)
     :bulb:
   * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys)
     :bulb:
-  * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q)
+  * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18)
     :bulb:
-  * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
-    :godmode:
+  * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
 * Recorded live streams from the
   [Twitch](https://aka.ms/DevSlopTwitch)/[Mixer](https://aka.ms/DevSlop-Mixer)
   [OWASP DevSlop](https://devslop.co/) Show:
