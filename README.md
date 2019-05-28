@@ -164,14 +164,16 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly.
 
-| node.js  | Windows            | Linux              | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop)             |
-|:---------|:-------------------|:-------------------|:------------------------------------------------------------------------------------|
-| 8.x      | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
-| __10.x__ | :heavy_check_mark: | :heavy_check_mark: | __`latest`__ (current official release), `snapshot` (preview from `develop` branch) |
-| 11.x     | :heavy_check_mark: | :heavy_check_mark: |                                                                                     |
-| 12.x     | :x:                | :x:                |                                                                                     |
+| node.js  |                    | Windows (pre-packaged)         | Linux (pre-packaged)         | [Docker image](https://registry.hub.docker.com/u/bkimminich/juice-shop) tags                 |
+|:---------|:-------------------|:-------------------------------|:-----------------------------|:---------------------------------------------------------------------------------------------|
+| ≥12.x    | :x:                |                                |                              |                                                                                              |
+| 11.x     | :heavy_check_mark: | `*_node11_windows_x64.zip`     | `*_node11_linux_x64.tgz`     |                                                                                              |
+| __10.x__ | :heavy_check_mark: | **`*_node10_windows_x64.zip`** | **`*_node10_linux_x64.tgz`** | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
+| 9.x      | :x:                |                                |                              |                                                                                              |
+| 8.x      | :heavy_check_mark: | `*_node8_windows_x64.zip`      | `*_node8_linux_x64.tgz`      |                                                                                              |
+| ≤7.x     | :x:                |                                |                              |                                                                                              |
 
-## Demo [![Heroku](https://heroku-badge.herokuapp.com/?app=juice-shop)](http://demo.owasp-juice.shop)
+## Demo
 
 Feel free to have a look at the latest version of OWASP Juice Shop:
 <http://demo.owasp-juice.shop>
@@ -244,10 +246,10 @@ also
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
-If you need help with the application setup please check the
-[TROUBLESHOOTING.md](TROUBLESHOOTING.md) or post your specific problem
-or question in the
-[official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
+If you need help with the application setup please check exiting
+[troubleshooting resources](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html).
+If none solved your issue please post your specific problem or question
+in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
