@@ -179,6 +179,19 @@
   "engines": {
     "node": "8 - 11"
   },
+  "cpu" : [
+    "x64",
+    "x32",
+    "arm64",
+    "arm"
+  ],
+  "os": [
+    "win32",
+    "linux",
+    "darwin",
+    "freebsd",
+    "openbsd"
+  ],
   "standard": {
     "ignore": [
       "/app/private/**",

@@ -9,7 +9,6 @@ uploads/complaints/*.*
 ftp/legal.md
 
 # Build
-manifest.json
 .nyc_output/
 .sass-cache/
 build/
