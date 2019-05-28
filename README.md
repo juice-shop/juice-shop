@@ -47,7 +47,9 @@ overview please visit the official project page:
 > DDoS attacks you are free to use any tools or scripts to hack your
 > Juice Shop instance on Heroku!
 
-### From Sources ![GitHub repo size](https://img.shields.io/github/repo-size/bkimminich/juice-shop.svg)
+### From Sources
+
+![GitHub repo size](https://img.shields.io/github/repo-size/bkimminich/juice-shop.svg)
 
 1. Install [node.js](#nodejs-version-compatibility)
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
@@ -59,7 +61,10 @@ overview please visit the official project page:
 5. Run `npm start`
 6. Browse to <http://localhost:3000>
 
-### Packaged Distributions [![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
+### Packaged Distributions
+
+[![GitHub release](https://img.shields.io/github/downloads/bkimminich/juice-shop/total.svg)](https://github.com/bkimminich/juice-shop/releases/latest)
+[![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop.svg)](https://sourceforge.net/projects/juice-shop/)
 
 1. Install a 64bit [node.js](#nodejs-version-compatibility) on your
    Windows, MacOS or Linux machine
@@ -74,7 +79,13 @@ overview please visit the official project page:
 > `libxmljs` bound to the OS and node.js version which `npm install` was
 > executed on.
 
-### Docker Container [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/) ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg) [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com")
+### Docker Container
+
+[![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
+![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
+[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -82,15 +93,6 @@ overview please visit the official project page:
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
    <http://192.168.99.100:3000> if you are using docker-machine instead
    of the native docker installation)
-
-#### Even easier: Run Docker Container from Docker Toolbox (Kitematic)
-
-1. Install and launch
-   [Docker Toolbox](https://www.docker.com/docker-toolbox)
-2. Search for `juice-shop` and click _Create_ to download image and run
-   container
-3. Click on the _Open_ icon next to _Web Preview_ to browse to OWASP
-   Juice Shop
 
 ### Vagrant
 
@@ -164,14 +166,14 @@ OWASP Juice Shop officially supports the following versions of
 official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
 images and packaged distributions are offered accordingly.
 
-| node.js  | Supported            | [Packaged Distributions](#packaged-distributions-github-releasehttpsimgshieldsiogithubdownloadsbkimminichjuice-shoptotalsvg-sourceforgehttpsimgshieldsiosourceforgedtjuice-shopsvg) | [Docker image](#docker-container-docker-automated-buildhttpsimgshieldsiodockerautomatedbkimminichjuice-shopsvg-docker-pullshttpsimgshieldsiodockerpullsbkimminichjuice-shopsvg-docker-stars-httpsimagesmicrobadgercombadgesimagebkimminichjuice-shopsvg-httpsimagesmicrobadgercombadgesversionbkimminichjuice-shopsvg) tags |
-|:---------|:---------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ≥12.x    | :x:                  |                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                             |
-| 11.x     | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png)                                                                                                       |                                                                                                                                                                                                                                                                                                                             |
-| __10.x__ | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png)                                                                                                       | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch)                                                                                                                                                                                                                                |
-| 9.x      | (:heavy_check_mark:) |                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                             |
-| 8.x      | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png)                                                                                                       |                                                                                                                                                                                                                                                                                                                             |
-| ≤7.x     | :x:                  |                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                             |
+| node.js  | Supported            | [Packaged Distributions](#packaged-distributions)                             | [Docker image](#docker-container) tags                                                       |
+|:---------|:---------------------|:------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| ≥12.x    | :x:                  |                                                                               |                                                                                              |
+| 11.x     | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png) |                                                                                              |
+| __10.x__ | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png) | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
+| 9.x      | (:heavy_check_mark:) |                                                                               |                                                                                              |
+| 8.x      | :heavy_check_mark:   | ![Windows](docs/win32.png) ![Linux](docs/linux.png) ![MacOS](docs/darwin.png) |                                                                                              |
+| ≤7.x     | :x:                  |                                                                               |                                                                                              |
 
 ## Demo
 
