@@ -7,3 +7,4 @@ dist/
 vagrant/
 docs/
 Dockerfile
+manifest.json
