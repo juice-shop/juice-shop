@@ -8,6 +8,17 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    replace_json: {
+      manifest:{
+        src: 'package.json',
+        changes: {
+          'engines.node': (node ? node : '<%= pkg.engines.node %>'),
+          'os': (os ? [ os ] : '<%= pkg.os %>'),
+          'cpu': (platform ? [ platform ] : '<%= pkg.cpu %>')
+        }
+      },
+    },
+
     compress: {
       pckg: {
         options: {
@@ -43,6 +54,7 @@ module.exports = function (grunt) {
     }
   })
 
+  grunt.loadNpmTasks('grunt-replace-json')
   grunt.loadNpmTasks('grunt-contrib-compress')
-  grunt.registerTask('package', [ 'compress:pckg' ])
+  grunt.registerTask('package', [ 'replace_json:manifest', 'compress:pckg' ])
 }
