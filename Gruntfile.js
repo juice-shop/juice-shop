@@ -22,7 +22,7 @@ module.exports = function (grunt) {
     compress: {
       pckg: {
         options: {
-          mode: os === 'win32' ? 'zip' : 'tgz',
+          mode: os === 'linux' ? 'tgz' : 'zip',
           archive: 'dist/<%= pkg.name %>-<%= pkg.version %>' + (node ? ('_node' + node) : '') + (os ? ('_' + os) : '') + (platform ? ('_' + platform) : '') + (os === 'linux' ? '.tgz' : '.zip')
         },
         files: [
