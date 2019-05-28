@@ -59,7 +59,7 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
   return (req, res, next) => {
     models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
-      if (req.body.quantity !== null) {
+      if (req.body.quantity) {
         quantityCheck(req, res, next, item.dataValues.ProductId, req.body.quantity)
       } else {
         next()
@@ -71,11 +71,24 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
 }
 
 function quantityCheck (req, res, next, id, quantity) {
+  let previousPurchase = 0
+  models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } }).then((record) => {
+    if (record) {
+      previousPurchase = record.dataValues.quantity
+    }
+  }).catch((error) => {
+    next(error)
+  })
+
   models.Quantity.findOne({ where: { ProductId: id } }).then((product) => {
-    if (product.dataValues.quantity < quantity) {
-      res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
+    if (!product.dataValues.limitPerUser || (product.dataValues.limitPerUser && (product.dataValues.limitPerUser - previousPurchase) >= quantity)) {
+      if (product.dataValues.quantity >= quantity) {
+        next()
+      } else {
+        res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
+      }
     } else {
-      next()
+      res.status(400).json({ error: 'The quantity of this item is limited to ' + product.dataValues.limitPerUser + ' per user.' })
     }
   }).catch(error => {
     next(error)
