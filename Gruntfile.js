@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
   var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
   var platform = grunt.option('platform') || process.env.TRAVIS ? 'x64' : ''
-  var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME || '')
+  var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME === 'osx' ? 'darwin' : (process.env.TRAVIS_OS_NAME || ''))
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
