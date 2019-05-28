@@ -12,11 +12,11 @@ module.exports = function (grunt) {
       manifest: {
         src: 'package.json',
         changes: {
-          'engines.node': (node ? node : '<%= pkg.engines.node %>'),
+          'engines.node': (node || '<%= pkg.engines.node %>'),
           'os': (os ? [ os ] : '<%= pkg.os %>'),
           'cpu': (platform ? [ platform ] : '<%= pkg.cpu %>')
         }
-      },
+      }
     },
 
     compress: {
