@@ -1,4 +1,10 @@
 language: node_js
+os:
+  - linux
+  - osx
+matrix:
+  allow_failures:
+    - os: osx
 node_js:
   - 10
   - 8
@@ -46,6 +52,7 @@ jobs:
       script: npm run lint
     - stage: integration
       if: tag IS blank
+      os: linux
       script:
         - export NODE_ENV=test
         - npm test
@@ -55,12 +62,14 @@ jobs:
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
       if: tag IS blank
+      os: linux
       script:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
       if: (branch = master OR branch = develop OR branch = facelift OR branch = gsoc2019) AND NOT type = pull_request
       node_js: 11
+      os: linux
       install: skip
       script: skip
       deploy:

@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     replace_json: {
-      manifest:{
+      manifest: {
         src: 'package.json',
         changes: {
           'engines.node': (node ? node : '<%= pkg.engines.node %>'),
