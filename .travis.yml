@@ -3,6 +3,9 @@ os:
   - linux
   - osx
   - windows
+matrix:
+  allow_failures:
+    - os: osx
 node_js:
   - 10
   - 8
