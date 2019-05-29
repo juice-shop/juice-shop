@@ -1,6 +1,10 @@
 ---
-name: "\U00002753Support request"
+name: "❓Support request"
 about: Questions and requests for support
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 :stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign:
