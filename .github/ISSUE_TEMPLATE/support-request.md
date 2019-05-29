@@ -1,13 +1,13 @@
 ---
 name: "❓Support request"
 about: Questions and requests for support
-title: ''
-labels: ''
+title: '[❓] '
+labels: 'support'
 assignees: ''
 
 ---
 
-:stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign:
+:stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign:
 
 Please **do not** file questions or support requests on the GitHub issues tracker.
 
@@ -18,4 +18,4 @@ You can get your questions answered using other communication channels.
 
 Thank you!
 
-:stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign:
+:stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign::stop_sign:
