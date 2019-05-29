@@ -1,7 +1,7 @@
 ---
 name: "\U0001F41BBug report"
 about: Report a bug in OWASP Juice Shop
-title: ''
+title: ' [\U0001F41B]'
 labels: bug
 assignees: ''
 
