@@ -26,7 +26,10 @@ where this project was mentioned or used!
 ### Pod- & Webcasts
 
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
-  * 5 minute AppSec: [Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
+  * Episode 5.9:
+    [The new JuiceShop, GSOC, and OWASP Summit](https://www.securityjourney.com/blog/bjorn-kimminich-the-new-juiceshop-gsoc-and-owasp-summit/)
+  * 5 minute AppSec:
+    [Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
   * Episode 4.27:
     [Season 4 Finale (S04E27)](https://www.securityjourney.com/blog/season-4-finale-s04e27/)
     (snippet from
@@ -191,7 +194,7 @@ where this project was mentioned or used!
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
   03.-07.06.2019
 * Student projects from
-  [Google Suummer of Code 2018](https://summerofcode.withgoogle.com/archive/2018/projects)
+  [Google Summer of Code 2018](https://summerofcode.withgoogle.com/archive/2018/projects)
   * [OWASP Juice Shop : Challenge Pack 2018](https://summerofcode.withgoogle.com/archive/2018/projects/6267528737193984)
     by Shoeb Patel (mentored by Jannik Hollenbach and Timo Pagel)
   * [OWASP Juice Shop : Frontend Technology Update](https://summerofcode.withgoogle.com/archive/2018/projects/6636660909408256)
