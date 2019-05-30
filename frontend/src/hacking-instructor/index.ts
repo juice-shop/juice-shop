@@ -33,7 +33,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'navbarLoginButton'
           },
           position: 'right',
-          async resolved () {
+          async resolved() {
             while (true) {
               console.log(window.location.hash)
               if (window.location.hash === '#/login') {
@@ -51,7 +51,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'email'
           },
           position: 'right',
-          async resolved () {
+          async resolved() {
             const email = document.getElementById(
               'email'
             ) as HTMLInputElement
@@ -72,7 +72,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'password'
           },
           position: 'right',
-          async resolved () {
+          async resolved() {
             const password = document.getElementById(
               'password'
             ) as HTMLInputElement
@@ -93,7 +93,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'loginButton'
           },
           position: 'right',
-          resolved () {
+          resolved() {
             const loginButton = document.getElementById(
               'loginButton'
             ) as HTMLButtonElement
@@ -111,8 +111,8 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'loginButton'
           },
           position: 'right',
-          async resolved () {
-            sleep(5000)
+          async resolved() {
+            await sleep(5000)
           }
         },
         {
@@ -123,8 +123,135 @@ const challengeInstructions: HackingInstructorFileFormat = {
             value: 'loginButton'
           },
           position: 'right',
-          async resolved () {
-            sleep(5000)
+          async resolved() {
+            await sleep(5000)
+          }
+        },
+        {
+          text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'email'
+          },
+          position: 'right',
+          async resolved() {
+            const email = document.getElementById(
+              'email'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (email.value === "' OR true") {
+                break
+              }
+              await sleep(100)
+            }
+          }
+        },
+        {
+          text: 'Press the log in button',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          resolved() {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
+        },
+        {
+          text: 'Mhh the query is still failing? Do you see why?',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          async resolved() {
+            await sleep(5000)
+          }
+        },
+        {
+          text: 'We need to make sure that the rest of the query after our injection doesnt get executed. Any Ideas?',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          async resolved() {
+            await sleep(5000)
+          }
+        },
+        {
+          text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          async resolved() {
+            await sleep(5000)
+          }
+        },
+        {
+          text: 'So type in "\' OR true --" in the email field.',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'email'
+          },
+          position: 'right',
+          async resolved() {
+            const email = document.getElementById(
+              'email'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (email.value === "' OR true --") {
+                break
+              }
+              await sleep(100)
+            }
+          }
+        },
+        {
+          text: 'Press the log in button',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          resolved() {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
+        },
+        {
+          text:
+            'That worked right?! Concratulation on being the new administartor in the shop!.',
+          page: 'score-board',
+          fixture: {
+            type: 'id',
+            value: 'searchQuery'
+          },
+          position: 'right',
+          async resolved() {
+            await sleep(5000)
           }
         }
       ]
@@ -132,7 +259,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
   ]
 }
 
-function loadHint (hint: ChallengeHint): HTMLElement {
+function loadHint(hint: ChallengeHint): HTMLElement {
   const elem = document.createElement('div')
   elem.id = 'hacking-instructor'
   elem.style.position = 'absolute'
@@ -170,10 +297,12 @@ const sleep = ms =>
     setTimeout(() => resolve(), ms)
   })
 
-export async function init () {
+export async function init() {
   console.log('Hacking Instructor Init')
 
   for (const hint of challengeInstructions.challenges[0].hints) {
+    console.log('hint=')
+    console.log(hint)
     const element = loadHint(hint)
     element.scrollIntoView()
 
