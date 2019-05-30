@@ -11,7 +11,7 @@ interface ChallengeHint {
   text: string
   page: string
   /**
-   * Query String Selector of the Element the Hint should be displayed next to.
+   * Query Selector String of the Element the Hint should be displayed next to.
    */
   fixture: string
   position: string
@@ -55,7 +55,43 @@ const challengeInstructions: HackingInstructorFileFormat = {
           position: 'right'
         },
         {
-          text: 'Did you spot the SQL query in the error message? If not, take a look again.',
+          text: 'Did you spot the SQL query in the error message? If not, take another look again.',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: 'Mhh the query is still failing? Do you see why?',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: 'We need to make sure that the rest of the query after our injection doesnt get executed. Any Ideas?',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that.',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: 'So type in "\' OR true --" in the email field.',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right'
+        },
+        {
+          text: 'That worked right?! Concratulation on being the new administartor in the shop!',
           page: 'login',
           fixture: '#loginButton',
           position: 'right'
@@ -79,6 +115,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.lineHeight = '1.3'
   elem.style.overflow = ''
   elem.style.top = `8px`
+  elem.style.cursor = 'pointer'
   elem.innerText = hint.text
 
   const target = document.querySelector(hint.fixture)
