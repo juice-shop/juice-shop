@@ -63,7 +63,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
         {
           text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
           page: 'login',
-          fixture: '#loginButton',
+          fixture: '#email',
           position: 'right'
         },
         {
@@ -81,19 +81,19 @@ const challengeInstructions: HackingInstructorFileFormat = {
         {
           text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that.',
           page: 'login',
-          fixture: '#loginButton',
+          fixture: '#email',
           position: 'right'
         },
         {
           text: 'So type in "\' OR true --" in the email field.',
           page: 'login',
-          fixture: '#loginButton',
+          fixture: '#email',
           position: 'right'
         },
         {
           text: 'That worked right?! Concratulation on being the new administartor in the shop!',
           page: 'login',
-          fixture: '#loginButton',
+          fixture: '#searchQuery',
           position: 'right'
         }
       ]
@@ -101,7 +101,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
   ]
 }
 
-function loadHint (hint: ChallengeHint): HTMLElement {
+function loadHint(hint: ChallengeHint): HTMLElement {
   const elem = document.createElement('div')
   elem.id = 'hacking-instructor'
   elem.style.position = 'absolute'
@@ -135,13 +135,13 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   return relAnchor
 }
 
-function waitForClick (element: HTMLElement) {
+function waitForClick(element: HTMLElement) {
   return new Promise((resolve) => {
     element.addEventListener('click', () => resolve())
   })
 }
 
-export async function init () {
+export async function init() {
   console.log('Hacking Instructor Init')
 
   for (const hint of challengeInstructions.challenges[0].hints) {
