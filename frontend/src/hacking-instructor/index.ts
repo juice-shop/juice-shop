@@ -10,10 +10,10 @@ interface ChallengeInstruction {
 interface ChallengeHint {
   text: string
   page: string
-  fixture: {
-    type: string;
-    value: string;
-  }
+  /**
+   * Query String Selector of the Element the Hint should be displayed next to.
+   */
+  fixture: string
   position: string
   hideAfterHint?: boolean
 }
@@ -27,55 +27,37 @@ const challengeInstructions: HackingInstructorFileFormat = {
           text:
             "Log in with the administrator's user account go to the login page.",
           page: 'score-board',
-          fixture: {
-            type: 'id',
-            value: 'navbarLoginButton'
-          },
+          fixture: '#navbarLoginButton',
           position: 'right'
         },
         {
           text: "Try to log in with ' as email and anything in the password field.",
           page: 'login',
-          fixture: {
-            type: 'id',
-            value: 'email'
-          },
+          fixture: '#email',
           position: 'right'
         },
         {
           text: 'Now put anything in the password field.',
           page: 'login',
-          fixture: {
-            type: 'id',
-            value: 'password'
-          },
+          fixture: '#password',
           position: 'right'
         },
         {
           text: 'Press the log in button',
           page: 'login',
-          fixture: {
-            type: 'id',
-            value: 'loginButton'
-          },
+          fixture: '#loginButton',
           position: 'right'
         },
         {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
           page: 'login',
-          fixture: {
-            type: 'id',
-            value: 'loginButton'
-          },
+          fixture: '#loginButton',
           position: 'right'
         },
         {
           text: 'Did you spot the SQL query in the error message? If not, take a look again.',
           page: 'login',
-          fixture: {
-            type: 'id',
-            value: 'loginButton'
-          },
+          fixture: '#loginButton',
           position: 'right'
         }
       ]
@@ -99,7 +81,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.top = `8px`
   elem.innerText = hint.text
 
-  const target = document.getElementById(hint.fixture.value)
+  const target = document.querySelector(hint.fixture)
 
   const relAnchor = document.createElement('div')
   relAnchor.style.position = 'relative'
