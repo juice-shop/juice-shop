@@ -52,7 +52,7 @@
     "@types/jasmine": "^2.8.16",
     "@types/jasminewd2": "~2.0.6",
     "@types/jwt-decode": "^2.2.1",
-    "@types/node": "~8.9.4",
+    "@types/node": "~12.0.4",
     "codelyzer": "^4.5.0",
     "jasmine": "~2.99",
     "jasmine-core": "~2.99",
