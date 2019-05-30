@@ -53,14 +53,7 @@
       </button>
     </mat-menu>
 
-    <button
-      mat-button
-      *ngIf="!isLoggedIn()"
-      routerLink="/login"
-      fxShow
-      fxHide.lt-md
-      id="loginButton"
-    >
+    <button mat-button *ngIf="!isLoggedIn()" routerLink="/login" fxShow fxHide.lt-md id="navbarLoginButton">
       <i class="fas fa-sign-in-alt fa-lg"></i>
       {{ 'TITLE_LOGIN' | translate }}
     </button>

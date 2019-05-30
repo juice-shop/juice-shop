@@ -30,14 +30,10 @@ const challengeInstructions: HackingInstructorFileFormat = {
           page: 'score-board',
           fixture: {
             type: 'id',
-            value: 'loginButton'
+            value: 'navbarLoginButton'
           },
           position: 'right',
           async resolved () {
-            const searchbar = document.getElementById(
-              'loginButton'
-            ) as HTMLInputElement
-
             while (true) {
               console.log(window.location.hash)
               if (window.location.hash === '#/login') {
@@ -48,7 +44,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
           }
         },
         {
-          text: "Try to log in with ' as email and without a password",
+          text: "Try to log in with ' as email and anything in the password field.",
           page: 'login',
           fixture: {
             type: 'id',
@@ -56,12 +52,12 @@ const challengeInstructions: HackingInstructorFileFormat = {
           },
           position: 'right',
           async resolved () {
-            const searchbar = document.getElementById(
+            const email = document.getElementById(
               'email'
             ) as HTMLInputElement
 
             while (true) {
-              if (searchbar.value === "'") {
+              if (email.value === "'") {
                 break
               }
               await sleep(100)
@@ -69,24 +65,66 @@ const challengeInstructions: HackingInstructorFileFormat = {
           }
         },
         {
-          text: 'Now do whatever the fuck you want!',
-          page: 'score-board',
+          text: 'Now put anything in the password field.',
+          page: 'login',
           fixture: {
             type: 'id',
-            value: 'searchQuery'
+            value: 'password'
           },
           position: 'right',
           async resolved () {
-            const searchbar = document.getElementById(
-              'searchQuery'
+            const password = document.getElementById(
+              'password'
             ) as HTMLInputElement
 
             while (true) {
-              if (searchbar.value === 'whatever') {
+              if (password.value !== '') {
                 break
               }
               await sleep(100)
             }
+          }
+        },
+        {
+          text: 'Press the log in button',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          resolved () {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
+        },
+        {
+          text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          async resolved () {
+            sleep(5000)
+          }
+        },
+        {
+          text: 'Did you spot the SQL query in the error message? If not, take a look again.',
+          page: 'login',
+          fixture: {
+            type: 'id',
+            value: 'loginButton'
+          },
+          position: 'right',
+          async resolved () {
+            sleep(5000)
           }
         }
       ]
