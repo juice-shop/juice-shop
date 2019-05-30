@@ -141,10 +141,14 @@ function waitForClick (element: HTMLElement) {
   })
 }
 
-export async function init () {
-  console.log('Hacking Instructor Init')
+export function hasInstructions (challengeName: String): boolean {
+  return challengeInstructions.challenges.find(({ name }) => name === challengeName) !== undefined
+}
 
-  for (const hint of challengeInstructions.challenges[0].hints) {
+export async function startHackingInstructorFor (challengeName: String): Promise<void> {
+  const challengeInstruction = challengeInstructions.challenges.find(({ name }) => name === challengeName)
+
+  for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)
     element.scrollIntoView()
 

@@ -8,11 +8,12 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faBook, faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
 import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor';
 
-library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy)
+library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy, faGraduationCap)
 dom.watch()
 
 @Component({
@@ -194,6 +195,15 @@ export class ScoreBoardComponent implements OnInit {
         this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
       }
     }
+  }
+
+  hasHackingInstructorInstructions (challengeName: String): boolean {
+    return hasInstructions(challengeName)
+  }
+
+  startHackingInstructor (challengeName: String) {
+    console.log(`Starting instructions for challenge "${challengeName}"`)
+    startHackingInstructorFor(challengeName)
   }
 
   // tslint:disable-next-line:no-empty
