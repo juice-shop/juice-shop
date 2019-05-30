@@ -16,7 +16,6 @@ interface ChallengeHint {
   }
   position: string
   hideAfterHint?: boolean
-  resolved: () => Promise<void>
 }
 
 const challengeInstructions: HackingInstructorFileFormat = {
@@ -32,16 +31,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'navbarLoginButton'
           },
-          position: 'right',
-          async resolved () {
-            while (true) {
-              console.log(window.location.hash)
-              if (window.location.hash === '#/login') {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          position: 'right'
         },
         {
           text: "Try to log in with ' as email and anything in the password field.",
@@ -50,19 +40,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'email'
           },
-          position: 'right',
-          async resolved () {
-            const email = document.getElementById(
-              'email'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (email.value === "'") {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          position: 'right'
         },
         {
           text: 'Now put anything in the password field.',
@@ -71,19 +49,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'password'
           },
-          position: 'right',
-          async resolved () {
-            const password = document.getElementById(
-              'password'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (password.value !== '') {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          position: 'right'
         },
         {
           text: 'Press the log in button',
@@ -92,16 +58,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'loginButton'
           },
-          position: 'right',
-          resolved () {
-            const loginButton = document.getElementById(
-              'loginButton'
-            ) as HTMLButtonElement
-
-            return new Promise((resolve) => {
-              loginButton.addEventListener('click', () => resolve())
-            })
-          }
+          position: 'right'
         },
         {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
@@ -110,10 +67,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'loginButton'
           },
-          position: 'right',
-          async resolved () {
-            sleep(5000)
-          }
+          position: 'right'
         },
         {
           text: 'Did you spot the SQL query in the error message? If not, take a look again.',
@@ -122,10 +76,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
             type: 'id',
             value: 'loginButton'
           },
-          position: 'right',
-          async resolved () {
-            sleep(5000)
-          }
+          position: 'right'
         }
       ]
     }
@@ -165,10 +116,11 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   return relAnchor
 }
 
-const sleep = ms =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => resolve(), ms)
+function waitForClick (element: HTMLElement) {
+  return new Promise((resolve) => {
+    element.addEventListener('click', () => resolve())
   })
+}
 
 export async function init () {
   console.log('Hacking Instructor Init')
@@ -177,7 +129,7 @@ export async function init () {
     const element = loadHint(hint)
     element.scrollIntoView()
 
-    await hint.resolved()
+    await waitForClick(element)
     element.remove()
   }
 }
