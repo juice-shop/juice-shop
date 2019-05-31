@@ -1,7 +1,7 @@
 ---
 name: "\U0001F680Feature request"
 about: Suggest a feature for OWASP Juice Shop
-title: ' [\U0001F680]'
+title: ' [🚀]'
 labels: feature
 assignees: ''
 
