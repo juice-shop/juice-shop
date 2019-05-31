@@ -32,7 +32,7 @@ module.exports = function fileUpload () {
       res.redirect('/profile')
     } else {
       res.status(415)
-      next(new Error('Profile image upload does not accept this file type.'))
+      next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
     }
   }
 }

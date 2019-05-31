@@ -34,7 +34,7 @@ describe('/profile/image/file', () => { // FIXME Socket hang-up and other server
   })
 
   it('POST profile image file invalid type', () => {
-    const file = path.resolve(__dirname, '../files/invalidProfileImageType.exe')
+    const file = path.resolve(__dirname, '../files/invalidProfileImageType.docx')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
