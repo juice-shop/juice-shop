@@ -39,7 +39,7 @@
     "ng-simple-slideshow": "^1.2.8",
     "ng2-bar-rating": "^1.1.50",
     "ng2-file-upload": "^1.3.0",
-    "ngx-clipboard": "^11.1.9",
+    "ngx-clipboard": "^12.1.0",
     "ngx-cookie": "^4.1.2",
     "ngx-spinner": "^7.0.0",
     "rxjs": "6.3.3",
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@angular/language-service": "^7.2.7",
-    "@types/jasmine": "^2.8.16",
+    "@types/jasmine": "^3.3.13",
     "@types/jasminewd2": "~2.0.6",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "~12.0.4",
