@@ -1,4 +1,4 @@
-# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
+# [![Backers on Open Collective](https://opencollective.com/juice-shop/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/juice-shop/sponsors/badge.svg)](#sponsors) ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/develop/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/bkimminich/juice-shop.svg)](https://cloud.docker.com/repository/docker/bkimminich/juice-shop/builds)
@@ -309,6 +309,34 @@ The OWASP Juice Shop core project team are:
 
 For a list of all contributors to the OWASP Juice Shop please visit our
 [HALL_OF_FAME.md](HALL_OF_FAME.md).
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/bkimminich/juice-shop/graphs/contributors"><img src="https://opencollective.com/juice-shop/contributors.svg?width=890&button=false" /></a>
+
+
+#### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/juice-shop#backer)]
+
+<a href="https://opencollective.com/juice-shop#backers" target="_blank"><img src="https://opencollective.com/juice-shop/backers.svg?width=890"></a>
+
+
+#### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/juice-shop#sponsor)]
+
+<a href="https://opencollective.com/juice-shop/sponsor/0/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/1/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/2/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/3/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/4/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/5/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/6/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/7/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/8/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/juice-shop/sponsor/9/website" target="_blank"><img src="https://opencollective.com/juice-shop/sponsor/9/avatar.svg"></a>
+
+
 
 ## Licensing [![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
 
