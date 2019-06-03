@@ -229,6 +229,8 @@ app.post('/api/Users', verify.passwordRepeatChallenge())
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
+/* Feedbacks: Do not allow changes of existing feedback */
+app.put('/api/Feedbacks/:id', insecurity.denyAll())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',

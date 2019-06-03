@@ -25,11 +25,11 @@ module.exports = function fileUpload () {
         }).catch(error => {
           next(error)
         })
+        res.location('/profile')
+        res.redirect('/profile')
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
-      res.location('/profile')
-      res.redirect('/profile')
     } else {
       res.status(415)
       next(new Error(`Profile image upload does not accept this file type${uploadedFileType ? (': ' + uploadedFileType.mime) : '.'}`))
