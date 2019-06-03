@@ -34,6 +34,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   private productSubscription: Subscription
   private routerSubscription: Subscription
   public breakpoint: number
+  public emptyState = false
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
@@ -44,6 +45,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.trustProductDescription(this.tableData)
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
+      this.gridDataSource = this.dataSource.connect()
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
@@ -59,7 +61,6 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       } else {
         this.breakpoint = 4
       }
-      this.gridDataSource = this.dataSource.connect()
     }, (err) => console.log(err))
   }
 
@@ -86,9 +87,17 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+      this.gridDataSource.subscribe(result => {
+        if (result < 1 ) {
+          this.emptyState = true
+        } else {
+          this.emptyState = false
+        }
+      });
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined
+      this.emptyState = false
     }
   }
 
