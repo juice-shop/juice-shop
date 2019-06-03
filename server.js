@@ -362,7 +362,7 @@ exports.close = function (exitCode) {
   if (server) {
     server.close()
   }
-  if(exitCode !== undefined){
+  if (exitCode !== undefined) {
     process.exit(exitCode)
   }
 }
