@@ -1,6 +1,6 @@
 mat-card {
   height: auto;
-  min-width: 300px;
+  min-width: 320px;
   width: 35%;
 }
 
@@ -11,9 +11,13 @@ mat-card {
 }
 
 #deleteUserButton {
+  width: 60%;
+  margin-left: 20%;
   margin-top: 1.2rem;
 }
 
 #dataExportButton {
+  width: 60%;
+  margin-left: 20%;
   margin-top: 1.2rem;
 }

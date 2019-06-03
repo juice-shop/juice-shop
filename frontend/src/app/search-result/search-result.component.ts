@@ -50,11 +50,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-      if (window.innerWidth <= 1740) {
+      if (window.innerWidth < 1740) {
         this.breakpoint = 3
-        if (window.innerWidth <= 1300) {
+        if (window.innerWidth < 1280) {
           this.breakpoint = 2
-          if (window.innerWidth <= 850) {
+          if (window.innerWidth < 850) {
             this.breakpoint = 1
           }
         }
@@ -158,11 +158,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   }
 
   onResize (event) {
-    if (event.target.innerWidth <= 1740) {
+    if (event.target.innerWidth < 1740) {
       this.breakpoint = 3
-      if (event.target.innerWidth <= 1300) {
+      if (event.target.innerWidth < 1280) {
         this.breakpoint = 2
-        if (event.target.innerWidth <= 850) {
+        if (event.target.innerWidth < 850) {
           this.breakpoint = 1
         }
       }
