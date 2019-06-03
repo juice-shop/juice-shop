@@ -53,7 +53,7 @@ ctf:
     forgedFeedbackChallenge:
       name: Korea (Democratic People's Republic of)
       code: KP
-    redirectGratipayChallenge:
+    redirectCryptoCurrencyChallenge:
       name: Korea
       code: KR
     redirectChallenge:
@@ -245,9 +245,6 @@ ctf:
     videoXssChallenge:
       name: Pakistan
       code: PK
-    recyclesMissingItemChallenge:
-      name: Uganda
-      code: UG
     twoFactorAuthUnsafeSecretStorageChallenge:
       name: Sweden
       code: SE
@@ -263,3 +260,9 @@ ctf:
     passwordRepeatChallenge:
       name: Guyana
       code: GY
+    dataExportChallenge:
+      name: Cambodia
+      code: CB
+    ghostLoginChallenge:
+      name: Taiwan
+      code: TW

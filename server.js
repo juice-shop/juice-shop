@@ -72,12 +72,11 @@ const languageList = require('./routes/languages')
 const config = require('config')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
+const dataSubject = require('./routes/dataSubject')
+const privacyRequests = require('./routes/privacyRequests')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
-if (fs.existsSync(path.resolve(__dirname, 'frontend/src'))) {
-  require('./lib/startup/validateDependencies')({ packageDir: './frontend' })
-}
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
@@ -214,6 +213,7 @@ app.get('/api/SecurityAnswers', insecurity.denyAll())
 app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
+app.use('/rest/user/privacy-requests', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before finale takes over */
@@ -311,6 +311,8 @@ app.get('/rest/saveLoginIp', saveLoginIp())
 app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
 app.post('/rest/data-export', dataExport())
 app.get('/rest/languages', languageList())
+app.get('/rest/data-subject', dataSubject())
+app.get('/rest/user/privacy-requests', privacyRequests())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())
