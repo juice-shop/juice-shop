@@ -45,6 +45,10 @@ describe('BasketComponent', () => {
     basketService.put.and.returnValue(of({}))
     basketService.checkout.and.returnValue(of({}))
     basketService.applyCoupon.and.returnValue(of({}))
+    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
 
     // Stub for WindowRefService
     windowRefService = {
@@ -59,12 +63,8 @@ describe('BasketComponent', () => {
       }
     }
 
-    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
-
     TestBed.configureTestingModule({
+      declarations: [ BasketComponent ],
       imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -79,14 +79,14 @@ describe('BasketComponent', () => {
         MatDialogModule,
         MatButtonToggleModule
       ],
-      declarations: [ BasketComponent ],
       providers: [
+        // { provide: TranslateService, useValue: translateService }, // FIXME 36+ rrrors with mocking and translate directive occur
+        TranslateService,
         { provide: MatDialog, useValue: dialog },
         { provide: BasketService, useValue: basketService },
         { provide: UserService , useValue: userService },
         { provide: WindowRefService, useValue: windowRefService },
-        { provide: ConfigurationService, useValue: configurationService },
-        TranslateService
+        { provide: ConfigurationService, useValue: configurationService }
       ]
     })
     .compileComponents()
