@@ -2,11 +2,22 @@
 
 module.exports = function (grunt) {
   var node = grunt.option('node') || process.env.nodejs_version || process.env.TRAVIS_NODE_VERSION || ''
-  var platform = grunt.option('platform') || process.env.PLATFORM || process.env.TRAVIS ? 'x64' : ''
-  var os = grunt.option('os') || process.env.APPVEYOR ? 'windows' : process.env.TRAVIS ? 'linux' : ''
+  var platform = grunt.option('platform') || process.env.TRAVIS ? 'x64' : ''
+  var os = grunt.option('os') || process.env.TRAVIS_OS_NAME === 'windows' ? 'win32' : (process.env.TRAVIS_OS_NAME === 'osx' ? 'darwin' : (process.env.TRAVIS_OS_NAME || ''))
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    replace_json: {
+      manifest: {
+        src: 'package.json',
+        changes: {
+          'engines.node': (node || '<%= pkg.engines.node %>'),
+          'os': (os ? [ os ] : '<%= pkg.os %>'),
+          'cpu': (platform ? [ platform ] : '<%= pkg.cpu %>')
+        }
+      }
+    },
 
     compress: {
       pckg: {
@@ -43,6 +54,7 @@ module.exports = function (grunt) {
     }
   })
 
+  grunt.loadNpmTasks('grunt-replace-json')
   grunt.loadNpmTasks('grunt-contrib-compress')
-  grunt.registerTask('package', [ 'compress:pckg' ])
+  grunt.registerTask('package', [ 'replace_json:manifest', 'compress:pckg' ])
 }

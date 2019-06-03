@@ -85,6 +85,9 @@ describe('/rest/user/login', () => {
       .expect('jsonTypes', 'authentication', {
         token: Joi.string()
       })
+      .then(res => {
+        console.log(res)
+      })
   })
 
   it('POST login with MC SafeSearch credentials', () => {
@@ -99,6 +102,9 @@ describe('/rest/user/login', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'authentication', {
         token: Joi.string()
+      })
+      .then(res => {
+        console.log(res)
       })
   })
 

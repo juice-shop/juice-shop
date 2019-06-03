@@ -183,5 +183,10 @@
   "2FA_SETUP_ERROR": "Fehler beim Ändern der 2FA-Konfiguration. Prüfe, ob du dein Passwort (und den Code) korrekt eingegeben hast.",
   "2FA_SUCCESSFUL_SETUP": "Du hast 2FA für dein Konto eingeschaltet. Danke, dass du dir die Zeit nimmst, deine Säfte abzusichern!",
   "REMOVE_TWO_FACTOR_AUTH": "Entferne 2FA von deinem Konto",
-  "BTN_REMOVE": "Entfernen"
+  "BTN_REMOVE": "Entfernen",
+  "DATA_SUBJECT_TITLE": "Datenlöschung beantragen",
+  "GDPR_HEADING": "Datenlöschungsanfrage (Art. 17 DSGVO)",
+  "ACCOUNT_DELETE_CONFIRMATION": "Dein Konto wurde erfolgreich gelöscht. Sofern nicht automatisch geschehen, melde dich bitte jetzt ab!",
+  "GDPR_MESSAGE": "Wir nehmen Datenschutz, die Privatsphäre unserer Kunden und die Einhaltung von Rechtsvorschriften sehr ernst. In Einklang mit der DSGVO erlauben wir dir, die vollständige Löschung deines Kontos und aller damit verbundenen Daten zu beantragen.",
+  "DELETE_DATA_LABEL": "Benutzerdaten löschen"
 }
