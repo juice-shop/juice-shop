@@ -93,7 +93,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
         } else {
           this.emptyState = false
         }
-      });
+      })
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined
