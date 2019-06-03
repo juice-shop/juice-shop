@@ -88,7 +88,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
       this.gridDataSource.subscribe(result => {
-        if (result < 1 ) {
+        if (result < 1) {
           this.emptyState = true
         } else {
           this.emptyState = false
