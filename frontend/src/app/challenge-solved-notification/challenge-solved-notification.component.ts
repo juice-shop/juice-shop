@@ -65,8 +65,12 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
     })
   }
 
-  closeNotification (index) {
-    this.notifications.splice(index, 1)
+  closeNotification (index: number, shiftKey: boolean = false) {
+    if (shiftKey) {
+      this.notifications = []
+    } else {
+      this.notifications.splice(index, 1)
+    }
     this.ref.detectChanges()
   }
 
