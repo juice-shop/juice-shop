@@ -34,6 +34,7 @@ export class ScoreBoardComponent implements OnInit {
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
   public showChallengeHints
+  public showHackingInstructor: boolean
   public challenges: any[]
   public percentChallengesSolved
   public solvedChallengesOfDifficulty = [[], [], [], [], [], []]
@@ -51,6 +52,7 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       this.showChallengeHints = data.application.showChallengeHints
+      this.showHackingInstructor = data.application.showHackingInstructor
       if (data.application.gitHubRibbon !== null && data.application.gitHubRibbon !== undefined) {
         this.gitHubRibbon = data.application.gitHubRibbon
       }
