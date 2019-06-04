@@ -37,6 +37,7 @@ export class BasketComponent implements OnInit {
   public userEmail: string
   public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
+  public bonus = 0
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
   public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
@@ -46,8 +47,10 @@ export class BasketComponent implements OnInit {
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   public redirectUrl = null
+  public clientDate: any
+  private campaignCoupon: string
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translateService: TranslateService) {}
 
   ngOnInit () {
     this.load()
@@ -77,6 +80,13 @@ export class BasketComponent implements OnInit {
   load () {
     this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
       this.dataSource = basket.Products
+      let bonusPoints = 0
+      basket.Products.map(product => {
+        if (product.BasketItem && product.BasketItem.quantity) {
+          bonusPoints += Math.round(product.price / 10) * product.BasketItem.quantity
+        }
+      })
+      this.bonus = bonusPoints
     },(err) => console.log(err))
   }
 
@@ -114,26 +124,43 @@ export class BasketComponent implements OnInit {
   }
 
   checkout () {
-    this.basketService.checkout(sessionStorage.getItem('bid')).subscribe((orderConfirmationPath) => {
+    this.basketService.checkout(sessionStorage.getItem('bid'), btoa(this.campaignCoupon + '-' + this.clientDate)).subscribe((orderConfirmationPath) => {
       this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
       this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
   }
 
   applyCoupon () {
-    this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((data: any) => {
-      this.resetForm()
-      this.error = undefined
-      this.translate.get('DISCOUNT_APPLIED', { discount: data }).subscribe((discountApplied) => {
-        this.confirmation = discountApplied
-      }, (translationId) => {
-        this.confirmation = translationId
+    this.campaignCoupon = this.couponControl.value
+    this.clientDate = new Date()
+    this.clientDate.setHours(0,0,0,0)
+    this.clientDate = this.clientDate.getTime()
+    if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
+      if (this.clientDate === 1551999600000) { // = Mar 08, 2019
+        this.showConfirmation(75)
+      } else {
+        this.confirmation = undefined
+        this.error = { error: 'Invalid Coupon.' } // FIXME i18n error message
+        this.resetForm()
+      }
+    } else {
+      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
+        this.showConfirmation(discount)
+      },(err) => {
+        this.confirmation = undefined
+        this.error = err
+        this.resetForm()
       })
-    },(err) => {
-      console.log(err)
-      this.confirmation = undefined
-      this.error = err
-      this.resetForm()
+    }
+  }
+
+  showConfirmation (discount) {
+    this.resetForm()
+    this.error = undefined
+    this.translateService.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
+      this.confirmation = discountApplied
+    }, (translationId) => {
+      this.confirmation = translationId
     })
   }
 
@@ -163,7 +190,7 @@ export class BasketComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
-        url: 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        url: '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
         address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
         title: 'TITLE_ETHER_ADDRESS'
       }

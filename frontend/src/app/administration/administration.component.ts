@@ -43,7 +43,7 @@ export class AdministrationComponent implements OnInit {
   }
 
   findAllRecycles () {
-    console.warn('TODO [2019/01/05] Move Recycles to their own page to decouple from admin-only data!')
+    // TODO [2019/01/05] Move Recycles to their own page to decouple from admin-only data!
   }
 
   findAllFeedbacks () {

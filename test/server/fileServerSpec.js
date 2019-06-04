@@ -99,17 +99,6 @@ describe('fileServer', () => {
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
   })
 
-  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .md', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: this.save }
-    this.req.params.file = 'coupons_2013.md.bak'
-    this.req.query.md_debug = '.md'
-
-    servePublicFiles()(this.req, this.res, this.next)
-
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
-    expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
-  })
-
   it('should solve "misplacedSignatureFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
     challenges.misplacedSignatureFileChallenge = { solved: false, save: this.save }
     this.req.params.file = 'suspicious_errors.yml%00.md'
@@ -118,28 +107,5 @@ describe('fileServer', () => {
 
     expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]suspicious_errors\.yml/))
     expect(challenges.misplacedSignatureFileChallenge.solved).to.equal(true)
-  })
-
-  it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak exploiting "md_debug" parameter bug with .pdf', () => {
-    challenges.forgottenBackupChallenge = { solved: false, save: this.save }
-    this.req.params.file = 'coupons_2013.md.bak'
-    this.req.query.md_debug = '.pdf'
-
-    servePublicFiles()(this.req, this.res, this.next)
-
-    expect(this.res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
-    expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
-  })
-
-  it('should fail to exploit "md_debug" parameter bug on non-Markdown file', () => {
-    challenges.forgottenDevBackupChallenge = { solved: false, save: this.save }
-    this.req.params.file = 'package.json.bak'
-    this.req.query.md_debug = '.md'
-
-    servePublicFiles()(this.req, this.res, this.next)
-
-    expect(this.res.sendFile).to.have.not.been.calledWith(sinon.match.any)
-    expect(this.next).to.have.been.calledWith(sinon.match.instanceOf(Error))
-    expect(challenges.forgottenDevBackupChallenge.solved).to.equal(false)
   })
 })

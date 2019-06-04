@@ -67,10 +67,12 @@ describe('/rest/user/security-question', () => {
       .expect('json', {})
   })
 
-  it('GET security question returns nothing for missing email address', () => {
+  it('GET security question throws error for missing email address', () => {
     return frisby.get(REST_URL + '/user/security-question')
-      .expect('status', 200)
-      .expect('json', {})
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
+      .expect('bodyContains', 'Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value')
   })
 
   it('GET security question is not susceptible to SQL Injection attacks', () => {

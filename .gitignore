@@ -7,11 +7,13 @@ app/
 uploads/complaints/*.*
 !uploads/complaints/.gitkeep
 ftp/legal.md
+package-lock.json
 
 # Build
 .nyc_output/
 .sass-cache/
 build/
+cache/
 dist/
 logs/
 vagrant/.vagrant/

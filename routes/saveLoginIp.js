@@ -9,11 +9,11 @@ module.exports = function saveLoginIp () {
     var loggedInUser = insecurity.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       var lastLoginIp = req.headers['true-client-ip']
-      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<iframe src="javascript:alert(`xss`)>') {
+      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<iframe src="javascript:alert(`xss`)">') {
         utils.solve(challenges.httpHeaderXssChallenge)
       }
       if (lastLoginIp === undefined) {
-        lastLoginIp = req.connection.remoteAddress
+        lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
       }
       models.User.findByPk(loggedInUser.data.id).then(user => {
         user.update({ lastLoginIp: lastLoginIp }).then(user => {
