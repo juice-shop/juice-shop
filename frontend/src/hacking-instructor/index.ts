@@ -31,7 +31,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
       hints: [
         {
           text:
-            "Log in with the administrator's user account go to the login page.",
+            "Let's try if we find a way to log in with the administrator's user account. For starters go to the login page.",
           fixture: '#navbarLoginButton',
           async resolved () {
             while (true) {
@@ -43,12 +43,26 @@ const challengeInstructions: HackingInstructorFileFormat = {
           }
         },
         {
-          text: "Try to log in with ' as email and anything in the password field.",
+          text: 'To find a way around the normal login protection we will try to use a SQL injection (SQLi).',
+          fixture: '#email',
+          async resolved () {
+            await sleep(8000)
+          }
+        },
+        {
+          text: "A good starting point for simple SQL injections is to insert quatation marks (like \" or '). These mess with the syntax of the query and might give you indications if a endpoint is vulnarable or not.",
+          fixture: '#email',
+          async resolved () {
+            await sleep(15000)
+          }
+        },
+        {
+          text: "Start with entering ' in the email field.",
           fixture: '#email',
           resolved: waitForInputToHaveValue('#email', "'")
         },
         {
-          text: 'Now put anything in the password field.',
+          text: "Now put anything in the password field. Doesn't matter what.",
           fixture: '#password',
           resolved: waitForInputToNotHaveValue('#password', '')
         },
@@ -61,14 +75,14 @@ const challengeInstructions: HackingInstructorFileFormat = {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
           fixture: '#loginButton',
           async resolved () {
-            await sleep(5000)
+            await sleep(10000)
           }
         },
         {
           text: 'Did you spot the SQL query in the error message? If not, take a look again.',
           fixture: '#loginButton',
           async resolved () {
-            await sleep(5000)
+            await sleep(10000)
           }
         },
         {
@@ -77,12 +91,12 @@ const challengeInstructions: HackingInstructorFileFormat = {
           resolved: waitForInputToHaveValue('#email', "' OR true")
         },
         {
-          text: 'Press the log in button',
+          text: 'Not click the log in button again',
           fixture: '#loginButton',
           resolved: waitForElementToGetClicked('#loginButton')
         },
         {
-          text: 'Mhh the query is still failing? Do you see why?',
+          text: 'Mhh... The query is still failing? Do you see why in the console?',
           fixture: '#loginButton',
           async resolved () {
             await sleep(5000)
