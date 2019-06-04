@@ -362,7 +362,9 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
-    server.close(exitCode)
+    server.close()
   }
-  process.exit(exitCode)
+  if (exitCode !== undefined) {
+    process.exit(exitCode)
+  }
 }
