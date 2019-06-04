@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
 const colors = require('colors/safe')
-const epilogue = require('epilogue-js')
+const finale = require('finale-rest')
 const express = require('express')
 const compression = require('compression')
 const helmet = require('helmet')
@@ -66,15 +66,21 @@ const basketItems = require('./routes/basketItems')
 const saveLoginIp = require('./routes/saveLoginIp')
 const userProfile = require('./routes/userProfile')
 const updateUserProfile = require('./routes/updateUserProfile')
+const videoHandler = require('./routes/videoHandler')
 const twoFactorAuth = require('./routes/2fa')
+const languageList = require('./routes/languages')
 const config = require('config')
+const imageCaptcha = require('./routes/imageCaptcha')
+const dataExport = require('./routes/dataExport')
+const dataSubject = require('./routes/dataSubject')
+const privacyRequests = require('./routes/privacyRequests')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/restoreOriginalLegalInformation')()
+require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 
 /* Locals */
 app.locals.captchaId = 0
@@ -195,7 +201,7 @@ app.use('/api/Complaints/:id', insecurity.denyAll())
 /* Recycles: POST and GET allowed when logged in only */
 app.get('/api/Recycles', recycles.blockRecycleItems())
 app.post('/api/Recycles', insecurity.isAuthorized())
-/* Challenge evaluation before epilogue takes over */
+/* Challenge evaluation before finale takes over */
 app.get('/api/Recycles/:id', recycles.sequelizeVulnerabilityChallenge())
 app.put('/api/Recycles/:id', insecurity.denyAll())
 app.delete('/api/Recycles/:id', insecurity.denyAll())
@@ -207,29 +213,50 @@ app.get('/api/SecurityAnswers', insecurity.denyAll())
 app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
+app.use('/rest/user/privacy-requests', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
-/* Challenge evaluation before epilogue takes over */
+/* Challenge evaluation before finale takes over */
 app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
-/* Captcha verification before epilogue takes over */
+/* Captcha verification before finale takes over */
 app.post('/api/Feedbacks', captcha.verifyCaptcha())
 /* Captcha Bypass challenge verification */
 app.post('/api/Feedbacks', verify.captchaBypassChallenge())
-/* Register admin challenge verification */
+/* User registration challenge verifications before finale takes over */
 app.post('/api/Users', verify.registerAdminChallenge())
+app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
-/* Verify the 2FA Token */
+/* Feedbacks: Do not allow changes of existing feedback */
+app.put('/api/Feedbacks/:id', insecurity.denyAll())
 
-app.post('/rest/2fa/verify', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }))
-app.post('/rest/2fa/verify', twoFactorAuth.verify())
-/* Verifying DB related challenges can be postponed until the next request for challenges is coming via epilogue */
+/* Verify the 2FA Token */
+app.post('/rest/2fa/verify',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  twoFactorAuth.verify()
+)
+/* Check 2FA Status for the current User */
+app.get('/rest/2fa/status', insecurity.isAuthorized(), twoFactorAuth.status())
+/* Enable 2FA for the current User */
+app.post('/rest/2fa/setup',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.setup()
+)
+/* Disable 2FA Status for the current User */
+app.post('/rest/2fa/disable',
+  new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
+  insecurity.isAuthorized(),
+  twoFactorAuth.disable()
+)
+
+/* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
 
 /* Generated API endpoints */
-epilogue.initialize({ app, sequelize: models.sequelize })
+finale.initialize({ app, sequelize: models.sequelize })
 
 const autoModels = [
   { name: 'User', exclude: ['password', 'totpSecret'] },
@@ -244,13 +271,13 @@ const autoModels = [
 ]
 
 for (const { name, exclude } of autoModels) {
-  const resource = epilogue.resource({
+  const resource = finale.resource({
     model: models[name],
     endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
     excludeAttributes: exclude
   })
 
-  // fix the api difference between epilogue and previously used sequlize-restful
+  // fix the api difference between finale (fka epilogue) and previously used sequlize-restful
   resource.all.send.before((req, res, context) => {
     context.instance = {
       status: 'success',
@@ -279,9 +306,15 @@ app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
 app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
+app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
 app.get('/rest/saveLoginIp', saveLoginIp())
+app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
+app.post('/rest/data-export', dataExport())
+app.get('/rest/languages', languageList())
+app.get('/rest/data-subject', dataSubject())
+app.get('/rest/user/privacy-requests', privacyRequests())
 
 /* NoSQL API endpoints */
 app.get('/rest/product/:id/reviews', showProductReviews())
@@ -296,6 +329,10 @@ app.post('/b2b/v2/orders', b2bOrder())
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
+
+/* Routes for promotion video page */
+app.get('/promotion', videoHandler.promotionVideo())
+app.get('/video', videoHandler.getVideo())
 
 /* Routes for profile page */
 app.get('/profile', userProfile())
@@ -325,7 +362,9 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
-    server.close(exitCode)
+    server.close()
   }
-  process.exit(exitCode)
+  if (exitCode !== undefined) {
+    process.exit(exitCode)
+  }
 }

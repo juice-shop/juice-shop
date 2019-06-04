@@ -106,11 +106,11 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should hold existing challenges', () => {
-    challengeService.find.and.returnValue(of([ { description: 'XSS' }, { description: 'CSRF' } ]))
+    challengeService.find.and.returnValue(of([ { description: 'XSS' }, { description: 'XXE' } ]))
     component.ngOnInit()
     expect(component.challenges.length).toBe(2)
     expect(component.challenges[0].description).toBe('XSS')
-    expect(component.challenges[1].description).toBe('CSRF')
+    expect(component.challenges[1].description).toBe('XXE')
   })
 
   it('should log the error on retrieving configuration', fakeAsync(() => {
@@ -307,4 +307,15 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].hint).toBe('Click to open hints.')
   })
 
+  it('should show GitHub button by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+    component.ngOnInit()
+    expect(component.gitHubRibbon).toBe(true)
+  })
+
+  it('should hide GitHub ribbon if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    component.ngOnInit()
+    expect(component.gitHubRibbon).toBe(false)
+  })
 })

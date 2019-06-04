@@ -25,6 +25,7 @@ import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { RegisterComponent } from './register/register.component'
 import { ContactComponent } from './contact/contact.component'
+import { DataSubjectComponent } from './data-subject/data-subject.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
@@ -58,6 +59,8 @@ import { TrackOrderService } from './Services/track-order.service'
 import { RecycleService } from './Services/recycle.service'
 import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
+import { DataSubjectService } from './Services/data-subject.service'
+import { ImageCaptchaService } from './Services/image-captcha.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -83,7 +86,9 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule } from '@angular/material'
+import { MatGridListModule, MatRadioModule } from '@angular/material'
+import { MatBadgeModule } from '@angular/material/badge'
+/* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -106,6 +111,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ForgotPasswordComponent,
     RegisterComponent,
     ContactComponent,
+    DataSubjectComponent,
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
@@ -173,7 +179,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatListModule,
     MatButtonToggleModule,
     LayoutModule,
-    MatGridListModule
+    MatGridListModule,
+    MatBadgeModule,
+    MatRadioModule
   ],
   providers: [
     {
@@ -185,6 +193,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     ConfigurationService,
     AdministrationService,
     SecurityQuestionService,
+    DataSubjectService,
     UserService,
     SecurityAnswerService,
     CaptchaService,
@@ -197,7 +206,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     BasketService,
     ChallengeService,
     CookieService,
-    AdminGuard
+    AdminGuard,
+    ImageCaptchaService
   ],
   bootstrap: [AppComponent]
 })

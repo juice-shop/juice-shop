@@ -7,7 +7,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'data/juiceshop.sqlite',
   logging: false
-  // operatorsAliases: true
 })
 sequelizeNoUpdateAttributes(sequelize)
 const db = {}

@@ -9,14 +9,14 @@
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_EMAIL</mat-label>
-        <input [formControl]="emailControl" (focus)="this.error=null" type="text" matInput>
+        <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_PASSWORD</mat-label>
-        <input [formControl]="passwordControl" (focus)="this.error=null" type="password" matInput>
+        <input id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD</mat-error>
         <mat-error
           *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)" translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH</mat-error>
@@ -24,8 +24,9 @@
 
       <mat-form-field appearance="outline">
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
-        <input [formControl]="repeatPasswordControl" (focus)="this.error=null" type="password" matInput>
+        <input id="repeatPasswordControl" [formControl]="repeatPasswordControl" (focus)="this.error=null" type="password" matInput>
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>PASSWORDS_NOT_MATCHING</mat-error>
       </mat-form-field>
 
       <div class="security-container">
@@ -45,7 +46,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <input [formControl]="securityAnswerControl" (focus)="this.error=null" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
+          <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
           <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
         </mat-form-field>
       </div>

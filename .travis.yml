@@ -1,8 +1,13 @@
+dist: xenial
 language: node_js
+os:
+  - linux
+  - osx
+  - windows
 node_js:
   - 10
   - 8
-  - 11
+  - 12
 stages:
   - lint
   - test
@@ -18,8 +23,8 @@ addons:
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
-install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
-script: if [ -z "$TRAVIS_TAG" ]; then NODE_ENV=test npm test; fi
+install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
+script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" = "linux" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
   - rm -rf node_modules
   - rm -rf frontend/node_modules
@@ -46,6 +51,7 @@ jobs:
       script: npm run lint
     - stage: integration
       if: tag IS blank
+      os: linux
       script:
         - export NODE_ENV=test
         - npm test
@@ -55,12 +61,14 @@ jobs:
         - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
     - stage: e2e
       if: tag IS blank
+      os: linux
       script:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
-      if: (branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request
-      node_js: 11
+      if: (branch = master OR branch = develop OR branch = facelift OR branch = gsoc2019) AND NOT type = pull_request
+      node_js: 12
+      os: linux
       install: skip
       script: skip
       deploy:
@@ -71,6 +79,7 @@ jobs:
             master: juice-shop
             develop: juice-shop-staging
             facelift: juice-shop-experimental
+            gsoc2019: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
 notifications:

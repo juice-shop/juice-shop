@@ -111,7 +111,8 @@ describe('/api/BasketItems/:id', () => {
             BasketId: 42
           }
         })
-          .expect('status', 400)
+          .expect('status', 500)
+          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
       })
   })
 
@@ -132,7 +133,8 @@ describe('/api/BasketItems/:id', () => {
             ProductId: 42
           }
         })
-          .expect('status', 400)
+          .expect('status', 500)
+          .expect('json', { message: 'internal error', errors: ['sequelize.ValidationErrorItem is not a constructor'] })
       })
   })
 
