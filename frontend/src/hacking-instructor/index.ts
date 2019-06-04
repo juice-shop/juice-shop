@@ -91,7 +91,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
           position: 'right'
         },
         {
-          text: 'That worked right?! Concratulation on being the new administartor in the shop!',
+          text: 'That worked right?! Congratulation on being the new administartor in the shop!',
           page: 'login',
           fixture: '#searchQuery',
           position: 'right'
