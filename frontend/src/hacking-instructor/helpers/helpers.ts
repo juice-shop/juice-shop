@@ -1,4 +1,4 @@
-function sleep (timeInMs: number): Promise<void> {
+export function sleep (timeInMs: number): Promise<void> {
   return new Promise((resolved) => {
     setTimeout(resolved, timeInMs)
   })
@@ -44,4 +44,11 @@ export function waitForElementToGetClicked (elementSelector: string) {
       element.addEventListener('click', () => resolve())
     })
   }
+}
+
+/**
+ * Returns a function that waits for the specified time in milli seconds
+ */
+export function waitInMs (timeInMs: number) {
+  return () => sleep(timeInMs)
 }
