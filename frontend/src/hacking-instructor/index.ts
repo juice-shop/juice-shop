@@ -1,6 +1,6 @@
 import { SqlOneInstructions } from './challenges/sqli-1'
 
-const challengeInstructions: [ChallengeInstruction] = [
+const challengeInstructions: ChallengeInstruction[] = [
   SqlOneInstructions
 ]
 
