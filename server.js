@@ -229,6 +229,8 @@ app.post('/api/Users', verify.passwordRepeatChallenge())
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Add item to basket */
 app.post('/api/BasketItems', basketItems())
+/* Feedbacks: Do not allow changes of existing feedback */
+app.put('/api/Feedbacks/:id', insecurity.denyAll())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
@@ -292,7 +294,7 @@ app.post('/rest/user/reset-password', resetPassword())
 app.get('/rest/user/security-question', securityQuestion())
 app.get('/rest/user/whoami', currentUser())
 app.get('/rest/user/authentication-details', authenticatedUsers())
-app.get('/rest/product/search', search())
+app.get('/rest/products/search', search())
 app.get('/rest/basket/:id', basket())
 app.post('/rest/basket/:id/checkout', order())
 app.put('/rest/basket/:id/coupon/:coupon', coupon())
@@ -315,10 +317,10 @@ app.get('/rest/data-subject', dataSubject())
 app.get('/rest/user/privacy-requests', privacyRequests())
 
 /* NoSQL API endpoints */
-app.get('/rest/product/:id/reviews', showProductReviews())
-app.put('/rest/product/:id/reviews', createProductReviews())
-app.patch('/rest/product/reviews', insecurity.isAuthorized(), updateProductReviews())
-app.post('/rest/product/reviews', insecurity.isAuthorized(), likeProductReviews())
+app.get('/rest/products/:id/reviews', showProductReviews())
+app.put('/rest/products/:id/reviews', createProductReviews())
+app.patch('/rest/products/reviews', insecurity.isAuthorized(), updateProductReviews())
+app.post('/rest/products/reviews', insecurity.isAuthorized(), likeProductReviews())
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
@@ -360,7 +362,9 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
-    server.close(exitCode)
+    server.close()
   }
-  process.exit(exitCode)
+  if (exitCode !== undefined) {
+    process.exit(exitCode)
+  }
 }

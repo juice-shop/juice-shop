@@ -61,4 +61,24 @@ describe('ChallengeSolvedNotificationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
+  it('should delete notifictions', () => {
+    component.notifications = [
+      'foo',
+      'bar'
+    ]
+    component.closeNotification(0)
+
+    expect(component.notifications).toEqual(['bar'])
+  })
+
+  it('should delte all notifications if the shiftKey was pressed', () => {
+    component.notifications = [
+      'foo',
+      'bar'
+    ]
+    component.closeNotification(0, true)
+
+    expect(component.notifications).toEqual([])
+  })
 })
