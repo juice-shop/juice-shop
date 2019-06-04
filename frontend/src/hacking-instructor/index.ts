@@ -207,7 +207,8 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     const element = loadHint(hint)
     element.scrollIntoView()
 
-    await hint.resolved()
+    await Promise.race([ hint.resolved(), waitForClick(element)])
+
     element.remove()
   }
 }
