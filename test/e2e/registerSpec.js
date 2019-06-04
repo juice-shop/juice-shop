@@ -23,24 +23,23 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'passwordRepeat': 'XSSed', 'isAdmin': true }))
       })
 
+      browser.waitForAngularEnabled(false)
       const EC = protractor.ExpectedConditions
       browser.get('/#/administration')
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
-      })
-
-      models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
-        user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).then(user => {
-          console.log(user)
+        // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
+        models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
+          user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
+            console.log(error)
+          })
         }).catch(error => {
           console.log(error)
         })
-      }).catch(error => {
-        console.log(error)
       })
-
+      browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
