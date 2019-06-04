@@ -102,7 +102,7 @@
             </span>
           </button>
           <button
-            *ngIf="hasHackingInstructorInstructions(challenge.name)"
+            *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
             mat-raised-button color="primary"
             (click)="startHackingInstructor(challenge.name)"
             matTooltip="Start a interactive tutorial for this challenge"
