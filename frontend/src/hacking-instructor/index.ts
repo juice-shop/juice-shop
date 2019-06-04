@@ -34,7 +34,6 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.borderRadius = '8px'
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
-  elem.style.overflow = ''
   elem.style.top = `8px`
   elem.style.cursor = 'pointer'
   elem.style.fontSize = '14px'
