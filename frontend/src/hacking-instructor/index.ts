@@ -1,4 +1,4 @@
-import { waitForInputToHaveValue, waitForInputToNotHaveValue, waitForElementToGetClicked } from "./helpers/helpers";
+import { waitForInputToHaveValue, waitForInputToNotHaveValue, waitForElementToGetClicked } from './helpers/helpers'
 
 interface HackingInstructorFileFormat {
   challenges: ChallengeInstruction[]
