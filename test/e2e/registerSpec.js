@@ -41,6 +41,7 @@ describe('/#/register', () => {
       })
       browser.waitForAngularEnabled(true)
     })
+
     protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 
@@ -59,6 +60,7 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'passwordRepeat': 'pwned', 'isAdmin': true }))
       })
     })
+
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
   })
 
@@ -77,6 +79,7 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': 'uncle@bob.com', 'password': 'ThereCanBeOnlyOne' }))
       })
     })
+
     protractor.expect.challengeSolved({ challenge: 'Repetitive Registration' })
   })
 })
