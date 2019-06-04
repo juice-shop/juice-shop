@@ -11,13 +11,10 @@ interface ChallengeInstruction {
 
 interface ChallengeHint {
   text: string
-  page: string
   /**
    * Query Selector String of the Element the Hint should be displayed next to.
    */
   fixture: string
-  position: string
-  hideAfterHint?: boolean
   resolved: () => Promise<void>
 }
 
@@ -35,9 +32,7 @@ const challengeInstructions: HackingInstructorFileFormat = {
         {
           text:
             "Log in with the administrator's user account go to the login page.",
-          page: 'score-board',
           fixture: '#navbarLoginButton',
-          position: 'right',
           async resolved () {
             while (true) {
               if (window.location.hash === '#/login') {
@@ -49,104 +44,78 @@ const challengeInstructions: HackingInstructorFileFormat = {
         },
         {
           text: "Try to log in with ' as email and anything in the password field.",
-          page: 'login',
           fixture: '#email',
-          position: 'right',
           resolved: waitForInputToHaveValue('#email', "'")
         },
         {
           text: 'Now put anything in the password field.',
-          page: 'login',
           fixture: '#password',
-          position: 'right',
           resolved: waitForInputToNotHaveValue('#password', '')
         },
         {
           text: 'Press the log in button',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           resolved: waitForElementToGetClicked('#loginButton')
         },
         {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
         },
         {
           text: 'Did you spot the SQL query in the error message? If not, take a look again.',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
         },
         {
           text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
-          page: 'login',
           fixture: '#email',
-          position: 'right',
           resolved: waitForInputToHaveValue('#email', "' OR true")
         },
         {
           text: 'Press the log in button',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           resolved: waitForElementToGetClicked('#loginButton')
         },
         {
           text: 'Mhh the query is still failing? Do you see why?',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
         },
         {
           text: 'We need to make sure that the rest of the query after our injection doesnt get executed. Any Ideas?',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
         },
         {
           text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
         },
         {
           text: 'So type in "\' OR true --" in the email field.',
-          page: 'login',
           fixture: '#email',
-          position: 'right',
           resolved: waitForInputToHaveValue('#email', "' OR true --")
         },
         {
           text: 'Press the log in button',
-          page: 'login',
           fixture: '#loginButton',
-          position: 'right',
           resolved: waitForElementToGetClicked('#login')
         },
         {
           text:
             'That worked right?! Concratulation on being the new administartor in the shop!.',
-          page: 'score-board',
           fixture: '#searchQuery',
-          position: 'right',
           async resolved () {
             await sleep(5000)
           }
