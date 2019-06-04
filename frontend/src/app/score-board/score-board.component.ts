@@ -37,6 +37,7 @@ export class ScoreBoardComponent implements OnInit {
   public percentChallengesSolved
   public solvedChallengesOfDifficulty = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty = [[], [], [], [], [], []]
+  public gitHubRibbon = true
 
   constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
@@ -49,6 +50,9 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       this.showChallengeHints = data.application.showChallengeHints
+      if (data.application.gitHubRibbon !== null && data.application.gitHubRibbon !== undefined) {
+        this.gitHubRibbon = data.application.gitHubRibbon
+      }
     },(err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
