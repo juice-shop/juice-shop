@@ -19,7 +19,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <button id="dataRequest" type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()" [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)" >
+        <button type="submit" id="submitButton" color="primary" mat-raised-button (click)="save()" [disabled]="formatControl.invalid || (captchaControl.invalid && presenceOfCaptcha)" >
             <i class="fas fa-paper-plane fa-lg"></i> {{'BTN_REQUEST' | translate}}
         </button>
     </mat-card>
