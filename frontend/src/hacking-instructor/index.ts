@@ -23,6 +23,12 @@ export interface ChallengeHint {
 }
 
 function loadHint (hint: ChallengeHint): HTMLElement {
+  const target = document.querySelector(hint.fixture)
+
+  if (!target) {
+    return null
+  }
+
   const elem = document.createElement('div')
   elem.id = 'hacking-instructor'
   elem.style.position = 'absolute'
@@ -30,28 +36,21 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.backgroundColor = '#4472C4'
   elem.style.maxWidth = '300px'
   elem.style.minWidth = '250px'
-  elem.style.padding = '8px'
+  elem.style.padding = '16px'
   elem.style.borderRadius = '8px'
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
-  elem.style.top = `8px`
+  elem.style.top = `24px`
   elem.style.cursor = 'pointer'
   elem.style.fontSize = '14px'
   elem.innerText = hint.text
 
-  const target = document.querySelector(hint.fixture)
-
   const relAnchor = document.createElement('div')
   relAnchor.style.position = 'relative'
+  relAnchor.style.display = 'inline'
   relAnchor.appendChild(elem)
 
-  if (target.parentElement && target.nextElementSibling) {
-    target.parentElement.insertBefore(relAnchor, target.nextElementSibling)
-  } else if (target.parentNode) {
-    target.parentElement.appendChild(relAnchor)
-  } else {
-    target.insertBefore(relAnchor, target)
-  }
+  target.parentElement.insertBefore(relAnchor, target)
 
   return relAnchor
 }
@@ -71,6 +70,9 @@ export async function startHackingInstructorFor (challengeName: String): Promise
 
   for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)
+    if (element === null) {
+      continue
+    }
     element.scrollIntoView()
 
     await Promise.race([ hint.resolved(), waitForClick(element)])
