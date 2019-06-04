@@ -16,6 +16,13 @@ interface ChallengeHint {
   fixture: string
   position: string
   hideAfterHint?: boolean
+  resolved: () => Promise<void>
+}
+
+function sleep (timeInMs: number): Promise<void> {
+  return new Promise((resolved) => {
+    setTimeout(resolved, timeInMs)
+  })
 }
 
 const challengeInstructions: HackingInstructorFileFormat = {
@@ -28,73 +35,188 @@ const challengeInstructions: HackingInstructorFileFormat = {
             "Log in with the administrator's user account go to the login page.",
           page: 'score-board',
           fixture: '#navbarLoginButton',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            while (true) {
+              console.log(window.location.hash)
+              if (window.location.hash === '#/login') {
+                break
+              }
+              await sleep(100)
+            }
+          }
         },
         {
           text: "Try to log in with ' as email and anything in the password field.",
           page: 'login',
           fixture: '#email',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            const email = document.getElementById(
+              'email'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (email.value === "'") {
+                break
+              }
+              await sleep(100)
+            }
+          }
         },
         {
           text: 'Now put anything in the password field.',
           page: 'login',
           fixture: '#password',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            const password = document.getElementById(
+              'password'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (password.value !== '') {
+                break
+              }
+              await sleep(100)
+            }
+          }
         },
         {
           text: 'Press the log in button',
           page: 'login',
           fixture: '#loginButton',
-          position: 'right'
+          position: 'right',
+          resolved () {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
         },
         {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
           page: 'login',
           fixture: '#loginButton',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         },
         {
-          text: 'Did you spot the SQL query in the error message? If not, take another look again.',
+          text: 'Did you spot the SQL query in the error message? If not, take a look again.',
           page: 'login',
           fixture: '#loginButton',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         },
         {
           text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
           page: 'login',
           fixture: '#email',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            const email = document.getElementById(
+              'email'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (email.value === "' OR true") {
+                break
+              }
+              await sleep(100)
+            }
+          }
+        },
+        {
+          text: 'Press the log in button',
+          page: 'login',
+          fixture: '#loginButton',
+          position: 'right',
+          resolved () {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
         },
         {
           text: 'Mhh the query is still failing? Do you see why?',
           page: 'login',
           fixture: '#loginButton',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         },
         {
           text: 'We need to make sure that the rest of the query after our injection doesnt get executed. Any Ideas?',
           page: 'login',
           fixture: '#loginButton',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         },
         {
-          text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that.',
+          text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that',
           page: 'login',
-          fixture: '#email',
-          position: 'right'
+          fixture: '#loginButton',
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         },
         {
           text: 'So type in "\' OR true --" in the email field.',
           page: 'login',
           fixture: '#email',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            const email = document.getElementById(
+              'email'
+            ) as HTMLInputElement
+
+            while (true) {
+              if (email.value === "' OR true --") {
+                break
+              }
+              await sleep(100)
+            }
+          }
         },
         {
-          text: 'That worked right?! Congratulation on being the new administartor in the shop!',
+          text: 'Press the log in button',
           page: 'login',
+          fixture: '#loginButton',
+          position: 'right',
+          resolved () {
+            const loginButton = document.getElementById(
+              'loginButton'
+            ) as HTMLButtonElement
+
+            return new Promise((resolve) => {
+              loginButton.addEventListener('click', () => resolve())
+            })
+          }
+        },
+        {
+          text:
+            'That worked right?! Concratulation on being the new administartor in the shop!.',
+          page: 'score-board',
           fixture: '#searchQuery',
-          position: 'right'
+          position: 'right',
+          async resolved () {
+            await sleep(5000)
+          }
         }
       ]
     }
@@ -152,7 +274,7 @@ export async function startHackingInstructorFor (challengeName: String): Promise
     const element = loadHint(hint)
     element.scrollIntoView()
 
-    await waitForClick(element)
+    await hint.resolved()
     element.remove()
   }
 }
