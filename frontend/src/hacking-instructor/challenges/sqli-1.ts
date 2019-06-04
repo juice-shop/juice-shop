@@ -62,7 +62,12 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
-      text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
+      text: 'Nice! Do you see the error in the top? Unfortunatly it isnt really telling us much of what went wrong...',
+      fixture: '#loginButton',
+      resolved: waitInMs(10000)
+    },
+    {
+      text: 'Maybe you will be able to find more information about the error in the JavaScript console or the network tab of your browser.',
       fixture: '#loginButton',
       resolved: waitInMs(10000)
     },
