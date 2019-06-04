@@ -171,6 +171,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.overflow = ''
   elem.style.top = `8px`
   elem.style.cursor = 'pointer'
+  elem.style.fontSize = '14px'
   elem.innerText = hint.text
 
   const target = document.querySelector(hint.fixture)
