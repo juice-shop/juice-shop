@@ -29,7 +29,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitInMs(8000)
     },
     {
-      text: "A good starting point for simple SQL injections is to insert quatation marks (like \" or '). These mess with the syntax of the query and might give you indications if a endpoint is vulnarable or not.",
+      text: "A good starting point for simple SQL injections is to insert quatation marks (like \" or '). These mess with the syntax of the query and might give you indications if an endpoint is vulnarable or not.",
       fixture: '#email',
       resolved: waitInMs(15000)
     },
@@ -64,7 +64,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitForInputToHaveValue('#email', "' OR true")
     },
     {
-      text: 'Not click the log in button again',
+      text: 'Now click the log in button again',
       fixture: '#loginButton',
       resolved: waitForElementToGetClicked('#loginButton')
     },
