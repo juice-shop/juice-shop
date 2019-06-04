@@ -12,6 +12,19 @@ export const SqlOneInstructions: ChallengeInstruction = {
   hints: [
     {
       text:
+        "To start this challenge you'll have to log out first.",
+      fixture: '#navbarLogoutButton',
+      async resolved () {
+        while (true) {
+          if (localStorage.getItem('token') === null) {
+            break
+          }
+          await sleep(100)
+        }
+      }
+    },
+    {
+      text:
         "Let's try if we find a way to log in with the administrator's user account. For starters go to the login page.",
       fixture: '#navbarLoginButton',
       async resolved () {
