@@ -1,3 +1,5 @@
+import { waitForInputToHaveValue, waitForInputToNotHaveValue, waitForElementToGetClicked } from "./helpers/helpers";
+
 interface HackingInstructorFileFormat {
   challenges: ChallengeInstruction[]
 }
@@ -38,7 +40,6 @@ const challengeInstructions: HackingInstructorFileFormat = {
           position: 'right',
           async resolved () {
             while (true) {
-              console.log(window.location.hash)
               if (window.location.hash === '#/login') {
                 break
               }
@@ -51,51 +52,21 @@ const challengeInstructions: HackingInstructorFileFormat = {
           page: 'login',
           fixture: '#email',
           position: 'right',
-          async resolved () {
-            const email = document.getElementById(
-              'email'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (email.value === "'") {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          resolved: waitForInputToHaveValue('#email', "'")
         },
         {
           text: 'Now put anything in the password field.',
           page: 'login',
           fixture: '#password',
           position: 'right',
-          async resolved () {
-            const password = document.getElementById(
-              'password'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (password.value !== '') {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          resolved: waitForInputToNotHaveValue('#password', '')
         },
         {
           text: 'Press the log in button',
           page: 'login',
           fixture: '#loginButton',
           position: 'right',
-          resolved () {
-            const loginButton = document.getElementById(
-              'loginButton'
-            ) as HTMLButtonElement
-
-            return new Promise((resolve) => {
-              loginButton.addEventListener('click', () => resolve())
-            })
-          }
+          resolved: waitForElementToGetClicked('#loginButton')
         },
         {
           text: 'Nice! Do you see the error? Maybe you could check the console output ;)',
@@ -120,33 +91,14 @@ const challengeInstructions: HackingInstructorFileFormat = {
           page: 'login',
           fixture: '#email',
           position: 'right',
-          async resolved () {
-            const email = document.getElementById(
-              'email'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (email.value === "' OR true") {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          resolved: waitForInputToHaveValue('#email', "' OR true")
         },
         {
           text: 'Press the log in button',
           page: 'login',
           fixture: '#loginButton',
           position: 'right',
-          resolved () {
-            const loginButton = document.getElementById(
-              'loginButton'
-            ) as HTMLButtonElement
-
-            return new Promise((resolve) => {
-              loginButton.addEventListener('click', () => resolve())
-            })
-          }
+          resolved: waitForElementToGetClicked('#loginButton')
         },
         {
           text: 'Mhh the query is still failing? Do you see why?',
@@ -180,33 +132,14 @@ const challengeInstructions: HackingInstructorFileFormat = {
           page: 'login',
           fixture: '#email',
           position: 'right',
-          async resolved () {
-            const email = document.getElementById(
-              'email'
-            ) as HTMLInputElement
-
-            while (true) {
-              if (email.value === "' OR true --") {
-                break
-              }
-              await sleep(100)
-            }
-          }
+          resolved: waitForInputToHaveValue('#email', "' OR true --")
         },
         {
           text: 'Press the log in button',
           page: 'login',
           fixture: '#loginButton',
           position: 'right',
-          resolved () {
-            const loginButton = document.getElementById(
-              'loginButton'
-            ) as HTMLButtonElement
-
-            return new Promise((resolve) => {
-              loginButton.addEventListener('click', () => resolve())
-            })
-          }
+          resolved: waitForElementToGetClicked('#login')
         },
         {
           text:
