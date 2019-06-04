@@ -172,7 +172,7 @@
   "MENU": "Menü",
   "BTN_SHOW_ALL": "Tümünü göster",
   "BTN_HIDE_ALL": "Tümünü gizle",
-  "TYPE_THESE_LETTERS": "Type these {{length}} letters",
+  "TYPE_THESE_LETTERS": "Harfleri giriniz {{length}}",
   "BTN_REQUEST": "İstek",
   "EXPORT_LABEL": "Dışa Aktarma Biçimi",
   "ACCOUNT": "Hesap",
