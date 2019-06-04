@@ -1,10 +1,15 @@
+const config = require('config')
+const models = require('../../models/index')
+
 describe('/#/register', () => {
   beforeEach(() => {
     browser.get('/#/register')
   })
 
   describe('challenge "xss2"', () => {
-    xit('should be possible to bypass validation by directly using Rest API', () => {
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+
+    it('should be possible to bypass validation by directly using Rest API', () => {
       browser.executeScript(() => {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
@@ -26,9 +31,18 @@ describe('/#/register', () => {
         alert.accept()
       })
 
-      // FIXME Update user email afterwards to prevent further unwanted popups to appear
+      models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
+        user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).then(user => {
+          console.log(user)
+        }).catch(error => {
+          console.log(error)
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+
     })
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 
   describe('challenge "registerAdmin"', () => {
