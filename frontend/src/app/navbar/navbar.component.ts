@@ -86,8 +86,8 @@ export class NavbarComponent implements OnInit {
       }
 
       this.snackBar.openFromComponent(WelcomeBannerComponent, {
-        verticalPosition:'top'
-      });
+        verticalPosition: 'top'
+      })
     }, (err) => console.log(err))
 
     if (localStorage.getItem('token')) {
