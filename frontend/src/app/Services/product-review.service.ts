@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators'
 export class ProductReviewService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/product'
+  private host = this.hostServer + '/rest/products'
 
   constructor (private http: HttpClient) { }
 

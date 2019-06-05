@@ -7,8 +7,8 @@ const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 const URL = 'http://localhost:3000'
 
-describe('/profile/image/file', () => { // FIXME Socket hang-up and other server problems
-  xit('POST profile image file valid for JPG format', () => {
+describe('/profile/image/file', () => {
+  it('POST profile image file valid for JPG format', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -24,17 +24,18 @@ describe('/profile/image/file', () => { // FIXME Socket hang-up and other server
       .then(({ json: jsonLogin }) => {
         return frisby.post(URL + '/profile/image/file', {
           headers: {
-            'Authorization': 'Bearer ' + jsonLogin.authentication.token,
+            'Cookie': 'token=' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
           },
-          body: form
+          body: form,
+          redirect: 'manual'
         })
-          .expect('status', 204)
+          .expect('status', 302)
       })
   })
 
   it('POST profile image file invalid type', () => {
-    const file = path.resolve(__dirname, '../files/invalidProfileImageType.exe')
+    const file = path.resolve(__dirname, '../files/invalidProfileImageType.docx')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
 
@@ -49,7 +50,7 @@ describe('/profile/image/file', () => { // FIXME Socket hang-up and other server
       .then(({ json: jsonLogin }) => {
         return frisby.post(URL + '/profile/image/file', {
           headers: {
-            'Authorization': 'Bearer ' + jsonLogin.authentication.token,
+            'Cookie': 'token=' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
@@ -61,7 +62,7 @@ describe('/profile/image/file', () => { // FIXME Socket hang-up and other server
       })
   })
 
-  xit('POST profile image file forbidden for anonymous user', () => {
+  it('POST profile image file forbidden for anonymous user', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -72,7 +73,6 @@ describe('/profile/image/file', () => { // FIXME Socket hang-up and other server
     })
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })

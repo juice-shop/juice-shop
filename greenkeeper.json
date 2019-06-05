@@ -3,6 +3,9 @@
     "frontend": {
       "packages": [
         "frontend/package.json"
+      ],
+      "ignore": [
+        "@angular/cli"
       ]
     },
     "server": {
@@ -12,6 +15,7 @@
       "ignore": [
         "sanitize-html",
         "express-jwt",
+        "unzipper",
         "config"
       ]
     }

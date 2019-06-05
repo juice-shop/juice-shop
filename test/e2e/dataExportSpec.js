@@ -2,7 +2,7 @@ const config = require('config')
 
 describe('/#/privacy-security/data-export', () => {
   describe('challenge "dataExportChallenge"', () => {
-    it('should be possible to register a user', () => {
+    beforeEach(() => {
       browser.get('/#/register')
       element(by.id('emailControl')).sendKeys('admun@' + config.get('application.domain'))
       element(by.id('passwordControl')).sendKeys('admun123')
@@ -13,19 +13,14 @@ describe('/#/privacy-security/data-export', () => {
       element(by.id('registerButton')).click()
     })
 
-    it('should be possible to login with the registered user', () => {
-      browser.get('/#/login')
-      element(by.id('email')).sendKeys('admun@' + config.get('application.domain'))
-      element(by.id('password')).sendKeys('admun123')
-      element(by.id('loginButton')).click()
-      browser.driver.sleep(1000)
-    })
+    protractor.beforeEach.login({ email: 'admun@' + config.get('application.domain'), password: 'admun123' })
 
-    it('should be possible to request data export', () => {
+    it('should be possible to steal admin user data by causing email clash during export', () => {
       browser.get('/#/privacy-security/data-export')
       element(by.id('formatControl')).all(by.tagName('mat-radio-button')).get(0).click()
       element(by.id('submitButton')).click()
     })
+
     protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 2' })
   })
 })
