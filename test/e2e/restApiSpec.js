@@ -2,7 +2,7 @@ const config = require('config')
 const models = require('../../models/index')
 
 describe('/api', () => {
-  describe('challenge "xss3"', () => {
+  xdescribe('challenge "xss3"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to create a new product when logged in', () => {
