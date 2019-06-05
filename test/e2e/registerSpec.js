@@ -34,9 +34,11 @@ describe('/#/register', () => {
         models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
           user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
             console.log(error)
+            fail()
           })
         }).catch(error => {
           console.log(error)
+          fail()
         })
       })
       browser.waitForAngularEnabled(true)

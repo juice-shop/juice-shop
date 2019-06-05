@@ -9,6 +9,7 @@ protractor.expect = {
           expect(challenge.solved).toBeTruthy()
         }).catch(error => {
           console.log(error)
+          fail()
         })
       })
     })
