@@ -16,14 +16,15 @@ describe('DataSubjectService', () => {
     expect(service).toBeTruthy()
   }))
 
-  it('should delete the user profile of a logged in user', inject([DataSubjectService, HttpTestingController],
+  it('should pass the erasure request directly to the rest API', inject([DataSubjectService, HttpTestingController],
     fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
       let res
       service.deactivate().subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/rest/data-subject')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/erasure-request')
       req.flush('apiResponse')
 
       tick()
+
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
       httpMock.verify()

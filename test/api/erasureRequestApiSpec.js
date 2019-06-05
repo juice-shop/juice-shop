@@ -3,8 +3,8 @@ const frisby = require('frisby')
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 
-xdescribe('/rest/data-subject', () => { // FIXME or delete as test expectation is entirely unclear
-  it('Delete user profile of a logged in user', () => {
+describe('/rest/user/erasure-request', () => {
+  it('Erasure request does not actually delete the user', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -14,10 +14,10 @@ xdescribe('/rest/data-subject', () => { // FIXME or delete as test expectation i
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/data-subject', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json', 'Cookie': jsonLogin.cookies.token }
+        return frisby.get(REST_URL + '/user/erasure-request', {
+          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token }
         })
-          .expect('status', 200)
+          .expect('status', 202)
           .then(() => {
             return frisby.post(REST_URL + '/user/login', {
               headers: jsonHeader,

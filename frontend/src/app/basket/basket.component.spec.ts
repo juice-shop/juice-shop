@@ -21,6 +21,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { By } from '@angular/platform-browser'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { EventEmitter } from "@angular/core";
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -49,7 +50,10 @@ describe('BasketComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
-
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    
     // Stub for WindowRefService
     windowRefService = {
       get nativeWindow () {
@@ -80,8 +84,7 @@ describe('BasketComponent', () => {
         MatButtonToggleModule
       ],
       providers: [
-        // { provide: TranslateService, useValue: translateService }, // FIXME 36+ rrrors with mocking and translate directive occur
-        TranslateService,
+        { provide: TranslateService, useValue: translateService },
         { provide: MatDialog, useValue: dialog },
         { provide: BasketService, useValue: basketService },
         { provide: UserService , useValue: userService },
@@ -336,7 +339,7 @@ describe('BasketComponent', () => {
     expect(component.error).toBe('Error')
   }))
 
-  xit('should accept a valid coupon code', () => {
+  it('should accept a valid coupon code', () => {
     basketService.applyCoupon.and.returnValue(of(42))
     translateService.get.and.returnValue(of('DISCOUNT_APPLIED'))
 
@@ -351,7 +354,7 @@ describe('BasketComponent', () => {
     expect(component.error).toBeUndefined()
   })
 
-  xit('should translate DISCOUNT_APPLIED message' , () => {
+  it('should translate DISCOUNT_APPLIED message' , () => {
     basketService.applyCoupon.and.returnValue(of(42))
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
     component.couponControl.setValue('')
