@@ -4,7 +4,7 @@ export function sleep (timeInMs: number): Promise<void> {
   })
 }
 
-export function waitForInputToHaveValue (inputSelector: string, value: string) {
+export function waitForInputToHaveValue (inputSelector: string, value: string, options = { ignoreCasings: true }) {
   return async () => {
     const password = document.querySelector(
       inputSelector
@@ -13,13 +13,15 @@ export function waitForInputToHaveValue (inputSelector: string, value: string) {
     while (true) {
       if (password.value === value) {
         break
+      } else if (options.ignoreCasings && password.value.toLowerCase() === value.toLowerCase()) {
+        break
       }
       await sleep(100)
     }
   }
 }
 
-export function waitForInputToNotHaveValue (inputSelector: string, value: string) {
+export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCasings: true }) {
   return async () => {
     const password = document.querySelector(
       inputSelector
@@ -27,6 +29,8 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
 
     while (true) {
       if (password.value !== value) {
+        break
+      } else if (options.ignoreCasings && password.value.toLowerCase() === value.toLowerCase()) {
         break
       }
       await sleep(100)
