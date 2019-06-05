@@ -20,6 +20,11 @@ export interface ChallengeHint {
    */
   fixture: string
   resolved: () => Promise<void>
+  /**
+   * Set to true if the hint should not be able to be skipped by clicking on it.
+   * Defaults to false
+   */
+  unskippable?: boolean
 }
 
 function loadHint (hint: ChallengeHint): HTMLElement {
@@ -41,7 +46,9 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
   elem.style.top = `24px`
-  elem.style.cursor = 'pointer'
+  if (hint.unskippable !== true) {
+    elem.style.cursor = 'pointer'
+  }
   elem.style.fontSize = '14px'
   elem.style.display = 'flex'
   elem.style.alignItems = 'center'
@@ -71,7 +78,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
 
 function waitForClick (element: HTMLElement) {
   return new Promise((resolve) => {
-    element.addEventListener('click', () => resolve())
+    element.addEventListener('click', resolve)
   })
 }
 
@@ -85,14 +92,20 @@ export async function startHackingInstructorFor (challengeName: String): Promise
   for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)
     if (element === null) {
+      console.warn(`Could not find Element with fixture "${hint.fixture}"`)
       continue
     }
     element.scrollIntoView()
 
-    await Promise.race([
-      hint.resolved(),
-      waitForClick(element)
-    ])
+    const continueConditions: Promise<void | {}>[] = [
+      hint.resolved()
+    ]
+
+    if (hint.unskippable !== true) {
+      continueConditions.push(waitForClick(element))
+    }
+
+    await Promise.race(continueConditions)
 
     element.remove()
   }

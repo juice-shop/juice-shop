@@ -14,6 +14,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       text:
         "To start this challenge you'll have to log out first.",
       fixture: '#navbarLogoutButton',
+      unskippable: true,
       async resolved () {
         while (true) {
           if (localStorage.getItem('token') === null) {
@@ -27,6 +28,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       text:
         "Let's try if we find a way to log in with the administrator's user account. For starters go to the login page.",
       fixture: '#navbarLoginButton',
+      unskippable: true,
       async resolved () {
         while (true) {
           if (window.location.hash === '#/login') {
@@ -67,12 +69,12 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: 'Maybe you will be able to find more information about the error in the JavaScript console or the network tab of your browser.',
+      text: 'Maybe you will be able to find out more information about the error in the JavaScript console or the network tab of your browser.',
       fixture: '#loginButton',
       resolved: waitInMs(10000)
     },
     {
-      text: 'Did you spot the SQL query in the error message? If not, take a look again.',
+      text: 'Did you spot the SQL query in the there? If not, take another look.',
       fixture: '#loginButton',
       resolved: waitInMs(10000)
     },
@@ -109,11 +111,11 @@ export const SqlOneInstructions: ChallengeInstruction = {
     {
       text: 'Press the log in button',
       fixture: '#loginButton',
-      resolved: waitForElementToGetClicked('#login')
+      resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text:
-        'That worked right?! Concratulation on being the new administartor in the shop!.',
+        '🎉 That worked right?! Concratulation on being the new administartor in the shop!.',
       fixture: '#searchQuery',
       resolved: waitInMs(10000)
     }
