@@ -10,12 +10,12 @@ import { catchError, map } from 'rxjs/operators'
 export class DataSubjectService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/rest/data-subject'
+  private host = this.hostServer + '/api/user'
 
   constructor (private http: HttpClient) { }
 
   deactivate () {
-    return this.http.get(this.host).pipe(
+    return this.http.get(this.host + '/erasure-request').pipe(
       map((response: any) => response),
       catchError(error => { throw error })
     )
