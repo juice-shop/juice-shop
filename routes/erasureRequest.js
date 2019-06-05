@@ -4,7 +4,6 @@ const insecurity = require('../lib/insecurity')
 module.exports = function erasureRequest () {
   return (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.from(req)
-    console.log(loggedInUser)
     if (loggedInUser) {
       const userData = {
         UserId: loggedInUser.data.id,
