@@ -65,13 +65,14 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 ## Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Tue, 28 May 2019.
+translations as of Wed, 06 Jun 2019.
 
 - Björn Kimminich aka `bkimminich` (German)
 - owangen (Norwegian; Danish)
 - sjroh (Korean)
-- Stella Dineva aka `stella.dineva` (Bulgarian)
+- AviD aka `avidouglen` (Hebrew)
 - Stavros M. aka `msstavros` (Greek)
+- Stella Dineva aka `stella.dineva` (Bulgarian)
 - Simon Basset aka `simbas` (French)
 - GiorgiSharia (Georgian)
 - Oussama Bouthouri aka `Boussama` (Arabic)
@@ -79,7 +80,6 @@ translations as of Tue, 28 May 2019.
 - Ender Çulha aka `ecu` (Turkish)
 - Claudio Snidero aka `cla7997` (Italian)
 - r0n1am (Chinese Traditional, Hong Kong)
-- AviD aka `avidouglen` (Hebrew)
 - janesmae (Estonian)
 - fieldhill13 (Russian)
 - thinbashane (Burmese)
@@ -89,9 +89,11 @@ translations as of Tue, 28 May 2019.
 - Coink aka `CoinkWang` (Chinese Simplified)
 - Kylian Runembert aka `FunnHydra` (French)
 - Andrew Pio aka `siranen` (Polish)
+- zvargun (Turkish)
 - timexlord (Romanian)
 - Shahin Farzaliyev aka `Khan27` (Azerbaijani)
 - Daniel Paniagua aka `danielgpm` (Spanish)
+- FoteiniAthina (Greek)
 - orjen (Romanian)
 - vientspam (Dutch; Italian; French)
 - Allan Kimmer Jensen aka `Saturate` (Danish)

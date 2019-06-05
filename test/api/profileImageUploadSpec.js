@@ -8,7 +8,7 @@ const REST_URL = 'http://localhost:3000/rest'
 const URL = 'http://localhost:3000'
 
 describe('/profile/image/file', () => {
-  xit('POST profile image file valid for JPG format', () => {
+  it('POST profile image file valid for JPG format', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
     form.append('file', fs.createReadStream(file))
@@ -18,8 +18,7 @@ describe('/profile/image/file', () => {
       body: {
         email: 'jim@' + config.get('application.domain'),
         password: 'ncc-1701'
-      },
-      redirect: 'manual'
+      }
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
@@ -28,9 +27,10 @@ describe('/profile/image/file', () => {
             'Cookie': 'token=' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
           },
-          body: form
+          body: form,
+          redirect: 'manual'
         })
-          .expect('status', 302) // FIXME Frisby returns "FetchError: Cannot follow redirect with body being a readable stream"
+          .expect('status', 302)
       })
   })
 
