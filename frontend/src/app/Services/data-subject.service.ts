@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 export class DataSubjectService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/user'
+  private host = this.hostServer + '/rest/user'
 
   constructor (private http: HttpClient) { }
 
