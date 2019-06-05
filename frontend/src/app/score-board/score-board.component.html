@@ -15,10 +15,10 @@
       <mat-button-toggle *ngFor="let difficulty of difficulties" (change)="toggleDifficulty(difficulty)"
                          [checked]="scoreBoardTablesExpanded[difficulty]">
         <label>
-        <span class="fa-4x fa-layers fa-fw">
-          <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18" aria-hidden="true"
+        <span class="fa-4x fa-layers fa-fw" style="display: block; margin: 5px;">
+          <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18 star-border" aria-hidden="true"
                data-prefix="fa" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-               data-fa-i2svg="">
+               data-fa-i2svg="" stroke-width="10">
             <linearGradient [id]="difficulty" x1="0" x2="0" y1="0" y2="100%">
               <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="empty-star"/>
               <stop [attr.offset]="challenges ? offsetValue[difficulty - 1] : '100%'" class="filled-star"/>
@@ -110,7 +110,7 @@
 
   </mat-expansion-panel>
 
-  <mat-card class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
+  <mat-card *ngIf="gitHubRibbon" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
 </diV>
 
 <img src="assets/public/images/padding/1px.png"/>

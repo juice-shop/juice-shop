@@ -19,7 +19,7 @@ describe('/#/score-board', () => {
     protractor.expect.challengeSolved({ challenge: 'Imaginary Challenge' })
   })
 
-  describe('repeat notification', () => {
+  describe('repeat notification', () => { // FIXME Notifications do not always re-trigger on click
     let alertsBefore, alertsNow
 
     beforeEach(() => {
@@ -27,7 +27,7 @@ describe('/#/score-board', () => {
     })
 
     if (config.get('application.showChallengeSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
-      xit('should be possible when in CTF mode', () => {
+      it('should be possible when in CTF mode', () => {
         alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 
         element(by.id('Score Board.solved')).click()
@@ -37,7 +37,7 @@ describe('/#/score-board', () => {
         expect(alertsBefore).not.toBe(alertsNow)
       })
     } else {
-      xit('should not be possible when not in CTF mode', () => {
+      it('should not be possible when not in CTF mode', () => {
         alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 
         element(by.id('Score Board.solved')).click()

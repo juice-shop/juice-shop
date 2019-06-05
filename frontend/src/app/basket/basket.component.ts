@@ -51,7 +51,7 @@ export class BasketComponent implements OnInit {
   public clientDate: any
   private campaignCoupon: string
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translateService: TranslateService) {}
 
   ngOnInit () {
     this.load()
@@ -164,7 +164,7 @@ export class BasketComponent implements OnInit {
   showConfirmation (discount) {
     this.resetForm()
     this.error = undefined
-    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
+    this.translateService.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
       this.confirmation = discountApplied
     }, (translationId) => {
       this.confirmation = translationId
