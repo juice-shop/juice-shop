@@ -39,6 +39,9 @@ export function waitForElementToGetClicked (elementSelector: string) {
     const element = document.querySelector(
       elementSelector
     )
+    if (element === null) {
+      console.warn(`Element with selector "${elementSelector}" is null`)
+    }
 
     await new Promise((resolve) => {
       element.addEventListener('click', () => resolve())
