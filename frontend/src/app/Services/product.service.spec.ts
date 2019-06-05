@@ -20,7 +20,7 @@ describe('ProductService', () => {
     fakeAsync((service: ProductService, httpMock: HttpTestingController) => {
       let res
       service.search(1).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/rest/product/search?q=1')
+      const req = httpMock.expectOne('http://localhost:3000/rest/products/search?q=1')
       req.flush({ data: 'apiResponse' })
 
       tick()
