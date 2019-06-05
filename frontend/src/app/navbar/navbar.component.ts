@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit {
       }
 
       this.snackBar.openFromComponent(WelcomeBannerComponent, {
-        //duration: 10 * 1000,
+        verticalPosition:'top'
       });
     }, (err) => console.log(err))
 
