@@ -60,7 +60,7 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
   return (req, res, next) => {
     models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
       if (req.body.quantity) {
-        quantityCheck(req, res, next, item.dataValues.ProductId, req.body.quantity)
+        quantityCheck(req, res, next, item.ProductId, req.body.quantity)
       } else {
         next()
       }
@@ -70,27 +70,20 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
   }
 }
 
-function quantityCheck (req, res, next, id, quantity) {
-  let previousPurchase = 0
-  models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } }).then((record) => {
-    if (record) {
-      previousPurchase = record.dataValues.quantity
-    }
-  }).catch((error) => {
-    next(error)
-  })
+async function quantityCheck (req, res, next, id, quantity) {
+  const record = await models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } })
+  
+  const previousPurchase = record ? record.quantity : 0;
 
-  models.Quantity.findOne({ where: { ProductId: id } }).then((product) => {
-    if (!product.dataValues.limitPerUser || (product.dataValues.limitPerUser && (product.dataValues.limitPerUser - previousPurchase) >= quantity)) {
-      if (product.dataValues.quantity >= quantity) {
-        next()
-      } else {
-        res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
-      }
+  const product = await models.Quantity.findOne({ where: { ProductId: id } })
+
+  if (!product.limitPerUser || (product.limitPerUser && (product.limitPerUser - previousPurchase) >= quantity)) {
+    if (product.quantity >= quantity) {
+      next()
     } else {
-      res.status(400).json({ error: 'The quantity of this item is limited to ' + product.dataValues.limitPerUser + ' per user.' })
+      res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
     }
-  }).catch(error => {
-    next(error)
-  })
+  } else {
+    res.status(400).json({ error: 'The quantity of this item is limited to ' + product.limitPerUser + ' per user.' })
+  }
 }
