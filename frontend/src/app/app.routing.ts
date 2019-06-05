@@ -33,6 +33,7 @@ import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AccountingComponent } from './accounting/accounting.component'
+import { roles } from './roles'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -48,13 +49,6 @@ export function token2 (...args: number[]) {
   return T.reverse().map(function (m, H) {
     return String.fromCharCode(m - M - 24 - H)
   }).join('')
-}
-
-export const roles = {
-  customer: 'customer',
-  prime: 'prime',
-  accounting: 'accounting',
-  admin: 'admin'
 }
 
 @Injectable()

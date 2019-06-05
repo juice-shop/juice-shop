@@ -200,5 +200,6 @@
   "SEARCH_PROCESSING": "Searching for products",
   "STOCK": "Stock:",
   "UNITS": "units",
-  "PRICE_IN_DOLLARS": "Price ($)"
+  "PRICE_IN_DOLLARS": "Price ($)",
+  "ACCOUNTING": "Accounting"
 }
