@@ -57,6 +57,13 @@
         </mat-icon>
         <span class="menu-text" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-subject"
+         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data subject page">
+        <mat-icon>
+          delete_forever
+        </mat-icon>
+        <span class="menu-text" translate>DATA_SUBJECT_TITLE</span>
+      </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/change-password"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to change password page">
         <mat-icon>
