@@ -27,7 +27,7 @@ where this project was mentioned or used!
 
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 5.9:
-    [The new JuiceShop, GSOC, and OWASP Summit](https://www.securityjourney.com/blog/bjorn-kimminich-the-new-juiceshop-gsoc-and-owasp-summit/)
+    [The new JuiceShop, GSOC, and Open Security Summit](https://securityjourney.com/blog/bjorn-kimminich-the-new-juiceshop-gsoc-and-open-security-summit/)
   * 5 minute AppSec:
     [Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
   * Episode 4.27:

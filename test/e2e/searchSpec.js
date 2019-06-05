@@ -18,7 +18,7 @@ describe('/#/search', () => {
 
       searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
       searchButton.click()
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
@@ -29,10 +29,10 @@ describe('/#/search', () => {
   })
 })
 
-describe('/rest/product/search', () => {
+describe('/rest/products/search', () => {
   describe('challenge "unionSqlI"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
-      browser.driver.get(browser.baseUrl + '/rest/product/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
+      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
     })
 
     protractor.expect.challengeSolved({ challenge: 'User Credentials' })
@@ -42,7 +42,7 @@ describe('/rest/product/search', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('search query should logically reveal the special product', () => {
-      browser.driver.get(browser.baseUrl + '/rest/product/search?q=\'))--').then(() => {
+      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\'))--').then(() => {
         expect(browser.driver.getPageSource()).toContain(pastebinLeakProduct.name)
       })
     })
@@ -52,7 +52,7 @@ describe('/rest/product/search', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
-      browser.driver.get(browser.baseUrl + '/rest/product/search?q=\'))--').then(() => {
+      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\'))--').then(() => {
         expect(browser.driver.getPageSource()).toContain(christmasProduct.name)
       })
     })

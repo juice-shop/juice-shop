@@ -1,13 +1,13 @@
 /* jslint node: true */
-module.exports = (sequelize, { INTEGER, BOOLEAN, DATE }) => {
-  const PrivacyRequests = sequelize.define('PrivacyRequests', {
+module.exports = (sequelize, { INTEGER, BOOLEAN }) => {
+  const PrivacyRequest = sequelize.define('PrivacyRequest', {
     UserId: { type: INTEGER },
     deletionRequested: { type: BOOLEAN, defaultValue: false }
   })
 
-  PrivacyRequests.associate = ({ User }) => {
-    PrivacyRequests.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
+  PrivacyRequest.associate = ({ User }) => {
+    PrivacyRequest.belongsTo(User, { constraints: true, foreignKeyConstraint: true })
   }
 
-  return PrivacyRequests
+  return PrivacyRequest
 }
