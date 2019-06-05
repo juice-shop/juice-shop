@@ -51,7 +51,7 @@ export class BasketComponent implements OnInit {
   public clientDate: any
   private campaignCoupon: string
 
-  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translate: TranslateService) {}
+  constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translateService: TranslateService) {}
 
   ngOnInit () {
     this.load()
@@ -164,7 +164,7 @@ export class BasketComponent implements OnInit {
   showConfirmation (discount) {
     this.resetForm()
     this.error = undefined
-    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
+    this.translateService.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
       this.confirmation = discountApplied
     }, (translationId) => {
       this.confirmation = translationId
@@ -197,7 +197,7 @@ export class BasketComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
-        url: 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        url: '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
         address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
         title: 'TITLE_ETHER_ADDRESS'
       }

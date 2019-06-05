@@ -38,7 +38,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "xss4"', () => {
-    xit('should be possible to trick the sanitization with a masked XSS attack', () => {
+    it('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
       comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
@@ -46,24 +46,26 @@ describe('/#/contact', () => {
 
       submitButton.click()
 
+      browser.waitForAngularEnabled(false)
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/about")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/administration")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
         $$('.mat-cell.mat-column-remove > button').last().click()
         browser.wait(EC.stalenessOf(element(by.tagName('iframe'))), 5000)
       })
+      browser.waitForAngularEnabled(true)
     })
 
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
   })
 
   describe('challenge "vulnerableComponent"', () => {

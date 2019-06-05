@@ -35,13 +35,6 @@ describe('/api/Recycles', () => {
       })
   })
 
-  xit('Will check if the injection works and returns the expected recycle', () => {
-    return frisby.get(API_URL + '/Recycles/' + '{"$lt":200}')
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('jsonTypes', 'data[0]', { id: 42 })
-  })
-
   it('PUT update existing recycle is forbidden', () => {
     return frisby.put(API_URL + '/Recycles/1', {
       headers: authHeader,

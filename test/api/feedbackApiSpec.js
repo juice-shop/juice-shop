@@ -270,15 +270,14 @@ describe('/api/Feedbacks/:id', () => {
       .expect('status', 401)
   })
 
-  xit('PUT update existing feedback', () => { // FIXME Verify if put is actually meant to work
+  it('PUT update existing feedback', () => {
     return frisby.put(API_URL + '/Feedbacks/2', {
       headers: authHeader,
       body: {
         rating: 0
       }
     })
-      .expect('status', 200)
-      .expect('json', 'data', { rating: 0 })
+      .expect('status', 401)
   })
 
   it('DELETE existing feedback is forbidden via public API', () => {

@@ -1,0 +1,23 @@
+{
+  "groups": {
+    "frontend": {
+      "packages": [
+        "frontend/package.json"
+      ],
+      "ignore": [
+        "@angular/cli"
+      ]
+    },
+    "server": {
+      "packages": [
+        "package.json"
+      ],
+      "ignore": [
+        "sanitize-html",
+        "express-jwt",
+        "unzipper",
+        "config"
+      ]
+    }
+  }
+}

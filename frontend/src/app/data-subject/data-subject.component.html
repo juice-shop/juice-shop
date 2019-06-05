@@ -18,7 +18,7 @@
         color="warn"
       >
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label translate>LABEL_EMAIL</mat-label>
           <input id="email" formControlName="emailControl" (ngModelChange)="findSecurityQuestion()"
           type="text" matInput placeholder="Enter your email">
@@ -27,7 +27,7 @@
         </mat-form-field>
 
         <div class="form-container" *ngIf="securityQuestion" id="forgot-form">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" color="accent">
             <mat-label>{{ securityQuestion }}</mat-label>
             <input id="securityAnswer" formControlName="securityQuestionControl" type="password" matInput placeholder="">
             <mat-error *ngIf="securityQuestionForm" translate>MANDATORY_SECURITY_ANSWER</mat-error>
