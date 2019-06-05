@@ -38,7 +38,7 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "xss4"', () => {
-    it('should be possible to trick the sanitization with a masked XSS attack', () => {
+    fit('should be possible to trick the sanitization with a masked XSS attack', () => {
       const EC = protractor.ExpectedConditions
 
       comment.sendKeys('<<script>Foo</script>iframe src="javascript:alert(`xss`)">')
@@ -48,14 +48,14 @@ describe('/#/contact', () => {
 
       browser.waitForAngularEnabled(false)
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/about")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/administration")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()

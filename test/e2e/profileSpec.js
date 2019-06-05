@@ -52,7 +52,7 @@ describe('/profile', () => {
       setButton = element(by.id('submit'))
       username.sendKeys('<<a|ascript>alert(`xss`)</script>')
       setButton.click()
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /profile")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
