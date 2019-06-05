@@ -62,7 +62,7 @@ module.exports = function fileUpload () {
             res.status(410)
             next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200) + ' (' + file.originalname + ')'))
           } catch (err) {
-            if (err.message === 'Script execution timed out.') {
+            if (utils.contains(err.message, 'Script execution timed out')) {
               if (utils.notSolved(challenges.xxeDosChallenge)) {
                 utils.solve(challenges.xxeDosChallenge)
               }

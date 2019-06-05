@@ -79,6 +79,10 @@
   .filled-star {
     stop-color: mat-color(map-get($theme, accent));
   }
+
+  .star-border{
+    stroke: mat-color(map-get($theme, accent));
+  }
 }
 
 @mixin custom-components-theme($theme) {

@@ -35,6 +35,7 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   private productSubscription: Subscription
   private routerSubscription: Subscription
   public breakpoint: number
+  public emptyState = false
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
@@ -45,22 +46,22 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.trustProductDescription(this.tableData)
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
+      this.gridDataSource = this.dataSource.connect()
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
-      if (window.innerWidth <= 1740) {
+      if (window.innerWidth < 1740) {
         this.breakpoint = 3
-        if (window.innerWidth <= 1300) {
+        if (window.innerWidth < 1280) {
           this.breakpoint = 2
-          if (window.innerWidth <= 850) {
+          if (window.innerWidth < 850) {
             this.breakpoint = 1
           }
         }
       } else {
         this.breakpoint = 4
       }
-      this.gridDataSource = this.dataSource.connect()
     }, (err) => console.log(err))
   }
 
@@ -87,9 +88,17 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+      this.gridDataSource.subscribe(result => {
+        if (result < 1) {
+          this.emptyState = true
+        } else {
+          this.emptyState = false
+        }
+      })
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined
+      this.emptyState = false
     }
   }
 
@@ -159,11 +168,11 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
   }
 
   onResize (event) {
-    if (event.target.innerWidth <= 1740) {
+    if (event.target.innerWidth < 1740) {
       this.breakpoint = 3
-      if (event.target.innerWidth <= 1300) {
+      if (event.target.innerWidth < 1280) {
         this.breakpoint = 2
-        if (event.target.innerWidth <= 850) {
+        if (event.target.innerWidth < 850) {
           this.breakpoint = 1
         }
       }
