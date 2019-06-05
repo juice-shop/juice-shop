@@ -44,17 +44,17 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitInMs(8000)
     },
     {
-      text: "A good starting point for simple SQL injections is to insert quatation marks (like \" or '). These mess with the syntax of the query and might give you indications if an endpoint is vulnarable or not.",
+      text: "A good starting point for simple SQL injections is to insert quatation marks (like `\"` or `'`). These mess with the syntax of the query and might give you indications if an endpoint is vulnarable or not.",
       fixture: '#email',
       resolved: waitInMs(15000)
     },
     {
-      text: "Start with entering ' in the email field.",
+      text: "Start with entering `'` in the **email field**.",
       fixture: '#email',
       resolved: waitForInputToHaveValue('#email', "'")
     },
     {
-      text: "Now put anything in the password field. Doesn't matter what.",
+      text: "Now put anything in the **password field**. Doesn't matter what.",
       fixture: '#password',
       resolved: waitForInputToNotHaveValue('#password', '')
     },
@@ -79,7 +79,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: "Let's try to manipulate the query a bit more. Try out tryping \"' OR true\” into the email field.",
+      text: "Let's try to manipulate the query a bit more. Try out tryping `' OR true` into the email field.",
       fixture: '#email',
       resolved: waitForInputToHaveValue('#email', "' OR true")
     },
