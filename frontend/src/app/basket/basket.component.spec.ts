@@ -21,7 +21,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { By } from '@angular/platform-browser'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
-import { EventEmitter } from "@angular/core";
+import { EventEmitter } from '@angular/core'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -53,7 +53,7 @@ describe('BasketComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
-    
+
     // Stub for WindowRefService
     windowRefService = {
       get nativeWindow () {
