@@ -89,7 +89,7 @@ describe('/file-upload', () => {
         .expect('bodyContains', 'Detected an entity reference loop')
     })
 
-    xit('POST file type XML with Quadratic Blowup attack', () => {
+    it('POST file type XML with Quadratic Blowup attack', () => {
       const file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
@@ -97,8 +97,9 @@ describe('/file-upload', () => {
       return frisby.post(URL + '/file-upload', {
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
+      }).then((res) => {
+        expect(res.status).toBeGreaterThanOrEqual(410) // usually runs into 410 on Travis-CI but into 503 locally
       })
-        .expect('status', 503)
     })
 
     it('POST file type XML with dev/random attack', () => {
