@@ -8,7 +8,7 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
   return async () => {
     const password = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (password.value === value) {
@@ -25,7 +25,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
   return async () => {
     const password = document.querySelector(
       inputSelector
-    ) as HTMLInputElement
+    )
 
     while (true) {
       if (password.value !== value) {
