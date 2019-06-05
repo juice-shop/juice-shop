@@ -89,7 +89,7 @@ describe('/file-upload', () => {
         .expect('bodyContains', 'Detected an entity reference loop')
     })
 
-    xit('POST file type XML with Quadratic Blowup attack', () => {
+    it('POST file type XML with Quadratic Blowup attack', () => {
       const file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
       const form = frisby.formData()
       form.append('file', fs.createReadStream(file))
