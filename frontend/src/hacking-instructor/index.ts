@@ -1,3 +1,5 @@
+import snarkdown from 'snarkdown'
+
 import { SqlOneInstructions } from './challenges/sqli-1'
 
 const challengeInstructions: ChallengeInstruction[] = [
@@ -14,6 +16,10 @@ export interface ChallengeInstruction {
 }
 
 export interface ChallengeHint {
+  /**
+   * Text in the hint box
+   * Can be formatted using markdown
+   */
   text: string
   /**
    * Query Selector String of the Element the Hint should be displayed next to.
@@ -61,7 +67,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
 
   const textBox = document.createElement('span')
   textBox.style.flexGrow = '2'
-  textBox.innerText = hint.text
+  textBox.innerHTML = snarkdown(hint.text)
 
   elem.appendChild(picture)
   elem.appendChild(textBox)
