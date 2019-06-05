@@ -4,7 +4,6 @@ const models = require('../../models/index')
 protractor.expect = {
   challengeSolved: function (context) {
     describe('(shared)', () => {
-
       it("challenge '" + context.challenge + "' should be solved on score board", () => {
         models.Challenge.findOne({ where: { name: context.challenge } }).then(challenge => {
           expect(challenge.solved).toBeTruthy()
