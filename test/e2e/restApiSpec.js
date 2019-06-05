@@ -32,9 +32,11 @@ describe('/api', () => {
           models.Product.findOne({ where: { name: 'XSS3' } }).then(product => {
             product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
               console.log(error)
+              fail()
             })
           }).catch(error => {
             console.log(error)
+            fail()
           })
         })
       browser.waitForAngularEnabled(true)
