@@ -1,7 +1,7 @@
 const config = require('config')
 const utils = require('../../lib/utils')
 
-fdescribe('/profile', () => {
+describe('/profile', () => {
   let username, submitButton, url, setButton
 
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
