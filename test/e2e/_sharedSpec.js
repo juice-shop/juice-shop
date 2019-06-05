@@ -1,15 +1,16 @@
 const otplib = require('otplib')
+const models = require('../../models/index')
 
 protractor.expect = {
   challengeSolved: function (context) {
     describe('(shared)', () => {
-      beforeEach(() => {
-        browser.get('/#/score-board')
-      })
 
       it("challenge '" + context.challenge + "' should be solved on score board", () => {
-        expect(element(by.id(context.challenge + '.solved')).isPresent()).toBeTruthy()
-        expect(element(by.id(context.challenge + '.notSolved')).isPresent()).toBeFalsy()
+        models.Challenge.findOne({ where: { name: context.challenge } }).then(challenge => {
+          expect(challenge.solved).toBeTruthy()
+        }).catch(error => {
+          console.log(error)
+        })
       })
     })
   }
