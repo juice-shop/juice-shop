@@ -22,7 +22,10 @@ exports.config = {
 
   capabilities: {
     browserName: 'chrome',
-    proxy: proxy
+    proxy: proxy,
+    chromeOptions: {
+      args: ['--window-size=1024,768']
+    }
   },
 
   baseUrl: 'http://localhost:3000',
@@ -49,6 +52,6 @@ exports.config = {
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
   exports.config.capabilities.chromeOptions = {
-    args: ['--headless', '--disable-gpu', '--window-size=800,600']
+    args: ['--headless', '--disable-gpu', '--window-size=1024,768']
   }
 }
