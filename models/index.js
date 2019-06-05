@@ -6,10 +6,7 @@ const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
   storage: 'data/juiceshop.sqlite',
-  logging: false,
-  retry: {
-    max: 10
-  }
+  logging: false
 })
 sequelizeNoUpdateAttributes(sequelize)
 const db = {}
