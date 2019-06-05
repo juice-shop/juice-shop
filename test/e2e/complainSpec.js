@@ -116,7 +116,7 @@ describe('/#/complain', () => {
       submitButton.click()
       browser.waitForAngularEnabled(false)
       browser.get('/promotion')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
