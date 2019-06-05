@@ -72,8 +72,7 @@ const languageList = require('./routes/languages')
 const config = require('config')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
-const dataSubject = require('./routes/dataSubject')
-const privacyRequests = require('./routes/privacyRequests')
+const erasureRequest = require('./routes/erasureRequest')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -213,7 +212,6 @@ app.get('/api/SecurityAnswers', insecurity.denyAll())
 app.use('/api/SecurityAnswers/:id', insecurity.denyAll())
 /* REST API */
 app.use('/rest/user/authentication-details', insecurity.isAuthorized())
-app.use('/rest/user/privacy-requests', insecurity.isAuthorized())
 app.use('/rest/basket/:id', insecurity.isAuthorized())
 app.use('/rest/basket/:id/order', insecurity.isAuthorized())
 /* Challenge evaluation before finale takes over */
@@ -231,6 +229,9 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 app.post('/api/BasketItems', basketItems())
 /* Feedbacks: Do not allow changes of existing feedback */
 app.put('/api/Feedbacks/:id', insecurity.denyAll())
+/* PrivacyRequests: Only allowed for authenticated users */
+app.use('/api/PrivacyRequests', insecurity.isAuthorized())
+app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
@@ -267,7 +268,8 @@ const autoModels = [
   { name: 'Complaint', exclude: [] },
   { name: 'Recycle', exclude: [] },
   { name: 'SecurityQuestion', exclude: [] },
-  { name: 'SecurityAnswer', exclude: [] }
+  { name: 'SecurityAnswer', exclude: [] },
+  { name: 'PrivacyRequest', exclude: [] }
 ]
 
 for (const { name, exclude } of autoModels) {
@@ -313,8 +315,7 @@ app.get('/rest/saveLoginIp', saveLoginIp())
 app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
 app.post('/rest/data-export', dataExport())
 app.get('/rest/languages', languageList())
-app.get('/rest/data-subject', dataSubject())
-app.get('/rest/user/privacy-requests', privacyRequests())
+app.get('/rest/user/erasure-request', erasureRequest())
 
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
