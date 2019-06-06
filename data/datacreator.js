@@ -34,7 +34,8 @@ module.exports = async () => {
     createComplaints,
     createRecycleItems,
     createOrders,
-    createQuantity
+    createQuantity,
+    createPurchaseQuantity
   ]
 
   for (const creator of creators) {
@@ -126,11 +127,13 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
+  const limitPerUserProuductIds = [1, 5, 7, 20, 24]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
-        quantity: Math.floor(Math.random() * 70 + 30)
+        quantity: Math.floor(Math.random() * 70 + 30),
+        limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })
@@ -486,5 +489,33 @@ function createOrders () {
         logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
     )
+  )
+}
+
+function createPurchaseQuantity () {
+  const orderedQuantitys = [
+    {
+      quantity: 3,
+      ProductId: 1,
+      UserId: 1
+    },
+    {
+      quantity: 1,
+      ProductId: 2,
+      UserId: 1
+    },
+    {
+      quantity: 3,
+      ProductId: 3,
+      UserId: 1
+    }
+  ]
+
+  return Promise.all(
+    orderedQuantitys.map(orderedQuantity => {
+      models.PurchaseQuantity.create(orderedQuantity).catch((err) => {
+        logger.error(`Could not insert ordered quantity: ${err.message}`)
+      })
+    })
   )
 }

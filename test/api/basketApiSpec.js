@@ -4,12 +4,26 @@ const insecurity = require('../../lib/insecurity')
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
+let authHeader
 
 const validCoupon = insecurity.generateCoupon(15)
 const outdatedCoupon = insecurity.generateCoupon(20, new Date(2001, 0, 1))
 const forgedCoupon = insecurity.generateCoupon(99)
+
+beforeAll(() => {
+  return frisby.post(REST_URL + '/user/login', {
+    headers: jsonHeader,
+    body: {
+      email: 'jim@juice-sh.op',
+      password: 'ncc-1701'
+    }
+  })
+    .expect('status', 200)
+    .then(({ json }) => {
+      authHeader = { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+    })
+})
 
 describe('/rest/basket/:id', () => {
   it('GET existing basket by id is not allowed via public API', () => {
@@ -114,7 +128,7 @@ describe('/rest/basket/:id/checkout', () => {
   it('POST placing an order for a basket with a negative total cost is possible', () => {
     return frisby.post(API_URL + '/BasketItems', {
       headers: authHeader,
-      body: { BasketId: 3, ProductId: 10, quantity: -100 }
+      body: { BasketId: 2, ProductId: 10, quantity: -100 }
     })
       .expect('status', 200)
       .then(() => {
