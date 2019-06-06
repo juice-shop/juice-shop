@@ -6,6 +6,13 @@ module.exports = (sequelize, { INTEGER }) => {
       validate: {
         isInt: true
       }
+    },
+    limitPerUser: {
+      type: INTEGER,
+      validate: {
+        isInt: true
+      },
+      defaultValue: null
     }
   })
 
