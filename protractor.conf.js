@@ -52,7 +52,7 @@ exports.config = {
     let welcomeClose = element.all(by.className('welcome-banner-close-button'))
     if (welcomeClose.isPresent()) { welcomeClose.first().click() }
 
-    browser.manage().addCookie({ name: 'welcome-banner-status', value: 'dismissed' })
+    browser.manage().addCookie({ name: 'welcome-banner-status', value: 'dismiss' })
   }
 }
 
