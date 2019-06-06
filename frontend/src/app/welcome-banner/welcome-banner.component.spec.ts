@@ -7,7 +7,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { WelcomeBannerComponent } from './welcome-banner.component'
 
-fdescribe('WelcomeBannerComponent', () => {
+describe('WelcomeBannerComponent', () => {
   let component: WelcomeBannerComponent
   let fixture: ComponentFixture<WelcomeBannerComponent>
   let cookieService
