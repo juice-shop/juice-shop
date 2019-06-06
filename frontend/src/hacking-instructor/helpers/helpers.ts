@@ -6,14 +6,14 @@ export function sleep (timeInMs: number): Promise<void> {
 
 export function waitForInputToHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const password = document.querySelector(
+    const inputElement = document.querySelector(
       inputSelector
     ) as HTMLInputElement
 
     while (true) {
-      if (password.value === value) {
+      if (inputElement.value === value) {
         break
-      } else if (options.ignoreCase && password.value.toLowerCase() === value.toLowerCase()) {
+      } else if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
         break
       }
       await sleep(100)
@@ -23,14 +23,29 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
 
 export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
-    const password = document.querySelector(
+    const inputElement = document.querySelector(
       inputSelector
     ) as HTMLInputElement
 
     while (true) {
-      if (password.value !== value) {
+      if (inputElement.value !== value) {
         break
-      } else if (options.ignoreCase && password.value.toLowerCase() === value.toLowerCase()) {
+      } else if (options.ignoreCase && inputElement.value.toLowerCase() === value.toLowerCase()) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForInputToNotBeEmpty (inputSelector: string) {
+  return async () => {
+    const inputElement = document.querySelector(
+      inputSelector
+    ) as HTMLInputElement
+
+    while (true) {
+      if (inputElement.value !== undefined && inputElement.value !== null && inputElement.value !== '') {
         break
       }
       await sleep(100)

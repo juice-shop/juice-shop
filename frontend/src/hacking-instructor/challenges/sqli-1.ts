@@ -1,6 +1,6 @@
 import {
   waitForInputToHaveValue,
-  waitForInputToNotHaveValue,
+  waitForInputToNotBeEmpty,
   waitForElementToGetClicked,
   waitInMs,
   sleep
@@ -56,26 +56,26 @@ export const SqlOneInstructions: ChallengeInstruction = {
     {
       text: "Now put anything in the **password field**. It doesn't matter what.",
       fixture: '#password',
-      resolved: waitForInputToNotHaveValue('#password', '')
+      resolved: waitForInputToNotBeEmpty('#password')
     },
     {
       text: 'Press the _Log in_ button',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text: "Nice! Do you see the red `[object Object]` error at the top? Unfortunately it isn't really telling us much about what went wrong...",
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(10000)
     },
     {
       text: 'Maybe you will be able to find out more information about the error in the JavaScript console or the network tab of your browser!',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(10000)
     },
     {
       text: 'Did you spot the error message with the `SQLITE_ERROR` and the entire SQL query in the console output? If not, keep the console open and click _Log in_ again. Then inspect the occuring log message closely.',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(15000)
     },
     {
@@ -85,22 +85,22 @@ export const SqlOneInstructions: ChallengeInstruction = {
     },
     {
       text: 'Now click the _Log in_ button again.',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text: 'Mhh... The query is still invalid? Can you see why from the new error in the console?',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(8000)
     },
     {
       text: "We need to make sure that the rest of the query after our injection doesn't get executed. Any Ideas?",
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(8000)
     },
     {
       text: 'You can comment out anything after your injection payload from query using comments in SQL. In SQLite databases you can use `--` for that.',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitInMs(10000)
     },
     {
@@ -110,7 +110,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
     },
     {
       text: 'Press the _Log in_ button again and sit back...',
-      fixture: '#loginButton',
+      fixture: '#rememberMe',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
