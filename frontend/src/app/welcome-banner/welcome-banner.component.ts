@@ -24,7 +24,7 @@ export class WelcomeBannerComponent implements OnInit {
 
   ngOnInit (): void {
     let welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
-    if (welcomeBannerStatus === 'dismised') {
+    if (welcomeBannerStatus === 'dismissed') {
       this.snackBarRef.dismiss()
     } else {
       this.configurationService.getApplicationConfiguration().subscribe((config) => {
@@ -39,6 +39,6 @@ export class WelcomeBannerComponent implements OnInit {
 
   closeWelcome (): void {
     this.snackBarRef.dismiss()
-    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismised')
+    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismissed')
   }
 }
