@@ -189,5 +189,7 @@
   "ACCOUNT_DELETE_CONFIRMATION": "Teie konto on edukalt kustutatud. Kui teid ei logitud automaatselt välja, siis palun tehke seda nüüd!",
   "GDPR_MESSAGE": "Tegeleme tõsiselt andmete turvalisuse, klientide privaatsuse ja õigusnormide järgimise teemadega. Vastavalt GDPR-ist tulenevatele nõuetele on teil võimalus taotleda oma konto ja sellega seotud andmete täielikku kustutamist.",
   "DELETE_DATA_LABEL": "Kustuta kasutaja info",
-  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
+  "WELCOME_BANNER_TITLE": "Welcome to the {{appname}}",
+  "WELCOME_BANNER_DESCRIPTION": "<p>Being a web application with a vast number of intended security vulnerabilities, the {{appname}} is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The {{appname}} is an open-source project hosted by the non-profit Open Web Application Security Project (OWASP) and is developed and maintained by volunteers.</p><p><a href=\"https://leanpub.com/juice-shop\">Pwning OWASP Juice Shop Book</a><br /><a href=\"https://github.com/bkimminich/juice-shop\">GitHub: https://github.com/bkimminich/juice-shop</a></p>"
 }
