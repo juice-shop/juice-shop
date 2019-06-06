@@ -33,6 +33,7 @@
     rating: 1
 -
   email: bjoern.kimminich@googlemail.com
+  username: bkimminich
   password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
   customDomain: true
   key: bjoernGoogle
@@ -100,6 +101,7 @@
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
   isAdmin: true
+  profileImage: '12.jpg'
   securityQuestion:
     id: 9
     answer: 'West-2082' # http://www.alte-postleitzahlen.de/uetersen
