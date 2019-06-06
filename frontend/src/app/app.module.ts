@@ -21,6 +21,7 @@ import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { WelcomeComponent } from './welcome-banner/welcome.component'
 import { WelcomeBannerComponent } from './welcome-banner/welcome-banner.component'
 import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
@@ -108,6 +109,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     LoginComponent,
     ScoreBoardComponent,
     NavbarComponent,
+    WelcomeComponent,
     WelcomeBannerComponent,
     SearchResultComponent,
     ForgotPasswordComponent,
