@@ -133,3 +133,10 @@
 [hidden] {
   display: none !important;
 }
+
+#hacking-instructor code{
+  font-family: monospace;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 1px;
+  padding: 0 4px;
+}
