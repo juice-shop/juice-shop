@@ -4,18 +4,24 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 import { AboutComponent } from './about.component'
 
-xdescribe('AboutComponent', () => {
+describe('AboutComponent', () => {
   let component: AboutComponent
   let fixture: ComponentFixture<AboutComponent>
+  let slideshowModule
 
   beforeEach(async(() => {
+
+    slideshowModule = jasmine.createSpyObj('SlideshowModule', ['height', 'autoPlay', 'showArrows', 'showDots', 'imageUrls'])
 
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
         SlideshowModule
       ],
-      declarations: [ AboutComponent ]
+      declarations: [ AboutComponent ],
+      providers: [
+        { provide: SlideshowModule, useValue: slideshowModule }
+      ]
     })
     .compileComponents()
   }))
