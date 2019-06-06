@@ -3,6 +3,7 @@ application:
   favicon: favicon_ctf.ico
   showChallengeHints: false
   showVersionNumber: false
+  showHackingInstructor: false
   gitHubRibbon: false
 ctf:
   showFlagsInNotifications: true
