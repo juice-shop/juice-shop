@@ -1,6 +1,6 @@
 <div class="mat-body" >  
     <h1><span translate [translateParams]="{appname: applicationName}">WELCOME_BANNER_TITLE</span></h1>
-    <p class="text-justify"><span translate>WELCOME_BANNER_DESCRIPTION</span></p>
+    <div class="text-justify" [innerHtml]="'WELCOME_BANNER_DESCRIPTION' | translate:{appname: applicationName}"></div>
     <button mat-raised-button class="close-dialog" (click)="closeWelcome()"><i class="fas fa-arrow-circle-left fa-lg"></i>
         {{'BTN_CLOSE' | translate}}
     </button>
