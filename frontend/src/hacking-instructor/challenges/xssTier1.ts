@@ -1,7 +1,7 @@
 import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,
-  waitInMs,
+  waitInMs
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -26,7 +26,7 @@ export const XssTier1Instruction: ChallengeInstruction = {
       resolved: waitForElementToGetClicked('#searchButton')
     },
     {
-      text: "Nice! You should now see many cool OWASP-related products.",
+      text: 'Nice! You should now see many cool OWASP-related products.',
       fixture: '#searchQuery',
       resolved: waitInMs(8000)
     },
@@ -56,7 +56,7 @@ export const XssTier1Instruction: ChallengeInstruction = {
       resolved: waitInMs(8000)
     },
     {
-      text: "If you right-click on the search term and inspect that part of the page with your browser, you will see that our `h1`-tag was _actually_ embedded into the page and is not just shown as plain text!",
+      text: 'If you right-click on the search term and inspect that part of the page with your browser, you will see that our `h1`-tag was _actually_ embedded into the page and is not just shown as plain text!',
       fixture: 'app-search-result',
       resolved: waitInMs(16000)
     },

@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { async, TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { WelcomeComponent } from './welcome-banner/welcome.component'
 import { ChallengeSolvedNotificationComponent } from 'src/app/challenge-solved-notification/challenge-solved-notification.component'
 
 import { MatSelectModule } from '@angular/material/select'
@@ -20,7 +21,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatCardModule } from '@angular/material/card'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { MatInputModule } from '@angular/material'
+import { MatInputModule, MatSnackBarModule } from '@angular/material'
 
 describe('AppComponent', () => {
   let app: AppComponent
@@ -31,6 +32,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NavbarComponent,
+        WelcomeComponent,
         ChallengeSolvedNotificationComponent,
         ServerStartedNotificationComponent
       ],
@@ -50,7 +52,8 @@ describe('AppComponent', () => {
         MatSidenavModule,
         MatMenuModule,
         MatTooltipModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        MatSnackBarModule
       ],
       providers : [ TranslateService, ConfigurationService ]
     }).compileComponents()
