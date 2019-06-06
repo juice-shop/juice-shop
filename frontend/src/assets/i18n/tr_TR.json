@@ -188,5 +188,6 @@
   "GDPR_HEADING": "Veri Temizleme İsteği (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Hesap bilgileriniz başarılı bir şekilde silindi. Eğer otomatik olarak çıkış yapmadıysanız, lütfen şimdi çıkış yapın!",
   "GDPR_MESSAGE": "Veri güvenliği, müşteri gizliliği ve yasal uyumu çok ciddiye alıyoruz. GDPR uyarınca, hesabınızın ve ilgili verilerin tamamen silinmesini istemenize izin veriyoruz.",
-  "DELETE_DATA_LABEL": "Kullanıcı verilerini sil"
+  "DELETE_DATA_LABEL": "Kullanıcı verilerini sil",
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
 }
