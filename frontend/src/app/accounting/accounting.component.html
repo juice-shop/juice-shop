@@ -12,63 +12,43 @@
       </div>
     </div>
 
-    <mat-grid-list #table [cols]="breakpoint" (window:resize)="onResize($event)" gutterSize="30px" >
-      <div *ngIf="(gridDataSource| async)?.length >= 1; else emptyResult">
-        <mat-grid-tile *ngFor="let item of gridDataSource | async">
-          <mat-card [style.width]="'100%'"class="mat-elevation-z6">
-            <div class="product">
-              <div class="img-container" fxFlexAlign="center">
-                <div>
-                <img [src]="'assets/public/images/products/'+item.image" role="button"
-                     class="img-responsive img-thumbnail" alt={{item.name}}>
-                </div>
-              </div>
-              <div fxFlexAlign="center">
-                <div class="item-name">
-                  {{item.name}}
-                </div>
-                <div *ngIf="quantityMap" class="item-quantity">
-                    <button [disabled]="!(quantityMap[item.id].quantity > 0)" mat-icon-button (click)="dec(quantityMap[item.id].id)"><i class="fas fa-minus-square"></i></button>
-                    <span>{{"STOCK" | translate}} {{ quantityMap[item.id].quantity }} {{"UNITS" | translate}}</span>
-                    <button mat-icon-button (click)="inc(quantityMap[item.id].id)"><i class="fas fa-plus-square"></i></button>
-                </div>
-                <div class="item-price">
-                  <mat-form-field class="price-field">
-                        <input #price matInput type="number" value="{{ item.price }}" [placeholder]="'PRICE_IN_DOLLARS' | translate">
-                        <button mat-icon-button matSuffix (click)="modifyPrice(item.id, price.value)" [disabled]="!(price.value > 0)"><i class="fas fa-check"></i></button>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-          </mat-card>
-        </mat-grid-tile>
-      </div> 
-    </mat-grid-list>
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Product">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT" fxFlex="50%" fxFlex.lt-md="50%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="50%" fxFlex.lt-md="50%"> {{element.name}}</mat-cell>
+      </ng-container>
 
-    <ng-template #emptyResult>
-      <mat-card class="mat-elevation-z6 emptyState">
-        <img src="assets/public/images/products/no-results.png"
-             class="img-responsive noResult"
-             alt=" No results found">
-        <mat-card-title>
-          <span class="noResultText" translate>
-            NO_SEARCH_RESULT
-          </span>
-        </mat-card-title>
-        <mat-card-content>
-          <span class="noResultText" translate>
-            SEARCH_PROCESSING
-          </span>
-        </mat-card-content>
-      </mat-card>
-    </ng-template>
+      <ng-container matColumnDef="Price">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+          <mat-form-field class="input-field">
+            <input #price matInput type="number" value="{{ element.price }}">
+            <button mat-icon-button (click)="modifyPrice(element.id, price.value)" matSuffix><i class="fas fa-check"></i></button>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_QUANTITY" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+          <mat-form-field class="input-field">
+            <input #quanitity matInput type="number" value="{{ quantityMap[element.id].quantity }}">
+            <button mat-icon-button (click)="modifyQuantity(quantityMap[element.id].id, quanitity.value)" matSuffix><i class="fas fa-check"></i></button>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
 
     <mat-divider></mat-divider>
 
     <mat-paginator class="mat-elevation-z6"
                    #paginator
-                   [pageSize]="12"
-                   [pageSizeOptions]="[12, 24, 36]">
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20, 30]">
     </mat-paginator>
   </div>
 </div>

@@ -17,15 +17,14 @@ dom.watch()
 })
 export class AccountingComponent implements AfterViewInit,OnDestroy {
 
+  public displayedColumns = ['Product', 'Price', 'Quantity']
   public tableData: any[]
   public dataSource
-  public gridDataSource
   public confirmation = undefined
   public error = undefined
   @ViewChild(MatPaginator) paginator: MatPaginator
   private productSubscription: Subscription
   private quantitySubscription: Subscription
-  public breakpoint: number
   public quantityMap: any
   constructor (private productService: ProductService, private quantityService: QuantityService) { }
 
@@ -55,19 +54,6 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
       this.tableData = tableData
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
-
-      if (window.innerWidth <= 1740) {
-        this.breakpoint = 3
-        if (window.innerWidth <= 1300) {
-          this.breakpoint = 2
-          if (window.innerWidth <= 850) {
-            this.breakpoint = 1
-          }
-        }
-      } else {
-        this.breakpoint = 4
-      }
-      this.gridDataSource = this.dataSource.connect()
     }, (err) => console.log(err))
   }
 
@@ -78,41 +64,16 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
     if (this.quantitySubscription) {
       this.quantitySubscription.unsubscribe()
     }
-    if (this.dataSource) {
-      this.dataSource.disconnect()
-    }
-  }
-
-  inc (id) {
-    this.modifyQuantity(id,1)
-  }
-
-  dec (id) {
-    this.modifyQuantity(id,-1)
   }
 
   modifyQuantity (id, value) {
     this.error = null
-    this.quantityService.get(id).subscribe((item) => {
-      let newQuantity = item.quantity + value
-      this.quantityService.put(id, { quantity: newQuantity < 0 ? 0 : newQuantity }).subscribe(() => {
-        this.confirmation = 'Quantity has been updated'
-        this.loadQuantity()
-      },(err) => {
-        {
-          this.error = err.error
-          this.confirmation = null
-          console.log(err)
-        }
+    this.quantityService.put(id, { quantity: value < 0 ? 0 : value }).subscribe((quantity) => {
+      const product = this.tableData.find((product) => {
+        return product.id === quantity.ProductId
       })
-    }, (err) => console.log(err))
-  }
-
-  modifyPrice (id, value) {
-    this.error = null
-    this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe(() => {
-      this.confirmation = 'Price has been updated'
-      this.loadProducts()
+      this.confirmation = 'Quantity for ' + product.name + ' has been updated.'
+      this.loadQuantity()
     },(err) => {
       this.error = err.error
       this.confirmation = null
@@ -120,17 +81,15 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
     })
   }
 
-  onResize (event) {
-    if (event.target.innerWidth <= 1740) {
-      this.breakpoint = 3
-      if (event.target.innerWidth <= 1300) {
-        this.breakpoint = 2
-        if (event.target.innerWidth <= 850) {
-          this.breakpoint = 1
-        }
-      }
-    } else {
-      this.breakpoint = 4
-    }
+  modifyPrice (id, value) {
+    this.error = null
+    this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe((product) => {
+      this.confirmation = 'Price for ' + product.name + ' has been updated.'
+      this.loadProducts()
+    },(err) => {
+      this.error = err.error
+      this.confirmation = null
+      console.log(err)
+    })
   }
 }

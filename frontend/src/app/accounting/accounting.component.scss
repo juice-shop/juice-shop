@@ -1,72 +1,19 @@
 .table-container {
-    min-width: 350px;
-    width: 80%;
+  min-width: 350px;
+  width: 40%;
 }
 
 .heading {
-    background: rgba(0,0,0,.2);
-    justify-content: center;
-    padding: 12px 20px;
-    font-size: x-large;
-}
-
-.img-thumbnail {
-    height: auto;
-    max-width: 110px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-height: 145px;
-}
-
-.img-container {
-   height: 130px;
+  background: rgba(0,0,0,.2);
+  justify-content: center;
+  padding: 12px 20px;
+  font-size: x-large;
 }
 
 .product {
-  cursor: pointer;
+cursor: pointer;
 }
 
-mat-card {
-  height: calc(100% - 70px);
-}
-
-.item-price {
-    text-align: center;
-    margin-top: 6px;
-}
-
-.item-quantity {
-  text-align: center;
-  margin-top: 6px;
-}
-
-.item-name {
-    text-align: center;
-    margin-top: 25px;
-}
-
-.price-field {
-  width: 150px;
-}
-.emptyState{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-
-.noResult{
-  width: 60%;
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.noResultText{
-  text-align: center;
-  display:block;
-  margin-top: 10px;
+.input-field {
+width: 80px;
 }
