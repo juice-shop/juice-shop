@@ -7,7 +7,7 @@ import {
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
-export const SqlOneInstructions: ChallengeInstruction = {
+export const LoginAdminInstruction: ChallengeInstruction = {
   name: 'Login Admin',
   hints: [
     {
@@ -39,7 +39,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       }
     },
     {
-      text: 'To find a way around the normal login process we will try to use an SQL Injection (SQLi) attack.',
+      text: 'To find a way around the normal login process we will try to use an **SQL Injection** (SQLi) attack.',
       fixture: '#email',
       resolved: waitInMs(8000)
     },
@@ -59,7 +59,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitForInputToNotBeEmpty('#password')
     },
     {
-      text: 'Press the _Log in_ button',
+      text: 'Press the _Log in_ button.',
       fixture: '#rememberMe',
       resolved: waitForElementToGetClicked('#loginButton')
     },

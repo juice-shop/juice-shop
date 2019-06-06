@@ -1,9 +1,11 @@
 import snarkdown from 'snarkdown'
 
-import { SqlOneInstructions } from './challenges/sqli-1'
+import { LoginAdminInstruction } from './challenges/loginAdmin'
+import { XssTier1Instruction } from './challenges/xssTier1'
 
 const challengeInstructions: ChallengeInstruction[] = [
-  SqlOneInstructions
+  LoginAdminInstruction,
+  XssTier1Instruction
 ]
 
 export interface HackingInstructorFileFormat {
