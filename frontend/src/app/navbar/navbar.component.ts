@@ -55,7 +55,8 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService,
+    private io: SocketIoService, private langService: LanguagesService) { }
 
   ngOnInit () {
     this.getLanguages()
