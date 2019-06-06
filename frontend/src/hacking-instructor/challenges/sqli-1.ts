@@ -12,7 +12,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
   hints: [
     {
       text:
-        "To start this challenge you'll have to log out first.",
+        "To start this challenge, you'll have to log out first.",
       fixture: '#navbarLogoutButton',
       unskippable: true,
       async resolved () {
@@ -26,7 +26,7 @@ export const SqlOneInstructions: ChallengeInstruction = {
     },
     {
       text:
-        "Let's try if we find a way to log in with the administrator's user account. For starters go to the login page.",
+        "Let's try if we find a way to log in with the administrator's user account. To begin, go to the _Login_ page.",
       fixture: '#navbarLoginButton',
       unskippable: true,
       async resolved () {
@@ -39,12 +39,12 @@ export const SqlOneInstructions: ChallengeInstruction = {
       }
     },
     {
-      text: 'To find a way around the normal login protection we will try to use a SQL injection (SQLi).',
+      text: 'To find a way around the normal login process we will try to use an SQL Injection (SQLi) attack.',
       fixture: '#email',
       resolved: waitInMs(8000)
     },
     {
-      text: "A good starting point for simple SQL injections is to insert quatation marks (like `\"` or `'`). These mess with the syntax of the query and might give you indications if an endpoint is vulnarable or not.",
+      text: "A good starting point for simple SQL Injections is to insert quotation marks (like `\"` or `'`). These mess with the syntax of an insecurely concatenated query and might give you feedback if an endpoint is vulnerable or not.",
       fixture: '#email',
       resolved: waitInMs(15000)
     },
@@ -54,68 +54,74 @@ export const SqlOneInstructions: ChallengeInstruction = {
       resolved: waitForInputToHaveValue('#email', "'")
     },
     {
-      text: "Now put anything in the **password field**. Doesn't matter what.",
+      text: "Now put anything in the **password field**. It doesn't matter what.",
       fixture: '#password',
       resolved: waitForInputToNotHaveValue('#password', '')
     },
     {
-      text: 'Press the log in button',
+      text: 'Press the _Log in_ button',
       fixture: '#loginButton',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
-      text: 'Nice! Do you see the error in the top? Unfortunatly it isnt really telling us much of what went wrong...',
+      text: "Nice! Do you see the red `[object Object]` error at the top? Unfortunately it isn't really telling us much about what went wrong...",
       fixture: '#loginButton',
       resolved: waitInMs(10000)
     },
     {
-      text: 'Maybe you will be able to find out more information about the error in the JavaScript console or the network tab of your browser.',
+      text: 'Maybe you will be able to find out more information about the error in the JavaScript console or the network tab of your browser!',
       fixture: '#loginButton',
       resolved: waitInMs(10000)
     },
     {
-      text: 'Did you spot the SQL query in the there? If not, take another look.',
+      text: 'Did you spot the error message with the `SQLITE_ERROR` and the entire SQL query in the console output? If not, keep the console open and click _Log in_ again. Then inspect the occuring log message closely.',
       fixture: '#loginButton',
-      resolved: waitInMs(10000)
+      resolved: waitInMs(15000)
     },
     {
-      text: "Let's try to manipulate the query a bit more. Try out tryping `' OR true` into the email field.",
+      text: "Let's try to manipulate the query a bit to make it useful. Try out typing `' OR true` into the **email field**.",
       fixture: '#email',
       resolved: waitForInputToHaveValue('#email', "' OR true")
     },
     {
-      text: 'Now click the log in button again',
+      text: 'Now click the _Log in_ button again.',
       fixture: '#loginButton',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
-      text: 'Mhh... The query is still failing? Do you see why in the console?',
+      text: 'Mhh... The query is still invalid? Can you see why from the new error in the console?',
       fixture: '#loginButton',
       resolved: waitInMs(8000)
     },
     {
-      text: 'We need to make sure that the rest of the query after our injection doesnt get executed. Any Ideas?',
+      text: "We need to make sure that the rest of the query after our injection doesn't get executed. Any Ideas?",
       fixture: '#loginButton',
       resolved: waitInMs(8000)
     },
     {
-      text: 'You can comment out the rest of the quries using comments in sql. In sqlite you can use "--" for that',
+      text: 'You can comment out anything after your injection payload from query using comments in SQL. In SQLite databases you can use `--` for that.',
       fixture: '#loginButton',
-      resolved: waitInMs(8000)
+      resolved: waitInMs(10000)
     },
     {
-      text: 'So type in "\' OR true --" in the email field.',
+      text: 'So, type in "\' OR true--" in the email field.',
       fixture: '#email',
-      resolved: waitForInputToHaveValue('#email', "' OR true --")
+      resolved: waitForInputToHaveValue('#email', "' OR true--")
     },
     {
-      text: 'Press the log in button',
+      text: 'Press the _Log in_ button again and sit back...',
       fixture: '#loginButton',
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text:
-        '🎉 That worked right?! Concratulation on being the new administartor in the shop!.',
+        'That worked, right?! To see with whose account you just logged in, click the _User Profile_ image.',
+      fixture: '#userMenuButton',
+      resolved: waitForElementToGetClicked('#userMenuButton')
+    },
+    {
+      text:
+        '🎉 Congratulations! You are logged in as the administrator of the shop!',
       fixture: '#searchQuery',
       resolved: waitInMs(10000)
     }
