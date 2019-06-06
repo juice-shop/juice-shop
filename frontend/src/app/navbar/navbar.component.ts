@@ -8,8 +8,6 @@ import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
-import { MatSnackBar } from '@angular/material'
-import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.component'
 
 import {
   faBomb,
@@ -58,7 +56,7 @@ export class NavbarComponent implements OnInit {
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
     private cookieService: CookieService, private router: Router, private translate: TranslateService,
-    private io: SocketIoService, private langService: LanguagesService, private snackBar: MatSnackBar) { }
+    private io: SocketIoService, private langService: LanguagesService) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -84,10 +82,6 @@ export class NavbarComponent implements OnInit {
         }
         this.logoSrc = 'assets/public/images/' + logo
       }
-
-      this.snackBar.openFromComponent(WelcomeBannerComponent, {
-        verticalPosition: 'top'
-      })
     }, (err) => console.log(err))
 
     if (localStorage.getItem('token')) {
