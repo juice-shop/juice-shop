@@ -21,6 +21,8 @@ import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { WelcomeComponent } from './welcome-banner/welcome.component'
+import { WelcomeBannerComponent } from './welcome-banner/welcome-banner.component'
 import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { RegisterComponent } from './register/register.component'
@@ -86,7 +88,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule, MatRadioModule } from '@angular/material'
+import { MatGridListModule, MatRadioModule, MatSnackBarModule } from '@angular/material'
 import { MatBadgeModule } from '@angular/material/badge'
 /* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
@@ -107,6 +109,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     LoginComponent,
     ScoreBoardComponent,
     NavbarComponent,
+    WelcomeComponent,
+    WelcomeBannerComponent,
     SearchResultComponent,
     ForgotPasswordComponent,
     RegisterComponent,
@@ -133,7 +137,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     LastLoginIpComponent,
     PrivacyPolicyComponent
   ],
-  entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
+  entryComponents: [
+    ProductDetailsComponent,
+    QrCodeComponent,
+    UserDetailsComponent,
+    ProductReviewEditComponent,
+    WelcomeBannerComponent
+  ],
   imports: [
     BrowserModule,
     Routing,
@@ -181,7 +191,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     LayoutModule,
     MatGridListModule,
     MatBadgeModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [
     {
