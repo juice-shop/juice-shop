@@ -49,8 +49,9 @@ export class TwoFactorAuthComponent {
     const status = this.twoFactorAuthService.status()
     const config = this.configurationService.getApplicationConfiguration()
 
-    forkJoin(status, config).subscribe(([{ setup, email, secret, setupToken }, config]) => {
+    forkJoin(status, config).subscribe(([{ setup, email, secret, setupToken }, config ]) => {
       this.setupStatus = setup
+      this.appName = config.application.name
       if (setup === false) {
         const encodedAppName = encodeURIComponent(this.appName)
         this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
