@@ -6,11 +6,7 @@ import { CookieService } from 'ngx-cookie'
 @Component({
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
-  styles: [`
-    .example-pizza-party {
-      color: hotpink;
-    }
-  `]
+  styleUrls: ['./welcome-banner.component.scss']
 })
 export class WelcomeBannerComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
@@ -24,7 +20,7 @@ export class WelcomeBannerComponent implements OnInit {
 
   ngOnInit (): void {
     let welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
-    if (welcomeBannerStatus === 'dismissed') {
+    if (welcomeBannerStatus === 'dismiss') {
       this.snackBarRef.dismiss()
     } else {
       this.configurationService.getApplicationConfiguration().subscribe((config) => {
@@ -39,6 +35,6 @@ export class WelcomeBannerComponent implements OnInit {
 
   closeWelcome (): void {
     this.snackBarRef.dismiss()
-    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismissed')
+    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss')
   }
 }
