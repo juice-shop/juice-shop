@@ -188,5 +188,6 @@
   "GDPR_HEADING": "Datenlöschungsanfrage (Art. 17 DSGVO)",
   "ACCOUNT_DELETE_CONFIRMATION": "Dein Konto wurde erfolgreich gelöscht. Sofern nicht automatisch geschehen, melde dich bitte jetzt ab!",
   "GDPR_MESSAGE": "Wir nehmen Datenschutz, die Privatsphäre unserer Kunden und die Einhaltung von Rechtsvorschriften sehr ernst. In Einklang mit der DSGVO erlauben wir dir, die vollständige Löschung deines Kontos und aller damit verbundenen Daten zu beantragen.",
-  "DELETE_DATA_LABEL": "Benutzerdaten löschen"
+  "DELETE_DATA_LABEL": "Benutzerdaten löschen",
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
 }
