@@ -188,5 +188,6 @@
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "Your account details have been successfully erased. If you were not automatically log out, please do so now!",
   "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
-  "DELETE_DATA_LABEL": "Delete User Data"
+  "DELETE_DATA_LABEL": "Delete User Data",
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
 }
