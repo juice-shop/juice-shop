@@ -1,10 +1,15 @@
+const config = require('config')
+const models = require('../../models/index')
+
 describe('/#/register', () => {
   beforeEach(() => {
     browser.get('/#/register')
   })
 
   describe('challenge "xss2"', () => {
-    xit('should be possible to bypass validation by directly using Rest API', () => {
+    protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
+
+    it('should be possible to bypass validation by directly using Rest API', () => {
       browser.executeScript(() => {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
@@ -18,17 +23,28 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': '<iframe src="javascript:alert(`xss`)">', 'password': 'XSSed', 'passwordRepeat': 'XSSed', 'isAdmin': true }))
       })
 
+      browser.waitForAngularEnabled(false)
       const EC = protractor.ExpectedConditions
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present")
+      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/administration")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
+        // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
+        models.User.findOne({ where: { email: '<iframe src="javascript:alert(`xss`)">' } }).then(user => {
+          user.update({ email: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
+            console.log(error)
+            fail()
+          })
+        }).catch(error => {
+          console.log(error)
+          fail()
+        })
       })
-
-      // FIXME Update user email afterwards to prevent further unwanted popups to appear
+      browser.waitForAngularEnabled(true)
     })
-    // protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
+
+    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
   })
 
   describe('challenge "registerAdmin"', () => {
@@ -46,6 +62,7 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': 'testing@test.com', 'password': 'pwned', 'passwordRepeat': 'pwned', 'isAdmin': true }))
       })
     })
+
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
   })
 
@@ -64,6 +81,7 @@ describe('/#/register', () => {
         xhttp.send(JSON.stringify({ 'email': 'uncle@bob.com', 'password': 'ThereCanBeOnlyOne' }))
       })
     })
+
     protractor.expect.challengeSolved({ challenge: 'Repetitive Registration' })
   })
 })
