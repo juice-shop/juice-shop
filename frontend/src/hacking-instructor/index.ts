@@ -60,6 +60,8 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.alignItems = 'center'
 
   const picture = document.createElement('img')
+  picture.style.minWidth = '64px'
+  picture.style.minHeight = '64px'
   picture.style.width = '64px'
   picture.style.height = '64px'
   picture.style.marginRight = '8px'
