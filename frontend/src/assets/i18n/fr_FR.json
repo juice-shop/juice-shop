@@ -188,5 +188,6 @@
   "GDPR_HEADING": "Demande d'effacement des données (art. 17 RGPD)",
   "ACCOUNT_DELETE_CONFIRMATION": "Les détails de votre compte ont été effacés avec succès. Si vous n'avez pas été déconnecté automatiquement, veuillez le faire maintenant !",
   "GDPR_MESSAGE": "Nous prenons très au sérieux la sécurité des données, la confidentialité des clients et la conformité juridique. En accord avec la RGPD nous vous permettons de demander la suppression de votre compte et de toutes les données associées.",
-  "DELETE_DATA_LABEL": "Supprimer les données"
+  "DELETE_DATA_LABEL": "Supprimer les données",
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
 }
