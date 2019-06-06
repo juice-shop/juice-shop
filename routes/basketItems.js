@@ -72,8 +72,8 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
 
 async function quantityCheck (req, res, next, id, quantity) {
   const record = await models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } })
-  
-  const previousPurchase = record ? record.quantity : 0;
+
+  const previousPurchase = record ? record.quantity : 0
 
   const product = await models.Quantity.findOne({ where: { ProductId: id } })
 
