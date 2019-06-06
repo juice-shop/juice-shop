@@ -103,9 +103,9 @@
           </button>
           <button
             *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
-            mat-raised-button color="primary"
+            mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
-            matTooltip="Start a interactive tutorial for this challenge"
+            matTooltip="{{'INFO_HACKING_INSTRUCTOR' | translate}}"
             matTooltipPosition="above"
             class="hacking-instructor-button"
             >
@@ -115,7 +115,6 @@
                 aria-hidden="true"
               >
               </i>
-              Hacking Instructor
             </span>
           </button>
         </mat-cell>
