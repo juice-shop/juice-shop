@@ -47,6 +47,12 @@ exports.config = {
     // Get cookie consent popup out of the way
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
+
+    // Get welcome banner out of the way
+    let welcomeClose = element.all(by.className('welcome-banner-close-button'))
+    if (welcomeClose.isPresent()) { welcomeClose.first().click() }
+
+    browser.manage().addCookie({ name: 'welcome-banner-status', value: 'dismissed' })
   }
 }
 
