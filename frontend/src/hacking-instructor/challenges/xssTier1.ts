@@ -76,7 +76,7 @@ export const XssTier1Instruction: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: ``<iframe src=\"javascript:alert(`xss`)\">``.",
+      text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: `<iframe src=\"javascript:alert(\`xss\`)\">`.",
       fixture: '#searchQuery',
       resolved: waitForInputToHaveValue('#searchQuery', '<iframe src="javascript:alert(`xss`)">')
     },
