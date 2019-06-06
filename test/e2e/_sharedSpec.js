@@ -21,10 +21,6 @@ protractor.beforeEach = {
       beforeEach(() => {
         browser.get('/#/login')
 
-        let welcomeClose = element.all(by.className('welcome-banner-close-button'))
-        if (welcomeClose.isPresent())
-          welcomeClose.first().click()
-
         element(by.id('email')).sendKeys(context.email)
         element(by.id('password')).sendKeys(context.password)
         element(by.id('loginButton')).click()
