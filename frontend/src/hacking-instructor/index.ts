@@ -44,7 +44,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.id = 'hacking-instructor'
   elem.style.position = 'absolute'
   elem.style.zIndex = '20000'
-  elem.style.backgroundColor = '#4472C4' // TODO Load navColor from themes.js?
+  elem.style.backgroundColor = '#4472C4' // TODO Load color from Angular theme <or> use navColor from themes.js?
   elem.style.maxWidth = '400px'
   elem.style.minWidth = hint.text.length > 100 ? '350px' : '250px'
   elem.style.padding = '16px'
