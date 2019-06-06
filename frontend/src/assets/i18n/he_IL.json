@@ -188,5 +188,6 @@
   "GDPR_HEADING": "בקשה למחיקת מידע (לפי סעיף 17 של GDPR)",
   "ACCOUNT_DELETE_CONFIRMATION": "פרטי החשבון שלך נמחקו בהצלחה. אם המערכת לא הוציאה אותך באופן אוטומטי, נא לצאת כעת!",
   "GDPR_MESSAGE": "אנו לוקחים ברצינות רבה אבטחת מידע, פרטיות הלקוח, והתאמה לחוקים. בהתאם לרגולציית GDPR אנחנו מאפשרים לך מחיקה מלאה של החשבון שלך וכל מידע הקשור אליו.",
-  "DELETE_DATA_LABEL": "מחיקת מידע משתמש"
+  "DELETE_DATA_LABEL": "מחיקת מידע משתמש",
+  "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge."
 }
