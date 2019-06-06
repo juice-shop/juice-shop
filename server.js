@@ -174,7 +174,7 @@ app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, ma
 /* Checks on JWT in Authorization header */
 app.use(verify.jwtChallenges())
 /* Baskets: Unauthorized users are not allowed to access baskets */
-app.use('/rest/basket', insecurity.isAuthorized())
+app.use('/rest/basket', insecurity.isAuthorized(), insecurity.appendUserId())
 /* BasketItems: API only accessible for authenticated users */
 app.use('/api/BasketItems', insecurity.isAuthorized())
 app.use('/api/BasketItems/:id', insecurity.isAuthorized())
@@ -226,8 +226,8 @@ app.post('/api/Users', verify.passwordRepeatChallenge())
 /* Unauthorized users are not allowed to access B2B API */
 app.use('/b2b/v2', insecurity.isAuthorized())
 /* Check if the quantity is available and add item to basket */
-app.put('/api/BasketItems/:id', basketItems.quantityCheckBeforeBasketItemUpdate())
-app.post('/api/BasketItems', basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+app.put('/api/BasketItems/:id', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
+app.post('/api/BasketItems', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
 /* Accounting users are allowed to check and update quantities */
 app.delete('/api/Quantitys/:id', insecurity.denyAll())
 app.post('/api/Quantitys', insecurity.denyAll())
