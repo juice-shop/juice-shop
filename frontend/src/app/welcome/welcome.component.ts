@@ -5,8 +5,10 @@ import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.compone
 
 @Component({
   selector: 'app-welcome',
-  templateUrl: 'welcome.component.html'
+  templateUrl: 'welcome.component.html',
+  styleUrls: ['./welcome.component.scss']
 })
+
 export class WelcomeComponent implements OnInit {
   constructor (private snackBar: MatSnackBar, private configurationService: ConfigurationService) { }
 
