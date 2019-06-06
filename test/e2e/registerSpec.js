@@ -26,7 +26,7 @@ describe('/#/register', () => {
       browser.waitForAngularEnabled(false)
       const EC = protractor.ExpectedConditions
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/administration")
+      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
