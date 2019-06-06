@@ -307,4 +307,15 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].hint).toBe('Click to open hints.')
   })
 
+  it('should show GitHub button by default', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+    component.ngOnInit()
+    expect(component.gitHubRibbon).toBe(true)
+  })
+
+  it('should hide GitHub ribbon if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    component.ngOnInit()
+    expect(component.gitHubRibbon).toBe(false)
+  })
 })
