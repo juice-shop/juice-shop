@@ -44,6 +44,7 @@
     "ngx-spinner": "^7.0.0",
     "node-sass": "^4.12.0",
     "rxjs": "6.3.3",
+    "snarkdown": "^1.2.2",
     "socket.io-client": "^2.2.0",
     "typescript": "~3.2.4",
     "zone.js": "^0.8.29"
