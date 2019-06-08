@@ -3,7 +3,8 @@
     <h1 translate>LABEL_EDIT_REVIEW</h1>
 
     <div>
-      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters">
+      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters" floatLabel="always">
+        <mat-label translate>LABEL_REVIEW</mat-label>
           <textarea [formControl]="editReviewControl" #textPut matInput
                     placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
                     matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
@@ -15,14 +16,14 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button mat-dialog-close class="close-dialog">
+  <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
     <i class="material-icons">
       close
     </i>
     <span>  {{'BTN_CLOSE' | translate}}</span>
   </button>
-  <button type="submit" (click)="editReview()" mat-raised-button style="margin-left: 5px;"
-          color="primary">
+  <button type="submit" (click)="editReview()" [disabled]="!textPut.value.trim()"
+          mat-raised-button style="margin-left: 5px;" color="primary" aria-label="Send the review">
     <i class="material-icons">
       send
     </i>
