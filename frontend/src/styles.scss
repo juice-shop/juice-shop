@@ -137,3 +137,32 @@
 [hidden] {
   display: none !important;
 }
+
+.mat-expansion-panel-header {
+  // If the panel, that the header is in, is inside an element being animated by Angular,
+  // the default behavior is to block all child animations. This means that the header's
+  // height won't kick in until the parent animation is done. We add a fallback to the
+  // header's default height. If the animations aren't blocked, these styles will be overridden
+  // by the inline styles from the animations module.
+  .ng-animating .mat-expansion-panel & {
+    min-height: 48px;
+  }
+
+  .ng-animating .mat-expansion-panel.mat-expanded & {
+    min-height: 64px;
+  }
+}
+
+.mat-expansion-panel-content {
+  // If the expansion panel is inside an element being animated by Angular,
+  // the default behavior is to block all child animations. This means that the
+  // default `height: 0` won't kick in until the parent animation is over, which
+  // will cause the panel to appear open, before it snaps into place. We don't want
+  // to set the default height to zero, because it'll break the `height: '*'` from
+  // the animation definitions. Instead we add a fallback that only applies only if
+  // it's inside a parent that is mid-animation.
+  .ng-animating .mat-expansion-panel:not(.mat-expanded) & {
+    height: 0;
+    overflow: hidden;
+  }
+}
