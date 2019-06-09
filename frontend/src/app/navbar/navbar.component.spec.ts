@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
+import { MatRadioModule } from '@angular/material/radio'
 
 class MockSocket {
   on (str: string, callback) {
@@ -92,7 +93,8 @@ describe('NavbarComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        NgMatSearchBarModule
+        NgMatSearchBarModule,
+        MatRadioModule
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },

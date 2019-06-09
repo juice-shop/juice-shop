@@ -26,7 +26,7 @@ describe('/rest/data-export', () => {
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
             const parsedData = JSON.parse(json.userData)
-            expect(parsedData.username).toBe('')
+            expect(parsedData.username).toBe('bkimminich')
             expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
           })
       })
@@ -89,7 +89,7 @@ describe('/rest/data-export', () => {
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
               .then(({ json }) => {
                 const parsedData = JSON.parse(json.userData)
-                expect(parsedData.username).toBe('')
+                expect(parsedData.username).toBe('bkimminich')
                 expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
               })
           })
@@ -156,7 +156,6 @@ describe('/rest/data-export', () => {
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
-            console.log(json)
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('')
             expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
