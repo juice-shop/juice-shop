@@ -72,9 +72,10 @@
 
       <mat-divider class="detail-divider"></mat-divider>
 
+      <h4 translate>WRITE_REVIEW</h4>
       <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters"
                       [style.display]="isLoggedIn() ? 'block' : 'none' "  floatLabel="always">
-        <mat-label translate>WRITE_REVIEW</mat-label>
+        <mat-label translate>LABEL_REVIEW</mat-label>
         <textarea [formControl]="reviewControl" #textPut cols="50" matInput
                   placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
                   matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
