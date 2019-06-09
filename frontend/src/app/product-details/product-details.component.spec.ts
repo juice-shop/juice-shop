@@ -14,6 +14,7 @@ import { MatBadgeModule } from '@angular/material/badge'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
@@ -53,7 +54,8 @@ describe('ProductDetailsComponent', () => {
         MatDividerModule,
         MatBadgeModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatExpansionModule
       ],
       declarations: [ ProductDetailsComponent ],
       providers: [

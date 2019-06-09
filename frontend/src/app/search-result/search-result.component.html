@@ -11,6 +11,7 @@
       <div *ngIf="confirmation" style="margin-top:5px;">
         <p class="confirmation">{{ confirmation }}</p>
       </div>
+      <div id="search-result-heading"></div>
     </div>
     <div *ngIf=" !emptyState; else emptyResult">
       <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">

@@ -101,6 +101,22 @@
               {{(challenge.disabledEnv ? "STATUS_UNAVAILABLE" : (challenge.solved ? "STATUS_SOLVED" : "STATUS_UNSOLVED")) | translate}}
             </span>
           </button>
+          <button
+            *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
+            mat-raised-button color="warn"
+            (click)="startHackingInstructor(challenge.name)"
+            matTooltip="{{'INFO_HACKING_INSTRUCTOR' | translate}}"
+            matTooltipPosition="above"
+            class="hacking-instructor-button"
+            >
+            <span>
+              <i
+                class="fas fa-graduation-cap"
+                aria-hidden="true"
+              >
+              </i>
+            </span>
+          </button>
         </mat-cell>
       </ng-container>
 

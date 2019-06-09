@@ -57,7 +57,8 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService,
+    private io: SocketIoService, private langService: LanguagesService) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -154,7 +155,9 @@ export class NavbarComponent implements OnInit {
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.put('language', langKey, { expires })
-    this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+    if (this.languages.find((y) => y.key === langKey)) {
+      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+    }
   }
 
   getScoreBoardStatus () {
