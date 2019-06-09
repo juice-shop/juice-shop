@@ -188,5 +188,8 @@
   "GDPR_HEADING": "Datenlöschungsanfrage (Art. 17 DSGVO)",
   "ACCOUNT_DELETE_CONFIRMATION": "Dein Konto wurde erfolgreich gelöscht. Sofern nicht automatisch geschehen, melde dich bitte jetzt ab!",
   "GDPR_MESSAGE": "Wir nehmen Datenschutz, die Privatsphäre unserer Kunden und die Einhaltung von Rechtsvorschriften sehr ernst. In Einklang mit der DSGVO erlauben wir dir, die vollständige Löschung deines Kontos und aller damit verbundenen Daten zu beantragen.",
-  "DELETE_DATA_LABEL": "Benutzerdaten löschen"
+  "DELETE_DATA_LABEL": "Benutzerdaten löschen",
+  "INFO_HACKING_INSTRUCTOR": "Starten Sie ein interaktives Hacking-Tutorial für diese Herausforderung.",
+  "WELCOME_BANNER_TITLE": "Willkommen bei {{appname}}!",
+  "WELCOME_BANNER_DESCRIPTION": "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>{{appname}}</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>{{appname}}</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
 }
