@@ -33,10 +33,10 @@ ctf:
     reflectedXssChallenge:
       name: Uruguay
       code: UY
-    persistedXssChallengeUser:
+    persistedXssUserChallenge:
       name: Myanmar
       code: MM
-    persistedXssChallengeFeedback:
+    persistedXssFeedbackChallenge:
       name: Costa Rica
       code: CR
     restfulXssChallenge:

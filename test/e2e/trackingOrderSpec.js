@@ -7,7 +7,7 @@ describe('/#/track-order', () => {
     trackButton = element(by.id('trackButton'))
   })
 
-  describe('challenge "xss0"', () => {
+  describe('challenge "reflectedXss"', () => {
     it('Order Id should be susceptible to reflected XSS attacks', () => {
       const EC = protractor.ExpectedConditions
 

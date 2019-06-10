@@ -2,7 +2,7 @@ const config = require('config')
 const models = require('../../models/index')
 
 describe('/api', () => {
-  xdescribe('challenge "xss3"', () => {
+  xdescribe('challenge "restfulXss"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to create a new product when logged in', () => {
@@ -70,7 +70,7 @@ describe('/api', () => {
 })
 
 describe('/rest/saveLoginIp', () => {
-  describe('challenge "xss5"', () => {
+  describe('challenge "httpHeaderXss"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to save log-in IP when logged in', () => {
