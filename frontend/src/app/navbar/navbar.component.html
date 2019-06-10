@@ -2,7 +2,8 @@
 
   <mat-toolbar-row fxLayout="row">
 
-    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav">
+    <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
+            matTooltip="Open Sidenav" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -42,7 +43,8 @@
           {{userEmail}}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu"
+              aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https
         </mat-icon>
@@ -76,30 +78,38 @@
       </button>
     </mat-menu>
 
-    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons" aria-label="Show the shopping cart">
+    <button *ngIf="isLoggedIn()" mat-button routerLink="/basket" style="height:48px;" class="buttons"
+            aria-label="Show the shopping cart">
       <mat-icon>
         shopping_cart
       </mat-icon>
       <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
     </button>
 
-    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons" aria-label="Language selection menu">
+    <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
+            aria-label="Language selection menu"
+            matTooltip="Change the language" matTooltipPosition="below">
       <mat-icon>
         language
       </mat-icon>
+      <span fxHide.lt-md fxShow> {{shortKeyLang}} </span>
     </button>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="true">
-      <button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
-              mat-menu-item>
-        <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
-        {{language?.lang}}
+      <mat-radio-button (click)="changeLanguage(language.key)" *ngFor="let language of languages" [value]="language"
+                        class="mat-menu-item" style="width: 240px;" checked="{{selectedLanguage === language}}"
+                        aria-label="{{language.lang}}">
+        <div style="display: inline-block; width: 200px; margin-left: 5px;">
+          <span *ngFor="let icon of language.icons" [class]="'flag-icon flag-icon-' + icon"></span>
+          {{language?.lang}}
+        </div>
         <i
-          [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')"></i>
-      </button>
+          [class]="'fas fa-thermometer-' + language.gauge + (language.percentage > 70 ? ' confirmation' : ' error')">
+        </i>
+      </mat-radio-button>
     </mat-menu>
 
-    <mat-menu #subMenu="matMenu">
+    <mat-menu #subMenu="matMenu" style="width= 250px;">
       <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']" aria-label="Go to privacy policy page">
         <mat-icon>
           assignment
@@ -125,7 +135,8 @@
         </mat-icon>
         <span translate>TITLE_CHANGE_PASSWORD</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']" aria-label="Go to two factor authentication page">
+      <button mat-menu-item [routerLink]="['privacy-security/two-factor-authentication']"
+              aria-label="Go to two factor authentication page">
         <mat-icon>
           exposure_plus_2
         </mat-icon>

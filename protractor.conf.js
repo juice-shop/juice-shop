@@ -44,9 +44,11 @@ exports.config = {
       savePath: 'build/reports/e2e_results'
     }))
 
-    // Get cookie consent popup out of the way
+    // Get cookie consent popup and welcome banner out of the way
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
+    browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss' })
+    browser.get('/#')
   }
 }
 

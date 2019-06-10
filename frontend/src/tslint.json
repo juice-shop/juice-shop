@@ -10,6 +10,7 @@
             "element",
             "app",
             "kebab-case"
-        ]
+        ],
+        "no-unnecessary-type-assertion": false
     }
 }

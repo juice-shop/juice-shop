@@ -2,9 +2,12 @@ import { Component } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
+import { ConfigurationService } from '../Services/configuration.service'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faUnlockAlt, faSave } from '@fortawesome/free-solid-svg-icons'
+
+import { forkJoin } from 'rxjs'
 
 library.add(faUnlockAlt, faSave)
 dom.watch()
@@ -34,7 +37,9 @@ export class TwoFactorAuthComponent {
 
   private setupToken?: string
 
-  constructor (private twoFactorAuthService: TwoFactorAuthService) {}
+  private appName = 'OWASP Juice Shop'
+
+  constructor (private twoFactorAuthService: TwoFactorAuthService, private configurationService: ConfigurationService) {}
 
   ngOnInit () {
     this.updateStatus()
@@ -42,10 +47,14 @@ export class TwoFactorAuthComponent {
 
   updateStatus () {
     const status = this.twoFactorAuthService.status()
-    status.subscribe(({ setup, email, secret, setupToken }) => {
+    const config = this.configurationService.getApplicationConfiguration()
+
+    forkJoin(status, config).subscribe(([{ setup, email, secret, setupToken }, config ]) => {
       this.setupStatus = setup
+      this.appName = config.application.name
       if (setup === false) {
-        this.totpUrl = `otpauth://totp/JuiceShop:${email}?secret=${secret}&issuer=JuiceShop` // FIXME Use app name from config instead of fixed "JuiceShop"
+        const encodedAppName = encodeURIComponent(this.appName)
+        this.totpUrl = `otpauth://totp/${encodedAppName}:${email}?secret=${secret}&issuer=${encodedAppName}`
         this.totpSecret = secret
         this.setupToken = setupToken
       }
