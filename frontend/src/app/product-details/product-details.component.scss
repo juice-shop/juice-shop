@@ -18,8 +18,8 @@ p {
 }
 
 .detail-divider {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 .rw-button {
@@ -47,9 +47,13 @@ p {
 }
 
 .noResultText{
-  width: 50%;
   display:block;
   margin-left: auto;
   margin-right: auto;
   font-size: small;
+  text-align: center;
+}
+
+.dialogAction{
+  margin-bottom: 0px !important;
 }

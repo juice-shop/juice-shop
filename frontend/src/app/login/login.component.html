@@ -7,7 +7,7 @@
 
       <div class="error" *ngIf="error">{{error}}</div>
 
-      <mat-form-field color="accent">
+      <mat-form-field color="accent" appearance="outline">
         <mat-label translate>LABEL_EMAIL</mat-label>
         <input id="email" #email name="email"
                [formControl]="emailControl"
@@ -16,7 +16,7 @@
         <mat-error *ngIf="emailControl.invalid" translate>MANDATORY_EMAIL</mat-error>
       </mat-form-field>
 
-      <mat-form-field color="accent">
+      <mat-form-field color="accent" appearance="outline">
         <mat-label translate>LABEL_PASSWORD</mat-label>
         <input id="password" #password name="password"
                [formControl]="passwordControl"

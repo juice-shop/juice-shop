@@ -12,6 +12,12 @@ ratings:
     - '**.css'
     - '**.scss'
 checks:
+  file-lines:
+    config:
+      threshold: 300
+  method-lines:
+    config:
+      threshold: 30
   method-complexity:
     config:
       threshold: 7
