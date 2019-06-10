@@ -5,8 +5,8 @@ import {
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
-export const XssTier1Instruction: ChallengeInstruction = {
-  name: 'XSS Tier 1',
+export const DomXssInstruction: ChallengeInstruction = {
+  name: 'DOM XSS',
   hints: [
     {
       text:

@@ -81,11 +81,11 @@ exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
 }
 
 exports.jwtChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.jwtTier1Challenge)) {
-    jwtChallenge(challenges.jwtTier1Challenge, req, 'none', /jwtn3d@/)
+  if (utils.notSolved(challenges.jwtUnsignedChallenge)) {
+    jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
-  if (utils.notSolved(challenges.jwtTier2Challenge)) {
-    jwtChallenge(challenges.jwtTier2Challenge, req, 'HS256', /rsa_lord@/)
+  if (utils.notSolved(challenges.jwtForgedChallenge)) {
+    jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
   }
   next()
 }
