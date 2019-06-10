@@ -1,11 +1,11 @@
 import snarkdown from 'snarkdown'
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
-import { XssTier1Instruction } from './challenges/xssTier1'
+import { DomXssInstruction } from './challenges/localXss'
 
 const challengeInstructions: ChallengeInstruction[] = [
   LoginAdminInstruction,
-  XssTier1Instruction
+  DomXssInstruction
 ]
 
 export interface HackingInstructorFileFormat {

@@ -42,7 +42,7 @@ describe('/api', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 3' })
+    protractor.expect.challengeSolved({ challenge: 'API-only XSS' })
   })
 
   describe('challenge "changeProduct"', () => {
@@ -91,7 +91,7 @@ describe('/rest/saveLoginIp', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 5' })
+    protractor.expect.challengeSolved({ challenge: 'HTTP-Header XSS' })
   })
 
   it('should not be possible to save log-in IP when not logged in', () => {
