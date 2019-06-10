@@ -32,6 +32,8 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressListComponent } from './address-list/address-list.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -80,6 +82,25 @@ export class AdminGuard implements CanActivate {
   }
 }
 
+@Injectable()
+export class LoginGuard implements CanActivate {
+  constructor (private router: Router) {}
+
+  canActivate () {
+    if (localStorage.getItem('token')) {
+      return true
+    } else {
+      this.router.navigate(['403'], {
+        skipLocationChange: true,
+        queryParams: {
+          error: 'UNAUTHORIZED_ACCESS_ERROR'
+        }
+      })
+      return false
+    }
+  }
+}
+
 const routes: Routes = [
   {
     path: 'administration',
@@ -89,6 +110,21 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'address/list',
+    component: AddressListComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/create',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/edit/:addressId',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'basket',
