@@ -320,6 +320,7 @@
   key: resetPasswordMortyChallenge
 -
   name: 'Reset Bjoern''s Password'
+  category: 'Broken Authentication'
   description: 'Reset the password of Bjoern''s internal account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 5
   hint: 'Nothing a little bit of Facebook stalking couldn''t reveal. Might involve a historical twist.'
