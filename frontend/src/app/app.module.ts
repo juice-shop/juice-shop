@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing, AdminGuard } from './app.routing'
+import { Routing, AdminGuard, LoginGuard } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -62,6 +62,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { AddressService } from './Services/address.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -95,6 +96,8 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressListComponent } from './address-list/address-list.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -134,7 +137,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     TwoFactorAuthComponent,
     DataExportComponent,
     LastLoginIpComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    AddressCreateComponent,
+    AddressListComponent
   ],
   entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
   imports: [
@@ -211,7 +216,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeService,
     CookieService,
     AdminGuard,
-    ImageCaptchaService
+    LoginGuard,
+    ImageCaptchaService,
+    AddressService
   ],
   bootstrap: [AppComponent]
 })

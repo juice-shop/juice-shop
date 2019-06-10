@@ -72,6 +72,7 @@ const languageList = require('./routes/languages')
 const config = require('config')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
+const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
@@ -234,6 +235,12 @@ app.put('/api/Feedbacks/:id', insecurity.denyAll())
 app.use('/api/PrivacyRequests', insecurity.isAuthorized())
 app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
 
+app.post('/api/Addresss', insecurity.appendUserId())
+app.get('/api/Addresss', insecurity.appendUserId(), address.getAddress())
+app.put('/api/Addresss/:id', insecurity.appendUserId())
+app.del('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
+app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
+
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
   new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
@@ -270,6 +277,7 @@ const autoModels = [
   { name: 'Recycle', exclude: [] },
   { name: 'SecurityQuestion', exclude: [] },
   { name: 'SecurityAnswer', exclude: [] },
+  { name: 'Address', exclude: [] },
   { name: 'PrivacyRequest', exclude: [] }
 ]
 
