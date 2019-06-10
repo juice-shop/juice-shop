@@ -14,7 +14,7 @@ describe('/redirect', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Unvalidated Redirect' })
   })
 
   describe('challenge "redirectCryptoCurrency"', () => {
@@ -22,6 +22,6 @@ describe('/redirect', () => {
       browser.driver.get(browser.baseUrl + '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Redirects Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Outdated Whitelist' })
   })
 })
