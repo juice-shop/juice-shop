@@ -15,7 +15,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Easter Egg Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Real Easter Egg' })
   })
 
   describe('challenge "premiumPaywall"', () => {
@@ -31,7 +31,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Privacy Policy Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Privacy Policy Inspection' })
   })
 
   describe('challenge "extraLanguage"', () => {
