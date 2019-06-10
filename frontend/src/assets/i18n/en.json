@@ -187,6 +187,7 @@
   "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
   "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
   "BTN_REMOVE": "Remove",
+  "MANDATORY_REVIEW": "The review must be at least one character long",
   "WRITE_REVIEW": "Write a review",
   "WRITE_REVIEW_PLACEHOLDER": "What did you like or dislike?",
   "EMPTY_REVIEW_LIST": "There is no review for this product yet.",
