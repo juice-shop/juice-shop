@@ -1,5 +1,7 @@
 const config = require('config')
 
+const EC = protractor.ExpectedConditions
+
 describe('/#/privacy-security/data-export', () => {
   beforeEach(() => {
     browser.get('/#/register')
@@ -13,7 +15,6 @@ describe('/#/privacy-security/data-export', () => {
   })
 
   describe('challenge "dataExportChallenge"', () => {
-
     protractor.beforeEach.login({ email: 'admun@' + config.get('application.domain'), password: 'admun123' })
 
     it('should be possible to steal admin user data by causing email clash during export', () => {

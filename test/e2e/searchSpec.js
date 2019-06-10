@@ -3,6 +3,8 @@ const christmasProduct = config.get('products').filter(product => product.useFor
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 const models = require('../../models/index')
 
+const EC = protractor.ExpectedConditions
+
 describe('/#/search', () => {
   let searchQuery, searchButton
 
