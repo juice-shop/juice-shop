@@ -10,14 +10,14 @@ import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.compone
 })
 
 export class WelcomeComponent implements OnInit {
-  constructor (private snackBar: MatDialog, private configurationService: ConfigurationService) { }
+  constructor (private dialog: MatDialog, private configurationService: ConfigurationService) { }
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.hideWelcome) {
+      if (config && config.application && !config.application.welcomeBanner) {
         return
       }
-      this.snackBar.open(WelcomeBannerComponent, {
+      this.dialog.open(WelcomeBannerComponent, {
         minWidth: '320px',
         width: '35%',
         position: {

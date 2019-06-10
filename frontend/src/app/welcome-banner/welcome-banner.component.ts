@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie'
 export class WelcomeBannerComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
 
-  private readonly welcomeBannerStatusCookieKey = 'welcome-banner-status'
+  private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   constructor (
         public dialogRef: MatDialogRef<WelcomeBannerComponent>,
