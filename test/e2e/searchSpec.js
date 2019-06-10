@@ -27,7 +27,7 @@ describe('/#/search', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 1' }) // FIXME Verification on server side not possible as value never get submitted to it
+    protractor.expect.challengeSolved({ challenge: 'DOM XSS' })
   })
 })
 
@@ -59,7 +59,7 @@ describe('/rest/products/search', () => {
       })
     })
 
-    it('should be able to place Christmas product into shopping card by id', () => { // FIXME Fix XHTTP request
+    it('should be able to place Christmas product into shopping card by id', () => {
       browser.waitForAngularEnabled(false)
       models.sequelize.query('SELECT * FROM PRODUCTS').then(([products]) => {
         var christmasProductId = products.filter(product => product.name === christmasProduct.name)[0].id

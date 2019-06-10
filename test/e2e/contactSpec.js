@@ -67,7 +67,7 @@ describe('/#/contact', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 4' })
+    protractor.expect.challengeSolved({ challenge: 'Server-side XSS Protection' })
   })
 
   describe('challenge "vulnerableComponent"', () => {
@@ -101,7 +101,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Typosquatting' })
   })
 
   describe('challenge "typosquattingAngular"', () => {
@@ -112,7 +112,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Typosquatting Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Sneaky Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {
@@ -123,7 +123,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Steganography Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Steganography' })
   })
 
   describe('challenge "zeroStars"', () => {
@@ -173,7 +173,7 @@ describe('/#/contact', () => {
       }
     })
 
-    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
   })
 
   describe('challenge "supplyChainAttack"', () => {
@@ -193,7 +193,7 @@ describe('/#/contact', () => {
       rating.click()
       submitButton.click()
     })
-    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Leaked Unsafe Product' })
   })
 
   function solveNextCaptcha () {

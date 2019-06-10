@@ -132,7 +132,7 @@ describe('SearchResultComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should notify socket if search query includes XSS Tier 1 payload while filtering table', () => {
+  it('should notify socket if search query includes DOM XSS payload while filtering table', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
     spyOn(mockSocket,'emit')
     component.filterTable()
