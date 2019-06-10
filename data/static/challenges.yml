@@ -522,7 +522,7 @@
   difficulty: 3
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
-  key: persistedXssChallengeUser
+  key: persistedXssUserChallenge
 -
   name: 'API-only XSS'
   category: 'XSS'
@@ -538,7 +538,7 @@
   difficulty: 4
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
-  key: persistedXssChallengeFeedback
+  key: persistedXssFeedbackChallenge
 -
   name: 'Change Bender''s Password'
   category: 'Broken Authentication'
