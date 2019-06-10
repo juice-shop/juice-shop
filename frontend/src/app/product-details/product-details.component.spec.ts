@@ -11,13 +11,15 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatBadgeModule } from '@angular/material/badge'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
@@ -53,7 +55,9 @@ describe('ProductDetailsComponent', () => {
         MatDividerModule,
         MatBadgeModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatExpansionModule,
+        MatSnackBarModule
       ],
       declarations: [ ProductDetailsComponent ],
       providers: [
@@ -130,6 +134,8 @@ describe('ProductDetailsComponent', () => {
     const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
     buttonDe.triggerEventHandler('click',null)
     expect(console.log).toHaveBeenCalledWith('Error')
+    fixture.destroy()
+    flush()
   }))
 
   it('should refresh reviews after posting a review', () => {

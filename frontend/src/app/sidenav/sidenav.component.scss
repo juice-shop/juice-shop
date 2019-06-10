@@ -30,22 +30,6 @@ a{
   margin: 0 12px 0 12px;
 }
 
-.sidenav-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0px;
-  left: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.sidenav-footer span{
-  font-size: 13px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .side-subHeader {
   font-weight: 300;
 }
@@ -77,4 +61,10 @@ mat-nav-list{
 
 .submenu.expanded {
   transform: scaleY(1);
+}
+
+.appVersion{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }

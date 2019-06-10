@@ -16,7 +16,7 @@
                aria-label="Bonus points when buying the product">
             <span class="fa-2x fa-layers fa-fw">
             <i class="fas fa-crown"></i>
-            <span class="fa-layers-counter fa-layers-bottom-left fa-lg warn-notification">{{ data.points }}</span>
+            <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification" style="font-size: 47px;">{{ data.points }}</span>
           </span>
           </div>
         </div>
@@ -24,8 +24,15 @@
     </div>
 
     <mat-divider class="detail-divider"></mat-divider>
-    <div>
-      <h3 translate>LABEL_REVIEWS</h3>
+    <button mat-button style="height: 0; position: absolute;">
+      <!-- 'absorbs' the auto-focus behavior -->
+    </button>
+    <mat-expansion-panel class="mat-elevation-z0" aria-label="Expand for Reviews">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span style="margin-right: 5px;" translate>LABEL_REVIEWS</span> <span>({{(reviews$| async)?.length}})</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <button mat-button style="height: 0; position: absolute;">
         <!-- 'absorbs' the auto-focus behavior -->
       </button>
@@ -34,7 +41,7 @@
           <div fxLayout="row">
             <div class="review-text"
                  (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
-                 matTooltipDisabled="{{review.author !== author}}" matTooltip=" {{'BTN_EDIT' | translate}}"
+                 matTooltipDisabled="{{review.author !== author}}" matTooltip="{{'LABEL_EDIT_REVIEW' | translate}}"
                  matTooltipPosition="right">
               <cite>{{review.author}}</cite>
               <p>{{ review.message }}</p>
@@ -42,11 +49,11 @@
             <div>
               <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
                       class="rw-button" aria-label="Rate a helpful review">
-                <span class="fa-2x fa-layers fa-fw">
-                  <mat-icon>thumb_up</mat-icon>
-                  <span
-                    class="fa-layers-counter fa-layers-bottom-right accent-notification">{{ review.likesCount }}</span>
-                </span>
+                  <span class="fa-2x fa-layers fa-fw">
+                    <mat-icon>thumb_up</mat-icon>
+                    <span
+                      class="fa-layers-counter fa-layers-bottom-right accent-notification" style="font-size: 32px;">{{ review.likesCount }}</span>
+                  </span>
               </button>
             </div>
           </div>
@@ -55,27 +62,40 @@
 
       <ng-template #emptyResult>
         <div>
-          <span class="noResultText" translate>
-            EMPTY_REVIEW_LIST
-          </span>
+            <span class="noResultText" translate>
+              EMPTY_REVIEW_LIST
+            </span>
         </div>
       </ng-template>
+    </mat-expansion-panel>
+    <div>
 
-      <div [style.display]="isLoggedIn() ? 'block' : 'none' ">
+      <mat-divider class="detail-divider"></mat-divider>
 
-        <mat-divider class="detail-divider"></mat-divider>
+      <h4 translate>WRITE_REVIEW</h4>
+      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters"
+                      [style.display]="isLoggedIn() ? 'block' : 'none' "  floatLabel="always">
+        <mat-label translate>LABEL_REVIEW</mat-label>
+        <textarea [formControl]="reviewControl" #textPut cols="50" matInput
+                  placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
+                  matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+                  matAutosizeMaxRows="4" aria-label="Text field to review a product"
+                  ></textarea>
+        <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters">
-          <mat-label translate>WRITE_REVIEW</mat-label>
-          <textarea [formControl]="reviewControl" #textPut cols="50" matInput
-                    placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
-                    matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
-                    matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
-          <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
-        </mat-form-field>
+      <mat-dialog-actions align="end" class="dialogAction">
+        <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
+          <i class="material-icons">
+            close
+          </i>
+          <span>  {{'BTN_CLOSE' | translate}}</span>
+        </button>
 
         <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
-                (click)="addReview(textPut)" style="margin-bottom: 5px; margin-top: 5px;" aria-label="Send the review">
+                (click)="addReview(textPut)" style="margin-bottom: 5px; margin-top: 5px; margin-left: 5px;"
+                aria-label="Send the review"
+                [style.display]="isLoggedIn() ? 'block' : 'none' ">
           <i class="material-icons">
             send
           </i>
@@ -83,7 +103,7 @@
             {{'BTN_SUBMIT' | translate}}
           </span>
         </button>
-      </div>
+      </mat-dialog-actions>
     </div>
   </div>
 </mat-dialog-content>
