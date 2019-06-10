@@ -63,7 +63,7 @@ describe('/#/forgot-password', () => {
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Bjoern\'s Password' })
+      protractor.expect.challengeSolved({ challenge: 'Reset Bjoern\'s Password' })
     })
 
     describe('for his OWASP account', () => {

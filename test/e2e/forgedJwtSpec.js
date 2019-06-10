@@ -14,6 +14,6 @@ describe('/', () => {
       browser.get('/#/')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Forged JWT' })
+    protractor.expect.challengeSolved({ challenge: 'Forged Signed JWT' })
   })
 })
