@@ -168,10 +168,10 @@ ctf:
     typosquattingAngularChallenge:
       name: Senegal
       code: SN
-    jwtTier1Challenge:
+    jwtUnsignedChallenge:
       name: New Zealand
       code: NZ
-    jwtTier2Challenge:
+    jwtForgedChallenge:
       name: Mongolia
       code: MN
     misplacedSignatureFileChallenge:

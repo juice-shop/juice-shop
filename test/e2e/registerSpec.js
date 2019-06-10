@@ -44,7 +44,7 @@ describe('/#/register', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Client-side XSS Protection' })
   })
 
   describe('challenge "registerAdmin"', () => {

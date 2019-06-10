@@ -76,7 +76,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE Tier 1' })
+        protractor.expect.challengeSolved({ challenge: 'XXE Data Access' })
       })
     })
 
@@ -94,7 +94,7 @@ describe('/#/complain', () => {
       })
 
       afterAll(() => {
-        protractor.expect.challengeSolved({ challenge: 'XXE Tier 2' })
+        protractor.expect.challengeSolved({ challenge: 'XXE DoS' })
       })
     })
   }
@@ -125,6 +125,6 @@ describe('/#/complain', () => {
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 6' })
+    protractor.expect.challengeSolved({ challenge: 'Video XSS' })
   })
 })
