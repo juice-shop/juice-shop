@@ -173,7 +173,7 @@
   "BTN_SHOW_ALL": "Vis alle",
   "BTN_HIDE_ALL": "Skjul alle",
   "TYPE_THESE_LETTERS": "Skriv disse {{length}} bogstaver",
-  "BTN_REQUEST": "Request",
+  "BTN_REQUEST": "Anmodning",
   "EXPORT_LABEL": "Eksport Format",
   "ACCOUNT": "Konto",
   "TITLE_TWO_FACTOR_AUTH_CONFIG": "Konfiguration af 2FA",
