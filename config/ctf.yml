@@ -4,7 +4,7 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   showHackingInstructor: false
-  gitHubRibbon: false
-  welcomeBanner: false
+  showGitHubLinks: false
+  showWelcomeBanner: false
 ctf:
   showFlagsInNotifications: true

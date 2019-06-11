@@ -16,12 +16,13 @@ interface Config {
     name: string
     logo: string
     favicon: string
-    numberOfRandomFakeUsers: number
+    theme: string
     showChallengeSolvedNotifications: boolean
     showChallengeHints: boolean
     showVersionNumber: boolean
-    theme: string
-    gitHubRibbon: boolean
+    showGitHubLinks: boolean
+    showWelcomeBanner: boolean
+    numberOfRandomFakeUsers: number
     twitterUrl: string
     facebookUrl: string
     slackUrl: string

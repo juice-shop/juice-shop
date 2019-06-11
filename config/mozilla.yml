@@ -7,8 +7,8 @@ application:
   showChallengeHints: false
   showHackingInstructor: false
   theme: deeporange-indigo
-  gitHubRibbon: true
-  welcomeBanner: false
+  showGitHubLinks: true
+  showWelcomeBanner: false
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null
