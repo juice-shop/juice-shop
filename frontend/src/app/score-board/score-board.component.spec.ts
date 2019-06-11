@@ -310,13 +310,13 @@ describe('ScoreBoardComponent', () => {
   it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(true)
+    expect(component.showContributionInfoBox).toBe(true)
   })
 
   it('should hide GitHub ribbon if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(false)
+    expect(component.showContributionInfoBox).toBe(false)
   })
 
   it('should show GitHub button by default', () => {

@@ -185,13 +185,13 @@ describe('NavbarComponent', () => {
   it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(true)
+    expect(component.showGitHubLink).toBe(true)
   })
 
   it('should hide GitHub ribbon if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(false)
+    expect(component.showGitHubLink).toBe(false)
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
