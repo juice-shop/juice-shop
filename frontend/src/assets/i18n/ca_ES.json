@@ -17,7 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Si us plau, torni a escriure la seva contrasenya.",
   "INVALID_PASSWORD_LENGTH": "La contrasenya ha de tenir un mínim de {{length}} caràcters.",
   "LABEL_PASSWORD_REPEAT": "Repeteix la contrasenya",
-  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
+  "PASSWORDS_NOT_MATCHING": "Les contrasenyes no coincideixen",
   "BTN_REGISTER": "Registrar-se",
   "TITLE_LOGOUT": "Tancar sessió",
   "CONFIRM_LOGGED_OUT": "Has tancat la sessió.",
