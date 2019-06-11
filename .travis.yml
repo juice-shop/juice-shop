@@ -5,9 +5,9 @@ os:
   - osx
   - windows
 node_js:
+  - 12
   - 10
   - 8
-  - 12
 stages:
   - lint
   - test
@@ -67,7 +67,6 @@ jobs:
         - npm run protractor
     - stage: deploy
       if: (branch = master OR branch = develop OR branch = facelift OR branch = gsoc2019) AND NOT type = pull_request
-      node_js: 12
       os: linux
       install: skip
       script: skip
