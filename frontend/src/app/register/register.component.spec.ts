@@ -3,7 +3,7 @@ import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing'
 import { RegisterComponent } from './register.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { of, throwError } from 'rxjs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -52,7 +53,9 @@ describe('RegisterComponent', () => {
         MatSelectModule,
         MatButtonModule,
         MatIconModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatTooltipModule,
+        MatIconModule
       ],
       declarations: [ RegisterComponent, LoginComponent ],
       providers: [
@@ -146,6 +149,8 @@ describe('RegisterComponent', () => {
     expect(userService.save.calls.argsFor(0)[0]).toEqual(user)
     expect(securityAnswerService.save.calls.argsFor(0)[0]).toEqual(securityAnswerObject)
     expect(location.path()).toBe('/login')
+    fixture.destroy()
+    flush()
   }))
 
   it('loading secret questions', () => {

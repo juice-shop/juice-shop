@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { UserService } from 'src/app/Services/user.service'
 import { of, throwError } from 'rxjs'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatIconModule } from '@angular/material/icon'
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent
@@ -36,7 +38,9 @@ describe('ForgotPasswordComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule
       ],
       providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },
