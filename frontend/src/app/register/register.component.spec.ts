@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { of, throwError } from 'rxjs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -50,7 +51,8 @@ describe('RegisterComponent', () => {
         MatInputModule,
         MatSelectModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatSnackBarModule
       ],
       declarations: [ RegisterComponent, LoginComponent ],
       providers: [
