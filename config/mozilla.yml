@@ -8,6 +8,7 @@ application:
   showHackingInstructor: false
   theme: deeporange-indigo
   gitHubRibbon: true
+  welcomeBanner: false
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null

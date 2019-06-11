@@ -5,6 +5,7 @@ application:
   showVersionNumber: false
   showHackingInstructor: false
   gitHubRibbon: false
+  welcomeBanner: false
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both

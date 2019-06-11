@@ -3,3 +3,4 @@ application:
   showChallengeHints: false
   showHackingInstructor: false
   gitHubRibbon: false
+  welcomeBanner: false

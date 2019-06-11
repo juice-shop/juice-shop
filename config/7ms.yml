@@ -5,6 +5,7 @@ application:
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   gitHubRibbon: true
+  welcomeBanner: false
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null
   slackUrl: 'https://7ms.us/slack'
