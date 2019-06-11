@@ -14,6 +14,10 @@
   "NO_CUSTOMER": "Not yet a customer?",
   "TITLE_REGISTRATION": "User Registration",
   "INVALID_EMAIL": "Email address is not valid.",
+  "FORGOT_PASSWORD_HINT": "Please enter your email address to proceed!",
+  "PASSWORD_LENGTH_HINT": "The password must be 5 - 20 characters long!",
+  "SECURITY_ANSWER": "Answer",
+  "SECURITY_ANSWER_HINT": "Please answer your selected security question!",
   "MANDATORY_PASSWORD_REPEAT": "Please repeat your password.",
   "INVALID_PASSWORD_LENGTH": "Password must be {{length}} characters long.",
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
@@ -130,6 +134,7 @@
   "LABEL_SECURITY_QUESTION": "Security Question",
   "CANNOT_BE_CHANGED_LATER": "This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION": "Please select a security question.",
+  "SECURITY_QUESTION": "Security Question",
   "MANDATORY_SECURITY_ANSWER": "Please provide an answer to your security question.",
   "FORGOT_PASSWORD": "Forgot your password?",
   "TITLE_FORGOT_PASSWORD": "Forgot Password",
@@ -201,5 +206,7 @@
   "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
   "WELCOME_BANNER_TITLE":"Welcome to {{appname}}!",
   "BTN_OK": "Ok",
-  "WELCOME_BANNER_DESCRIPTION": "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>{{appname}}</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>{{appname}}</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
+  "WELCOME_BANNER_DESCRIPTION": "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>{{appname}}</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>{{appname}}</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>",
+  "SIDENAV_HINT": "Open Sidenav",
+  "LANGUAGE_SEL_HINT": "Change the language"
 }
