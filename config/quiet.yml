@@ -2,4 +2,5 @@ application:
   showChallengeSolvedNotifications: false
   showChallengeHints: false
   showHackingInstructor: false
-  gitHubRibbon: false
+  showGitHubLinks: false
+  showWelcomeBanner: false

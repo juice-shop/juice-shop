@@ -5,9 +5,11 @@ import { Component, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { faUserPlus, faExclamationCircle } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faUserPlus, faExclamationCircle)
 dom.watch()
@@ -31,7 +33,9 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private securityAnswerService: SecurityAnswerService,
     private router: Router,
-    private formSubmitService: FormSubmitService) { }
+    private formSubmitService: FormSubmitService,
+    private translateService: TranslateService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -54,6 +58,7 @@ export class RegisterComponent implements OnInit {
       this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
         SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
           this.router.navigate(['/login'])
+          this.openSnackBar('CONFIRM_REGISTER', 'Ok')
         })
     }, (err) => {
       console.log(err)
@@ -63,6 +68,18 @@ export class RegisterComponent implements OnInit {
       }
     }
     )
+  }
+
+  openSnackBar (message: string, action: string) { // TODO Pull out duplicated function and reuse in e.g. ErasureRequestComponent as well
+    this.translateService.get(message).subscribe((translatedMessage) => {
+      this.snackBar.open(translatedMessage, action, {
+        duration: 5000
+      })
+    }, () => {
+      this.snackBar.open(message, action, {
+        duration: 5000
+      })
+    })
   }
 
 }

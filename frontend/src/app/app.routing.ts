@@ -3,7 +3,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
-import { DataSubjectComponent } from './data-subject/data-subject.component'
+import { ErasureRequestComponent } from './erasure-request/erasure-request.component'
 import { AboutComponent } from './about/about.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
@@ -157,8 +157,8 @@ const routes: Routes = [
         component: DataExportComponent
       },
       {
-        path: 'data-subject',
-        component: DataSubjectComponent
+        path: 'erasure-request',
+        component: ErasureRequestComponent
       },
       {
         path: 'last-login-ip',
