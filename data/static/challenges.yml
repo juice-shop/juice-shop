@@ -17,7 +17,7 @@
 -
   name: 'Error Handling'
   category: 'Security Misconfiguration'
-  description: 'Provoke an error that is not very gracefully handled.'
+  description: 'Provoke an error that is neither very gracefully nor consistently handled.'
   difficulty: 1
   hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-not-very-gracefully-handled'
@@ -80,7 +80,7 @@
   key: forgedFeedbackChallenge
 -
   name: 'Outdated Whitelist'
-  category: 'Forgotten Content'
+  category: 'Unvalidated Redirects'
   description: 'Let us redirect you to one of our crypto currency addresses which are not promoted any longer.'
   difficulty: 1
   hint: 'We might have failed to take this out of our code properly.'
@@ -88,7 +88,7 @@
   key: redirectCryptoCurrencyChallenge
 -
   name: 'Unvalidated Redirect'
-  category: 'Roll your own Security'
+  category: 'Unvalidated Redirects'
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
   hint: 'You have to find a way to beat the whitelist of allowed redirect URLs.'
@@ -183,7 +183,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#find-the-hidden-easter-egg'
   key: easterEggLevelOneChallenge
 -
-  name: 'Real Easter Egg'
+  name: 'Nested Easter Egg'
   category: 'Security through Obscurity'
   description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.'
   difficulty: 4
@@ -209,9 +209,9 @@
 -
   name: 'Upload Type'
   category: 'Improper Input Validation'
-  description: 'Upload a file that has no .pdf extension.'
+  description: 'Upload a file that has no .pdf or .zip extension.'
   difficulty: 3
-  hint: 'You can attach a PDF file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a PDF or ZIP file to the "File Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-extension'
   key: uploadTypeChallenge
 -
@@ -219,7 +219,7 @@
   category: 'Vulnerable Components'
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
-  hint: 'Look out for a tweet praising new functionality of the web shop.'
+  hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
 -
@@ -345,7 +345,7 @@
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
-  description: 'All your orders are belong to us!'
+  description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
   # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
@@ -359,19 +359,19 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'
   key: retrieveBlueprintChallenge
 -
-  name: 'Typosquatting'
+  name: 'Legacy Typosquatting'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)'
+  description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has been a victim of at least in <code>v6.2.0-SNAPSHOT</code>. (Mention the exact name of the culprit)'
   difficulty: 4
-  hint: 'This challenge has nothing to do with URLs or domains. Investigate the forgotten developer''s backup file instead.'
+  hint: 'This challenge has nothing to do with mistyping web domains. Investigate the forgotten developer''s backup file instead.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'
   key: typosquattingNpmChallenge
 -
-  name: 'Sneaky Typosquatting'
+  name: 'Current Typosquatting'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a more sneaky instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
+  description: '<a href="/#/contact">Inform the shop</a> about a very much active instance of <i>typosquatting</i> it fell for elsewhere. (Mention the exact name of the culprit)'
   difficulty: 5
-  hint: 'This challenge has nothing to do with URLs or domains. There is no conveniently misplaced file helping you with this one. Or is there?'
+  hint: 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-sneaky-instance-of-typosquatting-it-fell-for'
   key: typosquattingAngularChallenge
 -
@@ -455,7 +455,7 @@
 -
   name: 'Security Policy'
   category: 'Roll your own Security'
-  description: 'Behave like any "white-hat" should.'
+  description: 'Behave like any "white-hat" should before getting into the action.'
   difficulty: 2
   hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-any-white-hat-should'
@@ -487,7 +487,7 @@
 -
   name: 'User Credentials'
   category: 'Injection'
-  description: 'Retrieve a list of all user credentials via SQL Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
   hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
@@ -495,9 +495,9 @@
 -
   name: 'Admin Registration'
   category: 'Improper Input Validation'
-  description: 'Get registered as admin user.'
+  description: 'Register as a user with administrator privileges.'
   difficulty: 3
-  hint: 'Assign the unassignable.'
+  hint: 'You have to assign the unassignable.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#get-registered-as-admin-user'
   key: registerAdminChallenge
 -
@@ -668,7 +668,7 @@
   category: 'Security through Obscurity'
   description: 'Prove that you actually read our privacy policy.'
   difficulty: 3
-  hint: 'Now we do ask you to confirm that you read it carefully.'
+  hint: 'Only by visiting a special URL you can confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
 -
