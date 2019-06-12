@@ -204,6 +204,6 @@
   "WELCOME_BANNER_TITLE": "Tere tulemast {{appname}}-i!",
   "BTN_DISMISS": "Dismiss",
   "WELCOME_BANNER_DESCRIPTION": "<p><strong>{{appname}}</strong> on mitmete kavandatud turvanõrkustega veebirakendus eesmärgiga olla heade tavade ja rakenduste algmalli vastand: tegu on kaasaegsete veebirakenduste turvariskide koolitus-, tutvustamis- ja treeningvahend. <strong>{{appname}}</strong> on avatud lähtekoodiga projekt, mida haldab mittetulunduslik ühendus <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> ning seda arendavad ja hooldavad vabatahtlikud. Projekti kohta lisateabe ning dokumentatsiooni saamiseks vaadake allolevat linki. </p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>",
-  "SIDENAV_HINT": "Open Sidenav",
-  "LANGUAGE_SEL_HINT": "Change the language"
+  "SIDENAV_HINT": "Open side menu",
+  "LANGUAGE_SEL_HINT": "Choose language"
 }
