@@ -47,12 +47,6 @@ describe('WelcomeBannerComponent', () => {
     expect(matDialogRef.close).toHaveBeenCalledTimes(0)
   })
 
-  it('should dismiss if cookie set', () => {
-    cookieService.put('welcomebanner_status', 'dismiss')
-    component.ngOnInit()
-    expect(matDialogRef.close).toHaveBeenCalled()
-  })
-
   it('should dismiss and add cookie when closed', () => {
     component.closeWelcome()
     expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
