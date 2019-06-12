@@ -20,6 +20,6 @@ export class DataSubjectService {
   }
 
   dataExport (params) {
-    return this.http.post(this.hostServer + '/rest/data-export/', params).pipe(catchError((err) => { throw err }))
+    return this.http.post(this.host + '/data-export', params).pipe(catchError((err) => { throw err }))
   }
 }

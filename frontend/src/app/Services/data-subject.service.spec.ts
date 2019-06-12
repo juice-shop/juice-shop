@@ -34,7 +34,7 @@ describe('DataSubjectService', () => {
     fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
       let res
       service.dataExport(1).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/rest/data-export/')
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/data-export')
       req.flush('apiResponse')
 
       tick()
