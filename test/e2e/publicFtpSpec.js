@@ -40,7 +40,7 @@ describe('/ftp', () => {
       browser.driver.get(browser.baseUrl + '/ftp/eastere.gg%2500.md')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Easter Egg Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Easter Egg' })
   })
 
   describe('challenge "misplacedSiemFileChallenge"', () => {

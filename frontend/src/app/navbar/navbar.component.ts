@@ -53,6 +53,7 @@ export class NavbarComponent implements OnInit {
   public gitHubRibbon = true
   public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
+  public shortKeyLang = 'placeholder'
 
   @Output() public sidenavToggle = new EventEmitter()
 
@@ -114,9 +115,11 @@ export class NavbarComponent implements OnInit {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
       this.selectedLanguage = this.languages.find((y) => y.key === langKey)
+      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
     } else {
       this.changeLanguage('en')
       this.selectedLanguage = this.languages.find((y) => y.key === 'en')
+      this.shortKeyLang = this.languages.find((y) => y.key === 'en').shortKey
     }
   }
 
@@ -153,6 +156,9 @@ export class NavbarComponent implements OnInit {
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.put('language', langKey, { expires })
+    if (this.languages.find((y) => y.key === langKey)) {
+      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+    }
   }
 
   getScoreBoardStatus () {
