@@ -8,6 +8,7 @@ import { CookieModule, CookieService } from 'ngx-cookie'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule } from '@angular/material'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -46,7 +47,8 @@ describe('ErasureRequestComponent', () => {
         BrowserAnimationsModule,
         MatInputModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },
