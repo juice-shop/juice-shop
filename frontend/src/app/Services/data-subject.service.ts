@@ -14,10 +14,8 @@ export class DataSubjectService {
 
   constructor (private http: HttpClient) { }
 
-  deactivate () {
-    return this.http.get(this.host + '/erasure-request').pipe(
-      map((response: any) => response),
-      catchError(error => { throw error })
+  erase (params) {
+    return this.http.post(this.host + '/erasure-request', params).pipe(catchError(error => { throw error })
     )
   }
 }

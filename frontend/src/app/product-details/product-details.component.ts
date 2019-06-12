@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp, faCrown } from '@fortawesome/free-solid-svg-icons'
 import { FormControl, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 dom.watch()
@@ -23,7 +24,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public reviewControl: FormControl = new FormControl('',[Validators.maxLength(160)])
   constructor (private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
-    private userService: UserService) { }
+    private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit () {
     this.data = this.data.productData
@@ -52,11 +53,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.productReviewService.create(this.data.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.id)
     },(err) => console.log(err))
+    this.openSnackBar('Your review has been saved', 'Ok')
   }
 
   editReview (review) {
     this.dialog.open(ProductReviewEditComponent, {
-      width: '600px',
+      width: '500px',
       height: 'max-content',
       data: {
         reviewData : review
@@ -75,4 +77,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     return localStorage.getItem('token')
   }
 
+  openSnackBar (message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 5000
+    })
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
-import { MatSnackBarRef } from '@angular/material'
+import { MatDialogRef } from '@angular/material'
 import { CookieService } from 'ngx-cookie'
 
 @Component({
@@ -11,30 +11,25 @@ import { CookieService } from 'ngx-cookie'
 export class WelcomeBannerComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
 
-  private readonly welcomeBannerStatusCookieKey = 'welcome-banner-status'
+  private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
   constructor (
-        public snackBarRef: MatSnackBarRef<WelcomeBannerComponent>,
+        public dialogRef: MatDialogRef<WelcomeBannerComponent>,
         private configurationService: ConfigurationService,
         private cookieService: CookieService) { }
 
   ngOnInit (): void {
-    let welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
-    if (welcomeBannerStatus === 'dismiss') {
-      this.snackBarRef.dismiss()
-    } else {
-      this.configurationService.getApplicationConfiguration().subscribe((config) => {
-        if (config && config.application) {
-          if (config.application.name !== null) {
-            this.applicationName = config.application.name
-          }
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      if (config && config.application) {
+        if (config.application.name !== null) {
+          this.applicationName = config.application.name
         }
-      }, (err) => console.log(err))
-    }
+      }
+    }, (err) => console.log(err))
   }
 
   closeWelcome (): void {
-    this.snackBarRef.dismiss()
+    this.dialogRef.close()
     this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss')
   }
 }

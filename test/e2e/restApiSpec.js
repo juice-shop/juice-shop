@@ -2,7 +2,7 @@ const config = require('config')
 const models = require('../../models/index')
 
 describe('/api', () => {
-  describe('challenge "xss3"', () => {
+  describe('challenge "restfulXss"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to create a new product when logged in', () => {
@@ -17,19 +17,22 @@ describe('/api', () => {
         xhttp.open('POST', 'http://localhost:3000/api/Products', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-        xhttp.send(JSON.stringify({ name: 'XSS3', 'description': '<iframe src="javascript:alert(`xss`)">', 'price': 47.11 }))
+        xhttp.send(JSON.stringify({ name: 'RestXSS', 'description': '<iframe src="javascript:alert(`xss`)">', 'price': 47.11 }))
       })
 
       browser.waitForAngularEnabled(false)
-      browser.get('/#/search?q=XSS3')
+      browser.get('/#/search?q=RestXSS')
       browser.refresh()
+      let productImage = element(by.css('img[alt="RestXSS"]'))
+      productImage.click()
+
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
       browser.switchTo().alert().then(
         alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
           // Disarm XSS payload so subsequent tests do not run into unexpected alert boxes
-          models.Product.findOne({ where: { name: 'XSS3' } }).then(product => {
+          models.Product.findOne({ where: { name: 'RestXSS' } }).then(product => {
             product.update({ description: '&lt;iframe src="javascript:alert(`xss`)"&gt;' }).catch(error => {
               console.log(error)
               fail()
@@ -70,7 +73,7 @@ describe('/api', () => {
 })
 
 describe('/rest/saveLoginIp', () => {
-  describe('challenge "xss5"', () => {
+  describe('challenge "httpHeaderXss"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to save log-in IP when logged in', () => {

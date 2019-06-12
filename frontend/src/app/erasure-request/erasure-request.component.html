@@ -7,7 +7,6 @@
     <h3 translate>DATA_SUBJECT_TITLE</h3>
 
     <div class="data-subject-container">
-      <div class="confirmation" [hidden]="!confirmation" translate>ACCOUNT_DELETE_CONFIRMATION</div>
       <div class="error" [hidden]="!error">{{ error }}</div>
 
       <form
@@ -18,7 +17,7 @@
         color="warn"
       >
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" color="accent">
           <mat-label translate>LABEL_EMAIL</mat-label>
           <input id="email" formControlName="emailControl" (ngModelChange)="findSecurityQuestion()"
           type="text" matInput placeholder="Enter your email">
@@ -27,7 +26,7 @@
         </mat-form-field>
 
         <div class="form-container" *ngIf="securityQuestion" id="forgot-form">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" color="accent">
             <mat-label>{{ securityQuestion }}</mat-label>
             <input id="securityAnswer" formControlName="securityQuestionControl" type="password" matInput placeholder="">
             <mat-error *ngIf="securityQuestionForm" translate>MANDATORY_SECURITY_ANSWER</mat-error>

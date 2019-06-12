@@ -8,15 +8,52 @@ mat-form-field {
   width: 100%;
 }
 
-blockquote {
-  border-left: 5px solid #d3d3d3;
-}
-
-blockquote p {
-  margin-left: 5px;
+p {
+  word-break: break-all;
 }
 
 .btn-container button:nth-child(2) {
   left: 530px;
   width: 50px;
+}
+
+.detail-divider {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.rw-button {
+  margin-left: 8px;
+}
+
+.comment{
+  margin-bottom:8px;
+}
+
+.review-link {
+  margin-top: -10px;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+#submitButton {
+  float: right;
+}
+
+.item-price {
+  float: left;
+  margin-top: 8px;
+  margin-right: 40px;
+}
+
+.noResultText{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: small;
+  text-align: center;
+}
+
+.dialogAction{
+  margin-bottom: 0px !important;
 }
