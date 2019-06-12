@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing'
-import { DataSubjectComponent } from './data-subject.component'
+import { ErasureRequestComponent } from './erasure-request.component'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { UserService } from '../Services/user.service'
@@ -13,9 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { of, throwError } from 'rxjs'
 
-describe('DataSubjectComponent', () => {
-  let component: DataSubjectComponent
-  let fixture: ComponentFixture<DataSubjectComponent>
+describe('ErasureRequestComponent', () => {
+  let component: ErasureRequestComponent
+  let fixture: ComponentFixture<ErasureRequestComponent>
   let securityQuestionService
   let dataSubjectService
   let cookieService
@@ -28,16 +28,16 @@ describe('DataSubjectComponent', () => {
     userService.saveLastLoginIp.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
     userService.isLoggedIn.next.and.returnValue({})
-    dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['deactivate'])
-    dataSubjectService.deactivate.and.returnValue(of({}))
+    dataSubjectService = jasmine.createSpyObj('DataSubjectService', ['erase'])
+    dataSubjectService.erase.and.returnValue(of({}))
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
     securityQuestionService.findBy.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
-      declarations: [ DataSubjectComponent ],
+      declarations: [ ErasureRequestComponent ],
       imports: [
         RouterTestingModule.withRoutes([
-          { path: 'data-subject', component: DataSubjectComponent }
+          { path: 'erasure-request', component: ErasureRequestComponent }
         ]),
         HttpClientTestingModule,
         TranslateModule.forRoot(),
@@ -61,7 +61,7 @@ describe('DataSubjectComponent', () => {
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataSubjectComponent)
+    fixture = TestBed.createComponent(ErasureRequestComponent)
     component = fixture.componentInstance
     localStorage.removeItem('token')
     fixture.detectChanges()
@@ -155,10 +155,4 @@ describe('DataSubjectComponent', () => {
     component.logout()
     expect(userService.saveLastLoginIp).toHaveBeenCalled()
   })
-
-  it('should forward to main page', fakeAsync(() => {
-    component.logout()
-    tick()
-    expect(location.path()).toBe('/')
-  }))
 })

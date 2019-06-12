@@ -19,7 +19,7 @@ describe('DataSubjectService', () => {
   it('should pass the erasure request directly to the rest API', inject([DataSubjectService, HttpTestingController],
     fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
       let res
-      service.deactivate().subscribe((data) => res = data)
+      service.erase().subscribe((data) => res = data)
       const req = httpMock.expectOne('http://localhost:3000/rest/user/erasure-request')
       req.flush('apiResponse')
 
