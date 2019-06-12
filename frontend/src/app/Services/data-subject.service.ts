@@ -18,4 +18,8 @@ export class DataSubjectService {
     return this.http.post(this.host + '/erasure-request', params).pipe(catchError(error => { throw error })
     )
   }
+
+  dataExport (params) {
+    return this.http.post(this.host + '/data-export', params).pipe(catchError((err) => { throw err }))
+  }
 }

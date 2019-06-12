@@ -19,7 +19,7 @@
         <mat-label translate>LABEL_PASSWORD</mat-label>
         <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
                matInput aria-label="Field for the password">
-        <mat-icon matSuffix matTooltip="{{ 'PASSWORD_LENGTH_HINT' | translate  }}"
+        <mat-icon matSuffix matTooltip="{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-20'} }}"
                   matTooltipPosition=right aria-label="The new password must be 5 - 20 characters long.">help_outline
         </mat-icon>
         <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
