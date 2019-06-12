@@ -66,7 +66,7 @@ jobs:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
-      if: (branch = master OR branch = develop OR branch = facelift OR branch = gsoc2019) AND NOT type = pull_request
+      if: (branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request
       os: linux
       install: skip
       script: skip
@@ -77,7 +77,6 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
-            facelift: juice-shop-experimental
             gsoc2019: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
