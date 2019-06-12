@@ -5,8 +5,8 @@ os:
   - osx
   - windows
 node_js:
-  - 10
   - 12
+  - 10
   - 8
 stages:
   - lint
