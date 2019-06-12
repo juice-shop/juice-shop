@@ -23,6 +23,7 @@
   "LABEL_PASSWORD_REPEAT": "Repeat Password",
   "PASSWORDS_NOT_MATCHING": "Passwords do not match",
   "BTN_REGISTER": "Register",
+  "CONFIRM_REGISTER": "Registration completed successfully. You can now log in.",
   "TITLE_LOGOUT": "Logout",
   "CONFIRM_LOGGED_OUT": "You have been logged out.",
   "TITLE_CONTACT": "Contact",
