@@ -202,6 +202,7 @@
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
   "DELETE_DATA_LABEL": "Delete User Data",
+  "CONFIRM_ERASURE_REQUEST": "Sorry to see you leave! Your erasure request will be processed shortly.",
   "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
   "WELCOME_BANNER_TITLE":"Welcome to {{appname}}!",
   "BTN_DISMISS": "Dismiss",
