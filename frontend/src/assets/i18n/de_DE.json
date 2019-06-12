@@ -204,6 +204,6 @@
   "WELCOME_BANNER_TITLE": "Willkommen bei {{appname}}!",
   "BTN_DISMISS": "Ausblenden",
   "WELCOME_BANNER_DESCRIPTION": "<p>Als Webanwendung mit einer Vielzahl von absichtlichen Sicherheitslücken, soll der <strong>{{appname}}</strong> das Gegenteil einer Best Practice- oder Beispiel-Anwendung für Webentwickler sein: Er ist vielmehr ein Awareness-, Schulungs-, Vorführung- und Übungs-Werkzeug für Sicherheitsrisiken in modernen Webanwendungen. Der <strong>{{appname}}</strong> ist ein Open-Source-Projekt gehosted von der gemeinnützigen <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> und wird von Ehrenamtlichen entwickelt und gewartet. Besuche den untigen Link für mehr Informationen und Dokumentation zum Projekt.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>",
-  "SIDENAV_HINT": "Open side menu",
-  "LANGUAGE_SEL_HINT": "Choose language"
+  "SIDENAV_HINT": "Seitenmenü öffnen",
+  "LANGUAGE_SEL_HINT": "Sprache auswählen"
 }
