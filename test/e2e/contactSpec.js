@@ -101,7 +101,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Typosquatting' })
+    protractor.expect.challengeSolved({ challenge: 'Legacy Typosquatting' })
   })
 
   describe('challenge "typosquattingAngular"', () => {
@@ -112,7 +112,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Sneaky Typosquatting' })
+    protractor.expect.challengeSolved({ challenge: 'Current Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {
