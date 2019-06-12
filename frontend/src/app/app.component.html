@@ -1,6 +1,9 @@
 <div class="mat-typography">
   <mat-sidenav-container fullscreen>
-    <app-navbar></app-navbar>
+    <mat-sidenav #sidenav mode="over">
+      <sidenav (sidenavToggle)="sidenav.toggle()"></sidenav>
+    </mat-sidenav>
+    <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
     <app-server-started-notification></app-server-started-notification>
     <app-challenge-solved-notification></app-challenge-solved-notification>
     <app-welcome></app-welcome>

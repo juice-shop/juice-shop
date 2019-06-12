@@ -2,7 +2,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit, EventEmitter, Output } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
@@ -44,14 +44,16 @@ dom.watch()
 export class NavbarComponent implements OnInit {
 
   public userEmail = ''
-  public avatarSrc = 'assets/public/images/uploads/default.svg'
   public languages: any = []
   public selectedLanguage = 'placeholder'
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
-  public gitHubRibbon = true
+  public showGitHubLink = true
   public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
+  public shortKeyLang = 'placeholder'
+
+  @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
@@ -70,8 +72,8 @@ export class NavbarComponent implements OnInit {
       if (config && config.application && config.application.name && config.application.name !== null) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.gitHubRibbon !== null) {
-        this.gitHubRibbon = config.application.gitHubRibbon
+      if (config && config.application && config.application.showGitHubLinks !== null) {
+        this.showGitHubLink = config.application.showGitHubLinks
       }
 
       if (config && config.application && config.application.logo && config.application.logo !== null) {
@@ -95,7 +97,6 @@ export class NavbarComponent implements OnInit {
         this.getUserDetails()
       } else {
         this.userEmail = ''
-        this.avatarSrc = 'assets/public/images/uploads/default.svg'
       }
     })
 
@@ -113,9 +114,11 @@ export class NavbarComponent implements OnInit {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
       this.selectedLanguage = this.languages.find((y) => y.key === langKey)
+      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
     } else {
       this.changeLanguage('en')
       this.selectedLanguage = this.languages.find((y) => y.key === 'en')
+      this.shortKeyLang = this.languages.find((y) => y.key === 'en').shortKey
     }
   }
 
@@ -131,7 +134,6 @@ export class NavbarComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-      this.avatarSrc = 'assets/public/images/uploads/' + user.profileImage
     }, (err) => console.log(err))
   }
 
@@ -153,6 +155,9 @@ export class NavbarComponent implements OnInit {
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.put('language', langKey, { expires })
+    if (this.languages.find((y) => y.key === langKey)) {
+      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+    }
   }
 
   getScoreBoardStatus () {
@@ -165,6 +170,10 @@ export class NavbarComponent implements OnInit {
 
   goToProfilePage () {
     window.location.replace('/profile')
+  }
+
+  onToggleSidenav = () => {
+    this.sidenavToggle.emit()
   }
 
   // tslint:disable-next-line:no-empty

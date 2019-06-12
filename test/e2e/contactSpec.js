@@ -37,7 +37,7 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  describe('challenge "xss4"', () => {
+  describe('challenge "persistedXssFeedback"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to trick the sanitization with a masked XSS attack', () => {
