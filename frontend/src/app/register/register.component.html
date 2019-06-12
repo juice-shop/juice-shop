@@ -1,53 +1,79 @@
 <div fxLayoutAlign="center">
-  <mat-card>
+  <mat-card class="mat-elevation-z6">
 
     <h1 translate>TITLE_REGISTRATION</h1>
 
-    <div class="form-container" id="registration-form">
+    <div class="error" ng-if="error">{{ error }}</div>
 
-      <div class="error" ng-if="error">{{ error }}</div>
+    <div class="form-container" id="registration-form">
 
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_EMAIL</mat-label>
-        <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput>
+        <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput
+               aria-label="Email address field">
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.required" translate>MANDATORY_EMAIL</mat-error>
         <mat-error *ngIf="emailControl.invalid && emailControl.errors.email" translate>INVALID_EMAIL</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_PASSWORD</mat-label>
-        <input id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password" matInput>
-        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD</mat-error>
+        <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
+               matInput aria-label="Field for the password">
+        <mat-icon matSuffix matTooltip="{{ 'PASSWORD_LENGTH_HINT' | translate  }}"
+                  matTooltipPosition=right aria-label="The new password must be 5 - 20 characters long.">help_outline
+        </mat-icon>
+        <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="passwordControl.invalid && passwordControl.errors.required" translate>MANDATORY_PASSWORD
+        </mat-error>
         <mat-error
-          *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)" translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH</mat-error>
+          *ngIf="passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)"
+          translate [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
-        <input id="repeatPasswordControl" [formControl]="repeatPasswordControl" (focus)="this.error=null" type="password" matInput>
-        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>MANDATORY_PASSWORD_REPEAT</mat-error>
-        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>PASSWORDS_NOT_MATCHING</mat-error>
+        <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
+               (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
+        <mat-hint align="end">{{repeatPassword.value?.length || 0}}/20</mat-hint>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.required" translate>
+          MANDATORY_PASSWORD_REPEAT
+        </mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>
+          PASSWORDS_NOT_MATCHING
+        </mat-error>
       </mat-form-field>
 
       <div class="security-container">
 
-        <mat-form-field color="accent">
-          <mat-label>{{'LABEL_SECURITY_QUESTION' | translate}}
-            <i style="margin-left:10px;" class="fas fa-exclamation-circle"></i>
-            <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>
+            {{'LABEL_SECURITY_QUESTION' | translate}}
           </mat-label>
           <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
-                      (focus)="this.error=null" name="securityQuestion">
+                      (focus)="this.error=null" name="securityQuestion"
+                      aria-label="Selection list for the security question">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.id">
               {{question.question}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required" translate>MANDATORY_SECURITY_QUESTION</mat-error>
+          <mat-hint translate>
+            <i class="fas fa-exclamation-circle"></i>
+            <em style="margin-left:5px;" translate>CANNOT_BE_CHANGED_LATER</em>
+          </mat-hint>
+          <mat-error *ngIf="securityQuestionControl.invalid && securityQuestionControl.errors.required" translate>
+            MANDATORY_SECURITY_QUESTION
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-          <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate">
-          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>MANDATORY_SECURITY_ANSWER</mat-error>
+          <mat-label translate>SECURITY_ANSWER</mat-label>
+          <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text"
+                 matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate"
+                 aria-label="Field for the answer to the security question">
+          <mat-error *ngIf="securityAnswerControl.invalid && securityAnswerControl.errors.required" translate>
+            MANDATORY_SECURITY_ANSWER
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -55,10 +81,13 @@
     <button type="submit"
             id="registerButton"
             mat-raised-button color="primary"
-            style="margin-top:1px;"
+            style="margin-top:5px;"
             [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
-            (click)="save()">
-      <i class="fas fa-user-plus fa-lg"></i>
+            (click)="save()"
+            aria-label="Button to complete the registration">
+      <i class="material-icons">
+        person_add
+      </i>
       {{'BTN_REGISTER' | translate}}
     </button>
 

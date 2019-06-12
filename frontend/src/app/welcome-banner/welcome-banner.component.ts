@@ -19,18 +19,13 @@ export class WelcomeBannerComponent implements OnInit {
         private cookieService: CookieService) { }
 
   ngOnInit (): void {
-    let welcomeBannerStatus = this.cookieService.get(this.welcomeBannerStatusCookieKey)
-    if (welcomeBannerStatus === 'dismiss') {
-      this.dialogRef.close()
-    } else {
-      this.configurationService.getApplicationConfiguration().subscribe((config) => {
-        if (config && config.application) {
-          if (config.application.name !== null) {
-            this.applicationName = config.application.name
-          }
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      if (config && config.application) {
+        if (config.application.name !== null) {
+          this.applicationName = config.application.name
         }
-      }, (err) => console.log(err))
-    }
+      }
+    }, (err) => console.log(err))
   }
 
   closeWelcome (): void {

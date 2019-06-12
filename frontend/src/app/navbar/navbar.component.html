@@ -3,7 +3,7 @@
   <mat-toolbar-row fxLayout="row">
 
     <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
-            matTooltip="Open Sidenav" matTooltipPosition="below">
+            matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -88,7 +88,7 @@
 
     <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
             aria-label="Language selection menu"
-            matTooltip="Change the language" matTooltipPosition="below">
+            matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>
         language
       </mat-icon>
