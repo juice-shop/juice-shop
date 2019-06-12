@@ -124,7 +124,7 @@ describe('ScoreBoardComponent', () => {
     component.displayedDifficulties = []
     spyOn(localStorage,'setItem')
     component.toggleDifficulty(2)
-    expect(component.displayedDifficulties[2]).toBe(true)
+    expect(component.displayedDifficulties).toEqual([2])
     expect(localStorage.setItem).toHaveBeenCalledWith('displayedDifficulties', JSON.stringify(component.displayedDifficulties))
   })
 
