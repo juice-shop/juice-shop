@@ -14,7 +14,7 @@ describe('/rest/user/erasure-request', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/user/erasure-request', {
+        return frisby.post(REST_URL + '/user/erasure-request', {
           headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token }
         })
           .expect('status', 202)
