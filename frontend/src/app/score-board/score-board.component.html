@@ -35,7 +35,7 @@
         </label>
       </mat-button-toggle>
 
-      <button class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+      <button id="btnToggleAllDifficulties" class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
 
       <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
