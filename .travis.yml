@@ -68,6 +68,7 @@ jobs:
     - stage: deploy
       if: (branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request
       os: linux
+      node_js: 12
       install: skip
       script: skip
       deploy:

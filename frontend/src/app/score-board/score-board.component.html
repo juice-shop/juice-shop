@@ -9,11 +9,9 @@
   </mat-card>
 
   <mat-card>
-    <mat-card-title translate>LABEL_DIFFICULTY</mat-card-title>
-    <mat-divider></mat-divider>
     <div class="star-container" fxLayout="row wrap">
-      <mat-button-toggle *ngFor="let difficulty of difficulties" (change)="toggleDifficulty(difficulty)"
-                         [checked]="scoreBoardTablesExpanded[difficulty]">
+      <mat-button-toggle *ngFor="let difficulty of availableDifficulties" (change)="toggleDifficulty(difficulty)"
+                         [checked]="displayedDifficulties.includes(difficulty)">
         <label>
         <span class="fa-4x fa-layers fa-fw" style="display: block; margin: 5px;">
           <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18 star-border" aria-hidden="true"
@@ -37,7 +35,7 @@
         </label>
       </mat-button-toggle>
 
-      <button class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+      <button id="btnToggleAllDifficulties" class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
 
       <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
@@ -46,7 +44,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
-      <mat-button-toggle class="category-toggle" *ngFor="let category of allChallengeCategories"
+      <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
                          (change)="toggleShowChallengeCategory(category)"
                          [checked]="displayedChallengeCategories.includes(category)">
         {{category}}
@@ -57,23 +55,19 @@
 
   </mat-card>
 
-  <mat-expansion-panel *ngFor="let difficulty of difficulties" [expanded]="scoreBoardTablesExpanded[difficulty]"
-                       [disabled]="true">
-
-    <mat-expansion-panel-header>
-      <span fxLayout="row">
-        <bar-rating [rate]="difficulty" [max]="difficulty" readOnly="true"></bar-rating>
-        <span
-          style="margin: 15px 0;">{{"LABEL_" + difficulty + "_STAR_DIFFICULTY" | translate}} {{"LABEL_CHALLENGES" | translate}}</span>
-      </span>
-    </mat-expansion-panel-header>
-
-    <mat-divider></mat-divider>
-    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(totalChallengesOfDifficulty[difficulty - 1])">
+  <mat-card>
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)">
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
         <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="difficulty">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_DIFFICULTY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge">
+          <bar-rating [rate]="challenge.difficulty" [max]="challenge.difficulty" readOnly="true"></bar-rating>
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="description">
@@ -82,6 +76,11 @@
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge"> {{challenge.category}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
@@ -123,8 +122,7 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-
-  </mat-expansion-panel>
+  </mat-card>
 
   <mat-card *ngIf="showContributionInfoBox" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
 </diV>
