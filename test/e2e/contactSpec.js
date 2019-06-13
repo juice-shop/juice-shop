@@ -112,7 +112,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Current Typosquatting' })
+    protractor.expect.challengeSolved({ challenge: 'Frontend Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {

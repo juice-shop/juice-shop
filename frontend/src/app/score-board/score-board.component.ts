@@ -30,7 +30,7 @@ export class ScoreBoardComponent implements OnInit {
   public toggledMajorityOfDifficulties: boolean
   public toggledMajorityOfCategories: boolean
   public showSolvedChallenges
-  public displayedColumns = ['name','difficulty','description','status']
+  public displayedColumns = ['name','difficulty','description','category','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
   public showChallengeHints

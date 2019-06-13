@@ -44,7 +44,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
-      <mat-button-toggle class="category-toggle" *ngFor="let category of availableChallengeCategories"
+      <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
                          (change)="toggleShowChallengeCategory(category)"
                          [checked]="displayedChallengeCategories.includes(category)">
         {{category}}
@@ -76,6 +76,11 @@
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge"> {{challenge.category}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
