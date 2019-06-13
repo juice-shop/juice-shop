@@ -13,7 +13,7 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text:
         "To start this challenge, you'll have to log out first.",
-      fixture: '#navbarLogoutButton',
+      fixture: '#navbarAccount',
       unskippable: true,
       async resolved () {
         while (true) {
@@ -27,7 +27,7 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text:
         "Let's try if we find a way to log in with the administrator's user account. To begin, go to the _Login_ page.",
-      fixture: '#navbarLoginButton',
+      fixture: '#navbarAccount',
       unskippable: true,
       async resolved () {
         while (true) {

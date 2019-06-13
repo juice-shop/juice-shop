@@ -1,6 +1,7 @@
 import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,
+  waitForElementsInnerHtmlToBe,
   waitInMs
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
@@ -18,12 +19,12 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Let's start by searching for all products containing `owasp` in their name or description.",
       fixture: '#searchQuery',
-      resolved: waitForInputToHaveValue('#searchQuery', 'owasp')
+      resolved: waitForInputToHaveValue('#searchQuery input', 'owasp')
     },
     {
-      text: 'Click the _Search_ button.',
-      fixture: '#searchButton',
-      resolved: waitForElementToGetClicked('#searchButton')
+      text: 'Now hit enter.',
+      fixture: '#searchQuery',
+      resolved: waitForElementsInnerHtmlToBe('#searchValue', 'owasp')
     },
     {
       text: 'Nice! You should now see many cool OWASP-related products.',
@@ -43,12 +44,12 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: 'Change your search value into `<h1>owasp` to see if we can inject HTML.',
       fixture: '#searchQuery',
-      resolved: waitForInputToHaveValue('#searchQuery', '<h1>owasp')
+      resolved: waitForInputToHaveValue('#searchQuery input', '<h1>owasp')
     },
     {
-      text: 'Click the _Search_ button.',
-      fixture: '#searchButton',
-      resolved: waitForElementToGetClicked('#searchButton')
+      text: 'Hit enter again.',
+      fixture: '#searchQuery',
+      resolved: waitForElementsInnerHtmlToBe('#searchValue', '<h1>owasp</h1>') // Browsers will autocorrect the unclosed tag.
     },
     {
       text: "Hmm, this doesn't look normal, does it?",
@@ -63,12 +64,12 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Let's now try to inject JavaScript. Type `<script>alert(xss)</script>` into the search box now.",
       fixture: '#searchQuery',
-      resolved: waitForInputToHaveValue('#searchQuery', '<script>alert(xss)</script>')
+      resolved: waitForInputToHaveValue('#searchQuery input', '<script>alert(xss)</script>')
     },
     {
-      text: 'Click the _Search_ button again.',
-      fixture: '#searchButton',
-      resolved: waitForElementToGetClicked('#searchButton')
+      text: 'Hit enter again.',
+      fixture: '#searchQuery',
+      resolved: waitForElementsInnerHtmlToBe('#searchValue', '<script>alert(xss)</script>')
     },
     {
       text: "😔 This didn't work as we hoped. If you inspect the page, you should see the `script`-tag but it is not executed for some reason.",
@@ -78,12 +79,12 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: `<iframe src=\"javascript:alert(\`xss\`)\">`.",
       fixture: '#searchQuery',
-      resolved: waitForInputToHaveValue('#searchQuery', '<iframe src="javascript:alert(`xss`)">')
+      resolved: waitForInputToHaveValue('#searchQuery input', '<iframe src="javascript:alert(`xss`)">')
     },
     {
-      text: 'Please click the _Search_ button one more time. If an alert box appears, you must confirm it in order to close it.',
-      fixture: '#searchButton',
-      resolved: waitForElementToGetClicked('#searchButton')
+      text: 'Hit enter one more time. If an alert box appears, you must confirm it in order to close it.',
+      fixture: '#searchQuery',
+      resolved: waitForElementsInnerHtmlToBe('#searchValue', '<iframe src="javascript:alert(`xss`)"></iframe>')
     },
     {
       text:

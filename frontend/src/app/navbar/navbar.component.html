@@ -19,7 +19,7 @@
                     aria-label="Click to search"></mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
-            fxHide.lt-md fxShow aria-label="Show/ hide account menu">
+            fxHide.lt-md fxShow aria-label="Show/ hide account menu" id="navbarAccount">
       <i class="material-icons">
         account_circle
       </i>
@@ -27,7 +27,7 @@
     </button>
 
     <mat-menu #userMenu="matMenu">
-      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page">
+      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page" id="navbarLoginButton">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -68,7 +68,7 @@
           {{"NAV_RECYCLE" | translate}}
         </span>
       </button>
-      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Logout">
+      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Logout" id="navbarLogoutButton">
         <mat-icon>
           power_settings_new
         </mat-icon>
