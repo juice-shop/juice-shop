@@ -68,6 +68,21 @@ export function waitForElementToGetClicked (elementSelector: string) {
   }
 }
 
+export function waitForElementsInnerHtmlToBe (elementSelector: string, value: String) {
+  return async () => {
+    while (true) {
+      const element = document.querySelector(
+        elementSelector
+      ) as HTMLElement
+
+      if (element !== null && element.innerHTML === value) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
 /**
  * Returns a function that waits for the specified time in milli seconds
  */
