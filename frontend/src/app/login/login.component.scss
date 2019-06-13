@@ -65,3 +65,13 @@ mat-form-field:nth-child(2) {
   align-self: center;
   margin-top: 40px;
 }
+
+:host ::ng-deep .mat-form-field-suffix{
+ margin-bottom: auto !important;
+ margin-top: auto !important;
+}
+
+:host ::ng-deep .mat-icon-button {
+ height: 40px !important;
+ width: 24px !important;
+}

@@ -23,14 +23,14 @@ dom.watch()
 })
 export class ScoreBoardComponent implements OnInit {
 
-  public difficulties = [1,2,3,4,5,6]
-  public scoreBoardTablesExpanded
-  public showSolvedChallenges
-  public allChallengeCategories = []
+  public availableDifficulties = [1,2,3,4,5,6]
+  public displayedDifficulties = []
+  public availableChallengeCategories = []
   public displayedChallengeCategories = []
   public toggledMajorityOfDifficulties: boolean
   public toggledMajorityOfCategories: boolean
-  public displayedColumns = ['name','description','status']
+  public showSolvedChallenges
+  public displayedColumns = ['name','difficulty','description','category','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
   public showChallengeHints
@@ -46,7 +46,7 @@ export class ScoreBoardComponent implements OnInit {
   ngOnInit () {
     this.spinner.show()
 
-    this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
+    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(localStorage.getItem('displayedDifficulties')) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
@@ -66,12 +66,12 @@ export class ScoreBoardComponent implements OnInit {
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
-        if (!this.allChallengeCategories.includes(challenges[i].category)) {
-          this.allChallengeCategories.push(challenges[i].category)
+        if (!this.availableChallengeCategories.includes(challenges[i].category)) {
+          this.availableChallengeCategories.push(challenges[i].category)
         }
       }
-      this.allChallengeCategories.sort()
-      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
+      this.availableChallengeCategories.sort()
+      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.availableChallengeCategories
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
@@ -148,20 +148,24 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   toggleDifficulty (difficulty) {
-    this.scoreBoardTablesExpanded[difficulty] = !this.scoreBoardTablesExpanded[difficulty]
-    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+    if (!this.displayedDifficulties.includes(difficulty)) {
+      this.displayedDifficulties.push(difficulty)
+    } else {
+      this.displayedDifficulties = this.displayedDifficulties.filter((c) => c !== difficulty)
+    }
+    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
     this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
   }
 
   toggleAllDifficulty () {
     if (this.toggledMajorityOfDifficulties) {
-      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => false)
+      this.displayedDifficulties = []
       this.toggledMajorityOfDifficulties = false
     } else {
-      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => true)
+      this.displayedDifficulties = this.availableDifficulties
       this.toggledMajorityOfDifficulties = true
     }
-    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
   }
 
   toggleShowSolvedChallenges () {
@@ -184,19 +188,18 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedChallengeCategories = []
       this.toggledMajorityOfCategories = false
     } else {
-      this.displayedChallengeCategories = this.allChallengeCategories
+      this.displayedChallengeCategories = this.availableChallengeCategories
       this.toggledMajorityOfCategories = true
     }
     localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
   }
 
   determineToggledMajorityOfDifficulties () {
-    const selectedLevels: [boolean] = this.scoreBoardTablesExpanded.filter(s => s === true)
-    return selectedLevels.length > this.scoreBoardTablesExpanded.length / 2
+    return this.displayedDifficulties.length > this.availableDifficulties.length / 2
   }
 
   determineToggledMajorityOfCategories () {
-    return this.displayedChallengeCategories.length > this.allChallengeCategories.length / 2
+    return this.displayedChallengeCategories.length > this.availableChallengeCategories.length / 2
   }
 
   repeatNotification (challenge) {
@@ -219,6 +222,7 @@ export class ScoreBoardComponent implements OnInit {
     }
 
     challenges = challenges.filter((challenge) => {
+      if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
       return true
@@ -230,7 +234,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   populateFilteredChallengeLists () {
-    for (const difficulty of this.difficulties) {
+    for (const difficulty of this.availableDifficulties) {
       if (!this.challenges) {
         this.totalChallengesOfDifficulty[difficulty - 1] = []
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
