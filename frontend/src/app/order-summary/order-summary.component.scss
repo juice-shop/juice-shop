@@ -1,0 +1,72 @@
+.heading {
+	background: rgba(0,0,0,.2);
+	justify-content: center;
+	padding: 12px 20px;
+	font-size: x-large;
+}
+
+.btn-pay {
+    margin-top: 10px;
+	display: block;
+	width: 100%;
+}
+
+mat-card {
+	height: auto;
+	margin-top: 20px;
+}
+
+.main-wrapper {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.img-thumbnail {
+    height: auto;
+    max-width: 70%;
+    width: 70px;
+}
+
+mat-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+mat-header-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.price:last-of-type {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.label:first-of-type {
+    padding-left: 10px;
+}
+
+.place-order-alert {
+    text-align: center;
+    padding-top: 10px;
+    opacity: 0.4;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-footer-cell {
+    font-weight: bold;
+}
+
+.order-summary {
+    padding-left: 10px;
+	padding-bottom: 10px;
+	font-size: x-large;
+}
+
+.bonus-points {
+    margin-top:5px;
+    text-align: center;
+}

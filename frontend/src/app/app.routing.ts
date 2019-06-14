@@ -34,6 +34,7 @@ import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
+import { OrderSummaryComponent } from './order-summary/order-summary.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -125,6 +126,10 @@ const routes: Routes = [
   {
     path: 'complain',
     component: ComplaintComponent
+  },
+  {
+    path: 'order-summary',
+    component: OrderSummaryComponent
   },
   {
     path: 'login',
