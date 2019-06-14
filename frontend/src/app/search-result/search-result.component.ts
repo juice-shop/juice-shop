@@ -22,7 +22,7 @@ dom.watch()
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss']
 })
-export class SearchResultComponent implements AfterViewInit,OnDestroy {
+export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData: any[]

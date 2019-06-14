@@ -37,7 +37,7 @@ describe('/#/contact', () => {
     protractor.expect.challengeSolved({ challenge: 'Forged Feedback' })
   })
 
-  describe('challenge "xss4"', () => {
+  describe('challenge "persistedXssFeedback"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to trick the sanitization with a masked XSS attack', () => {
@@ -101,7 +101,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Typosquatting' })
+    protractor.expect.challengeSolved({ challenge: 'Legacy Typosquatting' })
   })
 
   describe('challenge "typosquattingAngular"', () => {
@@ -112,7 +112,7 @@ describe('/#/contact', () => {
       submitButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Sneaky Typosquatting' })
+    protractor.expect.challengeSolved({ challenge: 'Frontend Typosquatting' })
   })
 
   describe('challenge "hiddenImage"', () => {

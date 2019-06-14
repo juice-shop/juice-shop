@@ -4,7 +4,8 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   showHackingInstructor: false
-  gitHubRibbon: false
+  showGitHubLinks: false
+  showWelcomeBanner: false
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both
@@ -33,10 +34,10 @@ ctf:
     reflectedXssChallenge:
       name: Uruguay
       code: UY
-    persistedXssChallengeUser:
+    persistedXssUserChallenge:
       name: Myanmar
       code: MM
-    persistedXssChallengeFeedback:
+    persistedXssFeedbackChallenge:
       name: Costa Rica
       code: CR
     restfulXssChallenge:
