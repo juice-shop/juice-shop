@@ -1,18 +1,19 @@
 <div fxLayoutAlign="center">
-  <mat-card>
+  <mat-card class="mat-elevation-z6">
 
     <h1>Login</h1>
 
-    <div class="form-container" id="login-form">
+    <div class="error" *ngIf="error">{{error}}</div>
 
-      <div class="error" *ngIf="error">{{error}}</div>
+    <div class="form-container" id="login-form">
 
       <mat-form-field color="accent" appearance="outline">
         <mat-label translate>LABEL_EMAIL</mat-label>
         <input id="email" #email name="email"
                [formControl]="emailControl"
                (focus)="this.error=null"
-               matInput placeholder="">
+               matInput placeholder=""
+               aria-label="Text field for the login email">
         <mat-error *ngIf="emailControl.invalid" translate>MANDATORY_EMAIL</mat-error>
       </mat-form-field>
 
@@ -21,11 +22,13 @@
         <input id="password" #password name="password"
                [formControl]="passwordControl"
                (focus)="this.error=null"
-               matInput placeholder="" [type]="hide ? 'password' : 'text'">
-        <button *ngIf="hide" mat-icon-button matSuffix (click)="hide = !hide">
+               matInput placeholder="" [type]="hide ? 'password' : 'text'"
+               aria-label="Text field for the login password">
+        <button *ngIf="hide" mat-icon-button matSuffix (click)="hide = !hide"
+                aria-label="Button to display the password">
           <i class="fas fa-eye"></i>
         </button>
-        <button *ngIf="!hide" mat-icon-button matSuffix (click)="hide = !hide">
+        <button *ngIf="!hide" mat-icon-button matSuffix (click)="hide = !hide" aria-label="Button to hide the password">
           <i class="fas fa-eye-slash"></i>
         </button>
         <mat-error *ngIf="passwordControl.invalid" translate>MANDATORY_PASSWORD</mat-error>
@@ -34,20 +37,29 @@
       <a class="primary-link forgot-pw" routerLink="/forgot-password" translate>FORGOT_PASSWORD</a>
 
       <button type="submit" id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button
-              color="primary" (click)="login()">
-        <i class="fas fa-key fa-lg"></i>
+              color="primary" (click)="login()" aria-label="Login">
+        <mat-icon>
+          exit_to_app
+        </mat-icon>
         {{'BTN_LOGIN' | translate}}
       </button>
 
-      <mat-checkbox [formControl]="rememberMe" id="rememberMe"> {{'REMEMBER_ME' | translate}}</mat-checkbox>
+      <mat-checkbox [formControl]="rememberMe" id="rememberMe" aria-label="Checkbox to stay logged in or not logged in">
+        {{'REMEMBER_ME' | translate}}
+      </mat-checkbox>
 
       <div class="breakLine" *ngIf="!oauthUnavailable">
-        <div class="line"><div></div></div>
+        <div class="line">
+          <div></div>
+        </div>
         <div class="textOnLine" translate>LABEL_OR</div>
-        <div class="line"><div></div></div>
+        <div class="line">
+          <div></div>
+        </div>
       </div>
 
-      <button id="loginButtonGoogle" *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"><i
+      <button id="loginButtonGoogle" *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"
+              aria-label="Login with Google"><i
         class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
       </button>
 

@@ -121,11 +121,11 @@ describe('ScoreBoardComponent', () => {
   }))
 
   it('should be able to toggle the difficulty and save it in localStorage', () => {
-    component.scoreBoardTablesExpanded[2] = false
+    component.displayedDifficulties = []
     spyOn(localStorage,'setItem')
     component.toggleDifficulty(2)
-    expect(component.scoreBoardTablesExpanded[2]).toBe(true)
-    expect(localStorage.setItem).toHaveBeenCalledWith('scoreBoardTablesExpanded', JSON.stringify(component.scoreBoardTablesExpanded))
+    expect(component.displayedDifficulties).toEqual([2])
+    expect(localStorage.setItem).toHaveBeenCalledWith('displayedDifficulties', JSON.stringify(component.displayedDifficulties))
   })
 
   it('should consider challenge description as trusted HTML', () => {
@@ -310,13 +310,13 @@ describe('ScoreBoardComponent', () => {
   it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(true)
+    expect(component.showContributionInfoBox).toBe(true)
   })
 
   it('should hide GitHub ribbon if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(false)
+    expect(component.showContributionInfoBox).toBe(false)
   })
 
   it('should show GitHub button by default', () => {

@@ -15,7 +15,7 @@ describe('/', () => {
       browser.driver.get(browser.baseUrl + '/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg')
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Real Easter Egg' })
+    protractor.expect.challengeSolved({ challenge: 'Nested Easter Egg' })
   })
 
   describe('challenge "premiumPaywall"', () => {

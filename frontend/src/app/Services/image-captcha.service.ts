@@ -15,8 +15,4 @@ export class ImageCaptchaService {
   getCaptcha () {
     return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err }))
   }
-
-  dataExport (params) {
-    return this.http.post(this.hostServer + '/rest/data-export/', params).pipe(catchError((err) => { throw err }))
-  }
 }

@@ -57,7 +57,7 @@
         </mat-icon>
         <span class="menu-text" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
-      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-subject"
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/erasure-request"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
@@ -146,7 +146,7 @@
     </span>
   </a>
 
-  <mat-divider *ngIf="scoreBoardVisible || gitHubRibbon"></mat-divider>
+  <mat-divider *ngIf="scoreBoardVisible || showGitHubLink"></mat-divider>
 
   <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()" aria-label="Open score-board">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
@@ -155,7 +155,7 @@
     </span>
   </a>
 
-  <a *ngIf="gitHubRibbon" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop" aria-label="Go to OWASP Juice Shop GitHub page">
+  <a *ngIf="showGitHubLink" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop" aria-label="Go to OWASP Juice Shop GitHub page">
     <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
     <span class="menu-text">
       GitHub

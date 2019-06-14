@@ -3,7 +3,7 @@
   <mat-toolbar-row fxLayout="row">
 
     <button (click)="onToggleSidenav()" mat-button style="height:48px; width: 48px;" aria-label="Open Sidenav"
-            matTooltip="Open Sidenav" matTooltipPosition="below">
+            matTooltip="{{ 'SIDENAV_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>menu</mat-icon>
     </button>
 
@@ -19,7 +19,7 @@
                     aria-label="Click to search"></mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
-            fxHide.lt-md fxShow aria-label="Show/ hide account menu">
+            fxHide.lt-md fxShow aria-label="Show/ hide account menu" id="navbarAccount">
       <i class="material-icons">
         account_circle
       </i>
@@ -27,7 +27,7 @@
     </button>
 
     <mat-menu #userMenu="matMenu">
-      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page">
+      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page" id="navbarLoginButton">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -68,7 +68,7 @@
           {{"NAV_RECYCLE" | translate}}
         </span>
       </button>
-      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Logout">
+      <button (click)="logout()" *ngIf="isLoggedIn()" mat-menu-item aria-label="Logout" id="navbarLogoutButton">
         <mat-icon>
           power_settings_new
         </mat-icon>
@@ -88,7 +88,7 @@
 
     <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
             aria-label="Language selection menu"
-            matTooltip="Change the language" matTooltipPosition="below">
+            matTooltip="{{ 'LANGUAGE_SEL_HINT' | translate }}" matTooltipPosition="below">
       <mat-icon>
         language
       </mat-icon>
@@ -109,7 +109,7 @@
       </mat-radio-button>
     </mat-menu>
 
-    <mat-menu #subMenu="matMenu" style="width= 250px;">
+    <mat-menu #subMenu="matMenu">
       <button mat-menu-item [routerLink]="['privacy-security/privacy-policy']" aria-label="Go to privacy policy page">
         <mat-icon>
           assignment
@@ -122,7 +122,7 @@
         </mat-icon>
         <span translate>TITLE_REQUEST_DATA_EXPORT</span>
       </button>
-      <button mat-menu-item [routerLink]="['privacy-security/data-subject']" aria-label="Go to data subject page">
+      <button mat-menu-item [routerLink]="['privacy-security/erasure-request']" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
         </mat-icon>
