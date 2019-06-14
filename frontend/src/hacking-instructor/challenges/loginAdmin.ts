@@ -116,8 +116,8 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text:
         'That worked, right?! To see with whose account you just logged in, click the _User Profile_ image.',
-      fixture: '#userMenuButton',
-      resolved: waitForElementToGetClicked('#userMenuButton')
+      fixture: '#navbarAccount',
+      resolved: waitForElementToGetClicked('#navbarAccount')
     },
     {
       text:
