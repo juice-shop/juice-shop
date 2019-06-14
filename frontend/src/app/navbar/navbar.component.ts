@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit {
   public selectedLanguage = 'placeholder'
   public version: string = ''
   public applicationName = 'OWASP Juice Shop'
-  public gitHubRibbon = true
+  public showGitHubLink = true
   public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible = false
   public shortKeyLang = 'placeholder'
@@ -73,8 +73,8 @@ export class NavbarComponent implements OnInit {
       if (config && config.application && config.application.name && config.application.name !== null) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.gitHubRibbon !== null) {
-        this.gitHubRibbon = config.application.gitHubRibbon
+      if (config && config.application && config.application.showGitHubLinks !== null) {
+        this.showGitHubLink = config.application.showGitHubLinks
       }
 
       if (config && config.application && config.application.logo && config.application.logo !== null) {

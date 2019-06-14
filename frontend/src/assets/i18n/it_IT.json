@@ -17,7 +17,7 @@
   "MANDATORY_PASSWORD_REPEAT": "Ripeti la tua password.",
   "INVALID_PASSWORD_LENGTH": "La password deve contenere almeno {{length}} caratteri.",
   "LABEL_PASSWORD_REPEAT": "Ripeti password",
-  "PASSWORDS_NOT_MATCHING": "Passwords do not match",
+  "PASSWORDS_NOT_MATCHING": "Le password non corrispondono",
   "BTN_REGISTER": "Registrati",
   "TITLE_LOGOUT": "Disconnettiti",
   "CONFIRM_LOGGED_OUT": "Ti sei disconnesso.",
