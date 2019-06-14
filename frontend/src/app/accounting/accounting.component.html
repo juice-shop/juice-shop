@@ -1,0 +1,54 @@
+<div fxLayoutAlign="center">
+
+  <div class="table-container custom-slate">
+
+    <div class="heading mat-elevation-z6">
+      <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+      <div *ngIf="confirmation" style="margin-top:5px;">
+        <p class="confirmation">{{ confirmation }}</p>
+      </div>
+      <div *ngIf="error" style="margin-top:5px;">
+        <p class="error">{{error?.error}}</p>
+      </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Product">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT" fxFlex="50%" fxFlex.lt-md="50%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="50%" fxFlex.lt-md="50%"> {{element.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Price">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+          <mat-form-field class="input-field">
+            <input #price matInput type="number" value="{{ element.price }}">
+            <button mat-icon-button (click)="modifyPrice(element.id, price.value)" matSuffix><i class="fas fa-check"></i></button>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Quantity">
+        <mat-header-cell *matHeaderCellDef translate="LABEL_QUANTITY" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+          <mat-form-field class="input-field">
+            <input #quanitity matInput type="number" value="{{ quantityMap[element.id].quantity }}">
+            <button mat-icon-button (click)="modifyQuantity(quantityMap[element.id].id, quanitity.value)" matSuffix><i class="fas fa-check"></i></button>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-divider></mat-divider>
+
+    <mat-paginator class="mat-elevation-z6"
+                   #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20, 30]">
+    </mat-paginator>
+  </div>
+</div>

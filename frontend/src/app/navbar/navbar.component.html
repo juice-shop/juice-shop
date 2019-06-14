@@ -43,8 +43,15 @@
           {{userEmail}}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu"
-              aria-label="Show Privacy and Security Menu">
+      <button *ngIf="isLoggedIn() && isAccounting()" mat-menu-item routerLink="/accounting" aria-label="Go to accounting page">
+        <mat-icon>
+          account_balance
+        </mat-icon>
+        <span>
+          {{"ACCOUNTING" | translate}}
+        </span>
+      </button>
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https
         </mat-icon>

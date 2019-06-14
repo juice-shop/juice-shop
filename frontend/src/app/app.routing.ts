@@ -34,6 +34,8 @@ import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AddressCreateComponent } from './address-create/address-create.component'
 import { AddressListComponent } from './address-list/address-list.component'
+import { AccountingComponent } from './accounting/accounting.component'
+import { roles } from './roles'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -51,32 +53,49 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
-export const roles = {
-  customer: 'customer',
-  prime: 'prime',
-  accounting: 'accounting',
-  admin: 'admin'
-}
-
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor (private router: Router) {}
 
-  canActivate () {
-    let payload: any
+  forbidRoute () {
+    this.router.navigate(['403'], {
+      skipLocationChange: true,
+      queryParams: {
+        error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
+      }
+    })
+  }
+
+  tokenDecode () {
+    let payload: any = null
     const token = localStorage.getItem('token')
     if (token) {
       payload = jwt_decode(token)
     }
+    return payload
+  }
+
+  canActivate () {
+    let payload = this.tokenDecode()
     if (payload && payload.data && payload.data.role === roles.admin) {
       return true
     } else {
-      this.router.navigate(['403'], {
-        skipLocationChange: true,
-        queryParams: {
-          error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
-        }
-      })
+      this.forbidRoute()
+      return false
+    }
+  }
+}
+
+@Injectable()
+export class AccountingGuard implements CanActivate {
+  constructor (private router: Router, private adminGuard: AdminGuard) {}
+
+  canActivate () {
+    let payload = this.adminGuard.tokenDecode()
+    if (payload && payload.data && payload.data.role === roles.accounting) {
+      return true
+    } else {
+      this.adminGuard.forbidRoute()
       return false
     }
   }
@@ -106,6 +125,11 @@ const routes: Routes = [
     path: 'administration',
     component: AdministrationComponent,
     canActivate: [AdminGuard]
+  },
+  {
+    path: 'accounting',
+    component: AccountingComponent,
+    canActivate: [AccountingGuard]
   },
   {
     path: 'about',
