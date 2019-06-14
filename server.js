@@ -233,6 +233,11 @@ app.use('/b2b/v2', insecurity.isAuthorized())
 /* Check if the quantity is available and add item to basket */
 app.put('/api/BasketItems/:id', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
 app.post('/api/BasketItems', insecurity.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+/* Accounting users are allowed to check and update quantities */
+app.delete('/api/Quantitys/:id', insecurity.denyAll())
+app.post('/api/Quantitys', insecurity.denyAll())
+app.use('/api/Quantitys', insecurity.isAccounting())
+app.use('/api/Quantitys/:id', insecurity.isAccounting())
 /* Feedbacks: Do not allow changes of existing feedback */
 app.put('/api/Feedbacks/:id', insecurity.denyAll())
 /* PrivacyRequests: Only allowed for authenticated users */
@@ -275,6 +280,7 @@ const autoModels = [
   { name: 'Recycle', exclude: [] },
   { name: 'SecurityQuestion', exclude: [] },
   { name: 'SecurityAnswer', exclude: [] },
+  { name: 'Quantity', exclude: [] },
   { name: 'PrivacyRequest', exclude: [] }
 ]
 
