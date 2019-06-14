@@ -19,8 +19,24 @@
     color: mat-color(map-get($theme, accent));
   }
 
+  .ribbon::before {
+    border: 5px solid mat-color(map-get($theme, accent));
+  }
+  
+  .ribbon span {
+    background-color: mat-color(map-get($theme, accent));
+  }
+
   .error {
     color: mat-color(map-get($theme, warn));
+  }
+
+  .ribbon-sold::before {
+    border: 5px solid mat-color(map-get($theme, warn));
+  }
+
+  .ribbon-sold span{
+    background-color: mat-color(map-get($theme, warn));
   }
 
   .primary-notification {
