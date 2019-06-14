@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie'
 export class SidenavComponent implements OnInit {
 
   public applicationName = 'OWASP Juice Shop'
-  public gitHubRibbon = true
+  public showGitHubLink = true
   public userEmail = ''
   public scoreBoardVisible: boolean = false
   public version: string = ''

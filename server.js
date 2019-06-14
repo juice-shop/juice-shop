@@ -324,10 +324,10 @@ app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
 app.get('/rest/saveLoginIp', saveLoginIp())
-app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
-app.post('/rest/data-export', dataExport())
+app.post('/rest/user/data-export', imageCaptcha.verifyCaptcha())
+app.post('/rest/user/data-export', dataExport())
 app.get('/rest/languages', languageList())
-app.get('/rest/user/erasure-request', erasureRequest())
+app.post('/rest/user/erasure-request', erasureRequest())
 
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
