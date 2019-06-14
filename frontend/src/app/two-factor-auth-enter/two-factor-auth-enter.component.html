@@ -10,8 +10,13 @@
       <div class="form-container">
         <mat-form-field appearance="outline" color="accent" style="width: 250px;">
           <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
-          <input #tokenInput formControlName="token" type="text" required minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken"
-                 aria-label="Field for entering the Two Factor token">
+          <input #tokenInput formControlName="token" type="text" minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken"
+                 aria-label="Field for entering the Two Factor token" placeholder="{{ '2FA_ENTER_CODE_PLACEHOLDER' | translate}}">
+          <mat-icon matSuffix matTooltip="The code to be entered from the authenticator must have 6 digits"
+                    matTooltipPosition=right
+                    aria-label="The code to be entered from the authenticator must have 6 digits.">
+            help_outline
+          </mat-icon>
         </mat-form-field>
       </div>
 
