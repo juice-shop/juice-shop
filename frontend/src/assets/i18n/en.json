@@ -160,6 +160,8 @@
   "BTN_SHOW_SOLVED": "Show solved",
   "TITLE_TWO_FACTOR_AUTH_ENTER": "Enter the 6 digit token from your 2FA app",
   "LABEL_TWO_FACTOR_AUTH_TOKEN": "2FA Token",
+  "CONFIRM_2FA_SETUP": "Setup of Two-Factor Authentication successfully completed",
+  "CONFIRM_2FA_DISABLE": "Two-Factor Authentication has been removed",
   "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid.",
   "UNAUTHORIZED_PAGE_ACCESS_ERROR": "You are not allowed to access this page!",
   "TITLE_PRIVACY_POLICY": "Privacy Policy",
@@ -180,6 +182,7 @@
   "LABEL_CONFIRM_CURRENT_PASSWORD": "Confirm your current password",
   "LABEL_INITIAL_2FA_TOKEN": "Initial token from your authenticator",
   "INITIAL_CODE": "Initial Code",
+  "2FA_ENTER_CODE_PLACEHOLDER": "Please enter your 2FA Code",
   "INITIAL_CODE_PLACEHOLDER": "Please enter your initial code",
   "2FA_AUTH_SETUP_INSTRUCTIONS": "Secure your account with an additional factor. Scan the QR code into an authenticator app supporting TOTP (e.g. Google Authenticator) to get started.",
   "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
@@ -202,5 +205,6 @@
   "BTN_DISMISS": "Dismiss",
   "WELCOME_BANNER_DESCRIPTION": "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>{{appname}}</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>{{appname}}</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>",
   "SIDENAV_HINT": "Open side menu",
-  "LANGUAGE_SEL_HINT": "Choose language"
+  "LANGUAGE_SEL_HINT": "Choose language",
+  "SAVE": "Save"
 }

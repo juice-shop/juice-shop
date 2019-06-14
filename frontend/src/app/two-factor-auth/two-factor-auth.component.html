@@ -21,13 +21,14 @@
           <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
           <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput
                  aria-label="Field to enter the current password"
-                 placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}">
+                 placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
+                 autocomplete="off">
         </mat-form-field>
 
         <button
           type="submit"
           id="disableTwoFactorAuth"
-          [disabled]="twoFactorSetupForm.invalid"
+          [disabled]="twoFactorDisableForm.invalid"
           mat-raised-button
           color="warn"
           aria-label="Button to remove the two-factor authentication"
@@ -64,7 +65,8 @@
         <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
         <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput
                aria-label="Field to enter the current password"
-               placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}">
+               placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
+               autocomplete="off">
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
@@ -77,6 +79,7 @@
           [attr.data-test-totp-secret]="totpSecret"
           aria-label="Field to enter the initial token. This must have 6 digits."
           placeholder="{{'INITIAL_CODE_PLACEHOLDER' | translate }}"
+          autocomplete="off"
         >
         <mat-icon matSuffix matTooltip="The code to be entered from the authenticator must have 6 digits"
                   matTooltipPosition=right
@@ -96,7 +99,7 @@
         <i class="material-icons">
           save
         </i>
-        {{'BTN_SUBMIT' | translate}}
+        {{'SAVE' | translate}}
       </button>
     </form>
   </mat-card>
