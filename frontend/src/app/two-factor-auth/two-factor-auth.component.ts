@@ -88,9 +88,9 @@ export class TwoFactorAuthComponent {
       this.updateStatus().subscribe(
         () => {
           this.setupStatus = false
-          this.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
         }
       )
+      this.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
     }, () => {
       this.twoFactorDisableForm.get('passwordControl').markAsPristine()
       this.errored = true
