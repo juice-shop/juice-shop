@@ -1,0 +1,85 @@
+<div fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="main-wrapper">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
+      <div>
+          <mat-card class="mat-elevation-z6">
+              <div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column">
+                <div fxFlex="50%">
+                  Shipping address to be shown here
+                </div>
+                <div fxFlex="50%">
+                  Payment Method to be shown here
+                  </div>  
+              </div>
+          </mat-card>
+      </div>
+      <div class="table-container custom-slate">
+            <div class="heading">{{"TITLE_BASKET" | translate}}
+            </div>
+
+            <mat-table [dataSource]="dataSource">
+              
+              <ng-container matColumnDef="image">
+                  <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="20%" translate>LABEL_IMAGE</mat-header-cell>
+                  <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="20%">
+                      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
+                      class="img-responsive img-thumbnail">
+                  </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="product">
+                <mat-header-cell *matHeaderCellDef fxFlex="30%" fxFlex.lt-md="50%" translate>LABEL_PRODUCT</mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="30%" fxFlex.lt-md="50%"> {{element.name}} </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="16%" translate>LABEL_PRICE</mat-header-cell>
+                <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%"> {{element.price}}</mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef fxFlex="16%" fxFlex.lt-md="25%" translate>LABEL_QUANTITY</mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="16%" fxFlex.lt-md="25%">
+                  <span>{{element.BasketItem.quantity}}</span>
+                </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="total price">
+                <mat-header-cell *matHeaderCellDef fxFlex="18%" fxFlex.lt-md="25%" translate>LABEL_TOTAL_PRICE</mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="18%" fxFlex.lt-md="25%"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
+              </ng-container>
+      
+              <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+      
+            </mat-table>
+      
+          </div>
+    </div>
+    <div fxFlex="30%">
+        <mat-card class="mat-elevation-z6">
+            <div class="order-summary" translate>ORDER_SUMMARY</div>
+            <table class="mat-table">
+              <tr class="mat-row">
+                <td class="mat-cell label" translate>ITEMS</td>
+                <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}</td>
+              </tr>
+              <tr class="mat-row">
+                  <td class="mat-cell label" translate>DELIVERY</td>
+                  <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}</td>
+                </tr>
+              <tr class="mat-row">
+                  <td class="mat-cell label" translate>PROMOTION</td>
+                  <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}</td>
+              </tr>
+              <tr class="mat-row">
+                  <td class="mat-footer-cell label" translate>LABEL_TOTAL_PRICE</td>
+                  <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2) }}</td>
+              </tr>
+            </table>
+            <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase">
+                <span translate>PLACE_ORDER_AND_PAY</span>
+            </button>
+            <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+        </mat-card>
+    </div>
+</div>
