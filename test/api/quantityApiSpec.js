@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3000/api'
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Quantitys', () => {
-  it('GET quantity of all items is forbidden for customers', () => {
+  it('GET quantity of all items for customers', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -20,12 +20,11 @@ describe('/api/Quantitys', () => {
         return frisby.get(API_URL + '/Quantitys', {
           headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
-          .expect('status', 403)
-          .expect('json', 'error', 'Malicious activity detected')
+          .expect('status', 200)
       })
   })
 
-  it('GET quantity of all items is forbidden for admin', () => {
+  it('GET quantity of all items for admin', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -38,8 +37,7 @@ describe('/api/Quantitys', () => {
         return frisby.get(API_URL + '/Quantitys', {
           headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
-          .expect('status', 403)
-          .expect('json', 'error', 'Malicious activity detected')
+          .expect('status', 200)
       })
   })
 

@@ -19,7 +19,9 @@
     <div *ngIf=" !emptyState; else emptyResult">
       <mat-grid-list #table (window:resize)="onResize($event)" [cols]="breakpoint" gutterSize="30px">
         <mat-grid-tile *ngFor="let item of gridDataSource | async">
-          <mat-card [style.width]="'100%'" class="mat-elevation-z6">
+          <mat-card [style.width]="'100%'" class="mat-elevation-z6 ribbon-card">
+            <div class="ribbon ribbon-top-left" *ngIf="item.quantity <= 5 && item.quantity > 0"><span  translate [translateParams]="{quantity: item.quantity}">LABEL_ONLY_QUANTITY_LEFT</span></div>
+            <div class="ribbon ribbon-top-left ribbon-sold" *ngIf="item.quantity <= 0"><span translate>LABEL_SOLD_OUT</span></div>
             <div (click)="showDetail(item)" aria-label="Click for more information about the product" class="product"
                  matTooltip="Click for more information" matTooltipPosition="above">
               <div class="img-container" fxFlexAlign="center">
