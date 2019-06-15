@@ -199,6 +199,7 @@ products:
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
+    quantity: 5
     image: artwork.jpg
   -
     name: 'Global OWASP WASPY Award 2017 Nomnation'
@@ -233,11 +234,13 @@ products:
     name: 'Melon Bike (Comeback-Product 2018 Edition)'
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
+    quantity: 2
     image: melon_bike.jpeg
   -
     name: 'OWASP Juice Shop Coaster (10pcs)'
     description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
     price: 19.99
+    quantity: 0
     image: coaster.png
 ctf:
   showFlagsInNotifications: false
