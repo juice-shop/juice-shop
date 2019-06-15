@@ -23,6 +23,7 @@ describe('/api', () => {
       browser.waitForAngularEnabled(false)
       browser.get('/#/search?q=RestXSS')
       browser.refresh()
+      browser.driver.sleep(1000)
       let productImage = element(by.css('img[alt="RestXSS"]'))
       productImage.click()
 
