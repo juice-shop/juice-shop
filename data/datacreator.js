@@ -132,7 +132,7 @@ function createQuantity () {
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
-        quantity: Math.floor(Math.random() * 70 + 30),
+        quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
         limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
