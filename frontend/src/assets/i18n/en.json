@@ -82,6 +82,7 @@
   "LABEL_REPEAT_NEW_PASSWORD": "Repeat New Password",
   "BTN_CHANGE": "Change",
   "CAPTCHA_LABEL": "CAPTCHA",
+  "ENTER_CAPTCHA": "Enter CAPTCHA",
   "EMPTY_STATE_CAPTCHA": "Unfortunately the CAPTCHA could not be loaded. Please try again!",
   "TITLE_COMPLAIN": "File Complaint",
   "MANDATORY_MESSAGE": "Please provide a text.",

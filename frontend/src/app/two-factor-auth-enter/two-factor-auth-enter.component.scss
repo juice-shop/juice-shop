@@ -1,10 +1,14 @@
 mat-card {
   height: auto;
   min-width: 320px;
-  width: 30%;
+  width: 25%;
 }
 
-#totpSubmitButton{
-  float: right;
-  width: 160px;
+#totpSubmitButton {
+  width: 60%;
+  margin-left: 20%;
+}
+
+#inputToken{
+  width: 100%;
 }

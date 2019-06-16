@@ -51,7 +51,7 @@
 
     </div>
 
-    <button type="submit" id="submitButton" style="margin-top:5px; float: right;" mat-raised-button color="primary"
+    <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
             [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
             (click)="save()" aria-label="Button to send the review">
       <i class="material-icons">
