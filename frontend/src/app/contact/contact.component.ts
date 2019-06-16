@@ -68,7 +68,7 @@ export class ContactComponent implements OnInit {
       this.error = error.error
       this.confirmation = null
       this.feedback = {}
-      this.resetForm()
+      this.resetCaptcha()
     })
   }
 
@@ -79,6 +79,15 @@ export class ContactComponent implements OnInit {
     this.feedbackControl.markAsUntouched()
     this.feedbackControl.markAsPristine()
     this.feedbackControl.setValue('')
+    this.captchaControl.markAsUntouched()
+    this.captchaControl.markAsPristine()
+    this.captchaControl.setValue('')
+  }
+
+  resetCaptcha () {
+    this.authorControl.markAsUntouched()
+    this.authorControl.markAsPristine()
+    this.authorControl.setValue('')
     this.captchaControl.markAsUntouched()
     this.captchaControl.markAsPristine()
     this.captchaControl.setValue('')

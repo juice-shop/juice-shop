@@ -1,7 +1,7 @@
 mat-card {
   height: auto;
-  min-width: 300px;
-  width: 35%;
+  min-width: 320px;
+  width: 30%;
 }
 
 .form-container {
@@ -11,8 +11,8 @@ mat-card {
 }
 
 .rating-container {
-  display: flex;
-  flex-direction: column;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .star {
@@ -25,4 +25,8 @@ mat-card {
 
 .select {
   color: #ffd700;
+}
+
+:host ::ng-deep .br {
+  margin: 0 !important;
 }
