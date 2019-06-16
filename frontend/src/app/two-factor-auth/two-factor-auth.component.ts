@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -8,6 +8,9 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faUnlockAlt, faSave } from '@fortawesome/free-solid-svg-icons'
 
 import { forkJoin } from 'rxjs'
+import { TranslateService } from '@ngx-translate/core'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faUnlockAlt, faSave)
 dom.watch()
@@ -21,12 +24,12 @@ export class TwoFactorAuthComponent {
   public data: string
 
   public twoFactorSetupForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl(''),
-    initalTokenControl: new FormControl('')
+    passwordControl: new FormControl('', [Validators.required]),
+    initalTokenControl: new FormControl('', [Validators.required])
   })
 
   public twoFactorDisableForm: FormGroup = new FormGroup({
-    passwordControl: new FormControl('')
+    passwordControl: new FormControl('', [Validators.required])
   })
 
   public setupStatus: boolean = null
@@ -39,7 +42,7 @@ export class TwoFactorAuthComponent {
 
   private appName = 'OWASP Juice Shop'
 
-  constructor (private twoFactorAuthService: TwoFactorAuthService, private configurationService: ConfigurationService) {}
+  constructor (private twoFactorAuthService: TwoFactorAuthService, private configurationService: ConfigurationService, private snackBar: MatSnackBar, private translateService: TranslateService, private snackBarHelperService: SnackBarHelperService) {}
 
   ngOnInit () {
     this.updateStatus()
@@ -71,6 +74,7 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('initalTokenControl').value
     ).subscribe(() => {
       this.setupStatus = true
+      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_SETUP', 'Ok')
     }, () => {
       this.twoFactorSetupForm.get('passwordControl').markAsPristine()
       this.twoFactorSetupForm.get('initalTokenControl').markAsPristine()
@@ -87,6 +91,7 @@ export class TwoFactorAuthComponent {
           this.setupStatus = false
         }
       )
+      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
     }, () => {
       this.twoFactorDisableForm.get('passwordControl').markAsPristine()
       this.errored = true

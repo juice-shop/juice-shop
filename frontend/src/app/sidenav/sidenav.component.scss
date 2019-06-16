@@ -68,3 +68,9 @@ mat-nav-list{
   margin-bottom: 20px;
   text-align: center;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
