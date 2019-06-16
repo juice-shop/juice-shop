@@ -30,3 +30,9 @@ mat-card {
 :host ::ng-deep .br {
   margin: 0 !important;
 }
+
+#submitButton {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 30px;
+}

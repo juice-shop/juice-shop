@@ -19,11 +19,13 @@
       </mat-radio-group>
 
       <div *ngIf="presenceOfCaptcha">
-        <div class="captcha-image" style="margin-top: 10px;" [innerHTML]="captcha"></div>
-
-        <mat-form-field style="margin-left: 10px; margin-top: 10px; width: 65%;" appearance="outline" color="accent"
+        <div>
+          <span style="float: left; margin-top: 20px; font-weight: 500;" translate>CAPTCHA <span>:</span></span>
+          <div class="captcha-image" [innerHTML]="captcha" style="margin-left: 10px;"></div>
+        </div>
+        <mat-form-field style="margin-top: 10px; width: 100%;" appearance="outline" color="accent"
                         floatLabel="always">
-          <mat-label translate>CAPTCHA_LABEL</mat-label>
+          <mat-label translate>ENTER_CAPTCHA</mat-label>
           <input [formControl]="captchaControl" type="text" matInput
                  placeholder="{{ 'TYPE_THESE_LETTERS' | translate: {length: '5'} }}" maxlength="5"
                  aria-label="Input for the CAPTCHA">

@@ -10,6 +10,7 @@ import { faUnlockAlt, faSave } from '@fortawesome/free-solid-svg-icons'
 import { forkJoin } from 'rxjs'
 import { TranslateService } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faUnlockAlt, faSave)
 dom.watch()
@@ -41,7 +42,7 @@ export class TwoFactorAuthComponent {
 
   private appName = 'OWASP Juice Shop'
 
-  constructor (private twoFactorAuthService: TwoFactorAuthService, private configurationService: ConfigurationService, private snackBar: MatSnackBar, private translateService: TranslateService) {}
+  constructor (private twoFactorAuthService: TwoFactorAuthService, private configurationService: ConfigurationService, private snackBar: MatSnackBar, private translateService: TranslateService, private snackBarHelperService: SnackBarHelperService) {}
 
   ngOnInit () {
     this.updateStatus()
@@ -73,7 +74,7 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('initalTokenControl').value
     ).subscribe(() => {
       this.setupStatus = true
-      this.openSnackBar('CONFIRM_2FA_SETUP', 'Ok')
+      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_SETUP', 'Ok')
     }, () => {
       this.twoFactorSetupForm.get('passwordControl').markAsPristine()
       this.twoFactorSetupForm.get('initalTokenControl').markAsPristine()
@@ -90,22 +91,10 @@ export class TwoFactorAuthComponent {
           this.setupStatus = false
         }
       )
-      this.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
+      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
     }, () => {
       this.twoFactorDisableForm.get('passwordControl').markAsPristine()
       this.errored = true
-    })
-  }
-
-  openSnackBar (message: string, action: string) { // TODO Pull out duplicated function and reuse in e.g. ErasureRequestComponent as well
-    this.translateService.get(message).subscribe((translatedMessage) => {
-      this.snackBar.open(translatedMessage, action, {
-        duration: 5000
-      })
-    }, () => {
-      this.snackBar.open(message, action, {
-        duration: 5000
-      })
     })
   }
 }
