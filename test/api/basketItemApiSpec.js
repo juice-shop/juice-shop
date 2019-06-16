@@ -74,7 +74,7 @@ describe('/api/BasketItems', () => {
       }
     })
       .expect('status', 400)
-      .expect('json', 'error', 'The quantity of this item is limited to 5 per user.')
+      .expect('json', 'error', 'You can order only up to 5 items of this product.')
   })
 })
 
