@@ -1,0 +1,92 @@
+<div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
+    <div>
+       <div fxLayout="row" fxLayoutGap="1%" fxLayout.lt-md="column" style="padding: 10px;">
+          <mat-card class="mat-elevation-z6" fxFlex="60%">
+             <div>
+                <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
+                <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-order" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
+             </div>
+          </mat-card>
+          <mat-card class="mat-elevation-z6" fxFlex="40%">
+             <div fxFlex="40%">
+                Shipping address to be shown here
+             </div>
+          </mat-card>
+       </div>
+    </div>
+    <div class="table-container custom-slate">
+       <div class="heading">{{"ORDER_SUMMARY" | translate}}
+       </div>
+       <mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="image">
+             <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="20%" translate>LABEL_IMAGE</mat-header-cell>
+             <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="20%">
+                <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
+                   class="img-responsive img-thumbnail">
+             </mat-cell>
+             <mat-footer-cell *matFooterCellDef  fxShow fxHide.lt-md fxFlex="20%"></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="product">
+             <mat-header-cell *matHeaderCellDef fxFlex="30%" fxFlex.lt-md="40%" translate>LABEL_PRODUCT</mat-header-cell>
+             <mat-cell *matCellDef="let element" fxFlex="30%" fxFlex.lt-md="40%"> {{element.name}} </mat-cell>
+             <mat-footer-cell *matFooterCellDef fxFlex="30%" fxFlex.lt-md="40%"></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+             <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="16%" translate>LABEL_PRICE</mat-header-cell>
+             <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%"> {{element.price}}</mat-cell>
+             <mat-footer-cell *matFooterCellDef fxShow fxHide.lt-md fxFlex="16%"></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="quantity">
+             <mat-header-cell *matHeaderCellDef fxFlex="16%" fxFlex.lt-md="30%" translate>LABEL_QUANTITY</mat-header-cell>
+             <mat-cell *matCellDef="let element" fxFlex="16%" fxFlex.lt-md="30%">
+                <span>{{element.BasketItem.quantity}}</span>
+             </mat-cell>
+             <mat-footer-cell *matFooterCellDef fxFlex="16%" fxFlex.lt-md="30%">
+                <table class="mat-table">
+                   <tr class="mat-row">
+                      <td translate>ITEMS</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>DELIVERY</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>PROMOTION</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>LABEL_TOTAL_PRICE</td>
+                   </tr>
+                </table>
+             </mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="total price">
+             <mat-header-cell *matHeaderCellDef fxFlex="18%" fxFlex.lt-md="30%" translate>LABEL_TOTAL_PRICE</mat-header-cell>
+             <mat-cell *matCellDef="let element" fxFlex="18%" fxFlex.lt-md="30%"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
+             <mat-footer-cell *matFooterCellDef  fxFlex="18%" fxFlex.lt-md="30%">
+                <table class="mat-table">
+                   <tr class="mat-row">
+                      <td>$ {{ itemTotal?.toFixed(2) }}</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>$ {{ deliveryPrice }}</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>$ {{ promotionalDiscount }}</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>$ {{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2) }}</td>
+                   </tr>
+                </table>
+             </mat-footer-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+          <mat-footer-row mat-footer-row *matFooterRowDef="tableColumns"></mat-footer-row>
+       </mat-table>
+    </div>
+
+    <div>
+        <mat-card class="mat-elevation-z6">
+          <div translate [translateParams]="{'bonus': bonus}">BONUS_POINTS_COUNT</div>
+        </mat-card>
+    </div>
+</div>
