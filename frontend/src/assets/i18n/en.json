@@ -207,5 +207,13 @@
   "SIDENAV_HINT": "Open side menu",
   "LANGUAGE_SEL_HINT": "Choose language",
   "LABEL_SOLD_OUT": "Sold Out",
-  "LABEL_ONLY_QUANTITY_LEFT": "Only {{quantity}} left"
+  "LABEL_ONLY_QUANTITY_LEFT": "Only {{quantity}} left",
+  "ORDER_SUMMARY": "Order Summary",
+  "ITEMS": "Items",
+  "DELIVERY": "Delivery",
+  "PROMOTION": "Promotion",
+  "THANKS_FOR_PURCHASE": "Thank you, for your purchase.",
+  "PURCHASE_COMMENT_PREFIX": "Your order has been placed and is being processed. You can track the order through",
+  "PURCHASE_COMMENT_SUFFIX": "page.",
+  "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!"
 }

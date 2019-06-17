@@ -99,6 +99,7 @@ import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AccountingComponent } from './accounting/accounting.component'
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -141,7 +142,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
-    AccountingComponent
+    AccountingComponent,
+    OrderConfirmationComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
