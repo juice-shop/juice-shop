@@ -56,7 +56,7 @@
   </mat-card>
 
   <mat-card>
-    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)">
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>

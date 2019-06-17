@@ -254,6 +254,10 @@ export class ScoreBoardComponent implements OnInit {
     startHackingInstructorFor(challengeName)
   }
 
+  trackById (index, item) {
+    return item.id
+  }
+
   // tslint:disable-next-line:no-empty
   noop () { }
 }
