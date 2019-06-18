@@ -83,7 +83,6 @@
   "BTN_CHANGE": "Change",
   "LABEL_CAPTCHA": "CAPTCHA",
   "ENTER_CAPTCHA": "Enter CAPTCHA",
-  "CAPTCHA_NOT_LOADED_ERROR": "Unfortunately the CAPTCHA could not be loaded. Please try again!",
   "TITLE_COMPLAIN": "File Complaint",
   "MANDATORY_MESSAGE": "Please provide a text.",
   "INVALID_MESSAGE_LENGTH": "Text length must be {{length}} characters.",
