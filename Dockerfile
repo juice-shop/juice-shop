@@ -1,10 +1,10 @@
-FROM node:10 as installer
+FROM node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 RUN rm -rf frontend/node_modules
 
-FROM node:10-alpine
+FROM node:12-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \

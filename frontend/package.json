@@ -35,6 +35,7 @@
     "angularx-qrcode": "^1.5.3",
     "core-js": "^3.1.3",
     "flag-icon-css": "^3.3.0",
+    "font-mfizz": "^2.4.1",
     "hammerjs": "^2.0.8",
     "ng-mat-search-bar": "^3.1.2",
     "ng-simple-slideshow": "^1.2.8",
@@ -65,7 +66,7 @@
     "karma-coverage-istanbul-reporter": "~1.4.2",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ts-node": "~8.1.1",
+    "ts-node": "~8.3.0",
     "tslint": "~5.13.0",
     "tslint-config-standard": "~8.0.1"
   }

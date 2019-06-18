@@ -56,7 +56,7 @@
   </mat-card>
 
   <mat-card>
-    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)">
+    <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
@@ -90,21 +90,21 @@
             id="{{challenge.name + '.' + (challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'notSolved'))}}"
             mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
             (click)="challenge.disabledEnv ? noop() : (challenge.solved ? repeatNotification(challenge) : openHint(challenge))"
-            matTooltip="{{challenge.disabledEnv ? challenge.hint : (challenge.solved ? (allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null) : (showChallengeHints ? challenge.hint : null))}}"
+            matTooltip="{{challenge.disabledEnv ? challenge.hint : (challenge.solved ? (allowRepeatNotifications ? NOTIFICATION_RESEND_INSTRUCTIONS : null) : (showChallengeHints ? challenge.hint : null))}}"
             matTooltipPosition="above">
             <span class="{{challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'not-solved')}}">
               <i
-                class="{{challenge.disabledEnv ? ('fab fa-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
+                class="{{challenge.disabledEnv ? ('icon-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
                 aria-hidden="true"
                 [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !challenge.hintUrl)))"></i>
-              {{(challenge.disabledEnv ? "STATUS_UNAVAILABLE" : (challenge.solved ? "STATUS_SOLVED" : "STATUS_UNSOLVED")) | translate}}
+              {{(challenge.disabledEnv ? STATUS_UNAVAILABLE : (challenge.solved ? STATUS_SOLVED : STATUS_UNSOLVED))}}
             </span>
           </button>
           <button
             *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
-            matTooltip="{{'INFO_HACKING_INSTRUCTOR' | translate}}"
+            [matTooltip]="INFO_HACKING_INSTRUCTOR"
             matTooltipPosition="above"
             class="hacking-instructor-button"
             >
@@ -129,4 +129,4 @@
 
 <img src="assets/public/images/padding/1px.png"/>
 
-<ngx-spinner class="overlay-fullscreen"></ngx-spinner>
+<ngx-spinner class="overlay-fullscreen" type="timer" size="large"></ngx-spinner>
