@@ -35,9 +35,6 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div *ngIf="!presenceOfCaptcha">
-        <span translate>CAPTCHA_NOT_LOADED_ERROR</span>
-      </div>
     </div>
 
     <button type="submit" style="margin-top: 15px;" id="submitButton" color="primary" mat-raised-button (click)="save()"

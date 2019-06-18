@@ -391,16 +391,16 @@ function createRecycles (item) {
 
 function createSecurityQuestions () {
   const questions = [
-    'Your eldest siblings middle name?',
-    'Mother\'s maiden name?',
-    'Mother\'s birth date? (MM/DD/YY)',
+    'Company you first work for as an adult?',
     'Father\'s birth date? (MM/DD/YY)',
-    'Maternal grandmother\'s first name?',
-    'Paternal grandmother\'s first name?',
-    'Name of your favorite pet?',
     'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
-    'Your ZIP/postal code when you were a teenager?',
-    'Company you first work for as an adult?'
+    'Maternal grandmother\'s first name?',
+    'Mother\'s birth date? (MM/DD/YY)',
+    'Mother\'s maiden name?',
+    'Name of your favorite pet?',
+    'Paternal grandmother\'s first name?',
+    'Your eldest siblings middle name?',
+    'Your ZIP/postal code when you were a teenager?'
   ]
 
   return Promise.all(

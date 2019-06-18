@@ -17,7 +17,7 @@ export class ChangePasswordComponent {
 
   public passwordControl: FormControl = new FormControl('', [Validators.required])
   public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required])
+  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
   public error: any
   public confirmation: any
 
@@ -40,7 +40,7 @@ export class ChangePasswordComponent {
       console.log(error)
       this.error = error
       this.confirmation = undefined
-      this.resetForm()
+      this.resetPasswords()
     })
   }
 
@@ -56,4 +56,12 @@ export class ChangePasswordComponent {
     this.repeatNewPasswordControl.markAsUntouched()
   }
 
+  resetPasswords () {
+    this.newPasswordControl.setValue('')
+    this.newPasswordControl.markAsPristine()
+    this.newPasswordControl.markAsUntouched()
+    this.repeatNewPasswordControl.setValue('')
+    this.repeatNewPasswordControl.markAsPristine()
+    this.repeatNewPasswordControl.markAsUntouched()
+  }
 }
