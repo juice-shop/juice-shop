@@ -11,10 +11,10 @@ import { TranslateService } from '@ngx-translate/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
-import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
 import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 
-library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy, faGraduationCap)
+library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faBtc, faTrophy, faGraduationCap)
 dom.watch()
 
 @Component({
