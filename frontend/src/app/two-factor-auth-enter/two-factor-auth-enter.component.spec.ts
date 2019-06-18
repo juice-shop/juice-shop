@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { of } from 'rxjs'
 
@@ -58,7 +59,8 @@ describe('TwoFactorAuthEnterComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatButtonModule,
-        MatGridListModule
+        MatGridListModule,
+        MatSnackBarModule
       ],
       declarations: [ TwoFactorAuthEnterComponent, SearchResultComponent ],
       providers: [

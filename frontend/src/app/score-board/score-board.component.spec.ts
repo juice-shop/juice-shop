@@ -45,13 +45,6 @@ describe('ScoreBoardComponent', () => {
     challengeService.repeatNotification.and.returnValue(of({}))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
-    // windowRefService = {
-    //   get nativeWindow () {
-    //     return {
-    //       scrollTo: (a,b) => null
-    //     }
-    //   }
-    // }
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
