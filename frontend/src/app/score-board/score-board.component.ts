@@ -6,6 +6,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
+import { TranslateService } from '@ngx-translate/core'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
@@ -41,13 +42,22 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty = [[], [], [], [], [], []]
   public showContributionInfoBox = true
 
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
+  // pre-loaded translation strings
+  public STATUS_SOLVED
+  public STATUS_UNSOLVED
+  public STATUS_UNAVAILABLE
+  public NOTIFICATION_RESEND_INSTRUCTIONS
+  public INFO_HACKING_INSTRUCTOR
+
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translateService: TranslateService) {}
 
   ngOnInit () {
     this.spinner.show()
 
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(localStorage.getItem('displayedDifficulties')) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
+
+    this.preloadTranslationStrings()
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
@@ -99,6 +109,24 @@ export class ScoreBoardComponent implements OnInit {
           this.calculateGradientOffsets(this.challenges)
         }
       })
+    })
+  }
+
+  private preloadTranslationStrings () {
+    this.translateService.get('STATUS_SOLVED').subscribe((res: string) => {
+      this.STATUS_SOLVED = res
+    })
+    this.translateService.get('STATUS_UNSOLVED').subscribe((res: string) => {
+      this.STATUS_UNSOLVED = res
+    })
+    this.translateService.get('STATUS_UNAVAILABLE').subscribe((res: string) => {
+      this.STATUS_UNAVAILABLE = res
+    })
+    this.translateService.get('NOTIFICATION_RESEND_INSTRUCTIONS').subscribe((res: string) => {
+      this.NOTIFICATION_RESEND_INSTRUCTIONS = res
+    })
+    this.translateService.get('INFO_HACKING_INSTRUCTOR').subscribe((res: string) => {
+      this.INFO_HACKING_INSTRUCTOR = res
     })
   }
 
