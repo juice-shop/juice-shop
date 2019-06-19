@@ -20,6 +20,7 @@ import { BasketService } from '../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
+import { QuantityService } from '../Services/quantity.service'
 
 class MockSocket {
   on (str: string, callback) {
@@ -50,11 +51,14 @@ describe('SearchResultComponent', () => {
   let sanitizer
   let socketIoService
   let mockSocket
+  let quantityService
 
   beforeEach(async(() => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
+    quantityService = jasmine.createSpyObj('QuantityService', ['getAll'])
+    quantityService.getAll.and.returnValue(of([]))
     productService = jasmine.createSpyObj('ProductService', ['search','get'])
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({}))
@@ -97,7 +101,8 @@ describe('SearchResultComponent', () => {
         { provide: ProductService, useValue: productService },
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: SocketIoService, useValue: socketIoService }
+        { provide: SocketIoService, useValue: socketIoService },
+        { provide: QuantityService, useValue: quantityService }
       ]
     })
     .compileComponents()
@@ -130,6 +135,21 @@ describe('SearchResultComponent', () => {
 
   it('should log error from product search API call directly to browser console', fakeAsync(() => {
     productService.search.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngAfterViewInit()
+    fixture.detectChanges()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should hold no products when quantity getAll API call fails', () => {
+    quantityService.getAll.and.returnValue(throwError('Error'))
+    component.ngAfterViewInit()
+    fixture.detectChanges()
+    expect(component.tableData).toEqual([])
+  })
+
+  it('should log error from quantity getAll API call directly to browser console', fakeAsync(() => {
+    quantityService.getAll.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngAfterViewInit()
     fixture.detectChanges()
