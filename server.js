@@ -236,7 +236,6 @@ app.post('/api/BasketItems', insecurity.appendUserId(), basketItems.quantityChec
 /* Accounting users are allowed to check and update quantities */
 app.delete('/api/Quantitys/:id', insecurity.denyAll())
 app.post('/api/Quantitys', insecurity.denyAll())
-app.use('/api/Quantitys', insecurity.isAccounting())
 app.use('/api/Quantitys/:id', insecurity.isAccounting())
 /* Feedbacks: Do not allow changes of existing feedback */
 app.put('/api/Feedbacks/:id', insecurity.denyAll())

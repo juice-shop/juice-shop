@@ -17,7 +17,7 @@
       <mat-icon>
         exit_to_app
       </mat-icon>
-      <span class="menu-text">
+      <span class="menu-text truncate">
         {{"TITLE_LOGIN" | translate }}
       </span>
     </a>
@@ -26,8 +26,8 @@
       <mat-icon>
         account_circle
       </mat-icon>
-      <span class="menu-text">
-        {{ (sizeOfMail > 25) ? (userEmail | slice:0:25)+ '..': userEmail}}
+      <span class="menu-text truncate">
+        {{ userEmail }}
       </span>
     </a>
     <mat-list-item *ngIf="isLoggedIn()" (click)="showSubmenu = !showSubmenu" class="parent"
@@ -35,7 +35,7 @@
       <mat-icon>
         enhanced_encryption
       </mat-icon>
-      <span class="menu-text">
+      <span class="menu-text truncate">
         {{ "PRIVACY_AND_SECURITY" | translate }}
       </span>
       <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
@@ -48,42 +48,42 @@
         <mat-icon>
           assignment
         </mat-icon>
-        <span class="menu-text" translate>TITLE_PRIVACY_POLICY</span>
+        <span class="menu-text truncate" translate>TITLE_PRIVACY_POLICY</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-export"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data export page">
         <mat-icon>
           get_app
         </mat-icon>
-        <span class="menu-text" translate>TITLE_REQUEST_DATA_EXPORT</span>
+        <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/erasure-request"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
         </mat-icon>
-        <span class="menu-text" translate>DATA_SUBJECT_TITLE</span>
+        <span class="menu-text truncate" translate>DATA_SUBJECT_TITLE</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/change-password"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to change password page">
         <mat-icon>
           edit
         </mat-icon>
-        <span class="menu-text" translate>TITLE_CHANGE_PASSWORD</span>
+        <span class="menu-text truncate" translate>TITLE_CHANGE_PASSWORD</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/two-factor-authentication"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to two factor authentication page">
         <mat-icon>
           exposure_plus_2
         </mat-icon>
-        <span class="menu-text" translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
+        <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/last-login-ip"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to last login ip page">
         <mat-icon>
           place
         </mat-icon>
-        <span class="menu-text" translate>LAST_LOGIN_IP</span>
+        <span class="menu-text truncate" translate>LAST_LOGIN_IP</span>
       </a>
     </div>
     <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
@@ -91,7 +91,7 @@
       <mat-icon>
         local_shipping
       </mat-icon>
-      <span class="menu-text">
+      <span class="menu-text truncate">
         {{"TITLE_TRACK_ORDERS" | translate}}
       </span>
     </a>
@@ -100,7 +100,7 @@
       <mat-icon>
         autorenew
       </mat-icon>
-      <span class="menu-text">
+      <span class="menu-text truncate">
         {{"NAV_RECYCLE" | translate}}
       </span>
     </a>
@@ -108,7 +108,7 @@
       <mat-icon>
         power_settings_new
       </mat-icon>
-      <span class="menu-text">
+      <span class="menu-text truncate">
         {{"TITLE_LOGOUT" | translate }}
       </span>
     </a>
@@ -121,7 +121,7 @@
     <i class="material-icons">
       feedback
     </i>
-    <span class="menu-text">
+    <span class="menu-text truncate">
       {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
     </span>
   </a>
@@ -129,7 +129,7 @@
     <i class="material-icons">
       warning
     </i>
-    <span class="menu-text">
+    <span class="menu-text truncate">
       {{"NAV_COMPLAIN" | translate}}
     </span>
   </a>
@@ -141,7 +141,7 @@
     <i class="material-icons">
       business_center
     </i>
-    <span class="menu-text">
+    <span class="menu-text truncate">
       {{"TITLE_ABOUT" | translate}}
     </span>
   </a>
@@ -150,14 +150,14 @@
 
   <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()" aria-label="Open score-board">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
-    <span class="menu-text">
+    <span class="menu-text truncate">
       {{"TITLE_SCORE_BOARD" | translate}}
     </span>
   </a>
 
   <a *ngIf="showGitHubLink" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop" aria-label="Go to OWASP Juice Shop GitHub page">
     <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
-    <span class="menu-text">
+    <span class="menu-text truncate">
       GitHub
     </span>
   </a>
@@ -168,5 +168,14 @@
       <span style="font-size: 13px;">{{applicationName}}</span>
       <br>
       <span style="font-size: 12px;">{{version}}</span>
+      <br>
+      <i class="icon-angular"></i>&nbsp;
+      <i class="icon-html5"></i>&nbsp;
+      <i class="icon-sass"></i>&nbsp;
+      <i class="icon-css3"></i>&nbsp;
+      <i class="icon-javascript-alt"></i>&nbsp;
+      <i class="icon-nodejs"></i>&nbsp;
+      <i class="icon-database-alt2"></i>&nbsp;
+      <i class="icon-mongodb"></i>
     </span>
 </div>
