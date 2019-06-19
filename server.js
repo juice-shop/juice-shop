@@ -19,7 +19,12 @@ const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
-const fileUpload = require('./routes/fileUpload')
+const { ensureFileIsPassed,
+  handleZipFileUpload,
+  checkUploadSize,
+  checkFileType,
+  handleXmlUpload
+} = require('./routes/fileUpload')
 const profileImageFileUpload = require('./routes/profileImageFileUpload')
 const profileImageUrlUpload = require('./routes/profileImageUrlUpload')
 const redirect = require('./routes/redirect')
@@ -148,7 +153,7 @@ app.use(cookieParser('kekse'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
-app.post('/file-upload', upload.single('file'), fileUpload())
+app.post('/file-upload', upload.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
 
@@ -312,10 +317,10 @@ app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
 app.get('/rest/country-mapping', countryMapping())
 app.get('/rest/saveLoginIp', saveLoginIp())
-app.post('/rest/data-export', imageCaptcha.verifyCaptcha())
-app.post('/rest/data-export', dataExport())
+app.post('/rest/user/data-export', imageCaptcha.verifyCaptcha())
+app.post('/rest/user/data-export', dataExport())
 app.get('/rest/languages', languageList())
-app.get('/rest/user/erasure-request', erasureRequest())
+app.post('/rest/user/erasure-request', erasureRequest())
 
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())

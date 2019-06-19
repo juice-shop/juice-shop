@@ -5,8 +5,10 @@ application:
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   showChallengeSolvedNotifications: true
   showChallengeHints: false
+  showHackingInstructor: false
   theme: deeporange-indigo
-  gitHubRibbon: true
+  showGitHubLinks: true
+  showWelcomeBanner: false
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null

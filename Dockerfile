@@ -1,10 +1,10 @@
-FROM node:10 as installer
+FROM node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 RUN rm -rf frontend/node_modules
 
-FROM node:10-alpine
+FROM node:12-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
@@ -14,7 +14,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.vendor="Open Web Application Security Project" \
     org.opencontainers.image.documentation="http://help.owasp-juice.shop" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="8.7.0-SNAPSHOT" \
+    org.opencontainers.image.version="9.0.0-SNAPSHOT" \
     org.opencontainers.image.url="http://owasp-juice.shop" \
     org.opencontainers.image.source="https://github.com/bkimminich/juice-shop" \
     org.opencontainers.image.revision=$VCS_REF \

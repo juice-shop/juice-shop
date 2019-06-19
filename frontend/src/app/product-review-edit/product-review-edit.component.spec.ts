@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './product-review-edit.component'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -9,6 +9,7 @@ import { of, throwError } from 'rxjs'
 import { ProductReviewService } from 'src/app/Services/product-review.service'
 import { MatInputModule } from '@angular/material/input'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('ProductReviewEditComponent', () => {
   let component: ProductReviewEditComponent
@@ -31,7 +32,8 @@ describe('ProductReviewEditComponent', () => {
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatSnackBarModule
       ],
       declarations: [ ProductReviewEditComponent ],
       providers: [
@@ -85,5 +87,7 @@ describe('ProductReviewEditComponent', () => {
     component.ngOnInit()
     component.editReview()
     expect(console.log).toHaveBeenCalledWith('Error')
+    fixture.destroy()
+    flush()
   }))
 })

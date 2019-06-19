@@ -5,29 +5,29 @@ import { CookieService } from 'ngx-cookie'
 import { Router } from '@angular/router'
 import { Component, OnInit, NgZone } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faExclamationTriangle, faStar } from '@fortawesome/free-solid-svg-icons'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faStar, faExclamationTriangle)
 dom.watch()
 
 @Component({
-  selector: 'app-data-subject',
-  templateUrl: './data-subject.component.html',
-  styleUrls: ['./data-subject.component.scss']
+  selector: 'app-erasure-request',
+  templateUrl: './erasure-request.component.html',
+  styleUrls: ['./erasure-request.component.scss']
 })
-export class DataSubjectComponent implements OnInit {
+export class ErasureRequestComponent implements OnInit {
   public dataSubjectGroup: FormGroup = new FormGroup({
     emailControl: new FormControl('', [Validators.required, Validators.email]),
     securityQuestionControl: new FormControl('', [Validators.required])
   })
   public securityQuestion = undefined
   public error
-  public confirmation
   public applicationName = 'OWASP Juice Shop'
-  public email?: string
 
-  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService) { }
+  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService, private translateService: TranslateService, private snackBar: MatSnackBar) { }
   ngOnInit () {
     this.findSecurityQuestion()
   }
@@ -41,10 +41,9 @@ export class DataSubjectComponent implements OnInit {
   }
 
   findSecurityQuestion () {
-    this.email = this.dataSubjectGroup.get('emailControl').value
     this.securityQuestion = undefined
-    if (this.email) {
-      this.securityQuestionService.findBy(this.email).subscribe((securityQuestion: any) => {
+    if (this.emailForm.value) {
+      this.securityQuestionService.findBy(this.emailForm.value).subscribe((securityQuestion: any) => {
         if (securityQuestion) {
           this.securityQuestion = securityQuestion.question
         }
@@ -55,13 +54,11 @@ export class DataSubjectComponent implements OnInit {
   }
 
   save () {
-    this.dataSubjectService.deactivate().subscribe((response: any) => {
+    this.dataSubjectService.erase({ email: this.emailForm.value, securityAnswer: this.securityQuestionForm.value }).subscribe((response: any) => {
       this.error = undefined
-      this.confirmation = true
       this.logout()
     }, (error) => {
-      this.confirmation = undefined
-      this.error = error.error
+      this.error = error.message
       this.resetForm()
     })
   }
@@ -73,17 +70,30 @@ export class DataSubjectComponent implements OnInit {
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])
+    this.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
   }
 
   // tslint:disable-next-line:no-empty
   noop () { }
 
   resetForm () {
-    this.dataSubjectGroup.get('emailControl').markAsUntouched()
-    this.dataSubjectGroup.get('emailControl').markAsPristine()
-    this.dataSubjectGroup.get('emailControl').setValue('')
-    this.dataSubjectGroup.get('securityQuestionControl').markAsUntouched()
-    this.dataSubjectGroup.get('securityQuestionControl').markAsPristine()
-    this.dataSubjectGroup.get('securityQuestionControl').setValue('')
+    this.emailForm.markAsUntouched()
+    this.emailForm.markAsPristine()
+    this.emailForm.setValue('')
+    this.securityQuestionForm.markAsUntouched()
+    this.securityQuestionForm.markAsPristine()
+    this.securityQuestionForm.setValue('')
+  }
+
+  openSnackBar (message: string, action: string) {
+    this.translateService.get(message).subscribe((translatedMessage) => {
+      this.snackBar.open(translatedMessage, action, {
+        duration: 5000
+      })
+    }, () => {
+      this.snackBar.open(message, action, {
+        duration: 5000
+      })
+    })
   }
 }

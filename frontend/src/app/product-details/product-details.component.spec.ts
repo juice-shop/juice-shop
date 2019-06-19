@@ -11,11 +11,15 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatBadgeModule } from '@angular/material/badge'
-import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatIconModule } from '@angular/material/icon'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
@@ -49,7 +53,11 @@ describe('ProductDetailsComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatDividerModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatSnackBarModule
       ],
       declarations: [ ProductDetailsComponent ],
       providers: [
@@ -65,7 +73,7 @@ describe('ProductDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductDetailsComponent)
     component = fixture.componentInstance
-    fixture.detectChanges()
+    fixture.autoDetectChanges()
   })
 
   it('should create', () => {
@@ -126,6 +134,8 @@ describe('ProductDetailsComponent', () => {
     const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
     buttonDe.triggerEventHandler('click',null)
     expect(console.log).toHaveBeenCalledWith('Error')
+    fixture.destroy()
+    flush()
   }))
 
   it('should refresh reviews after posting a review', () => {
@@ -148,7 +158,7 @@ describe('ProductDetailsComponent', () => {
     productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
-    const buttonDe = fixture.debugElement.query(By.css('button.review-button'))
+    const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
     buttonDe.triggerEventHandler('click',null)
     expect(dialog.open.calls.count()).toBe(1)
     expect(dialog.open.calls.argsFor(0)[0]).toBe(ProductReviewEditComponent)
@@ -161,7 +171,7 @@ describe('ProductDetailsComponent', () => {
     productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
-    const buttonDe = fixture.debugElement.query(By.css('button.review-button'))
+    const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
     buttonDe.triggerEventHandler('click',null)
     expect(productReviewService.get).toHaveBeenCalledWith(42)
   })

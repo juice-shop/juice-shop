@@ -4,7 +4,8 @@ application:
   logo: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   favicon: 'https://www.shareicon.net/download/2016/08/13/808555_media.ico'
   theme: indigo-pink
-  gitHubRibbon: true
+  showGitHubLinks: true
+  showWelcomeBanner: false
   twitterUrl: null
   facebookUrl: null
   slackUrl: null

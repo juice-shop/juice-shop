@@ -27,6 +27,9 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { NgMatSearchBarModule } from 'ng-mat-search-bar'
+import { MatRadioModule } from '@angular/material/radio'
 
 class MockSocket {
   on (str: string, callback) {
@@ -88,7 +91,10 @@ describe('NavbarComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule,
+        NgMatSearchBarModule,
+        MatRadioModule
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },
@@ -179,13 +185,13 @@ describe('NavbarComponent', () => {
   it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(true)
+    expect(component.showGitHubLink).toBe(true)
   })
 
   it('should hide GitHub ribbon if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(false)
+    expect(component.showGitHubLink).toBe(false)
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {

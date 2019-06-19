@@ -21,11 +21,13 @@ import { BasketComponent } from './basket/basket.component'
 import { LoginComponent } from './login/login.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { WelcomeComponent } from './welcome/welcome.component'
+import { WelcomeBannerComponent } from './welcome-banner/welcome-banner.component'
 import { SearchResultComponent } from './search-result/search-result.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { RegisterComponent } from './register/register.component'
 import { ContactComponent } from './contact/contact.component'
-import { DataSubjectComponent } from './data-subject/data-subject.component'
+import { ErasureRequestComponent } from './erasure-request/erasure-request.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
@@ -42,6 +44,7 @@ import { ProductReviewEditComponent } from './product-review-edit/product-review
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
+import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 /* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
@@ -84,9 +87,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
+import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule, MatRadioModule } from '@angular/material'
+import { MatGridListModule, MatRadioModule, MatSnackBarModule } from '@angular/material'
 import { MatBadgeModule } from '@angular/material/badge'
 /* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
@@ -107,11 +111,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     LoginComponent,
     ScoreBoardComponent,
     NavbarComponent,
+    WelcomeComponent,
+    WelcomeBannerComponent,
     SearchResultComponent,
     ForgotPasswordComponent,
     RegisterComponent,
     ContactComponent,
-    DataSubjectComponent,
+    ErasureRequestComponent,
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
@@ -126,6 +132,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     TokenSaleComponent,
     ProductReviewEditComponent,
     TwoFactorAuthEnterComponent,
+    SidenavComponent,
     PrivacySecurityComponent,
     ErrorPageComponent,
     TwoFactorAuthComponent,
@@ -133,7 +140,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     LastLoginIpComponent,
     PrivacyPolicyComponent
   ],
-  entryComponents: [ProductDetailsComponent, QrCodeComponent, UserDetailsComponent, ProductReviewEditComponent],
+  entryComponents: [
+    ProductDetailsComponent,
+    QrCodeComponent,
+    UserDetailsComponent,
+    ProductReviewEditComponent,
+    WelcomeBannerComponent
+  ],
   imports: [
     BrowserModule,
     Routing,
@@ -180,8 +193,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatButtonToggleModule,
     LayoutModule,
     MatGridListModule,
+    NgMatSearchBarModule,
     MatBadgeModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [
     {

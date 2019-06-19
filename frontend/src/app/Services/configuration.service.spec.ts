@@ -27,7 +27,7 @@ describe('ConfigurationService', () => {
             config:
             {
               version: '8.0.0',
-              gitHubRibbon: 'red'
+              showGitHubLinks: false
             }
           })
 
@@ -35,7 +35,7 @@ describe('ConfigurationService', () => {
 
           const data = res
           expect(data.version).toBe('8.0.0')
-          expect(data.gitHubRibbon).toBe('red')
+          expect(data.showGitHubLink).toBeFalsy()
 
           httpMock.verify()
         })

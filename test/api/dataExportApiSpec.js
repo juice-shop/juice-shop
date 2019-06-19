@@ -4,7 +4,7 @@ const config = require('config')
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 
-describe('/rest/data-export', () => {
+describe('/rest/user/data-export', () => {
   it('Export data without use of CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
@@ -15,7 +15,7 @@ describe('/rest/data-export', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/data-export', {
+        return frisby.post(REST_URL + '/user/data-export', {
           headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
@@ -26,7 +26,7 @@ describe('/rest/data-export', () => {
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
             const parsedData = JSON.parse(json.userData)
-            expect(parsedData.username).toBe('')
+            expect(parsedData.username).toBe('bkimminich')
             expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
           })
       })
@@ -48,7 +48,7 @@ describe('/rest/data-export', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(() => {
-            return frisby.post(REST_URL + '/data-export', {
+            return frisby.post(REST_URL + '/user/data-export', {
               headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: 'AAAAAA',
@@ -77,7 +77,7 @@ describe('/rest/data-export', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json: captchaAnswer }) => {
-            return frisby.post(REST_URL + '/data-export', {
+            return frisby.post(REST_URL + '/user/data-export', {
               headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,
@@ -89,7 +89,7 @@ describe('/rest/data-export', () => {
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
               .then(({ json }) => {
                 const parsedData = JSON.parse(json.userData)
-                expect(parsedData.username).toBe('')
+                expect(parsedData.username).toBe('bkimminich')
                 expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
               })
           })
@@ -111,7 +111,7 @@ describe('/rest/data-export', () => {
         })
           .expect('status', 200)
           .then(() => {
-            return frisby.post(REST_URL + '/data-export', {
+            return frisby.post(REST_URL + '/user/data-export', {
               headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 format: '1'
@@ -146,7 +146,7 @@ describe('/rest/data-export', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/data-export', {
+        return frisby.post(REST_URL + '/user/data-export', {
           headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
@@ -156,7 +156,6 @@ describe('/rest/data-export', () => {
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
           .then(({ json }) => {
-            console.log(json)
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('')
             expect(parsedData.email).toBe('jim@' + config.get('application.domain'))
@@ -195,7 +194,7 @@ describe('/rest/data-export', () => {
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .then(({ json: captchaAnswer }) => {
-                return frisby.post(REST_URL + '/data-export', {
+                return frisby.post(REST_URL + '/user/data-export', {
                   headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
                   body: {
                     answer: captchaAnswer.answer,
@@ -238,7 +237,7 @@ describe('/rest/data-export', () => {
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json: captchaAnswer }) => {
-            return frisby.post(REST_URL + '/data-export', {
+            return frisby.post(REST_URL + '/user/data-export', {
               headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,

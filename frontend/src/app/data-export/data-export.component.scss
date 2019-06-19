@@ -1,7 +1,16 @@
-mat-card {
+mat-card{
   height: auto;
   min-width: 320px;
-  width: 35%;
+  width: 25%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+#submitButton {
+  width: 60%;
+  margin-left: 20%;
 }
 
 .mat-radio-button ~ .mat-radio-button {
@@ -10,7 +19,7 @@ mat-card {
 }
 
 .radio-label {
-  font-weight:bold;
+  font-weight: 500;
   margin-right: 8px;
 }
 
