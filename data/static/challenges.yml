@@ -87,7 +87,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#let-us-redirect-you-to-one-of-our-crypto-currency-addresses'
   key: redirectCryptoCurrencyChallenge
 -
-  name: 'Unvalidated Redirect'
+  name: 'Whitelist Bypass'
   category: 'Unvalidated Redirects'
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
@@ -470,7 +470,7 @@
   key: hiddenImageChallenge
 -
   name: 'Supply Chain Attack'
-  category: 'Broken Authentication'
+  category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)'
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
