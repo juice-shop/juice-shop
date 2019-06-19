@@ -54,11 +54,15 @@ describe('OrderSummaryComponent', () => {
   })
 
   it('should hold products returned by backend API', () => {
-    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1' }, { name: 'Product2' }] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, BasketItem: { quantity: 2 } }] }))
     component.ngOnInit()
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
+    expect(component.dataSource[0].price).toBe(1)
+    expect(component.dataSource[0].BasketItem.quantity).toBe(1)
     expect(component.dataSource[1].name).toBe('Product2')
+    expect(component.dataSource[1].price).toBe(2)
+    expect(component.dataSource[1].BasketItem.quantity).toBe(2)
   })
 
   it('should hold no products on error in backend API', fakeAsync(() => {
