@@ -20,6 +20,7 @@ protractor.beforeEach = {
     describe('(shared)', () => {
       beforeEach(() => {
         browser.get('/#/login')
+
         element(by.id('email')).sendKeys(context.email)
         element(by.id('password')).sendKeys(context.password)
         element(by.id('loginButton')).click()

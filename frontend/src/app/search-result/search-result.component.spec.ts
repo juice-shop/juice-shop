@@ -5,6 +5,8 @@ import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testi
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatCardModule } from '@angular/material/card'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTableModule } from '@angular/material/table'
@@ -84,7 +86,9 @@ describe('SearchResultComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule,
+        MatCardModule
       ],
       providers: [
         { provide: TranslateService, useValue: translateService },
@@ -132,7 +136,7 @@ describe('SearchResultComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should notify socket if search query includes XSS Tier 1 payload while filtering table', () => {
+  it('should notify socket if search query includes DOM XSS payload while filtering table', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
     spyOn(mockSocket,'emit')
     component.filterTable()

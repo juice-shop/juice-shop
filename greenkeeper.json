@@ -5,7 +5,21 @@
         "frontend/package.json"
       ],
       "ignore": [
-        "@angular/cli"
+        "@angular-devkit/build-angular",
+        "@angular/animations",
+        "@angular/cdk",
+        "@angular/cli",
+        "@angular/common",
+        "@angular/compiler",
+        "@angular/compiler-cli",
+        "@angular/core",
+        "@angular/flex-layout",
+        "@angular/forms",
+        "@angular/http",
+        "@angular/material",
+        "@angular/platform-browser",
+        "@angular/platform-browser-dynamic",
+        "@angular/router"
       ]
     },
     "server": {

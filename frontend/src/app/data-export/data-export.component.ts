@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
+import { DataSubjectService } from '../Services/data-subject.service'
 import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
@@ -10,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class DataExportComponent implements OnInit {
 
-  public captchaControl: FormControl = new FormControl('', [Validators.required])
+  public captchaControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: FormControl = new FormControl('', [Validators.required])
   public captcha: any
   private dataRequest: any = undefined
@@ -20,7 +21,7 @@ export class DataExportComponent implements OnInit {
   public presenceOfCaptcha: boolean = false
   public userData: any
 
-  constructor (public sanitizer: DomSanitizer, private imageCaptchaService: ImageCaptchaService) { }
+  constructor (public sanitizer: DomSanitizer, private imageCaptchaService: ImageCaptchaService, private dataSubjectService: DataSubjectService) { }
   ngOnInit () {
     this.needCaptcha()
     this.dataRequest = {}
@@ -46,7 +47,7 @@ export class DataExportComponent implements OnInit {
       this.dataRequest.answer = this.captchaControl.value
     }
     this.dataRequest.format = this.formatControl.value
-    this.imageCaptchaService.dataExport(this.dataRequest).subscribe((data: any) => {
+    this.dataSubjectService.dataExport(this.dataRequest).subscribe((data: any) => {
       this.error = null
       this.confirmation = data.confirmation
       this.userData = data.userData

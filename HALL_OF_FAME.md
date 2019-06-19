@@ -10,7 +10,7 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Tue, 28 May 2019
+`master` as of Tue, 12 Jun 2019
 
 - [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Supratik Das](https://github.com/supra08) aka `supra08`
@@ -19,6 +19,7 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 - [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
+- [Martin Rock-Evans](https://github.com/rockydevnet) aka `rockydevnet`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
 - [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
 - [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
@@ -53,6 +54,7 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
   `StuartWinterTear`
 - [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
+- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka `nilp0inter`
 - [Abhishek bundela](https://github.com/abhibundela) aka
   `abhibundela`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`

@@ -6,13 +6,15 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
+import { TranslateService } from '@ngx-translate/core'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faBook, faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
-import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 
-library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy)
+library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faBtc, faTrophy, faGraduationCap)
 dom.watch()
 
 @Component({
@@ -22,36 +24,47 @@ dom.watch()
 })
 export class ScoreBoardComponent implements OnInit {
 
-  public difficulties = [1,2,3,4,5,6]
-  public scoreBoardTablesExpanded
-  public showSolvedChallenges
-  public allChallengeCategories = []
+  public availableDifficulties = [1,2,3,4,5,6]
+  public displayedDifficulties = []
+  public availableChallengeCategories = []
   public displayedChallengeCategories = []
   public toggledMajorityOfDifficulties: boolean
   public toggledMajorityOfCategories: boolean
-  public displayedColumns = ['name','description','status']
+  public showSolvedChallenges
+  public displayedColumns = ['name','difficulty','description','category','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications
   public showChallengeHints
+  public showHackingInstructor: boolean
   public challenges: any[]
   public percentChallengesSolved
   public solvedChallengesOfDifficulty = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty = [[], [], [], [], [], []]
-  public gitHubRibbon = true
+  public showContributionInfoBox = true
 
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
+  // pre-loaded translation strings
+  public STATUS_SOLVED
+  public STATUS_UNSOLVED
+  public STATUS_UNAVAILABLE
+  public NOTIFICATION_RESEND_INSTRUCTIONS
+  public INFO_HACKING_INSTRUCTOR
+
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translateService: TranslateService) {}
 
   ngOnInit () {
     this.spinner.show()
 
-    this.scoreBoardTablesExpanded = localStorage.getItem('scoreBoardTablesExpanded') ? JSON.parse(localStorage.getItem('scoreBoardTablesExpanded')) : [null, true, false, false, false, false, false]
+    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(localStorage.getItem('displayedDifficulties')) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
+
+    this.preloadTranslationStrings()
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
       this.showChallengeHints = data.application.showChallengeHints
-      if (data.application.gitHubRibbon !== null && data.application.gitHubRibbon !== undefined) {
-        this.gitHubRibbon = data.application.gitHubRibbon
+      this.showHackingInstructor = data.application.showHackingInstructor
+      if (data.application.showGitHubLinks !== null && data.application.showGitHubLinks !== undefined) {
+        this.showContributionInfoBox = data.application.showGitHubLinks
       }
     },(err) => console.log(err))
 
@@ -63,12 +76,12 @@ export class ScoreBoardComponent implements OnInit {
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
-        if (!this.allChallengeCategories.includes(challenges[i].category)) {
-          this.allChallengeCategories.push(challenges[i].category)
+        if (!this.availableChallengeCategories.includes(challenges[i].category)) {
+          this.availableChallengeCategories.push(challenges[i].category)
         }
       }
-      this.allChallengeCategories.sort()
-      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.allChallengeCategories
+      this.availableChallengeCategories.sort()
+      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.availableChallengeCategories
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
@@ -96,6 +109,24 @@ export class ScoreBoardComponent implements OnInit {
           this.calculateGradientOffsets(this.challenges)
         }
       })
+    })
+  }
+
+  private preloadTranslationStrings () {
+    this.translateService.get('STATUS_SOLVED').subscribe((res: string) => {
+      this.STATUS_SOLVED = res
+    })
+    this.translateService.get('STATUS_UNSOLVED').subscribe((res: string) => {
+      this.STATUS_UNSOLVED = res
+    })
+    this.translateService.get('STATUS_UNAVAILABLE').subscribe((res: string) => {
+      this.STATUS_UNAVAILABLE = res
+    })
+    this.translateService.get('NOTIFICATION_RESEND_INSTRUCTIONS').subscribe((res: string) => {
+      this.NOTIFICATION_RESEND_INSTRUCTIONS = res
+    })
+    this.translateService.get('INFO_HACKING_INSTRUCTOR').subscribe((res: string) => {
+      this.INFO_HACKING_INSTRUCTOR = res
     })
   }
 
@@ -145,20 +176,24 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   toggleDifficulty (difficulty) {
-    this.scoreBoardTablesExpanded[difficulty] = !this.scoreBoardTablesExpanded[difficulty]
-    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+    if (!this.displayedDifficulties.includes(difficulty)) {
+      this.displayedDifficulties.push(difficulty)
+    } else {
+      this.displayedDifficulties = this.displayedDifficulties.filter((c) => c !== difficulty)
+    }
+    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
     this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
   }
 
   toggleAllDifficulty () {
     if (this.toggledMajorityOfDifficulties) {
-      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => false)
+      this.displayedDifficulties = []
       this.toggledMajorityOfDifficulties = false
     } else {
-      this.scoreBoardTablesExpanded = this.scoreBoardTablesExpanded.map(() => true)
+      this.displayedDifficulties = this.availableDifficulties
       this.toggledMajorityOfDifficulties = true
     }
-    localStorage.setItem('scoreBoardTablesExpanded',JSON.stringify(this.scoreBoardTablesExpanded))
+    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
   }
 
   toggleShowSolvedChallenges () {
@@ -181,19 +216,18 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedChallengeCategories = []
       this.toggledMajorityOfCategories = false
     } else {
-      this.displayedChallengeCategories = this.allChallengeCategories
+      this.displayedChallengeCategories = this.availableChallengeCategories
       this.toggledMajorityOfCategories = true
     }
     localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
   }
 
   determineToggledMajorityOfDifficulties () {
-    const selectedLevels: [boolean] = this.scoreBoardTablesExpanded.filter(s => s === true)
-    return selectedLevels.length > this.scoreBoardTablesExpanded.length / 2
+    return this.displayedDifficulties.length > this.availableDifficulties.length / 2
   }
 
   determineToggledMajorityOfCategories () {
-    return this.displayedChallengeCategories.length > this.allChallengeCategories.length / 2
+    return this.displayedChallengeCategories.length > this.availableChallengeCategories.length / 2
   }
 
   repeatNotification (challenge) {
@@ -216,6 +250,7 @@ export class ScoreBoardComponent implements OnInit {
     }
 
     challenges = challenges.filter((challenge) => {
+      if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
       return true
@@ -227,7 +262,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   populateFilteredChallengeLists () {
-    for (const difficulty of this.difficulties) {
+    for (const difficulty of this.availableDifficulties) {
       if (!this.challenges) {
         this.totalChallengesOfDifficulty[difficulty - 1] = []
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
@@ -236,6 +271,19 @@ export class ScoreBoardComponent implements OnInit {
         this.solvedChallengesOfDifficulty[difficulty - 1] = this.challenges.filter((challenge) => challenge.difficulty === difficulty && challenge.solved === true)
       }
     }
+  }
+
+  hasHackingInstructorInstructions (challengeName: String): boolean {
+    return hasInstructions(challengeName)
+  }
+
+  startHackingInstructor (challengeName: String) {
+    console.log(`Starting instructions for challenge "${challengeName}"`)
+    startHackingInstructorFor(challengeName)
+  }
+
+  trackById (index, item) {
+    return item.id
   }
 
   // tslint:disable-next-line:no-empty

@@ -1,6 +1,6 @@
 -
   name: 'Score Board'
-  category: 'Security through Obscurity'
+  category: 'Miscellaneous'
   description: 'Find the carefully hidden ''Score Board'' page.'
   difficulty: 1
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
@@ -17,7 +17,7 @@
 -
   name: 'Error Handling'
   category: 'Security Misconfiguration'
-  description: 'Provoke an error that is not very gracefully handled.'
+  description: 'Provoke an error that is neither very gracefully nor consistently handled.'
   difficulty: 1
   hint: 'Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#provoke-an-error-that-is-not-very-gracefully-handled'
@@ -79,23 +79,23 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#post-some-feedback-in-another-users-name'
   key: forgedFeedbackChallenge
 -
-  name: 'Redirects Tier 1'
-  category: 'Forgotten Content'
+  name: 'Outdated Whitelist'
+  category: 'Unvalidated Redirects'
   description: 'Let us redirect you to one of our crypto currency addresses which are not promoted any longer.'
   difficulty: 1
   hint: 'We might have failed to take this out of our code properly.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#let-us-redirect-you-to-one-of-our-crypto-currency-addresses'
   key: redirectCryptoCurrencyChallenge
 -
-  name: 'Redirects Tier 2'
-  category: 'Roll your own Security'
-  description: 'Wherever you go, there you are.'
+  name: 'Whitelist Bypass'
+  category: 'Unvalidated Redirects'
+  description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
   hint: 'You have to find a way to beat the whitelist of allowed redirect URLs.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#wherever-you-go-there-you-are'
   key: redirectChallenge
 -
-  name: 'Basket Access Tier 1'
+  name: 'View Basket'
   category: 'Broken Access Control'
   description: 'View another user''s shopping basket.'
   difficulty: 2
@@ -103,7 +103,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-access-control.html#view-another-users-shopping-basket'
   key: basketAccessChallenge
 -
-  name: 'Basket Access Tier 2'
+  name: 'Manipulate Basket'
   category: 'Broken Access Control'
   description: 'Put an additional product into another user''s shopping basket.'
   difficulty: 3
@@ -128,7 +128,7 @@
   key: directoryListingChallenge
 -
   name: 'Forgotten Developer Backup'
-  category: 'Roll your own Security'
+  category: 'Sensitive Data Exposure'
   description: 'Access a developer''s forgotten backup file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -136,7 +136,7 @@
   key: forgottenDevBackupChallenge
 -
   name: 'Forgotten Sales Backup'
-  category: 'Security Misconfiguration'
+  category: 'Sensitive Data Exposure'
   description: 'Access a salesman''s forgotten backup file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -168,23 +168,23 @@
   key: knownVulnerableComponentChallenge
 -
   name: 'Weird Crypto'
-  category: 'Sensitive Data Exposure'
+  category: 'Cryptographic Issues'
   description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.'
   difficulty: 2
   hint: 'Report one of four possible answers via the "Contact Us" form.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#inform-the-shop-about-an-algorithm-or-library-it-should-definitely-not-use-the-way-it-does'
   key: weirdCryptoChallenge
 -
-  name: 'Easter Egg Tier 1'
-  category: 'Roll your own Security'
+  name: 'Easter Egg'
+  category: 'Broken Access Control'
   description: 'Find the hidden <a href="http://en.wikipedia.org/wiki/Easter_egg_(media)" target="_blank">easter egg</a>.'
   difficulty: 4
   hint: 'If you solved one of the three file access challenges, you already know where to find the easter egg.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#find-the-hidden-easter-egg'
   key: easterEggLevelOneChallenge
 -
-  name: 'Easter Egg Tier 2'
-  category: 'Security through Obscurity'
+  name: 'Nested Easter Egg'
+  category: 'Cryptographic Issues'
   description: 'Apply some advanced cryptanalysis to find <i>the real</i> easter egg.'
   difficulty: 4
   hint: 'You might have to peel through several layers of tough-as-nails encryption for this challenge.'
@@ -192,7 +192,7 @@
   key: easterEggLevelTwoChallenge
 -
   name: 'Forged Coupon'
-  category: 'Sensitive Data Exposure'
+  category: 'Cryptographic Issues'
   description: 'Forge a coupon code that gives you a discount of at least 80%.'
   difficulty: 6
   hint: 'Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.'
@@ -209,9 +209,9 @@
 -
   name: 'Upload Type'
   category: 'Improper Input Validation'
-  description: 'Upload a file that has no .pdf extension.'
+  description: 'Upload a file that has no .pdf or .zip extension.'
   difficulty: 3
-  hint: 'You can attach a PDF file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a PDF or ZIP file to the "File Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-extension'
   key: uploadTypeChallenge
 -
@@ -219,20 +219,20 @@
   category: 'Vulnerable Components'
   description: 'Overwrite the <a href="/ftp/legal.md">Legal Information</a> file.'
   difficulty: 6
-  hint: 'Look out for a tweet praising new functionality of the web shop.'
+  hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
 -
   name: 'Extra Language'
-  category: 'Forgotten Content'
+  category: 'Broken Anti Automation'
   description: 'Retrieve the language file that never made it into production.'
   difficulty: 5
   hint: 'Brute force is not the only option for this challenge, but a perfectly viable one.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#retrieve-the-language-file-that-never-made-it-into-production'
   key: extraLanguageChallenge
 -
-  name: 'CAPTCHA Bypass Tier 1'
-  category: 'Roll your own Security'
+  name: 'CAPTCHA Bypass'
+  category: 'Broken Anti Automation'
   description: 'Submit 10 or more customer feedbacks within 10 seconds.'
   difficulty: 3
   hint: 'After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.'
@@ -248,7 +248,7 @@
   key: zeroStarsChallenge
 -
   name: 'Imaginary Challenge'
-  category: 'Sensitive Data Exposure'
+  category: 'Cryptographic Issues'
   description: 'Solve challenge #999. Unfortunately, this challenge does not exist.'
   difficulty: 6
   hint: 'You need to trick the hacking progress persistence feature into thinking you solved challenge #999.'
@@ -288,7 +288,7 @@
   key: loginRapperChallenge
 -
   name: 'Premium Paywall'
-  category: 'Sensitive Data Exposure'
+  category: 'Cryptographic Issues'
   description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
   hint: 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
@@ -312,14 +312,14 @@
   key: resetPasswordBenderChallenge
 -
   name: 'Reset Morty''s Password'
-  category: 'Security Misconfiguration'
+  category: 'Broken Anti Automation'
   description: 'Reset Morty''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>his obfuscated answer</i> to his security question.'
   difficulty: 5
   hint: 'Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty''s security question.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-misconfiguration.html#reset-mortys-password-via-the-forgot-password-mechanism'
   key: resetPasswordMortyChallenge
 -
-  name: 'Reset Bjoern''s Password Tier 2'
+  name: 'Reset Bjoern''s Password'
   category: 'Broken Authentication'
   description: 'Reset the password of Bjoern''s internal account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 5
@@ -327,7 +327,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#reset-the-password-of-bjoerns-internal-account-via-the-forgot-password-mechanism'
   key: resetPasswordBjoernChallenge
 -
-  name: 'NoSQL Injection Tier 1'
+  name: 'NoSQL DoS'
   category: 'Injection'
   description: 'Let the server sleep for some time. (It has done more than enough hard work for you)'
   difficulty: 4
@@ -335,7 +335,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#let-the-server-sleep-for-some-time'
   key: noSqlCommandChallenge
 -
-  name: 'NoSQL Injection Tier 2'
+  name: 'NoSQL Manipulation'
   category: 'Injection'
   description: 'Update multiple product reviews at the same time.'
   difficulty: 4
@@ -343,56 +343,56 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#update-multiple-product-reviews-at-the-same-time'
   key: noSqlReviewsChallenge
 -
-  name: 'NoSQL Injection Tier 3'
+  name: 'NoSQL Exfiltration'
   category: 'Injection'
-  description: 'All your orders are belong to us!'
+  description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
   # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#all-your-orders-are-belong-to-us'
   key: noSqlOrdersChallenge
 -
   name: 'Retrieve Blueprint'
-  category: 'Forgotten Content'
+  category: 'Sensitive Data Exposure'
   description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.'
   difficulty: 5
   hint: 'The product you might want to give a closer look is the OWASP Juice Shop Logo (3D-printed).'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#deprive-the-shop-of-earnings-by-downloading-the-blueprint-for-one-of-its-products'
   key: retrieveBlueprintChallenge
 -
-  name: 'Typosquatting Tier 1'
+  name: 'Legacy Typosquatting'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has become victim of. (Mention the exact name of the culprit)'
+  description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> trick it has been a victim of at least in <code>v6.2.0-SNAPSHOT</code>. (Mention the exact name of the culprit)'
   difficulty: 4
-  hint: 'This challenge has nothing to do with URLs or domains. Investigate the forgotten developer''s backup file instead.'
+  hint: 'This challenge has nothing to do with mistyping web domains. Investigate the forgotten developer''s backup file instead.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-typosquatting-trick-it-has-become-victim-of'
   key: typosquattingNpmChallenge
 -
-  name: 'Typosquatting Tier 2'
+  name: 'Frontend Typosquatting'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the shop</a> about a more sneaky instance of <i>typosquatting</i> it fell for. (Mention the exact name of the culprit)'
+  description: '<a href="/#/contact">Inform the shop</a> about a <i>typosquatting</i> imposter that dug itself deep into the frontend. (Mention the exact name of the culprit)'
   difficulty: 5
-  hint: 'This challenge has nothing to do with URLs or domains. There is no conveniently misplaced file helping you with this one. Or is there?'
+  hint: 'This challenge has nothing to do with mistyping web domains. There is no conveniently misplaced file helping you with this one either. Or is there?'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#inform-the-shop-about-a-more-sneaky-instance-of-typosquatting-it-fell-for'
   key: typosquattingAngularChallenge
 -
-  name: 'JWT Issues Tier 1'
+  name: 'Unsigned JWT'
   category: 'Vulnerable Components'
   description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.'
   difficulty: 5
   hint: 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#forge-an-essentially-unsigned-jwt-token'
-  key: jwtTier1Challenge
+  key: jwtUnsignedChallenge
 -
-  name: 'JWT Issues Tier 2'
+  name: 'Forged Signed JWT'
   category: 'Vulnerable Components'
   description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.'
   difficulty: 6
   hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/vulnerable-components.html#forge-an-almost-properly-rsa-signed-jwt-token'
-  key: jwtTier2Challenge
+  key: jwtForgedChallenge
 -
   name: 'Misplaced Signature File'
-  category: 'Roll your own Security'
+  category: 'Sensitive Data Exposure'
   description: 'Access a misplaced <a href="https://github.com/Neo23x0/sigma">SIEM signature</a> file.'
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
@@ -400,14 +400,14 @@
   key: misplacedSignatureFileChallenge
 -
   name: 'Deprecated Interface'
-  category: 'Forgotten Content'
+  category: 'Security Misconfiguration'
   description: 'Use a deprecated B2B interface that was not properly shut down.'
   difficulty: 2
   hint: 'The developers who disabled the interface think they could go invisible by just closing their eyes.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#use-a-deprecated-b2b-interface-that-was-not-properly-shut-down'
   key: deprecatedInterfaceChallenge
 -
-  name: 'XXE Tier 1'
+  name: 'XXE Data Access'
   category: 'XXE'
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
@@ -418,7 +418,7 @@
   - Docker
   - Heroku
 -
-  name: 'XXE Tier 2'
+  name: 'XXE DoS'
   category: 'XXE'
   description: 'Give the server something to chew on for quite a while.'
   difficulty: 5
@@ -429,7 +429,7 @@
   - Docker
   - Heroku
 -
-  name: 'RCE Tier 1'
+  name: 'Blocked RCE DoS'
   category: 'Insecure Deserialization'
   description: 'Perform a Remote Code Execution that would keep a less hardened application busy <em>forever</em>.'
   difficulty: 5
@@ -437,7 +437,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/insecure-deserialization.html#perform-a-remote-code-execution-that-would-keep-a-less-hardened-application-busy-forever'
   key: rceChallenge
 -
-  name: 'RCE Tier 2'
+  name: 'Successful RCE DoS'
   category: 'Insecure Deserialization'
   description: 'Perform a Remote Code Execution that occupies the server for a while without using infinite loops.'
   difficulty: 6
@@ -445,7 +445,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/insecure-deserialization.html#perform-a-remote-code-execution-that-occupies-the-server-for-a-while-without-using-infinite-loops'
   key: rceOccupyChallenge
 -
-  name: 'Blockchain Tier 1'
+  name: 'Blockchain Hype'
   category: 'Security through Obscurity'
   description: 'Learn about the Token Sale before its official announcement.'
   difficulty: 5
@@ -454,14 +454,14 @@
   key: tokenSaleChallenge
 -
   name: 'Security Policy'
-  category: 'Roll your own Security'
-  description: 'Behave like any "white-hat" should.'
+  category: 'Miscellaneous'
+  description: 'Behave like any "white-hat" should before getting into the action.'
   difficulty: 2
   hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#behave-like-any-white-hat-should'
   key: securityPolicyChallenge
 -
-  name: 'Steganography Tier 1'
+  name: 'Steganography'
   category: 'Security through Obscurity'
   description: '<a href="/#/contact">Rat out</a> a notorious character hiding in plain sight in the shop. (Mention the exact name of the character)'
   difficulty: 4
@@ -470,7 +470,7 @@
   key: hiddenImageChallenge
 -
   name: 'Supply Chain Attack'
-  category: 'Broken Authentication'
+  category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)'
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
@@ -487,7 +487,7 @@
 -
   name: 'User Credentials'
   category: 'Injection'
-  description: 'Retrieve a list of all user credentials via SQL Injection'
+  description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
   hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
@@ -495,13 +495,13 @@
 -
   name: 'Admin Registration'
   category: 'Improper Input Validation'
-  description: 'Get registered as admin user.'
+  description: 'Register as a user with administrator privileges.'
   difficulty: 3
-  hint: 'Assign the unassignable.'
+  hint: 'You have to assign the unassignable.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#get-registered-as-admin-user'
   key: registerAdminChallenge
 -
-  name: 'XSS Tier 0'
+  name: 'Reflected XSS'
   category: 'XSS'
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
@@ -509,7 +509,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
   key: reflectedXssChallenge
 -
-  name: 'XSS Tier 1'
+  name: 'DOM XSS'
   category: 'XSS'
   description: 'Perform a <i>DOM</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
   difficulty: 1
@@ -517,15 +517,15 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-reflected-xss-attack'
   key: localXssChallenge
 -
-  name: 'XSS Tier 2'
+  name: 'Client-side XSS Protection'
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>client-side</i> security mechanism.'
   difficulty: 3
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
-  key: persistedXssChallengeUser
+  key: persistedXssUserChallenge
 -
-  name: 'XSS Tier 3'
+  name: 'API-only XSS'
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> without using the frontend application at all.'
   difficulty: 3
@@ -533,13 +533,13 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
   key: restfulXssChallenge
 -
-  name: 'XSS Tier 4'
+  name: 'Server-side XSS Protection'
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
   hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
-  key: persistedXssChallengeFeedback
+  key: persistedXssFeedbackChallenge
 -
   name: 'Change Bender''s Password'
   category: 'Broken Authentication'
@@ -549,7 +549,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/broken-authentication.html#change-benders-password-into-slurmcl4ssic-without-using-sql-injection-or-forgot-password'
   key: changePasswordBenderChallenge
 -
-  name: 'XSS Tier 5'
+  name: 'HTTP-Header XSS'
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> through an HTTP header.'
   difficulty: 4
@@ -558,7 +558,7 @@
   key: httpHeaderXssChallenge
 -
   name: 'Multiple Likes'
-  category: 'Race Condition'
+  category: 'Broken Anti Automation'
   description: 'Like any review at least three times as the same user.'
   difficulty: 6
   hint: 'Punctuality is the politeness of kings.'
@@ -592,7 +592,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#log-in-with-amys-original-user-credentials'
   key: loginAmyChallenge
 -
-  name: 'XSS Tier 1.5'
+  name: 'Classic Stored XSS'
   category: 'XSS'
   description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
   difficulty: 2
@@ -600,7 +600,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge
 -  
-  name: 'Reset Bjoern''s Password Tier 1'
+  name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
   description: 'Reset the password of Bjoern''s OWASP account via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
@@ -616,7 +616,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
   key: accessLogDisclosureChallenge
 -
-  name: 'DLP Failure Tier 1'
+  name: 'Leaked Unsafe Product'
   category: 'Sensitive Data Exposure'
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
@@ -624,7 +624,7 @@
   # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge 
 -
-  name: 'DLP Failure Tier 2'
+  name: 'Leaked Access Logs'
   category: 'Sensitive Data Exposure'
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
   difficulty: 5
@@ -632,9 +632,9 @@
   # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
-  name: 'XSS Tier 6'
+  name: 'Video XSS'
   category: 'XSS'
-  description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into one of our marketing collaterals.'
+  description: 'Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.'
   difficulty: 6
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/xss.html#embed-an-xss-payload-into-one-of-our-marketing-collaterals'
@@ -649,26 +649,26 @@
   key: twoFactorAuthUnsafeSecretStorageChallenge
 -
   name: 'Expired Coupon'
-  category: 'Roll your own Security'
+  category: 'Improper Input Validation'
   description: 'Successfully redeem an expired campaign coupon code.'
   difficulty: 4
   hint: 'Try to identify past special event or holiday campaigns of the shop first.'
   # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#successfully-redeem-an-expired-campaign-coupon-code'
   key: manipulateClockChallenge
 -
-  name: 'Privacy Policy Tier 1'
-  category: 'Roll your own Security'
+  name: 'Privacy Policy'
+  category: 'Miscellaneous'
   description: 'Read our privacy policy.'
   difficulty: 1
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/roll-your-own-security.html#read-our-privacy-policy'
   key: privacyPolicyChallenge
 -
-  name: 'Privacy Policy Tier 2'
+  name: 'Privacy Policy Inspection'
   category: 'Security through Obscurity'
   description: 'Prove that you actually read our privacy policy.'
   difficulty: 3
-  hint: 'Now we do ask you to confirm that you read it carefully.'
+  hint: 'Only by visiting a special URL you can confirm that you read it carefully.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/security-through-obscurity.html#prove-that-you-actually-read-our-privacy-policy'
   key: privacyPolicyProofChallenge
 -
@@ -680,15 +680,15 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/improper-input-validation.html#follow-the-dry-principle-while-registering-a-user'
   key: passwordRepeatChallenge
 -
-  name: 'GDPR Compliance Tier 2'
-  category: 'Roll your own Security'
+  name: 'GDPR Data Theft'
+  category: 'Sensitive Data Exposure'
   description: 'Steal someone else''s personal data without using Injection.'
   difficulty: 4
   hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
   # hintUrl: ''
   key: dataExportChallenge
 -
-  name: 'GDPR Compliance Tier 1'
+  name: 'GDPR Data Erasure'
   category: 'Broken Authentication'
   description: 'Log in with Chris'' erased user account.'
   difficulty: 3

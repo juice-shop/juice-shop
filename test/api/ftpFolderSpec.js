@@ -130,7 +130,7 @@ describe('/ftp', () => {
       .expect('status', 404)
   })
 
-  it('GET the package.json.bak file contains a dependency on epilogue-js for "Typosquatting Tier 1" challenge', () => {
+  it('GET the package.json.bak file contains a dependency on epilogue-js for "Typosquatting" challenge', () => {
     return frisby.get(URL + '/ftp/package.json.bak%00.md')
       .expect('status', 200)
       .expect('bodyContains', '"epilogue-js": "~0.7",')

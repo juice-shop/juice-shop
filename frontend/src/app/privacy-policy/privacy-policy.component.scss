@@ -3,6 +3,22 @@
   width: 83.3333%;
 }
 
+mat-card{
+  width: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+h2{
+  padding-top: 10px;
+}
+
+h4{
+  text-decoration: underline;
+}
+
 .hot:hover {
   text-shadow:
     0 0 20px #fefcc9,
@@ -12,4 +28,10 @@
     -20px -60px 60px #cd4606,
     0 -80px 70px #973716,
     10px -90px 80px #451b0e;
+}
+
+.divider{
+  margin-left: 9% !important;
+  width: 82% !important;
+  border-top-width: 4px !important;
 }
