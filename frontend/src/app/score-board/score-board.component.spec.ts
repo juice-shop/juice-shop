@@ -3,7 +3,6 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { WindowRefService } from '../Services/window-ref.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
@@ -13,6 +12,7 @@ import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatIconModule } from '@angular/material/icon'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ScoreBoardComponent } from './score-board.component'
@@ -20,6 +20,7 @@ import { of, throwError } from 'rxjs'
 import { DomSanitizer } from '@angular/platform-browser'
 import { EventEmitter } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
+import { ChallengeStatusBadgeComponent } from '../challenge-status-badge/challenge-status-badge.component'
 
 class MockSocket {
   on (str: string, callback) {
@@ -32,7 +33,6 @@ describe('ScoreBoardComponent', () => {
   let fixture: ComponentFixture<ScoreBoardComponent>
   let challengeService
   let configurationService
-  let windowRefService
   let translateService
   let sanitizer
   let socketIoService
@@ -40,9 +40,8 @@ describe('ScoreBoardComponent', () => {
 
   beforeEach(async(() => {
 
-    challengeService = jasmine.createSpyObj('ChallengeService',['find','repeatNotification'])
+    challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{}]))
-    challengeService.repeatNotification.and.returnValue(of({}))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
@@ -71,21 +70,19 @@ describe('ScoreBoardComponent', () => {
         MatProgressBarModule,
         MatExpansionModule,
         MatTooltipModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatIconModule
       ],
-      declarations: [ ScoreBoardComponent ],
+      declarations: [ ScoreBoardComponent, ChallengeStatusBadgeComponent ],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ChallengeService, useValue: challengeService },
         { provide: ConfigurationService, useValue: configurationService },
         { provide: DomSanitizer, useValue: sanitizer },
-        { provide: SocketIoService, useValue: socketIoService },
-        WindowRefService
+        { provide: SocketIoService, useValue: socketIoService }
       ]
     })
     .compileComponents()
-
-    windowRefService = TestBed.get(WindowRefService)
   }))
 
   beforeEach(() => {
@@ -227,49 +224,13 @@ describe('ScoreBoardComponent', () => {
   it('should show notification for selected challenge when enabled', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
     component.ngOnInit()
-    component.repeatNotification({ name: 'Challenge #1', solved: true })
-    expect(challengeService.repeatNotification).toHaveBeenCalledWith(encodeURIComponent('Challenge #1'))
-  })
-
-  it('should scroll to top of screen when notification is repeated', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
-    spyOn(windowRefService.nativeWindow,'scrollTo')
-    component.ngOnInit()
-    component.repeatNotification({ name: 'Challenge #1', solved: true })
-    expect(windowRefService.nativeWindow.scrollTo).toHaveBeenCalledWith(0, 0)
-  })
-
-  it('should log the error from backend on failing to repeat notification', fakeAsync(() => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
-    challengeService.repeatNotification.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    component.repeatNotification({ name: 'Challenge #1', solved: true })
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
-
-  it('should happen when challenge has a hint URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
-    spyOn(windowRefService.nativeWindow,'open')
-    component.ngOnInit()
-    component.openHint({ name: 'Challenge #1', hintUrl: 'hint://c1.test' })
-    expect(windowRefService.nativeWindow.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
-  })
-
-  it('should not happen when challenge has no hint URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
-    spyOn(windowRefService.nativeWindow,'open')
-    component.ngOnInit()
-    component.openHint({ name: 'Challenge #2' })
-    expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
+    expect(component.allowRepeatNotifications).toBeTruthy()
   })
 
   it('should not happen when hints are not turned on in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': false } }))
-    spyOn(windowRefService.nativeWindow,'open')
     component.ngOnInit()
-    component.openHint({ name: 'Challenge #1', hintUrl: 'hint://c1.test' })
-    expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
+    expect(component.showChallengeHints).toBeFalsy()
   })
 
   it('should be empty for challenge with neither hint text nor URL', () => {
