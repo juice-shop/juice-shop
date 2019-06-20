@@ -36,15 +36,7 @@ export class SidenavComponent implements OnInit {
         this.version = 'v' + version
       }
     },(err) => console.log(err))
-    this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name && config.application.name !== null) {
-        this.applicationName = config.application.name
-      }
-      if (config && config.application && config.application.showGitHubLinks !== null) {
-        this.showGitHubLink = config.application.showGitHubLinks
-      }
-    }, (err) => console.log(err))
-
+    this.getApplicationDetails()
     this.getScoreBoardStatus()
 
     if (localStorage.getItem('token')) {
@@ -104,5 +96,16 @@ export class SidenavComponent implements OnInit {
 
   onToggleSidenav = () => {
     this.sidenavToggle.emit()
+  }
+
+  getApplicationDetails () {
+    this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
+      if (config && config.application && config.application.name && config.application.name !== null) {
+        this.applicationName = config.application.name
+      }
+      if (config && config.application && config.application.showGitHubLinks !== null) {
+        this.showGitHubLink = config.application.showGitHubLinks
+      }
+    }, (err) => console.log(err))
   }
 }
