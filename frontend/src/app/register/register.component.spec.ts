@@ -116,10 +116,10 @@ describe('RegisterComponent', () => {
   })
 
   it('should be compulsory to repeat the password', () => {
-    component.passwordControl.setValue('a')
+    component.passwordControl.setValue('aaaaa')
     component.repeatPasswordControl.setValue('')
     expect(component.repeatPasswordControl.valid).toBeFalsy()
-    component.repeatPasswordControl.setValue('a')
+    component.repeatPasswordControl.setValue('aaaaa')
     expect(component.repeatPasswordControl.valid).toBe(true)
   })
 

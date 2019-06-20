@@ -1,18 +1,26 @@
-.about-description {
-  margin-left: 8.33333%;
-  width: 83.3333%;
+mat-card{
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
 }
 
-.feedback {
-  margin-left: 8.3333%;
-  margin-right: 8.3333%;
-  width: 83.333%;
+.about-us {
+  margin-left: 8.33333%;
+  margin-right: 8.33333%;
+  width: 83.3333%;
 }
 
 .social {
   margin-top: 20px;
 }
 
-.mat-raised-button {
-  margin-right: 3px;
+button{
+ margin: 5px;
+}
+
+.text-justify{
+  text-align: justify;
+  text-justify: inter-word;
 }

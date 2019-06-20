@@ -23,7 +23,7 @@ dom.watch()
 export class RegisterComponent implements OnInit {
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
   public passwordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
+  public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), matchValidator(this.passwordControl)])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
   public securityQuestions: any[]

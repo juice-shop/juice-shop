@@ -73,6 +73,7 @@ describe('ForgotPasswordComponent', () => {
   })
 
   it('should be compulsory to answer to the security question', () => {
+    component.emailControl.setValue('a@a')
     component.securityQuestionControl.setValue('')
     expect(component.securityQuestionControl.valid).toBeFalsy()
     component.securityQuestionControl.setValue('Answer')
@@ -85,21 +86,25 @@ describe('ForgotPasswordComponent', () => {
   })
 
   it('should have a password length of at least five characters', () => {
+    component.emailControl.setValue('a@a')
     component.passwordControl.setValue('aaa')
     expect(component.passwordControl.valid).toBeFalsy()
     component.passwordControl.setValue('aaaaa')
     expect(component.passwordControl.valid).toBe(true)
   })
 
-  it('should allow password length of more than twenty characters', () => {
+  it('should not allow password length of more than twenty characters', () => {
+    component.emailControl.setValue('a@a')
     component.passwordControl.setValue('aaaaaaaaaaaaaaaaaaaaa')
-    expect(component.passwordControl.valid).toBe(true)
+    expect(component.passwordControl.valid).toBeFalsy()
   })
 
   it('should be compulsory to repeat the password', () => {
+    component.emailControl.setValue('a@a')
+    component.passwordControl.setValue('aaaaa')
     component.repeatPasswordControl.setValue('')
     expect(component.repeatPasswordControl.valid).toBeFalsy()
-    component.repeatPasswordControl.setValue('a')
+    component.repeatPasswordControl.setValue('aaaaa')
     expect(component.repeatPasswordControl.valid).toBe(true)
   })
 
@@ -133,10 +138,10 @@ describe('ForgotPasswordComponent', () => {
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.resetPassword.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetForm')
+    spyOn(component,'resetErrorForm')
     component.resetPassword()
     expect(component.error).toBe('Error')
-    expect(component.resetForm).toHaveBeenCalled()
+    expect(component.resetErrorForm).toHaveBeenCalled()
   }))
 
   it('should find the security question of a user with a known email address', () => {

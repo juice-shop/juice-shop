@@ -43,6 +43,9 @@
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>
           PASSWORDS_NOT_MATCHING
         </mat-error>
+        <mat-error *ngIf="repeatPasswordControl.invalid && (repeatPasswordControl?.errors.minlength || repeatPasswordControl?.errors.maxlength)" translate
+                   [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH
+        </mat-error>
       </mat-form-field>
 
       <div class="security-container">
@@ -82,7 +85,6 @@
     <button type="submit"
             id="registerButton"
             mat-raised-button color="primary"
-            style="margin-top:5px;"
             [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
             (click)="save()"
             aria-label="Button to complete the registration">
