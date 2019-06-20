@@ -86,25 +86,15 @@
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef translate>LABEL_STATUS</mat-header-cell>
         <mat-cell *matCellDef="let challenge">
-          <button
-            id="{{challenge.name + '.' + (challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'notSolved'))}}"
-            mat-raised-button [color]="challenge.solved ? 'accent': 'primary'"
-            (click)="challenge.disabledEnv ? noop() : (challenge.solved ? repeatNotification(challenge) : openHint(challenge))"
-            matTooltip="{{challenge.disabledEnv ? challenge.hint : (challenge.solved ? (allowRepeatNotifications ? NOTIFICATION_RESEND_INSTRUCTIONS : null) : (showChallengeHints ? challenge.hint : null))}}"
-            matTooltipPosition="above">
-            <span class="{{challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'not-solved')}}">
-              <i
-                class="{{challenge.disabledEnv ? ('icon-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
-                aria-hidden="true"
-                [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !challenge.hintUrl)))"></i>
-              {{(challenge.disabledEnv ? STATUS_UNAVAILABLE : (challenge.solved ? STATUS_SOLVED : STATUS_UNSOLVED))}}
-            </span>
-          </button>
+          <app-challenge-status-badge [challenge]="challenge"
+                                      [allowRepeatNotifications]="allowRepeatNotifications"
+                                      [showChallengeHints]="showChallengeHints">
+          </app-challenge-status-badge>
           <button
             *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
-            [matTooltip]="INFO_HACKING_INSTRUCTOR"
+            [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
             class="hacking-instructor-button"
             >
