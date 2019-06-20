@@ -196,7 +196,7 @@
   description: 'Post a product review as another user or edit any user''s existing review.'
   difficulty: 3
   hint: 'Observe the flow of product review posting and editing and see if you can exploit it.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-access-control.html#post-a-product-review-as-another-user-or-edit-any-users-existing-review'
   key: forgedReviewChallenge
 -
   name: 'Forged Signed JWT'
