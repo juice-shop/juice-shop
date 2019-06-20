@@ -1,14 +1,3 @@
-.fill-remaining-space {
-	flex: 1 1 auto;
-}
-  
-.heading {
-	background: rgba(0,0,0,.2);
-	justify-content: center;
-	padding: 12px 20px;
-	font-size: x-large;
-}
-  
 mat-form-field {
 	width: 100%;
 }
@@ -27,3 +16,13 @@ mat-card {
 	margin-left: 10%;
 	margin-right: 10%;
 }
+
+.mat-expansion-panel-header-description {
+	flex-basis: 0;
+}
+
+.mat-raised-button {
+	margin-right: 3px;
+	margin-top: 3px;
+}
+  

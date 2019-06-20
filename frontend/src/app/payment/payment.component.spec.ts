@@ -16,14 +16,13 @@ import { MatRadioModule } from '@angular/material/radio'
 import { ConfigurationService } from '../Services/configuration.service'
 import { EventEmitter } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
-import { PaymentService } from '../Services/payment.service'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { PaymentMethodComponent } from '../payment-method/payment-method.component'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
   let fixture: ComponentFixture<PaymentComponent>
-  let paymentService
   let configurationService
   let translateService
   let basketService
@@ -31,9 +30,6 @@ describe('PaymentComponent', () => {
 
   beforeEach(async(() => {
 
-    paymentService = jasmine.createSpyObj('BasketService', ['save','get'])
-    paymentService.save.and.returnValue(of([]))
-    paymentService.get.and.returnValue(of([]))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
@@ -62,11 +58,10 @@ describe('PaymentComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ PaymentComponent ],
+      declarations: [ PaymentComponent, PaymentMethodComponent ],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
-        { provide: PaymentService, useValue: paymentService },
         { provide: TranslateService, useValue: translateService },
         { provide: ConfigurationService, useValue: configurationService }
       ]
@@ -109,140 +104,6 @@ describe('PaymentComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should hold cards returned by backend API', () => {
-    paymentService.get.and.returnValue(of([{ cardNum: '1' }, { cardNum: '2' }]))
-    component.ngOnInit()
-    expect(component.storedCards.length).toBe(2)
-    expect(component.storedCards[0].cardNum).toBe('1')
-    expect(component.storedCards[1].cardNum).toBe('2')
-  })
-
-  it('should hold no cards on error in backend API', fakeAsync(() => {
-    paymentService.get.and.returnValue(throwError('Error'))
-    component.ngOnInit()
-    expect(component.storedCards.length).toBe(0)
-  }))
-
-  it('should hold no cards when none are returned by backend API', () => {
-    paymentService.get.and.returnValue(of([]))
-    component.ngOnInit()
-    expect(component.storedCards).toEqual([])
-  })
-
-  it('should log error while getting Cards from backend API directly to browser console' , fakeAsync(() => {
-    paymentService.get.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
-
-  it('should reinitizalise new payment method form by calling resetForm', () => {
-    component.nameControl.setValue('jim')
-    component.numberControl.setValue(9999999999999999)
-    component.pinControl.setValue(999)
-    component.monthControl.setValue(12)
-    component.yearControl.setValue(new Date().getFullYear())
-    component.resetForm()
-    expect(component.nameControl.value).toBe('')
-    expect(component.nameControl.pristine).toBe(true)
-    expect(component.nameControl.untouched).toBe(true)
-    expect(component.numberControl.value).toBe('')
-    expect(component.numberControl.pristine).toBe(true)
-    expect(component.numberControl.untouched).toBe(true)
-    expect(component.pinControl.value).toBe('')
-    expect(component.pinControl.pristine).toBe(true)
-    expect(component.pinControl.untouched).toBe(true)
-    expect(component.monthControl.value).toBe('')
-    expect(component.monthControl.pristine).toBe(true)
-    expect(component.monthControl.untouched).toBe(true)
-    expect(component.yearControl.value).toBe('')
-    expect(component.yearControl.pristine).toBe(true)
-    expect(component.yearControl.untouched).toBe(true)
-  })
-
-  it('should be compulsory to provide name', () => {
-    component.nameControl.setValue('')
-    expect(component.nameControl.valid).toBeFalsy()
-  })
-
-  it('should be compulsory to provide card number', () => {
-    component.numberControl.setValue('')
-    expect(component.numberControl.valid).toBeFalsy()
-  })
-
-  it('should be compulsory to provide pin', () => {
-    component.pinControl.setValue('')
-    expect(component.pinControl.valid).toBeFalsy()
-  })
-
-  it('should be compulsory to provide month', () => {
-    component.monthControl.setValue('')
-    expect(component.monthControl.valid).toBeFalsy()
-  })
-
-  it('should be compulsory to provide year', () => {
-    component.yearControl.setValue('')
-    expect(component.yearControl.valid).toBeFalsy()
-  })
-
-  it('card number should be in the range [1000000000000000, 9999999999999999]', () => {
-    component.numberControl.setValue(1111110)
-    expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(99999999999999999)
-    expect(component.numberControl.valid).toBeFalsy()
-    component.numberControl.setValue(9999999999999999)
-    expect(component.numberControl.valid).toBe(true)
-    component.numberControl.setValue(1234567887654321)
-    expect(component.numberControl.valid).toBe(true)
-  })
-
-  it('pin should be in the range [100, 999]', () => {
-    component.pinControl.setValue(99)
-    expect(component.pinControl.valid).toBeFalsy()
-    component.pinControl.setValue(1000)
-    expect(component.pinControl.valid).toBeFalsy()
-    component.pinControl.setValue(100)
-    expect(component.pinControl.valid).toBe(true)
-    component.pinControl.setValue(999)
-    expect(component.pinControl.valid).toBe(true)
-  })
-
-  it('should reset the form on saving card and show confirmation', () => {
-    paymentService.get.and.returnValue(of([]))
-    paymentService.save.and.returnValue(of({ cardNum: '1234' }))
-    spyOn(component,'resetForm')
-    spyOn(component,'ngOnInit')
-    component.save()
-    expect(component.confirmation).toBe('Your card ending with 1234 has been saved for your convinience.')
-    expect(component.ngOnInit).toHaveBeenCalled()
-    expect(component.resetForm).toHaveBeenCalled()
-  })
-
-  it('should clear the form and display error if saving card fails', fakeAsync(() => {
-    paymentService.save.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetForm')
-    component.save()
-    expect(component.confirmation).toBeNull()
-    expect(component.error).toBe('Error')
-    expect(component.resetForm).toHaveBeenCalled()
-  }))
-
-  it('should be compulsory to provide cvv', () => {
-    component.cvvControl.setValue('')
-    expect(component.cvvControl.valid).toBeFalsy()
-  })
-
-  it('cvv should be in the range [100, 999]', () => {
-    component.cvvControl.setValue(99)
-    expect(component.cvvControl.valid).toBeFalsy()
-    component.cvvControl.setValue(1000)
-    expect(component.cvvControl.valid).toBeFalsy()
-    component.cvvControl.setValue(100)
-    expect(component.cvvControl.valid).toBe(true)
-    component.cvvControl.setValue(999)
-    expect(component.cvvControl.valid).toBe(true)
-  })
-
   it('should reinitizalise coupon code form by calling resetCouponForm', () => {
     component.couponControl.setValue('1234567890')
     component.resetCouponForm()
@@ -277,7 +138,7 @@ describe('PaymentComponent', () => {
     component.applyCoupon()
 
     expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED',{ discount: 42 })
-    expect(component.error).toBeUndefined()
+    expect(component.couponError).toBeUndefined()
   })
 
   it('should translate DISCOUNT_APPLIED message' , () => {

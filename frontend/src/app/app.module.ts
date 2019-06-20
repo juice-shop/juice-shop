@@ -99,6 +99,8 @@ import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { PaymentService } from './Services/payment.service'
 import { PaymentComponent } from './payment/payment.component'
+import { PaymentMethodComponent } from './payment-method/payment-method.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -141,7 +143,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentMethodComponent,
+    SavedPaymentMethodsComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
