@@ -97,6 +97,7 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -138,7 +139,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     TwoFactorAuthComponent,
     DataExportComponent,
     LastLoginIpComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    ChallengeStatusBadgeComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
