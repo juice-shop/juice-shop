@@ -1,4 +1,3 @@
-import { WindowRefService } from '../Services/window-ref.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
@@ -6,15 +5,14 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
-import { TranslateService } from '@ngx-translate/core'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
+import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
 import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 
-library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faBtc, faTrophy, faGraduationCap)
+library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
 
 @Component({
@@ -42,22 +40,13 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty = [[], [], [], [], [], []]
   public showContributionInfoBox = true
 
-  // pre-loaded translation strings
-  public STATUS_SOLVED
-  public STATUS_UNSOLVED
-  public STATUS_UNAVAILABLE
-  public NOTIFICATION_RESEND_INSTRUCTIONS
-  public INFO_HACKING_INSTRUCTOR
-
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translateService: TranslateService) {}
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
   ngOnInit () {
     this.spinner.show()
 
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(localStorage.getItem('displayedDifficulties')) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
-
-    this.preloadTranslationStrings()
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
@@ -109,24 +98,6 @@ export class ScoreBoardComponent implements OnInit {
           this.calculateGradientOffsets(this.challenges)
         }
       })
-    })
-  }
-
-  private preloadTranslationStrings () {
-    this.translateService.get('STATUS_SOLVED').subscribe((res: string) => {
-      this.STATUS_SOLVED = res
-    })
-    this.translateService.get('STATUS_UNSOLVED').subscribe((res: string) => {
-      this.STATUS_UNSOLVED = res
-    })
-    this.translateService.get('STATUS_UNAVAILABLE').subscribe((res: string) => {
-      this.STATUS_UNAVAILABLE = res
-    })
-    this.translateService.get('NOTIFICATION_RESEND_INSTRUCTIONS').subscribe((res: string) => {
-      this.NOTIFICATION_RESEND_INSTRUCTIONS = res
-    })
-    this.translateService.get('INFO_HACKING_INSTRUCTOR').subscribe((res: string) => {
-      this.INFO_HACKING_INSTRUCTOR = res
     })
   }
 
@@ -230,20 +201,6 @@ export class ScoreBoardComponent implements OnInit {
     return this.displayedChallengeCategories.length > this.availableChallengeCategories.length / 2
   }
 
-  repeatNotification (challenge) {
-    if (this.allowRepeatNotifications) {
-      this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
-        this.windowRefService.nativeWindow.scrollTo(0, 0)
-      },(err) => console.log(err))
-    }
-  }
-
-  openHint (challenge) {
-    if (this.showChallengeHints && challenge.hintUrl) {
-      this.windowRefService.nativeWindow.open(challenge.hintUrl, '_blank')
-    }
-  }
-
   filterToDataSource (challenges) {
     if (!challenges) {
       return []
@@ -285,7 +242,4 @@ export class ScoreBoardComponent implements OnInit {
   trackById (index, item) {
     return item.id
   }
-
-  // tslint:disable-next-line:no-empty
-  noop () { }
 }
