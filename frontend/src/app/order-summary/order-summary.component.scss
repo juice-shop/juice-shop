@@ -1,10 +1,3 @@
-.heading {
-	background: rgba(0,0,0,.2);
-	justify-content: center;
-	padding: 12px 20px;
-	font-size: x-large;
-}
-
 .btn-pay {
     margin-top: 10px;
 	display: block;
@@ -21,21 +14,12 @@ mat-card {
 	margin-right: 10%;
 }
 
-.img-thumbnail {
-    height: auto;
-    max-width: 70%;
-    width: 70px;
-}
 
 mat-cell {
     padding-left: 10px;
     padding-right: 10px;
 }
 
-mat-header-cell {
-    padding-left: 10px;
-    padding-right: 10px;
-}
 
 .price:last-of-type {
     padding-right: 10px;
@@ -44,12 +28,6 @@ mat-header-cell {
 
 .label:first-of-type {
     padding-left: 10px;
-}
-
-.place-order-alert {
-    text-align: center;
-    padding-top: 10px;
-    opacity: 0.4;
 }
 
 table {
