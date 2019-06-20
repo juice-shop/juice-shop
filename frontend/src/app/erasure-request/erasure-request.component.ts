@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faExclamationTriangle, faStar } from '@fortawesome/free-solid-svg-icons'
 import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faStar, faExclamationTriangle)
 dom.watch()
@@ -27,7 +28,7 @@ export class ErasureRequestComponent implements OnInit {
   public error
   public applicationName = 'OWASP Juice Shop'
 
-  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService, private translateService: TranslateService, private snackBar: MatSnackBar) { }
+  constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService, private translateService: TranslateService, private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
   ngOnInit () {
     this.findSecurityQuestion()
   }
@@ -70,7 +71,7 @@ export class ErasureRequestComponent implements OnInit {
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.router.navigate(['/'])
-    this.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
+    this.snackBarHelperService.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
   }
 
   // tslint:disable-next-line:no-empty
@@ -83,17 +84,5 @@ export class ErasureRequestComponent implements OnInit {
     this.securityQuestionForm.markAsUntouched()
     this.securityQuestionForm.markAsPristine()
     this.securityQuestionForm.setValue('')
-  }
-
-  openSnackBar (message: string, action: string) {
-    this.translateService.get(message).subscribe((translatedMessage) => {
-      this.snackBar.open(translatedMessage, action, {
-        duration: 5000
-      })
-    }, () => {
-      this.snackBar.open(message, action, {
-        duration: 5000
-      })
-    })
   }
 }
