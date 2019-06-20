@@ -7,12 +7,12 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
 import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 
-library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faGraduationCap)
+library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
 
 @Component({
