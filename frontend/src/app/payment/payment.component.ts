@@ -1,7 +1,5 @@
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
-import { PaymentService } from '../Services/payment.service'
-import { MatTableDataSource } from '@angular/material/table'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService } from '@ngx-translate/core'
@@ -11,8 +9,6 @@ import {
   faCreditCard,
   faGift,
   faHeart,
-  faMinusSquare,
-  faPlusSquare,
   faThumbsUp,
   faTshirt,
   faStickyNote,
@@ -20,12 +16,12 @@ import {
   faCoffee,
   faTimes
 } from '@fortawesome/free-solid-svg-icons'
-import { faCreditCard as faCredit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
+import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
 import { faBtc, faEthereum, faPaypal, faLeanpub, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 
-library.add(faMinusSquare, faPlusSquare, faCartArrowDown, faGift, faCreditCard, faTrashAlt, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
+library.add(faCartArrowDown, faGift, faCreditCard, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
 dom.watch()
 
 @Component({
@@ -35,45 +31,23 @@ dom.watch()
 })
 export class PaymentComponent implements OnInit {
 
-  public displayedColumns = ['Selection', 'Number', 'Name', 'Expiry']
-  public nameControl: FormControl = new FormControl('', [Validators.required])
-  public numberControl: FormControl = new FormControl('',[Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
-  public pinControl: FormControl = new FormControl('',[Validators.required,Validators.min(100),Validators.max(999)])
-  public cvvControl: FormControl = new FormControl('',[Validators.required,Validators.min(100),Validators.max(999)])
-  public monthControl: FormControl = new FormControl('',[Validators.required])
-  public yearControl: FormControl = new FormControl('',[Validators.required])
-  public confirmation: any
-  public error: any
   public couponConfirmation: any
   public couponError: any
-  public storedCards: any
   public card: any = {}
-  public dataSource
   public twitterUrl = null
   public facebookUrl = null
   public applicationName = 'OWASP Juice Shop'
   private campaignCoupon: string
   public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   public clientDate: any
-  public monthRange: any[]
-  public yearRange: any[]
-  public cvvField: boolean = false
-  public cardsExist: boolean = false
   public paymentId: any = undefined
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
+  public allowContinue: boolean = false
 
-  constructor (private dialog: MatDialog, public paymentService: PaymentService, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService) { }
+  constructor (private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService) { }
 
   ngOnInit () {
-    this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
-    this.yearRange = Array.from(Array(50).keys()).map(i => i + new Date().getFullYear())
-    this.paymentService.get().subscribe((cards) => {
-      this.cardsExist = cards.length
-      this.storedCards = cards
-      this.dataSource = new MatTableDataSource<Element>(this.storedCards)
-    }, (err) => console.log(err))
-
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
@@ -90,24 +64,6 @@ export class PaymentComponent implements OnInit {
         }
       }
     },(err) => console.log(err))
-  }
-
-  save () {
-    this.card.fullName = this.nameControl.value
-    this.card.cvv = this.pinControl.value
-    this.card.cardNum = this.numberControl.value
-    this.card.expMonth = this.monthControl.value
-    this.card.expYear = this.yearControl.value
-    this.paymentService.save(this.card).subscribe((savedCards) => {
-      this.error = null
-      this.confirmation = 'Your card ending with ' + String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) + ' has been saved for your convinience.'
-      this.ngOnInit()
-      this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
-      this.resetForm()
-    })
   }
 
   applyCoupon () {
@@ -135,7 +91,7 @@ export class PaymentComponent implements OnInit {
   }
 
   showConfirmation (discount) {
-    this.resetForm()
+    this.resetCouponForm()
     this.couponError = undefined
     this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
       this.couponConfirmation = discountApplied
@@ -144,13 +100,12 @@ export class PaymentComponent implements OnInit {
     })
   }
 
-  choosePayment () {
-    sessionStorage.setItem('paymentDetails', this.paymentId.toString() + '-' + this.cvvControl.value.toString())
+  getMessage (id) {
+    this.paymentId = id
   }
 
-  showCVVField (id: number) {
-    this.paymentId = id
-    this.cvvField = true
+  choosePayment () {
+    sessionStorage.setItem('paymentId', this.paymentId)
   }
 
   showBitcoinQrCode () {
@@ -190,23 +145,5 @@ export class PaymentComponent implements OnInit {
     this.couponControl.setValue('')
     this.couponControl.markAsPristine()
     this.couponControl.markAsUntouched()
-  }
-
-  resetForm () {
-    this.nameControl.markAsUntouched()
-    this.nameControl.markAsPristine()
-    this.nameControl.setValue('')
-    this.numberControl.markAsUntouched()
-    this.numberControl.markAsPristine()
-    this.numberControl.setValue('')
-    this.pinControl.markAsUntouched()
-    this.pinControl.markAsPristine()
-    this.pinControl.setValue('')
-    this.monthControl.markAsUntouched()
-    this.monthControl.markAsPristine()
-    this.monthControl.setValue('')
-    this.yearControl.markAsUntouched()
-    this.yearControl.markAsPristine()
-    this.yearControl.setValue('')
   }
 }

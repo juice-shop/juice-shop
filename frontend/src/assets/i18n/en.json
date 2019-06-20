@@ -209,7 +209,7 @@
   "ADD_NEW_CARD_DESCRIPTION": "Add a credit or debit card",
   "ADD_A_COUPON": "Add a coupon",
   "OTHER_PAYMENT_OPTIONS": "Other payment options",
-  "VOUCHERS_AND_PROMOTIONAL_CODE": "Avail discount using a coupon",
+  "VOUCHERS_AND_PROMOTIONAL_CODE": "Add a coupon code to receive discounts",
   "LABEL_CVV": "CVV",
   "LABEL_EXPIRY_MONTH": "Expiry Month",
   "LABEL_EXPIRY_YEAR": "Expiry Year",
@@ -221,5 +221,6 @@
   "VALID_CVV": "Please enter a valid three digit CVV",
   "VALID_CARD_NUMBER": "Please enter a valid sixteen digit card number",
   "LABEL_CONTINUE": "Continue",
-  "REVIEW_ALERT": "You can review this order before it's final"
+  "REVIEW_ALERT": "You can review this order before it's final",
+  "MY_PAYMENT_OPTIONS": "My Payment Options"
 }

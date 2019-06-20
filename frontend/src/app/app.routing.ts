@@ -33,6 +33,7 @@ import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { PaymentComponent } from './payment/payment.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -90,6 +91,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'saved-payment-methods',
+    component: SavedPaymentMethodsComponent
   },
   {
     path: 'basket',
