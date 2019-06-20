@@ -12,48 +12,7 @@
               </div>
           </mat-card>
       </div>
-      <div class="table-container custom-slate">
-            <div class="heading">{{"TITLE_BASKET" | translate}}
-            </div>
-
-            <mat-table [dataSource]="dataSource">
-              
-              <ng-container matColumnDef="image">
-                  <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="20%" translate>LABEL_IMAGE</mat-header-cell>
-                  <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="20%">
-                      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
-                      class="img-responsive img-thumbnail">
-                  </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="product">
-                <mat-header-cell *matHeaderCellDef fxFlex="30%" fxFlex.lt-md="50%" translate>LABEL_PRODUCT</mat-header-cell>
-                <mat-cell *matCellDef="let element" fxFlex="30%" fxFlex.lt-md="50%"> {{element.name}} </mat-cell>
-              </ng-container>
-      
-              <ng-container matColumnDef="price">
-                <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="16%" translate>LABEL_PRICE</mat-header-cell>
-                <mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%"> {{element.price}}</mat-cell>
-              </ng-container>
-      
-              <ng-container matColumnDef="quantity">
-                <mat-header-cell *matHeaderCellDef fxFlex="16%" fxFlex.lt-md="25%" translate>LABEL_QUANTITY</mat-header-cell>
-                <mat-cell *matCellDef="let element" fxFlex="16%" fxFlex.lt-md="25%">
-                  <span>{{element.BasketItem.quantity}}</span>
-                </mat-cell>
-              </ng-container>
-      
-              <ng-container matColumnDef="total price">
-                <mat-header-cell *matHeaderCellDef fxFlex="18%" fxFlex.lt-md="25%" translate>LABEL_TOTAL_PRICE</mat-header-cell>
-                <mat-cell *matCellDef="let element" fxFlex="18%" fxFlex.lt-md="25%"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
-              </ng-container>
-      
-              <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-      
-            </mat-table>
-      
-          </div>
+      <app-purchase-basket [allowEdit]="false" (emitTotal)="getMessage($event)"></app-purchase-basket>
     </div>
     <div fxFlex="30%">
         <mat-card class="mat-elevation-z6">
