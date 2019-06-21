@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing, AdminGuard } from './app.routing'
+import { Routing, AdminGuard, AccountingGuard } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -64,6 +64,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { QuantityService } from './Services/quantity.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -101,6 +102,7 @@ import { PaymentService } from './Services/payment.service'
 import { PaymentComponent } from './payment/payment.component'
 import { PaymentMethodComponent } from './payment-method/payment-method.component'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
+import { AccountingComponent } from './accounting/accounting.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -145,7 +147,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     PrivacyPolicyComponent,
     PaymentComponent,
     PaymentMethodComponent,
-    SavedPaymentMethodsComponent
+    SavedPaymentMethodsComponent,
+    AccountingComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -230,7 +233,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     CookieService,
     AdminGuard,
     ImageCaptchaService,
-    PaymentService
+    PaymentService,
+    AccountingGuard,
+    ImageCaptchaService,
+    QuantityService
   ],
   bootstrap: [AppComponent]
 })

@@ -181,11 +181,11 @@ describe('ContactComponent', () => {
 
   it('should clear the form display error if saving feedback fails', fakeAsync(() => {
     feedbackService.save.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetForm')
+    spyOn(component,'resetCaptcha')
     component.save()
     expect(component.confirmation).toBeNull()
     expect(component.error).toBe('Error')
-    expect(component.resetForm).toHaveBeenCalled()
+    expect(component.resetCaptcha).toHaveBeenCalled()
   }))
 
   it('should clear the feedback object if saving feedback fails', fakeAsync(() => {

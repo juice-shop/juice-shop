@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class DataExportComponent implements OnInit {
 
-  public captchaControl: FormControl = new FormControl('', [Validators.required])
+  public captchaControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: FormControl = new FormControl('', [Validators.required])
   public captcha: any
   private dataRequest: any = undefined
