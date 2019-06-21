@@ -1,6 +1,6 @@
 -
   name: 'Score Board'
-  category: 'Security through Obscurity'
+  category: 'Miscellaneous'
   description: 'Find the carefully hidden ''Score Board'' page.'
   difficulty: 1
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
@@ -87,7 +87,7 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part2/forgotten-content.html#let-us-redirect-you-to-one-of-our-crypto-currency-addresses'
   key: redirectCryptoCurrencyChallenge
 -
-  name: 'Unvalidated Redirect'
+  name: 'Whitelist Bypass'
   category: 'Unvalidated Redirects'
   description: 'Enforce a redirect to a page you are not supposed to redirect to.'
   difficulty: 4
@@ -454,7 +454,7 @@
   key: tokenSaleChallenge
 -
   name: 'Security Policy'
-  category: 'Feeble Policies'
+  category: 'Miscellaneous'
   description: 'Behave like any "white-hat" should before getting into the action.'
   difficulty: 2
   hint: 'Undoubtably you want to read our security policy before conducting any research on our application.'
@@ -470,7 +470,7 @@
   key: hiddenImageChallenge
 -
   name: 'Supply Chain Attack'
-  category: 'Broken Authentication'
+  category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)'
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
@@ -657,7 +657,7 @@
   key: manipulateClockChallenge
 -
   name: 'Privacy Policy'
-  category: 'Feeble Policies'
+  category: 'Miscellaneous'
   description: 'Read our privacy policy.'
   difficulty: 1
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'

@@ -32,6 +32,8 @@ import {
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { AdminGuard } from '../app.routing'
+import { roles } from '../roles'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 dom.watch()
@@ -57,8 +59,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService,
-    private io: SocketIoService, private langService: LanguagesService) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private adminGuard: AdminGuard) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -186,4 +187,12 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  isAccounting () {
+    const payload = this.adminGuard.tokenDecode()
+    if (payload && payload.data && payload.data.role === roles.accounting) {
+      return true
+    } else {
+      return false
+    }
+  }
 }

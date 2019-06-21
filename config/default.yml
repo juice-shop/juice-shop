@@ -158,6 +158,7 @@ products:
     name: 'OWASP Juice Shop-CTF Velcro Patch'
     description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
     price: 2.92
+    quantity: 5
     image: velcro-patch.jpg
     reviews:
       - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
@@ -199,6 +200,7 @@ products:
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
+    quantity: 1
     image: artwork.jpg
   -
     name: 'Global OWASP WASPY Award 2017 Nomnation'
@@ -233,11 +235,13 @@ products:
     name: 'Melon Bike (Comeback-Product 2018 Edition)'
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
+    quantity: 3
     image: melon_bike.jpeg
   -
     name: 'OWASP Juice Shop Coaster (10pcs)'
     description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
     price: 19.99
+    quantity: 0
     image: coaster.png
 ctf:
   showFlagsInNotifications: false

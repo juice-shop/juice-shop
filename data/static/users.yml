@@ -120,8 +120,16 @@
   email: chris.pike
   password: 'uss enterprise'
   key: chris
-  isAdmin: false
+  role: 'customer'
   deletedFlag: true
   securityQuestion:
     id: 1
     answer: 'greenwood'
+-
+  email: accountant
+  password: 'i am an awesome accountant'
+  key: accountant
+  role: 'accounting'
+  securityQuestion:
+    id: 7
+    answer: 'sdAffsdfrefrbgreq3423'
