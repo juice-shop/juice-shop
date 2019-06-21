@@ -235,3 +235,46 @@ describe('/rest/user/login', () => {
       .expect('json', 'authentication', { umail: 'ciso@' + config.get('application.domain') })
   })
 })
+
+describe('/rest/saveLoginIp', () => {
+  it('GET last login IP will be saved as True-Client-IP header value', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.get(REST_URL + '/saveLoginIp', {
+          headers: {
+            'Authorization': 'Bearer ' + jsonLogin.authentication.token,
+            'true-client-ip': '1.2.3.4'
+          }
+        })
+          .expect('status', 200)
+          .expect('json', { lastLoginIp: '1.2.3.4' })
+      })
+  })
+
+  it('GET last login IP will be saved remote IP when True-Client-IP is not present', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@googlemail.com',
+        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.get(REST_URL + '/saveLoginIp', {
+          headers: {
+            'Authorization': 'Bearer ' + jsonLogin.authentication.token
+          }
+        })
+          .expect('status', 200)
+          .expect('json', { lastLoginIp: '127.0.0.1' })
+      })
+  })
+})
