@@ -163,7 +163,6 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "captchaBypass"', () => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000
     it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       for (var i = 0; i < 11; i++) {
         comment.sendKeys('Spam #' + i)
