@@ -43,9 +43,6 @@
         <mat-error *ngIf="repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame" translate>
           PASSWORDS_NOT_MATCHING
         </mat-error>
-        <mat-error *ngIf="repeatPasswordControl.invalid && (repeatPasswordControl?.errors.minlength || repeatPasswordControl?.errors.maxlength)" translate
-                   [translateParams]="{length: '5-20'}">INVALID_PASSWORD_LENGTH
-        </mat-error>
       </mat-form-field>
 
       <div class="security-container">

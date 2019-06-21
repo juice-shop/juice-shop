@@ -18,8 +18,8 @@ export class ForgotPasswordComponent {
 
   public emailControl: FormControl = new FormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required])
-  public passwordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatPasswordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5), Validators.maxLength(20), matchValidator(this.passwordControl)])
+  public passwordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
+  public repeatPasswordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestion = undefined
   public error
   public confirmation
