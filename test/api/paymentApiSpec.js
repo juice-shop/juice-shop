@@ -23,7 +23,7 @@ beforeAll(() => {
 describe('/api/Cards', () => {
   it('GET all cards is forbidden via public API', () => {
     return frisby.get(API_URL + '/Cards')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('GET all cards', () => {
@@ -35,11 +35,10 @@ describe('/api/Cards', () => {
     return frisby.post(API_URL + '/Cards', {
       fullName: 'Jim',
       cardNum: 12345678876543210,
-      cvv: 1234,
       expMonth: 1,
       expYear: new Date().getFullYear()
     })
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('POST new card with all valid fields', () => {
@@ -48,26 +47,11 @@ describe('/api/Cards', () => {
       body: {
         fullName: 'Jim',
         cardNum: 1234567887654321,
-        cvv: 123,
         expMonth: 1,
         expYear: new Date().getFullYear()
       }
     })
       .expect('status', 201)
-  })
-
-  it('POST new card with invalid cvv', () => {
-    return frisby.post(API_URL + '/Cards', {
-      headers: authHeader,
-      body: {
-        fullName: 'Jim',
-        cardNum: 1234567887654321,
-        cvv: 1234,
-        expMonth: 1,
-        expYear: new Date().getFullYear()
-      }
-    })
-      .expect('status', 400)
   })
 
   it('POST new card with invalid card number', () => {
@@ -76,7 +60,6 @@ describe('/api/Cards', () => {
       body: {
         fullName: 'Jim',
         cardNum: 12345678876543210,
-        cvv: 123,
         expMonth: 1,
         expYear: new Date().getFullYear()
       }
@@ -90,7 +73,6 @@ describe('/api/Cards', () => {
       body: {
         fullName: 'Jim',
         cardNum: 1234567887654321,
-        cvv: 123,
         expMonth: 13,
         expYear: new Date().getFullYear()
       }
@@ -104,7 +86,6 @@ describe('/api/Cards', () => {
       body: {
         fullName: 'Jim',
         cardNum: 1234567887654321,
-        cvv: 123,
         expMonth: 1,
         expYear: 2015
       }
@@ -120,7 +101,6 @@ describe('/api/Cards/:id', () => {
       body: {
         fullName: 'Jim',
         cardNum: 1234567887654321,
-        cvv: 123,
         expMonth: 1,
         expYear: new Date().getFullYear()
       }
@@ -130,19 +110,19 @@ describe('/api/Cards/:id', () => {
 
   it('GET card by id is forbidden via public API', () => {
     return frisby.get(API_URL + '/Cards/1')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('PUT update card is forbidden via public API', () => {
     return frisby.put(API_URL + '/Cards/1', {
       quantity: 2
     }, { json: true })
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('DELETE card by id is forbidden via public API', () => {
     return frisby.del(API_URL + '/Cards/1')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('GET card by id', () => {

@@ -246,7 +246,7 @@ app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
 /* PaymentMethodRequests: Only allowed for authenticated users */
 app.post('/api/Cards', insecurity.appendUserId())
 app.get('/api/Cards', insecurity.appendUserId(), payment.getPaymentMethods())
-app.put('/api/Cards/:id', insecurity.appendUserId(), insecurity.denyAll())
+app.put('/api/Cards/:id', insecurity.denyAll())
 app.del('/api/Cards/:id', insecurity.appendUserId(), payment.delPaymentMethodById())
 app.get('/api/Cards/:id', insecurity.appendUserId(), payment.getPaymentMethodById())
 
