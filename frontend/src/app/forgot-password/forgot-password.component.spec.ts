@@ -93,18 +93,18 @@ describe('ForgotPasswordComponent', () => {
     expect(component.passwordControl.valid).toBe(true)
   })
 
-  it('should not allow password length of more than twenty characters', () => {
+  it('should allow password length of more than twenty characters', () => {
     component.emailControl.setValue('a@a')
     component.passwordControl.setValue('aaaaaaaaaaaaaaaaaaaaa')
-    expect(component.passwordControl.valid).toBeFalsy()
+    expect(component.passwordControl.valid).toBe(true)
   })
 
   it('should be compulsory to repeat the password', () => {
     component.emailControl.setValue('a@a')
-    component.passwordControl.setValue('aaaaa')
+    component.passwordControl.setValue('a')
     component.repeatPasswordControl.setValue('')
     expect(component.repeatPasswordControl.valid).toBeFalsy()
-    component.repeatPasswordControl.setValue('aaaaa')
+    component.repeatPasswordControl.setValue('a')
     expect(component.repeatPasswordControl.valid).toBe(true)
   })
 

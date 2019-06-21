@@ -70,7 +70,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="accent">
-        <mat-label translate>INITIAL_TOKEN</mat-label>
+        <mat-label translate>INITIAL_CODE</mat-label>
         <input
           #initToken
           id="initalToken"
@@ -79,7 +79,7 @@
           matInput
           [attr.data-test-totp-secret]="totpSecret"
           aria-label="Field to enter the initial token. This must have 6 digits."
-          placeholder="{{'INITIAL_TOKEN_PLACEHOLDER' | translate }}"
+          placeholder="{{'INITIAL_CODE_PLACEHOLDER' | translate }}"
           minlength="6" maxlength="6" pattern="^[\d]{6}$"
         >
         <mat-error translate>INVALID_TWO_FACTOR_AUTH_TOKEN</mat-error>

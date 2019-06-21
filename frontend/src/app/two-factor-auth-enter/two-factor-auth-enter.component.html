@@ -13,7 +13,7 @@
         <mat-form-field id="inputToken" appearance="outline" color="accent">
           <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
           <input #tokenInput formControlName="token" type="text" minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken"
-                 aria-label="Field for entering the Two Factor token" placeholder="{{ '2FA_ENTER_TOKEN_PLACEHOLDER' | translate}}">
+                 aria-label="Field for entering the Two Factor token" placeholder="{{ '2FA_ENTER_CODE_PLACEHOLDER' | translate}}">
           <mat-icon matSuffix matTooltip="{{ 'INITIAL_TOKEN_TOOLTIP' | translate}}"
                     matTooltipPosition=right
                     aria-label="The code to be entered from the authenticator must have 6 digits.">
