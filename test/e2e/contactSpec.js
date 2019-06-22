@@ -50,7 +50,7 @@ describe('/#/contact', () => {
 
       browser.waitForAngularEnabled(false)
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/about")
+      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/about")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
