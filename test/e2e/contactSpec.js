@@ -50,14 +50,14 @@ describe('/#/contact', () => {
 
       browser.waitForAngularEnabled(false)
       browser.get('/#/about')
-      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/about")
+      browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
       })
 
       browser.get('/#/administration')
-      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
+      browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
@@ -198,9 +198,9 @@ describe('/#/contact', () => {
 
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
-      captcha.sendKeys('')
+      captcha.clear()
       const answer = eval(text).toString() // eslint-disable-line no-eval
-      captcha.clear().sendKeys(answer)
+      captcha.sendKeys(answer)
     })
   }
 })
