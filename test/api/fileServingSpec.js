@@ -141,4 +141,9 @@ describe('Hidden URL', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/octet-stream/)
   })
+
+  it('GET path traversal does not work in folder containing access log files', () => {
+    return frisby.get(URL + '/support/logs/../../../../etc/passwd')
+      .expect('status', 403)
+  })
 })
