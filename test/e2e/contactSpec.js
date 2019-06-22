@@ -198,8 +198,9 @@ describe('/#/contact', () => {
 
   function solveNextCaptcha () {
     element(by.id('captcha')).getText().then((text) => {
+      captcha.sendKeys('')
       const answer = eval(text).toString() // eslint-disable-line no-eval
-      captcha.sendKeys(answer)
+      captcha.clear().sendKeys(answer)
     })
   }
 })
