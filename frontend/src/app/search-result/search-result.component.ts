@@ -30,7 +30,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public gridDataSource
   public searchValue
   public confirmation = undefined
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
   public breakpoint: number
