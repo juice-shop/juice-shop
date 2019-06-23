@@ -78,6 +78,7 @@ jobs:
             master: juice-shop
             develop: juice-shop-staging
             gsoc2019: juice-shop-gsoc
+            angular8: juice-shop-experimental
           on:
             repo: bkimminich/juice-shop
 notifications:
