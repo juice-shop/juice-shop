@@ -89,7 +89,7 @@
       </mat-form-field>
 
       <mat-dialog-actions align="end" class="dialogAction">
-        <button mat-stroked-button mat-dialog-close class="close-dialog" aria-label="Close Dialog">
+        <button mat-stroked-button mat-dialog-close class="close-dialog buttons" aria-label="Close Dialog">
           <i class="material-icons">
             close
           </i>
@@ -98,7 +98,7 @@
 
         <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
                 (click)="addReview(textPut)" style="margin-bottom: 5px; margin-top: 5px; margin-left: 5px;"
-                aria-label="Send the review"
+                aria-label="Send the review" class="buttons"
                 [style.display]="isLoggedIn() ? 'block' : 'none' ">
           <i class="material-icons">
             send
