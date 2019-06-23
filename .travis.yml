@@ -7,7 +7,6 @@ os:
 node_js:
   - 12
   - 10
-  - 8
 stages:
   - lint
   - test
