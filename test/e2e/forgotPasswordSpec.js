@@ -56,8 +56,8 @@ describe('/#/forgot-password', () => {
         email.sendKeys('bjoern@' + config.get('application.domain'))
         browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
         securityAnswer.sendKeys('West-2082')
-        newPassword.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
-        newPasswordRepeat.sendKeys('monkey summer birthday are all bad passwords but work just fine in a long passphrase')
+        newPassword.sendKeys('monkey birthday ')
+        newPasswordRepeat.sendKeys('monkey birthday ')
         resetButton.click()
 
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
@@ -71,8 +71,8 @@ describe('/#/forgot-password', () => {
         email.sendKeys('bjoern@owasp.org')
         browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
         securityAnswer.sendKeys('Zaya')
-        newPassword.sendKeys('kitten lesser pooch karate buffoon indoors')
-        newPasswordRepeat.sendKeys('kitten lesser pooch karate buffoon indoors')
+        newPassword.sendKeys('kitten lesser pooch')
+        newPasswordRepeat.sendKeys('kitten lesser pooch')
         resetButton.click()
 
         expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
@@ -87,8 +87,8 @@ describe('/#/forgot-password', () => {
       email.sendKeys('morty@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('5N0wb41L')
-      newPassword.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
-      newPasswordRepeat.sendKeys('iBurri3dMySe1fInTheB4ckyard!')
+      newPassword.sendKeys('iBurri3dMySe1f!')
+      newPasswordRepeat.sendKeys('iBurri3dMySe1f!')
       resetButton.click()
 
       expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
