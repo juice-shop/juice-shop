@@ -1,6 +1,6 @@
 <div fxLayoutAlign="center">
   <mat-card class="mat-elevation-z6">
-    <h1 translate>TITLE_CONTACT</h1>
+    <h1 translate>SECTION_CUSTOMER_FEEDBACK</h1>
 
     <div *ngIf="confirmation">
       <p class="confirmation">{{confirmation}}</p>
@@ -18,8 +18,12 @@
         <input [formControl]="authorControl" matInput type="text" aria-label="Field with the name of the author">
       </mat-form-field>
 
-      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters" floatLabel="always">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_COMMENT</mat-label>
+        <mat-hint translate>
+          <i class="fas fa-exclamation-circle"></i>
+          <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+        </mat-hint>
         <textarea #comment id="comment" [formControl]="feedbackControl" matInput
                   matAutosizeMinRows="4" matAutosizeMaxRows="4" matTextareaAutosize cols="50" maxlength="160"
                   placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate}}"
@@ -40,18 +44,20 @@
         <code id="captcha" aria-label="CAPTCHA code which must be solved">{{captcha}}</code>&nbsp;<label
         style="font-size:small;">?</label>
       </div>
-      <mat-form-field appearance="outline" color="accent" floatLabel="always">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_RESULT</mat-label>
         <input id="captchaControl" [formControl]="captchaControl" matInput type="text"
                placeholder="{{ 'MANDATORY_CAPTCHA' | translate}}"
-               aria-label="Field for the result of the CAPTCHA code">
+               aria-label="Field for the result of the CAPTCHA code" pattern="-?[\d]*">
         <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA
+        </mat-error>
+        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.pattern" translate>INVALID_CAPTCHA
         </mat-error>
       </mat-form-field>
 
     </div>
 
-    <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
+    <button type="submit" id="submitButton" mat-raised-button color="primary"
             [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
             (click)="save()" aria-label="Button to send the review">
       <i class="material-icons">

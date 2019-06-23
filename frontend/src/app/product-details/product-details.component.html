@@ -73,9 +73,13 @@
       <mat-divider class="detail-divider"></mat-divider>
 
       <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
-      <mat-form-field appearance="outline" color="accent" hintLabel="Max 160 characters"
+      <mat-form-field appearance="outline" color="accent"
                       [style.display]="isLoggedIn() ? 'block' : 'none' "  floatLabel="always">
         <mat-label translate>LABEL_REVIEW</mat-label>
+        <mat-hint translate>
+          <i class="fas fa-exclamation-circle"></i>
+          <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+        </mat-hint>
         <textarea [formControl]="reviewControl" #textPut cols="50" matInput
                   placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
                   matTextareaAutosize matAutosizeMinRows="2" maxlength="160"

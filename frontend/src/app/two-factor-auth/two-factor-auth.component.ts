@@ -25,7 +25,7 @@ export class TwoFactorAuthComponent {
 
   public twoFactorSetupForm: FormGroup = new FormGroup({
     passwordControl: new FormControl('', [Validators.required]),
-    initalTokenControl: new FormControl('', [Validators.required])
+    initalTokenControl: new FormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
   public twoFactorDisableForm: FormGroup = new FormGroup({

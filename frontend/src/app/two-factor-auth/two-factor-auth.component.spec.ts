@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { QRCodeModule } from 'angularx-qrcode'
 
@@ -44,7 +45,8 @@ describe('TwoFactorAuthComponent', () => {
         MatDividerModule,
         MatButtonModule,
         QRCodeModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatTooltipModule
       ]
     }).compileComponents()
   }))
