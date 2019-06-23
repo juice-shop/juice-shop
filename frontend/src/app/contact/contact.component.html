@@ -48,7 +48,7 @@
         <mat-label translate>LABEL_RESULT</mat-label>
         <input id="captchaControl" [formControl]="captchaControl" matInput type="text"
                placeholder="{{ 'MANDATORY_CAPTCHA' | translate}}"
-               aria-label="Field for the result of the CAPTCHA code" pattern="[\d]*">
+               aria-label="Field for the result of the CAPTCHA code" pattern="-?[\d]*">
         <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA
         </mat-error>
         <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.pattern" translate>INVALID_CAPTCHA
