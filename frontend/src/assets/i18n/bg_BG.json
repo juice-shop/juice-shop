@@ -14,7 +14,7 @@
   "NO_CUSTOMER": "Все още не сте клиент?",
   "TITLE_REGISTRATION": "Регистрация",
   "INVALID_EMAIL": "Предоставеният и-мейл адрес е невалиден.",
-  "SECURITY_ANSWER": "Answer",
+  "SECURITY_ANSWER": "Отговор",
   "MANDATORY_PASSWORD_REPEAT": "Моля, повторете вашата парола.",
   "INVALID_PASSWORD_LENGTH": "Паролата трябва да бъде поне {{length}} символа.",
   "LABEL_PASSWORD_REPEAT": "Повторете паролата",
