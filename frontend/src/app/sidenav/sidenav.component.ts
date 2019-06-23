@@ -5,6 +5,7 @@ import { AdministrationService } from '../Services/administration.service'
 import { Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
+import { ConfigurationService } from '../Services/configuration.service'
 
 @Component({
   selector: 'sidenav',
@@ -27,16 +28,15 @@ export class SidenavComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private ngZone: NgZone, private io: SocketIoService, private userService: UserService, private cookieService: CookieService,
-    private router: Router) { }
+    private router: Router, private configurationService: ConfigurationService) { }
 
   ngOnInit () {
-
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version
       }
     },(err) => console.log(err))
-
+    this.getApplicationDetails()
     this.getScoreBoardStatus()
 
     if (localStorage.getItem('token')) {
@@ -52,13 +52,11 @@ export class SidenavComponent implements OnInit {
         this.userEmail = ''
       }
     })
-
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', () => {
         this.getScoreBoardStatus()
       })
     })
-
   }
 
   isLoggedIn () {
@@ -98,5 +96,16 @@ export class SidenavComponent implements OnInit {
 
   onToggleSidenav = () => {
     this.sidenavToggle.emit()
+  }
+
+  getApplicationDetails () {
+    this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
+      if (config && config.application && config.application.name && config.application.name !== null) {
+        this.applicationName = config.application.name
+      }
+      if (config && config.application && config.application.showGitHubLinks !== null) {
+        this.showGitHubLink = config.application.showGitHubLinks
+      }
+    }, (err) => console.log(err))
   }
 }
