@@ -20,7 +20,7 @@ export class ComplaintComponent implements OnInit {
 
   public customerControl: FormControl = new FormControl({ value: '', disabled: true }, [])
   public messageControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(160)])
-  @ViewChild('fileControl', {static: true}) fileControl: ElementRef // For controlling the DOM Element for file input.
+  @ViewChild('fileControl', { static: true }) fileControl: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
