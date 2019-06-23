@@ -142,7 +142,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
-    AccountingComponent
+    AccountingComponent,
     PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent
   ],
