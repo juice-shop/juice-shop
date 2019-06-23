@@ -11,7 +11,7 @@
         <div [innerHTML]="data.description"></div>
         <br/>
         <div>
-          <p class="item-price">$ {{data.price}}</p>
+          <p class="item-price">{{data.price}}</p>
           <div *ngIf="data.points > 0" matTooltip="{{'LABEL_BONUS' | translate}}"
                aria-label="Bonus points when buying the product">
             <span class="fa-2x fa-layers fa-fw">
