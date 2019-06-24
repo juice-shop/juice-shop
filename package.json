@@ -134,25 +134,25 @@
     "z85": "^0.0.2"
   },
   "devDependencies": {
-    "chai": "~4.2",
-    "codeclimate-test-reporter": "~0.5.1",
+    "chai": "^4.2.0",
+    "codeclimate-test-reporter": "^0.5.1",
     "cross-spawn": "^6.0.5",
-    "frisby": "^2.1.1",
-    "grunt-cli": "~1.3.2",
-    "http-server": "~0.11",
-    "jasmine": "^3.3.1",
-    "jasmine-core": "~3.4.0",
-    "jasmine-reporters": "~2.3.2",
-    "jest": "~23.6.0",
-    "lcov-result-merger": "~3.1.0",
-    "mocha": "~6.1.3",
+    "frisby": "^2.1.2",
+    "grunt-cli": "^1.3.2",
+    "http-server": "^0.11.1",
+    "jasmine": "^3.4.0",
+    "jasmine-core": "^3.4.0",
+    "jasmine-reporters": "^2.3.2",
+    "jest": "^24.8.0",
+    "lcov-result-merger": "^3.1.0",
+    "mocha": "^6.1.4",
     "node-fetch": "2.1.2",
     "nyc": "^14.1.1",
     "protractor": "^5.4.2",
-    "shelljs": "~0.8.3",
-    "sinon": "~7.3.1",
-    "sinon-chai": "~3.2",
-    "socket.io-client": "~2.2.0",
+    "shelljs": "^0.8.3",
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0",
+    "socket.io-client": "^2.2.0",
     "standard": "^12.0.1"
   },
   "repository": {
@@ -227,7 +227,9 @@
     "testURL": "http://localhost",
     "globalSetup": "./test/apiTestsSetup.js",
     "globalTeardown": "./test/apiTestsTeardown.js",
-    "setupTestFrameworkScriptFile": "./test/apiTestsSetupJest.js",
+    "setupFilesAfterEnv": [
+      "./test/apiTestsSetupJest.js"
+    ],
     "testMatch": [
       "**/test/api/*Spec.js"
     ],
