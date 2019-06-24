@@ -32,6 +32,9 @@ overview please visit the official project page:
 
 ## Setup
 
+> You can find some less common installation variations in
+> [the _Running OWASP Juice Shop_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/running.html).
+
 ### Deploy on Heroku (free ($0/month) dyno)
 
 1. [Sign up to Heroku](https://signup.heroku.com/) and
@@ -128,20 +131,6 @@ service docker start
 docker pull bkimminich/juice-shop
 docker run -d -p 80:3000 bkimminich/juice-shop
 ```
-
-#### Don't repeat yourself: Define an EC2 Launch Template
-
-1. In the _EC2_ sidenav select _Launch Templates_ and click _Create
-   launch template_
-2. Under _Launch template contents_ select as _AMI ID_ either _Amazon
-   Linux AMI_ or _Amazon Linux 2 AMI_ (by using _Search for AMI_)
-3. In the same section add a _Security Group_ that opens port 80 for
-   HTTP
-4. Unfold _Advanced details_ at the bottom of the screen and paste in
-   the script above into _User Data_
-5. Create your launch template
-6. Launch one or multiple EC2 instances from your template
-7. Browse to your instance's public DNS
 
 ### Azure Container Instance
 
