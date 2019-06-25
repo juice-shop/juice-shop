@@ -32,7 +32,7 @@
     "@nguniversal/express-engine": "^8.0.0-rc.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
-    "angularx-qrcode": "^1.6.0",
+    "angular2-qrcode": "^2.0.3",
     "core-js": "^3.1.4",
     "flag-icon-css": "^3.3.0",
     "font-mfizz": "^2.4.1",
