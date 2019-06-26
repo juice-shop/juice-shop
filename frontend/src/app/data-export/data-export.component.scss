@@ -13,6 +13,13 @@ mat-card{
   margin-left: 20%;
 }
 
+.hint {
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
   margin-bottom: 16px;
