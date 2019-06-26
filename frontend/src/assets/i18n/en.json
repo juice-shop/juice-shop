@@ -218,7 +218,7 @@
   "LANGUAGE_SEL_HINT": "Choose language",
   "BTN_SAVE": "Save",
   "LABEL_RESULT": "Result",
-  "WRITE_MESSAGE_PLACEHOLDER" : "What would you like to tell us?"
+  "WRITE_MESSAGE_PLACEHOLDER" : "What would you like to tell us?",
   "IP_ADDRESS": "IP Address:",
   "LABEL_SOLD_OUT": "Sold Out",
   "LABEL_ONLY_QUANTITY_LEFT": "Only {{quantity}} left"
