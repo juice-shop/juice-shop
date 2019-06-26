@@ -39,7 +39,7 @@ html(lang='en')
           section.section--center.mdl-grid.mdl-grid--no-spacing
             .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='height: auto; min-width: 300px;  width: 40%; display: block; margin-left: auto; margin-right:auto; background: _primLight_; margin-bottom: 50px; margin-top: 110px;')
               .mdl-card__supporting-text.mdl-grid.mdl-grid--no-spacing
-                 h3.mdl-cell.mdl-cell--12-col(style='color: _textColor_;') User Profile
+                 h1.mdl-cell.mdl-cell--12-col(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400;') User Profile
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
                     img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
                     p(style='margin-top:8%; color: _textColor_; text-align: center;') _username_
@@ -47,10 +47,10 @@ html(lang='en')
                       .form-group
                         input#picture(type='file', accept='image/*', name='file', size='150', style='color: _textColor_;', aria-label='Input for selecting the profile picture')
                         .mdl-tooltip(for='picture', style='width: 150px; text-align: left;')
-                          | &bull; Maximum file size 150kb
+                          | &bull; Maximum file size 150Kb
                           br
                           | &bull; All image formats are accepted
-                      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect(type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: 3%;', aria-label='Button to upload the profile picture') Upload Picture
+                      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect(type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: 3%; text-transform: capitalize;', aria-label='Button to upload the profile picture') Upload Picture
 
                     .breakLine(style='margin-top: 3%; margin-bottom: 3%; width: 90%; margin-right: auto; margin-left: auto;')
                       .line
@@ -63,19 +63,19 @@ html(lang='en')
                       .form-group
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
                           input#url.form-control.mdl-textfield__input(type='text', name='imageUrl', style='color: _textColor_;', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_', aria-label='Text field for the Gravatar link')
-                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Gravatar Url:
-                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px;', aria-label='Button to include the link from Gravatar').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Gravatar
+                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Gravatar URL:
+                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to include the link from Gravatar').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Gravatar
                       p(style='margin-bottom:10%;')
 
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
                    form(action='/profile', method='post', style='width: 90%; margin-right: auto; margin-left: auto;')
                      .form-group
                          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
+                            input#email.form-control.mdl-textfield__input(type='email', name='email', value=email, disabled=true, style='color: _textColor_; cursor: not-allowed;', aria-label='Text field for the email')
+                            label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
+                     .form-group
+                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
                             input#username.form-control.mdl-textfield__input(type='text', name='username', value=username ,style='color: _textColor_;', placeholder='e.g. SuperUser', aria-label='Text field for the username')
                             label.mdl-textfield__label(for='username', style='color: _textColor_;') Username:
-                     .form-group
-                       .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
-                         input#email.form-control.mdl-textfield__input(type='email', name='email', value=email, disabled=true, style='color: _textColor_; cursor: not-allowed;', aria-label='Text field for the email')
-                         label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
-                     button(id='submit', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px;', aria-label='Button to save/set the username').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Set Username
+                     button(id='submit', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to save/set the username').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Set Username
                      p(style='margin-bottom:10%;')
