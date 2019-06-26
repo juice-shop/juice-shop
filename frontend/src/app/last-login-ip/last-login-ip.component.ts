@@ -18,9 +18,8 @@ export class LastLoginIpComponent {
 
   parseAuthToken () {
     let payload = {} as any
-    const token = localStorage.getItem('token')
-    if (token) {
-      payload = jwt_decode(token)
+    if (localStorage.getItem('token')) {
+      payload = jwt_decode(localStorage.getItem('token'))
       if (payload.data.lastLoginIp) {
         this.lastLoginIp = payload.data.lastLoginIp
       }
