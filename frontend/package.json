@@ -10,10 +10,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.800.3",
+    "@angular-devkit/build-angular": "^0.800.4",
     "@angular/animations": "^8.0.2",
     "@angular/cdk": "^8.0.1",
-    "@angular/cli": "^8.0.3",
+    "@angular/cli": "^8.0.4",
     "@angular/common": "^8.0.2",
     "@angular/compiler": "^8.0.2",
     "@angular/compiler-cli": "^8.0.2",
@@ -68,7 +68,7 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "ts-node": "~8.3.0",
-    "tslint": "~5.13.0",
+    "tslint": "~5.18.0",
     "tslint-config-standard": "~8.0.1"
   }
 }
