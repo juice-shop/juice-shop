@@ -20,7 +20,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
 
-import { QRCodeModule } from 'angularx-qrcode'
+import { QRCodeModule } from 'angular2-qrcode'
 
 describe('TwoFactorAuthComponent', () => {
   let component: TwoFactorAuthComponent

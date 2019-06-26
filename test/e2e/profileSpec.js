@@ -48,7 +48,7 @@ describe('/profile', () => {
       setButton = element(by.id('submit'))
       username.sendKeys('<<a|ascript>alert(`xss`)</script>')
       setButton.click()
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /profile")
+      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
         alert.accept()
@@ -56,7 +56,7 @@ describe('/profile', () => {
       username.sendKeys('αδмιη') // disarm XSS
       setButton.click()
       browser.get('/')
-      browser.driver.sleep(5000)
+      browser.driver.sleep(10000)
       browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'Classic Stored XSS' })
