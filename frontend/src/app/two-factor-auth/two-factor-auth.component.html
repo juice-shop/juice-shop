@@ -52,11 +52,11 @@
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
       <div fxLayoutAlign="center" class="two-factor-qr-code">
-        <qrcode
-          [qrdata]="totpUrl"
+        <qr-code
+          [value]="totpUrl"
           [size]="300"
           [level]="'L'"
-        ></qrcode>
+        ></qr-code>
       </div>
 
       <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
