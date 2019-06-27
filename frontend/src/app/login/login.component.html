@@ -27,11 +27,11 @@
         <button *ngIf="hide" mat-icon-button matSuffix (click)="hide = !hide"
                 aria-label="Button to display the password" matTooltip="{{ 'SHOW_PWD_TOOLTIP' | translate  }}"
                 matTooltipPosition=right>
-          <i class="fas fa-eye"></i>
+          <i class="fas fa-eye" aria-label="Eye"></i>
         </button>
         <button *ngIf="!hide" mat-icon-button matSuffix (click)="hide = !hide" aria-label="Button to hide the password" matTooltip="{{ 'HIDE_PWD_TOOLTIP' | translate  }}"
                 matTooltipPosition=right>
-          <i class="fas fa-eye-slash"></i>
+          <i class="fas fa-eye-slash" aria-label="Eye Slash"></i>
         </button>
         <mat-error *ngIf="passwordControl.invalid" translate>MANDATORY_PASSWORD</mat-error>
       </mat-form-field>
@@ -61,7 +61,7 @@
       </div>
 
       <button id="loginButtonGoogle" *ngIf="!oauthUnavailable" mat-raised-button color="accent" (click)="googleLogin()"
-              aria-label="Login with Google"><i
+              aria-label="Login with Google" class="gButton"><i
         class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
       </button>
 
