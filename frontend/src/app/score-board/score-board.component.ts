@@ -1,4 +1,3 @@
-import { WindowRefService } from '../Services/window-ref.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
@@ -8,12 +7,12 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faBook, faStar, faTrophy, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import { faFlag, faGem } from '@fortawesome/free-regular-svg-icons'
-import { faGithub, faGitter, faDocker, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faGem } from '@fortawesome/free-regular-svg-icons'
+import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
 import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 
-library.add(faBook, faStar, faFlag, faGem, faGitter, faGithub, faDocker, faBtc, faTrophy, faGraduationCap)
+library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
 
 @Component({
@@ -41,7 +40,7 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty = [[], [], [], [], [], []]
   public showContributionInfoBox = true
 
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private windowRefService: WindowRefService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
+  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
   ngOnInit () {
     this.spinner.show()
@@ -202,20 +201,6 @@ export class ScoreBoardComponent implements OnInit {
     return this.displayedChallengeCategories.length > this.availableChallengeCategories.length / 2
   }
 
-  repeatNotification (challenge) {
-    if (this.allowRepeatNotifications) {
-      this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).subscribe(() => {
-        this.windowRefService.nativeWindow.scrollTo(0, 0)
-      },(err) => console.log(err))
-    }
-  }
-
-  openHint (challenge) {
-    if (this.showChallengeHints && challenge.hintUrl) {
-      this.windowRefService.nativeWindow.open(challenge.hintUrl, '_blank')
-    }
-  }
-
   filterToDataSource (challenges) {
     if (!challenges) {
       return []
@@ -254,6 +239,7 @@ export class ScoreBoardComponent implements OnInit {
     startHackingInstructorFor(challengeName)
   }
 
-  // tslint:disable-next-line:no-empty
-  noop () { }
+  trackById (index, item) {
+    return item.id
+  }
 }

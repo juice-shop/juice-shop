@@ -8,8 +8,8 @@ export class FormSubmitService {
 
   constructor (@Inject(DOCUMENT) private _document: HTMLDocument) { }
 
-  attachEnterKeyHandler (formId, submitButtonId, onSubmit) {
-    const form = this._document.getElementById(formId)
+  attachEnterKeyHandler (formId: string, submitButtonId: string, onSubmit: Function) {
+    const form = this._document.getElementById(formId) as HTMLFormElement
     const submitButton = this._document.getElementById(submitButtonId) as HTMLInputElement
 
     form.addEventListener('keyup', function (event) {
