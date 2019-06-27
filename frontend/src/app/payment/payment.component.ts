@@ -80,7 +80,7 @@ export class PaymentComponent implements OnInit {
         this.resetCouponForm()
       }
     } else {
-      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
+      this.basketService.applyCoupon(Number(sessionStorage.getItem('bid')), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
         this.showConfirmation(discount)
       },(err) => {
         this.couponConfirmation = undefined
