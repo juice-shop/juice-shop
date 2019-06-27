@@ -13,7 +13,11 @@ export class LastLoginIpComponent {
   lastLoginIp: string = '?'
 
   ngOnInit () {
-    this.parseAuthToken()
+    try {
+      this.parseAuthToken()
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   parseAuthToken () {
