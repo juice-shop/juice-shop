@@ -14,8 +14,8 @@
       <mat-radio-group id="formatControl" [formControl]="formatControl">
         <mat-label class="radio-label" translate>EXPORT_LABEL <span>:</span></mat-label>
         <mat-radio-button value="1" aria-label="Export Option JSON">JSON</mat-radio-button>
-        <mat-radio-button value="2" aria-label="Export Option PDF">PDF</mat-radio-button>
-        <mat-radio-button value="3" aria-label="Export Option Excel">Excel</mat-radio-button>
+        <mat-radio-button value="2" aria-label="Export Option PDF" disabled>PDF</mat-radio-button>
+        <mat-radio-button value="3" aria-label="Export Option Excel" disabled>Excel</mat-radio-button>
       </mat-radio-group>
 
       <div *ngIf="presenceOfCaptcha">
@@ -34,9 +34,6 @@
           <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.minlength" translate>MANDATORY_CAPTCHA
           </mat-error>
         </mat-form-field>
-      </div>
-      <div *ngIf="!presenceOfCaptcha">
-        <span translate>CAPTCHA_NOT_LOADED_ERROR</span>
       </div>
     </div>
 
