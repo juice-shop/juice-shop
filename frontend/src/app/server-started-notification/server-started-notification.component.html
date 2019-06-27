@@ -1,4 +1,4 @@
-<mat-card class="container primary-notification" *ngIf="hackingProgress.autoRestoreMessage">
+<mat-card class="container primary-notification mat-elevation-z4" *ngIf="hackingProgress.autoRestoreMessage">
   <mat-card-header></mat-card-header>
   <mat-card-content>
     <span translate>NOTIFICATION_SERVER_STARTED</span>: {{hackingProgress.autoRestoreMessage}}<span (click)="closeNotification()" style="float:right;cursor:pointer">X</span>

@@ -249,6 +249,10 @@ app.get('/api/Cards', insecurity.appendUserId(), payment.getPaymentMethods())
 app.put('/api/Cards/:id', insecurity.denyAll())
 app.del('/api/Cards/:id', insecurity.appendUserId(), payment.delPaymentMethodById())
 app.get('/api/Cards/:id', insecurity.appendUserId(), payment.getPaymentMethodById())
+/* PrivacyRequests: Only POST allowed for authenticated users */
+app.post('/api/PrivacyRequests', insecurity.isAuthorized())
+app.get('/api/PrivacyRequests', insecurity.denyAll())
+app.use('/api/PrivacyRequests/:id', insecurity.denyAll())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',

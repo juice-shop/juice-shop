@@ -34,7 +34,7 @@
           aria-label="Button to remove the two-factor authentication"
         >
           <i class="material-icons">
-            lock_open
+            remove_circle_outline
           </i>
           {{'BTN_REMOVE' | translate}}
         </button>
@@ -52,11 +52,11 @@
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
       <div fxLayoutAlign="center" class="two-factor-qr-code">
-        <qrcode
-          [qrdata]="totpUrl"
+        <qr-code
+          [value]="totpUrl"
           [size]="300"
           [level]="'L'"
-        ></qrcode>
+        ></qr-code>
       </div>
 
       <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
@@ -72,6 +72,7 @@
       <mat-form-field appearance="outline" color="accent">
         <mat-label translate>INITIAL_CODE</mat-label>
         <input
+          #initToken
           id="initalToken"
           formControlName="initalTokenControl"
           type="text"
@@ -79,13 +80,15 @@
           [attr.data-test-totp-secret]="totpSecret"
           aria-label="Field to enter the initial token. This must have 6 digits."
           placeholder="{{'INITIAL_CODE_PLACEHOLDER' | translate }}"
-          autocomplete="off"
+          minlength="6" maxlength="6" pattern="^[\d]{6}$"
         >
-        <mat-icon matSuffix matTooltip="The code to be entered from the authenticator must have 6 digits"
+        <mat-error translate>INVALID_TWO_FACTOR_AUTH_TOKEN</mat-error>
+        <mat-icon matSuffix matTooltip="{{ 'INITIAL_TOKEN_TOOLTIP' | translate}}"
                   matTooltipPosition=right
-                  aria-label="The code to be entered from the authenticator must have 6 digits.">
+                  aria-label="The token to be entered from the authenticator must have 6 digits.">
           help_outline
         </mat-icon>
+        <mat-hint align="end">{{initToken.value?.length || 0}}/6</mat-hint>
       </mat-form-field>
 
       <button

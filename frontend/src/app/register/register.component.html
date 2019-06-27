@@ -82,7 +82,6 @@
     <button type="submit"
             id="registerButton"
             mat-raised-button color="primary"
-            style="margin-top:5px;"
             [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
             (click)="save()"
             aria-label="Button to complete the registration">
