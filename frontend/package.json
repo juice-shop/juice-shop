@@ -10,10 +10,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^0.800.3",
+    "@angular-devkit/build-angular": "^0.800.4",
     "@angular/animations": "^8.0.2",
     "@angular/cdk": "^8.0.1",
-    "@angular/cli": "^8.0.3",
+    "@angular/cli": "^8.0.4",
     "@angular/common": "^8.0.2",
     "@angular/compiler": "^8.0.2",
     "@angular/compiler-cli": "^8.0.2",
@@ -32,11 +32,12 @@
     "@nguniversal/express-engine": "^8.0.0-rc.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
-    "angularx-qrcode": "^1.6.0",
+    "angular2-qrcode": "^2.0.3",
     "core-js": "^3.1.4",
     "flag-icon-css": "^3.3.0",
     "font-mfizz": "^2.4.1",
     "hammerjs": "^2.0.8",
+    "material-icons": "^0.3.1",
     "ng-mat-search-bar": "3.1.2",
     "ng-simple-slideshow": "^1.3.0-beta.1",
     "ng2-bar-rating": "^1.1.50",
@@ -67,7 +68,7 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "ts-node": "~8.3.0",
-    "tslint": "~5.13.0",
+    "tslint": "~5.18.0",
     "tslint-config-standard": "~8.0.1"
   }
 }
