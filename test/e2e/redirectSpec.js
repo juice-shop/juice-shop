@@ -14,7 +14,7 @@ describe('/redirect', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'Unvalidated Redirect' })
+    protractor.expect.challengeSolved({ challenge: 'Whitelist Bypass' })
   })
 
   describe('challenge "redirectCryptoCurrency"', () => {

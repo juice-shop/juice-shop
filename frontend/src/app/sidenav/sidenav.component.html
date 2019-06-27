@@ -76,7 +76,7 @@
         <mat-icon>
           exposure_plus_2
         </mat-icon>
-        <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTHENTICATION</span>
+        <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/last-login-ip"
          (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to last login ip page">
@@ -125,7 +125,8 @@
       {{"SECTION_CUSTOMER_FEEDBACK" | translate}}
     </span>
   </a>
-  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();" aria-label="Go to complain page">
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/complain" (click)="onToggleSidenav();"
+     aria-label="Go to complain page">
     <i class="material-icons">
       warning
     </i>
@@ -146,16 +147,18 @@
     </span>
   </a>
 
-  <mat-divider *ngIf="scoreBoardVisible || showGitHubLink"></mat-divider>
+  <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
 
-  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()" aria-label="Open score-board">
+  <a *ngIf="scoreBoardVisible" mat-list-item routerLink="/score-board" (click)="onToggleSidenav()"
+     aria-label="Open score-board">
     <mat-icon matListIcon class="fas fa-trophy fa-lg"></mat-icon>
     <span class="menu-text truncate">
       {{"TITLE_SCORE_BOARD" | translate}}
     </span>
   </a>
 
-  <a *ngIf="showGitHubLink" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop" aria-label="Go to OWASP Juice Shop GitHub page">
+  <a *ngIf="showGitHubLink" mat-list-item href="/redirect?to=https://github.com/bkimminich/juice-shop"
+     aria-label="Go to OWASP Juice Shop GitHub page">
     <mat-icon matListIcon class="fab fa-github fa-lg"></mat-icon>
     <span class="menu-text truncate">
       GitHub
@@ -169,13 +172,15 @@
       <br>
       <span style="font-size: 12px;">{{version}}</span>
       <br>
-      <i class="icon-angular"></i>&nbsp;
-      <i class="icon-html5"></i>&nbsp;
-      <i class="icon-sass"></i>&nbsp;
-      <i class="icon-css3"></i>&nbsp;
-      <i class="icon-javascript-alt"></i>&nbsp;
-      <i class="icon-nodejs"></i>&nbsp;
-      <i class="icon-database-alt2"></i>&nbsp;
-      <i class="icon-mongodb"></i>
+      <div style="margin-top: 10px;">
+        <i class="icon-angular"></i>&nbsp;
+        <i class="icon-html5"></i>&nbsp;
+        <i class="icon-sass"></i>&nbsp;
+        <i class="icon-css3"></i>&nbsp;
+        <i class="icon-javascript-alt"></i>&nbsp;
+        <i class="icon-nodejs"></i>&nbsp;
+        <i class="icon-database-alt2"></i>&nbsp;
+        <i class="icon-mongodb"></i>
+      </div>
     </span>
 </div>

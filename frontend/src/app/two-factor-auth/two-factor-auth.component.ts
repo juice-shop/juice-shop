@@ -25,7 +25,7 @@ export class TwoFactorAuthComponent {
 
   public twoFactorSetupForm: FormGroup = new FormGroup({
     passwordControl: new FormControl('', [Validators.required]),
-    initalTokenControl: new FormControl('', [Validators.required])
+    initalTokenControl: new FormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
   public twoFactorDisableForm: FormGroup = new FormGroup({
@@ -52,7 +52,7 @@ export class TwoFactorAuthComponent {
     const status = this.twoFactorAuthService.status()
     const config = this.configurationService.getApplicationConfiguration()
 
-    forkJoin(status, config).subscribe(([{ setup, email, secret, setupToken }, config ]) => {
+    forkJoin([status, config]).subscribe(([{ setup, email, secret, setupToken }, config ]) => {
       this.setupStatus = setup
       this.appName = config.application.name
       if (setup === false) {
