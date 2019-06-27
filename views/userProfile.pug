@@ -12,7 +12,7 @@ html(lang='en')
         link(rel='stylesheet', href='/assets/public/css/userProfile.css', type='text/css')
         link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700', type='text/css')
         script(src='//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-        script(defer='', src='https://code.getmdl.io/1.3.0/material.min.js')
+        script(src='https://code.getmdl.io/1.3.0/material.min.js')
         style.
             .mdl-textfield__input {
             border-bottom: 1px solid _textColor_ !important;
@@ -71,8 +71,8 @@ html(lang='en')
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
                    form(action='/profile', method='post', style='width: 90%; margin-right: auto; margin-left: auto;')
                      .form-group
-                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
-                            input#email.form-control.mdl-textfield__input(type='email', name='email', value=email, disabled=true, style='color: _textColor_; cursor: not-allowed;', aria-label='Text field for the email')
+                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%; opacity: 0.7')
+                            input#email.form-control.mdl-textfield__input(type='email', name='email', value=email, disabled=true, style='color: _textColor_;', aria-label='Disabled - Text field for the email')
                             label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
                      .form-group
                          .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
