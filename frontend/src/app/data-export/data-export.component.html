@@ -7,7 +7,7 @@
     </div>
 
     <div class="form-container" id="data-export-form">
-      <mat-radio-group id="formatControl" [formControl]="formatControl">
+      <mat-radio-group id="formatControl" [formControl]="formatControl" aria-label="Select an option">
         <mat-label class="radio-label" translate>EXPORT_LABEL <span>:</span></mat-label>
         <mat-radio-button value="1" aria-label="Export Option JSON">JSON</mat-radio-button>
         <mat-radio-button value="2" aria-label="Export Option PDF" disabled>PDF</mat-radio-button>
