@@ -64,13 +64,13 @@ export class BasketComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application) {
-        if (config.application.twitterUrl !== null) {
+        if (config.application.twitterUrl) {
           this.twitterUrl = config.application.twitterUrl
         }
-        if (config.application.facebookUrl !== null) {
+        if (config.application.facebookUrl) {
           this.facebookUrl = config.application.facebookUrl
         }
-        if (config.application.name !== null) {
+        if (config.application.name) {
           this.applicationName = config.application.name
         }
       }
@@ -78,7 +78,7 @@ export class BasketComponent implements OnInit {
   }
 
   load () {
-    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       this.dataSource = basket.Products
       let bonusPoints = 0
       basket.Products.map(product => {
@@ -124,7 +124,7 @@ export class BasketComponent implements OnInit {
   }
 
   checkout () {
-    this.basketService.checkout(sessionStorage.getItem('bid'), btoa(this.campaignCoupon + '-' + this.clientDate)).subscribe((orderConfirmationPath) => {
+    this.basketService.checkout(Number(sessionStorage.getItem('bid')), btoa(this.campaignCoupon + '-' + this.clientDate)).subscribe((orderConfirmationPath) => {
       this.redirectUrl = this.basketService.hostServer + orderConfirmationPath
       this.windowRefService.nativeWindow.location.replace(this.redirectUrl)
     }, (err) => console.log(err))
@@ -144,7 +144,7 @@ export class BasketComponent implements OnInit {
         this.resetForm()
       }
     } else {
-      this.basketService.applyCoupon(sessionStorage.getItem('bid'), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
+      this.basketService.applyCoupon(Number(sessionStorage.getItem('bid')), encodeURIComponent(this.couponControl.value)).subscribe((discount: any) => {
         this.showConfirmation(discount)
       },(err) => {
         this.confirmation = undefined

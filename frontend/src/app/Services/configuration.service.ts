@@ -52,8 +52,8 @@ interface Config {
       acknowledgements: string
     }
     promotion: {
-      video
-      subtitles
+      video: string
+      subtitles: string
     }
   }
   challenges: {
