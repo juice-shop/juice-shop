@@ -20,10 +20,8 @@ export class WelcomeBannerComponent implements OnInit {
 
   ngOnInit (): void {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application) {
-        if (config.application.name !== null) {
-          this.applicationName = config.application.name
-        }
+      if (config && config.application && config.application.name) {
+        this.applicationName = config.application.name
       }
     }, (err) => console.log(err))
   }

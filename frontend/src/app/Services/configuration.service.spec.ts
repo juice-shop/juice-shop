@@ -19,7 +19,7 @@ describe('ConfigurationService', () => {
   it('should get application configuration directly from the rest api',
       inject([ConfigurationService, HttpTestingController],
         fakeAsync((service: ConfigurationService,httpMock: HttpTestingController) => {
-          let res
+          let res: any
           service.getApplicationConfiguration().subscribe(data => { res = data })
 
           const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-configuration')
@@ -44,7 +44,7 @@ describe('ConfigurationService', () => {
   it('should throw an error on recieving an error from the server' ,
     inject([ConfigurationService, HttpTestingController],
       fakeAsync((service: ConfigurationService, httpMock: HttpTestingController) => {
-        let res
+        let res: any
         service.getApplicationConfiguration().subscribe(data => {
           console.log(data)
         },(err) => res = err)

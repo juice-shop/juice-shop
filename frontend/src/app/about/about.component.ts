@@ -50,19 +50,19 @@ export class AboutComponent implements OnInit {
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application) {
-        if (config.application.twitterUrl !== null) {
+        if (config.application.twitterUrl) {
           this.twitterUrl = config.application.twitterUrl
         }
-        if (config.application.facebookUrl !== null) {
+        if (config.application.facebookUrl) {
           this.facebookUrl = config.application.facebookUrl
         }
-        if (config.application.slackUrl !== null) {
+        if (config.application.slackUrl) {
           this.slackUrl = config.application.slackUrl
         }
-        if (config.application.redditUrl !== null) {
+        if (config.application.redditUrl) {
           this.redditUrl = config.application.redditUrl
         }
-        if (config.application.pressKitUrl !== null) {
+        if (config.application.pressKitUrl) {
           this.pressKitUrl = config.application.pressKitUrl
         }
       }
