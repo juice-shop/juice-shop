@@ -239,9 +239,10 @@ app.post('/api/Quantitys', insecurity.denyAll())
 app.use('/api/Quantitys/:id', insecurity.isAccounting())
 /* Feedbacks: Do not allow changes of existing feedback */
 app.put('/api/Feedbacks/:id', insecurity.denyAll())
-/* PrivacyRequests: Only allowed for authenticated users */
-app.use('/api/PrivacyRequests', insecurity.isAuthorized())
-app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
+/* PrivacyRequests: Only POST allowed for authenticated users */
+app.post('/api/PrivacyRequests', insecurity.isAuthorized())
+app.get('/api/PrivacyRequests', insecurity.denyAll())
+app.use('/api/PrivacyRequests/:id', insecurity.denyAll())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
