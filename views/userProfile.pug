@@ -41,11 +41,12 @@ html(lang='en')
               .mdl-card__supporting-text.mdl-grid.mdl-grid--no-spacing
                  h1.mdl-cell.mdl-cell--12-col(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400;') User Profile
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
-                    img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='Cinque Terre', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
+                    img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='profile picture', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
                     p(style='margin-top:8%; color: _textColor_; text-align: center;') _username_
                     form(action='/profile/image/file' , style='margin-top:10%; width: 90%; margin-right: auto; margin-left: auto;', method='post', enctype='multipart/form-data')
                       .form-group
-                        input#picture(type='file', accept='image/*', name='file', size='150', style='color: _textColor_;', aria-label='Input for selecting the profile picture')
+                        label(for='picture', style='color: _textColor_; font-size: 12px;') File Upload:
+                        input#picture(type='file', accept='image/*', name='file', size='150', style='color: _textColor_; margin-top: 4px;', aria-label='Input for selecting the profile picture')
                         .mdl-tooltip(for='picture', style='width: 150px; text-align: left;')
                           | &bull; Maximum file size 150Kb
                           br
