@@ -41,7 +41,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public searchValue
   public confirmation = undefined
   public error = undefined
-  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
   public breakpoint: number
