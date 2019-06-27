@@ -1,11 +1,12 @@
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, Validators, AbstractControl } from '@angular/forms'
 import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 
-library.add(faSave)
+library.add(faSave, faEdit)
 dom.watch()
 
 @Component({
@@ -17,7 +18,7 @@ export class ChangePasswordComponent {
 
   public passwordControl: FormControl = new FormControl('', [Validators.required])
   public newPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)])
-  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required])
+  public repeatNewPasswordControl: FormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), matchValidator(this.newPasswordControl)])
   public error: any
   public confirmation: any
 
@@ -40,7 +41,7 @@ export class ChangePasswordComponent {
       console.log(error)
       this.error = error
       this.confirmation = undefined
-      this.resetForm()
+      this.resetPasswords()
     })
   }
 
@@ -56,4 +57,23 @@ export class ChangePasswordComponent {
     this.repeatNewPasswordControl.markAsUntouched()
   }
 
+  resetPasswords () {
+    this.newPasswordControl.setValue('')
+    this.newPasswordControl.markAsPristine()
+    this.newPasswordControl.markAsUntouched()
+    this.repeatNewPasswordControl.setValue('')
+    this.repeatNewPasswordControl.markAsPristine()
+    this.repeatNewPasswordControl.markAsUntouched()
+  }
+}
+
+function matchValidator (newPasswordControl: AbstractControl) {
+  return function matchOtherValidate (repeatNewPasswordControl: FormControl) {
+    let password = newPasswordControl.value
+    let passwordRepeat = repeatNewPasswordControl.value
+    if (password !== passwordRepeat) {
+      return { notSame: true }
+    }
+    return null
+  }
 }

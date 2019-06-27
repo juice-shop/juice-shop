@@ -1,7 +1,8 @@
 .img-thumbnail {
   height: auto;
   max-width: 100%;
-  width: 140px;
+  width: 200px;
+  padding: 0px;
 }
 
 mat-form-field {
@@ -56,4 +57,9 @@ p {
 
 .dialogAction{
   margin-bottom: 0px !important;
+}
+
+.buttons{
+  padding-left: 13px;
+  padding-right: 13px;
 }

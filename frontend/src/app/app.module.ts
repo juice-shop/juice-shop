@@ -7,7 +7,7 @@ import { Routing, AdminGuard, AccountingGuard } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { QRCodeModule } from 'angularx-qrcode'
+import { QRCodeModule } from 'angular2-qrcode'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
@@ -100,6 +100,7 @@ import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
+import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -143,7 +144,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     LastLoginIpComponent,
     PrivacyPolicyComponent,
     AccountingComponent,
-    OrderConfirmationComponent
+    OrderConfirmationComponent,
+    PrivacyPolicyComponent,
+    ChallengeStatusBadgeComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
