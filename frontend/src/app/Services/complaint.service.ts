@@ -12,7 +12,7 @@ export class ComplaintService {
   private host = this.hostServer + '/api/Complaints'
   constructor (private http: HttpClient) { }
 
-  save (params) {
+  save (params: any) {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
