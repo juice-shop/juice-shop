@@ -1,6 +1,6 @@
 <div fxLayoutAlign="center">
-  <mat-card>
-    <h3 translate>TITLE_CONTACT</h3>
+  <mat-card class="mat-elevation-z6">
+    <h1 translate>SECTION_CUSTOMER_FEEDBACK</h1>
 
     <div *ngIf="confirmation">
       <p class="confirmation">{{confirmation}}</p>
@@ -13,34 +13,57 @@
 
       <input hidden type="text" id="userId" [formControl]="userIdControl"/>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_AUTHOR</mat-label>
-        <input [formControl]="authorControl" matInput type="text">
+        <input [formControl]="authorControl" matInput type="text" aria-label="Field with the name of the author">
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label translate>LABEL_COMMENT</mat-label>
-        <textarea id="comment" [formControl]="feedbackControl" matInput></textarea>
-        <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required" translate>MANDATORY_COMMENT</mat-error>
+        <mat-hint translate>
+          <i class="fas fa-exclamation-circle"></i>
+          <em style="margin-left:5px;" translate>{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+        </mat-hint>
+        <textarea #comment id="comment" [formControl]="feedbackControl" matInput
+                  matAutosizeMinRows="4" matAutosizeMaxRows="4" matTextareaAutosize cols="50" maxlength="160"
+                  placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate}}"
+                  aria-label="Field for entering the comment or the feedback"></textarea>
+        <mat-hint align="end">{{comment.value?.length || 0}}/160</mat-hint>
+        <mat-error *ngIf="feedbackControl.invalid && feedbackControl.errors.required" translate>MANDATORY_COMMENT
+        </mat-error>
       </mat-form-field>
 
-      <div style="margin-top:5px;" class="rating-container">
-        <label style="font-weight:bold; margin-right: 8px;" translate>LABEL_RATING</label>
+      <div class="rating-container">
+        <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
         <bar-rating [(rate)]="rating" [max]="5"></bar-rating>
       </div>
 
-      <mat-form-field>
-        <label style="font-weight:bold;" translate>LABEL_CAPTCHA</label>&nbsp;
-        <code id="captcha">{{captcha}}</code>&nbsp;<label>?</label>
-        <input id="captchaControl" [formControl]="captchaControl" matInput type="text">
-        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA</mat-error>
+      <div style="margin-bottom: 10px; margin-top: 10px; ">
+        <label style="font-weight:500;">CAPTCHA:</label>&nbsp;&nbsp;<span style="font-size:small;"
+                                                                          translate>LABEL_WHAT_IS</span>&nbsp;
+        <code id="captcha" aria-label="CAPTCHA code which must be solved">{{captcha}}</code>&nbsp;<label
+        style="font-size:small;">?</label>
+      </div>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label translate>LABEL_RESULT</mat-label>
+        <input id="captchaControl" [formControl]="captchaControl" matInput type="text"
+               placeholder="{{ 'MANDATORY_CAPTCHA' | translate}}"
+               aria-label="Field for the result of the CAPTCHA code" pattern="-?[\d]*">
+        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.required" translate>MANDATORY_CAPTCHA
+        </mat-error>
+        <mat-error *ngIf="captchaControl.invalid && captchaControl.errors.pattern" translate>INVALID_CAPTCHA
+        </mat-error>
       </mat-form-field>
 
     </div>
 
-    <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
+    <button type="submit" id="submitButton" mat-raised-button color="primary"
             [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
-            (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+            (click)="save()" aria-label="Button to send the review">
+      <i class="material-icons">
+        send
+      </i>
+      {{'BTN_SUBMIT' | translate}}
     </button>
 
   </mat-card>

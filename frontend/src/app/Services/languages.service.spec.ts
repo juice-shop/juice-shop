@@ -16,7 +16,7 @@ describe('LanguagesService', () => {
 
   it('should get the language list through the rest API', inject([LanguagesService, HttpTestingController],
     fakeAsync((service: LanguagesService, httpMock: HttpTestingController) => {
-      let res
+      let res: any
       service.getLanguages().subscribe((data) => res = data)
 
       const req = httpMock.expectOne('http://localhost:3000/rest/languages')
