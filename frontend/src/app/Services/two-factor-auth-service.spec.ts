@@ -9,7 +9,7 @@ describe('TwoFactorAuthServiceService', () => {
     providers: [TwoFactorAuthService]
   }))
 
-  it('should be created', inject([TwoFactorAuthService], (service) => {
+  it('should be created', inject([TwoFactorAuthService], (service: TwoFactorAuthService) => {
     expect(service).toBeTruthy()
   }))
 })

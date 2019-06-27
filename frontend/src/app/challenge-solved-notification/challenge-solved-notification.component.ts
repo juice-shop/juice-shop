@@ -44,7 +44,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.ctf) {
-        if (config.ctf.showFlagsInNotifications !== null) {
+        if (config.ctf.showFlagsInNotifications) {
           this.showCtfFlagsInNotifications = config.ctf.showFlagsInNotifications
         } else {
           this.showCtfFlagsInNotifications = false
