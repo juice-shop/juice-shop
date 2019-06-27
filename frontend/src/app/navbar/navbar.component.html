@@ -51,6 +51,14 @@
           {{"ACCOUNTING" | translate}}
         </span>
       </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/saved-payment-methods" aria-label="Go to saved payment methods page">
+        <mat-icon>
+          credit_card
+        </mat-icon>
+        <span>
+          {{"MY_PAYMENT_OPTIONS" | translate}}
+        </span>
+      </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https

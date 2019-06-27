@@ -98,6 +98,10 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { PaymentService } from './Services/payment.service'
+import { PaymentComponent } from './payment/payment.component'
+import { PaymentMethodComponent } from './payment-method/payment-method.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 
@@ -142,8 +146,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
+    PaymentComponent,
+    PaymentMethodComponent,
+    SavedPaymentMethodsComponent,
     AccountingComponent,
-    PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent
   ],
   entryComponents: [
@@ -228,6 +234,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeService,
     CookieService,
     AdminGuard,
+    ImageCaptchaService,
+    PaymentService,
     AccountingGuard,
     ImageCaptchaService,
     QuantityService

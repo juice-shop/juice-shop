@@ -1,0 +1,94 @@
+<div fxLayout="column" fxLayoutGap="20px">
+    <div class="table-container custom-slate mat-elevation-z6" *ngIf="cardsExist">
+        <div class="heading">
+            <div>{{"YOUR_SAVED_CARDS" | translate}}</div>
+            <div *ngIf="confirmation" style="margin-top:5px;">
+                <p class="confirmation">{{ confirmation }}</p>
+            </div>
+            <div *ngIf="error" style="margin-top:5px;">
+                <p class="error">{{error?.error}}</p>
+            </div>
+        </div>
+        <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Selection">
+                <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="15%">
+                    <mat-radio-button (click)="emitSelectionToParent(element.id)"></mat-radio-button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Number">
+                <mat-header-cell *matHeaderCellDef translate="LABEL_CARD_NUMBER" fxFlex="35%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="35%">{{ element.cardNum }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+                <mat-header-cell *matHeaderCellDef translate="LABEL_NAME" fxFlex="30%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="30%">{{ element.fullName }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Expiry">
+                <mat-header-cell *matHeaderCellDef translate="LABEL_EXPIRES_ON" fxFlex="20%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="20%">{{ element.expMonth }}/{{ element.expYear }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Remove">
+                <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="15%">
+                     <button mat-icon-button (click)="delete(element.id)"><i class="far fa-trash-alt"></i></button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <mat-expansion-panel class="mat-elevation-z6">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{"ADD_NEW_CARD" | translate}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{"ADD_NEW_CARD_DESCRIPTION" | translate}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field>
+                    <mat-label translate>LABEL_NAME</mat-label>
+                    <input [formControl]="nameControl" type="text" matInput>
+                    <mat-error *ngIf="nameControl.invalid && nameControl.errors.required" translate>
+                        MANDATORY_NAME
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label translate>LABEL_CARD_NUMBER</mat-label>
+                    <input [formControl]="numberControl" type="number" matInput>
+                    <mat-error *ngIf="numberControl.invalid && numberControl.errors.required" translate>
+                        MANDATORY_CARD_NUMBER
+                    </mat-error>
+                    <mat-error *ngIf="numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)" translate>
+                        VALID_CARD_NUMBER
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 45%;margin-right: 10%;">
+                    <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
+                    <select matNativeControl [formControl]="monthControl" required>
+                        <option *ngFor="let i of monthRange" value="{{ i }}">{{ i }}</option>
+                    </select>
+                    <mat-error *ngIf="monthControl.invalid && monthControl.errors.required" translate>
+                        MANDATORY_EXPIRY_MONTH
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 45%">
+                    <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
+                    <select matNativeControl [formControl]="yearControl" required>
+                        <option *ngFor="let i of yearRange" value="{{ i }}">{{ i }}</option>
+                    </select>
+                    <mat-error *ngIf="yearControl.invalid && yearControl.errors.required" translate>
+                        MANDATORY_EXPIRY_YEAR
+                    </mat-error>
+                </mat-form-field>
+             </div>
+            <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary" [disabled]="nameControl.invalid || numberControl.invalid || monthControl.invalid || yearControl.invalid" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+            </button>
+        </mat-expansion-panel>
+    </div>
+</div>
