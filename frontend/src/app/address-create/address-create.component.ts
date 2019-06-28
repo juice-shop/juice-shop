@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-address-create',
@@ -24,7 +25,7 @@ export class AddressCreateComponent implements OnInit {
   public mode = 'create'
   private addressId: string = undefined
 
-  constructor (private formSubmitService: FormSubmitService, private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor (private location: Location, private formSubmitService: FormSubmitService, private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit () {
     this.address = {}
@@ -58,7 +59,7 @@ export class AddressCreateComponent implements OnInit {
         this.address = {}
         this.ngOnInit()
         this.resetForm()
-        this.router.navigate(['/address/list'])
+        this.routeToPreviousUrl()
       }, (error) => {
         this.error = error.error
         this.confirmation = null
@@ -72,7 +73,7 @@ export class AddressCreateComponent implements OnInit {
         this.address = {}
         this.ngOnInit()
         this.resetForm()
-        this.router.navigate(['/address/list'])
+        this.routeToPreviousUrl()
       }, (error) => {
         this.confirmation = null
         this.error = error.error
@@ -90,6 +91,10 @@ export class AddressCreateComponent implements OnInit {
     this.addressControl.setValue(address.streetAddress)
     this.cityControl.setValue(address.city)
     this.stateControl.setValue(address.state)
+  }
+
+  routeToPreviousUrl () {
+    this.location.back()
   }
 
   resetForm () {

@@ -51,6 +51,14 @@
           {{"ACCOUNTING" | translate}}
         </span>
       </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/address/saved" aria-label="Go to saved address page">
+        <mat-icon>
+          my_location
+        </mat-icon>
+        <span>
+          {{"MY_SAVED_ADRESSES" | translate}}
+        </span>
+      </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https
