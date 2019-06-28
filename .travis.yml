@@ -26,7 +26,7 @@ addons:
 env:
   global:
     CC_TEST_REPORTER_ID:
-      secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
+      secure: qrgODHGsoZkF5S5YFq5HpkxgnLH46HieO2JrtDe6l50bIXJ8Bwo0OvQa8CqTUHSuLA37v9lyD2oixGTTtz8n/TxscJqB4JH0Prf7aiUjIrLwc3QykZFpt3HbbvW9PmlfMbh8O6DZHxBxTxZYw1FYGBmg3iZmjmPDT/ZTSN1fbRU=
 install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
