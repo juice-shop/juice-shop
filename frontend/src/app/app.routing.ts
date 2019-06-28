@@ -32,6 +32,8 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { PaymentComponent } from './payment/payment.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
@@ -116,6 +118,10 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    path: 'saved-payment-methods',
+    component: SavedPaymentMethodsComponent
+  },
+  {
     path: 'basket',
     component: BasketComponent
   },
@@ -130,6 +136,10 @@ const routes: Routes = [
   {
     path: 'order-summary',
     component: OrderSummaryComponent
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   {
     path: 'login',
