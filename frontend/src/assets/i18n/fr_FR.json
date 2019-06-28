@@ -215,7 +215,7 @@
   "LABEL_RESULT": "Résultat",
   "IP_ADDRESS": "Adresse IP :",
   "WRITE_MESSAGE_PLACEHOLDER": "Que voulez-vous nous dire?",
-  "SHOW_PWD_TOOLTIP": "Show password",
-  "HIDE_PWD_TOOLTIP": "Hide password",
+  "SHOW_PWD_TOOLTIP": "Afficher le mot de passe",
+  "HIDE_PWD_TOOLTIP": "Masquer le mot de passe",
   "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )"
 }
