@@ -214,5 +214,8 @@
   "BTN_SAVE": "Salvesta",
   "LABEL_RESULT": "Tulemus",
   "IP_ADDRESS": "IP-aadress:",
-  "WRITE_MESSAGE_PLACEHOLDER": "Mida soovid meile teatada?"
+  "WRITE_MESSAGE_PLACEHOLDER": "Mida soovid meile teatada?",
+  "SHOW_PWD_TOOLTIP": "Show password",
+  "HIDE_PWD_TOOLTIP": "Hide password",
+  "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )"
 }
