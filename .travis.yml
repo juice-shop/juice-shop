@@ -7,7 +7,6 @@ os:
 node_js:
   - 12
   - 10
-  - 8
 stages:
   - lint
   - test
@@ -18,13 +17,17 @@ branches:
   except:
     - gh-pages
     - l10n_develop
+matrix:
+  fast_finish: true
+  allow_failures:
+    - os: windows
 addons:
   chrome: stable
   code_climate:
     repo_token:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
 install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
-script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" = "linux" ]]; then NODE_ENV=test npm test; fi
+script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
   - rm -rf node_modules
   - rm -rf frontend/node_modules

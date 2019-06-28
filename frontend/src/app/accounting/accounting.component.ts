@@ -22,7 +22,7 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
   public dataSource
   public confirmation = undefined
   public error = undefined
-  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   private productSubscription: Subscription
   private quantitySubscription: Subscription
   public quantityMap: any
