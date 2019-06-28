@@ -81,9 +81,9 @@ async function quantityCheck (req, res, next, id, quantity) {
     if (product.quantity >= quantity) {
       next()
     } else {
-      res.status(400).json({ error: 'Stock Out, Please wait for a refill' })
+      res.status(400).json({ error: 'We are out of stock! Sorry for the inconvenience.' })
     }
   } else {
-    res.status(400).json({ error: 'The quantity of this item is limited to ' + product.limitPerUser + ' per user.' })
+    res.status(400).json({ error: 'You can order only up to ' + product.limitPerUser + ' items of this product.' })
   }
 }
