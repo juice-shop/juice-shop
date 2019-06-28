@@ -35,6 +35,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { AddressCreateComponent } from './address-create/address-create.component'
 import { AddressSelectComponent } from './address-select/address-select.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
+import { PaymentComponent } from './payment/payment.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 
@@ -157,6 +159,10 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
+    path: 'saved-payment-methods',
+    component: SavedPaymentMethodsComponent
+  },
+  {
     path: 'basket',
     component: BasketComponent
   },
@@ -167,6 +173,10 @@ const routes: Routes = [
   {
     path: 'complain',
     component: ComplaintComponent
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   {
     path: 'login',
