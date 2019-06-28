@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
@@ -25,15 +25,15 @@ dom.watch()
 export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
-  public tableData: any[]
-  public dataSource
-  public gridDataSource
-  public searchValue
-  public confirmation = undefined
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
-  private productSubscription: Subscription
-  private routerSubscription: Subscription
-  public breakpoint: number
+  public tableData!: any[]
+  public dataSource!: MatTableDataSource<Element>
+  public gridDataSource!: any
+  public searchValue?: SafeHtml
+  public confirmation?: string
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
+  private productSubscription?: Subscription
+  private routerSubscription?: Subscription
+  public breakpoint: number = 6
   public emptyState = false
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
@@ -90,8 +90,8 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
-      this.gridDataSource.subscribe(result => {
-        if (result < 1) {
+      this.gridDataSource.subscribe((result: any) => {
+        if (result.length === 0) {
           this.emptyState = true
         } else {
           this.emptyState = false
@@ -114,7 +114,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     })
   }
 
-  addToBasket (id: number) {
+  addToBasket (id?: number) {
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
@@ -160,7 +160,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     return localStorage.getItem('token')
   }
 
-  onResize (event) {
+  onResize (event: any) {
     if (event.target.innerWidth < 2600) {
       this.breakpoint = 4
       if (event.target.innerWidth < 1740) {
