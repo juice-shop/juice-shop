@@ -59,7 +59,7 @@ export class DataExportComponent implements OnInit {
     }, (error) => {
       this.error = error.error
       this.confirmation = null
-      this.resetForm()
+      this.resetFormError()
     })
   }
 
@@ -70,5 +70,11 @@ export class DataExportComponent implements OnInit {
     this.formatControl.markAsUntouched()
     this.formatControl.markAsPristine()
     this.formatControl.setValue('')
+  }
+
+  resetFormError () {
+    this.captchaControl.markAsUntouched()
+    this.captchaControl.markAsPristine()
+    this.captchaControl.setValue('')
   }
 }
