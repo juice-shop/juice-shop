@@ -41,7 +41,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public searchValue
   public confirmation = undefined
   public error = undefined
-  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   private productSubscription: Subscription
   private routerSubscription: Subscription
   public breakpoint: number
@@ -147,7 +147,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   addToBasket (id: number) {
     this.error = null
-    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
       for (let i = 0; i < productsInBasket.length; i++) {

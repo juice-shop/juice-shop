@@ -8,7 +8,7 @@ import * as io from 'socket.io-client'
 export class SocketIoService {
 
   public io = io
-  private _socket
+  private _socket: any
 
   constructor (private ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {

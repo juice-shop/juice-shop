@@ -13,11 +13,11 @@ export class SecurityQuestionService {
 
   constructor (private http: HttpClient) { }
 
-  find (params) {
+  find (params: any) {
     return this.http.get(this.host + '/', { params: params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  findBy (email) {
+  findBy (email: string) {
     return this.http.get(this.hostServer + '/' + 'rest/user/security-question?email=' + email).pipe(
       map((response: any) => response.question),
       catchError((error) => { throw error })

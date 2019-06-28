@@ -75,7 +75,7 @@ describe('DataExportComponent', () => {
   it('should be compulsory to answer the captcha when captcha is present', () => {
     component.captchaControl.setValue('')
     expect(component.captchaControl.valid).toBeFalsy()
-    component.captchaControl.setValue('1')
+    component.captchaControl.setValue('12345')
     expect(component.captchaControl.valid).toBe(true)
   })
 
