@@ -101,6 +101,10 @@ import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AddressCreateComponent } from './address-create/address-create.component'
 import { AddressSelectComponent } from './address-select/address-select.component'
+import { PaymentService } from './Services/payment.service'
+import { PaymentComponent } from './payment/payment.component'
+import { PaymentMethodComponent } from './payment-method/payment-method.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
@@ -151,8 +155,10 @@ export function HttpLoaderFactory (http: HttpClient) {
     AddressSelectComponent,
     AddressComponent,
     SavedAddressComponent,
+    PaymentComponent,
+    PaymentMethodComponent,
+    SavedPaymentMethodsComponent,
     AccountingComponent,
-    PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent
   ],
   entryComponents: [
@@ -238,6 +244,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     CookieService,
     AdminGuard,
     LoginGuard,
+    ImageCaptchaService,
+    PaymentService,
+    AccountingGuard,
     ImageCaptchaService,
     AddressService,
     AccountingGuard,

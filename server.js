@@ -79,6 +79,7 @@ const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
+const payment = require('./routes/payment')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -240,6 +241,15 @@ app.post('/api/Quantitys', insecurity.denyAll())
 app.use('/api/Quantitys/:id', insecurity.isAccounting())
 /* Feedbacks: Do not allow changes of existing feedback */
 app.put('/api/Feedbacks/:id', insecurity.denyAll())
+/* PrivacyRequests: Only allowed for authenticated users */
+app.use('/api/PrivacyRequests', insecurity.isAuthorized())
+app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
+/* PaymentMethodRequests: Only allowed for authenticated users */
+app.post('/api/Cards', insecurity.appendUserId())
+app.get('/api/Cards', insecurity.appendUserId(), payment.getPaymentMethods())
+app.put('/api/Cards/:id', insecurity.denyAll())
+app.del('/api/Cards/:id', insecurity.appendUserId(), payment.delPaymentMethodById())
+app.get('/api/Cards/:id', insecurity.appendUserId(), payment.getPaymentMethodById())
 /* PrivacyRequests: Only POST allowed for authenticated users */
 app.post('/api/PrivacyRequests', insecurity.isAuthorized())
 app.get('/api/PrivacyRequests', insecurity.denyAll())
@@ -288,8 +298,9 @@ const autoModels = [
   { name: 'SecurityQuestion', exclude: [] },
   { name: 'SecurityAnswer', exclude: [] },
   { name: 'Address', exclude: [] },
-  { name: 'Quantity', exclude: [] },
-  { name: 'PrivacyRequest', exclude: [] }
+  { name: 'PrivacyRequest', exclude: [] },
+  { name: 'Card', exclude: [] },
+  { name: 'Quantity', exclude: [] }
 ]
 
 for (const { name, exclude } of autoModels) {
