@@ -34,21 +34,21 @@ dom.watch()
 })
 export class BasketComponent implements OnInit {
 
-  public userEmail: string
+  public userEmail?: string
   public displayedColumns = ['product','price','quantity','total price','remove']
   public dataSource = []
-  public bonus = 0
+  public bonus: number = 0
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
   public couponControl: FormControl = new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
-  public error = undefined
-  public confirmation = undefined
-  public twitterUrl = null
-  public facebookUrl = null
-  public applicationName = 'OWASP Juice Shop'
-  public redirectUrl = null
+  public error: any
+  public confirmation?: string
+  public twitterUrl?: string
+  public facebookUrl?: string
+  public applicationName: string = 'OWASP Juice Shop'
+  public redirectUrl?: string
   public clientDate: any
-  private campaignCoupon: string
+  private campaignCoupon?: string
 
   constructor (private dialog: MatDialog,private basketService: BasketService,private userService: UserService,private windowRefService: WindowRefService,private configurationService: ConfigurationService,private translateService: TranslateService) {}
 
@@ -59,8 +59,8 @@ export class BasketComponent implements OnInit {
       this.userEmail = '(' + this.userEmail + ')'
     },(err) => console.log(err))
 
-    this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
-    this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
+    this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(String(localStorage.getItem('couponPanelExpanded'))) : false
+    this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(String(localStorage.getItem('paymentPanelExpanded'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application) {
@@ -81,7 +81,7 @@ export class BasketComponent implements OnInit {
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       this.dataSource = basket.Products
       let bonusPoints = 0
-      basket.Products.map(product => {
+      basket.Products.map((product: any) => {
         if (product.BasketItem && product.BasketItem.quantity) {
           bonusPoints += Math.round(product.price / 10) * product.BasketItem.quantity
         }
@@ -90,21 +90,21 @@ export class BasketComponent implements OnInit {
     },(err) => console.log(err))
   }
 
-  delete (id) {
+  delete (id: number) {
     this.basketService.del(id).subscribe(() => {
       this.load()
     }, (err) => console.log(err))
   }
 
-  inc (id) {
+  inc (id: number) {
     this.addToQuantity(id,1)
   }
 
-  dec (id) {
+  dec (id: number) {
     this.addToQuantity(id,-1)
   }
 
-  addToQuantity (id,value) {
+  addToQuantity (id: number, value: number) {
     this.basketService.get(id).subscribe((basketItem) => {
       let newQuantity = basketItem.quantity + value
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
@@ -154,7 +154,7 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  showConfirmation (discount) {
+  showConfirmation (discount: number) {
     this.resetForm()
     this.error = undefined
     this.translateService.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {

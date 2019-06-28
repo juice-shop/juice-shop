@@ -4,6 +4,12 @@ import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 
+interface Passwords {
+  current?: string,
+  new?: string,
+  repeat?: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +46,7 @@ export class UserService {
     return this.isLoggedIn.asObservable()
   }
 
-  changePassword (passwords) {
+  changePassword (passwords: Passwords) {
     return this.http.get(this.hostServer + '/rest/user/change-password?current=' + passwords.current + '&new=' +
     passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
@@ -53,7 +59,7 @@ export class UserService {
     return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
-  oauthLogin (accessToken) {
+  oauthLogin (accessToken: string) {
     return this.http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken)
   }
 
