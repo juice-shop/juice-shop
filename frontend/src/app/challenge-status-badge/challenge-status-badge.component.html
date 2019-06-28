@@ -6,7 +6,7 @@
   matTooltipPosition="above">
             <span class="{{challenge.disabledEnv ? 'unavailable' : (challenge.solved ? 'solved' : 'not-solved')}}">
               <i
-                class="{{challenge.disabledEnv ? ('icon-' + challenge.disabledEnv?.toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
+                class="{{challenge.disabledEnv ? ('icon-' + challenge.disabledEnv?.toString().toLowerCase()) : (challenge.solved ? 'far fa-flag' : 'fas fa-book')}}"
                 aria-hidden="true"
                 [hidden]="!challenge.disabledEnv && ((challenge.solved && !allowRepeatNotifications) || (!challenge.solved && (!showChallengeHints || !challenge.hintUrl)))"></i>
               {{challenge.disabledEnv ? ('STATUS_UNAVAILABLE' | translate) : (challenge.solved ? ('STATUS_SOLVED' | translate) : ('STATUS_UNSOLVED' | translate))}}

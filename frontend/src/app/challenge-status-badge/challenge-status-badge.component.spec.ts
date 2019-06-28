@@ -10,9 +10,9 @@ import { MatButtonModule, MatTooltipModule } from '@angular/material'
 import { EventEmitter } from '@angular/core'
 
 describe('ChallengeStatusBadgeComponent', () => {
-  let challengeService
-  let translateService
-  let windowRefService
+  let challengeService: any
+  let translateService: any
+  let windowRefService: any
   let component: ChallengeStatusBadgeComponent
   let fixture: ComponentFixture<ChallengeStatusBadgeComponent>
 
@@ -48,7 +48,6 @@ describe('ChallengeStatusBadgeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeStatusBadgeComponent)
     component = fixture.componentInstance
-    component.challenge = {}
     fixture.detectChanges()
   })
 

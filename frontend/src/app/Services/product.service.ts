@@ -12,7 +12,7 @@ export class ProductService {
 
   constructor (private http: HttpClient) { }
 
-  search (criteria) {
+  search (criteria: any) {
     return this.http.get(this.hostServer + '/rest/products/search?q=' + criteria).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 

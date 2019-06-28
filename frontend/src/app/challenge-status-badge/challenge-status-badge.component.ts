@@ -9,6 +9,14 @@ import { faFlag } from '@fortawesome/free-regular-svg-icons'
 library.add(faBook, faFlag)
 dom.watch()
 
+interface Challenge {
+  name: string,
+  hint?: string,
+  hintUrl?: string,
+  disabledEnv?: string[],
+  solved?: boolean
+}
+
 @Component({
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
@@ -16,9 +24,9 @@ dom.watch()
 })
 export class ChallengeStatusBadgeComponent {
 
-  @Input('challenge') public challenge
-  @Input('allowRepeatNotifications') public allowRepeatNotifications: boolean = false
-  @Input('showChallengeHints') public showChallengeHints: boolean = true
+  @Input() public challenge: Challenge = { } as Challenge
+  @Input() public allowRepeatNotifications: boolean = false
+  @Input() public showChallengeHints: boolean = true
 
   constructor (private challengeService: ChallengeService, private windowRefService: WindowRefService) { }
 

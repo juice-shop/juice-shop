@@ -43,15 +43,15 @@ dom.watch()
 })
 export class NavbarComponent implements OnInit {
 
-  public userEmail = ''
+  public userEmail: string = ''
   public languages: any = []
-  public selectedLanguage = 'placeholder'
+  public selectedLanguage: string = 'placeholder'
   public version: string = ''
-  public applicationName = 'OWASP Juice Shop'
-  public showGitHubLink = true
-  public logoSrc = 'assets/public/images/JuiceShop_Logo.png'
-  public scoreBoardVisible = false
-  public shortKeyLang = 'placeholder'
+  public applicationName: string = 'OWASP Juice Shop'
+  public showGitHubLink: boolean = true
+  public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
+  public scoreBoardVisible: boolean = false
+  public shortKeyLang: string = 'placeholder'
 
   @Output() public sidenavToggle = new EventEmitter()
 
@@ -113,12 +113,12 @@ export class NavbarComponent implements OnInit {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
-      this.selectedLanguage = this.languages.find((y) => y.key === langKey)
-      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+      this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === langKey)
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey).shortKey
     } else {
       this.changeLanguage('en')
-      this.selectedLanguage = this.languages.find((y) => y.key === 'en')
-      this.shortKeyLang = this.languages.find((y) => y.key === 'en').shortKey
+      this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === 'en')
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === 'en').shortKey
     }
   }
 
@@ -150,13 +150,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
-  changeLanguage (langKey) {
+  changeLanguage (langKey: string) {
     this.translate.use(langKey)
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
     this.cookieService.put('language', langKey, { expires })
-    if (this.languages.find((y) => y.key === langKey)) {
-      this.shortKeyLang = this.languages.find((y) => y.key === langKey).shortKey
+    if (this.languages.find((y: { key: string }) => y.key === langKey)) {
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey).shortKey
     }
   }
 
