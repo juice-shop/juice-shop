@@ -23,8 +23,9 @@ matrix:
     - os: windows
 addons:
   chrome: stable
-  code_climate:
-    repo_token:
+env:
+  global:
+    CC_TEST_REPORTER_ID:
       secure: NC3ew4c92DO4SAdbJvaZkaRnEZaZcAr9NcxOeraqAKHRXY3COnerWGR8+kIE9KiadcRdatmu0sSjWldDcAZfmMwOraMI9CDkqdPSjtjciCVEFdGi+OPOvMY/gOJU6XeM7lsO5MvYD7mqChl2gR6s7IO/klPahf53c97PPDo3C90=
 install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
@@ -55,13 +56,19 @@ jobs:
     - stage: integration
       if: tag IS blank
       os: linux
+      before_script:
+        - "curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter"
+        - "chmod +x ./cc-test-reporter"
       script:
         - export NODE_ENV=test
         - npm test
         - npm run frisby
       after_success:
-        - "./node_modules/.bin/lcov-result-merger 'build/reports/coverage/**/lcov.info' 'build/reports/coverage/lcov_merged.info'"
-        - "./node_modules/.bin/codeclimate-test-reporter < ./build/reports/coverage/lcov_merged.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json build/reports/coverage/server-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info"
+        - "./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3"
+        - "./cc-test-reporter upload-coverage"
     - stage: e2e
       if: tag IS blank
       os: linux
