@@ -7,26 +7,20 @@
 
 mat-card {
 	height: auto;
-	margin-top: 20px;
 }
 
 .main-wrapper {
-	margin-left: 20%;
-	margin-right: 20%;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 
-.img-thumbnail {
-    height: auto;
-    max-width: 70%;
-    width: 70px;
-}
-
-mat-cell {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
+mat-cell, 
+mat-footer-cell,
 mat-header-cell {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.price-align {
+	text-align: right;
 }

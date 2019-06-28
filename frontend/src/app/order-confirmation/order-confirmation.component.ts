@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { BasketService } from '../Services/basket.service'
+import { TrackOrderService } from '../Services/track-order.service'
+import { ActivatedRoute, ParamMap } from '@angular/router'
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-order-confirmation',
@@ -8,26 +10,24 @@ import { BasketService } from '../Services/basket.service'
 })
 export class OrderConfirmationComponent implements OnInit {
 
-  public tableColumns = ['image', 'product','price','quantity','total price']
+  public tableColumns = ['product','price','quantity','total price']
   public dataSource
-  public bonus = 0
-  public itemTotal = 0
+  public orderId
+  public orderDetails: any = { totalPrice: 0 }
   public deliveryPrice = 0
   public promotionalDiscount = 0
 
-  constructor (private basketService: BasketService) { }
+  constructor (private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit () {
-    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
-      this.dataSource = basket.Products
-      let bonusPoints = 0
-      basket.Products.map(product => {
-        if (product.BasketItem && product.BasketItem.quantity) {
-          bonusPoints += Math.round(product.price / 10) * product.BasketItem.quantity
-          this.itemTotal += product.price * product.BasketItem.quantity
-        }
-      })
-      this.bonus = bonusPoints
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.orderId = paramMap.get('id')
+      this.trackOrderService.save(this.orderId).subscribe((results) => {
+        this.orderDetails.totalPrice = results.data[0].totalPrice
+        this.orderDetails.eta = results.data[0].eta || '?'
+        this.orderDetails.bonus = results.data[0].bonus
+        this.dataSource = new MatTableDataSource<Element>(results.data[0].products)
+      },(err) => console.log(err))
     },(err) => console.log(err))
   }
 }
