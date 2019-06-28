@@ -12,6 +12,21 @@ import { faClipboard, faFlagCheckered, faGlobe } from '@fortawesome/free-solid-s
 library.add(faGlobe, faFlagCheckered, faClipboard)
 dom.watch()
 
+interface ChallengeSolvedMessage {
+  challenge: string,
+  hidden?: any,
+  isRestore?: any,
+  flag: any,
+  key?: any
+}
+
+interface ChallengeSolvedNotification {
+  message: string,
+  flag: string,
+  country?: { code: string, name: string },
+  copied: boolean
+}
+
 @Component({
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
@@ -19,17 +34,17 @@ dom.watch()
 })
 export class ChallengeSolvedNotificationComponent implements OnInit {
 
-  public notifications: any[] = []
-  public showCtfFlagsInNotifications
-  public showCtfCountryDetailsInNotifications
-  public countryMap
+  public notifications: ChallengeSolvedNotification[] = []
+  public showCtfFlagsInNotifications: boolean = false
+  public showCtfCountryDetailsInNotifications: string = 'none'
+  public countryMap?: any
 
   constructor (private ngZone: NgZone, private configurationService: ConfigurationService, private challengeService: ChallengeService,private countryMappingService: CountryMappingService,private translate: TranslateService, private cookieService: CookieService, private ref: ChangeDetectorRef, private io: SocketIoService) {
   }
 
   ngOnInit () {
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', (data) => {
+      this.io.socket().on('challenge solved', (data: ChallengeSolvedMessage) => {
         if (data && data.challenge) {
           if (!data.hidden) {
             this.showNotification(data)
@@ -54,7 +69,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           this.showCtfCountryDetailsInNotifications = config.ctf.showCountryDetailsInNotifications
 
           if (config.ctf.showCountryDetailsInNotifications !== 'none') {
-            this.countryMappingService.getCountryMapping().subscribe((countryMap) => {
+            this.countryMappingService.getCountryMapping().subscribe((countryMap: any) => {
               this.countryMap = countryMap
             },(err) => console.log(err))
           }
@@ -74,7 +89,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
     this.ref.detectChanges()
   }
 
-  showNotification (challenge) {
+  showNotification (challenge: ChallengeSolvedMessage) {
     this.translate.get('CHALLENGE_SOLVED', { challenge: challenge.challenge }).toPromise().then((challengeSolved) => challengeSolved,
       (translationId) => translationId).then((message) => {
         let country
