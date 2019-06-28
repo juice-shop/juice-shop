@@ -38,7 +38,7 @@ export class PurchaseBasketComponent implements OnInit {
   }
 
   load () {
-    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+    this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
       this.dataSource = basket.Products
       this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
       this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
