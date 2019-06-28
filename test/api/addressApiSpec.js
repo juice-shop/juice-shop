@@ -23,7 +23,7 @@ beforeAll(() => {
 describe('/api/Addresss', () => {
   it('GET all addresses is forbidden via public API', () => {
     return frisby.get(API_URL + '/Addresss')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('GET all addresses', () => {
@@ -89,7 +89,7 @@ describe('/api/Addresss', () => {
       state: 'NY',
       country: 'USA'
     })
-      .expect('status', 400)
+      .expect('status', 401)
   })
 })
 
@@ -112,19 +112,19 @@ describe('/api/Addresss/:id', () => {
 
   it('GET address by id is forbidden via public API', () => {
     return frisby.get(API_URL + '/Addresss/1')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('PUT update address is forbidden via public API', () => {
     return frisby.put(API_URL + '/Addresss/1', {
       quantity: 2
     }, { json: true })
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('DELETE address by id is forbidden via public API', () => {
     return frisby.del(API_URL + '/Addresss/1')
-      .expect('status', 400)
+      .expect('status', 401)
   })
 
   it('GET address by id', () => {
