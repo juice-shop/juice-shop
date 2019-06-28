@@ -215,5 +215,6 @@
   "THANKS_FOR_PURCHASE": "Thank you, for your purchase.",
   "PURCHASE_COMMENT_PREFIX": "Your order has been placed and is being processed. You can track the order through",
   "PURCHASE_COMMENT_SUFFIX": "page.",
-  "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!"
+  "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!",
+  "ESTIMATED_TIME_OF_DELIVERY": "Your order will be delivered in {{numberdays}} days."
 }

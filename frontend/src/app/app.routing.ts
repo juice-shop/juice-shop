@@ -120,7 +120,7 @@ const routes: Routes = [
     component: BasketComponent
   },
   {
-    path: 'order-confirmation',
+    path: 'order-confirmation/:id',
     component: OrderConfirmationComponent
   },
   {
