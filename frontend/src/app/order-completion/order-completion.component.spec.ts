@@ -9,13 +9,13 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { of } from 'rxjs'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
-import { OrderConfirmationComponent } from './order-confirmation.component'
 import { TrackOrderService } from '../Services/track-order.service'
 import { RouterTestingModule } from '@angular/router/testing'
+import { OrderCompletionComponent } from './order-completion.component'
 
-fdescribe('OrderConfirmationComponent', () => {
-  let component: OrderConfirmationComponent
-  let fixture: ComponentFixture<OrderConfirmationComponent>
+describe('OrderCompletionComponent', () => {
+  let component: OrderCompletionComponent
+  let fixture: ComponentFixture<OrderCompletionComponent>
   let trackOrderService
 
   beforeEach(async(() => {
@@ -24,7 +24,7 @@ fdescribe('OrderConfirmationComponent', () => {
     trackOrderService.save.and.returnValue(of({ Products: {} }))
 
     TestBed.configureTestingModule({
-      declarations: [ OrderConfirmationComponent ],
+      declarations: [ OrderCompletionComponent ],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
@@ -45,7 +45,7 @@ fdescribe('OrderConfirmationComponent', () => {
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderConfirmationComponent)
+    fixture = TestBed.createComponent(OrderCompletionComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

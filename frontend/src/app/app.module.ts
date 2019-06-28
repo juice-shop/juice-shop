@@ -106,10 +106,10 @@ import { PaymentComponent } from './payment/payment.component'
 import { PaymentMethodComponent } from './payment-method/payment-method.component'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
-import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
 import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -152,7 +152,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
-    OrderConfirmationComponent,
+    OrderCompletionComponent,
     AddressCreateComponent,
     AddressSelectComponent,
     AddressComponent,
@@ -161,7 +161,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     PaymentMethodComponent,
     SavedPaymentMethodsComponent,
     AccountingComponent,
-    OrderConfirmationComponent,
     PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent
   ],

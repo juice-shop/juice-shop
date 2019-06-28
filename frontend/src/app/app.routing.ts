@@ -39,7 +39,7 @@ import { PaymentComponent } from './payment/payment.component'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
-import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -168,8 +168,8 @@ const routes: Routes = [
     component: BasketComponent
   },
   {
-    path: 'order-confirmation/:id',
-    component: OrderConfirmationComponent
+    path: 'order-completion/:id',
+    component: OrderCompletionComponent
   },
   {
     path: 'contact',
