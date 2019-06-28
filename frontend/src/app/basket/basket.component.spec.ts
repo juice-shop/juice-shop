@@ -120,8 +120,8 @@ describe('BasketComponent', () => {
 
   it('should not hold twitter or facebook URL if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    expect(component.twitterUrl).toBeNull()
-    expect(component.facebookUrl).toBeNull()
+    expect(component.twitterUrl).toBeUndefined()
+    expect(component.facebookUrl).toBeUndefined()
   })
 
   it('should use custom twitter URL if configured', () => {
@@ -320,7 +320,7 @@ describe('BasketComponent', () => {
     console.log = jasmine.createSpy('log')
     const windowSpy = spyOnProperty(windowRefService,'nativeWindow','get')
     component.checkout()
-    expect(component.redirectUrl).toBeNull()
+    expect(component.redirectUrl).toBeUndefined()
     expect(windowSpy).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))

@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   public rememberMe: FormControl = new FormControl(false)
   public error: any
   public oauthUnavailable: any
-  public redirectUri
+  public redirectUri: string
   constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
