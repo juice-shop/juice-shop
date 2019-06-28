@@ -77,6 +77,7 @@ const languageList = require('./routes/languages')
 const config = require('config')
 const imageCaptcha = require('./routes/imageCaptcha')
 const dataExport = require('./routes/dataExport')
+const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
 
@@ -247,12 +248,18 @@ app.use('/api/PrivacyRequests/:id', insecurity.isAuthorized())
 app.post('/api/Cards', insecurity.appendUserId())
 app.get('/api/Cards', insecurity.appendUserId(), payment.getPaymentMethods())
 app.put('/api/Cards/:id', insecurity.denyAll())
-app.del('/api/Cards/:id', insecurity.appendUserId(), payment.delPaymentMethodById())
+app.delete('/api/Cards/:id', insecurity.appendUserId(), payment.delPaymentMethodById())
 app.get('/api/Cards/:id', insecurity.appendUserId(), payment.getPaymentMethodById())
 /* PrivacyRequests: Only POST allowed for authenticated users */
 app.post('/api/PrivacyRequests', insecurity.isAuthorized())
 app.get('/api/PrivacyRequests', insecurity.denyAll())
 app.use('/api/PrivacyRequests/:id', insecurity.denyAll())
+
+app.post('/api/Addresss', insecurity.appendUserId())
+app.get('/api/Addresss', insecurity.appendUserId(), address.getAddress())
+app.put('/api/Addresss/:id', insecurity.appendUserId())
+app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
+app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
@@ -290,6 +297,7 @@ const autoModels = [
   { name: 'Recycle', exclude: [] },
   { name: 'SecurityQuestion', exclude: [] },
   { name: 'SecurityAnswer', exclude: [] },
+  { name: 'Address', exclude: [] },
   { name: 'PrivacyRequest', exclude: [] },
   { name: 'Card', exclude: [] },
   { name: 'Quantity', exclude: [] }
