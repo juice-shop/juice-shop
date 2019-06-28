@@ -161,6 +161,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     PaymentMethodComponent,
     SavedPaymentMethodsComponent,
     AccountingComponent,
+    OrderConfirmationComponent,
+    PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent
   ],
   entryComponents: [
