@@ -100,8 +100,10 @@ import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AddressCreateComponent } from './address-create/address-create.component'
-import { AddressListComponent } from './address-list/address-list.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
 import { AccountingComponent } from './accounting/accounting.component'
+import { AddressComponent } from './address/address.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -145,7 +147,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     LastLoginIpComponent,
     PrivacyPolicyComponent,
     AddressCreateComponent,
-    AddressListComponent,
+    AddressSelectComponent,
+    AddressComponent,
+    SavedAddressComponent,
     AccountingComponent
   ],
   entryComponents: [

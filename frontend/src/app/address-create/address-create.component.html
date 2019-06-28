@@ -67,7 +67,7 @@
      [disabled]="countryControl.invalid || nameControl.invalid || numberControl.invalid || pinControl.invalid || addressControl.invalid || cityControl.invalid" 
      (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
      </button>
-     <button mat-raised-button routerLink="/address/list" class="btn-return">
+     <button mat-raised-button class="btn-return" (click)="routeToPreviousUrl()">
      {{'LABEL_GO_BACK' | translate}}
      </button>
   </mat-card>

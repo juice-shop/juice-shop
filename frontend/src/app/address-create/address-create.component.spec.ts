@@ -11,10 +11,9 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
-import { AddressListComponent } from '../address-list/address-list.component'
 import { MatGridListModule } from '@angular/material/grid-list'
 
-describe('AddressCreateComponent', () => {
+fdescribe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
   let fixture: ComponentFixture<AddressCreateComponent>
   let addressService
@@ -28,9 +27,7 @@ describe('AddressCreateComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'address/list', component: AddressListComponent }
-        ]),
+        RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -41,7 +38,7 @@ describe('AddressCreateComponent', () => {
         MatInputModule,
         MatGridListModule
       ],
-      declarations: [ AddressCreateComponent, AddressListComponent ],
+      declarations: [ AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService }
       ]

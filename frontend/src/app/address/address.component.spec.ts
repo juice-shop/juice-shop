@@ -3,19 +3,20 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
-import { AddressListComponent } from './address-list.component'
+import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { of, throwError } from 'rxjs'
-import { MatGridListModule } from '@angular/material/grid-list'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
+import { MatTableModule, MatExpansionModule, MatDividerModule, MatRadioModule, MatDialogModule } from '@angular/material'
+import { AddressCreateComponent } from '../address-create/address-create.component'
 
-describe('AddressListComponent', () => {
-  let component: AddressListComponent
-  let fixture: ComponentFixture<AddressListComponent>
+describe('AddressComponent', () => {
+  let component: AddressComponent
+  let fixture: ComponentFixture<AddressComponent>
   let addressService
 
   beforeEach(async(() => {
@@ -33,11 +34,15 @@ describe('AddressListComponent', () => {
         BarRatingModule,
         BrowserAnimationsModule,
         MatCardModule,
+        MatTableModule,
         MatFormFieldModule,
         MatInputModule,
-        MatGridListModule
+        MatExpansionModule,
+        MatDividerModule,
+        MatRadioModule,
+        MatDialogModule
       ],
-      declarations: [ AddressListComponent ],
+      declarations: [ AddressComponent, AddressCreateComponent ],
       providers: [
         { provide: AddressService, useValue: addressService }
       ]
@@ -46,7 +51,7 @@ describe('AddressListComponent', () => {
   }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddressListComponent)
+    fixture = TestBed.createComponent(AddressComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
@@ -82,14 +87,8 @@ describe('AddressListComponent', () => {
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of([]))
     component.deleteAddress(1)
-    spyOn(component,'chooseAddress')
-    spyOn(component,'ngOnInit')
+    spyOn(component,'load')
     expect(addressService.del).toHaveBeenCalled()
     expect(addressService.get).toHaveBeenCalled()
-  }))
-
-  it('should store addressid in session storage on calling chooseAddress', fakeAsync(() => {
-    component.chooseAddress(1)
-    expect(sessionStorage.getItem('addressid')).toBe('1')
   }))
 })

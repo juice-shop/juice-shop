@@ -33,7 +33,8 @@ import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
 import { AddressCreateComponent } from './address-create/address-create.component'
-import { AddressListComponent } from './address-list/address-list.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 
@@ -136,8 +137,13 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
-    path: 'address/list',
-    component: AddressListComponent,
+    path: 'address/select',
+    component: AddressSelectComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/saved',
+    component: SavedAddressComponent,
     canActivate: [LoginGuard]
   },
   {

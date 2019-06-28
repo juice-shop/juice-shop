@@ -1,0 +1,14 @@
+
+<div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px" class="main-wrapper">
+      <div fxLayoutGap="20px" fxFlex="70%">
+          <app-address (emitSelection)="getMessage($event)"></app-address>
+      </div>
+      <div fxFlex="30%">
+          <mat-card class="mat-elevation-z6">
+               <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Proceed to payment selection" [disabled]="addressId === undefined" (click)="chooseAddress()">
+                  <span translate>LABEL_CONTINUE</span>
+              </button>
+          </mat-card>
+      </div>
+  </div>
+  
