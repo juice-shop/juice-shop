@@ -4,11 +4,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
-  selector: 'app-order-confirmation',
-  templateUrl: './order-confirmation.component.html',
-  styleUrls: ['./order-confirmation.component.scss']
+  selector: 'app-order-completion',
+  templateUrl: './order-completion.component.html',
+  styleUrls: ['./order-completion.component.scss']
 })
-export class OrderConfirmationComponent implements OnInit {
+export class OrderCompletionComponent implements OnInit {
 
   public tableColumns = ['product','price','quantity','total price']
   public dataSource
