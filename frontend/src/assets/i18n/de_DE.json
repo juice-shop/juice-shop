@@ -214,5 +214,8 @@
   "BTN_SAVE": "Speichern",
   "LABEL_RESULT": "Ergebnis",
   "IP_ADDRESS": "IP-Adresse:",
-  "WRITE_MESSAGE_PLACEHOLDER": "Was möchten Sie uns mitteilen?"
+  "WRITE_MESSAGE_PLACEHOLDER": "Was möchten Sie uns mitteilen?",
+  "SHOW_PWD_TOOLTIP": "Show password",
+  "HIDE_PWD_TOOLTIP": "Hide password",
+  "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )"
 }
