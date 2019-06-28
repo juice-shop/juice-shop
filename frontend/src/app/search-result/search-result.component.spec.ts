@@ -22,11 +22,11 @@ import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 
 class MockSocket {
-  on (str: string, callback) {
+  on (str: string, callback: Function) {
     callback(str)
   }
 
-  emit (a,b) {
+  emit (a: any, b: any) {
     return null
   }
 }
@@ -34,7 +34,7 @@ class MockSocket {
 class MockActivatedRoute {
   snapshot = { queryParams: { q: '' } }
 
-  setQueryParameter (arg) {
+  setQueryParameter (arg: string) {
     this.snapshot.queryParams.q = arg
   }
 }
@@ -42,14 +42,14 @@ class MockActivatedRoute {
 describe('SearchResultComponent', () => {
   let component: SearchResultComponent
   let fixture: ComponentFixture<SearchResultComponent>
-  let productService
-  let basketService
-  let translateService
+  let productService: any
+  let basketService: any
+  let translateService: any
   let activatedRoute: MockActivatedRoute
-  let dialog
-  let sanitizer
-  let socketIoService
-  let mockSocket
+  let dialog: any
+  let sanitizer: any
+  let socketIoService: any
+  let mockSocket: any
 
   beforeEach(async(() => {
 
@@ -229,7 +229,7 @@ describe('SearchResultComponent', () => {
   it('should not add anything to basket on error retrieving basket', fakeAsync(() => {
     basketService.find.and.returnValue(throwError('Error'))
     sessionStorage.setItem('bid','815')
-    component.addToBasket(null)
+    component.addToBasket(undefined)
     expect(component.confirmation).toBeUndefined()
   }))
 
