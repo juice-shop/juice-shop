@@ -20,18 +20,18 @@ export class UserService {
     response.data),catchError((err) => { throw err }))
   }
 
-  get (id) {
+  get (id: number) {
     return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  save (params) {
+  save (params: any) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
       catchError((err) => { throw err })
     )
   }
 
-  login (params) {
+  login (params: any) {
     this.isLoggedIn.next(true)
     return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication), catchError((err) => { throw err }))
   }
@@ -45,7 +45,7 @@ export class UserService {
     passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
 
-  resetPassword (params) {
+  resetPassword (params: any) {
     return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 

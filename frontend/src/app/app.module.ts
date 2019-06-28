@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing, AdminGuard, AccountingGuard } from './app.routing'
+import { Routing, AdminGuard, LoginGuard, AccountingGuard } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { QRCodeModule } from 'angularx-qrcode'
+import { QRCodeModule } from 'angular2-qrcode'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
@@ -64,6 +64,7 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
@@ -98,8 +99,17 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
+import { PaymentService } from './Services/payment.service'
+import { PaymentComponent } from './payment/payment.component'
+import { PaymentMethodComponent } from './payment-method/payment-method.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
+import { AddressComponent } from './address/address.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
+import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -142,8 +152,16 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
+    OrderConfirmationComponent,
+    AddressCreateComponent,
+    AddressSelectComponent,
+    AddressComponent,
+    SavedAddressComponent,
+    PaymentComponent,
+    PaymentMethodComponent,
+    SavedPaymentMethodsComponent,
     AccountingComponent,
-    OrderConfirmationComponent
+    ChallengeStatusBadgeComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -227,8 +245,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeService,
     CookieService,
     AdminGuard,
+    LoginGuard,
+    ImageCaptchaService,
+    PaymentService,
     AccountingGuard,
     ImageCaptchaService,
+    AddressService,
+    AccountingGuard,
     QuantityService
   ],
   bootstrap: [AppComponent]

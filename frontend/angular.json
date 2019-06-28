@@ -24,12 +24,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/flag-icon-css/sass/flag-icon.scss"
+              "node_modules/material-icons/iconfont/material-icons.scss",
+              "node_modules/flag-icon-css/sass/flag-icon.scss",
+              "node_modules/font-mfizz/dist/font-mfizz.css"
             ],
             "scripts": []
           },

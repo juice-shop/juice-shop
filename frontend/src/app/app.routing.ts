@@ -32,6 +32,11 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
+import { PaymentComponent } from './payment/payment.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component'
@@ -100,6 +105,25 @@ export class AccountingGuard implements CanActivate {
   }
 }
 
+@Injectable()
+export class LoginGuard implements CanActivate {
+  constructor (private router: Router) {}
+
+  canActivate () {
+    if (localStorage.getItem('token')) {
+      return true
+    } else {
+      this.router.navigate(['403'], {
+        skipLocationChange: true,
+        queryParams: {
+          error: 'UNAUTHORIZED_ACCESS_ERROR'
+        }
+      })
+      return false
+    }
+  }
+}
+
 const routes: Routes = [
   {
     path: 'administration',
@@ -116,6 +140,30 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    path: 'address/select',
+    component: AddressSelectComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/saved',
+    component: SavedAddressComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/create',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/edit/:addressId',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'saved-payment-methods',
+    component: SavedPaymentMethodsComponent
+  },
+  {
     path: 'basket',
     component: BasketComponent
   },
@@ -130,6 +178,10 @@ const routes: Routes = [
   {
     path: 'complain',
     component: ComplaintComponent
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   {
     path: 'login',
