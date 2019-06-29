@@ -15,7 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods.component'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
 
-fdescribe('SavedPaymentMethodsComponent', () => {
+describe('SavedPaymentMethodsComponent', () => {
   let component: SavedPaymentMethodsComponent
   let fixture: ComponentFixture<SavedPaymentMethodsComponent>
 
