@@ -23,7 +23,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { ChallengeStatusBadgeComponent } from '../challenge-status-badge/challenge-status-badge.component'
 
 class MockSocket {
-  on (str: string, callback) {
+  on (str: string, callback: Function) {
     callback(str)
   }
 }
@@ -31,12 +31,12 @@ class MockSocket {
 describe('ScoreBoardComponent', () => {
   let component: ScoreBoardComponent
   let fixture: ComponentFixture<ScoreBoardComponent>
-  let challengeService
-  let configurationService
-  let translateService
-  let sanitizer
-  let socketIoService
-  let mockSocket
+  let challengeService: any
+  let configurationService: any
+  let translateService: any
+  let sanitizer: any
+  let socketIoService: any
+  let mockSocket: any
 
   beforeEach(async(() => {
 
@@ -50,7 +50,7 @@ describe('ScoreBoardComponent', () => {
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     sanitizer = jasmine.createSpyObj('DomSanitizer',['bypassSecurityTrustHtml','sanitize'])
-    sanitizer.bypassSecurityTrustHtml.and.callFake((args) => args)
+    sanitizer.bypassSecurityTrustHtml.and.callFake((args: any) => args)
     sanitizer.sanitize.and.returnValue({})
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
@@ -140,7 +140,7 @@ describe('ScoreBoardComponent', () => {
     challengeService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
-    expect(component.challenges).toBeUndefined()
+    expect(component.challenges).toEqual([])
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
@@ -150,13 +150,8 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].solved).toBe(true)
   })
 
-  it('should return an empty array if challenges has a falsy value while filtering datasource', () => {
-    let value = component.filterToDataSource(null)
-    expect(value).toEqual([])
-  })
-
-  it('should return an empty array if challenges has a falsy value while filtering challenges by difficulty', () => {
-    component.challenges = null
+  it('should return an empty array if challenges are empty while filtering challenges by difficulty', () => {
+    component.challenges = []
     component.populateFilteredChallengeLists()
     expect(component.totalChallengesOfDifficulty[0]).toEqual([])
     expect(component.totalChallengesOfDifficulty[1]).toEqual([])
@@ -166,8 +161,8 @@ describe('ScoreBoardComponent', () => {
     expect(component.totalChallengesOfDifficulty[5]).toEqual([])
   })
 
-  it('should return an empty array if challenges has a falsy value while filtering solved challenges by difficulty', () => {
-    component.challenges = null
+  it('should return an empty array if challenges are empty while filtering solved challenges by difficulty', () => {
+    component.challenges = []
     component.populateFilteredChallengeLists()
     expect(component.solvedChallengesOfDifficulty[0]).toEqual([])
     expect(component.solvedChallengesOfDifficulty[1]).toEqual([])
