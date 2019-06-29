@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatDialogModule } from '@angular/material/dialog'
 import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -23,6 +24,7 @@ describe('AddressSelectComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
