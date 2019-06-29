@@ -46,7 +46,7 @@ export class ScoreBoardComponent implements OnInit {
   public showChallengeHints: boolean = true
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
-  public percentChallengesSolved: string = "0"
+  public percentChallengesSolved: string = '0'
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
