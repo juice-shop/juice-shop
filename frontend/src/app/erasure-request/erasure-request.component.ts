@@ -25,7 +25,7 @@ export class ErasureRequestComponent implements OnInit {
     securityQuestionControl: new FormControl('', [Validators.required])
   })
   public securityQuestion = undefined
-  public error
+  public error?: string
   public applicationName = 'OWASP Juice Shop'
 
   constructor (private securityQuestionService: SecurityQuestionService, private dataSubjectService: DataSubjectService, private ngZone: NgZone, private router: Router, private cookieService: CookieService, private userService: UserService, private translateService: TranslateService, private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }

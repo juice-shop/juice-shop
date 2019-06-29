@@ -1,5 +1,5 @@
 import { MatTableDataSource } from '@angular/material/table'
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
@@ -15,6 +15,17 @@ import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instruct
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
 
+interface Challenge {
+  name: string,
+  category: string,
+  description: string | SafeHtml,
+  difficulty: number,
+  hint: string,
+  hintUrl: string,
+  disabledEnv: string[],
+  solved: boolean
+}
+
 @Component({
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
@@ -22,31 +33,31 @@ dom.watch()
 })
 export class ScoreBoardComponent implements OnInit {
 
-  public availableDifficulties = [1,2,3,4,5,6]
-  public displayedDifficulties = []
-  public availableChallengeCategories = []
-  public displayedChallengeCategories = []
-  public toggledMajorityOfDifficulties: boolean
-  public toggledMajorityOfCategories: boolean
-  public showSolvedChallenges
+  public availableDifficulties: number[] = [1,2,3,4,5,6]
+  public displayedDifficulties: number[] = []
+  public availableChallengeCategories: string[] = []
+  public displayedChallengeCategories: string[] = []
+  public toggledMajorityOfDifficulties: boolean = false
+  public toggledMajorityOfCategories: boolean = true
+  public showSolvedChallenges: boolean = true
   public displayedColumns = ['name','difficulty','description','category','status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
-  public allowRepeatNotifications
-  public showChallengeHints
-  public showHackingInstructor: boolean
-  public challenges: any[]
-  public percentChallengesSolved
-  public solvedChallengesOfDifficulty = [[], [], [], [], [], []]
-  public totalChallengesOfDifficulty = [[], [], [], [], [], []]
-  public showContributionInfoBox = true
+  public allowRepeatNotifications: boolean = false
+  public showChallengeHints: boolean = true
+  public showHackingInstructor: boolean = true
+  public challenges: Challenge[] = []
+  public percentChallengesSolved: string = "0"
+  public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
+  public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
+  public showContributionInfoBox: boolean = true
 
   constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
 
   ngOnInit () {
     this.spinner.show()
 
-    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(localStorage.getItem('displayedDifficulties')) : [1]
-    this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(localStorage.getItem('showSolvedChallenges')) : true
+    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
+    this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
 
     this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
       this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
@@ -60,7 +71,7 @@ export class ScoreBoardComponent implements OnInit {
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
       this.challenges = challenges
       for (let i = 0; i < this.challenges.length; i++) {
-        this.augmentHintText(this.challenges[i])
+        ScoreBoardComponent.augmentHintText(this.challenges[i])
         this.trustDescriptionHtml(this.challenges[i])
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
@@ -70,7 +81,7 @@ export class ScoreBoardComponent implements OnInit {
         }
       }
       this.availableChallengeCategories.sort()
-      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(localStorage.getItem('displayedChallengeCategories')) : this.availableChallengeCategories
+      this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
@@ -80,12 +91,12 @@ export class ScoreBoardComponent implements OnInit {
 
       this.spinner.hide()
     },(err) => {
-      this.challenges = undefined
+      this.challenges = []
       console.log(err)
     })
 
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', (data) => {
+      this.io.socket().on('challenge solved', (data: any) => {
         if (data && data.challenge) {
           for (let i = 0; i < this.challenges.length; i++) {
             if (this.challenges[i].name === data.name) {
@@ -101,7 +112,7 @@ export class ScoreBoardComponent implements OnInit {
     })
   }
 
-  private augmentHintText (challenge) {
+  private static augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
       challenge.hint = 'This challenge is unavailable in a ' + challenge.disabledEnv + ' environment!'
     } else if (challenge.hintUrl) {
@@ -113,8 +124,8 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  trustDescriptionHtml (challenge) {
-    challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description)
+  trustDescriptionHtml (challenge: Challenge) {
+    challenge.description = this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
   }
 
   calculateProgressPercentage () {
@@ -125,7 +136,7 @@ export class ScoreBoardComponent implements OnInit {
     this.percentChallengesSolved = (100 * solvedChallenges / this.challenges.length).toFixed(0)
   }
 
-  calculateGradientOffsets (challenges) {
+  calculateGradientOffsets (challenges: Challenge[]) {
     for (let difficulty = 1; difficulty <= 6; difficulty++) {
       let solved = 0
       let total = 0
@@ -146,7 +157,7 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  toggleDifficulty (difficulty) {
+  toggleDifficulty (difficulty: number) {
     if (!this.displayedDifficulties.includes(difficulty)) {
       this.displayedDifficulties.push(difficulty)
     } else {
@@ -172,7 +183,7 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
-  toggleShowChallengeCategory (category) {
+  toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
     } else {
@@ -201,11 +212,7 @@ export class ScoreBoardComponent implements OnInit {
     return this.displayedChallengeCategories.length > this.availableChallengeCategories.length / 2
   }
 
-  filterToDataSource (challenges) {
-    if (!challenges) {
-      return []
-    }
-
+  filterToDataSource (challenges: Challenge[]) {
     challenges = challenges.filter((challenge) => {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
@@ -220,7 +227,7 @@ export class ScoreBoardComponent implements OnInit {
 
   populateFilteredChallengeLists () {
     for (const difficulty of this.availableDifficulties) {
-      if (!this.challenges) {
+      if (this.challenges.length === 0) {
         this.totalChallengesOfDifficulty[difficulty - 1] = []
         this.solvedChallengesOfDifficulty[difficulty - 1] = []
       } else {
@@ -239,7 +246,7 @@ export class ScoreBoardComponent implements OnInit {
     startHackingInstructorFor(challengeName)
   }
 
-  trackById (index, item) {
+  trackById (index: number, item: any) {
     return item.id
   }
 }
