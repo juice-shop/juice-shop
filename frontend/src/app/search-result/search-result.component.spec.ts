@@ -20,6 +20,7 @@ import { BasketService } from '../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
+import { Product } from '../Models/product.model'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -157,12 +158,12 @@ describe('SearchResultComponent', () => {
   })
 
   it('should open a modal dialog with product details', () => {
-    component.showDetail(42)
+    component.showDetail({ id: 42 } as Product)
     expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
       width: '500px',
       height: 'max-content',
       data: {
-        productData: 42
+        productData: { id: 42 }
       }
     })
   })

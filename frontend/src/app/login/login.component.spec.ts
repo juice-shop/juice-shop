@@ -27,8 +27,8 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 describe('LoginComponent', () => {
   let component: LoginComponent
   let fixture: ComponentFixture<LoginComponent>
-  let userService
-  let location
+  let userService: any
+  let location: Location
 
   beforeEach(async(() => {
 

@@ -15,7 +15,7 @@ dom.watch()
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 const clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
 
-const authorizedRedirectURIs = {
+const authorizedRedirectURIs: any = {
   'http://demo.owasp-juice.shop': 'http://demo.owasp-juice.shop',
   'https://juice-shop.herokuapp.com': 'https://juice-shop.herokuapp.com',
   'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
   public user: any
   public rememberMe: FormControl = new FormControl(false)
   public error: any
-  public oauthUnavailable: any
-  public redirectUri: string
+  public oauthUnavailable: boolean = true
+  public redirectUri: string = ''
   constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {

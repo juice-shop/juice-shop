@@ -36,7 +36,7 @@ export class BasketComponent implements OnInit {
 
   public userEmail?: string
   public displayedColumns = ['product','price','quantity','total price','remove']
-  public dataSource = []
+  public dataSource: any[] = []
   public bonus: number = 0
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false

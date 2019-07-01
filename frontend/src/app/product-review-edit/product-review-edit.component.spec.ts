@@ -57,13 +57,13 @@ describe('ProductReviewEditComponent', () => {
   })
 
   it('should be initialized with data from the passed review', () => {
-    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     component.ngOnInit()
     expect(component.editReviewControl.value).toBe('Review')
   })
 
   it('should update review through backend API', () => {
-    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     component.ngOnInit()
     component.editReviewControl.setValue('Another Review')
     component.editReview()
@@ -73,14 +73,14 @@ describe('ProductReviewEditComponent', () => {
 
   it('should close the dialog on submitting the edited review', () => {
     productReviewService.patch.and.returnValue(of({}))
-    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     component.ngOnInit()
     component.editReview()
     expect(dialogRef.close).toHaveBeenCalled()
   })
 
   it('should log errors directly to browser console', fakeAsync(() => {
-    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     console.log = jasmine.createSpy('log')
     productReviewService.patch.and.returnValue(throwError('Error'))
     component.ngOnInit()

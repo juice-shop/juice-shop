@@ -20,9 +20,9 @@ import { of, throwError } from 'rxjs'
 describe('RecycleComponent', () => {
   let component: RecycleComponent
   let fixture: ComponentFixture<RecycleComponent>
-  let recycleService
-  let userService
-  let configurationService
+  let recycleService: any
+  let userService: any
+  let configurationService: any
 
   beforeEach(async(() => {
 

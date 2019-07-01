@@ -9,6 +9,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { Review } from '../Models/review.model'
+import { Product } from '../Models/product.model'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 dom.watch()
@@ -25,13 +26,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public userSubscription: any
   public reviewControl: FormControl = new FormControl('',[Validators.maxLength(160)])
   constructor (private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any, private productReviewService: ProductReviewService,
+    @Inject(MAT_DIALOG_DATA) public data: { productData: Product}, private productReviewService: ProductReviewService,
     private userService: UserService, private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
-    this.data = this.data.productData
-    this.data.points = Math.round(this.data.price / 10)
-    this.reviews$ = this.productReviewService.get(this.data.id)
+    this.data.productData.points = Math.round(this.data.productData.price / 10)
+    this.reviews$ = this.productReviewService.get(this.data.productData.id)
     this.userSubscription = this.userService.whoAmI().subscribe((user: any) => {
       if (user && user.email) {
         this.author = user.email
@@ -52,8 +52,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     const review = { message: textPut.value, author: this.author }
 
     textPut.value = ''
-    this.productReviewService.create(this.data.id, review).subscribe(() => {
-      this.reviews$ = this.productReviewService.get(this.data.id)
+    this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
+      this.reviews$ = this.productReviewService.get(this.data.productData.id)
     },(err) => console.log(err))
     this.snackBarHelperService.openSnackBar('Your review has been saved', 'Ok')
   }
@@ -65,14 +65,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       data: {
         reviewData : review
       }
-    }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.id))
+    }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.productData.id))
   }
 
   likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
     })
-    setTimeout(() => this.reviews$ = this.productReviewService.get(this.data.id), 200)
+    setTimeout(() => this.reviews$ = this.productReviewService.get(this.data.productData.id), 200)
   }
 
   isLoggedIn () {

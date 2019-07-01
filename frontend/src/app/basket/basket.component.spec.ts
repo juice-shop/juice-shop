@@ -26,12 +26,12 @@ import { EventEmitter } from '@angular/core'
 describe('BasketComponent', () => {
   let component: BasketComponent
   let fixture: ComponentFixture<BasketComponent>
-  let dialog
-  let userService
-  let basketService
-  let windowRefService
-  let configurationService
-  let translateService
+  let dialog: any
+  let userService: any
+  let basketService: any
+  let configurationService: any
+  let translateService: any
+  let windowRefService: any
 
   beforeEach(async(() => {
 
@@ -59,7 +59,7 @@ describe('BasketComponent', () => {
       get nativeWindow () {
         return {
           location: {
-            replace (str) {
+            replace (str: string) {
               return null
             }
           }
