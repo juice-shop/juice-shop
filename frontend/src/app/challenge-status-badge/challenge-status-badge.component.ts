@@ -5,17 +5,10 @@ import { ChallengeService } from '../Services/challenge.service'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { faFlag } from '@fortawesome/free-regular-svg-icons'
+import { Challenge } from '../Models/challenge.model'
 
 library.add(faBook, faFlag)
 dom.watch()
-
-interface Challenge {
-  name: string,
-  hint?: string,
-  hintUrl?: string,
-  disabledEnv?: string[],
-  solved?: boolean
-}
 
 @Component({
   selector: 'app-challenge-status-badge',
