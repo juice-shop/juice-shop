@@ -18,8 +18,8 @@ import { MatIconModule } from '@angular/material/icon'
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent
   let fixture: ComponentFixture<ForgotPasswordComponent>
-  let securityQuestionService
-  let userService
+  let securityQuestionService: any
+  let userService: any
 
   beforeEach(async(() => {
 

@@ -32,7 +32,7 @@ import { of } from 'rxjs'
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
   let fixture: ComponentFixture<TwoFactorAuthEnterComponent>
-  let userService
+  let userService: any
 
   beforeEach(async(() => {
     userService = jasmine.createSpyObj('UserService', ['login'])

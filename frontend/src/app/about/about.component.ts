@@ -18,11 +18,11 @@ dom.watch()
 })
 export class AboutComponent implements OnInit {
 
-  public twitterUrl = null
-  public facebookUrl = null
-  public slackUrl = null
-  public redditUrl = null
-  public pressKitUrl = null
+  public twitterUrl?: string
+  public facebookUrl?: string
+  public slackUrl?: string
+  public redditUrl?: string
+  public pressKitUrl?: string
   public slideshowDataSource: IImage[] = []
 
   private images = [

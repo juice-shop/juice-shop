@@ -1,12 +1,11 @@
 import { ChallengeService } from '../Services/challenge.service'
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
-import { of, throwError } from 'rxjs'
+import { of } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
-import { Location } from '@angular/common'
 import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -18,7 +17,7 @@ import { MatMenuModule } from '@angular/material/menu'
 import { MatListModule } from '@angular/material/list'
 
 class MockSocket {
-  on (str: string, callback) {
+  on (str: string, callback: Function) {
     callback(str)
   }
 }
@@ -26,13 +25,12 @@ class MockSocket {
 describe('SidenavComponent', () => {
   let component: SidenavComponent
   let fixture: ComponentFixture<SidenavComponent>
-  let challengeService
-  let cookieService
-  let configurationService
-  let translateService
-  let mockSocket
-  let socketIoService
-  let location
+  let challengeService: any
+  let cookieService: any
+  let configurationService: any
+  let translateService: any
+  let mockSocket: any
+  let socketIoService: any
 
   beforeEach(async(() => {
 

@@ -14,8 +14,8 @@ import { DataSubjectService } from '../Services/data-subject.service'
 describe('DataExportComponent', () => {
   let component: DataExportComponent
   let fixture: ComponentFixture<DataExportComponent>
-  let imageCaptchaService
-  let dataSubjectService
+  let imageCaptchaService: any
+  let dataSubjectService: any
   let domSanitizer: DomSanitizer
 
   beforeEach(async(() => {
@@ -100,10 +100,10 @@ describe('DataExportComponent', () => {
 
   it('should clear the form and display error if exporting data fails', fakeAsync(() => {
     dataSubjectService.dataExport.and.returnValue(throwError({ error: 'Error' }))
-    spyOn(component,'resetForm')
+    spyOn(component,'resetFormError')
     component.save()
     expect(component.confirmation).toBeNull()
     expect(component.error).toBe('Error')
-    expect(component.resetForm).toHaveBeenCalled()
+    expect(component.resetFormError).toHaveBeenCalled()
   }))
 })

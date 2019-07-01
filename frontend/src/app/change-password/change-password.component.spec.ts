@@ -15,7 +15,7 @@ import { of, throwError } from 'rxjs'
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent
   let fixture: ComponentFixture<ChangePasswordComponent>
-  let userService
+  let userService: any
 
   beforeEach(async(() => {
 
