@@ -24,7 +24,7 @@ export class ErasureRequestComponent implements OnInit {
     emailControl: new FormControl('', [Validators.required, Validators.email]),
     securityQuestionControl: new FormControl('', [Validators.required])
   })
-  public securityQuestion = undefined
+  public securityQuestion?: string
   public error?: string
   public applicationName = 'OWASP Juice Shop'
 

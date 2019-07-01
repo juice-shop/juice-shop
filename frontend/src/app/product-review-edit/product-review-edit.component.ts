@@ -4,16 +4,12 @@ import { FormControl, Validators } from '@angular/forms'
 import { ProductReviewService } from '../Services/product-review.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Review } from '../Models/review.model'
 
 library.add(faPaperPlane, faArrowCircleLeft)
 dom.watch()
-
-interface DialogData {
-  reviewData: Review
-}
 
 @Component({
   selector: 'app-product-review-edit',
@@ -25,7 +21,7 @@ export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: FormControl = new FormControl('',[ Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data: DialogData, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
+  constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
     private snackBar: MatSnackBar) { }
 
   ngOnInit () {

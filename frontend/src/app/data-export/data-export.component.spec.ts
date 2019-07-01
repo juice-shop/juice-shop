@@ -14,8 +14,8 @@ import { DataSubjectService } from '../Services/data-subject.service'
 describe('DataExportComponent', () => {
   let component: DataExportComponent
   let fixture: ComponentFixture<DataExportComponent>
-  let imageCaptchaService
-  let dataSubjectService
+  let imageCaptchaService: any
+  let dataSubjectService: any
   let domSanitizer: DomSanitizer
 
   beforeEach(async(() => {

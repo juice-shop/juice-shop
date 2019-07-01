@@ -13,6 +13,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
+import { Product } from '../Models/product.model'
 
 library.add(faEye, faCartPlus)
 dom.watch()
@@ -104,7 +105,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  showDetail (element: any) {
+  showDetail (element: Product) {
     this.dialog.open(ProductDetailsComponent, {
       width: '500px',
       height: 'max-content',

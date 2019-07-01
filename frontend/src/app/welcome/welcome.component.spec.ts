@@ -9,7 +9,7 @@ import { WelcomeComponent } from './welcome.component'
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent
-  let cookieService
+  let cookieService: any
   let fixture: ComponentFixture<WelcomeComponent>
 
   beforeEach(async(() => {

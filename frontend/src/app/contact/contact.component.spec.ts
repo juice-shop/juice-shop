@@ -17,9 +17,9 @@ import { of, throwError } from 'rxjs'
 describe('ContactComponent', () => {
   let component: ContactComponent
   let fixture: ComponentFixture<ContactComponent>
-  let userService
-  let feedbackService
-  let captchaService
+  let userService: any
+  let feedbackService: any
+  let captchaService: any
 
   beforeEach(async(() => {
 

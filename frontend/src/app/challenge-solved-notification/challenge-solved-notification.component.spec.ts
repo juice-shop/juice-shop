@@ -21,8 +21,8 @@ class MockSocket {
 describe('ChallengeSolvedNotificationComponent', () => {
   let component: ChallengeSolvedNotificationComponent
   let fixture: ComponentFixture<ChallengeSolvedNotificationComponent>
-  let socketIoService
-  let mockSocket
+  let socketIoService: any
+  let mockSocket: any
 
   beforeEach(async(() => {
 

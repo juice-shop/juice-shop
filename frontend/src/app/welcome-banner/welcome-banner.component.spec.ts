@@ -10,7 +10,7 @@ import { WelcomeBannerComponent } from './welcome-banner.component'
 describe('WelcomeBannerComponent', () => {
   let component: WelcomeBannerComponent
   let fixture: ComponentFixture<WelcomeBannerComponent>
-  let cookieService
+  let cookieService: any
   let matDialogRef: MatDialogRef<WelcomeBannerComponent>
 
   beforeEach(async(() => {
