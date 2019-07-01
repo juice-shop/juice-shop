@@ -8,6 +8,7 @@ import { faArrowCircleLeft, faPaperPlane, faUserEdit, faThumbsUp, faCrown } from
 import { FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { Review } from '../Models/review.model'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 dom.watch()
@@ -19,7 +20,7 @@ dom.watch()
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
 
-  public author: string
+  public author: string = 'Anonymous'
   public reviews$: any
   public userSubscription: any
   public reviewControl: FormControl = new FormControl('',[Validators.maxLength(160)])
@@ -57,7 +58,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.snackBarHelperService.openSnackBar('Your review has been saved', 'Ok')
   }
 
-  editReview (review) {
+  editReview (review: Review) {
     this.dialog.open(ProductReviewEditComponent, {
       width: '500px',
       height: 'max-content',
@@ -67,7 +68,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }).afterClosed().subscribe(() => this.reviews$ = this.productReviewService.get(this.data.id))
   }
 
-  likeReview (review) {
+  likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
     })

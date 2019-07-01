@@ -14,8 +14,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 describe('ProductReviewEditComponent', () => {
   let component: ProductReviewEditComponent
   let fixture: ComponentFixture<ProductReviewEditComponent>
-  let productReviewService
-  let dialogRef
+  let productReviewService: any
+  let dialogRef: any
 
   beforeEach(async(() => {
 
@@ -48,7 +48,7 @@ describe('ProductReviewEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductReviewEditComponent)
     component = fixture.componentInstance
-    component.data = { reviewData: { _id: 42, message: 'Review' } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     fixture.detectChanges()
   })
 
@@ -57,31 +57,30 @@ describe('ProductReviewEditComponent', () => {
   })
 
   it('should be initialized with data from the passed review', () => {
-    component.data = { reviewData: { _id: 42, message: 'Review' } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
     component.ngOnInit()
-    expect(component.data).toEqual({ _id: 42, message: 'Review' })
     expect(component.editReviewControl.value).toBe('Review')
   })
 
   it('should update review through backend API', () => {
-    component.data = { reviewData: { _id: 42, message: 'Review' } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
     component.ngOnInit()
     component.editReviewControl.setValue('Another Review')
     component.editReview()
     expect(productReviewService.patch.calls.count()).toBe(1)
-    expect(productReviewService.patch.calls.argsFor(0)[0]).toEqual({ id: 42, message: 'Another Review' })
+    expect(productReviewService.patch.calls.argsFor(0)[0]).toEqual({ id: '42', message: 'Another Review' })
   })
 
   it('should close the dialog on submitting the edited review', () => {
     productReviewService.patch.and.returnValue(of({}))
-    component.data = { reviewData: { _id: 42, message: 'Review' } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
     component.ngOnInit()
     component.editReview()
     expect(dialogRef.close).toHaveBeenCalled()
   })
 
   it('should log errors directly to browser console', fakeAsync(() => {
-    component.data = { reviewData: { _id: 42, message: 'Review' } }
+    component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst'  } }
     console.log = jasmine.createSpy('log')
     productReviewService.patch.and.returnValue(throwError('Error'))
     component.ngOnInit()
