@@ -1,30 +1,20 @@
 import { MatTableDataSource } from '@angular/material/table'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
-import { faGithub, faGitter, faBtc } from '@fortawesome/free-brands-svg-icons'
+import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
+import { Challenge } from '../Models/challenge.model'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
-
-interface Challenge {
-  name: string,
-  category: string,
-  description: string | SafeHtml,
-  difficulty: number,
-  hint: string,
-  hintUrl: string,
-  disabledEnv: string[],
-  solved: boolean
-}
 
 @Component({
   selector: 'app-score-board',
@@ -33,14 +23,14 @@ interface Challenge {
 })
 export class ScoreBoardComponent implements OnInit {
 
-  public availableDifficulties: number[] = [1,2,3,4,5,6]
+  public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = []
   public availableChallengeCategories: string[] = []
   public displayedChallengeCategories: string[] = []
   public toggledMajorityOfDifficulties: boolean = false
   public toggledMajorityOfCategories: boolean = true
   public showSolvedChallenges: boolean = true
-  public displayedColumns = ['name','difficulty','description','category','status']
+  public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
@@ -51,7 +41,8 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
 
-  constructor (private configurationService: ConfigurationService,private challengeService: ChallengeService,private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {}
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {
+  }
 
   ngOnInit () {
     this.spinner.show()
@@ -66,7 +57,7 @@ export class ScoreBoardComponent implements OnInit {
       if (data.application.showGitHubLinks !== null && data.application.showGitHubLinks !== undefined) {
         this.showContributionInfoBox = data.application.showGitHubLinks
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
       this.challenges = challenges
@@ -90,7 +81,7 @@ export class ScoreBoardComponent implements OnInit {
       this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
 
       this.spinner.hide()
-    },(err) => {
+    }, (err) => {
       this.challenges = []
       console.log(err)
     })
@@ -163,7 +154,7 @@ export class ScoreBoardComponent implements OnInit {
     } else {
       this.displayedDifficulties = this.displayedDifficulties.filter((c) => c !== difficulty)
     }
-    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
+    localStorage.setItem('displayedDifficulties', JSON.stringify(this.displayedDifficulties))
     this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
   }
 
@@ -175,7 +166,7 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedDifficulties = this.availableDifficulties
       this.toggledMajorityOfDifficulties = true
     }
-    localStorage.setItem('displayedDifficulties',JSON.stringify(this.displayedDifficulties))
+    localStorage.setItem('displayedDifficulties', JSON.stringify(this.displayedDifficulties))
   }
 
   toggleShowSolvedChallenges () {
@@ -189,7 +180,7 @@ export class ScoreBoardComponent implements OnInit {
     } else {
       this.displayedChallengeCategories = this.displayedChallengeCategories.filter((c) => c !== category)
     }
-    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+    localStorage.setItem('displayedChallengeCategories', JSON.stringify(this.displayedChallengeCategories))
     this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
   }
 
@@ -201,7 +192,7 @@ export class ScoreBoardComponent implements OnInit {
       this.displayedChallengeCategories = this.availableChallengeCategories
       this.toggledMajorityOfCategories = true
     }
-    localStorage.setItem('displayedChallengeCategories',JSON.stringify(this.displayedChallengeCategories))
+    localStorage.setItem('displayedChallengeCategories', JSON.stringify(this.displayedChallengeCategories))
   }
 
   determineToggledMajorityOfDifficulties () {
