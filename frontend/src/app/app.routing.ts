@@ -265,19 +265,19 @@ export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
   let path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }
 
 export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
 
   const path = url[0].toString()
@@ -285,5 +285,5 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }

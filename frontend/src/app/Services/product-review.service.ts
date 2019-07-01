@@ -2,6 +2,7 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
+import { Review } from '../Models/review.model'
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +22,17 @@ export class ProductReviewService {
     )
   }
 
-  create (id: number, review: any) {
+  create (id: number, review: { message: string, author: string }) {
     return this.http.put(this.host + '/' + id + '/reviews', review).pipe(map((response: any) => response.data),
      catchError((err) => { throw err })
     )
   }
 
-  patch (review: any) {
+  patch (review: { id: string, message: string }) {
     return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  like (_id: string) {
+  like (_id?: string) {
     return this.http.post(this.host + '/reviews', { id: _id }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 

@@ -1,7 +1,6 @@
 import { CookieModule } from 'ngx-cookie'
 import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
-import { ConfigurationService } from './Services/configuration.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -68,7 +67,7 @@ describe('AppComponent', () => {
         MatListModule,
         MatDialogModule
       ],
-      providers : [ TranslateService, ConfigurationService, AdminGuard ]
+      providers : [ TranslateService, AdminGuard ]
     }).compileComponents()
   }))
 

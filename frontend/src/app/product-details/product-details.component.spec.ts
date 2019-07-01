@@ -20,13 +20,14 @@ import { ProductDetailsComponent } from './product-details.component'
 import { of, throwError } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { Product } from '../Models/product.model'
 
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
   let fixture: ComponentFixture<ProductDetailsComponent>
-  let userService
-  let productReviewService
-  let dialog
+  let userService: any
+  let productReviewService: any
+  let dialog: any
   let dialogRefMock
 
   beforeEach(async(() => {
@@ -80,15 +81,8 @@ describe('ProductDetailsComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should hold single product with given id', () => {
-    component.data = { productData: { name: 'Test Juice' } }
-    component.ngOnInit()
-    expect(component.data).toBeDefined()
-    expect(component.data.name).toBe('Test Juice')
-  })
-
   it('should post anonymous review if no user email is returned', () => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(of({}))
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
@@ -102,7 +96,7 @@ describe('ProductDetailsComponent', () => {
   })
 
   it('should post review with user email as author', () => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
@@ -116,7 +110,7 @@ describe('ProductDetailsComponent', () => {
   })
 
   it('should log errors when retrieving user directly to browser console', fakeAsync(() => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
@@ -124,7 +118,7 @@ describe('ProductDetailsComponent', () => {
   }))
 
   it('should log errors when posting review directly to browser console', fakeAsync(() => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(of({}))
     productReviewService.create.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
@@ -139,9 +133,9 @@ describe('ProductDetailsComponent', () => {
   }))
 
   it('should refresh reviews after posting a review', () => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     productReviewService.create.and.returnValue(of({}))
-    productReviewService.get.and.returnValue(of([{ message: 'Review 1' ,author: 'Anonymous' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Review 1' ,author: 'Anonymous' }]))
     userService.whoAmI.and.returnValue(of({}))
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
@@ -153,22 +147,22 @@ describe('ProductDetailsComponent', () => {
   })
 
   it('should open a modal dialog with review editor', () => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
     const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
     buttonDe.triggerEventHandler('click',null)
     expect(dialog.open.calls.count()).toBe(1)
     expect(dialog.open.calls.argsFor(0)[0]).toBe(ProductReviewEditComponent)
-    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { message: 'Great product!', author: 'horst@juice-sh.op' } })
+    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
   })
 
   it('should refresh reviews of product after editing a review', () => {
-    component.data = { productData: { id: 42 } }
+    component.data = { productData: { id: 42 } as Product }
     userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
     const buttonDe = fixture.debugElement.query(By.css('div.review-text'))

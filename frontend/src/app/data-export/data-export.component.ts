@@ -29,7 +29,7 @@ export class DataExportComponent implements OnInit {
 
   needCaptcha () {
     let nowTime = new Date()
-    let timeOfCaptcha = localStorage.getItem('lstdtxprt') ? new Date(JSON.parse(localStorage.getItem('lstdtxprt'))) : new Date(0)
+    let timeOfCaptcha = localStorage.getItem('lstdtxprt') ? new Date(JSON.parse(String(localStorage.getItem('lstdtxprt')))) : new Date(0)
     if (nowTime.getTime() - timeOfCaptcha.getTime() < 300000) {
       this.getNewCaptcha()
       this.presenceOfCaptcha = true
@@ -51,7 +51,7 @@ export class DataExportComponent implements OnInit {
       this.error = null
       this.confirmation = data.confirmation
       this.userData = data.userData
-      window.open('', '_blank', 'width=500').document.write(this.userData)
+      window.open('', '_blank', 'width=500')!.document.write(this.userData)
       this.lastSuccessfulTry = new Date()
       localStorage.setItem('lstdtxprt',JSON.stringify(this.lastSuccessfulTry))
       this.ngOnInit()
@@ -59,7 +59,7 @@ export class DataExportComponent implements OnInit {
     }, (error) => {
       this.error = error.error
       this.confirmation = null
-      this.resetForm()
+      this.resetFormError()
     })
   }
 
@@ -70,5 +70,11 @@ export class DataExportComponent implements OnInit {
     this.formatControl.markAsUntouched()
     this.formatControl.markAsPristine()
     this.formatControl.setValue('')
+  }
+
+  resetFormError () {
+    this.captchaControl.markAsUntouched()
+    this.captchaControl.markAsPristine()
+    this.captchaControl.setValue('')
   }
 }

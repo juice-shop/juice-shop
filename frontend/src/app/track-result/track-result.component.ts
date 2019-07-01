@@ -18,7 +18,7 @@ export class TrackResultComponent implements OnInit {
 
   public displayedColumns = ['product', 'price', 'quantity','total price']
   public dataSource = new MatTableDataSource()
-  public orderId
+  public orderId?: string
   public results: any = {}
 
   constructor (private route: ActivatedRoute,private trackOrderService: TrackOrderService, private sanitizer: DomSanitizer) {}

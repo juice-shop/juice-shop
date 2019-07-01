@@ -12,6 +12,10 @@
   a:active {
     text-decoration: underline;
   }
+
+  a{
+    outline: none;
+  }
 }
 
 @mixin notification-theme($theme) {
@@ -108,6 +112,12 @@
   }
 }
 
+@mixin gButton($theme) {
+  .gButton {
+    background-color:  mat-color(map-get($theme, accent), darker) !important;
+  }
+}
+
 @mixin custom-components-theme($theme) {
   @include link-theme($theme);
   @include notification-theme($theme);
@@ -115,6 +125,7 @@
   @include bar-rating-theme($theme);
   @include score-star-theme($theme);
   @include snackbar($theme);
+  @include gButton($theme);
 }
 
 .deeppurple-amber-theme {

@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
+import { SecurityQuestion } from '../Models/securityQuestion.model'
 
 library.add(faSave, faEdit)
 dom.watch()
@@ -20,16 +21,16 @@ export class ForgotPasswordComponent {
   public securityQuestionControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required])
   public passwordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
   public repeatPasswordControl: FormControl = new FormControl({ disabled: true, value: '' }, [Validators.required, matchValidator(this.passwordControl)])
-  public securityQuestion = undefined
-  public error
-  public confirmation
+  public securityQuestion?: string
+  public error?: string
+  public confirmation?: string
 
   constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService) { }
 
   findSecurityQuestion () {
     this.securityQuestion = undefined
     if (this.emailControl.value) {
-      this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: any) => {
+      this.securityQuestionService.findBy(this.emailControl.value).subscribe((securityQuestion: SecurityQuestion) => {
         if (securityQuestion) {
           this.securityQuestion = securityQuestion.question
           this.securityQuestionControl.enable()
