@@ -6,9 +6,14 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { Review } from '../Models/review.model'
 
 library.add(faPaperPlane, faArrowCircleLeft)
 dom.watch()
+
+interface DialogData {
+  reviewData: Review
+}
 
 @Component({
   selector: 'app-product-review-edit',
@@ -18,18 +23,17 @@ dom.watch()
 export class ProductReviewEditComponent implements OnInit {
 
   public editReviewControl: FormControl = new FormControl('',[ Validators.required, Validators.minLength(1), Validators.maxLength(160)])
-  public error: any
+  public error: string | null = null
 
-  constructor (@Inject(MAT_DIALOG_DATA) public data, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
+  constructor (@Inject(MAT_DIALOG_DATA) public data: DialogData, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
     private snackBar: MatSnackBar) { }
 
   ngOnInit () {
-    this.data = this.data.reviewData
-    this.editReviewControl.setValue(this.data.message)
+    this.editReviewControl.setValue(this.data.reviewData.message)
   }
 
   editReview () {
-    this.productReviewService.patch({ id: this.data._id, message: this.editReviewControl.value }).subscribe(() => {
+    this.productReviewService.patch({ id: this.data.reviewData._id, message: this.editReviewControl.value }).subscribe(() => {
       this.dialogRef.close()
     },(err) => {
       console.log(err)

@@ -24,9 +24,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent
   let fixture: ComponentFixture<ProductDetailsComponent>
-  let userService
-  let productReviewService
-  let dialog
+  let userService: any
+  let productReviewService: any
+  let dialog: any
   let dialogRefMock
 
   beforeEach(async(() => {
@@ -109,7 +109,7 @@ describe('ProductDetailsComponent', () => {
     textArea.value = 'Great product!'
     const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
     buttonDe.triggerEventHandler('click',null)
-    const reviewObject = { message: 'Great product!', author: 'horst@juice-sh.op' }
+    const reviewObject = { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }
     expect(productReviewService.create.calls.count()).toBe(1)
     expect(productReviewService.create.calls.argsFor(0)[0]).toBe(42)
     expect(productReviewService.create.calls.argsFor(0)[1]).toEqual(reviewObject)
@@ -141,7 +141,7 @@ describe('ProductDetailsComponent', () => {
   it('should refresh reviews after posting a review', () => {
     component.data = { productData: { id: 42 } }
     productReviewService.create.and.returnValue(of({}))
-    productReviewService.get.and.returnValue(of([{ message: 'Review 1' ,author: 'Anonymous' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Review 1' ,author: 'Anonymous' }]))
     userService.whoAmI.and.returnValue(of({}))
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
@@ -155,20 +155,20 @@ describe('ProductDetailsComponent', () => {
   it('should open a modal dialog with review editor', () => {
     component.data = { productData: { id: 42 } }
     userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
     const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
     buttonDe.triggerEventHandler('click',null)
     expect(dialog.open.calls.count()).toBe(1)
     expect(dialog.open.calls.argsFor(0)[0]).toBe(ProductReviewEditComponent)
-    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { message: 'Great product!', author: 'horst@juice-sh.op' } })
+    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
   })
 
   it('should refresh reviews of product after editing a review', () => {
     component.data = { productData: { id: 42 } }
     userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ message: 'Great product!', author: 'horst@juice-sh.op' }]))
+    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
     const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
