@@ -1,0 +1,34 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - winston > async > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - concurrently > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - finale-rest > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt > grunt-legacy-util > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt > grunt-legacy-log > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - portscanner > async > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - sequelize > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > archiver > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > archiver > archiver-utils > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > archiver > zip-stream > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt > grunt-legacy-log > grunt-legacy-log-utils > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > archiver > async > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
+    - grunt-contrib-compress > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2019-07-03T22:57:44.524Z'
