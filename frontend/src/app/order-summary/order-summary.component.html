@@ -1,0 +1,44 @@
+<div fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="main-wrapper">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
+      <div>
+          <mat-card class="mat-elevation-z6">
+              <div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column">
+                <div fxFlex="50%">
+                  Shipping address to be shown here
+                </div>
+                <div fxFlex="50%">
+                  Payment Method to be shown here
+                  </div>  
+              </div>
+          </mat-card>
+      </div>
+      <app-purchase-basket [allowEdit]="false" (emitTotal)="getMessage($event)"></app-purchase-basket>
+    </div>
+    <div fxFlex="30%">
+        <mat-card class="mat-elevation-z6">
+            <div class="order-summary" translate>ORDER_SUMMARY</div>
+            <table class="mat-table">
+              <tr class="mat-row">
+                <td class="mat-cell label" translate>ITEMS</td>
+                <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}</td>
+              </tr>
+              <tr class="mat-row">
+                  <td class="mat-cell label" translate>DELIVERY</td>
+                  <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}</td>
+                </tr>
+              <tr class="mat-row">
+                  <td class="mat-cell label" translate>PROMOTION</td>
+                  <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}</td>
+              </tr>
+              <tr class="mat-row">
+                  <td class="mat-footer-cell label" translate>LABEL_TOTAL_PRICE</td>
+                  <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2) }}</td>
+              </tr>
+            </table>
+            <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase">
+                <span translate>PLACE_ORDER_AND_PAY</span>
+            </button>
+            <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+        </mat-card>
+    </div>
+</div>
