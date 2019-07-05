@@ -156,7 +156,7 @@
   description: 'Successfully redeem an expired campaign coupon code.'
   difficulty: 4
   hint: 'Try to identify past special event or holiday campaigns of the shop first.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/improper-input-validation.html#successfully-redeem-an-expired-campaign-coupon-code'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/improper-input-validation.html#successfully-redeem-an-expired-campaign-coupon-code'
   key: manipulateClockChallenge
 -
   name: 'Extra Language'
@@ -244,7 +244,7 @@
   description: 'Steal someone else''s personal data without using Injection.'
   difficulty: 4
   hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#steal-someone-elses-personal-data-without-using-injection'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#steal-someone-elses-personal-data-without-using-injection'
   key: dataExportChallenge
 -
   name: 'HTTP-Header XSS'
@@ -396,7 +396,7 @@
   description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#all-your-orders-are-belong-to-us'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#all-your-orders-are-belong-to-us'
   key: noSqlOrdersChallenge
 -
   name: 'NoSQL Manipulation'
@@ -591,7 +591,7 @@
   description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
   difficulty: 5
   hint: 'The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-authentication.html#solve-the-2fa-challenge-for-user-wurstbrot'
   key: twoFactorAuthUnsafeSecretStorageChallenge
 -
   name: 'Unsigned JWT'
