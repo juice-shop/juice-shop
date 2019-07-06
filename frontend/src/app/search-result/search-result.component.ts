@@ -37,7 +37,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]
-  public dataSource!: MatTableDataSource<Element>
+  public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
   public confirmation?: string
