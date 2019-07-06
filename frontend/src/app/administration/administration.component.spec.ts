@@ -14,9 +14,9 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
   let fixture: ComponentFixture<AdministrationComponent>
-  let dialog
-  let userService
-  let feedbackService
+  let dialog: any
+  let userService: any
+  let feedbackService: any
 
   beforeEach(async(() => {
 

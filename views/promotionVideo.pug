@@ -14,11 +14,14 @@ html(lang='en')
         script(defer='', src='https://code.getmdl.io/1.3.0/material.min.js')
         style.
             video {
-            width: 70vw;
+            min-width: 320px;
+            width: 44vw;
             display: block;
             margin-left: auto;
             margin-right:auto;
-            height: 65vh;
+            margin-bottom: 5px;
+            height: 50vh;
+            outline: none;
             }
             @media (max-width: 900px) {
               .mdl-layout-title {
@@ -43,9 +46,10 @@ html(lang='en')
                  | _title_
 
         section.section--center.mdl-grid.mdl-grid--no-spacing
-           .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='width: 70vw; background: _primLight_; margin-bottom: 50px; margin-top: 110px; display: block; margin-left: auto; margin-right:auto; ')
+           .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='width: 45vw; min-width: 320px; height: 58vh; background: _primLight_; margin-bottom: 50px; margin-top: 110px; display: block; margin-left: auto; margin-right:auto; ')
+            h1(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400; margin-left: 16px;') Promotion Video
             video(width='85vw', height='240', controls='controls')
-                source(src='/video', type='video/mp4')
+               source(src='/video', type='video/mp4')
 
         script#subtitle.
 

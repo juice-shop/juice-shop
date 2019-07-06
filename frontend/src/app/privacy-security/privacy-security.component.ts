@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators'
   styleUrls: ['./privacy-security.component.scss']
 })
 export class PrivacySecurityComponent {
-  Ip: string
+  Ip!: string
   windowWidth: number = window.innerWidth
   ngAfterViewInit () {
     this.windowWidth = window.innerWidth

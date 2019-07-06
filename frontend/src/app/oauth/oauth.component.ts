@@ -24,11 +24,11 @@ export class OAuthComponent implements OnInit {
     })
   }
 
-  login (profile) {
+  login (profile: any) {
     this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true }).subscribe((authentication) => {
       this.cookieService.put('token', authentication.token)
-      sessionStorage.setItem('bid', authentication.bid)
       localStorage.setItem('token', authentication.token)
+      sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/'])
     }, (error) => {
@@ -37,7 +37,7 @@ export class OAuthComponent implements OnInit {
     })
   }
 
-  invalidateSession (error) {
+  invalidateSession (error: Error) {
     console.log(error)
     this.cookieService.remove('token', { domain: document.domain })
     localStorage.removeItem('token')
@@ -47,10 +47,10 @@ export class OAuthComponent implements OnInit {
   parseRedirectUrlParams () {
     let hash = this.route.snapshot.data.params.substr(1)
     let splitted = hash.split('&')
-    let params = {}
+    let params: any = {}
     for (let i = 0; i < splitted.length; i++) {
-      let param = splitted[ i ].split('=')
-      let key = param[ 0 ]
+      let param: string = splitted[ i ].split('=')
+      let key: string = param[ 0 ]
       params[ key ] = param[ 1 ]
     }
     return params

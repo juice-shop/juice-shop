@@ -14,7 +14,7 @@ dom.watch()
 })
 export class ErrorPageComponent implements OnInit {
 
-  public error: string
+  public error: string | null = null
 
   constructor (private route: ActivatedRoute, private translate: TranslateService) {
   }

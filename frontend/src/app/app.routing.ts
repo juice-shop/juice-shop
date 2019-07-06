@@ -40,6 +40,7 @@ import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-paym
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
+import { OrderSummaryComponent } from './order-summary/order-summary.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -180,6 +181,10 @@ const routes: Routes = [
     component: ComplaintComponent
   },
   {
+    path: 'order-summary',
+    component: OrderSummaryComponent
+  },
+  {
     path: 'payment',
     component: PaymentComponent
   },
@@ -270,19 +275,19 @@ export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
   let path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }
 
 export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
 
   const path = url[0].toString()
@@ -290,5 +295,5 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }
