@@ -39,6 +39,7 @@ import { PaymentComponent } from './payment/payment.component'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
 
 export function token1 (...args: number[]) {
@@ -166,6 +167,10 @@ const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent
+  },
+  {
+    path: 'order-completion/:id',
+    component: OrderCompletionComponent
   },
   {
     path: 'contact',
