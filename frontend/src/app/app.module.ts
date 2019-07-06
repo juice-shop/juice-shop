@@ -111,6 +111,7 @@ import { PurchaseBasketComponent } from './purchase-basket/purchase-basket.compo
 import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -153,6 +154,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
+    OrderCompletionComponent,
     AddressCreateComponent,
     AddressSelectComponent,
     AddressComponent,
