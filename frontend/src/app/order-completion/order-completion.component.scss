@@ -1,8 +1,11 @@
 .heading {
 	background: rgba(0,0,0,.2);
+	font-size: x-large;
+}
+
+.heading-text {
 	justify-content: center;
 	padding: 12px 20px;
-	font-size: x-large;
 }
 
 mat-card {
@@ -23,4 +26,8 @@ mat-header-cell {
 
 .price-align {
 	text-align: right;
+}
+
+.mat-icon-button {
+	padding-right: 20px;
 }
