@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { ActivatedRoute, ParamMap } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
+import { WindowRefService } from '../Services/window-ref.service'
+import { BasketService } from '../Services/basket.service'
 
 @Component({
   selector: 'app-order-completion',
@@ -17,7 +19,7 @@ export class OrderCompletionComponent implements OnInit {
   public deliveryPrice = 0
   public promotionalDiscount = 0
 
-  constructor (private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute) { }
+  constructor (private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private windowRefService: WindowRefService, private basketService: BasketService) { }
 
   ngOnInit () {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -30,5 +32,10 @@ export class OrderCompletionComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
       },(err) => console.log(err))
     },(err) => console.log(err))
+  }
+
+  openConfirmationPDF () {
+    const redirectUrl = this.basketService.hostServer + '/ftp/order_' + this.orderId + '.pdf'
+    this.windowRefService.nativeWindow.location.replace(redirectUrl)
   }
 }
