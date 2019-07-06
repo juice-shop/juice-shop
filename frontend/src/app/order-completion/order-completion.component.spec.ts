@@ -13,6 +13,9 @@ import { of, throwError } from 'rxjs'
 import { OrderCompletionComponent } from './order-completion.component'
 import { TrackOrderService } from '../Services/track-order.service'
 import { ActivatedRoute, convertToParamMap } from '@angular/router'
+import { MatIconModule } from '@angular/material/icon'
+import { BasketService } from '../Services/basket.service'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 export class MockActivatedRoute {
   public paramMap = of(convertToParamMap({
@@ -23,8 +26,9 @@ export class MockActivatedRoute {
 describe('OrderCompletionComponent', () => {
   let component: OrderCompletionComponent
   let fixture: ComponentFixture<OrderCompletionComponent>
-  let trackOrderService
-  let activatedRoute
+  let trackOrderService: any
+  let activatedRoute: any
+  let basketService: any
 
   beforeEach(async(() => {
 
@@ -44,11 +48,14 @@ describe('OrderCompletionComponent', () => {
         MatDialogModule,
         MatDividerModule,
         MatGridListModule,
-        MatCardModule
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule
       ],
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
-        { provide: ActivatedRoute, useValue: activatedRoute }
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: BasketService, useValue: basketService }
       ]
     })
     .compileComponents()
