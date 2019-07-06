@@ -75,14 +75,14 @@ export class ConfigurationService {
 
   private hostServer = environment.hostServer
   private host = this.hostServer + '/rest/admin'
-  private configObservable
+  private configObservable: any
   constructor (private http: HttpClient) { }
 
   getApplicationConfiguration (): Observable<Config> {
     if (this.configObservable) {
       return this.configObservable
     } else {
-      this.configObservable = this.http.get(this.host + '/application-configuration').pipe(map((response: ConfigResponse) => response.config, catchError((err) => { throw err })))
+      this.configObservable = this.http.get<ConfigResponse>(this.host + '/application-configuration').pipe(map((response: ConfigResponse) => response.config, catchError((err) => { throw err })))
       return this.configObservable
     }
   }

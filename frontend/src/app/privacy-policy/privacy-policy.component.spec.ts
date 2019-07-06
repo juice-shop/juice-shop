@@ -10,7 +10,7 @@ import { of } from 'rxjs'
 describe('PrivacyPolicyComponent', () => {
   let component: PrivacyPolicyComponent
   let fixture: ComponentFixture<PrivacyPolicyComponent>
-  let configurationService
+  let configurationService: any
 
   beforeEach(async(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])

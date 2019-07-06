@@ -8,11 +8,12 @@ import { WindowRefService } from '../Services/window-ref.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatButtonModule, MatTooltipModule } from '@angular/material'
 import { EventEmitter } from '@angular/core'
+import { Challenge } from '../Models/challenge.model'
 
 describe('ChallengeStatusBadgeComponent', () => {
-  let challengeService
-  let translateService
-  let windowRefService
+  let challengeService: any
+  let translateService: any
+  let windowRefService: any
   let component: ChallengeStatusBadgeComponent
   let fixture: ComponentFixture<ChallengeStatusBadgeComponent>
 
@@ -48,7 +49,6 @@ describe('ChallengeStatusBadgeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeStatusBadgeComponent)
     component = fixture.componentInstance
-    component.challenge = {}
     fixture.detectChanges()
   })
 
@@ -58,14 +58,14 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   it('should show notification for selected challenge when enabled', () => {
     component.allowRepeatNotifications = true
-    component.challenge = { name: 'Challenge #1', solved: true }
+    component.challenge = { name: 'Challenge #1', solved: true } as Challenge
     component.repeatNotification()
     expect(challengeService.repeatNotification).toHaveBeenCalledWith(encodeURIComponent('Challenge #1'))
   })
 
   it('should scroll to top of screen when notification is repeated', () => {
     component.allowRepeatNotifications = true
-    component.challenge = { name: 'Challenge #1', solved: true }
+    component.challenge = { name: 'Challenge #1', solved: true } as Challenge
     spyOn(windowRefService.nativeWindow,'scrollTo')
     component.repeatNotification()
     expect(windowRefService.nativeWindow.scrollTo).toHaveBeenCalledWith(0, 0)
@@ -73,7 +73,7 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   it('should log the error from backend on failing to repeat notification', fakeAsync(() => {
     component.allowRepeatNotifications = true
-    component.challenge = { name: 'Challenge #1', solved: true }
+    component.challenge = { name: 'Challenge #1', solved: true } as Challenge
     challengeService.repeatNotification.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.repeatNotification()
@@ -82,7 +82,7 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   it('should happen when challenge has a hint URL', () => {
     component.showChallengeHints = true
-    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' }
+    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' } as Challenge
     spyOn(windowRefService.nativeWindow,'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
@@ -90,7 +90,7 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   it('should not happen when challenge has no hint URL', () => {
     component.showChallengeHints = true
-    component.challenge = { name: 'Challenge #2' }
+    component.challenge = { name: 'Challenge #2' } as Challenge
     spyOn(windowRefService.nativeWindow,'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
@@ -98,7 +98,7 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   it('should not happen when hints are not turned on in configuration', () => {
     component.showChallengeHints = false
-    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' }
+    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' } as Challenge
     spyOn(windowRefService.nativeWindow,'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()

@@ -11,6 +11,7 @@ import { faUserPlus, faExclamationCircle } from '@fortawesome/free-solid-svg-ico
 import { FormSubmitService } from '../Services/form-submit.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService } from '@ngx-translate/core'
+import { SecurityQuestion } from '../Models/securityQuestion.model'
 
 library.add(faUserPlus, faExclamationCircle)
 dom.watch()
@@ -26,9 +27,9 @@ export class RegisterComponent implements OnInit {
   public repeatPasswordControl: FormControl = new FormControl('', [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestionControl: FormControl = new FormControl('', [Validators.required])
   public securityAnswerControl: FormControl = new FormControl('', [Validators.required])
-  public securityQuestions: any[]
-  public selected
-  public error: string
+  public securityQuestions!: SecurityQuestion[]
+  public selected?: number
+  public error: string | null = null
 
   constructor (private securityQuestionService: SecurityQuestionService,
     private userService: UserService,
