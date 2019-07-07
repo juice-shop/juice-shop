@@ -19,6 +19,7 @@ import { BasketService } from '../Services/basket.service'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
+import { RouterTestingModule } from '@angular/router/testing'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -44,6 +45,7 @@ describe('PaymentComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,

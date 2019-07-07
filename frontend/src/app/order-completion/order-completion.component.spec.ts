@@ -16,6 +16,7 @@ import { ActivatedRoute, convertToParamMap } from '@angular/router'
 import { MatIconModule } from '@angular/material/icon'
 import { BasketService } from '../Services/basket.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { AddressService } from '../Services/address.service'
 
 export class MockActivatedRoute {
   public paramMap = of(convertToParamMap({
@@ -29,12 +30,15 @@ describe('OrderCompletionComponent', () => {
   let trackOrderService: any
   let activatedRoute: any
   let basketService: any
+  let addressService: any
 
   beforeEach(async(() => {
 
     trackOrderService = jasmine.createSpyObj('TrackOrderService', ['save'])
     trackOrderService.save.and.returnValue(of({ data: [{}] }))
     activatedRoute = new MockActivatedRoute()
+    addressService = jasmine.createSpyObj('AddressService',['getById'])
+    addressService.getById.and.returnValue(of([]))
 
     TestBed.configureTestingModule({
       declarations: [ OrderCompletionComponent ],
@@ -55,7 +59,8 @@ describe('OrderCompletionComponent', () => {
       providers: [
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: BasketService, useValue: basketService }
+        { provide: BasketService, useValue: basketService },
+        { provide: AddressService, useValue: addressService }
       ]
     })
     .compileComponents()
@@ -73,7 +78,7 @@ describe('OrderCompletionComponent', () => {
   })
 
   it('should hold order details returned by backend API', () => {
-    trackOrderService.save.and.returnValue(of({ data: [{ totalPrice: 2.88, products: [{ quantity: 1, name: 'Apple Juice (1000ml)', price: 1.99,total: 1.99, bonus: 0 },{ quantity: 1, name: 'Apple Pomace', price: 0.89, total: 0.89, bonus: 0 }], bonus: 0, eta: '5' }] }))
+    trackOrderService.save.and.returnValue(of({ data: [{ totalPrice: 2.88, promotionalAmount: 0, products: [{ quantity: 1, name: 'Apple Juice (1000ml)', price: 1.99,total: 1.99, bonus: 0 },{ quantity: 1, name: 'Apple Pomace', price: 0.89, total: 0.89, bonus: 0 }], bonus: 0, eta: '5' }] }))
     component.ngOnInit()
     fixture.detectChanges()
     expect(component.orderDetails.totalPrice).toBe(2.88)
