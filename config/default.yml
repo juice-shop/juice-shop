@@ -5,14 +5,14 @@ application:
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
-  numberOfRandomFakeUsers: 0
+  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
   showChallengeSolvedNotifications: true
   showChallengeHints: true
   showVersionNumber: true
   showHackingInstructor: true
-  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
-  gitHubRibbon: true
-  hideWelcome: false
+  showGitHubLinks: true
+  showWelcomeBanner: true
+  numberOfRandomFakeUsers: 0
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
   slackUrl: 'http://owaspslack.com'
@@ -138,7 +138,7 @@ products:
     price: 4.99
     image: sticker_single.jpg
   -
-    name: 'OWASP Juice Shop Temporay Tattoos (16pcs)'
+    name: 'OWASP Juice Shop Temporary Tattoos (16pcs)'
     description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
     price: 14.99
     image: tattoo.jpg

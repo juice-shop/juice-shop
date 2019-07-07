@@ -13,13 +13,18 @@ export class LastLoginIpComponent {
   lastLoginIp: string = '?'
 
   ngOnInit () {
-    this.parseAuthToken()
+    try {
+      this.parseAuthToken()
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   parseAuthToken () {
     let payload = {} as any
-    if (localStorage.getItem('token')) {
-      payload = jwt_decode(localStorage.getItem('token'))
+    const token = localStorage.getItem('token')
+    if (token) {
+      payload = jwt_decode(token)
       if (payload.data.lastLoginIp) {
         this.lastLoginIp = payload.data.lastLoginIp
       }

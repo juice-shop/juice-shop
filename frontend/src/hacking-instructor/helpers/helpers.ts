@@ -45,7 +45,7 @@ export function waitForInputToNotBeEmpty (inputSelector: string) {
     ) as HTMLInputElement
 
     while (true) {
-      if (inputElement.value !== undefined && inputElement.value !== null && inputElement.value !== '') {
+      if (inputElement.value && inputElement.value !== '') {
         break
       }
       await sleep(100)
@@ -58,13 +58,28 @@ export function waitForElementToGetClicked (elementSelector: string) {
     const element = document.querySelector(
       elementSelector
     ) as HTMLElement
-    if (element === null) {
-      console.warn(`Element with selector "${elementSelector}" is null`)
+    if (!element) {
+      console.warn(`Could not find Element with selector "${elementSelector}"`)
     }
 
     await new Promise((resolve) => {
       element.addEventListener('click', () => resolve())
     })
+  }
+}
+
+export function waitForElementsInnerHtmlToBe (elementSelector: string, value: String) {
+  return async () => {
+    while (true) {
+      const element = document.querySelector(
+        elementSelector
+      ) as HTMLElement
+
+      if (element && element.innerHTML === value) {
+        break
+      }
+      await sleep(100)
+    }
   }
 }
 

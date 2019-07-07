@@ -26,7 +26,7 @@ describe('/#/basket', () => {
       protractor.expect.challengeSolved({ challenge: 'Payback Time' })
     })
 
-    describe('challenge "Basket Access Tier 1"', () => {
+    describe('challenge "basketAccessChallenge"', () => {
       it('should access basket with id from session storage instead of the one associated to logged-in user', () => {
         browser.executeScript('window.sessionStorage.bid = 3;')
 
@@ -35,10 +35,10 @@ describe('/#/basket', () => {
         // TODO Verify functionally that it's not the basket of the admin
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 1' })
+      protractor.expect.challengeSolved({ challenge: 'View Basket' })
     })
 
-    describe('challenge "Basket Access Tier 2"', () => {
+    describe('challenge "basketManipulateChallenge"', () => {
       it('should manipulate basket of other user instead of the one associated to logged-in user', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript(() => {
@@ -58,7 +58,7 @@ describe('/#/basket', () => {
         browser.waitForAngularEnabled(true)
       })
 
-      protractor.expect.challengeSolved({ challenge: 'Basket Access Tier 2' })
+      protractor.expect.challengeSolved({ challenge: 'Manipulate Basket' })
     })
   })
 

@@ -14,6 +14,7 @@ import { OAuthComponent } from './oauth.component'
 import { LoginComponent } from '../login/login.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('OAuthComponent', () => {
   let component: OAuthComponent
@@ -35,7 +36,8 @@ describe('OAuthComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatCheckboxModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatTooltipModule
       ],
       providers: [
         { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } }

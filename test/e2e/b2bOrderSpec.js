@@ -11,7 +11,7 @@ describe('/b2b/v2/order', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'RCE Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'Blocked RCE DoS' })
   })
 
   describe('challenge "rceOccupy"', () => {
@@ -22,6 +22,6 @@ describe('/b2b/v2/order', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'RCE Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Successful RCE DoS' })
   })
 })

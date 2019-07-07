@@ -7,12 +7,13 @@ import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
+import { Product } from '../Models/product.model'
 
 library.add(faEye, faCartPlus)
 dom.watch()
@@ -22,16 +23,19 @@ dom.watch()
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss']
 })
-export class SearchResultComponent implements AfterViewInit,OnDestroy {
+export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
-  public tableData: any[]
-  public dataSource
-  public searchValue
-  public confirmation = undefined
-  @ViewChild(MatPaginator) paginator: MatPaginator
-  private productSubscription: Subscription
-  private routerSubscription: Subscription
+  public tableData!: any[]
+  public dataSource!: MatTableDataSource<Element>
+  public gridDataSource!: any
+  public searchValue?: SafeHtml
+  public confirmation?: string
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
+  private productSubscription?: Subscription
+  private routerSubscription?: Subscription
+  public breakpoint: number = 6
+  public emptyState = false
 
   constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
@@ -42,10 +46,25 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       this.trustProductDescription(this.tableData)
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
+      this.gridDataSource = this.dataSource.connect()
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
+      if (window.innerWidth < 2600) {
+        this.breakpoint = 4
+        if (window.innerWidth < 1740) {
+          this.breakpoint = 3
+          if (window.innerWidth < 1280) {
+            this.breakpoint = 2
+            if (window.innerWidth < 850) {
+              this.breakpoint = 1
+            }
+          }
+        }
+      } else {
+        this.breakpoint = 6
+      }
     }, (err) => console.log(err))
   }
 
@@ -55,6 +74,9 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     }
     if (this.productSubscription) {
       this.productSubscription.unsubscribe()
+    }
+    if (this.dataSource) {
+      this.dataSource.disconnect()
     }
   }
 
@@ -69,13 +91,21 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
+      this.gridDataSource.subscribe((result: any) => {
+        if (result.length === 0) {
+          this.emptyState = true
+        } else {
+          this.emptyState = false
+        }
+      })
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined
+      this.emptyState = false
     }
   }
 
-  showDetail (element: any) {
+  showDetail (element: Product) {
     this.dialog.open(ProductDetailsComponent, {
       width: '500px',
       height: 'max-content',
@@ -85,8 +115,8 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     })
   }
 
-  addToBasket (id: number) {
-    this.basketService.find(sessionStorage.getItem('bid')).subscribe((basket) => {
+  addToBasket (id?: number) {
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
       for (let i = 0; i < productsInBasket.length; i++) {
@@ -131,4 +161,20 @@ export class SearchResultComponent implements AfterViewInit,OnDestroy {
     return localStorage.getItem('token')
   }
 
+  onResize (event: any) {
+    if (event.target.innerWidth < 2600) {
+      this.breakpoint = 4
+      if (event.target.innerWidth < 1740) {
+        this.breakpoint = 3
+        if (event.target.innerWidth < 1280) {
+          this.breakpoint = 2
+          if (event.target.innerWidth < 850) {
+            this.breakpoint = 1
+          }
+        }
+      }
+    } else {
+      this.breakpoint = 6
+    }
+  }
 }

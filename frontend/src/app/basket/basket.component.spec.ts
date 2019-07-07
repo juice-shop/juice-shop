@@ -26,12 +26,12 @@ import { EventEmitter } from '@angular/core'
 describe('BasketComponent', () => {
   let component: BasketComponent
   let fixture: ComponentFixture<BasketComponent>
-  let dialog
-  let userService
-  let basketService
-  let windowRefService
-  let configurationService
-  let translateService
+  let dialog: any
+  let userService: any
+  let basketService: any
+  let configurationService: any
+  let translateService: any
+  let windowRefService: any
 
   beforeEach(async(() => {
 
@@ -59,7 +59,7 @@ describe('BasketComponent', () => {
       get nativeWindow () {
         return {
           location: {
-            replace (str) {
+            replace (str: string) {
               return null
             }
           }
@@ -120,8 +120,8 @@ describe('BasketComponent', () => {
 
   it('should not hold twitter or facebook URL if not defined in configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    expect(component.twitterUrl).toBeNull()
-    expect(component.facebookUrl).toBeNull()
+    expect(component.twitterUrl).toBeUndefined()
+    expect(component.facebookUrl).toBeUndefined()
   })
 
   it('should use custom twitter URL if configured', () => {
@@ -320,7 +320,7 @@ describe('BasketComponent', () => {
     console.log = jasmine.createSpy('log')
     const windowSpy = spyOnProperty(windowRefService,'nativeWindow','get')
     component.checkout()
-    expect(component.redirectUrl).toBeNull()
+    expect(component.redirectUrl).toBeUndefined()
     expect(windowSpy).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))

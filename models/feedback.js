@@ -10,8 +10,8 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       set (comment) {
         const sanitizedComment = insecurity.sanitizeHtml(comment)
         this.setDataValue('comment', sanitizedComment)
-        if (utils.notSolved(challenges.persistedXssChallengeFeedback) && utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.persistedXssChallengeFeedback)
+        if (utils.notSolved(challenges.persistedXssFeedbackChallenge) && utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">')) {
+          utils.solve(challenges.persistedXssFeedbackChallenge)
         }
       }
     },

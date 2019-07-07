@@ -1,11 +1,12 @@
-import snarkdown from 'snarkdown'
+// @ts-ignore
+import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
-import { XssTier1Instruction } from './challenges/xssTier1'
+import { DomXssInstruction } from './challenges/localXss'
 
 const challengeInstructions: ChallengeInstruction[] = [
   LoginAdminInstruction,
-  XssTier1Instruction
+  DomXssInstruction
 ]
 
 export interface HackingInstructorFileFormat {
@@ -39,7 +40,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   const target = document.querySelector(hint.fixture)
 
   if (!target) {
-    return null
+    return null as unknown as HTMLElement
   }
 
   const elem = document.createElement('div')
@@ -81,7 +82,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   relAnchor.style.display = 'inline'
   relAnchor.appendChild(elem)
 
-  target.parentElement.insertBefore(relAnchor, target)
+  target.parentElement!.insertBefore(relAnchor, target)
 
   return relAnchor
 }
@@ -99,9 +100,9 @@ export function hasInstructions (challengeName: String): boolean {
 export async function startHackingInstructorFor (challengeName: String): Promise<void> {
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName)
 
-  for (const hint of challengeInstruction.hints) {
+  for (const hint of challengeInstruction!.hints) {
     const element = loadHint(hint)
-    if (element === null) {
+    if (!element) {
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
       continue
     }
