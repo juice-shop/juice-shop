@@ -10,8 +10,8 @@ import { ConfigurationService } from '../Services/configuration.service'
 export class PrivacyPolicyComponent implements OnInit {
 
   public applicationName: string = 'OWASP Juice Shop'
-  public privacyContactEmail: string
-  public applicationUrl: string
+  public privacyContactEmail!: string
+  public applicationUrl!: string
 
   constructor (@Inject(DOCUMENT) private _document: HTMLDocument, private configurationService: ConfigurationService) { }
 

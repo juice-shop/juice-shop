@@ -13,10 +13,10 @@ dom.watch()
 })
 export class QrCodeComponent implements OnInit {
 
-  public title: string
-  public url: string
-  public address: string
-  public data: string
+  public title!: string
+  public url!: string
+  public address!: string
+  public data!: string
   constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
   ngOnInit () {

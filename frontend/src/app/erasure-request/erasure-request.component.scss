@@ -1,7 +1,8 @@
 mat-card {
   height: auto;
-  min-width: 300px;
-  width: 35%;
+  min-width: 320px;
+  width: 30%;
+  margin-bottom: 30px;
 }
 
 .form-container {
@@ -11,9 +12,7 @@ mat-card {
 }
 
 #deleteUserButton {
-  margin-top: 1.2rem;
-}
-
-#dataExportButton {
+  width: 60%;
+  margin-left: 20%;
   margin-top: 1.2rem;
 }

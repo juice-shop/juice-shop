@@ -15,7 +15,7 @@ import { of, throwError } from 'rxjs'
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent
   let fixture: ComponentFixture<ChangePasswordComponent>
-  let userService
+  let userService: any
 
   beforeEach(async(() => {
 
@@ -68,7 +68,8 @@ describe('ChangePasswordComponent', () => {
   it('should be compulsory to repeat new password', () => {
     component.repeatNewPasswordControl.setValue('')
     expect(component.passwordControl.valid).toBeFalsy()
-    component.repeatNewPasswordControl.setValue('pass')
+    component.newPasswordControl.setValue('passed')
+    component.repeatNewPasswordControl.setValue('passed')
     expect(component.repeatNewPasswordControl.valid).toBe(true)
   })
 
@@ -102,7 +103,7 @@ describe('ChangePasswordComponent', () => {
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.changePassword.and.returnValue(throwError('Error'))
-    spyOn(component,'resetForm')
+    spyOn(component,'resetPasswords')
     console.log = jasmine.createSpy('log')
     component.passwordControl.setValue('old')
     component.newPasswordControl.setValue('foobar')
@@ -111,6 +112,6 @@ describe('ChangePasswordComponent', () => {
     expect(component.confirmation).toBeUndefined()
     expect(component.error).toBe('Error')
     expect(console.log).toHaveBeenCalledWith('Error')
-    expect(component.resetForm).toHaveBeenCalled()
+    expect(component.resetPasswords).toHaveBeenCalled()
   }))
 })

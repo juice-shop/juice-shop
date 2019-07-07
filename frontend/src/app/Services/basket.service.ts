@@ -13,19 +13,19 @@ export class BasketService {
 
   constructor (private http: HttpClient) { }
 
-  find (id) {
+  find (id?: number) {
     return this.http.get(this.hostServer + '/rest/basket/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  get (id) {
+  get (id: number) {
     return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  put (id, params) {
+  put (id: number, params: any) {
     return this.http.put(this.host + '/' + id, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  del (id) {
+  del (id: number) {
     return this.http.delete(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
@@ -33,11 +33,11 @@ export class BasketService {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  checkout (id, couponData?: string) {
+  checkout (id?: number, couponData?: string) {
     return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{ 'couponData': couponData }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
-  applyCoupon (id, coupon) {
+  applyCoupon (id?: number, coupon?: string) {
     return this.http.put(this.hostServer + '/rest/basket/' + id + '/coupon/' + coupon, {}).pipe(map((response: any) => response.discount), catchError((error) => { throw error }))
   }
 

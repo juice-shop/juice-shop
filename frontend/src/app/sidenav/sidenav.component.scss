@@ -1,0 +1,76 @@
+mat-toolbar {
+  height: auto;
+  min-width: 100%;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+.menu-text{
+  padding-left: 10px;
+}
+
+.mat-list-base, .mat-list-item, .mat-list-icon{
+  padding: 0px !important;
+}
+
+.toolbar-title {
+  margin: 0 16px 0 16px;
+}
+
+.mat-subheader {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.app-nav-list-icon {
+  margin: 0 12px 0 12px;
+}
+
+.side-subHeader {
+  font-weight: 300;
+}
+
+mat-nav-list{
+  margin-bottom: 50px;
+}
+
+.app-nav-list-icon {
+  margin: 0 12px 0 12px;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
+.appVersion{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
