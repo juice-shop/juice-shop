@@ -111,11 +111,11 @@ describe('/rest/basket/:id/checkout', () => {
       .expect('status', 401)
   })
 
-  it('POST placing an order for an existing basket returns path to an order confirmation PDF', () => {
+  it('POST placing an order for an existing basket returns orderId', () => {
     return frisby.post(REST_URL + '/basket/1/checkout', { headers: authHeader })
       .expect('status', 200)
       .then(({ json }) => {
-        expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+        expect(json.orderConfirmation).toBeDefined()
       })
   })
 
@@ -135,7 +135,7 @@ describe('/rest/basket/:id/checkout', () => {
         return frisby.post(REST_URL + '/basket/3/checkout', { headers: authHeader })
           .expect('status', 200)
           .then(({ json }) => {
-            expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+            expect(json.orderConfirmation).toBeDefined()
           })
       })
   })
@@ -149,7 +149,7 @@ describe('/rest/basket/:id/checkout', () => {
         return frisby.post(REST_URL + '/basket/2/checkout', { headers: authHeader })
           .expect('status', 200)
           .then(({ json }) => {
-            expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+            expect(json.orderConfirmation).toBeDefined()
           })
       })
   })
