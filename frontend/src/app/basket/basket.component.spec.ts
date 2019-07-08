@@ -53,4 +53,14 @@ describe('BasketComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
+
+  it('should store product count on calling getProductCount', () => {
+    component.getProductCount(1)
+    expect(component.productCount).toBe(1)
+  })
+
+  it('should store bonus points on calling getBonusPoints', () => {
+    component.getBonusPoints([1, 10])
+    expect(component.bonus).toBe(10)
+  })
 })
