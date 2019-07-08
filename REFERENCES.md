@@ -102,6 +102,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* White paper by Kelley Bryant:
+  [OWASP: Application Security's Best Friend](https://drive.google.com/file/d/0ByCGDrCX7bx7dnB0TGJJSnNzRmhtUUE4U1RfR3d0YVl4RHFr/view)
 * Article (:es:) on Medium by
   [Elzer Pineda](https://medium.com/@elzerjp):
   [Null Byte Attack Juice Shop y algo mas!!](https://medium.com/@elzerjp/null-byte-attack-juice-shop-y-algo-mas-2c6d271b2fd5)
@@ -211,6 +213,15 @@ where this project was mentioned or used!
   12.-16.06.2017
 
 ## Conference and Meetup Appearances
+
+#### Upcoming
+
+* [Elbsides vs. Juice Shop](https://2019.elbsides.de/programme.html#elbsides-vs-juice-shop)
+  workshop with Björn Kimminich,
+  [Elbsides 2019](https://2019.elbsides.de), 16.09.2019
+* [t.b.d.]() by Björn Kimminich, Project Showcase track of the
+  [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
+  26./27.09.2019
 
 #### 2019
 
