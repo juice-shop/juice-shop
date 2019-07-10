@@ -206,6 +206,7 @@
   "DELETE_DATA_LABEL": "Eliminar datos de usuario",
   "CONFIRM_ERASURE_REQUEST": "Sorry to see you leave! Your erasure request will be processed shortly.",
   "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
+  "SCORE_BOARD_HACKING_INSTRUCTOR": "Launch a tutorial to get you started hacking the Juice Shop.",
   "BTN_DISMISS": "Dismiss",
   "SIDENAV_HINT": "Abrir menú lateral",
   "LANGUAGE_SEL_HINT": "Elegir idioma",
