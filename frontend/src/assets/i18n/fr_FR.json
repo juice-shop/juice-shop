@@ -215,5 +215,5 @@
   "WRITE_MESSAGE_PLACEHOLDER": "Que voulez-vous nous dire?",
   "SHOW_PWD_TOOLTIP": "Afficher le mot de passe",
   "HIDE_PWD_TOOLTIP": "Masquer le mot de passe",
-  "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )"
+  "DATA_EXPORT_HINT": "(Your data export will open in a new Browser window.)"
 }
