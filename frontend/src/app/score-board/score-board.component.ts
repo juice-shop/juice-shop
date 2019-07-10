@@ -50,12 +50,12 @@ export class ScoreBoardComponent implements OnInit {
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
 
-    this.configurationService.getApplicationConfiguration().subscribe((data: any) => {
-      this.allowRepeatNotifications = data.application.showChallengeSolvedNotifications && data.ctf.showFlagsInNotifications
-      this.showChallengeHints = data.application.showChallengeHints
-      this.showHackingInstructor = data.application.showHackingInstructor
-      if (data.application.showGitHubLinks !== null && data.application.showGitHubLinks !== undefined) {
-        this.showContributionInfoBox = data.application.showGitHubLinks
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
+      this.showChallengeHints = config.application.showChallengeHints
+      this.showHackingInstructor = config.application.showHackingInstructor
+      if (config.application.showGitHubLinks !== null && config.application.showGitHubLinks !== undefined) {
+        this.showContributionInfoBox = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))
 
