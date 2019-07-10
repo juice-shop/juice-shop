@@ -1,0 +1,12 @@
+.text-justify{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+:host /deep/ h1 a {
+  font-size: 20px;
+}
+
+:host /deep/ strong {
+  font-style: italic;
+}

@@ -6,7 +6,7 @@ describe('/#/register', () => {
     browser.get('/#/register')
   })
 
-  describe('challenge "xss2"', () => {
+  describe('challenge "persistedXssUser"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('should be possible to bypass validation by directly using Rest API', () => {
@@ -44,7 +44,7 @@ describe('/#/register', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Client-side XSS Protection' })
   })
 
   describe('challenge "registerAdmin"', () => {

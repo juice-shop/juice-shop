@@ -4,7 +4,9 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   showHackingInstructor: false
-  gitHubRibbon: false
+  showGitHubLinks: false
+  welcomeBanner:
+    showOnFirstStart: false
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both
@@ -33,10 +35,10 @@ ctf:
     reflectedXssChallenge:
       name: Uruguay
       code: UY
-    persistedXssChallengeUser:
+    persistedXssUserChallenge:
       name: Myanmar
       code: MM
-    persistedXssChallengeFeedback:
+    persistedXssFeedbackChallenge:
       name: Costa Rica
       code: CR
     restfulXssChallenge:
@@ -168,10 +170,10 @@ ctf:
     typosquattingAngularChallenge:
       name: Senegal
       code: SN
-    jwtTier1Challenge:
+    jwtUnsignedChallenge:
       name: New Zealand
       code: NZ
-    jwtTier2Challenge:
+    jwtForgedChallenge:
       name: Mongolia
       code: MN
     misplacedSignatureFileChallenge:

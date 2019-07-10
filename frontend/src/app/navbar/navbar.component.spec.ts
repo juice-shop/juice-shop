@@ -27,9 +27,12 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { NgMatSearchBarModule } from 'ng-mat-search-bar'
+import { MatRadioModule } from '@angular/material/radio'
 
 class MockSocket {
-  on (str: string, callback) {
+  on (str: string, callback: Function) {
     callback(str)
   }
 }
@@ -37,15 +40,15 @@ class MockSocket {
 describe('NavbarComponent', () => {
   let component: NavbarComponent
   let fixture: ComponentFixture<NavbarComponent>
-  let administrationService
-  let configurationService
-  let userService
-  let challengeService
-  let translateService
-  let cookieService
-  let mockSocket
-  let socketIoService
-  let location
+  let administrationService: any
+  let configurationService: any
+  let userService: any
+  let challengeService: any
+  let translateService: any
+  let cookieService: any
+  let mockSocket: any
+  let socketIoService: any
+  let location: Location
 
   beforeEach(async(() => {
 
@@ -88,7 +91,10 @@ describe('NavbarComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule,
+        NgMatSearchBarModule,
+        MatRadioModule
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },
@@ -179,13 +185,13 @@ describe('NavbarComponent', () => {
   it('should show GitHub button by default', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(true)
+    expect(component.showGitHubLink).toBe(true)
   })
 
   it('should hide GitHub ribbon if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { gitHubRibbon: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
-    expect(component.gitHubRibbon).toBe(false)
+    expect(component.showGitHubLink).toBe(false)
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
@@ -253,7 +259,7 @@ describe('NavbarComponent', () => {
   }))
 
   it('should set selected a language', () => {
-    spyOn(translateService,'use').and.callFake((lang) => lang)
+    spyOn(translateService,'use').and.callFake((lang: any) => lang)
     component.changeLanguage('xx')
     expect(translateService.use).toHaveBeenCalledWith('xx')
   })

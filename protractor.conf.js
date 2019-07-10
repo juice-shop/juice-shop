@@ -44,15 +44,14 @@ exports.config = {
       savePath: 'build/reports/e2e_results'
     }))
 
-    // Get cookie consent popup out of the way
+    // Get all banners out of the way
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
+    browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss' })
 
-    // Get welcome banner out of the way
-    let welcomeClose = element.all(by.className('welcome-banner-close-button'))
-    if (welcomeClose.isPresent()) { welcomeClose.first().click() }
-
-    browser.manage().addCookie({ name: 'welcome-banner-status', value: 'dismiss' })
+    // Ensure score board shows all challenges (by default only 1-star challenges are shown)
+    browser.get('/#/score-board')
+    element(by.id('btnToggleAllDifficulties')).click()
   }
 }
 

@@ -1,7 +1,7 @@
 mat-card {
   height: auto;
-  min-width: 300px;
-  width: 35%;
+  min-width: 320px;
+  width: 30%;
 }
 
 mat-form-field {
@@ -14,6 +14,8 @@ mat-form-field {
   position: relative;
 }
 
-button {
-  margin-top: 10px;
+#submitButton {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 30px;
 }

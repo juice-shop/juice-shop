@@ -4,20 +4,21 @@ const pastebinLeakProduct = config.get('products').filter(product => product.key
 const models = require('../../models/index')
 
 describe('/#/search', () => {
-  let searchQuery, searchButton
+  let searchQuery
 
   beforeEach(() => {
     browser.get('/#/search') // not really necessary as search field is part of navbar on every dialog
     searchQuery = element(by.id('searchQuery'))
-    searchButton = element(by.id('searchButton'))
   })
 
-  describe('challenge "xss1"', () => {
+  describe('challenge "localXss"', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
+      let inputField = element(by.id('mat-input-0'))
       const EC = protractor.ExpectedConditions
 
-      searchQuery.sendKeys('<iframe src="javascript:alert(`xss`)">')
-      searchButton.click()
+      searchQuery.click()
+      inputField.sendKeys('<iframe src="javascript:alert(`xss`)">')
+      browser.actions().sendKeys(protractor.Key.ENTER).perform()
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
       browser.switchTo().alert().then(alert => {
         expect(alert.getText()).toEqual('xss')
@@ -25,7 +26,7 @@ describe('/#/search', () => {
       })
     })
 
-    protractor.expect.challengeSolved({ challenge: 'XSS Tier 1' }) // FIXME Verification on server side not possible as value never get submitted to it
+    protractor.expect.challengeSolved({ challenge: 'DOM XSS' })
   })
 })
 
@@ -48,7 +49,7 @@ describe('/rest/products/search', () => {
     })
   })
 
-  describe('challenge "christmasSpecial"', () => {
+  xdescribe('challenge "christmasSpecial"', () => {
     protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
     it('search query should reveal logically deleted christmas special product on SQL injection attack', () => {
@@ -57,7 +58,7 @@ describe('/rest/products/search', () => {
       })
     })
 
-    it('should be able to place Christmas product into shopping card by id', () => { // FIXME Fix XHTTP request
+    it('should be able to place Christmas product into shopping card by id', () => {
       browser.waitForAngularEnabled(false)
       models.sequelize.query('SELECT * FROM PRODUCTS').then(([products]) => {
         var christmasProductId = products.filter(product => product.name === christmasProduct.name)[0].id

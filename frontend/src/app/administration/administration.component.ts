@@ -21,7 +21,7 @@ export class AdministrationComponent implements OnInit {
   public userColumns = ['user','email','user_detail']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
-  public error
+  public error: any
   constructor (private dialog: MatDialog, private userService: UserService, private feedbackService: FeedbackService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
