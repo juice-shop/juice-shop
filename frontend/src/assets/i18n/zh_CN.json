@@ -215,5 +215,5 @@
   "WRITE_MESSAGE_PLACEHOLDER": "有什么想告诉我们的？",
   "SHOW_PWD_TOOLTIP": "Show password",
   "HIDE_PWD_TOOLTIP": "Hide password",
-  "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )"
+  "DATA_EXPORT_HINT": "(Your data export will open in a new Browser window.)"
 }
