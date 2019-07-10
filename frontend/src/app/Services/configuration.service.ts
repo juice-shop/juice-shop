@@ -20,6 +20,7 @@ interface Config {
     showChallengeSolvedNotifications: boolean
     showChallengeHints: boolean
     showVersionNumber: boolean
+    showHackingInstructor: boolean
     showGitHubLinks: boolean
     numberOfRandomFakeUsers: number
     twitterUrl: string
