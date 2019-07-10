@@ -21,7 +21,6 @@ interface Config {
     showChallengeHints: boolean
     showVersionNumber: boolean
     showGitHubLinks: boolean
-    showWelcomeBanner: boolean
     numberOfRandomFakeUsers: number
     twitterUrl: string
     facebookUrl: string
@@ -35,6 +34,11 @@ interface Config {
       bottomProductImage: string
     }
     altcoinName: string
+    welcomeBanner: {
+      showOnFirstStart: boolean
+      title: string
+      message: string
+    }
     cookieConsent: {
       backgroundColor: string
       textColor: string
