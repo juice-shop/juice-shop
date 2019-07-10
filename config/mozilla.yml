@@ -8,7 +8,6 @@ application:
   showHackingInstructor: false
   theme: deeporange-indigo
   showGitHubLinks: true
-  showWelcomeBanner: false
   twitterUrl: 'https://twitter.com/mozcloudsec'
   facebookUrl: null
   slackUrl: null
@@ -18,6 +17,8 @@ application:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg
   altcoinName: Mozquito
+  welcomeBanner:
+    showOnFirstStart: false
   cookieConsent:
     backgroundColor: '#e95420'
     textColor: '#ffffff'
