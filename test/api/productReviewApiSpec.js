@@ -7,7 +7,7 @@ const config = require('config')
 const REST_URL = 'http://localhost:3000/rest'
 
 const jsonHeader = { 'content-type': 'application/json' }
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/rest/products/:id/reviews', () => {
   const reviewResponseSchema = {
@@ -102,7 +102,7 @@ describe('/rest/products/reviews', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.post(REST_URL + '/products/reviews', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token },
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token },
           body: {
             id: reviewId
           }
@@ -119,7 +119,7 @@ describe('/rest/products/reviews', () => {
     return frisby.patch(REST_URL + '/products/reviews', {
       headers: authHeader,
       body: {
-        id: { '$ne': -1 },
+        id: { $ne: -1 },
         message: 'trololololololololololololololololololololololololololol'
       }
     })

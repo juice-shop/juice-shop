@@ -18,7 +18,7 @@ describe('redirect', () => {
   })
 
   describe('should be performed for all whitelisted URLs', () => {
-    for (let url of require('../../lib/insecurity').redirectWhitelist) {
+    for (const url of require('../../lib/insecurity').redirectWhitelist) {
       it(url, () => {
         this.req.query.to = url
 

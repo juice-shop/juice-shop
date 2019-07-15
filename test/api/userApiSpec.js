@@ -5,7 +5,7 @@ const insecurity = require('../../lib/insecurity')
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
 describe('/api/Users', () => {
@@ -23,7 +23,7 @@ describe('/api/Users', () => {
     return frisby.get(API_URL + '/Users', { headers: authHeader })
       .expect('status', 200)
       .expect('jsonTypes', 'data.*', {
-        'password': Joi.any().forbidden()
+        password: Joi.any().forbidden()
       })
   })
 
@@ -169,14 +169,14 @@ describe('/rest/user/whoami', () => {
   })
 
   it('GET who-am-i request returns nothing on invalid auth token', () => {
-    return frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'Bearer InvalidAuthToken' } })
+    return frisby.get(REST_URL + '/user/whoami', { headers: { Authorization: 'Bearer InvalidAuthToken' } })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {})
   })
 
   it('GET who-am-i request returns nothing on broken auth token', () => {
-    return frisby.get(REST_URL + '/user/whoami', { headers: { 'Authorization': 'BoarBeatsBear' } })
+    return frisby.get(REST_URL + '/user/whoami', { headers: { Authorization: 'BoarBeatsBear' } })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {})

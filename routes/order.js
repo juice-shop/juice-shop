@@ -12,7 +12,7 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
+    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
@@ -36,7 +36,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          let basketProducts = []
+          const basketProducts = []
           let totalPoints = 0
           basket.Products.forEach(({ BasketItem, price, name }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
@@ -103,7 +103,7 @@ module.exports = function placeOrder () {
 
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
-    let discount = insecurity.discountFromCoupon(basket.coupon)
+    const discount = insecurity.discountFromCoupon(basket.coupon)
     if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
       utils.solve(challenges.forgedCouponChallenge)
     }
