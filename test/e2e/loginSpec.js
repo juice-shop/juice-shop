@@ -95,7 +95,7 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'DLP Failure Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'Leaked Access Logs' })
   })
 
   describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
@@ -165,6 +165,6 @@ describe('/#/login', () => {
       loginButton.click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 1' })
+    protractor.expect.challengeSolved({ challenge: 'GDPR Data Erasure' })
   })
 })

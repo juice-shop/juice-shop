@@ -10,6 +10,11 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 library.add(faTrash)
 dom.watch()
 
+interface HackingProgress {
+  autoRestoreMessage: string | null,
+  cleared: boolean
+}
+
 @Component({
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
@@ -17,7 +22,7 @@ dom.watch()
 })
 export class ServerStartedNotificationComponent implements OnInit {
 
-  public hackingProgress: any = {}
+  public hackingProgress: HackingProgress = {} as HackingProgress
 
   constructor (private ngZone: NgZone, private challengeService: ChallengeService,private translate: TranslateService,private cookieService: CookieService,private ref: ChangeDetectorRef, private io: SocketIoService) {
   }

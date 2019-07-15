@@ -12,15 +12,15 @@ export class ProductService {
 
   constructor (private http: HttpClient) { }
 
-  search (criteria) {
+  search (criteria: any) {
     return this.http.get(this.hostServer + '/rest/products/search?q=' + criteria).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  find (params) {
+  find (params: any) {
     return this.http.get(this.host + '/', { params: params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  get (id) {
+  get (id: number) {
     return this.http.get(this.host + '/' + id + '?d=' + encodeURIComponent(new Date().toDateString())).pipe(map((response: any) =>
     response.data), catchError((err) => { throw err }))
   }

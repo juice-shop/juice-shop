@@ -1,21 +1,34 @@
 <div fxLayoutAlign="center">
-  <mat-card>
+  <mat-card class="mat-elevation-z6">
 
-    <h3 translate>TITLE_TWO_FACTOR_AUTH_ENTER</h3>
+    <h1 translate>TITLE_TWO_FACTOR_AUTHENTICATION</h1>
+
+    <p translate>TITLE_TWO_FACTOR_AUTH_ENTER</p>
+
+    <div *ngIf="errored" class="error" style="margin-bottom: 10px;" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
 
     <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
 
-      <div *ngIf="errored" class="error" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
-
       <div class="form-container">
-        <mat-form-field appearance="outline">
+        <mat-form-field id="inputToken" appearance="outline" color="accent">
           <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
-          <input formControlName="token" type="text" required minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken">
+          <input #tokenInput formControlName="token" type="text" minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken"
+                 aria-label="Field for entering the Two Factor token" placeholder="{{ '2FA_ENTER_CODE_PLACEHOLDER' | translate}}">
+          <mat-icon matSuffix matTooltip="{{ 'INITIAL_TOKEN_TOOLTIP' | translate}}"
+                    matTooltipPosition=right
+                    aria-label="The code to be entered from the authenticator must have 6 digits.">
+            help_outline
+          </mat-icon>
+          <mat-hint align="end">{{tokenInput.value?.length || 0}}/6</mat-hint>
+          <mat-error translate>INVALID_TWO_FACTOR_AUTH_TOKEN</mat-error>
         </mat-form-field>
       </div>
 
-      <button type="submit" color="primary" mat-raised-button [disabled]="twoFactorForm.invalid" id="totpSubmitButton">
-        <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_LOGIN' | translate}}
+      <button type="submit" color="primary" mat-raised-button [disabled]="twoFactorForm.invalid" id="totpSubmitButton" aria-label="Button to confirm the input">
+        <i class="material-icons">
+          lock_open
+        </i>
+        {{'BTN_LOGIN' | translate}}
       </button>
     </form>
 

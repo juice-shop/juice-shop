@@ -21,6 +21,6 @@ describe('/#/privacy-security/data-export', () => {
       element(by.id('submitButton')).click()
     })
 
-    protractor.expect.challengeSolved({ challenge: 'GDPR Compliance Tier 2' })
+    protractor.expect.challengeSolved({ challenge: 'GDPR Data Theft' })
   })
 })

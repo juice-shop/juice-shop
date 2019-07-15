@@ -4,7 +4,7 @@ application:
   logo: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   favicon: 'https://www.shareicon.net/download/2016/08/13/808555_media.ico'
   theme: indigo-pink
-  gitHubRibbon: true
+  showGitHubLinks: true
   twitterUrl: null
   facebookUrl: null
   slackUrl: null
@@ -16,6 +16,8 @@ application:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg
   altcoinName: Bodgecoin
+  welcomeBanner:
+    showOnFirstStart: false
   cookieConsent:
     backgroundColor: '#000000'
     textColor: '#ffffff'

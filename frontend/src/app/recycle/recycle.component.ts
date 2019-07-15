@@ -22,8 +22,8 @@ export class RecycleComponent implements OnInit {
   public recycleQuantityControl: FormControl = new FormControl('',[Validators.required,Validators.min(10),Validators.max(1000)])
   public pickUpDateControl: FormControl = new FormControl()
   public pickup: FormControl = new FormControl(false)
-  public topImage: string
-  public bottomImage: string
+  public topImage?: string
+  public bottomImage?: string
   public recycles: any
   public recycle: any = {}
   public userEmail: any

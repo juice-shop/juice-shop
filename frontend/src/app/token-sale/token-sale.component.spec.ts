@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button'
 describe('TokenSaleComponent', () => {
   let component: TokenSaleComponent
   let fixture: ComponentFixture<TokenSaleComponent>
-  let configurationService
+  let configurationService: any
 
   beforeEach(async(() => {
 

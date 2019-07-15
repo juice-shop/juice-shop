@@ -4,6 +4,12 @@ import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 
+interface Passwords {
+  current?: string,
+  new?: string,
+  repeat?: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,18 +26,18 @@ export class UserService {
     response.data),catchError((err) => { throw err }))
   }
 
-  get (id) {
+  get (id: number) {
     return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  save (params) {
+  save (params: any) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
       catchError((err) => { throw err })
     )
   }
 
-  login (params) {
+  login (params: any) {
     this.isLoggedIn.next(true)
     return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication), catchError((err) => { throw err }))
   }
@@ -40,12 +46,12 @@ export class UserService {
     return this.isLoggedIn.asObservable()
   }
 
-  changePassword (passwords) {
+  changePassword (passwords: Passwords) {
     return this.http.get(this.hostServer + '/rest/user/change-password?current=' + passwords.current + '&new=' +
     passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
 
-  resetPassword (params) {
+  resetPassword (params: any) {
     return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
@@ -53,7 +59,7 @@ export class UserService {
     return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
-  oauthLogin (accessToken) {
+  oauthLogin (accessToken: string) {
     return this.http.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken)
   }
 

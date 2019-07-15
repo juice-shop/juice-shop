@@ -23,13 +23,16 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { of } from 'rxjs'
 
 describe('TwoFactorAuthEnterComponent', () => {
   let component: TwoFactorAuthEnterComponent
   let fixture: ComponentFixture<TwoFactorAuthEnterComponent>
-  let userService
+  let userService: any
 
   beforeEach(async(() => {
     userService = jasmine.createSpyObj('UserService', ['login'])
@@ -56,7 +59,10 @@ describe('TwoFactorAuthEnterComponent', () => {
         MatPaginatorModule,
         MatDialogModule,
         MatDividerModule,
-        MatButtonModule
+        MatButtonModule,
+        MatGridListModule,
+        MatSnackBarModule,
+        MatTooltipModule
       ],
       declarations: [ TwoFactorAuthEnterComponent, SearchResultComponent ],
       providers: [

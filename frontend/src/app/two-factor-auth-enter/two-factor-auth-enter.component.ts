@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngx-cookie'
 import { UserService } from '../Services/user.service'
@@ -21,7 +21,7 @@ interface TokenEnterFormFields {
 })
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: FormGroup = new FormGroup({
-    token: new FormControl('')
+    token: new FormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
   })
 
   public errored: Boolean = false
