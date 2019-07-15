@@ -13,7 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { WalletComponent } from './wallet.component'
 import { WalletService } from '../Services/wallet.service'
 
-fdescribe('WalletComponent', () => {
+describe('WalletComponent', () => {
   let component: WalletComponent
   let fixture: ComponentFixture<WalletComponent>
   let walletService
