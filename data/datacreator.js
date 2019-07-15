@@ -35,7 +35,8 @@ module.exports = async () => {
     createRecycleItems,
     createOrders,
     createQuantity,
-    createPurchaseQuantity
+    createPurchaseQuantity,
+    createWallet
   ]
 
   for (const creator of creators) {
@@ -93,6 +94,20 @@ async function createUsers () {
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${err.message}`)
       }
+    })
+  )
+}
+
+async function createWallet () {
+  const users = await loadStaticData('users')
+  return Promise.all(
+    users.map((user, index) => {
+      return models.Wallet.create({
+        UserId: index + 1,
+        balance: user.walletBalance !== undefined ? user.walletBalance : 0
+      }).catch((err) => {
+        logger.error(`Could not create wallet: ${err.message}`)
+      })
     })
   )
 }

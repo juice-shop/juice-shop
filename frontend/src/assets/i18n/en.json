@@ -276,14 +276,16 @@
   "DATA_EXPORT_HINT": "( Your data export will open in a new Browser window )",
   "LABEL_SOLD_OUT": "Sold Out",
   "LABEL_ONLY_QUANTITY_LEFT": "Only {{quantity}} left",
-  "ORDER_SUMMARY": "Order Summary",
-  "ITEMS": "Items",
-  "DELIVERY": "Delivery",
-  "PROMOTION": "Promotion",
   "THANKS_FOR_PURCHASE": "Thank you, for your purchase.",
   "PURCHASE_COMMENT_PREFIX": "Your order has been placed and is being processed. You can track the order through",
   "PURCHASE_COMMENT_SUFFIX": "page.",
   "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!",
   "ESTIMATED_TIME_OF_DELIVERY": "Your order will be delivered in {{numberdays}} days.",
-  "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation"
+  "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation",
+  "JUICE_SHOP_WALLET": "Juice Shop Wallet",
+  "LABEL_ADD_MONEY": "Add Money",
+  "LABEL_WALLET_BALANCE": "Wallet Balance:",
+  "LABEL_ENTER_AMOUNT": "Enter an amount to add",
+  "MANDATORY_AMOUNT": "Please enter an amount",
+  "AMOUNT_LIMIT": "You can add a minimum of 10 and only upto 1000."
 }

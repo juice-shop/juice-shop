@@ -106,6 +106,12 @@ module.exports = function placeOrder () {
             utils.solve(challenges.negativeOrderChallenge)
           }
 
+          if (req.body.UserId) {
+            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
+              next(error)
+            })
+          }
+
           db.orders.insert({
             orderId: orderId,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
