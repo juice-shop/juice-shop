@@ -4,7 +4,7 @@ const insecurity = require('../../lib/insecurity')
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 const jsonHeader = { 'content-type': 'application/json' }
 
 const validCoupon = insecurity.generateCoupon(15)
@@ -83,7 +83,7 @@ describe('/rest/basket/:id', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.get(REST_URL + '/basket/2', { headers: { 'Authorization': 'Bearer ' + json.authentication.token } })
+        return frisby.get(REST_URL + '/basket/2', { headers: { Authorization: 'Bearer ' + json.authentication.token } })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'data', { id: 2 })

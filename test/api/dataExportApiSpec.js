@@ -16,7 +16,7 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.post(REST_URL + '/user/data-export', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
           }
@@ -43,13 +43,13 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.get(REST_URL + '/image-captcha', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(() => {
             return frisby.post(REST_URL + '/user/data-export', {
-              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+              headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: 'AAAAAA',
                 format: 1
@@ -72,13 +72,13 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.get(REST_URL + '/image-captcha', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json: captchaAnswer }) => {
             return frisby.post(REST_URL + '/user/data-export', {
-              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+              headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,
                 format: 1
@@ -107,12 +107,12 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.post(REST_URL + '/basket/4/checkout', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
           .then(() => {
             return frisby.post(REST_URL + '/user/data-export', {
-              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+              headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 format: '1'
               }
@@ -147,7 +147,7 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.post(REST_URL + '/user/data-export', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
           }
@@ -184,18 +184,18 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.post(REST_URL + '/basket/4/checkout', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
           .then(() => {
             return frisby.get(REST_URL + '/image-captcha', {
-              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+              headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
             })
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .then(({ json: captchaAnswer }) => {
                 return frisby.post(REST_URL + '/user/data-export', {
-                  headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+                  headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
                   body: {
                     answer: captchaAnswer.answer,
                     format: 1
@@ -232,13 +232,13 @@ describe('/rest/user/data-export', () => {
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
         return frisby.get(REST_URL + '/image-captcha', {
-          headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(({ json: captchaAnswer }) => {
             return frisby.post(REST_URL + '/user/data-export', {
-              headers: { 'Authorization': 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
+              headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,
                 format: 1
