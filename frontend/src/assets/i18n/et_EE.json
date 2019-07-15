@@ -214,5 +214,8 @@
   "BTN_SAVE": "Salvesta",
   "LABEL_RESULT": "Tulemus",
   "IP_ADDRESS": "IP-aadress:",
-  "WRITE_MESSAGE_PLACEHOLDER": "Mida soovid meile teatada?"
+  "WRITE_MESSAGE_PLACEHOLDER": "Mida soovid meile teatada?",
+  "SHOW_PWD_TOOLTIP": "Kuva salasõna",
+  "HIDE_PWD_TOOLTIP": "Peida salasõna",
+  "DATA_EXPORT_HINT": "( Andmete eksport avaneb uues veebilehitseja aknas)"
 }
