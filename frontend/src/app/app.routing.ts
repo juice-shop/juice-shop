@@ -41,6 +41,7 @@ import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
+import { WalletComponent } from './wallet/wallet.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -187,6 +188,10 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent
+  },
+  {
+    path: 'wallet',
+    component: WalletComponent
   },
   {
     path: 'login',

@@ -112,6 +112,8 @@ import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
+import { WalletComponent } from './wallet/wallet.component'
+import { WalletService } from './Services/wallet.service'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -166,7 +168,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     OrderSummaryComponent,
     PurchaseBasketComponent,
     PrivacyPolicyComponent,
-    ChallengeStatusBadgeComponent
+    ChallengeStatusBadgeComponent,
+    WalletComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -257,7 +260,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     ImageCaptchaService,
     AddressService,
     AccountingGuard,
-    QuantityService
+    QuantityService,
+    WalletService
   ],
   bootstrap: [AppComponent]
 })

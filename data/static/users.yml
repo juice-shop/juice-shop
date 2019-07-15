@@ -14,6 +14,7 @@
   password: 'ncc-1701'
   key: jim
   role: 'customer'
+  walletBalance: 100
   securityQuestion:
     id: 1
     answer: 'Samuel' # https://en.wikipedia.org/wiki/James_T._Kirk
