@@ -1,31 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-    <mat-toolbar><span translate>MENU</span></mat-toolbar>
-    <mat-nav-list (click)="600 > windowWidth ? drawer.toggle() : false">
-      <a mat-list-item [routerLink]="['privacy-policy']"><span translate>TITLE_PRIVACY_POLICY</span></a>
-      <a mat-list-item [routerLink]="['two-factor-authentication']"><span translate>TITLE_TWO_FACTOR_AUTHENTICATION</span></a>
-      <a mat-list-item [routerLink]="['change-password']"><span translate>TITLE_CHANGE_PASSWORD</span></a>
-      <a mat-list-item [routerLink]="['last-login-ip']"><span translate>LAST_LOGIN_IP</span></a>
-      <a mat-list-item [routerLink]="['data-export']"><span translate>TITLE_REQUEST_DATA_EXPORT</span></a>
-      <a mat-list-item [routerLink]="['data-subject']"><span translate>DATA_SUBJECT_TITLE</span></a>
-    </mat-nav-list>
-  </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar style="top: 0">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span><span translate>PRIVACY_AND_SECURITY</span></span>
-    </mat-toolbar>
-      <div class="space-element"></div>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

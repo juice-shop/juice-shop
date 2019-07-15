@@ -1,17 +1,62 @@
 .table-container {
   min-width: 350px;
-  width: 75%;
+  width: 80%;
 }
 
 .heading {
-  background: rgba(0, 0, 0, 0.13);
+  background: rgba(0,0,0,.2);
   justify-content: center;
   padding: 12px 20px;
+  font-size: x-large;
 }
 
 .img-thumbnail {
+  width: 100%;
+}
+
+
+.product {
   cursor: pointer;
-  height: auto;
-  max-width: 70%;
-  width: 70px;
+}
+
+.btn-basket {
+  bottom: 10%;
+}
+
+mat-card {
+  height: calc(100% - 70px);
+}
+
+.item-price {
+  text-align: center;
+  margin-top: 12px;
+  font-size: initial;
+}
+
+.item-name {
+  font-size: large;
+  text-align: center;
+}
+
+.emptyState{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: auto !important;
+}
+
+.noResult{
+  width: 60%;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.noResultText{
+  text-align: center;
+  display:block;
+  margin-top: 10px;
 }

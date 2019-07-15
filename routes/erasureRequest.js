@@ -10,7 +10,7 @@ module.exports = function erasureRequest () {
         deletionRequested: true
       }
       models.PrivacyRequest.create(userData).then(() => {
-        res.status(202).send('Sorry to see you leave! Your erasure request will be processed shortly.')
+        res.status(202).send()
       }).catch((err) => {
         next(err)
       })

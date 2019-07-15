@@ -5,12 +5,12 @@ module.exports = function countryMapping (config = require('config')) {
     try {
       const countryMapping = config.get('ctf.countryMapping')
       if (!countryMapping) {
-        throw new Error('Found countryMapping found!')
+        throw new Error('No country mapping found!')
       } else {
         res.send(countryMapping)
       }
     } catch (err) {
-      logger.warn('countryMapping was requested but was not found in the selected config file. Take a look at the fbctf.yml config file to find out how to configure the country mappings required by FBCTF.')
+      logger.warn('Country mapping was requested but was not found in the selected config file. Take a look at the fbctf.yml config file to find out how to configure the country mappings required by FBCTF.')
       res.status(500).send()
     }
   }

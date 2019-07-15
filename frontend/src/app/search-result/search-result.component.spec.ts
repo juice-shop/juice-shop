@@ -5,6 +5,8 @@ import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testi
 import { SearchResultComponent } from './search-result.component'
 import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatCardModule } from '@angular/material/card'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatTableModule } from '@angular/material/table'
@@ -18,13 +20,14 @@ import { BasketService } from '../Services/basket.service'
 import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
+import { Product } from '../Models/product.model'
 
 class MockSocket {
-  on (str: string, callback) {
+  on (str: string, callback: Function) {
     callback(str)
   }
 
-  emit (a,b) {
+  emit (a: any, b: any) {
     return null
   }
 }
@@ -32,7 +35,7 @@ class MockSocket {
 class MockActivatedRoute {
   snapshot = { queryParams: { q: '' } }
 
-  setQueryParameter (arg) {
+  setQueryParameter (arg: string) {
     this.snapshot.queryParams.q = arg
   }
 }
@@ -40,14 +43,14 @@ class MockActivatedRoute {
 describe('SearchResultComponent', () => {
   let component: SearchResultComponent
   let fixture: ComponentFixture<SearchResultComponent>
-  let productService
-  let basketService
-  let translateService
+  let productService: any
+  let basketService: any
+  let translateService: any
   let activatedRoute: MockActivatedRoute
-  let dialog
-  let sanitizer
-  let socketIoService
-  let mockSocket
+  let dialog: any
+  let sanitizer: any
+  let socketIoService: any
+  let mockSocket: any
 
   beforeEach(async(() => {
 
@@ -84,7 +87,9 @@ describe('SearchResultComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatDialogModule,
-        MatDividerModule
+        MatDividerModule,
+        MatGridListModule,
+        MatCardModule
       ],
       providers: [
         { provide: TranslateService, useValue: translateService },
@@ -132,7 +137,7 @@ describe('SearchResultComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should notify socket if search query includes XSS Tier 1 payload while filtering table', () => {
+  it('should notify socket if search query includes DOM XSS payload while filtering table', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
     spyOn(mockSocket,'emit')
     component.filterTable()
@@ -153,12 +158,12 @@ describe('SearchResultComponent', () => {
   })
 
   it('should open a modal dialog with product details', () => {
-    component.showDetail(42)
+    component.showDetail({ id: 42 } as Product)
     expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
       width: '500px',
       height: 'max-content',
       data: {
-        productData: 42
+        productData: { id: 42 }
       }
     })
   })
@@ -225,7 +230,7 @@ describe('SearchResultComponent', () => {
   it('should not add anything to basket on error retrieving basket', fakeAsync(() => {
     basketService.find.and.returnValue(throwError('Error'))
     sessionStorage.setItem('bid','815')
-    component.addToBasket(null)
+    component.addToBasket(undefined)
     expect(component.confirmation).toBeUndefined()
   }))
 

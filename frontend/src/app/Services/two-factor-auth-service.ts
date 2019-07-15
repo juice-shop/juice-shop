@@ -29,18 +29,18 @@ export class TwoFactorAuthService {
   constructor (private http: HttpClient) {}
 
   verify (totpToken: String): Observable<AuthenticationPayload> {
-    return this.http.post(`${environment.hostServer}/rest/2fa/verify`, {
+    return this.http.post<TwoFactorVerifyResponse>(`${environment.hostServer}/rest/2fa/verify`, {
       tmpToken: localStorage.getItem('totp_tmp_token'),
       totpToken: totpToken
     }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error }))
   }
 
   status (): Observable<TwoFactorAuthStatusPayload> {
-    return this.http.get(`${environment.hostServer}/rest/2fa/status`)
+    return this.http.get<TwoFactorAuthStatusPayload>(`${environment.hostServer}/rest/2fa/status`)
       .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
   }
 
-  setup (password: string, setupToken: string, initialToken: string): Observable<void> {
+  setup (password: string, initialToken: string, setupToken?: string): Observable<void> {
     return this.http.post(`${environment.hostServer}/rest/2fa/setup`, {
       password,
       setupToken,

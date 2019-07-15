@@ -3,7 +3,7 @@ import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
-import { DataSubjectComponent } from './data-subject/data-subject.component'
+import { ErasureRequestComponent } from './erasure-request/erasure-request.component'
 import { AboutComponent } from './about/about.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
@@ -150,8 +150,8 @@ const routes: Routes = [
         component: DataExportComponent
       },
       {
-        path: 'data-subject',
-        component: DataSubjectComponent
+        path: 'erasure-request',
+        component: ErasureRequestComponent
       },
       {
         path: 'last-login-ip',
@@ -182,19 +182,19 @@ export const Routing = RouterModule.forRoot(routes, { useHash: true })
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
   let path = window.location.href
   if (path.includes('#access_token=')) {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }
 
 export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
-    return null
+    return null as unknown as UrlMatchResult
   }
 
   const path = url[0].toString()
@@ -202,5 +202,5 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult {
     return ({ consumed: url })
   }
 
-  return null
+  return null as unknown as UrlMatchResult
 }

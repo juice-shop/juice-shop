@@ -1,41 +1,48 @@
 <div fxLayoutAlign="center">
-  <mat-card>
+  <mat-card class="mat-elevation-z6">
 
-    <h2 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h2>
+    <h1 id="2fa-setup-title" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</h1>
 
     <div id="2fa-setup-successfully" *ngIf="setupStatus === true">
       <p translate>2FA_SUCCESSFUL_SETUP</p>
 
-      <form 
+      <form
         class="form-container"
         id="two-factor-auth-disable"
         [formGroup]="twoFactorDisableForm"
         (ngSubmit)="disable()"
       >
 
-        <h3 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h3>
+        <h2 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h2>
 
         <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)" translate>2FA_SETUP_ERROR</div>
 
-        <mat-form-field appearance="outline">
-          <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
-          <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
+          <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput
+                 aria-label="Field to enter the current password"
+                 placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
+                 autocomplete="off">
         </mat-form-field>
 
-        <button 
+        <button
           type="submit"
           id="disableTwoFactorAuth"
-          [disabled]="twoFactorSetupForm.invalid"
-          mat-raised-button 
+          [disabled]="twoFactorDisableForm.invalid"
+          mat-raised-button
           color="warn"
+          aria-label="Button to remove the two-factor authentication"
         >
-          <i class="fas fa-unlock-alt fa-lg"></i> {{'BTN_REMOVE' | translate}}
+          <i class="material-icons">
+            remove_circle_outline
+          </i>
+          {{'BTN_REMOVE' | translate}}
         </button>
       </form>
     </div>
 
-    <form 
-      *ngIf="setupStatus === false" 
+    <form
+      *ngIf="setupStatus === false"
       class="form-container"
       id="two-factor-auth-setup"
       [formGroup]="twoFactorSetupForm"
@@ -45,39 +52,57 @@
       <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
 
       <div fxLayoutAlign="center" class="two-factor-qr-code">
-          <qrcode 
-            [qrdata]="totpUrl"
-            [size]="300"
-            [level]="'L'"
-          ></qrcode>
+        <qr-code
+          [value]="totpUrl"
+          [size]="300"
+          [level]="'L'"
+        ></qr-code>
       </div>
 
       <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
 
-      <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_CONFIRM_CURRENT_PASSWORD</mat-label>
-        <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
+        <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput
+               aria-label="Field to enter the current password"
+               placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
+               autocomplete="off">
       </mat-form-field>
-      
-      <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_INITIAL_2FA_TOKEN</mat-label>
-        <input 
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label translate>INITIAL_CODE</mat-label>
+        <input
+          #initToken
           id="initalToken"
           formControlName="initalTokenControl"
           type="text"
           matInput
           [attr.data-test-totp-secret]="totpSecret"
+          aria-label="Field to enter the initial token. This must have 6 digits."
+          placeholder="{{'INITIAL_CODE_PLACEHOLDER' | translate }}"
+          minlength="6" maxlength="6" pattern="^[\d]{6}$"
         >
+        <mat-error translate>INVALID_TWO_FACTOR_AUTH_TOKEN</mat-error>
+        <mat-icon matSuffix matTooltip="{{ 'INITIAL_TOKEN_TOOLTIP' | translate}}"
+                  matTooltipPosition=right
+                  aria-label="The token to be entered from the authenticator must have 6 digits.">
+          help_outline
+        </mat-icon>
+        <mat-hint align="end">{{initToken.value?.length || 0}}/6</mat-hint>
       </mat-form-field>
 
-      <button 
+      <button
         type="submit"
         id="setupTwoFactorAuth"
         [disabled]="twoFactorSetupForm.invalid"
-        mat-raised-button 
+        mat-raised-button
         color="primary"
+        aria-label="Button to complete the two-factor configuration"
       >
-        <i class="fas fa-save fa-lg"></i> {{'BTN_SUBMIT' | translate}}
+        <i class="material-icons">
+          save
+        </i>
+        {{'BTN_SAVE' | translate}}
       </button>
     </form>
   </mat-card>

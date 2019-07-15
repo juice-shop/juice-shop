@@ -230,11 +230,11 @@ describe('verify', () => {
 
   describe('jwtChallenges', () => {
     beforeEach(() => {
-      challenges.jwtTier1Challenge = { solved: false, save: this.save }
-      challenges.jwtTier2Challenge = { solved: false, save: this.save }
+      challenges.jwtUnsignedChallenge = { solved: false, save: this.save }
+      challenges.jwtForgedChallenge = { solved: false, save: this.save }
     })
 
-    it('"jwtTier1Challenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
+    it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
       /*
       Header: { "alg": "none", "typ": "JWT" }
       Payload: { "data": { "email": "jwtn3d@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
@@ -243,10 +243,10 @@ describe('verify', () => {
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+      expect(challenges.jwtUnsignedChallenge.solved).to.equal(true)
     })
 
-    it('"jwtTier1Challenge" is solved when forged unsigned token has string "jwtn3d@" in the payload', () => {
+    it('"jwtUnsignedChallenge" is solved when forged unsigned token has string "jwtn3d@" in the payload', () => {
       /*
       Header: { "alg": "none", "typ": "JWT" }
       Payload: { "data": { "email": "jwtn3d@" }, "iat": 1508639612, "exp": 9999999999 }
@@ -255,19 +255,19 @@ describe('verify', () => {
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier1Challenge.solved).to.equal(true)
+      expect(challenges.jwtUnsignedChallenge.solved).to.equal(true)
     })
 
-    it('"jwtTier1Challenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
+    it('"jwtUnsignedChallenge" is not solved via regularly signed token even with email jwtn3d@juice-sh.op in the payload', () => {
       const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
       this.req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
+      expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
 
-    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+    it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
       /*
       Header: { "alg": "HS256", "typ": "JWT" }
       Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
@@ -276,10 +276,10 @@ describe('verify', () => {
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+      expect(challenges.jwtForgedChallenge.solved).to.equal(true)
     })
 
-    it('"jwtTier2Challenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
+    it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
       /*
       Header: { "alg": "HS256", "typ": "JWT" }
       Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
@@ -288,16 +288,16 @@ describe('verify', () => {
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier2Challenge.solved).to.equal(true)
+      expect(challenges.jwtForgedChallenge.solved).to.equal(true)
     })
 
-    it('"jwtTier2Challenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+    it('"jwtForgedChallenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
       const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
       this.req.headers = { authorization: 'Bearer ' + token }
 
       verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtTier2Challenge.solved).to.equal(false)
+      expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
   })
 })
