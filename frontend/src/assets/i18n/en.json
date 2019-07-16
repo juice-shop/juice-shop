@@ -285,5 +285,8 @@
   "PURCHASE_COMMENT_SUFFIX": "page.",
   "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!",
   "ESTIMATED_TIME_OF_DELIVERY": "Your order will be delivered in {{numberdays}} days.",
-  "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation"
+  "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation",
+  "LABEL_CHOOSE_A_DELIVERY_SPEED": "Choose a delivery speed",
+  "LABEL_YOUR_SHIPPING_ADDRESS": "Your shipping address",
+  "LABEL_ETA": "ETA"
 }

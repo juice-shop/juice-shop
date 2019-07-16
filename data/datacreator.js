@@ -35,7 +35,8 @@ module.exports = async () => {
     createRecycleItems,
     createOrders,
     createQuantity,
-    createPurchaseQuantity
+    createPurchaseQuantity,
+    createDeliveryMethods
   ]
 
   for (const creator of creators) {
@@ -92,6 +93,25 @@ async function createUsers () {
         if (deletedFlag) await deleteUser(user.id)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${err.message}`)
+      }
+    })
+  )
+}
+
+async function createDeliveryMethods () {
+  const delivery = await loadStaticData('delivery')
+
+  await Promise.all(
+    delivery.map(async ({ name, price, primePrice, eta }) => {
+      try {
+        await models.Delivery.create({
+          name,
+          price,
+          primePrice,
+          eta
+        })
+      } catch (err) {
+        logger.error(`Could not insert User: ${err.message}`)
       }
     })
   )
