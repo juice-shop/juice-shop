@@ -13,7 +13,7 @@ describe('/#/basket', () => {
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
 
-        browser.get('/#/basket')
+        browser.get('/#/order-summary')
 
         const productQuantities = $$('mat-cell.mat-column-quantity > span')
         expect(productQuantities.first().getText()).toMatch(/-100000/)
@@ -68,10 +68,10 @@ describe('/#/basket', () => {
       it('should be possible to enter WMNSDY2019 coupon', () => {
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
-        browser.get('/#/basket')
+        browser.get('/#/payment')
         browser.executeScript('event = new Date("March 08, 2019 00:00:00"); Date = function(Date){return function() {date = event; return date; }}(Date);')
-
-        element(by.id('collapseCouponButton')).click()
+        browser.driver.sleep(1000)
+        element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.id('coupon')).sendKeys('WMNSDY2019')
@@ -79,6 +79,7 @@ describe('/#/basket', () => {
       })
 
       it('should be possible to place an order with the expired coupon', () => {
+        browser.get('/#/order-summary')
         element(by.id('checkoutButton')).click()
       })
 
@@ -102,8 +103,9 @@ describe('/#/basket', () => {
       it('should be possible to enter a coupon that gives an 80% discount', () => {
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
-        browser.get('/#/basket')
-        element(by.id('collapseCouponButton')).click()
+        browser.get('/#/payment')
+        browser.driver.sleep(1000)
+        element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.id('coupon')).sendKeys(insecurity.generateCoupon(90))
@@ -111,6 +113,7 @@ describe('/#/basket', () => {
       })
 
       it('should be possible to place an order with a forged coupon', () => {
+        browser.get('/#/order-summary')
         element(by.id('checkoutButton')).click()
       })
 

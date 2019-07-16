@@ -87,8 +87,9 @@ module.exports = function placeOrder () {
           })
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
+          let discountAmount = 0
           if (discount > 0) {
-            const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
+            discountAmount = (totalPrice * (discount / 100)).toFixed(2)
             doc.text(discount + '% discount from coupon: -' + discountAmount)
             doc.moveDown()
             totalPrice -= discountAmount
@@ -107,6 +108,9 @@ module.exports = function placeOrder () {
           }
 
           db.orders.insert({
+            promotionalAmount: discountAmount,
+            paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
+            addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
             orderId: orderId,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
@@ -118,7 +122,7 @@ module.exports = function placeOrder () {
           fileWriter.on('finish', () => {
             basket.update({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: '/ftp/' + pdfFile })
+            res.json({ orderConfirmation: orderId })
           })
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
@@ -152,5 +156,5 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019').getTime(), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 }
 }
