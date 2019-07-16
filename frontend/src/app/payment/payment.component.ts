@@ -70,11 +70,12 @@ export class PaymentComponent implements OnInit {
   applyCoupon () {
     this.campaignCoupon = this.couponControl.value
     this.clientDate = new Date()
+    const offsetTimeZone = (this.clientDate.getTimezoneOffset() + 60) * 60 * 1000
     this.clientDate.setHours(0,0,0,0)
-    this.clientDate = this.clientDate.getTime()
+    this.clientDate = this.clientDate.getTime() - offsetTimeZone
     sessionStorage.setItem('couponDetails', this.campaignCoupon + '-' + this.clientDate)
     if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
-      if (this.clientDate === new Date('Mar 08, 2019').getTime()) { // = Mar 08, 2019
+      if (this.clientDate === 1551999600000) { // = Mar 08, 2019
         this.showConfirmation(75)
       } else {
         this.couponConfirmation = undefined
