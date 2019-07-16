@@ -50,7 +50,7 @@ async function createChallenges () {
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
-      let effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
+      const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       try {
         const challenge = await models.Challenge.create({
           key,

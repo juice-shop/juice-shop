@@ -3,7 +3,7 @@ const colors = require('colors/safe')
 const server = require('./../server.js')
 
 server.start(() => {
-  const protractor = spawn('protractor', [ 'protractor.conf.js' ])
+  const protractor = spawn('protractor', ['protractor.conf.js'])
   function logToConsole (data) {
     console.log(String(data))
   }

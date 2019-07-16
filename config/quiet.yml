@@ -3,4 +3,5 @@ application:
   showChallengeHints: false
   showHackingInstructor: false
   showGitHubLinks: false
-  showWelcomeBanner: false
+  welcomeBanner:
+    showOnFirstStart: false
