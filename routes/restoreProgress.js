@@ -12,9 +12,9 @@ module.exports = function restoreProgress () {
       res.end()
     } else if (ids.length > 0) {
       for (const name in challenges) {
-        if (challenges.hasOwnProperty(name)) {
-          if (ids.includes(challenges[ name ].id)) {
-            utils.solve(challenges[ name ], true)
+        if (Object.prototype.hasOwnProperty.call(challenges, name)) {
+          if (ids.includes(challenges[name].id)) {
+            utils.solve(challenges[name], true)
           }
         }
       }

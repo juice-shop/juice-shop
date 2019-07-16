@@ -5,7 +5,6 @@ application:
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   showGitHubLinks: true
-  showWelcomeBanner: false
   twitterUrl: 'https://twitter.com/7MinSec'
   facebookUrl: null
   slackUrl: 'https://7ms.us/slack'
@@ -17,6 +16,8 @@ application:
     topProductImage: bm-small.jpg
     bottomProductImage: tommyboy.jpeg
   altcoinName: Sevencoin
+  welcomeBanner:
+    showOnFirstStart: false
   cookieConsent:
     backgroundColor: '#0395d5'
     textColor: '#ffffff'

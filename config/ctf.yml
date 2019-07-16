@@ -5,6 +5,7 @@ application:
   showVersionNumber: false
   showHackingInstructor: false
   showGitHubLinks: false
-  showWelcomeBanner: false
+  welcomeBanner:
+    showOnFirstStart: false
 ctf:
   showFlagsInNotifications: true

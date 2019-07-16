@@ -39,7 +39,7 @@ describe('/#/complain', () => {
       browser.waitForAngularEnabled(false)
       browser.executeScript(() => {
         const data = new FormData()
-        const blob = new Blob([ 'test' ], { type: 'application/x-msdownload' })
+        const blob = new Blob(['test'], { type: 'application/x-msdownload' })
         data.append('file', blob, 'invalidTypeForClient.exe')
 
         const request = new XMLHttpRequest()

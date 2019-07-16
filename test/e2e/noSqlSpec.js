@@ -85,7 +85,7 @@ describe('/rest/products/reviews', () => {
           xhttp.open('PATCH', 'http://localhost:3000/rest/products/reviews', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-          xhttp.send(JSON.stringify({ 'id': reviewId, 'message': 'injected' }))
+          xhttp.send(JSON.stringify({ id: reviewId, message: 'injected' }))
         }
       })
       browser.driver.sleep(5000)
@@ -124,7 +124,7 @@ describe('/rest/products/reviews', () => {
           xhttp.open('POST', 'http://localhost:3000/rest/products/reviews', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-          xhttp.send(JSON.stringify({ 'id': reviewId }))
+          xhttp.send(JSON.stringify({ id: reviewId }))
         }
       })
       browser.driver.sleep(5000)
