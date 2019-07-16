@@ -19,6 +19,9 @@ import { BasketService } from '../Services/basket.service'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from '../payment-method/payment-method.component'
+import { RouterTestingModule } from '@angular/router/testing'
+import { OrderSummaryComponent } from '../order-summary/order-summary.component'
+import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -44,6 +47,9 @@ describe('PaymentComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'order-summary', component: OrderSummaryComponent }
+        ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -58,7 +64,7 @@ describe('PaymentComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ PaymentComponent, PaymentMethodComponent ],
+      declarations: [ PaymentComponent, PaymentMethodComponent, OrderSummaryComponent, PurchaseBasketComponent ],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: MatDialog, useValue: dialog },
@@ -153,6 +159,25 @@ describe('PaymentComponent', () => {
 
     expect(component.couponConfirmation).toBe('Translation of DISCOUNT_APPLIED')
     expect(component.couponError).toBeUndefined()
+  })
+
+  it('should store discount percent in session storage' , () => {
+    translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
+    spyOn(sessionStorage,'setItem')
+    component.showConfirmation(70)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount',70)
+  })
+
+  it('should store payment id on calling getMessage', () => {
+    component.getMessage(1)
+    expect(component.paymentId).toBe(1)
+  })
+
+  it('should store payment id in session storage on calling choosePayment', () => {
+    component.paymentId = 1
+    spyOn(sessionStorage,'setItem')
+    component.choosePayment()
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1)
   })
 
   it('should open QrCodeComponent for Bitcoin', () => {

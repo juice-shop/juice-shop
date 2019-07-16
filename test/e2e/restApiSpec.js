@@ -17,14 +17,14 @@ describe('/api', () => {
         xhttp.open('POST', 'http://localhost:3000/api/Products', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
-        xhttp.send(JSON.stringify({ name: 'RestXSS', 'description': '<iframe src="javascript:alert(`xss`)">', 'price': 47.11 }))
+        xhttp.send(JSON.stringify({ name: 'RestXSS', description: '<iframe src="javascript:alert(`xss`)">', price: 47.11 }))
       })
 
       browser.waitForAngularEnabled(false)
       browser.get('/#/search?q=RestXSS')
       browser.refresh()
       browser.driver.sleep(1000)
-      let productImage = element(by.css('img[alt="RestXSS"]'))
+      const productImage = element(by.css('img[alt="RestXSS"]'))
       productImage.click()
 
       browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/search")
@@ -95,7 +95,7 @@ describe('/rest/saveLoginIp', () => {
       browser.waitForAngularEnabled(true)
     })
 
-    protractor.expect.challengeSolved({ challenge: 'HTTP-Header XSS' })
+    protractor.expect.challengeSolved({ challenge: 'HTTP-Header XSS' }) // TODO Add missing check for alert presence
   })
 
   it('should not be possible to save log-in IP when not logged in', () => {

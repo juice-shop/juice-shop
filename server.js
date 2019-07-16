@@ -134,15 +134,15 @@ app.use('/assets/i18n', verify.accessControlChallenges())
 app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { 'icons': true }))
+app.use('/ftp', serveIndex('ftp', { icons: true }))
 app.use('/ftp/:file', fileServer())
 
 /* /encryptionkeys directory browsing */
-app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
+app.use('/encryptionkeys', serveIndex('encryptionkeys', { icons: true, view: 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
 
 /* /logs directory browsing */
-app.use('/support/logs', serveIndex('logs', { 'icons': true, 'view': 'details' }))
+app.use('/support/logs', serveIndex('logs', { icons: true, view: 'details' }))
 app.use('/support/logs', verify.accessControlChallenges())
 app.use('/support/logs/:file', logFileServer())
 
@@ -171,7 +171,7 @@ app.use(function jsonParser (req, res, next) {
   next()
 })
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+const accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
 app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */

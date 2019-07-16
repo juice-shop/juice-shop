@@ -21,7 +21,7 @@ beforeAll(() => {
   })
     .expect('status', 200)
     .then(({ json }) => {
-      authHeader = { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+      authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
     })
 })
 
@@ -97,7 +97,7 @@ describe('/rest/basket/:id', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.get(REST_URL + '/basket/2', { headers: { 'Authorization': 'Bearer ' + json.authentication.token } })
+        return frisby.get(REST_URL + '/basket/2', { headers: { Authorization: 'Bearer ' + json.authentication.token } })
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'data', { id: 2 })
@@ -111,11 +111,11 @@ describe('/rest/basket/:id/checkout', () => {
       .expect('status', 401)
   })
 
-  it('POST placing an order for an existing basket returns path to an order confirmation PDF', () => {
+  it('POST placing an order for an existing basket returns orderId', () => {
     return frisby.post(REST_URL + '/basket/1/checkout', { headers: authHeader })
       .expect('status', 200)
       .then(({ json }) => {
-        expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+        expect(json.orderConfirmation).toBeDefined()
       })
   })
 
@@ -135,7 +135,7 @@ describe('/rest/basket/:id/checkout', () => {
         return frisby.post(REST_URL + '/basket/3/checkout', { headers: authHeader })
           .expect('status', 200)
           .then(({ json }) => {
-            expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+            expect(json.orderConfirmation).toBeDefined()
           })
       })
   })
@@ -149,7 +149,7 @@ describe('/rest/basket/:id/checkout', () => {
         return frisby.post(REST_URL + '/basket/2/checkout', { headers: authHeader })
           .expect('status', 200)
           .then(({ json }) => {
-            expect(json.orderConfirmation).toMatch(/\/ftp\/order_.*\.pdf/)
+            expect(json.orderConfirmation).toBeDefined()
           })
       })
   })
