@@ -156,5 +156,5 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019').getTime(), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 }
 }
