@@ -38,6 +38,13 @@ describe('Required Internet resource', () => {
     })
   })
 
+  it('Comment on "Top 10 Fruits you probably dont know" blog post with PasteBin paste URL spoiler available', () => {
+    return frisby.get('https://listverse.com/2011/07/08/top-20-fruits-you-probably-dont-know/#comment-4541753139')
+      .expect('status', 200)
+      .expect('bodyContains', 'Rippertuer Special Juice')
+      .expect('bodyContains', 'https://pastebin.com/90dUgd7s')
+  })
+
   it('PasteBin paste (https://pastebin.com/4U1V1UjU) for "Leaked Access Logs" challenge available', () => {
     return frisby.get('https://pastebin.com/4U1V1UjU')
       .expect('status', 200)
