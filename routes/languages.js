@@ -41,7 +41,7 @@ module.exports = function getLanguageList () {
   ]
 
   return (req, res, next) => {
-    let languages = []
+    const languages = []
     let count = 0
     let enContent
 
@@ -61,12 +61,12 @@ module.exports = function getLanguageList () {
           if (err) {
             next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
           }
-          let fileContent = JSON.parse(content)
-          let percentage = await calcPercentage(fileContent, enContent)
-          let key = fileName.substring(0, fileName.indexOf('.'))
+          const fileContent = JSON.parse(content)
+          const percentage = await calcPercentage(fileContent, enContent)
+          const key = fileName.substring(0, fileName.indexOf('.'))
           let iconObj = iconMap.find((x) => x.key === key)
           if (!iconObj) iconObj = ''
-          let dataObj = {
+          const dataObj = {
             key: key,
             lang: fileContent.LANGUAGE,
             icons: iconObj.icons,
@@ -88,12 +88,12 @@ module.exports = function getLanguageList () {
     })
 
     function calcPercentage (fileContent, enContent) {
-      let totalStrings = Object.keys(enContent).length
+      const totalStrings = Object.keys(enContent).length
       let differentStrings = 0
       return new Promise((resolve, reject) => {
         try {
-          for (let key in fileContent) {
-            if (fileContent.hasOwnProperty(key) && fileContent[key] !== enContent[key]) {
+          for (const key in fileContent) {
+            if (Object.prototype.hasOwnProperty.call(fileContent, key) && fileContent[key] !== enContent[key]) {
               differentStrings++
             }
           }

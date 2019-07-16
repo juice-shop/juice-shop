@@ -24,7 +24,7 @@ describe('/profile/image/file', () => {
       .then(({ json: jsonLogin }) => {
         return frisby.post(URL + '/profile/image/file', {
           headers: {
-            'Cookie': 'token=' + jsonLogin.authentication.token,
+            Cookie: 'token=' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form,
@@ -50,7 +50,7 @@ describe('/profile/image/file', () => {
       .then(({ json: jsonLogin }) => {
         return frisby.post(URL + '/profile/image/file', {
           headers: {
-            'Cookie': 'token=' + jsonLogin.authentication.token,
+            Cookie: 'token=' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form

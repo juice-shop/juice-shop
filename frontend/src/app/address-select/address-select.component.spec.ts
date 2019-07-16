@@ -15,6 +15,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
+import { PaymentComponent } from '../payment/payment.component'
+import { PaymentMethodComponent } from '../payment-method/payment-method.component'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -24,7 +26,9 @@ describe('AddressSelectComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'payment', component: PaymentComponent }
+        ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -39,7 +43,7 @@ describe('AddressSelectComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ AddressSelectComponent, AddressComponent ],
+      declarations: [ AddressSelectComponent, AddressComponent, PaymentComponent, PaymentMethodComponent ],
       providers: []
     })
     .compileComponents()
@@ -53,5 +57,17 @@ describe('AddressSelectComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should store address id on calling getMessage', () => {
+    component.getMessage(1)
+    expect(component.addressId).toBe(1)
+  })
+
+  it('should store address id in session storage', () => {
+    component.addressId = 1
+    spyOn(sessionStorage,'setItem')
+    component.chooseAddress()
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1)
   })
 })

@@ -206,9 +206,8 @@
   "DELETE_DATA_LABEL": "Kustuta kasutaja info",
   "CONFIRM_ERASURE_REQUEST": "Kahju, et sa lahkud! Kustutamise taotlusega tegeldakse peagi.",
   "INFO_HACKING_INSTRUCTOR": "Käivitage interaktiivne häkkimisõpetus selle väljakutse jaoks.",
-  "WELCOME_BANNER_TITLE": "Tere tulemast {{appname}}-i!",
+  "SCORE_BOARD_HACKING_INSTRUCTOR": "Launch a tutorial to get you started hacking the Juice Shop.",
   "BTN_DISMISS": "Tühista",
-  "WELCOME_BANNER_DESCRIPTION": "<p><strong>{{appname}}</strong> on mitmete kavandatud turvanõrkustega veebirakendus eesmärgiga olla heade tavade ja rakenduste algmalli vastand: tegu on kaasaegsete veebirakenduste turvariskide koolitus-, tutvustamis- ja treeningvahend. <strong>{{appname}}</strong> on avatud lähtekoodiga projekt, mida haldab mittetulunduslik ühendus <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> ning seda arendavad ja hooldavad vabatahtlikud. Projekti kohta lisateabe ning dokumentatsiooni saamiseks vaadake allolevat linki. </p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>",
   "SIDENAV_HINT": "Ava kõrvalmenüü",
   "LANGUAGE_SEL_HINT": "Vali keel",
   "BTN_SAVE": "Salvesta",
@@ -217,5 +216,5 @@
   "WRITE_MESSAGE_PLACEHOLDER": "Mida soovid meile teatada?",
   "SHOW_PWD_TOOLTIP": "Kuva salasõna",
   "HIDE_PWD_TOOLTIP": "Peida salasõna",
-  "DATA_EXPORT_HINT": "( Andmete eksport avaneb uues veebilehitseja aknas)"
+  "DATA_EXPORT_HINT": "(Your data export will open in a new Browser window.)"
 }

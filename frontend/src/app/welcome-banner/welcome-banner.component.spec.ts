@@ -1,6 +1,6 @@
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { MatDialogRef } from '@angular/material'
+import { MatDialogRef, MatIconModule, MatTooltipModule } from '@angular/material'
 import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
@@ -19,7 +19,9 @@ describe('WelcomeBannerComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         CookieModule.forRoot(),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        MatIconModule,
+        MatTooltipModule
       ],
       declarations: [WelcomeBannerComponent],
       providers: [
