@@ -18,7 +18,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
       })
@@ -35,7 +35,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
       })
@@ -52,7 +52,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
       })
@@ -69,7 +69,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.post(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             ProductId: 1,
             quantity: 100
@@ -90,7 +90,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.post(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             ProductId: 1,
             quantity: 100
@@ -111,7 +111,7 @@ describe('/api/Quantitys', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.post(API_URL + '/Quantitys', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             ProductId: 1,
             quantity: 100
@@ -134,7 +134,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 403)
           .expect('json', 'error', 'Malicious activity detected')
@@ -152,7 +152,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 403)
           .expect('json', 'error', 'Malicious activity detected')
@@ -170,7 +170,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.get(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
       })
@@ -187,7 +187,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.put(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             quantity: 100
           }
@@ -208,7 +208,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.put(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             quantity: 100
           }
@@ -229,7 +229,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.put(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' },
           body: {
             quantity: 100
           }
@@ -252,7 +252,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.delete(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 401)
       })
@@ -269,7 +269,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.delete(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 401)
       })
@@ -286,7 +286,7 @@ describe('/api/Quantitys/:ids', () => {
       .expect('status', 200)
       .then(({ json }) => {
         return frisby.delete(API_URL + '/Quantitys/1', {
-          headers: { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+          headers: { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 401)
       })

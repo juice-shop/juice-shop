@@ -21,7 +21,7 @@ beforeAll(() => {
   })
     .expect('status', 200)
     .then(({ json }) => {
-      authHeader = { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+      authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
     })
 })
 
