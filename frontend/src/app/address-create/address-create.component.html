@@ -37,7 +37,7 @@
            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-           <mat-label translate>LABEL_PIN_CODE</mat-label>
+           <mat-label translate>LABEL_ZIP_CODE</mat-label>
            <input [formControl]="pinControl" type="text" [placeholder]="'MANDATORY_ZIP' | translate"
            matInput>
            <mat-error *ngIf="pinControl.invalid && pinControl.errors.required" translate>
