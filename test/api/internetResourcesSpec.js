@@ -39,9 +39,9 @@ describe('Required Internet resource', () => {
   })
 
   it('Comment on "Top 10 Fruits you probably dont know" blog post with PasteBin paste URL spoiler available', () => {
-    return frisby.get('https://listverse.com/2011/07/08/top-20-fruits-you-probably-dont-know/#comment-4541753139')
+    return frisby.get('https://listverse.disqus.com/top_20_fruits_you_probably_don039t_know/latest.rss')
       .expect('status', 200)
-      .expect('bodyContains', 'Rippertuer')
+      .expect('bodyContains', 'Rippertuer Special Juice')
       .expect('bodyContains', 'https://pastebin.com/90dUgd7s')
   })
 
