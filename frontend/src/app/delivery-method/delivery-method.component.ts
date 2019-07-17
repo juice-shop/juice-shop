@@ -7,8 +7,8 @@ import { Router } from '@angular/router'
 interface DeliveryMehtod {
   id: number,
   name: string,
-  price: string,
-  eta: string
+  price: number,
+  eta: number
 }
 
 @Component({
@@ -34,7 +34,7 @@ export class DeliveryMethodComponent implements OnInit {
     this.deliverySerivce.get().subscribe((methods) => {
       this.methods = methods
       this.dataSource = new MatTableDataSource<DeliveryMehtod>(this.methods)
-    })
+    }, (error) => console.log(error))
   }
 
   selectMethod (id) {
@@ -43,6 +43,6 @@ export class DeliveryMethodComponent implements OnInit {
 
   chooseDeliveryMethod () {
     sessionStorage.setItem('deliveryMethodId', this.deliveryMethodId.toString())
-    // this.router.navigate(['/payment'])
+    this.router.navigate(['/payment'])
   }
 }

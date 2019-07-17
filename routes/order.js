@@ -13,7 +13,7 @@ module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
-      .then(basket => {
+      .then(async basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
@@ -94,6 +94,18 @@ module.exports = function placeOrder () {
             doc.moveDown()
             totalPrice -= discountAmount
           }
+          let deliveryMethod = {
+            primePrice: 0,
+            price: 0,
+            eta: 5
+          }
+          if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
+            deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+          }
+          const deliveryAmount = insecurity.isPrime(req) ? deliveryMethod.primePrice : deliveryMethod.price
+          totalPrice += deliveryAmount
+          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2))
+          doc.moveDown()
           doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
           doc.moveDown()
           doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
@@ -116,7 +128,8 @@ module.exports = function placeOrder () {
             totalPrice: totalPrice,
             products: basketProducts,
             bonus: totalPoints,
-            eta: Math.floor((Math.random() * 5) + 1).toString()
+            deliveryPrice: deliveryAmount,
+            eta: deliveryMethod.eta.toString()
           })
 
           fileWriter.on('finish', () => {
