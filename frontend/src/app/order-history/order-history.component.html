@@ -1,0 +1,39 @@
+<div fxLayout="column" fxLayoutGap="20px" class="main-wrapper">
+    <div *ngFor="let order of orders">
+        <div class="mat-elevation-z6 table-container custom-slate">
+           <div class="heading">
+                <!-- <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span> -->
+                <!-- <span fxFlex></span> -->
+                <!-- <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'PRINT_ORDER_CONFIRMATION' | translate }}" matTooltipPosition="below"
+                (click)= "openConfirmationPDF(order.orderId)">
+                   <mat-icon>
+                      note
+                   </mat-icon>
+                </button> -->
+           </div>
+           <mat-table [dataSource]="order.products">
+             <ng-container matColumnDef="product">
+                 <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
+                 <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="price">
+                 <mat-header-cell *matHeaderCellDef translate>LABEL_PRICE</mat-header-cell>
+                 <mat-cell *matCellDef="let element">{{element.price}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="quantity">
+                 <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
+                 <mat-cell *matCellDef="let element">
+                    <span>{{element.quantity}}</span>
+                 </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="total price">
+                 <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
+                 <mat-cell *matCellDef="let element" class="price-align">{{ (element.total).toFixed(2) }}</mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+           </mat-table>
+        </div>
+    </div>    
+</div>
+    
