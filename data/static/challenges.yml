@@ -268,7 +268,7 @@
   description: 'Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)'
   difficulty: 5
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
   key: dlpPasswordSprayingChallenge
 -
   name: 'Leaked Unsafe Product'
@@ -276,7 +276,7 @@
   description: 'Identify an unsafe product that was removed from the shop and <a href="/#/contact">inform the shop</a> which ingredients are dangerous.'
   difficulty: 4
   hint: 'Your own SQLi and someone else''s Ctrl-V will be your accomplices in this challenge!'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#identify-an-unsafe-product-that-was-removed-from-the-shop-and-inform-the-shop-which-ingredients-are-dangerous'
   key: dlpPastebinDataLeakChallenge
 -
   name: 'Legacy Typosquatting'
