@@ -10,7 +10,7 @@
           <mat-card class="mat-elevation-z6" fxFlex="40%">
              <div  *ngIf="address">
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
-               <div><b translate>SHIPPING_ADDRESS</b></div>
+               <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
                <div>{{address?.fullName}}</div>
                <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.pinCode}}</div>
                <div>{{address?.country}}</div>
