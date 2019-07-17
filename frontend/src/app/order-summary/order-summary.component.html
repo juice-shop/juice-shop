@@ -3,11 +3,11 @@
         <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">
             <mat-card class="mat-elevation-z6" fxFlex="60%">
                 <div>
-                    <div><b translate>SHIPPING_ADDRESS</b></div>
+                    <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
                     <div>{{address?.fullName}}</div>
                     <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.pinCode}}</div>
                     <div>{{address?.country}}</div>
-                    <div><span translate>PHONE_NUM</span> {{address?.mobileNum}}</div>
+                    <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
                 </div>
             </mat-card>
             <mat-card class="mat-elevation-z6" fxFlex="40%">
