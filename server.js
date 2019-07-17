@@ -262,6 +262,7 @@ app.put('/api/Addresss/:id', insecurity.appendUserId())
 app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
 app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
 app.get('/api/Deliverys', delivery.getDeliveryMethods())
+app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',

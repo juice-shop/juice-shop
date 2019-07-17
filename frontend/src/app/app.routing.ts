@@ -41,7 +41,7 @@ import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
-import { DeliveryMethodComponent } from './delivery-methods/delivery-method.component'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)

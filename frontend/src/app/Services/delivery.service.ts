@@ -16,4 +16,8 @@ export class DeliveryService {
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
+
+  getById (id) {
+    return this.http.get(this.host + '/' + id).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
 }

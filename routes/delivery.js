@@ -20,3 +20,20 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
     }
   }
 }
+
+module.exports.getDeliveryMethod = function getDeliveryMethod () {
+  return async (req, res, next) => {
+    const method = await models.Delivery.findOne({ where: { id: req.params.id } })
+    if (method) {
+      const sendMethod = {
+        id: method.id,
+        name: method.name,
+        price: insecurity.isPrime(req) ? method.primePrice : method.price,
+        eta: method.eta
+      }
+      res.status(200).json({ status: 'success', data: sendMethod })
+    } else {
+      res.status(400).json({ status: 'error' })
+    }
+  }
+}

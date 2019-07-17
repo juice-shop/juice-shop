@@ -112,7 +112,7 @@ import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
-import { DeliveryMethodComponent } from './delivery-methods/delivery-method.component'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { DeliveryService } from './Services/delivery.service'
 
 export function HttpLoaderFactory (http: HttpClient) {
