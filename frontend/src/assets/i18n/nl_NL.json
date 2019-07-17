@@ -220,7 +220,7 @@
   "MANDATORY_NUMBER": "Please provide a mobile number.",
   "MANDATORY_ZIP": "Please provide a ZIP code.",
   "MANDATORY_CITY": "Please provide a city.",
-  "INVALID_NUMBER": "Mobile number must be in the range: {{range}}.",
+  "INVALID_MOBILE_NUMBER": "Mobile number must match {{range}} format.",
   "UNAUTHORIZED_ACCESS_ERROR": "Please login to view this page.",
   "SEARCH_PROCESSING": "Searching for products",
   "STOCK": "Stock",
