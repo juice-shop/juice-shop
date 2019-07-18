@@ -34,7 +34,7 @@ export class AdministrationComponent implements OnInit {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
       for (let user of this.userDataSource) {
-        user.email = this.sanitizer.bypassSecurityTrustHtml(user.email)
+        user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
     },(err) => {
       this.error = err
