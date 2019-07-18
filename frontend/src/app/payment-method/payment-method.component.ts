@@ -38,7 +38,7 @@ export class PaymentMethodComponent implements OnInit {
 
   ngOnInit () {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
-    this.yearRange = Array.from(Array(50).keys()).map(i => i + new Date().getFullYear())
+    this.yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
     if (this.allowDelete) {
       this.displayedColumns.push('Remove')
     } else {
