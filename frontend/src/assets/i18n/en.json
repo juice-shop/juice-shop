@@ -274,5 +274,11 @@
   "CARD_ENDING_IN": "Card ending in",
   "CARD_HOLDER": "Card Holder",
   "PAYMENT_METHOD": "Payment Method",
-  "PHONE_NUMBER": "Phone Number"
+  "PHONE_NUMBER": "Phone Number",
+  "LABEL_ORDER_HISTORY": "Order History",
+  "LABEL_IN_TRANSIT": "In Transit",
+  "LABEL_DELIVERED": "Delivered",
+  "LABEL_TRACK_ORDER": "Track Order",
+  "NO_ORDERS_PLACED": "You haven't placed any orders yet."
+
 }
