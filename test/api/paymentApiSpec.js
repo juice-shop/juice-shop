@@ -48,7 +48,7 @@ describe('/api/Cards', () => {
         fullName: 'Jim',
         cardNum: 1234567887654321,
         expMonth: 1,
-        expYear: new Date().getFullYear()
+        expYear: 2085
       }
     })
       .expect('status', 201)
@@ -102,7 +102,7 @@ describe('/api/Cards/:id', () => {
         fullName: 'Jim',
         cardNum: 1234567887654321,
         expMonth: 1,
-        expYear: new Date().getFullYear()
+        expYear: 2088
       }
     })
       .expect('status', 201)
