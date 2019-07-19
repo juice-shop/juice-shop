@@ -466,25 +466,28 @@ function createOrders () {
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       products: basket1Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString()
+      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      delivered: false
     },
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       products: basket2Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString()
+      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      delivered: true
     }
   ]
 
   return Promise.all(
-    orders.map(({ orderId, email, totalPrice, products, eta }) =>
+    orders.map(({ orderId, email, totalPrice, products, eta, delivered }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,
         totalPrice: totalPrice,
         products: products,
-        eta: eta
+        eta: eta,
+        delivered: delivered
       }).catch((err) => {
         logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
