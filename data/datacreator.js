@@ -111,7 +111,7 @@ async function createDeliveryMethods () {
           eta
         })
       } catch (err) {
-        logger.error(`Could not insert User: ${err.message}`)
+        logger.error(`Could not insert Delivery Method: ${err.message}`)
       }
     })
   )

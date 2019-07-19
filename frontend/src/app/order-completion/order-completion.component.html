@@ -69,7 +69,7 @@
              <mat-footer-cell *matFooterCellDef>
                 <table class="price-align">
                    <tr class="mat-row">
-                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}</td>
+                      <td>{{ orderDetails.itemTotal?.toFixed(2) }}</td>
                    </tr>
                    <tr class="mat-row">
                       <td>{{ deliveryPrice.toFixed(2) }}</td>
@@ -78,7 +78,7 @@
                       <td>{{ promotionalDiscount.toFixed(2) }}</td>
                    </tr>
                    <tr class="mat-row">
-                      <td>{{ (orderDetails.totalPrice + deliveryPrice - promotionalDiscount)?.toFixed(2) }}</td>
+                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}</td>
                    </tr>
                 </table>
              </mat-footer-cell>
