@@ -279,6 +279,7 @@
   "LABEL_IN_TRANSIT": "In Transit",
   "LABEL_DELIVERED": "Delivered",
   "LABEL_TRACK_ORDER": "Track Order",
-  "NO_ORDERS_PLACED": "You haven't placed any orders yet."
-
+  "NO_ORDERS_PLACED": "You haven't placed any orders yet.",
+  "LABEL_MARK_AS_DELIVERED": "Mark as Delivered",
+  "LABEL_MARK_AS_TRANSIT": "Mark under transit"
 }

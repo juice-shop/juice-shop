@@ -16,4 +16,12 @@ export class OrderHistoryService {
   get () {
     return this.http.get(this.host).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
+
+  getAll () {
+    return this.http.get(this.host + '/orders').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
+
+  toggleDeliveryStatus (id, params) {
+    return this.http.post(this.host + '/' + id + '/delivery-status', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
 }
