@@ -30,7 +30,8 @@ export class OrderCompletionComponent implements OnInit {
         this.deliveryPrice = results.data[0].deliveryPrice ? parseFloat(results.data[0].deliveryPrice) : 0
         this.orderDetails.addressId = results.data[0].addressId
         this.orderDetails.paymentId = results.data[0].paymentId
-        this.orderDetails.totalPrice = results.data[0].totalPrice + this.promotionalDiscount - this.deliveryPrice
+        this.orderDetails.totalPrice = results.data[0].totalPrice
+        this.orderDetails.itemTotal = results.data[0].totalPrice + this.promotionalDiscount - this.deliveryPrice
         this.orderDetails.eta = results.data[0].eta || '?'
         this.orderDetails.products = results.data[0].products
         this.orderDetails.bonus = results.data[0].bonus

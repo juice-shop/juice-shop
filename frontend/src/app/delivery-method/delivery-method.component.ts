@@ -3,13 +3,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
-
-interface DeliveryMehtod {
-  id: number,
-  name: string,
-  price: number,
-  eta: number
-}
+import { DeliveryMethod } from '../Models/deliveryMethod.model'
 
 @Component({
   selector: 'app-delivery-method',
@@ -19,7 +13,7 @@ interface DeliveryMehtod {
 export class DeliveryMethodComponent implements OnInit {
 
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
-  public methods: DeliveryMehtod[]
+  public methods: DeliveryMethod[]
   public address: any
   public dataSource
   public deliveryMethodId: Number = undefined
@@ -33,7 +27,7 @@ export class DeliveryMethodComponent implements OnInit {
 
     this.deliverySerivce.get().subscribe((methods) => {
       this.methods = methods
-      this.dataSource = new MatTableDataSource<DeliveryMehtod>(this.methods)
+      this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
     }, (error) => console.log(error))
   }
 
