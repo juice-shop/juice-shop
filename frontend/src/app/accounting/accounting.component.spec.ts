@@ -14,12 +14,15 @@ import { of } from 'rxjs'
 import { QuantityService } from '../Services/quantity.service'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
+import { OrderHistoryService } from '../Services/order-history.service'
+import { MatIconModule, MatTooltipModule } from '@angular/material'
 
 describe('AccountingComponent', () => {
   let component: AccountingComponent
   let fixture: ComponentFixture<AccountingComponent>
   let productService
   let quantityService
+  let orderHistoryService
 
   beforeEach(async(() => {
     quantityService = jasmine.createSpyObj('QuantityService', ['getAll', 'put'])
@@ -29,6 +32,9 @@ describe('AccountingComponent', () => {
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({}))
     productService.put.and.returnValue(of({}))
+    orderHistoryService = jasmine.createSpyObj('OrderHistoryService', ['getAll', 'toggleDeliveryStatus'])
+    orderHistoryService.getAll.and.returnValue(of([]))
+    orderHistoryService.toggleDeliveryStatus.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       declarations: [ AccountingComponent ],
@@ -42,11 +48,14 @@ describe('AccountingComponent', () => {
         MatFormFieldModule,
         MatDividerModule,
         MatGridListModule,
-        MatCardModule
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule
       ],
       providers: [
         { provide: ProductService, useValue: productService },
-        { provide: QuantityService, useValue: quantityService }
+        { provide: QuantityService, useValue: quantityService },
+        { provide: OrderHistoryService, useValue: orderHistoryService }
       ]
     })
     .compileComponents()
@@ -63,12 +72,14 @@ describe('AccountingComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should load products and quantitites when initiated', () => {
+  it('should load products, quantitites and orders when initiated', () => {
     quantityService.getAll.and.returnValue(of([]))
     productService.search.and.returnValue(of([]))
+    orderHistoryService.getAll.and.returnValue(of([]))
     component.ngAfterViewInit()
     expect(quantityService.getAll).toHaveBeenCalled()
     expect(productService.search).toHaveBeenCalled()
+    expect(orderHistoryService.getAll).toHaveBeenCalled()
   })
 
   it('should hold no products when product search API call fails', () => {
@@ -76,6 +87,13 @@ describe('AccountingComponent', () => {
     component.loadProducts()
     fixture.detectChanges()
     expect(component.tableData).toEqual([])
+  })
+
+  it('should hold no orders when getAll orders API call fails', () => {
+    orderHistoryService.getAll.and.returnValue(throwError('Error'))
+    component.loadOrders()
+    fixture.detectChanges()
+    expect(component.orderData).toEqual([])
   })
 
   it('should hold no quantities when getAll quanitity API call fails', () => {
@@ -89,6 +107,27 @@ describe('AccountingComponent', () => {
     productService.search.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.loadProducts()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should log error from getAll orders API call directly to browser console', fakeAsync(() => {
+    orderHistoryService.getAll.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.loadOrders()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should load orders when toggleDeliveryStatus gets called', () => {
+    orderHistoryService.getAll.and.returnValue(throwError('Error'))
+    orderHistoryService.toggleDeliveryStatus.and.returnValue(of({}))
+    component.changeDeliveryStatus(true, 1)
+    expect(orderHistoryService.getAll).toHaveBeenCalled()
+  })
+
+  it('should log error from toggleDeliveryStatus API call directly to browser console', fakeAsync(() => {
+    orderHistoryService.toggleDeliveryStatus.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.changeDeliveryStatus(true, 1)
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
