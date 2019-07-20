@@ -8,7 +8,7 @@ import { Product } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 
-interface StrippedProduct {
+export interface StrippedProduct {
   id: number,
   name: string,
   price: number,
@@ -16,7 +16,7 @@ interface StrippedProduct {
   total: number
 }
 
-interface Order {
+export interface Order {
   orderId: string,
   totalPrice: number,
   bonus: number,
@@ -35,10 +35,10 @@ export class OrderHistoryComponent implements OnInit {
   public orders: Order[] = []
   public emptyState: boolean = true
 
-  constructor (private router: Router, private dialog: MatDialog, private orderHistory: OrderHistoryService, private basketService: BasketService, private productService: ProductService) { }
+  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService) { }
 
   ngOnInit () {
-    this.orderHistory.get().subscribe((orders) => {
+    this.orderHistoryService.get().subscribe((orders) => {
       orders = orders.reverse()
       if (orders.length === 0) {
         this.emptyState = true
@@ -64,7 +64,7 @@ export class OrderHistoryComponent implements OnInit {
           delivered: order.delivered
         })
       }
-    })
+    },(err) => console.log(err))
   }
 
   showDetail (id: number) {
@@ -84,7 +84,7 @@ export class OrderHistoryComponent implements OnInit {
           productData: element
         }
       })
-    })
+    },(err) => console.log(err))
   }
 
   openConfirmationPDF (orderId) {

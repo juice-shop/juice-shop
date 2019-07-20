@@ -350,7 +350,7 @@ app.get('/rest/languages', languageList())
 app.post('/rest/user/erasure-request', erasureRequest())
 app.get('/rest/order-history', orderHistory.orderHistory())
 app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.allOrders())
-app.post('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
+app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())
