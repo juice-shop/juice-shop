@@ -9,6 +9,23 @@
   feedback:
     comment: 'I love this shop! Best products in town! Highly recommended!'
     rating: 5
+  address:
+    - fullName: 'Administrator'
+      mobileNum: 1234567890
+      pinCode: '4711'
+      streetAddress: '0815 Test Street'
+      city: 'Test'
+      state: 'Test'
+      country: 'Test'
+  card:
+    - fullName: 'Administrator'
+      cardNum: 4716190207394368
+      expMonth: 2
+      expYear: 2081
+    - fullName: 'Administrator'
+      cardNum: 4024007105648108
+      expMonth: 4
+      expYear: 2086      
 -
   email: jim
   password: 'ncc-1701'
@@ -20,6 +37,26 @@
   feedback:
     comment: 'Great shop! Awesome service!'
     rating: 4
+  address:
+    - fullName: 'Jim'
+      mobileNum: 523423432
+      pinCode: '1701'
+      streetAddress: 'Room 3F 121'
+      city: 'Deck 5'
+      state: 'USS Enterprise'
+      country: 'Space'
+    - fullName: 'Sam'
+      mobileNum: 1000000783
+      pinCode: 'GSK783'
+      streetAddress: 'Deneva Colony'
+      city: 'Deneva'
+      state: 'Beta Darius System'
+      country: 'United Federation of Planets'
+  card:
+    - fullName: 'Jim'
+      cardNum: 5107891722278705
+      expMonth: 11
+      expYear: 2099
 -
   email: bender
   password: 'OhG0dPlease1nsertLiquor!'
@@ -31,6 +68,19 @@
   feedback:
     comment: 'Nothing useful available here!'
     rating: 1
+  address:
+    - fullName: 'Bender'
+      mobileNum: 797675345
+      pinCode: '10001'
+      streetAddress: 'Robot Arms Apts 42'
+      city: 'New New York'
+      state: 'New New York'
+      country: 'Planet Earth'
+  card:
+    - fullName: 'Bender'
+      cardNum: 4716943969046208
+      expMonth: 2
+      expYear: 2081
 -
   email: bjoern.kimminich@googlemail.com
   username: bkimminich
@@ -38,6 +88,19 @@
   customDomain: true
   key: bjoernGoogle
   role: 'admin'
+  address:
+    - fullName: 'Bjoern Kimminich'
+      mobileNum: 49170000001
+      pinCode: '25436'
+      streetAddress: 'Am Lokalhorst 42'
+      city: 'Uetersen'
+      state: 'Schleswig-Holstein'
+      country: 'Germany'
+  card:
+    - fullName: 'Bjoern Kimminich'
+      cardNum: 4815205605542754
+      expMonth: 12
+      expYear: 2092
 -
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
