@@ -75,7 +75,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, totpSecret: totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -90,11 +90,44 @@ async function createUsers () {
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
         if (deletedFlag) await deleteUser(user.id)
+        if (address) await createAddresses(user.id, address)
+        if (card) await createCards(user.id, card)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${err.message}`)
       }
     })
   )
+}
+
+function createAddresses (UserId, addresses) {
+  addresses.map((address) => {
+    return models.Address.create({
+      UserId: UserId,
+      country: address.country,
+      fullName: address.fullName,
+      mobileNum: address.mobileNum,
+      pinCode: address.pinCode,
+      streetAddress: address.streetAddress,
+      city: address.city,
+      state: address.state ? address.state : null
+    }).catch((err) => {
+      logger.error(`Could not create address: ${err.message}`)
+    })
+  })
+}
+
+function createCards (UserId, cards) {
+  cards.map((card) => {
+    return models.Card.create({
+      UserId: UserId,
+      fullName: card.fullName,
+      cardNum: card.cardNum,
+      expMonth: card.expMonth,
+      expYear: card.expYear
+    }).catch((err) => {
+      logger.error(`Could not create card: ${err.message}`)
+    })
+  })
 }
 
 function deleteUser (userId) {
