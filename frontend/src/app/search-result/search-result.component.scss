@@ -1,13 +1,15 @@
+$bg-heading: rgba(0, 0, 0, .2);
+
 .table-container {
   min-width: 350px;
   width: 80%;
 }
 
 .heading {
-  background: rgba(0,0,0,.2);
+  background: $bg-heading;
+  font-size: x-large;
   justify-content: center;
   padding: 12px 20px;
-  font-size: x-large;
 }
 
 .img-thumbnail {
@@ -28,9 +30,9 @@ mat-card {
 }
 
 .item-price {
-  text-align: center;
-  margin-top: 12px;
   font-size: initial;
+  margin-top: 12px;
+  text-align: center;
 }
 
 .item-name {
@@ -38,27 +40,27 @@ mat-card {
   text-align: center;
 }
 
-.emptyState{
-  margin-top: 20px;
+.emptyState {
+  display: block;
+  height: auto !important;
   margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 50%;
+}
+
+.noResult {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
-  height: auto !important;
-}
-
-.noResult{
   width: 60%;
-  display:block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.noResultText{
-  text-align: center;
-  display:block;
+.noResultText {
+  display: block;
   margin-top: 10px;
+  text-align: center;
 }
 
 .ribbon-card{

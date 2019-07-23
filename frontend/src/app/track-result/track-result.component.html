@@ -34,7 +34,7 @@
 
     <ng-container matColumnDef="price">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
-        <mat-cell class="product-price" *matCellDef="let product" fxShow fxHide.lt-md> {{product.price}}</mat-cell>
+        <mat-cell class="product-price" *matCellDef="let product" fxShow fxHide.lt-md> {{product.price}}&curren;</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
