@@ -104,7 +104,7 @@ module.exports = function placeOrder () {
           }
           const deliveryAmount = insecurity.isPrime(req) ? deliveryMethod.primePrice : deliveryMethod.price
           totalPrice += deliveryAmount
-          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2))
+          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
           doc.moveDown()
           doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
           doc.moveDown()
