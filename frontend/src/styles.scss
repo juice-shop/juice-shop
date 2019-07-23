@@ -112,6 +112,8 @@
   @include google-button($theme);
 }
 
+$bg-hacking-instructor: rgba(0, 0, 0, .3);
+
 .deeppurple-amber-theme {
   @include angular-material-theme($deeppurple-amber-theme);
   @include custom-components-theme($deeppurple-amber-theme);
@@ -187,7 +189,7 @@
 }
 
 #hacking-instructor code {
-  background-color: rgba(0, 0, 0, .3);
+  background-color: $bg-hacking-instructor;
   border-radius: 1px;
   font-family: monospace;
   padding: 0 4px;
