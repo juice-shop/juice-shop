@@ -126,7 +126,7 @@ function createAddresses (UserId, addresses) {
       country: address.country,
       fullName: address.fullName,
       mobileNum: address.mobileNum,
-      pinCode: address.pinCode,
+      zipCode: address.zipCode,
       streetAddress: address.streetAddress,
       city: address.city,
       state: address.state ? address.state : null

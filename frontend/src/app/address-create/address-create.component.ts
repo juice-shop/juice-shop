@@ -48,7 +48,7 @@ export class AddressCreateComponent implements OnInit {
     this.address.country = this.countryControl.value
     this.address.fullName = this.nameControl.value
     this.address.mobileNum = this.numberControl.value
-    this.address.pinCode = this.pinControl.value
+    this.address.zipCode = this.pinControl.value
     this.address.streetAddress = this.addressControl.value
     this.address.city = this.cityControl.value
     this.address.state = this.stateControl.value
@@ -87,7 +87,7 @@ export class AddressCreateComponent implements OnInit {
     this.countryControl.setValue(address.country)
     this.nameControl.setValue(address.fullName)
     this.numberControl.setValue(address.mobileNum)
-    this.pinControl.setValue(address.pinCode)
+    this.pinControl.setValue(address.zipCode)
     this.addressControl.setValue(address.streetAddress)
     this.cityControl.setValue(address.city)
     this.stateControl.setValue(address.state)
