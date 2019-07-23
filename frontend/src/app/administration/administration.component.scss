@@ -1,9 +1,11 @@
+$bg-heading: rgba(0, 0, 0, .13);
+
 .container {
   justify-content: center;
 }
 
 .heading {
-  background: rgba(0, 0, 0, 0.13);
+  background: $bg-heading;
   justify-content: center;
   margin-bottom: 10px;
   padding: 12px 20px;

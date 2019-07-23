@@ -1,10 +1,10 @@
 mat-card,
 mat-expansion-panel,
 footer {
-  min-width: 300px;
+  margin-bottom: 35px;
   margin-left: 35px;
   margin-right: 35px;
-  margin-bottom: 35px;
+  min-width: 300px;
 }
 
 .category-container,
@@ -41,7 +41,7 @@ mat-table {
   font-size: small;
 }
 
-.overlay-fullscreen /deep/ .black-overlay{
+.overlay-fullscreen /deep/ .black-overlay {
   position: fixed;
 }
 
