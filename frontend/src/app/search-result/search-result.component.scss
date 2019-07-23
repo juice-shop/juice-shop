@@ -1,10 +1,12 @@
+$bg-heading: rgba(0, 0, 0, .2);
+
 .table-container {
   min-width: 350px;
   width: 80%;
 }
 
 .heading {
-  background: rgba(0, 0, 0, .2);
+  background: $bg-heading;
   font-size: x-large;
   justify-content: center;
   padding: 12px 20px;
