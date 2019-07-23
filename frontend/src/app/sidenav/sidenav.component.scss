@@ -5,20 +5,22 @@ mat-toolbar {
   width: 100%;
 }
 
-a{
+a {
   text-decoration: none !important;
 }
 
-.menu-text{
+.menu-text {
   padding-left: 10px;
 }
 
-.mat-list-base, .mat-list-item, .mat-list-icon{
-  padding: 0px !important;
+.mat-list-base,
+.mat-list-item,
+.mat-list-icon {
+  padding: 0 !important;
 }
 
 .toolbar-title {
-  margin: 0 16px 0 16px;
+  margin: 0 16px;
 }
 
 .mat-subheader {
@@ -27,24 +29,20 @@ a{
 }
 
 .app-nav-list-icon {
-  margin: 0 12px 0 12px;
+  margin: 0 12px;
 }
 
 .side-subHeader {
   font-weight: 300;
 }
 
-mat-nav-list{
+mat-nav-list {
   margin-bottom: 50px;
 }
 
-.app-nav-list-icon {
-  margin: 0 12px 0 12px;
-}
-
 .menu-button {
-  transition: 300ms ease-in-out;
   transform: rotate(0deg);
+  transition: 300ms ease-in-out;
 }
 
 .menu-button.rotated {
@@ -53,24 +51,24 @@ mat-nav-list{
 
 .submenu {
   overflow-y: hidden;
-  transition: transform 300ms ease;
+  padding-left: 30px;
   transform: scaleY(0);
   transform-origin: top;
-  padding-left: 30px;
+  transition: transform 300ms ease;
 }
 
 .submenu.expanded {
   transform: scaleY(1);
 }
 
-.appVersion{
-  margin-top: 20px;
+.appVersion {
   margin-bottom: 20px;
+  margin-top: 20px;
   text-align: center;
 }
 
 .truncate {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
