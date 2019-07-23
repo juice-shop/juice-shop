@@ -12,7 +12,7 @@
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
                <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
                <div>{{address?.fullName}}</div>
-               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.pinCode}}</div>
+               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
                <div>{{address?.country}}</div>
                <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
              </div>

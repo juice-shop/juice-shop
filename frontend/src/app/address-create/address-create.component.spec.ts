@@ -199,7 +199,7 @@ describe('AddressCreateComponent', () => {
   }))
 
   it('should populate the form on calling initializeForm', () => {
-    component.initializeForm({ country: 'US', fullName: 'jim', mobileNum: 9800000000, pinCode: 'NX 101', streetAddress: 'Bakers Street', city: 'NYC', state: 'NY' })
+    component.initializeForm({ country: 'US', fullName: 'jim', mobileNum: 9800000000, zipCode: 'NX 101', streetAddress: 'Bakers Street', city: 'NYC', state: 'NY' })
     expect(component.countryControl.value).toBe('US')
     expect(component.nameControl.value).toBe('jim')
     expect(component.numberControl.value).toBe(9800000000)
