@@ -19,7 +19,7 @@
 		 </ng-container>
 		 <ng-container matColumnDef="price">
 				<mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md fxFlex="16%" translate>LABEL_PRICE</mat-header-cell>
-				<mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%"> {{element.price}}</mat-cell>
+				<mat-cell *matCellDef="let element" fxShow fxHide.lt-md fxFlex="16%"> {{element.price}}&curren;</mat-cell>
 				<mat-footer-cell *matFooterCellDef fxShow fxHide.lt-md fxFlex="16%"></mat-footer-cell>
 		 </ng-container>
 		 <ng-container matColumnDef="quantity">
@@ -33,8 +33,8 @@
 		 </ng-container>
 		 <ng-container matColumnDef="total price">
 				<mat-header-cell *matHeaderCellDef fxFlex="18%" fxFlex.lt-md="20%" translate class="content-align">LABEL_TOTAL_PRICE</mat-header-cell>
-				<mat-cell *matCellDef="let element" fxFlex="18%" fxFlex.lt-md="20%" class="content-align"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
-				<mat-footer-cell *matFooterCellDef  fxFlex="18%" fxFlex.lt-md="20%" class="content-align"> {{ itemTotal.toFixed(2) }}</mat-footer-cell>
+				<mat-cell *matCellDef="let element" fxFlex="18%" fxFlex.lt-md="20%" class="content-align"> {{(element.price*element.BasketItem.quantity).toFixed(2)}}&curren; </mat-cell>
+				<mat-footer-cell *matFooterCellDef  fxFlex="18%" fxFlex.lt-md="20%" class="content-align"> {{ itemTotal.toFixed(2) }}&curren;</mat-footer-cell>
 		 </ng-container>
 		 <ng-container matColumnDef="remove" *ngIf="allowEdit">
 				<mat-header-cell *matHeaderCellDef></mat-header-cell>

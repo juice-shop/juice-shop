@@ -80,7 +80,7 @@ module.exports = function placeOrder () {
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
+            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal + '¤')
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
@@ -90,11 +90,11 @@ module.exports = function placeOrder () {
           let discountAmount = 0
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(discount + '% discount from coupon: -' + discountAmount)
+            doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
             doc.moveDown()
             totalPrice -= discountAmount
           }
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
           doc.moveDown()
           doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
           doc.font('Times-Roman', 15).text('(You will be able to these points for amazing bonuses in the future!)')
