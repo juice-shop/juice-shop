@@ -1,30 +1,30 @@
 dist: xenial
 language: node_js
 os:
-- linux
-- osx
-- windows
+  - linux
+  - osx
+  - windows
 node_js:
-- 12
-- 10
+  - 12
+  - 10
 stages:
-- lint
-- test
-- integration
-- e2e
-- deploy
+  - lint
+  - test
+  - integration
+  - e2e
+  - deploy
 branches:
   except:
-  - gh-pages
-  - l10n_develop
+    - gh-pages
+    - l10n_develop
 cache:
   - directories:
-    - node_modules
-    - frontend/node_modules
+      - node_modules
+      - frontend/node_modules
 matrix:
   fast_finish: true
   allow_failures:
-  - os: windows
+    - os: windows
 env:
   global:
     secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
@@ -34,77 +34,72 @@ install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test
   npm test; fi
 before_deploy:
-- rm -rf node_modules
-- rm -rf frontend/node_modules
-- npm install --production
-- npm run package
+  - rm -rf node_modules
+  - rm -rf frontend/node_modules
+  - npm install --production
+  - npm run package
 deploy:
-- provider: releases
-  overwrite: true
-  api_key:
-    secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
-  file: dist/*
-  skip_cleanup: true
-  file_glob: true
-  draft: true
-  tag_name: "$TRAVIS_TAG"
-  on:
-    repo: bkimminich/juice-shop
-    tags: true
+  - provider: releases
+    overwrite: true
+    api_key:
+      secure: fHybcH65ZdS5ITVKH2tIVBITVSiRQJ1AuWqLP16gyAz5pdmWbLM5gA/74zCozanRmuB+7pGFbhDNm075JWoEDVrWSFDLnNiXvfgUYa4oVEiWZlLvOfSARaU3AQPlVvFVhIbG9SA5IEwTtNFbyHjqLjGn/DSBpiIDqqxhF57vw7Q=
+    file: dist/*
+    skip_cleanup: true
+    file_glob: true
+    draft: true
+    tag_name: "$TRAVIS_TAG"
+    on:
+      repo: bkimminich/juice-shop
+      tags: true
 jobs:
   include:
-  - stage: lint
-    if: tag IS blank
-    install: npm i -g standard@13 && cd frontend && npm install && cd ..
-    script: npm run lint
-  - stage: integration
-    if: tag IS blank
-    os: linux
-    before_script:
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-      > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    script:
-    - export NODE_ENV=test
-    - npm test
-    - npm run frisby
-    after_success:
-    - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json
-      build/reports/coverage/frontend-tests/lcov.info"
-    - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json
-      build/reports/coverage/server-tests/lcov.info"
-    - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json
-      build/reports/coverage/api-tests/lcov.info"
-    - "./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p
-      3"
-    - "./cc-test-reporter upload-coverage"
-  - stage: e2e
-    if: tag IS blank
-    os: linux
-    script:
-    - export NODE_ENV=test
-    - npm run protractor
-  - stage: deploy
-    if: "(branch = master OR branch = develop OR branch = gsoc2019) AND NOT type =
-      pull_request"
-    os: linux
-    node_js: 12
-    install: skip
-    script: skip
-    deploy:
-    - provider: heroku
-      api_key:
-        secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
-      app:
-        master: juice-shop
-        develop: juice-shop-staging
-        gsoc2019: juice-shop-gsoc
-      on:
-        repo: bkimminich/juice-shop
+    - stage: lint
+      if: tag IS blank
+      install: npm i -g standard@13 && cd frontend && npm install && cd ..
+      script: npm run lint
+    - stage: integration
+      if: tag IS blank
+      os: linux
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+          > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+      script:
+        - export NODE_ENV=test
+        - npm test
+        - npm run frisby
+      after_success:
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json build/reports/coverage/server-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info"
+        - "./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3"
+        - "./cc-test-reporter upload-coverage"
+    - stage: e2e
+      if: tag IS blank
+      os: linux
+      script:
+        - export NODE_ENV=test
+        - npm run protractor
+    - stage: deploy
+      if: "(branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request"
+      os: linux
+      node_js: 12
+      install: skip
+      script: skip
+      deploy:
+        - provider: heroku
+          api_key:
+            secure: faVT3Ne/O7lVo0+pTm6RcXss0ivvSoODaxMkiVwdpk/51/EsRd4+/Gjmp3RGPmW5H5luOephsI8uFMMhgKiu5i3NV58ZSx29Z0aby+bfIhesZGZqJQvxeW8B0J8vlQFnEHP6xc6SAlXSdNjNpDeBaV7WSFSGKGp4Nh5QyO2ySLI=
+          app:
+            master: juice-shop
+            develop: juice-shop-staging
+            gsoc2019: juice-shop-gsoc
+          on:
+            repo: bkimminich/juice-shop
 notifications:
   webhooks:
     urls:
-    - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
     on_success: always
     on_failure: always
     on_start: never

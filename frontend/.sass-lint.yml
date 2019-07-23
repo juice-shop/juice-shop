@@ -1,0 +1,11 @@
+files:
+  include: 'src/**/*.s+(a|c)ss'
+rules:
+  class-name-format: 0
+  force-element-nesting: 0
+  force-pseudo-nesting: 0
+  no-ids: 0
+  no-important: 0
+  no-qualifying-elements:
+    - 1
+    - allow-element-with-class: true
