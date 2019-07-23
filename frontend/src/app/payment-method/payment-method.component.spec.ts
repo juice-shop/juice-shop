@@ -93,7 +93,7 @@ describe('PaymentMethodComponent', () => {
     component.nameControl.setValue('jim')
     component.numberControl.setValue(9999999999999999)
     component.monthControl.setValue(12)
-    component.yearControl.setValue(new Date().getFullYear())
+    component.yearControl.setValue(2085)
     component.resetForm()
     expect(component.nameControl.value).toBe('')
     expect(component.nameControl.pristine).toBe(true)
