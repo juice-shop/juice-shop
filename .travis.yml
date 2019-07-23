@@ -17,10 +17,10 @@ branches:
   except:
   - gh-pages
   - l10n_develop
-cache:
-  - directories:
-    - node_modules
-    - frontend/node_modules
+#cache:
+#  - directories:
+#    - node_modules
+#    - frontend/node_modules
 matrix:
   fast_finish: true
   allow_failures:
