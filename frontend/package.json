@@ -68,6 +68,8 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "sass-lint": "^1.13.1",
+    "sass-lint-auto-fix": "^0.17.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "tslint-config-standard": "~8.0.1"

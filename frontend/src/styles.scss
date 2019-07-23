@@ -13,7 +13,7 @@
     text-decoration: underline;
   }
 
-  a{
+  a {
     outline: none;
   }
 }
@@ -61,16 +61,16 @@
     width: 18px;
   }
 
-  .br-default .br-unit:after {
+  .br-default .br-unit::after {
     color: mat-color(map-get($theme, primary), lighter);
     content: '\2605';
   }
 
-  .br-default .br-selected:after {
+  .br-default .br-selected::after {
     color: mat-color(map-get($theme, accent), lighter);
   }
 
-  .br-default .br-active:after {
+  .br-default .br-active::after {
     color: mat-color(map-get($theme, accent), lighter);
   }
 }
@@ -84,21 +84,21 @@
     stop-color: mat-color(map-get($theme, accent));
   }
 
-  .star-border{
+  .star-border {
     stroke: mat-color(map-get($theme, accent));
   }
 }
 
 @mixin snackbar($theme) {
   .mat-snack-bar-container {
+    background-color: mat-color(map-get($theme, background), card) !important;
     color: mat-color(map-get($theme, foreground), text) !important;
-    background-color:  mat-color(map-get($theme, background), card) !important;
   }
 }
 
-@mixin gButton($theme) {
-  .gButton {
-    background-color:  mat-color(map-get($theme, accent), darker) !important;
+@mixin google-button($theme) {
+  .google-button {
+    background-color: mat-color(map-get($theme, accent), darker) !important;
   }
 }
 
@@ -109,7 +109,7 @@
   @include bar-rating-theme($theme);
   @include score-star-theme($theme);
   @include snackbar($theme);
-  @include gButton($theme);
+  @include google-button($theme);
 }
 
 .deeppurple-amber-theme {
@@ -186,9 +186,9 @@
   }
 }
 
-#hacking-instructor code{
-  font-family: monospace;
-  background-color: rgba(0,0,0,0.3);
+#hacking-instructor code {
+  background-color: rgba(0, 0, 0, .3);
   border-radius: 1px;
+  font-family: monospace;
   padding: 0 4px;
 }
