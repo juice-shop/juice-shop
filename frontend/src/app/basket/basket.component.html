@@ -12,7 +12,7 @@
 
         <ng-container matColumnDef="price">
           <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_PRICE</mat-header-cell>
-          <mat-cell *matCellDef="let element" fxShow fxHide.lt-md> {{element.price}}</mat-cell>
+          <mat-cell *matCellDef="let element" fxShow fxHide.lt-md> {{element.price}}&curren;</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="quantity">
@@ -26,7 +26,7 @@
 
         <ng-container matColumnDef="total price">
           <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{(element.price*element.BasketItem.quantity).toFixed(2)}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{(element.price*element.BasketItem.quantity).toFixed(2)}}&curren; </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="remove">
