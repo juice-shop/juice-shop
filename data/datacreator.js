@@ -35,7 +35,8 @@ module.exports = async () => {
     createRecycleItems,
     createOrders,
     createQuantity,
-    createPurchaseQuantity
+    createPurchaseQuantity,
+    createDeliveryMethods
   ]
 
   for (const creator of creators) {
@@ -99,6 +100,25 @@ async function createUsers () {
   )
 }
 
+async function createDeliveryMethods () {
+  const delivery = await loadStaticData('delivery')
+
+  await Promise.all(
+    delivery.map(async ({ name, price, primePrice, eta }) => {
+      try {
+        await models.Delivery.create({
+          name,
+          price,
+          primePrice,
+          eta
+        })
+      } catch (err) {
+        logger.error(`Could not insert Delivery Method: ${err.message}`)
+      }
+    })
+  )
+}
+
 function createAddresses (UserId, addresses) {
   addresses.map((address) => {
     return models.Address.create({
@@ -106,7 +126,7 @@ function createAddresses (UserId, addresses) {
       country: address.country,
       fullName: address.fullName,
       mobileNum: address.mobileNum,
-      pinCode: address.pinCode,
+      zipCode: address.zipCode,
       streetAddress: address.streetAddress,
       city: address.city,
       state: address.state ? address.state : null

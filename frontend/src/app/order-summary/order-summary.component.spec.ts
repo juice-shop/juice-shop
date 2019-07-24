@@ -19,6 +19,7 @@ import { PaymentService } from '../Services/payment.service'
 import { OrderCompletionComponent } from '../order-completion/order-completion.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { DeliveryService } from '../Services/delivery.service'
 
 describe('OrderSummaryComponent', () => {
   let component: OrderSummaryComponent
@@ -26,6 +27,7 @@ describe('OrderSummaryComponent', () => {
   let basketService: any
   let addressService: any
   let paymentService: any
+  let deliveryService: any
 
   beforeEach(async(() => {
 
@@ -36,6 +38,8 @@ describe('OrderSummaryComponent', () => {
     basketService.checkout.and.returnValue(of({}))
     paymentService = jasmine.createSpyObj('PaymentService', ['getById'])
     paymentService.getById.and.returnValue(of([]))
+    deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
+    deliveryService.getById.and.returnValue(of({ price: 10 }))
 
     TestBed.configureTestingModule({
       declarations: [ OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent ],
@@ -58,7 +62,8 @@ describe('OrderSummaryComponent', () => {
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: AddressService, useValue: addressService },
-        { provide: PaymentService, useValue: paymentService }
+        { provide: PaymentService, useValue: paymentService },
+        { provide: DeliveryService, useValue: deliveryService }
       ]
     })
     .compileComponents()
@@ -94,6 +99,12 @@ describe('OrderSummaryComponent', () => {
     expect(component.address).toEqual({ address: 'address' })
   })
 
+  it('should hold delivery price on ngOnInit', () => {
+    deliveryService.getById.and.returnValue(of({ price: 10 }))
+    component.ngOnInit()
+    expect(component.deliveryPrice).toEqual(10)
+  })
+
   it('should hold card on ngOnInit', () => {
     paymentService.getById.and.returnValue(of({ cardNum: '1234123412341234' }))
     component.ngOnInit()
@@ -114,6 +125,7 @@ describe('OrderSummaryComponent', () => {
     component.placeOrder()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('paymentId')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('addressId')
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith('deliveryMethodId')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDetails')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDiscount')
   })

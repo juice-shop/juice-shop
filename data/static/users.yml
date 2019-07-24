@@ -12,7 +12,7 @@
   address:
     - fullName: 'Administrator'
       mobileNum: 1234567890
-      pinCode: '4711'
+      zipCode: '4711'
       streetAddress: '0815 Test Street'
       city: 'Test'
       state: 'Test'
@@ -40,14 +40,14 @@
   address:
     - fullName: 'Jim'
       mobileNum: 523423432
-      pinCode: '1701'
+      zipCode: '1701'
       streetAddress: 'Room 3F 121'
       city: 'Deck 5'
       state: 'USS Enterprise'
       country: 'Space'
     - fullName: 'Sam'
       mobileNum: 1000000783
-      pinCode: 'GSK783'
+      zipCode: 'GSK783'
       streetAddress: 'Deneva Colony'
       city: 'Deneva'
       state: 'Beta Darius System'
@@ -71,7 +71,7 @@
   address:
     - fullName: 'Bender'
       mobileNum: 797675345
-      pinCode: '10001'
+      zipCode: '10001'
       streetAddress: 'Robot Arms Apts 42'
       city: 'New New York'
       state: 'New New York'
@@ -91,7 +91,7 @@
   address:
     - fullName: 'Bjoern Kimminich'
       mobileNum: 49170000001
-      pinCode: '25436'
+      zipCode: '25436'
       streetAddress: 'Am Lokalhorst 42'
       city: 'Uetersen'
       state: 'Schleswig-Holstein'
@@ -105,7 +105,7 @@
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
   key: ciso
-  role: 'customer'
+  role: 'prime'
   securityQuestion:
     id: 7
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'

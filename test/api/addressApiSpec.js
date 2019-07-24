@@ -38,7 +38,7 @@ describe('/api/Addresss', () => {
       body: {
         fullName: 'Jim',
         mobileNum: '9800000000',
-        pinCode: 'NX 101',
+        zipCode: 'NX 101',
         streetAddress: 'Bakers Street',
         city: 'NYC',
         state: 'NY',
@@ -54,7 +54,7 @@ describe('/api/Addresss', () => {
       body: {
         fullName: 'Jim',
         mobileNum: '9800000000',
-        pinCode: 'NX 10111111',
+        zipCode: 'NX 10111111',
         streetAddress: 'Bakers Street',
         city: 'NYC',
         state: 'NY',
@@ -70,7 +70,7 @@ describe('/api/Addresss', () => {
       body: {
         fullName: 'Jim',
         mobileNum: '10000000000',
-        pinCode: 'NX 101',
+        zipCode: 'NX 101',
         streetAddress: 'Bakers Street',
         city: 'NYC',
         state: 'NY',
@@ -84,7 +84,7 @@ describe('/api/Addresss', () => {
     return frisby.post(API_URL + '/Addresss', {
       fullName: 'Jim',
       mobileNum: '9800000000',
-      pinCode: 'NX 10111111',
+      zipCode: 'NX 10111111',
       streetAddress: 'Bakers Street',
       city: 'NYC',
       state: 'NY',
@@ -101,7 +101,7 @@ describe('/api/Addresss/:id', () => {
       body: {
         fullName: 'Jim',
         mobileNum: '9800000000',
-        pinCode: 'NX 101',
+        zipCode: 'NX 101',
         streetAddress: 'Bakers Street',
         city: 'NYC',
         state: 'NY',
@@ -161,7 +161,7 @@ describe('/api/Addresss/:id', () => {
     return frisby.put(API_URL + '/Addresss/' + addressId, {
       headers: authHeader,
       body: {
-        pinCode: 'NX 10111111'
+        zipCode: 'NX 10111111'
       }
     }, { json: true })
       .expect('status', 400)

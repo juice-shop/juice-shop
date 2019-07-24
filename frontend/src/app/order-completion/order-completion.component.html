@@ -12,7 +12,7 @@
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
                <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
                <div>{{address?.fullName}}</div>
-               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.pinCode}}</div>
+               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
                <div>{{address?.country}}</div>
                <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
              </div>
@@ -69,7 +69,7 @@
              <mat-footer-cell *matFooterCellDef>
                 <table class="price-align">
                    <tr class="mat-row">
-                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}&curren;</td>
+                      <td>{{ orderDetails.itemTotal?.toFixed(2) }}&curren;</td>
                    </tr>
                    <tr class="mat-row">
                       <td>{{ deliveryPrice.toFixed(2) }}&curren;</td>
@@ -78,7 +78,7 @@
                       <td>{{ promotionalDiscount.toFixed(2) }}&curren;</td>
                    </tr>
                    <tr class="mat-row">
-                      <td>{{ (orderDetails.totalPrice + deliveryPrice - promotionalDiscount)?.toFixed(2) }}&curren;</td>
+                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}&curren;</td>
                    </tr>
                 </table>
              </mat-footer-cell>

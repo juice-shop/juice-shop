@@ -3,6 +3,7 @@ import { AddressService } from '../Services/address.service'
 import { PaymentService } from '../Services/payment.service'
 import { BasketService } from '../Services/basket.service'
 import { Router } from '@angular/router'
+import { DeliveryService } from '../Services/delivery.service'
 
 @Component({
   selector: 'app-order-summary',
@@ -17,9 +18,13 @@ export class OrderSummaryComponent implements OnInit {
   public promotionalDiscount = 0
   public address: any
   public paymentMethod: any
-  constructor (private router: Router, private addressService: AddressService, private paymentService: PaymentService, private basketService: BasketService) { }
+  constructor (private router: Router, private addressService: AddressService, private paymentService: PaymentService, private basketService: BasketService, private deliveryService: DeliveryService) { }
 
   ngOnInit () {
+    this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
+      this.deliveryPrice = method.price
+    })
+
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
     }, (error) => console.log(error))
@@ -39,11 +44,13 @@ export class OrderSummaryComponent implements OnInit {
   placeOrder () {
     const orderDetails = {
       paymentId: sessionStorage.getItem('paymentId'),
-      addressId: sessionStorage.getItem('addressId')
+      addressId: sessionStorage.getItem('addressId'),
+      deliveryMethodId: sessionStorage.getItem('deliveryMethodId')
     }
     this.basketService.checkout(Number(sessionStorage.getItem('bid')), btoa(sessionStorage.getItem('couponDetails')), orderDetails).subscribe((orderConfirmationId) => {
       sessionStorage.removeItem('paymentId')
       sessionStorage.removeItem('addressId')
+      sessionStorage.removeItem('deliveryMethodId')
       sessionStorage.removeItem('couponDetails')
       sessionStorage.removeItem('couponDiscount')
       this.router.navigate(['/order-completion', orderConfirmationId])

@@ -271,6 +271,8 @@
   "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!",
   "ESTIMATED_TIME_OF_DELIVERY": "Your order will be delivered in {{numberdays}} days.",
   "PRINT_ORDER_CONFIRMATION": "Print Order Confirmation",
+  "LABEL_CHOOSE_A_DELIVERY_SPEED": "Choose a delivery speed",
+  "LABEL_ETA": "ETA",
   "CARD_ENDING_IN": "Card ending in",
   "CARD_HOLDER": "Card Holder",
   "PAYMENT_METHOD": "Payment Method",
