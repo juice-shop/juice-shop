@@ -35,7 +35,7 @@ async function verify (req, res) {
       utils.solve(challenges.twoFactorAuthUnsafeSecretStorageChallenge)
     }
 
-    const [ basket ] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
+    const [basket] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
 
     const token = insecurity.authorize(plainUser)
     plainUser.bid = basket.id // keep track of original basket for challenge solution check

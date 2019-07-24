@@ -42,7 +42,7 @@ exports.promotionVideo = () => {
     fs.readFile('views/promotionVideo.pug', function (err, buf) {
       if (err) throw err
       let template = buf.toString()
-      let subs = getSubsFromFile()
+      const subs = getSubsFromFile()
       if (utils.contains(subs, `</script><script>alert(\`xss\`)</script>`)) {
         if (utils.notSolved(challenges.videoXssChallenge)) {
           utils.solve(challenges.videoXssChallenge)
