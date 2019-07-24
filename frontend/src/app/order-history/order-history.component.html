@@ -13,7 +13,7 @@
                         </div>
                         <div fxFlex="15%" fxLayout="column">
                            <div translate>LABEL_TOTAL_PRICE</div>
-                           <div>{{ order.totalPrice.toFixed(2) }}</div>
+                           <div>{{ order.totalPrice.toFixed(2) }}&curren;</div>
                         </div>
                         <div fxFlex="15%" fxLayout="column">
                               <div translate>LABEL_BONUS</div>
@@ -46,7 +46,7 @@
                   </ng-container>
                   <ng-container matColumnDef="price">
                      <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_PRICE</mat-header-cell>
-                     <mat-cell *matCellDef="let element" fxFlex="15%">{{element.price}}</mat-cell>
+                     <mat-cell *matCellDef="let element" fxFlex="15%">{{element.price}}&curren;</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="quantity">
                      <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_QUANTITY</mat-header-cell>
@@ -56,7 +56,7 @@
                   </ng-container>
                   <ng-container matColumnDef="total price">
                      <mat-header-cell *matHeaderCellDef translate fxFlex="15%">LABEL_TOTAL_PRICE</mat-header-cell>
-                     <mat-cell *matCellDef="let element" class="price-align" fxFlex="15%">{{ (element.total).toFixed(2) }}</mat-cell>
+                     <mat-cell *matCellDef="let element" class="price-align" fxFlex="15%">{{ (element.total).toFixed(2) }}&curren;</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="review">
                         <mat-header-cell *matHeaderCellDef translate fxFlex="15%"></mat-header-cell>
