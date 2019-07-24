@@ -80,6 +80,7 @@ const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
+const delivery = require('./routes/delivery')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -260,6 +261,8 @@ app.get('/api/Addresss', insecurity.appendUserId(), address.getAddress())
 app.put('/api/Addresss/:id', insecurity.appendUserId())
 app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
 app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
+app.get('/api/Deliverys', delivery.getDeliveryMethods())
+app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',

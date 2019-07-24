@@ -15,8 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
-import { PaymentComponent } from '../payment/payment.component'
-import { PaymentMethodComponent } from '../payment-method/payment-method.component'
+import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -27,7 +26,7 @@ describe('AddressSelectComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([
-          { path: 'payment', component: PaymentComponent }
+          { path: 'delivery-method', component: DeliveryMethodComponent }
         ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
@@ -43,7 +42,7 @@ describe('AddressSelectComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ AddressSelectComponent, AddressComponent, PaymentComponent, PaymentMethodComponent ],
+      declarations: [ AddressSelectComponent, AddressComponent, DeliveryMethodComponent ],
       providers: []
     })
     .compileComponents()

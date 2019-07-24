@@ -27,9 +27,11 @@ export class OrderCompletionComponent implements OnInit {
       this.orderId = paramMap.get('id')
       this.trackOrderService.save(this.orderId).subscribe((results) => {
         this.promotionalDiscount = results.data[0].promotionalAmount ? parseFloat(results.data[0].promotionalAmount) : 0
+        this.deliveryPrice = results.data[0].deliveryPrice ? parseFloat(results.data[0].deliveryPrice) : 0
         this.orderDetails.addressId = results.data[0].addressId
         this.orderDetails.paymentId = results.data[0].paymentId
-        this.orderDetails.totalPrice = results.data[0].totalPrice + this.promotionalDiscount
+        this.orderDetails.totalPrice = results.data[0].totalPrice
+        this.orderDetails.itemTotal = results.data[0].totalPrice + this.promotionalDiscount - this.deliveryPrice
         this.orderDetails.eta = results.data[0].eta || '?'
         this.orderDetails.products = results.data[0].products
         this.orderDetails.bonus = results.data[0].bonus
