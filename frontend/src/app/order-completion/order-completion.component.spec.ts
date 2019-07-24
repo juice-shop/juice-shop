@@ -78,13 +78,15 @@ describe('OrderCompletionComponent', () => {
   })
 
   it('should hold order details returned by backend API', () => {
-    trackOrderService.save.and.returnValue(of({ data: [{ totalPrice: 2.88, promotionalAmount: 10, addressId: 1, paymentId: 1, products: [{ quantity: 1, name: 'Apple Juice (1000ml)', price: 1.99,total: 1.99, bonus: 0 },{ quantity: 1, name: 'Apple Pomace', price: 0.89, total: 0.89, bonus: 0 }], bonus: 0, eta: '5' }] }))
+    trackOrderService.save.and.returnValue(of({ data: [{ totalPrice: 2.88, promotionalAmount: 10, deliveryPrice: 2, addressId: 1, paymentId: 1, products: [{ quantity: 1, name: 'Apple Juice (1000ml)', price: 1.99,total: 1.99, bonus: 0 },{ quantity: 1, name: 'Apple Pomace', price: 0.89, total: 0.89, bonus: 0 }], bonus: 0, eta: '5' }] }))
     component.ngOnInit()
     fixture.detectChanges()
     expect(component.promotionalDiscount).toBe(10)
+    expect(component.deliveryPrice).toBe(2)
     expect(component.orderDetails.addressId).toBe(1)
     expect(component.orderDetails.paymentId).toBe(1)
-    expect(parseFloat((component.orderDetails.totalPrice).toFixed(2))).toBe(12.88)
+    expect(parseFloat((component.orderDetails.totalPrice).toFixed(2))).toBe(2.88)
+    expect(parseFloat((component.orderDetails.itemTotal).toFixed(2))).toBe(10.88)
     expect(component.orderDetails.eta).toBe('5')
     expect(component.orderDetails.bonus).toBe(0)
     expect(component.orderDetails.products.length).toBe(2)

@@ -27,19 +27,15 @@ mat-table,
 }
 
 .bonus-container {
-  margin-top: 10px;
-  place-content: stretch center;
   align-items: center;
-  flex-direction: column;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  place-content: stretch center;
 
   h2 {
     margin: 0;
     padding: 0;
-  }
-
-  p {
-    color: #eee;
   }
 }

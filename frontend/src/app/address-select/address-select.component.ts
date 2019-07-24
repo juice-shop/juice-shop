@@ -17,6 +17,6 @@ export class AddressSelectComponent {
 
   chooseAddress () {
     sessionStorage.setItem('addressId', this.addressId)
-    this.router.navigate(['/payment'])
+    this.router.navigate(['/delivery-method'])
   }
 }
