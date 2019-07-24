@@ -48,11 +48,11 @@ mat-toolbar {
   margin-right: 2px;
 }
 
-:host ::ng-deep mat-form-field{
+:host ::ng-deep mat-form-field {
   background: transparent !important;
 }
 
-:host ::ng-deep mat-icon{
+:host ::ng-deep mat-icon {
   background: transparent !important;
 }
 
@@ -61,17 +61,17 @@ mat-search-bar {
   margin-right: 14px;
 }
 
-.buttons{
+.buttons {
   width: auto;
 }
 
-@media screen and (max-width: 959px){
-  .buttons{
-     width: 48px;
+@media screen and (max-width: 959px) {
+  .buttons {
+    width: 48px;
   }
 }
 
 :host ::ng-deep .mat-form-field-infix {
-  width: 14vw !important;
   max-width: 250px !important;
+  width: 14vw !important;
 }

@@ -1,9 +1,9 @@
-mat-card{
-  width: 80%;
+mat-card {
   display: block;
+  margin-bottom: 30px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 30px;
+  width: 80%;
 }
 
 .about-us {
@@ -16,11 +16,11 @@ mat-card{
   margin-top: 20px;
 }
 
-button{
- margin: 5px;
+button {
+  margin: 5px;
 }
 
-.text-justify{
+.text-justify {
   text-align: justify;
   text-justify: inter-word;
 }
