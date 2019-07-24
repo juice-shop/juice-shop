@@ -1,10 +1,10 @@
 mat-card {
-  width: 30%;
-  min-width: 320px;
   display: block;
+  margin-bottom: 50px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 50px;
+  min-width: 320px;
+  width: 30%;
 }
 
 mat-form-field {
@@ -17,10 +17,11 @@ mat-form-field {
   position: relative;
 }
 
-#setupTwoFactorAuth, #disableTwoFactorAuth{
-  width: 60%;
+#setupTwoFactorAuth,
+#disableTwoFactorAuth {
   margin-left: 20%;
   margin-top: 30px;
+  width: 60%;
 }
 
 .two-factor-qr-code {
@@ -32,7 +33,7 @@ mat-form-field {
 }
 
 #two-factor-auth-disable-title {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 button {

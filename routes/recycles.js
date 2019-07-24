@@ -12,6 +12,6 @@ exports.sequelizeVulnerabilityChallenge = () => (req, res) => {
 }
 
 exports.blockRecycleItems = () => (req, res) => {
-  let errMsg = { err: 'Sorry, this endpoint is not supported.' }
+  const errMsg = { err: 'Sorry, this endpoint is not supported.' }
   return res.send(utils.queryResultToJson(errMsg))
 }

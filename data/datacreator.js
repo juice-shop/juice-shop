@@ -48,7 +48,7 @@ async function createChallenges () {
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
-      let effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
+      const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       try {
         const challenge = await models.Challenge.create({
           key,
@@ -125,7 +125,7 @@ function createRandomFakeUsers () {
 }
 
 function createProducts () {
-  const products = config.get('products').map((product) => {
+  const products = utils.thaw(config.get('products')).map((product) => {
     // set default price values
     product.price = product.price || Math.floor(Math.random())
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'

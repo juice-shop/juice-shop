@@ -12,7 +12,7 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
+    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
@@ -36,7 +36,7 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          let basketProducts = []
+          const basketProducts = []
           let totalPoints = 0
           basket.Products.forEach(({ BasketItem, price, name }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
@@ -52,7 +52,7 @@ module.exports = function placeOrder () {
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
+            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + '¤ = ' + itemTotal + '¤')
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
@@ -61,11 +61,11 @@ module.exports = function placeOrder () {
           const discount = calculateApplicableDiscount(basket, req)
           if (discount > 0) {
             const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(discount + '% discount from coupon: -' + discountAmount)
+            doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
             doc.moveDown()
             totalPrice -= discountAmount
           }
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
           doc.moveDown()
           doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
           doc.font('Times-Roman', 15).text('(You will be able to these points for amazing bonuses in the future!)')
@@ -103,7 +103,7 @@ module.exports = function placeOrder () {
 
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
-    let discount = insecurity.discountFromCoupon(basket.coupon)
+    const discount = insecurity.discountFromCoupon(basket.coupon)
     if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
       utils.solve(challenges.forgedCouponChallenge)
     }

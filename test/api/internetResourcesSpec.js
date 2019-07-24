@@ -38,10 +38,25 @@ describe('Required Internet resource', () => {
     })
   })
 
+  it('Comment on "Top 10 Fruits you probably dont know" blog post with PasteBin paste URL spoiler available', () => {
+    return frisby.get('https://listverse.disqus.com/top_20_fruits_you_probably_don039t_know/latest.rss')
+      .expect('status', 200)
+      .expect('bodyContains', 'Rippertuer Special Juice')
+      .expect('bodyContains', 'https://pastebin.com/90dUgd7s')
+  })
+
   it('PasteBin paste (https://pastebin.com/4U1V1UjU) for "Leaked Access Logs" challenge available', () => {
     return frisby.get('https://pastebin.com/4U1V1UjU')
       .expect('status', 200)
       .expect('bodyContains', 'current=0Y8rMnww$*9VFYE%C2%A759-!Fg1L6t&amp;6lB')
+  })
+
+  it('StackOverflow question "Less verbose access logs using expressjs/morgan" with log snippet and PasteBin paste URL spoiler available', () => {
+    return frisby.get('https://stackoverflow.com/questions/57061271/less-verbose-access-logs-using-expressjs-morgan')
+      .expect('status', 200)
+      .expect('bodyContains', '/rest/continue-code')
+      .expect('bodyContains', '/api/Challenges/?name=Score%20Board')
+      .expect('bodyContains', 'https://pastebin.com/4U1V1UjU')
   })
 
   it('GitHub issue (https://github.com/punkave/sanitize-html/issues/29) for "Server-side XSS Protection" challenge available', () => {
