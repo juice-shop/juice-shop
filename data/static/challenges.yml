@@ -523,16 +523,16 @@
   category: 'Broken Access Control'
   description: 'Request a hidden resource on server through server.'
   difficulty: 6
-  hint: 'Reverse the Bad and it gets Good again.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
+  hint: 'Reverse engineering something bad can make good things happen.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/broken-access-control.html#request-a-hidden-resource-on-server-through-server'
   key: ssrfChallenge
 -
   name: 'SSTi'
   category: 'Injection'
   description: 'Infect the server with juicy malware by abusing arbitrary command execution.'
   difficulty: 6
-  hint: 'The search for a personal identity is the life of a man.'
-  # hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#infect-the-server-with-malware-by-abusing-arbitrary-command-execution'
+  hint: '"SSTi" is a clear indicator that this has nothing to do with anything Angular. Also, make sure to use only our non-malicious malware.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#infect-the-server-with-juicy-malware-by-abusing-arbitrary-command-execution'
   key: sstiChallenge
   disabledEnv:
     - Docker
