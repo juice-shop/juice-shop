@@ -80,6 +80,7 @@ const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
+const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
@@ -350,7 +351,9 @@ app.post('/rest/user/data-export', imageCaptcha.verifyCaptcha())
 app.post('/rest/user/data-export', dataExport())
 app.get('/rest/languages', languageList())
 app.post('/rest/user/erasure-request', erasureRequest())
-
+app.get('/rest/order-history', orderHistory.orderHistory())
+app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.allOrders())
+app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())

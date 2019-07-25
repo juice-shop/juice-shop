@@ -112,6 +112,8 @@ import { AddressComponent } from './address/address.component'
 import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
+import { OrderHistoryComponent } from './order-history/order-history.component'
+import { OrderHistoryService } from './Services/order-history.service'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { DeliveryService } from './Services/delivery.service'
 
@@ -169,6 +171,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     PurchaseBasketComponent,
     PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent,
+    OrderHistoryComponent,
     DeliveryMethodComponent
   ],
   entryComponents: [
@@ -261,6 +264,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     AddressService,
     AccountingGuard,
     QuantityService,
+    OrderHistoryService,
     DeliveryService
   ],
   bootstrap: [AppComponent]
