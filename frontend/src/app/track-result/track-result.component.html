@@ -45,7 +45,7 @@
 
     <ng-container matColumnDef="total price">
       <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
-      <mat-cell class="product-total" *matCellDef="let product"> {{product.total}} </mat-cell>
+      <mat-cell class="product-total" *matCellDef="let product"> {{product.total}}&curren;</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
