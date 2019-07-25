@@ -266,7 +266,7 @@
   "LABEL_SOLD_OUT": "Välja müüdud",
   "LABEL_ONLY_QUANTITY_LEFT": "Ainult {{quantity}}tk. veel laos",
   "THANKS_FOR_PURCHASE": "Täname Teid ostu eest!",
-  "PURCHASE_COMMENT_PREFIX": "Your order has been placed and is being processed. You can check for status updates on our",
+  "PURCHASE_COMMENT_PREFIX": "Teie tellimus on esitatud ja seda töödeldakse. Tellimuse oleku värskendusi saate vaadata meie",
   "PURCHASE_COMMENT_SUFFIX": "lk.",
   "BONUS_POINTS_COUNT": "Saad {{bonus}} boonuspunkti selle tellimuse eest!",
   "ESTIMATED_TIME_OF_DELIVERY": "Teie tellimus toimetatakse kohale {{numberdays}} päeva jooksul.",
