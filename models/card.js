@@ -22,8 +22,8 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       type: INTEGER,
       validate: {
         isInt: true,
-        min: new Date().getFullYear(),
-        max: new Date().getFullYear() + 49
+        min: 2080,
+        max: 2099
       }
     }
   })

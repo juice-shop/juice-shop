@@ -5,6 +5,7 @@ const REST_URL = 'http://localhost:3000/rest'
 
 const jsonHeader = { 'content-type': 'application/json' }
 let authHeader
+let cardId
 
 beforeAll(() => {
   return frisby.post(REST_URL + '/user/login', {
@@ -16,7 +17,7 @@ beforeAll(() => {
   })
     .expect('status', 200)
     .then(({ json }) => {
-      authHeader = { 'Authorization': 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
+      authHeader = { Authorization: 'Bearer ' + json.authentication.token, 'content-type': 'application/json' }
     })
 })
 
@@ -48,7 +49,7 @@ describe('/api/Cards', () => {
         fullName: 'Jim',
         cardNum: 1234567887654321,
         expMonth: 1,
-        expYear: new Date().getFullYear()
+        expYear: 2085
       }
     })
       .expect('status', 201)
@@ -102,36 +103,39 @@ describe('/api/Cards/:id', () => {
         fullName: 'Jim',
         cardNum: 1234567887654321,
         expMonth: 1,
-        expYear: new Date().getFullYear()
+        expYear: 2088
       }
     })
       .expect('status', 201)
+      .then(({ json }) => {
+        cardId = json.data.id
+      })
   })
 
   it('GET card by id is forbidden via public API', () => {
-    return frisby.get(API_URL + '/Cards/1')
+    return frisby.get(API_URL + '/Cards/' + cardId)
       .expect('status', 401)
   })
 
   it('PUT update card is forbidden via public API', () => {
-    return frisby.put(API_URL + '/Cards/1', {
+    return frisby.put(API_URL + '/Cards/' + cardId, {
       quantity: 2
     }, { json: true })
       .expect('status', 401)
   })
 
   it('DELETE card by id is forbidden via public API', () => {
-    return frisby.del(API_URL + '/Cards/1')
+    return frisby.del(API_URL + '/Cards/' + cardId)
       .expect('status', 401)
   })
 
   it('GET card by id', () => {
-    return frisby.get(API_URL + '/Cards/1', { headers: authHeader })
+    return frisby.get(API_URL + '/Cards/' + cardId, { headers: authHeader })
       .expect('status', 200)
   })
 
   it('PUT update card by id is forbidden via authorized API call', () => {
-    return frisby.put(API_URL + '/Cards/1', {
+    return frisby.put(API_URL + '/Cards/' + cardId, {
       headers: authHeader,
       body: {
         fullName: 'Jimy'
@@ -141,7 +145,7 @@ describe('/api/Cards/:id', () => {
   })
 
   it('DELETE card by id', () => {
-    return frisby.del(API_URL + '/Cards/1', { headers: authHeader })
+    return frisby.del(API_URL + '/Cards/' + cardId, { headers: authHeader })
       .expect('status', 200)
   })
 })

@@ -13,7 +13,7 @@ describe('/#/search', () => {
 
   describe('challenge "localXss"', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
-      let inputField = element(by.id('mat-input-0'))
+      const inputField = element(by.id('mat-input-0'))
       const EC = protractor.ExpectedConditions
 
       searchQuery.click()

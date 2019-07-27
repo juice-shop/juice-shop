@@ -4,13 +4,17 @@
           <mat-card class="mat-elevation-z6" fxFlex="60%">
              <div>
                 <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
-                <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-order" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
+                <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
              </div>
           </mat-card>
           <mat-card class="mat-elevation-z6" fxFlex="40%">
-             <div>
+             <div  *ngIf="address">
                <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
-               <span>Shipping address to be shown here</span>
+               <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
+               <div>{{address?.fullName}}</div>
+               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+               <div>{{address?.country}}</div>
+               <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
              </div>
           </mat-card>
        </div>
@@ -34,7 +38,7 @@
           </ng-container>
           <ng-container matColumnDef="price">
              <mat-header-cell *matHeaderCellDef translate>LABEL_PRICE</mat-header-cell>
-             <mat-cell *matCellDef="let element">{{element.price}}</mat-cell>
+             <mat-cell *matCellDef="let element">{{element.price}}&curren;</mat-cell>
              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
           <ng-container matColumnDef="quantity">
@@ -61,20 +65,20 @@
           </ng-container>
           <ng-container matColumnDef="total price">
              <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
-             <mat-cell *matCellDef="let element" class="price-align">{{ (element.total).toFixed(2) }}</mat-cell>
+             <mat-cell *matCellDef="let element" class="price-align">{{ (element.total).toFixed(2) }}&curren;</mat-cell>
              <mat-footer-cell *matFooterCellDef>
                 <table class="price-align">
                    <tr class="mat-row">
-                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}</td>
+                      <td>{{ orderDetails.itemTotal?.toFixed(2) }}&curren;</td>
                    </tr>
                    <tr class="mat-row">
-                      <td>{{ deliveryPrice.toFixed(2) }}</td>
+                      <td>{{ deliveryPrice.toFixed(2) }}&curren;</td>
                    </tr>
                    <tr class="mat-row">
-                      <td>{{ promotionalDiscount.toFixed(2) }}</td>
+                      <td>{{ promotionalDiscount.toFixed(2) }}&curren;</td>
                    </tr>
                    <tr class="mat-row">
-                      <td>{{ (orderDetails.totalPrice + deliveryPrice - promotionalDiscount)?.toFixed(2) }}</td>
+                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}&curren;</td>
                    </tr>
                 </table>
              </mat-footer-cell>

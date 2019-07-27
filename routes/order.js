@@ -12,8 +12,8 @@ const db = require('../data/mongodb')
 module.exports = function placeOrder () {
   return (req, res, next) => {
     const id = req.params.id
-    models.Basket.findOne({ where: { id }, include: [ { model: models.Product, paranoid: false } ] })
-      .then(basket => {
+    models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
+      .then(async basket => {
         if (basket) {
           const customer = insecurity.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
@@ -36,9 +36,9 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
-          let basketProducts = []
+          const basketProducts = []
           let totalPoints = 0
-          basket.Products.forEach(({ BasketItem, price, name }) => {
+          basket.Products.forEach(({ BasketItem, price, name, id }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
@@ -74,26 +74,40 @@ module.exports = function placeOrder () {
             const itemTotal = price * BasketItem.quantity
             const itemBonus = Math.round(price / 10) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
+              id: id,
               name: name,
               price: price,
               total: itemTotal,
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal)
+            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal + '¤')
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
           })
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
+          let discountAmount = 0
           if (discount > 0) {
-            const discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(discount + '% discount from coupon: -' + discountAmount)
+            discountAmount = (totalPrice * (discount / 100)).toFixed(2)
+            doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
             doc.moveDown()
             totalPrice -= discountAmount
           }
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2))
+          let deliveryMethod = {
+            primePrice: 0,
+            price: 0,
+            eta: 5
+          }
+          if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
+            deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+          }
+          const deliveryAmount = insecurity.isPrime(req) ? deliveryMethod.primePrice : deliveryMethod.price
+          totalPrice += deliveryAmount
+          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
+          doc.moveDown()
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
           doc.moveDown()
           doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
           doc.font('Times-Roman', 15).text('(You will be able to these points for amazing bonuses in the future!)')
@@ -113,18 +127,23 @@ module.exports = function placeOrder () {
           }
 
           db.orders.insert({
+            promotionalAmount: discountAmount,
+            paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
+            addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
             orderId: orderId,
+            delivered: false,
             email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
             totalPrice: totalPrice,
             products: basketProducts,
             bonus: totalPoints,
-            eta: Math.floor((Math.random() * 5) + 1).toString()
+            deliveryPrice: deliveryAmount,
+            eta: deliveryMethod.eta.toString()
           })
 
           fileWriter.on('finish', () => {
             basket.update({ coupon: null })
             models.BasketItem.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: '/ftp/' + pdfFile })
+            res.json({ orderConfirmation: orderId })
           })
         } else {
           next(new Error('Basket with id=' + id + ' does not exist.'))
@@ -137,7 +156,7 @@ module.exports = function placeOrder () {
 
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
-    let discount = insecurity.discountFromCoupon(basket.coupon)
+    const discount = insecurity.discountFromCoupon(basket.coupon)
     if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
       utils.solve(challenges.forgedCouponChallenge)
     }
@@ -158,5 +177,5 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019').getTime(), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 }
 }

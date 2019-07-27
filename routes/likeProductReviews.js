@@ -12,7 +12,7 @@ module.exports = function productReviews () {
       if (!likedBy.includes(user.data.email)) {
         db.reviews.update(
           { _id: id },
-          { '$inc': { likesCount: 1 } }
+          { $inc: { likesCount: 1 } }
         ).then(
           result => {
             // Artificial wait for timing attack challenge
@@ -31,7 +31,7 @@ module.exports = function productReviews () {
                 }
                 db.reviews.update(
                   { _id: id },
-                  { '$set': { likedBy: likedBy } }
+                  { $set: { likedBy: likedBy } }
                 ).then(
                   result => {
                     res.json(result)

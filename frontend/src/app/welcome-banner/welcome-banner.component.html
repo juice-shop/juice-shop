@@ -1,6 +1,17 @@
 <div class="mat-typography">
-    <h1><span translate [translateParams]="{appname: applicationName}">WELCOME_BANNER_TITLE</span></h1>
-    <div class="text-justify" [innerHtml]="'WELCOME_BANNER_DESCRIPTION' | translate:{appname: applicationName}"></div>
+    <h1><span>{{title}}</span></h1>
+    <div class="text-justify" [innerHtml]="message"></div>
+    <button
+      *ngIf="showHackingInstructor"
+      mat-raised-button color="warn"
+      (click)="startHackingInstructor()"
+      [matTooltip]="('SCORE_BOARD_HACKING_INSTRUCTOR' | translate)"
+      matTooltipPosition="above"
+    >
+      <mat-icon>
+        school
+      </mat-icon>
+    </button>
     <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary" aria-label="Close Welcome Banner">
       {{"BTN_DISMISS" | translate}}
     </button>

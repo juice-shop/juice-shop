@@ -81,6 +81,8 @@ const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
 const wallet = require('./routes/wallet')
+const orderHistory = require('./routes/orderHistory')
+const delivery = require('./routes/delivery')
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -134,15 +136,15 @@ app.use('/assets/i18n', verify.accessControlChallenges())
 app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { 'icons': true }))
+app.use('/ftp', serveIndex('ftp', { icons: true }))
 app.use('/ftp/:file', fileServer())
 
 /* /encryptionkeys directory browsing */
-app.use('/encryptionkeys', serveIndex('encryptionkeys', { 'icons': true, 'view': 'details' }))
+app.use('/encryptionkeys', serveIndex('encryptionkeys', { icons: true, view: 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
 
 /* /logs directory browsing */
-app.use('/support/logs', serveIndex('logs', { 'icons': true, 'view': 'details' }))
+app.use('/support/logs', serveIndex('logs', { icons: true, view: 'details' }))
 app.use('/support/logs', verify.accessControlChallenges())
 app.use('/support/logs/:file', logFileServer())
 
@@ -171,7 +173,7 @@ app.use(function jsonParser (req, res, next) {
   next()
 })
 /* HTTP request logging */
-let accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+const accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
 app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
@@ -263,6 +265,8 @@ app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressByI
 app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
 app.get('/api/Wallets/', insecurity.appendUserId(), wallet.getWalletBalance())
 app.put('/api/Wallets/', insecurity.appendUserId(), wallet.addWalletBalance())
+app.get('/api/Deliverys', delivery.getDeliveryMethods())
+app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
 
 /* Verify the 2FA Token */
 app.post('/rest/2fa/verify',
@@ -360,7 +364,9 @@ app.post('/rest/user/data-export', imageCaptcha.verifyCaptcha())
 app.post('/rest/user/data-export', dataExport())
 app.get('/rest/languages', languageList())
 app.post('/rest/user/erasure-request', erasureRequest())
-
+app.get('/rest/order-history', orderHistory.orderHistory())
+app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.allOrders())
+app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())

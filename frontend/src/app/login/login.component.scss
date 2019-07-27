@@ -1,3 +1,5 @@
+$break-line: #c0c0c0;
+
 mat-card {
   height: auto;
   min-width: 320px;
@@ -12,13 +14,13 @@ mat-card {
 }
 
 .forgot-pw {
-  margin-top: -15px;
   font-size: 11px;
+  margin-top: -15px;
 }
 
 mat-checkbox {
-  margin-left: 20%;
   margin-bottom: 20px;
+  margin-left: 20%;
   margin-top: 5px;
 }
 
@@ -30,10 +32,11 @@ mat-form-field:nth-child(2) {
   padding-bottom: 20px;
 }
 
-#loginButton, #loginButtonGoogle {
-  width: 60%;
+#loginButton,
+#loginButtonGoogle {
   margin-left: 20%;
   margin-top: 30px;
+  width: 60%;
 
 }
 
@@ -41,13 +44,13 @@ mat-form-field:nth-child(2) {
   display: table;
 }
 
-.breakLine>div {
+.breakLine > div {
   display: table-cell;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
-.line>div {
-  border-bottom: 1px solid silver;
+.line > div {
+  border-bottom: 1px solid $break-line;
   height: 1px;
 }
 
@@ -56,22 +59,22 @@ mat-form-field:nth-child(2) {
 }
 
 .line {
-  width: 50%;
   vertical-align: middle;
+  width: 50%;
 }
 
 #newCustomerLink {
-  font-size: 12px;
   align-self: center;
+  font-size: 12px;
   margin-top: 40px;
 }
 
-:host ::ng-deep .mat-form-field-suffix{
- margin-bottom: auto !important;
- margin-top: auto !important;
+:host ::ng-deep .mat-form-field-suffix {
+  margin-bottom: auto !important;
+  margin-top: auto !important;
 }
 
 :host ::ng-deep .mat-icon-button {
- height: 40px !important;
- width: 24px !important;
+  height: 40px !important;
+  width: 24px !important;
 }

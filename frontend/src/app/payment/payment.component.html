@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px" class="main-wrapper">
     <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
         <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
-        <mat-expansion-panel [expanded]="couponPanelExpanded" class="mat-elevation-z6">
+        <mat-expansion-panel [expanded]="couponPanelExpanded" class="mat-elevation-z6" id="collapseCouponElement">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     {{"ADD_A_COUPON" | translate}}

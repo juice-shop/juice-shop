@@ -6,9 +6,17 @@ import { MatTableDataSource } from '@angular/material/table'
 import { QuantityService } from '../Services/quantity.service'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { OrderHistoryService } from '../Services/order-history.service'
 
 library.add(faCheck)
 dom.watch()
+
+interface Order {
+  id: string,
+  orderId: string,
+  totalPrice: number,
+  delivered: boolean
+}
 
 @Component({
   selector: 'app-accounting',
@@ -17,20 +25,25 @@ dom.watch()
 })
 export class AccountingComponent implements AfterViewInit,OnDestroy {
 
+  public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
+  @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator
+  public orderData: Order[]
+  public orderSource
   public displayedColumns = ['Product', 'Price', 'Quantity']
   public tableData: any[]
   public dataSource
   public confirmation = undefined
   public error = undefined
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator
   private productSubscription: Subscription
   private quantitySubscription: Subscription
   public quantityMap: any
-  constructor (private productService: ProductService, private quantityService: QuantityService) { }
+  constructor (private productService: ProductService, private quantityService: QuantityService, private orderHistoryService: OrderHistoryService) { }
 
   ngAfterViewInit () {
     this.loadQuantity()
     this.loadProducts()
+    this.loadOrders()
   }
 
   loadQuantity () {
@@ -54,6 +67,22 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
       this.tableData = tableData
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
+    }, (err) => console.log(err))
+  }
+
+  loadOrders () {
+    this.orderHistoryService.getAll().subscribe((orders) => {
+      this.orderData = []
+      for (const order of orders) {
+        this.orderData.push({
+          id: order._id,
+          orderId: order.orderId,
+          totalPrice: order.totalPrice,
+          delivered: order.delivered
+        })
+      }
+      this.orderSource = new MatTableDataSource<Order>(this.orderData)
+      this.orderSource.paginator = this.paginatorOrderHistory
     }, (err) => console.log(err))
   }
 
@@ -91,5 +120,11 @@ export class AccountingComponent implements AfterViewInit,OnDestroy {
       this.confirmation = null
       console.log(err)
     })
+  }
+
+  changeDeliveryStatus (deliveryStatus, orderId) {
+    this.orderHistoryService.toggleDeliveryStatus(orderId, { deliveryStatus: deliveryStatus }).subscribe(() => {
+      this.loadOrders()
+    }, (err) => console.log(err))
   }
 }

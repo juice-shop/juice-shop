@@ -5,7 +5,7 @@ const insecurity = require('../lib/insecurity')
 
 function imageCaptchas () {
   return (req, res) => {
-    let captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
+    const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
     const imageCaptcha = {
       image: captcha.data,
@@ -30,7 +30,7 @@ imageCaptchas.verifyCaptcha = () => (req, res, next) => {
         [Op.gt]: new Date(new Date() - 300000)
       }
     },
-    order: [[ 'createdAt', 'DESC' ]]
+    order: [['createdAt', 'DESC']]
   }).then(captchas => {
     if (!captchas[0] || req.body.answer === captchas[0].dataValues.answer) {
       next()

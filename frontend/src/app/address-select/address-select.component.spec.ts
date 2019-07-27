@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
+import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -24,7 +25,9 @@ describe('AddressSelectComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'delivery-method', component: DeliveryMethodComponent }
+        ]),
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
@@ -39,7 +42,7 @@ describe('AddressSelectComponent', () => {
         MatRadioModule,
         MatDialogModule
       ],
-      declarations: [ AddressSelectComponent, AddressComponent ],
+      declarations: [ AddressSelectComponent, AddressComponent, DeliveryMethodComponent ],
       providers: []
     })
     .compileComponents()
@@ -53,5 +56,17 @@ describe('AddressSelectComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy()
+  })
+
+  it('should store address id on calling getMessage', () => {
+    component.getMessage(1)
+    expect(component.addressId).toBe(1)
+  })
+
+  it('should store address id in session storage', () => {
+    component.addressId = 1
+    spyOn(sessionStorage,'setItem')
+    component.chooseAddress()
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1)
   })
 })

@@ -36,7 +36,8 @@ module.exports = async () => {
     createOrders,
     createQuantity,
     createPurchaseQuantity,
-    createWallet
+    createWallet,
+    createDeliveryMethods
   ]
 
   for (const creator of creators) {
@@ -51,7 +52,7 @@ async function createChallenges () {
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
-      let effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
+      const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       try {
         const challenge = await models.Challenge.create({
           key,
@@ -76,7 +77,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, totpSecret: totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -91,6 +92,8 @@ async function createUsers () {
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
         if (deletedFlag) await deleteUser(user.id)
+        if (address) await createAddresses(user.id, address)
+        if (card) await createCards(user.id, card)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${err.message}`)
       }
@@ -110,6 +113,56 @@ async function createWallet () {
       })
     })
   )
+}
+
+async function createDeliveryMethods () {
+  const delivery = await loadStaticData('delivery')
+
+  await Promise.all(
+    delivery.map(async ({ name, price, primePrice, eta }) => {
+      try {
+        await models.Delivery.create({
+          name,
+          price,
+          primePrice,
+          eta
+        })
+      } catch (err) {
+        logger.error(`Could not insert Delivery Method: ${err.message}`)
+      }
+    })
+  )
+}
+
+function createAddresses (UserId, addresses) {
+  addresses.map((address) => {
+    return models.Address.create({
+      UserId: UserId,
+      country: address.country,
+      fullName: address.fullName,
+      mobileNum: address.mobileNum,
+      zipCode: address.zipCode,
+      streetAddress: address.streetAddress,
+      city: address.city,
+      state: address.state ? address.state : null
+    }).catch((err) => {
+      logger.error(`Could not create address: ${err.message}`)
+    })
+  })
+}
+
+function createCards (UserId, cards) {
+  cards.map((card) => {
+    return models.Card.create({
+      UserId: UserId,
+      fullName: card.fullName,
+      cardNum: card.cardNum,
+      expMonth: card.expMonth,
+      expYear: card.expYear
+    }).catch((err) => {
+      logger.error(`Could not create card: ${err.message}`)
+    })
+  })
 }
 
 function deleteUser (userId) {
@@ -157,7 +210,7 @@ function createQuantity () {
 }
 
 function createProducts () {
-  const products = config.get('products').map((product) => {
+  const products = utils.thaw(config.get('products')).map((product) => {
     // set default price values
     product.price = product.price || Math.floor(Math.random())
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -481,25 +534,28 @@ function createOrders () {
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       products: basket1Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString()
+      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      delivered: false
     },
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       products: basket2Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString()
+      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      delivered: true
     }
   ]
 
   return Promise.all(
-    orders.map(({ orderId, email, totalPrice, products, eta }) =>
+    orders.map(({ orderId, email, totalPrice, products, eta, delivered }) =>
       mongodb.orders.insert({
         orderId: orderId,
         email: email,
         totalPrice: totalPrice,
         products: products,
-        eta: eta
+        eta: eta,
+        delivered: delivered
       }).catch((err) => {
         logger.error(`Could not insert Order ${orderId}: ${err.message}`)
       })
