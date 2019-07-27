@@ -18,8 +18,9 @@ export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('displayTotal') public displayTotal: boolean = false
   @Output() emitTotal = new EventEmitter()
+  @Output() emitProductCount = new EventEmitter()
   public tableColumns = ['image', 'product','price','quantity','total price']
-  public dataSource
+  public dataSource = []
   public bonus = 0
   public itemTotal = 0
   public error = undefined
@@ -42,7 +43,7 @@ export class PurchaseBasketComponent implements OnInit {
       this.dataSource = basket.Products
       this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
       this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
-      this.sendToParent()
+      this.sendToParent(this.dataSource.length)
     },(err) => console.log(err))
   }
 
@@ -75,7 +76,8 @@ export class PurchaseBasketComponent implements OnInit {
     }, (err) => console.log(err))
   }
 
-  sendToParent () {
+  sendToParent (count) {
     this.emitTotal.emit([this.itemTotal, this.bonus])
+    this.emitProductCount.emit(count)
   }
 }

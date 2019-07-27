@@ -42,6 +42,8 @@ import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
 import { WalletComponent } from './wallet/wallet.component'
+import { OrderHistoryComponent } from './order-history/order-history.component'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -162,6 +164,10 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
+    path: 'delivery-method',
+    component: DeliveryMethodComponent
+  },
+  {
     path: 'saved-payment-methods',
     component: SavedPaymentMethodsComponent
   },
@@ -184,6 +190,10 @@ const routes: Routes = [
   {
     path: 'order-summary',
     component: OrderSummaryComponent
+  },
+  {
+    path: 'order-history',
+    component: OrderHistoryComponent
   },
   {
     path: 'payment',

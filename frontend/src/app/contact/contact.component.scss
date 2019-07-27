@@ -1,3 +1,6 @@
+$star-off: #c8c8c8;
+$star-on: #ffd700;
+
 mat-card {
   height: auto;
   min-width: 320px;
@@ -11,20 +14,20 @@ mat-card {
 }
 
 .rating-container {
-  margin-top: 15px;
   margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .star {
-  color: #c8c8c8;
+  color: $star-off;
 }
 
 .active {
-  color: #ffd700;
+  color: $star-on;
 }
 
 .select {
-  color: #ffd700;
+  color: $star-on;
 }
 
 :host ::ng-deep .br {
@@ -32,7 +35,7 @@ mat-card {
 }
 
 #submitButton {
-  width: 60%;
   margin-left: 20%;
   margin-top: 30px;
+  width: 60%;
 }

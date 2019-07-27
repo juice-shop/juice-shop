@@ -114,6 +114,10 @@ import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challeng
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { WalletComponent } from './wallet/wallet.component'
 import { WalletService } from './Services/wallet.service'
+import { OrderHistoryComponent } from './order-history/order-history.component'
+import { OrderHistoryService } from './Services/order-history.service'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
+import { DeliveryService } from './Services/delivery.service'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -169,7 +173,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     PurchaseBasketComponent,
     PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent,
-    WalletComponent
+    WalletComponent,
+    OrderHistoryComponent,
+    DeliveryMethodComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -261,7 +267,9 @@ export function HttpLoaderFactory (http: HttpClient) {
     AddressService,
     AccountingGuard,
     QuantityService,
-    WalletService
+    WalletService,
+    OrderHistoryService,
+    DeliveryService
   ],
   bootstrap: [AppComponent]
 })

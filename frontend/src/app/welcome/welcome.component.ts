@@ -22,7 +22,7 @@ export class WelcomeComponent implements OnInit {
       return
     } else {
       this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-        if (config && config.application && !config.application.showWelcomeBanner) {
+        if (config && config.application && config.application.welcomeBanner && !config.application.welcomeBanner.showOnFirstStart) {
           return
         }
         this.dialog.open(WelcomeBannerComponent, {

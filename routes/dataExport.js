@@ -10,7 +10,7 @@ module.exports = function dataExport () {
       const username = loggedInUser.data.username
       const email = loggedInUser.data.email
       const updatedEmail = email.replace(/[aeiou]/gi, '*')
-      let userData = {
+      const userData = {
         username,
         email,
         orders: [],
@@ -43,7 +43,7 @@ module.exports = function dataExport () {
             })
           }
           const emailHash = insecurity.hash(email).slice(0, 4)
-          for (let order of userData.orders) {
+          for (const order of userData.orders) {
             if (order.orderId.split('-')[0] !== emailHash && utils.notSolved(challenges.dataExportChallenge)) {
               utils.solve(challenges.dataExportChallenge)
             }

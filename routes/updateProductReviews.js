@@ -9,7 +9,7 @@ module.exports = function productReviews () {
     const user = insecurity.authenticatedUsers.from(req)
     db.reviews.update(
       { _id: id },
-      { '$set': { message: req.body.message } },
+      { $set: { message: req.body.message } },
       { multi: true }
     ).then(
       result => {

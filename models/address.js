@@ -10,7 +10,7 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
         max: 9999999999
       }
     },
-    pinCode: {
+    zipCode: {
       type: STRING,
       validate: {
         len: [1, 8]

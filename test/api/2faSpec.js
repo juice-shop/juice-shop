@@ -55,7 +55,7 @@ async function register ({ email, password, totpSecret }) {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -79,7 +79,7 @@ function getStatus (token) {
     REST_URL + '/2fa/status',
     {
       headers: {
-        'Authorization': 'Bearer ' + token,
+        Authorization: 'Bearer ' + token,
         'content-type': 'application/json'
       }
     })
@@ -162,7 +162,7 @@ describe('/rest/2fa/status', () => {
       REST_URL + '/2fa/status',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         }
       })
@@ -186,7 +186,7 @@ describe('/rest/2fa/status', () => {
       REST_URL + '/2fa/status',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         }
       })
@@ -224,7 +224,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -242,7 +242,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/status',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         }
       })
@@ -268,7 +268,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -296,7 +296,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -324,7 +324,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -350,7 +350,7 @@ describe('/rest/2fa/setup', () => {
       REST_URL + '/2fa/setup',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -385,7 +385,7 @@ describe('/rest/2fa/disable', () => {
       REST_URL + '/2fa/disable',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {
@@ -419,7 +419,7 @@ describe('/rest/2fa/disable', () => {
       REST_URL + '/2fa/disable',
       {
         headers: {
-          'Authorization': 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
           'content-type': 'application/json'
         },
         body: {

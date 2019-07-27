@@ -4,7 +4,7 @@ const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/b2b/v2/orders'
 
-const authHeader = { 'Authorization': 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
+const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
   it('POST endless loop exploit in "orderLinesData" will raise explicit error', () => {

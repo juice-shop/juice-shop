@@ -67,6 +67,14 @@
           {{"MY_PAYMENT_OPTIONS" | translate}}
         </span>
       </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/order-history" aria-label="Go to order history page">
+        <mat-icon>
+          check_circle_outline
+        </mat-icon>
+        <span>
+          {{"LABEL_ORDER_HISTORY" | translate}}
+        </span>
+      </button>
       <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https
