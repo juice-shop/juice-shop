@@ -116,6 +116,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component'
 import { OrderHistoryService } from './Services/order-history.service'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { DeliveryService } from './Services/delivery.service'
+import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -172,7 +173,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     PrivacyPolicyComponent,
     ChallengeStatusBadgeComponent,
     OrderHistoryComponent,
-    DeliveryMethodComponent
+    DeliveryMethodComponent,
+    DeluxeUserComponent
   ],
   entryComponents: [
     ProductDetailsComponent,

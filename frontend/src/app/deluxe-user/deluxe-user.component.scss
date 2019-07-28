@@ -1,0 +1,39 @@
+$bg-heading: rgba(0, 0, 0, .2);
+
+.heading {
+  background: $bg-heading;
+  font-size: x-large;
+  justify-content: center;
+  padding: 12px 20px;
+}
+
+.main-wrapper {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.deluxe-membership {
+  background: rgb(55,71,79);
+  background: linear-gradient(90deg, rgba(55,71,79,1) 0%, rgba(48,48,48,1) 100%);
+}
+
+.img-thumbnail {
+  width: 100%;
+  border: 0px;
+  background: none;
+}
+
+.btn-member {
+  bottom: 10%;
+}
+
+.item-description {
+  font-size: initial;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.item-name {
+  font-size: large;
+  text-align: center;
+}

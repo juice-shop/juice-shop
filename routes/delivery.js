@@ -10,7 +10,7 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
         sendMethods.push({
           id: method.id,
           name: method.name,
-          price: insecurity.isPrime(req) ? method.primePrice : method.price,
+          price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
           eta: method.eta
         })
       }
@@ -28,7 +28,7 @@ module.exports.getDeliveryMethod = function getDeliveryMethod () {
       const sendMethod = {
         id: method.id,
         name: method.name,
-        price: insecurity.isPrime(req) ? method.primePrice : method.price,
+        price: insecurity.isDeluxe(req) ? method.deluxePrice : method.price,
         eta: method.eta
       }
       res.status(200).json({ status: 'success', data: sendMethod })

@@ -2,7 +2,7 @@ module.exports = (sequelize, { FLOAT, STRING }) => {
   const Delivery = sequelize.define('Delivery', {
     name: STRING,
     price: FLOAT,
-    primePrice: FLOAT,
+    deluxePrice: FLOAT,
     eta: FLOAT
   })
 
