@@ -82,7 +82,6 @@ export class SidenavComponent implements OnInit {
   noop () { }
 
   getScoreBoardStatus () {
-    console.log('sidenav: getting score board challenge status')
     this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
