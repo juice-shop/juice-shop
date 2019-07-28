@@ -103,8 +103,10 @@ export class NavbarComponent implements OnInit {
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', () => {
-        this.getScoreBoardStatus()
+      this.io.socket().on('challenge solved', (challenge) => {
+        if (challenge.key === 'scoreBoardChallenge') {
+          this.scoreBoardVisible = true
+        }
       })
     })
   }
@@ -161,6 +163,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getScoreBoardStatus () {
+    console.log('mainnav: getting score board challenge status')
     this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved

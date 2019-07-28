@@ -53,8 +53,10 @@ export class SidenavComponent implements OnInit {
       }
     })
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', () => {
-        this.getScoreBoardStatus()
+      this.io.socket().on('challenge solved', (challenge) => {
+        if (challenge.key === 'scoreBoardChallenge') {
+          this.scoreBoardVisible = true
+        }
       })
     })
   }
@@ -80,6 +82,7 @@ export class SidenavComponent implements OnInit {
   noop () { }
 
   getScoreBoardStatus () {
+    console.log('sidenav: getting score board challenge status')
     this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
