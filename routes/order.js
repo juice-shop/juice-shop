@@ -120,6 +120,12 @@ module.exports = function placeOrder () {
             utils.solve(challenges.negativeOrderChallenge)
           }
 
+          if (req.body.UserId) {
+            models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
+              next(error)
+            })
+          }
+
           db.orders.insert({
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,

@@ -80,6 +80,7 @@ const dataExport = require('./routes/dataExport')
 const address = require('./routes/address')
 const erasureRequest = require('./routes/erasureRequest')
 const payment = require('./routes/payment')
+const wallet = require('./routes/wallet')
 const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 
@@ -262,6 +263,8 @@ app.get('/api/Addresss', insecurity.appendUserId(), address.getAddress())
 app.put('/api/Addresss/:id', insecurity.appendUserId())
 app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
 app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
+app.get('/api/Wallets/', insecurity.appendUserId(), wallet.getWalletBalance())
+app.put('/api/Wallets/', insecurity.appendUserId(), wallet.addWalletBalance())
 app.get('/api/Deliverys', delivery.getDeliveryMethods())
 app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
 
@@ -313,6 +316,16 @@ for (const { name, exclude } of autoModels) {
     endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
     excludeAttributes: exclude
   })
+
+  // create a wallet when a new user is registered using API
+  if (name === 'User') {
+    resource.create.send.before((req, res, context) => {
+      models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
+        console.log(err)
+      })
+      return context.continue
+    })
+  }
 
   // fix the api difference between finale (fka epilogue) and previously used sequlize-restful
   resource.all.send.before((req, res, context) => {

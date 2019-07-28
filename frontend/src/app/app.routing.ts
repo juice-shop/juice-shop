@@ -41,6 +41,7 @@ import { AccountingComponent } from './accounting/accounting.component'
 import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
+import { WalletComponent } from './wallet/wallet.component'
 import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 
@@ -197,6 +198,10 @@ const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent
+  },
+  {
+    path: 'wallet',
+    component: WalletComponent
   },
   {
     path: 'login',
