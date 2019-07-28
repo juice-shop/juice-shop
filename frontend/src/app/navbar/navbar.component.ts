@@ -103,8 +103,10 @@ export class NavbarComponent implements OnInit {
     this.getScoreBoardStatus()
 
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', () => {
-        this.getScoreBoardStatus()
+      this.io.socket().on('challenge solved', (challenge) => {
+        if (challenge.key === 'scoreBoardChallenge') {
+          this.scoreBoardVisible = true
+        }
       })
     })
   }
