@@ -1,4 +1,5 @@
 const frisby = require('frisby')
+const config = require('config')
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -10,7 +11,7 @@ beforeAll(() => {
   return frisby.post(REST_URL + '/user/login', {
     headers: jsonHeader,
     body: {
-      email: 'jim@juice-sh.op',
+      email: 'jim@' + config.get('application.domain'),
       password: 'ncc-1701'
     }
   })

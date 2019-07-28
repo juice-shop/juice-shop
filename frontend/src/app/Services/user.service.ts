@@ -66,4 +66,12 @@ export class UserService {
   saveLastLoginIp () {
     return this.http.get(this.hostServer + '/rest/saveLoginIp').pipe(map((response: any) => response), catchError((err) => { throw err }))
   }
+
+  deluxeStatus () {
+    return this.http.get(this.hostServer + '/rest/deluxe-status').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
+
+  upgradeToDeluxe () {
+    return this.http.get(this.hostServer + '/rest/upgrade-deluxe').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  }
 }
