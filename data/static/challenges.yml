@@ -62,6 +62,9 @@
   hint: 'The feature you need to exploit for this challenge is not directly advertised anywhere.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/insecure-deserialization.html#perform-a-remote-code-execution-that-would-keep-a-less-hardened-application-busy-forever'
   key: rceChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
@@ -577,6 +580,9 @@
   hint: 'Your attack payload must not trigger the protection against too many iterations.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/insecure-deserialization.html#perform-a-remote-code-execution-that-occupies-the-server-for-a-while-without-using-infinite-loops'
   key: rceOccupyChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
