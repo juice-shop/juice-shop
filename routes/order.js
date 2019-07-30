@@ -96,14 +96,14 @@ module.exports = function placeOrder () {
             totalPrice -= discountAmount
           }
           let deliveryMethod = {
-            primePrice: 0,
+            deluxePrice: 0,
             price: 0,
             eta: 5
           }
           if (req.body.orderDetails && req.body.orderDetails.deliveryMethodId) {
             deliveryMethod = await models.Delivery.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
           }
-          const deliveryAmount = insecurity.isPrime(req) ? deliveryMethod.primePrice : deliveryMethod.price
+          const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
           doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
           doc.moveDown()

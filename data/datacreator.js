@@ -119,12 +119,12 @@ async function createDeliveryMethods () {
   const delivery = await loadStaticData('delivery')
 
   await Promise.all(
-    delivery.map(async ({ name, price, primePrice, eta }) => {
+    delivery.map(async ({ name, price, deluxePrice, eta }) => {
       try {
         await models.Delivery.create({
           name,
           price,
-          primePrice,
+          deluxePrice,
           eta
         })
       } catch (err) {

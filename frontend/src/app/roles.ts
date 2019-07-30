@@ -1,6 +1,6 @@
 export const roles = {
   customer: 'customer',
-  prime: 'prime',
+  deluxe: 'deluxe',
   accounting: 'accounting',
   admin: 'admin'
 }
