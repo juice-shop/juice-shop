@@ -288,5 +288,14 @@
   "LABEL_TRACK_ORDER": "Track Order",
   "NO_ORDERS_PLACED": "You haven't placed any orders yet.",
   "LABEL_MARK_AS_DELIVERED": "Mark as Delivered",
-  "LABEL_MARK_AS_TRANSIT": "Mark under transit"
+  "LABEL_MARK_AS_TRANSIT": "Mark under transit",
+  "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benifits on being a deluxe customer of the OWASP Juice Shop. Check out what's included with your membership.",
+  "LABEL_BECOME_MEMBER": "Become a member",
+  "LABEL_DEALS_OFFERS": "Deals and Offers",
+  "DESCRIPTION_DEALS_OFFERS": "As a deluxe member, get access to exclusive deals and irresistable offers.",
+  "LABEL_FREE_FAST_DELIVERY": "Free Fast Delivery",
+  "DESCRIPTION_FREE_FAST_DELIVERY": "Get unlimited Free Fast Delivery across all products in the shop.",
+  "LABEL_UNLIMITED_PURCHASE": "Unlimited Purchase",
+  "DESCRIPTION_UNLIMITED_PURCHASE": "Enjoy unrestricted purchase on your favourite products."
 }
