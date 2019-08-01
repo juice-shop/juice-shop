@@ -45,7 +45,7 @@ export const ScoreBoardInstruction: ChallengeInstruction = {
     {
       text: '🎉 Congratulations! You found the _Score Board_! Good luck and happy hacking!',
       fixture: 'app-score-board',
-      resolved: waitInMs(8000)
+      resolved: waitInMs(60000)
     }
   ]
 }
