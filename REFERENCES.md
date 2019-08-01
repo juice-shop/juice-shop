@@ -102,6 +102,7 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [klarsen.net - A Maker's Blog](https://klarsen.net): [OWASP Juice Shop SQLi](https://klarsen.net/python/owasp-juice-shop-sqli/)
 * White paper by Kelley Bryant:
   [OWASP: Application Security's Best Friend](https://drive.google.com/file/d/0ByCGDrCX7bx7dnB0TGJJSnNzRmhtUUE4U1RfR3d0YVl4RHFr/view)
 * Article (:es:) on Medium by
