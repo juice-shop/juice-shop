@@ -32,9 +32,9 @@
     comment: 'Nothing useful available here!'
     rating: 1
 -
-  email: bjoern.kimminich@googlemail.com
+  email: bjoern.kimminich@gmail.com
   username: bkimminich
-  password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
   customDomain: true
   key: bjoernGoogle
   isAdmin: true
