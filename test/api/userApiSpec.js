@@ -142,8 +142,8 @@ describe('/rest/user/whoami', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
     })
       .expect('status', 200)
@@ -156,7 +156,7 @@ describe('/rest/user/whoami', () => {
             email: Joi.string()
           })
           .expect('json', 'user', {
-            email: 'bjoern.kimminich@googlemail.com'
+            email: 'bjoern.kimminich@gmail.com'
           })
       })
   })
