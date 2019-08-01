@@ -13,7 +13,7 @@
             <div class="item-name">
                 <b translate>LABEL_DELUXE_MEMBERSHIP</b>
             </div>
-            <div class="item-description" translate>
+            <div class="item-description" translate [translateParams]="{appname: applicationName}">
                 DESCRIPTION_DELUXE_MEMBERSHIP
             </div>
             <div *ngIf="!error">
