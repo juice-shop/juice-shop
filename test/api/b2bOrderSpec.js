@@ -1,5 +1,6 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
+const utils = require('../../lib/utils')
 const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/b2b/v2/orders'
@@ -7,36 +8,38 @@ const API_URL = 'http://localhost:3000/b2b/v2/orders'
 const authHeader = { Authorization: 'Bearer ' + insecurity.authorize(), 'content-type': 'application/json' }
 
 describe('/b2b/v2/orders', () => {
-  it('POST endless loop exploit in "orderLinesData" will raise explicit error', () => {
-    return frisby.post(API_URL, {
-      headers: authHeader,
-      body: {
-        orderLinesData: '(function dos() { while(true); })()'
-      }
+  if (!utils.disableOnContainerEnv()) {
+    it('POST endless loop exploit in "orderLinesData" will raise explicit error', () => {
+      return frisby.post(API_URL, {
+        headers: authHeader,
+        body: {
+          orderLinesData: '(function dos() { while(true); })()'
+        }
+      })
+        .expect('status', 500)
+        .expect('bodyContains', 'Infinite loop detected - reached max iterations')
     })
-      .expect('status', 500)
-      .expect('bodyContains', 'Infinite loop detected - reached max iterations')
-  })
 
-  it('POST busy spinning regex attack does not raise an error', () => {
-    return frisby.post(API_URL, {
-      headers: authHeader,
-      body: {
-        orderLinesData: '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
-      }
+    it('POST busy spinning regex attack does not raise an error', () => {
+      return frisby.post(API_URL, {
+        headers: authHeader,
+        body: {
+          orderLinesData: '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
+        }
+      })
+        .expect('status', 503)
     })
-      .expect('status', 503)
-  })
 
-  it('POST sandbox breakout attack in "orderLinesData" will raise error', () => {
-    return frisby.post(API_URL, {
-      headers: authHeader,
-      body: {
-        orderLinesData: 'this.constructor.constructor("return process")().exit()'
-      }
+    it('POST sandbox breakout attack in "orderLinesData" will raise error', () => {
+      return frisby.post(API_URL, {
+        headers: authHeader,
+        body: {
+          orderLinesData: 'this.constructor.constructor("return process")().exit()'
+        }
+      })
+        .expect('status', 500)
     })
-      .expect('status', 500)
-  })
+  }
 
   it('POST new B2B order is forbidden without authorization token', () => {
     return frisby.post(API_URL, {})

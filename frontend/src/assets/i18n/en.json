@@ -294,5 +294,14 @@
   "MANDATORY_CAPTION": "Please enter a caption",
   "LABEL_CAPTION": "Caption",
   "LABEL_PICK_IMAGE": "Pick Image",
-  "EMPTY_MEMORY_LIST": "No memories have been shared yet."
+  "EMPTY_MEMORY_LIST": "No memories have been shared yet.",
+  "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
+  "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits on being a deluxe customer of {{appname}}. Check out what's included with your membership.",
+  "LABEL_BECOME_MEMBER": "Become a member",
+  "LABEL_DEALS_OFFERS": "Deals and Offers",
+  "DESCRIPTION_DEALS_OFFERS": "As a deluxe member, get access to exclusive deals and irresistible offers.",
+  "LABEL_FREE_FAST_DELIVERY": "Free Fast Delivery",
+  "DESCRIPTION_FREE_FAST_DELIVERY": "Get unlimited Free Fast Delivery across all products in the shop.",
+  "LABEL_UNLIMITED_PURCHASE": "Unlimited Purchase",
+  "DESCRIPTION_UNLIMITED_PURCHASE": "Enjoy unrestricted purchase on your favourite products."
 }

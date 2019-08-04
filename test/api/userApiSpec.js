@@ -67,13 +67,13 @@ describe('/api/Users', () => {
       })
   })
 
-  it('POST new prime user', () => {
+  it('POST new deluxe user', () => {
     return frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
       body: {
         email: 'horst3@horstma.nn',
         password: 'hooooorst',
-        role: 'prime'
+        role: 'deluxe'
       }
     })
       .expect('status', 201)
@@ -85,7 +85,7 @@ describe('/api/Users', () => {
         password: Joi.any().forbidden()
       })
       .expect('json', 'data', {
-        role: 'prime'
+        role: 'deluxe'
       })
   })
 
@@ -111,7 +111,7 @@ describe('/api/Users', () => {
       })
   })
 
-  it('POST user not belonging to customer, prime, accounting, admin is forbidden', () => {
+  it('POST user not belonging to customer, deluxe, accounting, admin is forbidden', () => {
     return frisby.post(API_URL + '/Users', {
       headers: jsonHeader,
       body: {
@@ -204,8 +204,8 @@ describe('/rest/user/whoami', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
     })
       .expect('status', 200)
@@ -218,7 +218,7 @@ describe('/rest/user/whoami', () => {
             email: Joi.string()
           })
           .expect('json', 'user', {
-            email: 'bjoern.kimminich@googlemail.com'
+            email: 'bjoern.kimminich@gmail.com'
           })
       })
   })

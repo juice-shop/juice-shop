@@ -120,6 +120,7 @@ import { DeliveryMethodComponent } from './delivery-method/delivery-method.compo
 import { DeliveryService } from './Services/delivery.service'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { PhotoWallService } from './Services/photo-wall.service'
+import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -178,7 +179,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletComponent,
     OrderHistoryComponent,
     DeliveryMethodComponent,
-    PhotoWallComponent
+    PhotoWallComponent,
+    DeluxeUserComponent
   ],
   entryComponents: [
     ProductDetailsComponent,

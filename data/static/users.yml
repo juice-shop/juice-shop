@@ -83,9 +83,9 @@
       expMonth: 2
       expYear: 2081
 -
-  email: bjoern.kimminich@googlemail.com
+  email: bjoern.kimminich@gmail.com
   username: bkimminich
-  password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
   customDomain: true
   key: bjoernGoogle
   role: 'admin'
@@ -106,7 +106,7 @@
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
   key: ciso
-  role: 'prime'
+  role: 'deluxe'
   securityQuestion:
     id: 7
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'

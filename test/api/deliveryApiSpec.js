@@ -37,7 +37,7 @@ describe('/api/Deliverys', () => {
     })
   })
 
-  describe('for prime customer', () => {
+  describe('for deluxe customer', () => {
     beforeAll(() => {
       return frisby.post(REST_URL + '/user/login', {
         headers: jsonHeader,
@@ -96,7 +96,7 @@ describe('/api/Deliverys/:id', () => {
     })
   })
 
-  describe('for prime customer', () => {
+  describe('for deluxe customer', () => {
     beforeAll(() => {
       return frisby.post(REST_URL + '/user/login', {
         headers: jsonHeader,

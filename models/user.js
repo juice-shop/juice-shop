@@ -36,7 +36,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       defaultValue: 'customer',
       validate: {
-        isIn: [['customer', 'prime', 'accounting', 'admin']]
+        isIn: [['customer', 'deluxe', 'accounting', 'admin']]
       }
     },
     lastLoginIp: {
