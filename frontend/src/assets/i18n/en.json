@@ -288,5 +288,11 @@
   "LABEL_TRACK_ORDER": "Track Order",
   "NO_ORDERS_PLACED": "You haven't placed any orders yet.",
   "LABEL_MARK_AS_DELIVERED": "Mark as Delivered",
-  "LABEL_MARK_AS_TRANSIT": "Mark under transit"
+  "LABEL_MARK_AS_TRANSIT": "Mark under transit",
+  "LABEL_PHOTO_WALL": "Photo Wall",
+  "LABEL_SHARE_A_MEMORY": "Share a Memory",
+  "MANDATORY_CAPTION": "Please enter a caption",
+  "LABEL_CAPTION": "Caption",
+  "LABEL_PICK_IMAGE": "Pick Image",
+  "EMPTY_MEMORY_LIST": "No memories have been shared yet."
 }

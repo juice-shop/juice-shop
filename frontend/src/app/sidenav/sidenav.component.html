@@ -146,6 +146,14 @@
       {{"TITLE_ABOUT" | translate}}
     </span>
   </a>
+  <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
+    <i class="material-icons">
+      camera
+    </i>
+    <span class="menu-text truncate">
+      {{"LABEL_PHOTO_WALL" | translate}}
+    </span>
+  </a>
 
   <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
 
