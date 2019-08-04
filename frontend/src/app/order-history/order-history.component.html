@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutGap="20px" class="main-wrapper">
       <div class="heading mat-elevation-z6">
-         <div class="heading-main">{{"Order History" | translate}}</div>
+         <div class="heading-main">{{"LABEL_ORDER_HISTORY" | translate}}</div>
       </div>
       <div *ngIf="!emptyState; else emptyResult" fxLayout="column" fxLayoutGap="20px">
          <div *ngFor="let order of orders">

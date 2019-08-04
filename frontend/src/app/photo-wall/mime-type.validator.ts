@@ -9,7 +9,7 @@ export const mimeType = (
   }
   const file = control.value as File
   const fileReader = new FileReader()
-  const frObs = Observable.create(
+  const frObs = new Observable(
     (observer: Observer<{ [key: string]: any }>) => {
       fileReader.addEventListener('loadend', () => {
         const arr = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4)
