@@ -99,7 +99,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null
     }
-    cb(error, './images/')
+    cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
   },
   filename: (req, file, cb) => {
     const name = file.originalname
@@ -184,7 +184,6 @@ app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 app.use(cookieParser('kekse'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/images', express.static(path.join('images')))
 /* File Upload */
 app.post('/file-upload', upload.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())

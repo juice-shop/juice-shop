@@ -5,12 +5,12 @@
     </div>
     <div>
         <div class="grid" *ngIf="!emptyState; else emptyResult">
-            <span *ngFor="let image of slideshowDataSource" class="container mat-elevation-z6" >
-                <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
-                <div class="overlay">{{ image.caption }}</div>
-            </span>
+                <span *ngFor="let image of slideshowDataSource" class="container mat-elevation-z6" >
+                    <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
+                    <div class="overlay">{{ image.caption }}</div>
+                </span>
+            </div>
         </div>
-    </div>
 
     <ng-template #emptyResult>
         <mat-card class="mat-elevation-z6 emptyState">

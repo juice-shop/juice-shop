@@ -33,7 +33,7 @@ describe('/api/Memorys', () => {
   it('POST new memory is forbidden via public API', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
-    form.append('image', fs.createReadStream(file))
+    form.append('image', fs.createReadStream(file), 'Valid Image')
     form.append('caption', 'Valid Image')
 
     return frisby.post(API_URL + '/Memorys', {
@@ -48,7 +48,7 @@ describe('/api/Memorys', () => {
   it('POST new memory image file invalid type', () => {
     const file = path.resolve(__dirname, '../files/invalidProfileImageType.docx')
     const form = frisby.formData()
-    form.append('image', fs.createReadStream(file))
+    form.append('image', fs.createReadStream(file), 'Valid Image')
     form.append('caption', 'Valid Image')
 
     return frisby.post(REST_URL + '/user/login', {
@@ -74,7 +74,7 @@ describe('/api/Memorys', () => {
   it('POST new memory with valid for JPG format image', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
     const form = frisby.formData()
-    form.append('image', fs.createReadStream(file))
+    form.append('image', fs.createReadStream(file), 'Valid Image')
     form.append('caption', 'Valid Image')
 
     return frisby.post(REST_URL + '/user/login', {
