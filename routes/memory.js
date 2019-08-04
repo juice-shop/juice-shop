@@ -2,10 +2,9 @@ const models = require('../models/index')
 
 module.exports.addMemory = function addMemory () {
   return async (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host')
     const record = {
       caption: req.body.caption,
-      imagePath: url + '/images/' + req.file.filename,
+      imagePath: 'assets/public/images/uploads/' + req.file.filename,
       UserId: req.body.UserId
     }
     const memory = await models.Memory.create(record)
