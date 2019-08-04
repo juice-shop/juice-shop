@@ -9,8 +9,8 @@ describe('/rest/user/data-export', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
     })
       .expect('status', 200)
@@ -27,7 +27,7 @@ describe('/rest/user/data-export', () => {
           .then(({ json }) => {
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('bkimminich')
-            expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
+            expect(parsedData.email).toBe('bjoern.kimminich@gmail.com')
           })
       })
   })
@@ -36,8 +36,8 @@ describe('/rest/user/data-export', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
     })
       .expect('status', 200)
@@ -65,8 +65,8 @@ describe('/rest/user/data-export', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
-        email: 'bjoern.kimminich@googlemail.com',
-        password: 'bW9jLmxpYW1lbGdvb2dAaGNpbmltbWlrLm5yZW9qYg=='
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
     })
       .expect('status', 200)
@@ -90,7 +90,7 @@ describe('/rest/user/data-export', () => {
               .then(({ json }) => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('bkimminich')
-                expect(parsedData.email).toBe('bjoern.kimminich@googlemail.com')
+                expect(parsedData.email).toBe('bjoern.kimminich@gmail.com')
               })
           })
       })

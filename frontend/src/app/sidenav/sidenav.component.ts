@@ -53,8 +53,10 @@ export class SidenavComponent implements OnInit {
       }
     })
     this.ngZone.runOutsideAngular(() => {
-      this.io.socket().on('challenge solved', () => {
-        this.getScoreBoardStatus()
+      this.io.socket().on('challenge solved', (challenge) => {
+        if (challenge.key === 'scoreBoardChallenge') {
+          this.scoreBoardVisible = true
+        }
       })
     })
   }

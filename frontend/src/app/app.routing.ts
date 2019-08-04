@@ -45,6 +45,7 @@ import { WalletComponent } from './wallet/wallet.component'
 import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
+import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -167,6 +168,11 @@ const routes: Routes = [
   {
     path: 'delivery-method',
     component: DeliveryMethodComponent
+  },
+  {
+    path: 'deluxe-membership',
+    component: DeluxeUserComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'saved-payment-methods',
