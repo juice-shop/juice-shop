@@ -242,6 +242,13 @@ const routes: Routes = [
     component: TrackResultComponent
   },
   {
+    path: 'track-result/new',
+    component: TrackResultComponent,
+    data: {
+      type: 'new'
+    }
+  },
+  {
     path: '2fa/enter',
     component: TwoFactorAuthEnterComponent
   },

@@ -542,7 +542,7 @@ function createOrders () {
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       products: basket2Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      eta: '0',
       delivered: true
     }
   ]
