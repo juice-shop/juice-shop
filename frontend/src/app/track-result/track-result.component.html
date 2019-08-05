@@ -5,12 +5,18 @@
     <h4 translate>LABEL_EXPECTED_DELIVERY</h4>
     <div class="container-fluid well">
       <div class="row fa-4x">
-        <i class="fas fa-warehouse"></i>
-        <i class="fas fa-sync fa-spin"></i>
-        <i class="fas fa-truck-loading"></i>
-        <i class="fas fa-truck"></i>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-home"></i>
+        <span *ngIf="newMode"><i class="fas fa-warehouse confirmation"></i></span>
+        <span *ngIf="!newMode"><i class="fas fa-warehouse"></i></span>
+        <span><i class="fas fa-sync fa-spin"></i></span>
+        <span><i class="fas fa-truck-loading"></i></span>
+        <span *ngIf="delivered || newMode"><i class="fas fa-truck"></i></span>
+        <span *ngIf="!delivered && !newMode"><i class="fas fa-truck confirmation"></i></span>
+        <span class="fa-layers fa-fw" *ngIf="delivered && !newMode">
+            <span><i class="fas fa-home confirmation"></i></span>
+          <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
+        </span>
+        <span class="fa-layers fa-fw" *ngIf="!delivered || newMode">
+            <span><i class="fas fa-home"></i></span>
           <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
         </span>
       </div>
