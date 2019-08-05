@@ -2,6 +2,8 @@ application:
   domain: thebodgeitstore.com
   name: 'The BodgeIt Store'
   logo: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
+  deluxePage:
+    deluxeDeliveryImage: 'delivery_bodgeit.png'
   favicon: 'https://www.shareicon.net/download/2016/08/13/808555_media.ico'
   theme: indigo-pink
   showGitHubLinks: true
