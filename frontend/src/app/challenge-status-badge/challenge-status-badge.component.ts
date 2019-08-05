@@ -2,13 +2,7 @@ import { Component, Input } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faBook } from '@fortawesome/free-solid-svg-icons'
-import { faFlag } from '@fortawesome/free-regular-svg-icons'
 import { Challenge } from '../Models/challenge.model'
-
-library.add(faBook, faFlag)
-dom.watch()
 
 @Component({
   selector: 'app-challenge-status-badge',
@@ -36,7 +30,4 @@ export class ChallengeStatusBadgeComponent {
       this.windowRefService.nativeWindow.open(this.challenge.hintUrl, '_blank')
     }
   }
-
-  // tslint:disable-next-line:no-empty
-  noop () { }
 }
