@@ -1,5 +1,7 @@
 application:
   logo: JuiceShopCTF_Logo.png
+  deluxePage:
+    deluxeDeliveryImage: 'delivery_ctf.png'
   favicon: favicon_ctf.ico
   showChallengeHints: false
   showVersionNumber: false
