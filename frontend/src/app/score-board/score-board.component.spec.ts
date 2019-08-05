@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatIconModule } from '@angular/material/icon'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
@@ -78,7 +79,8 @@ describe('ScoreBoardComponent', () => {
         MatProgressBarModule,
         MatExpansionModule,
         MatTooltipModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatIconModule
       ],
       declarations: [ ScoreBoardComponent ],
       providers: [
