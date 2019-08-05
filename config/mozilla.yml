@@ -2,6 +2,8 @@ application:
   domain: mozilla-ctf.op
   name: 'Mozilla CTF'
   logo: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/MozillaCTF.png'
+  deluxePage:
+    deluxeDeliveryImage: 'delivery_mozilla.png'  
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   showChallengeSolvedNotifications: true
   showChallengeHints: false

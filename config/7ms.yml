@@ -2,6 +2,8 @@ application:
   domain: 7-ms.us
   name: '7 Minute Security'
   logo: 'https://static1.squarespace.com/static/59f9e1c4d0e6281017434039/t/59fd39cde31d1945635d5fbb/1530161239161/7.png'
+  deluxePage:
+    deluxeDeliveryImage: 'delivery_7ms.png'
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   showGitHubLinks: true
