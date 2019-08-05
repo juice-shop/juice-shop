@@ -102,6 +102,7 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [klarsen.net - A Maker's Blog](https://klarsen.net): [OWASP Juice Shop SQLi](https://klarsen.net/python/owasp-juice-shop-sqli/)
 * White paper by Kelley Bryant:
   [OWASP: Application Security's Best Friend](https://drive.google.com/file/d/0ByCGDrCX7bx7dnB0TGJJSnNzRmhtUUE4U1RfR3d0YVl4RHFr/view)
 * Article (:es:) on Medium by
@@ -222,7 +223,7 @@ where this project was mentioned or used!
 * [t.b.d.]() by Björn Kimminich, Project Showcase track of the
   [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
   26./27.09.2019
-* [OWASP Juice Shop: The ultimate All Vuln WebApp]() by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/), 06.11.2019
+* [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich) by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/), 06.11.2019
 
 #### 2019
 
