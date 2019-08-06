@@ -1,0 +1,53 @@
+      
+<div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
+    <div class="heading mat-elevation-z6">
+        <div class="heading-main">{{"LABEL_PHOTO_WALL" | translate}}</div>
+    </div>
+    <div>
+        <div class="grid" *ngIf="!emptyState; else emptyResult">
+                <span *ngFor="let image of slideshowDataSource" class="container mat-elevation-z6" >
+                    <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
+                    <div class="overlay">{{ image.caption }}</div>
+                </span>
+            </div>
+        </div>
+
+    <ng-template #emptyResult>
+        <mat-card class="mat-elevation-z6 emptyState">
+            <img alt=" No results found"
+                class="img-responsive noResult"
+                src="assets/public/images/products/no-results.png">
+            <mat-card-title>
+            <span class="noResultText" translate>
+                NO_SEARCH_RESULT
+            </span>
+            </mat-card-title>
+            <mat-card-content>
+            <span class="noResultText" translate>
+                EMPTY_MEMORY_LIST
+            </span>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+
+    <div class="mat-elevation-z6" *ngIf="isLoggedIn()">
+        <mat-card>
+            <h1 translate>LABEL_SHARE_A_MEMORY</h1>
+            <form [formGroup]="form" enctype="multipart/form-data">
+                <div>
+                    <button mat-stroked-button type="button" (click)="filePicker.click()">{{'LABEL_PICK_IMAGE' | translate}}</button>
+                    <input type="file" name='file' #filePicker (change)="onImagePicked($event)">
+                </div>
+                <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
+                    <img [src]="imagePreview" [alt]="form.value.caption">
+                </div>
+                <mat-form-field>
+                    <mat-label translate>LABEL_CAPTION</mat-label>
+                    <input formControlName="caption" type="text" matInput>
+                    <mat-error *ngIf="form.get('caption').invalid" translate>{{'MANDATORY_CAPTION' | translate}}</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="save()" [disabled]="form.get('image').invalid || form.get('caption').invalid">{{'BTN_SUBMIT' | translate}}</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

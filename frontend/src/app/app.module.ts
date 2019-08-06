@@ -118,6 +118,8 @@ import { OrderHistoryComponent } from './order-history/order-history.component'
 import { OrderHistoryService } from './Services/order-history.service'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { DeliveryService } from './Services/delivery.service'
+import { PhotoWallComponent } from './photo-wall/photo-wall.component'
+import { PhotoWallService } from './Services/photo-wall.service'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
@@ -177,6 +179,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     WalletComponent,
     OrderHistoryComponent,
     DeliveryMethodComponent,
+    PhotoWallComponent,
     DeluxeUserComponent
   ],
   entryComponents: [
@@ -271,7 +274,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     QuantityService,
     WalletService,
     OrderHistoryService,
-    DeliveryService
+    DeliveryService,
+    PhotoWallService
   ],
   bootstrap: [AppComponent]
 })
