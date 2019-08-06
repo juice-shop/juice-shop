@@ -44,6 +44,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component'
 import { WalletComponent } from './wallet/wallet.component'
 import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
+import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 
 export function token1 (...args: number[]) {
@@ -188,6 +189,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'photo-wall',
+    component: PhotoWallComponent
   },
   {
     path: 'complain',

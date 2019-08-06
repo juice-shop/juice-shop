@@ -84,6 +84,32 @@ const wallet = require('./routes/wallet')
 const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
+const memory = require('./routes/memory')
+
+const mimeTypeMap = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = mimeTypeMap[file.mimetype]
+    let error = new Error('Invalid mime type')
+    if (isValid) {
+      error = null
+    }
+    cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname
+      .toLowerCase()
+      .split(' ')
+      .join('-')
+    const ext = mimeTypeMap[file.mimetype]
+    cb(null, name + '-' + Date.now() + '.' + ext)
+  }
+})
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -162,6 +188,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/file-upload', upload.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
 app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
+app.post('/api/Memorys', multer({ storage: storage }).single('image'), insecurity.appendUserId(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -373,6 +400,7 @@ app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())
 app.patch('/rest/products/reviews', insecurity.isAuthorized(), updateProductReviews())
 app.post('/rest/products/reviews', insecurity.isAuthorized(), likeProductReviews())
+app.get('/api/Memorys', memory.getMemory())
 app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
 app.get('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 
