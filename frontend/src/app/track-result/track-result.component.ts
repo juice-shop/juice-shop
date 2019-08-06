@@ -9,6 +9,13 @@ import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortaweso
 library.add(faWarehouse,faSync,faTruckLoading,faTruck,faHome)
 dom.watch()
 
+enum Status {
+  New,
+  Packing,
+  Transit,
+  Delivered
+}
+
 @Component({
   selector: 'app-track-result',
   templateUrl: './track-result.component.html',
@@ -20,16 +27,11 @@ export class TrackResultComponent implements OnInit {
   public dataSource = new MatTableDataSource()
   public orderId?: string
   public results: any = {}
-  public newMode: Boolean = false
-  public delivered: Boolean = true
+  public status: Status = Status.New
+  public Status = Status
   constructor (private route: ActivatedRoute,private trackOrderService: TrackOrderService, private sanitizer: DomSanitizer) {}
 
   ngOnInit () {
-    if (this.route.snapshot.data['type']) {
-      this.newMode = true
-    } else {
-      this.newMode = false
-    }
     this.orderId = this.route.snapshot.queryParams.id
     this.trackOrderService.save(this.orderId).subscribe((results) => {
       this.results.orderNo = this.sanitizer.bypassSecurityTrustHtml(`<code>${results.data[0].orderId}</code>`)
@@ -39,7 +41,15 @@ export class TrackResultComponent implements OnInit {
       this.results.eta = results.data[0].eta !== undefined ? results.data[0].eta : '?'
       this.results.bonus = results.data[0].bonus
       this.dataSource.data = this.results.products
-      this.delivered = results.data[0].delivered
+      if (results.data[0].delivered) {
+        this.status = Status.Delivered
+      } else if (this.route.snapshot.data['type']) {
+        this.status = Status.New
+      } else if (this.results.eta > 2) {
+        this.status = Status.Packing
+      } else {
+        this.status = Status.Transit
+      }
     })
   }
 }
