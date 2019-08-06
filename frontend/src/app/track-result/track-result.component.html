@@ -5,16 +5,17 @@
     <h4 translate>LABEL_EXPECTED_DELIVERY</h4>
     <div class="container-fluid well">
       <div class="row fa-4x">
-        <span *ngIf="newMode"><i class="fas fa-warehouse confirmation"></i></span>
-        <span *ngIf="!newMode"><i class="fas fa-warehouse"></i></span>
-        <span><i class="fas fa-truck-loading"></i></span>
-        <span *ngIf="delivered || newMode"><i class="fas fa-truck"></i></span>
-        <span *ngIf="!delivered && !newMode"><i class="fas fa-truck confirmation"></i></span>
-        <span class="fa-layers fa-fw" *ngIf="delivered && !newMode">
+        <span *ngIf="status === Status.New"><i class="fas fa-warehouse confirmation"></i></span>
+        <span *ngIf="status !== Status.New"><i class="fas fa-warehouse"></i></span>
+        <span *ngIf="status === Status.Packing"><i class="fas fa-truck-loading confirmation"></i></span>
+        <span *ngIf="status !== Status.Packing"><i class="fas fa-truck-loading"></i></span>
+        <span *ngIf="status === Status.Transit"><i class="fas fa-truck confirmation"></i></span>
+        <span *ngIf="status !== Status.Transit"><i class="fas fa-truck"></i></span>
+        <span class="fa-layers fa-fw" *ngIf="status === Status.Delivered">
             <span><i class="fas fa-home confirmation"></i></span>
           <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
         </span>
-        <span class="fa-layers fa-fw" *ngIf="!delivered || newMode">
+        <span class="fa-layers fa-fw" *ngIf="status !== Status.Delivered">
             <span><i class="fas fa-home"></i></span>
           <span class="fa-layers-counter accent-notification" style="width: max-content">{{results.eta}} {{'LABEL_DAYS' | translate}}</span>
         </span>
