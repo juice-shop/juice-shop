@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faSpinner, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faWarehouse,faSync,faSpinner,faTruckLoading,faTruck,faHome)
+library.add(faWarehouse,faSync,faTruckLoading,faTruck,faHome)
 dom.watch()
 
 @Component({
