@@ -275,6 +275,7 @@
   "LABEL_ADD_MONEY": "Add Money",
   "LABEL_WALLET_BALANCE": "Wallet Balance:",
   "MANDATORY_AMOUNT": "Please enter an amount",
+  "LABEL_AMOUNT": "Amount",
   "AMOUNT_LIMIT": "You can add a minimum of 10 and only upto 1000.",
   "LABEL_CHOOSE_A_DELIVERY_SPEED": "Choose a delivery speed",
   "LABEL_ETA": "ETA",
@@ -297,5 +298,10 @@
   "LABEL_FREE_FAST_DELIVERY": "Free Fast Delivery",
   "DESCRIPTION_FREE_FAST_DELIVERY": "Get unlimited Free Fast Delivery across all products in the shop.",
   "LABEL_UNLIMITED_PURCHASE": "Unlimited Purchase",
-  "DESCRIPTION_UNLIMITED_PURCHASE": "Enjoy unrestricted purchase on your favourite products."
+  "DESCRIPTION_UNLIMITED_PURCHASE": "Enjoy unrestricted purchase on your favourite products.",
+  "LABEL_PAY_USING_WALLET": "Pay using wallet",
+  "LABEL_PAY": "Pay",
+  "LABEL_ADD": "Add",
+  "REVIEW_DELUXE": "You will be logged out on successful completion.",
+  "REVIEW_WALLET": "You will be redirected back to your wallet."
 }

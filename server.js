@@ -374,7 +374,7 @@ app.put('/rest/products/:id/reviews', createProductReviews())
 app.patch('/rest/products/reviews', insecurity.isAuthorized(), updateProductReviews())
 app.post('/rest/products/reviews', insecurity.isAuthorized(), likeProductReviews())
 app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
-app.get('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
+app.post('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())

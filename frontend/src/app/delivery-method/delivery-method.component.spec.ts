@@ -39,7 +39,7 @@ describe('DeliveryMethodComponent', () => {
       declarations: [ DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent ],
       imports: [
         RouterTestingModule.withRoutes([
-          { path: 'payment', component: PaymentComponent }
+          { path: 'payment/shop', component: PaymentComponent }
         ]),
         HttpClientTestingModule,
         TranslateModule.forRoot(),
