@@ -19,6 +19,7 @@ export class OrderCompletionComponent implements OnInit {
   public deliveryPrice = 0
   public promotionalDiscount = 0
   public address: any
+  public tweetText: string = 'Purchased '
 
   constructor (private addressService: AddressService, private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private basketService: BasketService) { }
 
@@ -36,6 +37,10 @@ export class OrderCompletionComponent implements OnInit {
         this.orderDetails.products = results.data[0].products
         this.orderDetails.bonus = results.data[0].bonus
         this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
+        for (const product of this.orderDetails.products) {
+          this.tweetText += product.name + ' '
+        }
+        this.tweetText += '@owasp_juiceshop'
         this.addressService.getById(this.orderDetails.addressId).subscribe((address) => {
           this.address = address
         }, (error) => console.log(error))

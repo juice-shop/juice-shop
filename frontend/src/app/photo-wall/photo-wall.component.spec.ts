@@ -16,7 +16,7 @@ import { PhotoWallComponent } from './photo-wall.component'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
-fdescribe('PhotoWallComponent', () => {
+describe('PhotoWallComponent', () => {
   let component: PhotoWallComponent
   let fixture: ComponentFixture<PhotoWallComponent>
   let photoWallService
