@@ -68,13 +68,14 @@ describe('/#/basket', () => {
       it('should be possible to enter WMNSDY2019 coupon', () => {
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
-        browser.get('/#/payment')
+        browser.get('/#/payment/shop')
         browser.executeScript('event = new Date("March 08, 2019 00:00:00"); Date = function(Date){return function() {date = event; return date; }}(Date);')
         browser.driver.sleep(1000)
         element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
         element(by.id('coupon')).sendKeys('WMNSDY2019')
+        browser.driver.sleep(1000)
         element(by.id('applyCouponButton')).click()
       })
 
@@ -103,12 +104,13 @@ describe('/#/basket', () => {
       it('should be possible to enter a coupon that gives an 80% discount', () => {
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
 
-        browser.get('/#/payment')
+        browser.get('/#/payment/shop')
         browser.driver.sleep(1000)
         element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
-
+        browser.driver.sleep(1000)
         element(by.id('coupon')).sendKeys(insecurity.generateCoupon(90))
+        browser.driver.sleep(1000)
         element(by.id('applyCouponButton')).click()
       })
 

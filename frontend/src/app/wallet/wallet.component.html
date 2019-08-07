@@ -11,12 +11,12 @@
           <h2 translate>LABEL_ADD_MONEY</h2>
             <p>
                 <b>
-                    <span translate>MANDATORY_AMOUNT</span>
+                    <span translate>LABEL_WALLET_BALANCE</span>
                     <span class="confirmation"> {{ balance }}</span>
                 </b>
             </p>
             <mat-form-field appearance="outline" color="accent">
-                <mat-label translate>LABEL_ENTER_AMOUNT</mat-label>
+                <mat-label>{{'LABEL_AMOUNT' | translate}}</mat-label>
                 <input  [formControl]="balanceControl" type="number" matInput aria-label="Enter an amount">
                 <mat-error *ngIf="balanceControl.invalid && balanceControl.errors.required" translate>
                     MANDATORY_AMOUNT

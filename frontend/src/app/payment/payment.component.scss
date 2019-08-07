@@ -9,7 +9,6 @@ mat-form-field {
 
 mat-card {
 	height: auto;
-	margin-top: 20px;
 }
 
 .main-wrapper {
@@ -23,6 +22,15 @@ mat-card {
 
 .mat-raised-button {
 	margin-right: 3px;
-	margin-top: 3px;
 }
-  
+
+.custom-card {
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.card-title {
+	font-size: 15px;
+}
