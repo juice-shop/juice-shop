@@ -7,7 +7,14 @@
         <div class="grid" *ngIf="!emptyState; else emptyResult">
                 <span *ngFor="let image of slideshowDataSource" class="container mat-elevation-z6" >
                     <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
-                    <div class="overlay">{{ image.caption }}</div>
+                    <div class="overlay">
+                        <div>{{ image.caption }}</div>
+                        <a href="https://twitter.com/intent/tweet?text={{ image.caption }} @owasp_juiceshop&hashtags=security&url=https://juice-shop.herokuapp.com">
+                            <button mat-icon-button aria-label="Tweet">
+                                <img src="assets/public/images/twitter/tweet.png" class="tweet-logo">
+                            </button>
+                         </a>
+                    </div>
                 </span>
             </div>
         </div>
