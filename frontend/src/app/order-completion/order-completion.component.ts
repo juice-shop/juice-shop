@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { AddressService } from '../Services/address.service'
+import { ConfigurationService } from '../Services/configuration.service'
 
 @Component({
   selector: 'app-order-completion',
@@ -21,7 +22,7 @@ export class OrderCompletionComponent implements OnInit {
   public address: any
   public tweetText: string = 'Purchased '
 
-  constructor (private addressService: AddressService, private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private basketService: BasketService) { }
+  constructor (private configurationService: ConfigurationService, private addressService: AddressService, private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private basketService: BasketService) { }
 
   ngOnInit () {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -40,7 +41,13 @@ export class OrderCompletionComponent implements OnInit {
         for (const product of this.orderDetails.products) {
           this.tweetText += product.name + ' '
         }
-        this.tweetText += '@owasp_juiceshop'
+        this.configurationService.getApplicationConfiguration().subscribe((config) => {
+          if (config && config.application) {
+            if (config.application.twitterUrl !== null) {
+              this.tweetText += config.application.twitterUrl.replace('https://twitter.com/','@')
+            }
+          }
+        },(err) => console.log(err))
         this.addressService.getById(this.orderDetails.addressId).subscribe((address) => {
           this.address = address
         }, (error) => console.log(error))
