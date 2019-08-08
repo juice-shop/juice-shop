@@ -55,14 +55,6 @@ describe('WalletComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should reinitizalise forms by calling resetForm', () => {
-    component.balanceControl.setValue(100)
-    component.resetForm()
-    expect(component.balanceControl.value).toBe('')
-    expect(component.balanceControl.pristine).toBe(true)
-    expect(component.balanceControl.untouched).toBe(true)
-  })
-
   it('should be compulsory to provide amount', () => {
     component.balanceControl.setValue('')
     expect(component.balanceControl.valid).toBeFalsy()
@@ -83,7 +75,7 @@ describe('WalletComponent', () => {
     walletService.get.and.returnValue(of(100))
     component.ngOnInit()
     fixture.detectChanges()
-    expect(component.balance).toBe(100)
+    expect(component.balance).toBe('100.00')
   })
 
   it('should log error while getting balance from backend API directly to browser console' , fakeAsync(() => {

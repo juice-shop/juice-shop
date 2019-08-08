@@ -20,7 +20,11 @@ import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
 import { faBtc, faEthereum, faPaypal, faLeanpub, faPatreon } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { WalletService } from '../Services/wallet.service'
+import { DeliveryService } from '../Services/delivery.service'
+import { UserService } from '../Services/user.service'
+import { CookieService } from 'ngx-cookie'
 
 library.add(faCartArrowDown, faGift, faCreditCard, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
 dom.watch()
@@ -45,10 +49,20 @@ export class PaymentComponent implements OnInit {
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
   public allowContinue: boolean = false
-
-  constructor (private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService) { }
+  public mode: any
+  public walletBalance: number = 0
+  public walletBalanceStr: string
+  public totalPrice: any = 0
+  public payUsingWallet: boolean = false
+  public redirectToBasket: boolean = false
+  constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit () {
+    this.initTotal()
+    this.walletService.get().subscribe((balance) => {
+      this.walletBalance = balance
+      this.walletBalanceStr = parseFloat(balance).toFixed(2)
+    },(err) => console.log(err))
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
@@ -63,6 +77,26 @@ export class PaymentComponent implements OnInit {
         if (config.application.name !== null) {
           this.applicationName = config.application.name
         }
+      }
+    },(err) => console.log(err))
+  }
+
+  initTotal () {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.mode = paramMap.get('entity')
+      if (this.mode === 'wallet') {
+        this.totalPrice = parseFloat(sessionStorage.getItem('walletTotal'))
+      } else if (this.mode === 'deluxe') {
+        this.userService.deluxeStatus().subscribe((res) => {
+          this.totalPrice = res.membershipCost
+        }, (err) => console.log(err))
+      } else {
+        const itemTotal = parseFloat(sessionStorage.getItem('itemTotal'))
+        const promotionalDiscount = sessionStorage.getItem('couponDiscount') ? (parseFloat(sessionStorage.getItem('couponDiscount')) / 100) * itemTotal : 0
+        this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
+          const deliveryPrice = method.price
+          this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
+        })
       }
     },(err) => console.log(err))
   }
@@ -102,16 +136,46 @@ export class PaymentComponent implements OnInit {
     }, (translationId) => {
       this.couponConfirmation = translationId
     })
+    this.initTotal()
   }
 
   getMessage (id) {
     this.paymentId = id
+    this.payUsingWallet = false
   }
 
   choosePayment () {
-    sessionStorage.setItem('paymentId', this.paymentId)
-    this.router.navigate(['/order-summary'])
+    sessionStorage.removeItem('itemTotal')
+    if (this.mode === 'wallet') {
+      this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
+        sessionStorage.removeItem('walletTotal')
+        this.router.navigate(['/wallet'])
+      },(err) => console.log(err))
+    } else if (this.mode === 'deluxe') {
+      this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
+        this.logout()
+      }, (err) => console.log(err))
+    } else {
+      if (this.payUsingWallet) {
+        sessionStorage.setItem('paymentId', 'wallet')
+      } else {
+        sessionStorage.setItem('paymentId', this.paymentId)
+      }
+      this.router.navigate(['/order-summary'])
+    }
   }
+
+  logout () {
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
+    localStorage.removeItem('token')
+    this.cookieService.remove('token', { domain: document.domain })
+    sessionStorage.removeItem('bid')
+    this.userService.isLoggedIn.next(false)
+    this.router.navigate(['/login'])
+  }
+
+  // tslint:disable-next-line:no-empty
+  noop () { }
 
   showBitcoinQrCode () {
     this.dialog.open(QrCodeComponent, {
@@ -144,6 +208,15 @@ export class PaymentComponent implements OnInit {
         title: 'TITLE_ETHER_ADDRESS'
       }
     })
+  }
+
+  addMoneyToWallet () {
+    sessionStorage.setItem('walletTotal', (this.totalPrice - this.walletBalance).toString())
+    this.router.navigate(['/payment', 'wallet'])
+  }
+
+  useWallet () {
+    this.payUsingWallet = true
   }
 
   resetCouponForm () {
