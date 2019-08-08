@@ -23,7 +23,7 @@ cache:
       - frontend/node_modules
 workspaces:
   create:
-    name: lcov
+    name: "$TRAVIS_OS_NAME_$TRAVIS_NODE_VERSION_lcov"
     paths:
       - build/reports/coverage/frontend-tests/lcov.info
       - build/reports/coverage/server-tests/lcov.info
@@ -68,7 +68,7 @@ jobs:
       os: linux
       workspaces:
         use:
-          - lcov
+          - "$TRAVIS_OS_NAME_$TRAVIS_NODE_VERSION_lcov"
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
