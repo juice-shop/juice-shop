@@ -76,47 +76,6 @@ describe('DeluxeUserComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should remove authentication token from localStorage', () => {
-    spyOn(localStorage,'removeItem')
-    component.logout()
-    expect(localStorage.removeItem).toHaveBeenCalledWith('token')
-  })
-
-  it('should remove authentication token from cookies', () => {
-    component.logout()
-    expect(cookieService.remove).toHaveBeenCalledWith('token', { domain: `${document.domain}` })
-  })
-
-  it('should remove basket id from session storage', () => {
-    spyOn(sessionStorage,'removeItem')
-    component.logout()
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
-  })
-
-  it('should set the login status to be false via UserService', () => {
-    component.logout()
-    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
-  })
-
-  it('should save the last login IP address', () => {
-    component.logout()
-    expect(userService.saveLastLoginIp).toHaveBeenCalled()
-  })
-
-  it('should forward to login page', fakeAsync(() => {
-    component.logout()
-    tick()
-    expect(location.path()).toBe('/login')
-  }))
-
-  it('should log error from upgrade to deluxe API call directly to browser console', fakeAsync(() => {
-    userService.upgradeToDeluxe.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.upgradeToDeluxe()
-    fixture.detectChanges()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
-
   it('should log error from get deluxe status API call directly to browser console', fakeAsync(() => {
     userService.deluxeStatus.and.returnValue(throwError({ error: 'error' }))
     console.log = jasmine.createSpy('log')
@@ -126,16 +85,9 @@ describe('DeluxeUserComponent', () => {
     expect(component.error).toBe('error')
   }))
 
-  it('should hold address on ngOnInit', () => {
+  it('should hold membership cost on ngOnInit', () => {
     userService.deluxeStatus.and.returnValue(of({ membershipCost: 30 }))
     component.ngOnInit()
     expect(component.membershipCost).toEqual(30)
-  })
-
-  it('should call logout on calling upgradeToDeluxe', () => {
-    userService.upgradeToDeluxe.and.returnValue(of([]))
-    spyOn(component,'logout')
-    component.upgradeToDeluxe()
-    expect(component.logout).toHaveBeenCalled()
   })
 })
