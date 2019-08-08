@@ -269,3 +269,6 @@ ctf:
     ghostLoginChallenge:
       name: Taiwan
       code: TW
+    dbSchemaChallenge:
+      name: Brunei
+      code: BN
