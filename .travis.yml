@@ -73,8 +73,6 @@ jobs:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
-        - ls build/reports/coverage/frontend-tests/
-        - ls build/reports/coverage/server-tests/
       script:
         - export NODE_ENV=test
         - npm run frisby
