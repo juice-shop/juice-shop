@@ -23,7 +23,7 @@ cache:
       - frontend/node_modules
 workspaces:
   create:
-    name: "$TRAVIS_OS_NAME_$TRAVIS_NODE_VERSION_lcov"
+    name: lcov
     paths:
       - build/reports/coverage/frontend-tests/lcov.info
       - build/reports/coverage/server-tests/lcov.info
@@ -68,11 +68,13 @@ jobs:
       os: linux
       workspaces:
         use:
-          - "$TRAVIS_OS_NAME_$TRAVIS_NODE_VERSION_lcov"
+          - lcov
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
+        - ls build/reports/coverage/frontend-tests/
+        - ls build/reports/coverage/server-tests/
       script:
         - export NODE_ENV=test
         - npm run frisby
@@ -87,6 +89,7 @@ jobs:
       os: linux
       script:
         - export NODE_ENV=test
+        - npm test # FIXME Remove when workspaces work as expected
         - npm run protractor
     - stage: deploy
       if: "(branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request"
