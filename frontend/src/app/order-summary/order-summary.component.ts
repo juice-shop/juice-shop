@@ -29,10 +29,14 @@ export class OrderSummaryComponent implements OnInit {
       this.address = address
     }, (error) => console.log(error))
 
-    this.paymentService.getById(sessionStorage.getItem('paymentId')).subscribe((card) => {
-      card.cardNum = String(card.cardNum).substring(String(card.cardNum).length - 4)
-      this.paymentMethod = card
-    }, (err) => console.log(err))
+    if (sessionStorage.getItem('paymentId') !== 'wallet') {
+      this.paymentService.getById(sessionStorage.getItem('paymentId')).subscribe((card) => {
+        card.cardNum = String(card.cardNum).substring(String(card.cardNum).length - 4)
+        this.paymentMethod = card
+      }, (err) => console.log(err))
+    } else if (sessionStorage.getItem('paymentId') === 'wallet') {
+      this.paymentMethod = 'wallet'
+    }
   }
 
   getMessage (total) {

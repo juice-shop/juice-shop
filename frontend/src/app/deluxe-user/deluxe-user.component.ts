@@ -35,20 +35,6 @@ export class DeluxeUserComponent implements OnInit {
   }
 
   upgradeToDeluxe () {
-    this.userService.upgradeToDeluxe().subscribe(() => {
-      this.logout()
-    }, (err) => console.log(err))
+    this.router.navigate(['/payment', 'deluxe'])
   }
-
-  logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
-    localStorage.removeItem('token')
-    this.cookieService.remove('token', { domain: document.domain })
-    sessionStorage.removeItem('bid')
-    this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/login'])
-  }
-
-  // tslint:disable-next-line:no-empty
-  noop () { }
 }

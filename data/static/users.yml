@@ -123,6 +123,7 @@
   password: 'focusOnScienceMorty!focusOnScience'
   key: morty
   role: 'customer'
+  walletBalance: 100
   securityQuestion:
     id: 7
     answer: '5N0wb41L' # http://rickandmorty.wikia.com/wiki/Snuffles

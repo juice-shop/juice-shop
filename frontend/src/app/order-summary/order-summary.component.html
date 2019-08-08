@@ -10,13 +10,22 @@
                     <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
                 </div>
             </mat-card>
-            <mat-card class="mat-elevation-z6" fxFlex="40%">
+            <mat-card class="mat-elevation-z6" fxFlex="40%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
                 <div>
                     <div><b translate>PAYMENT_METHOD</b></div>
                     <div><span translate>CARD_ENDING_IN</span> {{paymentMethod?.cardNum}}</div>
                     <div><span translate>CARD_HOLDER</span> {{paymentMethod?.fullName}}</div>
                 </div>
             </mat-card>
+
+            <ng-template #walletPayment>
+                <mat-card class="mat-elevation-z6" fxFlex="40%">
+                    <div>
+                        <div><b translate>PAYMENT_METHOD</b></div>
+                        <div><span translate>JUICE_SHOP_WALLET</span></div>
+                    </div>
+                </mat-card>
+            </ng-template>
         </div>
       <app-purchase-basket [allowEdit]="false" (emitTotal)="getMessage($event)"></app-purchase-basket>
     </div>

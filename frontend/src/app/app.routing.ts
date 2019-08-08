@@ -207,7 +207,7 @@ const routes: Routes = [
     component: OrderHistoryComponent
   },
   {
-    path: 'payment',
+    path: 'payment/:entity',
     component: PaymentComponent
   },
   {
