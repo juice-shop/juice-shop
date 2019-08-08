@@ -8,8 +8,8 @@ module.exports = function searchProducts () {
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
     models.sequelize.query('SELECT * FROM Products WHERE ((name LIKE \'%' + criteria + '%\' OR description LIKE \'%' + criteria + '%\') AND deletedAt IS NULL) ORDER BY name')
       .then(([products, query]) => {
+        const dataString = JSON.stringify(products)
         if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
-          const dataString = JSON.stringify(products)
           let solved = true
           models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
@@ -22,6 +22,23 @@ module.exports = function searchProducts () {
               }
               if (solved) {
                 utils.solve(challenges.unionSqlInjectionChallenge)
+              }
+            }
+          })
+        }
+        if (utils.notSolved(challenges.dbSchemaChallenge)) {
+          let solved = true
+          models.sequelize.query('SELECT sql FROM sqlite_master').then(([data, query]) => {
+            const tableDefinitions = utils.queryResultToJson(data)
+            if (tableDefinitions.data && tableDefinitions.data.length) {
+              for (let i = 0; i < tableDefinitions.data.length; i++) {
+                solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
+                if (!solved) {
+                  break
+                }
+              }
+              if (solved) {
+                utils.solve(challenges.dbSchemaChallenge)
               }
             }
           })

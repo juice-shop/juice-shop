@@ -122,6 +122,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/xss.html#perform-a-dom-xss-attack'
   key: localXssChallenge
 -
+  name: 'Database Schema'
+  category: 'Injection'
+  description: 'Exfiltrate the entire DB schema definition via SQL Injection.'
+  difficulty: 3
+  hint: 'Find out where this information could come from. Then craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#exfiltrate-the-entire-db-schema-definition-via-sql-injection'
+  key: dbSchemaChallenge
+-
   name: 'Deprecated Interface'
   category: 'Security Misconfiguration'
   description: 'Use a deprecated B2B interface that was not properly shut down.'
@@ -628,7 +636,7 @@
   category: 'Injection'
   description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
-  hint: 'Craft a UNION SELECT attack string against an endpoint that offers an unnecessary way to filter data.'
+  hint: 'Gather information on where user data is stored and how it is addressed. Then craft a corresponding UNION SELECT attack.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#retrieve-a-list-of-all-user-credentials-via-sql-injection'
   key: unionSqlInjectionChallenge
 -
