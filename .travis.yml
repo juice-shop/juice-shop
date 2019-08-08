@@ -21,6 +21,12 @@ cache:
   - directories:
       - node_modules
       - frontend/node_modules
+workspaces:
+  create:
+    name: lcov
+    paths:
+      - build/reports/coverage/frontend-tests/lcov.info
+      - build/reports/coverage/server-tests/lcov.info
 matrix:
   fast_finish: true
   allow_failures:
@@ -60,13 +66,15 @@ jobs:
     - stage: integration
       if: tag IS blank
       os: linux
+      workspaces:
+        use:
+          - lcov
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
       script:
         - export NODE_ENV=test
-        - npm test
         - npm run frisby
       after_success:
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
