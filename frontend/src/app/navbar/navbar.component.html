@@ -67,6 +67,14 @@
           {{"MY_PAYMENT_OPTIONS" | translate}}
         </span>
       </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/wallet" aria-label="Go to wallet page">
+        <mat-icon>
+            account_balance_wallet
+        </mat-icon>
+        <span>
+          {{"JUICE_SHOP_WALLET" | translate}}
+        </span>
+      </button>
       <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/order-history" aria-label="Go to order history page">
         <mat-icon>
           check_circle_outline

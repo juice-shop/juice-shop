@@ -27,6 +27,7 @@ export class BasketComponent {
   }
 
   getBonusPoints (total) {
+    sessionStorage.setItem('itemTotal', total[0])
     this.bonus = total[1]
   }
 }
