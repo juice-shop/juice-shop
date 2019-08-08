@@ -9,7 +9,7 @@
                     <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
                     <div class="overlay">
                         <div>{{ image.caption }}</div>
-                        <a href="https://twitter.com/intent/tweet?text={{ image.caption }} @owasp_juiceshop&hashtags=security&url=https://juice-shop.herokuapp.com">
+                        <a href="https://twitter.com/intent/tweet?text={{ image.caption }} {{ twitterUrl }}&hashtags=security">
                             <button mat-icon-button aria-label="Tweet">
                                 <img src="assets/public/images/twitter/tweet.png" class="tweet-logo">
                             </button>
