@@ -2,9 +2,10 @@ const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const db = require('../data/mongodb')
 const challenges = require('../data/datacache').challenges
+const models = require('../models/index')
 
 module.exports = function dataExport () {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const loggedInUser = insecurity.authenticatedUsers.get(req.headers.authorization.replace('Bearer ', ''))
     if (loggedInUser && loggedInUser.data && loggedInUser.data.email && loggedInUser.data.id) {
       const username = loggedInUser.data.username
@@ -14,8 +15,17 @@ module.exports = function dataExport () {
         username,
         email,
         orders: [],
-        reviews: []
+        reviews: [],
+        memories: []
       }
+
+      const memories = await models.Memory.findAll({ where: { UserId: req.body.UserId } })
+      memories.map(memory => {
+        userData.memories.push({
+          imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
+          caption: memory.caption
+        })
+      })
 
       db.orders.find({ email: updatedEmail }).then(orders => {
         if (orders.length > 0) {

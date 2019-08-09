@@ -121,6 +121,11 @@ module.exports = function placeOrder () {
           }
 
           if (req.body.UserId) {
+            if (req.body.orderDetails.paymentId === 'wallet') {
+              models.Wallet.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch(error => {
+                next(error)
+              })
+            }
             models.Wallet.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch(error => {
               next(error)
             })

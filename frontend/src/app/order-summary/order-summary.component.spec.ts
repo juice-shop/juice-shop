@@ -87,6 +87,7 @@ describe('OrderSummaryComponent', () => {
   }))
 
   it('should log errors from payment service directly to browser console', fakeAsync(() => {
+    sessionStorage.setItem('paymentId', '1')
     paymentService.getById.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
@@ -105,10 +106,17 @@ describe('OrderSummaryComponent', () => {
     expect(component.deliveryPrice).toEqual(10)
   })
 
-  it('should hold card on ngOnInit', () => {
+  it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
+    sessionStorage.setItem('paymentId', '1')
     paymentService.getById.and.returnValue(of({ cardNum: '1234123412341234' }))
     component.ngOnInit()
     expect(component.paymentMethod).toEqual({ cardNum: '1234' })
+  })
+
+  it('should be wallet on ngOnInit when paymentId is initialized to wallet', () => {
+    sessionStorage.setItem('paymentId', 'wallet')
+    component.ngOnInit()
+    expect(component.paymentMethod).toEqual('wallet')
   })
 
   it('should store prices on calling getMessage', () => {
