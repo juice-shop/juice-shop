@@ -15,14 +15,17 @@ import { MatIconModule, MatTooltipModule, MatDialogModule, MatExpansionModule, M
 import { PhotoWallComponent } from './photo-wall.component'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ConfigurationService } from '../Services/configuration.service'
 
 describe('PhotoWallComponent', () => {
   let component: PhotoWallComponent
   let fixture: ComponentFixture<PhotoWallComponent>
-  let photoWallService
-
+  let photoWallService: any
+  let configurationService: any
   beforeEach(async(() => {
 
+    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     photoWallService = jasmine.createSpyObj('PhotoWallService', ['get', 'addMemory'])
     photoWallService.get.and.returnValue(of([]))
     photoWallService.addMemory.and.returnValue(of({}))
@@ -49,7 +52,8 @@ describe('PhotoWallComponent', () => {
         MatInputModule
       ],
       providers: [
-        { provide: PhotoWallService, useValue: photoWallService }
+        { provide: PhotoWallService, useValue: photoWallService },
+        { provide: ConfigurationService, useValue: configurationService }
       ]
     })
     .compileComponents()
@@ -115,4 +119,17 @@ describe('PhotoWallComponent', () => {
     expect(component.form.get('caption').pristine).toBe(true)
     expect(component.form.get('caption').untouched).toBe(true)
   })
+
+  it('should use custom twitter URL if configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    component.ngOnInit()
+    expect(component.twitterUrl).toBe('twitter')
+  })
+
+  it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
 })

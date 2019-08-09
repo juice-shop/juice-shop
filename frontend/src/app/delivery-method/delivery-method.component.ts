@@ -37,6 +37,6 @@ export class DeliveryMethodComponent implements OnInit {
 
   chooseDeliveryMethod () {
     sessionStorage.setItem('deliveryMethodId', this.deliveryMethodId.toString())
-    this.router.navigate(['/payment'])
+    this.router.navigate(['/payment', 'shop'])
   }
 }
