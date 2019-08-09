@@ -1,7 +1,15 @@
 <div class="custom-slate">
-   <div *ngIf="addressExist" class="mat-elevation-z6">
+   <div [class.mat-elevation-z6]="addNewAddressDiv" [class.div-boundary]="!addNewAddressDiv">
       <div class="heading">
-         <div>{{"TITLE_SELECT_ADDRESS" | translate}}</div>
+         <div>
+            <span class="heading-text" [class.font-class]="!addNewAddressDiv">{{"TITLE_SELECT_ADDRESS" | translate}}</span>
+            <span fxFlex></span>
+               <button mat-icon-button  aria-label="Add a new address" routerLink="/address/create" matTooltip="{{ 'ADD_NEW_ADDRESS' | translate }}" matTooltipPosition="below" *ngIf="!addNewAddressDiv">
+                  <mat-icon>
+                     add
+                  </mat-icon>
+               </button>
+         </div>
          <div *ngIf="confirmation" style="margin-top:5px;">
             <p class="confirmation">{{ confirmation }}</p>
          </div>
@@ -10,7 +18,7 @@
          </div>
       </div>
 
-      <mat-table [dataSource]="dataSource">
+      <mat-table [dataSource]="dataSource" *ngIf="addressExist">
          <ng-container matColumnDef="Selection">
                <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
                <mat-cell *matCellDef="let element" fxFlex="20%">
@@ -49,7 +57,7 @@
       </mat-table>
    </div>
 
-   <mat-card style="margin-top: 20px;" class="mat-elevation-z6">
+   <mat-card style="margin-top: 20px;" class="mat-elevation-z6" *ngIf="addNewAddressDiv">
          <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Add a new address" routerLink="/address/create">
             <span translate>ADD_NEW_ADDRESS</span>
          </button>

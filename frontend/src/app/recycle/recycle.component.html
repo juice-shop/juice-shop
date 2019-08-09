@@ -1,96 +1,84 @@
-<div fxLayout="row" fxLayout.lt-md="column">
-
-  <mat-card class="form-card">
-
-    <h3 translate>TITLE_RECYCLE</h3>
-
-    <div class="form-container" id="recycle-form">
-
-      <div class="confirmation" *ngIf="confirmation && !recycleQuantityControl.dirty && !recycleAddressControl.dirty">{{
-        confirmation }}
-      </div>
-
-      <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_REQUESTOR</mat-label>
-        <input [formControl]="requestorControl" type="text" matInput>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label translate>LABEL_QUANTITY</mat-label>
-        <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate"
-               matInput>
-        <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required" translate>
-          MANDATORY_QUANTITY
-        </mat-error>
-        <mat-error
-          *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)"
-          translate [translateParams]="{range: '10-1000'}">INVALID_QUANTITY
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label *ngIf="!pickup.value" translate>LABEL_DELIVERY_ADDRESS</mat-label>
-        <mat-label *ngIf="pickup.value" translate>LABEL_PICKUP_ADDRESS</mat-label>
-        <textarea [formControl]="recycleAddressControl" type="text" matInput></textarea>
-        <mat-error *ngIf="recycleAddressControl.invalid && recycleAddressControl.errors.required" translate>
-          MANDATORY_ADDRESS
-        </mat-error>
-        <mat-error
-          *ngIf="recycleAddressControl.invalid && (recycleAddressControl.errors.minlength || recycleAddressControl.errors.maxlength)"
-          translate [translateParams]="{length: '20-180'}">INVALID_ADDRESS_LENGTH
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
-        <mat-label translate>LABEL_PICKUP_DATE</mat-label>
-        <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="pickUpDateControl.invalid" translate>INVALID_DATE</mat-error>
-      </mat-form-field>
-
-      <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">{{'REQUEST_PICKUP' | translate}}
-      </mat-checkbox>
-
+<div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px" class="main-wrapper">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="50%">
+        <mat-card>
+            <h3 translate>TITLE_RECYCLE</h3>
+        
+            <div class="form-container" id="recycle-form">
+        
+              <div class="confirmation" *ngIf="confirmation && !recycleQuantityControl.dirty">{{
+                confirmation }}
+              </div>
+        
+              <mat-form-field appearance="outline">
+                <mat-label translate>LABEL_REQUESTOR</mat-label>
+                <input [formControl]="requestorControl" type="text" matInput>
+              </mat-form-field>
+        
+              <mat-form-field appearance="outline">
+                <mat-label translate>LABEL_QUANTITY</mat-label>
+                <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate"
+                        matInput>
+                <mat-error *ngIf="recycleQuantityControl.invalid && recycleQuantityControl.errors.required" translate>
+                  MANDATORY_QUANTITY
+                </mat-error>
+                <mat-error
+                  *ngIf="recycleQuantityControl.invalid && (recycleQuantityControl.errors.min || recycleQuantityControl.errors.max)"
+                  translate [translateParams]="{range: '10-1000'}">INVALID_QUANTITY
+                </mat-error>
+              </mat-form-field>
+              
+              <app-address (emitSelection)="getMessage($event)" [addNewAddressDiv]="false" #addressComp></app-address>
+        
+              <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
+                <mat-label translate>LABEL_PICKUP_DATE</mat-label>
+                <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="pickUpDateControl.invalid" translate>INVALID_DATE</mat-error>
+              </mat-form-field>
+        
+              <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">{{'REQUEST_PICKUP' | translate}}
+              </mat-checkbox>
+        
+            </div>
+        
+            <button type="submit" id="recycleButton" [disabled]="addressId === undefined || recycleQuantityControl.invalid || pickUpDateControl.invalid"
+                    mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' |
+              translate}}
+            </button>
+        
+          </mat-card>
     </div>
+    <div fxFlex="50%">
+        <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
 
-    <button type="submit" id="recycleButton" [disabled]="recycleAddressControl.invalid || recycleQuantityControl.invalid || pickUpDateControl.invalid"
-            mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' |
-      translate}}
-    </button>
-
-  </mat-card>
-
-
-  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center" class="responsibility-container">
-
-    <h4 class="responsibility-header" translate>SECTION_PRESS_JUICE_RESPONSIBLY</h4>
-    <mat-card fxLayout="row" fxLayoutGap="20px">
-      <img mat-card-image [src]="topImage">
-      <mat-card-content>
-        <div>
-          <small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-            labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-            rebum.
-          </small>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxLayout="row" fxLayoutGap="20px">
-      <img mat-card-image [src]="bottomImage">
-      <mat-card-content>
-        <div>
-          <small>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
-            sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-            aliquyam erat, sed diam voluptua.
-          </small>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <span class="fill-remaining-space"></span>
-
-  </div>
-
+            <h4 class="responsibility-header" translate>SECTION_PRESS_JUICE_RESPONSIBLY</h4>
+            <mat-card fxLayout="row" fxLayoutGap="20px">
+              <img mat-card-image [src]="topImage">
+              <mat-card-content>
+                <div>
+                  <small>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+                    rebum.
+                  </small>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        
+            <mat-card fxLayout="row" fxLayoutGap="20px">
+              <img mat-card-image [src]="bottomImage">
+              <mat-card-content>
+                <div>
+                  <small>Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor
+                    sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                    aliquyam erat, sed diam voluptua.
+                  </small>
+                </div>
+              </mat-card-content>
+            </mat-card>
+        
+            <span class="fill-remaining-space"></span>
+        
+          </div>
+    </div>
 </div>
