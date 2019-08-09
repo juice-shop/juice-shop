@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { IImage } from 'ng-simple-slideshow'
+import { ConfigurationService } from '../Services/configuration.service'
 
 @Component({
   selector: 'app-photo-wall',
@@ -18,8 +19,9 @@ export class PhotoWallComponent implements OnInit {
     caption: new FormControl('', [Validators.required])
   })
   public slideshowDataSource: IImage[] = []
+  public twitterUrl = null
 
-  constructor (private photoWallService: PhotoWallService) { }
+  constructor (private photoWallService: PhotoWallService, private configurationService: ConfigurationService) { }
 
   ngOnInit () {
     this.slideshowDataSource = []
@@ -31,6 +33,13 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
+      }
+    },(err) => console.log(err))
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      if (config && config.application) {
+        if (config.application.twitterUrl !== null) {
+          this.twitterUrl = config.application.twitterUrl.replace('https://twitter.com/','@')
+        }
       }
     },(err) => console.log(err))
   }

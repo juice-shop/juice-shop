@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { BasketService } from '../Services/basket.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { AddressService } from '../Services/address.service'
+import { ConfigurationService } from '../Services/configuration.service'
 
 export class MockActivatedRoute {
   public paramMap = of(convertToParamMap({
@@ -31,11 +32,14 @@ describe('OrderCompletionComponent', () => {
   let activatedRoute: any
   let basketService: any
   let addressService: any
+  let configurationService: any
 
   beforeEach(async(() => {
 
+    configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     trackOrderService = jasmine.createSpyObj('TrackOrderService', ['save'])
-    trackOrderService.save.and.returnValue(of({ data: [{}] }))
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [] }] }))
     activatedRoute = new MockActivatedRoute()
     addressService = jasmine.createSpyObj('AddressService',['getById'])
     addressService.getById.and.returnValue(of([]))
@@ -60,6 +64,7 @@ describe('OrderCompletionComponent', () => {
         { provide: TrackOrderService, useValue: trackOrderService },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: BasketService, useValue: basketService },
+        { provide: ConfigurationService, useValue: configurationService },
         { provide: AddressService, useValue: addressService }
       ]
     })
@@ -93,6 +98,21 @@ describe('OrderCompletionComponent', () => {
     expect(component.orderDetails.products[0].name).toBe('Apple Juice (1000ml)')
     expect(component.orderDetails.products[1].name).toBe('Apple Pomace')
   })
+
+  it('should use custom twitter URL if configured', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('Purchased twitter')
+  })
+
+  it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngOnInit()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
 
   it('should log error while getting order details from backend API directly to browser console' , fakeAsync(() => {
     trackOrderService.save.and.returnValue(throwError('Error'))
