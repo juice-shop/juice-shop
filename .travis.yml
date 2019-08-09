@@ -75,6 +75,7 @@ jobs:
         - chmod +x ./cc-test-reporter
       script:
         - export NODE_ENV=test
+        - npm test # FIXME Remove when workspaces work as expected
         - npm run frisby
       after_success:
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
@@ -87,7 +88,6 @@ jobs:
       os: linux
       script:
         - export NODE_ENV=test
-        - npm test # FIXME Remove when workspaces work as expected
         - npm run protractor
     - stage: deploy
       if: "(branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request"
