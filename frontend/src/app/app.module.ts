@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing, AdminGuard, LoginGuard, AccountingGuard } from './app.routing'
+import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -121,6 +121,7 @@ import { DeliveryService } from './Services/delivery.service'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { PhotoWallService } from './Services/photo-wall.service'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
+import { AccountingGuard, AdminGuard, LoginGuard, DeluxeGuard } from './app.guard'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -265,12 +266,11 @@ export function HttpLoaderFactory (http: HttpClient) {
     CookieService,
     AdminGuard,
     LoginGuard,
-    ImageCaptchaService,
     PaymentService,
     AccountingGuard,
+    DeluxeGuard,
     ImageCaptchaService,
     AddressService,
-    AccountingGuard,
     QuantityService,
     WalletService,
     OrderHistoryService,

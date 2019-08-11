@@ -4,6 +4,7 @@ import { UserService } from '../Services/user.service'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare,faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import { DeluxeGuard } from '../app.guard'
 
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 dom.watch()
@@ -25,7 +26,7 @@ export class PurchaseBasketComponent implements OnInit {
   public itemTotal = 0
   public error = undefined
   public userEmail: string
-  constructor (private basketService: BasketService, private userService: UserService) { }
+  constructor (private deluxeGuard: DeluxeGuard, private basketService: BasketService, private userService: UserService) { }
 
   ngOnInit () {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
@@ -40,6 +41,11 @@ export class PurchaseBasketComponent implements OnInit {
 
   load () {
     this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
+      if (this.isDeluxe()) {
+        basket.Products.map(product => {
+          product.price = product.deluxePrice
+        })
+      }
       this.dataSource = basket.Products
       this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
       this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
@@ -79,5 +85,9 @@ export class PurchaseBasketComponent implements OnInit {
   sendToParent (count) {
     this.emitTotal.emit([this.itemTotal, this.bonus])
     this.emitProductCount.emit(count)
+  }
+
+  isDeluxe () {
+    return this.deluxeGuard.isDeluxe()
   }
 }

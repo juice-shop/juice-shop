@@ -38,7 +38,7 @@ module.exports = function placeOrder () {
           let totalPrice = 0
           const basketProducts = []
           let totalPoints = 0
-          basket.Products.forEach(({ BasketItem, price, name, id }) => {
+          basket.Products.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
             if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
               utils.solve(challenges.christmasSpecialChallenge)
             }
@@ -70,18 +70,23 @@ module.exports = function placeOrder () {
             }).catch(error => {
               next(error)
             })
-
-            const itemTotal = price * BasketItem.quantity
-            const itemBonus = Math.round(price / 10) * BasketItem.quantity
+            let itemPrice
+            if (insecurity.isDeluxe(req)) {
+              itemPrice = deluxePrice
+            } else {
+              itemPrice = price
+            }
+            const itemTotal = itemPrice * BasketItem.quantity
+            const itemBonus = Math.round(itemPrice / 10) * BasketItem.quantity
             const product = { quantity: BasketItem.quantity,
               id: id,
               name: name,
-              price: price,
+              price: itemPrice,
               total: itemTotal,
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + price + ' = ' + itemTotal + '¤')
+            doc.text(BasketItem.quantity + 'x ' + name + ' ea. ' + itemPrice + ' = ' + itemTotal + '¤')
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
