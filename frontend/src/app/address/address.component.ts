@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, AfterViewInit } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
@@ -16,6 +16,7 @@ export class AddressComponent implements OnInit {
 
   @Output() emitSelection = new EventEmitter()
   @Input('allowEdit') public allowEdit: Boolean = false
+  @Input('addNewAddressDiv') public addNewAddressDiv: Boolean = true
   public displayedColumns = ['Name', 'Address', 'Country']
   public storedAddresses: any[]
   public dataSource
