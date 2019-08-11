@@ -15,6 +15,7 @@ module.exports = (sequelize, { STRING, DECIMAL }) => {
       }
     },
     price: DECIMAL,
+    deluxePrice: DECIMAL,
     image: STRING
   }, { paranoid: true })
 

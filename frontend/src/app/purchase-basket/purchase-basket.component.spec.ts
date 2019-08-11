@@ -13,12 +13,14 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { UserService } from '../Services/user.service'
+import { DeluxeGuard } from '../app.guard'
 
 describe('PurchaseBasketComponent', () => {
   let component: PurchaseBasketComponent
   let fixture: ComponentFixture<PurchaseBasketComponent>
   let basketService
   let userService
+  let deluxeGuard
 
   beforeEach(async(() => {
 
@@ -29,6 +31,8 @@ describe('PurchaseBasketComponent', () => {
     basketService.put.and.returnValue(of({}))
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
+    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard.isDeluxe.and.returnValue(false)
 
     TestBed.configureTestingModule({
       declarations: [ PurchaseBasketComponent ],
@@ -45,7 +49,8 @@ describe('PurchaseBasketComponent', () => {
       ],
       providers: [
         { provide: BasketService, useValue: basketService },
-        { provide: UserService , useValue: userService }
+        { provide: UserService , useValue: userService },
+        { provide: DeluxeGuard, useValue: deluxeGuard }
       ]
     })
     .compileComponents()
@@ -75,7 +80,7 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   it('should hold products returned by backend API', () => {
-    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, BasketItem: { quantity: 2 } }] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, deluxePrice: 2, BasketItem: { quantity: 2 } }] }))
     component.load()
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
@@ -84,6 +89,24 @@ describe('PurchaseBasketComponent', () => {
     expect(component.dataSource[1].name).toBe('Product2')
     expect(component.dataSource[1].price).toBe(2)
     expect(component.dataSource[1].BasketItem.quantity).toBe(2)
+  })
+
+  it('should have price equal to deluxePrice for deluxe users', () => {
+    deluxeGuard.isDeluxe.and.returnValue(true)
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 2, deluxePrice: 1, BasketItem: { quantity: 1 } }] }))
+    component.load()
+    expect(component.dataSource.length).toBe(1)
+    expect(component.dataSource[0].name).toBe('Product1')
+    expect(component.dataSource[0].price).toBe(1)
+  })
+
+  it('should have price different from deluxePrice for non-deluxe users', () => {
+    deluxeGuard.isDeluxe.and.returnValue(false)
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 2, deluxePrice: 1, BasketItem: { quantity: 1 } }] }))
+    component.load()
+    expect(component.dataSource.length).toBe(1)
+    expect(component.dataSource[0].name).toBe('Product1')
+    expect(component.dataSource[0].price).toBe(2)
   })
 
   it('should hold no products on error in backend API', fakeAsync(() => {
@@ -111,7 +134,7 @@ describe('PurchaseBasketComponent', () => {
   })
 
   it('should load again after deleting a basket item' , () => {
-    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, BasketItem: { quantity: 2 } }] }))
+    basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, deluxePrice: 2, BasketItem: { quantity: 2 } }] }))
     component.delete(1)
     expect(component.dataSource.length).toBe(2)
     expect(component.dataSource[0].name).toBe('Product1')
@@ -130,7 +153,7 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   it('should update basket item with increased quantity after adding another item of same type' , () => {
-    basketService.find.and.returnValue(of({ Products: [ { name: 'Product1', price: 1, BasketItem: { id: 1, quantity: 1 } } ] }))
+    basketService.find.and.returnValue(of({ Products: [ { name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { id: 1, quantity: 1 } } ] }))
     basketService.get.and.returnValue(of({ id: 1, quantity: 1 }))
     component.inc(1)
     expect(basketService.get).toHaveBeenCalledWith(1)

