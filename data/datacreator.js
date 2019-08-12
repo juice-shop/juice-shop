@@ -218,8 +218,8 @@ function createQuantity () {
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
-    // set default price values
     product.price = product.price || Math.floor(Math.random())
+    product.deluxePrice = product.deluxePrice || product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
     // set default image values

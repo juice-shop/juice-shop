@@ -25,8 +25,6 @@ import {
 } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
-import { Injectable } from '@angular/core'
-import * as jwt_decode from 'jwt-decode'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
@@ -38,7 +36,6 @@ import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { PaymentComponent } from './payment/payment.component'
 import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
 import { AccountingComponent } from './accounting/accounting.component'
-import { roles } from './roles'
 import { OrderCompletionComponent } from './order-completion/order-completion.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component'
 import { WalletComponent } from './wallet/wallet.component'
@@ -46,6 +43,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
+import { AdminGuard, AccountingGuard, LoginGuard } from './app.guard'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -61,73 +59,6 @@ export function token2 (...args: number[]) {
   return T.reverse().map(function (m, H) {
     return String.fromCharCode(m - M - 24 - H)
   }).join('')
-}
-
-@Injectable()
-export class AdminGuard implements CanActivate {
-  constructor (private router: Router) {}
-
-  forbidRoute () {
-    this.router.navigate(['403'], {
-      skipLocationChange: true,
-      queryParams: {
-        error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
-      }
-    })
-  }
-
-  tokenDecode () {
-    let payload: any = null
-    const token = localStorage.getItem('token')
-    if (token) {
-      payload = jwt_decode(token)
-    }
-    return payload
-  }
-
-  canActivate () {
-    let payload = this.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.admin) {
-      return true
-    } else {
-      this.forbidRoute()
-      return false
-    }
-  }
-}
-
-@Injectable()
-export class AccountingGuard implements CanActivate {
-  constructor (private router: Router, private adminGuard: AdminGuard) {}
-
-  canActivate () {
-    let payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
-      return true
-    } else {
-      this.adminGuard.forbidRoute()
-      return false
-    }
-  }
-}
-
-@Injectable()
-export class LoginGuard implements CanActivate {
-  constructor (private router: Router) {}
-
-  canActivate () {
-    if (localStorage.getItem('token')) {
-      return true
-    } else {
-      this.router.navigate(['403'], {
-        skipLocationChange: true,
-        queryParams: {
-          error: 'UNAUTHORIZED_ACCESS_ERROR'
-        }
-      })
-      return false
-    }
-  }
 }
 
 const routes: Routes = [

@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
+import { DeluxeGuard } from '../app.guard'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -53,6 +54,7 @@ describe('SearchResultComponent', () => {
   let socketIoService: any
   let mockSocket: any
   let quantityService
+  let deluxeGuard
 
   beforeEach(async(() => {
 
@@ -80,6 +82,8 @@ describe('SearchResultComponent', () => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
+    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
       declarations: [ SearchResultComponent ],
@@ -103,7 +107,8 @@ describe('SearchResultComponent', () => {
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: SocketIoService, useValue: socketIoService },
-        { provide: QuantityService, useValue: quantityService }
+        { provide: QuantityService, useValue: quantityService },
+        { provide: DeluxeGuard, useValue: deluxeGuard }
       ]
     })
     .compileComponents()

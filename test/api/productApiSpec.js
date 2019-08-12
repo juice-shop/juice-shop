@@ -27,6 +27,7 @@ describe('/api/Products', () => {
         name: Joi.string(),
         description: Joi.string(),
         price: Joi.number(),
+        deluxePrice: Joi.number(),
         image: Joi.string()
       })
   })
@@ -66,6 +67,7 @@ describe('/api/Products/:id', () => {
         name: Joi.string(),
         description: Joi.string(),
         price: Joi.number(),
+        deluxePrice: Joi.number(),
         image: Joi.string(),
         createdAt: Joi.string(),
         updatedAt: Joi.string()

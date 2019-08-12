@@ -29,7 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
-import { AdminGuard } from '../app.routing'
+import { AdminGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 
 class MockSocket {
