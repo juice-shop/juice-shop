@@ -32,7 +32,7 @@ import {
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { AdminGuard } from '../app.routing'
+import { AdminGuard } from '../app.guard'
 import { roles } from '../roles'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)

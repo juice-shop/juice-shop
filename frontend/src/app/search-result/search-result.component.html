@@ -33,7 +33,8 @@
                   {{item.name}}
                 </div>
                 <div class="item-price">
-                  {{item.price}}&curren;
+                  <span *ngIf="!isDeluxe() || item.price === item.deluxePrice">{{item.price}}&curren;</span>
+                  <span *ngIf="isDeluxe() && item.price !== item.deluxePrice"><s>{{item.price}}</s> {{ item.deluxePrice }}&curren;</span>
                 </div>
               </div>
             </div>

@@ -15,6 +15,7 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import { Product } from '../Models/product.model'
 import { QuantityService } from '../Services/quantity.service'
+import { DeluxeGuard } from '../app.guard'
 
 library.add(faEye, faCartPlus)
 dom.watch()
@@ -22,6 +23,7 @@ dom.watch()
 interface TableEntry {
   name: string
   price: number
+  deluxePrice: number
   id: number
   image: string
   description: string
@@ -48,7 +50,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public breakpoint: number = 6
   public emptyState = false
 
-  constructor (private dialog: MatDialog, private productService: ProductService, private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
+  constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService, private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
   ngAfterViewInit () {
     const products = this.productService.search('')
@@ -61,6 +63,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
         dataTable.push({
           name: product.name,
           price: product.price,
+          deluxePrice: product.deluxePrice,
           id: product.id,
           image: product.image,
           description: product.description
@@ -216,5 +219,9 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     } else {
       this.breakpoint = 6
     }
+  }
+
+  isDeluxe () {
+    return this.deluxeGuard.isDeluxe()
   }
 }
