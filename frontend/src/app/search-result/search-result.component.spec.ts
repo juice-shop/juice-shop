@@ -21,6 +21,8 @@ import { EventEmitter } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { Product } from '../Models/product.model'
+import { QuantityService } from '../Services/quantity.service'
+import { DeluxeGuard } from '../app.guard'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -51,11 +53,15 @@ describe('SearchResultComponent', () => {
   let sanitizer: any
   let socketIoService: any
   let mockSocket: any
+  let quantityService
+  let deluxeGuard
 
   beforeEach(async(() => {
 
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
+    quantityService = jasmine.createSpyObj('QuantityService', ['getAll'])
+    quantityService.getAll.and.returnValue(of([]))
     productService = jasmine.createSpyObj('ProductService', ['search','get'])
     productService.search.and.returnValue(of([]))
     productService.get.and.returnValue(of({}))
@@ -76,6 +82,8 @@ describe('SearchResultComponent', () => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
+    deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
+    deluxeGuard.isDeluxe.and.returnValue(of(false))
 
     TestBed.configureTestingModule({
       declarations: [ SearchResultComponent ],
@@ -98,7 +106,9 @@ describe('SearchResultComponent', () => {
         { provide: ProductService, useValue: productService },
         { provide: DomSanitizer, useValue: sanitizer },
         { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: SocketIoService, useValue: socketIoService }
+        { provide: SocketIoService, useValue: socketIoService },
+        { provide: QuantityService, useValue: quantityService },
+        { provide: DeluxeGuard, useValue: deluxeGuard }
       ]
     })
     .compileComponents()
@@ -131,6 +141,21 @@ describe('SearchResultComponent', () => {
 
   it('should log error from product search API call directly to browser console', fakeAsync(() => {
     productService.search.and.returnValue(throwError('Error'))
+    console.log = jasmine.createSpy('log')
+    component.ngAfterViewInit()
+    fixture.detectChanges()
+    expect(console.log).toHaveBeenCalledWith('Error')
+  }))
+
+  it('should hold no products when quantity getAll API call fails', () => {
+    quantityService.getAll.and.returnValue(throwError('Error'))
+    component.ngAfterViewInit()
+    fixture.detectChanges()
+    expect(component.tableData).toEqual([])
+  })
+
+  it('should log error from quantity getAll API call directly to browser console', fakeAsync(() => {
+    quantityService.getAll.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngAfterViewInit()
     fixture.detectChanges()

@@ -4,7 +4,7 @@ import { ProductService } from '../Services/product.service'
 import { BasketService } from '../Services/basket.service'
 import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
-import { Subscription } from 'rxjs'
+import { Subscription, forkJoin } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
@@ -14,9 +14,21 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import { Product } from '../Models/product.model'
+import { QuantityService } from '../Services/quantity.service'
+import { DeluxeGuard } from '../app.guard'
 
 library.add(faEye, faCartPlus)
 dom.watch()
+
+interface TableEntry {
+  name: string
+  price: number
+  deluxePrice: number
+  id: number
+  image: string
+  description: string
+  quantity?: number
+}
 
 @Component({
   selector: 'app-search-result',
@@ -27,24 +39,46 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]
-  public dataSource!: MatTableDataSource<Element>
+  public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
   public confirmation?: string
+  public error = undefined
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private productSubscription?: Subscription
   private routerSubscription?: Subscription
   public breakpoint: number = 6
   public emptyState = false
 
-  constructor (private dialog: MatDialog, private productService: ProductService,private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
+  constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService, private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
 
   ngAfterViewInit () {
-
-    this.productSubscription = this.productService.search('').subscribe((tableData: any) => {
-      this.tableData = tableData
-      this.trustProductDescription(this.tableData)
-      this.dataSource = new MatTableDataSource<Element>(this.tableData)
+    const products = this.productService.search('')
+    const quantities = this.quantityService.getAll()
+    forkJoin(quantities, products).subscribe(([quantities, products]) => {
+      let dataTable: TableEntry[] = []
+      this.tableData = products
+      this.trustProductDescription(products)
+      for (const product of products) {
+        dataTable.push({
+          name: product.name,
+          price: product.price,
+          deluxePrice: product.deluxePrice,
+          id: product.id,
+          image: product.image,
+          description: product.description
+        })
+      }
+      for (const quantity of quantities) {
+        const entry = dataTable.find((dataTableEntry) => {
+          return dataTableEntry.id === quantity.ProductId
+        })
+        if (entry === undefined) {
+          continue
+        }
+        entry.quantity = quantity.quantity
+      }
+      this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
       this.dataSource.paginator = this.paginator
       this.gridDataSource = this.dataSource.connect()
       this.filterTable()
@@ -116,6 +150,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   }
 
   addToBasket (id?: number) {
+    this.error = null
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
@@ -132,7 +167,11 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
                   this.confirmation = translationId
                 })
               }, (err) => console.log(err))
-            },(err) => console.log(err))
+            },(err) => {
+              this.confirmation = undefined
+              this.error = err.error
+              console.log(err)
+            })
           }, (err) => console.log(err))
           break
         }
@@ -146,7 +185,11 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
               this.confirmation = translationId
             })
           }, (err) => console.log(err))
-        }, (err) => console.log(err))
+        }, (err) => {
+          this.confirmation = undefined
+          this.error = err.error
+          console.log(err)
+        })
       }
     }, (err) => console.log(err))
   }
@@ -176,5 +219,9 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     } else {
       this.breakpoint = 6
     }
+  }
+
+  isDeluxe () {
+    return this.deluxeGuard.isDeluxe()
   }
 }

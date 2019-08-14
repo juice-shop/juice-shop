@@ -4,6 +4,8 @@ application:
   domain: juice-sh.op
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
+  deluxePage:
+    deluxeDeliveryImage: 'delivery_juiceshop.png'
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
   showChallengeSolvedNotifications: true
@@ -51,6 +53,7 @@ products:
   -
     name: 'Apple Juice (1000ml)'
     price: 1.99
+    deluxePrice: 0.99
     description: 'The all-time classic.'
     image: apple_juice.jpg
     reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
@@ -59,6 +62,7 @@ products:
     name: 'Orange Juice (1000ml)'
     description: 'Made from oranges hand-picked by Uncle Dittmeyer.'
     price: 2.99
+    deluxePrice: 2.49
     image: orange_juice.jpg
   -
     name: 'Eggfruit Juice (500ml)'
@@ -76,6 +80,7 @@ products:
     name: 'Lemon Juice (500ml)'
     description: 'Sour but full of vitamins.'
     price: 2.99
+    deluxePrice: 1.99
     image: lemon_juice.jpg
   -
     name: 'Banana Juice (1000ml)'
@@ -161,6 +166,7 @@ products:
     name: 'OWASP Juice Shop-CTF Velcro Patch'
     description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
     price: 2.92
+    quantity: 5
     image: velcro-patch.jpg
     reviews:
       - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
@@ -202,6 +208,7 @@ products:
     name: 'Juice Shop Artwork'
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
+    quantity: 1
     image: artwork.jpg
   -
     name: 'Global OWASP WASPY Award 2017 Nomnation'
@@ -236,11 +243,13 @@ products:
     name: 'Melon Bike (Comeback-Product 2018 Edition)'
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
+    quantity: 3
     image: melon_bike.jpeg
   -
     name: 'OWASP Juice Shop Coaster (10pcs)'
     description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
     price: 19.99
+    quantity: 0
     image: coaster.png
 ctf:
   showFlagsInNotifications: false

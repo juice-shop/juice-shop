@@ -1,0 +1,103 @@
+<div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column" fxLayoutGap.lt-md="0px" class="main-wrapper">
+    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
+        <app-payment-method (emitSelection)="getMessage($event)" [allowDelete]="false"></app-payment-method>
+        <mat-card class="mat-elevation-z6 custom-card" *ngIf="mode !== 'wallet'">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <div  fxFlex="40%">
+                    <span translate class="card-title">LABEL_PAY_USING_WALLET</span>
+                </div>
+                <div fxFlex="30%">
+                        <b>
+                            <span translate>LABEL_WALLET_BALANCE</span>
+                            <span class="confirmation"> {{ walletBalanceStr }}</span>
+                        </b>
+                </div>
+                <div fxFlex="30%">
+                    <button type="submit" color="primary" mat-raised-button class="btn btn-new-address"  *ngIf="(totalPrice - walletBalance) <= 0" (click)="useWallet()"><span>{{'LABEL_PAY' | translate}}</span> {{ totalPrice?.toFixed(2)  }}</button>
+                    <button type="submit" color="primary" mat-raised-button class="btn btn-new-address" *ngIf="(totalPrice - walletBalance) > 0" (click)="addMoneyToWallet()"><span>{{'LABEL_ADD' | translate}}</span> {{ (totalPrice - walletBalance)?.toFixed(2) }}</button>
+                </div>
+            </div>
+        </mat-card>
+        <mat-expansion-panel [expanded]="couponPanelExpanded" class="mat-elevation-z6" id="collapseCouponElement">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{"ADD_A_COUPON" | translate}}
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{"VOUCHERS_AND_PROMOTIONAL_CODE" | translate}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngIf="couponConfirmation && !couponControl.dirty" style="margin-top:5px;" class="confirmation">{{ couponConfirmation }}</div>
+            <div *ngIf="couponError && !couponControl.dirty" style="margin-top:5px;" class="error">{{couponError?.error}}</div>
+            <mat-form-field style="margin-top: 15px;">
+                <label><small [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}"></small></label>
+                <input id="coupon" [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
+                <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">Coupon code must be 10 characters long.</mat-error>
+            </mat-form-field>
+            <button type="submit" id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> {{'BTN_REDEEM' | translate}}</button>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="paymentPanelExpanded" class="mat-elevation-z6">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{"OTHER_PAYMENT_OPTIONS" | translate}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="payment-label">
+                <label translate>LABEL_PAYMENT</label>
+                <small style="margin-left: 10px;">
+                (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
+                <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
+                <i style="margin-left: 3px;" class="fas fa-heart"></i>)
+                </small>
+            </div>
+            <div class="button-container">
+                <form ngNoForm action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+                    <div>
+                        <input type="hidden" name="cmd" value="_donations">
+                        <input type="hidden" name="business" value="paypal@owasp.org">
+                        <input type="hidden" name="lc" value="BM">
+                        <input type="hidden" name="item_name" value="OWASP Juice Shop Project">
+                        <input type="hidden" name="item_number" value="OWASP Foundation">
+                        <input type="hidden" name="no_note" value="0">
+                        <input type="hidden" name="currency_code" value="EUR">
+                        <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
+                        <button type="submit" name="submit" mat-raised-button><i class="fab fa-paypal fa-lg"></i> PayPal</button>
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
+                    </div>
+                </form>
+                <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step">
+                <button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button>
+                </a>
+                <button mat-raised-button (click)="showBitcoinQrCode()" *ngIf="false"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+                <button mat-raised-button (click)="showDashQrCode()" *ngIf="false"><i class="fa-lg">Ð</i> Dash</button>
+                <button mat-raised-button (click)="showEtherQrCode()" *ngIf="false"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+            </div>
+            <div class="payment-label">
+                <label translate>LABEL_MERCHANDISE</label>
+                <small style="margin-left: 10px;">
+                (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
+                <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
+                <i style="margin-left: 3px;" class="fas fa-thumbs-up"></i>)
+                </small>
+            </div>
+            <div class="button-container">
+                <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button></a>
+                <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button></a>
+                <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button></a>
+                <a href="/redirect?to=http://leanpub.com/juice-shop"><button mat-raised-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button></a>
+            </div>
+        </mat-expansion-panel>
+    </div>
+    <div fxFlex="30%">
+        <mat-card class="mat-elevation-z6">
+             <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Proceed to review" [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
+            <span translate>LABEL_CONTINUE</span>
+            </button>
+            <p style="text-align: center;padding-top: 10px;">
+                <span translate  *ngIf="mode !== 'deluxe' && mode !== 'wallet'">REVIEW_ALERT</span>
+                <span translate *ngIf="mode === 'deluxe'">REVIEW_DELUXE</span>
+                <span translate *ngIf="mode === 'wallet'">REVIEW_WALLET</span>
+            </p>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+.heading {
+	background: rgba(0,0,0,.2);
+	justify-content: center;
+	padding: 12px 20px;
+	font-size: x-large;
+}
+
+.img-thumbnail {
+    height: auto;
+    max-width: 70%;
+    width: 70px;
+}
+
+mat-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+mat-header-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+mat-footer-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mat-footer-cell {
+    font-weight: bold;
+}
+
+.content-align {
+    display: flex;
+    justify-content: center;
+}

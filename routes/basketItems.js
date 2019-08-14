@@ -3,7 +3,7 @@ const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
 
-module.exports = function addBasketItem () {
+module.exports.addBasketItem = function addBasketItem () {
   return (req, res, next) => {
     var result = utils.parseJsonCustom(req.rawBody)
     var productIds = []
@@ -47,5 +47,43 @@ module.exports = function addBasketItem () {
         next(error)
       })
     }
+  }
+}
+
+module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBeforeBasketItemAddition () {
+  return (req, res, next) => {
+    quantityCheck(req, res, next, req.body.ProductId, req.body.quantity)
+  }
+}
+
+module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
+  return (req, res, next) => {
+    models.BasketItem.findOne({ where: { id: req.params.id } }).then((item) => {
+      if (req.body.quantity) {
+        quantityCheck(req, res, next, item.ProductId, req.body.quantity)
+      } else {
+        next()
+      }
+    }).catch(error => {
+      next(error)
+    })
+  }
+}
+
+async function quantityCheck (req, res, next, id, quantity) {
+  const record = await models.PurchaseQuantity.findOne({ where: { ProductId: id, UserId: req.body.UserId } })
+
+  const previousPurchase = record ? record.quantity : 0
+
+  const product = await models.Quantity.findOne({ where: { ProductId: id } })
+
+  if (!product.limitPerUser || (product.limitPerUser && (product.limitPerUser - previousPurchase) >= quantity) || insecurity.isDeluxe(req)) {
+    if (product.quantity >= quantity) {
+      next()
+    } else {
+      res.status(400).json({ error: 'We are out of stock! Sorry for the inconvenience.' })
+    }
+  } else {
+    res.status(400).json({ error: 'You can order only up to ' + product.limitPerUser + ' items of this product.' })
   }
 }

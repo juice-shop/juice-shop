@@ -1,0 +1,33 @@
+.heading {
+	background: rgba(0,0,0,.2);
+	font-size: x-large;
+}
+
+.heading-text {
+	justify-content: center;
+	padding: 12px 20px;
+}
+
+mat-card {
+	height: auto;
+}
+
+.main-wrapper {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+mat-cell, 
+mat-footer-cell,
+mat-header-cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.price-align {
+	text-align: right;
+}
+
+.tweet-logo {
+	height: 24px;
+}

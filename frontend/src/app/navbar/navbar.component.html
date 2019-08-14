@@ -43,8 +43,47 @@
           {{userEmail}}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu"
-              aria-label="Show Privacy and Security Menu">
+      <button *ngIf="isLoggedIn() && isAccounting()" mat-menu-item routerLink="/accounting" aria-label="Go to accounting page">
+        <mat-icon>
+          account_balance
+        </mat-icon>
+        <span>
+          {{"ACCOUNTING" | translate}}
+        </span>
+      </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/address/saved" aria-label="Go to saved address page">
+        <mat-icon>
+          my_location
+        </mat-icon>
+        <span>
+          {{"MY_SAVED_ADRESSES" | translate}}
+        </span>
+      </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/saved-payment-methods" aria-label="Go to saved payment methods page">
+        <mat-icon>
+          credit_card
+        </mat-icon>
+        <span>
+          {{"MY_PAYMENT_OPTIONS" | translate}}
+        </span>
+      </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/wallet" aria-label="Go to wallet page">
+        <mat-icon>
+            account_balance_wallet
+        </mat-icon>
+        <span>
+          {{"JUICE_SHOP_WALLET" | translate}}
+        </span>
+      </button>
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/order-history" aria-label="Go to order history page">
+        <mat-icon>
+          check_circle_outline
+        </mat-icon>
+        <span>
+          {{"LABEL_ORDER_HISTORY" | translate}}
+        </span>
+      </button>
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="subMenu" aria-label="Show Privacy and Security Menu">
         <mat-icon>
           https
         </mat-icon>

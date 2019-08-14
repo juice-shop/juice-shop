@@ -25,13 +25,25 @@ import {
 } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
-import { Injectable } from '@angular/core'
-import * as jwt_decode from 'jwt-decode'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
+import { PaymentComponent } from './payment/payment.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
+import { AccountingComponent } from './accounting/accounting.component'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
+import { OrderSummaryComponent } from './order-summary/order-summary.component'
+import { WalletComponent } from './wallet/wallet.component'
+import { OrderHistoryComponent } from './order-history/order-history.component'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
+import { PhotoWallComponent } from './photo-wall/photo-wall.component'
+import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
+import { AdminGuard, AccountingGuard, LoginGuard } from './app.guard'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)
@@ -49,30 +61,6 @@ export function token2 (...args: number[]) {
   }).join('')
 }
 
-@Injectable()
-export class AdminGuard implements CanActivate {
-  constructor (private router: Router) {}
-
-  canActivate () {
-    let payload: any
-    const token = localStorage.getItem('token')
-    if (token) {
-      payload = jwt_decode(token)
-    }
-    if (payload && payload.data && payload.data.isAdmin) {
-      return true
-    } else {
-      this.router.navigate(['403'], {
-        skipLocationChange: true,
-        queryParams: {
-          error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
-        }
-      })
-      return false
-    }
-  }
-}
-
 const routes: Routes = [
   {
     path: 'administration',
@@ -80,20 +68,82 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
+    path: 'accounting',
+    component: AccountingComponent,
+    canActivate: [AccountingGuard]
+  },
+  {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'address/select',
+    component: AddressSelectComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/saved',
+    component: SavedAddressComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/create',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'address/edit/:addressId',
+    component: AddressCreateComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'delivery-method',
+    component: DeliveryMethodComponent
+  },
+  {
+    path: 'deluxe-membership',
+    component: DeluxeUserComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'saved-payment-methods',
+    component: SavedPaymentMethodsComponent
   },
   {
     path: 'basket',
     component: BasketComponent
   },
   {
+    path: 'order-completion/:id',
+    component: OrderCompletionComponent
+  },
+  {
     path: 'contact',
     component: ContactComponent
   },
   {
+    path: 'photo-wall',
+    component: PhotoWallComponent
+  },
+  {
     path: 'complain',
     component: ComplaintComponent
+  },
+  {
+    path: 'order-summary',
+    component: OrderSummaryComponent
+  },
+  {
+    path: 'order-history',
+    component: OrderHistoryComponent
+  },
+  {
+    path: 'payment/:entity',
+    component: PaymentComponent
+  },
+  {
+    path: 'wallet',
+    component: WalletComponent
   },
   {
     path: 'login',
@@ -126,6 +176,13 @@ const routes: Routes = [
   {
     path: 'track-result',
     component: TrackResultComponent
+  },
+  {
+    path: 'track-result/new',
+    component: TrackResultComponent,
+    data: {
+      type: 'new'
+    }
   },
   {
     path: '2fa/enter',
