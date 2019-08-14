@@ -32,9 +32,12 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
         this.setDataValue('password', insecurity.hash(clearTextPassword))
       }
     },
-    isAdmin: {
-      type: BOOLEAN,
-      defaultValue: false
+    role: {
+      type: STRING,
+      defaultValue: 'customer',
+      validate: {
+        isIn: [['customer', 'deluxe', 'accounting', 'admin']]
+      }
     },
     lastLoginIp: {
       type: STRING,

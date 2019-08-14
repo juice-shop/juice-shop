@@ -1,0 +1,112 @@
+<div fxLayout="row" fxLayoutGap="20px" class="main-wrapper">
+    <div fxFlex="50%">
+        <div class="table-container custom-slate mat-elevation-z6">
+      
+          <div class="heading">
+            <div>{{"TITLE_TRACK_ORDERS" | translate}}</div>
+          </div>
+      
+          <mat-table [dataSource]="orderSource">
+            <ng-container matColumnDef="OrderId">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_ORDER_ID" fxFlex="50%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.orderId }}</mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="Price">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="15%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.totalPrice?.toFixed(2) }}&curren;</mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="Status">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_STATUS" fxFlex="20%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="20%"> 
+                <div *ngIf="!element.delivered" class="error" translate>LABEL_IN_TRANSIT</div>
+                <div *ngIf="element.delivered" class="confirmation" translate>LABEL_DELIVERED</div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="StatusButton">
+                <mat-header-cell *matHeaderCellDef fxFlex="15%"></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxFlex="15%"> 
+                  <button *ngIf="element.delivered" mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'LABEL_MARK_AS_TRANSIT' | translate }}" matTooltipPosition="below" (click)= "changeDeliveryStatus(element.delivered, element.id)">
+                    <mat-icon>
+                      cached
+                    </mat-icon>
+                  </button>
+                  <button *ngIf="!element.delivered" mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'LABEL_MARK_AS_DELIVERED' | translate }}" matTooltipPosition="below" (click)= "changeDeliveryStatus(element.delivered, element.id)">
+                    <mat-icon>
+                      check_circle
+                    </mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+
+            <mat-header-row *matHeaderRowDef="orderHistoryColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: orderHistoryColumns;"></mat-row>
+      
+          </mat-table>
+      
+          <mat-divider></mat-divider>
+      
+          <mat-paginator class="mat-elevation-z6"
+                         #paginatorOrderHistory
+                         [pageSize]="10"
+                         [pageSizeOptions]="[10, 20, 30]">
+          </mat-paginator>
+        </div>
+      </div>
+
+    <div fxFlex="50%">
+        <div class="table-container custom-slate mat-elevation-z6">
+      
+          <div class="heading">
+            <div>{{"TITLE_ALL_PRODUCTS" | translate}}</div>
+            <div *ngIf="confirmation" style="margin-top:5px;">
+              <p class="confirmation">{{ confirmation }}</p>
+            </div>
+            <div *ngIf="error" style="margin-top:5px;">
+              <p class="error">{{error?.error}}</p>
+            </div>
+          </div>
+      
+          <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="Product">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_PRODUCT" fxFlex="50%" fxFlex.lt-md="50%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="50%" fxFlex.lt-md="50%"> {{element.name}}</mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="Price">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+                <mat-form-field class="input-field">
+                  <input #price matInput type="number" value="{{ element.price }}">
+                  <button mat-icon-button (click)="modifyPrice(element.id, price.value)" matSuffix><i class="fas fa-check"></i></button>
+                </mat-form-field>
+              </mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="Quantity">
+              <mat-header-cell *matHeaderCellDef translate="LABEL_QUANTITY" fxFlex="25%" fxFlex.lt-md="25%"></mat-header-cell>
+              <mat-cell *matCellDef="let element" fxFlex="25%" fxFlex.lt-md="25%">
+                <mat-form-field class="input-field">
+                  <input #quanitity matInput type="number" value="{{ quantityMap[element.id].quantity }}">
+                  <button mat-icon-button (click)="modifyQuantity(quantityMap[element.id].id, quanitity.value)" matSuffix><i class="fas fa-check"></i></button>
+                </mat-form-field>
+              </mat-cell>
+            </ng-container>
+      
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      
+          </mat-table>
+      
+          <mat-divider></mat-divider>
+      
+          <mat-paginator class="mat-elevation-z6"
+                         #paginator
+                         [pageSize]="10"
+                         [pageSizeOptions]="[10, 20, 30]">
+          </mat-paginator>
+        </div>
+      </div>      
+</div>

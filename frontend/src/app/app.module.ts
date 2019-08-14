@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { ReactiveFormsModule } from '@angular/forms'
-import { Routing, AdminGuard } from './app.routing'
+import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -64,6 +64,8 @@ import { BasketService } from './Services/basket.service'
 import { ChallengeService } from './Services/challenge.service'
 import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
+import { AddressService } from './Services/address.service'
+import { QuantityService } from './Services/quantity.service'
 /* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -97,7 +99,29 @@ import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.compon
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
+import { AddressCreateComponent } from './address-create/address-create.component'
+import { AddressSelectComponent } from './address-select/address-select.component'
+import { PaymentService } from './Services/payment.service'
+import { PaymentComponent } from './payment/payment.component'
+import { PaymentMethodComponent } from './payment-method/payment-method.component'
+import { SavedPaymentMethodsComponent } from './saved-payment-methods/saved-payment-methods.component'
+import { AccountingComponent } from './accounting/accounting.component'
+import { OrderSummaryComponent } from './order-summary/order-summary.component'
+import { PurchaseBasketComponent } from './purchase-basket/purchase-basket.component'
+import { AddressComponent } from './address/address.component'
+import { SavedAddressComponent } from './saved-address/saved-address.component'
 import { ChallengeStatusBadgeComponent } from './challenge-status-badge/challenge-status-badge.component'
+import { OrderCompletionComponent } from './order-completion/order-completion.component'
+import { WalletComponent } from './wallet/wallet.component'
+import { WalletService } from './Services/wallet.service'
+import { OrderHistoryComponent } from './order-history/order-history.component'
+import { OrderHistoryService } from './Services/order-history.service'
+import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
+import { DeliveryService } from './Services/delivery.service'
+import { PhotoWallComponent } from './photo-wall/photo-wall.component'
+import { PhotoWallService } from './Services/photo-wall.service'
+import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
+import { AccountingGuard, AdminGuard, LoginGuard, DeluxeGuard } from './app.guard'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
@@ -140,7 +164,24 @@ export function HttpLoaderFactory (http: HttpClient) {
     DataExportComponent,
     LastLoginIpComponent,
     PrivacyPolicyComponent,
-    ChallengeStatusBadgeComponent
+    OrderCompletionComponent,
+    AddressCreateComponent,
+    AddressSelectComponent,
+    AddressComponent,
+    SavedAddressComponent,
+    PaymentComponent,
+    PaymentMethodComponent,
+    SavedPaymentMethodsComponent,
+    AccountingComponent,
+    OrderSummaryComponent,
+    PurchaseBasketComponent,
+    PrivacyPolicyComponent,
+    ChallengeStatusBadgeComponent,
+    WalletComponent,
+    OrderHistoryComponent,
+    DeliveryMethodComponent,
+    PhotoWallComponent,
+    DeluxeUserComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -224,7 +265,17 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChallengeService,
     CookieService,
     AdminGuard,
-    ImageCaptchaService
+    LoginGuard,
+    PaymentService,
+    AccountingGuard,
+    DeluxeGuard,
+    ImageCaptchaService,
+    AddressService,
+    QuantityService,
+    WalletService,
+    OrderHistoryService,
+    DeliveryService,
+    PhotoWallService
   ],
   bootstrap: [AppComponent]
 })

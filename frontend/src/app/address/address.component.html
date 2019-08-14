@@ -1,0 +1,65 @@
+<div class="custom-slate">
+   <div [class.mat-elevation-z6]="addNewAddressDiv" [class.div-boundary]="!addNewAddressDiv">
+      <div class="heading">
+         <div>
+            <span class="heading-text" [class.font-class]="!addNewAddressDiv">{{"TITLE_SELECT_ADDRESS" | translate}}</span>
+            <span fxFlex></span>
+               <button mat-icon-button  aria-label="Add a new address" routerLink="/address/create" matTooltip="{{ 'ADD_NEW_ADDRESS' | translate }}" matTooltipPosition="below" *ngIf="!addNewAddressDiv">
+                  <mat-icon>
+                     add
+                  </mat-icon>
+               </button>
+         </div>
+         <div *ngIf="confirmation" style="margin-top:5px;">
+            <p class="confirmation">{{ confirmation }}</p>
+         </div>
+         <div *ngIf="error" style="margin-top:5px;">
+            <p class="error">{{error?.error}}</p>
+         </div>
+      </div>
+
+      <mat-table [dataSource]="dataSource" *ngIf="addressExist">
+         <ng-container matColumnDef="Selection">
+               <mat-header-cell *matHeaderCellDef fxFlex="20%"></mat-header-cell>
+               <mat-cell *matCellDef="let element" fxFlex="20%">
+                  <mat-radio-button (click)="emitSelectionToParent(element.id)"></mat-radio-button>
+               </mat-cell>
+         </ng-container>
+         <ng-container matColumnDef="Name">
+               <mat-header-cell *matHeaderCellDef translate="LABEL_NAME" fxFlex="20%"></mat-header-cell>
+               <mat-cell *matCellDef="let element" fxFlex="20%">{{ element?.fullName }}
+               </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Address">
+               <mat-header-cell *matHeaderCellDef translate="LABEL_ADDRESS" fxFlex="40%"></mat-header-cell>
+               <mat-cell *matCellDef="let element" fxFlex="40%"> {{element?.streetAddress}}, {{element?.city}}, {{element?.state}}, {{element?.zipCode}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Country">
+               <mat-header-cell *matHeaderCellDef translate="LABEL_COUNTRY" fxFlex="20%"></mat-header-cell>
+               <mat-cell *matCellDef="let element" fxFlex="20%">{{ element?.country }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Edit">
+               <mat-header-cell *matHeaderCellDef translate fxflex="10%">BTN_EDIT</mat-header-cell>
+               <mat-cell *matCellDef="let element" fxflex="10%">
+                  <button mat-icon-button routerLink='/address/edit/{{ element.id }}'><i class="far fa-edit"></i></button>
+               </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Remove">
+               <mat-header-cell *matHeaderCellDef translate fxflex="10%">BTN_DELETE</mat-header-cell>
+               <mat-cell *matCellDef="let element" fxflex="10%">
+                  <button mat-icon-button (click)="deleteAddress(element.id)"><i class="far fa-trash-alt"></i></button>
+               </mat-cell>
+            </ng-container>
+
+         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+   </div>
+
+   <mat-card style="margin-top: 20px;" class="mat-elevation-z6" *ngIf="addNewAddressDiv">
+         <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Add a new address" routerLink="/address/create">
+            <span translate>ADD_NEW_ADDRESS</span>
+         </button>
+   </mat-card>
+</div>

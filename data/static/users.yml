@@ -2,47 +2,111 @@
   email: admin
   password: 'admin123'
   key: admin
-  isAdmin: true
+  role: 'admin'
   securityQuestion:
     id: 2
     answer: '@xI98PxDO+06!'
   feedback:
     comment: 'I love this shop! Best products in town! Highly recommended!'
     rating: 5
+  address:
+    - fullName: 'Administrator'
+      mobileNum: 1234567890
+      zipCode: '4711'
+      streetAddress: '0815 Test Street'
+      city: 'Test'
+      state: 'Test'
+      country: 'Test'
+  card:
+    - fullName: 'Administrator'
+      cardNum: 4716190207394368
+      expMonth: 2
+      expYear: 2081
+    - fullName: 'Administrator'
+      cardNum: 4024007105648108
+      expMonth: 4
+      expYear: 2086      
 -
   email: jim
   password: 'ncc-1701'
   key: jim
-  isAdmin: false
+  role: 'customer'
+  walletBalance: 100
   securityQuestion:
     id: 1
     answer: 'Samuel' # https://en.wikipedia.org/wiki/James_T._Kirk
   feedback:
     comment: 'Great shop! Awesome service!'
     rating: 4
+  address:
+    - fullName: 'Jim'
+      mobileNum: 523423432
+      zipCode: '1701'
+      streetAddress: 'Room 3F 121'
+      city: 'Deck 5'
+      state: 'USS Enterprise'
+      country: 'Space'
+    - fullName: 'Sam'
+      mobileNum: 1000000783
+      zipCode: 'GSK783'
+      streetAddress: 'Deneva Colony'
+      city: 'Deneva'
+      state: 'Beta Darius System'
+      country: 'United Federation of Planets'
+  card:
+    - fullName: 'Jim'
+      cardNum: 5107891722278705
+      expMonth: 11
+      expYear: 2099
 -
   email: bender
   password: 'OhG0dPlease1nsertLiquor!'
   key: bender
-  isAdmin: false
+  role: 'customer'
   securityQuestion:
     id: 10
     answer: "Stop'n'Drop" # http://futurama.wikia.com/wiki/Suicide_booth
   feedback:
     comment: 'Nothing useful available here!'
     rating: 1
+  address:
+    - fullName: 'Bender'
+      mobileNum: 797675345
+      zipCode: '10001'
+      streetAddress: 'Robot Arms Apts 42'
+      city: 'New New York'
+      state: 'New New York'
+      country: 'Planet Earth'
+  card:
+    - fullName: 'Bender'
+      cardNum: 4716943969046208
+      expMonth: 2
+      expYear: 2081
 -
   email: bjoern.kimminich@gmail.com
   username: bkimminich
   password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
   customDomain: true
   key: bjoernGoogle
-  isAdmin: true
+  role: 'admin'
+  address:
+    - fullName: 'Bjoern Kimminich'
+      mobileNum: 4917000001
+      zipCode: '25436'
+      streetAddress: 'Am Lokalhorst 42'
+      city: 'Uetersen'
+      state: 'Schleswig-Holstein'
+      country: 'Germany'
+  card:
+    - fullName: 'Bjoern Kimminich'
+      cardNum: 4815205605542754
+      expMonth: 12
+      expYear: 2092
 -
   email: ciso
   password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
   key: ciso
-  isAdmin: false
+  role: 'deluxe'
   securityQuestion:
     id: 7
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
@@ -50,7 +114,7 @@
   email: support
   password: 'J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P'
   key: support
-  isAdmin: true
+  role: 'admin'
   securityQuestion:
     id: 10
     answer: 'SC OLEA SRL' # http://www.olea.com.ro/
@@ -58,7 +122,8 @@
   email: morty
   password: 'focusOnScienceMorty!focusOnScience'
   key: morty
-  isAdmin: false
+  role: 'customer'
+  walletBalance: 100
   securityQuestion:
     id: 7
     answer: '5N0wb41L' # http://rickandmorty.wikia.com/wiki/Snuffles
@@ -66,7 +131,7 @@
   email: mc.safesearch
   password: 'Mr. N00dles'
   key: rapper
-  isAdmin: false
+  role: 'customer'
   securityQuestion:
     id: 8
     answer: 'I even shared my pizza bagels with you!'
@@ -74,7 +139,7 @@
   email: J12934
   password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
   key: jannik
-  isAdmin: true
+  role: 'admin'
   securityQuestion:
     id: 1
     answer: 'azjTLprq2im6p86RbFrA41L'
@@ -84,7 +149,7 @@
   password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
   totpSecret: IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH
   key: timo
-  isAdmin: true
+  role: 'admin'
   securityQuestion:
     id: 1
     answer: 'NZMJLjEinU7TFElDIYW8'
@@ -92,7 +157,7 @@
   email: amy
   password: 'K1f.....................'
   key: amy
-  isAdmin: false
+  role: 'customer'
   securityQuestion:
     id: 8
     answer: 'Dr. Dr. Dr. Dr. Zoidberg'
@@ -100,6 +165,7 @@
   email: bjoern
   password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
   key: bjoern
+  role: 'admin'
   isAdmin: true
   profileImage: '12.jpg'
   securityQuestion:
@@ -110,7 +176,7 @@
   password: 'kitten lesser pooch karate buffoon indoors'
   customDomain: true
   key: bjoernOwasp
-  isAdmin: true
+  role: 'admin'
   profileImage: '13.jpg'
   securityQuestion:
     id: 7
@@ -119,8 +185,16 @@
   email: chris.pike
   password: 'uss enterprise'
   key: chris
-  isAdmin: false
+  role: 'customer'
   deletedFlag: true
   securityQuestion:
     id: 1
     answer: 'greenwood'
+-
+  email: accountant
+  password: 'i am an awesome accountant'
+  key: accountant
+  role: 'accounting'
+  securityQuestion:
+    id: 7
+    answer: 'sdAffsdfrefrbgreq3423'

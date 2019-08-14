@@ -146,6 +146,22 @@
       {{"TITLE_ABOUT" | translate}}
     </span>
   </a>
+  <a mat-list-item routerLink="/photo-wall" (click)="onToggleSidenav()" aria-label="Go to photo wall">
+    <i class="material-icons">
+      camera
+    </i>
+    <span class="menu-text truncate">
+      {{"LABEL_PHOTO_WALL" | translate}}
+    </span>
+  </a>
+  <a mat-list-item routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
+    <i class="material-icons">
+      card_membership
+    </i>
+    <span class="menu-text truncate">
+      {{"LABEL_DELUXE_MEMBERSHIP" | translate}}
+    </span>
+  </a>
 
   <mat-divider *ngIf="scoreBoardVisible || showGitHubLink" style="margin-bottom: 10px;"></mat-divider>
 

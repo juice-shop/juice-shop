@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
+interface OrderDetail {
+  paymentId: string,
+  addressId: string,
+  deliveryMethodId: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,8 +39,8 @@ export class BasketService {
     return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
   }
 
-  checkout (id?: number, couponData?: string) {
-    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{ 'couponData': couponData }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
+  checkout (id?: number, couponData?: string, orderDetails?: OrderDetail) {
+    return this.http.post(this.hostServer + '/rest/basket/' + id + '/checkout',{ 'couponData': couponData, 'orderDetails': orderDetails }).pipe(map((response: any) => response.orderConfirmation), catchError((error) => { throw error }))
   }
 
   applyCoupon (id?: number, coupon?: string) {

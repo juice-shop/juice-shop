@@ -1,0 +1,97 @@
+mat-form-field {
+  width: 100%;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+
+.heading {
+	background: rgba(0,0,0,.2);
+	padding: 12px 20px;
+}
+
+.heading-main {
+	justify-content: center;
+	font-size: x-large;
+}
+
+.main-wrapper {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.grid { 
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-gap: 20px;
+	align-items: center;
+}
+
+.grid img {
+	border-radius: 4px;
+	box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+	max-width: 100%;
+}
+
+.container {
+	position: relative;
+}
+  
+.image {
+	display: block;
+}
+  
+.overlay {
+	position: absolute; 
+	bottom: 0;
+	left: 0; 
+	right: 0;
+	background: rgb(0, 0, 0);
+	background: rgba(0, 0, 0, 0.5);
+	transition: .5s ease;
+	opacity:0;
+	font-size: 20px;
+	padding: 20px;
+	text-align: center;
+}
+  
+.container:hover .overlay {
+	opacity: 1;
+}
+
+.emptyState{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	height: auto !important;
+  }
+  
+.noResult{
+	width: 60%;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.noResultText{
+	text-align: center;
+	display:block;
+	margin-top: 10px;
+}
+  
+.tweet-logo {
+	height: 24px;
+}

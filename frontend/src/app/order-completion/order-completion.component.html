@@ -1,0 +1,102 @@
+<div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
+    <div>
+       <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column">
+          <mat-card class="mat-elevation-z6" fxFlex="60%">
+             <div>
+                <h1 class="confirmation" translate>THANKS_FOR_PURCHASE</h1>
+                <div translate>PURCHASE_COMMENT_PREFIX <a routerLink="/track-result/new" [queryParams]="{ id: this.orderId }" translate>TITLE_TRACK_ORDERS</a> PURCHASE_COMMENT_SUFFIX</div>
+             </div>
+          </mat-card>
+          <mat-card class="mat-elevation-z6" fxFlex="40%">
+             <div  *ngIf="address">
+               <span *ngIf="orderDetails.eta !== '?' && orderDetails.eta !== undefined"><div class="confirmation" translate [translateParams]="{'numberdays': orderDetails.eta}">ESTIMATED_TIME_OF_DELIVERY</div></span>
+               <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
+               <div>{{address?.fullName}}</div>
+               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+               <div>{{address?.country}}</div>
+               <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
+             </div>
+          </mat-card>
+       </div>
+    </div>
+    <div class="mat-elevation-z6 table-container custom-slate">
+       <div class="heading">
+            <span class="heading-text">{{"ORDER_SUMMARY" | translate}}</span>
+            <span fxFlex></span>
+            <a href="https://twitter.com/intent/tweet?text={{ tweetText }}&hashtags=security">
+               <button mat-icon-button aria-label="Tweet">
+                  <img src="assets/public/images/twitter/tweet.png" class="tweet-logo">
+               </button>
+            </a>
+            <button mat-icon-button aria-label="Print order confirmation" matTooltip="{{ 'PRINT_ORDER_CONFIRMATION' | translate }}" matTooltipPosition="below"
+            (click)= "openConfirmationPDF()">
+               <mat-icon>
+                  note
+               </mat-icon>
+            </button>
+       </div>
+       <mat-table [dataSource]="dataSource">
+         <ng-container matColumnDef="product">
+             <mat-header-cell *matHeaderCellDef translate>LABEL_PRODUCT</mat-header-cell>
+             <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="price">
+             <mat-header-cell *matHeaderCellDef translate>LABEL_PRICE</mat-header-cell>
+             <mat-cell *matCellDef="let element">{{element.price}}&curren;</mat-cell>
+             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="quantity">
+             <mat-header-cell *matHeaderCellDef translate>LABEL_QUANTITY</mat-header-cell>
+             <mat-cell *matCellDef="let element">
+                <span>{{element.quantity}}</span>
+             </mat-cell>
+             <mat-footer-cell *matFooterCellDef>
+                <table class="mat-table">
+                   <tr class="mat-row">
+                      <td translate>ITEMS</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>DELIVERY</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>PROMOTION</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td translate>LABEL_TOTAL_PRICE</td>
+                   </tr>
+                </table>
+             </mat-footer-cell>
+          </ng-container>
+          <ng-container matColumnDef="total price">
+             <mat-header-cell *matHeaderCellDef translate>LABEL_TOTAL_PRICE</mat-header-cell>
+             <mat-cell *matCellDef="let element" class="price-align">{{ (element.total).toFixed(2) }}&curren;</mat-cell>
+             <mat-footer-cell *matFooterCellDef>
+                <table class="price-align">
+                   <tr class="mat-row">
+                      <td>{{ orderDetails.itemTotal?.toFixed(2) }}&curren;</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>{{ deliveryPrice.toFixed(2) }}&curren;</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>{{ promotionalDiscount.toFixed(2) }}&curren;</td>
+                   </tr>
+                   <tr class="mat-row">
+                      <td>{{ orderDetails.totalPrice?.toFixed(2) }}&curren;</td>
+                   </tr>
+                </table>
+             </mat-footer-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
+          <mat-footer-row mat-footer-row *matFooterRowDef="tableColumns"></mat-footer-row>
+       </mat-table>
+    </div>
+
+    <div>
+        <mat-card class="mat-elevation-z6">
+          <div translate [translateParams]="{'bonus': orderDetails.bonus}">BONUS_POINTS_COUNT</div>
+        </mat-card>
+    </div>
+</div>
