@@ -154,7 +154,7 @@
       {{"LABEL_PHOTO_WALL" | translate}}
     </span>
   </a>
-  <a mat-list-item routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
+  <a mat-list-item *ngIf="isLoggedIn()" routerLink="/deluxe-membership" (click)="onToggleSidenav()" aria-label="Go to deluxe membership page">
     <i class="material-icons">
       card_membership
     </i>
