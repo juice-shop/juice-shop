@@ -112,7 +112,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with sqlite_master table and required column', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select null,sql,null,null,null,null,null,null from sqlite_master--')
+    return frisby.get(REST_URL + '/products/search?q=\')) union select null,sql,null,null,null,null,null,null, null from sqlite_master--')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
