@@ -1,13 +1,13 @@
 <div fxLayoutAlign="center">
 
     <div class="form-container">
-    
+
         <div class="heading mat-elevation-z6">
-            <div>{{"JUICE_SHOP_WALLET" | translate}}</div>
+            <div>{{"DIGITAL_WALLET" | translate}}</div>
         </div>
-        
+
         <mat-card class="mat-elevation-z6">
-      
+
           <h2 translate>LABEL_ADD_MONEY</h2>
             <p>
                 <b>
@@ -25,7 +25,7 @@
                     AMOUNT_LIMIT
                 </mat-error>
             </mat-form-field>
-            
+
           <button type="submit" id="submitButton" (click)="continue()" [disabled]="balanceControl.invalid"
                   mat-raised-button color="primary" aria-label="Button to send the complaint">
             <i class="material-icons">
