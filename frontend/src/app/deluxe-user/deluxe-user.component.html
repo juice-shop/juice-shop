@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
     <div *ngIf="error" class="heading mat-elevation-z6">
         <div style="margin-top:5px;">
-            <p class="error">{{error?.error}}</p>
+            <p class="error">{{error}}</p>
         </div>
     </div>
     <mat-card class="mat-elevation-z6 deluxe-membership">
@@ -21,7 +21,7 @@
                     {{ membershipCost }}&curren;
                 </div>
                 <div class="item-description">
-                <button *ngIf="userType === customer" (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button mat-raised-button>
+                <button (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button mat-raised-button>
                 <span translate>LABEL_BECOME_MEMBER</span>
                 </button>
                 </div>
