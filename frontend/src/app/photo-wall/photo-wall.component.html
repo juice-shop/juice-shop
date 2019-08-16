@@ -1,4 +1,4 @@
-      
+
 <div fxLayout="column" fxLayoutGap="10px" class="main-wrapper">
     <div class="heading mat-elevation-z6">
         <div class="heading-main">{{"LABEL_PHOTO_WALL" | translate}}</div>
@@ -9,9 +9,9 @@
                     <img src="{{ image.url }}" alt="{{ image.caption }}" class="image">
                     <div class="overlay">
                         <div>{{ image.caption }}</div>
-                        <a href="https://twitter.com/intent/tweet?text={{ image.caption }} {{ twitterUrl }}&hashtags=security">
+                        <a *ngIf="twitterHandle" href="https://twitter.com/intent/tweet?text={{ image.caption }} {{ twitterHandle }}&hashtags=appsec" target="_blank">
                             <button mat-icon-button aria-label="Tweet">
-                                <img src="assets/public/images/twitter/tweet.png" class="tweet-logo">
+                                <i class="fab fa-twitter fa-lg"></i>
                             </button>
                          </a>
                     </div>

@@ -4,6 +4,11 @@ import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faTwitter)
+dom.watch()
 
 @Component({
   selector: 'app-photo-wall',
@@ -19,7 +24,7 @@ export class PhotoWallComponent implements OnInit {
     caption: new FormControl('', [Validators.required])
   })
   public slideshowDataSource: IImage[] = []
-  public twitterUrl = null
+  public twitterHandle = null
 
   constructor (private photoWallService: PhotoWallService, private configurationService: ConfigurationService) { }
 
@@ -38,7 +43,7 @@ export class PhotoWallComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application) {
         if (config.application.twitterUrl !== null) {
-          this.twitterUrl = config.application.twitterUrl.replace('https://twitter.com/','@')
+          this.twitterHandle = config.application.twitterUrl.replace('https://twitter.com/','@')
         }
       }
     },(err) => console.log(err))

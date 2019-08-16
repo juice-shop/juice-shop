@@ -32,8 +32,8 @@
                         <mat-cell *matCellDef="let element" fxFlex="25%">{{ element.price.toFixed(2) }}&curren;</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="ETA">
-                        <mat-header-cell *matHeaderCellDef translate="LABEL_ETA" fxFlex="25%"></mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxFlex="25%">{{ element.eta }}</mat-cell>
+                        <mat-header-cell *matHeaderCellDef translate="LABEL_EXPECTED_DELIVERY" fxFlex="25%"></mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxFlex="25%">{{ element.eta }} {{"LABEL_DAYS" | translate}}</mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div fxFlex="30%">  
+    <div fxFlex="30%">
         <mat-card class="mat-elevation-z6" fxLayoutAlign="end">
             <button mat-raised-button mat-button class="btn btn-continue" color="primary" aria-label="Proceed to delivery method selection" [disabled]="deliveryMethodId === undefined" (click)="chooseDeliveryMethod()">
                 <span translate>LABEL_CONTINUE</span>

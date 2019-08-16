@@ -11,16 +11,6 @@ stages:
   - lint
   - test
   - integration
-  - e2e
-  - deploy
-branches:
-  except:
-    - gh-pages
-    - l10n_develop
-cache:
-  - directories:
-      - node_modules
-      - frontend/node_modules
 workspaces:
   create:
     name: lcov
@@ -90,7 +80,7 @@ jobs:
         - export NODE_ENV=test
         - npm run protractor
     - stage: deploy
-      if: "(branch = master OR branch = develop OR branch = gsoc2019) AND NOT type = pull_request"
+      if: "(branch = master OR branch = develop) AND NOT type = pull_request"
       os: linux
       node_js: 12
       install: skip
@@ -102,7 +92,6 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
-            gsoc2019: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
 notifications:
