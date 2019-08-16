@@ -2,12 +2,12 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BarRatingModule } from 'ng2-bar-rating'
-import { of, throwError } from 'rxjs'
+import { of } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatTableModule, MatExpansionModule, MatDividerModule, MatRadioModule, MatDialogModule, MatIconModule, MatCheckboxModule, MatTooltipModule } from '@angular/material'
 import { DeluxeUserComponent } from './deluxe-user.component'
@@ -75,15 +75,6 @@ describe('DeluxeUserComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy()
   })
-
-  it('should log error from get deluxe status API call directly to browser console', fakeAsync(() => {
-    userService.deluxeStatus.and.returnValue(throwError({ error: 'error' }))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    fixture.detectChanges()
-    expect(console.log).toHaveBeenCalledWith({ error: 'error' })
-    expect(component.error).toBe('error')
-  }))
 
   it('should hold membership cost on ngOnInit', () => {
     userService.deluxeStatus.and.returnValue(of({ membershipCost: 30 }))
