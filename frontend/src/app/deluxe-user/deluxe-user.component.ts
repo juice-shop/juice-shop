@@ -29,8 +29,7 @@ export class DeluxeUserComponent implements OnInit {
     this.userService.deluxeStatus().subscribe((res) => {
       this.membershipCost = res.membershipCost
     }, (err) => {
-      this.error = err.error
-      console.log(err)
+      this.error = err.error.error
     })
   }
 
