@@ -37,7 +37,7 @@ describe('/rest/deluxe-status', () => {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'Congratulations! You are a deluxe member.')
+          .expect('json', 'error', 'You are already a deluxe member!')
       })
   })
 
@@ -55,7 +55,7 @@ describe('/rest/deluxe-status', () => {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'You are not eligible for deluxe membership.')
+          .expect('json', 'error', 'You are not eligible for deluxe membership!')
       })
   })
 
@@ -73,7 +73,7 @@ describe('/rest/deluxe-status', () => {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'You are not eligible for deluxe membership.')
+          .expect('json', 'error', 'You are not eligible for deluxe membership!')
       })
   })
 })
@@ -96,7 +96,7 @@ describe('/rest/upgrade-deluxe', () => {
           }
         })
           .expect('status', 200)
-          .expect('json', 'data', { confirmation: 'Congratulations, you are now a deluxe customer.' })
+          .expect('json', 'data', { confirmation: 'Congratulations! You are now a deluxe member!' })
       })
   })
 
@@ -117,7 +117,7 @@ describe('/rest/upgrade-deluxe', () => {
           }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'Please try again.')
+          .expect('json', 'error', 'Something went wrong. Please try again!')
       })
   })
 
@@ -138,7 +138,7 @@ describe('/rest/upgrade-deluxe', () => {
           }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'Please try again.')
+          .expect('json', 'error', 'Something went wrong. Please try again!')
       })
   })
 
@@ -159,7 +159,7 @@ describe('/rest/upgrade-deluxe', () => {
           }
         })
           .expect('status', 400)
-          .expect('json', 'error', 'Please try again.')
+          .expect('json', 'error', 'Something went wrong. Please try again!')
       })
   })
 })
