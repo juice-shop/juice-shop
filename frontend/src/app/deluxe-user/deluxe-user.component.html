@@ -21,7 +21,7 @@
                     {{ membershipCost }}&curren;
                 </div>
                 <div class="item-description">
-                <button *ngIf="userType == customer" (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button mat-raised-button>
+                <button *ngIf="userType === customer" (click)="upgradeToDeluxe()" aria-label="Add to Basket" class="btn-member" color="primary" mat-button mat-raised-button>
                 <span translate>LABEL_BECOME_MEMBER</span>
                 </button>
                 </div>
