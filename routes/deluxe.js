@@ -22,7 +22,7 @@ module.exports.deluxeMembershipStatus = function deluxeMembershipStatus () {
     } else if (insecurity.isDeluxe(req)) {
       res.status(400).json({ status: 'error', error: 'Congratulations! You are a deluxe member.' })
     } else {
-      res.status(400).json({ status: 'error', error: 'You are not eligible for deluxe membership.' })
+      res.status(400).json({ status: 'error', error: 'You are not eligible for deluxe membership!' })
     }
   }
 }
