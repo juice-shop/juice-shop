@@ -120,10 +120,10 @@ describe('PhotoWallComponent', () => {
     expect(component.form.get('caption').untouched).toBe(true)
   })
 
-  it('should use custom twitter URL if configured', () => {
+  it('should use custom twitter handle if configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
     component.ngOnInit()
-    expect(component.twitterUrl).toBe('twitter')
+    expect(component.twitterHandle).toBe('twitter')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
