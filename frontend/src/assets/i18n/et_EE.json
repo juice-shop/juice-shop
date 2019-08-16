@@ -300,14 +300,14 @@
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Nautige {{appname}} luksuskliendina hämmastavaid eeliseid. Vaadake, mis kaasneb teie liikmelisusega.",
   "LABEL_BECOME_MEMBER": "Hakka liikmeks",
   "LABEL_DEALS_OFFERS": "Pakkumised",
-  "DESCRIPTION_DEALS_OFFERS": "As a deluxe member, you get access to exclusive deals and irresistible offers.",
-  "LABEL_FREE_FAST_DELIVERY": "Free Fast Delivery",
-  "DESCRIPTION_FREE_FAST_DELIVERY": "Get unlimited Free Fast Delivery across all products in the shop.",
-  "LABEL_UNLIMITED_PURCHASE": "Unlimited Purchase",
-  "DESCRIPTION_UNLIMITED_PURCHASE": "Enjoy unrestricted purchase on your favourite products.",
-  "LABEL_PAY_USING_WALLET": "Pay using wallet",
+  "DESCRIPTION_DEALS_OFFERS": "Luksusliikmena saate juurdepääsu eksklusiivsetele ja vastupandamatutele pakkumistele.",
+  "LABEL_FREE_FAST_DELIVERY": "Tasuta kiire tarne",
+  "DESCRIPTION_FREE_FAST_DELIVERY": "Telli piiramatu tasuta kiire tarne kõikidele kaupluse toodetele.",
+  "LABEL_UNLIMITED_PURCHASE": "Piiramatu ostlemine",
+  "DESCRIPTION_UNLIMITED_PURCHASE": "Nautige oma lemmiktoodetega piiramatut ostlemist.",
+  "LABEL_PAY_USING_WALLET": "Maksa rahakoti abil",
   "LABEL_PAY": "Maksa",
   "LABEL_ADD": "Lisa",
-  "REVIEW_DELUXE": "You will be logged out on successful completion.",
-  "REVIEW_WALLET": "You will be redirected back to your wallet."
+  "REVIEW_DELUXE": "Eduka tehingu korral logitakse teid välja.",
+  "REVIEW_WALLET": "Teid suunatakse tagasi rahakotile."
 }
