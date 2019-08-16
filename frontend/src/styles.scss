@@ -18,6 +18,12 @@
   }
 }
 
+@mixin deluxe-membership-theme($theme) {
+  .deluxe-membership {
+    background: linear-gradient(90deg, mat-color(map-get($theme, primary), 1) 0%, mat-color(map-get($theme, background), card) 100%);
+  }
+}
+
 @mixin notification-theme($theme) {
   .confirmation {
     color: mat-color(map-get($theme, accent));
@@ -126,6 +132,7 @@
   @include score-star-theme($theme);
   @include snackbar($theme);
   @include google-button($theme);
+  @include deluxe-membership-theme($theme);
 }
 
 $bg-hacking-instructor: rgba(0, 0, 0, .3);
