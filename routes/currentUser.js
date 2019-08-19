@@ -5,7 +5,7 @@ const challenges = cache.challenges
 
 module.exports = function retrieveLoggedInUser () {
   return (req, res) => {
-    let user = undefined
+    let user = null
     try {
       if (insecurity.verify(req.cookies.token)) {
         user = insecurity.authenticatedUsers.get(req.cookies.token)
