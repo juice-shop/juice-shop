@@ -5,11 +5,13 @@ const challenges = cache.challenges
 
 module.exports = function retrieveLoggedInUser () {
   return (req, res) => {
-    let user = null
+    let user
     try {
       if (insecurity.verify(req.cookies.token)) {
         user = insecurity.authenticatedUsers.get(req.cookies.token)
       }
+    } catch (err) {
+      user = undefined
     } finally {
       const response = { user: { id: (user && user.data ? user.data.id : undefined), email: (user && user.data ? user.data.email : undefined), lastLoginIp: (user && user.data ? user.data.lastLoginIp : undefined), profileImage: (user && user.data ? user.data.profileImage : undefined) } }
       if (req.query.callback === undefined) {
