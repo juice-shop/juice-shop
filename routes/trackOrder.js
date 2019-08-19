@@ -4,7 +4,7 @@ const db = require('../data/mongodb')
 
 module.exports = function trackOrder () {
   return (req, res) => {
-    req.params.id = decodeURIComponent(req.params.id)
+    req.params.id = utils.trunc(decodeURIComponent(req.params.id), 40)
     if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(req.params.id, '<iframe src="javascript:alert(`xss`)">')) {
       utils.solve(challenges.reflectedXssChallenge)
     }
