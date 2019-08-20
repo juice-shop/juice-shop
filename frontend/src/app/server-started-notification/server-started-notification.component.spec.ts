@@ -63,7 +63,7 @@ describe('ServerStartedNotificationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ServerStartedNotificationComponent)
     component = fixture.componentInstance
-    cookieService.remove('continueCode', { domain: document.domain })
+    cookieService.remove('continueCode')
     fixture.detectChanges()
   })
 

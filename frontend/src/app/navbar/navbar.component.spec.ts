@@ -238,7 +238,7 @@ describe('NavbarComponent', () => {
 
   it('should remove authentication token from cookies', () => {
     component.logout()
-    expect(cookieService.remove).toHaveBeenCalledWith('token', { domain: `${document.domain}` })
+    expect(cookieService.remove).toHaveBeenCalledWith('token')
   })
 
   it('should remove basket id from session storage', () => {

@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
   constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
-
     const email = localStorage.getItem('email')
     if (email) {
       this.user = {}
@@ -68,7 +67,6 @@ export class LoginComponent implements OnInit {
   }
 
   login () {
-
     this.user = {}
     this.user.email = this.emailControl.value
     this.user.password = this.passwordControl.value
@@ -76,8 +74,6 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', authentication.token)
       this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
-      /*Use userService to notifiy if user has logged in*/
-      /*this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/search'])
     }, ({ error }) => {
@@ -86,15 +82,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/2fa/enter'])
         return
       }
-
-      console.log(error)
-
       localStorage.removeItem('token')
-      this.cookieService.remove('token', { domain: document.domain })
+      this.cookieService.remove('token')
       sessionStorage.removeItem('bid')
       this.error = error
-      /* Use userService to notify user failed to log in */
-      /*this.userServe.isLoggedIn = false;*/
       this.userService.isLoggedIn.next(false)
       this.emailControl.markAsPristine()
       this.passwordControl.markAsPristine()
@@ -112,11 +103,9 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin () {
-
     this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
       + clientId + '&response_type=token&scope=email&redirect_uri='
       + authorizedRedirectURIs[this.redirectUri])
-
   }
 
 }
