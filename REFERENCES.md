@@ -227,7 +227,7 @@ where this project was mentioned or used!
 * [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
   by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
   06.11.2019
-* [Dä OWASP Jus Läädeli / The OWASP Juice Shop]() by Björn Kimminich,
+* [S' OWASP Saft-Lädeli / The OWASP Juice Shop]() by Björn Kimminich,
   [OWASP Switzerland Chapter Meeting](https://www.meetup.com/de-DE/OWASPSwitzerland/),
   18.11.2019
 
