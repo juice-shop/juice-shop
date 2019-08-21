@@ -177,5 +177,4 @@ describe('/#/login', () => {
 
     protractor.expect.challengeSolved({ challenge: 'Ephemeral Accountant' })
   })
-
 })
