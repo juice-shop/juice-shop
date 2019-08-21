@@ -154,6 +154,14 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/sensitive-data-exposure.html#perform-an-unwanted-information-disclosure-by-accessing-data-cross-domain'
   key: emailLeakChallenge
 -
+  name: 'Ephemeral Accountant'
+  category: 'Injection'
+  description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
+  difficulty: 4
+  hint: 'Try to create the needed user "out of thin air".'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#log-in-with-the-non-existing-accountant-without-ever-registerin-that-user'
+  key: ephemeralAccountantChallenge
+-
   name: 'Error Handling'
   category: 'Security Misconfiguration'
   description: 'Provoke an error that is neither very gracefully nor consistently handled.'
