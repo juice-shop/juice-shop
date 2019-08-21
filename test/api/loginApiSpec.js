@@ -210,6 +210,21 @@ describe('/rest/user/login', () => {
       })
   })
 
+  it('POST login with non-existing email "acc0unt4nt@juice-sh.op" via UNION SELECT injection attack', () => {
+    return frisby.post(REST_URL + '/user/login', {
+      header: jsonHeader,
+      body: {
+        email: '\' UNION SELECT * FROM (SELECT 15 as \'id\', \'\' as \'username\', \'acc0unt4nt@juice-sh.op\' as \'email\', \'12345\' as \'password\', \'accounting\' as \'role\', \'1.2.3.4\' as \'lastLoginIp\' , \'default.svg\' as \'profileImage\', \'\' as \'totpSecret\', 1 as \'isActive\', \'1999-08-16 14:14:41.644 +00:00\' as \'createdAt\', \'1999-08-16 14:33:41.930 +00:00\' as \'updatedAt\', null as \'deletedAt\')--',
+        password: undefined
+      }
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('jsonTypes', 'authentication', {
+        token: Joi.string()
+      })
+  })
+
   it('POST login with query-breaking SQL Injection attack', () => {
     return frisby.post(REST_URL + '/user/login', {
       header: jsonHeader,

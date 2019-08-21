@@ -83,6 +83,13 @@ module.exports = function login () {
       utils.solve(challenges.loginBenderChallenge)
     } else if (utils.notSolved(challenges.ghostLoginChallenge) && user.data.id === users.chris.id) {
       utils.solve(challenges.ghostLoginChallenge)
+    } else if (utils.notSolved(challenges.ephemeralAccountantChallenge) && user.data.email === 'acc0unt4nt@' + config.get('application.domain') && user.data.role === 'accounting') {
+      models.User.count({ where: { email: 'acc0unt4nt@' + config.get('application.domain') } }).then(count => {
+        if (count === 0) {
+          utils.solve(challenges.ephemeralAccountantChallenge)
+        }
+      })
     }
+
   }
 }
