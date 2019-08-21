@@ -90,6 +90,5 @@ module.exports = function login () {
         }
       })
     }
-
   }
 }
