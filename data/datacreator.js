@@ -54,6 +54,7 @@ async function createChallenges () {
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
+      description = description.replace(/juice-sh\.op/, config.get('application.domain'))
       try {
         const challenge = await models.Challenge.create({
           key,
