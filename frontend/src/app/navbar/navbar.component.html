@@ -7,11 +7,10 @@
       <mat-icon>menu</mat-icon>
     </button>
 
-    <a routerLink="/search">
+    <button mat-button routerLink="/search" style="height:60px;" class="buttons" aria-label="Back to homepage">
       <img [src]="logoSrc" class="logo" alt={{applicationName}}>
-    </a>
-
-    <span fxHide.lt-sm fxShow>{{applicationName}}</span>
+      <span fxHide.lt-sm fxShow style="font-size: x-large"> {{applicationName}} </span>
+    </button>
 
     <span class="fill-remaining-space"></span>
 
@@ -19,7 +18,7 @@
                     aria-label="Click to search"></mat-search-bar>
 
     <button [matMenuTriggerFor]="userMenu" mat-button style="vertical-align: middle; height:48px;" class="buttons"
-            fxHide.lt-md fxShow aria-label="Show/ hide account menu" id="navbarAccount">
+            fxHide.lt-md fxShow aria-label="Show/hide account menu" id="navbarAccount">
       <i class="material-icons">
         account_circle
       </i>
