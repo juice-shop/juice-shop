@@ -20,6 +20,8 @@ vagrant/.vagrant/
 *.orig
 *.out
 *.log
+JSON
+JSON.map
 
 # IDEs
 .idea/

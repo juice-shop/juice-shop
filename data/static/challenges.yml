@@ -159,7 +159,7 @@
   description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
   difficulty: 4
   hint: 'Try to create the needed user "out of thin air".'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#log-in-with-the-non-existing-accountant-without-ever-registerin-that-user'
+  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/v/develop/part2/injection.html#log-in-with-the-non-existing-accountant-without-ever-registering-that-user'
   key: ephemeralAccountantChallenge
 -
   name: 'Error Handling'
