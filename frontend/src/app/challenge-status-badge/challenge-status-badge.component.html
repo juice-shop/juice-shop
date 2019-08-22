@@ -19,7 +19,7 @@
 </button>
 
 <button *ngIf="challenge.disabledEnv" [id]="challenge.name + '.unavailable'" mat-raised-button
-        [matTooltip]="challenge.hint" matTooltipPosition="above" disabled>
+        [matTooltip]="challenge.hint" matTooltipPosition="above">
   <span>
     <i class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
     {{'STATUS_UNAVAILABLE' | translate}}
