@@ -274,3 +274,6 @@ ctf:
     dbSchemaChallenge:
       name: Brunei
       code: BN
+    ephemeralAccountantChallenge:
+      name: Chad
+      code: TD
