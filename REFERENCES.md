@@ -221,7 +221,7 @@ where this project was mentioned or used!
 * [Elbsides vs. Juice Shop](https://2019.elbsides.de/programme.html#elbsides-vs-juice-shop)
   workshop with Björn Kimminich,
   [Elbsides 2019](https://2019.elbsides.de), 16.09.2019
-* [Juice Shop]() by Björn Kimminich, Project Showcase track of the
+* [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop) by Björn Kimminich, Project Showcase track of the
   [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
   26.09.2019
 * [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
