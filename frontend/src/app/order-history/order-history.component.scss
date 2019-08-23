@@ -1,57 +1,56 @@
 .heading {
-	background: rgba(0,0,0,.2);
-	padding: 12px 20px;
+  background: rgba(0, 0, 0, .2);
+  padding: 12px 20px;
 }
 
 .heading-main {
-	justify-content: center;
-	font-size: x-large;
+  font-size: x-large;
+  justify-content: center;
 }
 
 .heading-text {
-	justify-content: center;
-	padding: 12px 20px;
+  justify-content: center;
+  padding: 12px 20px;
 }
 
 mat-card {
-	height: auto;
+  height: auto;
 }
 
 .main-wrapper {
-	margin-left: 10%;
-	margin-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-mat-cell, 
+mat-cell,
 mat-footer-cell {
-    padding-left: 10px;
-    padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .price-align {
-	text-align: right;
+  text-align: right;
 }
 
-.emptyState{
-	margin-top: 20px;
-	margin-bottom: 20px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-	height: auto !important;
-  }
-  
-.noResult{
-	width: 60%;
-	display:block;
-	margin-left: auto;
-	margin-right: auto;
+.emptyState {
+  display: block;
+  height: auto !important;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 50%;
 }
 
-.noResultText{
-	text-align: center;
-	display:block;
-	margin-top: 10px;
+.noResult {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
 }
-  
+
+.noResultText {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}

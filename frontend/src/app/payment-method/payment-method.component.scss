@@ -1,14 +1,14 @@
 .heading {
-	background: rgba(0,0,0,.2);
-	justify-content: center;
-	padding: 12px 20px;
-	font-size: x-large;
+  background: rgba(0, 0, 0, .2);
+  font-size: x-large;
+  justify-content: center;
+  padding: 12px 20px;
 }
-  
+
 mat-form-field {
-	width: 100%;
+  width: 100%;
 }
 
 .mat-expansion-panel-header-description {
-	flex-basis: 0;
+  flex-basis: 0;
 }

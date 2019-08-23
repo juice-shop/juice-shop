@@ -8,14 +8,14 @@ $bg-heading: rgba(0, 0, 0, .2);
 }
 
 .main-wrapper {
-	margin-left: 10%;
-	margin-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .img-thumbnail {
-  width: 100%;
-  border: 0px;
   background: none;
+  border: 0;
+  width: 100%;
 }
 
 .btn-member {
