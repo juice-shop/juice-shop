@@ -51,7 +51,7 @@ jobs:
   include:
     - stage: lint
       if: tag IS blank
-      install: npm i -g standard@13 && cd frontend && npm install && cd ..
+      install: npm i -g standard@14 && cd frontend && npm install && cd ..
       script: npm run lint
     - stage: integration
       if: tag IS blank
