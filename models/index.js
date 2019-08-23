@@ -14,7 +14,7 @@ const db = {}
 fs.readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== 'index.js'))
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file))
+    const model = sequelize.import(path.join(__dirname, file))
     db[model.name] = model
   })
 
