@@ -43,10 +43,7 @@ mat-card {
 .emptyState {
   display: block;
   height: auto !important;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+  margin: 20px auto;
   width: 50%;
 }
 
@@ -63,49 +60,46 @@ mat-card {
   text-align: center;
 }
 
-.ribbon-card{
+.ribbon-card {
   position: relative;
 }
 
 .ribbon {
-  width: 150px;
   height: 150px;
   overflow: hidden;
   position: absolute;
+  width: 150px;
 }
 
 .ribbon::before {
-  position: absolute;
-  z-index: -1;
   content: '';
   display: block;
+  position: absolute;
+  z-index: -1;
 }
 
 .ribbon span {
-  position: absolute;
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
   color: #fff;
+  display: block;
   font: 700 18px/1 'Lato', sans-serif;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  padding: 15px 0;
+  position: absolute;
   text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  width: 225px;
 }
 
 .ribbon-top-left {
-  top: -10px;
   left: -10px;
+  top: -10px;
 }
 
 .ribbon-top-left::before {
-  border-top-color: transparent;
   border-left-color: transparent;
-}
-
-.ribbon-top-left::before {
-  top: 0;
+  border-top-color: transparent;
   right: 0;
+  top: 0;
 }
 
 .ribbon-top-left span {

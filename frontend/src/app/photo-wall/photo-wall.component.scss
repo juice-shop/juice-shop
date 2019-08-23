@@ -2,8 +2,10 @@ mat-form-field {
   width: 100%;
 }
 
-input[type="file"] {
-  visibility: hidden;
+input {
+  &[type='file'] {
+    visibility: hidden;
+  }
 }
 
 .image-preview {
@@ -16,82 +18,78 @@ input[type="file"] {
 }
 
 .heading {
-	background: rgba(0,0,0,.2);
-	padding: 12px 20px;
+  background: rgba(0, 0, 0, .2);
+  padding: 12px 20px;
 }
 
 .heading-main {
-	justify-content: center;
-	font-size: x-large;
+  font-size: x-large;
+  justify-content: center;
 }
 
 .main-wrapper {
-	margin-left: 10%;
-	margin-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-.grid { 
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	grid-gap: 20px;
-	align-items: center;
+.grid {
+  align-items: center;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .grid img {
-	border-radius: 4px;
-	box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
-	max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, .3);
+  max-width: 100%;
 }
 
 .container {
-	position: relative;
+  position: relative;
 }
-  
+
 .image {
-	display: block;
+  display: block;
 }
-  
+
 .overlay {
-	position: absolute; 
-	bottom: 0;
-	left: 0; 
-	right: 0;
-	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, 0.5);
-	transition: .5s ease;
-	opacity:0;
-	font-size: 20px;
-	padding: 20px;
-	text-align: center;
+  background: rgba(0, 0, 0, .5);
+  bottom: 0;
+  font-size: 20px;
+  left: 0;
+  opacity: 0;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transition: .5s ease;
 }
-  
+
 .container:hover .overlay {
-	opacity: 1;
+  opacity: 1;
 }
 
-.emptyState{
-	margin-top: 20px;
-	margin-bottom: 20px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-	height: auto !important;
-  }
-  
-.noResult{
-	width: 60%;
-	display:block;
-	margin-left: auto;
-	margin-right: auto;
+.emptyState {
+  display: block;
+  height: auto !important;
+  margin: 20px auto;
+  width: 50%;
 }
 
-.noResultText{
-	text-align: center;
-	display:block;
-	margin-top: 10px;
+.noResult {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
 }
-  
+
+.noResultText {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+}
+
 .tweet-logo {
-	height: 24px;
+  height: 24px;
 }
