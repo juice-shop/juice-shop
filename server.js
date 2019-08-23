@@ -19,7 +19,8 @@ const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
 const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
-const { ensureFileIsPassed,
+const {
+  ensureFileIsPassed,
   handleZipFileUpload,
   checkUploadSize,
   checkFileType,

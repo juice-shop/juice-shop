@@ -14,7 +14,7 @@ module.exports = function changePassword () {
     } else if (newPassword !== repeatPassword) {
       res.status(401).send('New and repeated password do not match.')
     } else {
-      const token = headers['authorization'] ? headers['authorization'].substr('Bearer='.length) : null
+      const token = headers.authorization ? headers.authorization.substr('Bearer='.length) : null
       const loggedInUser = insecurity.authenticatedUsers.get(token)
       if (loggedInUser) {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
