@@ -202,12 +202,22 @@ app.use(function jsonParser (req, res, next) {
   next()
 })
 /* HTTP request logging */
-const accessLogStream = require('file-stream-rotator').getStream({ filename: './logs/access.log', frequency: 'daily', verbose: false, max_logs: '2d' })
+const accessLogStream = require('file-stream-rotator').getStream({
+  filename: './logs/access.log',
+  frequency: 'daily',
+  verbose: false,
+  max_logs: '2d'
+})
 app.use(morgan('combined', { stream: accessLogStream }))
 
 /* Rate limiting */
 app.enable('trust proxy')
-app.use('/rest/user/reset-password', new RateLimit({ windowMs: 5 * 60 * 1000, max: 100, keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip }, delayMs: 0 }))
+app.use('/rest/user/reset-password', new RateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 100,
+  keyGenerator ({ headers, ip }) { return headers['X-Forwarded-For'] || ip },
+  delayMs: 0
+}))
 
 /** Authorization **/
 /* Checks on JWT in Authorization header */

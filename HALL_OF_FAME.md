@@ -10,64 +10,70 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Tue, 12 Jun 2019
+`master` as of Mon, 26 Aug 2019
 
 - [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
+- [Arpit Agrawal](https://github.com/agrawalarpit14) aka
+  `agrawalarpit14`
 - [Supratik Das](https://github.com/supra08) aka `supra08`
 - [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
-- [Arpit Agrawal](https://github.com/agrawalarpit14) aka `agrawalarpit14`
+- [Marc Rüttler](https://github.com/MarcRler) aka `MarcRler`
 - [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
 - [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
 - [Josh Grossman](https://github.com/tghosth) aka `tghosth`
 - [Martin Rock-Evans](https://github.com/rockydevnet) aka `rockydevnet`
 - [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
 - [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
+- [Jorge Estigarribia](https://github.com/jorgestiga) aka `jorgestiga`
 - [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
 - [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
 - [Greg Guthe](https://github.com/g-k) aka `g-k`
 - [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
-- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka `AbdelrhmanMagdy`
-- [Devansh Batra](https://github.com/devanshbatra04) aka `devanshbatra04`
-- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
 - [Simon Basset](https://github.com/simbas) aka `simbas`
 - [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
 - [Ingo Bente](https://github.com/ingben) aka `ingben`
 - [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
+- [Devansh Batra](https://github.com/devanshbatra04) aka
+  `devanshbatra04`
 - [Aaron Edwards](https://github.com/aaron-m-edwards) aka
   `aaron-m-edwards`
-- [Chris Castle](https://github.com/crcastle) aka `crcastle`
-- [Priit Pääsukene](https://github.com/priitpaasukene) aka `priitpaasukene`
-- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
+- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
+  `ViktorLindstrm`
+- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
+- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
+- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka
+  `AbdelrhmanMagdy`
+- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
 - [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
-- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
-- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
-- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
 - [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
+- [Priit Pääsukene](https://github.com/priitpaasukene) aka
+  `priitpaasukene`
+- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
+- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka
+  `nilp0inter`
+- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
+- [Johanna](https://github.com/johanna-a) aka `johanna-a`
+- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
+- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Christian Kühn](https://github.com/cy4n) aka `cy4n`
+- [Chris Castle](https://github.com/crcastle) aka `crcastle`
+- [battletux](https://github.com/battletux) aka `battletux`
+- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
+- [AviD](https://github.com/avidouglen) aka `avidouglen`
+- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
+- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
+- [Abhishek bundela](https://github.com/abhibundela) aka `abhibundela`
+- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
 - [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
   `StuartWinterTear`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka `nilp0inter`
-- [Abhishek bundela](https://github.com/abhibundela) aka
-  `abhibundela`
-- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
-- [Johanna](https://github.com/johanna-a) aka `johanna-a`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
+- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
+- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
 - [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
 
 ## Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Wed, 06 Jun 2019.
+translations as of Mon, 26 Aug 2019.
 
 - Björn Kimminich aka `bkimminich` (German)
 - owangen (Norwegian; Danish)
@@ -145,6 +151,10 @@ translations as of Wed, 06 Jun 2019.
 - Ezequiel Andino aka `acidobinario` (Spanish)
 - kahfiehudson (Indonesian)
 - motofy (Japanese)
+- Hawxdu aka `bill` (Chinese Simplified)
+- dav1ds (French)
+- ManuelFranz (German)
+- Marc Rüttler aka `MarcRler` (German)
 
 ## Special Thanks
 

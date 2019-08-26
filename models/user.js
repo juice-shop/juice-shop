@@ -2,6 +2,7 @@
 const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
+const config = require('config')
 
 module.exports = (sequelize, { STRING, BOOLEAN }) => {
   const User = sequelize.define('User', {
@@ -56,6 +57,12 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       defaultValue: true
     }
   }, { paranoid: true })
+
+  User.addHook('afterValidate', (user) => {
+    if (user.email && user.email.toLowerCase() === `acc0unt4nt@${config.get('application.domain')}`.toLowerCase()) {
+      return Promise.reject(new Error('Nice try, but this is not how the "Ephemeral Accountant" challenge works!'))
+    }
+  })
 
   return User
 }
