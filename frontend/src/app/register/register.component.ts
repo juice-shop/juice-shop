@@ -68,6 +68,8 @@ export class RegisterComponent implements OnInit {
       if (err.error && err.error.errors && err.error.errors[0].message) {
         const errorMessage = err.error.errors[0].message
         this.error = errorMessage[0].toUpperCase() + errorMessage.slice(1)
+      } else {
+        this.error = err.error.errors[0]
       }
     }
     )
