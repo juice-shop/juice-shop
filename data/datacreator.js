@@ -37,8 +37,7 @@ module.exports = async () => {
     createQuantity,
     createPurchaseQuantity,
     createWallet,
-    createDeliveryMethods,
-    createDeliveryBoxLogo
+    createDeliveryMethods
   ]
 
   for (const creator of creators) {
@@ -73,12 +72,6 @@ async function createChallenges () {
       }
     })
   )
-}
-
-function createDeliveryBoxLogo () {
-  const deliveryLogo = config.get('application.deluxePage').deluxeDeliveryImage || 'default.png'
-  utils.copyToFile('frontend/src/assets/public/images/deluxe/' + deliveryLogo, 'frontend/dist/frontend/assets/public/images/deluxe/delivery.png')
-  return deliveryLogo
 }
 
 async function createUsers () {
