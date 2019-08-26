@@ -24,6 +24,7 @@ RUN addgroup juicer && \
     adduser -D -G juicer juicer
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
+    chown -R juicer logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ && \
     chmod -R g=u ftp/ frontend/dist/ logs/ data/
 USER juicer
