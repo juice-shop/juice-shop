@@ -65,12 +65,15 @@ export class RegisterComponent implements OnInit {
         })
     }, (err) => {
       console.log(err)
-      if (err.error && err.error.errors && err.error.errors[0].message) {
-        const errorMessage = err.error.errors[0].message
-        this.error = errorMessage[0].toUpperCase() + errorMessage.slice(1)
+      if (err.error && err.error.errors) {
+        const error = err.error.errors[0]
+        if (error.message) {
+          this.error = error.message[0].toUpperCase() + error.message.slice(1)
+        } else {
+          this.error = error
+        }
       }
-    }
-    )
+    })
   }
 }
 

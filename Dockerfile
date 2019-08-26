@@ -14,7 +14,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.vendor="Open Web Application Security Project" \
     org.opencontainers.image.documentation="http://help.owasp-juice.shop" \
     org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.version="9.0.0-SNAPSHOT" \
+    org.opencontainers.image.version="9.0.1-SNAPSHOT" \
     org.opencontainers.image.url="http://owasp-juice.shop" \
     org.opencontainers.image.source="https://github.com/bkimminich/juice-shop" \
     org.opencontainers.image.revision=$VCS_REF \
@@ -24,6 +24,7 @@ RUN addgroup juicer && \
     adduser -D -G juicer juicer
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
+    chown -R juicer logs && \
     chgrp -R 0 ftp/ frontend/dist/ logs/ data/ && \
     chmod -R g=u ftp/ frontend/dist/ logs/ data/
 USER juicer
