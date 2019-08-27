@@ -19,6 +19,3 @@ docker run --restart=always -d -p 3000:3000 --name juice-shop bkimminich/juice-s
 # Enable proxy modules in apache and restart
 a2enmod proxy_http
 systemctl restart apache2.service
-
-# Run shake.js/logger
-docker run --restart=always -d -p 8080:80 --name shake-logger -e TARGET_SOCKET=192.168.33.10:8080 wurstbrot/shake-logger
