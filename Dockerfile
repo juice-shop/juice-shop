@@ -25,8 +25,8 @@ RUN addgroup juicer && \
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
     chown -R juicer logs && \
-    chgrp -R 0 ftp/ frontend/dist/ logs/ data/ && \
-    chmod -R g=u ftp/ frontend/dist/ logs/ data/
+    chgrp -R 0 ftp/ frontend/dist/ logs/ data/ test/ && \
+    chmod -R g=u ftp/ frontend/dist/ logs/ data/ test/
 USER juicer
 EXPOSE  3000
 CMD ["npm", "start"]
