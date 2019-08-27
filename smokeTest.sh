@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 sleep 5
 if curl http://localhost:3000 | grep -q '<app-root></app-root>'; then
