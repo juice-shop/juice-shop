@@ -88,7 +88,7 @@ jobs:
         - cd dist
         - tar zxvf juice-shop-*.zip
         - cd juice-shop-*
-        - nohub node app.js &
+        - npm start &
         - ../../smokeTest.sh
     - stage: deploy
       if: "(branch = master OR branch = develop) AND NOT type = pull_request"
