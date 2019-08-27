@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sleep 5
+sleep 10
 if curl http://localhost:3000 | grep -q '<app-root></app-root>'; then
   echo -e "\e[32mSmoke test passed!\e[0m"
   exit 0
