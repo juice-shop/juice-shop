@@ -41,3 +41,4 @@ js/reveal.min.js
 access.log*
 config/
 package-lock.json
+frontend/out-tsc/
