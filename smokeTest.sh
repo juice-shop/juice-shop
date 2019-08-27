@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sleep 5
 if curl http://localhost:3000 | grep -q '<app-root></app-root>'; then
   echo -e "\e[42mSmoke test passed!\e[0m"
