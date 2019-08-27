@@ -79,6 +79,17 @@ jobs:
       script:
         - export NODE_ENV=test
         - npm run protractor
+    - stage: smoke
+      if: tag IS blank
+      os: linux
+      script:
+        - npm install --production
+        - npm run package
+        - cd dist
+        - tar zxvf juice-shop-*.zip
+        - cd juice-shop-*
+        - nohub node app.js &
+        - ../../smokeTest.sh
     - stage: deploy
       if: "(branch = master OR branch = develop) AND NOT type = pull_request"
       os: linux
