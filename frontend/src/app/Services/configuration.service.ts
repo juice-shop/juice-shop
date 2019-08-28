@@ -30,6 +30,9 @@ interface Config {
     pressKitUrl: string
     planetOverlayMap: string
     planetName: string
+    deluxePage: {
+      deluxeDeliveryImage: string
+    }
     recyclePage: {
       topProductImage: string
       bottomProductImage: string
