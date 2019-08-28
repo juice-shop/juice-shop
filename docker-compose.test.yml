@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["true"]
   sut:
     depends_on:
       - js
