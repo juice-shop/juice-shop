@@ -87,8 +87,8 @@ jobs:
         - npm run package
       script:
         - cd dist
-        - tar zxvf juice-shop-*.tgz
-        - cd juice-shop-*
+        - tar -zxf juice-shop-*.tgz
+        - cd juice-shop_*
         - nohub node app.js &
         - ../../smokeTest.sh
     - stage: deploy
