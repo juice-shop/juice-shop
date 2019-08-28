@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sleep --help
-sleep 10s
+usleep 10000
 if curl http://localhost:3000 | grep -q '<app-root></app-root>'; then
   echo -e "\e[32mSmoke test passed!\e[0m"
   exit 0
