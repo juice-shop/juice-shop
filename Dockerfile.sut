@@ -1,4 +1,0 @@
-FROM bkimminich/juiceshop
-RUN apk update && \
-    apk upgrade && \
-    apk add curl bash
