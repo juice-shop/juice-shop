@@ -82,11 +82,12 @@ jobs:
     - stage: smoke
       if: tag IS blank
       os: linux
-      script:
+      install:
         - npm install --production
         - npm run package
+      script:
         - cd dist
-        - tar zxvf juice-shop-*.zip
+        - tar zxvf juice-shop-*.tgz
         - cd juice-shop-*
         - nohub node app.js &
         - ../../smokeTest.sh
