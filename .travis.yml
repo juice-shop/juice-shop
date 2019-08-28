@@ -87,9 +87,10 @@ jobs:
       install:
         - npm install --production
         - npm run package
-        - cd dist && tar -zxf juice-shop-*.tgz
       script:
-        - cd dist/juice-shop_*
+        - cd dist
+        - tar -zxf juice-shop-*.tgz
+        - cd juice-shop_*
         - npm start &
         - ../../smokeTest.sh
     - stage: deploy
