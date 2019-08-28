@@ -20,8 +20,7 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
     org.opencontainers.image.revision=$VCS_REF \
     org.opencontainers.image.created=$BUILD_DATE
 WORKDIR /juice-shop
-RUN apk add curl bash && \
-    addgroup juicer && \
+RUN addgroup juicer && \
     adduser -D -G juicer juicer
 COPY --from=installer --chown=juicer /juice-shop .
 RUN mkdir logs && \
