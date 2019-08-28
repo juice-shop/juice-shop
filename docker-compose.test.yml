@@ -1,14 +1,5 @@
-version: "2"
-services:
-  js:
-    image: bkimminich/juiceshop
-    build:
-      context: .
-      dockerfile: Dockerfile
-  sut:
-    depends_on:
-      - js
-    build:
-      context: .
-      dockerfile: Dockerfile.sut
-    command: ["smokeTest.sh"]
+sut:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  command: smokeTest.sh
