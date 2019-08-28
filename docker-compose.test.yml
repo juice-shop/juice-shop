@@ -1,3 +1,6 @@
 sut:
-  build: .
-  command: ["sh", "smokeTest.sh"]
+  build: ./test/smoke-test/
+  links:
+    - app
+app:
+  build: ./
