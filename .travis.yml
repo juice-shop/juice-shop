@@ -82,14 +82,15 @@ jobs:
     - stage: smoke
       if: tag IS blank
       os: linux
+      before_install:
+        - chmod +x smokeTest.sh
       install:
         - npm install --production
         - npm run package
+        - cd dist && tar -zxf juice-shop-*.tgz
       script:
-        - cd dist
-        - tar -zxf juice-shop-*.tgz
-        - cd juice-shop_*
-        - nohub node app.js &
+        - cd dist/juice-shop_*
+        - npm start &
         - ../../smokeTest.sh
     - stage: deploy
       if: "(branch = master OR branch = develop) AND NOT type = pull_request"
