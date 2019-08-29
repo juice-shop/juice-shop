@@ -1,6 +1,6 @@
 #!/bin/sh
 
-smoke 10
+sleep 10
 if curl $1 | grep -q '<app-root></app-root>'; then
   printf "\033[0;32mSmoke test passed!\033[0m"
   exit 0
