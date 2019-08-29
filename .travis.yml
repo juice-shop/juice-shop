@@ -83,7 +83,7 @@ jobs:
       if: tag IS blank
       os: linux
       before_install:
-        - chmod +x test/smoke-test/smoke-test.sh
+        - chmod +x test/smoke/smoke-test.sh
       install:
         - npm install --production
         - npm run package
@@ -92,7 +92,7 @@ jobs:
         - tar -zxf juice-shop-*.tgz
         - cd juice-shop_*
         - npm start &
-        - ../../test/smoke-test/smoke-test.sh http://localhost:3000
+        - ../../test/smoke/smoke-test.sh http://localhost:3000
     - stage: deploy
       if: "(branch = master OR branch = develop) AND NOT type = pull_request"
       os: linux
