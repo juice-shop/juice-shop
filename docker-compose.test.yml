@@ -1,5 +1,5 @@
 sut:
-  build: ./test/smoke-test/
+  build: ./test/smoke/
   links:
     - app
 app:
