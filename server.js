@@ -93,7 +93,7 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  updateFiles: false
+  uodateFiles: false
 })
 
 const mimeTypeMap = {
@@ -392,6 +392,36 @@ for (const { name, exclude } of autoModels) {
       if (context.instance.hint) {
         context.instance.hint = req.__(context.instance.hint)
       }
+      return context.continue
+    })
+  }
+
+  // translate security questions on-the-fly
+  if (name === 'SecurityQuestion') {
+    resource.list.fetch.after((req, res, context) => {
+      for (let i = 0; i < context.instance.length; i++) {
+        context.instance[i].question = req.__(context.instance[i].question)
+      }
+      return context.continue
+    })
+    resource.read.send.before((req, res, context) => {
+      context.instance.question = req.__(context.instance.question)
+      return context.continue
+    })
+  }
+
+  // translate product names and descriptions on-the-fly
+  if (name === 'Product') {
+    resource.list.fetch.after((req, res, context) => {
+      for (let i = 0; i < context.instance.length; i++) {
+        context.instance[i].name = req.__(context.instance[i].name)
+        context.instance[i].description = req.__(context.instance[i].description)
+      }
+      return context.continue
+    })
+    resource.read.send.before((req, res, context) => {
+      context.instance.name = req.__(context.instance.name)
+      context.instance.description = req.__(context.instance.description)
       return context.continue
     })
   }
