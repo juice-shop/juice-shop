@@ -50,39 +50,38 @@ module.exports = function getLanguageList () {
         next(new Error(`Unable to retrieve en.json language file: ${err.message}`))
       }
       enContent = JSON.parse(content)
-    })
-
-    fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
-      if (err) {
-        next(new Error(`Unable to read i18n directory: ${err.message}`))
-      }
-      languageFiles.forEach((fileName) => {
-        fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
-          if (err) {
-            next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
-          }
-          const fileContent = JSON.parse(content)
-          const percentage = await calcPercentage(fileContent, enContent)
-          const key = fileName.substring(0, fileName.indexOf('.'))
-          let iconObj = iconMap.find((x) => x.key === key)
-          if (!iconObj) iconObj = ''
-          const dataObj = {
-            key: key,
-            lang: fileContent.LANGUAGE,
-            icons: iconObj.icons,
-            shortKey: iconObj.shortKey,
-            percentage: percentage,
-            gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
-          }
-          if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
-            languages.push(dataObj)
-          }
-          count++
-          if (count === languageFiles.length) {
-            languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
-            languages.sort((a, b) => a.lang.localeCompare(b.lang))
-            res.status(200).json(languages)
-          }
+      fs.readdir('frontend/dist/frontend/assets/i18n/', (err, languageFiles) => {
+        if (err) {
+          next(new Error(`Unable to read i18n directory: ${err.message}`))
+        }
+        languageFiles.forEach((fileName) => {
+          fs.readFile('frontend/dist/frontend/assets/i18n/' + fileName, 'utf-8', async (err, content) => {
+            if (err) {
+              next(new Error(`Unable to retrieve ${fileName} language file: ${err.message}`))
+            }
+            const fileContent = JSON.parse(content)
+            const percentage = await calcPercentage(fileContent, enContent)
+            const key = fileName.substring(0, fileName.indexOf('.'))
+            let iconObj = iconMap.find((x) => x.key === key)
+            if (!iconObj) iconObj = ''
+            const dataObj = {
+              key: key,
+              lang: fileContent.LANGUAGE,
+              icons: iconObj.icons,
+              shortKey: iconObj.shortKey,
+              percentage: percentage,
+              gauge: (percentage > 90 ? 'full' : (percentage > 70 ? 'three-quarters' : (percentage > 50 ? 'half' : (percentage > 30 ? 'quarter' : 'empty'))))
+            }
+            if (!(fileName === 'en.json' || fileName === 'tlh_AA.json')) {
+              languages.push(dataObj)
+            }
+            count++
+            if (count === languageFiles.length) {
+              languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
+              languages.sort((a, b) => a.lang.localeCompare(b.lang))
+              res.status(200).json(languages)
+            }
+          })
         })
       })
     })
