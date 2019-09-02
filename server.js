@@ -86,6 +86,15 @@ const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
+const locales = require('./data/static/locales')
+const i18n = require('i18n')
+
+i18n.configure({
+  locales: locales.map(locale => locale.key),
+  directory: path.join(__dirname, '/i18n'),
+  cookie: 'language',
+  uodateFiles: false
+})
 
 const mimeTypeMap = {
   'image/png': 'png',
@@ -183,6 +192,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
 
 app.use(cookieParser('kekse'))
+app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
@@ -362,6 +372,56 @@ for (const { name, exclude } of autoModels) {
       models.Wallet.create({ UserId: context.instance.id }).catch((err) => {
         console.log(err)
       })
+      return context.continue
+    })
+  }
+
+  // translate challenge descriptions and hints on-the-fly
+  if (name === 'Challenge') {
+    resource.list.fetch.after((req, res, context) => {
+      for (let i = 0; i < context.instance.length; i++) {
+        context.instance[i].description = req.__(context.instance[i].description)
+        if (context.instance[i].hint) {
+          context.instance[i].hint = req.__(context.instance[i].hint)
+        }
+      }
+      return context.continue
+    })
+    resource.read.send.before((req, res, context) => {
+      context.instance.description = req.__(context.instance.description)
+      if (context.instance.hint) {
+        context.instance.hint = req.__(context.instance.hint)
+      }
+      return context.continue
+    })
+  }
+
+  // translate security questions on-the-fly
+  if (name === 'SecurityQuestion') {
+    resource.list.fetch.after((req, res, context) => {
+      for (let i = 0; i < context.instance.length; i++) {
+        context.instance[i].question = req.__(context.instance[i].question)
+      }
+      return context.continue
+    })
+    resource.read.send.before((req, res, context) => {
+      context.instance.question = req.__(context.instance.question)
+      return context.continue
+    })
+  }
+
+  // translate product names and descriptions on-the-fly
+  if (name === 'Product') {
+    resource.list.fetch.after((req, res, context) => {
+      for (let i = 0; i < context.instance.length; i++) {
+        context.instance[i].name = req.__(context.instance[i].name)
+        context.instance[i].description = req.__(context.instance[i].description)
+      }
+      return context.continue
+    })
+    resource.read.send.before((req, res, context) => {
+      context.instance.name = req.__(context.instance.name)
+      context.instance.description = req.__(context.instance.description)
       return context.continue
     })
   }

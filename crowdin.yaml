@@ -2,3 +2,6 @@ files:
   -
     source: /frontend/src/assets/i18n/en.json
     translation: /frontend/src/assets/i18n/%locale_with_underscore%.json
+  -
+    source: /i18n/en.json
+    translation: /i18n/%locale_with_underscore%.json
