@@ -86,11 +86,11 @@ const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
-const i18n = require("i18n")
+const i18n = require('i18n')
 
 i18n.configure({
-  locales:['en', 'de_DE'],
-  directory: __dirname + '/i18n',
+  locales: ['en', 'de_DE'],
+  directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
   updateFiles: false
 })
@@ -378,7 +378,7 @@ for (const { name, exclude } of autoModels) {
   // translate challenge descriptions and hints on-the-fly
   if (name === 'Challenge') {
     resource.list.fetch.after((req, res, context) => {
-      for (let i=0; i < context.instance.length; i++) {
+      for (let i = 0; i < context.instance.length; i++) {
         context.instance[i].description = req.__(context.instance[i].description)
         if (context.instance[i].hint) {
           context.instance[i].hint = req.__(context.instance[i].hint)
