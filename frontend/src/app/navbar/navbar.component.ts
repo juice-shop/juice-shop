@@ -161,6 +161,7 @@ export class NavbarComponent implements OnInit {
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey).shortKey
     }
+    // location.reload() FIXME Screws with tests but cannot be stubbed with spyOn
   }
 
   getScoreBoardStatus () {
