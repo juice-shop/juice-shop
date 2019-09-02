@@ -86,10 +86,11 @@ const orderHistory = require('./routes/orderHistory')
 const delivery = require('./routes/delivery')
 const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
+const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
 i18n.configure({
-  locales: ['en', 'de_DE'],
+  locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
   updateFiles: false
