@@ -39,7 +39,7 @@
 	"If you solved one of the three file access challenges, you already know where to find the easter egg.": "If you solved one of the three file access challenges, you already know where to find the easter egg.",
 	"Perform an unwanted information disclosure by accessing data cross-domain.": "Perform an unwanted information disclosure by accessing data cross-domain.",
 	"Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.": "Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.",
-	"Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.": "Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.",
+	"Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.": "Melde dich mit dem (nicht existierenden) Buchhalter <i>acc0unt4nt@juice-sh.op</i> an, ohne dass du diesen Benutzer jemals registriert hast.",
 	"Try to create the needed user \"out of thin air\".": "Versuche, den benötigten Benutzer \"aus dem Nichts\" zu erstellen.",
 	"Provoke an error that is neither very gracefully nor consistently handled.": "Provoke an error that is neither very gracefully nor consistently handled.",
 	"Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.": "Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.",
