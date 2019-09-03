@@ -93,7 +93,8 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  uodateFiles: false
+  uodateFiles: false,
+  defaultLocale: 'en'
 })
 
 const mimeTypeMap = {
