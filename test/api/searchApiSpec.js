@@ -80,34 +80,34 @@ describe('/rest/products/search', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
-        name: 1,
-        description: 'admin@' + config.get('application.domain'),
-        price: insecurity.hash('admin123')
+        id: 1,
+        name: 'admin@' + config.get('application.domain'),
+        description: insecurity.hash('admin123')
       })
       .expect('json', 'data.?', {
-        name: 2,
-        description: 'jim@' + config.get('application.domain'),
-        price: insecurity.hash('ncc-1701')
+        id: 2,
+        name: 'jim@' + config.get('application.domain'),
+        description: insecurity.hash('ncc-1701')
       })
       .expect('json', 'data.?', {
-        name: 3,
-        description: 'bender@' + config.get('application.domain')
+        id: 3,
+        name: 'bender@' + config.get('application.domain')
         // no check for Bender's password as it might have already been changed by different test
       })
       .expect('json', 'data.?', {
-        name: 4,
-        description: 'bjoern.kimminich@gmail.com',
-        price: insecurity.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
+        id: 4,
+        name: 'bjoern.kimminich@gmail.com',
+        description: insecurity.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
       })
       .expect('json', 'data.?', {
-        name: 5,
-        description: 'ciso@' + config.get('application.domain'),
-        price: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+        id: 5,
+        name: 'ciso@' + config.get('application.domain'),
+        description: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
       })
       .expect('json', 'data.?', {
-        name: 6,
-        description: 'support@' + config.get('application.domain'),
-        price: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+        id: 6,
+        name: 'support@' + config.get('application.domain'),
+        description: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       })
   })
 
@@ -116,10 +116,10 @@ describe('/rest/products/search', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
-        name: 'CREATE TABLE `BasketItems` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `quantity` INTEGER, `createdAt` DATETIME NOT NULL, `updatedAt` DATETIME NOT NULL, `BasketId` INTEGER REFERENCES `Baskets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, `ProductId` INTEGER REFERENCES `Products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE, UNIQUE (`BasketId`, `ProductId`))'
+        id: `CREATE TABLE 'BasketItems' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'quantity' INTEGER, 'createdAt' DATETIME NOT NULL, 'updatedAt' DATETIME NOT NULL, 'BasketId' INTEGER REFERENCES 'Baskets' ('id') ON DELETE CASCADE ON UPDATE CASCADE, 'ProductId' INTEGER REFERENCES 'Products' ('id') ON DELETE CASCADE ON UPDATE CASCADE, UNIQUE ('BasketId', 'ProductId'))`
       })
       .expect('json', 'data.?', {
-        name: 'CREATE TABLE sqlite_sequence(name,seq)'
+        id: 'CREATE TABLE sqlite_sequence(name,seq)'
       })
   })
 
