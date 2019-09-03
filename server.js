@@ -93,7 +93,7 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  uodateFiles: false,
+  autoReload: true,
   defaultLocale: 'en'
 })
 
