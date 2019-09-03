@@ -8,6 +8,9 @@ uploads/complaints/*.*
 !uploads/complaints/.gitkeep
 ftp/legal.md
 package-lock.json
+i18n/*.json
+!frontend/src/assets/i18n/*.json
+!data/static/i18n/*.json
 
 # Build
 .nyc_output/

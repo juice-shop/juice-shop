@@ -34,18 +34,19 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
-              'frontend/dist/frontend/**',
               'config/*.yml',
               'data/*.js',
               'data/static/**',
               'encryptionkeys/**',
+              'frontend/dist/frontend/**',
               'ftp/**',
+              'i18n/.gitkeep',
               'lib/**',
               'models/*.js',
-              'routes/*.js',
               'node_modules/**',
-              'views/**',
-              'uploads/complaints/.gitkeep'
+              'routes/*.js',
+              'uploads/complaints/.gitkeep',
+              'views/**'
             ],
             dest: 'juice-shop_<%= pkg.version %>/'
           }

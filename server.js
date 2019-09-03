@@ -89,13 +89,6 @@ const memory = require('./routes/memory')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
-i18n.configure({
-  locales: locales.map(locale => locale.key),
-  directory: path.join(__dirname, '/i18n'),
-  cookie: 'language',
-  uodateFiles: false
-})
-
 const mimeTypeMap = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -188,10 +181,16 @@ app.use('/support/logs/:file', logFileServer())
 /* Swagger documentation for B2B v2 endpoints */
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-// app.use(express.static(applicationRoot + '/app'))
 app.use(express.static(path.join(__dirname, '/frontend/dist/frontend')))
-
 app.use(cookieParser('kekse'))
+
+/* Configure and enable backend-side i18n */
+i18n.configure({
+  locales: locales.map(locale => locale.key),
+  directory: path.join(__dirname, '/i18n'),
+  cookie: 'language',
+  defaultLocale: 'en'
+})
 app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
