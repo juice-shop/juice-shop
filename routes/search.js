@@ -44,12 +44,8 @@ module.exports = function searchProducts () {
           })
         }
         for (let i = 0; i < products.length; i++) {
-          if (products[i].name) { // TODO With 10.x let 'null' columns crash i18n and adjust test cases instead
-            products[i].name = req.__(products[i].name)
-          }
-          if (products[i].description) { // TODO With 10.x let 'null' columns crash i18n and adjust test cases instead
-            products[i].description = req.__(products[i].description)
-          }
+          products[i].name = req.__(products[i].name)
+          products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
       }).catch(error => {

