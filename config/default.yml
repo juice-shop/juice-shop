@@ -211,7 +211,7 @@ products:
     quantity: 1
     image: artwork.jpg
   -
-    name: 'Global OWASP WASPY Award 2017 Nomnation'
+    name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
     price: 0.03
     image: waspy.png

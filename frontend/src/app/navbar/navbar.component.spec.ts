@@ -31,6 +31,7 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { AdminGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 class MockSocket {
   on (str: string, callback: Function) {
@@ -98,7 +99,8 @@ describe('NavbarComponent', () => {
         MatDividerModule,
         MatGridListModule,
         NgMatSearchBarModule,
-        MatRadioModule
+        MatRadioModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: AdministrationService, useValue: administrationService },
