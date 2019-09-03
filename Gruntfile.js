@@ -40,7 +40,7 @@ module.exports = function (grunt) {
               'encryptionkeys/**',
               'frontend/dist/frontend/**',
               'ftp/**',
-              'i18n/**',
+              'i18n/.gitkeep',
               'lib/**',
               'models/*.js',
               'node_modules/**',
