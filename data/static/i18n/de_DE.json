@@ -2,7 +2,7 @@
 	"Find the carefully hidden 'Score Board' page.": "Finde die sorgfältig versteckte 'Punkteübersicht'-Seite.",
 	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Versuche, eine Referenz oder einen Hinweis hinter den Kulissen zu finden. Oder errate einfach, welche URL die Punkteübersicht wohl haben könnte.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Führe einen <i>persistenten</i> XSS-Angriff mit <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> aus, ohne überhaupt das Anwendungs-Frontend zu verwenden.",
-	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
+	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "Du musst direkt mit der serverseitigen API arbeiten. Versuche unterschiedliche HTTP-Verben bei verschiedenen durch die API exponierten Entitäten.",
 	"Gain access to any access log file of the server.": "Erhalte Zugriff auf irgendeine Log-Datei des Servers.",
 	"Who would want a server access log to be accessible through a web application?": "Who would want a server access log to be accessible through a web application?",
 	"Register as a user with administrator privileges.": "Registriere dich als Benutzer mit Administratorrechten.",
