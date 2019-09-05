@@ -15,7 +15,7 @@ module.exports = function retrieveBasket () {
             utils.solve(challenges.basketAccessChallenge)
           }
         }
-        if (basket.Products && basket.Products.length > 0) {
+        if (basket && basket.Products && basket.Products.length > 0) {
           for (let i = 0; i < basket.Products.length; i++) {
             basket.Products[i].name = req.__(basket.Products[i].name)
           }
