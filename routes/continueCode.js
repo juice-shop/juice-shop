@@ -1,4 +1,4 @@
-const Hashids = require('hashids')
+const Hashids = require('hashids/cjs')
 const hashids = new Hashids('this is my salt', 60, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 const challenges = require('../data/datacache').challenges
 
