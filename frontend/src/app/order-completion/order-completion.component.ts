@@ -5,6 +5,11 @@ import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
 import { AddressService } from '../Services/address.service'
 import { ConfigurationService } from '../Services/configuration.service'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faTwitter)
+dom.watch()
 
 @Component({
   selector: 'app-order-completion',
@@ -20,7 +25,7 @@ export class OrderCompletionComponent implements OnInit {
   public deliveryPrice = 0
   public promotionalDiscount = 0
   public address: any
-  public tweetText: string = 'Purchased '
+  public tweetText: string = 'I just purchased'
 
   constructor (private configurationService: ConfigurationService, private addressService: AddressService, private trackOrderService: TrackOrderService, public activatedRoute: ActivatedRoute, private basketService: BasketService) { }
 
@@ -39,12 +44,16 @@ export class OrderCompletionComponent implements OnInit {
         this.orderDetails.bonus = results.data[0].bonus
         this.dataSource = new MatTableDataSource<Element>(this.orderDetails.products)
         for (const product of this.orderDetails.products) {
-          this.tweetText += product.name + ' '
+          this.tweetText += '%0a- ' + product.name
         }
+        this.tweetText = this.truncateTweet(this.tweetText)
         this.configurationService.getApplicationConfiguration().subscribe((config) => {
           if (config && config.application) {
+            this.tweetText += '%0afrom '
             if (config.application.twitterUrl !== null) {
               this.tweetText += config.application.twitterUrl.replace('https://twitter.com/','@')
+            } else {
+              this.tweetText += config.application.name
             }
           }
         },(err) => console.log(err))
@@ -58,5 +67,11 @@ export class OrderCompletionComponent implements OnInit {
   openConfirmationPDF () {
     const redirectUrl = this.basketService.hostServer + '/ftp/order_' + this.orderId + '.pdf'
     window.open(redirectUrl,'_blank')
+  }
+
+  truncateTweet = (tweet, maxLength = 140) => {
+    if (!tweet) return null
+    const showDots = tweet.length > maxLength
+    return `${tweet.substring(0, maxLength)}${showDots ? '...' : ''}`
   }
 }

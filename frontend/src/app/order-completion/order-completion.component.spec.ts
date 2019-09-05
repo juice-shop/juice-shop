@@ -99,11 +99,46 @@ describe('OrderCompletionComponent', () => {
     expect(component.orderDetails.products[1].name).toBe('Apple Pomace')
   })
 
-  it('should use custom twitter URL if configured', () => {
-    trackOrderService.save.and.returnValue(of({ data: [{ products: [] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+  it('should have bullet point list of products in tweet', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ { name: 'A' }, { name: 'B' }] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ }))
     component.ngOnInit()
-    expect(component.tweetText).toBe('Purchased twitter')
+    expect(component.tweetText).toBe('I just purchased%0a- A%0a- B')
+  })
+
+  it('should truncate tweet text if it exceeds 140 characters', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ { name: 'AAAAAAAAAAAAAAAAAAAA' }, { name: 'BBBBBBBBBBBBBBBBBBBB' }, { name: 'CCCCCCCCCCCCCCCCCCCC' }, { name: 'DDDDDDDDDDDDDDDDDDDD' }, { name: 'EEEEEEEEEEEEEEEEEEEE' }, { name: 'FFFFFFFFFFFFFFFFFFFF' }] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('I just purchased%0a- AAAAAAAAAAAAAAAAAAAA%0a- BBBBBBBBBBBBBBBBBBBB%0a- CCCCCCCCCCCCCCCCCCCC%0a- DDDDDDDDDDDDDDDDDDDD%0a- EEEEEEEEEEEEEEEEEEE...')
+  })
+
+  it('should derive twitter handle from twitter URL if configured', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'https://twitter.com/bkimminich' } }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('I just purchased%0afrom @bkimminich')
+  })
+
+  it('should append twitter handle to truncated tweet text', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ { name: 'AAAAAAAAAAAAAAAAAAAA' }, { name: 'BBBBBBBBBBBBBBBBBBBB' }, { name: 'CCCCCCCCCCCCCCCCCCCC' }, { name: 'DDDDDDDDDDDDDDDDDDDD' }, { name: 'EEEEEEEEEEEEEEEEEEEE' }, { name: 'FFFFFFFFFFFFFFFFFFFF' }] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'https://twitter.com/owasp_juiceshop' } }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('I just purchased%0a- AAAAAAAAAAAAAAAAAAAA%0a- BBBBBBBBBBBBBBBBBBBB%0a- CCCCCCCCCCCCCCCCCCCC%0a- DDDDDDDDDDDDDDDDDDDD%0a- EEEEEEEEEEEEEEEEEEE...%0afrom @owasp_juiceshop')
+  })
+
+  it('should use configured URL as is if it is not a twitter URL', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'http://localhorst:42' } }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('I just purchased%0afrom http://localhorst:42')
+  })
+
+  fit('should use configured application name as a fallback for missing twitter URL', () => {
+    trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'OWASP Juice Shop', twitterUrl: null } }))
+    component.ngOnInit()
+    expect(component.tweetText).toBe('I just purchased%0afrom OWASP Juice Shop')
   })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
