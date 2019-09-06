@@ -134,7 +134,7 @@ describe('OrderCompletionComponent', () => {
     expect(component.tweetText).toBe('I just purchased%0afrom http://localhorst:42')
   })
 
-  fit('should use configured application name as a fallback for missing twitter URL', () => {
+  it('should use configured application name as a fallback for missing twitter URL', () => {
     trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'OWASP Juice Shop', twitterUrl: null } }))
     component.ngOnInit()
