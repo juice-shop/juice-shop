@@ -54,7 +54,7 @@
 	"Post some feedback in another users name.": "Schreibe ein Feedback im Namen eines anderen Benutzers.",
 	"You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.": "Du kannst diese lösen, indem du an der Benutzeroberfläche herumdokterst oder die Kommunikation mit dem RESTful Backend abfängst.",
 	"Post a product review as another user or edit any user's existing review.": "Veröffentliche eine Produktrezension als ein anderer Benutzer oder bearbeite die bestehende Rezension eines anderen Benutzers.",
-	"Observe the flow of product review posting and editing and see if you can exploit it.": "Observe the flow of product review posting and editing and see if you can exploit it.",
+	"Observe the flow of product review posting and editing and see if you can exploit it.": "Beobachte den Ablauf des Veröffentlichens und Bearbeitens von Produktrezensionen, und schau ob du dir dieses zunutze machen kannst.",
 	"Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.": "Fälsche ein beinahe ordnungsgemäß RSA-signiertes JWT-Token, das sich als der (nicht existierende) Benutzer <i>rsa_lord@juice-sh.op</i> ausgibt.",
 	"This challenge is explicitly not about acquiring the RSA private key used for JWT signing.": "This challenge is explicitly not about acquiring the RSA private key used for JWT signing.",
 	"Access a developer's forgotten backup file.": "Greife auf die vergessene Sicherungskopie einer Datei eines Entwicklers zu.",
