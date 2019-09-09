@@ -65,7 +65,7 @@
 	"Log in with Chris' erased user account.": "Melde dich mit dem gelöschten Benutzerkonto von Chris an.",
 	"Turns out that something is technically and legally wrong with the implementation of the \"right to be forgotten\" for users.": "Es stellt sich heraus, dass bei der Umsetzung des \"Rechts auf Vergessen\" für Benutzer technisch und rechtlich etwas schief gelaufen ist.",
 	"Steal someone else's personal data without using Injection.": "Stiehl die personenbezogenen Daten von jemand anderem ohne Injection zu verwenden.",
-	"Trick the regular Data Export to give you more than actually belongs to you.": "Trick the regular Data Export to give you more than actually belongs to you.",
+	"Trick the regular Data Export to give you more than actually belongs to you.": "Bringe den normalen Datenexport dazu, dir mehr zu geben als dir eigentlich gehört.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header.",
 	"Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.": "Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.",
 	"Solve challenge #999. Unfortunately, this challenge does not exist.": "Löse Herausforderung #999. Leider existiert diese Herausforderung nicht.",
