@@ -30,80 +30,143 @@
         {{ userEmail }}
       </span>
     </a>
-    <mat-list-item *ngIf="isLoggedIn()" (click)="showSubmenu = !showSubmenu" class="parent"
+    <a mat-list-item *ngIf="isLoggedIn() && isAccounting()" routerLink="/accounting" aria-label="Go to accounting page">
+      <mat-icon>
+        account_balance
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{"ACCOUNTING" | translate }}
+      </span>
+    </a>
+
+    <mat-list-item *ngIf="isLoggedIn()" (click)="showOrdersSubmenu = !showOrdersSubmenu" class="parent"
+                   aria-label="Show Orders and Payment Menu">
+      <mat-icon>
+        check_circle_outline
+      </mat-icon>
+      <span class="menu-text truncate">
+        {{ "ORDERS_AND_PAYMENT" | translate }}
+      </span>
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showOrdersSubmenu}">
+        expand_more
+      </mat-icon>
+    </mat-list-item>
+    <div class="submenu" [ngClass]="{'expanded' : showOrdersSubmenu}" *ngIf="showOrdersSubmenu">
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/order-history"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to order history page">
+        <mat-icon>
+          archive
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"LABEL_ORDER_HISTORY" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to track order page">
+        <mat-icon>
+          local_shipping
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"TITLE_TRACK_ORDERS" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to recycling page">
+        <mat-icon>
+          autorenew
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"NAV_RECYCLE" | translate}}
+      </span>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/address/saved"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved address page">
+        <mat-icon>
+          my_location
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"MY_SAVED_ADRESSES" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/saved-payment-methods"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to saved payment methods page">
+        <mat-icon>
+          credit_card
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"MY_PAYMENT_OPTIONS" | translate}}
+      </span>
+      </a>
+      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/wallet"
+         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to wallet page">
+        <mat-icon>
+          account_balance_wallet
+        </mat-icon>
+        <span class="menu-text truncate">
+        {{"DIGITAL_WALLET" | translate}}
+      </span>
+      </a>
+    </div>
+
+    <mat-list-item *ngIf="isLoggedIn()" (click)="showPrivacySubmenu = !showPrivacySubmenu" class="parent"
                    aria-label="Show Privacy and Security Menu">
       <mat-icon>
-        enhanced_encryption
+        security
       </mat-icon>
       <span class="menu-text truncate">
         {{ "PRIVACY_AND_SECURITY" | translate }}
       </span>
-      <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showPrivacySubmenu}">
         expand_more
       </mat-icon>
     </mat-list-item>
-    <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
+    <div class="submenu" [ngClass]="{'expanded' : showPrivacySubmenu}" *ngIf="showPrivacySubmenu">
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/privacy-policy"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to privacy policy page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to privacy policy page">
         <mat-icon>
           assignment
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_PRIVACY_POLICY</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/data-export"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data export page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data export page">
         <mat-icon>
           get_app
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_REQUEST_DATA_EXPORT</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/erasure-request"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to data subject page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to data subject page">
         <mat-icon>
           delete_forever
         </mat-icon>
         <span class="menu-text truncate" translate>DATA_SUBJECT_TITLE</span>
       </a>
+      <mat-divider></mat-divider>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/change-password"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to change password page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to change password page">
         <mat-icon>
           edit
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_CHANGE_PASSWORD</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/two-factor-authentication"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to two factor authentication page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to two factor authentication page">
         <mat-icon>
           exposure_plus_2
         </mat-icon>
         <span class="menu-text truncate" translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
       </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="privacy-security/last-login-ip"
-         (click)="onToggleSidenav(); showSubmenu = !showSubmenu" aria-label="Go to last login ip page">
+         (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to last login ip page">
         <mat-icon>
           place
         </mat-icon>
         <span class="menu-text truncate" translate>LAST_LOGIN_IP</span>
       </a>
     </div>
-    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
-       (click)="onToggleSidenav();" aria-label="Go to track order page">
-      <mat-icon>
-        local_shipping
-      </mat-icon>
-      <span class="menu-text truncate">
-        {{"TITLE_TRACK_ORDERS" | translate}}
-      </span>
-    </a>
-    <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle" (click)="onToggleSidenav();"
-       aria-label="Go to recycling page">
-      <mat-icon>
-        autorenew
-      </mat-icon>
-      <span class="menu-text truncate">
-        {{"NAV_RECYCLE" | translate}}
-      </span>
-    </a>
+
     <a mat-list-item *ngIf="isLoggedIn()" (click)="onToggleSidenav(); logout()" aria-label="Logout">
       <mat-icon>
         power_settings_new
