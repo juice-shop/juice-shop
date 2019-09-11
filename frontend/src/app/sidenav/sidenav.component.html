@@ -30,7 +30,7 @@
         {{ userEmail }}
       </span>
     </a>
-    <a mat-list-item *ngIf="isLoggedIn() && isAccounting()" routerLink="/accounting" aria-label="Go to accounting page">
+    <a mat-list-item *ngIf="isLoggedIn() && isAccounting()" routerLink="/accounting" (click)="onToggleSidenav();" aria-label="Go to accounting page">
       <mat-icon>
         account_balance
       </mat-icon>
