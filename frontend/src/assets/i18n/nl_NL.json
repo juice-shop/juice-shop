@@ -308,5 +308,6 @@
   "LABEL_PAY": "Pay",
   "LABEL_ADD": "Add",
   "REVIEW_DELUXE": "You will be logged out on successful completion.",
-  "REVIEW_WALLET": "You will be redirected back to your wallet."
+  "REVIEW_WALLET": "You will be redirected back to your wallet.",
+  "ORDERS_AND_PAYMENT": "Orders & Payment"
 }
