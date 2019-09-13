@@ -55,7 +55,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit () {
     const products = this.productService.search('')
     const quantities = this.quantityService.getAll()
-    forkJoin(quantities, products).subscribe(([quantities, products]) => {
+    forkJoin([quantities, products]).subscribe(([quantities, products]) => {
       let dataTable: TableEntry[] = []
       this.tableData = products
       this.trustProductDescription(products)
