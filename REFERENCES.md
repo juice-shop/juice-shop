@@ -235,6 +235,10 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [Introduction to OWASP Juice Shop](https://bsidesmcr2019.sched.com/event/Sw0q/introduction-to-owasp-juice-shop)
+  by Tim Corless-Carter,
+  [BSidesMCR 2019](https://www.bsidesmcr.org.uk/), 29.08.2019
+  ([Youtube](https://youtu.be/hlgp7oeVpac) :godmode:)
 * [JavaScript-Security: "Pwn" den Juice Shop](https://www.enterjs.de/single?id=7685&javascript-security%3A-%22pwn%22-den-juice-shop)
   workshop with Timo Pagel & Björn Kimminich,
   [enterJS 2019](https://www.enterjs.de/2019/), 25.06.2019
@@ -250,7 +254,7 @@ where this project was mentioned or used!
   [Pixels Camp v3.0](https://pixels.camp), 21.03.2019
 * [OWASP Juice Shop - First you :-D :-D then you :,-(](https://github.com/PixelsCamp/talks/blob/master/2019/owasp-juice-shop_bjoern-kimminich.md)
   by Björn Kimminich, [Pixels Camp v3.0](https://pixels.camp),
-  21.03.2019
+  21.03.2019 ([Youtube](https://youtu.be/v9qrAK_iBa0) :bulb:)
 * [News from the fruit press: Juice Shop 8](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch/events/258185324/)
   by Björn Kimminich,
   [39. OWASP Stammtisch Hamburg](https://www.meetup.com/de-DE/OWASP-Hamburg-Stammtisch),
