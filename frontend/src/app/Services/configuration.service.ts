@@ -43,16 +43,6 @@ interface Config {
       title: string
       message: string
     }
-    cookieConsent: {
-      backgroundColor: string
-      textColor: string
-      buttonColor: string
-      buttonTextColor: string
-      message: string
-      dismissText: string
-      linkText: string
-      linkUrl: string
-    }
     privacyContactEmail: string
     securityTxt: {
       contact: string

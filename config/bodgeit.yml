@@ -20,15 +20,6 @@ application:
   altcoinName: Bodgecoin
   welcomeBanner:
     showOnFirstStart: false
-  cookieConsent:
-    backgroundColor: '#000000'
-    textColor: '#ffffff'
-    buttonColor: '#ffffff'
-    buttonTextColor: '#000000'
-    message: 'This website is so legacy, it might even run without cookies.'
-    dismissText: 'Bodge it!'
-    linkText: 'Lega-what?'
-    linkUrl: 'https://github.com/psiinon/bodgeit'
   privacyContactEmail: 'donotreply@thebodgeitstore.com'
   securityTxt:
     contact: 'mailto:donotreply@thebodgeitstore.com'
