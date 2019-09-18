@@ -67,7 +67,7 @@
 	"Steal someone else's personal data without using Injection.": "Volez les données personnelles de quelqu'un d'autre sans utiliser d'injection.",
 	"Trick the regular Data Export to give you more than actually belongs to you.": "Piégez l'export de données pour qu'il vous donne plus que ce qui vous appartient.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> through an HTTP header.": "Effectuer une attaque XSS <i>persistée</i> avec <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> via un en-tête HTTP.",
-	"Finding a piece of displayed information that could originate from an HTTP header is the part of this challenge.": "Trouver un morceau d'informations affichées qui pourrait provenir d'un en-tête HTTP fait partie de ce défi.",
+	"Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.": "Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.",
 	"Solve challenge #999. Unfortunately, this challenge does not exist.": "Résolvez le défi #999. Malheureusement, ce défi n'existe pas.",
 	"You need to trick the hacking progress persistence feature into thinking you solved challenge #999.": "You need to trick the hacking progress persistence feature into thinking you solved challenge #999.",
 	"Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)": "Dumpster dive the Internet for a leaked password and log in to the original user account it belongs to. (Creating a new account with the same password does not qualify as a solution.)",
