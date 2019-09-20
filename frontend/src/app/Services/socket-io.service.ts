@@ -12,7 +12,13 @@ export class SocketIoService {
 
   constructor (private ngZone: NgZone) {
     this.ngZone.runOutsideAngular(() => {
-      this._socket = this.io.connect(environment.hostServer)
+      if(environment.hostServer == '.') {
+        this._socket = this.io.connect(window.location.protocol+"://"+window.location.host, {
+          path: window.location.pathname
+        })
+      } else {
+        this._socket = this.io.connect(environment.hostServer)
+      }
     })
   }
 
