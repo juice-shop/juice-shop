@@ -31,7 +31,7 @@ import { Location } from '@angular/common'
 import { MatIconModule, MatCheckboxModule, MatTooltipModule } from '@angular/material'
 import { WalletComponent } from '../wallet/wallet.component'
 
-fdescribe('PaymentComponent', () => {
+describe('PaymentComponent', () => {
   let component: PaymentComponent
   let fixture: ComponentFixture<PaymentComponent>
   let configurationService
@@ -333,8 +333,8 @@ fdescribe('PaymentComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  fit('should remove walletTotal from session storage on calling choosePayment in wallet mode', () => {
-    component.payUsingWallet = true;
+  it('should remove walletTotal from session storage on calling choosePayment in wallet mode', () => {
+    component.payUsingWallet = true
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')
