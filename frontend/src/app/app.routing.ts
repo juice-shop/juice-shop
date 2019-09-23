@@ -19,9 +19,7 @@ import {
   RouterModule,
   Routes,
   UrlMatchResult,
-  UrlSegment,
-  CanActivate,
-  Router
+  UrlSegment
 } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
