@@ -84,7 +84,9 @@ export class PaymentComponent implements OnInit {
   initTotal () {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.mode = paramMap.get('entity')
-      if (this.mode === 'deluxe') {
+      if (this.mode === 'wallet') {
+        this.totalPrice = parseFloat(sessionStorage.getItem('walletTotal'))
+      } else if (this.mode === 'deluxe') {
         this.userService.deluxeStatus().subscribe((res) => {
           this.totalPrice = res.membershipCost
         }, (err) => console.log(err))
@@ -144,7 +146,12 @@ export class PaymentComponent implements OnInit {
 
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
-    if (this.mode === 'deluxe') {
+    if (this.mode === 'wallet') {
+      this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
+        sessionStorage.removeItem('walletTotal')
+        this.router.navigate(['/wallet'])
+      },(err) => console.log(err))
+    } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
         this.logout()
       }, (err) => console.log(err))
@@ -204,7 +211,8 @@ export class PaymentComponent implements OnInit {
   }
 
   addMoneyToWallet () {
-    this.router.navigate(['/wallet'])
+    sessionStorage.setItem('walletTotal', (this.totalPrice - this.walletBalance).toString())
+    this.router.navigate(['/payment', 'wallet'])
   }
 
   useWallet () {
