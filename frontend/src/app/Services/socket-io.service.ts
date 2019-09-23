@@ -14,7 +14,7 @@ export class SocketIoService {
     this.ngZone.runOutsideAngular(() => {
       if (environment.hostServer === '.') {
         this._socket = this.io.connect(window.location.href, {
-          path: '/socket.io' + window.location.pathname
+          path: (window.location.pathname === '/' ? '/' : window.location.pathname + '/') + 'socket.io'
         })
       } else {
         this._socket = this.io.connect(environment.hostServer)
