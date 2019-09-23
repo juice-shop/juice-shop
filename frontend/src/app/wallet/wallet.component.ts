@@ -24,7 +24,10 @@ export class WalletComponent implements OnInit {
   }
 
   continue () {
-    sessionStorage.setItem('walletTotal', this.balanceControl.value)
-    this.router.navigate(['/payment', 'wallet'])
+    this.walletService.put({ balance: this.balanceControl.value }).subscribe(() => {
+      this.router.navigate(['/payment/shop'])
+    }, (err) => {
+      console.log(err)
+    })
   }
 }

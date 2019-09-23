@@ -334,10 +334,9 @@ describe('PaymentComponent', () => {
   }))
 
   it('should remove walletTotal from session storage on calling choosePayment in wallet mode', () => {
-    component.mode = 'wallet'
-    walletService.put.and.returnValue(of({}))
-    spyOn(sessionStorage,'removeItem')
+    component.payUsingWallet = true
+    spyOn(sessionStorage,'setItem')
     component.choosePayment()
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('walletTotal')
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')
   })
 })
