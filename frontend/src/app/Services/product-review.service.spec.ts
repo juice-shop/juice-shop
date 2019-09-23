@@ -2,7 +2,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
 import { ProductReviewService } from './product-review.service'
-import { Review } from '../Models/review.model'
 
 describe('ProductReviewService', () => {
   beforeEach(() => {

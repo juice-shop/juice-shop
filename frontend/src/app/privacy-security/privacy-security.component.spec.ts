@@ -3,12 +3,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import {
   MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule,
-  MatFormFieldModule,
-  MatCardModule
+  MatToolbarModule
 } from '@angular/material'
 import { PrivacySecurityComponent } from './privacy-security.component'
 import { ChangePasswordComponent } from '../change-password/change-password.component'

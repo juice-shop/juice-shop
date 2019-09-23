@@ -15,12 +15,7 @@ import { ComplaintComponent } from './complaint/complaint.component'
 import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
-import {
-  RouterModule,
-  Routes,
-  UrlMatchResult,
-  UrlSegment
-} from '@angular/router'
+import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
@@ -41,7 +36,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component'
 import { DeliveryMethodComponent } from './delivery-method/delivery-method.component'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
-import { AdminGuard, AccountingGuard, LoginGuard } from './app.guard'
+import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 
 export function token1 (...args: number[]) {
   let L = Array.prototype.slice.call(args)

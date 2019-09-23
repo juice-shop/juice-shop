@@ -2,7 +2,6 @@ import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
-import { Review } from '../Models/review.model'
 
 @Injectable({
   providedIn: 'root'

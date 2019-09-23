@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
 import { QuantityService } from '../Services/quantity.service'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { OrderHistoryService } from '../Services/order-history.service'
 
