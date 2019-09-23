@@ -1,5 +1,5 @@
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, OnInit, EventEmitter, NgZone, Output }from '@angular/core'
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router } from '@angular/router'

@@ -15,7 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { SavedAddressComponent } from './saved-address.component'
 import { AddressComponent } from '../address/address.component'
 import { RouterTestingModule } from '@angular/router/testing'
-import { MatIconModule, MatTooltipModule, MatCheckboxModule } from '@angular/material'
+import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
 
 describe('SavedAddressComponent', () => {
   let component: SavedAddressComponent

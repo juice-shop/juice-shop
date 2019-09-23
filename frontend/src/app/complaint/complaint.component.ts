@@ -4,7 +4,7 @@ import { UserService } from '../Services/user.service'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { FileUploader } from 'ng2-file-upload'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 

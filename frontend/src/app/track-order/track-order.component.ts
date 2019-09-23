@@ -1,7 +1,7 @@
 import { Router } from '@angular/router'
 import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faMapMarker)

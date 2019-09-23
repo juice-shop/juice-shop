@@ -17,7 +17,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatNativeDateModule } from '@angular/material/core'
 import { of, throwError } from 'rxjs'
 import { AddressComponent } from '../address/address.component'
-import { MatIconModule, MatToolbarModule, MatTableModule, MatRadioModule, MatTooltipModule, MatDialogModule, MatDividerModule } from '@angular/material'
+import {
+  MatDialogModule,
+  MatDividerModule,
+  MatIconModule,
+  MatRadioModule,
+  MatTableModule,
+  MatToolbarModule,
+  MatTooltipModule
+} from '@angular/material'
 import { RouterTestingModule } from '@angular/router/testing'
 
 describe('RecycleComponent', () => {
