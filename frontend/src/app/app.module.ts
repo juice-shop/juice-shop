@@ -124,7 +124,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard, DeluxeGuard } from './app.guard'
 
 export function HttpLoaderFactory (http: HttpClient) {
-  return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
 @NgModule({
