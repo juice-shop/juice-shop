@@ -256,21 +256,23 @@ insertHintUrls: none | free | paid
 				<small>Simply start application with <code>NODE_ENV=quiet</code> environment variable defined!</small>
 			</p>
 		</section>
-		
-		<section>
-			<h2>Re-branding</h2>
-			<p>
-				Fully <a href="https://github.com/bkimminich/juice-shop/blob/master/CUSTOMIZATION.md">customizable</a> business context and look & feel
-			</p>
-			<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/theme_mozilla.png" height="350"/>
-		</section>
 
 		<section>
-			<h2>Configurative Customization</h2>
-			<p>
-				Customize the application via <a href="https://github.com/bkimminich/juice-shop/blob/master/config/default.yml">a simple <code>YAML</code> file</a>
-			</p>
-			<pre><code class="hljs" data-trim contenteditable>
+		
+			<section>
+				<h2>Re-branding</h2>
+				<p>
+					Fully <a href="https://github.com/bkimminich/juice-shop/blob/master/CUSTOMIZATION.md">customizable</a> business context and look & feel
+				</p>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/theme_mozilla.png" height="350"/>
+			</section>
+
+			<section>
+				<h2>Configurative Customization</h2>
+				<p>
+					Customize the application via <a href="https://github.com/bkimminich/juice-shop/blob/master/config/default.yml">a simple <code>YAML</code> file</a>
+				</p>
+				<pre><code class="hljs" data-trim contenteditable>
 application:
   domain: juice-sh.op
   name: 'OWASP Juice Shop'
@@ -289,15 +291,15 @@ application:
   [...]
 challenges:
   safetyOverride: false
-			</code></pre>
-		</section>
+				</code></pre>
+			</section>
 
-		<section>
-			<h2>Choose your own inventory</h2>
-			<p>
-				The <code>YAML</code> configuration allows you to override all products
-			</p>
-			<pre><code class="hljs" data-trim contenteditable>
+			<section>
+				<h2>Choose your own inventory</h2>
+				<p>
+					The <code>YAML</code> configuration allows you to override all products
+				</p>
+				<pre><code class="hljs" data-trim contenteditable>
 products:
   -
     name: 'Product Name'
@@ -311,10 +313,12 @@ products:
       - { text: 'Customer review', author: jim }
   -
     name: 'Product with Lorem Ipsum description, filler image and random price'
-			</code></pre>
-			<p>
-				<small>Your config is validated on server startup to prevent broken or unsolvable challenges!</small>
-			</p>
+				</code></pre>
+				<p>
+					<small>Your config is validated on server startup to prevent broken or unsolvable challenges!</small>
+				</p>
+			</section>
+
 		</section>
 
 		<section>
