@@ -42,3 +42,6 @@ access.log*
 config/
 package-lock.json
 frontend/out-tsc/
+i18n/
+JSON
+JSON.map
