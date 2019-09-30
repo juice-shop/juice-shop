@@ -155,6 +155,7 @@ translations as of Mon, 26 Aug 2019.
 - dav1ds (French)
 - ManuelFranz (German)
 - Marc Rüttler aka `MarcRler` (German)
+- Mehyar Shammas aka `mashkuov` (Arabic)
 
 ## Special Thanks
 
