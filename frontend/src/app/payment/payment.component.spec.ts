@@ -201,7 +201,7 @@ describe('PaymentComponent', () => {
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
     spyOn(sessionStorage,'setItem')
     component.showConfirmation(70)
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount', 70)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount', 70 as any)
   })
 
   it('should store payment id on calling getMessage', () => {
@@ -305,7 +305,7 @@ describe('PaymentComponent', () => {
     component.paymentId = 1
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
   })
 
   it('should store wallet as paymentId in session storage on calling choosePayment while payUsingWallet is true', () => {
