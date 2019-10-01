@@ -45,6 +45,6 @@ describe('/rest/track-order/:id', () => {
       .expect('status', 500)
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', '<h1>' + config.get('application.name') + ' (Express')
-      .expect('bodyContains', 'SyntaxError: Unexpected token ...')
+      .expect('bodyContains', 'SyntaxError')
   })
 })
