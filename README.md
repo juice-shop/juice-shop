@@ -191,11 +191,11 @@ If you need help with the application setup please check our
 [our existing _Troubleshooting_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html)
 guide. If this does not solve your issue please post your specific
 problem or question in the
-[Gitter Chat](https://gitter.im/bkimminich/juice-shop) or on
-[Reddit](https://www.reddit.com/r/owasp_juiceshop).
+[Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community
+members can best try to help you.
 
-:stop_sign: Please avoid opening GitHub issues for support requests or
-questions!
+:stop_sign: **Please avoid opening GitHub issues for support requests or
+questions!**
 
 ## Documentation
 
