@@ -1,7 +1,9 @@
 import { CanActivate, Router } from '@angular/router'
 import * as jwt_decode from 'jwt-decode'
 import { roles } from './roles'
+import { Injectable } from '@angular/core'
 
+@Injectable()
 export class AdminGuard implements CanActivate {
   constructor (private router: Router) {}
 
@@ -34,6 +36,7 @@ export class AdminGuard implements CanActivate {
   }
 }
 
+@Injectable()
 export class AccountingGuard implements CanActivate {
   constructor (private router: Router, private adminGuard: AdminGuard) {}
 
@@ -48,6 +51,7 @@ export class AccountingGuard implements CanActivate {
   }
 }
 
+@Injectable()
 export class DeluxeGuard {
   constructor (private adminGuard: AdminGuard) {}
 
@@ -61,6 +65,7 @@ export class DeluxeGuard {
   }
 }
 
+@Injectable()
 export class LoginGuard implements CanActivate {
   constructor (private router: Router) {}
 

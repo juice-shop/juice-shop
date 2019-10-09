@@ -9,7 +9,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { of } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
-import { MatTableModule, MatExpansionModule, MatDividerModule, MatRadioModule, MatDialogModule, MatIconModule, MatCheckboxModule, MatTooltipModule } from '@angular/material'
+import {
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatRadioModule,
+  MatTableModule,
+  MatTooltipModule
+} from '@angular/material'
 import { DeluxeUserComponent } from './deluxe-user.component'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'

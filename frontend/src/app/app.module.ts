@@ -121,10 +121,10 @@ import { DeliveryService } from './Services/delivery.service'
 import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { PhotoWallService } from './Services/photo-wall.service'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
-import { AccountingGuard, AdminGuard, LoginGuard, DeluxeGuard } from './app.guard'
+import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guard'
 
 export function HttpLoaderFactory (http: HttpClient) {
-  return new TranslateHttpLoader(http, './../assets/i18n/', '.json')
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
 @NgModule({

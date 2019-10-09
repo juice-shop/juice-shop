@@ -1,8 +1,8 @@
 import { FormControl, Validators } from '@angular/forms'
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
 import { MatTableDataSource } from '@angular/material/table'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 

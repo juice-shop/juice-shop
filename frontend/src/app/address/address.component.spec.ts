@@ -2,7 +2,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -11,7 +11,15 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
-import { MatTableModule, MatExpansionModule, MatDividerModule, MatRadioModule, MatDialogModule, MatIconModule, MatTooltipModule } from '@angular/material'
+import {
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatRadioModule,
+  MatTableModule,
+  MatTooltipModule
+} from '@angular/material'
 import { AddressCreateComponent } from '../address-create/address-create.component'
 
 describe('AddressComponent', () => {

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from './product-review-edit.component'
 import { ReactiveFormsModule } from '@angular/forms'

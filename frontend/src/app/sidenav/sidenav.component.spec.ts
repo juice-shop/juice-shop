@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
 import { CookieModule, CookieService } from 'ngx-cookie'
-
+import { AdminGuard } from '../app.guard'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -31,6 +31,7 @@ describe('SidenavComponent', () => {
   let translateService: any
   let mockSocket: any
   let socketIoService: any
+  let adminGuard
 
   beforeEach(async(() => {
 
@@ -42,6 +43,8 @@ describe('SidenavComponent', () => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
+    adminGuard = jasmine.createSpyObj('AdminGuard',['tokenDecode'])
+    adminGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
       declarations: [ SidenavComponent ],
@@ -62,6 +65,7 @@ describe('SidenavComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
+        { provide: AdminGuard, useValue: adminGuard },
         TranslateService
       ]
     })

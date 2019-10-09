@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie'
 import { CountryMappingService } from 'src/app/Services/country-mapping.service'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faClipboard, faFlagCheckered, faGlobe } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faGlobe, faFlagCheckered, faClipboard)

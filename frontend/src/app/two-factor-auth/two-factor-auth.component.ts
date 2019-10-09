@@ -4,8 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { ConfigurationService } from '../Services/configuration.service'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faUnlockAlt, faSave } from '@fortawesome/free-solid-svg-icons'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { faSave, faUnlockAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { forkJoin } from 'rxjs'
 import { TranslateService } from '@ngx-translate/core'

@@ -1,6 +1,5 @@
 import {
   waitForInputToHaveValue,
-  waitForElementToGetClicked,
   waitForElementsInnerHtmlToBe,
   waitInMs
 } from '../helpers/helpers'
@@ -94,7 +93,7 @@ export const DomXssInstruction: ChallengeInstruction = {
     },
     {
       text:
-        'More precisely, this was a **DOM XSS** attack, because your payload was handled and improperly embedded into the page by the application frontend code without ever sending it to the server.',
+        'More precisely, this was a **DOM XSS** attack, because your payload was handled and improperly embedded into the page by the application frontend code without even sending it to the server.',
       fixture: '.noResult',
       resolved: waitInMs(16000)
     }
