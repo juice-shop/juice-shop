@@ -218,13 +218,6 @@ where this project was mentioned or used!
 
 #### Upcoming
 
-* [Elbsides vs. Juice Shop](https://2019.elbsides.de/programme.html#elbsides-vs-juice-shop)
-  workshop with Björn Kimminich,
-  [Elbsides 2019](https://2019.elbsides.de), 16.09.2019
-* [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop)
-  by Björn Kimminich, Project Showcase track of the
-  [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
-  26.09.2019
 * [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
   by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
   06.11.2019
@@ -235,6 +228,13 @@ where this project was mentioned or used!
 
 #### 2019
 
+* [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop)
+  by Björn Kimminich, Project Showcase track of the
+  [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
+  26.09.2019 ([Youtube](https://youtu.be/XXkMY_VyJ-Y) :bulb:)
+* [Elbsides vs. Juice Shop](https://2019.elbsides.de/programme.html#elbsides-vs-juice-shop)
+  workshop with Björn Kimminich,
+  [Elbsides 2019](https://2019.elbsides.de), 16.09.2019
 * [Introduction to OWASP Juice Shop](https://bsidesmcr2019.sched.com/event/Sw0q/introduction-to-owasp-juice-shop)
   by Tim Corless-Carter,
   [BSidesMCR 2019](https://www.bsidesmcr.org.uk/), 29.08.2019
