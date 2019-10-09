@@ -2,7 +2,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing'
 import { PaymentComponent } from './payment.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -28,7 +28,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { LoginComponent } from '../login/login.component'
 import { Location } from '@angular/common'
-import { MatIconModule, MatCheckboxModule, MatTooltipModule } from '@angular/material'
+import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
 import { WalletComponent } from '../wallet/wallet.component'
 
 describe('PaymentComponent', () => {
@@ -201,7 +201,7 @@ describe('PaymentComponent', () => {
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
     spyOn(sessionStorage,'setItem')
     component.showConfirmation(70)
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount',70)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount', 70 as any)
   })
 
   it('should store payment id on calling getMessage', () => {
@@ -305,7 +305,7 @@ describe('PaymentComponent', () => {
     component.paymentId = 1
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
   })
 
   it('should store wallet as paymentId in session storage on calling choosePayment while payUsingWallet is true', () => {

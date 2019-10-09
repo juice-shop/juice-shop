@@ -1,7 +1,4 @@
 import {
-  waitForInputToHaveValue,
-  waitForElementToGetClicked,
-  waitForElementsInnerHtmlToBe,
   waitInMs, sleep
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'

@@ -16,7 +16,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { RouterTestingModule } from '@angular/router/testing'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { DeluxeGuard } from '../app.guard'
-import { of } from 'rxjs/internal/observable/of'
 
 describe('BasketComponent', () => {
   let component: BasketComponent
@@ -72,6 +71,6 @@ describe('BasketComponent', () => {
   it('should store itemTotal in session storage', () => {
     spyOn(sessionStorage,'setItem')
     component.getBonusPoints([1, 10])
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', 1)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', 1 as any)
   })
 })

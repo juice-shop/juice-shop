@@ -15,8 +15,8 @@ workspaces:
   create:
     name: lcov
     paths:
-      - build/reports/coverage/frontend-tests/lcov.info
-      - build/reports/coverage/server-tests/lcov.info
+      - ./build/reports/coverage/frontend-tests/lcov.info
+      - ./build/reports/coverage/server-tests/lcov.info
 matrix:
   fast_finish: true
   allow_failures:

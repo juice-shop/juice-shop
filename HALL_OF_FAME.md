@@ -155,6 +155,7 @@ translations as of Mon, 26 Aug 2019.
 - dav1ds (French)
 - ManuelFranz (German)
 - Marc Rüttler aka `MarcRler` (German)
+- Mehyar Shammas aka `mashkuov` (Arabic)
 
 ## Special Thanks
 
@@ -171,3 +172,7 @@ translations as of Mon, 26 Aug 2019.
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+
+## Stargazers (over time)
+
+[![Stargazers over time](https://starchart.cc/bkimminich/juice-shop.svg)](https://starchart.cc/bkimminich/juice-shop)

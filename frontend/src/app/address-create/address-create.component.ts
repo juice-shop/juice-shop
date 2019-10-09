@@ -2,7 +2,7 @@ import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
-import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
 
 @Component({

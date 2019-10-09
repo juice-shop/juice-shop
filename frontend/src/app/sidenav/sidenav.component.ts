@@ -1,11 +1,13 @@
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, OnInit, EventEmitter, NgZone, Output }from '@angular/core'
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
+import { AdminGuard } from '../app.guard'
+import { roles } from '../roles'
 
 @Component({
   selector: 'sidenav',
@@ -20,7 +22,8 @@ export class SidenavComponent implements OnInit {
   public scoreBoardVisible: boolean = false
   public version: string = ''
   public isExpanded = true
-  public showSubmenu: boolean = false
+  public showPrivacySubmenu: boolean = false
+  public showOrdersSubmenu: boolean = false
   public isShowing = false
   public sizeOfMail: number = 0
 
@@ -28,7 +31,7 @@ export class SidenavComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private ngZone: NgZone, private io: SocketIoService, private userService: UserService, private cookieService: CookieService,
-    private router: Router, private configurationService: ConfigurationService) { }
+    private router: Router, private configurationService: ConfigurationService, private adminGuard: AdminGuard) { }
 
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
@@ -109,5 +112,14 @@ export class SidenavComponent implements OnInit {
         this.showGitHubLink = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))
+  }
+
+  isAccounting () {
+    const payload = this.adminGuard.tokenDecode()
+    if (payload && payload.data && payload.data.role === roles.accounting) {
+      return true
+    } else {
+      return false
+    }
   }
 }

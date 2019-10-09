@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faHome, faSync, faTruck, faTruckLoading, faWarehouse } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faWarehouse,faSync,faTruckLoading,faTruck,faHome)

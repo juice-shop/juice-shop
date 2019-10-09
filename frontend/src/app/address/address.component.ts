@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons/'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 
 library.add(faEdit, faTrashAlt)
 dom.watch()

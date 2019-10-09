@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faTrash)

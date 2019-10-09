@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, flush } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { TwoFactorAuthComponent } from './two-factor-auth.component'
 
 import { ReactiveFormsModule } from '@angular/forms'

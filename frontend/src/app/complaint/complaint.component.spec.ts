@@ -9,11 +9,11 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
-import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ComplaintComponent } from './complaint.component'
 import { of, throwError } from 'rxjs'
 
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 
 describe('ComplaintComponent', () => {
   let component: ComplaintComponent

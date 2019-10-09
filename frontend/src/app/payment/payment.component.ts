@@ -3,24 +3,24 @@ import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService } from '@ngx-translate/core'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
+  faCoffee,
   faCreditCard,
   faGift,
-  faHeart,
-  faThumbsUp,
-  faTshirt,
-  faStickyNote,
   faHandHoldingUsd,
-  faCoffee,
-  faTimes
+  faHeart,
+  faStickyNote,
+  faThumbsUp,
+  faTimes,
+  faTshirt
 } from '@fortawesome/free-solid-svg-icons'
 import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
-import { faBtc, faEthereum, faPaypal, faLeanpub, faPatreon } from '@fortawesome/free-brands-svg-icons'
+import { faBtc, faEthereum, faLeanpub, faPatreon, faPaypal } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
-import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'

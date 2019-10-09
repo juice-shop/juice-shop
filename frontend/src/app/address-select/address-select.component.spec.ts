@@ -16,7 +16,7 @@ import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
-import { MatIconModule, MatTooltipModule, MatCheckboxModule } from '@angular/material'
+import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
@@ -71,6 +71,6 @@ describe('AddressSelectComponent', () => {
     component.addressId = 1
     spyOn(sessionStorage,'setItem')
     component.chooseAddress()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
   })
 })

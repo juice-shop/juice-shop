@@ -2,7 +2,7 @@ import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, NgZone, OnInit, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { CookieService } from 'ngx-cookie'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
@@ -21,18 +21,18 @@ import {
   faShoppingCart,
   faSignInAlt,
   faSignOutAlt,
+  faThermometerEmpty,
+  faThermometerFull,
+  faThermometerHalf,
+  faThermometerQuarter,
+  faThermometerThreeQuarters,
   faTrophy,
   faUserCircle,
-  faUserSecret,
-  faThermometerEmpty,
-  faThermometerQuarter,
-  faThermometerHalf,
-  faThermometerThreeQuarters,
-  faThermometerFull
+  faUserSecret
 } from '@fortawesome/free-solid-svg-icons'
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { AdminGuard } from '../app.guard'
 import { roles } from '../roles'
 

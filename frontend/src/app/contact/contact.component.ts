@@ -3,7 +3,7 @@ import { CaptchaService } from '../Services/captcha.service'
 import { UserService } from '../Services/user.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 
