@@ -66,6 +66,7 @@ module.exports = function (grunt) {
       const md5FileName = 'dist/' + file + '.md5'
       grunt.file.write(md5FileName, md5Hash)
       grunt.log.write(`Checksum ${md5Hash} written to file ${md5FileName}.`).verbose.write('...').ok()
+      grunt.log.writeln()
     })
   })
 
