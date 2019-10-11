@@ -1,11 +1,11 @@
 const utils = require('../lib/utils')
-const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 
 module.exports = function trackOrder () {
   return (req, res) => {
-    const id = insecurity.sanitizeProcessExit(utils.trunc(decodeURIComponent(req.params.id), 40))
+    const id = utils.disableOnContainerEnv() ? String(req.params.id).replace(/[^\w-]+/g, '') : req.params.id
+
     if (utils.notSolved(challenges.reflectedXssChallenge) && utils.contains(id, '<iframe src="javascript:alert(`xss`)">')) {
       utils.solve(challenges.reflectedXssChallenge)
     }

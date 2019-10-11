@@ -409,6 +409,9 @@
   hint: 'This challenge is essentially a stripped-down Denial of Service (DoS) attack.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/injection.html#let-the-server-sleep-for-some-time'
   key: noSqlCommandChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
@@ -417,6 +420,9 @@
   hint: 'Take a close look on how the $where query operator works in MongoDB.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/injection.html#all-your-orders-are-belong-to-us'
   key: noSqlOrdersChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
