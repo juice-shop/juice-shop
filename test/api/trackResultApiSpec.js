@@ -1,6 +1,5 @@
 const frisby = require('frisby')
 const Joi = frisby.Joi
-const config = require('config')
 
 const REST_URL = 'http://localhost:3000/rest'
 
