@@ -54,6 +54,7 @@ async function createChallenges () {
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       description = description.replace(/juice-sh\.op/, config.get('application.domain'))
+
       try {
         const challenge = await models.Challenge.create({
           key,
@@ -256,7 +257,7 @@ function createProducts () {
 
   return Promise.all(
     products.map(
-      ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, ...product }) =>
+      ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, ...product }) =>
         models.Product.create(product).catch(
           (err) => {
             logger.error(`Could not insert Product ${product.name}: ${err.message}`)
@@ -269,6 +270,13 @@ function createProducts () {
               description: customizeChangeProductChallenge(
                 datacache.challenges.changeProductChallenge.description,
                 config.get('challenges.overwriteUrlForProductTamperingChallenge'),
+                persistedProduct)
+            })
+          }
+          if (fileForRetrieveBlueprintChallenge && datacache.challenges.changeProductChallenge.hint) {
+            datacache.challenges.retrieveBlueprintChallenge.update({
+              hint: customizeRetrieveBlueprintChallenge(
+                datacache.challenges.retrieveBlueprintChallenge.hint,
                 persistedProduct)
             })
           }
@@ -296,6 +304,10 @@ function createProducts () {
     let customDescription = description.replace(/OWASP SSL Advanced Forensic Tool \(O-Saft\)/g, customProduct.name)
     customDescription = customDescription.replace('https://owasp.slack.com', customUrl)
     return customDescription
+  }
+
+  function customizeRetrieveBlueprintChallenge (hint, customProduct) {
+    return hint.replace(/OWASP Juice Shop Logo \(3D-printed\)/g, customProduct.name)
   }
 }
 
