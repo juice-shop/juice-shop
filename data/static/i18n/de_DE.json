@@ -87,7 +87,7 @@
 	"Exploit OAuth 2.0 to log in with the Chief Information Security Officer's user account.": "Exploit OAuth 2.0 to log in with the Chief Information Security Officer's user account.",
 	"Don't try to beat Google's OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop's end.": "Don't try to beat Google's OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop's end.",
 	"Log in with Jim's user account.": "Melde dich mit dem Benutzerkonto von Jim an.",
-	"Try cracking Jim's password hash if you harvested it already. Alternatively, if you know Jim's email address, try SQL Injection.": "Try cracking Jim's password hash if you harvested it already. Alternatively, if you know Jim's email address, try SQL Injection.",
+	"Try cracking Jim's password hash if you harvested it already. Alternatively, if you know Jim's email address, try SQL Injection.": "Sofern du ihn bereits in die Finger bekommen hast, versuche Jims Passwort-Hash zu knacken. Falls du alternativ Jims Email-Adresse kennst, probiere es mit SQL Injection.",
 	"Log in with MC SafeSearch's original user credentials without applying SQL Injection or any other bypass.": "Melde dich mit MC SafeSearchs ursprünglichen Benutzerdaten an, ohne SQL Injection oder irgendeine andere Umgehung anzuwenden.",
 	"You should listen to MC's hit song \"Protect Ya Passwordz\".": "Du solltest dir MC's Hit-Song \"Protect Ya Passwordz\" anhören.",
 	"Log in with the support team's original user credentials without applying SQL Injection or any other bypass.": "Melde dich mit den ursprünglichen Benutzerdaten des Support Teams an, ohne SQL Injection oder irgendeine andere Umgehung anzuwenden.",
