@@ -5,10 +5,9 @@ const insecurity = require('../lib/insecurity')
 
 module.exports = function productReviews () {
   return (req, res, next) => {
-    const id = req.body.id
     const user = insecurity.authenticatedUsers.from(req)
     db.reviews.update(
-      { _id: id },
+      { _id: req.body.id },
       { $set: { message: req.body.message } },
       { multi: true }
     ).then(
