@@ -583,7 +583,7 @@
   category: 'XSS'
   description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code> bypassing a <i>server-side</i> security mechanism.'
   difficulty: 4
-  hint: 'The "Comment" field in the "Contact Us" screen is where you want to put your focus on.'
+  hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssFeedbackChallenge
 -
@@ -674,7 +674,7 @@
   category: 'Vulnerable Components'
   description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)'
   difficulty: 4
-  hint: 'Report one of two possible answers via the "Contact Us" form. Do not forget to submit the library''s version as well.'
+  hint: 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/vulnerable-components.html#inform-the-shop-about-a-vulnerable-library-it-is-using'
   key: knownVulnerableComponentChallenge
 -
@@ -682,7 +682,7 @@
   category: 'Cryptographic Issues'
   description: '<a href="/#/contact">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.'
   difficulty: 2
-  hint: 'Report one of four possible answers via the "Contact Us" form.'
+  hint: 'Report one of four possible answers via the "Customer Feedback" form.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/cryptographic-issues.html#inform-the-shop-about-an-algorithm-or-library-it-should-definitely-not-use-the-way-it-does'
   key: weirdCryptoChallenge
 -
