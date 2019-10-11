@@ -60,6 +60,7 @@ jobs:
         - chmod +x ./cc-test-reporter
       script:
         - export NODE_ENV=test
+        - ls -R build/reports/coverage
         - npm test # FIXME Remove when workspaces work as expected
         - npm run frisby
       after_success:
