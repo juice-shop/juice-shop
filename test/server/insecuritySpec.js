@@ -166,4 +166,30 @@ describe('insecurity', () => {
       expect(insecurity.sanitizeLegacy('<<a|ascript>alert(`xss`)</script>')).to.equal('<script>alert(`xss`)</script>')
     })
   })
+
+  describe('sanitizeProcessExit', () => {
+    it('returns empty string for undefined input', () => {
+      expect(insecurity.sanitizeProcessExit()).to.equal('')
+      expect(insecurity.sanitizeProcessExit(undefined)).to.equal('')
+    })
+
+    it('returns input unchanged for plain text input', () => {
+      expect(insecurity.sanitizeProcessExit('bkimminich')).to.equal('bkimminich')
+      expect(insecurity.sanitizeProcessExit('Kosh III.')).to.equal('Kosh III.')
+    })
+
+    it('replaces case-insensitive occurences of "process" with balloon letters', () => {
+      expect(insecurity.sanitizeLegacy('Work in process, yes?')).to.equal('Work in ⓟⓡⓞⓒⓔⓢⓢ, yes?')
+      expect(insecurity.sanitizeLegacy('pRoCeSS')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ')
+    })
+
+    it('replaces case-insensitive occurences of "exit" with mirror letters', () => {
+      expect(insecurity.sanitizeLegacy('Where is the exit?')).to.equal('Where is the ǝxıʇ?')
+      expect(insecurity.sanitizeLegacy('eXiT')).to.equal('ǝxıʇ')
+    })
+
+    it('replaces dangerous "process.exit()" call', () => {
+      expect(insecurity.sanitizeLegacy('process.exit()')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ.(ǝxıʇ)')
+    })
+  })
 })
