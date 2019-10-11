@@ -1,4 +1,6 @@
-commit_message: "Signed-off-by: Björn Kimminich <crowdin.com@kimminich.de>\n[ci skip]"
+commit_message: |-
+  [ci skip]
+  Signed-off-by: Björn Kimminich <crowdin.com@kimminich.de>
 files:
   -
     source: /frontend/src/assets/i18n/en.json
