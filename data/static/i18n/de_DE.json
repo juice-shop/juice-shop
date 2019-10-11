@@ -91,7 +91,7 @@
 	"Log in with MC SafeSearch's original user credentials without applying SQL Injection or any other bypass.": "Melde dich mit MC SafeSearchs ursprünglichen Benutzerdaten an, ohne SQL Injection oder irgendeine andere Umgehung anzuwenden.",
 	"You should listen to MC's hit song \"Protect Ya Passwordz\".": "Du solltest dir MC's Hit-Song \"Protect Ya Passwordz\" anhören.",
 	"Log in with the support team's original user credentials without applying SQL Injection or any other bypass.": "Melde dich mit den ursprünglichen Benutzerdaten des Support Teams an, ohne SQL Injection oder irgendeine andere Umgehung anzuwenden.",
-	"The underlying flaw of this challenge is a lot more human error than technical weakness.": "The underlying flaw of this challenge is a lot more human error than technical weakness.",
+	"The underlying flaw of this challenge is a lot more human error than technical weakness.": "Der zugrunde liegende Fehler bei dieser Herausforderung ist vielmehr menschliches Versagen als eine technische Schwäche.",
 	"Put an additional product into another user's shopping basket.": "Lege ein weiteres Produkt in den Warenkorb eines anderen Benutzers.",
 	"Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn't count.": "Have an eye on the HTTP traffic while placing products in the shopping basket. Changing the quantity of products already in the basket doesn't count.",
 	"Access a misplaced <a href=\"https://github.com/Neo23x0/sigma\">SIEM signature</a> file.": "Access a misplaced <a href=\"https://github.com/Neo23x0/sigma\">SIEM signature</a> file.",
