@@ -11,12 +11,6 @@ stages:
   - lint
   - test
   - integration
-workspaces:
-  create:
-    name: lcov
-    paths:
-      - ./build/reports/coverage/frontend-tests/lcov.info
-      - ./build/reports/coverage/server-tests/lcov.info
 env:
   global:
     secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
@@ -51,17 +45,13 @@ jobs:
     - stage: integration
       if: tag IS blank
       os: linux
-      workspaces:
-        use:
-          - lcov
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
       script:
         - export NODE_ENV=test
-        - ls -R build/reports/coverage
-        - npm test # FIXME Remove when workspaces work as expected
+        - npm test
         - npm run frisby
       after_success:
         - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
