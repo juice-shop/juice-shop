@@ -179,17 +179,18 @@ describe('insecurity', () => {
     })
 
     it('replaces case-insensitive occurences of "process" with balloon letters', () => {
-      expect(insecurity.sanitizeLegacy('Work in process, yes?')).to.equal('Work in ⓟⓡⓞⓒⓔⓢⓢ, yes?')
-      expect(insecurity.sanitizeLegacy('pRoCeSS')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ')
+      expect(insecurity.sanitizeProcessExit('Work in process, yes?')).to.equal('Work in ⓟⓡⓞⓒⓔⓢⓢ, yes?')
+      expect(insecurity.sanitizeProcessExit('pRoCeSS')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ')
     })
 
     it('replaces case-insensitive occurences of "exit" with mirror letters', () => {
-      expect(insecurity.sanitizeLegacy('Where is the exit?')).to.equal('Where is the ǝxıʇ?')
-      expect(insecurity.sanitizeLegacy('eXiT')).to.equal('ǝxıʇ')
+      expect(insecurity.sanitizeProcessExit('Where is the exit?')).to.equal('Where is the ǝxıʇ?')
+      expect(insecurity.sanitizeProcessExit('eXiT')).to.equal('ǝxıʇ')
     })
 
-    it('replaces dangerous "process.exit()" call', () => {
-      expect(insecurity.sanitizeLegacy('process.exit()')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ.(ǝxıʇ)')
+    it('disables dangerous "process.exit()" call', () => {
+      expect(insecurity.sanitizeProcessExit('process.exit()')).to.equal('ⓟⓡⓞⓒⓔⓢⓢ.ǝxıʇ()')
+      expect(insecurity.sanitizeProcessExit('pprocessrocess.eexitxit()')).to.equal('pⓟⓡⓞⓒⓔⓢⓢrocess.eǝxıʇxit()')
     })
   })
 })
