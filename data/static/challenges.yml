@@ -334,7 +334,7 @@
   category: 'Broken Authentication'
   description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
-  hint: 'The security flaw behind this challenge is 100% Juice Shop''s fault and 0% Google''s.'
+  hint: 'The security flaw behind this challenge is 100% OWASP Juice Shop''s fault and 0% Google''s.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/broken-authentication.html#log-in-with-bjoerns-gmail-account'
   key: oauthUserPasswordChallenge
 -
@@ -342,7 +342,7 @@
   category: 'Broken Authentication'
   description: 'Exploit OAuth 2.0 to log in with the Chief Information Security Officer''s user account.'
   difficulty: 5
-  hint: 'Don''t try to beat Google''s OAuth 2.0 service. Rather investigate implementation flaws on Juice Shop''s end.'
+  hint: 'Don''t try to beat Google''s OAuth 2.0 service. Rather investigate implementation flaws on OWASP Juice Shop''s end.'
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/broken-authentication.html#exploit-oauth-20-to-log-in-with-the-cisos-user-account'
   key: loginCisoChallenge
 -

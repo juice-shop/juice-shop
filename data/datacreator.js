@@ -54,6 +54,7 @@ async function createChallenges () {
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
       const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
       description = description.replace(/juice-sh\.op/, config.get('application.domain'))
+      hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
 
       try {
         const challenge = await models.Challenge.create({
