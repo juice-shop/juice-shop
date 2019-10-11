@@ -81,7 +81,7 @@
 	"Log in with Amy's original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the \"One Important Final Note\")": "Melde dich mit Amys ursprünglichen Benutzerdaten an. (Ein Brute-Force-Angriff hierauf könnte 93,83 Milliarden Billionen Billionen Jahrhunderte dauern, aber glücklicherweise hat sie die \"One Important Final Note\" nicht gelesen)",
 	"This challenge will make you go after a needle in a haystack.": "Diese Herausforderung lässt dich nach einer Nadel im Heuhaufen suchen.",
 	"Log in with Bender's user account.": "Melde dich mit dem Benutzerkonto von Bender an.",
-	"If you know Bender's email address, try SQL Injection. Bender's password hash might not help you very much.": "If you know Bender's email address, try SQL Injection. Bender's password hash might not help you very much.",
+	"If you know Bender's email address, try SQL Injection. Bender's password hash might not help you very much.": "Wenn du Benders Email-Adresse kennst, versuche es mit SQL Injection. Benders Passwort-Hash hingegen, hilft dir wahrscheinlich eher weniger.",
 	"Log in with Bjoern's Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.": "Log in with Bjoern's Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.",
 	"The security flaw behind this challenge is 100% Juice Shop's fault and 0% Google's.": "The security flaw behind this challenge is 100% Juice Shop's fault and 0% Google's.",
 	"Exploit OAuth 2.0 to log in with the Chief Information Security Officer's user account.": "Exploit OAuth 2.0 to log in with the Chief Information Security Officer's user account.",
