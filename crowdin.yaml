@@ -1,3 +1,4 @@
+commit_message: "[ci skip]"
 files:
   -
     source: /frontend/src/assets/i18n/en.json
