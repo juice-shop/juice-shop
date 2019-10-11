@@ -13,12 +13,11 @@
                         </b>
                 </div>
                 <div fxFlex="30%">
-                    <button type="submit" color="primary" mat-raised-button class="btn btn-new-address"  *ngIf="(totalPrice - walletBalance) <= 0" (click)="useWallet()"><span>{{'LABEL_PAY' | translate}}</span> {{ totalPrice?.toFixed(2)  }}</button>
-                    <button type="submit" color="primary" mat-raised-button class="btn btn-new-address" *ngIf="(totalPrice - walletBalance) > 0" (click)="addMoneyToWallet()"><span>{{'LABEL_ADD' | translate}}</span> {{ (totalPrice - walletBalance)?.toFixed(2) }}</button>
+                    <button type="submit" color="primary" mat-raised-button class="btn btn-pay" [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()"><span>{{'LABEL_PAY' | translate}}</span> {{ totalPrice?.toFixed(2)  }}</button>
                 </div>
             </div>
         </mat-card>
-        <mat-expansion-panel [expanded]="couponPanelExpanded" class="mat-elevation-z6" id="collapseCouponElement">
+        <mat-expansion-panel [expanded]="couponPanelExpanded" class="mat-elevation-z6" id="collapseCouponElement" *ngIf="mode !== 'wallet'">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     {{"ADD_A_COUPON" | translate}}
@@ -90,7 +89,7 @@
     </div>
     <div fxFlex="30%">
         <mat-card class="mat-elevation-z6">
-             <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Proceed to review" [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
+             <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Proceed to review" [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
             <span translate>LABEL_CONTINUE</span>
             </button>
             <p style="text-align: center;padding-top: 10px;">

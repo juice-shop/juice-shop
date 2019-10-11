@@ -48,13 +48,11 @@ export class PaymentComponent implements OnInit {
   public paymentId: any = undefined
   public couponPanelExpanded: boolean = false
   public paymentPanelExpanded: boolean = false
-  public allowContinue: boolean = false
   public mode: any
   public walletBalance: number = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
   public payUsingWallet: boolean = false
-  public redirectToBasket: boolean = false
   constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit () {
@@ -208,11 +206,6 @@ export class PaymentComponent implements OnInit {
         title: 'TITLE_ETHER_ADDRESS'
       }
     })
-  }
-
-  addMoneyToWallet () {
-    sessionStorage.setItem('walletTotal', (this.totalPrice - this.walletBalance).toString())
-    this.router.navigate(['/payment', 'wallet'])
   }
 
   useWallet () {
