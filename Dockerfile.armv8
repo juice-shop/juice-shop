@@ -1,4 +1,4 @@
-FROM node:12 as installer
+FROM arm64v8/node:12 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
