@@ -50,3 +50,4 @@ config/*.yml
 !config/test.yml
 !config/7ms.yml
 !config/mozilla.yml
+!config/unsafe.yml
