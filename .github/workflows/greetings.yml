@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: '🧡 Thanks a lot for opening your first issue with us! We''ll get back to you shortly!'
+        pr-message: '💖 Thanks a lot for your contribution! 🎁 This seems to be you first PR, so why don''t you email your post address to @bkimminich for some free stickers?'
