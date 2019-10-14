@@ -11,7 +11,7 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Mon, 26 Aug 2019
+`master` as of Mon, 14 Oct 2019
 
 - [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Arpit Agrawal](https://github.com/agrawalarpit14) aka
