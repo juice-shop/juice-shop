@@ -233,6 +233,18 @@ products:
     quantity: 1
     image: undefined_kiwa.png
   -
+    name: 'Kiwa Keychain'
+    description: 'I did all of this work and then i got only this Kiwa keychain.'
+    price: 3.74
+    quantity: 6
+    image: undefined_kiwa.png
+  -
+    name: 'Kiwa Umbrella'
+    description: 'Unique masterpiece painted with different kinds of kiwa colors'
+    price: 28.74
+    quantity: 2
+    image: undefined_kiwa.png
+  -
     name: 'Global OWASP WASPY Award 2019 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
     price: 0.03
