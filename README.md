@@ -28,7 +28,7 @@ with many other security flaws found in real-world applications!
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
-<http://owasp-juice.shop>
+<https://owasp-juice.shop>
 
 ## Setup
 
@@ -216,7 +216,7 @@ published under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 and is available **for free** in PDF, Kindle and ePub format. You can
 also
-[browse the full content online](http://pwning.owasp-juice.shop)!
+[browse the full content online](https://pwning.owasp-juice.shop)!
 
 [![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
 
