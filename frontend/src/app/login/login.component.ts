@@ -16,9 +16,11 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 const clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
 
 const authorizedRedirectURIs: any = {
+  'https://demo.owasp-juice.shop': 'https://demo.owasp-juice.shop',
   'http://demo.owasp-juice.shop': 'http://demo.owasp-juice.shop',
   'https://juice-shop.herokuapp.com': 'https://juice-shop.herokuapp.com',
   'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
+  'https://preview.owasp-juice.shop': 'https://preview.owasp-juice.shop',
   'http://preview.owasp-juice.shop': 'http://preview.owasp-juice.shop',
   'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
   'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
