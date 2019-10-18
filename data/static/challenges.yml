@@ -488,14 +488,6 @@
   hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/broken-access-control.html#change-the-href-of-the-link-within-the-o-saft-product-description'
   key: changeProductChallenge
 -
-  name: 'Reflected XSS'
-  category: 'XSS'
-  description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
-  hintUrl: 'https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/part2/xss.html#perform-a-reflected-xss-attack'
-  key: reflectedXssChallenge
--
   name: 'Repetitive Registration'
   category: 'Improper Input Validation'
   description: 'Follow the DRY principle while registering a user.'
