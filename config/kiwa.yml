@@ -54,31 +54,31 @@ products:
     name: 'Kiwa Beaver'
     price: 18.99
     deluxePrice: 20.99
-    description: 'The all-time classic.'
-    image: undefined_kiwa.png
+    description: 'The Original'
+    image: beaver.jpg
     reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
       - { text: 'One of my favorites!', author: admin }
   -
-    name: 'Beaverskine notebook'
-    description: 'Made from products you do not want to know about.'
-    price: 35
-    deluxePrice: 55.49
-    image: undefined_kiwa.png
+    name: 'Bag Jute'
+    description: 'An environmental friendly bag'
+    price: 3
+    deluxePrice: 6.00
+    image: blauwetas.jpg
   -
-    name: 'Kiwa Commuter 2.0 Laptop bag'
-    description: 'Now with even more exotic flavour colors.'
-    price: 38.99
-    image: undefined_kiwa.png
+    name: 'Cotton Shopper'
+    description: 'Cotton material'
+    price: 1.63
+    image: cottontas.jpg
     reviews:
       - { text: 'I bought it, would buy again. 5/7', author: admin }
   -
     name: 'Special Package 1'
-    description: 'This Very Splendid Package includes a ladies Kiwa navy t-shirt (not shown), a baseball cap, and a coffee mug in a drawstring tote.'
+    description: 'This Very Splendid Package includes a ladies Kiwa navy t-shirt, a cap, and a coffee mug in a Kiwa Jute bag.'
     price: 37
     image: undefined_kiwa.png
   -
     name: 'Special Package 2'
-    description: 'This Very Splendid Package includes a unisex navy t-shirt, a baseball cap, and a coffee mug in a drawstring tote.'
+    description: 'This Very Splendid Package includes a unisex navy polo, a cap, and a coffee mug in a Kiwa Jute bag.'
     price: 37
     image: undefined_kiwa.png
   -
@@ -89,74 +89,102 @@ products:
     reviews:
       - { text: 'Fry liked it too.', author: bender }
   -
-    name: 'Kiwa Unisex t-shirt, navy'
+    name: 'Kiwa Unisex polo, navy'
     price: 13.51
-    image: undefined_kiwa.png
+    image: polonavy.jpg
   -
-    name: 'Kiwa Ladies t-shirt, navy'
-    price: 10
-    image: undefined_kiwa.png
-  -
-    name: 'Kiwa Unisex t-shirt, lapis'
+    name: 'Kiwa baby T-shirt Pink'
     price: 13.51
-    image: undefined_kiwa.png
+    image: shirtroze.jpg
   -
-    name: 'Kiwa Black cap w/tote'
+    name: 'Kiwa baby T-shirt Blue'
+    price: 13.51
+    image: shirtblauw.jpg
+  -
+    name: 'Kiwa cap'
+    description: 'including embroidery of the Kiwa logo on the back'
     price: 17.75
-    image: undefined_kiwa.png
+    image: cap.jpg
   -
-    name: 'Kiwa Beanie'
-    price: 5.5
-    image: undefined_kiwa.png
+    name: 'Kiwa Cycling Tight Long'
+    price: 35.5
+    image: cyclingtightlong.jpg
     reviews:
       - { text: 'One of my favorites.', author: jim }
   -
-    name: 'Drawstring tote'
-    price: 5.5
-    image: undefined_kiwa.png
+    name: 'Kiwa Cycling Tight Short'
+    description: 'What more to say'
+    price: 25.5
+    image: cyclingtightshort.jpg
   -
-    name: 'Glossy finish ceramic mug'
+    name: 'Join the Pipe waterbottle'
+    description: 'Transparent waterbottle with Kiwa logo printed in two colours'
     price: 8.81
-    image: undefined_kiwa.png
+    image: jointhepipe.jpg
   -
-    name: '3 inch round Kiwa sticker, individual'
-    price: 0.11
-    description: '1 roll = 500 stickers (please request 500 if you need a full roll)'
-    image: undefined_kiwa.png
+    name: 'Kiwa USB stick'
+    description: '4gb'
+    price: 10.11
+    image: usb.jpg
   -
-    name: 'Silicone wristband'
-    price: 0.32
-    image: undefined_kiwa.png
+    name: 'Kiwa Helmet USB stick'
+    description: '4gb'
+    price: 16.11
+    image: helmetusb.jpg
+  -
+    name: 'Kiwa Powerbank'
+    price: 15.32
+    image: powerbank.jpg
     reviews:
       - { text: 'Fry liked it too.', author: bender }
   -
-    name: 'Vertical laminated conference badge'
+    name: 'Kiwa Lanyard'
     price: 2.33
-    image: undefined_kiwa.png
+    image: lanyard.jpg
   -
-    name: 'Kiwa lanyard with bulldog clip'
+    name: 'Kiwa Bic pen'
     price: 1.65
-    image: undefined_kiwa.png
+    image: bic.jpg
   -
-    name: 'Kiwa tattoo, 50 pack'
-    price: 4
-    image: undefined_kiwa.png
+    name: 'Kiwa pens, 50 pack'
+    price: 50.00
+    image: pens.jpg
   -
-    name: '1.25 inch Kiwa Button, 25 pack'
+    name: 'Kiwa Tie blue'
     price: 7
-    image: undefined_kiwa.png	
+    image: tieblue.jpg
   -
-    name: 'Kiwa Cap'
-    price: 4.63
-    image: undefined_kiwa.png
+    name: 'Kiwa Tie green'
+    price: 7
+    image: tiegreen.jpg	
+  -
+    name: 'Kiwa Tie purple'
+    price: 7
+    image: tiepurple.jpg	
+  -
+    name: 'Kiwa Tie red'
+    price: 7
+    image: tiered.jpg	
+  -
+    name: 'Kiwa Flag Large'
+    price: 14.63
+    image: flaglarge.jpg
+  -
+    name: 'Kiwa Flag medium'
+    price: 10.63
+    image: flagmedium.jpg
+  -
+    name: 'Kiwa Flag small'
+    price: 8.63
+    image: flagsmall.jpg
   -
     name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
-    image: undefined.png
+    image: undefined_kiwa.png
     urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
   -
-    name: 'Christmas Super-Surprise-Box (2014 Edition)'
+    name: 'Christmas Super-Surprise-Box (2018 Edition)'
     description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
     price: 29.99
     image: undefined_kiwa.png
@@ -168,56 +196,41 @@ products:
     image: sticker.png
     deletedDate: '2017-04-28'
   -
-    name: 'OWASP Kiwa Shop Iron-Ons (16pcs)'
-    description: 'Upgrade your clothes with washer safe <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">iron-ons</a> of the OWASP Kiwa Shop or CTF Extension logo!'
-    price: 14.99
-    image: undefined_kiwa.png
-  -
-    name: 'OWASP Kiwa Shop Magnets (16pcs)'
-    description: 'Your fridge will be even cooler with these OWASP Juice Shop or CTF Extension logo <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">magnets</a>!'
-    price: 15.99
-    image: undefined_kiwa.png
-  -
-    name: 'OWASP Kiwa Shop Sticker Page'
-    description: 'Massive decoration opportunities with these OWASP Juice Shop or CTF Extension <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker pages</a>! Each page has 16 stickers on it.'
-    price: 9.99
-    image: undefined_kiwa.png
-  -
-    name: 'OWASP Kiwa Shop Sticker Single'
-    description: 'Super high-quality vinyl <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker single</a> with the OWASP Juice Shop or CTF Extension logo! The ultimate laptop decal!'
-    price: 4.99
-    image: undefined_kiwa.png
-  -
-    name: 'OWASP Kiwa Shop Temporary Tattoos (16pcs)'
+    name: 'Kiwa tape rolls (16pcs)'
     description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
     price: 14.99
-    image: undefined_kiwa.png
+    image: taperolls.jpg
     reviews:
-      - { text: 'I straight-up gots nuff props fo''these tattoos!', author: mc.safesearch }
+      - { text: 'I straight-up gots nuff props fo''these rolls!', author: mc.safesearch }
   -
-    name: 'Kiwa Workshop Mug'
-    description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
+    name: 'Surfing Beaver'
+    description: 'Kiwa Surfin' Beaver. Your colleagues will envy you!'
     price: 21.99
-    image: undefined_kiwa.png
+    image: surfinbeaver.jpg
   -
-    name: 'OWASP Kiwashop Hoodie'
-    description: 'Mr. Robot-style apparel. But in black. And with logo.'
+    name: 'Kiwa Storm Umbrella'
+    description: 'Mary Poppins-style apparel. But in black. And with the Kiwa logo.'
     price: 49.99
-    image: undefined_kiwa.png
+    image: stormumbrella.jpg
   -
-    name: 'OWASP Kiwa Workshop-CTF Velcro Patch'
-    description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
+    name: 'Kiwa table flag'
+    description: 'You're getting flagged'
+    price: 2.99
+    image: tableflag.jpg
+  -
+    name: 'Kiwa clip-on'
+    description: 'The ultimate decal for every tactical bag or backpack!'
     price: 2.92
     quantity: 5
-    image: undefined_kiwa.png
+    image: clip.jpg
     reviews:
       - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
       - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
   -
-    name: 'Green Candy'
+    name: 'Green Smoothie'
     description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
     price: 1.99
-    image: undefined_kiwa.png
+    image: green_smoothie.jpg
     reviews:
       - { text: 'Fresh out of a replicator.', author: jim }
   -
@@ -227,8 +240,8 @@ products:
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
   -
-    name: 'Juice Workshop Artwork'
-    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
+    name: 'Workshop Artwork'
+    description: 'Unique masterpiece painted with different kinds of paint on 90g/m² lined paper.'
     price: 278.74
     quantity: 1
     image: undefined_kiwa.png
@@ -237,15 +250,23 @@ products:
     description: 'I did all of this work and then i got only this Kiwa keychain.'
     price: 3.74
     quantity: 6
-    image: undefined_kiwa.png
+    image: beavertail.jpg
   -
     name: 'Kiwa Umbrella'
     description: 'Unique masterpiece painted with different kinds of kiwa colors'
     price: 28.74
-    quantity: 2
-    image: undefined_kiwa.png
+    quantity: 0
+    image: paraplu.png
   -
-    name: 'Global OWASP WASPY Award 2019 Nomination'
+    name: 'Kiwa cycling shirt'
+    price: 14
+    image: cyclingshirt.jpg	
+  -
+    name: 'Kiwa Rain Jacket'
+    price: 17
+    image: rainjacket.jpg	
+  -
+    name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
     price: 0.03
     image: waspy.png
@@ -257,26 +278,26 @@ products:
     image: undefined_kiwa.png
     deletedDate: '2017-09-20'
   -
-    name: 'Rippertuer Special Kiwa Juice'
+    name: 'Rippertuer Special Juice'
     description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
     price: 16.99
-    image: undefined_kiwa.png
+    image: undefined.jpg
     keywordsForPastebinDataLeakChallenge:
       - hueteroneel
       - eurogium edule
   -
     name: 'Pwning OWASP Juice Shop'
-    description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/">readable online on GitBook</a>!'
+    description: '<em>The official Companion Guide</em> by Björn Kimminich.'
     price: 5.99
-    image: undefined_kiwa.png
+    image: cover_small.jpg
     reviews:
       - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
   -
-    name: 'OWASP Juice Shop Coaster (10pcs)'
-    description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
-    price: 19.99
-    quantity: 0
-    image: undefined_kiwa.png  
+    name: 'Kiwa Americano Mug'
+    description: 'Might be removed lated because of a mugging.'
+    price: 7.74
+    quantity: 6
+    image: americano.jpg
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
