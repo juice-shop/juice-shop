@@ -214,7 +214,7 @@ products:
     image: stormumbrella.jpg
   -
     name: 'Kiwa table flag'
-    description: 'You're getting flagged'
+    description: 'You are getting flagged.'
     price: 2.99
     image: tableflag.jpg
   -
