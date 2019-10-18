@@ -201,10 +201,10 @@ products:
     price: 14.99
     image: taperolls.jpg
     reviews:
-      - { text: 'I straight-up gots nuff props fo''these rolls!', author: mc.safesearch }
+      - { text: 'I straight-up gots nuff props fo these rolls!', author: mc.safesearch }
   -
     name: 'Surfing Beaver'
-    description: 'Kiwa Surfin' Beaver. Your colleagues will envy you!'
+    description: 'Kiwa Surfin Beaver. Your colleagues will envy you!'
     price: 21.99
     image: surfinbeaver.jpg
   -
