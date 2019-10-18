@@ -10,13 +10,13 @@ application:
   showChallengeHints: true
   showVersionNumber: false
   showHackingInstructor: true
-  showGitHubLinks: true
+  showGitHubLinks: false
   numberOfRandomFakeUsers: 0
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
   facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
   slackUrl: 'http://owaspslack.com'
   redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
-  pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+  pressKitUrl: 'https://www.kiwa.com'
   planetOverlayMap: orangemap2k.jpg
   planetName: Orangeuze
   deluxePage:
@@ -55,7 +55,7 @@ products:
     price: 18.99
     deluxePrice: 20.99
     description: 'The Original'
-    image: beaver.jpg
+    image: bever.jpg
     reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
       - { text: 'One of my favorites!', author: admin }
   -
@@ -256,7 +256,7 @@ products:
     description: 'Unique masterpiece painted with different kinds of kiwa colors'
     price: 28.74
     quantity: 0
-    image: paraplu.png
+    image: paraplu.jpg
   -
     name: 'Kiwa cycling shirt'
     price: 14
