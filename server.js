@@ -500,9 +500,10 @@ app.use(errorhandler())
 exports.start = async function (readyCallback) {
   await models.sequelize.sync({ force: true })
   await datacreator()
+  let port = process.env.PORT || config.get('server.port')
 
-  server.listen(process.env.PORT || config.get('server.port'), () => {
-    logger.info(colors.cyan(`Server listening on port ${config.get('server.port')}`))
+  server.listen(port, () => {
+    logger.info(colors.cyan(`Server listening on port ${port}`))
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
