@@ -178,6 +178,9 @@
   key: bjoernOwasp
   role: 'admin'
   profileImage: '13.jpg'
+  memory:
+    imagePath: 'assets/public/images/uploads/magn(et)ificent!-1571814229653.jpg'
+    caption: 'Magn(et)ificent!'
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
