@@ -146,6 +146,7 @@
     "jasmine-core": "^3.4.0",
     "jasmine-reporters": "^2.3.2",
     "jest": "^24.9.0",
+    "keepass.io": "^1.1.4",
     "mocha": "^6.2.0",
     "node-fetch": "2.1.2",
     "nyc": "^14.1.1",
