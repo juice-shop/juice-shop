@@ -37,7 +37,8 @@ module.exports = async () => {
     createQuantity,
     createPurchaseQuantity,
     createWallet,
-    createDeliveryMethods
+    createDeliveryMethods,
+    createMemories
   ]
 
   for (const creator of creators) {
@@ -57,7 +58,7 @@ async function createChallenges () {
       hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
 
       try {
-        const challenge = await models.Challenge.create({
+        datacache.challenges[key] = await models.Challenge.create({
           key,
           name,
           category,
@@ -68,7 +69,6 @@ async function createChallenges () {
           hintUrl: showHints ? hintUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv
         })
-        datacache.challenges[key] = challenge
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${err.message}`)
       }
@@ -80,7 +80,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret: totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, memory, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret: totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
@@ -207,6 +207,24 @@ function createQuantity () {
         limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
+      })
+    })
+  )
+}
+function createMemories () {
+  return Promise.all(
+    config.get('memories').map((memory) => {
+      if (utils.startsWith(memory.image, 'http')) {
+        const imageUrl = memory.image
+        memory.image = decodeURIComponent(memory.image.substring(memory.image.lastIndexOf('/') + 1))
+        utils.downloadToFile(imageUrl, 'assets/public/images/uploads/' + memory.image)
+      }
+      return models.Memory.create({
+        imagePath: 'assets/public/images/uploads/' + memory.image,
+        caption: memory.caption,
+        UserId: datacache.users[memory.user].id
+      }).catch((err) => {
+        logger.error(`Could not create memory: ${err.message}`)
       })
     })
   )
