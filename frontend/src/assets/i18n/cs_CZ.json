@@ -132,7 +132,7 @@
   "CANNOT_BE_CHANGED_LATER": "This cannot be changed later!",
   "MANDATORY_SECURITY_QUESTION": "Please select a security question.",
   "MANDATORY_SECURITY_ANSWER": "Please provide an answer to your security question.",
-  "FORGOT_PASSWORD": "Forgot your password?",
+  "FORGOT_PASSWORD": "Zapomněli jste vaše heslo?",
   "TITLE_FORGOT_PASSWORD": "Zapomenuté Heslo",
   "NOTIFICATION_SERVER_STARTED": "The server has been restarted",
   "AUTO_RESTORED_PROGRESS": "Your previous hacking progress has been restored automatically.",
