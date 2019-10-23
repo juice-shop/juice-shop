@@ -94,6 +94,7 @@ async function createUsers () {
         datacache.users[key] = user
         if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating)
+        if (memory) await createMemory(user.id, memory.imagePath, memory.caption)
         if (deletedFlag) await deleteUser(user.id)
         if (address) await createAddresses(user.id, address)
         if (card) await createCards(user.id, card)
@@ -418,6 +419,12 @@ function createAnonymousFeedback () {
 function createFeedback (UserId, comment, rating) {
   return models.Feedback.create({ UserId, comment, rating }).catch((err) => {
     logger.error(`Could not insert Feedback ${comment} mapped to UserId ${UserId}: ${err.message}`)
+  })
+}
+
+function createMemory (UserId, imagePath, caption) {
+  return models.Memory.create({ UserId, imagePath, caption }).catch((err) => {
+    logger.error(`Could not insert Memory ${caption} mapped to UserId ${UserId}: ${err.message}`)
   })
 }
 
