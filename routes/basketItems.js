@@ -22,7 +22,7 @@ module.exports.addBasketItem = function addBasketItem () {
 
     const user = insecurity.authenticatedUsers.from(req)
     if (user && basketIds[0] && basketIds[0] !== 'undefined' && user.bid != basketIds[0]) { // eslint-disable-line eqeqeq
-      res.status(401).send('{\'error\' : \'Invalid BasketId\'}')
+      res.status(401).send(`{'error' : 'Invalid BasketId'}`)
     } else {
       const basketItem = {
         ProductId: productIds[productIds.length - 1],
@@ -84,6 +84,6 @@ async function quantityCheck (req, res, next, id, quantity) {
       res.status(400).json({ error: 'We are out of stock! Sorry for the inconvenience.' })
     }
   } else {
-    res.status(400).json({ error: 'You can order only up to ' + product.limitPerUser + ' items of this product.' })
+    res.status(400).json({ error: `You can order only up to ${product.limitPerUser} items of this product.` })
   }
 }
