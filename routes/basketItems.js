@@ -22,7 +22,7 @@ module.exports.addBasketItem = function addBasketItem () {
 
     const user = insecurity.authenticatedUsers.from(req)
     if (user && basketIds[0] && basketIds[0] !== 'undefined' && user.bid != basketIds[0]) { // eslint-disable-line eqeqeq
-      res.status(401).send(`{'error' : 'Invalid BasketId'}`)
+      res.status(401).send('{\'error\' : \'Invalid BasketId\'}')
     } else {
       const basketItem = {
         ProductId: productIds[productIds.length - 1],
