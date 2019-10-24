@@ -13,7 +13,7 @@ module.exports = function fileUpload () {
     if (uploadedFileType !== null && utils.startsWith(uploadedFileType.mime, 'image')) {
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        fs.open('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.' + uploadedFileType.ext, 'w', function (err, fd) {
+        fs.open(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}`, 'w', function (err, fd) {
           if (err) logger.warn('Error opening file: ' + err.message)
           fs.write(fd, buffer, 0, buffer.length, null, function (err) {
             if (err) logger.warn('Error writing file: ' + err.message)

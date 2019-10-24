@@ -18,7 +18,7 @@ module.exports = function placeOrder () {
           const customer = insecurity.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
           const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
-          const pdfFile = 'order_' + orderId + '.pdf'
+          const pdfFile = `order_${orderId}.pdf`
           const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
@@ -157,7 +157,7 @@ module.exports = function placeOrder () {
             res.json({ orderConfirmation: orderId })
           })
         } else {
-          next(new Error('Basket with id=' + id + ' does not exist.'))
+          next(new Error(`Basket with id=${id} does not exist.`))
         }
       }).catch(error => {
         next(error)
