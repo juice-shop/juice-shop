@@ -180,7 +180,7 @@
     "package": "grunt package"
   },
   "engines": {
-    "node": "10 - 12"
+    "node": "10 - 13"
   },
   "cpu": [
     "x64",
