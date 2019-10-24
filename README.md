@@ -155,6 +155,7 @@ images and packaged distributions are offered accordingly.
 
 | node.js  | Supported            | [Packaged Distributions](#packaged-distributions)                                                                                                                                                                                                                 | [Docker image](#docker-container) tags                                                       |
 |:---------|:---------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| 13.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
 | __12.x__ | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
 | 11.x     | (:heavy_check_mark:) |                                                                                                                                                                                                                                                                   |                                                                                              |
 | 10.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
@@ -215,8 +216,7 @@ challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
 published under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 and is available **for free** in PDF, Kindle and ePub format. You can
-also
-[browse the full content online](https://pwning.owasp-juice.shop)!
+also [browse the full content online](https://pwning.owasp-juice.shop)!
 
 [![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
 
