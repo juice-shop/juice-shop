@@ -16,7 +16,7 @@ env:
   global:
     secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
 addons:
-  chrome: beta
+  chrome: stable
 install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
