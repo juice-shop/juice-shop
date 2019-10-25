@@ -84,7 +84,7 @@
   "LABEL_REPEAT_NEW_PASSWORD": "Nové heslo znovu",
   "BTN_CHANGE": "Změnit",
   "LABEL_CAPTCHA": "CAPTCHA",
-  "ENTER_CAPTCHA": "Enter CAPTCHA",
+  "ENTER_CAPTCHA": "Zadejte CAPTCHA kód",
   "TITLE_COMPLAIN": "Vyplnit stížnost",
   "MANDATORY_MESSAGE": "Zadejte prosím text.",
   "INVALID_MESSAGE_LENGTH": "Délka textu musí být {{length}} znaků.",
