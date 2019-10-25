@@ -64,6 +64,7 @@ jobs:
       if: tag IS blank
       os: linux
       script:
+        - npm i -g webdriver-manager && webdriver-manager update --gecko false
         - export NODE_ENV=test
         - npm run protractor
     - stage: smoke
