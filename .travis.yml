@@ -64,9 +64,8 @@ jobs:
       if: tag IS blank
       os: linux
       script:
-        - node ./node_modules/protractor/bin/webdriver-manager clean
         - export NODE_ENV=test
-        - npm run protractor
+        - npm run e2e
     - stage: smoke
       if: tag IS blank
       os: linux
