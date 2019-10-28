@@ -38,8 +38,6 @@ deploy:
       repo: bkimminich/juice-shop
       tags: true
 jobs:
-  allow_failures:
-    - stage: e2e
   include:
     - stage: lint
       if: tag IS blank
