@@ -24,7 +24,7 @@ addons:
       - dpkg
       - google-chrome-stable
 install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
-script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
+script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" == "linux" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
   - rm -rf node_modules
   - rm -rf frontend/node_modules
