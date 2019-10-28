@@ -41,6 +41,7 @@ assets/
 
 # Custom configuration files
 config/*.yml
+!config/addo.yml
 !config/bodgeit.yml
 !config/ctf.yml
 !config/fbctf.yml

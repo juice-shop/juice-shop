@@ -1,0 +1,37 @@
+application:
+  domain: ad.do
+  name: 'AllDayDevOps'
+  logo: 'https://www.alldaydevops.com/hubfs/2019-ADDO/2019%20Logo%20Files/ADDO_Logo_2019_White.svg'
+  favicon: 'https://www.sonatype.com/hubfs/ADDO-2018/ADDO_fav4.png'
+  theme: pink-bluegrey
+  showGitHubLinks: false
+  twitterUrl: 'https://twitter.com/AllDayDevOps'
+  facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
+  slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
+  redditUrl: null
+  pressKitUrl: 'https://www.alldaydevops.com/2019resources'
+  planetOverlayMap: 'https://www.sonatype.com/hubfs/2019-ADDO/BG_Bobby-2019_3.png'
+  planetName: 'A-DD-0'
+  deluxePage:
+    deluxeDeliveryImage: ~
+  recyclePage:
+    topProductImage: undefined.png
+    bottomProductImage: undefined.png
+  altcoinName: ADDcOin
+  welcomeBanner:
+    showOnFirstStart: false
+  cookieConsent:
+    backgroundColor: '#c2185b'
+    textColor: '#ffffff'
+    buttonColor: '#b0bec5'
+    buttonTextColor: '#000000'
+    message: 'Taste our 150 practitioner-baked cookies with 5 tracking flavors!'
+    dismissText: 'Register for 24/7 cookies!'
+    linkText: 'Yum, tell me more!'
+    linkUrl: 'https://www.alldaydevops.com/privacy-policy-addo'
+  privacyContactEmail: 'donotreply@ad.do'
+  securityTxt:
+    contact: 'mailto:donotreply@ad.do'
+    encryption: ~
+products: []
+memories: []
