@@ -1,6 +1,4 @@
-'use strict'
-
-var proxy = {
+let proxy = {
   proxyType: 'autodetect'
 }
 
@@ -38,7 +36,7 @@ exports.config = {
   },
 
   onPrepare: function () {
-    var jasmineReporters = require('jasmine-reporters')
+    const jasmineReporters = require('jasmine-reporters')
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
       consolidateAll: true,
       savePath: 'build/reports/e2e_results'
