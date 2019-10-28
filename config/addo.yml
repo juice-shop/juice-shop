@@ -33,5 +33,53 @@ application:
   securityTxt:
     contact: 'mailto:donotreply@ad.do'
     encryption: ~
-products: []
+products:
+  - name: 'Feedback Loops: Voices of All Day DevOps: Volume 1'
+    description: 'Four Years of Countless DevOps Journeys Unveiled at All Day DevOps. Over the years, All Day DevOps has explored the stories of over 275 community practitioners around the world - and as we know, with any journey, there is never a single path to success.'
+    price: 14.95
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Operation%20Graphics/ADDO_book_covers_yellow_forHS.jpg'
+    fileForRetrieveBlueprintChallenge: 'https://sptf.info/images/pn1_fbl.pdf'
+  - name: 'DevSecOps Reference Architectures 2019'
+    description: 'Gloriously referential! Whitepaperesquely architectural!'
+    price: 42.00
+    quantity: 3
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Operation%20Graphics/Untitled%20design%20(3).png'
+    urlForProductTamperingChallenge: 'http://bit.ly/2YIjdt7'
+  - name: 'DevSecOps Reference Architectures 2018'
+    description: 'Very referential! Mildly architectural!'
+    price: 21.00
+    image: undefined.jpg
+    useForChristmasSpecialChallenge: true
+  - name: 'Epic Failures in DevSecOps, Vol. 1'
+    description: 'One topic. Nine authors. Where did they go wrong? Through short stories from expert practitioners, observe patterns the DevSecOps community can learn from to safely push the boundaries of software development.'
+    price: 7.42
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Sponsor%20Logos/Epic%20Failures%20Volume%2001%20-%20Featured%20Image.jpg'
+  - name: '2018 DevSecOps'
+    description: 'Introduction to DevSecOps by DJ Schleen'
+    price: 99.99
+    image: 'https://www.alldaydevops.com/hubfs/Cover-DevSecOps@2x.png'
+  - name: '2018 Cloud Native Infrastructure'
+    description: '101 and 201'
+    price: 39.99
+    image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-ModernInfrastructure@2x.png'
+    reviews:
+      - { text: 'What are these numbers even meaning? Are they dangerous? Maybe PasteBin knows more about them...', author: bjoern }
+    keywordsForPastebinDataLeakChallenge:
+      - '101'
+      - '202'
+  - name: '2018 Cultural Transformation'
+    description: 'Introduction to DevOps'
+    price: 9.99
+    image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-CulturalTransformations@2x.png'
+  - name: 'All Day DevOps On Demand'
+    description: '123 free sessions for you! Rewatch your favorites from 2018, then get ready for All Day DevOps 2019 on November 6.'
+    price: 123.0
+    deletedDate: '2018-12-31'
+  - name: 'Bjorn Kimminich'
+    description: 'Björn is the project leader of the OWASP Juice Shop and a board member for the German OWASP chapter.'
+    price: 999999.99
+    quantity: 0
+    image: 'https://www.alldaydevops.com/hubfs/Bjorn_Kimminich.jpg'
+    reviews:
+      - { text: 'Man, dis dude is a loony!', author: mc.safesearch }
 memories: []
