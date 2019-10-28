@@ -198,3 +198,25 @@
   securityQuestion:
     id: 7
     answer: 'sdAffsdfrefrbgreq3423'
+-
+  email: test
+  password: 'test123'
+  key: test
+  role: 'customer'
+  walletBalance: 200
+  securityQuestion:
+    id: 10
+    answer: 'ACME Inc.'
+  address:
+    - fullName: 'Tim Tester'
+      mobileNum: 4917000000
+      zipCode: '12345'
+      streetAddress: 'Dummystreet 42'
+      city: 'Mocktown'
+      state: 'Testilvania'
+      country: 'United Fakedom'
+  card:
+    - fullName: 'Tim Tester'
+      cardNum: 1234567812345678
+      expMonth: 12
+      expYear: 2099
