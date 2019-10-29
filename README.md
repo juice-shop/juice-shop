@@ -17,7 +17,7 @@
 > [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
 > ([@kramse](https://twitter.com/kramse))
 
-OWASP Juice Shop is probably the most modern and sophisticated insecure
+OWASP Juice Shop is probably the most modern and sophisticated intentionally insecure
 web application! It can be used in security trainings, awareness demos,
 CTFs and as a guinea pig for security tools! Juice Shop encompasses
 vulnerabilities from the entire
