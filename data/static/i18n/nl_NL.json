@@ -1,9 +1,9 @@
 {
-	"Find the carefully hidden 'Score Board' page.": "Find the carefully hidden 'Score Board' page.",
+	"Find the carefully hidden 'Score Board' page.": "Vind de zorgvuldige verborgen 'Scorebord' pagina.",
 	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.",
-	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.",
-	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
-	"Gain access to any access log file of the server.": "Gain access to any access log file of the server.",
+	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Voer een <i>persistente</i> XSS aanval met <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> uit zonder gebruik te maken van de frontend applicatie.",
+	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "U moet direct met de server-side API werken. Probeer verschillende HTTP woorden uit op verschillende entiteiten die weergeven via de API.",
+	"Gain access to any access log file of the server.": "Krijg toegang tot elke toegangslog bestand van de server.",
 	"Who would want a server access log to be accessible through a web application?": "Who would want a server access log to be accessible through a web application?",
 	"Register as a user with administrator privileges.": "Register as a user with administrator privileges.",
 	"You have to assign the unassignable.": "You have to assign the unassignable.",
