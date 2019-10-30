@@ -82,4 +82,18 @@ products:
     image: 'https://www.alldaydevops.com/hubfs/Bjorn_Kimminich.jpg'
     reviews:
       - { text: 'Man, dis dude is a loony!', author: mc.safesearch }
+  -
+    name: 'ADDO Music Collection'
+    description: 'All the all-time classics in one collection.'
+    price: 49.99
+    image: 'https://pbs.twimg.com/media/Di5A_iYU4AAxpXT?format=jpg&name=small'
+    reviews:
+      - { text: 'Bah, puny earthling music.', author: bender }
+  -
+    name: 'DevSecOps Unicorn Poster, 80x60'
+    description: 'Glossy print to make the rainbow colors shine even brighter.'
+    price: 9.99
+    image: 'https://pbs.twimg.com/media/CEQOsL9XIAAezy_?format=png&name=small'
+    reviews:
+      - { text: 'This will decorate the captain`s ready room nicely.', author: jim }
 memories: []
