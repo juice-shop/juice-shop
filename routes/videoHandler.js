@@ -78,7 +78,7 @@ function getSubsFromFile () {
 
 function videoPath () {
   if (config && config.application && config.application.promotion && config.application.promotion.video !== null) {
-    let video = utils.extractFilename(config.application.promotion.video)
+    const video = utils.extractFilename(config.application.promotion.video)
     return 'frontend/src/assets/public/videos/' + video
   }
   return 'frontend/src/assets/public/videos/JuiceShopJingle.mp4'
