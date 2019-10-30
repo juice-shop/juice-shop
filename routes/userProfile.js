@@ -48,8 +48,6 @@ module.exports = function getUserProfile () {
   }
 
   function favicon () {
-    let icon = config.get('application.favicon')
-    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    return icon
+    return utils.extractFilename(config.get('application.favicon'))
   }
 }
