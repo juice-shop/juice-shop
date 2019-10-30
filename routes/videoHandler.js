@@ -63,19 +63,14 @@ exports.promotionVideo = () => {
     })
   }
   function favicon () {
-    let icon = config.get('application.favicon')
-    icon = decodeURIComponent(icon.substring(icon.lastIndexOf('/') + 1))
-    return icon
+    return utils.extractFilename(config.get('application.favicon'))
   }
 }
 
 function getSubsFromFile () {
   let subtitles = 'JuiceShopJingle.vtt'
   if (config && config.application && config.application.promotion && config.application.promotion.subtitles !== null) {
-    subtitles = config.application.promotion.subtitles
-    if (subtitles.substring(0, 4) === 'http') {
-      subtitles = decodeURIComponent(subtitles.substring(subtitles.lastIndexOf('/') + 1))
-    }
+    subtitles = utils.extractFilename(config.application.promotion.subtitles)
   }
   const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
   return data.toString()
@@ -83,11 +78,7 @@ function getSubsFromFile () {
 
 function videoPath () {
   if (config && config.application && config.application.promotion && config.application.promotion.video !== null) {
-    let video = config.application.promotion.video
-
-    if (video.substring(0, 4) === 'http') {
-      video = decodeURIComponent(video.substring(video.lastIndexOf('/') + 1))
-    }
+    let video = utils.extractFilename(config.application.promotion.video)
     return 'frontend/src/assets/public/videos/' + video
   }
   return 'frontend/src/assets/public/videos/JuiceShopJingle.mp4'

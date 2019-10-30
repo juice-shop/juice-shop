@@ -216,7 +216,7 @@ function createMemories () {
     config.get('memories').map((memory) => {
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
-        memory.image = decodeURIComponent(memory.image.substring(memory.image.lastIndexOf('/') + 1))
+        memory.image = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'assets/public/images/uploads/' + memory.image)
       }
       return models.Memory.create({
@@ -240,7 +240,7 @@ function createProducts () {
     product.image = product.image || 'undefined.png'
     if (utils.startsWith(product.image, 'http')) {
       const imageUrl = product.image
-      product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
+      product.image = utils.extractFilename(product.image)
       utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
 
@@ -269,7 +269,7 @@ function createProducts () {
   let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
-    blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
+    blueprint = utils.extractFilename(blueprint)
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
   datacache.retrieveBlueprintChallengeFile = blueprint // TODO Do not cache separately but load from config where needed (same as keywordsForPastebinDataLeakChallenge)

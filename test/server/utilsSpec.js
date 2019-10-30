@@ -21,4 +21,22 @@ describe('utils', () => {
       expect(utils.toSimpleIpAddress('::ffff:192.0.2.128')).to.equal('192.0.2.128')
     })
   })
+
+  describe('extractFilename', () => {
+    it('returns standalone filename unchanged', () => {
+      expect(utils.extractFilename('test.exe')).to.equal('test.exe')
+    })
+
+    it('returns filename from http:// URL', () => {
+      expect(utils.extractFilename('http://bla.blubb/test.exe')).to.equal('test.exe')
+    })
+
+    it('ignores query part of http:// URL', () => {
+      expect(utils.extractFilename('http://bla.blubb/test.exe?bla=blubb&a=b')).to.equal('test.exe')
+    })
+
+    it('also works for file:// URLs', () => {
+      expect(utils.extractFilename('file:///C//Bla/Blubb/test.exe')).to.equal('test.exe')
+    })
+  })
 })
