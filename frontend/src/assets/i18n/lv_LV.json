@@ -1,8 +1,8 @@
 {
   "LANGUAGE": "Latvijas",
-  "NAV_SEARCH": "Search",
-  "SEARCH_PLACEHOLDER": "Search...",
-  "NAV_COMPLAIN": "Complaint",
+  "NAV_SEARCH": "Meklēt",
+  "SEARCH_PLACEHOLDER": "Meklēt...",
+  "NAV_COMPLAIN": "Sūdzība",
   "TITLE_LOGIN": "Login",
   "MANDATORY_EMAIL": "Please provide an email address.",
   "MANDATORY_PASSWORD": "Please provide a password.",
