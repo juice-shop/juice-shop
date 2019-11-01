@@ -260,10 +260,6 @@ memories:
     image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
-  -
-    image: '😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg'
-    caption: '😼 #zatschi #whoneedsfourlegs'
-    user: bjoernOwasp
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
