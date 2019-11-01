@@ -13,8 +13,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
 const robots = require('express-robots-txt')
-const multer = require('multer')
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
@@ -88,6 +86,8 @@ const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
+const multer = require('multer')
+const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 
 const mimeTypeMap = {
   'image/png': 'png',
@@ -95,24 +95,24 @@ const mimeTypeMap = {
   'image/jpg': 'jpg'
 }
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const isValid = mimeTypeMap[file.mimetype]
-    let error = new Error('Invalid mime type')
-    if (isValid) {
-      error = null
+const uploadToDisk = multer({ storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const isValid = mimeTypeMap[ file.mimetype ]
+      let error = new Error('Invalid mime type')
+      if (isValid) {
+        error = null
+      }
+      cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
+    },
+    filename: (req, file, cb) => {
+      const name = insecurity.sanitizeFilename(file.originalname)
+        .toLowerCase()
+        .split(' ')
+        .join('-')
+      const ext = mimeTypeMap[ file.mimetype ]
+      cb(null, name + '-' + Date.now() + '.' + ext)
     }
-    cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
-  },
-  filename: (req, file, cb) => {
-    const name = file.originalname
-      .toLowerCase()
-      .split(' ')
-      .join('-')
-    const ext = mimeTypeMap[file.mimetype]
-    cb(null, name + '-' + Date.now() + '.' + ext)
-  }
-})
+  }) })
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
@@ -196,10 +196,10 @@ app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
-app.post('/file-upload', upload.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
-app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
-app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
-app.post('/api/Memorys', multer({ storage: storage }).single('image'), insecurity.appendUserId(), memory.addMemory())
+app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
+app.post('/profile/image/file', uploadToMemory.single('file'), profileImageFileUpload())
+app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
+app.post('/api/Memorys', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
