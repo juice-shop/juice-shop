@@ -277,3 +277,6 @@ ctf:
     ephemeralAccountantChallenge:
       name: Denmark
       code: DK
+    missingEncodingChallenge:
+      name: Armenia
+      code: AM
