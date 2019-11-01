@@ -123,6 +123,7 @@
     "pug": "^2.0.4",
     "replace": "^1.1.1",
     "request": "^2.88.0",
+    "sanitize-filename": "^1.6.3",
     "sanitize-html": "1.4.2",
     "semver": "^6.3.0",
     "sequelize": "^5.21.1",

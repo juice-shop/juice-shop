@@ -167,7 +167,6 @@
   key: bjoern
   role: 'admin'
   isAdmin: true
-  profileImage: '12.jpg'
   securityQuestion:
     id: 9
     answer: 'West-2082' # http://www.alte-postleitzahlen.de/uetersen
@@ -176,8 +175,8 @@
   password: 'kitten lesser pooch karate buffoon indoors'
   customDomain: true
   key: bjoernOwasp
-  role: 'admin'
-  profileImage: '13.jpg'
+  role: 'deluxe'
+  profileImage: '12.jpg'
   securityQuestion:
     id: 7
     answer: 'Zaya' # https://www.youtube.com/watch?v=Lu0-kDdtVf4
