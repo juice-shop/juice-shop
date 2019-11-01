@@ -67,6 +67,8 @@ exports.accessControlChallenges = () => ({ url }, res, next) => {
     utils.solve(challenges.retrieveBlueprintChallenge)
   } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
     utils.solve(challenges.securityPolicyChallenge)
+  } else if (utils.notSolved(challenges.missingEncodingChallenge) && utils.endsWith(url, '/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg')) {
+    utils.solve(challenges.missingEncodingChallenge)
   } else if (utils.notSolved(challenges.accessLogDisclosureChallenge) && url.match(/access\.log(0-9-)*/)) {
     utils.solve(challenges.accessLogDisclosureChallenge)
   }

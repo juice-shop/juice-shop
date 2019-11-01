@@ -160,6 +160,7 @@ app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/assets/public/images/padding', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
+app.use('/assets/public/images/uploads', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
 
 /* Checks for challenges solved by abusing SSTi and SSRF bugs */

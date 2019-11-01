@@ -136,6 +136,11 @@ describe('Hidden URL', () => {
       .expect('status', 200)
   })
 
+  it('GET crazy cat photo for "Missing Encoding" challenge', () => {
+    return frisby.get(URL + '/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg')
+      .expect('status', 200)
+  })
+
   it('GET folder containing access log files for "Access Log" challenge', () => {
     return frisby.get(URL + '/support/logs/access.log.' + utils.toISO8601(new Date()))
       .expect('status', 200)
