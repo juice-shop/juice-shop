@@ -95,9 +95,10 @@ const mimeTypeMap = {
   'image/jpg': 'jpg'
 }
 
-const uploadToDisk = multer({ storage: multer.diskStorage({
+const uploadToDisk = multer({
+  storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const isValid = mimeTypeMap[ file.mimetype ]
+      const isValid = mimeTypeMap[file.mimetype]
       let error = new Error('Invalid mime type')
       if (isValid) {
         error = null
@@ -109,10 +110,11 @@ const uploadToDisk = multer({ storage: multer.diskStorage({
         .toLowerCase()
         .split(' ')
         .join('-')
-      const ext = mimeTypeMap[ file.mimetype ]
+      const ext = mimeTypeMap[file.mimetype]
       cb(null, name + '-' + Date.now() + '.' + ext)
     }
-  }) })
+  })
+})
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
 
