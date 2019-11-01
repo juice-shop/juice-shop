@@ -42,14 +42,14 @@
 
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
-		<section>
+		<section data-transition="zoom">
 			<img src="assets/addo_2019/ADDO_2019_Title.png">
 		</section>
 
 		<section data-background="assets/JuiceShop_Wallpaper_1920x1080.jpg">
 			<div style="background-color: rgba(13, 13, 13, 0.6); padding: 10px;" class="fragment">
 				<h2>Let us begin with a</h2>
-				<h1><a href="http://demo.owasp-juice.shop" target="_blank">happy path shopping tour</a></h1>
+				<h1><a href="http://preview.owasp-juice.shop" target="_blank">happy path shopping tour</a></h1>
 				<h3>like unsuspecting average Joe & Jane!</h3>
 			</div>
 		</section>
@@ -222,7 +222,7 @@ insertHintUrls: none | free | paid
 				<p>
 					Fully <a href="https://pwning.owasp-juice.shop/part1/customization.html">customizable</a> business context and look & feel
 				</p>
-				<img src="assets/addo_2019/custom_theme.png" height="350"/>
+				<a href="http://experimental.owasp-juice.shop" target="_blank"><img src="assets/addo_2019/custom_theme.png" height="350"/></a>
 			</section>
 
 			<section>
@@ -448,7 +448,7 @@ products:
     history: true,
     center: true,
 
-    transition: 'convex', // none/fade/slide/convex/concave/zoom
+    transition: 'concave', // none/fade/slide/convex/concave/zoom
 
     // Optional reveal.js plugins
     dependencies: [
