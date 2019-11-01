@@ -212,7 +212,14 @@ function createQuantity () {
   )
 }
 function createMemories () {
-  return Promise.all(
+  const memories = [models.Memory.create({
+    imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+    caption: '😼 #zatschi #whoneedsfourlegs',
+    UserId: datacache.users.bjoernOwasp.id
+  }).catch((err) => {
+    logger.error(`Could not create memory: ${err.message}`)
+  })]
+  Array.prototype.push.apply(memories, Promise.all(
     config.get('memories').map((memory) => {
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
@@ -227,7 +234,8 @@ function createMemories () {
         logger.error(`Could not create memory: ${err.message}`)
       })
     })
-  )
+  ))
+  return memories
 }
 
 function createProducts () {
