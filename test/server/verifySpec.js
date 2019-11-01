@@ -115,6 +115,15 @@ describe('verify', () => {
       expect(challenges.retrieveBlueprintChallenge.solved).to.equal(true)
     })
 
+    it('"missingEncodingChallenge" is solved when the crazy cat photo is requested', () => {
+      challenges.missingEncodingChallenge = { solved: false, save: this.save }
+      this.req.url = 'http://juice-sh.op/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
+
+      verify.accessControlChallenges()(this.req, this.res, this.next)
+
+      expect(challenges.missingEncodingChallenge.solved).to.equal(true)
+    })
+
     it('"accessLogDisclosureChallenge" is solved when any server access log file is requested', () => {
       challenges.accessLogDisclosureChallenge = { solved: false, save: this.save }
       this.req.url = 'http://juice-sh.op/support/logs/access.log.2019-01-15'

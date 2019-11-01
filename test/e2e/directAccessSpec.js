@@ -50,6 +50,14 @@ describe('/', () => {
     protractor.expect.challengeSolved({ challenge: 'Retrieve Blueprint' })
   })
 
+  describe('challenge "missingEncoding"', () => {
+    it('should be able to access the crazy cat photo', () => {
+      browser.driver.get(browser.baseUrl + '/assets/public/images/uploads/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg')
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Missing Encoding' })
+  })
+
   describe('challenge "securityPolicy"', () => {
     it('should be able to access the security.txt file', () => {
       browser.driver.get(browser.baseUrl + '/.well-known/security.txt')

@@ -726,4 +726,12 @@
   hint: 'Before you invest time bypassing the API, you might want to play around with the UI a bit.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#give-a-devastating-zero-star-feedback-to-the-store'
   key: zeroStarsChallenge
+-
+  name: 'Missing Encoding'
+  category: 'Improper Input Validation'
+  description: 'Retrieve the photo of Bjoern''s cat in "melee combat-mode".'
+  difficulty: 1
+  hint: 'Check the Photo Wall for an image that could not be loaded correctly.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#retrieve-the-photo-of-bjoerns-cat-in-melee-combat-mode'
+  key: missingEncodingChallenge
   
