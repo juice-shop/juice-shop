@@ -14,6 +14,8 @@ import { UserService } from 'src/app/Services/user.service'
 import { of, throwError } from 'rxjs'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent
@@ -32,6 +34,7 @@ describe('ForgotPasswordComponent', () => {
       declarations: [ ForgotPasswordComponent ],
       imports: [
         TranslateModule.forRoot(),
+        MatPasswordStrengthModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -40,7 +43,8 @@ describe('ForgotPasswordComponent', () => {
         MatInputModule,
         MatButtonModule,
         MatTooltipModule,
-        MatIconModule
+        MatIconModule,
+        MatSlideToggleModule
       ],
       providers: [
         { provide: SecurityQuestionService, useValue: securityQuestionService },

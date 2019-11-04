@@ -20,6 +20,8 @@ import { of, throwError } from 'rxjs'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent
@@ -43,6 +45,7 @@ describe('RegisterComponent', () => {
           { path: 'login', component: LoginComponent }
         ]),
         TranslateModule.forRoot(),
+        MatPasswordStrengthModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -55,7 +58,8 @@ describe('RegisterComponent', () => {
         MatIconModule,
         MatSnackBarModule,
         MatTooltipModule,
-        MatIconModule
+        MatIconModule,
+        MatSlideToggleModule
       ],
       declarations: [ RegisterComponent, LoginComponent ],
       providers: [

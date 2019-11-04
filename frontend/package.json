@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular-devkit/build-angular": "^0.803.14",
+    "@angular-material-extensions/password-strength": "^4.1.1",
     "@angular/animations": "^8.2.12",
     "@angular/cdk": "^8.2.3",
     "@angular/cli": "^8.3.14",

@@ -22,7 +22,7 @@ $blue-lightblue-primary: mat-palette($mat-blue, 700, 400, 800);
 $blue-lightblue-accent: mat-palette($mat-light-blue, 700, 600, 800);
 $blue-lightblue-theme: mat-light-theme($blue-lightblue-primary, $blue-lightblue-accent);
 
-$bluegrey-lightgreen-primary: mat-palette($mat-blue-grey, 800, 500, 900);
+$bluegrey-lightgreen-primary: mat-palette($mat-blue-grey, 600, 500, 900);
 $bluegrey-lightgreen-accent: mat-palette($mat-light-green, 700, 300, 800);
 $bluegrey-lightgreen-warn: mat-palette($mat-deep-orange);
 $bluegrey-lightgreen-theme: mat-dark-theme($bluegrey-lightgreen-primary, $bluegrey-lightgreen-accent, $bluegrey-lightgreen-warn);
