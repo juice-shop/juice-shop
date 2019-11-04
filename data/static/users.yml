@@ -198,8 +198,9 @@
     id: 7
     answer: 'sdAffsdfrefrbgreq3423'
 -
-  email: test
-  password: 'test123'
+  email: demo
+  password: 'demo'
+  customDomain: true
   key: test
   role: 'customer'
   walletBalance: 200
