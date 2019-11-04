@@ -122,6 +122,8 @@ import { PhotoWallComponent } from './photo-wall/photo-wall.component'
 import { PhotoWallService } from './Services/photo-wall.service'
 import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guard'
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -203,6 +205,7 @@ export function HttpLoaderFactory (http: HttpClient) {
       }
     ),
     CookieModule.forRoot(),
+    MatPasswordStrengthModule.forRoot(),
     FlexLayoutModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -239,7 +242,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     NgMatSearchBarModule,
     MatBadgeModule,
     MatRadioModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   providers: [
     {
