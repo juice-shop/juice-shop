@@ -192,8 +192,7 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  defaultLocale: 'en',
-  autoReload: true
+  defaultLocale: 'en'
 })
 app.use(i18n.init)
 
