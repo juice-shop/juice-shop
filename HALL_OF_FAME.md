@@ -11,7 +11,7 @@
 ## GitHub Contributors
 
 Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Mon, 14 Oct 2019
+`master` as of Mon, 06 Nov 2019
 
 - [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
 - [Arpit Agrawal](https://github.com/agrawalarpit14) aka
@@ -54,6 +54,7 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
   `nilp0inter`
 - [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
 - [Johanna](https://github.com/johanna-a) aka `johanna-a`
+- [jamiemcgregor](https://github.com/jamiemcgregor) aka `jamiemcgregor`
 - [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
 - [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
 - [Christian Kühn](https://github.com/cy4n) aka `cy4n`
