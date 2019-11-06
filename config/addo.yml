@@ -59,11 +59,11 @@ products:
     price: 99.99
     image: 'https://www.alldaydevops.com/hubfs/Cover-DevSecOps@2x.png'
   - name: '2018 Cloud Native Infrastructure'
-    description: '101 and 201'
+    description: '101 and 202'
     price: 39.99
     image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-ModernInfrastructure@2x.png'
     reviews:
-      - { text: 'What are these numbers even meaning? Are they dangerous? Maybe PasteBin knows more about them...', author: bjoern }
+      - { text: 'I read on PasteBin somewhere that 303 lasers are really dangerous, so why do you (kind of) put one into this product? Are you crazy?!', author: bjoern }
     keywordsForPastebinDataLeakChallenge:
       - '101'
       - '202'
