@@ -86,15 +86,19 @@ const deluxe = require('./routes/deluxe')
 const memory = require('./routes/memory')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
+
+require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
+require('./lib/startup/cleanupFtpFolder')()
+require('./lib/startup/validatePreconditions')()
+require('./lib/startup/validateConfig')()
+
 const multer = require('multer')
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
-
 const mimeTypeMap = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
-
 const uploadToDisk = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
@@ -117,11 +121,6 @@ const uploadToDisk = multer({
 })
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
-
-require('./lib/startup/validatePreconditions')()
-require('./lib/startup/validateConfig')()
-require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 
 /* Locals */
 app.locals.captchaId = 0
@@ -192,7 +191,8 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  defaultLocale: 'en'
+  defaultLocale: 'en',
+  autoReload: 'true'
 })
 app.use(i18n.init)
 
