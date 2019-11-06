@@ -102,6 +102,9 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on
+  [The Daily Swig - Cybersecurity news and views](https://portswigger.net/daily-swig):
+  [OWASP security projects showcased at All Day DevOps conference](https://portswigger.net/daily-swig/owasp-security-projects-showcased-at-all-day-devops-conference)
 * Blog post on [klarsen.net - A Maker's Blog](https://klarsen.net):
   [OWASP Juice Shop SQLi](https://klarsen.net/python/owasp-juice-shop-sqli/)
 * White paper by Kelley Bryant:
