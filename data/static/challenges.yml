@@ -637,7 +637,7 @@
   category: 'Improper Input Validation'
   description: 'Upload a file larger than 100 kB.'
   difficulty: 3
-  hint: 'You can attach a small file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-larger-than-100-kb'
   key: uploadSizeChallenge
 -
@@ -645,7 +645,7 @@
   category: 'Improper Input Validation'
   description: 'Upload a file that has no .pdf or .zip extension.'
   difficulty: 3
-  hint: 'You can attach a PDF or ZIP file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-or-zip-extension'
   key: uploadTypeChallenge
 -
