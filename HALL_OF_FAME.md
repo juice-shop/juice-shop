@@ -153,11 +153,18 @@ translations as of Mon, 26 Aug 2019.
 - Ezequiel Andino aka `acidobinario` (Spanish)
 - kahfiehudson (Indonesian)
 - motofy (Japanese)
-- Hawxdu aka `bill` (Chinese Simplified)
+- bill aka `Hawxdu` (Chinese Simplified)
 - dav1ds (French)
 - ManuelFranz (German)
 - Marc Rüttler aka `MarcRler` (German)
 - Mehyar Shammas aka `mashkuov` (Arabic)
+- Davis Freimanis aka `davisfreimanis` (Latvian)
+- Kamil Vavra aka `vavkamil` (Czech)
+- asifnm (Dutch)
+- mrudul (Hindi)
+- Roy Quiceno aka `rquiceno` (Spanish)
+- Lars Grini aka `lars.grini` (Norwegian)
+- Koji O aka `marlboro20light` (Japanese)
 
 ## Special Thanks
 
