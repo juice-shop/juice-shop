@@ -36,6 +36,14 @@ describe('Required Internet resource', () => {
         .expect('bodyContains', 'JuiceOverFlowError')
         .expect('bodyContains', 'The problem can still occur post-fix but at least now less frequently!')
     })
+
+    it('for All Day DevOps configuration (https://pastebin.com/RXrihEMS)', () => {
+      return frisby.get('https://pastebin.com/RXrihEMS')
+        .expect('status', 200)
+        .expect('bodyContains', 'The infamous 301 and 303 lasers.')
+        .expect('bodyContains', 'Cheap Chinese crap with no quality control')
+        .expect('bodyContains', 'permanent damage before you can blink your eye')
+    })
   })
 
   it('Comment on "Top 10 Fruits you probably dont know" blog post with PasteBin paste URL spoiler available', () => {
