@@ -51,16 +51,19 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text: "Start with entering `'` in the **email field**.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "'")
     },
     {
       text: "Now put anything in the **password field**. It doesn't matter what.",
       fixture: '#password',
+      unskippable: true,
       resolved: waitForInputToNotBeEmpty('#password')
     },
     {
       text: 'Press the _Log in_ button.',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
@@ -81,11 +84,13 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text: "Let's try to manipulate the query a bit to make it useful. Try out typing `' OR true` into the **email field**.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "' OR true")
     },
     {
       text: 'Now click the _Log in_ button again.',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
