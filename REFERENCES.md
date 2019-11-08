@@ -234,7 +234,7 @@ where this project was mentioned or used!
 
 * [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
   by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
-  06.11.2019 ([Youtube](TODO) :bulb:)
+  06.11.2019 ([Youtube](https://www.youtube.com/watch?v=-JuPprlGb48&t=13939s) :bulb:)
 * [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop)
   by Björn Kimminich, Project Showcase track of the
   [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
