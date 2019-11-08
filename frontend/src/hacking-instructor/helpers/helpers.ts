@@ -83,9 +83,6 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
   }
 }
 
-/**
- * Returns a function that waits for the specified time in milli seconds
- */
 export function waitInMs (timeInMs: number) {
   return () => sleep(timeInMs)
 }

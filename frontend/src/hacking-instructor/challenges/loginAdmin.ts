@@ -106,17 +106,20 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text: "So, type in `' OR true--` into the email field.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "' OR true--")
     },
     {
       text: 'Press the _Log in_ button again and sit back...',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text:
         'That worked, right?! To see with whose account you just logged in, open the _Account_ menu.',
       fixture: '#navbarAccount',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#navbarAccount')
     },
     {
