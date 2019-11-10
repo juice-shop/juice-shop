@@ -18,11 +18,13 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Let's start by searching for all products containing `owasp` in their name or description.",
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#searchQuery input', 'owasp')
     },
     {
       text: 'Now hit enter.',
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForElementsInnerHtmlToBe('#searchValue', 'owasp')
     },
     {
@@ -43,11 +45,13 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: 'Change your search value into `<h1>owasp` to see if we can inject HTML.',
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#searchQuery input', '<h1>owasp')
     },
     {
       text: 'Hit enter again.',
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForElementsInnerHtmlToBe('#searchValue', '<h1>owasp</h1>') // Browsers will autocorrect the unclosed tag.
     },
     {
@@ -63,11 +67,13 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Let's now try to inject JavaScript. Type `<script>alert(xss)</script>` into the search box now.",
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#searchQuery input', '<script>alert(xss)</script>')
     },
     {
       text: 'Hit enter again.',
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForElementsInnerHtmlToBe('#searchValue', '<script>alert(xss)</script>')
     },
     {
@@ -78,11 +84,13 @@ export const DomXssInstruction: ChallengeInstruction = {
     {
       text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: <code>&lt;iframe src=\"javascript:alert(&#96;xss&#96;)\"&gt;&lt;/iframe&gt;</code>.",
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#searchQuery input', '<iframe src="javascript:alert(`xss`)">')
     },
     {
       text: 'Hit enter one more time. If an alert box appears, you must confirm it in order to close it.',
       fixture: '#searchQuery',
+      unskippable: true,
       resolved: waitForElementsInnerHtmlToBe('#searchValue', '<iframe src="javascript:alert(`xss`)"></iframe>')
     },
     {

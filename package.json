@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "9.2.0-SNAPSHOT",
+  "version": "9.2.1-SNAPSHOT",
   "description": "Probably the most modern and sophisticated insecure web application",
   "homepage": "https://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -42,6 +42,7 @@
     "Roberto Abdelkader Martínez Pérez",
     "Ken Friis Larsen",
     "Johanna",
+    "jamiemcgregor",
     "Joe Butler",
     "Gorka Vicente",
     "Christian Kühn",
