@@ -102,6 +102,9 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on
+  [The Daily Swig - Cybersecurity news and views](https://portswigger.net/daily-swig):
+  [OWASP security projects showcased at All Day DevOps conference](https://portswigger.net/daily-swig/owasp-security-projects-showcased-at-all-day-devops-conference)
 * Blog post on [klarsen.net - A Maker's Blog](https://klarsen.net):
   [OWASP Juice Shop SQLi](https://klarsen.net/python/owasp-juice-shop-sqli/)
 * White paper by Kelley Bryant:
@@ -218,16 +221,20 @@ where this project was mentioned or used!
 
 #### Upcoming
 
-* [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
-  by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
-  06.11.2019
 * [S' OWASP Saft-Lädeli / The OWASP Juice Shop](https://www.meetup.com/de-DE/OWASPSwitzerland/events/264422942/)
   by Björn Kimminich,
   [OWASP Switzerland Chapter Meeting](https://www.meetup.com/de-DE/OWASPSwitzerland/),
   18.11.2019
+* [Juice Shop 9: Would you like a free refill?](https://god.owasp.de/archive/2019/)
+  by Björn Kimminich,
+  [German OWASP Day 2019](https://god.owasp.de/archive/2019/),
+  10.12.2019
 
 #### 2019
 
+* [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
+  by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
+  06.11.2019 ([Youtube](https://www.youtube.com/watch?v=-JuPprlGb48&t=13939s) :bulb:)
 * [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop)
   by Björn Kimminich, Project Showcase track of the
   [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
