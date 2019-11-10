@@ -526,7 +526,10 @@ function createSecurityQuestions () {
     'Name of your favorite pet?',
     'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
     'Your ZIP/postal code when you were a teenager?',
-    'Company you first work for as an adult?'
+    'Company you first work for as an adult?',
+    'Your favorite book?',
+    'Your favorite movie?',
+    'Number of one of your customer or ID cards?'
   ]
 
   return Promise.all(
