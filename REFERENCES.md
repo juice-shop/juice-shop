@@ -102,6 +102,7 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost) on [eLearnSecurity](https://blog.elearnsecurity.com/) :mega:
 * Blog post on
   [The Daily Swig - Cybersecurity news and views](https://portswigger.net/daily-swig):
   [OWASP security projects showcased at All Day DevOps conference](https://portswigger.net/daily-swig/owasp-security-projects-showcased-at-all-day-devops-conference)
