@@ -9,7 +9,6 @@ application:
   showChallengeSolvedNotifications: true
   showChallengeHints: true
   showVersionNumber: true
-  showHackingInstructor: true
   showGitHubLinks: true
   numberOfRandomFakeUsers: 0
   twitterUrl: 'https://twitter.com/owasp_juiceshop'
@@ -49,6 +48,8 @@ application:
 challenges:
   safetyOverride: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
+hackingInstructor:
+  isEnabled: true
 products:
   -
     name: 'Apple Juice (1000ml)'
