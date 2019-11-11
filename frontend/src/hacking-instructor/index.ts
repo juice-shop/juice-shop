@@ -70,7 +70,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   picture.style.width = '64px'
   picture.style.height = '64px'
   picture.style.marginRight = '8px'
-  picture.src = '/assets/public/images/juice_bot.png'
+  picture.src = '/assets/public/images/hackingInstructor.png'
 
   const textBox = document.createElement('span')
   textBox.style.flexGrow = '2'

@@ -50,6 +50,7 @@ challenges:
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
 hackingInstructor:
   isEnabled: true
+  avatarImage: juicyBot.png
 products:
   -
     name: 'Apple Juice (1000ml)'
