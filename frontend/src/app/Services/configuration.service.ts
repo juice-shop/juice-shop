@@ -20,7 +20,7 @@ interface Config {
     showChallengeSolvedNotifications: boolean
     showChallengeHints: boolean
     showVersionNumber: boolean
-    showHackingInstructor: boolean
+    showHackingInstructor?: boolean  // TODO Remove fallback with v10.0.0
     showGitHubLinks: boolean
     numberOfRandomFakeUsers: number
     twitterUrl: string
@@ -68,7 +68,11 @@ interface Config {
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
   }
+  hackingInstructor?: {  // TODO Remove optional marker with v10.0.0
+    isEnabled: boolean
+  }
   products: any[]
+  memories: any[]
   ctf: {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string

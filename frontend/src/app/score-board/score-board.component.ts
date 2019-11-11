@@ -53,7 +53,7 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
       this.showChallengeHints = config.application.showChallengeHints
-      this.showHackingInstructor = config.application.showHackingInstructor
+      this.showHackingInstructor = (config.hackingInstructor && config.hackingInstructor.isEnabled) || config.application.showHackingInstructor // TODO Remove fallback with v10.0.0
       if (config.application.showGitHubLinks !== null && config.application.showGitHubLinks !== undefined) {
         this.showContributionInfoBox = config.application.showGitHubLinks
       }

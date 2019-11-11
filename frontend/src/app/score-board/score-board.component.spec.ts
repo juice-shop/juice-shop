@@ -274,7 +274,13 @@ describe('ScoreBoardComponent', () => {
     expect(component.showHackingInstructor).toBeFalsy()
   })
 
-  it('should hide GitHub ribbon if so configured', () => {
+  it('should offer Hacking Instructor if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, hackingInstructor: { isEnabled: true } }))
+    component.ngOnInit()
+    expect(component.showHackingInstructor).toBeTruthy()
+  })
+
+  it('should offer Hacking Instructor if so configured in legacy mode', () => { // TODO Remove test with v10.0.0
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showHackingInstructor: true } }))
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeTruthy()
