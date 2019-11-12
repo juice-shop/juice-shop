@@ -31,6 +31,8 @@ application:
   securityTxt:
     contact: 'mailto:donotreply@thebodgeitstore.com'
     encryption: ~
+hackingInstructor:
+  avatarImage: 'https://ph-files.imgix.net/901876fb-f043-45bb-bfc2-bea8f477e533?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=80&h=80&fit=crop'
 products:
   -
     name: 'Basic Widget'
