@@ -12,8 +12,6 @@ application:
   pressKitUrl: 'https://www.alldaydevops.com/2019resources'
   planetOverlayMap: 'https://www.sonatype.com/hubfs/2019-ADDO/BG_Bobby-2019_3.png'
   planetName: 'A-DD-0'
-  deluxePage:
-    deluxeDeliveryImage: ~
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: undefined.png

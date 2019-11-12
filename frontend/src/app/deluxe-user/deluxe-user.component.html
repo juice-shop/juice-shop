@@ -6,8 +6,14 @@
     </div>
     <mat-card class="mat-elevation-z6 deluxe-membership">
         <div class="img-container" fxFlexAlign="center" fxFlex="30%">
-            <img src="assets/public/images/deluxe/delivery.png" alt="delivery-box"
-                class="img-responsive img-thumbnail">
+          <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
+            <image href="assets/public/images/deluxe/default.png" x="0" y="0" height="720" width="720"/>
+            <image [attr.href]="logoSrc" x="260" y="130" height="50"/>
+            <image [attr.href]="logoSrc" x="230" y="330" height="70"/>
+            <image [attr.href]="logoSrc" x="70" y="355" height="40"/>
+            <image [attr.href]="logoSrc" x="120" y="450" height="55"/>
+            <image [attr.href]="logoSrc" x="500" y="410" height="45"/>
+          </svg>
         </div>
         <div fxFlexAlign="center" fxFlex="60%">
             <div class="item-name">

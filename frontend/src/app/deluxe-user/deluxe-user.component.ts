@@ -15,6 +15,7 @@ export class DeluxeUserComponent implements OnInit {
   public membershipCost: Number = 0
   public error: string = undefined
   public applicationName = 'OWASP Juice Shop'
+  public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
 
   constructor (private router: Router, private userService: UserService, private cookieService: CookieService, private configurationService: ConfigurationService) { }
 
@@ -23,6 +24,14 @@ export class DeluxeUserComponent implements OnInit {
       if (config && config.application) {
         if (config.application.name !== null) {
           this.applicationName = config.application.name
+        }
+        if (config.application.logo !== null) {
+          let logo: string = config.application.logo
+
+          if (logo.substring(0, 4) === 'http') {
+            logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          }
+          this.logoSrc = 'assets/public/images/' + logo
         }
       }
     },(err) => console.log(err))

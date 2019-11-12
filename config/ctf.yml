@@ -4,8 +4,6 @@ application:
   showChallengeHints: false
   showVersionNumber: false
   showGitHubLinks: false
-  deluxePage:
-    deluxeDeliveryImage: delivery_ctf.png
   welcomeBanner:
     showOnFirstStart: false
 hackingInstructor:

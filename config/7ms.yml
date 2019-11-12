@@ -12,8 +12,6 @@ application:
   pressKitUrl: null
   planetOverlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
   planetName: 'Mad Billy-7'
-  deluxePage:
-    deluxeDeliveryImage: delivery_7ms.png
   recyclePage:
     topProductImage: bm-small.jpg
     bottomProductImage: tommyboy.jpeg
