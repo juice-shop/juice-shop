@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
 
@@ -17,7 +17,8 @@ export class DeluxeUserComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
 
-  constructor (private router: Router, private userService: UserService, private cookieService: CookieService, private configurationService: ConfigurationService) { }
+  constructor (private router: Router, private userService: UserService, private cookieService: CookieService, private configurationService: ConfigurationService, private route: ActivatedRoute) {
+  }
 
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
@@ -31,10 +32,12 @@ export class DeluxeUserComponent implements OnInit {
           if (logo.substring(0, 4) === 'http') {
             logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
           }
-          this.logoSrc = 'assets/public/images/' + logo
+          this.logoSrc = 'assets/public/images/' + (this.route.snapshot.queryParams.decal ? this.route.snapshot.queryParams.decal : logo)
         }
+      } else {
+        this.logoSrc = 'assets/public/images/' + (this.route.snapshot.queryParams.decal ? this.route.snapshot.queryParams.decal : 'JuiceShop_Logo.png')
       }
-    },(err) => console.log(err))
+    }, (err) => console.log(err))
     this.userService.deluxeStatus().subscribe((res) => {
       this.membershipCost = res.membershipCost
     }, (err) => {
