@@ -12,8 +12,6 @@ application:
   slackUrl: null
   redditUrl: null
   pressKitUrl: 'https://blog.mozilla.org/press/kits'
-  deluxePage:
-    deluxeDeliveryImage: delivery_mozilla.png
   recyclePage:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg
