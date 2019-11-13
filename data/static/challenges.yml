@@ -739,6 +739,6 @@
   category: 'Injection'
   description: 'Stick <a href="http://placekitten.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
-  hint: 'This challenge would formally also have to be in another category.'
+  hint: 'This challenge would formally also have to be in two categories as it employs another 4-star challenge as its sub-exploit.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#stick-cute-cross-domain-kittens-all-over-our-delivery-boxes'
   key: svgInjectionChallenge
