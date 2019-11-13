@@ -736,7 +736,7 @@
   key: missingEncodingChallenge
 -
   name: 'Cross-Site Imaging'
-  category: 'Injection'
+  category: 'Security Misconfiguration'
   description: 'Stick <a href="http://placekitten.com/" target="_blank">cute cross-domain kittens</a> all over our delivery boxes.'
   difficulty: 5
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
