@@ -116,7 +116,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
-    if (queryParam && queryParam.includes('<iframe src="javascript:alert(`xss`)">')) {
+    if (queryParam && queryParam.includes('javascript:alert')) {
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('localXSSChallengeSolved', queryParam)
       })
