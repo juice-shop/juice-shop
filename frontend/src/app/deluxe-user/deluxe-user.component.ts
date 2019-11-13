@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { UserService } from '../Services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
+import { SocketIoService } from '../Services/socket-io.service'
 
 @Component({
   selector: 'app-deluxe-user',
@@ -17,11 +18,12 @@ export class DeluxeUserComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
 
-  constructor (private router: Router, private userService: UserService, private cookieService: CookieService, private configurationService: ConfigurationService, private route: ActivatedRoute) {
+  constructor (private router: Router, private userService: UserService, private cookieService: CookieService, private configurationService: ConfigurationService, private route: ActivatedRoute, private ngZone: NgZone, private io: SocketIoService) {
   }
 
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      let decalParam = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config && config.application) {
         if (config.application.name !== null) {
           this.applicationName = config.application.name
@@ -32,10 +34,13 @@ export class DeluxeUserComponent implements OnInit {
           if (logo.substring(0, 4) === 'http') {
             logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
           }
-          this.logoSrc = 'assets/public/images/' + (this.route.snapshot.queryParams.decal ? this.route.snapshot.queryParams.decal : logo)
+          this.logoSrc = 'assets/public/images/' + (decalParam ? decalParam : logo)
         }
-      } else {
-        this.logoSrc = 'assets/public/images/' + (this.route.snapshot.queryParams.decal ? this.route.snapshot.queryParams.decal : 'JuiceShop_Logo.png')
+      }
+      if (decalParam) {
+        this.ngZone.runOutsideAngular(() => {
+          this.io.socket().emit('svgInjectionChallengeSolved', decalParam)
+        })
       }
     }, (err) => console.log(err))
     this.userService.deluxeStatus().subscribe((res) => {
