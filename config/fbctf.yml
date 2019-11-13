@@ -279,3 +279,6 @@ ctf:
     missingEncodingChallenge:
       name: Armenia
       code: AM
+    svgInjectionChallenge:
+      name: Tunisia
+      code: TN
