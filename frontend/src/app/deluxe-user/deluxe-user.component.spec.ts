@@ -90,4 +90,7 @@ describe('DeluxeUserComponent', () => {
     component.ngOnInit()
     expect(component.membershipCost).toEqual(30)
   })
+
+  // TODO Add test that checks if websocket gets notified as expected
+
 })
