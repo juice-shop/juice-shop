@@ -40,7 +40,7 @@
 	"Perform an unwanted information disclosure by accessing data cross-domain.": "通过跨域访问数据来获得信息泄露",
 	"Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.": "尝试找到一个返回用户信息的攻击点。SQL 注入不是解决方案之一。",
 	"Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.": "在没有注册的情况下使用(不存在的)账号 <i>acc0unt4nt@juice-sh.op</i>登录 。",
-	"Try to create the needed user \"out of thin air\".": "Try to create the needed user \"out of thin air\".",
+	"Try to create the needed user \"out of thin air\".": "尝试“凭空创建”所需的用户。",
 	"Provoke an error that is neither very gracefully nor consistently handled.": "Provoke an error that is neither very gracefully nor consistently handled.",
 	"Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.": "Try to submit bad input to forms. Alternatively tamper with URL paths or parameters.",
 	"Successfully redeem an expired campaign coupon code.": "Successfully redeem an expired campaign coupon code.",
