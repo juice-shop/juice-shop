@@ -26,6 +26,11 @@ where this project was mentioned or used!
 ### Pod- & Webcasts
 
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
+  * Episode 5.21:
+    [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
+    (contains
+    [5 minute AppSec: Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
+    entirely)
   * Episode 5.9:
     [The new JuiceShop, GSOC, and Open Security Summit](https://securityjourney.com/blog/bjorn-kimminich-the-new-juiceshop-gsoc-and-open-security-summit/)
   * 5 minute AppSec:
@@ -102,6 +107,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)
+  on [eLearnSecurity](https://blog.elearnsecurity.com/) :mega:
 * Blog post on
   [The Daily Swig - Cybersecurity news and views](https://portswigger.net/daily-swig):
   [OWASP security projects showcased at All Day DevOps conference](https://portswigger.net/daily-swig/owasp-security-projects-showcased-at-all-day-devops-conference)
@@ -234,7 +241,9 @@ where this project was mentioned or used!
 
 * [OWASP Juice Shop: The ultimate All Vuln WebApp](https://www.alldaydevops.com/addo-speakers/bj%C3%B6rn-kimminich)
   by Björn Kimminich, [All Day DevOps](https://www.alldaydevops.com/),
-  06.11.2019 ([Youtube](https://www.youtube.com/watch?v=-JuPprlGb48&t=13939s) :bulb:)
+  06.11.2019
+  ([Youtube](https://www.youtube.com/watch?v=-JuPprlGb48&t=13939s)
+  :bulb:)
 * [Juice Shop](https://globalappsecamsterdam2019.sched.com/event/U84e/juice-shop)
   by Björn Kimminich, Project Showcase track of the
   [Global AppSec Amsterdam 2019](https://ams.globalappsec.org/),
