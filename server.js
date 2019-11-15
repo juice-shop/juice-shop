@@ -192,7 +192,7 @@ i18n.configure({
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
   defaultLocale: 'en',
-  autoReload: 'true'
+  autoReload: true
 })
 app.use(i18n.init)
 
