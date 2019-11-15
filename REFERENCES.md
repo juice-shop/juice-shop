@@ -31,6 +31,7 @@ where this project was mentioned or used!
     (contains
     [5 minute AppSec: Björn Kimminich — JuiceShop](https://www.securityjourney.com/blog/bjorn-kimminich-juiceship-5-minute-appsec/)
     entirely)
+  * Episode 5.20: [Ronnie Flathers - Security programs big and small](https://podcast.securityjourney.com/ronnie-flathers-security-programs-big-and-small/) :mega:
   * Episode 5.9:
     [The new JuiceShop, GSOC, and Open Security Summit](https://securityjourney.com/blog/bjorn-kimminich-the-new-juiceshop-gsoc-and-open-security-summit/)
   * 5 minute AppSec:
