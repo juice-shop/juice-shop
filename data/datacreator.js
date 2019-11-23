@@ -32,7 +32,7 @@ module.exports = async () => {
     createBasketItems,
     createAnonymousFeedback,
     createComplaints,
-    createRecycleItems,
+    createRecycleItem,
     createOrders,
     createQuantity,
     createPurchaseQuantity,
@@ -438,79 +438,79 @@ function createComplaints () {
   })
 }
 
-function createRecycleItems () {
-  const recycleItems = [
+function createRecycleItem () {
+  const recycles = [
     {
       UserId: 2,
       quantity: 800,
-      address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+      AddressId: 4,
       date: '2270-01-17',
       isPickup: true
     },
     {
       UserId: 3,
       quantity: 1320,
-      address: '22/7 Winston Street, Sydney, Australia, Earth',
+      AddressId: 6,
       date: '2006-01-14',
       isPickup: true
     },
     {
       UserId: 4,
       quantity: 120,
-      address: '999 Norton Street, Norfolk, USA',
+      AddressId: 1,
       date: '2018-04-16',
       isPickup: true
     },
     {
       UserId: 1,
       quantity: 300,
-      address: '6-10 Leno Towers, Eastern Empire, CA',
+      AddressId: 3,
       date: '2018-01-17',
       isPickup: true
     },
     {
-      UserId: 6,
+      UserId: 4,
       quantity: 350,
-      address: '88/2 Lindenburg Apartments, East Street, Oslo, Norway',
+      AddressId: 1,
       date: '2018-03-17',
       isPickup: true
     },
     {
       UserId: 3,
       quantity: 200,
-      address: '222, East Central Avenue, Adelaide, New Zealand',
+      AddressId: 6,
       date: '2018-07-17',
       isPickup: true
     },
     {
       UserId: 4,
       quantity: 140,
-      address: '100 Yellow Peak Road, West Central New York, USA',
+      AddressId: 1,
       date: '2018-03-19',
       isPickup: true
     },
     {
       UserId: 1,
       quantity: 150,
-      address: '15 Riviera Road, Western Frontier, Menlo Park CA',
+      AddressId: 3,
       date: '2018-05-12',
       isPickup: true
     },
     {
-      UserId: 8,
+      UserId: 16,
       quantity: 500,
-      address: '712 Irwin Avenue, River Bank Colony, Easter Frontier, London, UK',
+      AddressId: 2,
       date: '2019-02-18',
       isPickup: true
     }
   ]
   return Promise.all(
-    recycleItems.map((item) => createRecycles(item))
+    recycles.map((recycle) => createRecycle(recycle))
   )
 }
 
-function createRecycles (item) {
-  return models.Recycle.create(item).catch((err) => {
+function createRecycle (data) {
+  return models.Recycle.create(data).catch((err) => {
     logger.error(`Could not insert Recycling Model: ${err.message}`)
   })
 }
