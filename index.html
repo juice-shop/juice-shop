@@ -42,7 +42,7 @@
 
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
-		<section>
+		<section data-transition="zoom">
 			<h2>OWASP Juice Shop 9.x</h2>
 			<p>
 				<small>Probably the most modern and sophisticated insecure web application</small>
@@ -62,7 +62,7 @@
 			</p>
 		</section>
 
-		<section>
+		<section data-transition="fade-in convex-out">
 			<h2>What is "OWASP"?!?</h2>
 			<blockquote>
 				The Open Web Application Security Project (OWASP) is a 501(c)(3) worldwide not-for-profit charitable organization focused on improving the security of software.
@@ -164,9 +164,9 @@
 			</section>
 
 			<section>
-				<h2>CTF Extension 6.x</h2>
+				<h2>CTF Extension 7.x</h2>
 				<p>
-					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a> or <a href="https://github.com/facebook/fbctf">FBCTF</a>
+					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a>, <a href="https://github.com/facebook/fbctf">FBCTF</a> or <a href="https://github.com/moloch--/RootTheBox">RootTheBox</a>
 				</p>
 				<img src="assets/JuiceShopCTF_Logo.png" height="400" class="no-box"/>
 			</section>
@@ -184,9 +184,9 @@
 			<section>
 				<h2>Setup Wizard</h2>
 				<p>
-					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-backup archive to conveniently import into CTFd or FBCTF
+					Run <code>juice-shop-ctf</code> on the command line and let a wizard create a data-dump to conveniently import into CTFd, FBCTF or RootTheBox
 				</p>
-				<a href="https://asciinema.org/a/244925" target="_blank"><img src="https://asciinema.org/a/244925.png" height="400"/></a>
+				<img src="https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/images/juice-shop-ctf-cli.png" height="400"/>
 			</section>
 
 			<section>
@@ -195,7 +195,7 @@
 					Run <code>juice-shop-ctf --config myconfig.yml</code> to use non-interactive mode passing in configuration via YAML file
 				</p>
 				<pre><code class="hljs" data-trim contenteditable>
-ctfFramework: CTFd 2.x | CTFd 1.x | FBCTF
+ctfFramework: CTFd | FBCTF | RootTheBox
 juiceShopUrl: https://juice-shop.herokuapp.com
 ctfKey: https://raw.githubusercontent.com/bkimminich/juice-shop/master/ctf.key
 countryMapping: https://raw.githubusercontent.com/bkimminich/juice-shop/master/config/fbctf.yml
@@ -205,11 +205,13 @@ insertHintUrls: none | free | paid
 			</section>
 
 			<section>
-				<h2>CTFd for OWASP Juice Shop</h2>
+				<h2>Screenshots from CTF games</h2>
 				<p>
-					Your <a href="https://ctfd.io">CTFd</a> instance will be ready-to-hack in <5min
+					Your CTF score server instance will be ready-to-play in <5min
 				</p>
-				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_1.png" height="350"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_2.png" height="350"/>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/rtb_1.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/fbctf_1.png" height="200"/>
+				<br>
+				<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_1.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_2.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_3.png" height="200"/>
 			</section>
 
 		</section>
@@ -391,8 +393,8 @@ products:
 				<img src="assets/br.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/se.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/tn.svg" height="50" class="nobox" style="border: none"/>
-				<br>
 				<img src="assets/cz.svg" height="50" class="nobox" style="border: none"/>
+				<br>
 				<img src="assets/dk.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/fi.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/tlh.svg" height="50" class="nobox" style="border: none"/>
@@ -401,46 +403,48 @@ products:
 				<img src="assets/mm.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/ro.svg" height="50" class="nobox" style="border: none"/>
 				<img src="assets/ru.svg" height="50" class="nobox" style="border: none"/>
+				<img src="assets/ch.svg" height="50" class="nobox" style="border: none"/>
 			</section>
 
 			<section>
-				<h2>i18n of Products & Challenges</h2>
+				<h2>I18N of Products & Challenges</h2>
 				<p>
 					Crowd-sourced translations available from <code>v9.1.0</code> onward
 				</p>
 				<img src="assets/gb.svg" height="150" class="nobox" style="border: none"/>
 				<img src="assets/us.svg" height="150" class="nobox" style="border: none"/>
 				<img src="assets/de.svg" height="150" class="nobox" style="border: none"/>
+				<img src="assets/cn.svg" height="150" class="nobox" style="border: none"/>
 				<br>
-				<img src="assets/ee.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/fr.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/cn.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/es.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/pt.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/tr.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/no.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/kr.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/ge.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/il.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/ae.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/in.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/id.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/it.svg" height="30" class="nobox" style="border: none"/>
+				<img src="assets/ee.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/fr.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/es.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/pt.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/tr.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/no.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/kr.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/ge.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/il.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/ae.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/in.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/id.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/it.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/nl.svg" height="38" class="nobox" style="border: none"/>
 				<br>
-				<img src="assets/nl.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/pl.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/br.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/se.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/tn.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/cz.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/dk.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/fi.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/tlh.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/hk.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/jp.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/mm.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/ro.svg" height="30" class="nobox" style="border: none"/>
-				<img src="assets/ru.svg" height="30" class="nobox" style="border: none"/>
+				<img src="assets/pl.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/br.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/se.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/tn.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/cz.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/dk.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/fi.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/tlh.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/hk.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/jp.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/mm.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/ro.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/ru.svg" height="38" class="nobox" style="border: none"/>
+				<img src="assets/ch.svg" height="38" class="nobox" style="border: none"/>
 			</section>
 
 			<section>
@@ -495,9 +499,6 @@ products:
 
 			<section>
 				<h2>FAQ</h2>
-				<p>
-					If <a href="#/11">FAQ</a> &amp; <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README</a> don't help, <a href="https://gitter.im/bkimminich/juice-shop">ask in the chat</a> or <a href="https://github.com/bkimminich/juice-shop/issues">open an issue</a>
-				</p>
 				<ul>
 					<li><a href="#/11/1">Can I use my Pentesting toys?</a></li>
 					<li><a href="#/11/2">Can I do a white box pentest?</a></li>
@@ -510,6 +511,9 @@ products:
 					<li><a href="#/11/10">Can I contribute to the project?</a></li>
 					<li><a href="#/11/11">Is there a contribution reward?</a></li>
 				</ul>
+				<p>
+					<small>If <a href="#/11">FAQ</a> &amp; <a href="https://github.com/bkimminich/juice-shop/blob/master/README.md">README</a> don't help, <a href="https://gitter.im/bkimminich/juice-shop">ask for help in the chat</a>.</a> Please refrain from using GitHub issues for support requests.</small>
+				</p>
 			</section>
 
 			<section>
@@ -627,7 +631,6 @@ products:
 		</section>
 
 		<section>
-
 			<h2>Juice Shop Success Pyramid&trade;</h2>
 			<p>
 				Some amazing facts & stats about the project
@@ -664,7 +667,7 @@ products:
 			</p>
 		</section>
 
-		<section>
+		<section data-transition="zoom-out">
 
 			<h2>Additional Information</h2>
 			<table style="font-size: 75%">
@@ -699,7 +702,7 @@ products:
 			</table>
 		</section>
 
-		<section>
+		<section data-transition="fade">
 			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
 			<h3>Copyright (c) 2014-2019 <a href="http://kimminich.de">Björn Kimminich</a></h3>
 			<p>
