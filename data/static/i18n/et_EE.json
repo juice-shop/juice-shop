@@ -1,5 +1,5 @@
 {
-	"Find the carefully hidden 'Score Board' page.": "Find the carefully hidden 'Score Board' page.",
+	"Find the carefully hidden 'Score Board' page.": "Leia hoolikalt peidetud 'Tulemustabeli' leht.",
 	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.",
 	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
@@ -47,7 +47,7 @@
 	"Try to identify past special event or holiday campaigns of the shop first.": "Try to identify past special event or holiday campaigns of the shop first.",
 	"Retrieve the language file that never made it into production.": "Retrieve the language file that never made it into production.",
 	"Brute force is not the only option for this challenge, but a perfectly viable one.": "Brute force is not the only option for this challenge, but a perfectly viable one.",
-	"Get rid of all 5-star customer feedback.": "Get rid of all 5-star customer feedback.",
+	"Get rid of all 5-star customer feedback.": "Vabanege kõigist viietärni tagasisidest.",
 	"Once you found admin section of the application, this challenge is almost trivial.": "Once you found admin section of the application, this challenge is almost trivial.",
 	"Forge a coupon code that gives you a discount of at least 80%.": "Forge a coupon code that gives you a discount of at least 80%.",
 	"Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.": "Try either a) a knowledgable brute force attack or b) reverse engineering or c) some research in the cloud.",
