@@ -8,7 +8,7 @@
   "MANDATORY_PASSWORD": "Palun sisesta parool.",
   "LABEL_EMAIL": "E-post",
   "LABEL_PASSWORD": "Salasõna",
-  "SHOW_PASSWORD_ADVICE": "Show password advice",
+  "SHOW_PASSWORD_ADVICE": "Kuva paroolinõuandeid",
   "LOWER_CASE_CRITERIA_MSG": "sisaldab vähemalt ühte väiketähte",
   "UPPER_CASE_CRITERIA_MSG": "sisaldab vähemalt ühte suurtähte",
   "DIGITS_CRITERIA_MSG": "sisaldab vähemalt ühte arvu",
@@ -315,5 +315,5 @@
   "LABEL_ADD": "Lisa",
   "REVIEW_DELUXE": "Eduka tehingu korral logitakse teid välja.",
   "REVIEW_WALLET": "Teid suunatakse tagasi rahakotile.",
-  "ORDERS_AND_PAYMENT": "Orders & Payment"
+  "ORDERS_AND_PAYMENT": "Tellimused & Maksmine"
 }
