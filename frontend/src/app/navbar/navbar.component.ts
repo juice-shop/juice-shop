@@ -71,14 +71,14 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name && config.application.name !== null) {
+      if (config && config.application && config.application.name !== null) {
         this.applicationName = config.application.name
       }
       if (config && config.application && config.application.showGitHubLinks !== null) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
-      if (config && config.application && config.application.logo && config.application.logo !== null) {
+      if (config && config.application && config.application.logo !== null) {
         let logo: string = config.application.logo
 
         if (logo.substring(0, 4) === 'http') {
@@ -199,10 +199,6 @@ export class NavbarComponent implements OnInit {
 
   isAccounting () {
     const payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
-      return true
-    } else {
-      return false
-    }
+    return payload && payload.data && payload.data.role === roles.accounting
   }
 }
