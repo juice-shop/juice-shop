@@ -33,7 +33,7 @@ import {
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { AdminGuard } from '../app.guard'
+import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private adminGuard: AdminGuard, private snackBar: MatSnackBar) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard, private snackBar: MatSnackBar) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -198,7 +198,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isAccounting () {
-    const payload = this.adminGuard.tokenDecode()
+    const payload = this.loginGuard.tokenDecode()
     return payload && payload.data && payload.data.role === roles.accounting
   }
 }
