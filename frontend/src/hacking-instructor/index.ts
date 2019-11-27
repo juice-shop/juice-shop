@@ -11,10 +11,6 @@ const challengeInstructions: ChallengeInstruction[] = [
   DomXssInstruction
 ]
 
-export interface HackingInstructorFileFormat {
-  challenges: ChallengeInstruction[]
-}
-
 export interface ChallengeInstruction {
   name: string
   hints: ChallengeHint[]
