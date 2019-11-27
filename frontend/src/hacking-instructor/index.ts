@@ -23,15 +23,18 @@ export interface ChallengeHint {
    */
   text: string
   /**
-   * Query Selector String of the Element the Hint should be displayed next to.
+   * Query Selector String of the Element the hint should be displayed next to.
    */
   fixture: string
-  resolved: () => Promise<void>
   /**
    * Set to true if the hint should not be able to be skipped by clicking on it.
    * Defaults to false
    */
   unskippable?: boolean
+  /**
+   * Function declaring the condition under which the tutorial will continue.
+   */
+  resolved: () => Promise<void>
 }
 
 function loadHint (hint: ChallengeHint): HTMLElement {
