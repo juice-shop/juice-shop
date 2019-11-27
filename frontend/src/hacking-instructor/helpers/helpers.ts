@@ -86,3 +86,14 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
 export function waitInMs (timeInMs: number) {
   return () => sleep(timeInMs)
 }
+
+export function waitForAngularRouteToBeVisited (route: String) {
+  return async () => {
+    while (true) {
+      if (window.location.hash === `#/${route}`) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
