@@ -1,5 +1,5 @@
 import {
-  waitInMs, sleep
+  waitInMs, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -30,14 +30,7 @@ export const ScoreBoardInstruction: ChallengeInstruction = {
         "You find the JavaScript code in the DevTools of your browser that will open with `F12`. Or you just start URL guessing. It's up to you!",
       fixture: 'app-navbar',
       unskippable: true,
-      async resolved () {
-        while (true) {
-          if (window.location.hash === '#/score-board') {
-            break
-          }
-          await sleep(100)
-        }
-      }
+      resolved: waitForAngularRouteToBeVisited('score-board')
     },
     {
       text: '🎉 Congratulations! You found the _Score Board_! Good luck and happy hacking!',

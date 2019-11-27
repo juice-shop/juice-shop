@@ -3,7 +3,7 @@ import {
   waitForInputToNotBeEmpty,
   waitForElementToGetClicked,
   waitInMs,
-  sleep
+  sleep, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -29,14 +29,7 @@ export const LoginAdminInstruction: ChallengeInstruction = {
         "Let's try if we find a way to log in with the administrator's user account. To begin, go to the _Login_ page via the _Account_ menu.",
       fixture: 'app-navbar',
       unskippable: true,
-      async resolved () {
-        while (true) {
-          if (window.location.hash === '#/login') {
-            break
-          }
-          await sleep(100)
-        }
-      }
+      resolved: waitForAngularRouteToBeVisited('login')
     },
     {
       text: 'To find a way around the normal login process we will try to use a **SQL Injection** (SQLi) attack.',
