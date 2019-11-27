@@ -29,7 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
-import { AdminGuard } from '../app.guard'
+import { LoginGuard } from '../app.guard'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
@@ -51,7 +51,7 @@ describe('NavbarComponent', () => {
   let mockSocket: any
   let socketIoService: any
   let location: Location
-  let adminGuard
+  let loginGuard
 
   beforeEach(async(() => {
 
@@ -71,8 +71,8 @@ describe('NavbarComponent', () => {
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
-    adminGuard = jasmine.createSpyObj('AdminGuard',['tokenDecode'])
-    adminGuard.tokenDecode.and.returnValue(of(true))
+    loginGuard = jasmine.createSpyObj('LoginGuard',['tokenDecode'])
+    loginGuard.tokenDecode.and.returnValue(of(true))
 
     TestBed.configureTestingModule({
       declarations: [ NavbarComponent, SearchResultComponent ],
@@ -109,7 +109,7 @@ describe('NavbarComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         { provide: CookieService, useValue: cookieService },
         { provide: SocketIoService, useValue: socketIoService },
-        { provide: AdminGuard, useValue: adminGuard },
+        { provide: LoginGuard, useValue: loginGuard },
         TranslateService
       ]
     })
