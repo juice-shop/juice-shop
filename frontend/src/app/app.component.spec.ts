@@ -27,7 +27,7 @@ import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatDialogModule } from '@angular/material/dialog'
-import { AdminGuard } from './app.guard'
+import { LoginGuard } from './app.guard'
 
 describe('AppComponent', () => {
   let app: AppComponent
@@ -67,7 +67,7 @@ describe('AppComponent', () => {
         MatListModule,
         MatDialogModule
       ],
-      providers : [ TranslateService, AdminGuard ]
+      providers : [ TranslateService, LoginGuard ]
     }).compileComponents()
   }))
 
