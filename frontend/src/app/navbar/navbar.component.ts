@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
       if (config && config.application && config.application.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubLinks) {
+      if (config && config.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
