@@ -66,13 +66,13 @@ export class PaymentComponent implements OnInit {
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config && config.application) {
-        if (config.application.twitterUrl !== null) {
+        if (config.application.twitterUrl) {
           this.twitterUrl = config.application.twitterUrl
         }
-        if (config.application.facebookUrl !== null) {
+        if (config.application.facebookUrl) {
           this.facebookUrl = config.application.facebookUrl
         }
-        if (config.application.name !== null) {
+        if (config.application.name) {
           this.applicationName = config.application.name
         }
       }

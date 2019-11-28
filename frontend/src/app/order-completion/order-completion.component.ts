@@ -50,7 +50,7 @@ export class OrderCompletionComponent implements OnInit {
         this.configurationService.getApplicationConfiguration().subscribe((config) => {
           if (config && config.application) {
             this.tweetText += '%0afrom '
-            if (config.application.twitterUrl !== null) {
+            if (config.application.twitterUrl) {
               this.tweetText += config.application.twitterUrl.replace('https://twitter.com/','@')
             } else {
               this.tweetText += config.application.name
