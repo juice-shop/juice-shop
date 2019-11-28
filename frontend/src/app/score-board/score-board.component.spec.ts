@@ -257,7 +257,7 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should show GitHub info box if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true } }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(true)
   })
