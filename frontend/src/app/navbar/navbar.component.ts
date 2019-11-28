@@ -71,14 +71,14 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name !== null) {
+      if (config && config.application && config.application.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubLinks !== null) {
+      if (config && config.application && config.application.showGitHubLinks) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
-      if (config && config.application && config.application.logo !== null) {
+      if (config && config.application && config.application.logo) {
         let logo: string = config.application.logo
 
         if (logo.substring(0, 4) === 'http') {
