@@ -54,7 +54,7 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
       this.showChallengeHints = config.application.showChallengeHints
       this.showHackingInstructor = (config.hackingInstructor && config.hackingInstructor.isEnabled) || config.application.showHackingInstructor // TODO Remove fallback with v10.0.0
-      if (config.application.showGitHubLinks !== null && config.application.showGitHubLinks !== undefined) {
+      if (config.application.showGitHubLinks) {
         this.showContributionInfoBox = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))

@@ -105,10 +105,10 @@ export class SidenavComponent implements OnInit {
 
   getApplicationDetails () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name && config.application.name !== null) {
+      if (config && config.application && config.application.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubLinks !== null) {
+      if (config && config.application && config.application.showGitHubLinks) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))
