@@ -256,13 +256,13 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[0].hint).toBe('Click to open hints.')
   })
 
-  it('should show GitHub button by default', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+  it('should show GitHub info box if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(true)
   })
 
-  it('should hide GitHub ribbon if so configured', () => {
+  it('should hide GitHub info box if so configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(false)
