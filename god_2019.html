@@ -1,0 +1,300 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Juice Shop 9: Would you like a free refill?</title>
+
+		<meta name="description" content="Juice Shop 9: Would you like a free refill? - German OWASP Day 2019">
+		<meta name="author" content="Björn Kimminich">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background-transition="convex" data-transition="zoom">
+					<h2>Juice Shop 9</h2>
+					<h5>Would you like a free refill?</h5>
+					<img src="assets/god_2018/avatar.png" height="300" class="no-box"/>
+					<h4 class="germany">German OWASP Day 2019</h4>
+					<h4>by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></h4>
+					<p>
+						<small><a href="http://owasp-juice.shop">https://owasp-juice.shop</a></small>
+					</p>
+				</section>
+
+
+				<section>
+					<h2>Juice Shop Success Pyramid&trade;</h2>
+					<p>
+						Some amazing facts & stats about the project
+					</p>
+					<img class="no-box" height="50px" src="https://camo.githubusercontent.com/7d39e81fa1fa13e172e764937bf57923c05a6bb1/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f636f6e7472696275746f72732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+					<br>
+					<img class="no-box" height="60px" src="https://camo.githubusercontent.com/5183afbe19d5ac0469872aa43681a4c8464772c1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6f776173702d666c61677368697025323070726f6a6563742d3438413634362e737667"/>
+					<br>
+					<img class="no-box" height="50px" src="https://camo.githubusercontent.com/3c9082cfba1231e4340eee8c17fefc5ee24d5e2f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64652532307374796c652d7374616e646172642d627269676874677265656e2e737667"/>
+					<img class="no-box" height="50px" src="https://camo.githubusercontent.com/e049c915f6e77bc603e475bee27c244e94e46b77/68747470733a2f2f626573747072616374696365732e636f7265696e6672617374727563747572652e6f72672f70726f6a656374732f3232332f6261646765"/>
+					<br>
+					<img class="no-box" height="45px" src="https://camo.githubusercontent.com/78b1e2841b52cf72bb17c3487bf777dd7e9f0ec7/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f6d61696e7461696e6162696c697479"/>
+					<img class="no-box" height="45px" src="https://camo.githubusercontent.com/1897659654e4bce1e64390cab74723c4ffe27b31/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f746573745f636f766572616765"/>
+					<img class="no-box" height="45px" src="https://camo.githubusercontent.com/8b5cf099132efe292cfbab830116b4f994d7801b/68747470733a2f2f696d672e736869656c64732e696f2f6c65616e7075622f626f6f6b2f70616765732f6a756963652d73686f702e737667"/>
+					<br>
+					<img class="no-box" height="33px" src="https://camo.githubusercontent.com/e10ccd6374ace7623c745cc45cec5d430d819055/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f626b696d6d696e6963682f6a756963652d73686f702e7376673f6c6162656c3d476974487562253230254532253938253835267374796c653d666c6174"/>
+					<img class="no-box" height="33px" src="https://camo.githubusercontent.com/795aadf7cb1ab1793bf1a6b71d75fdf387f5c83c/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f626b696d6d696e6963682f6a756963652d73686f702f746f74616c2e737667"/>
+					<img class="no-box" height="33px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
+					<img class="no-box" height="33px" src="https://camo.githubusercontent.com/2df43a4dbe2e9760afd0c593294752b30e0bb707/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f703f6c6162656c3d736f75726365666f726765253230646f776e6c6f616473"/>
+					<img class="no-box" height="33px" src="https://camo.githubusercontent.com/d8dd7f8926a7342c5c10b573f657b9d82f666c8c/68747470733a2f2f696d672e736869656c64732e696f2f6c65616e7075622f626f6f6b2f736f6c642f6a756963652d73686f702e737667"/>
+				</section>
+
+				<section>
+					<h2>Multi-language support</h2>
+					<p>
+						Crowd-sourced UI translations for 30+ languages
+					</p>
+					<img src="assets/gb.svg" height="80" class="nobox" style="border: none"/>
+					<img src="assets/us.svg" height="80" class="nobox" style="border: none"/>
+					<img src="assets/de.svg" height="80" class="nobox" style="border: none"/>
+					<img src="assets/ee.svg" height="80" class="nobox" style="border: none"/>
+					<img src="assets/fr.svg" height="80" class="nobox" style="border: none"/>
+					<img src="assets/cn.svg" height="80" class="nobox" style="border: none"/>
+					<br>
+					<img src="assets/es.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/pt.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/tr.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/no.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/kr.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/ge.svg" height="70" class="nobox" style="border: none"/>
+					<img src="assets/il.svg" height="70" class="nobox" style="border: none"/>
+					<br>
+					<img src="assets/ae.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/in.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/id.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/it.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/nl.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/pl.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/br.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/se.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/tn.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/cz.svg" height="50" class="nobox" style="border: none"/>
+					<br>
+					<img src="assets/dk.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/fi.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/tlh.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/hk.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/jp.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/mm.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/ro.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/ru.svg" height="50" class="nobox" style="border: none"/>
+					<img src="assets/ch.svg" height="50" class="nobox" style="border: none"/>
+				</section>
+
+				<section>
+					<h2>I18N of Products & Challenges</h2>
+					<p>
+						Crowd-sourced translations available from <code>v9.1.0</code> onward
+					</p>
+					<img src="assets/gb.svg" height="150" class="nobox" style="border: none"/>
+					<img src="assets/us.svg" height="150" class="nobox" style="border: none"/>
+					<img src="assets/de.svg" height="150" class="nobox" style="border: none"/>
+					<img src="assets/cn.svg" height="150" class="nobox" style="border: none"/>
+					<br>
+					<img src="assets/ee.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/fr.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/es.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/pt.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/tr.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/no.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/kr.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/ge.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/il.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/ae.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/in.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/id.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/it.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/nl.svg" height="38" class="nobox" style="border: none"/>
+					<br>
+					<img src="assets/pl.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/br.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/se.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/tn.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/cz.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/dk.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/fi.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/tlh.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/hk.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/jp.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/mm.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/ro.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/ru.svg" height="38" class="nobox" style="border: none"/>
+					<img src="assets/ch.svg" height="38" class="nobox" style="border: none"/>
+				</section>
+
+				<section>
+					<h2>Hacking Instructor</h2>
+					<p>
+						Some challenges come with an embedded interactive tutorial
+					</p>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_1.png" height="220"/>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_2.png" height="220"/>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/hacking-instructor_3.png" height="220"/>
+				</section>
+
+				<section>
+					<h3>Extended CTF Framework Support</h3>
+					<p>
+						<code>juice-shop-ctf-cli</code> now supports <a href="https://ctfd.io">CTFd</a>, <a href="https://github.com/facebook/fbctf">FBCTF</a> and <a href="https://github.com/moloch--/RootTheBox">RootTheBox</a>
+					</p>
+					<img src="https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/images/juice-shop-ctf-cli.png" height="400"/>
+				</section>
+
+				<section>
+					<h2>Screenshots from CTF games</h2>
+					<p>
+						Your CTF score server instance will be ready-to-play in <5min
+					</p>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/rtb_1.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/fbctf_1.png" height="200"/>
+					<br>
+					<img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_1.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_2.png" height="200"/> <img src="https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/part1/img/ctfd_3.png" height="200"/>
+				</section>
+
+				<section>
+					<h2>Google Summer of Code 2019</h2>
+					<img src="assets/summer-of-code-logo.svg" height="350" style="background: none; border:none; box-shadow:none;"/>
+					<p>
+						<strong style="background: rgb(251,202,4)">&nbsp;Project&nbsp;</strong><strong style="background: rgb(80,80,80)">&nbsp;Feature Pack 2019&nbsp;</strong>
+						<br>
+						<span style="background: rgb(251,202,4)">&nbsp;Student&nbsp;</span><span style="background: rgb(80,80,80)">&nbsp;Arpit Agraval&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<br>
+						<small style="background: rgb(251,202,4)">&nbsp;Mentor&nbsp;</small><small style="background: rgb(80,80,80)">&nbsp;Jannik Hollenbach&nbsp;</small>
+						<small style="background: rgb(251,202,4)">&nbsp;Mentor&nbsp;</small><small style="background: rgb(80,80,80)">&nbsp;Björn Kimminich&nbsp;</small>
+					</p>
+				</section>
+
+				<section>
+					<h1 class="rainbow">Live Demo</h1>
+					<h2 class="rainbow">OWASP Juice Shop 9.3.0</h2>
+					<hr>
+					<h2><a href="http://demo.owasp-juice.shop">http://demo.owasp-juice.shop</a></h2>
+				</section>
+
+				<section>
+					<h4 class="rainbow">Thank you for your continued interest in the project!</h4>
+					<a href="https://twitter.com/owasp_juiceshop"><img src="assets/twitter-bird-icon-logo-vector.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
+					<a href="https://www.facebook.com/owasp.juiceshop"><img src="assets/facebook-icon-logo-vector.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
+					<a href="https://owasp.slack.com/messages/project-juiceshop"><img src="assets/Slack_Icon.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
+					<a href="https://gitter.im/bkimminich/juice-shop"><img src="assets/gitter.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
+					<br>
+					<h4>Copyright (c) 2018 <a href="https://kimminich.de">Björn Kimminich</a></h4>
+					<p>
+						Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE-MIT">MIT license</a>.
+					</p>
+					<hr>
+					<p>
+						<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+					</p>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+		<div class="hidden-mobile">
+			<a style="display: block;" href="https://github.com/bkimminich/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
+
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v2.5";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+
+			<div style="display: block; position: absolute; bottom: 14px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%); z-index: 20;">
+				<table>
+					<tr>
+						<td>
+							<div class="fb-like" data-href="https://www.facebook.com/owasp.juiceshop" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" data-colorscheme="dark"></div>
+						</td>
+						<td>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="https://www.owasp.org/index.php/OWASP_Juice_Shop_Project" data-text="@OWASP Juice Shop - An intentionally insecure Javascript Web Application" data-via="owasp_juiceshop" data-hashtags="owasp">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<a href="https://twitter.com/owasp_juiceshop" class="twitter-follow-button" data-show-count="false">Follow @owasp_juiceshop</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<a href="https://twitter.com/bkimminich" class="twitter-follow-button" data-show-count="false">Follow @bkimminich</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&type=follow&count=true" frameborder="0" scrolling="0" width="175px" height="20px"></iframe>
+						</td>
+						<td>
+							<iframe src="https://ghbtns.com/github-btn.html?user=bkimminich&repo=juice-shop&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
