@@ -16,7 +16,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+		<link rel="stylesheet" href="css/theme/addo.css" id="theme">
 		<link rel="stylesheet" href="css/custom.css">
 
 		<!-- Code syntax highlighting -->
@@ -49,7 +49,7 @@
 					<h4 class="germany">German OWASP Day 2019</h4>
 					<h4>by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></h4>
 					<p>
-						<small><a href="http://owasp-juice.shop">https://owasp-juice.shop</a></small>
+						<small><a href="https://owasp-juice.shop">https://owasp-juice.shop</a></small>
 					</p>
 				</section>
 
@@ -257,7 +257,33 @@
 
 		</script>
 
+		<script>
+			function timer(time,update,complete) {
+				var start = new Date().getTime();
+				var interval = setInterval(function() {
+					var now = time-(new Date().getTime()-start);
+					if( now <= 0) {
+						clearInterval(interval);
+						complete();
+					}
+					else update(Math.floor(now/1000));
+				},100);
+			}
+
+			timer(
+					900000, // 15min
+					function(timeleft) {
+						document.getElementById('timer').innerHTML = "⏰" + timeleft+"&#x2033;";
+					},
+					function() {
+						document.getElementById('timer').innerHTML = "⏰Overtime!";
+					}
+			);
+		</script>
+
 		<div class="hidden-mobile">
+
+			<span id="timer" class="reveal" style="position: absolute; top: 10px; left: 10px;"></span>
 
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
