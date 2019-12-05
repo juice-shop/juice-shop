@@ -1,16 +1,13 @@
-engines:
+version: "2"
+plugins:
   eslint:
     enabled: true
   csslint:
     enabled: true
   fixme:
     enabled: true
-ratings:
-  paths:
-    - '**.ts'
-    - '**.js'
-    - '**.css'
-    - '**.scss'
+  duplication:
+    enabled: true
 checks:
   file-lines:
     config:
@@ -25,7 +22,7 @@ checks:
     enabled: false
   identical-code:
     enabled: false
-exclude_paths:
+exclude_patterns:
   - 'data/datacreator.js'
   - 'frontend/src/assets/private/**/*'
   - 'Gruntfile.js'
