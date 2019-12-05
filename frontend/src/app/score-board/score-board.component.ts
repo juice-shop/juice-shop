@@ -10,7 +10,6 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
-import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 import { Challenge } from '../Models/challenge.model'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
@@ -69,6 +68,11 @@ export class ScoreBoardComponent implements OnInit {
         }
         if (!this.availableChallengeCategories.includes(challenges[i].category)) {
           this.availableChallengeCategories.push(challenges[i].category)
+        }
+        if (this.showHackingInstructor) {
+          import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+            challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+          })
         }
       }
       this.availableChallengeCategories.sort()
@@ -228,13 +232,11 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  hasHackingInstructorInstructions (challengeName: String): boolean {
-    return hasInstructions(challengeName)
-  }
-
   startHackingInstructor (challengeName: String) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
-    startHackingInstructorFor(challengeName)
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor(challengeName)
+    })
   }
 
   trackById (index: number, item: any) {
