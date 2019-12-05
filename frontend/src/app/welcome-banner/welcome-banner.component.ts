@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material'
 import { CookieService } from 'ngx-cookie'
-import { startHackingInstructorFor } from '../../hacking-instructor'
 
 @Component({
   selector: 'app-welcome-banner',
@@ -35,7 +34,9 @@ export class WelcomeBannerComponent implements OnInit {
 
   startHackingInstructor () {
     console.log('Starting instructions for challenge "Score Board"')
-    startHackingInstructorFor('Score Board')
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor('Score Board')
+    })
   }
 
   closeWelcome (): void {

@@ -8,5 +8,6 @@ export interface Challenge {
   hint?: string,
   hintUrl?: string,
   disabledEnv?: string[],
-  solved?: boolean
+  solved?: boolean,
+  hasTutorial?: boolean
 }
