@@ -94,7 +94,7 @@
 					<p>
 						On first visit shows a message and link for newcomers
 					</p>
-					<img src="assets/welcome-banner.png" height="300"/>
+					<img src="assets/welcome-banner.png"/>
 					<p>
 						<small>We promise: Once closed it will never show up again. We would never annoy our customers! 🤞</small>
 					</p>
@@ -255,33 +255,7 @@
 
 		</script>
 
-		<script>
-			function timer(time,update,complete) {
-				var start = new Date().getTime();
-				var interval = setInterval(function() {
-					var now = time-(new Date().getTime()-start);
-					if( now <= 0) {
-						clearInterval(interval);
-						complete();
-					}
-					else update(Math.floor(now/1000));
-				},100);
-			}
-
-			timer(
-					900000, // 15min
-					function(timeleft) {
-						document.getElementById('timer').innerHTML = "⏰" + timeleft+"&#x2033;";
-					},
-					function() {
-						document.getElementById('timer').innerHTML = "⏰Overtime!";
-					}
-			);
-		</script>
-
 		<div class="hidden-mobile">
-
-			<span id="timer" class="reveal" style="position: absolute; top: 10px; left: 10px;"></span>
 
 			<div id="fb-root"></div>
 			<script>(function(d, s, id) {
