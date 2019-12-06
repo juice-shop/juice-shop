@@ -199,14 +199,11 @@
 
                 <section>
                     <h2>JuicyCTF 🔜 ???</h2>
-                    <p>
-                        <small>
-                            JuicyCTF has already been too often confused with <code>juice-shop-ctf</code>. Some people even thought it was <strong>only</strong> useful for CTFs.
-                            To fix that perception, we launched a poll on Twitter to pick a new name!
-                        </small>
-                    </p>
-                    <blockquote class="twitter-tweet">...</blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    <h3><a href="https://twitter.com/owasp_juiceshop/status/____________________" target="_blank">🗳️ Cast your vote now!</a></h3>
+					<small><small>
+						JuicyCTF has been often confused with <code>juice-shop-ctf</code>. Some people even thought it was <strong>only</strong> useful for CTFs.
+						To fix that perception, we launched a poll on Twitter to pick a new name!
+					</small></small>
+					<div class="tweet" data-src="https://twitter.com/owasp_juiceshop/status/1202952469107658752"</div>
                 </section>
 
 				<section>
@@ -251,7 +248,8 @@
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/embed-tweet/embed-tweet.js' }
 				]
 			});
 
