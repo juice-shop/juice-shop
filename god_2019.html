@@ -207,6 +207,11 @@
                 </section>
 
 				<section>
+					<h2><span id="timer" class="reveal"></span> left for a live</h2>
+					<h1 style="font-size:200px">🍿 Demo</h1>
+				</section>
+
+				<section>
 					<h4>🙏 Thank you for your unwavering interest in the project!</h4>
 					<a href="https://twitter.com/owasp_juiceshop"><img src="assets/twitter-bird-icon-logo-vector.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
 					<a href="https://www.facebook.com/owasp.juiceshop"><img src="assets/facebook-icon-logo-vector.png" height="150" style="background: none; border:none; box-shadow:none;"></a>
@@ -253,6 +258,30 @@
 				]
 			});
 
+		</script>
+
+		<script>
+			function timer(time,update,complete) {
+				var start = new Date().getTime();
+				var interval = setInterval(function() {
+					var now = time-(new Date().getTime()-start);
+					if( now <= 0) {
+						clearInterval(interval);
+						complete();
+					}
+					else update(Math.floor(now/1000));
+				},100);
+			}
+
+			timer(
+					900000, // 10min for typical lightning talk
+					function(timeleft) {
+						document.getElementById('timer').innerHTML = Math.floor(timeleft/60)+":" + (timeleft%60 < 10 ? "0"+timeleft%60 : timeleft%60);
+					},
+					function() {
+						document.getElementById('timer').innerHTML = "Sorry, no time ";
+					}
+			);
 		</script>
 
 		<div class="hidden-mobile">
