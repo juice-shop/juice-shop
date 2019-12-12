@@ -39,4 +39,20 @@ describe('utils', () => {
       expect(utils.extractFilename('file:///C//Bla/Blubb/test.exe')).to.equal('test.exe')
     })
   })
+
+  describe('longestWord', () => {
+    it('returns longest word from a sentence', () => {
+      expect(utils.longestWord('This is the tastiest juice ever!')).to.equal('tastiest')
+    })
+
+    it('returns first of all equally long words', () => {
+      expect(utils.longestWord('The cool OWASP Juice Shop')).to.equal('OWASP')
+    })
+
+    it('returns original input for all non-sentences', () => {
+      expect(utils.longestWord('Juice')).to.equal('Juice')
+      expect(utils.longestWord(undefined)).to.equal(undefined)
+      expect(utils.longestWord(null)).to.equal(null)
+    })
+  })
 })
