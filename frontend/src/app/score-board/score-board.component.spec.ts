@@ -103,12 +103,12 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[1].description).toBe('XXE')
   })
 
-  it('should log the error on retrieving configuration', fakeAsync(() => {
+  it('should log the error on retrieving configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })
 
   it('should be able to toggle the difficulty and save it in localStorage', () => {
     component.displayedDifficulties = []
