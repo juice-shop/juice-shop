@@ -23,6 +23,10 @@ module.exports = function placeOrder () {
           const doc = new PDFDocument({ ownerPassword, permissions: { printing: 'lowResolution' } })
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
+          let logo = config.get('application.logo')
+          if (logo.substring(0, 4) === 'http') {
+            logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
+          }
 
           doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
@@ -121,6 +125,8 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text('Thank you for your order!')
+          doc.moveDown()
+          doc.image(path.join(__dirname, '../frontend/dist/frontend/assets/public/images/', logo), { width: 50 })
           doc.end()
 
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
