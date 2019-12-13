@@ -44,10 +44,8 @@ exports.config = {
 
     // Get all banners out of the way
     browser.get('/#')
-    const expiry = new Date()
-    expiry.setFullYear(expiry.getFullYear() + 1)
-    browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss', expiry })
-    browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss', expiry })
+    browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
+    browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss' })
 
     // Ensure score board shows all challenges (by default only 1-star challenges are shown)
     browser.get('/#/score-board')
