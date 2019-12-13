@@ -19,8 +19,7 @@ module.exports = function placeOrder () {
           const email = customer ? customer.data ? customer.data.email : '' : ''
           const orderId = insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
-          const ownerPassword = utils.longestWord(config.get('application.name')) + '2019'
-          const doc = new PDFDocument({ ownerPassword, permissions: { printing: 'lowResolution' } })
+          const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join(__dirname, '../ftp/', pdfFile)))
           let logo = config.get('application.logo')
@@ -123,7 +122,7 @@ module.exports = function placeOrder () {
           doc.font('Times-Roman', 15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')})`)
           doc.moveDown()
           doc.moveDown()
-          doc.font('Times-Roman', 15).text('Thank you for your order!')
+          doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
           doc.moveDown()
           doc.image(path.join(__dirname, '../frontend/dist/frontend/assets/public/images/', logo), { width: 50 })
           doc.end()
@@ -143,7 +142,7 @@ module.exports = function placeOrder () {
             })
           }
 
-          db.orders.insert({
+          await db.orders.insert({
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
