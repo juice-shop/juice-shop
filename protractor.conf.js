@@ -46,6 +46,7 @@ exports.config = {
     browser.get('/#')
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss' })
     browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss' })
+    browser.get('/#')
 
     // Ensure score board shows all challenges (by default only 1-star challenges are shown)
     browser.get('/#/score-board')
@@ -55,6 +56,6 @@ exports.config = {
 
 if (process.env.TRAVIS_BUILD_NUMBER) {
   exports.config.capabilities.chromeOptions = {
-    args: ['--headless', '--disable-gpu', '--window-size=1280,1024']
+    args: ['--headless', '--disable-gpu', '--window-size=1024,768']
   }
 }
