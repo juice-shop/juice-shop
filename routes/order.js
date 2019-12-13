@@ -160,8 +160,8 @@ module.exports = function placeOrder () {
           next(new Error(`Basket with id=${id} does not exist.`))
         }
       }).catch(error => {
-      next(error)
-    })
+        next(error)
+      })
   }
 }
 
