@@ -102,7 +102,7 @@ module.exports = function placeOrder () {
           let discountAmount = 0
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(`${discount}% ${req.__('discount from coupon')}: -${discountAmount}¤`)
+            doc.text(`${discount}% discount from coupon: -${discountAmount}¤`)
             doc.moveDown()
             totalPrice -= discountAmount
           }
