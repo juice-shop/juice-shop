@@ -44,7 +44,7 @@ exports.config = {
 
     // Get all banners out of the way
     browser.get('/#')
-    let expiry = new Date()
+    const expiry = new Date()
     expiry.setFullYear(expiry.getFullYear() + 1)
     browser.manage().addCookie({ name: 'cookieconsent_status', value: 'dismiss', expiry })
     browser.manage().addCookie({ name: 'welcomebanner_status', value: 'dismiss', expiry })
