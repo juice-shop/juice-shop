@@ -27,7 +27,6 @@ module.exports = function placeOrder () {
           if (logo.substring(0, 4) === 'http') {
             logo = decodeURIComponent(logo.substring(logo.lastIndexOf('/') + 1))
           }
-
           doc.font('Times-Roman', 40).text(config.get('application.name'), { align: 'center' })
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
@@ -92,7 +91,7 @@ module.exports = function placeOrder () {
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
+            doc.text(BasketItem.quantity + 'x ' + req.__(name) + ' ea. ' + itemPrice + ' = ' + itemTotal + '¤')
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
@@ -102,7 +101,7 @@ module.exports = function placeOrder () {
           let discountAmount = 0
           if (discount > 0) {
             discountAmount = (totalPrice * (discount / 100)).toFixed(2)
-            doc.text(`${discount}% discount from coupon: -${discountAmount}¤`)
+            doc.text(discount + '% discount from coupon: -' + discountAmount + '¤')
             doc.moveDown()
             totalPrice -= discountAmount
           }
@@ -116,12 +115,12 @@ module.exports = function placeOrder () {
           }
           const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
-          doc.text(`Delivery Price: ${deliveryAmount.toFixed(2)}¤`)
+          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
           doc.moveDown()
-          doc.font('Helvetica-Bold', 20).text(`Total Price: ${totalPrice.toFixed(2)}¤`)
+          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
           doc.moveDown()
-          doc.font('Helvetica-Bold', 15).text(`Bonus Points Earned: ${totalPoints}`)
-          doc.font('Times-Roman', 15).text('(The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')
+          doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
+          doc.font('Times-Roman', 15).text('(The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!)')
           doc.moveDown()
           doc.moveDown()
           doc.font('Times-Roman', 15).text('Thank you for your order!')
