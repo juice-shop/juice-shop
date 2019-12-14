@@ -87,7 +87,7 @@ module.exports = function placeOrder () {
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + req.__(name) + ' ea. ' + itemPrice + ' = ' + itemTotal + '¤')
+            doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
