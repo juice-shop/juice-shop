@@ -111,9 +111,9 @@ module.exports = function placeOrder () {
           }
           const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
-          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
+          doc.text(`${req.__('Delivery Price')}: ${deliveryAmount.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
+          doc.font('Helvetica-Bold', 20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
           doc.moveDown()
           doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
           doc.font('Times-Roman', 15).text('(The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!)')
