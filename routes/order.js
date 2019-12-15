@@ -115,11 +115,11 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.font('Helvetica-Bold', 20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
-          doc.font('Times-Roman', 15).text('(The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!)')
+          doc.font('Helvetica-Bold', 15).text(`${req.__('Bonus Points Earned')}: ${totalPoints}`)
+          doc.font('Times-Roman', 15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')}`)
           doc.moveDown()
           doc.moveDown()
-          doc.font('Times-Roman', 15).text('Thank you for your order!')
+          doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
           doc.end()
 
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
