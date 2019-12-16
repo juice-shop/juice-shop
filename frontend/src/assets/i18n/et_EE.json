@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Ostukorv",
   "BTN_CREDIT_CARD": "Krediitkaart",
   "INVALID_COUPON_LENGTH": "Kupongi kood peab olema {{length}} tähemärki.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Kupong",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Vajad kupongi? Jälgi meid <a href='{{twitter}}' target='_blank'>Twitter</a> või <a href='{{facebook}}' target='_blank'>Facebook</a> igakuiste kupongide ja muu rämpsu jaoks!",
   "BTN_REDEEM": "Lunasta",
