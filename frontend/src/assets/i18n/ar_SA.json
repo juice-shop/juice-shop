@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "إتمام الشراء",
   "BTN_CREDIT_CARD": "بطاقة ائتمان",
   "INVALID_COUPON_LENGTH": "يجب أن يكون رمز القسيمة {{length}} حرفاً.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "القسيمة",
   "FOLLOW_FOR_MONTHLY_COUPONS": "بحاجة إلى قسيمة؟ تابعن على <a href='{{twitter}}' target='_blank'>Twitter</a> أو <a href='{{facebook}}' target='_blank'>Facebook</a> للقسائم الشهرية وغيرها من الازعاج!",
   "BTN_REDEEM": "استرداد",
