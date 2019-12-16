@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Til kassen",
   "BTN_CREDIT_CARD": "Kreditkort",
   "INVALID_COUPON_LENGTH": "Kuponkoden skal være {{length}} tegn.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Rabatkupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Har du brug for en kupon kode? Følg os på <a href='{{twitter}}' target='_blank'>Twitter</a> eller <a href='{{facebook}}' target='_blank'>Facebook</a> for månedlige kuponer og anden spam!",
   "BTN_REDEEM": "Indløse",
