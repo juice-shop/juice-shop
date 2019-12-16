@@ -178,7 +178,7 @@ function calculateApplicableDiscount (basket, req) {
     const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      if (utils.notSolved(challenges.manipulateClockChallenge)) { // FIXME check if coupon is actually expired
+      if (utils.notSolved(challenges.manipulateClockChallenge) && campaign.validOn < new Date()) {
         utils.solve(challenges.manipulateClockChallenge)
       }
       return campaign.discount
@@ -188,5 +188,9 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 },
+  WMNSDY2020: { validOn: new Date('Mar 08, 2020 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2021: { validOn: new Date('Mar 08, 2021 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2022: { validOn: new Date('Mar 08, 2022 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2023: { validOn: new Date('Mar 08, 2023 00:00:00 GMT+0100').getTime(), discount: 60 }
 }
