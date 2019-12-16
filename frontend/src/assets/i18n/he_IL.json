@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "תשלום",
   "BTN_CREDIT_CARD": "כרטיס אשראי",
   "INVALID_COUPON_LENGTH": "קוד קופון צריך להיות באורך {{length}} תווים.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "קופון",
   "FOLLOW_FOR_MONTHLY_COUPONS": "צריך קוד קופון? עקוב אחרינו ב <a href='{{twitter}}' target='_blank'>Twitter</a> או <a href='{{facebook}}' target='_blank'>Facebook</a> עבור קופונים חודשיים ודואר זבל נוסף!",
   "BTN_REDEEM": "מימוש",
