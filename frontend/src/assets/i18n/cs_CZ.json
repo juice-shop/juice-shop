@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Objednat",
   "BTN_CREDIT_CARD": "Kreditní Karta",
   "INVALID_COUPON_LENGTH": "Kód kupónu musí být {{length}} znaků.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Kupón",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Chcete slevový kupón? Sledujte náš <a href='{{twitter}}' target='_blank'>Twitter</a> nebo <a href='{{facebook}}' target='_blank'>Facebook</a> pro měsíční kupóny a další spam!",
   "BTN_REDEEM": "Uplatnit",
