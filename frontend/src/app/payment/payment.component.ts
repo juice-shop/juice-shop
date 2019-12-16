@@ -53,6 +53,14 @@ export class PaymentComponent implements OnInit {
   public walletBalanceStr: string
   public totalPrice: any = 0
   public payUsingWallet: boolean = false
+  private campaigns = {
+    WMNSDY2019: { validOn: 1551999600000, discount: 75 },
+    WMNSDY2020: { validOn: 1583622000000, discount: 60 },
+    WMNSDY2021: { validOn: 1615158000000, discount: 60 },
+    WMNSDY2022: { validOn: 1646694000000, discount: 60 },
+    WMNSDY2023: { validOn: 1678230000000, discount: 60 }
+  }
+
   constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit () {
@@ -106,9 +114,10 @@ export class PaymentComponent implements OnInit {
     this.clientDate.setHours(0,0,0,0)
     this.clientDate = this.clientDate.getTime() - offsetTimeZone
     sessionStorage.setItem('couponDetails', this.campaignCoupon + '-' + this.clientDate)
-    if (this.couponControl.value === 'WMNSDY2019') { // TODO Use internal code table or retrieve from AWS Lambda instead
-      if (this.clientDate === 1551999600000) { // = Mar 08, 2019
-        this.showConfirmation(75)
+    const campaign = this.campaigns[this.couponControl.value]
+    if (campaign) {
+      if (this.clientDate === campaign.validOn) {
+        this.showConfirmation(campaign.discount)
       } else {
         this.couponConfirmation = undefined
         this.couponError = { error: 'Invalid Coupon.' } // FIXME i18n error message
