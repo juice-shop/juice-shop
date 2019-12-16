@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Procedi all'acquisto",
   "BTN_CREDIT_CARD": "Carta di Credito",
   "INVALID_COUPON_LENGTH": "Il coupon deve contenere almeno {{length}} caratteri.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Coupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Hai bisogno di un codice coupon? Seguici su <a href='{{twitter}}' target='_blank'>Twitter</a> o <a href='{{facebook}}' target='_blank'>Facebook</a> per coupon mensili e altro spam!",
   "BTN_REDEEM": "Rilascia",
