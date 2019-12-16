@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Lanjutkan ke pembayaran",
   "BTN_CREDIT_CARD": "Kartu Kredit",
   "INVALID_COUPON_LENGTH": "Kode kupon harus {{length}} panjang karakter.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Kupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Perlu kode kupon? Ikuti kami di <a href='{{twitter}}' target='_blank'>Twitter</a> atau <a href='{{facebook}}' target='_blank'>Facebook</a> untuk kupon bulanan dan berita lainnya!",
   "BTN_REDEEM": "Tukar",
