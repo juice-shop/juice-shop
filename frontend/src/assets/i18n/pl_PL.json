@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Realizuj zamówienie",
   "BTN_CREDIT_CARD": "Karta Płatnicza",
   "INVALID_COUPON_LENGTH": "Kod kuponu musi być {{length}} znaków.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Kupon",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Kupon Rabatowy ? Śledź nas na <a href='{{twitter}}' target='_blank'>Twitter</a> lub <a href='{{facebook}}' target='_blank'>Facebook</a> aby dostatawać co miesięąc kupony i innych spam!",
   "BTN_REDEEM": "Wykorzystaj kupon rabatowy",
