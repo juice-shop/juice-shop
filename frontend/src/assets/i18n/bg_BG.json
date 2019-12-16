@@ -72,6 +72,7 @@
   "BTN_CHECKOUT": "Поръчай",
   "BTN_CREDIT_CARD": "Кредитна карта",
   "INVALID_COUPON_LENGTH": "Кодът на ваучера трябва да бъде най-малко {{length}} знака.",
+  "INVALID_COUPON": "Invalid coupon.",
   "LABEL_COUPON": "Ваучер",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Искате ли ваучер? Следвайте ни на <a href='{{twitter}}' target='_blank'>Twitter</a> или <a href='{{facebook}}' target='_blank'>Facebook</a> за месечни купони и други спам!",
   "BTN_REDEEM": "Използване",
