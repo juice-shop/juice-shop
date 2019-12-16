@@ -263,5 +263,9 @@
 	"Total Price": "Gesamtpreis",
 	"Bonus Points Earned": "Erhaltene Bonuspunkte",
 	"The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe 1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt!",
-	"Thank you for your order!": "Vielen Dank für deine Bestellung!"
+	"Thank you for your order!": "Vielen Dank für deine Bestellung!",
+	"Order Confirmation": "Bestellbestätigung",
+	"Customer": "Kunde",
+	"Order": "Bestellung",
+	"Date": "Datum"
 }
