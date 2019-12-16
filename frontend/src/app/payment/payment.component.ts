@@ -120,7 +120,11 @@ export class PaymentComponent implements OnInit {
         this.showConfirmation(campaign.discount)
       } else {
         this.couponConfirmation = undefined
-        this.couponError = { error: 'Invalid Coupon.' } // FIXME i18n error message
+        this.translate.get('INVALID_COUPON').subscribe((invalidCoupon) => {
+          this.couponError = { error: invalidCoupon }
+        }, (translationId) => {
+          this.couponError = { error: translationId }
+        })
         this.resetCouponForm()
       }
     } else {
