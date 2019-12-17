@@ -66,11 +66,18 @@ describe('/#/basket', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
     describe('challenge "manipulateClock"', () => {
       it('should be possible to enter WMNSDY2019 coupon', () => {
+        browser.waitForAngularEnabled(false)
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
+        browser.driver.sleep(1000)
+        browser.waitForAngularEnabled(true)
 
         browser.get('/#/payment/shop')
+
+        browser.waitForAngularEnabled(false)
         browser.executeScript('event = new Date("March 08, 2019 00:00:00"); Date = function(Date){return function() {date = event; return date; }}(Date);')
         browser.driver.sleep(1000)
+        browser.waitForAngularEnabled(true)
+
         element(by.id('collapseCouponElement')).click()
         browser.wait(protractor.ExpectedConditions.presenceOf($('#coupon')), 5000, 'Coupon textfield not present.') // eslint-disable-line no-undef
 
