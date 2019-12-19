@@ -4,6 +4,7 @@ import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
+import { TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-address-create',
@@ -25,7 +26,7 @@ export class AddressCreateComponent implements OnInit {
   public mode = 'create'
   private addressId: string = undefined
 
-  constructor (private location: Location, private formSubmitService: FormSubmitService, private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor (private location: Location, private formSubmitService: FormSubmitService, private addressService: AddressService, private router: Router, public activatedRoute: ActivatedRoute, private translate: TranslateService) { }
 
   ngOnInit () {
     this.address = {}
@@ -55,7 +56,11 @@ export class AddressCreateComponent implements OnInit {
     if (this.mode === 'edit') {
       this.addressService.put(this.addressId, this.address).subscribe((savedAddress) => {
         this.error = null
-        this.confirmation = 'The address at ' + savedAddress.city + ' has been successfully updated.'
+        this.translate.get('ADDRESS_UPDATED',{ city: savedAddress.city }).subscribe((addressUpdated) => {
+          this.confirmation = addressUpdated
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
         this.address = {}
         this.ngOnInit()
         this.resetForm()
@@ -69,7 +74,11 @@ export class AddressCreateComponent implements OnInit {
     } else {
       this.addressService.save(this.address).subscribe((savedAddress) => {
         this.error = null
-        this.confirmation = 'The address at ' + savedAddress.city + ' has been successfully added to your addresses.'
+        this.translate.get('ADDRESS_ADDED',{ city: savedAddress.city }).subscribe((addressAdded) => {
+          this.confirmation = addressAdded
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
         this.address = {}
         this.ngOnInit()
         this.resetForm()

@@ -1,4 +1,4 @@
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -12,11 +12,13 @@ import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { MatGridListModule } from '@angular/material/grid-list'
+import { EventEmitter } from '@angular/core'
 
 describe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
   let fixture: ComponentFixture<AddressCreateComponent>
   let addressService
+  let translateService
 
   beforeEach(async(() => {
 
@@ -24,6 +26,11 @@ describe('AddressCreateComponent', () => {
     addressService.save.and.returnValue(of({}))
     addressService.getById.and.returnValue(of({}))
     addressService.put.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [
@@ -40,7 +47,8 @@ describe('AddressCreateComponent', () => {
       ],
       declarations: [ AddressCreateComponent],
       providers: [
-        { provide: AddressService, useValue: addressService }
+        { provide: AddressService, useValue: addressService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()
@@ -158,23 +166,25 @@ describe('AddressCreateComponent', () => {
     expect(component.numberControl.valid).toBe(true)
   })
 
-  it('should reset the form on saving address and show confirmation', () => {
+  it('should reset the form on updating address and show confirmation', () => {
     addressService.put.and.returnValue(of({ city: 'NY' }))
+    translateService.get.and.returnValue(of('ADDRESS_UPDATED'))
     component.mode = 'edit'
     spyOn(component,'resetForm')
     spyOn(component,'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('The address at NY has been successfully updated.')
+    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_UPDATED', { city: 'NY' })
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
 
-  it('should reset the form on updating address and show confirmation', () => {
+  it('should reset the form on adding address and show confirmation', () => {
     addressService.save.and.returnValue(of({ city: 'NY' }))
+    translateService.get.and.returnValue(of('ADDRESS_ADDED'))
     spyOn(component,'resetForm')
     spyOn(component,'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('The address at NY has been successfully added to your addresses.')
+    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_ADDED', { city: 'NY' })
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })

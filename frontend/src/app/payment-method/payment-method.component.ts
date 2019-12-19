@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faPaperPlane, faTrashAlt)
 dom.watch()
@@ -34,7 +35,7 @@ export class PaymentMethodComponent implements OnInit {
   public cardsExist: boolean = false
   public paymentId: any = undefined
 
-  constructor (public paymentService: PaymentService) { }
+  constructor (public paymentService: PaymentService, private translate: TranslateService) { }
 
   ngOnInit () {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
@@ -63,7 +64,11 @@ export class PaymentMethodComponent implements OnInit {
     this.card.expYear = this.yearControl.value
     this.paymentService.save(this.card).subscribe((savedCards) => {
       this.error = null
-      this.confirmation = 'Your card ending with ' + String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) + ' has been saved for your convinience.'
+      this.translate.get('CREDIT_CARD_SAVED',{ cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
+        this.confirmation = creditCardSaved
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
       this.load()
       this.resetForm()
     }, (error) => {

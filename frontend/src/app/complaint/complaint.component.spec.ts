@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { FileItem, FileUploadModule } from 'ng2-file-upload'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 
@@ -14,12 +14,14 @@ import { ComplaintComponent } from './complaint.component'
 import { of, throwError } from 'rxjs'
 
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { EventEmitter } from '@angular/core'
 
 describe('ComplaintComponent', () => {
   let component: ComplaintComponent
   let fixture: ComponentFixture<ComplaintComponent>
   let userService: any
   let complaintService: any
+  let translateService
 
   beforeEach(async(() => {
 
@@ -27,6 +29,11 @@ describe('ComplaintComponent', () => {
     userService.whoAmI.and.returnValue(of({}))
     complaintService = jasmine.createSpyObj('ComplaintService', ['save'])
     complaintService.save.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [
@@ -43,7 +50,8 @@ describe('ComplaintComponent', () => {
       declarations: [ ComplaintComponent ],
       providers: [
         { provide: UserService, useValue: userService },
-        { provide: ComplaintService, useValue: complaintService }
+        { provide: ComplaintService, useValue: complaintService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()
@@ -110,10 +118,11 @@ describe('ComplaintComponent', () => {
   })
 
   it('should display support message with #id and reset complaint form on saving complaint', () => {
-    complaintService.save.and.returnValue(of({ id: '42' }))
+    complaintService.save.and.returnValue(of({ id: 42 }))
+    translateService.get.and.returnValue(of('CUSTOMER_SUPPORT_COMPLAINT_REPLY'))
     component.uploader.queue[0] = null as unknown as FileItem
     component.save()
-    expect(component.confirmation).toBe('Customer support will get in touch with you soon! Your complaint reference is #42')
+    expect(translateService.get).toHaveBeenCalledWith('CUSTOMER_SUPPORT_COMPLAINT_REPLY',{ ref: 42 })
   })
 
   it('should begin uploading file if it has been added on saving', fakeAsync(() => {
