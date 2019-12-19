@@ -1,4 +1,4 @@
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -15,11 +15,13 @@ import { MatRadioModule } from '@angular/material/radio'
 import { PaymentService } from '../Services/payment.service'
 import { MatDialogModule } from '@angular/material/dialog'
 import { PaymentMethodComponent } from './payment-method.component'
+import { EventEmitter } from '@angular/core'
 
 describe('PaymentMethodComponent', () => {
   let component: PaymentMethodComponent
   let fixture: ComponentFixture<PaymentMethodComponent>
   let paymentService
+  let translateService
 
   beforeEach(async(() => {
 
@@ -27,6 +29,11 @@ describe('PaymentMethodComponent', () => {
     paymentService.save.and.returnValue(of([]))
     paymentService.get.and.returnValue(of([]))
     paymentService.del.and.returnValue(of([]))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,7 +53,8 @@ describe('PaymentMethodComponent', () => {
       ],
       declarations: [ PaymentMethodComponent ],
       providers: [
-        { provide: PaymentService, useValue: paymentService }
+        { provide: PaymentService, useValue: paymentService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()
@@ -143,10 +151,11 @@ describe('PaymentMethodComponent', () => {
   it('should reset the form on saving card and show confirmation', () => {
     paymentService.get.and.returnValue(of([]))
     paymentService.save.and.returnValue(of({ cardNum: '1234' }))
+    translateService.get.and.returnValue(of('CREDIT_CARD_SAVED'))
     spyOn(component,'resetForm')
     spyOn(component,'load')
     component.save()
-    expect(component.confirmation).toBe('Your card ending with 1234 has been saved for your convinience.')
+    expect(translateService.get).toHaveBeenCalledWith('CREDIT_CARD_SAVED',{ cardnumber: '1234' })
     expect(component.load).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
