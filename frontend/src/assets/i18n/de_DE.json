@@ -318,12 +318,12 @@
   "REVIEW_WALLET": "Du wirst wieder zu deiner Brieftasche weitergeleitet.",
   "ORDERS_AND_PAYMENT": "Bestellungen & Zahlung",
   "ADDRESS_REMOVED": "Deine Adresse wurde entfernt.",
-  "ADDRESS_UPDATED": "The address at {{city}} has been successfully updated.",
-  "ADDRESS_ADDED": "The address at {{city}} has been successfully added to your addresses.",
+  "ADDRESS_UPDATED": "Die Adresse in {{city}} wurde erfolgreich aktualisiert.",
+  "ADDRESS_ADDED": "Die Adresse in {{city}} wurde erfolgreich zu deinen Adressen hinzugefügt.",
   "PASSWORD_SUCCESSFULLY_CHANGED": "Dein Passwort wurde erfolgreich geändert.",
-  "CUSTOMER_SUPPORT_COMPLAINT_REPLY": "Customer support will get in touch with you soon! Your complaint reference is #{{ref}}",
+  "CUSTOMER_SUPPORT_COMPLAINT_REPLY": "Der Kundendienst wird sich bald mit dir in Verbindung setzen! Deine Beschwerdereferenz ist #{{ref}}",
   "FEEDBACK_FIVE_STAR_THANK_YOU": "Herzlichen Dank für dein tolles 5-Sterne-Feedback!",
   "FEEDBACK_THANK_YOU": "Danke für dein Feedback.",
-  "CREDIT_CARD_SAVED": "Your card ending with {{cardnumber}} has been saved for your convenience.",
+  "CREDIT_CARD_SAVED": "Deine auf {{cardnumber}} endende Karte wurde der Einfachheit halber für dich gespeichert.",
   "CONFIRM_REVIEW_SAVED": "Deine Rezension wurde gespeichert."
 }
