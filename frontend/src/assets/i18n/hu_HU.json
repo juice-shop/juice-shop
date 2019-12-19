@@ -324,5 +324,6 @@
   "CUSTOMER_SUPPORT_COMPLAINT_REPLY": "Customer support will get in touch with you soon! Your complaint reference is #{{ref}}",
   "FEEDBACK_FIVE_STAR_THANK_YOU": "Thank you so much for your amazing 5-star feedback!",
   "FEEDBACK_THANK_YOU": "Thank you for your feedback.",
-  "CREDIT_CARD_SAVED": "Your card ending with {{cardnumber}} has been saved for your convenience."
+  "CREDIT_CARD_SAVED": "Your card ending with {{cardnumber}} has been saved for your convenience.",
+  "CONFIRM_REVIEW_SAVED": "You review has been saved."
 }
