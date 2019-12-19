@@ -58,7 +58,11 @@ export class PaymentComponent implements OnInit {
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
     WMNSDY2021: { validOn: 1615158000000, discount: 60 },
     WMNSDY2022: { validOn: 1646694000000, discount: 60 },
-    WMNSDY2023: { validOn: 1678230000000, discount: 60 }
+    WMNSDY2023: { validOn: 1678230000000, discount: 60 },
+    ORANGE2020: { validOn: 1588546800000, discount: 50 },
+    ORANGE2021: { validOn: 1620082800000, discount: 40 },
+    ORANGE2022: { validOn: 1651618800000, discount: 40 },
+    ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
   constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute) { }
