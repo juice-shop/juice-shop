@@ -316,5 +316,13 @@
   "LABEL_ADD": "Hinzufügen",
   "REVIEW_DELUXE": "Du wirst nach erfolgreichem Abschluss abgemeldet.",
   "REVIEW_WALLET": "Du wirst wieder zu deiner Brieftasche weitergeleitet.",
-  "ORDERS_AND_PAYMENT": "Bestellungen & Zahlung"
+  "ORDERS_AND_PAYMENT": "Bestellungen & Zahlung",
+  "ADDRESS_REMOVED": "Your address has been removed.",
+  "ADDRESS_UPDATED": "The address at {{city}} has been successfully updated.",
+  "ADDRESS_ADDED": "The address at {{city}} has been successfully added to your addresses.",
+  "PASSWORD_SUCCESSFULLY_CHANGED": "Your password was successfully changed.",
+  "CUSTOMER_SUPPORT_COMPLAINT_REPLY": "Customer support will get in touch with you soon! Your complaint reference is #{{ref}}",
+  "FEEDBACK_FIVE_STAR_THANK_YOU": "Thank you so much for your amazing 5-star feedback!",
+  "FEEDBACK_THANK_YOU": "Thank you for your feedback.",
+  "CREDIT_CARD_SAVED": "Your card ending with {{cardnumber}} has been saved for your convenience."
 }
