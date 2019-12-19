@@ -320,7 +320,7 @@
   "ADDRESS_REMOVED": "Deine Adresse wurde entfernt.",
   "ADDRESS_UPDATED": "The address at {{city}} has been successfully updated.",
   "ADDRESS_ADDED": "The address at {{city}} has been successfully added to your addresses.",
-  "PASSWORD_SUCCESSFULLY_CHANGED": "Your password was successfully changed.",
+  "PASSWORD_SUCCESSFULLY_CHANGED": "Dein Passwort wurde erfolgreich geändert.",
   "CUSTOMER_SUPPORT_COMPLAINT_REPLY": "Customer support will get in touch with you soon! Your complaint reference is #{{ref}}",
   "FEEDBACK_FIVE_STAR_THANK_YOU": "Herzlichen Dank für dein tolles 5-Sterne-Feedback!",
   "FEEDBACK_THANK_YOU": "Danke für dein Feedback.",
