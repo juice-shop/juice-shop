@@ -327,6 +327,6 @@
   "CREDIT_CARD_SAVED": "Deine auf {{cardnumber}} endende Karte wurde der Einfachheit halber für dich gespeichert.",
   "CONFIRM_REVIEW_SAVED": "Deine Rezension wurde gespeichert.",
   "CONFIRM_CHANGES_SAVED": "Deine Änderungen wurden gespeichert.",
-  "CONFIRM_RECYCLING_BOX": "Thank you for using our eco-friendly recycling self-service. We will send you a pomace recycling box asap.",
-  "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}."
+  "CONFIRM_RECYCLING_BOX": "Vielen Dank für die Nutzung unseres umweltfreundlichen Recycling-Self-Service. Wir senden dir schnellstmöglich eine Trester-Recycling-Box zu.",
+  "CONFIRM_RECYCLING_PICKUP": "Vielen Dank für die Nutzung unseres bequemen Recyclingdienstes. Wir werden deinen Trester am {{pickupdate}} abholen."
 }
