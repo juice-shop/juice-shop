@@ -325,5 +325,8 @@
   "FEEDBACK_FIVE_STAR_THANK_YOU": "Herzlichen Dank für dein tolles 5-Sterne-Feedback!",
   "FEEDBACK_THANK_YOU": "Danke für dein Feedback.",
   "CREDIT_CARD_SAVED": "Deine auf {{cardnumber}} endende Karte wurde der Einfachheit halber für dich gespeichert.",
-  "CONFIRM_REVIEW_SAVED": "Deine Rezension wurde gespeichert."
+  "CONFIRM_REVIEW_SAVED": "Deine Rezension wurde gespeichert.",
+  "CONFIRM_CHANGES_SAVED": "Your changes have been saved.",
+  "CONFIRM_RECYCLING_BOX": "Thank you for using our eco-friendly recycling self-service. We will send you a pomace recycling box asap.",
+  "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}."
 }
