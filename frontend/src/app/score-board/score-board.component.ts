@@ -11,6 +11,7 @@ import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
@@ -40,7 +41,7 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
   }
 
   ngOnInit () {
@@ -61,7 +62,7 @@ export class ScoreBoardComponent implements OnInit {
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
       this.challenges = challenges
       for (let i = 0; i < this.challenges.length; i++) {
-        ScoreBoardComponent.augmentHintText(this.challenges[i])
+        this.augmentHintText(this.challenges[i])
         this.trustDescriptionHtml(this.challenges[i])
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
@@ -107,14 +108,26 @@ export class ScoreBoardComponent implements OnInit {
     })
   }
 
-  private static augmentHintText (challenge: Challenge) {
+  augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
-      challenge.hint = 'This challenge is unavailable in a ' + challenge.disabledEnv + ' environment!'
+      this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
+        challenge.hint = challengeUnavailable
+      }, (translationId) => {
+        challenge.hint = translationId
+      })
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
-        challenge.hint += ' Click for more hints.'
+        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints) => {
+          challenge.hint += ` ${clickForMoreHints}`
+        }, (translationId) => {
+          challenge.hint += ` ${translationId}`
+        })
       } else {
-        challenge.hint = 'Click to open hints.'
+        this.translate.get('CLICK_TO_OPEN_HINTS').subscribe((clickToOpenHints) => {
+          challenge.hint = clickToOpenHints
+        }, (translationId) => {
+          challenge.hint = translationId
+        })
       }
     }
   }

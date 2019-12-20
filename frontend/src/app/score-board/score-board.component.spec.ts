@@ -245,15 +245,17 @@ describe('ScoreBoardComponent', () => {
   it('should append click-me text for challenge with a hint text and URL', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt' } ]))
+    translateService.get.and.returnValue(of('CLICK_FOR_MORE_HINTS'))
     component.ngOnInit()
-    expect(component.challenges[0].hint).toBe('Hint. Click for more hints.')
+    expect(component.challenges[0].hint).toBe('Hint. CLICK_FOR_MORE_HINTS')
   })
 
   it('should become click-me text for challenge without a hint text but with hint URL', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    translateService.get.and.returnValue(of('CLICK_TO_OPEN_HINTS'))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hintUrl: 'http://hi.nt' }]))
     component.ngOnInit()
-    expect(component.challenges[0].hint).toBe('Click to open hints.')
+    expect(component.challenges[0].hint).toBe('CLICK_TO_OPEN_HINTS')
   })
 
   it('should show GitHub info box if so configured', () => {
