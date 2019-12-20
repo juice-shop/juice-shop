@@ -7,6 +7,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressComponent } from '../address/address.component'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faPaperPlane)
 dom.watch()
@@ -29,7 +30,7 @@ export class RecycleComponent implements OnInit {
   public userEmail: any
   public confirmation: any
   public addressId: any = undefined
-  constructor (private recycleService: RecycleService, private userService: UserService, private configurationService: ConfigurationService, private formSubmitService: FormSubmitService) { }
+  constructor (private recycleService: RecycleService, private userService: UserService, private configurationService: ConfigurationService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
 
@@ -64,7 +65,19 @@ export class RecycleComponent implements OnInit {
     }
 
     this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
-      this.confirmation = 'Thank you for using our recycling service. We will ' + (savedRecycle.isPickup ? ('pick up your pomace on ' + savedRecycle.pickupDate) : 'deliver your recycle box asap') + '.'
+      if (savedRecycle.isPickup) {
+        this.translate.get('CONFIRM_RECYCLING_PICKUP',{ pickupdate: savedRecycle.pickupDate }).subscribe((confirmRecyclingPickup) => {
+          this.confirmation = confirmRecyclingPickup
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
+      } else {
+        this.translate.get('CONFIRM_RECYCLING_BOX').subscribe((confirmRecyclingBox) => {
+          this.confirmation = confirmRecyclingBox
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
+      }
       this.addressComponent.load()
       this.initRecycle()
       this.resetForm()

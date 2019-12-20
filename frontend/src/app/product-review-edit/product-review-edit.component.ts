@@ -35,7 +35,7 @@ export class ProductReviewEditComponent implements OnInit {
       console.log(err)
       this.error = err
     })
-    this.openSnackBar('Your changes have been saved', 'Ok')
+    this.openSnackBar('CONFIRM_CHANGES_SAVED', 'Ok')
   }
 
   openSnackBar (message: string, action: string) {
