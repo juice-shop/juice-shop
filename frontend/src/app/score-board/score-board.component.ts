@@ -10,8 +10,8 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
-import { hasInstructions, startHackingInstructorFor } from 'src/hacking-instructor'
 import { Challenge } from '../Models/challenge.model'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
 dom.watch()
@@ -41,7 +41,7 @@ export class ScoreBoardComponent implements OnInit {
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
   }
 
   ngOnInit () {
@@ -54,7 +54,7 @@ export class ScoreBoardComponent implements OnInit {
       this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
       this.showChallengeHints = config.application.showChallengeHints
       this.showHackingInstructor = (config.hackingInstructor && config.hackingInstructor.isEnabled) || config.application.showHackingInstructor // TODO Remove fallback with v10.0.0
-      if (config.application.showGitHubLinks !== null && config.application.showGitHubLinks !== undefined) {
+      if (config.application) {
         this.showContributionInfoBox = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))
@@ -62,13 +62,18 @@ export class ScoreBoardComponent implements OnInit {
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
       this.challenges = challenges
       for (let i = 0; i < this.challenges.length; i++) {
-        ScoreBoardComponent.augmentHintText(this.challenges[i])
+        this.augmentHintText(this.challenges[i])
         this.trustDescriptionHtml(this.challenges[i])
         if (this.challenges[i].name === 'Score Board') {
           this.challenges[i].solved = true
         }
         if (!this.availableChallengeCategories.includes(challenges[i].category)) {
           this.availableChallengeCategories.push(challenges[i].category)
+        }
+        if (this.showHackingInstructor) {
+          import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+            challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
+          })
         }
       }
       this.availableChallengeCategories.sort()
@@ -103,14 +108,26 @@ export class ScoreBoardComponent implements OnInit {
     })
   }
 
-  private static augmentHintText (challenge: Challenge) {
+  augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
-      challenge.hint = 'This challenge is unavailable in a ' + challenge.disabledEnv + ' environment!'
+      this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
+        challenge.hint = challengeUnavailable
+      }, (translationId) => {
+        challenge.hint = translationId
+      })
     } else if (challenge.hintUrl) {
       if (challenge.hint) {
-        challenge.hint += ' Click for more hints.'
+        this.translate.get('CLICK_FOR_MORE_HINTS').subscribe((clickForMoreHints) => {
+          challenge.hint += ` ${clickForMoreHints}`
+        }, (translationId) => {
+          challenge.hint += ` ${translationId}`
+        })
       } else {
-        challenge.hint = 'Click to open hints.'
+        this.translate.get('CLICK_TO_OPEN_HINTS').subscribe((clickToOpenHints) => {
+          challenge.hint = clickToOpenHints
+        }, (translationId) => {
+          challenge.hint = translationId
+        })
       }
     }
   }
@@ -228,13 +245,11 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
-  hasHackingInstructorInstructions (challengeName: String): boolean {
-    return hasInstructions(challengeName)
-  }
-
   startHackingInstructor (challengeName: String) {
     console.log(`Starting instructions for challenge "${challengeName}"`)
-    startHackingInstructorFor(challengeName)
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor(challengeName)
+    })
   }
 
   trackById (index: number, item: any) {

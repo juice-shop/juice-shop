@@ -3,6 +3,7 @@ import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faEdit, faTrashAlt)
 dom.watch()
@@ -20,12 +21,11 @@ export class AddressComponent implements OnInit {
   public displayedColumns = ['Name', 'Address', 'Country']
   public storedAddresses: any[]
   public dataSource
-  public breakpoint: number
   public confirmation: any
   public error: any
   public addressExist: Boolean = false
 
-  constructor (private addressService: AddressService) { }
+  constructor (private addressService: AddressService, private translate: TranslateService) { }
 
   ngOnInit () {
     if (this.allowEdit) {
@@ -55,7 +55,11 @@ export class AddressComponent implements OnInit {
   deleteAddress (id: number) {
     this.addressService.del(id).subscribe(() => {
       this.error = null
-      this.confirmation = 'Your address has been removed.'
+      this.translate.get('ADDRESS_REMOVED').subscribe((addressRemoved) => {
+        this.confirmation = addressRemoved
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
       this.load()
     }, (error) => {
       this.error = error.error

@@ -25,10 +25,10 @@ export class DeluxeUserComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       let decalParam = this.route.snapshot.queryParams.testDecal // "Forgotten" test parameter to play with different stickers on the delivery box image
       if (config && config.application) {
-        if (config.application.name !== null) {
+        if (config.application.name) {
           this.applicationName = config.application.name
         }
-        if (config.application.logo !== null) {
+        if (config.application.logo) {
           let logo: string = config.application.logo
 
           if (logo.substring(0, 4) === 'http') {

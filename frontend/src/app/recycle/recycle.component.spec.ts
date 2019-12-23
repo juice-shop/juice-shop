@@ -1,4 +1,4 @@
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
@@ -27,6 +27,7 @@ import {
   MatTooltipModule
 } from '@angular/material'
 import { RouterTestingModule } from '@angular/router/testing'
+import { EventEmitter } from '@angular/core'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
@@ -34,6 +35,7 @@ describe('RecycleComponent', () => {
   let recycleService: any
   let userService: any
   let configurationService: any
+  let translateService
 
   beforeEach(async(() => {
 
@@ -44,6 +46,11 @@ describe('RecycleComponent', () => {
     userService.whoAmI.and.returnValue(of({}))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
 
     TestBed.configureTestingModule({
       imports: [
@@ -71,7 +78,8 @@ describe('RecycleComponent', () => {
       providers: [
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()
@@ -124,6 +132,7 @@ describe('RecycleComponent', () => {
   it('should display pickup message and reset recycle form on saving', () => {
     recycleService.save.and.returnValue(of({}))
     userService.whoAmI.and.returnValue(of({}))
+    translateService.get.and.returnValue(of('CONFIRM_RECYCLING_BOX'))
     spyOn(component,'initRecycle')
     spyOn(component.addressComponent, 'load')
     component.addressId = '1'
@@ -135,12 +144,13 @@ describe('RecycleComponent', () => {
     expect(recycleService.save.calls.argsFor(0)[0]).toEqual(recycle)
     expect(component.initRecycle).toHaveBeenCalled()
     expect(component.addressComponent.load).toHaveBeenCalled()
-    expect(component.confirmation).toBe('Thank you for using our recycling service. We will deliver your recycle box asap.')
+    expect(translateService.get).toHaveBeenCalledWith('CONFIRM_RECYCLING_BOX')
   })
 
   it('should display pickup message and reset recycle form on saving when pickup is selected', () => {
     recycleService.save.and.returnValue(of({ isPickup: true, pickupDate: '10/7/2018' }))
     userService.whoAmI.and.returnValue(of({}))
+    translateService.get.and.returnValue(of('CONFIRM_RECYCLING_PICKUP'))
     spyOn(component,'initRecycle')
     spyOn(component.addressComponent, 'load')
     component.addressId = '1'
@@ -153,7 +163,7 @@ describe('RecycleComponent', () => {
     expect(recycleService.save.calls.argsFor(0)[0]).toEqual(recycle)
     expect(component.initRecycle).toHaveBeenCalled()
     expect(component.addressComponent.load).toHaveBeenCalled()
-    expect(component.confirmation).toBe('Thank you for using our recycling service. We will pick up your pomace on 10/7/2018.')
+    expect(translateService.get).toHaveBeenCalledWith('CONFIRM_RECYCLING_PICKUP', { pickupdate: '10/7/2018' })
   })
 
   it('should hold existing recycles', () => {
