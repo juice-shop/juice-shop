@@ -6,6 +6,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { SecurityQuestion } from '../Models/securityQuestion.model'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faSave, faEdit)
 dom.watch()
@@ -25,7 +26,7 @@ export class ForgotPasswordComponent {
   public error?: string
   public confirmation?: string
 
-  constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService) { }
+  constructor (private securityQuestionService: SecurityQuestionService, private userService: UserService, private translate: TranslateService) { }
 
   findSecurityQuestion () {
     this.securityQuestion = undefined
@@ -55,7 +56,11 @@ export class ForgotPasswordComponent {
     this.userService.resetPassword({email: this.emailControl.value, answer: this.securityQuestionControl.value,
       new: this.passwordControl.value, repeat: this.repeatPasswordControl.value}).subscribe(() => {
         this.error = undefined
-        this.confirmation = 'Your password was successfully changed.'
+        this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
+          this.confirmation = passwordSuccessfullyChanged
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
         this.resetForm()
       }, (error) => {
         this.error = error.error

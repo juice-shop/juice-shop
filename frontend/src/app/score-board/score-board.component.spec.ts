@@ -103,12 +103,12 @@ describe('ScoreBoardComponent', () => {
     expect(component.challenges[1].description).toBe('XXE')
   })
 
-  it('should log the error on retrieving configuration', fakeAsync(() => {
+  it('should log the error on retrieving configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })
 
   it('should be able to toggle the difficulty and save it in localStorage', () => {
     component.displayedDifficulties = []
@@ -245,24 +245,26 @@ describe('ScoreBoardComponent', () => {
   it('should append click-me text for challenge with a hint text and URL', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt' } ]))
+    translateService.get.and.returnValue(of('CLICK_FOR_MORE_HINTS'))
     component.ngOnInit()
-    expect(component.challenges[0].hint).toBe('Hint. Click for more hints.')
+    expect(component.challenges[0].hint).toBe('Hint. CLICK_FOR_MORE_HINTS')
   })
 
   it('should become click-me text for challenge without a hint text but with hint URL', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    translateService.get.and.returnValue(of('CLICK_TO_OPEN_HINTS'))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hintUrl: 'http://hi.nt' }]))
     component.ngOnInit()
-    expect(component.challenges[0].hint).toBe('Click to open hints.')
+    expect(component.challenges[0].hint).toBe('CLICK_TO_OPEN_HINTS')
   })
 
-  it('should show GitHub button by default', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+  it('should show GitHub info box if so configured', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true } }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(true)
   })
 
-  it('should hide GitHub ribbon if so configured', () => {
+  it('should hide GitHub info box if so configured', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(false)

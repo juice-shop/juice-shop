@@ -27,12 +27,12 @@ module.exports = function placeOrder () {
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 20).text('Order Confirmation', { align: 'center' })
+          doc.font('Times-Roman', 20).text(req.__('Order Confirmation'), { align: 'center' })
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 15).text('Customer: ' + email, { align: 'left' })
-          doc.font('Times-Roman', 15).text('Order #: ' + orderId, { align: 'left' })
+          doc.font('Times-Roman', 15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })
+          doc.font('Times-Roman', 15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })
           doc.moveDown()
-          doc.font('Times-Roman', 15).text('Date: ' + date, { align: 'left' })
+          doc.font('Times-Roman', 15).text(`${req.__('Date')}: ${date}`, { align: 'left' })
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
@@ -87,7 +87,7 @@ module.exports = function placeOrder () {
               bonus: itemBonus
             }
             basketProducts.push(product)
-            doc.text(BasketItem.quantity + 'x ' + req.__(name) + ' ea. ' + itemPrice + ' = ' + itemTotal + '¤')
+            doc.text(`${BasketItem.quantity}x ${req.__(name)} ${req.__('ea.')} ${itemPrice} = ${itemTotal}¤`)
             doc.moveDown()
             totalPrice += itemTotal
             totalPoints += itemBonus
@@ -111,15 +111,15 @@ module.exports = function placeOrder () {
           }
           const deliveryAmount = insecurity.isDeluxe(req) ? deliveryMethod.deluxePrice : deliveryMethod.price
           totalPrice += deliveryAmount
-          doc.text('Delivery Price: ' + deliveryAmount.toFixed(2) + '¤')
+          doc.text(`${req.__('Delivery Price')}: ${deliveryAmount.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 20).text('Total Price: ' + totalPrice.toFixed(2) + '¤')
+          doc.font('Helvetica-Bold', 20).text(`${req.__('Total Price')}: ${totalPrice.toFixed(2)}¤`)
           doc.moveDown()
-          doc.font('Helvetica-Bold', 15).text('Bonus Points Earned: ' + totalPoints)
-          doc.font('Times-Roman', 15).text('(The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!)')
+          doc.font('Helvetica-Bold', 15).text(`${req.__('Bonus Points Earned')}: ${totalPoints}`)
+          doc.font('Times-Roman', 15).text(`(${req.__('The bonus points from this order will be added 1:1 to your wallet ¤-fund for future purchases!')}`)
           doc.moveDown()
           doc.moveDown()
-          doc.font('Times-Roman', 15).text('Thank you for your order!')
+          doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
           doc.end()
 
           if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
@@ -178,7 +178,7 @@ function calculateApplicableDiscount (basket, req) {
     const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      if (utils.notSolved(challenges.manipulateClockChallenge)) { // FIXME check if coupon is actually expired
+      if (utils.notSolved(challenges.manipulateClockChallenge) && campaign.validOn < new Date()) {
         utils.solve(challenges.manipulateClockChallenge)
       }
       return campaign.discount
@@ -188,5 +188,13 @@ function calculateApplicableDiscount (basket, req) {
 }
 
 const campaigns = {
-  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 }
+  WMNSDY2019: { validOn: new Date('Mar 08, 2019 00:00:00 GMT+0100').getTime(), discount: 75 },
+  WMNSDY2020: { validOn: new Date('Mar 08, 2020 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2021: { validOn: new Date('Mar 08, 2021 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2022: { validOn: new Date('Mar 08, 2022 00:00:00 GMT+0100').getTime(), discount: 60 },
+  WMNSDY2023: { validOn: new Date('Mar 08, 2023 00:00:00 GMT+0100').getTime(), discount: 60 },
+  ORANGE2020: { validOn: new Date('May 04, 2020 00:00:00 GMT+0100').getTime(), discount: 50 },
+  ORANGE2021: { validOn: new Date('May 04, 2021 00:00:00 GMT+0100').getTime(), discount: 40 },
+  ORANGE2022: { validOn: new Date('May 04, 2022 00:00:00 GMT+0100').getTime(), discount: 40 },
+  ORANGE2023: { validOn: new Date('May 04, 2023 00:00:00 GMT+0100').getTime(), discount: 40 }
 }

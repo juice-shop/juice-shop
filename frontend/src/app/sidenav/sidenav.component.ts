@@ -6,7 +6,7 @@ import { Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 import { ConfigurationService } from '../Services/configuration.service'
-import { AdminGuard } from '../app.guard'
+import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 
 @Component({
@@ -31,7 +31,7 @@ export class SidenavComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private ngZone: NgZone, private io: SocketIoService, private userService: UserService, private cookieService: CookieService,
-    private router: Router, private configurationService: ConfigurationService, private adminGuard: AdminGuard) { }
+    private router: Router, private configurationService: ConfigurationService, private loginGuard: LoginGuard) { }
 
   ngOnInit () {
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
@@ -105,17 +105,17 @@ export class SidenavComponent implements OnInit {
 
   getApplicationDetails () {
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name && config.application.name !== null) {
+      if (config && config.application && config.application.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubLinks !== null) {
+      if (config && config.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
     }, (err) => console.log(err))
   }
 
   isAccounting () {
-    const payload = this.adminGuard.tokenDecode()
+    const payload = this.loginGuard.tokenDecode()
     if (payload && payload.data && payload.data.role === roles.accounting) {
       return true
     } else {

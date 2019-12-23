@@ -15,7 +15,9 @@
 > [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
 > ([@vanderaj](https://twitter.com/vanderaj)) —
 > [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
-> ([@kramse](https://twitter.com/kramse))
+> ([@kramse](https://twitter.com/kramse)) —
+> [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
+> ([@coderPatros' wife](https://twitter.com/coderPatros))
 
 OWASP Juice Shop is probably the most modern and sophisticated insecure
 web application! It can be used in security trainings, awareness demos,
@@ -300,6 +302,6 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2019.
+contributions are Copyright © by Bjoern Kimminich 2014-2020.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
