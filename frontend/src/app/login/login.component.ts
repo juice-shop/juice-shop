@@ -29,7 +29,8 @@ const authorizedRedirectURIs: any = {
   'http://127.0.0.1:3000': 'http://local3000.owasp-juice.shop',
   'http://localhost:4200': 'http://local4200.owasp-juice.shop',
   'http://127.0.0.1:4200': 'http://local4200.owasp-juice.shop',
-  'http://192.168.99.100:3000': 'http://localMac.owasp-juice.shop'
+  'http://192.168.99.100:3000': 'http://localmac.owasp-juice.shop',
+  'http://penguin.termina.linux.test:3000': 'http://localchromeos.owasp-juice.shop'
 }
 
 @Component({
