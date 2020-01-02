@@ -5,13 +5,14 @@ application:
   favicon: 'https://www.sonatype.com/hubfs/ADDO-2018/ADDO_fav4.png'
   theme: pink-bluegrey
   showGitHubLinks: false
-  twitterUrl: 'https://twitter.com/AllDayDevOps'
-  facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
-  slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
-  redditUrl: null
-  pressKitUrl: 'https://www.alldaydevops.com/2019resources'
   altcoinName: ADDcOin
   privacyContactEmail: 'donotreply@ad.do'
+  social:
+    twitterUrl: 'https://twitter.com/AllDayDevOps'
+    facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
+    slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
+    redditUrl: null
+    pressKitUrl: 'https://www.alldaydevops.com/2019resources'
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: undefined.png

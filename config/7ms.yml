@@ -5,13 +5,14 @@ application:
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   showGitHubLinks: true
-  twitterUrl: 'https://twitter.com/7MinSec'
-  facebookUrl: null
-  slackUrl: 'https://7ms.us/slack'
-  redditUrl: null
-  pressKitUrl: null
   altcoinName: Sevencoin
   privacyContactEmail: 'donotreply@7-ms.us'
+  social:
+    twitterUrl: 'https://twitter.com/7MinSec'
+    facebookUrl: null
+    slackUrl: 'https://7ms.us/slack'
+    redditUrl: null
+    pressKitUrl: null
   recyclePage:
     topProductImage: bm-small.jpg
     bottomProductImage: tommyboy.jpeg

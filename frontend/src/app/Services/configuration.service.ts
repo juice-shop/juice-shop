@@ -20,13 +20,15 @@ interface Config {
     showVersionNumber: boolean
     showGitHubLinks: boolean
     numberOfRandomFakeUsers: number
-    twitterUrl: string
-    facebookUrl: string
-    slackUrl: string
-    redditUrl: string
-    pressKitUrl: string
     altcoinName: string
     privacyContactEmail: string
+    social: {
+      twitterUrl: string
+      facebookUrl: string
+      slackUrl: string
+      redditUrl: string
+      pressKitUrl: string
+    }
     recyclePage: {
       topProductImage: string
       bottomProductImage: string
@@ -68,6 +70,7 @@ interface Config {
   }
   hackingInstructor: {
     isEnabled: boolean
+    avatarImage: string
   }
   products: any[]
   memories: any[]

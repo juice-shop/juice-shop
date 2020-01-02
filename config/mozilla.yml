@@ -5,13 +5,14 @@ application:
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
   theme: deeporange-indigo
   showGitHubLinks: true
-  twitterUrl: 'https://twitter.com/mozcloudsec'
-  facebookUrl: null
-  slackUrl: null
-  redditUrl: null
-  pressKitUrl: 'https://blog.mozilla.org/press/kits'
   altcoinName: Mozquito
   privacyContactEmail: 'donotreply@mozilla-ctf.op'
+  social:
+    twitterUrl: 'https://twitter.com/mozcloudsec'
+    facebookUrl: null
+    slackUrl: null
+    redditUrl: null
+    pressKitUrl: 'https://blog.mozilla.org/press/kits'
   recyclePage:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg

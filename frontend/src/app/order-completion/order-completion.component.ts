@@ -48,10 +48,10 @@ export class OrderCompletionComponent implements OnInit {
         }
         this.tweetText = this.truncateTweet(this.tweetText)
         this.configurationService.getApplicationConfiguration().subscribe((config) => {
-          if (config && config.application) {
+          if (config && config.application && config.application.social) {
             this.tweetText += '%0afrom '
-            if (config.application.twitterUrl) {
-              this.tweetText += config.application.twitterUrl.replace('https://twitter.com/','@')
+            if (config.application.social.twitterUrl) {
+              this.tweetText += config.application.social.twitterUrl.replace('https://twitter.com/','@')
             } else {
               this.tweetText += config.application.name
             }
