@@ -49,21 +49,21 @@ export class AboutComponent implements OnInit {
   ngOnInit () {
     this.populateSlideshowFromFeedbacks()
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application) {
-        if (config.application.twitterUrl) {
-          this.twitterUrl = config.application.twitterUrl
+      if (config && config.application && config.application.social) {
+        if (config.application.social.twitterUrl) {
+          this.twitterUrl = config.application.social.twitterUrl
         }
-        if (config.application.facebookUrl) {
-          this.facebookUrl = config.application.facebookUrl
+        if (config.application.social.facebookUrl) {
+          this.facebookUrl = config.application.social.facebookUrl
         }
-        if (config.application.slackUrl) {
-          this.slackUrl = config.application.slackUrl
+        if (config.application.social.slackUrl) {
+          this.slackUrl = config.application.social.slackUrl
         }
-        if (config.application.redditUrl) {
-          this.redditUrl = config.application.redditUrl
+        if (config.application.social.redditUrl) {
+          this.redditUrl = config.application.social.redditUrl
         }
-        if (config.application.pressKitUrl) {
-          this.pressKitUrl = config.application.pressKitUrl
+        if (config.application.social.pressKitUrl) {
+          this.pressKitUrl = config.application.social.pressKitUrl
         }
       }
     },(err) => console.log(err))

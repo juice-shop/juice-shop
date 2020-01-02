@@ -9,13 +9,14 @@ application:
   showVersionNumber: true
   showGitHubLinks: true
   numberOfRandomFakeUsers: 0
-  twitterUrl: 'https://twitter.com/owasp_juiceshop'
-  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-  slackUrl: 'http://owaspslack.com'
-  redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
-  pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
   altcoinName: Juicycoin
   privacyContactEmail: donotreply@owasp-juice.shop
+  social:
+    twitterUrl: 'https://twitter.com/owasp_juiceshop'
+    facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+    slackUrl: 'http://owaspslack.com'
+    redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
+    pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
   recyclePage:
     topProductImage: fruit_press.jpg
     bottomProductImage: apple_pressings.jpg
