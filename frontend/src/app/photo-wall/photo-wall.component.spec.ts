@@ -121,7 +121,7 @@ describe('PhotoWallComponent', () => {
   })
 
   it('should use custom twitter handle if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
     expect(component.twitterHandle).toBe('twitter')
   })

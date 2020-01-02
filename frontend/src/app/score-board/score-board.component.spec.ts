@@ -43,7 +43,7 @@ describe('ScoreBoardComponent', () => {
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{}]))
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {} }))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
@@ -199,51 +199,51 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should be possible when challenge-solved notifications are shown with CTF flag codes', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({  'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({  'ctf': { 'showFlagsInNotifications': true }, application: {}, 'challenges': { 'showSolvedNotifications': true } }))
     component.ngOnInit()
     expect(component.allowRepeatNotifications).toBe(true)
   })
 
   it('should not be possible when challenge-solved notifications are shown without CTF flag codes', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': false }, 'application': { 'showChallengeSolvedNotifications': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': false }, application: {}, 'challenges': { 'showSolvedNotifications': true } }))
     component.ngOnInit()
     expect(component.allowRepeatNotifications).toBe(false)
   })
 
   it('should not be possible when challenge-solved notifications are not shown', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeSolvedNotifications': false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showSolvedNotifications': false } }))
     component.ngOnInit()
     expect(component.allowRepeatNotifications).toBe(false)
   })
 
   it('should show notification for selected challenge when enabled', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': true }, 'application': { 'showChallengeSolvedNotifications': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ 'ctf': { 'showFlagsInNotifications': true }, application: {}, 'challenges': { 'showSolvedNotifications': true } }))
     component.ngOnInit()
     expect(component.allowRepeatNotifications).toBeTruthy()
   })
 
   it('should not happen when hints are not turned on in configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showHints': false } }))
     component.ngOnInit()
     expect(component.showChallengeHints).toBeFalsy()
   })
 
   it('should be empty for challenge with neither hint text nor URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showHints': true } }))
     challengeService.find.and.returnValue(of([ { name: 'Challenge' } ]))
     component.ngOnInit()
     expect(component.challenges[0].hint).toBeUndefined()
   })
 
   it('should remain unchanged for challenge with a hint text but no hint URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showHints': true } }))
     challengeService.find.and.returnValue(of([ { name: 'Challenge', hint: 'Hint' }]))
     component.ngOnInit()
     expect(component.challenges[0].hint).toBe('Hint')
   })
 
   it('should append click-me text for challenge with a hint text and URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showHints': true } }))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hint: 'Hint.', hintUrl: 'http://hi.nt' } ]))
     translateService.get.and.returnValue(of('CLICK_FOR_MORE_HINTS'))
     component.ngOnInit()
@@ -251,7 +251,7 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should become click-me text for challenge without a hint text but with hint URL', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ 'application': { 'showChallengeHints': true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, 'challenges': { 'showHints': true } }))
     translateService.get.and.returnValue(of('CLICK_TO_OPEN_HINTS'))
     challengeService.find.and.returnValue(of([{ name: 'Challenge', hintUrl: 'http://hi.nt' }]))
     component.ngOnInit()
@@ -259,25 +259,25 @@ describe('ScoreBoardComponent', () => {
   })
 
   it('should show GitHub info box if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: true }, challenges: {} }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(true)
   })
 
   it('should hide GitHub info box if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showGitHubLinks: false }, challenges: {} }))
     component.ngOnInit()
     expect(component.showContributionInfoBox).toBe(false)
   })
 
   it('should show GitHub button by default', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {} }))
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeFalsy()
   })
 
   it('should offer Hacking Instructor if so configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, hackingInstructor: { isEnabled: true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {}, challenges: {}, hackingInstructor: { isEnabled: true } }))
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeTruthy()
   })
