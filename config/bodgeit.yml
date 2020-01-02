@@ -12,10 +12,11 @@ application:
   pressKitUrl: null
   planetOverlayMap: 'http://www.userlogos.org/files/logos/inductiveload/Google%20Code.png'
   planetName: Bodgiton VI
+  altcoinName: Bodgecoin
+  privacyContactEmail: 'donotreply@thebodgeitstore.com'
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg
-  altcoinName: Bodgecoin
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -27,7 +28,6 @@ application:
     dismissText: 'Bodge it!'
     linkText: 'Lega-what?'
     linkUrl: 'https://github.com/psiinon/bodgeit'
-  privacyContactEmail: 'donotreply@thebodgeitstore.com'
   securityTxt:
     contact: 'mailto:donotreply@thebodgeitstore.com'
     encryption: ~

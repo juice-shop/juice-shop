@@ -12,10 +12,11 @@ application:
   slackUrl: null
   redditUrl: null
   pressKitUrl: 'https://blog.mozilla.org/press/kits'
+  altcoinName: Mozquito
+  privacyContactEmail: 'donotreply@mozilla-ctf.op'
   recyclePage:
     topProductimage: Gear-200155340.jpg
     bottomProductimage: Gear-200155753.jpg
-  altcoinName: Mozquito
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -27,7 +28,6 @@ application:
     dismissText: 'Never mind!'
     linkText: 'How can I turn this off?'
     linkUrl: 'https://support.mozilla.org/en-US/kb/disable-third-party-cookies'
-  privacyContactEmail: 'donotreply@mozilla-ctf.op'
   securityTxt:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
