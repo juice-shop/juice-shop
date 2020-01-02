@@ -6,8 +6,6 @@ application:
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
-  showChallengeSolvedNotifications: true
-  showChallengeHints: true
   showVersionNumber: true
   showGitHubLinks: true
   numberOfRandomFakeUsers: 0
@@ -44,6 +42,8 @@ application:
     video: JuiceShopJingle.mp4
     subtitles: JuiceShopJingle.vtt
 challenges:
+  showSolvedNotifications: true
+  showHints: true
   safetyOverride: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
 hackingInstructor:

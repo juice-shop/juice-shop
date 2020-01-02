@@ -17,8 +17,6 @@ interface Config {
     logo: string
     favicon: string
     theme: string
-    showChallengeSolvedNotifications: boolean
-    showChallengeHints: boolean
     showVersionNumber: boolean
     showGitHubLinks: boolean
     numberOfRandomFakeUsers: number
@@ -61,6 +59,8 @@ interface Config {
     }
   }
   challenges: {
+    showSolvedNotifications: boolean
+    showHints: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
   }
