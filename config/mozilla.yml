@@ -3,8 +3,6 @@ application:
   name: 'Mozilla CTF'
   logo: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/MozillaCTF.png'
   favicon: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/favicon_v2.ico'
-  showChallengeSolvedNotifications: true
-  showChallengeHints: false
   theme: deeporange-indigo
   showGitHubLinks: true
   twitterUrl: 'https://twitter.com/mozcloudsec'
@@ -31,6 +29,9 @@ application:
   securityTxt:
     contact: 'mailto:donotreply@mozilla-ctf.op'
     encryption: ~
+challenges:
+  showSolvedNotifications: true
+  showHints: false
 hackingInstructor:
   isEnabled: false
 products:

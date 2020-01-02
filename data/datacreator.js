@@ -47,7 +47,7 @@ module.exports = async () => {
 }
 
 async function createChallenges () {
-  const showHints = config.get('application.showChallengeHints')
+  const showHints = config.get('challenges.showHints')
 
   const challenges = await loadStaticData('challenges')
 

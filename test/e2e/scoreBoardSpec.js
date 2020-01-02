@@ -26,7 +26,7 @@ describe('/#/score-board', () => {
       browser.get('/#/score-board')
     })
 
-    if (config.get('application.showChallengeSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
+    if (config.get('challenges.showSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
       it('should be possible when in CTF mode', () => {
         alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 

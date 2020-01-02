@@ -51,8 +51,8 @@ export class ScoreBoardComponent implements OnInit {
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
-      this.showChallengeHints = config.application.showChallengeHints
+      this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
+      this.showChallengeHints = config.challenges.showHints
       this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
       if (config.application) {
         this.showContributionInfoBox = config.application.showGitHubLinks
