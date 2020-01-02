@@ -14,8 +14,6 @@ application:
   slackUrl: 'http://owaspslack.com'
   redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
   pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
-  planetOverlayMap: orangemap2k.jpg
-  planetName: Orangeuze
   altcoinName: Juicycoin
   privacyContactEmail: donotreply@owasp-juice.shop
   recyclePage:
@@ -41,6 +39,9 @@ application:
   promotion:
     video: JuiceShopJingle.mp4
     subtitles: JuiceShopJingle.vtt
+  easterEggPlanet:
+    name: Orangeuze
+    overlayMap: orangemap2k.jpg
 challenges:
   showSolvedNotifications: true
   showHints: true

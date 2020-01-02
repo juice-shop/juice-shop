@@ -25,8 +25,6 @@ interface Config {
     slackUrl: string
     redditUrl: string
     pressKitUrl: string
-    planetOverlayMap: string
-    planetName: string
     altcoinName: string
     privacyContactEmail: string
     recyclePage: {
@@ -56,6 +54,10 @@ interface Config {
     promotion: {
       video: string
       subtitles: string
+    }
+    easterEggPlanet: {
+      name: string
+      overlayMap: string
     }
   }
   challenges: {
