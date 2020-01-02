@@ -20,7 +20,6 @@ interface Config {
     showChallengeSolvedNotifications: boolean
     showChallengeHints: boolean
     showVersionNumber: boolean
-    showHackingInstructor?: boolean  // TODO Remove fallback with v10.0.0
     showGitHubLinks: boolean
     numberOfRandomFakeUsers: number
     twitterUrl: string
@@ -30,14 +29,12 @@ interface Config {
     pressKitUrl: string
     planetOverlayMap: string
     planetName: string
-    deluxePage: {
-      deluxeDeliveryImage: string
-    }
+    altcoinName: string
+    privacyContactEmail: string
     recyclePage: {
       topProductImage: string
       bottomProductImage: string
     }
-    altcoinName: string
     welcomeBanner: {
       showOnFirstStart: boolean
       title: string
@@ -53,7 +50,6 @@ interface Config {
       linkText: string
       linkUrl: string
     }
-    privacyContactEmail: string
     securityTxt: {
       contact: string
       encryption: string
@@ -68,7 +64,7 @@ interface Config {
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string
   }
-  hackingInstructor?: {  // TODO Remove optional marker with v10.0.0
+  hackingInstructor: {
     isEnabled: boolean
   }
   products: any[]

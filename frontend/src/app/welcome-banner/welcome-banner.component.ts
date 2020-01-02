@@ -27,7 +27,7 @@ export class WelcomeBannerComponent implements OnInit {
         this.message = config.application.welcomeBanner.message
       }
       if (config && config.application) {
-        this.showHackingInstructor = (config.hackingInstructor && config.hackingInstructor.isEnabled) || config.application.showHackingInstructor // TODO Remove fallback with v10.0.0
+        this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
       }
     }, (err) => console.log(err))
   }

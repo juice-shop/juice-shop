@@ -281,10 +281,4 @@ describe('ScoreBoardComponent', () => {
     component.ngOnInit()
     expect(component.showHackingInstructor).toBeTruthy()
   })
-
-  it('should offer Hacking Instructor if so configured in legacy mode', () => { // TODO Remove test with v10.0.0
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { showHackingInstructor: true } }))
-    component.ngOnInit()
-    expect(component.showHackingInstructor).toBeTruthy()
-  })
 })
