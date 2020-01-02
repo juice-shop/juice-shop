@@ -18,10 +18,11 @@ application:
   pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
   planetOverlayMap: orangemap2k.jpg
   planetName: Orangeuze
+  altcoinName: Juicycoin
+  privacyContactEmail: donotreply@owasp-juice.shop
   recyclePage:
     topProductImage: fruit_press.jpg
     bottomProductImage: apple_pressings.jpg
-  altcoinName: Juicycoin
   welcomeBanner:
     showOnFirstStart: true
     title: 'Welcome to OWASP Juice Shop!'
@@ -35,7 +36,6 @@ application:
     dismissText: 'Me want it!'
     linkText: 'But me wait!'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
-  privacyContactEmail: donotreply@owasp-juice.shop
   securityTxt:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'

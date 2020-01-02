@@ -12,10 +12,11 @@ application:
   pressKitUrl: 'https://www.alldaydevops.com/2019resources'
   planetOverlayMap: 'https://www.sonatype.com/hubfs/2019-ADDO/BG_Bobby-2019_3.png'
   planetName: 'A-DD-0'
+  altcoinName: ADDcOin
+  privacyContactEmail: 'donotreply@ad.do'
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: undefined.png
-  altcoinName: ADDcOin
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -27,7 +28,6 @@ application:
     dismissText: 'Register for 24/7 cookies!'
     linkText: 'Yum, tell me more!'
     linkUrl: 'https://www.alldaydevops.com/privacy-policy-addo'
-  privacyContactEmail: 'donotreply@ad.do'
   securityTxt:
     contact: 'mailto:donotreply@ad.do'
     encryption: ~
