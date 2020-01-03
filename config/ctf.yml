@@ -7,6 +7,7 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
+  safetyOverride: true
 hackingInstructor:
   isEnabled: false
 ctf:
