@@ -40,7 +40,8 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/) // TODO Instead check for uib-tooltip of <i> with fa-user-circle
+        expect(browser.getCurrentUrl()).toMatch(/\/search/)
+        element(by.css('mat-menu-panel')).getText().then(function (text) { expect(text).toContain(context.email) })
       })
     })
   }
