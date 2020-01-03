@@ -40,8 +40,7 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/)
-        element(by.css('mat-menu-panel')).getText().then(function (text) { expect(text).toContain(context.email) })
+        element(by.id('authenticatedUser')).getText().then(function (text) { expect(text).toContain(context.email) })
       })
     })
   }
