@@ -40,7 +40,12 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
-        element(by.id('authenticatedUser')).getText().then(function (text) { expect(text).toContain(context.email) })
+        const EC = protractor.ExpectedConditions
+        const authenticatedUser = element(by.id('authenticatedUser'))
+
+        browser.wait(EC.visibilityOf(authenticatedUser), 1000, 'Authenticated user label did not become visible')
+
+        authenticatedUser.getText().then(function (text) { expect(text).toContain(context.email) })
       })
     })
   }
