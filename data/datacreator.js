@@ -280,7 +280,7 @@ function createProducts () {
     blueprint = utils.extractFilename(blueprint)
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
-  datacache.retrieveBlueprintChallengeFile = blueprint // TODO Do not cache separately but load from config where needed (same as keywordsForPastebinDataLeakChallenge)
+  datacache.retrieveBlueprintChallengeFile = blueprint
 
   return Promise.all(
     products.map(
