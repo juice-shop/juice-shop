@@ -19,7 +19,7 @@ describe('/#/score-board', () => {
     protractor.expect.challengeSolved({ challenge: 'Imaginary Challenge' })
   })
 
-  describe('repeat notification', () => { // FIXME Notifications do not always re-trigger on click
+  describe('repeat notification', () => {
     let alertsBefore, alertsNow
 
     beforeEach(() => {
