@@ -332,6 +332,6 @@
   "CHALLENGE_UNAVAILABLE": "这个挑战在 {{env}} 环境中不可用！",
   "CLICK_FOR_MORE_HINTS": "点击查看更多提示。",
   "CLICK_TO_OPEN_HINTS": "点击打开提示。",
-  "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
+  "BONUS_POINTS_EARNED": "获得奖励积分: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
 }
