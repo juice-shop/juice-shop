@@ -314,7 +314,7 @@ function createProducts () {
               reviews.map(({ text, author }) =>
                 mongodb.reviews.insert({
                   message: text,
-                  author: `${author}@${config.get('application.domain')}`,
+                  author: datacache.users[author].email,
                   product: id,
                   likesCount: 0,
                   likedBy: []

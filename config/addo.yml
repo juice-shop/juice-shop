@@ -65,7 +65,7 @@ products:
     price: 39.99
     image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-ModernInfrastructure@2x.png'
     reviews:
-      - { text: 'I read on PasteBin somewhere that 303 lasers are really dangerous, so why do you (kind of) put one into this product? Are you crazy?!', author: bjoern }
+      - { text: 'I read on PasteBin somewhere that 303 lasers are really dangerous, so why do you (kind of) put one into this product? Are you crazy?!', author: bjoernOwasp }
     keywordsForPastebinDataLeakChallenge:
       - '101'
       - '202'
@@ -83,7 +83,7 @@ products:
     quantity: 0
     image: 'https://www.alldaydevops.com/hubfs/Bjorn_Kimminich.jpg'
     reviews:
-      - { text: 'Man, dis dude is a loony!', author: mc.safesearch }
+      - { text: 'Man, dis dude is a loony!', author: rapper }
   -
     name: 'ADDO Music Collection'
     description: 'All the all-time classics in one collection.'
