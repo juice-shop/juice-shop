@@ -157,7 +157,8 @@
     "sinon-chai": "^3.4.0",
     "socket.io-client": "^2.3.0",
     "standard": "^14.3.1",
-    "webdriver-manager": "^12.1.7"
+    "webdriver-manager": "^12.1.7",
+    "yaml-schema-validator": "^1.1.9"
   },
   "repository": {
     "type": "git",
@@ -174,6 +175,7 @@
     "start": "node app",
     "lint": "standard && cd frontend && ng lint && cd ..",
     "lint:fix": "standard --fix && cd frontend && ng lint --fix && cd ..",
+    "lint:config": "schema validate -f ./config/default.yml -s ./config/config.schema.yml",
     "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",

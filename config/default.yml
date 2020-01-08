@@ -58,7 +58,7 @@ products:
     deluxePrice: 0.99
     description: 'The all-time classic.'
     image: apple_juice.jpg
-    reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
+    reviews:
       - { text: 'One of my favorites!', author: admin }
   -
     name: 'Orange Juice (1000ml)'

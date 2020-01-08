@@ -14,8 +14,8 @@ application:
     redditUrl: null
     pressKitUrl: 'https://blog.mozilla.org/press/kits'
   recyclePage:
-    topProductimage: Gear-200155340.jpg
-    bottomProductimage: Gear-200155753.jpg
+    topProductImage: Gear-200155340.jpg
+    bottomProductImage: Gear-200155753.jpg
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
