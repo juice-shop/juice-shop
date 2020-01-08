@@ -148,5 +148,4 @@ describe('configValidation', () => {
 
     expect(checkSchema(config)).to.equal(false)
   })
-
 })
