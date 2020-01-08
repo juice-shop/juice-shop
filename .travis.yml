@@ -41,19 +41,8 @@ jobs:
   include:
     - stage: lint
       if: tag IS blank
-      install: npm i -g standard@14 && npm i -g yaml-schema-validator && cd frontend && npm install && cd ..
-      script:
-        - npm run lint
-        - npm run validate -- -f ./config/7ms.yml
-        - npm run validate -- -f ./config/addo.yml
-        - npm run validate -- -f ./config/bodgeit.yml
-        - npm run validate -- -f ./config/ctf.yml
-        - npm run validate -- -f ./config/default.yml
-        - npm run validate -- -f ./config/fbctf.yml
-        - npm run validate -- -f ./config/juicebox.yml
-        - npm run validate -- -f ./config/mozilla.yml
-        - npm run validate -- -f ./config/quiet.yml
-        - npm run validate -- -f ./config/unsafe.yml
+      install: npm i -g standard@14 && cd frontend && npm install && cd ..
+      script: npm run lint
     - stage: integration
       if: tag IS blank
       os: linux
