@@ -176,7 +176,7 @@
     "lint": "standard && cd frontend && ng lint && cd ..",
     "lint:fix": "standard --fix && cd frontend && ng lint --fix && cd ..",
     "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
+    "frisby": "jest --silent --runInBand --forceExit",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
     "protractor": "npm run e2e",
     "e2e": "node test/e2eTests.js",
@@ -242,6 +242,16 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/frontend/node_modules/"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/*.js",
+      "routes/*.js"
+    ],
+    "coverageDirectory": "./build/reports/coverage/api-tests",
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
     ]
   },
   "heroku-run-build-script": true
