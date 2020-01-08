@@ -182,7 +182,7 @@
     "e2e": "node test/e2eTests.js",
     "vagrant": "cd vagrant && vagrant up",
     "package": "npm dedupe && grunt package",
-    "sc": "schema validate -s config.schema.yml"
+    "validate": "schema validate -s config.schema.yml"
   },
   "engines": {
     "node": "10 - 13"
