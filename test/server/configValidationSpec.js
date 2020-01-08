@@ -4,7 +4,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateConfig = require('../../lib/startup/validateConfig')
-const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts, checkSchema } = require('../../lib/startup/validateConfig')
+const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
@@ -113,39 +113,5 @@ describe('configValidation', () => {
 
   it('should fail if the config is invalid', () => {
     expect(validateConfig({ products: [], exitOnFailure: false })).to.equal(false)
-  })
-
-  it('should accept a config with valid schema', () => {
-    const config = {
-      application: {
-        domain: 'juice-b.ox',
-        name: 'OWASP Juice Box',
-        welcomeBanner: {
-          showOnFirstStart: false
-        }
-      },
-      hackingInstructor: {
-        avatarImage: 'juicyEvilWasp.png'
-      }
-    }
-
-    expect(checkSchema(config)).to.equal(true)
-  })
-
-  it('should fail for a config with schema errors', () => {
-    const config = {
-      application: {
-        domain: 42,
-        id: 'OWASP Juice Box',
-        welcomeBanner: {
-          showOnFirstStart: 'yes'
-        }
-      },
-      hackingInstructor: {
-        avatarImage: true
-      }
-    }
-
-    expect(checkSchema(config)).to.equal(false)
   })
 })
