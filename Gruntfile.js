@@ -34,6 +34,7 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
+              'config.schema.yml',
               'config/*.yml',
               'data/*.js',
               'data/static/**',
