@@ -64,7 +64,7 @@ describe('/#/basket', () => {
 
   describe('as jim', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
-    describe('challenge "manipulateClock"', () => {
+    xdescribe('challenge "manipulateClock"', () => { // FIXME Frequently fails on Travis-CI with "Failed: element not interactable"
       it('should be possible to enter WMNSDY2019 coupon', () => {
         browser.waitForAngularEnabled(false)
         browser.executeScript('window.localStorage.couponPanelExpanded = false;')
