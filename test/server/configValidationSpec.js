@@ -4,7 +4,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateConfig = require('../../lib/startup/validateConfig')
-const { checkThatThereIsOnlyOneProductPerSpecial, checkThatProductArentUsedAsMultipleSpecialProducts } = require('../../lib/startup/validateConfig')
+const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
@@ -28,7 +28,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(true)
+      expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(true)
     })
 
     it('should fail if a multiple products are configured for the same challenge', () => {
@@ -51,7 +51,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(false)
+      expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(false)
     })
 
     it('should fail if a required challenge product is missing', () => {
@@ -66,7 +66,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(checkThatThereIsOnlyOneProductPerSpecial(products)).to.equal(false)
+      expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(false)
     })
   })
 
@@ -91,7 +91,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.equal(true)
+      expect(checkUniqueSpecialOnProducts(products)).to.equal(true)
     })
 
     it('should fail if a product is configured for multiple challenges', () => {
@@ -103,7 +103,7 @@ describe('configValidation', () => {
         }
       ]
 
-      expect(checkThatProductArentUsedAsMultipleSpecialProducts(products)).to.equal(false)
+      expect(checkUniqueSpecialOnProducts(products)).to.equal(false)
     })
   })
 
@@ -113,5 +113,39 @@ describe('configValidation', () => {
 
   it('should fail if the config is invalid', () => {
     expect(validateConfig({ products: [], exitOnFailure: false })).to.equal(false)
+  })
+
+  it('should accept a config with valid schema', () => {
+    const config = {
+      application: {
+        domain: 'juice-b.ox',
+        name: 'OWASP Juice Box',
+        welcomeBanner: {
+          showOnFirstStart: false
+        }
+      },
+      hackingInstructor: {
+        avatarImage: 'juicyEvilWasp.png'
+      }
+    }
+
+    expect(checkYamlSchema(config)).to.equal(true)
+  })
+
+  it('should fail for a config with schema errors', () => {
+    const config = {
+      application: {
+        domain: 42,
+        id: 'OWASP Juice Box',
+        welcomeBanner: {
+          showOnFirstStart: 'yes'
+        }
+      },
+      hackingInstructor: {
+        avatarImage: true
+      }
+    }
+
+    expect(checkYamlSchema(config)).to.equal(false)
   })
 })
