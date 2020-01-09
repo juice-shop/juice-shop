@@ -136,6 +136,7 @@
     "swagger-ui-express": "^4.1.2",
     "unzipper": "0.9.15",
     "winston": "^3.2.1",
+    "yaml-schema-validator": "^1.1.9",
     "z85": "^0.0.2"
   },
   "devDependencies": {
@@ -157,8 +158,7 @@
     "sinon-chai": "^3.4.0",
     "socket.io-client": "^2.3.0",
     "standard": "^14.3.1",
-    "webdriver-manager": "^12.1.7",
-    "yaml-schema-validator": "^1.1.9"
+    "webdriver-manager": "^12.1.7"
   },
   "repository": {
     "type": "git",
