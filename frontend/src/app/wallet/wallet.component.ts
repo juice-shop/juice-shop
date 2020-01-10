@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, OnInit } from '@angular/core'
 import { WalletService } from '../Services/wallet.service'
 import { FormControl, Validators } from '@angular/forms'

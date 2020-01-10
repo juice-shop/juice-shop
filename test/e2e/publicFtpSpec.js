@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 describe('/ftp', () => {
   describe('challenge "confidentialDocument"', () => {
     it('should be able to access file /ftp/acquisitions.md', () => {

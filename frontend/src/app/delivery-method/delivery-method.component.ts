@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, OnInit } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'

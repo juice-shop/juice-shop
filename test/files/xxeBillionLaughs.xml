@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <!DOCTYPE lolz [
         <!ENTITY lol "lol">
         <!ELEMENT lolz (#PCDATA)>

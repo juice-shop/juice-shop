@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { TokenSaleComponent } from './token-sale.component'

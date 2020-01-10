@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 module.exports = (sequelize, { INTEGER, BOOLEAN }) => {
   const PrivacyRequest = sequelize.define('PrivacyRequest', {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormControl, Validators } from '@angular/forms'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const expect = chai.expect
