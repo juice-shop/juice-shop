@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { CanActivate, Router } from '@angular/router'
 import * as jwt_decode from 'jwt-decode'
 import { roles } from './roles'

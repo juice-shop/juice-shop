@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const path = require('path')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges

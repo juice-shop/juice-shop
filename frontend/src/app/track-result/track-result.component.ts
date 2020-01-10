@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ActivatedRoute } from '@angular/router'
 import { MatTableDataSource } from '@angular/material/table'
 import { Component, OnInit } from '@angular/core'

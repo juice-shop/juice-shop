@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'

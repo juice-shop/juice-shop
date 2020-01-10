@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const svgCaptcha = require('svg-captcha')
 const models = require('../models/index')
 const Op = models.Sequelize.Op

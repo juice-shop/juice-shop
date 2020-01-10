@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 describe('/#/privacy-security/privacy-policy', () => {
   describe('challenge "privacyPolicy"', () => {
     it('should be possible to access privacy policy', () => {

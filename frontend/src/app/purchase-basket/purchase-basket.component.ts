@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'

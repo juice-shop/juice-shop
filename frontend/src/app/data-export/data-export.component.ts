@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'

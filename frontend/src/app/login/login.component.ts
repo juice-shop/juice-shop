@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'

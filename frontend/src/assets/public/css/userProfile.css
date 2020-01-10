@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 @media (max-width: 900px) {
   .mdl-layout-title {
     display: none !important;

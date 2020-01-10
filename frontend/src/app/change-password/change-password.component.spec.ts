@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { UserService } from '../Services/user.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
