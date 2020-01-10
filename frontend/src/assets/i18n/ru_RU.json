@@ -29,7 +29,7 @@
   "CONFIRM_REGISTER": "Регистрация успешно завершена. Теперь вы можете войти.",
   "TITLE_LOGOUT": "Выход",
   "CONFIRM_LOGGED_OUT": "Вы вышли из системы.",
-  "TITLE_CONTACT": "Contact",
+  "TITLE_CONTACT": "Контакт",
   "MANDATORY_COMMENT": "Поле комментария не должно быть пустым.",
   "INVALID_COMMENT_LENGTH": "Длина комментария должна быть {{length}} символов.",
   "MAX_TEXTAREA_LENGTH": "Максимум {{length}} символов",
