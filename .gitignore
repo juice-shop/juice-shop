@@ -11,6 +11,7 @@ package-lock.json
 i18n/*.json
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
+/ftp/announcement_encrypted.md
 
 # Build
 .nyc_output/

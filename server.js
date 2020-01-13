@@ -94,6 +94,7 @@ const i18n = require('i18n')
 
 require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 require('./lib/startup/cleanupFtpFolder')()
+require('./lib/startup/generateEncryptedAnnouncement')()
 require('./lib/startup/validatePreconditions')()
 require('./lib/startup/validateConfig')()
 
