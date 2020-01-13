@@ -44,16 +44,16 @@ jobs:
       install: npm i -g standard@14 && npm i -g yaml-schema-validator && cd frontend && npm install && cd ..
       script:
         - npm run lint
-        - npm run sc -- -f ./config/7ms.yml
-        - npm run sc -- -f ./config/addo.yml
-        - npm run sc -- -f ./config/bodgeit.yml
-        - npm run sc -- -f ./config/ctf.yml
-        - npm run sc -- -f ./config/default.yml
-        - npm run sc -- -f ./config/fbctf.yml
-        - npm run sc -- -f ./config/juicebox.yml
-        - npm run sc -- -f ./config/mozilla.yml
-        - npm run sc -- -f ./config/quiet.yml
-        - npm run sc -- -f ./config/unsafe.yml
+        - npm run lint:config -- -f ./config/7ms.yml
+        - npm run lint:config -- -f ./config/addo.yml
+        - npm run lint:config -- -f ./config/bodgeit.yml
+        - npm run lint:config -- -f ./config/ctf.yml
+        - npm run lint:config -- -f ./config/default.yml
+        - npm run lint:config -- -f ./config/fbctf.yml
+        - npm run lint:config -- -f ./config/juicebox.yml
+        - npm run lint:config -- -f ./config/mozilla.yml
+        - npm run lint:config -- -f ./config/quiet.yml
+        - npm run lint:config -- -f ./config/unsafe.yml
     - stage: integration
       if: tag IS blank
       os: linux
