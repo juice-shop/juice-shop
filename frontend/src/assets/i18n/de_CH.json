@@ -332,6 +332,6 @@
   "CHALLENGE_UNAVAILABLE": "Diese Herausforderung ist in einer {{env}}-Umgebung nicht verfügbar!",
   "CLICK_FOR_MORE_HINTS": "Klicken, um mehr Hinweise anzuzeigen.",
   "CLICK_TO_OPEN_HINTS": "Klicken, um Hinweise anzuzeigen.",
-  "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
+  "BONUS_POINTS_EARNED": "Verdiente Bonuspunkte: {{bonus}}",
+  "BONUS_FOR_FUTURE_PURCHASES": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe <em>1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt</em>!"
 }
