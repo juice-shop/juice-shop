@@ -30,4 +30,44 @@ describe('/api/Wallets', () => {
     return frisby.get(API_URL + '/Wallets')
       .expect('status', 401)
   })
+
+  it('GET wallet retrieves wallet amount of requesting user', () => {
+    return frisby.get(API_URL + '/Wallets', {
+      headers: authHeader
+    })
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', {
+        data: 100
+      })
+  })
+
+  it('PUT wallet is forbidden via public API', () => {
+    return frisby.put(API_URL + '/Wallets', {
+      body: {
+        balance: 10
+      }
+    })
+      .expect('status', 401)
+  })
+
+  it('GET wallet retrieves wallet amount of requesting user', () => {
+    return frisby.put(API_URL + '/Wallets', {
+      headers: authHeader,
+      body: {
+        balance: 10
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.get(API_URL + '/Wallets', {
+          headers: authHeader
+        })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('json', {
+            data: 110
+          })
+      })
+  })
 })
