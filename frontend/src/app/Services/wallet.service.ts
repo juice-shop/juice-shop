@@ -14,7 +14,7 @@ import { catchError, map } from 'rxjs/operators'
 export class WalletService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Wallets'
+  private host = this.hostServer + '/rest/wallet/balance'
 
   constructor (private http: HttpClient) { }
 

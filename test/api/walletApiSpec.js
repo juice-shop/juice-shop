@@ -5,7 +5,6 @@
 
 const frisby = require('frisby')
 
-const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
 
 const jsonHeader = { 'content-type': 'application/json' }
@@ -27,12 +26,12 @@ beforeAll(() => {
 
 describe('/api/Wallets', () => {
   it('GET wallet is forbidden via public API', () => {
-    return frisby.get(API_URL + '/Wallets')
+    return frisby.get(REST_URL + '/wallet/balance')
       .expect('status', 401)
   })
 
   it('GET wallet retrieves wallet amount of requesting user', () => {
-    return frisby.get(API_URL + '/Wallets', {
+    return frisby.get(REST_URL + '/wallet/balance', {
       headers: authHeader
     })
       .expect('status', 200)
@@ -43,7 +42,7 @@ describe('/api/Wallets', () => {
   })
 
   it('PUT wallet is forbidden via public API', () => {
-    return frisby.put(API_URL + '/Wallets', {
+    return frisby.put(REST_URL + '/wallet/balance', {
       body: {
         balance: 10
       }
@@ -52,7 +51,7 @@ describe('/api/Wallets', () => {
   })
 
   it('GET wallet retrieves wallet amount of requesting user', () => {
-    return frisby.put(API_URL + '/Wallets', {
+    return frisby.put(REST_URL + '/wallet/balance', {
       headers: authHeader,
       body: {
         balance: 10
@@ -60,7 +59,7 @@ describe('/api/Wallets', () => {
     })
       .expect('status', 200)
       .then(({ json }) => {
-        return frisby.get(API_URL + '/Wallets', {
+        return frisby.get(REST_URL + '/wallet/balance', {
           headers: authHeader
         })
           .expect('status', 200)
