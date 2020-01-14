@@ -271,6 +271,13 @@ products:
     price: 19.99
     quantity: 0
     image: coaster.jpg
+  -
+    name: 'OWASP Snakes and Ladders'
+    description: 'This amazing security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    image: snakes_ladders.jpg
+    reviews:
+      - { text: 'Wait for a 10$ Steam sale of Tabletop Simulator!', author: bjoernOwasp }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
