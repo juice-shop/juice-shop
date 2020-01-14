@@ -66,6 +66,10 @@ interface Config {
       name: string
       overlayMap: string
     }
+    googleOauth: {
+      clientId: string
+      authorizedRedirects: any[]
+    }
   }
   challenges: {
     showSolvedNotifications: boolean
