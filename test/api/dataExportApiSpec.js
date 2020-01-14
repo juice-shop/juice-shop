@@ -333,7 +333,7 @@ describe('/rest/user/data-export', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(API_URL + '/Memorys', {
+        return frisby.post(API_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
