@@ -472,8 +472,8 @@ app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.al
 app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
 app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalance())
 app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
-app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
-app.post('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
+app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
+app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 app.get('/rest/memories', memory.getMemory())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())

@@ -135,7 +135,7 @@ describe('UserService', () => {
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let res
       service.deluxeStatus().subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/rest/deluxe-status')
+      const req = httpMock.expectOne('http://localhost:3000/rest/deluxe-membership')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('GET')
@@ -148,7 +148,7 @@ describe('UserService', () => {
     fakeAsync((service: UserService, httpMock: HttpTestingController) => {
       let res
       service.upgradeToDeluxe(true).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/rest/upgrade-deluxe')
+      const req = httpMock.expectOne('http://localhost:3000/rest/deluxe-membership')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('POST')
