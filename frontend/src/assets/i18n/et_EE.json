@@ -72,7 +72,7 @@
   "BTN_CHECKOUT": "Ostukorv",
   "BTN_CREDIT_CARD": "Krediitkaart",
   "INVALID_COUPON_LENGTH": "Kupongi kood peab olema {{length}} tähemärki.",
-  "INVALID_COUPON": "Invalid coupon.",
+  "INVALID_COUPON": "Vigane kupong.",
   "LABEL_COUPON": "Kupong",
   "FOLLOW_FOR_MONTHLY_COUPONS": "Vajad kupongi? Jälgi meid <a href='{{twitter}}' target='_blank'>Twitter</a> või <a href='{{facebook}}' target='_blank'>Facebook</a> igakuiste kupongide ja muu rämpsu jaoks!",
   "BTN_REDEEM": "Lunasta",
@@ -317,7 +317,7 @@
   "REVIEW_DELUXE": "Eduka tehingu korral logitakse teid välja.",
   "REVIEW_WALLET": "Teid suunatakse tagasi rahakotile.",
   "ORDERS_AND_PAYMENT": "Tellimused & Maksmine",
-  "ADDRESS_REMOVED": "Your address has been removed.",
+  "ADDRESS_REMOVED": "Aadress on eemaldatud.",
   "ADDRESS_UPDATED": "The address at {{city}} has been successfully updated.",
   "ADDRESS_ADDED": "The address at {{city}} has been successfully added to your addresses.",
   "PASSWORD_SUCCESSFULLY_CHANGED": "Your password was successfully changed.",
@@ -330,8 +330,8 @@
   "CONFIRM_RECYCLING_BOX": "Thank you for using our eco-friendly recycling self-service. We will send you a pomace recycling box asap.",
   "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "This challenge is unavailable in a {{env}} environment!",
-  "CLICK_FOR_MORE_HINTS": "Click for more hints.",
-  "CLICK_TO_OPEN_HINTS": "Click to open hints.",
+  "CLICK_FOR_MORE_HINTS": "Klõpsa, et näha rohkem vihjeid.",
+  "CLICK_TO_OPEN_HINTS": "Klõpsa vihjete nägemiseks.",
   "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
 }
