@@ -79,6 +79,15 @@ application:
       type: string
     overlayMap:
       type: string
+  googleOauth:
+    clientId:
+      type: string
+    authorizedRedirects:
+      -
+        uri:
+          type: string
+        proxy:
+          type: string
 challenges:
   showSolvedNotifications:
     type: boolean

@@ -13,30 +13,12 @@ import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { ConfigurationService } from '../Services/configuration.service'
 
 library.add(faKey, faEye, faEyeSlash, faGoogle)
 dom.watch()
 
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
-const clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
-
-const authorizedRedirectURIs: any = {
-  'https://demo.owasp-juice.shop': 'https://demo.owasp-juice.shop',
-  'http://demo.owasp-juice.shop': 'http://demo.owasp-juice.shop',
-  'https://juice-shop.herokuapp.com': 'https://juice-shop.herokuapp.com',
-  'http://juice-shop.herokuapp.com': 'http://juice-shop.herokuapp.com',
-  'https://preview.owasp-juice.shop': 'https://preview.owasp-juice.shop',
-  'http://preview.owasp-juice.shop': 'http://preview.owasp-juice.shop',
-  'https://juice-shop-staging.herokuapp.com': 'https://juice-shop-staging.herokuapp.com',
-  'http://juice-shop-staging.herokuapp.com': 'http://juice-shop-staging.herokuapp.com',
-  'http://juice-shop.wtf': 'http://juice-shop.wtf',
-  'http://localhost:3000': 'http://local3000.owasp-juice.shop',
-  'http://127.0.0.1:3000': 'http://local3000.owasp-juice.shop',
-  'http://localhost:4200': 'http://local4200.owasp-juice.shop',
-  'http://127.0.0.1:4200': 'http://local4200.owasp-juice.shop',
-  'http://192.168.99.100:3000': 'http://localmac.owasp-juice.shop',
-  'http://penguin.termina.linux.test:3000': 'http://localchromeos.owasp-juice.shop'
-}
 
 @Component({
   selector: 'app-login',
@@ -51,9 +33,10 @@ export class LoginComponent implements OnInit {
   public user: any
   public rememberMe: FormControl = new FormControl(false)
   public error: any
+  public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
   public redirectUri: string = ''
-  constructor (private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
+  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
 
   ngOnInit () {
     const email = localStorage.getItem('email')
@@ -66,10 +49,20 @@ export class LoginComponent implements OnInit {
     }
 
     this.redirectUri = this.windowRefService.nativeWindow.location.protocol + '//' + this.windowRefService.nativeWindow.location.host
-    this.oauthUnavailable = !authorizedRedirectURIs[this.redirectUri]
-    if (this.oauthUnavailable) {
-      console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
-    }
+    this.configurationService.getApplicationConfiguration().subscribe((config) => {
+      if (config && config.application && config.application.googleOauth) {
+        this.clientId = config.application.googleOauth.clientId
+        let authorizedRedirect = config.application.googleOauth.authorizedRedirects.find(r => r.uri === this.redirectUri)
+        if (authorizedRedirect) {
+          this.oauthUnavailable = false
+          this.redirectUri = authorizedRedirect.proxy ? authorizedRedirect.proxy : authorizedRedirect.uri
+        } else {
+          this.oauthUnavailable = true
+          console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
+        }
+
+      }
+    },(err) => console.log(err))
 
     this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => this.login())
   }
@@ -111,9 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin () {
-    this.windowRefService.nativeWindow.location.replace(oauthProviderUrl + '?client_id='
-      + clientId + '&response_type=token&scope=email&redirect_uri='
-      + authorizedRedirectURIs[this.redirectUri])
+    this.windowRefService.nativeWindow.location.replace(`${oauthProviderUrl}?client_id=${this.clientId}&response_type=token&scope=email&redirect_uri=${this.redirectUri}`)
   }
 
 }
