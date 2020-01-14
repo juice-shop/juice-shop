@@ -23,7 +23,7 @@ describe('WalletService', () => {
     fakeAsync((service: WalletService, httpMock: HttpTestingController) => {
       let res
       service.get().subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Wallets')
+      const req = httpMock.expectOne('http://localhost:3000/rest/wallet/balance')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('GET')
@@ -36,7 +36,7 @@ describe('WalletService', () => {
     fakeAsync((service: WalletService, httpMock: HttpTestingController) => {
       let res
       service.put(1).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Wallets')
+      const req = httpMock.expectOne('http://localhost:3000/rest/wallet/balance')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('PUT')
