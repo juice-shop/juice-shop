@@ -206,7 +206,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
 app.post('/profile/image/file', uploadToMemory.single('file'), profileImageFileUpload())
 app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-app.post('/api/Memorys', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
+app.post('/rest/memories', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -458,7 +458,6 @@ app.get('/rest/repeat-notification', repeatNotification())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
-app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
 app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
@@ -473,14 +472,14 @@ app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.al
 app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
 app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalance())
 app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
+app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
+app.post('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
+app.get('/rest/memories', memory.getMemory())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())
 app.patch('/rest/products/reviews', insecurity.isAuthorized(), updateProductReviews())
 app.post('/rest/products/reviews', insecurity.isAuthorized(), likeProductReviews())
-app.get('/api/Memorys', memory.getMemory())
-app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
-app.post('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
@@ -489,6 +488,9 @@ app.post('/b2b/v2/orders', b2bOrder())
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
+
+/* Route for redirects */
+app.get('/redirect', redirect())
 
 /* Routes for promotion video page */
 app.get('/promotion', videoHandler.promotionVideo())

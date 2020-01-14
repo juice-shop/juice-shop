@@ -23,7 +23,7 @@ describe('PhotoWallService', () => {
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
       service.get().subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Memorys/')
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories/')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('GET')
@@ -36,7 +36,7 @@ describe('PhotoWallService', () => {
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
       service.addMemory('str', new File([''], 'image')).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Memorys')
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('POST')

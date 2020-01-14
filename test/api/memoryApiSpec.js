@@ -10,11 +10,10 @@ const fs = require('fs')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
-const API_URL = 'http://localhost:3000/api'
 
-describe('/api/Memorys', () => {
+describe('/rest/memories', () => {
   it('GET memories via public API', () => {
-    return frisby.get(API_URL + '/Memorys')
+    return frisby.get(REST_URL + '/memories')
       .expect('status', 200)
   })
 
@@ -28,7 +27,7 @@ describe('/api/Memorys', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(API_URL + '/Memorys', {
+        return frisby.get(REST_URL + '/memories', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
@@ -41,7 +40,7 @@ describe('/api/Memorys', () => {
     form.append('image', fs.createReadStream(file), 'Valid Image')
     form.append('caption', 'Valid Image')
 
-    return frisby.post(API_URL + '/Memorys', {
+    return frisby.post(REST_URL + '/memories', {
       headers: {
         'Content-Type': form.getHeaders()['content-type']
       },
@@ -65,7 +64,7 @@ describe('/api/Memorys', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(API_URL + '/Memorys', {
+        return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
@@ -91,7 +90,7 @@ describe('/api/Memorys', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(API_URL + '/Memorys', {
+        return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
