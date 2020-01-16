@@ -173,9 +173,7 @@ module.exports = function placeOrder () {
 function calculateApplicableDiscount (basket, req) {
   if (insecurity.discountFromCoupon(basket.coupon)) {
     const discount = insecurity.discountFromCoupon(basket.coupon)
-    if (utils.notSolved(challenges.forgedCouponChallenge) && discount >= 80) {
-      utils.solve(challenges.forgedCouponChallenge)
-    }
+    utils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
@@ -183,9 +181,7 @@ function calculateApplicableDiscount (basket, req) {
     const couponDate = couponData[1]
     const campaign = campaigns[couponCode]
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      if (utils.notSolved(challenges.manipulateClockChallenge) && campaign.validOn < new Date()) {
-        utils.solve(challenges.manipulateClockChallenge)
-      }
+      utils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date() })
       return campaign.discount
     }
   }
