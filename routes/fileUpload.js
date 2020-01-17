@@ -65,8 +65,10 @@ function checkUploadSize ({ file }, res, next) {
 }
 
 function checkFileType ({ file }, res, next) {
-  utils.solveIf(challenges.uploadTypeChallenge, () => { return !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
-    utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip')) })
+  utils.solveIf(challenges.uploadTypeChallenge, () => {
+    return !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
+    utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip'))
+  })
   next()
 }
 
