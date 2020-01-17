@@ -44,9 +44,7 @@ module.exports = function placeOrder () {
           const basketProducts = []
           let totalPoints = 0
           basket.Products.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
-            if (utils.notSolved(challenges.christmasSpecialChallenge) && BasketItem.ProductId === products.christmasSpecial.id) {
-              utils.solve(challenges.christmasSpecialChallenge)
-            }
+            utils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
 
             models.Quantity.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product) => {
               const newQuantity = product.dataValues.quantity - BasketItem.quantity
@@ -127,9 +125,7 @@ module.exports = function placeOrder () {
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
           doc.end()
 
-          if (utils.notSolved(challenges.negativeOrderChallenge) && totalPrice < 0) {
-            utils.solve(challenges.negativeOrderChallenge)
-          }
+          utils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
 
           if (req.body.UserId) {
             if (req.body.orderDetails.paymentId === 'wallet') {
