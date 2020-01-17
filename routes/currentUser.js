@@ -22,9 +22,7 @@ module.exports = function retrieveLoggedInUser () {
       if (req.query.callback === undefined) {
         res.json(response)
       } else {
-        if (utils.notSolved(challenges.emailLeakChallenge)) {
-          utils.solve(challenges.emailLeakChallenge)
-        }
+        utils.solveIf(challenges.emailLeakChallenge, () => { return true })
         res.jsonp(response)
       }
     }

@@ -16,9 +16,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       defaultValue: '',
       set (username) {
         username = insecurity.sanitizeLegacy(username)
-        if (utils.notSolved(challenges.usernameXssChallenge) && utils.contains(username, '<script>alert(`xss`)</script>')) {
-          utils.solve(challenges.usernameXssChallenge)
-        }
+        utils.solveIf(challenges.usernameXssChallenge, () => { return utils.contains(username, '<script>alert(`xss`)</script>') })
         this.setDataValue('username', username)
       }
     },
@@ -26,9 +24,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       unique: true,
       set (email) {
-        if (utils.notSolved(challenges.persistedXssUserChallenge) && utils.contains(email, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.persistedXssUserChallenge)
-        }
+        utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
         this.setDataValue('email', email)
       }
     },

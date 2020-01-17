@@ -31,9 +31,7 @@ module.exports = function productReviews () {
                     count++
                   }
                 }
-                if (count > 2 && utils.notSolved(challenges.timingAttackChallenge)) {
-                  utils.solve(challenges.timingAttackChallenge)
-                }
+                utils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                 db.reviews.update(
                   { _id: id },
                   { $set: { likedBy: likedBy } }
