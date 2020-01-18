@@ -27,11 +27,7 @@ module.exports = function changePassword () {
         } else {
           models.User.findByPk(loggedInUser.data.id).then(user => {
             user.update({ password: newPassword }).then(user => {
-              if (utils.notSolved(challenges.changePasswordBenderChallenge) && user.id === 3 && !currentPassword) {
-                if (user.password === insecurity.hash('slurmCl4ssic')) {
-                  utils.solve(challenges.changePasswordBenderChallenge)
-                }
-              }
+              utils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === insecurity.hash('slurmCl4ssic') })
               res.json({ user })
             }).catch(error => {
               next(error)

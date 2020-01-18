@@ -50,19 +50,9 @@ module.exports = function resetPassword () {
 }
 
 function verifySecurityAnswerChallenges (user, answer) {
-  if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === users.jim.id && answer === 'Samuel') {
-    utils.solve(challenges.resetPasswordJimChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBenderChallenge) && user.id === users.bender.id && answer === 'Stop\'n\'Drop') {
-    utils.solve(challenges.resetPasswordBenderChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === users.bjoern.id && answer === 'West-2082') {
-    utils.solve(challenges.resetPasswordBjoernChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === users.morty.id && answer === '5N0wb41L') {
-    utils.solve(challenges.resetPasswordMortyChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBjoernOwaspChallenge) && user.id === users.bjoernOwasp.id && answer === 'Zaya') {
-    utils.solve(challenges.resetPasswordBjoernOwaspChallenge)
-  }
+  utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
+  utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
+  utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
+  utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
+  utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
 }
