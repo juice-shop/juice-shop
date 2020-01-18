@@ -272,12 +272,21 @@ products:
     quantity: 0
     image: coaster.jpg
   -
-    name: 'OWASP Snakes and Ladders'
-    description: 'This amazing security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
+    name: 'OWASP Snakes and Ladders - Web Applications'
+    description: 'This amazing web application security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
     price: 0.01
+    quantity: 8
     image: snakes_ladders.jpg
     reviews:
       - { text: 'Wait for a 10$ Steam sale of Tabletop Simulator!', author: bjoernOwasp }
+  -
+    name: 'OWASP Snakes and Ladders - Mobile Apps'
+    description: 'This amazing mobile app security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    quantity: 0
+    image: snakes_ladders_m.jpg
+    reviews:
+      - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
