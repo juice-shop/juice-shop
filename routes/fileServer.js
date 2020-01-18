@@ -32,17 +32,11 @@ module.exports = function servePublicFiles () {
   }
 
   function verifySuccessfulPoisonNullByteExploit (file) {
-    if (utils.notSolved(challenges.easterEggLevelOneChallenge) && file.toLowerCase() === 'eastere.gg') {
-      utils.solve(challenges.easterEggLevelOneChallenge)
-    } else if (utils.notSolved(challenges.directoryListingChallenge) && file.toLowerCase() === 'acquisitions.md') {
-      utils.solve(challenges.directoryListingChallenge)
-    } else if (utils.notSolved(challenges.forgottenDevBackupChallenge) && file.toLowerCase() === 'package.json.bak') {
-      utils.solve(challenges.forgottenDevBackupChallenge)
-    } else if (utils.notSolved(challenges.forgottenBackupChallenge) && file.toLowerCase() === 'coupons_2013.md.bak') {
-      utils.solve(challenges.forgottenBackupChallenge)
-    } else if (utils.notSolved(challenges.misplacedSignatureFileChallenge) && file.toLowerCase() === 'suspicious_errors.yml') {
-      utils.solve(challenges.misplacedSignatureFileChallenge)
-    }
+    utils.solveIf(challenges.easterEggLevelOneChallenge, () => { return file.toLowerCase() === 'eastere.gg' })
+    utils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
+    utils.solveIf(challenges.forgottenDevBackupChallenge, () => { return file.toLowerCase() === 'package.json.bak' })
+    utils.solveIf(challenges.forgottenBackupChallenge, () => { return file.toLowerCase() === 'coupons_2013.md.bak' })
+    utils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
   }
 
   function endsWithWhitelistedFileType (param) {

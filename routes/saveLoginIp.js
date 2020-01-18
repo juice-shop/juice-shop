@@ -14,9 +14,7 @@ module.exports = function saveLoginIp () {
     var loggedInUser = insecurity.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       var lastLoginIp = req.headers['true-client-ip']
-      if (utils.notSolved(challenges.httpHeaderXssChallenge) && lastLoginIp === '<iframe src="javascript:alert(`xss`)">') {
-        utils.solve(challenges.httpHeaderXssChallenge)
-      }
+      utils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
       if (lastLoginIp === undefined) {
         lastLoginIp = utils.toSimpleIpAddress(req.connection.remoteAddress)
       }

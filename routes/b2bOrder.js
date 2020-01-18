@@ -20,15 +20,11 @@ module.exports = function b2bOrder () {
         res.json({ cid: body.cid, orderNo: uniqueOrderNumber(), paymentDue: dateTwoWeeksFromNow() })
       } catch (err) {
         if (err.message && err.message.match(/Script execution timed out.*/)) {
-          if (utils.notSolved(challenges.rceOccupyChallenge)) {
-            utils.solve(challenges.rceOccupyChallenge)
-          }
+          utils.solveIf(challenges.rceOccupyChallenge, () => { return true })
           res.status(503)
           next(new Error('Sorry, we are temporarily not available! Please try again later.'))
         } else {
-          if (utils.notSolved(challenges.rceChallenge) && err.message === 'Infinite loop detected - reached max iterations') {
-            utils.solve(challenges.rceChallenge)
-          }
+          utils.solveIf(challenges.rceChallenge, () => { return err.message === 'Infinite loop detected - reached max iterations' })
           next(err)
         }
       }
