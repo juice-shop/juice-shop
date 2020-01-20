@@ -81,3 +81,69 @@ describe('/profile/image/file', () => {
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })
+
+describe('/profile/image/url', () => {
+  it('POST profile image URL valid for image available online', () => {
+    const form = frisby.formData()
+    form.append('imageUrl', 'https://placekitten.com/g/100/100')
+
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(URL + '/profile/image/url', {
+          headers: {
+            Cookie: 'token=' + jsonLogin.authentication.token,
+            'Content-Type': form.getHeaders()['content-type']
+          },
+          body: form,
+          redirect: 'manual'
+        })
+          .expect('status', 302)
+      })
+  })
+
+  it('POST profile image URL redirects even for invalid image URL', () => {
+    const form = frisby.formData()
+    form.append('imageUrl', 'https://notanimage.here/100/100')
+
+    return frisby.post(REST_URL + '/user/login', {
+      headers: jsonHeader,
+      body: {
+        email: 'jim@' + config.get('application.domain'),
+        password: 'ncc-1701'
+      }
+    })
+      .expect('status', 200)
+      .then(({ json: jsonLogin }) => {
+        return frisby.post(URL + '/profile/image/url', {
+          headers: {
+            Cookie: 'token=' + jsonLogin.authentication.token,
+            'Content-Type': form.getHeaders()['content-type']
+          },
+          body: form,
+          redirect: 'manual'
+        })
+          .expect('status', 302)
+      })
+  })
+
+  it('POST profile image URL forbidden for anonymous user', () => {
+    const form = frisby.formData()
+    form.append('imageUrl', 'https://placekitten.com/g/100/100')
+
+    return frisby.post(URL + '/profile/image/url', {
+      headers: { 'Content-Type': form.getHeaders()['content-type'] },
+      body: form
+    })
+      .expect('status', 500)
+      .expect('header', 'content-type', /text\/html/)
+      .expect('bodyContains', 'Error: Blocked illegal activity')
+  })
+})
+
