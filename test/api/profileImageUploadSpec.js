@@ -146,4 +146,3 @@ describe('/profile/image/url', () => {
       .expect('bodyContains', 'Error: Blocked illegal activity')
   })
 })
-
