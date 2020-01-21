@@ -287,6 +287,16 @@ products:
     image: snakes_ladders_m.jpg
     reviews:
       - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
+  -
+    name: 'OWASP Juice Shop Holographic Sticker'
+    description: "Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!"
+    price: 2.00
+    quantity: 0
+    image: holo_sticker.png
+    reviews:
+      - { text: "Rad, dude!", author: rapper }
+      - { text: "Looks spacy on Bones' new tricorder!", author: jim }
+      - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
