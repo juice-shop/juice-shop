@@ -33,6 +33,7 @@ interface Config {
       slackUrl: string
       redditUrl: string
       pressKitUrl: string
+      questionnaireUrl: string
     }
     recyclePage: {
       topProductImage: string
