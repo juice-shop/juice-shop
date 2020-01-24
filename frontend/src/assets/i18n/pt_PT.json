@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "resolvido",
   "STATUS_UNAVAILABLE": "não disponível",
   "CALL_FOR_CONTRIBUTIONS": "Tem uma ideia para um novo desafio ? Encontrou uma vulnerabilidade que não está listada aqui? Fale connosco  através do chat da comunidade no <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> ou abrindo um issue no <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "Você resolveu com sucesso um desafio: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Código inválido. Para prosseguir insira um codigo correto",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Login aceite através de um provider de OAuth 2.0.",
