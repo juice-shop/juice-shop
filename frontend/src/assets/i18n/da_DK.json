@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "løst",
   "STATUS_UNAVAILABLE": "utilgængelig",
   "CALL_FOR_CONTRIBUTIONS": "Har du en idé til en ny udfordring? Har du fundet en sårbarhed, der ikke spores her? Lad os vide via <a ref='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i></a>Gitter.im</a> community chat eller ved at åbne en <a ref='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> problem!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "Det lykkedes dig at løse en udfordring: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Ugyldig kode for fortsættelse.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Du er logget ind via OAuth 2.0-udbyder.",
