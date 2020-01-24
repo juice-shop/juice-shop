@@ -13,6 +13,7 @@ application:
     slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
     redditUrl: null
     pressKitUrl: 'https://www.alldaydevops.com/2019resources'
+    questionnaireUrl: null
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: undefined.png

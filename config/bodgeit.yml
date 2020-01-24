@@ -13,6 +13,7 @@ application:
     slackUrl: null
     redditUrl: null
     pressKitUrl: null
+    questionnaireUrl: null
   recyclePage:
     topProductImage: undefined.png
     bottomProductImage: thingie1.jpg

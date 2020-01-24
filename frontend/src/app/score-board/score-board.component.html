@@ -3,14 +3,12 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<diV fxLayout="column">
+<div fxLayout="column">
   <mat-card>
-
     <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
       <small class="confirmation">{{percentChallengesSolved}}%</small>
     </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
-
   </mat-card>
 
   <mat-card>
@@ -115,8 +113,12 @@
     </mat-table>
   </mat-card>
 
-  <mat-card *ngIf="showContributionInfoBox" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
-</diV>
+  <div *ngIf="showContributionInfoBox || questionnaireUrl" fxLayout="row" fxLayout.lt-lg="column">
+    <mat-card *ngIf="showContributionInfoBox" fxFlex="40%" fxFlex.lt-lg="100%" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
+    <span class="fill-remaining-space"></span>
+    <mat-card *ngIf="questionnaireUrl" fxFlex="20%" fxFlex.lt-lg="100%" class="warn-notification" [innerHTML]="'CALL_FOR_FEEDBACK' | translate: {appname: appName, questionnaire: questionnaireUrl}"></mat-card>
+  </div>
+</div>
 
 <img src="assets/public/images/padding/1px.png"/>
 
