@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "해결",
   "STATUS_UNAVAILABLE": "사용 불가",
   "CALL_FOR_CONTRIBUTIONS": "새로운 도전 과제 아이디어가 있으신가요? 여기에 등록되지 않은 취약점을 찾으셨나요? <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> 커뮤니티 채팅이나 <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a>에 티켓을 만들어주세요!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "성공적으로 도전과제를 풀었습니다: {{challenge}}",
   "INVALID_CONTINUE_CODE": "잘못된 코드입니다.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "OAuth 2.0를 통해 로그인 되었습니다.",
