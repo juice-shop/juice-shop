@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "glöst",
   "STATUS_UNAVAILABLE": "nid verfügbar",
   "CALL_FOR_CONTRIBUTIONS": "Hesch ä Idee für ne nöie Useforderig? Hesch ä Schwachsteu gfunge, wo hie nid ufgfüert isch? Gib nis Bscheid via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> Community-Chat oder ersteu ä <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> Issue!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "Guet gmacht! Du hesch erfougrich ä Useforderig glöst: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Ungüutige Code zum Witermache.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Du bisch mittus OAuth 2.0-Abieter agmäudet worde.",
