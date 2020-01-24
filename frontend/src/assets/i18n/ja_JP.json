@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "解決済み",
   "STATUS_UNAVAILABLE": "利用できません",
   "CALL_FOR_CONTRIBUTIONS": "なにかやってみると良いアイデアがひらめきましたか？ここに記録されていない脆弱性を見つけましたか？<a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a>コミュニティチャットか、<a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>Github</a>issueから教えてください！",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "チャレンジを解決しました: {{challenge}}",
   "INVALID_CONTINUE_CODE": "無効なコンティニューコード",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "OAuth 2.0　プロバイダー経由でログインしました",
