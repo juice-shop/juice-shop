@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "ამოხსნილი",
   "STATUS_UNAVAILABLE": "არ არის ხელმისაწვდომი",
   "CALL_FOR_CONTRIBUTIONS": "გაქვთ იდეა ახალი დავალებისთვის?იპოვეთ შეცდომა რომელიც აქ არ არის განხილული?გაგვაგებინეთ <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> ჩათის მეშვეობით ან საკითხის <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> -ზე გახსნით!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "თქვენი წარმატებით ამოხსენით დავალება:{{challenge}}",
   "INVALID_CONTINUE_CODE": "არავალიდური გაგრძელების კოდი.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "თქვენ შემოხვედით OAuth 2.0 პროვაიდერის მეშვეობით.",
