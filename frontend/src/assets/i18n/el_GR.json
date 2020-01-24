@@ -109,6 +109,7 @@
   "STATUS_SOLVED": "Ολοκληρωμένο",
   "STATUS_UNAVAILABLE": "Μη διαθέσιμο",
   "CALL_FOR_CONTRIBUTIONS": "Έχετε να προτείνετε κάποια νέα Δοκιμασία; Βρήκατε κάποια ευπάθεια που δέν παρουσιάζεται; Ενημερώστε μας στο <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat ή καταχωρώντας ένα <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "Ολοκληρώσατε με επιτυχία μία Δοκιμασία: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Μή έγκυρος κώδικας συνέχειας (continue code).",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "Συνδεθήκατε μέσω παρόχου OAuth 2.0.",
