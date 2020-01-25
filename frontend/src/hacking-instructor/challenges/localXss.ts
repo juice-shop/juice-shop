@@ -87,7 +87,7 @@ export const DomXssInstruction: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: <code>&lt;iframe src=\"javascript:alert(&#96;xss&#96;)\"&gt;&lt;/iframe&gt;</code>.",
+      text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: <code>&lt;iframe src=\"javascript:alert(&#96;xss&#96;)\"&gt;</code>.",
       fixture: '#searchQuery',
       unskippable: true,
       resolved: waitForInputToHaveValue('#searchQuery input', '<iframe src="javascript:alert(`xss`)">')
