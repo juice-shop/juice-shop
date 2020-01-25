@@ -85,7 +85,7 @@ export const DomXssInstruction: ChallengeInstruction = {
       text: "Luckily there are _many_ different XSS payloads we can try. Let's try this one next: <code>&lt;iframe src=\"javascript:alert(&#96;xss&#96;)\"&gt;&lt;/iframe&gt;</code>.",
       fixture: '#searchQuery',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#searchQuery input', '<iframe src="javascript:alert(`xss`)"></iframe>')
+      resolved: waitForInputToHaveValue('#searchQuery input', '<iframe src="javascript:alert(`xss`)">')
     },
     {
       text: 'Hit enter one more time. If an alert box appears, you must confirm it in order to close it.',
