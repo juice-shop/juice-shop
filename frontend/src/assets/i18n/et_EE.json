@@ -237,6 +237,7 @@
   "CONFIRM_ERASURE_REQUEST": "Kahju, et sa lahkud! Kustutamise taotlusega tegeldakse peagi.",
   "INFO_HACKING_INSTRUCTOR": "Käivitage interaktiivne häkkimisõpetus selle väljakutse jaoks.",
   "SCORE_BOARD_HACKING_INSTRUCTOR": "Käivita juhend Juice Shop keskkona häkkimise alustamiseks.",
+  "BTN_GETTING_STARTED": "Help me getting started!",
   "BTN_DISMISS": "Tühista",
   "SIDENAV_HINT": "Ava kõrvalmenüü",
   "LANGUAGE_SEL_HINT": "Vali keel",
