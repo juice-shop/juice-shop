@@ -1,5 +1,5 @@
 {
-	"Find the carefully hidden 'Score Board' page.": "Find the carefully hidden 'Score Board' page.",
+	"Find the carefully hidden 'Score Board' page.": "ابحث عن صفحة \"لوحة النتائج\" المخفية بعناية (Score Board).",
 	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.",
 	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
