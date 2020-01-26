@@ -237,6 +237,7 @@
   "CONFIRM_ERASURE_REQUEST": "Sorry to see you leave! Your erasure request will be processed shortly.",
   "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
   "SCORE_BOARD_HACKING_INSTRUCTOR": "Launch a tutorial to get you started hacking the Juice Shop.",
+  "BTN_GETTING_STARTED": "Help me getting started!",
   "BTN_DISMISS": "Dismiss",
   "SIDENAV_HINT": "Open side menu",
   "LANGUAGE_SEL_HINT": "Hol wutlh",
