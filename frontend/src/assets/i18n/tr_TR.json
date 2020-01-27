@@ -79,6 +79,7 @@
   "THANKS_FOR_SUPPORT": "{{juiceshop}}'u desteklediğiniz için teşekkür ederiz!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "{{appname}} arkasından açık kaynak projeyi desteklediğiniz için teşekkür ederiz!",
   "LABEL_PAYMENT": "Ödeme",
+  "LABEL_DONATIONS": "Donations",
   "LABEL_MERCHANDISE": "Ürünler",
   "OFFICIAL_MERCHANDISE_STORES": "{{juiceshop}} kıyafetleri, kupaları ve çıkartmaları için resmi mağaza!",
   "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "{{appname}} arkasında, açık kaynak proje için kıyafet, kupa, etiket için resmi mağazalar!",
