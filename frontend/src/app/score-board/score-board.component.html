@@ -62,8 +62,8 @@
     <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm translate>LABEL_NAME</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm> {{challenge.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="difficulty">
@@ -74,9 +74,9 @@
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
         </mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 50%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
