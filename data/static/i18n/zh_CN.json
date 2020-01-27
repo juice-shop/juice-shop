@@ -249,7 +249,6 @@
 	"OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)": "OWASP Juice Shop 瑞典巡回演唱会2017贴纸(特别版)",
 	"10 sheets of Sweden-themed stickers with 15 stickers on each.": "10张以瑞典为主题的贴纸，每张15个贴纸。",
 	"Pwning OWASP Juice Shop": "攻克 OWASP Juice Shop",
-	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and <a href=\"https://pwning.owasp-juice.shop/\">readable online</a>!": "Björn Kimminich编写的<em>官方完全指南</em> 可在<a href=\"https://leanpub.com/juice-shop\">LeanPub</a> 免费阅览和 <a href=\"https://pwning.owasp-juice.shop\">在线阅览</a>!",
 	"Melon Bike (Comeback-Product 2018 Edition)": "Melon自行车 (2018重制版)",
 	"The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.": "这辆自行车的车轮是用真正的西瓜制成的。 您可能不想过分用力将其沿上下路边骑行。",
 	"OWASP Juice Shop Coaster (10pcs)": "OWASP Juice Shop 杯垫 (10个)",
@@ -267,5 +266,12 @@
 	"Order Confirmation": "订单确认",
 	"Customer": "客户",
 	"Order": "订单",
-	"Date": "日期"
+	"Date": "日期",
+	"OWASP Juice Shop Holographic Sticker": "OWASP Juice Shop Holographic Sticker",
+	"Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!": "Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!",
+	"OWASP Snakes and Ladders - Mobile Apps": "OWASP Snakes and Ladders - Mobile Apps",
+	"This amazing mobile app security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216\">available for Tabletop Simulator on Steam Workshop</a> now!": "This amazing mobile app security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216\">available for Tabletop Simulator on Steam Workshop</a> now!",
+	"OWASP Snakes and Ladders - Web Applications": "OWASP Snakes and Ladders - Web Applications",
+	"This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!": "This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!",
+	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!": "<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!"
 }
