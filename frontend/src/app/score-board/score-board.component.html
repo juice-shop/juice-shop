@@ -67,8 +67,8 @@
       </ng-container>
 
       <ng-container matColumnDef="difficulty">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_DIFFICULTY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_DIFFICULTY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
           <bar-rating [rate]="challenge.difficulty" [max]="challenge.difficulty" readOnly="true"></bar-rating>
         </mat-cell>
       </ng-container>
@@ -82,8 +82,8 @@
       </ng-container>
 
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_CATEGORY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.category}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg> {{challenge.category}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
