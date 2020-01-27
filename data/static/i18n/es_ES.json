@@ -145,7 +145,6 @@
 	"No matter how good your eyes are, you will need tool assistance for this challenge.": "No matter how good your eyes are, you will need tool assistance for this challenge.",
 	"Perform a Remote Code Execution that occupies the server for a while without using infinite loops.": "Perform a Remote Code Execution that occupies the server for a while without using infinite loops.",
 	"Your attack payload must not trigger the protection against too many iterations.": "Your attack payload must not trigger the protection against too many iterations.",
-	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)": "<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)",
 	"This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.": "This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.",
 	"Solve the 2FA challenge for user \"wurstbrot\". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)": "Solve the 2FA challenge for user \"wurstbrot\". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)",
 	"The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.": "The 2FA implementation requires to store a secret for every user. You will need to find a way to access this secret in order to solve this challenge.",
@@ -273,5 +272,14 @@
 	"This amazing mobile app security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216\">available for Tabletop Simulator on Steam Workshop</a> now!": "This amazing mobile app security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216\">available for Tabletop Simulator on Steam Workshop</a> now!",
 	"OWASP Snakes and Ladders - Web Applications": "OWASP Snakes and Ladders - Web Applications",
 	"This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!": "This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!",
-	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!": "<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!"
+	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!": "<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!",
+	"We are out of stock! Sorry for the inconvenience.": "We are out of stock! Sorry for the inconvenience.",
+	"Wrong answer to CAPTCHA. Please try again.": "Wrong answer to CAPTCHA. Please try again.",
+	"Invalid email or password.": "Invalid email or password.",
+	"Current password is not correct.": "Current password is not correct.",
+	"Password cannot be empty.": "Password cannot be empty.",
+	"New and repeated password do not match.": "New and repeated password do not match.",
+	"Wrong answer to security question.": "Wrong answer to security question.",
+	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)": "<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)",
+	"You can order only up to {{quantity}} items of this product.": "You can order only up to {{quantity}} items of this product."
 }
