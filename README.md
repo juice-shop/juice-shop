@@ -36,7 +36,7 @@ overview please visit the official project page:
 ## Setup
 
 > You can find some less common installation variations in
-> [the _Running OWASP Juice Shop_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/running.html).
+> [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
@@ -179,7 +179,7 @@ Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
 For detailed instructions and examples please refer to
-[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+[our _Customization_ documentation](https://pwning.owasp-juice.shop/part1/customization.html).
 
 ## CTF-Extension
 
@@ -191,13 +191,13 @@ official
 tool.
 
 For step-by-step instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+[the _Hosting a CTF event_ chapter](https://pwning.owasp-juice.shop/part1/ctf.html)
 of our companion guide ebook.
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
 If you need help with the application setup please check our
-[our existing _Troubleshooting_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html)
+[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/appendix/troubleshooting.html)
 guide. If this does not solve your issue please post your specific
 problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community
@@ -258,7 +258,7 @@ forking and opening a Pull Request!
   sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
-[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+[contribute to the project](https://pwning.owasp-juice.shop/part3/contribution.html)
 by fixing an issue, finding a serious bug or submitting a good idea for
 a new challenge!
 
@@ -282,7 +282,7 @@ way to support the project.
 OWASP hosts a
 [donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
 Refer to the
-[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
+[Credit card donation step-by-step](https://pwning.owasp-juice.shop/part3/donations.html#credit-card-donation-step-by-step)
 guide for help with filling out the donation form correctly.
 
 ## Contributors
