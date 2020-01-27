@@ -12,7 +12,6 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
   faCoffee,
-  faCreditCard,
   faGift,
   faHandHoldingUsd,
   faHeart,
@@ -31,7 +30,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 
-library.add(faCartArrowDown, faGift, faCreditCard, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
+library.add(faCartArrowDown, faGift, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
 dom.watch()
 
 @Component({

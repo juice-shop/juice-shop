@@ -11,7 +11,10 @@
       <div fxFlex="30%">
           <mat-card class="mat-elevation-z6">
                <button mat-raised-button mat-button class="btn btn-new-address" color="primary" aria-label="Proceed to payment selection" [disabled]="addressId === undefined" (click)="chooseAddress()">
-                  <span translate>LABEL_CONTINUE</span>
+                 <mat-icon>
+                   navigate_next
+                 </mat-icon>
+                 <span translate>LABEL_CONTINUE</span>
               </button>
           </mat-card>
       </div>
