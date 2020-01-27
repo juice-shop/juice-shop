@@ -15,15 +15,15 @@ module.exports = function changePassword () {
     const newPassword = query.new
     const repeatPassword = query.repeat
     if (!newPassword || newPassword === 'undefined') {
-      res.status(401).send('Password cannot be empty.')
+      res.status(401).send(res.__('Password cannot be empty.'))
     } else if (newPassword !== repeatPassword) {
-      res.status(401).send('New and repeated password do not match.')
+      res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
       const token = headers.authorization ? headers.authorization.substr('Bearer='.length) : null
       const loggedInUser = insecurity.authenticatedUsers.get(token)
       if (loggedInUser) {
         if (currentPassword && insecurity.hash(currentPassword) !== loggedInUser.data.password) {
-          res.status(401).send('Current password is not correct.')
+          res.status(401).send(res.__('Current password is not correct.'))
         } else {
           models.User.findByPk(loggedInUser.data.id).then(user => {
             user.update({ password: newPassword }).then(user => {
