@@ -79,6 +79,7 @@
   "THANKS_FOR_SUPPORT": "Obrigado pelo suporte {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Obrigado por apoiar o projeto open-source, colaborado por {{appname}}!",
   "LABEL_PAYMENT": "Pagamento",
+  "LABEL_DONATIONS": "Donations",
   "LABEL_MERCHANDISE": "Mercadorias",
   "OFFICIAL_MERCHANDISE_STORES": "Loja oficial para comprar roupas, canecas e adesivos do {{juiceshop}}!",
   "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "Lojas oficiais de vestuário, canecas e adesivos do projeto de código aberto colaborado por {{appname}}!",
