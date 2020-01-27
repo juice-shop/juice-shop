@@ -18,9 +18,9 @@ module.exports = function resetPassword () {
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
     } else if (!newPassword || newPassword === 'undefined') {
-      res.status(401).send('Password cannot be empty.')
+      res.status(401).send(res.__('Password cannot be empty.'))
     } else if (newPassword !== repeatPassword) {
-      res.status(401).send('New and repeated password do not match.')
+      res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
       models.SecurityAnswer.findOne({
         include: [{
@@ -40,7 +40,7 @@ module.exports = function resetPassword () {
             next(error)
           })
         } else {
-          res.status(401).send('Wrong answer to security question.')
+          res.status(401).send(res.__('Wrong answer to security question.'))
         }
       }).catch(error => {
         next(error)
