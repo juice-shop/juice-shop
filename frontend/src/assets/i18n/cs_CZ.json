@@ -79,6 +79,7 @@
   "THANKS_FOR_SUPPORT": "Děkujeme za podporu {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Děkujeme vám za podporu open-source projektu {{appname}}!",
   "LABEL_PAYMENT": "Platba",
+  "LABEL_DONATIONS": "Donations",
   "LABEL_MERCHANDISE": "Zboží",
   "OFFICIAL_MERCHANDISE_STORES": "Oficiální obchody {{juiceshop}} oděvů, hrnků a samolepek!",
   "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "Oficiální obchody pro oděv, hrnky a samolepku open source projektu za {{appname}}!",
