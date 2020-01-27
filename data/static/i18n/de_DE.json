@@ -273,13 +273,13 @@
 	"OWASP Snakes and Ladders - Web Applications": "OWASP Schlangen und Leitern - Web-Anwendungen",
 	"This amazing web application security awareness board game is <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">available for Tabletop Simulator on Steam Workshop</a> now!": "Dieses fantastische Brettspiel für Sicherheitsbewusstsein bei Webanwendungen ist jetzt <a href=\"https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030\">für Tabletop Simulator im Steam Workshop erhältlich</a>!",
 	"<em>The official Companion Guide</em> by Björn Kimminich available <a href=\"https://leanpub.com/juice-shop\">for free on LeanPub</a> and also <a href=\"https://pwning.owasp-juice.shop\">readable online</a>!": "<em>Der offizielle Begleitführer</em> von Björn Kimminich ist <a href=\"https://leanpub.com/juice-shop\">kostenlos auf LeanPub</a> erhältlich und auch <a href=\"https://pwning.owasp-juice.shop\">zum online Lesen</a> verfügbar!",
-	"We are out of stock! Sorry for the inconvenience.": "We are out of stock! Sorry for the inconvenience.",
-	"Wrong answer to CAPTCHA. Please try again.": "Wrong answer to CAPTCHA. Please try again.",
-	"Invalid email or password.": "Invalid email or password.",
-	"Current password is not correct.": "Current password is not correct.",
-	"Password cannot be empty.": "Password cannot be empty.",
-	"New and repeated password do not match.": "New and repeated password do not match.",
-	"Wrong answer to security question.": "Wrong answer to security question.",
-	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)": "<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)",
-	"You can order only up to {{quantity}} items of this product.": "You can order only up to {{quantity}} items of this product."
+	"We are out of stock! Sorry for the inconvenience.": "Unser Lagerbestand ist erschöpft! Entschuldigung für die Unannehmlichkeiten.",
+	"Wrong answer to CAPTCHA. Please try again.": "Falsche Antwort auf das CAPTCHA. Bitte versuche es erneut.",
+	"Invalid email or password.": "Email-Adresse oder Passwort ungültig.",
+	"Current password is not correct.": "Aktuelles Passwort ist nicht korrekt.",
+	"Password cannot be empty.": "Passwort darf nicht leer sein.",
+	"New and repeated password do not match.": "Neues und wiederholtes Passwort stimmen nicht überein.",
+	"Wrong answer to security question.": "Falsche Antwort auf Sicherheitsfrage.",
+	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)": "<a href=\"/#/contact\">Informiere das Entwicklungsteam</a> über eine Gefährdung einiger <em>ihrer</em> Anmeldedaten. (Sende ihnen die URL der <em>ursprünglichen Meldung</em> oder eine zugewiesene CVE oder andere Kennung dieser Verwundbarkeit)",
+	"You can order only up to {{quantity}} items of this product.": "Sie können nur bis zu {{quantity}} Exemplare dieses Produkts bestellen."
 }
