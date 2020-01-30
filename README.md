@@ -271,12 +271,11 @@ your plans! !
 ## Donations [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
 
 The OWASP Foundation gratefully accepts donations via Stripe. Projects
-such as Juice Shop can then request reimbursement for expenses (like
-those listed above) from the Foundation. If you'd like to express your
-support of the Juice Shop project, please make sure to tick the
-"Publicly list me as a supporter of OWASP Juice Shop" checkbox on the
-donation form. You can find our more about donations and how they are
-used here:
+such as Juice Shop can then request reimbursement for expenses from the
+Foundation. If you'd like to express your support of the Juice Shop
+project, please make sure to tick the "Publicly list me as a supporter
+of OWASP Juice Shop" checkbox on the donation form. You can find our
+more about donations and how they are used here:
 
 <https://pwning.owasp-juice.shop/part3/donations.html>
 
