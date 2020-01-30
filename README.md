@@ -268,21 +268,17 @@ Shop! Just
 or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
 your plans! !
 
-## Donations
+## Donations [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
 
-### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop%20Project&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
+The OWASP Foundation gratefully accepts donations via Stripe. Projects
+such as Juice Shop can then request reimbursement for expenses (like
+those listed above) from the Foundation. If you'd like to express your
+support of the Juice Shop project, please make sure to tick the
+"Publicly list me as a supporter of OWASP Juice Shop" checkbox on the
+donation form. You can find our more about donations and how they are
+used here:
 
-PayPal donations via above button go to the OWASP Foundations and are
-earmarked for "Juice Shop". This is the preferred and most convenient
-way to support the project.
-
-### Credit Card (through RegOnline)
-
-OWASP hosts a
-[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
-Refer to the
-[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
-guide for help with filling out the donation form correctly.
+<https://pwning.owasp-juice.shop/part3/donations.html>
 
 ## Contributors
 
