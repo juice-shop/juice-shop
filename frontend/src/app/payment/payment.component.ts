@@ -20,8 +20,7 @@ import {
   faTimes,
   faTshirt
 } from '@fortawesome/free-solid-svg-icons'
-import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
-import { faBtc, faEthereum, faLeanpub, faPatreon, faPaypal } from '@fortawesome/free-brands-svg-icons'
+import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
@@ -30,7 +29,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 
-library.add(faCartArrowDown, faGift, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
+library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
 
 @Component({
