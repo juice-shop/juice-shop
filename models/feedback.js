@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
@@ -10,9 +15,7 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       set (comment) {
         const sanitizedComment = insecurity.sanitizeHtml(comment)
         this.setDataValue('comment', sanitizedComment)
-        if (utils.notSolved(challenges.persistedXssFeedbackChallenge) && utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.persistedXssFeedbackChallenge)
-        }
+        utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
       }
     },
     rating: {
@@ -20,9 +23,7 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       allowNull: false,
       set (rating) {
         this.setDataValue('rating', rating)
-        if (utils.notSolved(challenges.zeroStarsChallenge) && rating === 0) {
-          utils.solve(challenges.zeroStarsChallenge)
-        }
+        utils.solveIf(challenges.zeroStarsChallenge, () => { return rating === 0 })
       }
     }
   })

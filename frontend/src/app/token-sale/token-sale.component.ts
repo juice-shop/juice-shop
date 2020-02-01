@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'

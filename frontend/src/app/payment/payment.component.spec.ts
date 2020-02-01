@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
@@ -128,13 +133,13 @@ describe('PaymentComponent', () => {
   })
 
   it('should use custom twitter URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
     expect(component.twitterUrl).toBe('twitter')
   })
 
   it('should use custom facebook URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { facebookUrl: 'facebook' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
     component.ngOnInit()
     expect(component.facebookUrl).toBe('facebook')
   })

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Router } from '@angular/router'
 import { FormControl, Validators } from '@angular/forms'
 import { Component } from '@angular/core'

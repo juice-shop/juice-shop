@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const frisby = require('frisby')
 const config = require('config')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
 
-describe('/rest/deluxe-status', () => {
+describe('/rest/deluxe-membership', () => {
   it('GET deluxe membership status for customers', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
@@ -15,7 +20,7 @@ describe('/rest/deluxe-status', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/deluxe-status', {
+        return frisby.get(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 200)
@@ -33,7 +38,7 @@ describe('/rest/deluxe-status', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/deluxe-status', {
+        return frisby.get(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
@@ -51,7 +56,7 @@ describe('/rest/deluxe-status', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/deluxe-status', {
+        return frisby.get(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
@@ -69,17 +74,15 @@ describe('/rest/deluxe-status', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.get(REST_URL + '/deluxe-status', {
+        return frisby.get(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
         })
           .expect('status', 400)
           .expect('json', 'error', 'You are not eligible for deluxe membership!')
       })
   })
-})
 
-describe('/rest/upgrade-deluxe', () => {
-  it('GET upgrade deluxe membership status for customers', () => {
+  it('POST upgrade deluxe membership status for customers', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -89,7 +92,7 @@ describe('/rest/upgrade-deluxe', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/upgrade-deluxe', {
+        return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             payUsingWallet: false
@@ -100,7 +103,7 @@ describe('/rest/upgrade-deluxe', () => {
       })
   })
 
-  it('GET deluxe membership status for deluxe members throws error', () => {
+  it('POST deluxe membership status for deluxe members throws error', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -110,7 +113,7 @@ describe('/rest/upgrade-deluxe', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/upgrade-deluxe', {
+        return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             payUsingWallet: false
@@ -121,7 +124,7 @@ describe('/rest/upgrade-deluxe', () => {
       })
   })
 
-  it('GET deluxe membership status for admin throws error', () => {
+  it('POST deluxe membership status for admin throws error', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -131,7 +134,7 @@ describe('/rest/upgrade-deluxe', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/upgrade-deluxe', {
+        return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             payUsingWallet: false
@@ -142,7 +145,7 @@ describe('/rest/upgrade-deluxe', () => {
       })
   })
 
-  it('GET deluxe membership status for accountant throws error', () => {
+  it('POST deluxe membership status for accountant throws error', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
       body: {
@@ -152,7 +155,7 @@ describe('/rest/upgrade-deluxe', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(REST_URL + '/upgrade-deluxe', {
+        return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             payUsingWallet: false

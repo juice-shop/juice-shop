@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { SocketIoService } from '../Services/socket-io.service'

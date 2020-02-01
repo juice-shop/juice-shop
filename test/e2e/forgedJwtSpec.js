@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 describe('/', () => {
   describe('challenge "jwtUnsigned"', () => {
     it('should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ', () => {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'

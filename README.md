@@ -7,6 +7,7 @@
 [![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/bkimminich/juice-shop)](https://codeclimate.com/github/bkimminich/juice-shop/trends/technical_debt)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
 ![GitHub stars](https://img.shields.io/github/stars/bkimminich/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -35,7 +36,7 @@ overview please visit the official project page:
 ## Setup
 
 > You can find some less common installation variations in
-> [the _Running OWASP Juice Shop_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/running.html).
+> [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
@@ -178,7 +179,7 @@ Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
 For detailed instructions and examples please refer to
-[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+[our _Customization_ documentation](https://pwning.owasp-juice.shop/part1/customization.html).
 
 ## CTF-Extension
 
@@ -190,13 +191,13 @@ official
 tool.
 
 For step-by-step instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+[the _Hosting a CTF event_ chapter](https://pwning.owasp-juice.shop/part1/ctf.html)
 of our companion guide ebook.
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
 If you need help with the application setup please check our
-[our existing _Troubleshooting_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html)
+[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/appendix/troubleshooting.html)
 guide. If this does not solve your issue please post your specific
 problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community
@@ -207,8 +208,7 @@ questions!**
 
 ## Documentation
 
-### Pwning OWASP Juice Shop [![](https://img.shields.io/leanpub/book/pages/juice-shop.svg)](https://leanpub.com/juice-shop) [![](https://img.shields.io/leanpub/book/sold/juice-shop.svg)](https://leanpub.com/juice-shop) [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
-
+### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
 
 This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
@@ -258,7 +258,7 @@ forking and opening a Pull Request!
   sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
-[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+[contribute to the project](https://pwning.owasp-juice.shop/part3/contribution.html)
 by fixing an issue, finding a serious bug or submitting a good idea for
 a new challenge!
 
@@ -269,21 +269,16 @@ Shop! Just
 or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
 your plans! !
 
-## Donations
+## Donations [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
 
-### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop%20Project&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
+The OWASP Foundation gratefully accepts donations via Stripe. Projects
+such as Juice Shop can then request reimbursement for expenses from the
+Foundation. If you'd like to express your support of the Juice Shop
+project, please make sure to tick the "Publicly list me as a supporter
+of OWASP Juice Shop" checkbox on the donation form. You can find our
+more about donations and how they are used here:
 
-PayPal donations via above button go to the OWASP Foundations and are
-earmarked for "Juice Shop". This is the preferred and most convenient
-way to support the project.
-
-### Credit Card (through RegOnline)
-
-OWASP hosts a
-[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
-Refer to the
-[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
-guide for help with filling out the donation form correctly.
+<https://pwning.owasp-juice.shop/part3/donations.html>
 
 ## Contributors
 
