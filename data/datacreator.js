@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 const models = require('../models/index')
 const datacache = require('./datacache')
@@ -47,7 +52,7 @@ module.exports = async () => {
 }
 
 async function createChallenges () {
-  const showHints = config.get('application.showChallengeHints')
+  const showHints = config.get('challenges.showHints')
 
   const challenges = await loadStaticData('challenges')
 
@@ -280,7 +285,7 @@ function createProducts () {
     blueprint = utils.extractFilename(blueprint)
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
-  datacache.retrieveBlueprintChallengeFile = blueprint // TODO Do not cache separately but load from config where needed (same as keywordsForPastebinDataLeakChallenge)
+  datacache.retrieveBlueprintChallengeFile = blueprint
 
   return Promise.all(
     products.map(
@@ -314,7 +319,7 @@ function createProducts () {
               reviews.map(({ text, author }) =>
                 mongodb.reviews.insert({
                   message: text,
-                  author: `${author}@${config.get('application.domain')}`,
+                  author: datacache.users[author].email,
                   product: id,
                   likesCount: 0,
                   likedBy: []

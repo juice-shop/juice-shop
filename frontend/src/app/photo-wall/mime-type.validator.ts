@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { AbstractControl } from '@angular/forms'
 import { Observable, Observer, of } from 'rxjs'
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
@@ -9,12 +14,10 @@ module.exports = function retrieveBasket () {
     models.Basket.findOne({ where: { id }, include: [{ model: models.Product, paranoid: false }] })
       .then(basket => {
         /* jshint eqeqeq:false */
-        if (utils.notSolved(challenges.basketAccessChallenge)) {
+        utils.solveIf(challenges.basketAccessChallenge, () => {
           const user = insecurity.authenticatedUsers.from(req)
-          if (user && id && id !== 'undefined' && id !== 'null' && user.bid != id) { // eslint-disable-line eqeqeq
-            utils.solve(challenges.basketAccessChallenge)
-          }
-        }
+          return user && id && id !== 'undefined' && id !== 'null' && user.bid != id // eslint-disable-line eqeqeq
+        })
         if (basket && basket.Products && basket.Products.length > 0) {
           for (let i = 0; i < basket.Products.length; i++) {
             basket.Products[i].name = req.__(basket.Products[i].name)

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { PhotoWallService } from './photo-wall.service'
@@ -18,7 +23,7 @@ describe('PhotoWallService', () => {
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
       service.get().subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Memorys/')
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories/')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('GET')
@@ -31,7 +36,7 @@ describe('PhotoWallService', () => {
     fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
       let res
       service.addMemory('str', new File([''], 'image')).subscribe((data) => res = data)
-      const req = httpMock.expectOne('http://localhost:3000/api/Memorys')
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories')
       req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('POST')

@@ -238,7 +238,7 @@ _t.b.a._
 * [Juice Shop 9: Would you like a free refill?](https://god.owasp.de/archive/2019/)
   by Björn Kimminich,
   [German OWASP Day 2019](https://god.owasp.de/archive/2019/),
-  10.12.2019
+  10.12.2019 ([Youtube](https://www.youtube.com/watch?v=L7h5uE7WDfg) :bulb:)
 * [S' OWASP Saft-Lädeli / The OWASP Juice Shop](https://www.meetup.com/de-DE/OWASPSwitzerland/events/264422942/)
   by Björn Kimminich,
   [OWASP Switzerland Chapter Meeting](https://www.meetup.com/de-DE/OWASPSwitzerland/),

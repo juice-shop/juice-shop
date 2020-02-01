@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {
   waitInMs, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'

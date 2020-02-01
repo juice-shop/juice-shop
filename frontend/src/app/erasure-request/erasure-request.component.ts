@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { UserService } from '../Services/user.service'

@@ -6,22 +6,21 @@ application:
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
-  showChallengeSolvedNotifications: true
-  showChallengeHints: true
   showVersionNumber: true
   showGitHubLinks: true
   numberOfRandomFakeUsers: 0
-  twitterUrl: 'https://twitter.com/owasp_juiceshop'
-  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-  slackUrl: 'http://owaspslack.com'
-  redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
-  pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
-  planetOverlayMap: orangemap2k.jpg
-  planetName: Orangeuze
+  altcoinName: Juicycoin
+  privacyContactEmail: donotreply@owasp-juice.shop
+  social:
+    twitterUrl: 'https://twitter.com/owasp_juiceshop'
+    facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+    slackUrl: 'http://owaspslack.com'
+    redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
+    pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+    questionnaireUrl: 'https://forms.gle/2Tr5m1pqnnesApxN8'
   recyclePage:
     topProductImage: fruit_press.jpg
     bottomProductImage: apple_pressings.jpg
-  altcoinName: Juicycoin
   welcomeBanner:
     showOnFirstStart: true
     title: 'Welcome to OWASP Juice Shop!'
@@ -35,7 +34,6 @@ application:
     dismissText: 'Me want it!'
     linkText: 'But me wait!'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
-  privacyContactEmail: donotreply@owasp-juice.shop
   securityTxt:
     contact: 'mailto:donotreply@owasp-juice.shop'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
@@ -43,9 +41,32 @@ application:
   promotion:
     video: JuiceShopJingle.mp4
     subtitles: JuiceShopJingle.vtt
+  easterEggPlanet:
+    name: Orangeuze
+    overlayMap: orangemap2k.jpg
+  googleOauth:
+    clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+    authorizedRedirects:
+      - { uri: 'https://demo.owasp-juice.shop' }
+      - { uri: 'http://demo.owasp-juice.shop' }
+      - { uri: 'https://juice-shop.herokuapp.com' }
+      - { uri: 'http://juice-shop.herokuapp.com' }
+      - { uri: 'https://preview.owasp-juice.shop' }
+      - { uri: 'http://preview.owasp-juice.shop' }
+      - { uri: 'https://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop.wtf' }
+      - { uri: 'http://localhost:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://localhost:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:3000', proxy: 'http://localmac.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
 challenges:
-  safetyOverride: false
+  showSolvedNotifications: true
+  showHints: true
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
+  safetyOverride: false
 hackingInstructor:
   isEnabled: true
   avatarImage: juicyBot.png
@@ -56,7 +77,7 @@ products:
     deluxePrice: 0.99
     description: 'The all-time classic.'
     image: apple_juice.jpg
-    reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
+    reviews:
       - { text: 'One of my favorites!', author: admin }
   -
     name: 'Orange Juice (1000ml)'
@@ -151,7 +172,7 @@ products:
     price: 14.99
     image: tattoo.jpg
     reviews:
-      - { text: 'I straight-up gots nuff props fo''these tattoos!', author: mc.safesearch }
+      - { text: 'I straight-up gots nuff props fo''these tattoos!', author: rapper }
   -
     name: 'OWASP Juice Shop Mug'
     description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
@@ -169,7 +190,7 @@ products:
     quantity: 5
     image: velcro-patch.jpg
     reviews:
-      - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
+      - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: rapper }
       - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
   -
     name: 'Woodruff Syrup "Forest Master X-Treme"'
@@ -251,6 +272,32 @@ products:
     price: 19.99
     quantity: 0
     image: coaster.jpg
+  -
+    name: 'OWASP Snakes and Ladders - Web Applications'
+    description: 'This amazing web application security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    quantity: 8
+    image: snakes_ladders.jpg
+    reviews:
+      - { text: 'Wait for a 10$ Steam sale of Tabletop Simulator!', author: bjoernOwasp }
+  -
+    name: 'OWASP Snakes and Ladders - Mobile Apps'
+    description: 'This amazing mobile app security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1970691216">available for Tabletop Simulator on Steam Workshop</a> now!'
+    price: 0.01
+    quantity: 0
+    image: snakes_ladders_m.jpg
+    reviews:
+      - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
+  -
+    name: 'OWASP Juice Shop Holographic Sticker'
+    description: "Die-cut holographic sticker. Stand out from those 08/15-sticker-covered laptops with this shiny beacon of 80's coolness!"
+    price: 2.00
+    quantity: 0
+    image: holo_sticker.png
+    reviews:
+      - { text: "Rad, dude!", author: rapper }
+      - { text: "Looks spacy on Bones' new tricorder!", author: jim }
+      - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'

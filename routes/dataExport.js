@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const db = require('../data/mongodb')
@@ -54,9 +59,7 @@ module.exports = function dataExport () {
           }
           const emailHash = insecurity.hash(email).slice(0, 4)
           for (const order of userData.orders) {
-            if (order.orderId.split('-')[0] !== emailHash && utils.notSolved(challenges.dataExportChallenge)) {
-              utils.solve(challenges.dataExportChallenge)
-            }
+            utils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
           }
           res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
         },

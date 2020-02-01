@@ -1,19 +1,24 @@
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayout="row" fxLayoutGap="5%" fxLayout.lt-md="column" fxLayoutGap.lt-md="20px" class="main-wrapper">
     <div fxLayout="column" fxLayoutGap="20px" fxFlex="50%">
         <mat-card>
             <h3 translate>TITLE_RECYCLE</h3>
-        
+
             <div class="form-container" id="recycle-form">
-        
+
               <div class="confirmation" *ngIf="confirmation && !recycleQuantityControl.dirty">{{
                 confirmation }}
               </div>
-        
+
               <mat-form-field appearance="outline">
                 <mat-label translate>LABEL_REQUESTOR</mat-label>
                 <input [formControl]="requestorControl" type="text" matInput>
               </mat-form-field>
-        
+
               <mat-form-field appearance="outline">
                 <mat-label translate>LABEL_QUANTITY</mat-label>
                 <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate"
@@ -26,9 +31,9 @@
                   translate [translateParams]="{range: '10-1000'}">INVALID_QUANTITY
                 </mat-error>
               </mat-form-field>
-              
+
               <app-address (emitSelection)="getMessage($event)" [addNewAddressDiv]="false" #addressComp></app-address>
-        
+
               <mat-form-field *ngIf="pickup.value && recycleQuantityControl.value > 100" appearance="outline">
                 <mat-label translate>LABEL_PICKUP_DATE</mat-label>
                 <input [formControl]="pickUpDateControl" matInput [matDatepicker]="picker">
@@ -36,17 +41,17 @@
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="pickUpDateControl.invalid" translate>INVALID_DATE</mat-error>
               </mat-form-field>
-        
+
               <mat-checkbox [formControl]="pickup" *ngIf="recycleQuantityControl.value > 100">{{'REQUEST_PICKUP' | translate}}
               </mat-checkbox>
-        
+
             </div>
-        
+
             <button type="submit" id="recycleButton" [disabled]="addressId === undefined || recycleQuantityControl.invalid || pickUpDateControl.invalid"
                     mat-raised-button color="primary" (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' |
               translate}}
             </button>
-        
+
           </mat-card>
     </div>
     <div fxFlex="50%">
@@ -64,7 +69,7 @@
                 </div>
               </mat-card-content>
             </mat-card>
-        
+
             <mat-card fxLayout="row" fxLayoutGap="20px">
               <img mat-card-image [src]="bottomImage">
               <mat-card-content>
@@ -76,9 +81,9 @@
                 </div>
               </mat-card-content>
             </mat-card>
-        
+
             <span class="fill-remaining-space"></span>
-        
+
           </div>
     </div>
 </div>

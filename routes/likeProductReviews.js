@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -26,9 +31,7 @@ module.exports = function productReviews () {
                     count++
                   }
                 }
-                if (count > 2 && utils.notSolved(challenges.timingAttackChallenge)) {
-                  utils.solve(challenges.timingAttackChallenge)
-                }
+                utils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                 db.reviews.update(
                   { _id: id },
                   { $set: { likedBy: likedBy } }

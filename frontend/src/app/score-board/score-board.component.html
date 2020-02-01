@@ -1,11 +1,14 @@
-<diV fxLayout="column">
-  <mat-card>
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
 
+<div fxLayout="column">
+  <mat-card>
     <mat-card-title>{{"TITLE_SCORE_BOARD" | translate}}
       <small class="confirmation">{{percentChallengesSolved}}%</small>
     </mat-card-title>
     <mat-progress-bar mode="determinate" [color]="'accent'" [value]="percentChallengesSolved"></mat-progress-bar>
-
   </mat-card>
 
   <mat-card>
@@ -59,28 +62,28 @@
     <mat-table *ngIf="challenges" [dataSource]="filterToDataSource(challenges)" [trackBy]="trackById">
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_NAME</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.name}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm translate>LABEL_NAME</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm> {{challenge.name}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="difficulty">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_DIFFICULTY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge">
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_DIFFICULTY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
           <bar-rating [rate]="challenge.difficulty" [max]="challenge.difficulty" readOnly="true"></bar-rating>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-sm fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
+        <mat-header-cell *matHeaderCellDef fxFlex="1 1 50%" translate>LABEL_DESCRIPTION
         </mat-header-cell>
-        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-sm fxFlex="1 1 50%">
+        <mat-cell *matCellDef="let challenge" fxFlex="1 1 50%">
           <div [innerHTML]="challenge.description"></div>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef translate>LABEL_CATEGORY</mat-header-cell>
-        <mat-cell *matCellDef="let challenge"> {{challenge.category}}</mat-cell>
+        <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-lg translate>LABEL_CATEGORY</mat-header-cell>
+        <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-lg> {{challenge.category}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
@@ -110,8 +113,12 @@
     </mat-table>
   </mat-card>
 
-  <mat-card *ngIf="showContributionInfoBox" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
-</diV>
+  <div *ngIf="showContributionInfoBox || questionnaireUrl" fxLayout="row" fxLayout.lt-lg="column">
+    <mat-card *ngIf="showContributionInfoBox" fxFlex="40%" fxFlex.lt-lg="100%" class="primary-notification" [innerHTML]="'CALL_FOR_CONTRIBUTIONS' | translate"></mat-card>
+    <span class="fill-remaining-space"></span>
+    <mat-card *ngIf="questionnaireUrl" fxFlex="20%" fxFlex.lt-lg="100%" class="warn-notification" [innerHTML]="'CALL_FOR_FEEDBACK' | translate: {appname: appName, questionnaire: questionnaireUrl}"></mat-card>
+  </div>
+</div>
 
 <img src="assets/public/images/padding/1px.png"/>
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 @media (max-width: 900px) {
   .mdl-layout-title {
     display: none !important;
@@ -34,5 +39,18 @@ h3{
 .line {
   width: 50%;
   vertical-align: middle;
+}
+
+::-webkit-input-placeholder {
+  font-size: .66em;
+}
+::-moz-placeholder {
+  font-size: .66em;
+}
+:-ms-input-placeholder {
+  font-size: .66em;
+}
+::placeholder {
+  font-size: .66em;
 }
 
