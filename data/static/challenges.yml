@@ -589,6 +589,9 @@
   hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssFeedbackChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
