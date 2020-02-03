@@ -97,6 +97,9 @@
   hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -105,6 +108,9 @@
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
   key: persistedXssUserChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
