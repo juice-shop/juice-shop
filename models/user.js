@@ -15,8 +15,12 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       defaultValue: '',
       set (username) {
-        username = insecurity.sanitizeLegacy(username)
-        utils.solveIf(challenges.usernameXssChallenge, () => { return utils.contains(username, '<script>alert(`xss`)</script>') })
+        if (!utils.disableOnContainerEnv()) {
+          username = insecurity.sanitizeLegacy(username)
+          utils.solveIf(challenges.usernameXssChallenge, () => { return utils.contains(username, '<script>alert(`xss`)</script>') })
+        } else {
+          username = insecurity.sanitizeSecure(username)
+        }
         this.setDataValue('username', username)
       }
     },
@@ -24,7 +28,11 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       unique: true,
       set (email) {
-        utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+        if (!utils.disableOnContainerEnv()) {
+          utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+        } else {
+          email = insecurity.sanitizeSecure(email)
+        }
         this.setDataValue('email', email)
       }
     },

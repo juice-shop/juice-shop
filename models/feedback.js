@@ -16,11 +16,11 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
         let sanitizedComment
         if (!utils.disableOnContainerEnv()) {
           sanitizedComment = insecurity.sanitizeHtml(comment)
+          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
         } else {
           sanitizedComment = insecurity.sanitizeSecure(comment)
         }
         this.setDataValue('comment', sanitizedComment)
-        utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
       }
     },
     rating: {
