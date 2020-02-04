@@ -1,3 +1,9 @@
+mat-card {
+  height: auto;
+  min-width: 320px;
+  width: 30%;
+}
+
 .heading {
   background: rgba(0, 0, 0, .2);
   font-size: x-large;
@@ -33,4 +39,8 @@ mat-footer-cell {
 .content-align {
   display: flex;
   justify-content: center;
+}
+
+button.mat-icon-button {
+  display: flex;
 }
