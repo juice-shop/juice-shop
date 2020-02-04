@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-.heading {
+ .heading {
   background: rgba(0, 0, 0, .2);
   font-size: x-large;
   justify-content: center;
@@ -38,4 +38,8 @@ mat-footer-cell {
 .content-align {
   display: flex;
   justify-content: center;
+}
+
+button.mat-icon-button {
+  display: flex;
 }
