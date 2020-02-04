@@ -38,6 +38,9 @@
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -673,6 +676,9 @@
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#embed-an-xss-payload-into-our-promo-video'
   key: videoXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'View Basket'
   category: 'Broken Access Control'
