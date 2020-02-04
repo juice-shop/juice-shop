@@ -276,7 +276,7 @@
   "LABEL_SOLD_OUT": "Uitverkocht",
   "LABEL_ONLY_QUANTITY_LEFT": "Nog {{quantity}} resterend",
   "THANKS_FOR_PURCHASE": "Bedankt voor je bestelling!",
-  "PURCHASE_COMMENT_PREFIX": "Your order has been placed and is being processed. You can check for status updates on our",
+  "PURCHASE_COMMENT_PREFIX": "Uw bestelling is geplaatst en wordt verwerkt. U kunt statusupdates controleren op onze",
   "PURCHASE_COMMENT_SUFFIX": "page.",
   "BONUS_POINTS_COUNT": "You have gained {{bonus}} Bonus Points from this order!",
   "ESTIMATED_TIME_OF_DELIVERY": "Your order will be delivered in {{numberdays}} days.",
