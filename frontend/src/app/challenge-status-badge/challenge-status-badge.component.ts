@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, Input } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'

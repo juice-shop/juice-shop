@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const logger = require('../lib/logger')
 
 module.exports = function countryMapping (config = require('config')) {

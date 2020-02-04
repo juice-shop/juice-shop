@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { FeedbackService } from '../Services/feedback.service'

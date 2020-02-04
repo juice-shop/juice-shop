@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Component, Inject, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'

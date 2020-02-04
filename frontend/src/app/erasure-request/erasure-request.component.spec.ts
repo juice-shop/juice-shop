@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ErasureRequestComponent } from './erasure-request.component'
 import { DataSubjectService } from '../Services/data-subject.service'

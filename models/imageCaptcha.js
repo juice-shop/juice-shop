@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 module.exports = (sequelize, { INTEGER, STRING }) => {
   const ImageCaptcha = sequelize.define('ImageCaptcha', {
     image: STRING,

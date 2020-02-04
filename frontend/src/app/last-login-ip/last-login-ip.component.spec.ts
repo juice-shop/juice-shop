@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { LastLoginIpComponent } from './last-login-ip.component'
 import { MatCardModule } from '@angular/material'

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const insecurity = require('../lib/insecurity')
 const models = require('../models/')
 const otplib = require('otplib')
@@ -30,10 +35,7 @@ async function verify (req, res) {
     if (!isValid) {
       return res.status(401).send()
     }
-
-    if (utils.notSolved(challenges.twoFactorAuthUnsafeSecretStorageChallenge) && user.email === 'wurstbrot@' + config.get('application.domain')) {
-      utils.solve(challenges.twoFactorAuthUnsafeSecretStorageChallenge)
-    }
+    utils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get('application.domain') })
 
     const [basket] = await models.Basket.findOrCreate({ where: { userId }, defaults: {} })
 

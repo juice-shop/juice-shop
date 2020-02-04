@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { AbstractControl, FormControl, Validators } from '@angular/forms'
 import { UserService } from '../Services/user.service'
 import { Component } from '@angular/core'

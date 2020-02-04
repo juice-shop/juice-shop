@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayoutAlign="center">
   <mat-card>
     <mat-card-header></mat-card-header>
@@ -60,6 +65,6 @@
 </div>
 
 <div class="bonus-container">
-  <h2>Bonus Points Earned: {{ results.bonus }}</h2>
-  <p>(The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!)</p>
+  <h2 translate [translateParams]="{'bonus': results.bonus}">BONUS_POINTS_EARNED</h2>
+  <p>(<span [innerHtml]="'BONUS_FOR_FUTURE_PURCHASES' | translate"></span>)</p>
 </div>

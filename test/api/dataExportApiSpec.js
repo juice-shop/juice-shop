@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const frisby = require('frisby')
 const config = require('config')
 const path = require('path')
@@ -5,7 +10,6 @@ const fs = require('fs')
 
 const jsonHeader = { 'content-type': 'application/json' }
 const REST_URL = 'http://localhost:3000/rest'
-const API_URL = 'http://localhost:3000/api'
 
 describe('/rest/user/data-export', () => {
   it('Export data without use of CAPTCHA', () => {
@@ -191,7 +195,7 @@ describe('/rest/user/data-export', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(API_URL + '/Memorys', {
+        return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
@@ -328,7 +332,7 @@ describe('/rest/user/data-export', () => {
     })
       .expect('status', 200)
       .then(({ json: jsonLogin }) => {
-        return frisby.post(API_URL + '/Memorys', {
+        return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
             'Content-Type': form.getHeaders()['content-type']
