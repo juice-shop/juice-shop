@@ -385,7 +385,14 @@ for (const { name, exclude } of autoModels) {
   if (name === 'Challenge') {
     resource.list.fetch.after((req, res, context) => {
       for (let i = 0; i < context.instance.length; i++) {
-        context.instance[i].description = req.__(context.instance[i].description)
+        let description = context.instance[i].description
+        if (utils.contains(description, '<em>(This challenge is <strong>')) {
+          const warning = description.substring(description.indexOf('<em>(This challenge is <strong>'))
+          description = description.substring(0, description.indexOf('<em>(This challenge is <strong>'))
+          context.instance[i].description = req.__(description) + req.__(warning)
+        } else {
+          context.instance[i].description = req.__(description)
+        }
         if (context.instance[i].hint) {
           context.instance[i].hint = req.__(context.instance[i].hint)
         }
