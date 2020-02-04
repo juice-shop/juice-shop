@@ -33,6 +33,7 @@ interface Config {
       slackUrl: string
       redditUrl: string
       pressKitUrl: string
+      questionnaireUrl: string
     }
     recyclePage: {
       topProductImage: string
@@ -65,6 +66,10 @@ interface Config {
     easterEggPlanet: {
       name: string
       overlayMap: string
+    }
+    googleOauth: {
+      clientId: string
+      authorizedRedirects: any[]
     }
   }
   challenges: {

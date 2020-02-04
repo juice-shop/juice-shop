@@ -34,12 +34,7 @@ module.exports.addBasketItem = function addBasketItem () {
         BasketId: basketIds[basketIds.length - 1],
         quantity: quantities[quantities.length - 1]
       }
-
-      if (utils.notSolved(challenges.basketManipulateChallenge)) {
-        if (user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId) { // eslint-disable-line eqeqeq
-          utils.solve(challenges.basketManipulateChallenge)
-        }
-      }
+      utils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
 
       const basketItemInstance = models.BasketItem.build(basketItem)
       basketItemInstance.save().then((basketItem) => {
@@ -86,9 +81,9 @@ async function quantityCheck (req, res, next, id, quantity) {
     if (product.quantity >= quantity) {
       next()
     } else {
-      res.status(400).json({ error: 'We are out of stock! Sorry for the inconvenience.' })
+      res.status(400).json({ error: res.__('We are out of stock! Sorry for the inconvenience.') })
     }
   } else {
-    res.status(400).json({ error: `You can order only up to ${product.limitPerUser} items of this product.` })
+    res.status(400).json({ error: res.__('You can order only up to {{quantity}} items of this product.', { quantity: product.limitPerUser }) })
   }
 }

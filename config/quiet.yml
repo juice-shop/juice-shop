@@ -1,5 +1,7 @@
 application:
   showGitHubLinks: false
+  social:
+    questionnaireUrl: null
   welcomeBanner:
     showOnFirstStart: false
 challenges:

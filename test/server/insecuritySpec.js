@@ -172,6 +172,37 @@ describe('insecurity', () => {
     })
   })
 
+  describe('sanitizeSecure', () => {
+    it('handles empty inputs by returning their string representation', () => {
+      expect(insecurity.sanitizeSecure()).to.equal('undefined')
+      expect(insecurity.sanitizeSecure(undefined)).to.equal('undefined')
+      expect(insecurity.sanitizeSecure(null)).to.equal('null')
+      expect(insecurity.sanitizeSecure('')).to.equal('')
+    })
+
+    it('returns input unchanged for plain text input', () => {
+      expect(insecurity.sanitizeSecure('This application is horrible!')).to.equal('This application is horrible!')
+    })
+
+    it('returns input unchanged for HTML input with only harmless text formatting', () => {
+      expect(insecurity.sanitizeSecure('<strong>This</strong> application <em>is horrible</em>!')).to.equal('<strong>This</strong> application <em>is horrible</em>!')
+    })
+
+    it('returns input unchanged for HTML input with only harmless links', () => {
+      expect(insecurity.sanitizeSecure('<a href="bla.blubb">Please see here for details!</a>')).to.equal('<a href="bla.blubb">Please see here for details!</a>')
+    })
+
+    it('removes all Javascript from HTML input', () => {
+      expect(insecurity.sanitizeSecure('Sani<script>alert("ScriptXSS")</script>tizedScript')).to.equal('SanitizedScript')
+      expect(insecurity.sanitizeSecure('Sani<img src="alert("ImageXSS")"/>tizedImage')).to.equal('SanitizedImage')
+      expect(insecurity.sanitizeSecure('Sani<iframe src="alert("IFrameXSS")"></iframe>tizedIFrame')).to.equal('SanitizedIFrame')
+    })
+
+    it('cannot be bypassed by exploiting lack of recursive sanitization', () => {
+      expect(insecurity.sanitizeSecure('Bla<<script>Foo</script>iframe src="javascript:alert(`xss`)">Blubb')).to.equal('BlaBlubb')
+    })
+  })
+
   describe('hash', () => {
     it('throws type error for for undefined input', () => {
       expect(() => insecurity.hash()).to.throw(TypeError)

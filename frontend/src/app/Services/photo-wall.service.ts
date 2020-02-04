@@ -14,7 +14,7 @@ import { catchError, map } from 'rxjs/operators'
 export class PhotoWallService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Memorys'
+  private host = this.hostServer + '/rest/memories'
 
   constructor (private http: HttpClient) { }
 

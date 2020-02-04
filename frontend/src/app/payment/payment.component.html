@@ -18,7 +18,9 @@
                         </b>
                 </div>
                 <div fxFlex="30%">
-                    <button type="submit" color="primary" mat-raised-button class="btn btn-pay" [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()"><span>{{'LABEL_PAY' | translate}}</span> {{ totalPrice?.toFixed(2)  }}</button>
+                    <button type="submit" color="primary" mat-raised-button class="btn btn-pay" [disabled]="(walletBalance - totalPrice) < 0" (click)="useWallet()">
+                      <i class="fas fa-hand-holding-usd fa-lg"></i> {{'LABEL_PAY' | translate}} {{ totalPrice?.toFixed(2)  }}¤
+                    </button>
                 </div>
             </div>
         </mat-card>
@@ -38,7 +40,12 @@
                 <input id="coupon" [formControl]="couponControl" style="margin-top:10px;" matInput type="text">
                 <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">Coupon code must be 10 characters long.</mat-error>
             </mat-form-field>
-            <button type="submit" id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button><i class="far fa-gem fa-lg"></i> {{'BTN_REDEEM' | translate}}</button>
+            <button type="submit" id="applyCouponButton" color="accent" style="margin-top:5px;" (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button>
+              <mat-icon>
+                redeem
+              </mat-icon>
+              {{'BTN_REDEEM' | translate}}
+            </button>
         </mat-expansion-panel>
         <mat-expansion-panel [expanded]="paymentPanelExpanded" class="mat-elevation-z6">
             <mat-expansion-panel-header>
@@ -46,56 +53,52 @@
                     {{"OTHER_PAYMENT_OPTIONS" | translate}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="payment-label">
-                <label translate>LABEL_PAYMENT</label>
-                <small style="margin-left: 10px;">
+          <div fxLayout="row" fxLayout.lt-lg="column">
+            <mat-card fxFlex="34%" fxFlex.lt-lg="100%">
+              <div class="payment-label">
+                  <label translate>LABEL_DONATIONS</label>
+              </div>
+              <small>
                 (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">THANKS_FOR_SUPPORT</span>
                 <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">THANKS_FOR_SUPPORT_CUSTOMIZED</span>
-                <i style="margin-left: 3px;" class="fas fa-heart"></i>)
-                </small>
-            </div>
-            <div class="button-container">
-                <form ngNoForm action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
-                    <div>
-                        <input type="hidden" name="cmd" value="_donations">
-                        <input type="hidden" name="business" value="paypal@owasp.org">
-                        <input type="hidden" name="lc" value="BM">
-                        <input type="hidden" name="item_name" value="OWASP Juice Shop Project">
-                        <input type="hidden" name="item_number" value="OWASP Foundation">
-                        <input type="hidden" name="no_note" value="0">
-                        <input type="hidden" name="currency_code" value="EUR">
-                        <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_LG.gif:NonHostedGuest">
-                        <button type="submit" name="submit" mat-raised-button><i class="fab fa-paypal fa-lg"></i> PayPal</button>
-                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" style="display: none !important;">
-                    </div>
-                </form>
-                <a href="https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step">
-                <button mat-raised-button><i class="far fa-credit-card fa-lg"></i> Credit Card</button>
-                </a>
-                <button mat-raised-button (click)="showBitcoinQrCode()" *ngIf="false"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
-                <button mat-raised-button (click)="showDashQrCode()" *ngIf="false"><i class="fa-lg">Ð</i> Dash</button>
-                <button mat-raised-button (click)="showEtherQrCode()" *ngIf="false"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
-            </div>
-            <div class="payment-label">
-                <label translate>LABEL_MERCHANDISE</label>
-                <small style="margin-left: 10px;">
+                <i style="margin-left: 3px;" class="fas fa-heart error"></i>)
+              </small>
+              <div class="button-container">
+                  <a href="https://pwning.owasp-juice.shop/part3/donations.html">
+                    <button mat-raised-button><i class="fab fa-stripe fa-lg"></i> {{'BTN_CREDIT_CARD' | translate}}</button>
+                  </a>
+                  <button mat-raised-button (click)="showBitcoinQrCode()" *ngIf="false"><i class="fab fa-btc fa-lg"></i> Bitcoin</button>
+                  <button mat-raised-button (click)="showDashQrCode()" *ngIf="false"><i class="fa-lg">Ð</i> Dash</button>
+                  <button mat-raised-button (click)="showEtherQrCode()" *ngIf="false"><i class="fab fa-ethereum fa-lg"></i> Ether</button>
+              </div>
+            </mat-card>
+            <span class="fill-remaining-space"></span>
+            <mat-card fxFlex="65%" fxFlex.lt-lg="100%">
+              <div class="payment-label">
+                  <label translate>LABEL_MERCHANDISE</label>
+              </div>
+              <small>
                 (<span *ngIf="applicationName === 'OWASP Juice Shop'" translate [translateParams]="{juiceshop: 'OWASP Juice Shop'}">OFFICIAL_MERCHANDISE_STORES</span>
                 <span *ngIf="applicationName !== 'OWASP Juice Shop'" translate [translateParams]="{appname: applicationName}">OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED</span>
-                <i style="margin-left: 3px;" class="fas fa-thumbs-up"></i>)
-                </small>
-            </div>
-            <div class="button-container">
-                <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button></a>
-                <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button></a>
-                <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button></a>
-                <a href="/redirect?to=http://leanpub.com/juice-shop"><button mat-raised-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button></a>
-            </div>
+                <i style="margin-left: 3px;" class="fas fa-thumbs-up confirmation"></i>)
+              </small>
+              <div class="button-container">
+                  <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button></a>
+                  <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop"><button mat-raised-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button></a>
+                  <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794"><button mat-raised-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button></a>
+                  <a href="/redirect?to=http://leanpub.com/juice-shop"><button mat-raised-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button></a>
+              </div>
+            </mat-card>
+          </div>
         </mat-expansion-panel>
     </div>
     <div fxFlex="30%">
         <mat-card class="mat-elevation-z6">
              <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Proceed to review" [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
-            <span translate>LABEL_CONTINUE</span>
+               <mat-icon>
+                 navigate_next
+               </mat-icon>
+               <span translate>LABEL_CONTINUE</span>
             </button>
             <p style="text-align: center;padding-top: 10px;">
                 <span translate  *ngIf="mode !== 'deluxe' && mode !== 'wallet'">REVIEW_ALERT</span>

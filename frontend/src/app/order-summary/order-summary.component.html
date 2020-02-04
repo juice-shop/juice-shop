@@ -56,7 +56,10 @@
               </tr>
             </table>
             <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase" id="checkoutButton" (click)="placeOrder()">
-                <span translate>PLACE_ORDER_AND_PAY</span>
+              <mat-icon>
+                monetization_on
+              </mat-icon>
+              <span translate>PLACE_ORDER_AND_PAY</span>
             </button>
             <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
         </mat-card>

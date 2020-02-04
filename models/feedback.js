@@ -13,11 +13,14 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
     comment: {
       type: STRING,
       set (comment) {
-        const sanitizedComment = insecurity.sanitizeHtml(comment)
-        this.setDataValue('comment', sanitizedComment)
-        if (utils.notSolved(challenges.persistedXssFeedbackChallenge) && utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.persistedXssFeedbackChallenge)
+        let sanitizedComment
+        if (!utils.disableOnContainerEnv()) {
+          sanitizedComment = insecurity.sanitizeHtml(comment)
+          utils.solveIf(challenges.persistedXssFeedbackChallenge, () => { return utils.contains(sanitizedComment, '<iframe src="javascript:alert(`xss`)">') })
+        } else {
+          sanitizedComment = insecurity.sanitizeSecure(comment)
         }
+        this.setDataValue('comment', sanitizedComment)
       }
     },
     rating: {
@@ -25,9 +28,7 @@ module.exports = (sequelize, { STRING, INTEGER }) => {
       allowNull: false,
       set (rating) {
         this.setDataValue('rating', rating)
-        if (utils.notSolved(challenges.zeroStarsChallenge) && rating === 0) {
-          utils.solve(challenges.zeroStarsChallenge)
-        }
+        utils.solveIf(challenges.zeroStarsChallenge, () => { return rating === 0 })
       }
     }
   })

@@ -5,6 +5,7 @@
 
 const frisby = require('frisby')
 const Joi = frisby.Joi
+const utils = require('../../lib/utils')
 const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
@@ -40,26 +41,28 @@ describe('/api/Feedbacks', () => {
       })
   })
 
-  it('POST fails to sanitize masked XSS-attack by not applying sanitization recursively', () => {
-    return frisby.get(REST_URL + '/captcha')
-      .expect('status', 200)
-      .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
-        return frisby.post(API_URL + '/Feedbacks', {
-          headers: jsonHeader,
-          body: {
-            comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>Foo</script>iframe src="javascript:alert(`xss`)">',
-            rating: 1,
-            captchaId: json.captchaId,
-            captcha: json.answer
-          }
-        })
-          .expect('status', 201)
-          .expect('json', 'data', {
-            comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <iframe src="javascript:alert(`xss`)">'
+  if (!utils.disableOnContainerEnv()) {
+    it('POST fails to sanitize masked XSS-attack by not applying sanitization recursively', () => {
+      return frisby.get(REST_URL + '/captcha')
+        .expect('status', 200)
+        .expect('header', 'content-type', /application\/json/)
+        .then(({ json }) => {
+          return frisby.post(API_URL + '/Feedbacks', {
+            headers: jsonHeader,
+            body: {
+              comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <<script>Foo</script>iframe src="javascript:alert(`xss`)">',
+              rating: 1,
+              captchaId: json.captchaId,
+              captcha: json.answer
+            }
           })
-      })
-  })
+            .expect('status', 201)
+            .expect('json', 'data', {
+              comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <iframe src="javascript:alert(`xss`)">'
+            })
+        })
+    })
+  }
 
   it('POST feedback in another users name as anonymous user', () => {
     return frisby.get(REST_URL + '/captcha')

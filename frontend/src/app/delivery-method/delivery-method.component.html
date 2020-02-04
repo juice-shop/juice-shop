@@ -8,13 +8,13 @@
         <div fxLayout="column" fxLayoutGap="20px">
             <div *ngIf="address">
                 <div class="heading">
-                        <div>{{"LABEL_DELIVERY_ADDRESS" | translate}}</div>
+                  <div>{{"LABEL_DELIVERY_ADDRESS" | translate}}</div>
                 </div>
                 <mat-card class="mat-elevation-z6">
-                    <div>{{address?.fullName}}</div>
-                    <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
-                    <div>{{address?.country}}</div>
-                    <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
+                  <div>{{address?.fullName}}</div>
+                  <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+                  <div>{{address?.country}}</div>
+                  <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
                 </mat-card>
             </div>
             <div>
@@ -49,7 +49,10 @@
     <div fxFlex="30%">
         <mat-card class="mat-elevation-z6" fxLayoutAlign="end">
             <button mat-raised-button mat-button class="btn btn-continue" color="primary" aria-label="Proceed to delivery method selection" [disabled]="deliveryMethodId === undefined" (click)="chooseDeliveryMethod()">
-                <span translate>LABEL_CONTINUE</span>
+              <mat-icon>
+                navigate_next
+              </mat-icon>
+              <span translate>LABEL_CONTINUE</span>
             </button>
         </mat-card>
     </div>

@@ -41,3 +41,16 @@ h3{
   vertical-align: middle;
 }
 
+::-webkit-input-placeholder {
+  font-size: .66em;
+}
+::-moz-placeholder {
+  font-size: .66em;
+}
+:-ms-input-placeholder {
+  font-size: .66em;
+}
+::placeholder {
+  font-size: .66em;
+}
+

@@ -5,6 +5,7 @@
 
 const frisby = require('frisby')
 const Joi = frisby.Joi
+const utils = require('../../lib/utils')
 const insecurity = require('../../lib/insecurity')
 
 const API_URL = 'http://localhost:3000/api'
@@ -134,18 +135,20 @@ describe('/api/Users', () => {
       })
   })
 
-  it('POST new user with XSS attack in email address', () => {
-    return frisby.post(API_URL + '/Users', {
-      headers: jsonHeader,
-      body: {
-        email: '<iframe src="javascript:alert(`xss`)">',
-        password: 'does.not.matter'
-      }
+  if (!utils.disableOnContainerEnv()) {
+    it('POST new user with XSS attack in email address', () => {
+      return frisby.post(API_URL + '/Users', {
+        headers: jsonHeader,
+        body: {
+          email: '<iframe src="javascript:alert(`xss`)">',
+          password: 'does.not.matter'
+        }
+      })
+        .expect('status', 201)
+        .expect('header', 'content-type', /application\/json/)
+        .expect('json', 'data', { email: '<iframe src="javascript:alert(`xss`)">' })
     })
-      .expect('status', 201)
-      .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { email: '<iframe src="javascript:alert(`xss`)">' })
-  })
+  }
 })
 
 describe('/api/Users/:id', () => {

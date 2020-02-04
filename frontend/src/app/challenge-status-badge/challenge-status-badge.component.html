@@ -10,7 +10,8 @@
         [matTooltip]="allowRepeatNotifications ? ('NOTIFICATION_RESEND_INSTRUCTIONS' | translate) : null"
         matTooltipPosition="above">
             <mat-icon [hidden]="!allowRepeatNotifications">flag</mat-icon>
-            <span>{{'STATUS_SOLVED' | translate}}</span>
+            <mat-icon [hidden]="allowRepeatNotifications">check_box</mat-icon>
+            <span fxShow fxHide.lt-sm>{{'STATUS_SOLVED' | translate}}</span>
 </button>
 
 <button *ngIf="!challenge.disabledEnv && !challenge.solved"
@@ -20,7 +21,8 @@
         [matTooltip]="showChallengeHints ? challenge.hint : null"
         matTooltipPosition="above">
             <mat-icon [hidden]="!showChallengeHints || !challenge.hintUrl">book</mat-icon>
-            <span>{{'STATUS_UNSOLVED' | translate}}</span>
+            <mat-icon [hidden]="showChallengeHints && challenge.hintUrl">check_box_outline_blank</mat-icon>
+            <span fxShow fxHide.lt-sm>{{'STATUS_UNSOLVED' | translate}}</span>
 </button>
 
 <button *ngIf="challenge.disabledEnv" [id]="challenge.name + '.unavailable'" mat-raised-button

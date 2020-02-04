@@ -6,6 +6,9 @@
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
   key: restfulXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Access Log'
   category: 'Sensitive Data Exposure'
@@ -38,6 +41,9 @@
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -97,6 +103,9 @@
   hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -105,6 +114,9 @@
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
   key: persistedXssUserChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -273,6 +285,9 @@
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
   key: httpHeaderXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -589,6 +604,9 @@
   hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssFeedbackChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -664,6 +682,9 @@
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#embed-an-xss-payload-into-our-promo-video'
   key: videoXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'View Basket'
   category: 'Broken Access Control'

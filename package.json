@@ -102,7 +102,7 @@
     "grunt": "^1.0.4",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-replace-json": "^0.1.0",
-    "hashids": "^2.1.0",
+    "hashids": "2.1.0",
     "helmet": "^3.21.2",
     "html-entities": "^1.2.1",
     "i18n": "github:bkimminich/i18n-node",
@@ -175,14 +175,14 @@
     "start": "node app",
     "lint": "standard && cd frontend && ng lint && cd ..",
     "lint:fix": "standard --fix && cd frontend && ng lint --fix && cd ..",
+    "lint:config": "schema validate -s config.schema.yml",
     "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
     "protractor": "npm run e2e",
     "e2e": "node test/e2eTests.js",
     "vagrant": "cd vagrant && vagrant up",
-    "package": "npm dedupe && grunt package",
-    "sc": "schema validate -s config.schema.yml"
+    "package": "npm dedupe && grunt package"
   },
   "engines": {
     "node": "10 - 13"
