@@ -47,19 +47,21 @@ describe('/api/Products', () => {
       .expect('status', 401)
   })
 
-  it('POST new product does not filter XSS attacks', () => {
-    return frisby.post(API_URL + '/Products', {
-      headers: authHeader,
-      body: {
-        name: 'XSS Juice (42ml)',
-        description: '<iframe src="javascript:alert(`xss`)">',
-        price: 9999.99,
-        image: 'xss3juice.jpg'
-      }
+  if (!utils.disableOnContainerEnv()) {
+    it('POST new product does not filter XSS attacks', () => {
+      return frisby.post(API_URL + '/Products', {
+        headers: authHeader,
+        body: {
+          name: 'XSS Juice (42ml)',
+          description: '<iframe src="javascript:alert(`xss`)">',
+          price: 9999.99,
+          image: 'xss3juice.jpg'
+        }
+      })
+        .expect('header', 'content-type', /application\/json/)
+        .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })
     })
-      .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })
-  })
+  }
 })
 
 describe('/api/Products/:id', () => {
