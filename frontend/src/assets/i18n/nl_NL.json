@@ -8,7 +8,7 @@
   "MANDATORY_PASSWORD": "Kies een wachtwoord.",
   "LABEL_EMAIL": "E-mailadres",
   "LABEL_PASSWORD": "Wachtwoord",
-  "SHOW_PASSWORD_ADVICE": "Show password advice",
+  "SHOW_PASSWORD_ADVICE": "Wachtwoordadvies tonen",
   "LOWER_CASE_CRITERIA_MSG": "bevat ten minste één lagere karakter",
   "UPPER_CASE_CRITERIA_MSG": "contains at least one upper character",
   "DIGITS_CRITERIA_MSG": "bevat ten minste één cijfer",
