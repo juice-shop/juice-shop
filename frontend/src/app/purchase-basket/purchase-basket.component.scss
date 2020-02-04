@@ -1,4 +1,9 @@
-.heading {
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+ .heading {
   background: rgba(0, 0, 0, .2);
   font-size: x-large;
   justify-content: center;
@@ -33,4 +38,8 @@ mat-footer-cell {
 .content-align {
   display: flex;
   justify-content: center;
+}
+
+button.mat-icon-button {
+  display: flex;
 }
