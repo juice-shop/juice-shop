@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
@@ -115,28 +120,28 @@ describe('OrderCompletionComponent', () => {
 
   it('should derive twitter handle from twitter URL if configured', () => {
     trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'https://twitter.com/bkimminich' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'https://twitter.com/bkimminich' } } }))
     component.ngOnInit()
     expect(component.tweetText).toBe('I just purchased%0afrom @bkimminich')
   })
 
   it('should append twitter handle to truncated tweet text', () => {
     trackOrderService.save.and.returnValue(of({ data: [{ products: [ { name: 'AAAAAAAAAAAAAAAAAAAA' }, { name: 'BBBBBBBBBBBBBBBBBBBB' }, { name: 'CCCCCCCCCCCCCCCCCCCC' }, { name: 'DDDDDDDDDDDDDDDDDDDD' }, { name: 'EEEEEEEEEEEEEEEEEEEE' }, { name: 'FFFFFFFFFFFFFFFFFFFF' }] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'https://twitter.com/owasp_juiceshop' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'https://twitter.com/owasp_juiceshop' } } }))
     component.ngOnInit()
     expect(component.tweetText).toBe('I just purchased%0a- AAAAAAAAAAAAAAAAAAAA%0a- BBBBBBBBBBBBBBBBBBBB%0a- CCCCCCCCCCCCCCCCCCCC%0a- DDDDDDDDDDDDDDDDDDDD%0a- EEEEEEEEEEEEEEEEEEE...%0afrom @owasp_juiceshop')
   })
 
   it('should use configured URL as is if it is not a twitter URL', () => {
     trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'http://localhorst:42' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'http://localhorst:42' } } }))
     component.ngOnInit()
     expect(component.tweetText).toBe('I just purchased%0afrom http://localhorst:42')
   })
 
   it('should use configured application name as a fallback for missing twitter URL', () => {
     trackOrderService.save.and.returnValue(of({ data: [{ products: [ ] }] }))
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'OWASP Juice Shop', twitterUrl: null } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'OWASP Juice Shop', social: { twitterUrl: null } } }))
     component.ngOnInit()
     expect(component.tweetText).toBe('I just purchased%0afrom OWASP Juice Shop')
   })

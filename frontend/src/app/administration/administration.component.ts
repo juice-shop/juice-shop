@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { UserDetailsComponent } from '../user-details/user-details.component'
 import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
@@ -26,7 +31,6 @@ export class AdministrationComponent implements OnInit {
 
   ngOnInit () {
     this.findAllUsers()
-    this.findAllRecycles()
     this.findAllFeedbacks()
   }
 
@@ -40,10 +44,6 @@ export class AdministrationComponent implements OnInit {
       this.error = err
       console.log(this.error)
     })
-  }
-
-  findAllRecycles () {
-    // TODO [2019/01/05] Move Recycles to their own page to decouple from admin-only data!
   }
 
   findAllFeedbacks () {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -7,7 +12,6 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
   faCoffee,
-  faCreditCard,
   faGift,
   faHandHoldingUsd,
   faHeart,
@@ -16,8 +20,7 @@ import {
   faTimes,
   faTshirt
 } from '@fortawesome/free-solid-svg-icons'
-import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
-import { faBtc, faEthereum, faLeanpub, faPatreon, faPaypal } from '@fortawesome/free-brands-svg-icons'
+import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
@@ -26,7 +29,7 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 
-library.add(faCartArrowDown, faGift, faCreditCard, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
+library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
 
 @Component({
@@ -77,12 +80,12 @@ export class PaymentComponent implements OnInit {
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application) {
-        if (config.application.twitterUrl) {
-          this.twitterUrl = config.application.twitterUrl
+      if (config && config.application && config.application.social) {
+        if (config.application.social.twitterUrl) {
+          this.twitterUrl = config.application.social.twitterUrl
         }
-        if (config.application.facebookUrl) {
-          this.facebookUrl = config.application.facebookUrl
+        if (config.application.social.facebookUrl) {
+          this.facebookUrl = config.application.social.facebookUrl
         }
         if (config.application.name) {
           this.applicationName = config.application.name

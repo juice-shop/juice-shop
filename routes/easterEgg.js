@@ -1,12 +1,15 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const path = require('path')
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 
 module.exports = function serveEasterEgg () {
   return (req, res) => {
-    if (utils.notSolved(challenges.easterEggLevelTwoChallenge)) {
-      utils.solve(challenges.easterEggLevelTwoChallenge)
-    }
+    utils.solveIf(challenges.easterEggLevelTwoChallenge, () => { return true })
     res.sendFile(path.resolve(__dirname, '../frontend/dist/frontend/assets/private/threejs-demo.html'))
   }
 }

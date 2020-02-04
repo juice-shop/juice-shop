@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const fs = require('fs')
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
@@ -16,7 +21,7 @@ module.exports = function profileImageUrlUpload () {
         request
           .get(url)
           .on('error', function (err) {
-            logger.warn('Error retrieving authenticated user: ' + err.message)
+            logger.warn('Error retrieving user profile image: ' + err.message)
           })
           .pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
         models.User.findByPk(loggedInUser.data.id).then(user => {

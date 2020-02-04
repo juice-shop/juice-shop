@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, Inject, OnInit } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'

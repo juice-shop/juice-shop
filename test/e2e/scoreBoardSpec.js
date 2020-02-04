@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const config = require('config')
 
 describe('/#/score-board', () => {
@@ -19,14 +24,14 @@ describe('/#/score-board', () => {
     protractor.expect.challengeSolved({ challenge: 'Imaginary Challenge' })
   })
 
-  describe('repeat notification', () => { // FIXME Notifications do not always re-trigger on click
+  describe('repeat notification', () => {
     let alertsBefore, alertsNow
 
     beforeEach(() => {
       browser.get('/#/score-board')
     })
 
-    if (config.get('application.showChallengeSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
+    if (config.get('challenges.showSolvedNotifications') && config.get('ctf.showFlagsInNotifications')) {
       it('should be possible when in CTF mode', () => {
         alertsBefore = element.all(by.className('challenge-solved-toast')).count()
 

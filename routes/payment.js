@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const models = require('../models/index')
 
 module.exports.getPaymentMethods = function getPaymentMethods () {

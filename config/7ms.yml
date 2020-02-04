@@ -5,17 +5,18 @@ application:
   favicon: 'https://7minsec.com/favicon.ico'
   theme: blue-lightblue
   showGitHubLinks: true
-  twitterUrl: 'https://twitter.com/7MinSec'
-  facebookUrl: null
-  slackUrl: 'https://7ms.us/slack'
-  redditUrl: null
-  pressKitUrl: null
-  planetOverlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
-  planetName: 'Mad Billy-7'
+  altcoinName: Sevencoin
+  privacyContactEmail: 'donotreply@7-ms.us'
+  social:
+    twitterUrl: 'https://twitter.com/7MinSec'
+    facebookUrl: null
+    slackUrl: 'https://7ms.us/slack'
+    redditUrl: null
+    pressKitUrl: null
+    questionnaireUrl: null
   recyclePage:
     topProductImage: bm-small.jpg
     bottomProductImage: tommyboy.jpeg
-  altcoinName: Sevencoin
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -27,10 +28,12 @@ application:
     dismissText: 'I`ll be long gone by then!'
     linkText: 'But I want to stay an arbitrary number of minutes!'
     linkUrl: 'https://7ms.us/7ms-294-gdpr-me-asap/'
-  privacyContactEmail: 'donotreply@7-ms.us'
   securityTxt:
     contact: 'mailto:donotreply@7-ms.us'
     encryption: ~
+  easterEggPlanet:
+    name: 'Mad Billy-7'
+    overlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
 hackingInstructor:
   avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
 products:

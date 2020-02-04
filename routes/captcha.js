@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const models = require('../models/index')
 
 function captchas () {
@@ -32,7 +37,7 @@ captchas.verifyCaptcha = () => (req, res, next) => {
     if (captcha && req.body.captcha === captcha.dataValues.answer) {
       next()
     } else {
-      res.status(401).send('Wrong answer to CAPTCHA. Please try again.')
+      res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
   })
 }

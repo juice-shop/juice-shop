@@ -31,7 +31,7 @@ The minimum requirements for code contributions are:
 
 You can find our detailed contribution guidelines over here:
 
-<https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html>
+<https://pwning.owasp-juice.shop/part3/contribution.html>
 
 ## I18N Contributions
 
@@ -39,4 +39,4 @@ Learn all about our crowd-sourced
 [translation project on Crowdin](https://crowdin.com/project/owasp-juice-shop)
 here:
 
-<https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/translation.html>
+<https://pwning.owasp-juice.shop/part3/translation.html>

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from 'src/environments/environment'
 import { Injectable, NgZone } from '@angular/core'
 import * as io from 'socket.io-client'

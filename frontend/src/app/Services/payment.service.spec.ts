@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 import { PaymentService } from './payment.service'

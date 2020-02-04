@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'

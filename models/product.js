@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
@@ -8,9 +13,7 @@ module.exports = (sequelize, { STRING, DECIMAL }) => {
     description: {
       type: STRING,
       set (description) {
-        if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.restfulXssChallenge)
-        }
+        utils.solveIf(challenges.restfulXssChallenge, () => { return utils.contains(description, '<iframe src="javascript:alert(`xss`)">') })
         this.setDataValue('description', description)
       }
     },

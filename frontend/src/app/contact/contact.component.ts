@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FeedbackService } from '../Services/feedback.service'
 import { CaptchaService } from '../Services/captcha.service'
 import { UserService } from '../Services/user.service'
