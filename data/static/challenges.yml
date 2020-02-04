@@ -6,6 +6,9 @@
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
   key: restfulXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Access Log'
   category: 'Sensitive Data Exposure'
@@ -282,6 +285,9 @@
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
   key: httpHeaderXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
