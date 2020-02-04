@@ -102,7 +102,7 @@
     "grunt": "^1.0.4",
     "grunt-contrib-compress": "^1.6.0",
     "grunt-replace-json": "^0.1.0",
-    "hashids": "^2.1.0",
+    "hashids": "2.1.0",
     "helmet": "^3.21.2",
     "html-entities": "^1.2.1",
     "i18n": "bkimminich/i18n-node",
