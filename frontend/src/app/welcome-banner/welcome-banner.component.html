@@ -16,8 +16,12 @@
       <mat-icon>
         school
       </mat-icon>
+      <span fxShow fxHide.lt-lg translate>BTN_GETTING_STARTED</span>
     </button>
     <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary" aria-label="Close Welcome Banner">
-      {{"BTN_DISMISS" | translate}}
+      <mat-icon>
+        visibility_off
+      </mat-icon>
+      <span fxShow fxHide.lt-sm translate>BTN_DISMISS</span>
     </button>
 </div>

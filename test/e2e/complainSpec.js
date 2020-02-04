@@ -57,10 +57,10 @@ describe('/#/complain', () => {
     protractor.expect.challengeSolved({ challenge: 'Upload Type' })
   })
 
-  describe('challenge "xxeFileDisclosure"', () => {
-    it('should be possible to retrieve file from Windows server via .xml upload with XXE attack', () => {
-      complaintMessage.sendKeys('XXE File Exfiltration Windows!')
-      file.sendKeys(path.resolve('test/files/xxeForWindows.xml'))
+  describe('challenge "deprecatedInterface"', () => {
+    it('should be possible to upload XML files', () => {
+      complaintMessage.sendKeys('XML all the way!')
+      file.sendKeys(path.resolve('test/files/deprecatedTypeForServer.xml'))
       submitButton.click()
     })
     protractor.expect.challengeSolved({ challenge: 'Deprecated Interface' })
@@ -102,34 +102,34 @@ describe('/#/complain', () => {
         protractor.expect.challengeSolved({ challenge: 'XXE DoS' })
       })
     })
-  }
 
-  describe('challenge "arbitraryFileWrite"', () => {
-    it('should be possible to upload zip file with filenames having path traversal', () => {
-      complaintMessage.sendKeys('Zip Slip!')
-      file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
-      submitButton.click()
-    })
-    protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
-  })
-
-  describe('challenge "videoXssChallenge"', () => {
-    it('should be possible to inject js in subtitles by uploading zip file with filenames having path traversal', () => {
-      const EC = protractor.ExpectedConditions
-      complaintMessage.sendKeys('Here we go!')
-      file.sendKeys(path.resolve('test/files/videoExploit.zip'))
-      submitButton.click()
-      browser.waitForAngularEnabled(false)
-      browser.get('/promotion')
-      browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
-      browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('xss')
-        alert.accept()
+    describe('challenge "arbitraryFileWrite"', () => {
+      it('should be possible to upload zip file with filenames having path traversal', () => {
+        complaintMessage.sendKeys('Zip Slip!')
+        file.sendKeys(path.resolve('test/files/arbitraryFileWrite.zip'))
+        submitButton.click()
       })
-      browser.get('/')
-      browser.driver.sleep(5000)
-      browser.waitForAngularEnabled(true)
+      protractor.expect.challengeSolved({ challenge: 'Arbitrary File Write' })
     })
-    protractor.expect.challengeSolved({ challenge: 'Video XSS' })
-  })
+
+    describe('challenge "videoXssChallenge"', () => {
+      it('should be possible to inject js in subtitles by uploading zip file with filenames having path traversal', () => {
+        const EC = protractor.ExpectedConditions
+        complaintMessage.sendKeys('Here we go!')
+        file.sendKeys(path.resolve('test/files/videoExploit.zip'))
+        submitButton.click()
+        browser.waitForAngularEnabled(false)
+        browser.get('/promotion')
+        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /promotion")
+        browser.switchTo().alert().then(alert => {
+          expect(alert.getText()).toEqual('xss')
+          alert.accept()
+        })
+        browser.get('/')
+        browser.driver.sleep(5000)
+        browser.waitForAngularEnabled(true)
+      })
+      protractor.expect.challengeSolved({ challenge: 'Video XSS' })
+    })
+  }
 })

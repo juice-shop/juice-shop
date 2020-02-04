@@ -26,6 +26,30 @@ describe('/profile', () => {
       })
       protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
+
+    describe('challenge "usernameXss"', () => {
+      it('Username field should be susceptible to XSS attacks', () => {
+        browser.waitForAngularEnabled(false)
+        browser.get('/profile')
+
+        const EC = protractor.ExpectedConditions
+        username = element(by.id('username'))
+        setButton = element(by.id('submit'))
+        username.sendKeys('<<a|ascript>alert(`xss`)</script>')
+        setButton.click()
+        browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
+        browser.switchTo().alert().then(alert => {
+          expect(alert.getText()).toEqual('xss')
+          alert.accept()
+        })
+        username.sendKeys('αδмιη') // disarm XSS
+        setButton.click()
+        browser.get('/')
+        browser.driver.sleep(10000)
+        browser.waitForAngularEnabled(true)
+      })
+      protractor.expect.challengeSolved({ challenge: 'Classic Stored XSS' })
+    })
   }
 
   describe('challenge "ssrf"', () => {
@@ -41,29 +65,5 @@ describe('/profile', () => {
       browser.waitForAngularEnabled(true)
     })
     protractor.expect.challengeSolved({ challenge: 'SSRF' })
-  })
-
-  describe('challenge "usernameXss"', () => {
-    it('Username field should be susceptible to XSS attacks', () => {
-      browser.waitForAngularEnabled(false)
-      browser.get('/profile')
-
-      const EC = protractor.ExpectedConditions
-      username = element(by.id('username'))
-      setButton = element(by.id('submit'))
-      username.sendKeys('<<a|ascript>alert(`xss`)</script>')
-      setButton.click()
-      browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
-      browser.switchTo().alert().then(alert => {
-        expect(alert.getText()).toEqual('xss')
-        alert.accept()
-      })
-      username.sendKeys('αδмιη') // disarm XSS
-      setButton.click()
-      browser.get('/')
-      browser.driver.sleep(10000)
-      browser.waitForAngularEnabled(true)
-    })
-    protractor.expect.challengeSolved({ challenge: 'Classic Stored XSS' })
   })
 })

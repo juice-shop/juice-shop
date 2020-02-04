@@ -5,6 +5,7 @@
 
 /* jslint node: true */
 const utils = require('../lib/utils')
+const insecurity = require('../lib/insecurity')
 const challenges = require('../data/datacache').challenges
 
 module.exports = (sequelize, { STRING, DECIMAL }) => {
@@ -13,8 +14,10 @@ module.exports = (sequelize, { STRING, DECIMAL }) => {
     description: {
       type: STRING,
       set (description) {
-        if (utils.notSolved(challenges.restfulXssChallenge) && utils.contains(description, '<iframe src="javascript:alert(`xss`)">')) {
-          utils.solve(challenges.restfulXssChallenge)
+        if (!utils.disableOnContainerEnv()) {
+          utils.solveIf(challenges.restfulXssChallenge, () => { return utils.contains(description, '<iframe src="javascript:alert(`xss`)">') })
+        } else {
+          description = insecurity.sanitizeSecure(description)
         }
         this.setDataValue('description', description)
       }

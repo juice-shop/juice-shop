@@ -14,19 +14,15 @@ const products = cache.products
 const config = require('config')
 
 exports.forgedFeedbackChallenge = () => (req, res, next) => {
-  /* jshint eqeqeq:false */
-  if (utils.notSolved(challenges.forgedFeedbackChallenge)) {
+  utils.solveIf(challenges.forgedFeedbackChallenge, () => {
     const user = insecurity.authenticatedUsers.from(req)
     const userId = user && user.data ? user.data.id : undefined
-    if (req.body && req.body.UserId && req.body.UserId != userId) { // eslint-disable-line eqeqeq
-      utils.solve(challenges.forgedFeedbackChallenge)
-    }
-  }
+    return req.body && req.body.UserId && req.body.UserId != userId // eslint-disable-line eqeqeq
+  })
   next()
 }
 
 exports.captchaBypassChallenge = () => (req, res, next) => {
-  /* jshint eqeqeq:false */
   if (utils.notSolved(challenges.captchaBypassChallenge)) {
     if (req.app.locals.captchaReqId >= 10) {
       if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 10000) {
@@ -40,50 +36,30 @@ exports.captchaBypassChallenge = () => (req, res, next) => {
 }
 
 exports.registerAdminChallenge = () => (req, res, next) => {
-  if (utils.notSolved(challenges.registerAdminChallenge)) {
-    if (req.body && req.body.role === insecurity.roles.admin) {
-      utils.solve(challenges.registerAdminChallenge)
-    }
-  }
+  utils.solveIf(challenges.registerAdminChallenge, () => { return req.body && req.body.role === insecurity.roles.admin })
   next()
 }
 
 exports.passwordRepeatChallenge = () => (req, res, next) => {
-  if (utils.notSolved(challenges.passwordRepeatChallenge)) {
-    if (req.body && req.body.passwordRepeat !== req.body.password) {
-      utils.solve(challenges.passwordRepeatChallenge)
-    }
-  }
+  utils.solveIf(challenges.passwordRepeatChallenge, () => { return req.body && req.body.passwordRepeat !== req.body.password })
   next()
 }
 
 exports.accessControlChallenges = () => ({ url }, res, next) => {
-  if (utils.notSolved(challenges.scoreBoardChallenge) && utils.endsWith(url, '/1px.png')) {
-    utils.solve(challenges.scoreBoardChallenge)
-  } else if (utils.notSolved(challenges.adminSectionChallenge) && utils.endsWith(url, '/19px.png')) {
-    utils.solve(challenges.adminSectionChallenge)
-  } else if (utils.notSolved(challenges.tokenSaleChallenge) && utils.endsWith(url, '/56px.png')) {
-    utils.solve(challenges.tokenSaleChallenge)
-  } else if (utils.notSolved(challenges.privacyPolicyChallenge) && utils.endsWith(url, '/81px.png')) {
-    utils.solve(challenges.privacyPolicyChallenge)
-  } else if (utils.notSolved(challenges.extraLanguageChallenge) && utils.endsWith(url, '/tlh_AA.json')) {
-    utils.solve(challenges.extraLanguageChallenge)
-  } else if (utils.notSolved(challenges.retrieveBlueprintChallenge) && utils.endsWith(url, cache.retrieveBlueprintChallengeFile)) {
-    utils.solve(challenges.retrieveBlueprintChallenge)
-  } else if (utils.notSolved(challenges.securityPolicyChallenge) && utils.endsWith(url, '/security.txt')) {
-    utils.solve(challenges.securityPolicyChallenge)
-  } else if (utils.notSolved(challenges.missingEncodingChallenge) && utils.endsWith(url, '/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg')) {
-    utils.solve(challenges.missingEncodingChallenge)
-  } else if (utils.notSolved(challenges.accessLogDisclosureChallenge) && url.match(/access\.log(0-9-)*/)) {
-    utils.solve(challenges.accessLogDisclosureChallenge)
-  }
+  utils.solveIf(challenges.scoreBoardChallenge, () => { return utils.endsWith(url, '/1px.png') })
+  utils.solveIf(challenges.adminSectionChallenge, () => { return utils.endsWith(url, '/19px.png') })
+  utils.solveIf(challenges.tokenSaleChallenge, () => { return utils.endsWith(url, '/56px.png') })
+  utils.solveIf(challenges.privacyPolicyChallenge, () => { return utils.endsWith(url, '/81px.png') })
+  utils.solveIf(challenges.extraLanguageChallenge, () => { return utils.endsWith(url, '/tlh_AA.json') })
+  utils.solveIf(challenges.retrieveBlueprintChallenge, () => { return utils.endsWith(url, cache.retrieveBlueprintChallengeFile) })
+  utils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
+  utils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url, '/%F0%9F%98%BC-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
+  utils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
   next()
 }
 
 exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
-  if (utils.notSolved(challenges.errorHandlingChallenge) && err && (statusCode === 200 || statusCode > 401)) {
-    utils.solve(challenges.errorHandlingChallenge)
-  }
+  utils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
   next(err)
 }
 
