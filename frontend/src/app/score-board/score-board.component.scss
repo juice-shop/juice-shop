@@ -57,3 +57,12 @@ mat-table {
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+.disabled-challenges-infoBox {
+  height: 100%;
+  margin: 0;
+  a {
+    font-style: normal;
+    color: rgb(84, 110, 122);
+  }
+}

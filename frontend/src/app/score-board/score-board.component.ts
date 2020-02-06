@@ -35,6 +35,8 @@ export class ScoreBoardComponent implements OnInit {
   public toggledMajorityOfDifficulties: boolean = false
   public toggledMajorityOfCategories: boolean = true
   public showSolvedChallenges: boolean = true
+  public challengesDisabled: boolean = false
+  public showDisabledChallenges: boolean = false
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
@@ -56,6 +58,7 @@ export class ScoreBoardComponent implements OnInit {
 
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
+    this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
@@ -198,6 +201,11 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
+  toggleShowDisabledChallenges() {
+    this.showDisabledChallenges = !this.showDisabledChallenges
+    localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
+  }
+
   toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
@@ -231,7 +239,7 @@ export class ScoreBoardComponent implements OnInit {
     challenges = challenges.filter((challenge) => {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
-      if (!this.showSolvedChallenges && challenge.solved) return false
+      if (!this.showSolvedChallenges && challenge.solved) { this.challengesDisabled = true; return false }
       return true
     })
 
