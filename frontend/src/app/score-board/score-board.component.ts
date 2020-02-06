@@ -120,6 +120,7 @@ export class ScoreBoardComponent implements OnInit {
 
   augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
+      this.challengesDisabled = true
       this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
@@ -239,7 +240,7 @@ export class ScoreBoardComponent implements OnInit {
     challenges = challenges.filter((challenge) => {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
-      if (!this.showSolvedChallenges && challenge.solved) { this.challengesDisabled = true; return false }
+      if (!this.showSolvedChallenges && challenge.solved) return false
       return true
     })
 
