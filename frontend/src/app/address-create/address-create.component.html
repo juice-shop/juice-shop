@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2014-2020 Bjoern Kimminich.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
 <div fxLayoutAlign="center">
   <mat-card>
      <h3 translate>ADD_NEW_ADDRESS</h3>
@@ -64,10 +69,13 @@
         </mat-form-field>
      </div>
      <button type="submit" id="submitButton" style="margin-top:5px;" mat-raised-button color="primary"
-     [disabled]="countryControl.invalid || nameControl.invalid || numberControl.invalid || pinControl.invalid || addressControl.invalid || cityControl.invalid" 
+     [disabled]="countryControl.invalid || nameControl.invalid || numberControl.invalid || pinControl.invalid || addressControl.invalid || cityControl.invalid"
      (click)="save()"><i class="fas fa-paper-plane fa-lg"></i> {{'BTN_SUBMIT' | translate}}
      </button>
      <button mat-raised-button class="btn-return" (click)="routeToPreviousUrl()">
+       <mat-icon>
+         navigate_before
+       </mat-icon>
      {{'LABEL_GO_BACK' | translate}}
      </button>
   </mat-card>

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const spawn = require('cross-spawn')
 const colors = require('colors/safe')
 const server = require('./../server.js')

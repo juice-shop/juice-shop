@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -68,10 +73,10 @@ export class UserService {
   }
 
   deluxeStatus () {
-    return this.http.get(this.hostServer + '/rest/deluxe-status').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.hostServer + '/rest/deluxe-membership').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   upgradeToDeluxe (payUsingWallet: boolean) {
-    return this.http.post(this.hostServer + '/rest/upgrade-deluxe', { payUsingWallet: payUsingWallet }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { payUsingWallet: payUsingWallet }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

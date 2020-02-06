@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'

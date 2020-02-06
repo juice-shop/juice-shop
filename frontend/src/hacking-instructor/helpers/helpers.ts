@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 export function sleep (timeInMs: number): Promise<void> {
   return new Promise((resolved) => {
     setTimeout(resolved, timeInMs)

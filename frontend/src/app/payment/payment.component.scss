@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 mat-form-field {
   width: 100%;
 }
@@ -33,4 +38,8 @@ mat-card {
 
 .card-title {
   font-size: 15px;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
 }

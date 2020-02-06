@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 'use strict'
 
 module.exports = function (grunt) {
@@ -34,6 +39,7 @@ module.exports = function (grunt) {
               'package.json',
               'ctf.key',
               'swagger.yml',
+              'config.schema.yml',
               'config/*.yml',
               'data/*.js',
               'data/static/**',

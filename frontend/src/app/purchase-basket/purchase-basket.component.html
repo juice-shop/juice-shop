@@ -59,7 +59,6 @@
 
 			<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: tableColumns;"></mat-row>
-
 			<span *ngIf="displayTotal">
 				<mat-footer-row  mat-footer-row *matFooterRowDef="tableColumns"></mat-footer-row>
 			</span>

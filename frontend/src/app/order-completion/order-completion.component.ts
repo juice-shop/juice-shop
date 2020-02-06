@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, OnInit } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { ActivatedRoute, ParamMap } from '@angular/router'
@@ -48,10 +53,10 @@ export class OrderCompletionComponent implements OnInit {
         }
         this.tweetText = this.truncateTweet(this.tweetText)
         this.configurationService.getApplicationConfiguration().subscribe((config) => {
-          if (config && config.application) {
+          if (config && config.application && config.application.social) {
             this.tweetText += '%0afrom '
-            if (config.application.twitterUrl) {
-              this.tweetText += config.application.twitterUrl.replace('https://twitter.com/','@')
+            if (config.application.social.twitterUrl) {
+              this.tweetText += config.application.social.twitterUrl.replace('https://twitter.com/','@')
             } else {
               this.tweetText += config.application.name
             }

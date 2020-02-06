@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 exports.themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',

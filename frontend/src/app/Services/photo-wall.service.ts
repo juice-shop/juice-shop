@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -9,7 +14,7 @@ import { catchError, map } from 'rxjs/operators'
 export class PhotoWallService {
 
   private hostServer = environment.hostServer
-  private host = this.hostServer + '/api/Memorys'
+  private host = this.hostServer + '/rest/memories'
 
   constructor (private http: HttpClient) { }
 

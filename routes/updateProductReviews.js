@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
@@ -12,13 +17,8 @@ module.exports = function productReviews () {
       { multi: true }
     ).then(
       result => {
-        if (result.modified > 1 && utils.notSolved(challenges.noSqlReviewsChallenge)) {
-          // More than one Review was modified => challange solved
-          utils.solve(challenges.noSqlReviewsChallenge)
-        }
-        if (user && user.data && result.original[0].author !== user.data.email && utils.notSolved(challenges.forgedReviewChallenge && result.modified === 1)) {
-          utils.solve(challenges.forgedReviewChallenge)
-        }
+        utils.solveIf(challenges.noSqlReviewsChallenge, () => { return result.modified > 1 })
+        utils.solveIf(challenges.forgedReviewChallenge, () => { return user && user.data && result.original[0].author !== user.data.email && result.modified === 1 })
         res.json(result)
       }, err => {
         res.status(500).json(err)

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const otplib = require('otplib')
 
 protractor.expect = {
@@ -40,7 +45,7 @@ protractor.beforeEach = {
       })
 
       it('should have logged in user "' + context.email + '" with password "' + context.password + '"', () => {
-        expect(browser.getCurrentUrl()).toMatch(/\/search/) // TODO Instead check for uib-tooltip of <i> with fa-user-circle
+        expect(browser.getCurrentUrl()).toMatch(/\/search/)
       })
     })
   }

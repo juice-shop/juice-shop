@@ -79,6 +79,7 @@
   "THANKS_FOR_SUPPORT": "Thank you for supporting {{juiceshop}}!",
   "THANKS_FOR_SUPPORT_CUSTOMIZED": "Thank you for supporting the open source project behind {{appname}}!",
   "LABEL_PAYMENT": "Payment",
+  "LABEL_DONATIONS": "Donations",
   "LABEL_MERCHANDISE": "Merchandise",
   "OFFICIAL_MERCHANDISE_STORES": "Official stores for {{juiceshop}} apparel, mugs and stickers!",
   "OFFICIAL_MERCHANDISE_STORES_CUSTOMIZED": "Official stores for apparel, mugs and stickers of the open source project behind {{appname}}!",
@@ -109,6 +110,7 @@
   "STATUS_SOLVED": "solved",
   "STATUS_UNAVAILABLE": "unavailable",
   "CALL_FOR_CONTRIBUTIONS": "Got an idea for a new challenge? Found a vulnerability that is not tracked here? Let us know via <a href='http://gitter.im/bkimminich/juice-shop'><i class='fab fa-gitter'></i>Gitter.im</a> community chat or by opening a <a href='https://github.com/bkimminich/juice-shop/issues'><i class='fab fa-github'></i>GitHub</a> issue!",
+  "CALL_FOR_FEEDBACK": "Please help us to make {{appname}} even better for you by answering our <a href='{{questionnaire}}'><i class='fas fa-poll-h'></i>user questionaire</a>!",
   "CHALLENGE_SOLVED": "You successfully solved a challenge: {{challenge}}",
   "INVALID_CONTINUE_CODE": "Invalid continue code.",
   "CONFIRM_LOGGED_IN_VIA_OAUTH2": "You have been logged in via OAuth 2.0 provider.",
@@ -236,6 +238,7 @@
   "CONFIRM_ERASURE_REQUEST": "Sorry to see you leave! Your erasure request will be processed shortly.",
   "INFO_HACKING_INSTRUCTOR": "Start an interactive hacking tutorial for this challenge.",
   "SCORE_BOARD_HACKING_INSTRUCTOR": "Launch a tutorial to get you started hacking the Juice Shop.",
+  "BTN_GETTING_STARTED": "Help getting started",
   "BTN_DISMISS": "Dismiss",
   "SIDENAV_HINT": "Open side menu",
   "LANGUAGE_SEL_HINT": "Choose language",
@@ -331,5 +334,7 @@
   "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}.",
   "CHALLENGE_UNAVAILABLE": "This challenge is unavailable in a {{env}} environment!",
   "CLICK_FOR_MORE_HINTS": "Click for more hints.",
-  "CLICK_TO_OPEN_HINTS": "Click to open hints."
+  "CLICK_TO_OPEN_HINTS": "Click to open hints.",
+  "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
+  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
 }

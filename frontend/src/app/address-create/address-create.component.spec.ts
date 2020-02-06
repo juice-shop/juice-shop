@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
@@ -13,6 +18,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 
 describe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
@@ -43,7 +49,8 @@ describe('AddressCreateComponent', () => {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        MatGridListModule
+        MatGridListModule,
+        MatIconModule
       ],
       declarations: [ AddressCreateComponent],
       providers: [
