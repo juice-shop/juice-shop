@@ -186,6 +186,8 @@
   "COMPANY": "Company",
   "ADD_BASKET": "Add to Basket",
   "BTN_SHOW_ALL": "Show all",
+  "BTN_SHOW_DISABLED": "Show disabled challenges",
+  "INFO_DISABLED_CHALLENGES": "Some challenges may be unavailable due to",
   "BTN_HIDE_ALL": "Hide all",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
