@@ -202,7 +202,7 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
-  toggleShowDisabledChallenges() {
+  toggleShowDisabledChallenges () {
     this.showDisabledChallenges = !this.showDisabledChallenges
     localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
   }
