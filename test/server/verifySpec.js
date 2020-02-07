@@ -17,6 +17,7 @@ describe('verify', () => {
   const challenges = require('../../data/datacache').challenges
 
   beforeEach(() => {
+    this.err = undefined
     this.req = { body: {}, headers: {} }
     this.res = { json: sinon.spy() }
     this.next = sinon.spy()
@@ -255,7 +256,7 @@ describe('verify', () => {
        */
       this.req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtUnsignedChallenge.solved).to.equal(true)
     })
@@ -267,7 +268,7 @@ describe('verify', () => {
        */
       this.req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQCJ9LCJpYXQiOjE1MDg2Mzk2MTIsImV4cCI6OTk5OTk5OTk5OX0.' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtUnsignedChallenge.solved).to.equal(true)
     })
@@ -276,7 +277,7 @@ describe('verify', () => {
       const token = insecurity.authorize({ data: { email: 'jwtn3d@juice-sh.op' } })
       this.req.headers = { authorization: 'Bearer ' + token }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
@@ -288,7 +289,7 @@ describe('verify', () => {
        */
       this.req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTA4NjM5NjEyLCJleHAiOjk5OTk5OTk5OTl9.dFeqI0EGsOecwi5Eo06dFUBtW5ziRljFgMWOCYeA8yw' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtForgedChallenge.solved).to.equal(true)
     })
@@ -300,7 +301,7 @@ describe('verify', () => {
        */
       this.req.headers = { authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.mvgAeQum5lh6Wq4f-69OqLy3g_SD2_aNahyHBHP4Bwk' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtForgedChallenge.solved).to.equal(true)
     })
@@ -309,7 +310,7 @@ describe('verify', () => {
       const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
       this.req.headers = { authorization: 'Bearer ' + token }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+      verify.jwtChallenges()(this.err, this.req, this.res, this.next)
 
       expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
