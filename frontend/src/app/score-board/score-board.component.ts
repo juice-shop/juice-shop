@@ -241,6 +241,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
+      if (!this.showDisabledChallenges && challenge.disabledEnv) return false
       return true
     })
 

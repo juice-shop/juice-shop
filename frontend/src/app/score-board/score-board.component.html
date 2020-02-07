@@ -45,11 +45,11 @@
       </mat-button-toggle>
 
       <mat-button-toggle *ngIf="challengesDisabled" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges">
-        {{"BTN_SHOW_DISABLED" | translate}}
+        <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_DISABLED" | translate}}
       </mat-button-toggle>
 
       <div *ngIf="challengesDisabled" class="disabled-challenges-infoBox mat-button">
-        {{"INFO_DISABLED_CHALLENGES" | translate}} <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security reasons</a>
+        {{"INFO_DISABLED_CHALLENGES" | translate}} <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security reasons!</a>
       </div>
 
     </div>
