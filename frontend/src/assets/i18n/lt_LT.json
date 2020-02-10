@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Log in with Google",
   "REMEMBER_ME": "Prisimink mane",
   "NO_CUSTOMER": "Not yet a customer?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "User Registration",
   "INVALID_EMAIL": "Email address is not valid.",
   "SECURITY_ANSWER": "Answer",
