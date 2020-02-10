@@ -186,6 +186,8 @@
   "COMPANY": "Компания",
   "ADD_BASKET": "Добавить в корзину",
   "BTN_SHOW_ALL": "Показать все",
+  "BTN_SHOW_DISABLED": "Show disabled",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Cкрыть все",
   "TYPE_THESE_LETTERS": "Введите {{length}} букв",
   "BTN_REQUEST": "Запрос",
