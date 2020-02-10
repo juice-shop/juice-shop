@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Войти через Google",
   "REMEMBER_ME": "Запомнить меня",
   "NO_CUSTOMER": "У вас еще нет учетной записи?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Регистрация",
   "INVALID_EMAIL": "Эл. адрес неверен.",
   "SECURITY_ANSWER": "Ответ",
