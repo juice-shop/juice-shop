@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "შესვლა Google-ით",
   "REMEMBER_ME": "დამიმახსოვრე",
   "NO_CUSTOMER": "ჯერ არ ხართ მომხმარებელი?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "მომხმარებლის რეგისტრაცია",
   "INVALID_EMAIL": "ელ-ფოსტა არასწორია.",
   "SECURITY_ANSWER": "Answer",
