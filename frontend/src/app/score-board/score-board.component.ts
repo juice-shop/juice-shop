@@ -35,8 +35,9 @@ export class ScoreBoardComponent implements OnInit {
   public toggledMajorityOfDifficulties: boolean = false
   public toggledMajorityOfCategories: boolean = true
   public showSolvedChallenges: boolean = true
-  public challengesDisabled: boolean = false
+  public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
+  public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
@@ -120,7 +121,8 @@ export class ScoreBoardComponent implements OnInit {
 
   augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
-      this.challengesDisabled = true
+      this.numDisabledChallenges++
+      this.disabledEnv = challenge.disabledEnv
       this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
