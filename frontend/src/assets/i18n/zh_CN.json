@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "使用谷歌登录",
   "REMEMBER_ME": "记住用户",
   "NO_CUSTOMER": "还不是消费者？",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "新用户注册",
   "INVALID_EMAIL": "电子邮件地址无效",
   "SECURITY_ANSWER": "答案",
