@@ -186,7 +186,7 @@
   "COMPANY": "Bedrift",
   "ADD_BASKET": "Legg til i handlevogn",
   "BTN_SHOW_ALL": "Vis alle",
-  "BTN_SHOW_DISABLED": "Show disabled",
+  "BTN_SHOW_UNAVAILABLE": "Show unavailable",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Skjul alle",
   "TYPE_THESE_LETTERS": "Skriv inn følgende {{length}} bokstaver",
