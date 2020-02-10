@@ -186,7 +186,7 @@
   "COMPANY": "Uzņēmums",
   "ADD_BASKET": "Pievienot grozam",
   "BTN_SHOW_ALL": "Rādīt visu",
-  "BTN_SHOW_DISABLED": "Show disabled",
+  "BTN_SHOW_UNAVAILABLE": "Show unavailable",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Paslēpt visu",
   "TYPE_THESE_LETTERS": "Ievadiet šos {{length}} burtus",
