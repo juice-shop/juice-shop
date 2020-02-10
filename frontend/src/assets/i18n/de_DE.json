@@ -186,7 +186,7 @@
   "COMPANY": "Unternehmen",
   "ADD_BASKET": "Zum Warenkorb hinzufügen",
   "BTN_SHOW_ALL": "Alle anzeigen",
-  "BTN_SHOW_UNAVAILABLE": "Show unavailable",
+  "BTN_SHOW_UNAVAILABLE": "Nicht verfügbare anzeigen",
   "INFO_DISABLED_CHALLENGES": "{{num}} Herausforderungen sind in einer {{env}}-Umgebung wegen <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>Sicherheitsbedenken</a> nicht verfügbar!",
   "BTN_HIDE_ALL": "Alle ausblenden",
   "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
