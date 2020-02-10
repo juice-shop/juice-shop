@@ -281,5 +281,9 @@
 	"New and repeated password do not match.": "Neues und wiederholtes Passwort stimmen nicht überein.",
 	"Wrong answer to security question.": "Falsche Antwort auf Sicherheitsfrage.",
 	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)": "<a href=\"/#/contact\">Informiere das Entwicklungsteam</a> über eine Gefährdung einiger <em>ihrer</em> Anmeldedaten. (Sende ihnen die URL der <em>ursprünglichen Meldung</em> oder eine zugewiesene CVE oder andere Kennung dieser Verwundbarkeit)",
-	"You can order only up to {{quantity}} items of this product.": "Sie können nur bis zu {{quantity}} Exemplare dieses Produkts bestellen."
+	"You can order only up to {{quantity}} items of this product.": "Sie können nur bis zu {{quantity}} Exemplare dieses Produkts bestellen.",
+	" <em>(This challenge is <strong>not available</strong> on Docker!)</em>": " <em>(This challenge is <strong>not available</strong> on Docker!)</em>",
+	" <em>(This challenge is <strong>not available</strong> on Heroku!)</em>": " <em>(This challenge is <strong>not available</strong> on Heroku!)</em>",
+	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>",
+	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>"
 }
