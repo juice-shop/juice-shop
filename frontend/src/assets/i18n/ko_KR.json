@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Google 계정으로 로그인",
   "REMEMBER_ME": "아이디/암호 저장",
   "NO_CUSTOMER": "아직 고객이 아니십니까?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "사용자 등록",
   "INVALID_EMAIL": "이메일 주소가 유효하지 않습니다.",
   "SECURITY_ANSWER": "답변",
