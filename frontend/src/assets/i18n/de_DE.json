@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Mit Google anmelden",
   "REMEMBER_ME": "Angemeldet bleiben",
   "NO_CUSTOMER": "Noch kein Kunde?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Benutzerregistrierung",
   "INVALID_EMAIL": "Email-Adresse ist nicht gültig.",
   "SECURITY_ANSWER": "Antwort",
