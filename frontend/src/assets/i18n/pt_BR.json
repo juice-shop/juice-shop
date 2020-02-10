@@ -186,6 +186,8 @@
   "COMPANY": "Company",
   "ADD_BASKET": "Adicionar ao Cesto",
   "BTN_SHOW_ALL": "Ver tudo",
+  "BTN_SHOW_DISABLED": "Show disabled",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Esconder tudo",
   "TYPE_THESE_LETTERS": "Escreva estas {{length}} letras",
   "BTN_REQUEST": "Pedido",
