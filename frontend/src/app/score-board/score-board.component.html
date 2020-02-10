@@ -44,6 +44,12 @@
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
 
+      <mat-button-toggle *ngIf="numDisabledChallenges > 0" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges">
+        <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_DISABLED" | translate}}
+      </mat-button-toggle>
+
+      <div *ngIf="showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
+
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
