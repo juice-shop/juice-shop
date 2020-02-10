@@ -186,7 +186,7 @@
   "COMPANY": "Společnost",
   "ADD_BASKET": "Přidat do Košíku",
   "BTN_SHOW_ALL": "Zobrazit vše",
-  "BTN_SHOW_DISABLED": "Show disabled",
+  "BTN_SHOW_UNAVAILABLE": "Show unavailable",
   "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Skrýt vše",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
