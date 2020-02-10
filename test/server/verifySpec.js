@@ -148,7 +148,7 @@ describe('verify', () => {
       this.res.statusCode = 200
       this.err = new Error()
 
-      verify.errorHandlingChallenge()(this.req, this.res, this.next)
+      verify.errorHandlingChallenge()(this.err, this.req, this.res, this.next)
 
       expect(challenges.errorHandlingChallenge.solved).to.equal(true)
     })
@@ -160,7 +160,7 @@ describe('verify', () => {
           this.res.statusCode = statusCode
           this.err = new Error()
 
-          verify.errorHandlingChallenge()(this.req, this.res, this.next)
+          verify.errorHandlingChallenge()(this.err, this.req, this.res, this.next)
 
           expect(challenges.errorHandlingChallenge.solved).to.equal(true)
         })
@@ -171,7 +171,7 @@ describe('verify', () => {
       this.res.statusCode = 200
       this.err = undefined
 
-      verify.errorHandlingChallenge()(this.req, this.res, this.next)
+      verify.errorHandlingChallenge()(this.err, this.req, this.res, this.next)
 
       expect(challenges.errorHandlingChallenge.solved).to.equal(false)
     })
@@ -183,7 +183,7 @@ describe('verify', () => {
           this.res.statusCode = statusCode
           this.err = undefined
 
-          verify.errorHandlingChallenge()(this.req, this.res, this.next)
+          verify.errorHandlingChallenge()(this.err, this.req, this.res, this.next)
 
           expect(challenges.errorHandlingChallenge.solved).to.equal(false)
         })
@@ -194,7 +194,7 @@ describe('verify', () => {
       this.res.statusCode = 500
       this.err = new Error()
 
-      verify.errorHandlingChallenge()(this.req, this.res, this.next)
+      verify.errorHandlingChallenge()(this.err, this.req, this.res, this.next)
 
       expect(this.next).to.have.been.calledWith(this.err)
     })
