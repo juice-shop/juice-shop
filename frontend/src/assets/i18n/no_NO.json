@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Logg inn med Google",
   "REMEMBER_ME": "Husk meg",
   "NO_CUSTOMER": "Ennå ikke kunde?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Brukerregistrering",
   "INVALID_EMAIL": "E-postadressen er ikke gyldig.",
   "SECURITY_ANSWER": "Svar",
