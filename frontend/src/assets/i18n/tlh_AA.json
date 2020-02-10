@@ -186,6 +186,8 @@
   "COMPANY": "wey",
   "ADD_BASKET": "Add to Basket",
   "BTN_SHOW_ALL": "cha' Hoch",
+  "BTN_SHOW_DISABLED": "Show disabled",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Hoch So'",
   "TYPE_THESE_LETTERS": "Type these {{length}} letters",
   "BTN_REQUEST": "Request",
