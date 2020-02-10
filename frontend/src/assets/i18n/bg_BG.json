@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Вписване с Google",
   "REMEMBER_ME": "Запомни ме",
   "NO_CUSTOMER": "Все още не сте клиент?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Регистрация",
   "INVALID_EMAIL": "Предоставеният и-мейл адрес е невалиден.",
   "SECURITY_ANSWER": "Отговор",
