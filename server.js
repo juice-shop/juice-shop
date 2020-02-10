@@ -387,8 +387,8 @@ for (const { name, exclude } of autoModels) {
       for (let i = 0; i < context.instance.length; i++) {
         let description = context.instance[i].description
         if (utils.contains(description, '<em>(This challenge is <strong>')) {
-          const warning = description.substring(description.indexOf('<em>(This challenge is <strong>'))
-          description = description.substring(0, description.indexOf('<em>(This challenge is <strong>'))
+          const warning = description.substring(description.indexOf(' <em>(This challenge is <strong>'))
+          description = description.substring(0, description.indexOf(' <em>(This challenge is <strong>'))
           context.instance[i].description = req.__(description) + req.__(warning)
         } else {
           context.instance[i].description = req.__(description)
