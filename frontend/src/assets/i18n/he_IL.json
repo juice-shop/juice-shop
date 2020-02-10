@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "התחבר באמצעות Google",
   "REMEMBER_ME": "זכור אותי",
   "NO_CUSTOMER": "עוד לא נרשמת?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "רישום",
   "INVALID_EMAIL": "כתובת המייל אינה תקינה.",
   "SECURITY_ANSWER": "Answer",
