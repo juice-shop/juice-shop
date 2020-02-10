@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Google के साथ प्रवेश करें",
   "REMEMBER_ME": "मुझे याद रखना",
   "NO_CUSTOMER": "अभी तक एक ग्राहक नहीं?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "उपयोगकर्ता का पंजीकरण",
   "INVALID_EMAIL": "ई मेल पता वैध नहीं है।",
   "SECURITY_ANSWER": "Answer",
