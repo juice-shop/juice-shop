@@ -48,7 +48,7 @@
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_DISABLED" | translate}}
       </mat-button-toggle>
 
-      <div *ngIf="showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
+      <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
 
     </div>
     <mat-divider></mat-divider>
@@ -100,7 +100,7 @@
                                       [showChallengeHints]="showChallengeHints">
           </app-challenge-status-badge>
           <button
-            *ngIf="showHackingInstructor && challenge.hasTutorial"
+            *ngIf="showHackingInstructor && !challenge.disabledEnv && challenge.hasTutorial"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
