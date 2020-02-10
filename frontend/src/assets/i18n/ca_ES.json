@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Entrar amb Google",
   "REMEMBER_ME": "Recorda'm",
   "NO_CUSTOMER": "Encara no tens un compte?",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Registre d'usuari",
   "INVALID_EMAIL": "L' adreça electrònica no és vàlida.",
   "SECURITY_ANSWER": "Answer",
