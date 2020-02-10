@@ -18,6 +18,7 @@
   "BTN_GOOGLE_LOGIN": "Kirjaudu käyttäen Googlea",
   "REMEMBER_ME": "Muista minut",
   "NO_CUSTOMER": "En ole asiakas",
+  "ALREADY_A_CUSTOMER": "Already a customer?",
   "TITLE_REGISTRATION": "Rekisteröinti",
   "INVALID_EMAIL": "Sähköpostiosoite ei kelpaa.",
   "SECURITY_ANSWER": "Answer",
