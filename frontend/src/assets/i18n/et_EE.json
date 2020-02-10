@@ -186,6 +186,8 @@
   "COMPANY": "Ettevõte",
   "ADD_BASKET": "Lisa korvi",
   "BTN_SHOW_ALL": "Kuva kõik",
+  "BTN_SHOW_DISABLED": "Show disabled",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "Peida kõik",
   "TYPE_THESE_LETTERS": "Tippige need {{length}} tähte",
   "BTN_REQUEST": "Päring",
