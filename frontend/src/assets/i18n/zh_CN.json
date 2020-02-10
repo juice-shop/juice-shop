@@ -186,6 +186,8 @@
   "COMPANY": "公司",
   "ADD_BASKET": "添加到购物车",
   "BTN_SHOW_ALL": "显示全部",
+  "BTN_SHOW_DISABLED": "Show disabled",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
   "BTN_HIDE_ALL": "隐藏全部",
   "TYPE_THESE_LETTERS": "键入 {{length}} 长度的字符",
   "BTN_REQUEST": "请求",
