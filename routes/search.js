@@ -14,32 +14,40 @@ module.exports = function searchProducts () {
     models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)
       .then(([products]) => {
         const dataString = JSON.stringify(products)
-        utils.solveIf(challenges.unionSqlInjectionChallenge, () => {
+        if (utils.notSolved(challenges.unionSqlInjectionChallenge)) {
+          let solved = true
           models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data && users.data.length) {
               for (let i = 0; i < users.data.length; i++) {
-                if (!utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)) {
-                  return false
+                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)
+                if (!solved) {
+                  break
                 }
               }
-              return true
+              if (solved) {
+                utils.solve(challenges.unionSqlInjectionChallenge)
+              }
             }
           })
-        })
-        utils.solveIf(challenges.dbSchemaChallenge, () => {
+        }
+        if (utils.notSolved(challenges.dbSchemaChallenge)) {
+          let solved = true
           models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]) => {
             const tableDefinitions = utils.queryResultToJson(data)
             if (tableDefinitions.data && tableDefinitions.data.length) {
               for (let i = 0; i < tableDefinitions.data.length; i++) {
-                if (!utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)) {
-                  return false
+                solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
+                if (!solved) {
+                  break
                 }
               }
-              return true
+              if (solved) {
+                utils.solve(challenges.dbSchemaChallenge)
+              }
             }
           })
-        })
+        }
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
           products[i].description = req.__(products[i].description)
