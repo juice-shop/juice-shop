@@ -63,14 +63,18 @@ exports.errorHandlingChallenge = () => (err, req, { statusCode }, next) => {
   next(err)
 }
 
-exports.jwtChallenges = () => (req, res, next) => {
-  if (utils.notSolved(challenges.jwtUnsignedChallenge)) {
-    jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
+exports.jwtChallenges = () => (err, req, res, next) => {
+  if (!err) {
+    if (utils.notSolved(challenges.jwtUnsignedChallenge)) {
+      jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
+    }
+    if (utils.notSolved(challenges.jwtForgedChallenge)) {
+      jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
+    }
+    next()
+  } else {
+    next(err)
   }
-  if (utils.notSolved(challenges.jwtForgedChallenge)) {
-    jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
-  }
-  next()
 }
 
 exports.serverSideChallenges = () => (req, res, next) => {
