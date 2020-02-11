@@ -15,34 +15,30 @@ module.exports = function searchProducts () {
       .then(([products]) => {
         const dataString = JSON.stringify(products)
         utils.solveIf(challenges.unionSqlInjectionChallenge, () => {
-          let solved = true
           models.User.findAll().then(data => {
             const users = utils.queryResultToJson(data)
             if (users.data && users.data.length) {
               for (let i = 0; i < users.data.length; i++) {
-                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)
-                if (!solved) {
-                  break
+                if (!utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)) {
+                  return false
                 }
               }
+              return true
             }
           })
-          return solved
         })
         utils.solveIf(challenges.dbSchemaChallenge, () => {
-          let solved = true
           models.sequelize.query('SELECT sql FROM sqlite_master').then(([data]) => {
             const tableDefinitions = utils.queryResultToJson(data)
             if (tableDefinitions.data && tableDefinitions.data.length) {
               for (let i = 0; i < tableDefinitions.data.length; i++) {
-                solved = solved && utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)
-                if (!solved) {
-                  break
+                if (!utils.containsOrEscaped(dataString, tableDefinitions.data[i].sql)) {
+                  return false
                 }
               }
+              return true
             }
           })
-          return solved
         })
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
