@@ -43,6 +43,7 @@ const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
+const metrics = require('./routes/metrics')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
@@ -341,6 +342,11 @@ app.post('/rest/2fa/disable',
   insecurity.isAuthorized(),
   twoFactorAuth.disable()
 )
+/* Serve metrics */
+const Metrics = metrics.observeMetrics()
+const metricsRegister = Metrics.register
+const metricsUpdateLoop = Metrics.updateLoop
+app.get('/metrics', metrics.serveMetrics(metricsRegister))
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
@@ -532,6 +538,7 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
+    clearInterval(metricsUpdateLoop)
     server.close()
   }
   if (exitCode !== undefined) {
