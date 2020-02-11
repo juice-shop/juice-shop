@@ -763,3 +763,11 @@
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#stick-cute-cross-domain-kittens-all-over-our-delivery-boxes'
   key: svgInjectionChallenge
+-
+  name: 'Exposed Metrics'
+  category: 'Sensitive Data Exposure'
+  description: 'Find the Metrics endpoint serving usage metrics to be scraped by Prometheus'
+  difficulty: 1
+  hint: 'Try to guess what URL the endpoint might have'
+  hintUrl: ''
+  key: exposedMetricsChallenge

@@ -598,3 +598,8 @@ ctf:
         type: string
       code:
         type: string
+    exposedMetricsChallenge:
+      name:
+        type: string
+      code:
+        type: string
