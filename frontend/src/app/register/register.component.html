@@ -92,19 +92,22 @@
           </mat-error>
         </mat-form-field>
       </div>
+
+      <button type="submit"
+              id="registerButton"
+              mat-raised-button color="primary"
+              [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
+              (click)="save()"
+              aria-label="Button to complete the registration">
+        <i class="material-icons">
+          person_add
+        </i>
+        {{'BTN_REGISTER' | translate}}
+      </button>
+
+      <div id="alreadyACustomerLink">
+        <a class="primary-link" routerLink="/login" translate>ALREADY_A_CUSTOMER</a>
+      </div>
     </div>
-
-    <button type="submit"
-            id="registerButton"
-            mat-raised-button color="primary"
-            [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
-            (click)="save()"
-            aria-label="Button to complete the registration">
-      <i class="material-icons">
-        person_add
-      </i>
-      {{'BTN_REGISTER' | translate}}
-    </button>
-
   </mat-card>
 </div>
