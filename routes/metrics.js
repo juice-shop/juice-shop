@@ -8,6 +8,7 @@ const orders = require('../data/mongodb').orders
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const utils = require('../lib/utils')
+const config = require('config')
 
 exports.serveMetrics = function serveMetrics (reg) {
   return (req, res, next) => {
@@ -20,20 +21,21 @@ exports.serveMetrics = function serveMetrics (reg) {
 exports.observeMetrics = function observeMetrics () {
   const register = new Prometheus.Registry()
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
-  register.setDefaultLabels({ app: 'juice-shop' })
+  const metricsLabel = config.get('application.metricsLabel')
+  register.setDefaultLabels({ app: metricsLabel })
 
   const orderMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_orders_placed_total',
-    help: 'Number of orders placed in juice-shop so far'
+    name: `${metricsLabel}_orders_placed_total`,
+    help: 'Number of orders placed so far'
   })
 
   const challengeMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_challenges_solved_total',
-    help: 'Number of challenges that have been solved so far'
+    name: `${metricsLabel}_challenges_solved_total`,
+    help: 'Number of challenges solved so far'
   })
 
   const userMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_users_registered_total',
+    name: `${metricsLabel}_users_registered_total`,
     help: 'Number of users registered'
   })
 
