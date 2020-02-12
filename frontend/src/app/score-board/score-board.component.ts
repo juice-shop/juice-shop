@@ -35,6 +35,9 @@ export class ScoreBoardComponent implements OnInit {
   public toggledMajorityOfDifficulties: boolean = false
   public toggledMajorityOfCategories: boolean = true
   public showSolvedChallenges: boolean = true
+  public numDisabledChallenges: number = 0
+  public showDisabledChallenges: boolean = false
+  public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
@@ -56,6 +59,7 @@ export class ScoreBoardComponent implements OnInit {
 
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
+    this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
@@ -117,6 +121,8 @@ export class ScoreBoardComponent implements OnInit {
 
   augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
+      this.numDisabledChallenges++
+      this.disabledEnv = challenge.disabledEnv
       this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
@@ -198,6 +204,11 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
+  toggleShowDisabledChallenges () {
+    this.showDisabledChallenges = !this.showDisabledChallenges
+    localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
+  }
+
   toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
@@ -232,6 +243,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
+      if (!this.showDisabledChallenges && challenge.disabledEnv) return false
       return true
     })
 

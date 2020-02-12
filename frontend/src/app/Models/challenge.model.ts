@@ -12,7 +12,7 @@ export interface Challenge {
   difficulty: number,
   hint?: string,
   hintUrl?: string,
-  disabledEnv?: string[],
+  disabledEnv?: string,
   solved?: boolean,
   hasTutorial?: boolean
 }
