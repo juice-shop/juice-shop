@@ -22,6 +22,8 @@ application:
     type: string
   privacyContactEmail:
     type: string
+  metricsLabel:
+    type: string
   social:
     twitterUrl:
       type: string

@@ -10,8 +10,8 @@ application:
   showGitHubLinks: true
   numberOfRandomFakeUsers: 0
   altcoinName: Juicycoin
-  metricsLabel: 'juice_shop'
   privacyContactEmail: donotreply@owasp-juice.shop
+  metricsLabel: 'juice_shop'
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
