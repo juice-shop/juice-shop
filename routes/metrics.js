@@ -28,12 +28,13 @@ exports.observeMetrics = function observeMetrics () {
   const challengeMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved`,
     help: 'Number of solved challenges grouped by difficulty.',
-    labelNames: ['difficulty']
+    labelNames: ['difficulty', 'count']
   })
 
   const challengeTotalMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved_total`,
-    help: 'Total number of challenges that have been solved.'
+    help: 'Total number of challenges that have been solved.',
+    labelNames: ['count']
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -71,16 +72,19 @@ exports.observeMetrics = function observeMetrics () {
   register.registerMetric(complaintMetrics)
 
   const updateLoop = setInterval(() => {
-    challengeTotalMetrics.set(0)
+    const challengeKeys = Object.keys(challenges)
+    challengeTotalMetrics.set({ count: challengeKeys.length }, 0)
     for (let difficulty=1; difficulty<=6; difficulty++) {
-      let solved = Object.keys(challenges).filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
-      challengeMetrics.set({ difficulty }, solved)
-      if (solved > 0) challengeTotalMetrics.inc(solved)
+      let count = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length
+      let solved = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
+      challengeMetrics.set({ difficulty, count }, solved)
+      if (solved > 0) challengeTotalMetrics.inc({ count: challengeKeys.length }, solved)
     }
 
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
+
     userTotalMetrics.set(0)
     models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
       userMetrics.set({ type: 'standard' }, count)
@@ -90,9 +94,11 @@ exports.observeMetrics = function observeMetrics () {
       userMetrics.set({ type: 'deluxe' }, count)
       if (count > 0) userTotalMetrics.inc(count)
     })
+
     models.Wallet.sum('balance').then(totalBalance => {
       walletMetrics.set(totalBalance)
     })
+
     models.Complaint.count().then(count => {
       complaintMetrics.set(count)
     })
