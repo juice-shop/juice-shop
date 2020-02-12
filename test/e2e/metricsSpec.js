@@ -1,5 +1,3 @@
-import { describe } from 'mocha'
-
 /*
  * Copyright (c) 2014-2020 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
@@ -7,8 +5,8 @@ import { describe } from 'mocha'
 
 describe('/metrics/', () => {
   describe('challenge "exposedMetrics"', () => {
-    it('Challenge is solved on accesing the api/metrics route', () => {
-      browser.get('/api/metrics')
+    it('Challenge is solved on accessing the /metrics route', () => {
+      browser.get('/metrics')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Exposed Metrics' })
