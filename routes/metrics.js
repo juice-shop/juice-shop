@@ -6,13 +6,13 @@
 const Prometheus = require('prom-client')
 const orders = require('../data/mongodb').orders
 const challenges = require('../data/datacache').challenges
-const users = require('../data/datacache').users
 const utils = require('../lib/utils')
 const config = require('config')
+const models = require('../models')
 
 exports.serveMetrics = function serveMetrics (reg) {
   return (req, res, next) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => (true))
+    utils.solveIf(challenges.exposedMetricsChallenge, () => { return true })
     res.set('Content-Type', reg.contentType)
     res.end(reg.metrics())
   }
@@ -44,11 +44,13 @@ exports.observeMetrics = function observeMetrics () {
   register.registerMetric(userMetrics)
 
   const updateLoop = setInterval(() => {
-    orders.count({}).then(function (orders) {
+    orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
+    models.User.count().then(count => {
+      userMetrics.set(count)
+    })
     challengeMetrics.set(Object.keys(challenges).filter((key) => (challenges[key].solved)).length)
-    userMetrics.set(Object.keys(users).length)
   }, 5000)
 
   return {
