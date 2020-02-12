@@ -50,11 +50,17 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Total balance of all users\' digital wallets'
   })
 
+  const complaintMetrics = new Prometheus.Gauge({
+    name: `${app}_user_complaints_total`,
+    help: 'Unwarranted occurrences of user lamentation'
+  })
+
   register.registerMetric(orderMetrics)
   register.registerMetric(challengeMetrics)
   register.registerMetric(userMetrics)
   register.registerMetric(deluxeMetrics)
   register.registerMetric(walletMetrics)
+  register.registerMetric(complaintMetrics)
 
   const updateLoop = setInterval(() => {
     orders.count({}).then(orders => {
@@ -68,6 +74,9 @@ exports.observeMetrics = function observeMetrics () {
     })
     models.Wallet.sum('balance').then(totalBalance => {
       walletMetrics.set(totalBalance)
+    })
+    models.Complaint.count().then(count => {
+      complaintMetrics.set(count)
     })
     challengeMetrics.set(Object.keys(challenges).filter((key) => (challenges[key].solved)).length)
   }, 5000)
