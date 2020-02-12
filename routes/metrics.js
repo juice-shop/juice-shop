@@ -74,9 +74,9 @@ exports.observeMetrics = function observeMetrics () {
   const updateLoop = setInterval(() => {
     const challengeKeys = Object.keys(challenges)
     challengeTotalMetrics.set({ count: challengeKeys.length }, 0)
-    for (let difficulty=1; difficulty<=6; difficulty++) {
-      let count = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length
-      let solved = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
+    for (let difficulty = 1; difficulty <= 6; difficulty++) {
+      const count = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length
+      const solved = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
       challengeMetrics.set({ difficulty, count }, solved)
       if (solved > 0) challengeTotalMetrics.inc({ count: challengeKeys.length }, solved)
     }
