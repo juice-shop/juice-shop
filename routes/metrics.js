@@ -25,56 +25,70 @@ exports.observeMetrics = function observeMetrics () {
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
   register.setDefaultLabels({ app })
 
-  const orderMetrics = new Prometheus.Gauge({
-    name: `${app}_orders_placed_total`,
-    help: `Number of orders placed in ${config.get('application.name')}`
+  const challengeMetrics = new Prometheus.Gauge({
+    name: `${app}_challenges_solved`,
+    help: 'Number of solved challenges grouped by difficulty.',
+    labelNames: ['difficulty']
   })
 
-  const challengeMetrics = new Prometheus.Gauge({
+  const challengeTotalMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved_total`,
-    help: 'Number of challenges that have been solved'
+    help: 'Total number of challenges that have been solved.'
+  })
+
+  const orderMetrics = new Prometheus.Gauge({
+    name: `${app}_orders_placed_total`,
+    help: `Number of orders placed in ${config.get('application.name')}.`
   })
 
   const userMetrics = new Prometheus.Gauge({
     name: `${app}_users_registered`,
-    help: 'Number of registered users',
-    labelNames: ['type'],
+    help: 'Number of registered users grouped by customer type.',
+    labelNames: ['type']
   })
 
   const userTotalMetrics = new Prometheus.Gauge({
     name: `${app}_users_registered_total`,
-    help: 'Total number of registered users'
+    help: 'Total number of registered users.'
   })
 
   const walletMetrics = new Prometheus.Gauge({
     name: `${app}_wallet_balance_total`,
-    help: 'Total balance of all users\' digital wallets'
+    help: 'Total balance of all users\' digital wallets.'
   })
 
   const complaintMetrics = new Prometheus.Gauge({
     name: `${app}_user_complaints_total`,
-    help: 'Unwarranted occurrences of user lamentation'
+    help: 'Unwarranted occurrences of customer lamentation.'
   })
 
-  register.registerMetric(orderMetrics)
   register.registerMetric(challengeMetrics)
+  register.registerMetric(challengeTotalMetrics)
+  register.registerMetric(orderMetrics)
   register.registerMetric(userMetrics)
   register.registerMetric(userTotalMetrics)
   register.registerMetric(walletMetrics)
   register.registerMetric(complaintMetrics)
 
   const updateLoop = setInterval(() => {
+    challengeTotalMetrics.set(0)
+    for (let difficulty=1; difficulty<=6; difficulty++) {
+      let solved = Object.keys(challenges).filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
+      challengeMetrics.set({ difficulty }, solved)
+      if (solved > 0) challengeTotalMetrics.inc(solved)
+    }
+
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
     userTotalMetrics.set(0)
     models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
       userMetrics.set({ type: 'standard' }, count)
-      userTotalMetrics.inc(count)
+      if (count > 0) userTotalMetrics.inc(count)
     })
     models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
       userMetrics.set({ type: 'deluxe' }, count)
-      userTotalMetrics.inc(count)
+      if (count > 0) userTotalMetrics.inc(count)
     })
     models.Wallet.sum('balance').then(totalBalance => {
       walletMetrics.set(totalBalance)
@@ -82,7 +96,6 @@ exports.observeMetrics = function observeMetrics () {
     models.Complaint.count().then(count => {
       complaintMetrics.set(count)
     })
-    challengeMetrics.set(Object.keys(challenges).filter((key) => (challenges[key].solved)).length)
   }, 5000)
 
   return {
