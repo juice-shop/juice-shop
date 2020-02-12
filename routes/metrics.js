@@ -36,13 +36,14 @@ exports.observeMetrics = function observeMetrics () {
   })
 
   const userMetrics = new Prometheus.Gauge({
-    name: `${app}_users_registered_total`,
-    help: 'Number of registered users'
+    name: `${app}_users_registered`,
+    help: 'Number of registered users',
+    labelNames: ['type'],
   })
 
-  const deluxeMetrics = new Prometheus.Gauge({
-    name: `${app}_users_registered_deluxe`,
-    help: 'Number of users with a Deluxe Membership'
+  const userTotalMetrics = new Prometheus.Gauge({
+    name: `${app}_users_registered_total`,
+    help: 'Total number of registered users'
   })
 
   const walletMetrics = new Prometheus.Gauge({
@@ -58,7 +59,7 @@ exports.observeMetrics = function observeMetrics () {
   register.registerMetric(orderMetrics)
   register.registerMetric(challengeMetrics)
   register.registerMetric(userMetrics)
-  register.registerMetric(deluxeMetrics)
+  register.registerMetric(userTotalMetrics)
   register.registerMetric(walletMetrics)
   register.registerMetric(complaintMetrics)
 
@@ -66,11 +67,14 @@ exports.observeMetrics = function observeMetrics () {
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
-    models.User.count({ where: { role: { [Op.in]: ['customer', 'deluxe'] } } }).then(count => {
-      userMetrics.set(count)
+    userTotalMetrics.set(0)
+    models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
+      userMetrics.set({ type: 'standard' }, count)
+      userTotalMetrics.inc(count)
     })
     models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
-      deluxeMetrics.set(count)
+      userMetrics.set({ type: 'deluxe' }, count)
+      userTotalMetrics.inc(count)
     })
     models.Wallet.sum('balance').then(totalBalance => {
       walletMetrics.set(totalBalance)

@@ -4,17 +4,19 @@
  */
 
 const frisby = require('frisby')
-const METRICS_URL = 'http://localhost:3000/metrics/'
+const API_URL = 'http://localhost:3000/metrics/'
 
-describe('Metrics API', () => {
-  it('check if /metrics endpoint is accessible', () => {
-    return frisby.get(METRICS_URL)
+describe('/metrics', () => {
+  it('GET metrics via public API', () => {
+    return frisby.get(API_URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/plain/)
       .expect('bodyContains', /^.*_orders_placed_total{app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_challenges_solved_total{app=".*"} [0-9]*$/gm)
+      .expect('bodyContains', /^.*_users_registered{type="standard",app=".*"} [0-9]*$/gm)
+      .expect('bodyContains', /^.*_users_registered{type="deluxe",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_users_registered_total{app=".*"} [0-9]*$/gm)
-      .expect('bodyContains', /^.*_users_registered_deluxe{app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_wallet_balance_total{app=".*"} [0-9]*$/gm)
+      .expect('bodyContains', /^.*_user_complaints_total{app=".*"} [0-9]*$/gm)
   })
 })
