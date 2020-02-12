@@ -20,7 +20,7 @@ exports.serveMetrics = function serveMetrics (reg) {
 }
 
 exports.observeMetrics = function observeMetrics () {
-  const app = config.get('application.metricsAppLabelValue')
+  const app = config.get('application.customMetricsPrefix')
   const register = new Prometheus.Registry()
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
   register.setDefaultLabels({ app })

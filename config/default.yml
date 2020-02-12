@@ -11,7 +11,7 @@ application:
   numberOfRandomFakeUsers: 0
   altcoinName: Juicycoin
   privacyContactEmail: donotreply@owasp-juice.shop
-  metricsAppLabelValue: juiceshop
+  customMetricsPrefix: juiceshop
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'

@@ -22,7 +22,7 @@ application:
     type: string
   privacyContactEmail:
     type: string
-  metricsAppLabelValue:
+  customMetricsPrefix:
     type: string
   social:
     twitterUrl:
