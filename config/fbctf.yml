@@ -283,3 +283,6 @@ ctf:
     svgInjectionChallenge:
       name: Tunisia
       code: TN
+    exposedMetricsChallenge:
+      name: Japan
+      code: JP
