@@ -766,8 +766,8 @@
 -
   name: 'Exposed Metrics'
   category: 'Sensitive Data Exposure'
-  description: 'Find the Metrics endpoint serving usage metrics to be scraped by Prometheus'
+  description: 'Find the endpoint that serves usage data to be scraped by a <a href="https://github.com/prometheus/prometheus">popular monitoring system</a>.'
   difficulty: 1
-  hint: 'Try to guess what URL the endpoint might have'
+  hint: 'Try to guess what URL the endpoint might have.'
   hintUrl: ''
   key: exposedMetricsChallenge
