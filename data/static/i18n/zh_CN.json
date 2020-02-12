@@ -282,8 +282,8 @@
 	"Wrong answer to security question.": "错误的安全问题答案。",
 	"<a href=\"/#/contact\">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)": "<a href=\"/#/contact\">联系开发团队</a>有关<em>他们</em>可能存在的凭据风险. (向他们发送<em>原始报告</em>的URL或此漏洞的CVE或者其他漏洞标识)",
 	"You can order only up to {{quantity}} items of this product.": "您最多只能订购{{quantity}} 件此商品 。",
-	" <em>(This challenge is <strong>not available</strong> on Docker!)</em>": " <em>(This challenge is <strong>not available</strong> on Docker!)</em>",
-	" <em>(This challenge is <strong>not available</strong> on Heroku!)</em>": " <em>(This challenge is <strong>not available</strong> on Heroku!)</em>",
-	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>",
-	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>"
+	" <em>(This challenge is <strong>not available</strong> on Docker!)</em>": " <em>(这个挑战在Docker上 <strong>不可用</strong>!)</em>",
+	" <em>(This challenge is <strong>not available</strong> on Heroku!)</em>": " <em>(这个挑战在Heroku上 <strong>不可用</strong>!)</em>",
+	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(这个挑战在Docker上 <strong>存在潜在威胁</strong>!)</em>",
+	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(这个挑战在Heroku上 <strong>存在潜在威胁</strong>!)</em>"
 }
