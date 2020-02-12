@@ -9,6 +9,7 @@ const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const config = require('config')
 const models = require('../models')
+const Op = models.Sequelize.Op
 
 exports.serveMetrics = function serveMetrics (reg) {
   return (req, res, next) => {
@@ -39,16 +40,34 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Number of registered users'
   })
 
+  const deluxeMetrics = new Prometheus.Gauge({
+    name: `${app}_users_registered_deluxe`,
+    help: 'Number of users with a Deluxe Membership'
+  })
+
+  const walletMetrics = new Prometheus.Gauge({
+    name: `${app}_wallet_balance_total`,
+    help: 'Total balance of all users\' digital wallets'
+  })
+
   register.registerMetric(orderMetrics)
   register.registerMetric(challengeMetrics)
   register.registerMetric(userMetrics)
+  register.registerMetric(deluxeMetrics)
+  register.registerMetric(walletMetrics)
 
   const updateLoop = setInterval(() => {
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
-    models.User.count().then(count => {
+    models.User.count({ where: { role: { [Op.in]: ['customer', 'deluxe'] } } }).then(count => {
       userMetrics.set(count)
+    })
+    models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
+      deluxeMetrics.set(count)
+    })
+    models.Wallet.sum('balance').then(totalBalance => {
+      walletMetrics.set(totalBalance)
     })
     challengeMetrics.set(Object.keys(challenges).filter((key) => (challenges[key].solved)).length)
   }, 5000)
