@@ -25,16 +25,16 @@ exports.observeMetrics = function observeMetrics () {
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
   register.setDefaultLabels({ app })
 
-  const challengeMetrics = new Prometheus.Gauge({
+  const challengeSolvedMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved`,
     help: 'Number of solved challenges grouped by difficulty.',
-    labelNames: ['difficulty', 'count']
+    labelNames: ['difficulty']
   })
 
   const challengeTotalMetrics = new Prometheus.Gauge({
-    name: `${app}_challenges_solved_total`,
-    help: 'Total number of challenges that have been solved.',
-    labelNames: ['count']
+    name: `${app}_challenges_total`,
+    help: 'Total number of challenges grouped by difficulty.',
+    labelNames: ['difficulty']
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -63,7 +63,7 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Unwarranted occurrences of customer lamentation.'
   })
 
-  register.registerMetric(challengeMetrics)
+  register.registerMetric(challengeSolvedMetrics)
   register.registerMetric(challengeTotalMetrics)
   register.registerMetric(orderMetrics)
   register.registerMetric(userMetrics)
@@ -73,12 +73,9 @@ exports.observeMetrics = function observeMetrics () {
 
   const updateLoop = setInterval(() => {
     const challengeKeys = Object.keys(challenges)
-    challengeTotalMetrics.set({ count: challengeKeys.length }, 0)
     for (let difficulty = 1; difficulty <= 6; difficulty++) {
-      const count = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length
-      const solved = challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length
-      challengeMetrics.set({ difficulty, count }, solved)
-      if (solved > 0) challengeTotalMetrics.inc({ count: challengeKeys.length }, solved)
+      challengeSolvedMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length)
+      challengeTotalMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length)
     }
 
     orders.count({}).then(orders => {
