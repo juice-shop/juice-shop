@@ -20,7 +20,8 @@ import { QuantityService } from '../Services/quantity.service'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { OrderHistoryService } from '../Services/order-history.service'
-import { MatIconModule, MatTooltipModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('AccountingComponent', () => {
   let component: AccountingComponent

@@ -5,7 +5,7 @@
 
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
-import { MatDialogRef } from '@angular/material'
+import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngx-cookie'
 
 @Component({

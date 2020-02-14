@@ -14,21 +14,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { of } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
-import {
-  MatCheckboxModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatRadioModule,
-  MatTableModule,
-  MatTooltipModule
-} from '@angular/material'
 import { DeluxeUserComponent } from './deluxe-user.component'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
 import { LoginComponent } from '../login/login.component'
 import { Location } from '@angular/common'
+import { MatTableModule } from '@angular/material/table'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatIconModule } from '@angular/material/icon'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('DeluxeUserComponent', () => {
   let component: DeluxeUserComponent

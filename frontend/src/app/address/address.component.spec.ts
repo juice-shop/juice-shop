@@ -16,16 +16,14 @@ import { BarRatingModule } from 'ng2-bar-rating'
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
-import {
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatRadioModule,
-  MatTableModule,
-  MatTooltipModule
-} from '@angular/material'
 import { AddressCreateComponent } from '../address-create/address-create.component'
+import { MatTableModule } from '@angular/material/table'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('AddressComponent', () => {
   let component: AddressComponent
