@@ -75,7 +75,7 @@ describe('DeluxeUserComponent', () => {
     })
     .compileComponents()
 
-    location = TestBed.get(Location)
+    location = TestBed.inject(Location)
   }))
 
   beforeEach(() => {

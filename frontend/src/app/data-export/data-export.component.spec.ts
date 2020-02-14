@@ -56,7 +56,7 @@ describe('DataExportComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DataExportComponent)
     component = fixture.componentInstance
-    domSanitizer = TestBed.get(DomSanitizer)
+    domSanitizer = TestBed.inject(DomSanitizer)
     fixture.detectChanges()
   })
 
