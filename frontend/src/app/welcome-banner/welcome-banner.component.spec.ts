@@ -38,7 +38,7 @@ describe('WelcomeBannerComponent', () => {
     })
     .compileComponents()
 
-    cookieService = TestBed.get(CookieService)
+    cookieService = TestBed.inject(CookieService)
   }))
 
   beforeEach(() => {

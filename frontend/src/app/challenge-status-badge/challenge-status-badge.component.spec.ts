@@ -51,7 +51,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     })
       .compileComponents()
 
-    windowRefService = TestBed.get(WindowRefService)
+    windowRefService = TestBed.inject(WindowRefService)
   }))
 
   beforeEach(() => {

@@ -120,8 +120,8 @@ describe('NavbarComponent', () => {
     })
     .compileComponents()
 
-    location = TestBed.get(Location)
-    translateService = TestBed.get(TranslateService)
+    location = TestBed.inject(Location)
+    translateService = TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {
