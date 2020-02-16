@@ -7,7 +7,7 @@ application:
   showGitHubLinks: false
   altcoinName: ADDcOin
   privacyContactEmail: 'donotreply@ad.do'
-  metricsAppLabelValue: addo
+  customMetricsPrefix: addo
   social:
     twitterUrl: 'https://twitter.com/AllDayDevOps'
     facebookUrl: 'https://www.facebook.com/AllDayDevOps/'

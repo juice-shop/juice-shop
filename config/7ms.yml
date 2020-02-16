@@ -7,7 +7,7 @@ application:
   showGitHubLinks: true
   altcoinName: Sevencoin
   privacyContactEmail: 'donotreply@7-ms.us'
-  metricsAppLabelValue: sevenminsec
+  customMetricsPrefix: sevenminsec
   social:
     twitterUrl: 'https://twitter.com/7MinSec'
     facebookUrl: null

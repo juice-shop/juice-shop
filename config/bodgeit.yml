@@ -7,7 +7,7 @@ application:
   showGitHubLinks: true
   altcoinName: Bodgecoin
   privacyContactEmail: 'donotreply@thebodgeitstore.com'
-  metricsAppLabelValue: bodgeit
+  customMetricsPrefix: bodgeit
   social:
     twitterUrl: null
     facebookUrl: null
