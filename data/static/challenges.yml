@@ -98,8 +98,8 @@
 -
   name: 'Classic Stored XSS'
   category: 'XSS'
-  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
-  difficulty: 2
+  description: 'Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
+  difficulty: 4
   hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge

@@ -37,6 +37,10 @@ describe('/profile', () => {
         setButton = element(by.id('submit'))
         username.sendKeys('<<a|ascript>alert(`xss`)</script>')
         setButton.click()
+        profileImage = element(by.id('url-raw'))
+        sendButton = element(by.id('submitRawUrl'))
+        profileImage.sendKeys("https://a.png; script-src 'unsafe-inline'")
+        sendButton.click()
         browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
