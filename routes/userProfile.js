@@ -41,6 +41,7 @@ module.exports = function getUserProfile () {
           template = template.replace(/_navColor_/g, theme.navColor)
           template = template.replace(/_primLight_/g, theme.primLight)
           template = template.replace(/_primDark_/g, theme.primDark)
+          template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
           const fn = pug.compile(template)
           res.send(fn(user.dataValues))
         }).catch(error => {
