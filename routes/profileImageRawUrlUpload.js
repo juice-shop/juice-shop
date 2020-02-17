@@ -20,8 +20,8 @@ module.exports = function profileImageURLUpdate () {
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
-      }
-      res.location('/profile')
-      res.redirect('/profile')
+    }
+    res.location('/profile')
+    res.redirect('/profile')
   }
 }
