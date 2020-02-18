@@ -6,47 +6,99 @@
 const Prometheus = require('prom-client')
 const orders = require('../data/mongodb').orders
 const challenges = require('../data/datacache').challenges
-const users = require('../data/datacache').users
 const utils = require('../lib/utils')
+const config = require('config')
+const models = require('../models')
+const Op = models.Sequelize.Op
 
 exports.serveMetrics = function serveMetrics (reg) {
   return (req, res, next) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => (true))
+    utils.solveIf(challenges.exposedMetricsChallenge, () => { return true })
     res.set('Content-Type', reg.contentType)
     res.end(reg.metrics())
   }
 }
 
 exports.observeMetrics = function observeMetrics () {
+  const app = config.get('application.customMetricsPrefix')
   const register = new Prometheus.Registry()
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
-  register.setDefaultLabels({ app: 'juice-shop' })
+  register.setDefaultLabels({ app })
 
-  const orderMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_orders_placed_total',
-    help: 'Number of orders placed in juice-shop so far'
+  const challengeSolvedMetrics = new Prometheus.Gauge({
+    name: `${app}_challenges_solved`,
+    help: 'Number of solved challenges grouped by difficulty.',
+    labelNames: ['difficulty']
   })
 
-  const challengeMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_challenges_solved_total',
-    help: 'Number of challenges that have been solved so far'
+  const challengeTotalMetrics = new Prometheus.Gauge({
+    name: `${app}_challenges_total`,
+    help: 'Total number of challenges grouped by difficulty.',
+    labelNames: ['difficulty']
+  })
+
+  const orderMetrics = new Prometheus.Gauge({
+    name: `${app}_orders_placed_total`,
+    help: `Number of orders placed in ${config.get('application.name')}.`
   })
 
   const userMetrics = new Prometheus.Gauge({
-    name: 'juice_shop_users_registered_total',
-    help: 'Number of users registered'
+    name: `${app}_users_registered`,
+    help: 'Number of registered users grouped by customer type.',
+    labelNames: ['type']
   })
 
+  const userTotalMetrics = new Prometheus.Gauge({
+    name: `${app}_users_registered_total`,
+    help: 'Total number of registered users.'
+  })
+
+  const walletMetrics = new Prometheus.Gauge({
+    name: `${app}_wallet_balance_total`,
+    help: 'Total balance of all users\' digital wallets.'
+  })
+
+  const complaintMetrics = new Prometheus.Gauge({
+    name: `${app}_user_complaints_total`,
+    help: 'Unwarranted occurrences of customer lamentation.'
+  })
+
+  register.registerMetric(challengeSolvedMetrics)
+  register.registerMetric(challengeTotalMetrics)
   register.registerMetric(orderMetrics)
-  register.registerMetric(challengeMetrics)
   register.registerMetric(userMetrics)
+  register.registerMetric(userTotalMetrics)
+  register.registerMetric(walletMetrics)
+  register.registerMetric(complaintMetrics)
 
   const updateLoop = setInterval(() => {
-    orders.count({}).then(function (orders) {
+    const challengeKeys = Object.keys(challenges)
+    for (let difficulty = 1; difficulty <= 6; difficulty++) {
+      challengeSolvedMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length)
+      challengeTotalMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length)
+    }
+
+    orders.count({}).then(orders => {
       orderMetrics.set(orders)
     })
-    challengeMetrics.set(Object.keys(challenges).filter((key) => (challenges[key].solved)).length)
-    userMetrics.set(Object.keys(users).length)
+
+    models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
+      userMetrics.set({ type: 'standard' }, count)
+    })
+    models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
+      userMetrics.set({ type: 'deluxe' }, count)
+    })
+    models.User.count().then(count => {
+      userTotalMetrics.set(count)
+    })
+
+    models.Wallet.sum('balance').then(totalBalance => {
+      walletMetrics.set(totalBalance)
+    })
+
+    models.Complaint.count().then(count => {
+      complaintMetrics.set(count)
+    })
   }, 5000)
 
   return {

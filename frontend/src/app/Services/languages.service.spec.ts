@@ -15,7 +15,7 @@ describe('LanguagesService', () => {
   }))
 
   it('should be created', () => {
-    const service: LanguagesService = TestBed.get(LanguagesService)
+    const service: LanguagesService = TestBed.inject(LanguagesService)
     expect(service).toBeTruthy()
   })
 

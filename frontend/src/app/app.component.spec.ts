@@ -27,12 +27,13 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
-import { MatInputModule, MatSnackBarModule } from '@angular/material'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatDialogModule } from '@angular/material/dialog'
 import { LoginGuard } from './app.guard'
+import { MatInputModule } from '@angular/material/input'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('AppComponent', () => {
   let app: AppComponent

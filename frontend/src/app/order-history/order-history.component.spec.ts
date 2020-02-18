@@ -18,10 +18,13 @@ import { of } from 'rxjs'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { OrderHistoryService } from '../Services/order-history.service'
-import { MatDialog, MatDialogModule, MatExpansionModule, MatIconModule, MatTooltipModule } from '@angular/material'
 import { OrderHistoryComponent } from './order-history.component'
 import { Product } from '../Models/product.model'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatExpansionModule } from '@angular/material/expansion'
 
 describe('AccountingComponent', () => {
   let component: OrderHistoryComponent
