@@ -82,14 +82,14 @@ exports.observeMetrics = function observeMetrics () {
       orderMetrics.set(orders)
     })
 
-    userTotalMetrics.set(0)
     models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
       userMetrics.set({ type: 'standard' }, count)
-      if (count > 0) userTotalMetrics.inc(count)
     })
     models.User.count({ where: { role: { [Op.eq]: 'deluxe' } } }).then(count => {
       userMetrics.set({ type: 'deluxe' }, count)
-      if (count > 0) userTotalMetrics.inc(count)
+    })
+    models.User.count().then(count => {
+      userTotalMetrics.set(count)
     })
 
     models.Wallet.sum('balance').then(totalBalance => {
