@@ -21,7 +21,9 @@ import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
-import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent

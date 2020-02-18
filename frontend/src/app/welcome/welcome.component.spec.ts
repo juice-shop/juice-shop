@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 import { CookieModule, CookieService } from 'ngx-cookie'
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
@@ -32,7 +32,7 @@ describe('WelcomeComponent', () => {
     })
     .compileComponents()
 
-    cookieService = TestBed.get(CookieService)
+    cookieService = TestBed.inject(CookieService)
   }))
 
   beforeEach(() => {

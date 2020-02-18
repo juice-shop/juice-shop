@@ -7,6 +7,7 @@ application:
   showGitHubLinks: true
   altcoinName: Mozquito
   privacyContactEmail: 'donotreply@mozilla-ctf.op'
+  customMetricsPrefix: mozctf
   social:
     twitterUrl: 'https://twitter.com/mozcloudsec'
     facebookUrl: null

@@ -33,8 +33,10 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { LoginComponent } from '../login/login.component'
 import { Location } from '@angular/common'
-import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
 import { WalletComponent } from '../wallet/wallet.component'
+import { MatIconModule } from '@angular/material/icon'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -113,7 +115,7 @@ describe('PaymentComponent', () => {
       ]
     })
     .compileComponents()
-    location = TestBed.get(Location)
+    location = TestBed.inject(Location)
   }))
 
   beforeEach(() => {

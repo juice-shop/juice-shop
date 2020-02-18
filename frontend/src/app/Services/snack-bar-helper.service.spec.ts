@@ -28,7 +28,7 @@ describe('SnackBarHelperService', () => {
   )
 
   it('should be created', () => {
-    const service: SnackBarHelperService = TestBed.get(SnackBarHelperService)
+    const service: SnackBarHelperService = TestBed.inject(SnackBarHelperService)
     expect(service).toBeTruthy()
   })
 })
