@@ -14,7 +14,10 @@ const Op = models.Sequelize.Op
 
 exports.serveMetrics = function serveMetrics (reg) {
   return (req, res, next) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => { return true })
+    utils.solveIf(challenges.exposedMetricsChallenge, () => {
+      const userAgent = req.headers['user-agent'] || ''
+      return !userAgent.includes('Prometheus')
+    })
     res.set('Content-Type', reg.contentType)
     res.end(reg.metrics())
   }
