@@ -18,7 +18,7 @@ const register = Prometheus.register
 exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddleware () {
   const httpRequestsMetric = new Prometheus.Counter({
     name: 'http_requests_count',
-    help: 'Total http request count',
+    help: 'Total HTTP request count grouped by status code.',
     labelNames: ['status_code']
   })
 
@@ -86,14 +86,6 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Number of social interactions with users grouped by type.',
     labelNames: ['type']
   })
-
-  register.registerMetric(challengeSolvedMetrics)
-  register.registerMetric(challengeTotalMetrics)
-  register.registerMetric(orderMetrics)
-  register.registerMetric(userMetrics)
-  register.registerMetric(userTotalMetrics)
-  register.registerMetric(walletMetrics)
-  register.registerMetric(interactionsMetrics)
 
   const updateLoop = setInterval(() => {
     const challengeKeys = Object.keys(challenges)
