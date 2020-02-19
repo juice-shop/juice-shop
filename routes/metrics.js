@@ -4,6 +4,7 @@
  */
 
 const Prometheus = require('prom-client')
+const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
 const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
@@ -12,21 +13,39 @@ const config = require('config')
 const models = require('../models')
 const Op = models.Sequelize.Op
 
-exports.serveMetrics = function serveMetrics (reg) {
+const register = Prometheus.register
+
+exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddleware () {
+  const httpRequestsMetric = new Prometheus.Counter({
+    name: 'http_requests_count',
+    help: 'Total http request count',
+    labelNames: ['status_code']
+  })
+
+  return (req, res, next) => {
+    onFinished(res, () => {
+      const statusCode = `${Math.floor(res.statusCode / 100)}XX`
+      httpRequestsMetric.labels(statusCode).inc()
+    })
+
+    next()
+  }
+}
+
+exports.serveMetrics = function serveMetrics () {
   return (req, res, next) => {
     utils.solveIf(challenges.exposedMetricsChallenge, () => {
       const userAgent = req.headers['user-agent'] || ''
       return !userAgent.includes('Prometheus')
     })
-    res.set('Content-Type', reg.contentType)
-    res.end(reg.metrics())
+    res.set('Content-Type', register.contentType)
+    res.end(register.metrics())
   }
 }
 
 exports.observeMetrics = function observeMetrics () {
   const app = config.get('application.customMetricsPrefix')
-  const register = new Prometheus.Registry()
-  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
+  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000 })
   register.setDefaultLabels({ app })
 
   const challengeSolvedMetrics = new Prometheus.Gauge({
