@@ -11,6 +11,13 @@ const vm = require('vm')
 const fs = require('fs')
 const unzipper = require('unzipper')
 const path = require('path')
+const Prometheus = require('prom-client')
+
+const fileUploadsMetric = new Prometheus.Counter({
+  name: 'file_uploads_count',
+  help: 'Total number of files uploaded grouped by file type.',
+  labelNames: ['file_type']
+})
 
 function matchesSystemIniFile (text) {
   const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
@@ -67,10 +74,11 @@ function checkUploadSize ({ file }, res, next) {
 }
 
 function checkFileType ({ file }, res, next) {
+  const fileType = file.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
   utils.solveIf(challenges.uploadTypeChallenge, () => {
-    return !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
-    utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip'))
+    return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip')
   })
+  fileUploadsMetric.labels(fileType).inc()
   next()
 }
 
