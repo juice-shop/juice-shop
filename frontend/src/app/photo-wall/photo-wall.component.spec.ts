@@ -16,11 +16,15 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { of } from 'rxjs'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule, MatTooltipModule } from '@angular/material'
 import { PhotoWallComponent } from './photo-wall.component'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatInputModule } from '@angular/material/input'
 
 describe('PhotoWallComponent', () => {
   let component: PhotoWallComponent

@@ -22,17 +22,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatNativeDateModule } from '@angular/material/core'
 import { of, throwError } from 'rxjs'
 import { AddressComponent } from '../address/address.component'
-import {
-  MatDialogModule,
-  MatDividerModule,
-  MatIconModule,
-  MatRadioModule,
-  MatTableModule,
-  MatToolbarModule,
-  MatTooltipModule
-} from '@angular/material'
 import { RouterTestingModule } from '@angular/router/testing'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTableModule } from '@angular/material/table'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatDividerModule } from '@angular/material/divider'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent

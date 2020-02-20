@@ -76,7 +76,7 @@ describe('SidenavComponent', () => {
     })
     .compileComponents()
 
-    translateService = TestBed.get(TranslateService)
+    translateService = TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {

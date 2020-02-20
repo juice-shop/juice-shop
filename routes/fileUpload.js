@@ -67,9 +67,9 @@ function checkUploadSize ({ file }, res, next) {
 }
 
 function checkFileType ({ file }, res, next) {
+  const fileType = file.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
   utils.solveIf(challenges.uploadTypeChallenge, () => {
-    return !(utils.endsWith(file.originalname.toLowerCase(), '.pdf') ||
-    utils.endsWith(file.originalname.toLowerCase(), '.xml') || utils.endsWith(file.originalname.toLowerCase(), '.zip'))
+    return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip')
   })
   next()
 }

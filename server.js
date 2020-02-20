@@ -44,6 +44,7 @@ const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
+const metrics = require('./routes/metrics')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
@@ -153,6 +154,9 @@ app.use((req, res, next) => {
   next()
 })
 
+/* Increase request counter metric for every request */
+app.use(metrics.observeRequestMetricsMiddleware())
+
 /* Security Policy */
 app.get('/.well-known/security.txt', verify.accessControlChallenges())
 app.use('/.well-known/security.txt', securityTxt({
@@ -204,11 +208,11 @@ app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
-app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
-app.post('/profile/image/file', uploadToMemory.single('file'), profileImageFileUpload())
+app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
+app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
 app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
 app.post('/profile/image/rawurl', profileImageRawUrlUpload())
-app.post('/rest/memories', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
+app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, insecurity.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -343,6 +347,10 @@ app.post('/rest/2fa/disable',
   insecurity.isAuthorized(),
   twoFactorAuth.disable()
 )
+/* Serve metrics */
+const Metrics = metrics.observeMetrics()
+const metricsUpdateLoop = Metrics.updateLoop
+app.get('/metrics', metrics.serveMetrics())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
@@ -389,8 +397,8 @@ for (const { name, exclude } of autoModels) {
       for (let i = 0; i < context.instance.length; i++) {
         let description = context.instance[i].description
         if (utils.contains(description, '<em>(This challenge is <strong>')) {
-          const warning = description.substring(description.indexOf('<em>(This challenge is <strong>'))
-          description = description.substring(0, description.indexOf('<em>(This challenge is <strong>'))
+          const warning = description.substring(description.indexOf(' <em>(This challenge is <strong>'))
+          description = description.substring(0, description.indexOf(' <em>(This challenge is <strong>'))
           context.instance[i].description = req.__(description) + req.__(warning)
         } else {
           context.instance[i].description = req.__(description)
@@ -534,6 +542,7 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
+    clearInterval(metricsUpdateLoop)
     server.close()
   }
   if (exitCode !== undefined) {
