@@ -4,25 +4,48 @@
  */
 
 const Prometheus = require('prom-client')
+const onFinished = require('on-finished')
 const orders = require('../data/mongodb').orders
+const reviews = require('../data/mongodb').reviews
 const challenges = require('../data/datacache').challenges
 const utils = require('../lib/utils')
 const config = require('config')
 const models = require('../models')
 const Op = models.Sequelize.Op
 
-exports.serveMetrics = function serveMetrics (reg) {
+const register = Prometheus.register
+
+exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddleware () {
+  const httpRequestsMetric = new Prometheus.Counter({
+    name: 'http_requests_count',
+    help: 'Total HTTP request count grouped by status code.',
+    labelNames: ['status_code']
+  })
+
   return (req, res, next) => {
-    utils.solveIf(challenges.exposedMetricsChallenge, () => { return true })
-    res.set('Content-Type', reg.contentType)
-    res.end(reg.metrics())
+    onFinished(res, () => {
+      const statusCode = `${Math.floor(res.statusCode / 100)}XX`
+      httpRequestsMetric.labels(statusCode).inc()
+    })
+
+    next()
+  }
+}
+
+exports.serveMetrics = function serveMetrics () {
+  return (req, res, next) => {
+    utils.solveIf(challenges.exposedMetricsChallenge, () => {
+      const userAgent = req.headers['user-agent'] || ''
+      return !userAgent.includes('Prometheus')
+    })
+    res.set('Content-Type', register.contentType)
+    res.end(register.metrics())
   }
 }
 
 exports.observeMetrics = function observeMetrics () {
   const app = config.get('application.customMetricsPrefix')
-  const register = new Prometheus.Registry()
-  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000, register })
+  const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000 })
   register.setDefaultLabels({ app })
 
   const challengeSolvedMetrics = new Prometheus.Gauge({
@@ -58,18 +81,11 @@ exports.observeMetrics = function observeMetrics () {
     help: 'Total balance of all users\' digital wallets.'
   })
 
-  const complaintMetrics = new Prometheus.Gauge({
-    name: `${app}_user_complaints_total`,
-    help: 'Unwarranted occurrences of customer lamentation.'
+  const interactionsMetrics = new Prometheus.Gauge({
+    name: `${app}_user_social_interactions`,
+    help: 'Number of social interactions with users grouped by type.',
+    labelNames: ['type']
   })
-
-  register.registerMetric(challengeSolvedMetrics)
-  register.registerMetric(challengeTotalMetrics)
-  register.registerMetric(orderMetrics)
-  register.registerMetric(userMetrics)
-  register.registerMetric(userTotalMetrics)
-  register.registerMetric(walletMetrics)
-  register.registerMetric(complaintMetrics)
 
   const updateLoop = setInterval(() => {
     const challengeKeys = Object.keys(challenges)
@@ -80,6 +96,10 @@ exports.observeMetrics = function observeMetrics () {
 
     orders.count({}).then(orders => {
       orderMetrics.set(orders)
+    })
+
+    reviews.count({}).then(reviews => {
+      interactionsMetrics.set({ type: 'review' }, reviews)
     })
 
     models.User.count({ where: { role: { [Op.eq]: ['customer'] } } }).then(count => {
@@ -96,8 +116,12 @@ exports.observeMetrics = function observeMetrics () {
       walletMetrics.set(totalBalance)
     })
 
+    models.Feedback.count().then(count => {
+      interactionsMetrics.set({ type: 'feedback' }, count)
+    })
+
     models.Complaint.count().then(count => {
-      complaintMetrics.set(count)
+      interactionsMetrics.set({ type: 'complaint' }, count)
     })
   }, 5000)
 

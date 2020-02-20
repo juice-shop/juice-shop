@@ -769,5 +769,5 @@
   description: 'Find the endpoint that serves usage data to be scraped by a <a href="https://github.com/prometheus/prometheus">popular monitoring system</a>.'
   difficulty: 1
   hint: 'Try to guess what URL the endpoint might have.'
-  hintUrl: ''
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#find-the-endpoint-that-serves-usage-data-to-be-scraped-by-a-popular-monitoring-system'
   key: exposedMetricsChallenge
