@@ -91,18 +91,22 @@ exports.serverSideChallenges = () => (req, res, next) => {
 }
 
 function jwtChallenge (challenge, req, algorithm, email) {
-  const decoded = jwt.decode(utils.jwtFrom(req), { complete: true, json: true })
-  if (hasAlgorithm(decoded, algorithm) && hasEmail(decoded, email)) {
-    utils.solve(challenge)
-  }
+  const token = utils.jwtFrom(req)
+  const decoded = jwt.decode(token)
+  jwt.verify(token, insecurity.publicKey, (err, verified) => {
+    if (err === null) {
+      utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
+    }
+  })
 }
 
 function hasAlgorithm (token, algorithm) {
-  return token && token.header && token.header.alg === algorithm
+  const header = JSON.parse(Buffer.from(token.split(".")[0], 'base64').toString())
+  return token && header && header.alg === algorithm
 }
 
 function hasEmail (token, email) {
-  return token && token.payload && token.payload.data && token.payload.data.email && token.payload.data.email.match(email)
+  return token && token.data && token.data.email && token.data.email.match(email)
 }
 
 exports.databaseRelatedChallenges = () => (req, res, next) => {
