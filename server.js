@@ -153,6 +153,9 @@ app.use((req, res, next) => {
   next()
 })
 
+/* Increase request counter metric for every request */
+app.use(metrics.observeRequestMetricsMiddleware())
+
 /* Security Policy */
 app.get('/.well-known/security.txt', verify.accessControlChallenges())
 app.use('/.well-known/security.txt', securityTxt({
@@ -344,9 +347,8 @@ app.post('/rest/2fa/disable',
 )
 /* Serve metrics */
 const Metrics = metrics.observeMetrics()
-const metricsRegister = Metrics.register
 const metricsUpdateLoop = Metrics.updateLoop
-app.get('/metrics', metrics.serveMetrics(metricsRegister))
+app.get('/metrics', metrics.serveMetrics())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
