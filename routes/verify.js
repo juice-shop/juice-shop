@@ -101,7 +101,7 @@ function jwtChallenge (challenge, req, algorithm, email) {
 }
 
 function hasAlgorithm (token, algorithm) {
-  const header = JSON.parse(Buffer.from(token.split(".")[0], 'base64').toString())
+  const header = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
   return token && header && header.alg === algorithm
 }
 
