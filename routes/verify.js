@@ -92,12 +92,14 @@ exports.serverSideChallenges = () => (req, res, next) => {
 
 function jwtChallenge (challenge, req, algorithm, email) {
   const token = utils.jwtFrom(req)
-  const decoded = jwt.decode(token)
-  jwt.verify(token, insecurity.publicKey, (err, verified) => {
-    if (err === null) {
-      utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
-    }
-  })
+  if (token) {
+    const decoded = jwt.decode(token)
+    jwt.verify(token, insecurity.publicKey, (err, verified) => {
+      if (err === null) {
+        utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
+      }
+    })
+  }
 }
 
 function hasAlgorithm (token, algorithm) {
