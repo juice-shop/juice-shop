@@ -23,5 +23,6 @@ describe('/metrics', () => {
       .expect('bodyContains', /^.*_user_social_interactions{type="complaint",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^http_requests_count{status_code="[0-9]XX",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^file_uploads_count{file_type=".*",app=".*"} [0-9]*$/gm)
+      .expect('bodyContains', /^file_upload_errors{file_type=".*",app=".*"} [0-9]*$/gm)
   })
 })

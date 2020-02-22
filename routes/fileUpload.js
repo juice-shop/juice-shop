@@ -11,13 +11,6 @@ const vm = require('vm')
 const fs = require('fs')
 const unzipper = require('unzipper')
 const path = require('path')
-const Prometheus = require('prom-client')
-
-const fileUploadsMetric = new Prometheus.Counter({
-  name: 'file_uploads_count',
-  help: 'Total number of files uploaded grouped by file type.',
-  labelNames: ['file_type']
-})
 
 function matchesSystemIniFile (text) {
   const match = text.match(/(; for 16-bit app support|drivers|mci|driver32|386enh|keyboard|boot|display)/gi)
@@ -78,7 +71,6 @@ function checkFileType ({ file }, res, next) {
   utils.solveIf(challenges.uploadTypeChallenge, () => {
     return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip')
   })
-  fileUploadsMetric.labels(fileType).inc()
   next()
 }
 

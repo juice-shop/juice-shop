@@ -15,6 +15,18 @@ const Op = models.Sequelize.Op
 
 const register = Prometheus.register
 
+const fileUploadsCountMetric = new Prometheus.Counter({
+  name: 'file_uploads_count',
+  help: 'Total number of successful file uploads grouped by file type.',
+  labelNames: ['file_type']
+})
+
+const fileUploadErrorsMetric = new Prometheus.Counter({
+  name: 'file_upload_errors',
+  help: 'Total number of failed file uploads grouped by file type.',
+  labelNames: ['file_type']
+})
+
 exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddleware () {
   const httpRequestsMetric = new Prometheus.Counter({
     name: 'http_requests_count',
@@ -27,7 +39,17 @@ exports.observeRequestMetricsMiddleware = function observeRequestMetricsMiddlewa
       const statusCode = `${Math.floor(res.statusCode / 100)}XX`
       httpRequestsMetric.labels(statusCode).inc()
     })
+    next()
+  }
+}
 
+exports.observeFileUploadMetricsMiddleware = function observeFileUploadMetricsMiddleware () {
+  return ({ file }, res, next) => {
+    onFinished(res, () => {
+      if (file) {
+        res.statusCode < 400 ? fileUploadsCountMetric.labels(file.mimetype).inc() : fileUploadErrorsMetric.labels(file.mimetype).inc()
+      }
+    })
     next()
   }
 }
