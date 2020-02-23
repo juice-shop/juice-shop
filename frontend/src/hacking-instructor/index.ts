@@ -9,11 +9,13 @@ import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.c
 import { LoginAdminInstruction } from './challenges/loginAdmin'
 import { DomXssInstruction } from './challenges/localXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
+import { PrivacyPolicyInstruction } from "./challenges/privacyPolicy";
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
   LoginAdminInstruction,
-  DomXssInstruction
+  DomXssInstruction,
+  PrivacyPolicyInstruction
 ]
 
 export interface ChallengeInstruction {
