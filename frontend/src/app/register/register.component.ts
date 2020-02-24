@@ -6,7 +6,7 @@
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { AbstractControl, FormControl, Validators } from '@angular/forms'
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router } from '@angular/router'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
@@ -43,7 +43,8 @@ export class RegisterComponent implements OnInit {
     private formSubmitService: FormSubmitService,
     private translateService: TranslateService,
     private snackBar: MatSnackBar,
-    private snackBarHelperService: SnackBarHelperService) { }
+    private snackBarHelperService: SnackBarHelperService,
+    private ngZone: NgZone) { }
 
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
@@ -65,7 +66,7 @@ export class RegisterComponent implements OnInit {
     this.userService.save(user).subscribe((response: any) => {
       this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
         SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
-          this.router.navigate(['/login'])
+          this.ngZone.run(() => this.router.navigate(['/login']))
           this.snackBarHelperService.openSnackBar('CONFIRM_REGISTER', 'Ok')
         })
     }, (err) => {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { CookieService } from 'ngx-cookie'
@@ -35,7 +35,8 @@ export class TwoFactorAuthEnterComponent {
     private twoFactorAuthService: TwoFactorAuthService,
     private cookieService: CookieService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) { }
 
   verify () {
@@ -48,7 +49,7 @@ export class TwoFactorAuthEnterComponent {
       /* Use userService to notifiy if user has logged in*/
       /* this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
-      this.router.navigate(['/search'])
+      this.ngZone.run(() => this.router.navigate(['/search']))
     }, (error) => {
       this.errored = true
       setTimeout(() => {
