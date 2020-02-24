@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { WalletService } from '../Services/wallet.service'
 import { FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -18,7 +18,7 @@ export class WalletComponent implements OnInit {
   public balance: string
   public balanceControl: FormControl = new FormControl('', [Validators.required, Validators.min(10),Validators.max(1000)])
 
-  constructor (private router: Router, private walletService: WalletService) { }
+  constructor (private router: Router, private walletService: WalletService, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.walletService.get().subscribe((balance) => {
@@ -30,6 +30,6 @@ export class WalletComponent implements OnInit {
 
   continue () {
     sessionStorage.setItem('walletTotal', this.balanceControl.value)
-    this.router.navigate(['/payment', 'wallet'])
+    this.ngZone.run(() => this.router.navigate(['/payment', 'wallet']))
   }
 }

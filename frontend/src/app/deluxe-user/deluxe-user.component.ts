@@ -56,6 +56,6 @@ export class DeluxeUserComponent implements OnInit {
   }
 
   upgradeToDeluxe () {
-    this.router.navigate(['/payment', 'deluxe'])
+    this.ngZone.run(() => this.router.navigate(['/payment', 'deluxe']))
   }
 }

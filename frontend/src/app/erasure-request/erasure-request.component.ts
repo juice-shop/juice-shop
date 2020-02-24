@@ -74,7 +74,7 @@ export class ErasureRequestComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/'])
+    this.ngZone.run(() => this.router.navigate(['/']))
     this.snackBarHelperService.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
   }
 
