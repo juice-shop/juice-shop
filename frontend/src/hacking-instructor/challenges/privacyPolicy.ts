@@ -4,7 +4,7 @@
  */
 
 import {
-  waitInMs, waitForAngularRouteToBeVisited, sleep, waitForElementToGetClicked
+  waitInMs, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForLogIn
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -16,14 +16,7 @@ export const PrivacyPolicyInstruction: ChallengeInstruction = {
         'Log in with any user to begin this challenge. You can use an existing or freshly registered account.',
       fixture: 'app-navbar',
       unskippable: true,
-      async resolved () {
-        while (true) {
-          if (localStorage.getItem('token') !== null) {
-            break
-          }
-          await sleep(100)
-        }
-      }
+      resolved: waitForLogIn()
     },
     {
       text:
