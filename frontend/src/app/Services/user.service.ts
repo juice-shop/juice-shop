@@ -10,8 +10,8 @@ import { catchError, map } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 
 interface Passwords {
-  current?: string,
-  new?: string,
+  current?: string
+  new?: string
   repeat?: string
 }
 

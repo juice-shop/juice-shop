@@ -14,18 +14,18 @@ import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 
 export interface StrippedProduct {
-  id: number,
-  name: string,
-  price: number,
-  quantity: number,
+  id: number
+  name: string
+  price: number
+  quantity: number
   total: number
 }
 
 export interface Order {
-  orderId: string,
-  totalPrice: number,
-  bonus: number,
-  products: MatTableDataSource<StrippedProduct>,
+  orderId: string
+  totalPrice: number
+  bonus: number
+  products: MatTableDataSource<StrippedProduct>
   delivered: boolean
 }
 

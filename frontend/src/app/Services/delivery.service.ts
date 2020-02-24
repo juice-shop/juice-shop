@@ -10,12 +10,12 @@ import { catchError, map } from 'rxjs/operators'
 import { DeliveryMethod } from '../Models/deliveryMethod.model'
 
 interface DeliveryMultipleMethodResponse {
-  status: string,
+  status: string
   data: DeliveryMethod[]
 }
 
 interface DeliverySingleMethodResponse {
-  status: string,
+  status: string
   data: DeliveryMethod
 }
 

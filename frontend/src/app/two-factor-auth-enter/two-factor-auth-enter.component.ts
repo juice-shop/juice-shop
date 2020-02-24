@@ -45,8 +45,8 @@ export class TwoFactorAuthEnterComponent {
       localStorage.setItem('token', authentication.token)
       this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid.toString())
-      /*Use userService to notifiy if user has logged in*/
-      /*this.userService.isLoggedIn = true;*/
+      /* Use userService to notifiy if user has logged in*/
+      /* this.userService.isLoggedIn = true;*/
       this.userService.isLoggedIn.next(true)
       this.router.navigate(['/search'])
     }, (error) => {
