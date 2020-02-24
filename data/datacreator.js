@@ -93,7 +93,7 @@ async function createUsers () {
           email: completeEmail,
           password,
           role,
-          profileImage: profileImage || 'default.svg',
+          profileImage: profileImage || '/assets/public/images/uploads/default.svg',
           totpSecret
         })
         datacache.users[key] = user

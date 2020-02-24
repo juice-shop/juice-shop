@@ -44,15 +44,8 @@ module.exports = function getUserProfile () {
           template = template.replace(/_primDark_/g, theme.primDark)
           template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
           const fn = pug.compile(template)
-          let CSP
-          if (user.dataValues.profileImage.match(/^https:/) !== null) {
-            CSP = `img-src 'self' ${user.dataValues.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
-            if (!utils.disableOnContainerEnv()) {
-              utils.solveIf(challenges.usernameXssChallenge, () => { return user.dataValues.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })
-            }
-          } else {
-            CSP = 'img-src \'self\'; script-src \'self\' \'unsafe-eval\' https://code.getmdl.io http://ajax.googleapis.com'
-          }
+          let CSP = `img-src 'self' ${user.dataValues.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
+          utils.solveIf(challenges.usernameXssChallenge, () => { return user.dataValues.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })
 
           res.set({
             'Content-Security-Policy': CSP

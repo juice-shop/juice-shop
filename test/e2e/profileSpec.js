@@ -7,7 +7,7 @@ const config = require('config')
 const utils = require('../../lib/utils')
 
 describe('/profile', () => {
-  let username, submitButton, url, setButton, profileImage, sendButton
+  let username, submitButton, url, setButton, profileImage, setProfileImageButton
 
   protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
@@ -37,10 +37,10 @@ describe('/profile', () => {
         setButton = element(by.id('submit'))
         username.sendKeys('<<a|ascript>alert(`xss`)</script>')
         setButton.click()
-        profileImage = element(by.id('url-raw'))
-        sendButton = element(by.id('submitRawUrl'))
+        profileImage = element(by.id('url'))
+        setProfileImageButton = element(by.id('submitUrl'))
         profileImage.sendKeys("https://a.png; script-src 'unsafe-inline'")
-        sendButton.click()
+        setProfileImageButton.click()
         browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /profile")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')

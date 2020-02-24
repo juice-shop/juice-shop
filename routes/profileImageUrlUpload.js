@@ -18,14 +18,22 @@ module.exports = function profileImageUrlUpload () {
       }
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        request
+        var profileImage = `/assets/public/images/uploads/${loggedInUser.data.id}.jpg`
+        const req = request
           .get(url)
           .on('error', function (err) {
-            logger.warn('Error retrieving user profile image: ' + err.message)
+            profileImage = url
+            logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
-          .pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
+          .on('response', function (res) {
+            if (res.statusCode === 200) {
+              req.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
+            } else {
+              profileImage = url
+            }
+          })
         models.User.findByPk(loggedInUser.data.id).then(user => {
-          return user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.jpg` })
+          return user.update({ profileImage: profileImage })
         }).catch(error => {
           next(error)
         })
