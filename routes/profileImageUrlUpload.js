@@ -26,11 +26,8 @@ module.exports = function profileImageUrlUpload () {
             logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
           .on('response', function (res) {
-            if (res.statusCode === 200) {
-              req.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
-            } else {
-              profileImage = url
-            }
+            if (res.statusCode === 200) req.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
+            else profileImage = url
           })
         models.User.findByPk(loggedInUser.data.id).then(user => {
           return user.update({ profileImage: profileImage })
