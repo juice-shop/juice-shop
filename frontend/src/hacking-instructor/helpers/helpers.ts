@@ -102,3 +102,25 @@ export function waitForAngularRouteToBeVisited (route: String) {
     }
   }
 }
+
+export function waitForLogIn () {
+  return async () => {
+    while (true) {
+      if (localStorage.getItem('token') !== null) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
+
+export function waitForLogOut () {
+  return async () => {
+    while (true) {
+      if (localStorage.getItem('token') === null) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}
