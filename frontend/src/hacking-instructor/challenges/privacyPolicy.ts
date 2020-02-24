@@ -29,7 +29,6 @@ export const PrivacyPolicyInstruction: ChallengeInstruction = {
       text:
         'Great, you are logged in! Now open the _Account_ menu.',
       fixture: '#navbarAccount',
-      unskippable: true,
       resolved: waitForElementToGetClicked('#navbarAccount')
     },
     {
@@ -41,7 +40,7 @@ export const PrivacyPolicyInstruction: ChallengeInstruction = {
     },
     {
       text: '🎉 That was super easy, right? This challenge is a bit of a joke actually, because nobody reads any fine print online... 🙈',
-      fixture: 'app-privacy-policy',
+      fixture: 'app-navbar',
       resolved: waitInMs(60000)
     }
   ]
