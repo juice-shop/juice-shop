@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
@@ -23,7 +23,7 @@ export class DeliveryMethodComponent implements OnInit {
   public dataSource
   public deliveryMethodId: Number = undefined
 
-  constructor (private deliverySerivce: DeliveryService, private addressService: AddressService, private router: Router) { }
+  constructor (private deliverySerivce: DeliveryService, private addressService: AddressService, private router: Router, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
@@ -42,6 +42,6 @@ export class DeliveryMethodComponent implements OnInit {
 
   chooseDeliveryMethod () {
     sessionStorage.setItem('deliveryMethodId', this.deliveryMethodId.toString())
-    this.router.navigate(['/payment', 'shop'])
+    this.ngZone.run(() => this.router.navigate(['/payment', 'shop']))
   }
 }

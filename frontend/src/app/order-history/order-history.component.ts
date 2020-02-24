@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
@@ -40,7 +40,7 @@ export class OrderHistoryComponent implements OnInit {
   public orders: Order[] = []
   public emptyState: boolean = true
 
-  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService) { }
+  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.orderHistoryService.get().subscribe((orders) => {
@@ -98,10 +98,10 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   trackOrder (orderId) {
-    this.router.navigate(['/track-result'], {
+    this.ngZone.run(() => this.router.navigate(['/track-result'], {
       queryParams: {
         id: orderId
       }
-    })
+    }))
   }
 }

@@ -179,7 +179,7 @@ export class PaymentComponent implements OnInit {
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
       }
-      this.router.navigate(['/order-summary'])
+      this.ngZone.run(() => this.router.navigate(['/order-summary']))
     }
   }
 
@@ -189,7 +189,7 @@ export class PaymentComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/login'])
+    this.ngZone.run(() => this.router.navigate(['/login']))
   }
 
   // tslint:disable-next-line:no-empty
