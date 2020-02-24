@@ -18,17 +18,17 @@ library.add(faGlobe, faFlagCheckered, faClipboard)
 dom.watch()
 
 interface ChallengeSolvedMessage {
-  challenge: string,
-  hidden?: any,
-  isRestore?: any,
-  flag: any,
+  challenge: string
+  hidden?: any
+  isRestore?: any
+  flag: any
   key?: any
 }
 
 interface ChallengeSolvedNotification {
-  message: string,
-  flag: string,
-  country?: { code: string, name: string },
+  message: string
+  flag: string
+  country?: { code: string; name: string }
   copied: boolean
 }
 

@@ -4,7 +4,7 @@
  */
 
 import { CanActivate, Router } from '@angular/router'
-import * as jwt_decode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
 import { Injectable } from '@angular/core'
 
@@ -33,7 +33,7 @@ export class LoginGuard implements CanActivate {
     const token = localStorage.getItem('token')
     if (token) {
       try {
-        payload = jwt_decode(token)
+        payload = jwtDecode(token)
       } catch (err) {
         console.log(err)
       }

@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
 interface OrderDetail {
-  paymentId: string,
-  addressId: string,
+  paymentId: string
+  addressId: string
   deliveryMethodId: string
 }
 

@@ -62,7 +62,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.borderRadius = '8px'
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
-  elem.style.top = `24px`
+  elem.style.top = '24px'
   if (hint.unskippable !== true) {
     elem.style.cursor = 'pointer'
   }
