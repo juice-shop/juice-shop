@@ -13,9 +13,7 @@ module.exports = function profileImageUrlUpload () {
   function setProfileImage (userid, imageUrl, next) {
     models.User.findByPk(userid).then(user => {
       return user.update({ profileImage: imageUrl })
-    }).catch(error => {
-      next(error)
-    })
+    }).catch(error => { next(error) })
   }
 
   return (req, res, next) => {
@@ -36,10 +34,8 @@ module.exports = function profileImageUrlUpload () {
             if (res.statusCode === 200) {
               imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
               setProfileImage(loggedInUser.data.id, `/assets/public/images/uploads/${loggedInUser.data.id}.jpg`, next)
-            }
-            else setProfileImage(loggedInUser.data.id, url, next)
+            } else setProfileImage(loggedInUser.data.id, url, next)
           })
-
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
