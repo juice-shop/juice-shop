@@ -10,6 +10,14 @@ const request = require('request')
 const logger = require('../lib/logger')
 
 module.exports = function profileImageUrlUpload () {
+  function setProfileImage (userid, imageUrl, next) {
+    models.User.findByPk(userid).then(user => {
+      return user.update({ profileImage: imageUrl })
+    }).catch(error => {
+      next(error)
+    })
+  }
+
   return (req, res, next) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
@@ -18,22 +26,20 @@ module.exports = function profileImageUrlUpload () {
       }
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        var profileImage = `/assets/public/images/uploads/${loggedInUser.data.id}.jpg`
-        const req = request
+        const imageRequest = request
           .get(url)
           .on('error', function (err) {
-            profileImage = url
+            setProfileImage(loggedInUser.data.id, url, next)
             logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
           .on('response', function (res) {
-            if (res.statusCode === 200) req.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
-            else profileImage = url
+            if (res.statusCode === 200) {
+              imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
+              setProfileImage(loggedInUser.data.id, `/assets/public/images/uploads/${loggedInUser.data.id}.jpg`, next)
+            }
+            else setProfileImage(loggedInUser.data.id, url, next)
           })
-        models.User.findByPk(loggedInUser.data.id).then(user => {
-          return user.update({ profileImage: profileImage })
-        }).catch(error => {
-          next(error)
-        })
+
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
