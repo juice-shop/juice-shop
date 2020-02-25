@@ -13,22 +13,21 @@ module.exports = function profileImageUrlUpload () {
   return (req, res, next) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
-      if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) {
-        req.app.locals.abused_ssrf_bug = true
-      }
+      if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
       const loggedInUser = insecurity.authenticatedUsers.get(req.cookies.token)
       if (loggedInUser) {
-        request
+        const imageRequest = request
           .get(url)
           .on('error', function (err) {
-            logger.warn('Error retrieving user profile image: ' + err.message)
+            models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url })}).catch(error => { next(error) })
+            logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
-          .pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
-        models.User.findByPk(loggedInUser.data.id).then(user => {
-          return user.update({ profileImage: loggedInUser.data.id + '.jpg' })
-        }).catch(error => {
-          next(error)
-        })
+          .on('response', function (res) {
+            if (res.statusCode === 200) {
+              imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
+              models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.jpg` })}).catch(error => { next(error) })
+            } else models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url })}).catch(error => { next(error) })
+          })
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
