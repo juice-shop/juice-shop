@@ -9,11 +9,13 @@ import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.c
 import { LoginAdminInstruction } from './challenges/loginAdmin'
 import { DomXssInstruction } from './challenges/localXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
+import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
   LoginAdminInstruction,
-  DomXssInstruction
+  DomXssInstruction,
+  PrivacyPolicyInstruction
 ]
 
 export interface ChallengeInstruction {
@@ -60,7 +62,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.borderRadius = '8px'
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
-  elem.style.top = `24px`
+  elem.style.top = '24px'
   if (hint.unskippable !== true) {
     elem.style.cursor = 'pointer'
   }

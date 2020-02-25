@@ -6,7 +6,7 @@
 import { CookieService } from 'ngx-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { FormControl, Validators } from '@angular/forms'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable: boolean = true
   public redirectUri: string = ''
-  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService) { }
+  constructor (private configurationService: ConfigurationService, private userService: UserService, private windowRefService: WindowRefService, private cookieService: CookieService, private router: Router, private formSubmitService: FormSubmitService, private ngZone: NgZone) { }
 
   ngOnInit () {
     const email = localStorage.getItem('email')
@@ -76,11 +76,11 @@ export class LoginComponent implements OnInit {
       this.cookieService.put('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
-      this.router.navigate(['/search'])
+      this.ngZone.run(() => this.router.navigate(['/search']))
     }, ({ error }) => {
       if (error.status && error.data && error.status === 'totp_token_requried') {
         localStorage.setItem('totp_tmp_token', error.data.tmpToken)
-        this.router.navigate(['/2fa/enter'])
+        this.ngZone.run(() => this.router.navigate(['/2fa/enter']))
         return
       }
       localStorage.removeItem('token')

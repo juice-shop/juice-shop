@@ -5,7 +5,7 @@
 
 import { Component } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
-import * as jwt_decode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 
 @Component({
   selector: 'app-last-login-ip',
@@ -31,7 +31,7 @@ export class LastLoginIpComponent {
     let payload = {} as any
     const token = localStorage.getItem('token')
     if (token) {
-      payload = jwt_decode(token)
+      payload = jwtDecode(token)
       if (payload.data.lastLoginIp) {
         this.lastLoginIp = this.sanitizer.bypassSecurityTrustHtml(`<small>${payload.data.lastLoginIp}</small>`)
       }

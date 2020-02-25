@@ -79,7 +79,7 @@ export class SidenavComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/'])
+    this.ngZone.run(() => this.router.navigate(['/']))
   }
 
   goToProfilePage () {

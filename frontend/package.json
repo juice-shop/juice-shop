@@ -30,7 +30,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
-    "@nguniversal/express-engine": "^9.0.0",
+    "@nguniversal/express-engine": "9.0.0-rc.2",
     "@ngx-translate/core": "^12.1.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular2-qrcode": "^2.0.3",
