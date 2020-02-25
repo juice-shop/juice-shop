@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { PaymentService } from '../Services/payment.service'
 import { BasketService } from '../Services/basket.service'
@@ -23,7 +23,7 @@ export class OrderSummaryComponent implements OnInit {
   public promotionalDiscount = 0
   public address: any
   public paymentMethod: any
-  constructor (private router: Router, private addressService: AddressService, private paymentService: PaymentService, private basketService: BasketService, private deliveryService: DeliveryService) { }
+  constructor (private router: Router, private addressService: AddressService, private paymentService: PaymentService, private basketService: BasketService, private deliveryService: DeliveryService, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
@@ -62,7 +62,7 @@ export class OrderSummaryComponent implements OnInit {
       sessionStorage.removeItem('deliveryMethodId')
       sessionStorage.removeItem('couponDetails')
       sessionStorage.removeItem('couponDiscount')
-      this.router.navigate(['/order-completion', orderConfirmationId])
+      this.ngZone.run(() => this.router.navigate(['/order-completion', orderConfirmationId]))
     }, (err) => console.log(err))
   }
 }

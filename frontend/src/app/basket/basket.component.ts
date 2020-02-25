@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
@@ -21,10 +21,10 @@ export class BasketComponent {
   public productCount: number = 0
   public bonus: number = 0
 
-  constructor (private router: Router) {}
+  constructor (private router: Router, private ngZone: NgZone) {}
 
   checkout () {
-    this.router.navigate(['/address/select'])
+    this.ngZone.run(() => this.router.navigate(['/address/select']))
   }
 
   getProductCount (total) {

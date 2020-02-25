@@ -14,15 +14,15 @@ interface TwoFactorVerifyResponse {
 }
 
 interface AuthenticationPayload {
-  token: string,
-  bid: number,
+  token: string
+  bid: number
   umail: string
 }
 
 interface TwoFactorAuthStatusPayload {
-  setup: boolean,
-  secret?: string,
-  setupToken?: string,
+  setup: boolean
+  secret?: string
+  setupToken?: string
   email?: string
 }
 

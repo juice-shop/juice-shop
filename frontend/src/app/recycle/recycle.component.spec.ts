@@ -183,12 +183,12 @@ describe('RecycleComponent', () => {
     expect(component.recycles.length).toBe(0)
   })
 
-  it('should hold nothing on error from backend API', () => fakeAsync(() => {
+  it('should hold nothing on error from backend API', () => {
     recycleService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })
 
   it('should log the error on retrieving the user', fakeAsync(() => {
     userService.whoAmI.and.returnValue(throwError('Error'))

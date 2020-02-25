@@ -5,7 +5,7 @@
 
 import { Router } from '@angular/router'
 import { FormControl, Validators } from '@angular/forms'
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons'
 
@@ -20,14 +20,14 @@ dom.watch()
 export class TrackOrderComponent {
 
   public orderIdControl: FormControl = new FormControl('', [Validators.required])
-  constructor (private router: Router) { }
+  constructor (private router: Router, private ngZone: NgZone) { }
 
   save () {
-    this.router.navigate(['/track-result'], {
+    this.ngZone.run(() => this.router.navigate(['/track-result'], {
       queryParams: {
         id: this.orderIdControl.value
       }
-    })
+    }))
   }
 
 }

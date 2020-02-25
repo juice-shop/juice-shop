@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component } from '@angular/core'
+import { Component, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -14,7 +14,7 @@ import { Router } from '@angular/router'
 export class AddressSelectComponent {
   public addressId: any = undefined
 
-  constructor (private router: Router) {}
+  constructor (private router: Router, private ngZone: NgZone) {}
 
   getMessage (id) {
     this.addressId = id
@@ -22,6 +22,6 @@ export class AddressSelectComponent {
 
   chooseAddress () {
     sessionStorage.setItem('addressId', this.addressId)
-    this.router.navigate(['/delivery-method'])
+    this.ngZone.run(() => this.router.navigate(['/delivery-method']))
   }
 }

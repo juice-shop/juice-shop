@@ -16,7 +16,7 @@ library.add(faTrash)
 dom.watch()
 
 interface HackingProgress {
-  autoRestoreMessage: string | null,
+  autoRestoreMessage: string | null
   cleared: boolean
 }
 

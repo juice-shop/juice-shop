@@ -17,9 +17,9 @@ library.add(faCheck)
 dom.watch()
 
 interface Order {
-  id: string,
-  orderId: string,
-  totalPrice: number,
+  id: string
+  orderId: string
+  totalPrice: number
   delivered: boolean
 }
 

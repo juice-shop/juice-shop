@@ -4,8 +4,8 @@
  */
 
 export interface DeliveryMethod {
-  id: number,
-  name: string,
-  price: number,
+  id: number
+  name: string
+  price: number
   eta: number
 }

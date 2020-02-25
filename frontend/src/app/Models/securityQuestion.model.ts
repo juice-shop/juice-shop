@@ -4,6 +4,6 @@
  */
 
 export interface SecurityQuestion {
-  id: number,
+  id: number
   question: string
 }

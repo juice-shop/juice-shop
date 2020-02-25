@@ -4,13 +4,13 @@
  */
 
 import { CanActivate, Router } from '@angular/router'
-import * as jwt_decode from 'jwt-decode'
+import * as jwtDecode from 'jwt-decode'
 import { roles } from './roles'
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  constructor (private router: Router) {}
+  constructor (private router: Router, private ngZone: NgZone) {}
 
   canActivate () {
     if (localStorage.getItem('token')) {
@@ -22,10 +22,10 @@ export class LoginGuard implements CanActivate {
   }
 
   forbidRoute (error = 'UNAUTHORIZED_PAGE_ACCESS_ERROR') {
-    this.router.navigate(['403'], {
+    this.ngZone.run(() => this.router.navigate(['403'], {
       skipLocationChange: true,
       queryParams: { error }
-    })
+    }))
   }
 
   tokenDecode () {
@@ -33,7 +33,7 @@ export class LoginGuard implements CanActivate {
     const token = localStorage.getItem('token')
     if (token) {
       try {
-        payload = jwt_decode(token)
+        payload = jwtDecode(token)
       } catch (err) {
         console.log(err)
       }
