@@ -10,10 +10,12 @@ import { LoginAdminInstruction } from './challenges/loginAdmin'
 import { DomXssInstruction } from './challenges/localXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
 import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
+import { LoginJimInstruction } from './challenges/loginJim'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
   LoginAdminInstruction,
+  LoginJimInstruction,
   DomXssInstruction,
   PrivacyPolicyInstruction
 ]
