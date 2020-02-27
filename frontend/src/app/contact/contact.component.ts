@@ -61,7 +61,7 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
-    this.feedback.comment = this.feedbackControl.value
+    this.feedback.comment = `${this.feedbackControl.value} (***${this.authorControl.value.slice(2)})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
