@@ -430,7 +430,6 @@ function createAnonymousFeedback () {
 
 function createFeedback (UserId, comment, rating, author) {
   const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
-  console.log(authoredComment)
   return models.Feedback.create({ UserId, comment: authoredComment, rating }).catch((err) => {
     logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${err.message}`)
   })
