@@ -6,5 +6,10 @@ jobs:
   LMLFTFY:
     runs-on: ubuntu-latest
     steps:
+    - name: Check out Git repository
+      uses: actions/checkout@v2
     - name: 'Install Linter'
-      run: 'npm install -g standard @angular/cli'
+      run: |
+        npm install --ignore-scripts
+        cd frontend
+        npm install --ignore-scripts
