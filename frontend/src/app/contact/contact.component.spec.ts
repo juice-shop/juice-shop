@@ -161,7 +161,7 @@ describe('ContactComponent', () => {
     component.rating = 5
     component.userIdControl.setValue('2')
     component.save()
-    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback', rating: 5, UserId: '2' })
+    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback (anonymous)', rating: 5, UserId: '2' })
   })
 
   it('should display thank-you message and reset feedback form on saving feedback', () => {

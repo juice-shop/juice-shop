@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit {
       this.feedback = {}
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
-      this.authorControl.setValue(data.email || 'anonymous')
+      this.authorControl.setValue(data.email ? '***' + data.email.slice(3) : 'anonymous')
     }, (err) => {
       this.feedback = undefined
       console.log(err)
@@ -61,7 +61,7 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
-    this.feedback.comment = `${this.feedbackControl.value} (***${this.authorControl.value.slice(2)})`
+    this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
