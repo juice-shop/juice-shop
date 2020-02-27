@@ -104,6 +104,7 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
+            facelift: juice-shop-experimental
           on:
             repo: bkimminich/juice-shop
 notifications:
