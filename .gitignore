@@ -11,6 +11,7 @@ package-lock.json
 i18n/*.json
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
+*.key
 
 # Build
 .nyc_output/
@@ -50,3 +51,4 @@ config/*.yml
 !config/test.yml
 !config/7ms.yml
 !config/mozilla.yml
+!config/kiwa.yml
