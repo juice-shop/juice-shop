@@ -11,8 +11,8 @@ import {
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
-export const LoginJimInstruction: ChallengeInstruction = {
-  name: 'Login Jim',
+export const LoginBenderInstruction: ChallengeInstruction = {
+  name: 'Login Bender',
   hints: [
     {
       text:
@@ -23,14 +23,14 @@ export const LoginJimInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "Let's try if we find a way to log in with Jim's user account. To begin, go to the _Login_ page via the _Account_ menu.",
+        "Let's try if we find a way to log in with Bender's user account. To begin, go to the _Login_ page via the _Account_ menu.",
       fixture: 'app-navbar',
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },
     {
       text:
-        "As you would expect you need to supply Jim's email address and password to log in regularly. But you might have neither at the moment.",
+        "As you would expect you need to supply Bender's email address and password to log in regularly. But you might have neither at the moment.",
       fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
@@ -42,20 +42,20 @@ export const LoginJimInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "So, let's go find out Jim's email! Luckily the shop is very bad with privacy and leaks emails in different places, for instance in the product reviews.",
+        "So, let's go find out Bender's email! Luckily the shop is very bad with privacy and leaks emails in different places, for instance in the user feedback.",
       fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
     {
       text:
-        'Go back to the product list and click on some to open their details dialog which also hold the user reviews.',
-      fixture: '#searchQuery',
-      resolved: waitForAngularRouteToBeVisited('search')
+        'Go to the _About Us_ page where user feedback is displayed among other things.',
+      fixture: 'app-navbar',
+      resolved: waitForAngularRouteToBeVisited('about')
     },
     {
       text:
-        'Once you found a user review by Jim and learned his email, go to the _Login_ screen.',
-      fixture: '#searchQuery',
+        'Once you found an entry by Bender in the feedback carousel leaking enough of his email to deduce the rest, go to the _Login_ screen.',
+      fixture: 'app-about',
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('login')
     },
@@ -63,13 +63,13 @@ export const LoginJimInstruction: ChallengeInstruction = {
       text: "Supply Jim's email address in the **email field**.",
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', 'jim@juice-sh.op') // TODO Use domain from config instead
+      resolved: waitForInputToHaveValue('#email', 'bender@juice-sh.op') // TODO Use domain from config instead
     },
     {
       text: "Now put anything in the **password field**. Let's assume we don't know it yet, even if you happen to already do.",
       fixture: '#password',
       unskippable: true,
-      resolved: waitForInputToNotHaveValue('#password', 'ncc-1701')
+      resolved: waitForInputToNotHaveValue('#password', 'OhG0dPlease1nsertLiquor!')
     },
     {
       text: 'Press the _Log in_ button.',
@@ -96,7 +96,7 @@ export const LoginJimInstruction: ChallengeInstruction = {
     },
     {
       text:
-        '🎉 Congratulations! You have been logged in as Jim!',
+        '🎉 Congratulations! You have been logged in as Bender!',
       fixture: 'app-navbar',
       resolved: waitInMs(5000)
     }
