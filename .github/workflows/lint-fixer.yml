@@ -1,9 +1,9 @@
-name: Greetings
+name: "Let me lint:fix that for you"
 
 on: [pull_request, push]
 
 jobs:
-  greeting:
+  LMLFTFY:
     runs-on: ubuntu-latest
     steps:
     - name: 'Install Linter'
