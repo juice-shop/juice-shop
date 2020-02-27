@@ -142,10 +142,10 @@ describe('ContactComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should hold the user email of the currently logged in user', () => {
-    userService.whoAmI.and.returnValue(of({ email: 'x@x.xx' }))
+  it('should hold the anonymized email of the currently logged in user', () => {
+    userService.whoAmI.and.returnValue(of({ email: 'xxxx@x.xx' }))
     component.ngOnInit()
-    expect(component.authorControl.value).toBe('x@x.xx')
+    expect(component.authorControl.value).toBe('***x@x.xx')
   })
 
   it('should hold anonymous placeholder for email if current user is not logged in', () => {
