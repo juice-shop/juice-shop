@@ -3,7 +3,7 @@ import {
   waitForInputToNotBeEmpty,
   waitForElementToGetClicked,
   waitInMs,
-  sleep
+  sleep, waitForAngularRouteToBeVisited
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -26,20 +26,13 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "Let's try if we find a way to log in with the administrator's user account. To begin, go to the _Login_ page.",
-      fixture: '#navbarAccount',
+        "Let's try if we find a way to log in with the administrator's user account. To begin, go to the _Login_ page via the _Account_ menu.",
+      fixture: 'app-navbar',
       unskippable: true,
-      async resolved () {
-        while (true) {
-          if (window.location.hash === '#/login') {
-            break
-          }
-          await sleep(100)
-        }
-      }
+      resolved: waitForAngularRouteToBeVisited('login')
     },
     {
-      text: 'To find a way around the normal login process we will try to use an **SQL Injection** (SQLi) attack.',
+      text: 'To find a way around the normal login process we will try to use a **SQL Injection** (SQLi) attack.',
       fixture: '#email',
       resolved: waitInMs(8000)
     },
@@ -51,16 +44,19 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text: "Start with entering `'` in the **email field**.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "'")
     },
     {
       text: "Now put anything in the **password field**. It doesn't matter what.",
       fixture: '#password',
+      unskippable: true,
       resolved: waitForInputToNotBeEmpty('#password')
     },
     {
       text: 'Press the _Log in_ button.',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
@@ -76,16 +72,18 @@ export const LoginAdminInstruction: ChallengeInstruction = {
     {
       text: 'Did you spot the error message with the `SQLITE_ERROR` and the entire SQL query in the console output? If not, keep the console open and click _Log in_ again. Then inspect the occuring log message closely.',
       fixture: '#rememberMe',
-      resolved: waitInMs(15000)
+      resolved: waitInMs(30000)
     },
     {
       text: "Let's try to manipulate the query a bit to make it useful. Try out typing `' OR true` into the **email field**.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "' OR true")
     },
     {
       text: 'Now click the _Log in_ button again.',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
@@ -104,26 +102,29 @@ export const LoginAdminInstruction: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: 'So, type in "\' OR true--" in the email field.',
+      text: "So, type in `' OR true--` into the email field.",
       fixture: '#email',
+      unskippable: true,
       resolved: waitForInputToHaveValue('#email', "' OR true--")
     },
     {
       text: 'Press the _Log in_ button again and sit back...',
       fixture: '#rememberMe',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#loginButton')
     },
     {
       text:
-        'That worked, right?! To see with whose account you just logged in, click the _User Profile_ image.',
+        'That worked, right?! To see with whose account you just logged in, open the _Account_ menu.',
       fixture: '#navbarAccount',
+      unskippable: true,
       resolved: waitForElementToGetClicked('#navbarAccount')
     },
     {
       text:
-        '🎉 Congratulations! You are logged in as the administrator of the shop!',
-      fixture: '#searchQuery',
-      resolved: waitInMs(10000)
+        '🎉 Congratulations! You have been logged in as the **administrator** of the shop! (If you want to understand why, try to reproduce what your `\' OR true--` did _exactly_ to the query.)',
+      fixture: 'app-navbar',
+      resolved: waitInMs(20000)
     }
   ]
 }

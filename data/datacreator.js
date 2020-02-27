@@ -32,12 +32,13 @@ module.exports = async () => {
     createBasketItems,
     createAnonymousFeedback,
     createComplaints,
-    createRecycleItems,
+    createRecycleItem,
     createOrders,
     createQuantity,
     createPurchaseQuantity,
     createWallet,
-    createDeliveryMethods
+    createDeliveryMethods,
+    createMemories
   ]
 
   for (const creator of creators) {
@@ -57,7 +58,7 @@ async function createChallenges () {
       hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
 
       try {
-        const challenge = await models.Challenge.create({
+        datacache.challenges[key] = await models.Challenge.create({
           key,
           name,
           category,
@@ -68,7 +69,6 @@ async function createChallenges () {
           hintUrl: showHints ? hintUrl : null,
           disabledEnv: config.get('challenges.safetyOverride') ? null : effectiveDisabledEnv
         })
-        datacache.challenges[key] = challenge
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${err.message}`)
       }
@@ -211,6 +211,32 @@ function createQuantity () {
     })
   )
 }
+function createMemories () {
+  const memories = [models.Memory.create({
+    imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
+    caption: '😼 #zatschi #whoneedsfourlegs',
+    UserId: datacache.users.bjoernOwasp.id
+  }).catch((err) => {
+    logger.error(`Could not create memory: ${err.message}`)
+  })]
+  Array.prototype.push.apply(memories, Promise.all(
+    config.get('memories').map((memory) => {
+      if (utils.startsWith(memory.image, 'http')) {
+        const imageUrl = memory.image
+        memory.image = utils.extractFilename(memory.image)
+        utils.downloadToFile(imageUrl, 'assets/public/images/uploads/' + memory.image)
+      }
+      return models.Memory.create({
+        imagePath: 'assets/public/images/uploads/' + memory.image,
+        caption: memory.caption,
+        UserId: datacache.users[memory.user].id
+      }).catch((err) => {
+        logger.error(`Could not create memory: ${err.message}`)
+      })
+    })
+  ))
+  return memories
+}
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
@@ -222,7 +248,7 @@ function createProducts () {
     product.image = product.image || 'undefined.png'
     if (utils.startsWith(product.image, 'http')) {
       const imageUrl = product.image
-      product.image = decodeURIComponent(product.image.substring(product.image.lastIndexOf('/') + 1))
+      product.image = utils.extractFilename(product.image)
       utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
 
@@ -251,7 +277,7 @@ function createProducts () {
   let blueprint = blueprintRetrivalChallengeProduct.fileForRetrieveBlueprintChallenge
   if (utils.startsWith(blueprint, 'http')) {
     const blueprintUrl = blueprint
-    blueprint = decodeURIComponent(blueprint.substring(blueprint.lastIndexOf('/') + 1))
+    blueprint = utils.extractFilename(blueprint)
     utils.downloadToFile(blueprintUrl, 'frontend/dist/frontend/assets/public/images/products/' + blueprint)
   }
   datacache.retrieveBlueprintChallengeFile = blueprint // TODO Do not cache separately but load from config where needed (same as keywordsForPastebinDataLeakChallenge)
@@ -412,79 +438,79 @@ function createComplaints () {
   })
 }
 
-function createRecycleItems () {
-  const recycleItems = [
+function createRecycleItem () {
+  const recycles = [
     {
       UserId: 2,
       quantity: 800,
-      address: 'Starfleet HQ, 24-593 Federation Drive, San Francisco, CA',
+      AddressId: 4,
       date: '2270-01-17',
       isPickup: true
     },
     {
       UserId: 3,
       quantity: 1320,
-      address: '22/7 Winston Street, Sydney, Australia, Earth',
+      AddressId: 6,
       date: '2006-01-14',
       isPickup: true
     },
     {
       UserId: 4,
       quantity: 120,
-      address: '999 Norton Street, Norfolk, USA',
+      AddressId: 1,
       date: '2018-04-16',
       isPickup: true
     },
     {
       UserId: 1,
       quantity: 300,
-      address: '6-10 Leno Towers, Eastern Empire, CA',
+      AddressId: 3,
       date: '2018-01-17',
       isPickup: true
     },
     {
-      UserId: 6,
+      UserId: 4,
       quantity: 350,
-      address: '88/2 Lindenburg Apartments, East Street, Oslo, Norway',
+      AddressId: 1,
       date: '2018-03-17',
       isPickup: true
     },
     {
       UserId: 3,
       quantity: 200,
-      address: '222, East Central Avenue, Adelaide, New Zealand',
+      AddressId: 6,
       date: '2018-07-17',
       isPickup: true
     },
     {
       UserId: 4,
       quantity: 140,
-      address: '100 Yellow Peak Road, West Central New York, USA',
+      AddressId: 1,
       date: '2018-03-19',
       isPickup: true
     },
     {
       UserId: 1,
       quantity: 150,
-      address: '15 Riviera Road, Western Frontier, Menlo Park CA',
+      AddressId: 3,
       date: '2018-05-12',
       isPickup: true
     },
     {
-      UserId: 8,
+      UserId: 16,
       quantity: 500,
-      address: '712 Irwin Avenue, River Bank Colony, Easter Frontier, London, UK',
+      AddressId: 2,
       date: '2019-02-18',
       isPickup: true
     }
   ]
   return Promise.all(
-    recycleItems.map((item) => createRecycles(item))
+    recycles.map((recycle) => createRecycle(recycle))
   )
 }
 
-function createRecycles (item) {
-  return models.Recycle.create(item).catch((err) => {
+function createRecycle (data) {
+  return models.Recycle.create(data).catch((err) => {
     logger.error(`Could not insert Recycling Model: ${err.message}`)
   })
 }
@@ -500,7 +526,10 @@ function createSecurityQuestions () {
     'Name of your favorite pet?',
     'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
     'Your ZIP/postal code when you were a teenager?',
-    'Company you first work for as an adult?'
+    'Company you first work for as an adult?',
+    'Your favorite book?',
+    'Your favorite movie?',
+    'Number of one of your customer or ID cards?'
   ]
 
   return Promise.all(

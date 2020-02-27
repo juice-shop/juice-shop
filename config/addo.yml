@@ -1,0 +1,103 @@
+application:
+  domain: ad.do
+  name: 'AllDayDeflOps'
+  logo: 'https://www.alldaydevops.com/hubfs/2019-ADDO/2019%20Logo%20Files/ADDO_Logo_2019_White.svg'
+  favicon: 'https://www.sonatype.com/hubfs/ADDO-2018/ADDO_fav4.png'
+  theme: pink-bluegrey
+  showGitHubLinks: false
+  twitterUrl: 'https://twitter.com/AllDayDevOps'
+  facebookUrl: 'https://www.facebook.com/AllDayDevOps/'
+  slackUrl: 'https://join.slack.com/t/alldaydevops/shared_invite/enQtNzc3NDc2NDQ2OTAwLTRhMjBjNTg2NTM4ZWRmZmQxMDEyNGNmMDI1OGM2ZDMzYjUwZmY4Mjc0NGJiODJkNjVhYmU2ZTBmNGZlNDUwMjc'
+  redditUrl: null
+  pressKitUrl: 'https://www.alldaydevops.com/2019resources'
+  planetOverlayMap: 'https://www.sonatype.com/hubfs/2019-ADDO/BG_Bobby-2019_3.png'
+  planetName: 'A-DD-0'
+  recyclePage:
+    topProductImage: undefined.png
+    bottomProductImage: undefined.png
+  altcoinName: ADDcOin
+  welcomeBanner:
+    showOnFirstStart: false
+  cookieConsent:
+    backgroundColor: '#c2185b'
+    textColor: '#ffffff'
+    buttonColor: '#b0bec5'
+    buttonTextColor: '#000000'
+    message: 'Taste our 150 practitioner-baked cookies with 5 tracking flavors!'
+    dismissText: 'Register for 24/7 cookies!'
+    linkText: 'Yum, tell me more!'
+    linkUrl: 'https://www.alldaydevops.com/privacy-policy-addo'
+  privacyContactEmail: 'donotreply@ad.do'
+  securityTxt:
+    contact: 'mailto:donotreply@ad.do'
+    encryption: ~
+hackingInstructor:
+  avatarImage: 'https://www.alldaydevops.com/hs-fs/hubfs/2019-ADDO/2019-footer-bobby-1.png?width=135&name=2019-footer-bobby-1.png'
+products:
+  - name: 'Feedback Loops: Voices of All Day DevOps: Volume 1'
+    description: 'Four Years of Countless DevOps Journeys Unveiled at All Day DevOps. Over the years, All Day DevOps has explored the stories of over 275 community practitioners around the world - and as we know, with any journey, there is never a single path to success.'
+    price: 14.95
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Operation%20Graphics/ADDO_book_covers_yellow_forHS.jpg'
+    fileForRetrieveBlueprintChallenge: 'https://sptf.info/images/pn1_fbl.pdf'
+  - name: 'DevSecOps Reference Architectures 2019'
+    description: 'Gloriously referential! Whitepaperesquely architectural!'
+    price: 42.00
+    quantity: 3
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Operation%20Graphics/Untitled%20design%20(3).png'
+    urlForProductTamperingChallenge: 'http://bit.ly/2YIjdt7'
+  - name: 'DevSecOps Reference Architectures 2018'
+    description: 'Very referential! Mildly architectural!'
+    price: 21.00
+    image: undefined.jpg
+    useForChristmasSpecialChallenge: true
+  - name: 'Epic Failures in DevSecOps, Vol. 1'
+    description: 'One topic. Nine authors. Where did they go wrong? Through short stories from expert practitioners, observe patterns the DevSecOps community can learn from to safely push the boundaries of software development.'
+    price: 7.42
+    image: 'https://www.alldaydevops.com/hubfs/2019-ADDO/Sponsor%20Logos/Epic%20Failures%20Volume%2001%20-%20Featured%20Image.jpg'
+  - name: '2018 DevSecOps'
+    description: 'Introduction to DevSecOps by DJ Schleen'
+    price: 99.99
+    image: 'https://www.alldaydevops.com/hubfs/Cover-DevSecOps@2x.png'
+  - name: '2018 Cloud Native Infrastructure'
+    description: '101 and 202'
+    price: 39.99
+    image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-ModernInfrastructure@2x.png'
+    reviews:
+      - { text: 'I read on PasteBin somewhere that 303 lasers are really dangerous, so why do you (kind of) put one into this product? Are you crazy?!', author: bjoern }
+    keywordsForPastebinDataLeakChallenge:
+      - '101'
+      - '202'
+  - name: '2018 Cultural Transformation'
+    description: 'Introduction to DevOps'
+    price: 9.99
+    image: 'https://www.alldaydevops.com/hubfs/ADDO-2018/Cover-CulturalTransformations@2x.png'
+  - name: 'All Day DevOps On Demand'
+    description: '123 free sessions for you! Rewatch your favorites from 2018, then get ready for All Day DevOps 2019 on November 6.'
+    price: 123.0
+    deletedDate: '2018-12-31'
+  - name: 'Bjorn Kimminich'
+    description: 'Björn is the project leader of the OWASP Juice Shop and a board member for the German OWASP chapter.'
+    price: 999999.99
+    quantity: 0
+    image: 'https://www.alldaydevops.com/hubfs/Bjorn_Kimminich.jpg'
+    reviews:
+      - { text: 'Man, dis dude is a loony!', author: mc.safesearch }
+  -
+    name: 'ADDO Music Collection'
+    description: 'All the all-time classics in one collection.'
+    price: 49.99
+    image: 'https://pbs.twimg.com/media/Di5A_iYU4AAxpXT?format=jpg&name=small'
+    reviews:
+      - { text: 'Bah, puny earthling music.', author: bender }
+  -
+    name: 'DevSecOps Unicorn Poster, 80x60'
+    description: 'Glossy print to make the rainbow colors shine even brighter.'
+    price: 9.99
+    image: 'https://pbs.twimg.com/media/CEQOsL9XIAAezy_?format=png&name=small'
+    reviews:
+      - { text: 'This will decorate the captain`s ready room nicely.', author: jim }
+memories:
+  -
+    image: 'https://pbs.twimg.com/media/EH1dQzVWoAA11q5?format=jpg&name=medium'
+    caption: '"WE LOVE OUR SPEAKERS" - @AllDayDevOps - You clearly do! 😮😯😲😀😃😁'
+    user: bjoernOwasp

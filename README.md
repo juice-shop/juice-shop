@@ -15,7 +15,9 @@
 > [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
 > ([@vanderaj](https://twitter.com/vanderaj)) —
 > [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
-> ([@kramse](https://twitter.com/kramse))
+> ([@kramse](https://twitter.com/kramse)) —
+> [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
+> ([@coderPatros' wife](https://twitter.com/coderPatros))
 
 OWASP Juice Shop is probably the most modern and sophisticated insecure
 web application! It can be used in security trainings, awareness demos,
@@ -28,7 +30,7 @@ with many other security flaws found in real-world applications!
 
 For a detailed introduction, full list of features and architecture
 overview please visit the official project page:
-<http://owasp-juice.shop>
+<https://owasp-juice.shop>
 
 ## Setup
 
@@ -155,6 +157,7 @@ images and packaged distributions are offered accordingly.
 
 | node.js  | Supported            | [Packaged Distributions](#packaged-distributions)                                                                                                                                                                                                                 | [Docker image](#docker-container) tags                                                       |
 |:---------|:---------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| 13.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
 | __12.x__ | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) | __`latest`__ (current official `master` release), `snapshot` (preview from `develop` branch) |
 | 11.x     | (:heavy_check_mark:) |                                                                                                                                                                                                                                                                   |                                                                                              |
 | 10.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
@@ -204,21 +207,17 @@ questions!**
 
 ## Documentation
 
-### Pwning OWASP Juice Shop [![](https://img.shields.io/leanpub/book/pages/juice-shop.svg)](https://leanpub.com/juice-shop) [![](https://img.shields.io/leanpub/book/sold/juice-shop.svg)](https://leanpub.com/juice-shop) [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
-
+### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
 
 This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
 application including hints how to spot and exploit them. In the
 appendix you will even find complete step-by-step solutions to every
 challenge. [Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is
-published with
-[GitBook](https://www.gitbook.com/book/bkimminich/pwning-owasp-juice-shop)
-under
+published under
 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 and is available **for free** in PDF, Kindle and ePub format. You can
-also
-[browse the full content online](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content)!
+also [browse the full content online](https://pwning.owasp-juice.shop)!
 
 [![Pwning OWASP Juice Shop Cover](https://raw.githubusercontent.com/bkimminich/pwning-juice-shop/master/cover_small.jpg)](https://leanpub.com/juice-shop)
 
@@ -269,21 +268,16 @@ Shop! Just
 or [the project leader](mailto:bjoern.kimminich@owasp.org) to discuss
 your plans! !
 
-## Donations
+## Donations [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
 
-### PayPal [![PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40owasp%2eorg&lc=BM&item_name=OWASP%20Juice%20Shop%20Project&item_number=OWASP%20Foundation&no_note=0&currency_code=USD&bn=PP%2dDonationsBF)
+The OWASP Foundation gratefully accepts donations via Stripe. Projects
+such as Juice Shop can then request reimbursement for expenses from the
+Foundation. If you'd like to express your support of the Juice Shop
+project, please make sure to tick the "Publicly list me as a supporter
+of OWASP Juice Shop" checkbox on the donation form. You can find our
+more about donations and how they are used here:
 
-PayPal donations via above button go to the OWASP Foundations and are
-earmarked for "Juice Shop". This is the preferred and most convenient
-way to support the project.
-
-### Credit Card (through RegOnline)
-
-OWASP hosts a
-[donation form on RegOnline](https://www.regonline.com/Register/Checkin.aspx?EventID=1044369).
-Refer to the
-[Credit card donation step-by-step](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/donations.html#credit-card-donation-step-by-step)
-guide for help with filling out the donation form correctly.
+<https://pwning.owasp-juice.shop/part3/donations.html>
 
 ## Contributors
 
@@ -302,6 +296,6 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). OWASP Juice Shop and any
-contributions are Copyright © by Bjoern Kimminich 2014-2019.
+contributions are Copyright © by Bjoern Kimminich 2014-2020.
 
 ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)

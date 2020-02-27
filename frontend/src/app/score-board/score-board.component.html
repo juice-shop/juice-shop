@@ -91,7 +91,7 @@
                                       [showChallengeHints]="showChallengeHints">
           </app-challenge-status-badge>
           <button
-            *ngIf="showHackingInstructor && hasHackingInstructorInstructions(challenge.name)"
+            *ngIf="showHackingInstructor && challenge.hasTutorial"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"

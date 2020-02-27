@@ -4,68 +4,6 @@ import { roles } from './roles'
 import { Injectable } from '@angular/core'
 
 @Injectable()
-export class AdminGuard implements CanActivate {
-  constructor (private router: Router) {}
-
-  forbidRoute () {
-    this.router.navigate(['403'], {
-      skipLocationChange: true,
-      queryParams: {
-        error: 'UNAUTHORIZED_PAGE_ACCESS_ERROR'
-      }
-    })
-  }
-
-  tokenDecode () {
-    let payload: any = null
-    const token = localStorage.getItem('token')
-    if (token) {
-      payload = jwt_decode(token)
-    }
-    return payload
-  }
-
-  canActivate () {
-    let payload = this.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.admin) {
-      return true
-    } else {
-      this.forbidRoute()
-      return false
-    }
-  }
-}
-
-@Injectable()
-export class AccountingGuard implements CanActivate {
-  constructor (private router: Router, private adminGuard: AdminGuard) {}
-
-  canActivate () {
-    let payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
-      return true
-    } else {
-      this.adminGuard.forbidRoute()
-      return false
-    }
-  }
-}
-
-@Injectable()
-export class DeluxeGuard {
-  constructor (private adminGuard: AdminGuard) {}
-
-  isDeluxe () {
-    let payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.deluxe) {
-      return true
-    } else {
-      return false
-    }
-  }
-}
-
-@Injectable()
 export class LoginGuard implements CanActivate {
   constructor (private router: Router) {}
 
@@ -73,13 +11,68 @@ export class LoginGuard implements CanActivate {
     if (localStorage.getItem('token')) {
       return true
     } else {
-      this.router.navigate(['403'], {
-        skipLocationChange: true,
-        queryParams: {
-          error: 'UNAUTHORIZED_ACCESS_ERROR'
-        }
-      })
+      this.forbidRoute('UNAUTHORIZED_ACCESS_ERROR')
       return false
     }
+  }
+
+  forbidRoute (error = 'UNAUTHORIZED_PAGE_ACCESS_ERROR') {
+    this.router.navigate(['403'], {
+      skipLocationChange: true,
+      queryParams: { error }
+    })
+  }
+
+  tokenDecode () {
+    let payload: any = null
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {
+        payload = jwt_decode(token)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    return payload
+  }
+}
+
+@Injectable()
+export class AdminGuard implements CanActivate {
+  constructor (private loginGuard: LoginGuard) {}
+
+  canActivate () {
+    let payload = this.loginGuard.tokenDecode()
+    if (payload && payload.data && payload.data.role === roles.admin) {
+      return true
+    } else {
+      this.loginGuard.forbidRoute()
+      return false
+    }
+  }
+}
+
+@Injectable()
+export class AccountingGuard implements CanActivate {
+  constructor (private router: Router, private loginGuard: LoginGuard) {}
+
+  canActivate () {
+    let payload = this.loginGuard.tokenDecode()
+    if (payload && payload.data && payload.data.role === roles.accounting) {
+      return true
+    } else {
+      this.loginGuard.forbidRoute()
+      return false
+    }
+  }
+}
+
+@Injectable()
+export class DeluxeGuard {
+  constructor (private loginGuard: LoginGuard) {}
+
+  isDeluxe () {
+    let payload = this.loginGuard.tokenDecode()
+    return payload && payload.data && payload.data.role === roles.deluxe
   }
 }

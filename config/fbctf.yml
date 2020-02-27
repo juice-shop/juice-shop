@@ -3,12 +3,11 @@ application:
   favicon: favicon_ctf.ico
   showChallengeHints: false
   showVersionNumber: false
-  showHackingInstructor: false
   showGitHubLinks: false
-  deluxePage:
-    deluxeDeliveryImage: delivery_ctf.png
   welcomeBanner:
     showOnFirstStart: false
+hackingInstructor:
+  isEnabled: false
 ctf:
   showFlagsInNotifications: true
   showCountryDetailsInNotifications: both
@@ -277,3 +276,9 @@ ctf:
     ephemeralAccountantChallenge:
       name: Denmark
       code: DK
+    missingEncodingChallenge:
+      name: Armenia
+      code: AM
+    svgInjectionChallenge:
+      name: Tunisia
+      code: TN

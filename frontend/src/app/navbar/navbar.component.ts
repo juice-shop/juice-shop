@@ -33,7 +33,7 @@ import {
 import { faComments } from '@fortawesome/free-regular-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { AdminGuard } from '../app.guard'
+import { LoginGuard } from '../app.guard'
 import { roles } from '../roles'
 
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit {
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private adminGuard: AdminGuard, private snackBar: MatSnackBar) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard, private snackBar: MatSnackBar) { }
 
   ngOnInit () {
     this.getLanguages()
@@ -71,14 +71,14 @@ export class NavbarComponent implements OnInit {
     }, (err) => console.log(err))
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
-      if (config && config.application && config.application.name && config.application.name !== null) {
+      if (config && config.application && config.application.name) {
         this.applicationName = config.application.name
       }
-      if (config && config.application && config.application.showGitHubLinks !== null) {
+      if (config && config.application) {
         this.showGitHubLink = config.application.showGitHubLinks
       }
 
-      if (config && config.application && config.application.logo && config.application.logo !== null) {
+      if (config && config.application && config.application.logo) {
         let logo: string = config.application.logo
 
         if (logo.substring(0, 4) === 'http') {
@@ -198,11 +198,7 @@ export class NavbarComponent implements OnInit {
   }
 
   isAccounting () {
-    const payload = this.adminGuard.tokenDecode()
-    if (payload && payload.data && payload.data.role === roles.accounting) {
-      return true
-    } else {
-      return false
-    }
+    const payload = this.loginGuard.tokenDecode()
+    return payload && payload.data && payload.data.role === roles.accounting
   }
 }

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faStar, faPaperPlane)
 dom.watch()
@@ -28,7 +29,7 @@ export class ContactComponent implements OnInit {
   public confirmation: any
   public error: any
 
-  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService, private formSubmitService: FormSubmitService) { }
+  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
@@ -60,7 +61,19 @@ export class ContactComponent implements OnInit {
     this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
       this.error = null
-      this.confirmation = 'Thank you for your feedback' + (savedFeedback.rating === 5 ? ' and your 5-star rating!' : '.')
+      if (savedFeedback.rating === 5) {
+        this.translate.get('FEEDBACK_FIVE_STAR_THANK_YOU').subscribe((feedbackThankYou) => {
+          this.confirmation = feedbackThankYou
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
+      } else {
+        this.translate.get('FEEDBACK_THANK_YOU').subscribe((feedbackThankYou) => {
+          this.confirmation = feedbackThankYou
+        }, (translationId) => {
+          this.confirmation = translationId
+        })
+      }
       this.feedback = {}
       this.ngOnInit()
       this.resetForm()

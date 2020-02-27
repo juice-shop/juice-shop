@@ -11,10 +11,6 @@ const challengeInstructions: ChallengeInstruction[] = [
   DomXssInstruction
 ]
 
-export interface HackingInstructorFileFormat {
-  challenges: ChallengeInstruction[]
-}
-
 export interface ChallengeInstruction {
   name: string
   hints: ChallengeHint[]
@@ -27,15 +23,18 @@ export interface ChallengeHint {
    */
   text: string
   /**
-   * Query Selector String of the Element the Hint should be displayed next to.
+   * Query Selector String of the Element the hint should be displayed next to.
    */
   fixture: string
-  resolved: () => Promise<void>
   /**
    * Set to true if the hint should not be able to be skipped by clicking on it.
    * Defaults to false
    */
   unskippable?: boolean
+  /**
+   * Function declaring the condition under which the tutorial will continue.
+   */
+  resolved: () => Promise<void>
 }
 
 function loadHint (hint: ChallengeHint): HTMLElement {
@@ -49,7 +48,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.id = 'hacking-instructor'
   elem.style.position = 'absolute'
   elem.style.zIndex = '20000'
-  elem.style.backgroundColor = '#4472C4' // TODO Load color from Angular theme <or> use navColor from themes.js?
+  elem.style.backgroundColor = 'rgba(50, 115, 220, 0.9)'
   elem.style.maxWidth = '400px'
   elem.style.minWidth = hint.text.length > 100 ? '350px' : '250px'
   elem.style.padding = '16px'
@@ -70,7 +69,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   picture.style.width = '64px'
   picture.style.height = '64px'
   picture.style.marginRight = '8px'
-  picture.src = '/assets/public/images/juice_bot.png'
+  picture.src = '/assets/public/images/hackingInstructor.png'
 
   const textBox = document.createElement('span')
   textBox.style.flexGrow = '2'

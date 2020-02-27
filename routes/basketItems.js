@@ -84,6 +84,6 @@ async function quantityCheck (req, res, next, id, quantity) {
       res.status(400).json({ error: 'We are out of stock! Sorry for the inconvenience.' })
     }
   } else {
-    res.status(400).json({ error: 'You can order only up to ' + product.limitPerUser + ' items of this product.' })
+    res.status(400).json({ error: `You can order only up to ${product.limitPerUser} items of this product.` })
   }
 }

@@ -3,3 +3,5 @@ application:
   name: 'OWASP Juice Box'
   welcomeBanner:
     showOnFirstStart: false
+hackingInstructor:
+  avatarImage: juicyEvilWasp.png

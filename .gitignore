@@ -42,6 +42,7 @@ assets/
 
 # Custom configuration files
 config/*.yml
+!config/addo.yml
 !config/bodgeit.yml
 !config/ctf.yml
 !config/fbctf.yml
@@ -51,4 +52,5 @@ config/*.yml
 !config/test.yml
 !config/7ms.yml
 !config/mozilla.yml
-!config/kiwa.yml
+!config/unsafe.yml
+

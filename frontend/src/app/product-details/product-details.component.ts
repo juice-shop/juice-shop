@@ -55,7 +55,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.productData.id)
     },(err) => console.log(err))
-    this.snackBarHelperService.openSnackBar('Your review has been saved', 'Ok')
+    this.snackBarHelperService.openSnackBar('CONFIRM_REVIEW_SAVED', 'Ok')
   }
 
   editReview (review: Review) {

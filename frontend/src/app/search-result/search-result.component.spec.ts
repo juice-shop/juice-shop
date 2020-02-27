@@ -166,7 +166,7 @@ describe('SearchResultComponent', () => {
     activatedRoute.setQueryParameter('<iframe src="javascript:alert(`xss`)"> Payload')
     spyOn(mockSocket,'emit')
     component.filterTable()
-    expect(mockSocket.emit.calls.mostRecent().args[0]).toBe('localXSSChallengeSolved')
+    expect(mockSocket.emit.calls.mostRecent().args[0]).toBe('verifyLocalXssChallenge')
     expect(mockSocket.emit.calls.mostRecent().args[1]).toBe(activatedRoute.snapshot.queryParams.q)
   })
 

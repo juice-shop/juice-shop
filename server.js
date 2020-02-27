@@ -13,8 +13,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const securityTxt = require('express-security.txt')
 const robots = require('express-robots-txt')
-const multer = require('multer')
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const yaml = require('js-yaml')
 const swaggerUi = require('swagger-ui-express')
 const RateLimit = require('express-rate-limit')
@@ -89,37 +87,40 @@ const memory = require('./routes/memory')
 const locales = require('./data/static/locales')
 const i18n = require('i18n')
 
+require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
+require('./lib/startup/cleanupFtpFolder')()
+require('./lib/startup/validatePreconditions')()
+require('./lib/startup/validateConfig')()
+
+const multer = require('multer')
+const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const mimeTypeMap = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
 }
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const isValid = mimeTypeMap[file.mimetype]
-    let error = new Error('Invalid mime type')
-    if (isValid) {
-      error = null
+const uploadToDisk = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const isValid = mimeTypeMap[file.mimetype]
+      let error = new Error('Invalid mime type')
+      if (isValid) {
+        error = null
+      }
+      cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
+    },
+    filename: (req, file, cb) => {
+      const name = insecurity.sanitizeFilename(file.originalname)
+        .toLowerCase()
+        .split(' ')
+        .join('-')
+      const ext = mimeTypeMap[file.mimetype]
+      cb(null, name + '-' + Date.now() + '.' + ext)
     }
-    cb(error, './frontend/dist/frontend/assets/public/images/uploads/')
-  },
-  filename: (req, file, cb) => {
-    const name = file.originalname
-      .toLowerCase()
-      .split(' ')
-      .join('-')
-    const ext = mimeTypeMap[file.mimetype]
-    cb(null, name + '-' + Date.now() + '.' + ext)
-  }
+  })
 })
 
 errorhandler.title = `${config.get('application.name')} (Express ${utils.version('express')})`
-
-require('./lib/startup/validatePreconditions')()
-require('./lib/startup/validateConfig')()
-require('./lib/startup/cleanupFtpFolder')()
-require('./lib/startup/restoreOverwrittenFilesWithOriginals')()
 
 /* Locals */
 app.locals.captchaId = 0
@@ -160,6 +161,7 @@ app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 /* Checks for challenges solved by retrieving a file implicitly or explicitly */
 app.use('/assets/public/images/padding', verify.accessControlChallenges())
 app.use('/assets/public/images/products', verify.accessControlChallenges())
+app.use('/assets/public/images/uploads', verify.accessControlChallenges())
 app.use('/assets/i18n', verify.accessControlChallenges())
 
 /* Checks for challenges solved by abusing SSTi and SSRF bugs */
@@ -189,16 +191,17 @@ i18n.configure({
   locales: locales.map(locale => locale.key),
   directory: path.join(__dirname, '/i18n'),
   cookie: 'language',
-  defaultLocale: 'en'
+  defaultLocale: 'en',
+  autoReload: true
 })
 app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
-app.post('/file-upload', upload.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
-app.post('/profile/image/file', upload.single('file'), profileImageFileUpload())
-app.post('/profile/image/url', upload.single('file'), profileImageUrlUpload())
-app.post('/api/Memorys', multer({ storage: storage }).single('image'), insecurity.appendUserId(), memory.addMemory())
+app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
+app.post('/profile/image/file', uploadToMemory.single('file'), profileImageFileUpload())
+app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
+app.post('/api/Memorys', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
@@ -499,9 +502,10 @@ app.use(errorhandler())
 exports.start = async function (readyCallback) {
   await models.sequelize.sync({ force: true })
   await datacreator()
+  const port = process.env.PORT || config.get('server.port')
 
-  server.listen(process.env.PORT || config.get('server.port'), () => {
-    logger.info(colors.cyan(`Server listening on port ${config.get('server.port')}`))
+  server.listen(port, () => {
+    logger.info(colors.cyan(`Server listening on port ${port}`))
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()

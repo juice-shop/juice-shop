@@ -7,6 +7,7 @@
   { "key": "cs_CZ", "icons": ["cz"], "shortKey": "CS", "lang": "Česky" },
   { "key": "da_DK", "icons": ["dk"], "shortKey": "DA", "lang": "Dansk" },
   { "key": "de_DE", "icons": ["de"], "shortKey": "DE", "lang": "Deutsch" },
+  { "key": "de_CH", "icons": ["ch"], "shortKey": "CH", "lang": "Schwizerdütsch" },
   { "key": "el_GR", "icons": ["gr"], "shortKey": "EL", "lang": "Ελληνικά" },
   { "key": "es_ES", "icons": ["es"], "shortKey": "ES", "lang": "Español" },
   { "key": "et_EE", "icons": ["ee"], "shortKey": "ET", "lang": "Eesti" },

@@ -5,6 +5,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faSave, faEdit)
 dom.watch()
@@ -22,7 +23,7 @@ export class ChangePasswordComponent {
   public error: any
   public confirmation: any
 
-  constructor (private userService: UserService, private formSubmitService: FormSubmitService) { }
+  constructor (private userService: UserService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
     this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => this.changePassword())
@@ -35,7 +36,11 @@ export class ChangePasswordComponent {
       repeat: this.repeatNewPasswordControl.value
     }).subscribe((response: any) => {
       this.error = undefined
-      this.confirmation = 'Your password was successfully changed.'
+      this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
+        this.confirmation = passwordSuccessfullyChanged
+      }, (translationId) => {
+        this.confirmation = { error: translationId }
+      })
       this.resetForm()
     }, (error) => {
       console.log(error)

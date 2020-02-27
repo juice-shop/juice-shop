@@ -18,7 +18,7 @@ module.exports = function profileImageUrlUpload () {
           .on('error', function (err) {
             logger.warn('Error retrieving authenticated user: ' + err.message)
           })
-          .pipe(fs.createWriteStream('frontend/dist/frontend/assets/public/images/uploads/' + loggedInUser.data.id + '.jpg'))
+          .pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.jpg`))
         models.User.findByPk(loggedInUser.data.id).then(user => {
           return user.update({ profileImage: loggedInUser.data.id + '.jpg' })
         }).catch(error => {

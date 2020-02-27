@@ -45,6 +45,16 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-slide-toggle #passwordInfoToggle [color]="passwordStrength.color">{{'SHOW_PASSWORD_ADVICE' | translate}}</mat-slide-toggle>
+      <mat-password-strength #passwordStrength [password]="password.value"></mat-password-strength>
+      <mat-password-strength-info *ngIf="passwordInfoToggle.checked" [passwordComponent]="passwordStrength"
+                                  [lowerCaseCriteriaMsg]="'LOWER_CASE_CRITERIA_MSG' | translate"
+                                  [upperCaseCriteriaMsg]="'UPPER_CASE_CRITERIA_MSG'| translate"
+                                  [digitsCriteriaMsg]="'DIGITS_CRITERIA_MSG'| translate"
+                                  [specialCharsCriteriaMsg]="'SPECIAL_CHARS_CRITERIA_MSG' | translate"
+                                  [minCharsCriteriaMsg]="'MIN_CHARS_CRITERIA_MSG' | translate:{value: 8}">
+      </mat-password-strength-info>
+
       <div class="security-container">
 
         <mat-form-field color="accent" appearance="outline">

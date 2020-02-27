@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
+import { TranslateService } from '@ngx-translate/core'
 
 library.add(faBomb)
 dom.watch()
@@ -32,7 +33,7 @@ export class ComplaintComponent implements OnInit {
   public complaint: any = undefined
   public confirmation: any
 
-  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService) { }
+  constructor (private userService: UserService, private complaintService: ComplaintService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
 
   ngOnInit () {
     this.initComplaint()
@@ -74,7 +75,11 @@ export class ComplaintComponent implements OnInit {
   saveComplaint () {
     this.complaint.message = this.messageControl.value
     this.complaintService.save(this.complaint).subscribe((savedComplaint: any) => {
-      this.confirmation = 'Customer support will get in touch with you soon! Your complaint reference is #' + savedComplaint.id
+      this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY',{ ref: savedComplaint.id }).subscribe((customerSupportReply) => {
+        this.confirmation = customerSupportReply
+      }, (translationId) => {
+        this.confirmation = translationId
+      })
       this.initComplaint()
       this.resetForm()
       this.fileUploadError = undefined

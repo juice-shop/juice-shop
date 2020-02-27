@@ -83,9 +83,17 @@ export function waitForElementsInnerHtmlToBe (elementSelector: string, value: St
   }
 }
 
-/**
- * Returns a function that waits for the specified time in milli seconds
- */
 export function waitInMs (timeInMs: number) {
   return () => sleep(timeInMs)
+}
+
+export function waitForAngularRouteToBeVisited (route: String) {
+  return async () => {
+    while (true) {
+      if (window.location.hash === `#/${route}`) {
+        break
+      }
+      await sleep(100)
+    }
+  }
 }

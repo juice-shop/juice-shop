@@ -166,4 +166,28 @@ describe('insecurity', () => {
       expect(insecurity.sanitizeLegacy('<<a|ascript>alert(`xss`)</script>')).to.equal('<script>alert(`xss`)</script>')
     })
   })
+
+  describe('hash', () => {
+    it('throws type error for for undefined input', () => {
+      expect(() => insecurity.hash()).to.throw(TypeError)
+    })
+
+    it('returns MD5 hash for any input string', () => {
+      expect(insecurity.hash('admin123')).to.equal('0192023a7bbd73250516f069df18b500')
+      expect(insecurity.hash('password')).to.equal('5f4dcc3b5aa765d61d8327deb882cf99')
+      expect(insecurity.hash('')).to.equal('d41d8cd98f00b204e9800998ecf8427e')
+    })
+  })
+
+  describe('hmac', () => {
+    it('throws type error for for undefined input', () => {
+      expect(() => insecurity.hmac()).to.throw(TypeError)
+    })
+
+    it('returns SHA-256 HMAC with "pa4qacea4VK9t9nGv7yZtwmj" as salt any input string', () => {
+      expect(insecurity.hmac('admin123')).to.equal('6be13e2feeada221f29134db71c0ab0be0e27eccfc0fb436ba4096ba73aafb20')
+      expect(insecurity.hmac('password')).to.equal('da28fc4354f4a458508a461fbae364720c4249c27f10fccf68317fc4bf6531ed')
+      expect(insecurity.hmac('')).to.equal('f052179ec5894a2e79befa8060cfcb517f1e14f7f6222af854377b6481ae953e')
+    })
+  })
 })

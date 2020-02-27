@@ -2,11 +2,12 @@ dist: xenial
 language: node_js
 os:
   - linux
-  - windows
   - osx
+  - windows
 node_js:
   - 12
   - 10
+  - 13
 stages:
   - lint
   - test
