@@ -14,4 +14,19 @@ jobs:
         cd frontend
         npm install --ignore-scripts
     - name: 'Fix everything which can be fixed'
-      uses: 'J12934/LMLFTFY@master'
+      run: 'npm run lint:fix'
+    - uses: stefanzweifel/git-auto-commit-action@v4.0.0
+      with:
+        commit_message: "Auto-fix linting issues"
+
+        # Optional name of the branch the commit should be pushed to
+        # Required if Action is used in Workflow listening to the `pull_request` event
+        branch: ${{ github.head_ref }}
+
+        # Optional git params
+        commit_options: '--no-verify --signoff'
+
+        # Optional commit user and author settings
+        commit_user_name: JuiceShop Bot
+        commit_user_email: juice-shop@example.org
+        commit_author: JuiceShop Bot <actions@gitub.com>
