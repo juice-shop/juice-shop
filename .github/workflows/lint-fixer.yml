@@ -13,3 +13,5 @@ jobs:
         npm install --ignore-scripts
         cd frontend
         npm install --ignore-scripts
+    - name: 'Fix everything which can be fixed'
+      uses: 'J12934/LMLFTFY@master'
