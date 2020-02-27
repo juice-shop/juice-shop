@@ -1,0 +1,10 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Install Linter'
+      run: 'npm install -g standard @angular/cli'
