@@ -5,8 +5,12 @@
 
 mat-card {
   height: auto;
-  min-width: 300px;
-  width: 35%;
+  min-width: 320px;
+  width: 30%;
+}
+
+#submitButton {
+  float: right;
 }
 
 .form-container {
@@ -16,5 +20,13 @@ mat-card {
 }
 
 .btn-return {
-  float: right;
+  float: left;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
