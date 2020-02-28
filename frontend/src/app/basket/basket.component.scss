@@ -11,8 +11,9 @@ $bg-heading: rgba(0, 0, 0, .13);
 }
 
 mat-card {
-  margin-bottom: 20px;
-  margin-top: 30px;
+  height: auto;
+  min-width: 350px;
+  width: 30%;
 }
 
 .heading {
@@ -54,9 +55,17 @@ mat-expansion-panel {
   margin-bottom: 20px;
 }
 
-.button-container button mat-button-toggle {
-  margin-right: 20px;
-  margin-top: 10px;
+#checkoutButton {
+  margin-left: 20%;
+  margin-top: 30px;
+  width: 60%;
+}
+
+.hint {
+  display: flex;
+  font-size: 13px;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 .payment-label {
