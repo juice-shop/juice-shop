@@ -4,11 +4,9 @@
   -->
 
 <div fxLayoutAlign="center">
-  <div class="container">
+  <mat-card class="mat-elevation-z6">
     <app-purchase-basket [allowEdit]="true" (emitTotal)="getBonusPoints($event)" (emitProductCount)="getProductCount($event)"></app-purchase-basket>
-    <mat-card>
         <button id="checkoutButton" class="checkout-button" color="primary" [disabled]="productCount < 1" (click)="checkout()" mat-raised-button><i class="fas fa-cart-arrow-down"></i> {{"BTN_CHECKOUT" | translate}}</button>
-        <div style="margin-top:5px;" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
-    </mat-card>
-  </div>
+        <div class="hint" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+  </mat-card>
 </div>
