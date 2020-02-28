@@ -7,7 +7,7 @@ const models = require('../models/index')
 
 module.exports.getAddress = function getAddress () {
   return async (req, res, next) => {
-    const addresses = await models.Address.findAll({ where: { UserId: req.body.UserId } })
+    const addresses =  await models.Address.findAll({ where: { UserId: req.body.UserId } })
     res.status(200).json({ status: 'success', data: addresses })
   }
 }
