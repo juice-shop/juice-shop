@@ -12,6 +12,7 @@ import { ScoreBoardInstruction } from './challenges/scoreBoard'
 import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
 import { LoginJimInstruction } from './challenges/loginJim'
 import { ViewBasketInstruction } from './challenges/viewBasket'
+import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -19,7 +20,8 @@ const challengeInstructions: ChallengeInstruction[] = [
   LoginJimInstruction,
   DomXssInstruction,
   PrivacyPolicyInstruction,
-  ViewBasketInstruction
+  ViewBasketInstruction,
+  ForgedFeedbackInstruction
 ]
 
 export interface ChallengeInstruction {
