@@ -168,13 +168,13 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
                 this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
-                  this.snackBarHelperService.openSnackBar(basketAddSameProduct,'confirmBar')
+                  this.snackBarHelperService.open(basketAddSameProduct,'confirmBar')
                 }, (translationId) => {
-                  this.snackBarHelperService.openSnackBar(translationId,'confirmBar')
+                  this.snackBarHelperService.open(translationId,'confirmBar')
                 })
               }, (err) => console.log(err))
             },(err) => {
-              this.snackBarHelperService.openSnackBar(err.error?.error,'errorBar')
+              this.snackBarHelperService.open(err.error?.error,'errorBar')
               console.log(err)
             })
           }, (err) => console.log(err))
@@ -185,13 +185,13 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
         this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
             this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
-              this.snackBarHelperService.openSnackBar(basketAddProduct,'confirmBar')
+              this.snackBarHelperService.open(basketAddProduct,'confirmBar')
             }, (translationId) => {
-              this.snackBarHelperService.openSnackBar(translationId,'confirmBar')
+              this.snackBarHelperService.open(translationId,'confirmBar')
             })
           }, (err) => console.log(err))
         }, (err) => {
-          this.snackBarHelperService.openSnackBar(err.error?.error,'errorBar')
+          this.snackBarHelperService.open(err.error?.error,'errorBar')
           console.log(err)
         })
       }

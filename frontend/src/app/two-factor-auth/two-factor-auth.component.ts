@@ -78,7 +78,7 @@ export class TwoFactorAuthComponent {
       this.setupToken
     ).subscribe(() => {
       this.setupStatus = true
-      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_SETUP')
+      this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
     }, () => {
       this.twoFactorSetupForm.get('passwordControl')!.markAsPristine()
       this.twoFactorSetupForm.get('initalTokenControl')!.markAsPristine()
@@ -95,7 +95,7 @@ export class TwoFactorAuthComponent {
           this.setupStatus = false
         }
       )
-      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_DISABLE')
+      this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
     }, () => {
       this.twoFactorDisableForm.get('passwordControl')!.markAsPristine()
       this.errored = true

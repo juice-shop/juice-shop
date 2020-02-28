@@ -15,7 +15,7 @@ export class SnackBarHelperService {
   constructor (private translateService: TranslateService,
                private snackBar: MatSnackBar) { }
 
-  openSnackBar (message: string, cssClass?: string) {
+  open (message: string, cssClass?: string) {
     this.translateService.get(message).subscribe((translatedMessage) => {
       this.snackBar.open(translatedMessage, 'X', {
         duration: 5000,

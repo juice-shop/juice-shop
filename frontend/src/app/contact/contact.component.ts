@@ -69,22 +69,22 @@ export class ContactComponent implements OnInit {
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
       if (savedFeedback.rating === 5) {
         this.translate.get('FEEDBACK_FIVE_STAR_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.snackBarHelperService.openSnackBar(feedbackThankYou)
+          this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
-          this.snackBarHelperService.openSnackBar(translationId)
+          this.snackBarHelperService.open(translationId)
         })
       } else {
         this.translate.get('FEEDBACK_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.snackBarHelperService.openSnackBar(feedbackThankYou)
+          this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
-          this.snackBarHelperService.openSnackBar(translationId)
+          this.snackBarHelperService.open(translationId)
         })
       }
       this.feedback = {}
       this.ngOnInit()
       this.resetForm()
     }, (err) => {
-      this.snackBarHelperService.openSnackBar(err.error,'errorBar')
+      this.snackBarHelperService.open(err.error,'errorBar')
       this.feedback = {}
       this.resetCaptcha()
     })
