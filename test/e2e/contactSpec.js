@@ -172,15 +172,12 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "captchaBypass"', () => { // FIXME Angular might wait for SnackBar *over the button* (happens on smaller resolutions) to disappear, thus failing the timing conditions of the challenge
-    const EC = protractor.ExpectedConditions
-
     it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
       for (var i = 0; i < 11; i++) {
         comment.sendKeys('Spam #' + i)
         rating.click()
         submitButton.click()
-        browser.wait(EC.visibilityOf(snackBar), 100, 'SnackBar did not become visible')
-        element.all(snackBar).click()
+        element.all(by.css('.mat-simple-snackbar-action.ng-star-inserted')).click()
         browser.sleep(100)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
