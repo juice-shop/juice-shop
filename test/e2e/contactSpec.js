@@ -8,7 +8,7 @@ const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton, captcha, snackBar
+  let comment, rating, submitButton, captcha
 
   beforeEach(() => {
     browser.get('/#/contact')
@@ -16,7 +16,6 @@ describe('/#/contact', () => {
     rating = $$('.br-unit').last()
     captcha = element(by.id('captchaControl'))
     submitButton = element(by.id('submitButton'))
-    snackBar = element(by.css('.mat-simple-snackbar.ng-star-inserted'))
     solveNextCaptcha()
   })
 
