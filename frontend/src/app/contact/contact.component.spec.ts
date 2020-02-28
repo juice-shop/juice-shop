@@ -148,10 +148,10 @@ describe('ContactComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
 
-  it('should hold the user email of the currently logged in user', () => {
-    userService.whoAmI.and.returnValue(of({ email: 'x@x.xx' }))
+  it('should hold the anonymized email of the currently logged in user', () => {
+    userService.whoAmI.and.returnValue(of({ email: 'xxxx@x.xx' }))
     component.ngOnInit()
-    expect(component.authorControl.value).toBe('x@x.xx')
+    expect(component.authorControl.value).toBe('***x@x.xx')
   })
 
   it('should hold anonymous placeholder for email if current user is not logged in', () => {
@@ -167,7 +167,7 @@ describe('ContactComponent', () => {
     component.rating = 5
     component.userIdControl.setValue('2')
     component.save()
-    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback', rating: 5, UserId: '2' })
+    expect(feedbackService.save).toHaveBeenCalledWith({ captchaId: 2, captcha: '2', comment: 'feedback (anonymous)', rating: 5, UserId: '2' })
   })
 
   it('should display thank-you message and reset feedback form on saving feedback', () => {
