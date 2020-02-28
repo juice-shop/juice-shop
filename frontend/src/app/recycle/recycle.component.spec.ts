@@ -31,6 +31,8 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
@@ -39,6 +41,7 @@ describe('RecycleComponent', () => {
   let userService: any
   let configurationService: any
   let translateService
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -82,7 +85,8 @@ describe('RecycleComponent', () => {
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: TranslateService, useValue: translateService }
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
