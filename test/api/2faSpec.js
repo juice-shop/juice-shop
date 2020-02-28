@@ -22,13 +22,13 @@ async function login ({ email, password, totpSecret }) {
       email,
       password
     }).catch((res) => {
-      if (res.json && res.json.type && res.json.status === 'totp_token_requried') {
+      if (res.json && res.json.type && res.json.status === 'totp_token_required') {
         return res
       }
       throw new Error(`Failed to login '${email}'`)
     })
 
-  if (loginRes.json.status && loginRes.json.status === 'totp_token_requried') {
+  if (loginRes.json.status && loginRes.json.status === 'totp_token_required') {
     const totpRes = await frisby
       .post(REST_URL + '/2fa/verify', {
         tmpToken: loginRes.json.data.tmpToken,
@@ -91,7 +91,7 @@ function getStatus (token) {
 }
 
 describe('/rest/2fa/verify', () => {
-  it('POST should return a valid authentification when a valid tmp token is passed', async () => {
+  it('POST should return a valid authentication when a valid tmp token is passed', async () => {
     const tmpTokenWurstbrot = insecurity.authorize({
       userId: 10,
       type: 'password_valid_needs_second_factor_token'

@@ -9,35 +9,45 @@ export const ViewBasketInstruction: ChallengeInstruction = {
   hints: [
     {
       text:
-          "To start this challenge, you'll have to log in first. This challenge is about broken access controls.",
+          "This challenge is about **Horizontal Privilege Escalation**, meaning you are supposed access data that does not belong to your own account but to another user's.",
+      fixture: 'app-navbar',
+      resolved: waitInMs(18000)
+    },
+    {
+      text:
+          "To start this challenge, you'll have to log in first.",
       fixture: 'app-navbar',
       unskippable: true,
       resolved: waitForLogIn()
     },
     {
       text:
-          'First, go to your _Your Basket_ page.',
+          "First, go to the _Your Basket_ page to view your own shopping basket. It's likely to be empty, if you didn't add anything yet.",
       fixture: 'app-navbar',
       unskippable: true,
       resolved: waitForAngularRouteToBeVisited('basket')
     },
     {
       text:
-          'To pass this challenge, you will need to peak into another user session.',
+          "To pass this challenge, you will need to peak into another user's basket while remaining logged in with your own account.",
       fixture: 'app-navbar',
-      unskippable: false,
       resolved: waitInMs(8000)
     },
     {
       text:
-          "Open the browser's _Development Tools_ and locate the Session storage tab. This panel shows the Session key/value pairs stored locally for each website.",
+          'If the application stores a reference to the basket somewhere in the browser, that might be a possible attack vector.',
       fixture: 'app-navbar',
-      unskippable: false,
+      resolved: waitInMs(12000)
+    },
+    {
+      text:
+          "Open the browser's _Development Tools_ and locate the _Session Storage_ tab. Similar to 🍪s, it can be used to store data in key/value pairs for each website.",
+      fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
     {
       text:
-          'Look for interesting Session key names. Do you see something that might be related to the Basket? Try updating it. ;)',
+          'Look over the names of the used session keys. Do you see something that might be related to the shopping basket? Try setting it to a different value! ✍️',
       fixture: 'app-navbar',
       unskippable: true,
       async resolved () {
@@ -52,7 +62,13 @@ export const ViewBasketInstruction: ChallengeInstruction = {
     },
     {
       text:
-          'You have changed the Basket id value. Could the access control be broken?',
+        'Great, you have changed the `bid` value which might be some ID for the shopping basket!',
+      fixture: 'app-navbar',
+      resolved: waitInMs(8000)
+    },
+    {
+      text:
+          'Now, go to any other screen and then back to _Your Basket_. If nothing happens you might have set an invalid or non-existing `bid`. Try another in that case.',
       fixture: 'app-navbar',
       unskippable: true,
       async resolved () {
@@ -67,9 +83,8 @@ export const ViewBasketInstruction: ChallengeInstruction = {
     },
     {
       text:
-          "🎉 Congratulations! You are viewing another user's basket.",
+          "🎉 Congratulations! You are now viewing another user's shopping basket!",
       fixture: 'app-navbar',
-      unskippable: false,
       resolved: waitInMs(15000)
     }
   ]
