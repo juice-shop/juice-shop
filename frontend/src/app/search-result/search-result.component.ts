@@ -175,7 +175,6 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
               }, (err) => console.log(err))
             },(err) => {
               this.snackBarHelperService.openSnackBarWithoutTranslation(err.error.error,'','errorBar')
-              this.confirmation = undefined
               console.log(err)
             })
           }, (err) => console.log(err))
@@ -193,7 +192,6 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
           }, (err) => console.log(err))
         }, (err) => {
           this.snackBarHelperService.openSnackBarWithoutTranslation(err.error.error,'','errorBar')
-          this.confirmation = undefined
           console.log(err)
         })
       }
