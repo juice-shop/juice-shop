@@ -43,7 +43,7 @@
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
 		<section data-transition="zoom">
-			<h2>OWASP Juice Shop 9.x</h2>
+			<h2>OWASP Juice Shop 10.x</h2>
 			<p>
 				<small>Probably the most modern and sophisticated insecure web application</small>
 			</p>
@@ -92,7 +92,7 @@
 
 		<section>
 			<section>
-				<h2>88+ Hacking Challenges</h2>
+				<h2>91+ Hacking Challenges</h2>
 				<p>
 					Covering various vulnerabilities and serious design flaws
 				</p>
@@ -219,7 +219,7 @@ insertHintUrls: none | free | paid
 		<section>
 
 			<section>
-				<h2>MultiJuicer Platform 2.x</h2>
+				<h2>MultiJuicer Platform 3.x</h2>
 				<p>
 					<a href="https://github.com/iteratec/multi-juicer">3rd party project</a> to run separate Juice Shop instances for training or CTF participants on a central Kubernetes cluster
 				</p>
@@ -256,20 +256,19 @@ application:
   domain: juice-sh.op
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
-  favicon: favicon_v2.ico
-  numberOfRandomFakeUsers: 0
-  showChallengeSolvedNotifications: true
-  showCtfFlagsInNotifications: false
-  showChallengeHints: true
-  showVersionNumber: true
+  favicon: favicon_js.ico
   theme: bluegrey-lightgreen
-  gitHubRibbon: true
-  twitterUrl: 'https://twitter.com/owasp_juiceshop'
-  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-  slackUrl: 'http://owaspslack.com'
-  [...]
-challenges:
-  safetyOverride: false
+  showVersionNumber: true
+  showGitHubLinks: true
+  numberOfRandomFakeUsers: 0
+  altcoinName: Juicycoin
+  privacyContactEmail: donotreply@owasp-juice.shop
+  customMetricsPrefix: juiceshop
+  social:
+    twitterUrl: 'https://twitter.com/owasp_juiceshop'
+    facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+    [...]
+[...]
 				</code></pre>
 			</section>
 
@@ -642,22 +641,20 @@ products:
 			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/3c9082cfba1231e4340eee8c17fefc5ee24d5e2f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64652532307374796c652d7374616e646172642d627269676874677265656e2e737667"/>
 			<img class="no-box" height="50px" src="https://camo.githubusercontent.com/e049c915f6e77bc603e475bee27c244e94e46b77/68747470733a2f2f626573747072616374696365732e636f7265696e6672617374727563747572652e6f72672f70726f6a656374732f3232332f6261646765"/>
 			<br>
-			<img class="no-box" height="45px" src="https://camo.githubusercontent.com/78b1e2841b52cf72bb17c3487bf777dd7e9f0ec7/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f6d61696e7461696e6162696c697479"/>
-			<img class="no-box" height="45px" src="https://camo.githubusercontent.com/1897659654e4bce1e64390cab74723c4ffe27b31/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f746573745f636f766572616765"/>
-			<img class="no-box" height="45px" src="https://camo.githubusercontent.com/8b5cf099132efe292cfbab830116b4f994d7801b/68747470733a2f2f696d672e736869656c64732e696f2f6c65616e7075622f626f6f6b2f70616765732f6a756963652d73686f702e737667"/>
+			<img class="no-box" height="48px" src="https://camo.githubusercontent.com/78b1e2841b52cf72bb17c3487bf777dd7e9f0ec7/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f6d61696e7461696e6162696c697479"/>
+			<img class="no-box" height="48px" src="https://camo.githubusercontent.com/1897659654e4bce1e64390cab74723c4ffe27b31/68747470733a2f2f6170692e636f6465636c696d6174652e636f6d2f76312f6261646765732f32613761663732306433396230386130393930342f746573745f636f766572616765"/>
 			<br>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/e10ccd6374ace7623c745cc45cec5d430d819055/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f626b696d6d696e6963682f6a756963652d73686f702e7376673f6c6162656c3d476974487562253230254532253938253835267374796c653d666c6174"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/795aadf7cb1ab1793bf1a6b71d75fdf387f5c83c/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f626b696d6d696e6963682f6a756963652d73686f702f746f74616c2e737667"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/6242cc83b5f0041a3b96aa274bd59c4870c8c06a/68747470733a2f2f696d672e736869656c64732e696f2f646f636b65722f70756c6c732f626b696d6d696e6963682f6a756963652d73686f702e737667"/>
 			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/2df43a4dbe2e9760afd0c593294752b30e0bb707/68747470733a2f2f696d672e736869656c64732e696f2f736f75726365666f7267652f64742f6a756963652d73686f703f6c6162656c3d736f75726365666f726765253230646f776e6c6f616473"/>
-			<img class="no-box" height="33px" src="https://camo.githubusercontent.com/d8dd7f8926a7342c5c10b573f657b9d82f666c8c/68747470733a2f2f696d672e736869656c64732e696f2f6c65616e7075622f626f6f6b2f736f6c642f6a756963652d73686f702e737667"/>
 		</section>
 
 		<section>
 			<h2>Project Roadmap</h2>
 			<ul>
 				<li>Challenges in the pristine <a href="https://agrawalarpit14.github.io/GSoC/" target="_blank">features added during GSoC 2019</a></li>
-				<li>More <a href="https://github.com/bkimminich/juice-shop/issues/440" target="_blank">Hacking Instructor</a> scripts for the easier challenges</li>
+				<li>Receive amazing proposals from students for <a href="https://owasp.org/www-community/initiatives/gsoc/gsoc2020" target="_blank">GSoC 2020</a></li>
 				<li>Apply pressure to Brian to get the <a href="https://github.com/braimee/bpatty/issues/13" target="_blank">full Juice Shop jingle</a> done</li>
 			</ul><br>
 			<img src="assets/dukenukemforever_1300807309.png" height="250" class="fragment no-box" data-fragment-index="2"/>
