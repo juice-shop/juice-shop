@@ -10,6 +10,7 @@ import { UserService } from '../Services/user.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
@@ -25,11 +26,14 @@ describe('ContactComponent', () => {
   let userService: any
   let feedbackService: any
   let captchaService: any
+  let snackBar: any
 
   beforeEach(async(() => {
 
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar.open.and.returnValue(null)
     feedbackService = jasmine.createSpyObj('FeedbackService',['save'])
     feedbackService.save.and.returnValue(of({}))
     captchaService = jasmine.createSpyObj('CaptchaService', ['getCaptcha'])
@@ -44,11 +48,13 @@ describe('ContactComponent', () => {
         BrowserAnimationsModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSnackBarModule
       ],
       declarations: [ ContactComponent ],
       providers: [
         { provide: UserService, useValue: userService },
+        { provide: MatSnackBar, useValue: snackBar },
         { provide: FeedbackService, useValue: feedbackService },
         { provide: CaptchaService, useValue: captchaService }
       ]
@@ -169,7 +175,7 @@ describe('ContactComponent', () => {
     spyOn(component,'resetForm')
     spyOn(component,'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('FEEDBACK_THANK_YOU')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
@@ -179,7 +185,7 @@ describe('ContactComponent', () => {
     spyOn(component,'resetForm')
     spyOn(component,'ngOnInit')
     component.save()
-    expect(component.confirmation).toBe('FEEDBACK_FIVE_STAR_THANK_YOU')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
   })
@@ -188,8 +194,7 @@ describe('ContactComponent', () => {
     feedbackService.save.and.returnValue(throwError({ error: 'Error' }))
     spyOn(component,'resetCaptcha')
     component.save()
-    expect(component.confirmation).toBeNull()
-    expect(component.error).toBe('Error')
+    expect(snackBar.open).toHaveBeenCalled()
     expect(component.resetCaptcha).toHaveBeenCalled()
   }))
 
