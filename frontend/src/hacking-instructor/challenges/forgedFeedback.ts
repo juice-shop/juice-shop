@@ -1,7 +1,7 @@
 import {
-    waitInMs,
-    sleep, waitForAngularRouteToBeVisited, waitForLogIn
-  } from '../helpers/helpers'
+  waitInMs,
+  sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked
+} from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
 export const ForgedFeedbackInstruction: ChallengeInstruction = {
@@ -65,7 +65,7 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
       fixture: 'app-navbar',
       unskippable: true,
       resolved: waitForElementToGetClicked('#submitButton')
-    }
+    },
     {
       text:
           '🎉 Congratulations, you successfully submitted a feedback as another user!',
