@@ -11,13 +11,15 @@ import { DomXssInstruction } from './challenges/localXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
 import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
 import { LoginJimInstruction } from './challenges/loginJim'
+import { ViewBasketInstruction } from './challenges/viewBasket'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
   LoginAdminInstruction,
   LoginJimInstruction,
   DomXssInstruction,
-  PrivacyPolicyInstruction
+  PrivacyPolicyInstruction,
+  ViewBasketInstruction
 ]
 
 export interface ChallengeInstruction {
