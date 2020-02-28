@@ -176,8 +176,8 @@ describe('/#/contact', () => {
         comment.sendKeys('Spam #' + i)
         rating.click()
         submitButton.click()
-        expect(element(by.css('.mat-simple-snackbar.ng-star-inserted')).isDisplayed()).toBeTruthy();
-        element.all(by.css('.mat-simple-snackbar-action.ng-star-inserted')).click();
+        expect(element(by.css('.mat-simple-snackbar.ng-star-inserted')).isDisplayed()).toBeTruthy()
+        element.all(by.css('.mat-simple-snackbar-action.ng-star-inserted')).click()
         browser.sleep(200)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }

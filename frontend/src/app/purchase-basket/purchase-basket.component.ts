@@ -79,8 +79,8 @@ export class PurchaseBasketComponent implements OnInit {
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
         this.load()
       },(err) => {
-         this.snackBarHelperService.open(err.error?.error,'errorBar')
-         console.log(err)
+        this.snackBarHelperService.open(err.error?.error,'errorBar')
+        console.log(err)
       })
     }, (err) => console.log(err))
   }
