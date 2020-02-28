@@ -24,7 +24,7 @@ jobs:
         branch: ${{ github.head_ref }}
 
         # Optional git params
-        commit_options: '--no-verify --signoff'
+        commit_options: '--signoff'
 
         # Optional commit user and author settings
         commit_user_name: JuiceShop Bot
