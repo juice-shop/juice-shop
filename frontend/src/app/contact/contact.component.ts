@@ -84,7 +84,7 @@ export class ContactComponent implements OnInit {
       this.ngOnInit()
       this.resetForm()
     }, (err) => {
-      this.snackBarHelperService.openSnackBarWithoutTranslation(err.error,'','errorBar')
+      this.snackBarHelperService.openSnackBar(err.error,'errorBar')
       this.feedback = {}
       this.resetCaptcha()
     })

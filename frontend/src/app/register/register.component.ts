@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
       this.securityAnswerService.save({UserId: response.id, answer: this.securityAnswerControl.value,
         SecurityQuestionId: this.securityQuestionControl.value}).subscribe(() => {
           this.ngZone.run(() => this.router.navigate(['/login']))
-          this.snackBarHelperService.openSnackBar('CONFIRM_REGISTER', 'Ok')
+          this.snackBarHelperService.openSnackBar('CONFIRM_REGISTER')
         })
     }, (err) => {
       console.log(err)

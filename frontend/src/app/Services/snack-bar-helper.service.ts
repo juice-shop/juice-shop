@@ -15,24 +15,17 @@ export class SnackBarHelperService {
   constructor (private translateService: TranslateService,
                private snackBar: MatSnackBar) { }
 
-  openSnackBar (message: string, action?: string, cssClass?: string) {
+  openSnackBar (message: string, cssClass?: string) {
     this.translateService.get(message).subscribe((translatedMessage) => {
-      this.snackBar.open(translatedMessage, action, {
+      this.snackBar.open(translatedMessage, 'X', {
         duration: 5000,
         panelClass: cssClass
       })
     }, () => {
-      this.snackBar.open(message, action, {
+      this.snackBar.open(message, 'X', {
         duration: 5000,
         panelClass: cssClass
       })
-    })
-  }
-
-  openSnackBarWithoutTranslation (message: string, action?: string, cssClass?: string) {
-    this.snackBar.open(message, action, {
-      duration: 5000,
-      panelClass: cssClass
     })
   }
 }

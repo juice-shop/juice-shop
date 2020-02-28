@@ -25,7 +25,7 @@ exports.forgedFeedbackChallenge = () => (req, res, next) => {
 exports.captchaBypassChallenge = () => (req, res, next) => {
   if (utils.notSolved(challenges.captchaBypassChallenge)) {
     if (req.app.locals.captchaReqId >= 10) {
-      if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 20000) { // FIXME Speed up UI so that 10 feedbacks submissions in under 10sec are actually possible again
+      if ((new Date().getTime() - req.app.locals.captchaBypassReqTimes[req.app.locals.captchaReqId - 10]) <= 10000) {
         utils.solve(challenges.captchaBypassChallenge)
       }
     }
