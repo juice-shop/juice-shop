@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { CaptchaService } from '../Services/captcha.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
-
+import { EventEmitter } from '@angular/core'
 import { ContactComponent } from './contact.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -27,13 +27,17 @@ describe('ContactComponent', () => {
   let feedbackService: any
   let captchaService: any
   let snackBar: any
+  let translateService
 
   beforeEach(async(() => {
-
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
-    snackBar.open.and.returnValue(null)
     feedbackService = jasmine.createSpyObj('FeedbackService',['save'])
     feedbackService.save.and.returnValue(of({}))
     captchaService = jasmine.createSpyObj('CaptchaService', ['getCaptcha'])
@@ -56,7 +60,8 @@ describe('ContactComponent', () => {
         { provide: UserService, useValue: userService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: FeedbackService, useValue: feedbackService },
-        { provide: CaptchaService, useValue: captchaService }
+        { provide: CaptchaService, useValue: captchaService },
+        { provide: TranslateService, useValue: translateService }
       ]
     })
     .compileComponents()

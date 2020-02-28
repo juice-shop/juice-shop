@@ -3,9 +3,21 @@
  * SPDX-License-Identifier: MIT
  */
 
-.btn-pay {
+.btn-new-address {
+  margin-left: 0;
+  margin-right: auto;
   display: block;
-  width: 100%;
+}
+
+.btn-next {
+  margin-right: 0;
+  margin-left: auto;
+  display: block;
+  margin-top: -37px;
+}
+
+mat-header-row {
+  min-height: 0px !important;
 }
 
 .heading {
