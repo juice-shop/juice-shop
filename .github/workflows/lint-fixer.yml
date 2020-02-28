@@ -1,6 +1,6 @@
 name: "Let me lint:fix that for you"
 
-on: [pull_request, push]
+on: [push]
 
 jobs:
   LMLFTFY:
