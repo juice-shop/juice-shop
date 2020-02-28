@@ -75,8 +75,9 @@ Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
 ## Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Wed, 06 Nov 2019 (ordered alphabetically).
+translations as of Fri, 28 Feb 2020 (ordered alphabetically).
 
+- Abdo Farwan aka `abdofarwan` (Arabic, Turkish)
 - adeyosemanputra (Indonesian)
 - Albert Camps aka `campsupc` (Catalan; Spanish)
 - Aleksandra Niemyska aka `niemyskaa` (Polish)
@@ -100,6 +101,8 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - Daniel Paniagua aka `danielgpm` (Spanish)
 - dav1ds (French)
 - Davis Freimanis aka `davisfreimanis` (Latvian)
+- Diego Andreé Porras Rivas aka `andree.rivas` (Spanish)
+- Dmitry aka `shipko` (Russian)
 - Egert Aia aka `aiaegert` (Estonian)
 - Ender Çulha aka `ecu` (Turkish)
 - Estevam Arantes aka `Es7evam` (Portuguese; Portuguese, Brazilian)
@@ -136,8 +139,10 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - nilfigo (Japanese)
 - OliverkeHU (Hungarian)
 - orjen (Romanian)
+- OrNol aka `TRNSLR` (Dutch)
 - Oussama Bouthouri aka `Boussama`/`oussama.bouthouri` (Arabic)
 - owangen (Norwegian; Danish)
+- Pablo Barrera aka `pablo.barrera` (Spanish)
 - Pär Svedberg aka `grebdevs` (Swedish)
 - r0n1am (Chinese Traditional, Hong Kong)
 - rachidbm (Dutch)
@@ -160,6 +165,7 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - thinbashane (Burmese)
 - timexlord (Romanian)
 - Tomas Rosenqvist aka `Muamaidbengt` (Swedish)
+- tongsonghua aka `yolylight` (Chinese Simplified)
 - vientspam (Dutch; Italian; French)
 - Wout Huygens aka `lenkadubois` (Dutch)
 - zvargun (Turkish)
