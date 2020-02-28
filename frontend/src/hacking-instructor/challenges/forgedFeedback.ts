@@ -16,28 +16,37 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
     },
     {
       text:
-          'This challenge is about broken access controls. To pass it you need to impersonate a user providing feedback.',
+          'This challenge is about broken access controls. To pass it, you need to impersonate another user while providing feedback.',
       fixture: 'app-navbar',
-      unskippable: false,
-      resolved: waitInMs(8000)
+      resolved: waitInMs(10000)
     },
     {
       text:
-          "Open the browser's _Development Tools_ and try finding anything interesting while inspecting the form.",
+          'If you would now submit feedback, it would be posted by yourself while logged in or anonymously while logged out.',
       fixture: 'app-navbar',
-      unskippable: false,
+      resolved: waitInMs(10000)
+    },
+    {
+      text:
+          'We will now search for any mistake the application developers might have made in setting the author of any new feedback.',
+      fixture: 'app-navbar',
+      resolved: waitInMs(10000)
+    },
+    {
+      text:
+          "Open the browser's _Development Tools_ and try finding anything interesting while inspecting the feedback form.",
+      fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
     {
       text:
-          'There is more than meets the eye. ;)',
+          'There is more than meets the eye among the fields of the form... 😉',
       fixture: 'app-navbar',
-      unskippable: false,
       resolved: waitInMs(8000)
     },
     {
       text:
-          'Manipulating user inputs is a great first step when testing access controls.',
+          "Once you found the field that shouldn't even be there, try manipulating its value to one that might represent another user!",
       fixture: 'app-navbar',
       unskippable: true,
       async resolved () {
@@ -52,9 +61,15 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
     },
     {
       text:
-          '🎉 Congratulations! You found the secret. Submit the form to complete the challenge.',
+          'You found and changed the invisible `userId`! Now submit the form to complete the challenge.',
       fixture: 'app-navbar',
-      unskippable: false,
+      unskippable: true,
+      resolved: waitForElementToGetClicked('#submitButton')
+    }
+    {
+      text:
+          '🎉 Congratulations, you successfully submitted a feedback as another user!',
+      fixture: 'app-navbar',
       resolved: waitInMs(15000)
     }
   ]
