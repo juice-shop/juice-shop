@@ -175,7 +175,7 @@
     "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
     "start": "node app",
     "lint": "standard && cd frontend && ng lint && cd ..",
-    "lint:fix": "standard --fix && cd frontend && ng lint --fix && cd ..",
+    "lint:fix": "standard --fix && cd frontend && ./node_modules/.bin/ng lint --fix && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
     "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
     "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
