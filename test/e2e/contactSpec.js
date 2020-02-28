@@ -186,7 +186,7 @@ describe('/#/contact', () => {
         browser.sleep(100)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
-      
+
       browser.ignoreSynchronization = false
     })
 
