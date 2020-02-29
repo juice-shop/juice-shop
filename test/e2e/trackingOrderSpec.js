@@ -5,7 +5,7 @@
 
 const utils = require('../../lib/utils')
 
-fdescribe('/#/track-order', () => {
+describe('/#/track-order', () => {
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "reflectedXss"', () => {
       it('Order Id should be susceptible to reflected XSS attacks', () => {
