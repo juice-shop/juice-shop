@@ -62,7 +62,7 @@
       </button>
     </mat-expansion-panel>
     <mat-divider></mat-divider>
-    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded">
+    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded" *ngIf="mode !== 'wallet'">
       <mat-expansion-panel-header class="detail-divider">
         <mat-panel-title>
           {{"OTHER_PAYMENT_OPTIONS" | translate}}
