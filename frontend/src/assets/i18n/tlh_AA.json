@@ -224,6 +224,7 @@
   "LABEL_STATE": "Sep",
   "STATE_PLACEHOLDER": "Please provide a state.",
   "LABEL_GO_BACK": "Go Back",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Select an address",
   "USE_THIS_ADDRESS": "Use this address",
   "BTN_DELETE": "Delete",
