@@ -340,5 +340,8 @@
   "CLICK_FOR_MORE_HINTS": "点击查看更多提示。",
   "CLICK_TO_OPEN_HINTS": "点击打开提示。",
   "BONUS_POINTS_EARNED": "获得奖励积分: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "此次订单的奖励积分会<em>1:1加入你的钱包</em>,并可用于下次购物支付"
+  "BONUS_FOR_FUTURE_PURCHASES": "此次订单的奖励积分会<em>1:1加入你的钱包</em>,并可用于下次购物支付",
+  "VOUCHER_CODE": "Voucher Code",
+  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
 }
