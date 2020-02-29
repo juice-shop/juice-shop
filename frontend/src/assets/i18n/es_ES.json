@@ -224,6 +224,7 @@
   "LABEL_STATE": "Estado",
   "STATE_PLACEHOLDER": "Por favor indicar un estado",
   "LABEL_GO_BACK": "Atras",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Seleccionar una dirección",
   "USE_THIS_ADDRESS": "Usar esta dirección",
   "BTN_DELETE": "Eliminar",
