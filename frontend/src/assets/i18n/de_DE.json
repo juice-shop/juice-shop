@@ -224,6 +224,7 @@
   "LABEL_STATE": "Bundesland",
   "STATE_PLACEHOLDER": "Bitte gib ein Bundesland ein.",
   "LABEL_GO_BACK": "Gehe zurück",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Adresse auswählen",
   "USE_THIS_ADDRESS": "Diese Adresse verwenden",
   "BTN_DELETE": "Löschen",
