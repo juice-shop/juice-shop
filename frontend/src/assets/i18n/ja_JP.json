@@ -224,6 +224,7 @@
   "LABEL_STATE": "State",
   "STATE_PLACEHOLDER": "Please provide a state.",
   "LABEL_GO_BACK": "戻る",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Select an address",
   "USE_THIS_ADDRESS": "Use this address",
   "BTN_DELETE": "削除",
