@@ -340,5 +340,8 @@
   "CLICK_FOR_MORE_HINTS": "Click for more hints.",
   "CLICK_TO_OPEN_HINTS": "Click to open hints.",
   "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
+  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
+  "VOUCHER_CODE": "Voucher Code",
+  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
 }
