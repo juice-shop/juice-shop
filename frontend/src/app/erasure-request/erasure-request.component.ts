@@ -75,7 +75,7 @@ export class ErasureRequestComponent implements OnInit {
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/']))
-    this.snackBarHelperService.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
+    this.snackBarHelperService.open('CONFIRM_ERASURE_REQUEST')
   }
 
   // tslint:disable-next-line:no-empty

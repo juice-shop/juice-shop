@@ -26,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { DeliveryService } from '../Services/delivery.service'
 import { DeluxeGuard } from '../app.guard'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('OrderSummaryComponent', () => {
   let component: OrderSummaryComponent
@@ -35,6 +36,7 @@ describe('OrderSummaryComponent', () => {
   let paymentService: any
   let deliveryService: any
   let deluxeGuard
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -49,6 +51,7 @@ describe('OrderSummaryComponent', () => {
     deliveryService.getById.and.returnValue(of({ price: 10 }))
     deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       declarations: [ OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent ],
@@ -66,14 +69,16 @@ describe('OrderSummaryComponent', () => {
         MatButtonModule,
         MatButtonToggleModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSnackBarModule
       ],
       providers: [
         { provide: BasketService, useValue: basketService },
         { provide: AddressService, useValue: addressService },
         { provide: PaymentService, useValue: paymentService },
         { provide: DeliveryService, useValue: deliveryService },
-        { provide: DeluxeGuard, useValue: deluxeGuard }
+        { provide: DeluxeGuard, useValue: deluxeGuard },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
