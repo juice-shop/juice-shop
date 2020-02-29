@@ -340,5 +340,8 @@
   "CLICK_FOR_MORE_HINTS": "Haga clic para más pistas.",
   "CLICK_TO_OPEN_HINTS": "Haga clic para mostrar pistas.",
   "BONUS_POINTS_EARNED": "Puntos de Bonificación Obtenidos: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "Los puntos de bonus de este pedido serán <em>añadidos 1:1 a su billetera ¤-fund</em> para futuras compras!"
+  "BONUS_FOR_FUTURE_PURCHASES": "Los puntos de bonus de este pedido serán <em>añadidos 1:1 a su billetera ¤-fund</em> para futuras compras!",
+  "VOUCHER_CODE": "Voucher Code",
+  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
 }
