@@ -11,9 +11,9 @@ $bg-heading: rgba(0, 0, 0, .13);
 }
 
 mat-card {
-  height: auto;
-  min-width: 350px;
-  width: 30%;
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .heading {
