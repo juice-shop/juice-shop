@@ -4,11 +4,9 @@
  */
 
 mat-card {
-  min-width: 320px;
-  width: 35%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+   display: block;
+   margin-left: 20%;
+   margin-right: 20%;
 }
 
 .addressCont {
@@ -17,8 +15,8 @@ mat-card {
 
 .detail-divider{
   border-top-width: 4px !important;
-  margin-left: 2% !important;
-  width: 96% !important;
+  margin-left: 1% !important;
+  width: 98% !important;
 }
 
 .btn-return {

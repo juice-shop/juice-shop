@@ -10,67 +10,46 @@
 
 ## GitHub Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 06 Nov 2019 (ordered by number of commits).
+As reported by [`gitstats`](http://gitstats.sourceforge.net/) analysis
+of `develop` as of Sat, 29 Feb 2020.
 
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
-- [Arpit Agrawal](https://github.com/agrawalarpit14) aka
-  `agrawalarpit14`
-- [Supratik Das](https://github.com/supra08) aka `supra08`
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
-- [Marc Rüttler](https://github.com/MarcRler) aka `MarcRler`
-- [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Martin Rock-Evans](https://github.com/rockydevnet) aka `rockydevnet`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
-- [Jorge Estigarribia](https://github.com/jorgestiga) aka `jorgestiga`
-- [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
-- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
-- [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Devansh Batra](https://github.com/devanshbatra04) aka
-  `devanshbatra04`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
-- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
-- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
-- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka
-  `AbdelrhmanMagdy`
-- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
-- [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [Priit Pääsukene](https://github.com/priitpaasukene) aka
-  `priitpaasukene`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka
-  `nilp0inter`
-- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
-- [Johanna](https://github.com/johanna-a) aka `johanna-a`
-- [jamiemcgregor](https://github.com/jamiemcgregor) aka `jamiemcgregor`
-- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Chris Castle](https://github.com/crcastle) aka `crcastle`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [Abhishek bundela](https://github.com/abhibundela) aka `abhibundela`
-- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
-- [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
-  `StuartWinterTear`
-- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
-- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+| Top 20 authors     | #Commits (%)  |
+|:-------------------|:--------------|
+| Björn Kimminich    | 6896 (56.12%) |
+| Bjoern Kimminich   | 3518 (28.63%) |
+| bjoern.kimminich   | 571 (4.65%)   |
+| Jannik Hollenbach  | 270 (2.20%)   |
+| Aashish683         | 217 (1.77%)   |
+| greenkeeper\[bot\] | 151 (1.23%)   |
+| agrawalarpit14     | 133 (1.08%)   |
+| MarcRler           | 121 (0.98%)   |
+| CaptainFreak       | 85 (0.69%)    |
+| Supratik Das       | 84 (0.68%)    |
+| aaryan10           | 22 (0.18%)    |
+| m4l1c3             | 18 (0.15%)    |
+| J12934             | 17 (0.14%)    |
+| Josh Grossman      | 15 (0.12%)    |
+| Aashish Singh      | 12 (0.10%)    |
+| Timo Pagel         | 11 (0.09%)    |
+| Scar26             | 10 (0.08%)    |
+| Martin Rock-Evans  | 10 (0.08%)    |
+| Alejandro Saenz    | 10 (0.08%)    |
+| omerlh             | 6 (0.05%)     |
+
+**Additional contributions by:** Marc O'Polo, Jorge Estigarribia,
+JamesCullum, madhurw7, Omer Levi Hevroni, Rick Daalhuizen, Nat McHugh,
+Mohit Sharma, Julian Winter, JuiceShopBot, João Fonseca, Greg Guthe,
+Arpit Agrawal, Aaryan Budhiraja, yuvraj, wurstbrot, tpagel, Simon
+Basset, Shivam Luthra, Roberto Abdelkader Martínez Pérez, Paulino
+Calderon, Ingo Bente, Devansh Batra, Andrew Stubbs, Abdelrhman Magdy,
+Aaron Edwards, whitesource-bolt-for-github\[bot\], root, ridhishjain,
+ninoseki, jamiemcgregor, battletux, Zander Mackie, ViktorLindstrm,
+Viktor Lindström, The Gitter Badger, Stuart Winter-Tear, Stephen OBrien,
+Simon de Lang, Priit Pääsukene, Nathaniel McHugh, Marc Rüttler,
+M4ttsson, Ken Friis Larsen, Johanna A, Joe Butler, Jet Anderson, Jason
+Haley, Jainendra Mandavi, Gorka Vicente, Dinis Cruz, Christian Kühn,
+Chris Castle, Bitdeli Chef, AviD, Artemiy Knipe | Артемий Кондатьев,
+Alvaro Viebrantz, Alec Brooks, Achim Grimm, Abhishek bundela
 
 ## Translators
 

@@ -11,6 +11,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faTrashAlt)
 dom.watch()
@@ -40,7 +41,7 @@ export class PaymentMethodComponent implements OnInit {
   public cardsExist: boolean = false
   public paymentId: any = undefined
 
-  constructor (public paymentService: PaymentService, private translate: TranslateService) { }
+  constructor (public paymentService: PaymentService, private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
@@ -70,15 +71,14 @@ export class PaymentMethodComponent implements OnInit {
     this.paymentService.save(this.card).subscribe((savedCards) => {
       this.error = null
       this.translate.get('CREDIT_CARD_SAVED',{ cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
-        this.confirmation = creditCardSaved
+        this.snackBarHelperService.open(creditCardSaved,'confirmBar')
       }, (translationId) => {
-        this.confirmation = translationId
+        this.snackBarHelperService.open(translationId,'confirmBar')
       })
       this.load()
       this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
+    }, (err) => {
+      this.snackBarHelperService.open(err.error?.error,'errorBar')
       this.resetForm()
     })
   }
