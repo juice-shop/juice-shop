@@ -308,6 +308,7 @@
   "MANDATORY_CAPTION": "请输入一个标题",
   "LABEL_CAPTION": "标题",
   "LABEL_PICK_IMAGE": "选择图像",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "尚未分享任何内容。",
   "LABEL_DELUXE_MEMBERSHIP": "高级成员",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "作为一个 {{appname}} 的高级会员享受惊人的好处。看看您的会员身份包含了什么内容。",
@@ -341,7 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "点击打开提示。",
   "BONUS_POINTS_EARNED": "获得奖励积分: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "此次订单的奖励积分会<em>1:1加入你的钱包</em>,并可用于下次购物支付",
-  "VOUCHER_CODE": "Voucher Code",
-  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged."
 }
