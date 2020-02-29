@@ -308,6 +308,7 @@
   "MANDATORY_CAPTION": "Palun sisesta pealkiri",
   "LABEL_CAPTION": "Pealkiri",
   "LABEL_PICK_IMAGE": "Vali Pilt",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "Mälestusi pole veel jagatud.",
   "LABEL_DELUXE_MEMBERSHIP": "Luksusliikmelisus",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Nautige {{appname}} luksuskliendina hämmastavaid eeliseid. Vaadake, mis kaasneb teie liikmelisusega.",
@@ -341,7 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "Klõpsa vihjete nägemiseks.",
   "BONUS_POINTS_EARNED": "Teenitud boonuspunktid: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "Selle tellimuse boonuspunktid lisatakse <em>1:1 teie rahakotti ¤-Fund</em> tulevaste ostude jaoks!",
-  "VOUCHER_CODE": "Voucher Code",
-  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged."
 }
