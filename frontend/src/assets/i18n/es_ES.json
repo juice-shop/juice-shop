@@ -308,6 +308,7 @@
   "MANDATORY_CAPTION": "Por favor ingresar un subtitulo ",
   "LABEL_CAPTION": "Subtitulo ",
   "LABEL_PICK_IMAGE": "Escoger imagen ",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "No han sido compartido recuerdos aun ",
   "LABEL_DELUXE_MEMBERSHIP": "Membresía Deluxe ",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Disfrute de increíbles beneficios como un cliente de lujo de {{appname}}. Echa un vistazo a lo que incluye tu membresía.",
@@ -341,7 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "Haga clic para mostrar pistas.",
   "BONUS_POINTS_EARNED": "Puntos de Bonificación Obtenidos: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "Los puntos de bonus de este pedido serán <em>añadidos 1:1 a su billetera ¤-fund</em> para futuras compras!",
-  "VOUCHER_CODE": "Voucher Code",
-  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long."
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged."
 }
