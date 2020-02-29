@@ -308,6 +308,7 @@
   "MANDATORY_CAPTION": "Please enter a caption",
   "LABEL_CAPTION": "Caption",
   "LABEL_PICK_IMAGE": "Pick image",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "No memories have been shared yet.",
   "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a a deluxe customer of {{appname}}. Check out what is included with your membership.",
@@ -341,8 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "Click to open hints.",
   "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
-  "VOUCHER_CODE": "Voucher Code",
-  "ENTER_VOUCHER_CODE": "Please enter your voucher code",
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
   "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
   "CHARGED_WALLET": "Wallet successfully charged."
 }
