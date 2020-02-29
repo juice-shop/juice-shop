@@ -37,6 +37,7 @@ import { WalletComponent } from '../wallet/wallet.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -50,6 +51,7 @@ describe('PaymentComponent', () => {
   let deliveryService: any
   let userService: any
   let location: Location
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -76,6 +78,7 @@ describe('PaymentComponent', () => {
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -110,7 +113,8 @@ describe('PaymentComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: WalletService, useValue: walletService },
         { provide: DeliveryService, useValue: deliveryService },
-        { provide: UserService, useValue: userService }
+        { provide: UserService, useValue: userService },
+        { provide: MatSnackBar, useValue: snackBar }
 
       ]
     })
