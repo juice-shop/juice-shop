@@ -4,9 +4,9 @@
  */
 
 mat-card {
-  height: auto;
-  min-width: 400px;
-  width: 30%;
+  display: block;
+  margin-left: 30%;
+  margin-right: 30%;
 }
 
 mat-form-field {

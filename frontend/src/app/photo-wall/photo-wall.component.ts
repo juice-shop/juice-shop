@@ -11,6 +11,7 @@ import { IImage } from 'ng-simple-slideshow'
 import { ConfigurationService } from '../Services/configuration.service'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faTwitter)
 dom.watch()
@@ -31,7 +32,8 @@ export class PhotoWallComponent implements OnInit {
   public slideshowDataSource: IImage[] = []
   public twitterHandle = null
 
-  constructor (private photoWallService: PhotoWallService, private configurationService: ConfigurationService) { }
+  constructor (private photoWallService: PhotoWallService, private configurationService: ConfigurationService,
+    private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.slideshowDataSource = []
@@ -69,7 +71,11 @@ export class PhotoWallComponent implements OnInit {
     this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe(() => {
       this.resetForm()
       this.ngOnInit()
-    },(err) => console.log(err))
+      this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
+    },(err) => {
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      console.log(err)
+    })
   }
 
   isLoggedIn () {
