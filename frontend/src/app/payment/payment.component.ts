@@ -28,6 +28,7 @@ import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
+import { Location } from '@angular/common'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
@@ -68,7 +69,11 @@ export class PaymentComponent implements OnInit {
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
-  constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute, private ngZone: NgZone) { }
+  constructor (private location: Location, private cookieService: CookieService,
+    private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService,
+    private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService,
+    private basketService: BasketService, private translate: TranslateService,
+    private activatedRoute: ActivatedRoute, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.initTotal()
@@ -160,6 +165,10 @@ export class PaymentComponent implements OnInit {
   getMessage (id) {
     this.paymentId = id
     this.payUsingWallet = false
+  }
+
+  routeToPreviousUrl () {
+    this.location.back()
   }
 
   choosePayment () {
