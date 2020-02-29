@@ -5,12 +5,13 @@
 
 const utils = require('../../lib/utils')
 
-describe('/#/track-order', () => {
+fdescribe('/#/track-order', () => {
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "reflectedXss"', () => {
       it('Order Id should be susceptible to reflected XSS attacks', () => {
         const EC = protractor.ExpectedConditions
 
+        browser.get('/#/track-result')
         browser.waitForAngularEnabled(false)
         browser.get('/#/track-result?id=<iframe src="javascript:alert(`xss`)">')
         browser.refresh()
