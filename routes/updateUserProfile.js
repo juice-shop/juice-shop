@@ -5,6 +5,9 @@
 
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
+const utils = require('../lib/utils')
+const cache = require('../data/datacache')
+const challenges = cache.challenges
 
 module.exports = function updateUserProfile () {
   return (req, res, next) => {
@@ -12,6 +15,11 @@ module.exports = function updateUserProfile () {
 
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
+        /* Challenge is solved if request originated from a known HTML ODE and sets a new username */
+        if (req.headers.origin.includes('://htmledit.squarefree.com') && req.body.username && utils.notSolved(challenges.csrfChallenge)) {
+          utils.solve(challenges.csrfChallenge)
+        }
+
         return user.update({ username: req.body.username })
       }).catch(error => {
         next(error)
