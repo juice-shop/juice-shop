@@ -224,6 +224,7 @@
   "LABEL_STATE": "Штат/Область",
   "STATE_PLACEHOLDER": "Пожалуйста, укажите область/штат.",
   "LABEL_GO_BACK": "Назад",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Выберите адрес",
   "USE_THIS_ADDRESS": "Использовать этот адрес",
   "BTN_DELETE": "Удалить",
