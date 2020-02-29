@@ -43,11 +43,11 @@
       <div *ngIf="couponError && !couponControl.dirty" style="margin-top:5px;" class="error">{{couponError?.error}}
       </div>
       <mat-form-field appearance="outline" color="accent">
-        <mat-label translate>VOUCHER_CODE</mat-label>
+        <mat-label translate>LABEL_COUPON</mat-label>
         <mat-hint
             [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{twitter: twitterUrl, facebook: facebookUrl}">
         </mat-hint>
-        <input #coupon id="coupon" [formControl]="couponControl" matInput type="text" placeholder="{{ 'ENTER_VOUCHER_CODE' | translate}}">
+        <input #coupon id="coupon" [formControl]="couponControl" matInput type="text" placeholder="{{ 'ENTER_COUPON_CODE' | translate}}">
         <mat-hint align="end">{{coupon .value?.length || 0}}/10</mat-hint>
         <mat-error *ngIf="couponControl.invalid && (couponControl.errors.minlength || couponControl.errors.maxlength)">
           {{'COUPON_CODE_HINT' | translate}}
@@ -62,7 +62,7 @@
       </button>
     </mat-expansion-panel>
     <mat-divider></mat-divider>
-    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded">
+    <mat-expansion-panel class="mat-elevation-z0" [expanded]="paymentPanelExpanded" *ngIf="mode !== 'wallet'">
       <mat-expansion-panel-header class="detail-divider">
         <mat-panel-title>
           {{"OTHER_PAYMENT_OPTIONS" | translate}}
