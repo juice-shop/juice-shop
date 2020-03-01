@@ -7,9 +7,9 @@ import { TranslateService } from '@ngx-translate/core'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSlash } from '@fortawesome/free-solid-svg-icons'
+import { faUserSlash, faHandPaper } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUserSlash)
+library.add(faUserSlash, faHandPaper)
 dom.watch()
 
 @Component({
