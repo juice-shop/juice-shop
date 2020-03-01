@@ -14,7 +14,14 @@ mat-form-field {
 }
 
 button {
-  margin-top: 5px;
+    margin-left: 20%;
+    margin-top: 5px;
+    width: 60%;
+}
+.mat-own-card{
+  display: block;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 mat-card img {
@@ -28,9 +35,4 @@ mat-checkbox {
 
 .fill-remaining-space {
   flex: 1 1 auto;
-}
-
-.main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
 }
