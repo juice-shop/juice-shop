@@ -6,6 +6,7 @@
 const utils = require('../lib/utils')
 const insecurity = require('../lib/insecurity')
 const jwt = require('jsonwebtoken')
+const jws = require('jws')
 const models = require('../models/index')
 const cache = require('../data/datacache')
 const Op = models.Sequelize.Op
@@ -93,7 +94,7 @@ exports.serverSideChallenges = () => (req, res, next) => {
 function jwtChallenge (challenge, req, algorithm, email) {
   const token = utils.jwtFrom(req)
   if (token) {
-    const decoded = jwt.decode(token)
+    const decoded = jws.decode(token) ? jwt.decode(token) : null
     jwt.verify(token, insecurity.publicKey, (err, verified) => {
       if (err === null) {
         utils.solveIf(challenge, () => { return hasAlgorithm(token, algorithm) && hasEmail(decoded, email) })
