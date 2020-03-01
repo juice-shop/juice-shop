@@ -11,23 +11,23 @@
 ## GitHub Contributors
 
 As reported by [`gitstats`](http://gitstats.sourceforge.net/) analysis
-of `develop` as of Sat, 29 Feb 2020.
+of `master` as of Sat, 29 Feb 2020.
 
 | Top 20 authors     | #Commits (%)  |
 |:-------------------|:--------------|
-| Björn Kimminich    | 6896 (56.12%) |
-| Bjoern Kimminich   | 3518 (28.63%) |
-| bjoern.kimminich   | 571 (4.65%)   |
-| Jannik Hollenbach  | 270 (2.20%)   |
-| Aashish683         | 217 (1.77%)   |
-| greenkeeper\[bot\] | 151 (1.23%)   |
-| agrawalarpit14     | 133 (1.08%)   |
-| MarcRler           | 121 (0.98%)   |
-| CaptainFreak       | 85 (0.69%)    |
+| Björn Kimminich    | 7016 (56.48%) |
+| Bjoern Kimminich   | 3521 (28.34%) |
+| bjoern.kimminich   | 571 (4.60%)   |
+| Jannik Hollenbach  | 270 (2.17%)   |
+| Aashish683         | 217 (1.75%)   |
+| greenkeeper\[bot\] | 151 (1.22%)   |
+| agrawalarpit14     | 133 (1.07%)   |
+| MarcRler           | 127 (1.02%)   |
+| CaptainFreak       | 85 (0.68%)    |
 | Supratik Das       | 84 (0.68%)    |
 | aaryan10           | 22 (0.18%)    |
-| m4l1c3             | 18 (0.15%)    |
-| J12934             | 17 (0.14%)    |
+| J12934             | 21 (0.17%)    |
+| m4l1c3             | 18 (0.14%)    |
 | Josh Grossman      | 15 (0.12%)    |
 | Aashish Singh      | 12 (0.10%)    |
 | Timo Pagel         | 11 (0.09%)    |
