@@ -36,7 +36,6 @@ import { ErasureRequestComponent } from './erasure-request/erasure-request.compo
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { TrackOrderComponent } from './track-order/track-order.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
@@ -155,7 +154,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
-    TrackOrderComponent,
     TrackResultComponent,
     RecycleComponent,
     QrCodeComponent,
