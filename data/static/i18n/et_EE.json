@@ -21,7 +21,7 @@
 	"After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.": "After finding a CAPTCHA bypass, write a script that automates feedback submission. Or open many browser tabs and be really quick.",
 	"Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.": "Change Bender's password into <i>slurmCl4ssic</i> without using SQL Injection or Forgot Password.",
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "In previous releases this challenge was wrongly accused of being based on CSRF.",
-	"Order the Christmas special offer of 2014.": "Order the Christmas special offer of 2014.",
+	"Order the Christmas special offer of 2014.": "Telli 2014. aasta jõulude eripakkumine.",
 	"Find out how the application handles unavailable products and try to find a loophole.": "Find out how the application handles unavailable products and try to find a loophole.",
 	"Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.": "Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.",
 	"What is even \"better\" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!": "What is even \"better\" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!",
