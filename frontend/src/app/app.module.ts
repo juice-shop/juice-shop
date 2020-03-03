@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
@@ -31,7 +36,6 @@ import { ErasureRequestComponent } from './erasure-request/erasure-request.compo
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { TrackOrderComponent } from './track-order/track-order.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { QrCodeComponent } from './qr-code/qr-code.component'
@@ -92,7 +96,9 @@ import { MatListModule } from '@angular/material/list'
 import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { LayoutModule } from '@angular/cdk/layout'
-import { MatGridListModule, MatRadioModule, MatSnackBarModule } from '@angular/material'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
 /* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
@@ -148,7 +154,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     ChangePasswordComponent,
     ProductDetailsComponent,
     ComplaintComponent,
-    TrackOrderComponent,
     TrackResultComponent,
     RecycleComponent,
     QrCodeComponent,

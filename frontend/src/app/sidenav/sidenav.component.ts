@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -74,7 +79,7 @@ export class SidenavComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/'])
+    this.ngZone.run(() => this.router.navigate(['/']))
   }
 
   goToProfilePage () {

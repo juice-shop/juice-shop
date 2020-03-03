@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -17,17 +22,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatNativeDateModule } from '@angular/material/core'
 import { of, throwError } from 'rxjs'
 import { AddressComponent } from '../address/address.component'
-import {
-  MatDialogModule,
-  MatDividerModule,
-  MatIconModule,
-  MatRadioModule,
-  MatTableModule,
-  MatToolbarModule,
-  MatTooltipModule
-} from '@angular/material'
 import { RouterTestingModule } from '@angular/router/testing'
 import { EventEmitter } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTableModule } from '@angular/material/table'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('RecycleComponent', () => {
   let component: RecycleComponent
@@ -36,6 +40,7 @@ describe('RecycleComponent', () => {
   let userService: any
   let configurationService: any
   let translateService
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -79,7 +84,8 @@ describe('RecycleComponent', () => {
         { provide: RecycleService, useValue: recycleService },
         { provide: UserService, useValue: userService },
         { provide: ConfigurationService, useValue: configurationService },
-        { provide: TranslateService, useValue: translateService }
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
@@ -180,12 +186,12 @@ describe('RecycleComponent', () => {
     expect(component.recycles.length).toBe(0)
   })
 
-  it('should hold nothing on error from backend API', () => fakeAsync(() => {
+  it('should hold nothing on error from backend API', () => {
     recycleService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })
 
   it('should log the error on retrieving the user', fakeAsync(() => {
     userService.whoAmI.and.returnValue(throwError('Error'))

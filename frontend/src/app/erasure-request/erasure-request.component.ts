@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { UserService } from '../Services/user.service'
@@ -69,8 +74,8 @@ export class ErasureRequestComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/'])
-    this.snackBarHelperService.openSnackBar('CONFIRM_ERASURE_REQUEST', 'Ok')
+    this.ngZone.run(() => this.router.navigate(['/']))
+    this.snackBarHelperService.open('CONFIRM_ERASURE_REQUEST')
   }
 
   // tslint:disable-next-line:no-empty

@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-oauth',
@@ -10,7 +15,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class OAuthComponent implements OnInit {
 
-  constructor (private cookieService: CookieService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor (private cookieService: CookieService, private userService: UserService, private router: Router, private route: ActivatedRoute, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.userService.oauthLogin(this.parseRedirectUrlParams()['access_token']).subscribe((profile: any) => {
@@ -20,7 +25,7 @@ export class OAuthComponent implements OnInit {
       }, () => this.login(profile))
     }, (error) => {
       this.invalidateSession(error)
-      this.router.navigate(['/login'])
+      this.ngZone.run(() => this.router.navigate(['/login']))
     })
   }
 
@@ -30,10 +35,10 @@ export class OAuthComponent implements OnInit {
       localStorage.setItem('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
-      this.router.navigate(['/'])
+      this.ngZone.run(() => this.router.navigate(['/']))
     }, (error) => {
       this.invalidateSession(error)
-      this.router.navigate(['/login'])
+      this.ngZone.run(() => this.router.navigate(['/login']))
     })
   }
 

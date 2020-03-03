@@ -1,22 +1,22 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../../lib/utils')
 
 describe('/#/track-order', () => {
-  let orderId, trackButton
-
-  beforeEach(() => {
-    browser.get('/#/track-order')
-    orderId = element(by.id('orderId'))
-    trackButton = element(by.id('trackButton'))
-  })
-
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "reflectedXss"', () => {
       it('Order Id should be susceptible to reflected XSS attacks', () => {
         const EC = protractor.ExpectedConditions
 
-        orderId.sendKeys('<iframe src="javascript:alert(`xss`)">')
-        trackButton.click()
-        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-order ")
+        browser.get('/#/track-result')
+        browser.waitForAngularEnabled(false)
+        browser.get('/#/track-result?id=<iframe src="javascript:alert(`xss`)">')
+        browser.refresh()
+
+        browser.wait(EC.alertIsPresent(), 5000, "'xss' alert is not present on /#/track-result ")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()

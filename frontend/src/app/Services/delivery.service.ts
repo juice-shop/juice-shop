@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -5,12 +10,12 @@ import { catchError, map } from 'rxjs/operators'
 import { DeliveryMethod } from '../Models/deliveryMethod.model'
 
 interface DeliveryMultipleMethodResponse {
-  status: string,
+  status: string
   data: DeliveryMethod[]
 }
 
 interface DeliverySingleMethodResponse {
-  status: string,
+  status: string
   data: DeliveryMethod
 }
 

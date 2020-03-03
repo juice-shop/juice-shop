@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
 
@@ -10,7 +15,7 @@ describe('LanguagesService', () => {
   }))
 
   it('should be created', () => {
-    const service: LanguagesService = TestBed.get(LanguagesService)
+    const service: LanguagesService = TestBed.inject(LanguagesService)
     expect(service).toBeTruthy()
   })
 

@@ -1,4 +1,9 @@
-import { Component } from '@angular/core'
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { Component, NgZone } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -8,15 +13,12 @@ import { Router } from '@angular/router'
 })
 export class AddressSelectComponent {
   public addressId: any = undefined
+  public showNextButton: boolean = true
 
-  constructor (private router: Router) {}
+  constructor (private router: Router, private ngZone: NgZone) {}
 
   getMessage (id) {
     this.addressId = id
   }
 
-  chooseAddress () {
-    sessionStorage.setItem('addressId', this.addressId)
-    this.router.navigate(['/delivery-method'])
-  }
 }

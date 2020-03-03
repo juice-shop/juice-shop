@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 .heading {
   background: rgba(0, 0, 0, .2);
   font-size: x-large;
@@ -11,4 +16,20 @@ mat-form-field {
 
 .mat-expansion-panel-header-description {
   flex-basis: 0;
+}
+.detail-divider {
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+mat-header-row {
+  min-height: 0px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
@@ -13,9 +18,9 @@ module.exports = function resetPassword () {
     if (!email || !answer) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
     } else if (!newPassword || newPassword === 'undefined') {
-      res.status(401).send('Password cannot be empty.')
+      res.status(401).send(res.__('Password cannot be empty.'))
     } else if (newPassword !== repeatPassword) {
-      res.status(401).send('New and repeated password do not match.')
+      res.status(401).send(res.__('New and repeated password do not match.'))
     } else {
       models.SecurityAnswer.findOne({
         include: [{
@@ -35,7 +40,7 @@ module.exports = function resetPassword () {
             next(error)
           })
         } else {
-          res.status(401).send('Wrong answer to security question.')
+          res.status(401).send(res.__('Wrong answer to security question.'))
         }
       }).catch(error => {
         next(error)
@@ -45,19 +50,9 @@ module.exports = function resetPassword () {
 }
 
 function verifySecurityAnswerChallenges (user, answer) {
-  if (utils.notSolved(challenges.resetPasswordJimChallenge) && user.id === users.jim.id && answer === 'Samuel') {
-    utils.solve(challenges.resetPasswordJimChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBenderChallenge) && user.id === users.bender.id && answer === 'Stop\'n\'Drop') {
-    utils.solve(challenges.resetPasswordBenderChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBjoernChallenge) && user.id === users.bjoern.id && answer === 'West-2082') {
-    utils.solve(challenges.resetPasswordBjoernChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordMortyChallenge) && user.id === users.morty.id && answer === '5N0wb41L') {
-    utils.solve(challenges.resetPasswordMortyChallenge)
-  }
-  if (utils.notSolved(challenges.resetPasswordBjoernOwaspChallenge) && user.id === users.bjoernOwasp.id && answer === 'Zaya') {
-    utils.solve(challenges.resetPasswordBjoernOwaspChallenge)
-  }
+  utils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
+  utils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
+  utils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
+  utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
+  utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
 }

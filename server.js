@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const path = require('path')
 const fs = require('fs-extra')
 const morgan = require('morgan')
@@ -38,6 +43,7 @@ const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
+const metrics = require('./routes/metrics')
 const authenticatedUsers = require('./routes/authenticatedUsers')
 const currentUser = require('./routes/currentUser')
 const login = require('./routes/login')
@@ -147,6 +153,9 @@ app.use((req, res, next) => {
   next()
 })
 
+/* Increase request counter metric for every request */
+app.use(metrics.observeRequestMetricsMiddleware())
+
 /* Security Policy */
 app.get('/.well-known/security.txt', verify.accessControlChallenges())
 app.use('/.well-known/security.txt', securityTxt({
@@ -198,16 +207,16 @@ app.use(i18n.init)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 /* File Upload */
-app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
-app.post('/profile/image/file', uploadToMemory.single('file'), profileImageFileUpload())
+app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
+app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
 app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-app.post('/api/Memorys', uploadToDisk.single('image'), insecurity.appendUserId(), memory.addMemory())
+app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, insecurity.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), memory.addMemory())
 
 app.use(bodyParser.text({ type: '*/*' }))
 app.use(function jsonParser (req, res, next) {
   req.rawBody = req.body
   if (req.headers['content-type'] !== undefined && req.headers['content-type'].indexOf('application/json') > -1) {
-    if (req.body && req.body !== Object(req.body)) { // TODO Expensive workaround for 500 errors during Frisby test run (see #640)
+    if (req.body && req.body !== Object(req.body)) { // Expensive workaround for 500 errors during Frisby test run (see #640)
       req.body = JSON.parse(req.body)
     }
   }
@@ -314,8 +323,6 @@ app.get('/api/Addresss', insecurity.appendUserId(), address.getAddress())
 app.put('/api/Addresss/:id', insecurity.appendUserId())
 app.delete('/api/Addresss/:id', insecurity.appendUserId(), address.delAddressById())
 app.get('/api/Addresss/:id', insecurity.appendUserId(), address.getAddressById())
-app.get('/api/Wallets/', insecurity.appendUserId(), wallet.getWalletBalance())
-app.put('/api/Wallets/', insecurity.appendUserId(), wallet.addWalletBalance())
 app.get('/api/Deliverys', delivery.getDeliveryMethods())
 app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
 
@@ -338,6 +345,10 @@ app.post('/rest/2fa/disable',
   insecurity.isAuthorized(),
   twoFactorAuth.disable()
 )
+/* Serve metrics */
+const Metrics = metrics.observeMetrics()
+const metricsUpdateLoop = Metrics.updateLoop
+app.get('/metrics', metrics.serveMetrics())
 
 /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
 app.use(verify.databaseRelatedChallenges())
@@ -382,7 +393,14 @@ for (const { name, exclude } of autoModels) {
   if (name === 'Challenge') {
     resource.list.fetch.after((req, res, context) => {
       for (let i = 0; i < context.instance.length; i++) {
-        context.instance[i].description = req.__(context.instance[i].description)
+        let description = context.instance[i].description
+        if (utils.contains(description, '<em>(This challenge is <strong>')) {
+          const warning = description.substring(description.indexOf(' <em>(This challenge is <strong>'))
+          description = description.substring(0, description.indexOf(' <em>(This challenge is <strong>'))
+          context.instance[i].description = req.__(description) + req.__(warning)
+        } else {
+          context.instance[i].description = req.__(description)
+        }
         if (context.instance[i].hint) {
           context.instance[i].hint = req.__(context.instance[i].hint)
         }
@@ -455,7 +473,6 @@ app.get('/rest/repeat-notification', repeatNotification())
 app.get('/rest/continue-code', continueCode())
 app.put('/rest/continue-code/apply/:continueCode', restoreProgress())
 app.get('/rest/admin/application-version', appVersion())
-app.get('/redirect', redirect())
 app.get('/rest/captcha', captcha())
 app.get('/rest/image-captcha', imageCaptcha())
 app.get('/rest/track-order/:id', trackOrder())
@@ -468,14 +485,16 @@ app.post('/rest/user/erasure-request', erasureRequest())
 app.get('/rest/order-history', orderHistory.orderHistory())
 app.get('/rest/order-history/orders', insecurity.isAccounting(), orderHistory.allOrders())
 app.put('/rest/order-history/:id/delivery-status', insecurity.isAccounting(), orderHistory.toggleDeliveryStatus())
+app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalance())
+app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
+app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
+app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
+app.get('/rest/memories', memory.getMemory())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())
 app.patch('/rest/products/reviews', insecurity.isAuthorized(), updateProductReviews())
 app.post('/rest/products/reviews', insecurity.isAuthorized(), likeProductReviews())
-app.get('/api/Memorys', memory.getMemory())
-app.get('/rest/deluxe-status', deluxe.deluxeMembershipStatus())
-app.post('/rest/upgrade-deluxe', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
 
 /* B2B Order API */
 app.post('/b2b/v2/orders', b2bOrder())
@@ -484,6 +503,9 @@ app.post('/b2b/v2/orders', b2bOrder())
 app.get('/the/devs/are/so/funny/they/hid/an/easter/egg/within/the/easter/egg', easterEgg())
 app.get('/this/page/is/hidden/behind/an/incredibly/high/paywall/that/could/only/be/unlocked/by/sending/1btc/to/us', premiumReward())
 app.get('/we/may/also/instruct/you/to/refuse/all/reasonably/necessary/responsibility', privacyPolicyProof())
+
+/* Route for redirects */
+app.get('/redirect', redirect())
 
 /* Routes for promotion video page */
 app.get('/promotion', videoHandler.promotionVideo())
@@ -518,6 +540,7 @@ exports.start = async function (readyCallback) {
 
 exports.close = function (exitCode) {
   if (server) {
+    clearInterval(metricsUpdateLoop)
     server.close()
   }
   if (exitCode !== undefined) {

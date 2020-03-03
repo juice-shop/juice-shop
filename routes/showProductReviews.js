@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const insecurity = require('../lib/insecurity')
@@ -23,11 +28,7 @@ module.exports = function productReviews () {
     const t0 = new Date().getTime()
     db.reviews.find({ $where: 'this.product == ' + id }).then(reviews => {
       const t1 = new Date().getTime()
-      if ((t1 - t0) > 2000) {
-        if (utils.notSolved(challenges.noSqlCommandChallenge)) {
-          utils.solve(challenges.noSqlCommandChallenge)
-        }
-      }
+      utils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
       const user = insecurity.authenticatedUsers.from(req)
       for (var i = 0; i < reviews.length; i++) {
         if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
@@ -7,13 +12,13 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
-import { faStar, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 
-library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy)
+library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
 
 @Component({
@@ -30,6 +35,9 @@ export class ScoreBoardComponent implements OnInit {
   public toggledMajorityOfDifficulties: boolean = false
   public toggledMajorityOfCategories: boolean = true
   public showSolvedChallenges: boolean = true
+  public numDisabledChallenges: number = 0
+  public showDisabledChallenges: boolean = false
+  public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
@@ -40,6 +48,8 @@ export class ScoreBoardComponent implements OnInit {
   public solvedChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public totalChallengesOfDifficulty: Challenge[][] = [[], [], [], [], [], []]
   public showContributionInfoBox: boolean = true
+  public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
+  public appName: string = 'OWASP Juice Shop'
 
   constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
   }
@@ -49,14 +59,15 @@ export class ScoreBoardComponent implements OnInit {
 
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
+    this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      this.allowRepeatNotifications = config.application.showChallengeSolvedNotifications && config.ctf.showFlagsInNotifications
-      this.showChallengeHints = config.application.showChallengeHints
-      this.showHackingInstructor = (config.hackingInstructor && config.hackingInstructor.isEnabled) || config.application.showHackingInstructor // TODO Remove fallback with v10.0.0
-      if (config.application) {
-        this.showContributionInfoBox = config.application.showGitHubLinks
-      }
+      this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
+      this.showChallengeHints = config.challenges.showHints
+      this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
+      this.showContributionInfoBox = config.application.showGitHubLinks
+      this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
+      this.appName = config.application.name
     }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -110,6 +121,8 @@ export class ScoreBoardComponent implements OnInit {
 
   augmentHintText (challenge: Challenge) {
     if (challenge.disabledEnv) {
+      this.numDisabledChallenges++
+      this.disabledEnv = challenge.disabledEnv
       this.translate.get('CHALLENGE_UNAVAILABLE',{ env: challenge.disabledEnv }).subscribe((challengeUnavailable) => {
         challenge.hint = challengeUnavailable
       }, (translationId) => {
@@ -191,6 +204,11 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showSolvedChallenges', JSON.stringify(this.showSolvedChallenges))
   }
 
+  toggleShowDisabledChallenges () {
+    this.showDisabledChallenges = !this.showDisabledChallenges
+    localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
+  }
+
   toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
@@ -225,6 +243,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
+      if (!this.showDisabledChallenges && challenge.disabledEnv) return false
       return true
     })
 

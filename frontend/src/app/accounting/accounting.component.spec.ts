@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
@@ -15,7 +20,8 @@ import { QuantityService } from '../Services/quantity.service'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { OrderHistoryService } from '../Services/order-history.service'
-import { MatIconModule, MatTooltipModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('AccountingComponent', () => {
   let component: AccountingComponent

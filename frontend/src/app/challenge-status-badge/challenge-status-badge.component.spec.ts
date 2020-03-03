@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 
@@ -6,10 +11,11 @@ import { of, throwError } from 'rxjs'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { MatButtonModule, MatTooltipModule } from '@angular/material'
 import { MatIconModule } from '@angular/material/icon'
 import { EventEmitter } from '@angular/core'
 import { Challenge } from '../Models/challenge.model'
+import { MatButtonModule } from '@angular/material/button'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 describe('ChallengeStatusBadgeComponent', () => {
   let challengeService: any
@@ -45,7 +51,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     })
       .compileComponents()
 
-    windowRefService = TestBed.get(WindowRefService)
+    windowRefService = TestBed.inject(WindowRefService)
   }))
 
   beforeEach(() => {

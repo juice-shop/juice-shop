@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { inject, TestBed } from '@angular/core/testing'
 

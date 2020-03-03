@@ -7,6 +7,7 @@
 [![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/bkimminich/juice-shop)](https://codeclimate.com/github/bkimminich/juice-shop/trends/technical_debt)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/223/badge)](https://bestpractices.coreinfrastructure.org/projects/223)
 ![GitHub stars](https://img.shields.io/github/stars/bkimminich/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 > [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
 > ([@dschadow](https://github.com/dschadow)) —
@@ -35,7 +36,7 @@ overview please visit the official project page:
 ## Setup
 
 > You can find some less common installation variations in
-> [the _Running OWASP Juice Shop_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/running.html).
+> [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/part1/running.html).
 
 ### Deploy on Heroku (free ($0/month) dyno)
 
@@ -178,7 +179,7 @@ Via a YAML configuration file in `/config`, the OWASP Juice Shop can be
 customized in its content and look & feel.
 
 For detailed instructions and examples please refer to
-[our _Customization_ documentation](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/customization.html).
+[our _Customization_ documentation](https://pwning.owasp-juice.shop/part1/customization.html).
 
 ## CTF-Extension
 
@@ -190,13 +191,13 @@ official
 tool.
 
 For step-by-step instructions and examples please refer to
-[the _Hosting a CTF event_ chapter](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part1/ctf.html)
+[the _Hosting a CTF event_ chapter](https://pwning.owasp-juice.shop/part1/ctf.html)
 of our companion guide ebook.
 
 ## Troubleshooting [![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
 If you need help with the application setup please check our
-[our existing _Troubleshooting_](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/appendix/troubleshooting.html)
+[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/appendix/troubleshooting.html)
 guide. If this does not solve your issue please post your specific
 problem or question in the
 [Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community
@@ -225,7 +226,7 @@ also [browse the full content online](https://pwning.owasp-juice.shop)!
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
-* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf)
+* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20Probably%20the%20most%20modern%20and%20sophisticated%20insecure%20web%20application.pdf)
 
 ## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
@@ -257,7 +258,7 @@ forking and opening a Pull Request!
   sticker sheets and temporary tattoos.
 
 The most honorable way to get some stickers is to
-[contribute to the project](https://bkimminich.gitbooks.io/pwning-owasp-juice-shop/content/part3/contribution.html)
+[contribute to the project](https://pwning.owasp-juice.shop/part3/contribution.html)
 by fixing an issue, finding a serious bug or submitting a good idea for
 a new challenge!
 

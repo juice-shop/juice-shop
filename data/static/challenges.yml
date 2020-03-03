@@ -6,6 +6,9 @@
   hint: 'You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-without-using-the-frontend-application-at-all'
   key: restfulXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Access Log'
   category: 'Sensitive Data Exposure'
@@ -38,6 +41,9 @@
   hint: 'Look out for a tweet praising new functionality of the web shop. Then find a third party vulnerability associated with it.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#overwrite-the-legal-information-file'
   key: fileWriteChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -97,6 +103,9 @@
   hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
   key: usernameXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -105,6 +114,9 @@
   hint: 'Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-client-side-security-mechanism'
   key: persistedXssUserChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -273,6 +285,9 @@
   hint: 'Finding a piece of displayed information that could originate from an HTTP header is part of this challenge.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-through-an-http-header'
   key: httpHeaderXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -491,8 +506,8 @@
   name: 'Reflected XSS'
   category: 'XSS'
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
+  difficulty: 2
+  hint: 'Look for a url parameter where its value appears in the page it is leading to.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-reflected-xss-attack'
   key: reflectedXssChallenge
   disabledEnv:
@@ -589,6 +604,9 @@
   hint: 'The "Comment" field in the "Customer Feedback" screen is where you want to put your focus on.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-persisted-xss-attack-bypassing-a-server-side-security-mechanism'
   key: persistedXssFeedbackChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -611,7 +629,7 @@
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
-  description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or the CVE of this vulnerability)'
+  description: '<a href="/#/contact">Inform the development team</a> about a danger to some of <em>their</em> credentials. (Send them the URL of the <em>original report</em> or an assigned CVE or another identifier of this vulnerability)'
   difficulty: 5
   hint: 'This vulnerability will not affect any customer of the shop. It is aimed exclusively at its developers.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#inform-the-development-team-about-a-danger-to-some-of-their-credentials'
@@ -637,7 +655,7 @@
   category: 'Improper Input Validation'
   description: 'Upload a file larger than 100 kB.'
   difficulty: 3
-  hint: 'You can attach a small file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-larger-than-100-kb'
   key: uploadSizeChallenge
 -
@@ -645,7 +663,7 @@
   category: 'Improper Input Validation'
   description: 'Upload a file that has no .pdf or .zip extension.'
   difficulty: 3
-  hint: 'You can attach a PDF or ZIP file to the "File Complaint" form. Investigate how this upload actually works.'
+  hint: 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-or-zip-extension'
   key: uploadTypeChallenge
 -
@@ -664,6 +682,9 @@
   hint: 'You have to reuse the vulnerability behind one other 6-star challenge to be able to solve this one.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#embed-an-xss-payload-into-our-promo-video'
   key: videoXssChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'View Basket'
   category: 'Broken Access Control'
@@ -742,3 +763,11 @@
   hint: 'This challenge would formally have to be in several categories as the developers made multiple gaffes for this to be possible.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#stick-cute-cross-domain-kittens-all-over-our-delivery-boxes'
   key: svgInjectionChallenge
+-
+  name: 'Exposed Metrics'
+  category: 'Sensitive Data Exposure'
+  description: 'Find the endpoint that serves usage data to be scraped by a <a href="https://github.com/prometheus/prometheus">popular monitoring system</a>.'
+  difficulty: 1
+  hint: 'Try to guess what URL the endpoint might have.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#find-the-endpoint-that-serves-usage-data-to-be-scraped-by-a-popular-monitoring-system'
+  key: exposedMetricsChallenge

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
@@ -28,8 +33,11 @@ import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { LoginComponent } from '../login/login.component'
 import { Location } from '@angular/common'
-import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
 import { WalletComponent } from '../wallet/wallet.component'
+import { MatIconModule } from '@angular/material/icon'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -43,6 +51,7 @@ describe('PaymentComponent', () => {
   let deliveryService: any
   let userService: any
   let location: Location
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -69,6 +78,7 @@ describe('PaymentComponent', () => {
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -103,12 +113,13 @@ describe('PaymentComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: WalletService, useValue: walletService },
         { provide: DeliveryService, useValue: deliveryService },
-        { provide: UserService, useValue: userService }
+        { provide: UserService, useValue: userService },
+        { provide: MatSnackBar, useValue: snackBar }
 
       ]
     })
     .compileComponents()
-    location = TestBed.get(Location)
+    location = TestBed.inject(Location)
   }))
 
   beforeEach(() => {
@@ -128,13 +139,13 @@ describe('PaymentComponent', () => {
   })
 
   it('should use custom twitter URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
     expect(component.twitterUrl).toBe('twitter')
   })
 
   it('should use custom facebook URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { facebookUrl: 'facebook' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
     component.ngOnInit()
     expect(component.facebookUrl).toBe('facebook')
   })

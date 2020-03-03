@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const MarsDB = require('marsdb')
 
 const reviews = new MarsDB.Collection('posts')

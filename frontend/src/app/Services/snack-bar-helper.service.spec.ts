@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TestBed } from '@angular/core/testing'
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
@@ -23,7 +28,7 @@ describe('SnackBarHelperService', () => {
   )
 
   it('should be created', () => {
-    const service: SnackBarHelperService = TestBed.get(SnackBarHelperService)
+    const service: SnackBarHelperService = TestBed.inject(SnackBarHelperService)
     expect(service).toBeTruthy()
   })
 })

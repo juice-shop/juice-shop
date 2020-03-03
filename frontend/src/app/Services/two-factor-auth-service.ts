@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
@@ -9,15 +14,15 @@ interface TwoFactorVerifyResponse {
 }
 
 interface AuthenticationPayload {
-  token: string,
-  bid: number,
+  token: string
+  bid: number
   umail: string
 }
 
 interface TwoFactorAuthStatusPayload {
-  setup: boolean,
-  secret?: string,
-  setupToken?: string,
+  setup: boolean
+  secret?: string
+  setupToken?: string
   email?: string
 }
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
@@ -21,13 +26,13 @@ export class ProductReviewService {
     )
   }
 
-  create (id: number, review: { message: string, author: string }) {
+  create (id: number, review: { message: string; author: string }) {
     return this.http.put(this.host + '/' + id + '/reviews', review).pipe(map((response: any) => response.data),
      catchError((err) => { throw err })
     )
   }
 
-  patch (review: { id: string, message: string }) {
+  patch (review: { id: string; message: string }) {
     return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 

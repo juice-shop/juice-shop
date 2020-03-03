@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { CookieModule, CookieService } from 'ngx-cookie'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -57,7 +62,7 @@ describe('ServerStartedNotificationComponent', () => {
     })
     .compileComponents()
 
-    cookieService = TestBed.get(CookieService)
+    cookieService = TestBed.inject(CookieService)
   }))
 
   beforeEach(() => {

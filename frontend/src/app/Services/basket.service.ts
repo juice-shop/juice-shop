@@ -1,11 +1,16 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { environment } from '../../environments/environment'
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 
 interface OrderDetail {
-  paymentId: string,
-  addressId: string,
+  paymentId: string
+  addressId: string
   deliveryMethodId: string
 }
 

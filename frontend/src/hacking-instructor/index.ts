@@ -1,14 +1,29 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 // @ts-ignore
 import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
 import { DomXssInstruction } from './challenges/localXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
+import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
+import { LoginJimInstruction } from './challenges/loginJim'
+import { ViewBasketInstruction } from './challenges/viewBasket'
+import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
+import { PasswordStrengthInstruction } from './challenges/passwordStrength'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
   LoginAdminInstruction,
-  DomXssInstruction
+  LoginJimInstruction,
+  DomXssInstruction,
+  PrivacyPolicyInstruction,
+  ViewBasketInstruction,
+  ForgedFeedbackInstruction,
+  PasswordStrengthInstruction
 ]
 
 export interface ChallengeInstruction {
@@ -55,7 +70,7 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   elem.style.borderRadius = '8px'
   elem.style.whiteSpace = 'initial'
   elem.style.lineHeight = '1.3'
-  elem.style.top = `24px`
+  elem.style.top = '24px'
   if (hint.unskippable !== true) {
     elem.style.cursor = 'pointer'
   }

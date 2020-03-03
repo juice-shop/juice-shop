@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { FormControl, Validators } from '@angular/forms'
@@ -7,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { Review } from '../Models/review.model'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane, faArrowCircleLeft)
 dom.watch()
@@ -22,7 +28,7 @@ export class ProductReviewEditComponent implements OnInit {
   public error: string | null = null
 
   constructor (@Inject(MAT_DIALOG_DATA) public data: { reviewData: Review }, private productReviewService: ProductReviewService, private dialogRef: MatDialogRef<ProductReviewEditComponent>,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.editReviewControl.setValue(this.data.reviewData.message)
@@ -35,12 +41,6 @@ export class ProductReviewEditComponent implements OnInit {
       console.log(err)
       this.error = err
     })
-    this.openSnackBar('CONFIRM_CHANGES_SAVED', 'Ok')
-  }
-
-  openSnackBar (message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 5000
-    })
+    this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
   }
 }

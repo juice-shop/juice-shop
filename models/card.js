@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* jslint node: true */
 module.exports = (sequelize, { STRING, INTEGER }) => {
   const Card = sequelize.define('Card', {

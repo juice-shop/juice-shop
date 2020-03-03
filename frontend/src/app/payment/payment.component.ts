@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormControl, Validators } from '@angular/forms'
-import { Component, OnInit } from '@angular/core'
+import { Component, NgZone, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService } from '@ngx-translate/core'
@@ -7,7 +12,6 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import {
   faCartArrowDown,
   faCoffee,
-  faCreditCard,
   faGift,
   faHandHoldingUsd,
   faHeart,
@@ -16,8 +20,7 @@ import {
   faTimes,
   faTshirt
 } from '@fortawesome/free-solid-svg-icons'
-import { faCreditCard as faCredit } from '@fortawesome/free-regular-svg-icons/'
-import { faBtc, faEthereum, faLeanpub, faPatreon, faPaypal } from '@fortawesome/free-brands-svg-icons'
+import { faLeanpub, faStripe } from '@fortawesome/free-brands-svg-icons'
 import { QrCodeComponent } from '../qr-code/qr-code.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, ParamMap, Router } from '@angular/router'
@@ -25,8 +28,10 @@ import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
+import { Location } from '@angular/common'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
-library.add(faCartArrowDown, faGift, faCreditCard, faHeart, faBtc, faPaypal, faLeanpub, faEthereum, faCredit, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faPatreon, faTimes)
+library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
 
 @Component({
@@ -65,7 +70,12 @@ export class PaymentComponent implements OnInit {
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
-  constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute) { }
+  constructor (private location: Location, private cookieService: CookieService,
+    private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService,
+    private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService,
+    private basketService: BasketService, private translate: TranslateService,
+    private activatedRoute: ActivatedRoute, private ngZone: NgZone,
+    private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.initTotal()
@@ -77,12 +87,12 @@ export class PaymentComponent implements OnInit {
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
-      if (config && config.application) {
-        if (config.application.twitterUrl) {
-          this.twitterUrl = config.application.twitterUrl
+      if (config && config.application && config.application.social) {
+        if (config.application.social.twitterUrl) {
+          this.twitterUrl = config.application.social.twitterUrl
         }
-        if (config.application.facebookUrl) {
-          this.facebookUrl = config.application.facebookUrl
+        if (config.application.social.facebookUrl) {
+          this.facebookUrl = config.application.social.facebookUrl
         }
         if (config.application.name) {
           this.applicationName = config.application.name
@@ -159,13 +169,21 @@ export class PaymentComponent implements OnInit {
     this.payUsingWallet = false
   }
 
+  routeToPreviousUrl () {
+    this.location.back()
+  }
+
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
     if (this.mode === 'wallet') {
       this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
         sessionStorage.removeItem('walletTotal')
-        this.router.navigate(['/wallet'])
-      },(err) => console.log(err))
+        this.ngZone.run(() => this.router.navigate(['/wallet']))
+        this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
+      },(err) => {
+        console.log(err)
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      })
     } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
         this.logout()
@@ -176,7 +194,7 @@ export class PaymentComponent implements OnInit {
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
       }
-      this.router.navigate(['/order-summary'])
+      this.ngZone.run(() => this.router.navigate(['/order-summary']))
     }
   }
 
@@ -186,7 +204,7 @@ export class PaymentComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/login'])
+    this.ngZone.run(() => this.router.navigate(['/login']))
   }
 
   // tslint:disable-next-line:no-empty

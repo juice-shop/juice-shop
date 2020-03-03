@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { Component, NgZone, OnInit } from '@angular/core'
 import { DeliveryService } from '../Services/delivery.service'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
+import { Location } from '@angular/common'
 import { DeliveryMethod } from '../Models/deliveryMethod.model'
 
 @Component({
@@ -18,7 +24,8 @@ export class DeliveryMethodComponent implements OnInit {
   public dataSource
   public deliveryMethodId: Number = undefined
 
-  constructor (private deliverySerivce: DeliveryService, private addressService: AddressService, private router: Router) { }
+  constructor (private location: Location,private deliverySerivce: DeliveryService,
+    private addressService: AddressService, private router: Router, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
@@ -35,8 +42,12 @@ export class DeliveryMethodComponent implements OnInit {
     this.deliveryMethodId = id
   }
 
+  routeToPreviousUrl () {
+    this.location.back()
+  }
+
   chooseDeliveryMethod () {
     sessionStorage.setItem('deliveryMethodId', this.deliveryMethodId.toString())
-    this.router.navigate(['/payment', 'shop'])
+    this.ngZone.run(() => this.router.navigate(['/payment', 'shop']))
   }
 }

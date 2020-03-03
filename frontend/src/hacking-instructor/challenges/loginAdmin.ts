@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {
   waitForInputToHaveValue,
   waitForInputToNotBeEmpty,
   waitForElementToGetClicked,
   waitInMs,
-  sleep, waitForAngularRouteToBeVisited
+  waitForAngularRouteToBeVisited, waitForLogOut
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -15,14 +20,7 @@ export const LoginAdminInstruction: ChallengeInstruction = {
         "To start this challenge, you'll have to log out first.",
       fixture: '#navbarAccount',
       unskippable: true,
-      async resolved () {
-        while (true) {
-          if (localStorage.getItem('token') === null) {
-            break
-          }
-          await sleep(100)
-        }
-      }
+      resolved: waitForLogOut()
     },
     {
       text:

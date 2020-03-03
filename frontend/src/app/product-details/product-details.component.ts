@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
@@ -55,7 +60,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.productData.id)
     },(err) => console.log(err))
-    this.snackBarHelperService.openSnackBar('CONFIRM_REVIEW_SAVED', 'Ok')
+    this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 
   editReview (review: Review) {

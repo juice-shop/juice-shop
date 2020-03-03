@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const frisby = require('frisby')
 const Joi = frisby.Joi
 const insecurity = require('../../lib/insecurity')
@@ -131,7 +136,7 @@ describe('/rest/user/login', () => {
         tmpToken: Joi.string()
       })
       .expect('json', {
-        status: 'totp_token_requried'
+        status: 'totp_token_required'
       })
   })
 

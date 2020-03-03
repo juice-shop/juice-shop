@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 describe('/redirect', () => {
   describe('challenge "redirect"', () => {
     it('should show error page when supplying an unrecognized target URL', () => {

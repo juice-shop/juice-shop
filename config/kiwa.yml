@@ -2,29 +2,26 @@ server:
   port: 3000
 application:
   domain: kiwaworksh.op
-  name: 'Kiwa Workshop'
+  name: 'Kiwa workshop'
   logo: kiwa_logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
-  showChallengeSolvedNotifications: true
-  showChallengeHints: false
-  showVersionNumber: false
-  showHackingInstructor: true
+  showVersionNumber: true
   showGitHubLinks: false
   numberOfRandomFakeUsers: 0
-  twitterUrl: 'https://twitter.com/owasp_juiceshop'
-  facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
-  slackUrl: 'http://owaspslack.com'
-  redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
-  pressKitUrl: 'https://www.kiwa.com'
-  planetOverlayMap: orangemap2k.jpg
-  planetName: Orangeuze
-  deluxePage:
-    deluxeDeliveryImage: delivery_kiwa.png
+  altcoinName: Juicycoin
+  privacyContactEmail: donotreply@owasp-juice.shop
+  customMetricsPrefix: kiwashop
+  social:
+    twitterUrl: 'https://twitter.com/owasp_juiceshop'
+    facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
+    slackUrl: 'http://owaspslack.com'
+    redditUrl: 'https://www.reddit.com/r/owasp_juiceshop'
+    pressKitUrl: 'https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop'
+    questionnaireUrl: 'https://forms.gle/2Tr5m1pqnnesApxN8'
   recyclePage:
     topProductImage: undefined_kiwa.png
     bottomProductImage: undefined_kiwa.png
-  altcoinName: KiwaKoin
   welcomeBanner:
     showOnFirstStart: true
     title: 'Welcome to OWASP Kiwa Workshop!'
@@ -35,20 +32,45 @@ application:
     buttonColor: '#558b2f'
     buttonTextColor: '#ffffff'
     message: 'This website uses a myriad of 3rd-party cookies, abuses cookies and cookiewalls for our own gain and to ensure you get the best tracking experience.'
-    dismissText: 'Never Mind'
-    linkText: 'lmgtfy'
-    linkUrl: 'https://www.lmgtfy.com'
-  privacyContactEmail: donotreply@kiwa-work.shop
+    dismissText: 'Nope!'
+    linkText: 'someinfo'
+    linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
   securityTxt:
-    contact: 'mailto:donotreply@kiwa-work.shop'
+    contact: 'mailto:donotreply@kiwaworksh.op'
     encryption: 'https://keybase.io/bkimminich/pgp_keys.asc?fingerprint=19c01cb7157e4645e9e2c863062a85a8cbfbdcda'
     acknowledgements: '/#/score-board'
   promotion:
     video: JuiceShopJingle.mp4
     subtitles: JuiceShopJingle.vtt
+  easterEggPlanet:
+    name: Orangeuze
+    overlayMap: orangemap2k.jpg
+  googleOauth:
+    clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
+    authorizedRedirects:
+      - { uri: 'https://demo.owasp-juice.shop' }
+      - { uri: 'http://demo.owasp-juice.shop' }
+      - { uri: 'https://juice-shop.herokuapp.com' }
+      - { uri: 'http://juice-shop.herokuapp.com' }
+      - { uri: 'https://preview.owasp-juice.shop' }
+      - { uri: 'http://preview.owasp-juice.shop' }
+      - { uri: 'https://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop-staging.herokuapp.com' }
+      - { uri: 'http://juice-shop.wtf' }
+      - { uri: 'http://localhost:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:3000', proxy: 'http://local3000.owasp-juice.shop' }
+      - { uri: 'http://localhost:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://127.0.0.1:4200', proxy: 'http://local4200.owasp-juice.shop' }
+      - { uri: 'http://192.168.99.100:3000', proxy: 'http://localmac.owasp-juice.shop' }
+      - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
 challenges:
-  safetyOverride: false
+  showSolvedNotifications: true
+  showHints: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
+  safetyOverride: false
+hackingInstructor:
+  isEnabled: false
+  avatarImage: juicyBot.png
 products:
   -
     name: 'Kiwa Beaver'
@@ -298,6 +320,15 @@ products:
     price: 7.74
     quantity: 6
     image: americano.jpg
+memories:
+  -
+    image: 'magn(et)ificent!-1571814229653.jpg'
+    caption: 'Magn(et)ificent!'
+    user: bjoernGoogle
+  -
+    image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
+    caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
+    user: bjoernGoogle
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both

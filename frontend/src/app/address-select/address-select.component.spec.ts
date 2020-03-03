@@ -1,4 +1,9 @@
-import { TranslateModule } from '@ngx-translate/core'
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -16,13 +21,27 @@ import { AddressComponent } from '../address/address.component'
 import { AddressSelectComponent } from './address-select.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { DeliveryMethodComponent } from '../delivery-method/delivery-method.component'
-import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { EventEmitter } from '@angular/core'
+import { of, throwError } from 'rxjs'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('AddressSelectComponent', () => {
   let component: AddressSelectComponent
   let fixture: ComponentFixture<AddressSelectComponent>
+  let snackBar: any
+  let translateService
 
   beforeEach(async(() => {
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
       imports: [
@@ -47,7 +66,8 @@ describe('AddressSelectComponent', () => {
         MatCheckboxModule
       ],
       declarations: [ AddressSelectComponent, AddressComponent, DeliveryMethodComponent ],
-      providers: []
+      providers: [{ provide: TranslateService, useValue: translateService },
+                  { provide: MatSnackBar, useValue: snackBar }]
     })
     .compileComponents()
   }))
@@ -65,12 +85,5 @@ describe('AddressSelectComponent', () => {
   it('should store address id on calling getMessage', () => {
     component.getMessage(1)
     expect(component.addressId).toBe(1)
-  })
-
-  it('should store address id in session storage', () => {
-    component.addressId = 1
-    spyOn(sessionStorage,'setItem')
-    component.chooseAddress()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
   })
 })

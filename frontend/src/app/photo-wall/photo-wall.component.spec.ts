@@ -1,4 +1,9 @@
-import { TranslateModule } from '@ngx-translate/core'
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
@@ -11,17 +16,26 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { of } from 'rxjs'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule, MatTooltipModule } from '@angular/material'
 import { PhotoWallComponent } from './photo-wall.component'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ConfigurationService } from '../Services/configuration.service'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatInputModule } from '@angular/material/input'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { EventEmitter } from '@angular/core'
 
 describe('PhotoWallComponent', () => {
   let component: PhotoWallComponent
   let fixture: ComponentFixture<PhotoWallComponent>
   let photoWallService: any
   let configurationService: any
+  let snackBar: any
+  let translateService
+
   beforeEach(async(() => {
 
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
@@ -29,6 +43,12 @@ describe('PhotoWallComponent', () => {
     photoWallService = jasmine.createSpyObj('PhotoWallService', ['get', 'addMemory'])
     photoWallService.get.and.returnValue(of([]))
     photoWallService.addMemory.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       declarations: [ PhotoWallComponent ],
@@ -53,7 +73,9 @@ describe('PhotoWallComponent', () => {
       ],
       providers: [
         { provide: PhotoWallService, useValue: photoWallService },
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
@@ -121,7 +143,7 @@ describe('PhotoWallComponent', () => {
   })
 
   it('should use custom twitter handle if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { twitterUrl: 'twitter' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
     expect(component.twitterHandle).toBe('twitter')
   })

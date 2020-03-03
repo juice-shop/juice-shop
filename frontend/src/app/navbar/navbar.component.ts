@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
@@ -129,9 +134,9 @@ export class NavbarComponent implements OnInit {
   search (value: string) {
     if (value) {
       const queryParams = { queryParams: { q: value } }
-      this.router.navigate(['/search'], queryParams)
+      this.ngZone.run(() => this.router.navigate(['/search'], queryParams))
     } else {
-      this.router.navigate(['/search'])
+      this.ngZone.run(() => this.router.navigate(['/search']))
     }
   }
 
@@ -151,7 +156,7 @@ export class NavbarComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
-    this.router.navigate(['/'])
+    this.ngZone.run(() => this.router.navigate(['/']))
   }
 
   changeLanguage (langKey: string) {

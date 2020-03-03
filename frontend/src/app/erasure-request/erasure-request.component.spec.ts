@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
 import { ErasureRequestComponent } from './erasure-request.component'
 import { DataSubjectService } from '../Services/data-subject.service'
@@ -7,12 +12,15 @@ import { Location } from '@angular/common'
 import { CookieService } from 'ngx-cookie'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { of, throwError } from 'rxjs'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
 
 describe('ErasureRequestComponent', () => {
   let component: ErasureRequestComponent
@@ -59,7 +67,7 @@ describe('ErasureRequestComponent', () => {
       ]
     }).compileComponents()
 
-    location = TestBed.get(Location)
+    location = TestBed.inject(Location)
   }))
 
   beforeEach(() => {

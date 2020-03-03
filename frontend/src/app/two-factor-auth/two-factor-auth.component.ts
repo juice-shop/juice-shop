@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
@@ -73,7 +78,7 @@ export class TwoFactorAuthComponent {
       this.setupToken
     ).subscribe(() => {
       this.setupStatus = true
-      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_SETUP', 'Ok')
+      this.snackBarHelperService.open('CONFIRM_2FA_SETUP')
     }, () => {
       this.twoFactorSetupForm.get('passwordControl')!.markAsPristine()
       this.twoFactorSetupForm.get('initalTokenControl')!.markAsPristine()
@@ -90,7 +95,7 @@ export class TwoFactorAuthComponent {
           this.setupStatus = false
         }
       )
-      this.snackBarHelperService.openSnackBar('CONFIRM_2FA_DISABLE', 'Ok')
+      this.snackBarHelperService.open('CONFIRM_2FA_DISABLE')
     }, () => {
       this.twoFactorDisableForm.get('passwordControl')!.markAsPristine()
       this.errored = true

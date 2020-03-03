@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ProductService } from '../Services/product.service'
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
@@ -12,9 +17,9 @@ library.add(faCheck)
 dom.watch()
 
 interface Order {
-  id: string,
-  orderId: string,
-  totalPrice: number,
+  id: string
+  orderId: string
+  totalPrice: number
   delivered: boolean
 }
 

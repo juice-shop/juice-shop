@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
@@ -15,11 +20,15 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { SavedAddressComponent } from './saved-address.component'
 import { AddressComponent } from '../address/address.component'
 import { RouterTestingModule } from '@angular/router/testing'
-import { MatCheckboxModule, MatIconModule, MatTooltipModule } from '@angular/material'
+import { MatIconModule } from '@angular/material/icon'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 describe('SavedAddressComponent', () => {
   let component: SavedAddressComponent
   let fixture: ComponentFixture<SavedAddressComponent>
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -44,7 +53,7 @@ describe('SavedAddressComponent', () => {
         MatCheckboxModule
       ],
       declarations: [ SavedAddressComponent, AddressComponent ],
-      providers: []
+      providers: [{ provide: MatSnackBar, useValue: snackBar }]
     })
     .compileComponents()
   }))

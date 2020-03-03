@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ChallengeService } from '../Services/challenge.service'
 import { SearchResultComponent } from '../search-result/search-result.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -115,8 +120,8 @@ describe('NavbarComponent', () => {
     })
     .compileComponents()
 
-    location = TestBed.get(Location)
-    translateService = TestBed.get(TranslateService)
+    location = TestBed.inject(Location)
+    translateService = TestBed.inject(TranslateService)
   }))
 
   beforeEach(() => {

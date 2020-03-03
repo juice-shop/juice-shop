@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { Component, NgZone, OnInit } from '@angular/core'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
@@ -9,18 +14,18 @@ import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 
 export interface StrippedProduct {
-  id: number,
-  name: string,
-  price: number,
-  quantity: number,
+  id: number
+  name: string
+  price: number
+  quantity: number
   total: number
 }
 
 export interface Order {
-  orderId: string,
-  totalPrice: number,
-  bonus: number,
-  products: MatTableDataSource<StrippedProduct>,
+  orderId: string
+  totalPrice: number
+  bonus: number
+  products: MatTableDataSource<StrippedProduct>
   delivered: boolean
 }
 
@@ -35,7 +40,7 @@ export class OrderHistoryComponent implements OnInit {
   public orders: Order[] = []
   public emptyState: boolean = true
 
-  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService) { }
+  constructor (private router: Router, private dialog: MatDialog, private orderHistoryService: OrderHistoryService, private basketService: BasketService, private productService: ProductService, private ngZone: NgZone) { }
 
   ngOnInit () {
     this.orderHistoryService.get().subscribe((orders) => {
@@ -93,10 +98,10 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   trackOrder (orderId) {
-    this.router.navigate(['/track-result'], {
+    this.ngZone.run(() => this.router.navigate(['/track-result'], {
       queryParams: {
         id: orderId
       }
-    })
+    }))
   }
 }

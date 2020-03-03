@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TranslateModule } from '@ngx-translate/core'
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { By } from '@angular/platform-browser'

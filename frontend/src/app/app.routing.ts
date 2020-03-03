@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2014-2020 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
@@ -12,7 +17,6 @@ import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { TrackOrderComponent } from './track-order/track-order.component'
 import { RecycleComponent } from './recycle/recycle.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
 import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router'
@@ -161,10 +165,6 @@ const routes: Routes = [
   {
     path: 'score-board',
     component: ScoreBoardComponent
-  },
-  {
-    path: 'track-order',
-    component: TrackOrderComponent
   },
   {
     path: 'track-result',
