@@ -10,6 +10,11 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { DeliveryMethod } from '../Models/deliveryMethod.model'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faRocket, faShippingFast, faTruck)
+dom.watch()
 
 @Component({
   selector: 'app-delivery-method',
@@ -33,6 +38,7 @@ export class DeliveryMethodComponent implements OnInit {
     }, (error) => console.log(error))
 
     this.deliverySerivce.get().subscribe((methods) => {
+      console.log(methods)
       this.methods = methods
       this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
     }, (error) => console.log(error))
