@@ -385,7 +385,7 @@ function createBasketItems () {
     },
     {
       BasketId: 3,
-      ProductId: 5,
+      ProductId: 4,
       quantity: 1
     },
     {
@@ -588,9 +588,9 @@ function createOrders () {
     },
     {
       quantity: 5,
-      name: products[4].name,
-      price: products[4].price,
-      total: products[4].price * 5
+      name: products[3].name,
+      price: products[3].price,
+      total: products[3].price * 5
     }
   ]
 
