@@ -348,7 +348,8 @@ function createBaskets () {
     { UserId: 1 },
     { UserId: 2 },
     { UserId: 3 },
-    { UserId: 11 }
+    { UserId: 11 },
+    { UserId: 16 }
   ]
 
   return Promise.all(
@@ -389,6 +390,16 @@ function createBasketItems () {
     },
     {
       BasketId: 4,
+      ProductId: 4,
+      quantity: 2
+    },
+    {
+      BasketId: 5,
+      ProductId: 3,
+      quantity: 5
+    },
+    {
+      BasketId: 5,
       ProductId: 4,
       quantity: 2
     }
@@ -578,6 +589,21 @@ function createOrders () {
     }
   ]
 
+  const basket3Products = [
+    {
+      quantity: 3,
+      name: products[0].name,
+      price: products[0].price,
+      total: products[0].price * 3
+    },
+    {
+      quantity: 5,
+      name: products[4].name,
+      price: products[4].price,
+      total: products[4].price * 5
+    }
+  ]
+
   const orders = [
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
@@ -592,6 +618,14 @@ function createOrders () {
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       products: basket2Products,
+      eta: '0',
+      delivered: true
+    },
+    {
+      orderId: insecurity.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
+      email: 'demo'.replace(/[aeiou]/gi, '*'),
+      totalPrice: basket3Products[0].total + basket3Products[1].total,
+      products: basket3Products,
       eta: '0',
       delivered: true
     }
