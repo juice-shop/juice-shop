@@ -25,7 +25,7 @@
       </ng-container>
       <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef fxFlex="30%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="30%">{{ element.name }}</mat-cell>
+        <mat-cell *matCellDef="let element" fxFlex="30%"><i [ngClass]="element.icon"></i>&nbsp;{{ element.name }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="Price">
         <mat-header-cell *matHeaderCellDef translate="LABEL_PRICE" fxFlex="25%"></mat-header-cell>

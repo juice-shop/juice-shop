@@ -8,7 +8,8 @@ module.exports = (sequelize, { FLOAT, STRING }) => {
     name: STRING,
     price: FLOAT,
     deluxePrice: FLOAT,
-    eta: FLOAT
+    eta: FLOAT,
+    icon: STRING
   })
 
   return Delivery

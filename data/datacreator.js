@@ -127,13 +127,14 @@ async function createDeliveryMethods () {
   const deliveries = await loadStaticData('deliveries')
 
   await Promise.all(
-    deliveries.map(async ({ name, price, deluxePrice, eta }) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta, icon }) => {
       try {
         await models.Delivery.create({
           name,
           price,
           deluxePrice,
-          eta
+          eta,
+          icon
         })
       } catch (err) {
         logger.error(`Could not insert Delivery Method: ${err.message}`)
