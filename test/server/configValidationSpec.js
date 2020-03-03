@@ -116,16 +116,16 @@ describe('configValidation', () => {
     it('should accept a valid config', () => {
       const products = [
         {
-          name: 'Apple Juice',
+          name: 'Apple Juice'
         },
         {
-          name: 'Orange Juice',
+          name: 'Orange Juice'
         },
         {
-          name: 'Melon Juice',
+          name: 'Melon Juice'
         },
         {
-          name: 'Rippertuer Special Juice',
+          name: 'Rippertuer Special Juice'
         }
       ]
 
@@ -135,13 +135,13 @@ describe('configValidation', () => {
     it('should fail if less than 4 products are configured', () => {
       const products = [
         {
-          name: 'Apple Juice',
+          name: 'Apple Juice'
         },
         {
-          name: 'Orange Juice',
+          name: 'Orange Juice'
         },
         {
-          name: 'Melon Juice',
+          name: 'Melon Juice'
         }
       ]
 
