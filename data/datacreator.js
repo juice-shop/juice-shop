@@ -124,10 +124,10 @@ async function createWallet () {
 }
 
 async function createDeliveryMethods () {
-  const delivery = await loadStaticData('delivery')
+  const deliveries = await loadStaticData('deliveries')
 
   await Promise.all(
-    delivery.map(async ({ name, price, deluxePrice, eta }) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta }) => {
       try {
         await models.Delivery.create({
           name,
@@ -532,27 +532,17 @@ function createRecycle (data) {
   })
 }
 
-function createSecurityQuestions () {
-  const questions = [
-    'Your eldest siblings middle name?',
-    'Mother\'s maiden name?',
-    'Mother\'s birth date? (MM/DD/YY)',
-    'Father\'s birth date? (MM/DD/YY)',
-    'Maternal grandmother\'s first name?',
-    'Paternal grandmother\'s first name?',
-    'Name of your favorite pet?',
-    'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
-    'Your ZIP/postal code when you were a teenager?',
-    'Company you first work for as an adult?',
-    'Your favorite book?',
-    'Your favorite movie?',
-    'Number of one of your customer or ID cards?'
-  ]
+async function createSecurityQuestions () {
+  const questions = await loadStaticData('securityQuestions')
 
-  return Promise.all(
-    questions.map((question) => models.SecurityQuestion.create({ question }).catch((err) => {
-      logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
-    }))
+  await Promise.all(
+    questions.map(async ({ question }) => {
+      try {
+        await models.SecurityQuestion.create({ question })
+      } catch (err) {
+        logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
+      }
+    })
   )
 }
 
