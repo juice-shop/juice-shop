@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
-mat-card {
-  height: auto;
-  min-width: 380px;
-  width: 25%;
-}
-
 mat-table,
 .table-heading {
-  min-width: 420px;
-  width: 50%;
+  width: 90%;
+}
+
+.heading {
+  background: rgba(0, 0, 0, .2);
+  justify-content: center;
+  padding: 0px 20px;
+  height: 35px;
+  width: 90%;
 }
 
 .product-name {
@@ -29,6 +30,12 @@ mat-table,
 
 .row.fa-4x svg {
   margin-right: 10px;
+}
+
+.mat-own-card {
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .bonus-container {
