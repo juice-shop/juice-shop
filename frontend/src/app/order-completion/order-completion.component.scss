@@ -13,14 +13,12 @@
   padding: 12px 20px;
 }
 
-mat-card {
-  height: auto;
+.mat-own-card {
+  display: block;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
-.main-wrapper {
-  margin-left: 10%;
-  margin-right: 10%;
-}
 
 mat-cell,
 mat-footer-cell,
