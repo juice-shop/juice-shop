@@ -245,6 +245,7 @@ export class PaymentComponent implements OnInit {
 
   useWallet () {
     this.payUsingWallet = true
+    this.choosePayment()
   }
 
   resetCouponForm () {
