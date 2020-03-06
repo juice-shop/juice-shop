@@ -286,3 +286,6 @@ ctf:
     exposedMetricsChallenge:
       name: Japan
       code: JP
+    csrfChallenge:
+      name: Luxembourg
+      code: LU
