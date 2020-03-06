@@ -124,10 +124,10 @@ async function createWallet () {
 }
 
 async function createDeliveryMethods () {
-  const delivery = await loadStaticData('delivery')
+  const deliveries = await loadStaticData('deliveries')
 
   await Promise.all(
-    delivery.map(async ({ name, price, deluxePrice, eta }) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta }) => {
       try {
         await models.Delivery.create({
           name,
@@ -348,7 +348,8 @@ function createBaskets () {
     { UserId: 1 },
     { UserId: 2 },
     { UserId: 3 },
-    { UserId: 11 }
+    { UserId: 11 },
+    { UserId: 16 }
   ]
 
   return Promise.all(
@@ -384,11 +385,21 @@ function createBasketItems () {
     },
     {
       BasketId: 3,
-      ProductId: 5,
+      ProductId: 4,
       quantity: 1
     },
     {
       BasketId: 4,
+      ProductId: 4,
+      quantity: 2
+    },
+    {
+      BasketId: 5,
+      ProductId: 3,
+      quantity: 5
+    },
+    {
+      BasketId: 5,
       ProductId: 4,
       quantity: 2
     }
@@ -521,27 +532,17 @@ function createRecycle (data) {
   })
 }
 
-function createSecurityQuestions () {
-  const questions = [
-    'Your eldest siblings middle name?',
-    'Mother\'s maiden name?',
-    'Mother\'s birth date? (MM/DD/YY)',
-    'Father\'s birth date? (MM/DD/YY)',
-    'Maternal grandmother\'s first name?',
-    'Paternal grandmother\'s first name?',
-    'Name of your favorite pet?',
-    'Last name of dentist when you were a teenager? (Do not include \'Dr.\')',
-    'Your ZIP/postal code when you were a teenager?',
-    'Company you first work for as an adult?',
-    'Your favorite book?',
-    'Your favorite movie?',
-    'Number of one of your customer or ID cards?'
-  ]
+async function createSecurityQuestions () {
+  const questions = await loadStaticData('securityQuestions')
 
-  return Promise.all(
-    questions.map((question) => models.SecurityQuestion.create({ question }).catch((err) => {
-      logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
-    }))
+  await Promise.all(
+    questions.map(async ({ question }) => {
+      try {
+        await models.SecurityQuestion.create({ question })
+      } catch (err) {
+        logger.error(`Could not insert SecurityQuestion ${question}: ${err.message}`)
+      }
+    })
   )
 }
 
@@ -578,6 +579,21 @@ function createOrders () {
     }
   ]
 
+  const basket3Products = [
+    {
+      quantity: 3,
+      name: products[0].name,
+      price: products[0].price,
+      total: products[0].price * 3
+    },
+    {
+      quantity: 5,
+      name: products[3].name,
+      price: products[3].price,
+      total: products[3].price * 5
+    }
+  ]
+
   const orders = [
     {
       orderId: insecurity.hash(email).slice(0, 4) + '-' + utils.randomHexString(16),
@@ -592,6 +608,14 @@ function createOrders () {
       email: (email ? email.replace(/[aeiou]/gi, '*') : undefined),
       totalPrice: basket2Products[0].total,
       products: basket2Products,
+      eta: '0',
+      delivered: true
+    },
+    {
+      orderId: insecurity.hash('demo').slice(0, 4) + '-' + utils.randomHexString(16),
+      email: 'demo'.replace(/[aeiou]/gi, '*'),
+      totalPrice: basket3Products[0].total + basket3Products[1].total,
+      products: basket3Products,
       eta: '0',
       delivered: true
     }
