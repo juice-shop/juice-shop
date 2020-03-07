@@ -14,6 +14,7 @@ import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { BasketService } from '../Services/basket.service'
 
 import {
   faBomb,
@@ -60,15 +61,19 @@ export class NavbarComponent implements OnInit {
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible: boolean = false
   public shortKeyLang: string = 'placeholder'
+  public itemTotal = 0
 
   @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard, private snackBar: MatSnackBar) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService,
+    private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard,
+    private snackBar: MatSnackBar, private basketService: BasketService) { }
 
   ngOnInit () {
     this.getLanguages()
+    this.basketService.getItemTotal().subscribe(x => this.itemTotal = x)
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version

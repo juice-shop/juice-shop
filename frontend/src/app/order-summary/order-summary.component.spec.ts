@@ -42,9 +42,10 @@ describe('OrderSummaryComponent', () => {
 
     addressService = jasmine.createSpyObj('AddressService',['getById'])
     addressService.getById.and.returnValue(of([]))
-    basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find'])
+    basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find', 'updateNumberOfCardItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.checkout.and.returnValue(of({}))
+    basketService.updateNumberOfCardItems.and.returnValue(of({}))
     paymentService = jasmine.createSpyObj('PaymentService', ['getById'])
     paymentService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])

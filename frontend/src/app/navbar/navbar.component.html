@@ -31,7 +31,8 @@
     </button>
 
     <mat-menu #userMenu="matMenu">
-      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page" id="navbarLoginButton">
+      <button *ngIf="!isLoggedIn()" mat-menu-item routerLink="/login" aria-label="Go to login page"
+              id="navbarLoginButton">
         <mat-icon>
           exit_to_app
         </mat-icon>
@@ -47,7 +48,8 @@
           {{userEmail}}
         </span>
       </button>
-      <button *ngIf="isLoggedIn() && isAccounting()" mat-menu-item routerLink="/accounting" aria-label="Go to accounting page">
+      <button *ngIf="isLoggedIn() && isAccounting()" mat-menu-item routerLink="/accounting"
+              aria-label="Go to accounting page">
         <mat-icon>
           account_balance
         </mat-icon>
@@ -55,7 +57,8 @@
           {{"ACCOUNTING" | translate}}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="ordersSubMenu" aria-label="Show Orders and Payment Menu">
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="ordersSubMenu"
+              aria-label="Show Orders and Payment Menu">
         <mat-icon>
           check_circle_outline
         </mat-icon>
@@ -63,7 +66,8 @@
           {{ "ORDERS_AND_PAYMENT" | translate }}
         </span>
       </button>
-      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="privacySubMenu" aria-label="Show Privacy and Security Menu">
+      <button mat-menu-item *ngIf="isLoggedIn()" [matMenuTriggerFor]="privacySubMenu"
+              aria-label="Show Privacy and Security Menu">
         <mat-icon>
           security
         </mat-icon>
@@ -87,6 +91,8 @@
         shopping_cart
       </mat-icon>
       <span fxHide.lt-md fxShow> {{"TITLE_BASKET" | translate}}</span>
+      <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification"
+            style="font-size: 47px;">{{itemTotal}}</span>
     </button>
 
     <button [matMenuTriggerFor]="menu" mat-button style="height:48px; width: 48px;" class="buttons"
@@ -179,7 +185,8 @@
           {{"MY_SAVED_ADRESSES" | translate}}
         </span>
       </button>
-      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/saved-payment-methods" aria-label="Go to saved payment methods page">
+      <button *ngIf="isLoggedIn()" mat-menu-item routerLink="/saved-payment-methods"
+              aria-label="Go to saved payment methods page">
         <mat-icon>
           credit_card
         </mat-icon>
