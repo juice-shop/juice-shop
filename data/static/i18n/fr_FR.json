@@ -1,7 +1,7 @@
 {
 	"Find the carefully hidden 'Score Board' page.": "Trouvez la page soigneusement cachée 'Score Board'.",
-	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.",
-	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.",
+	"Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.": "Essayez de trouver une référence ou un indice dans les coulisses. Ou simplement de deviner quelle URL le 'Score Board' pourrait avoir.",
+	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> without using the frontend application at all.": "Effectuez une attaque XSS <i>persistée</i> avec <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> sans utiliser du tout l'application frontend.",
 	"You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.": "You need to work with the server-side API directly. Try different HTTP verbs on different entities exposed through the API.",
 	"Gain access to any access log file of the server.": "Gain access to any access log file of the server.",
 	"Who would want a server access log to be accessible through a web application?": "Who would want a server access log to be accessible through a web application?",
