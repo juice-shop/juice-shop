@@ -33,11 +33,12 @@ describe('PurchaseBasketComponent', () => {
 
   beforeEach(async(() => {
 
-    basketService = jasmine.createSpyObj('BasketService', ['find','del','get','put'])
+    basketService = jasmine.createSpyObj('BasketService', ['find','del','get','put','updateNumberOfCardItems'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.del.and.returnValue(of({}))
     basketService.get.and.returnValue(of({}))
     basketService.put.and.returnValue(of({}))
+    basketService.updateNumberOfCardItems.and.returnValue(of({}))
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
