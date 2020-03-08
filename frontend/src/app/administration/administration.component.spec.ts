@@ -4,6 +4,7 @@
  */
 
 import { UserDetailsComponent } from '../user-details/user-details.component'
+import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.component'
 import { BarRatingModule } from 'ng2-bar-rating'
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
@@ -13,8 +14,12 @@ import { AdministrationComponent } from './administration.component'
 import { MatTableModule } from '@angular/material/table'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { of } from 'rxjs'
 import { throwError } from 'rxjs/internal/observable/throwError'
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatCardModule } from '@angular/material/card'
+import { MatDividerModule } from '@angular/material/divider'
 
 describe('AdministrationComponent', () => {
   let component: AdministrationComponent
@@ -38,7 +43,11 @@ describe('AdministrationComponent', () => {
         HttpClientTestingModule,
         BarRatingModule,
         MatTableModule,
-        MatDialogModule
+        TranslateModule.forRoot(),
+        MatDialogModule,
+        MatPaginatorModule,
+        MatDividerModule,
+        MatCardModule
       ],
       declarations: [ AdministrationComponent ],
       providers: [
@@ -62,9 +71,9 @@ describe('AdministrationComponent', () => {
 
   it('should find all users via the UserService' , () => {
     component.findAllUsers()
-    expect(component.userDataSource.length).toBe(2)
-    expect(component.userDataSource[0].email).toMatch(/User1/)
-    expect(component.userDataSource[1].email).toMatch(/User2/)
+    expect(component.userDataSource.data.length).toBe(2)
+    expect(component.userDataSource.data[0].email).toMatch(/User1/)
+    expect(component.userDataSource.data[1].email).toMatch(/User2/)
   })
 
   it('should give an error if UserService fails to find all users' , fakeAsync(() => {
@@ -78,9 +87,9 @@ describe('AdministrationComponent', () => {
 
   it('should find all feedbacks via FeedbackService', () => {
     component.findAllFeedbacks()
-    expect(component.feedbackDataSource.length).toBe(2)
-    expect(component.feedbackDataSource[0].comment).toMatch(/Feedback1/)
-    expect(component.feedbackDataSource[1].comment).toMatch(/Feedback2/)
+    expect(component.feedbackDataSource.data.length).toBe(2)
+    expect(component.feedbackDataSource.data[0].comment).toMatch(/Feedback1/)
+    expect(component.feedbackDataSource.data[1].comment).toMatch(/Feedback2/)
   })
 
   it('should give an error if FeedbackService fails to find all feedbacks' , fakeAsync(() => {
@@ -111,6 +120,11 @@ describe('AdministrationComponent', () => {
   it('should open the UserDetailsComponent to show details' , () => {
     component.showUserDetail(1)
     expect(dialog.open).toHaveBeenCalledWith(UserDetailsComponent, { data: { id: 1 } })
+  })
+
+  it('should open the FeedbackDetailsComponent to show details' , () => {
+    component.showFeedbackDetails('Feedback', 1)
+    expect(dialog.open).toHaveBeenCalledWith(FeedbackDetailsComponent, { data: { feedback: 'Feedback', id: 1 } })
   })
 
   it('should have three columns in the user table', () => {

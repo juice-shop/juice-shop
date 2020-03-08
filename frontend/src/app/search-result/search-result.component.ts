@@ -48,6 +48,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
+  public resultsLength = 0
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private productSubscription?: Subscription
   private routerSubscription?: Subscription
@@ -88,6 +89,7 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
       this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
       this.dataSource.paginator = this.paginator
       this.gridDataSource = this.dataSource.connect()
+      this.resultsLength = this.dataSource.data.length
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
