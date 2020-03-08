@@ -123,13 +123,11 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
-    if (queryParam && queryParam.includes('javascript:alert')) {
+    if (queryParam) {
+      queryParam = queryParam.trim()
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
       })
-    }
-    if (queryParam) {
-      queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
       this.gridDataSource.subscribe((result: any) => {

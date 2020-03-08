@@ -101,6 +101,8 @@ challenges:
     type: string
   safetyOverride:
     type: boolean
+  xssBonusPayload:
+    type: string
 hackingInstructor:
   isEnabled:
     type: boolean
