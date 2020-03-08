@@ -99,10 +99,10 @@ challenges:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string
-  safetyOverride:
-    type: boolean
   xssBonusPayload:
     type: string
+  safetyOverride:
+    type: boolean
 hackingInstructor:
   isEnabled:
     type: boolean
