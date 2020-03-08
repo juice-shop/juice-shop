@@ -224,7 +224,7 @@
   "LABEL_STATE": "Osariik",
   "STATE_PLACEHOLDER": "Palun sisesta osariik.",
   "LABEL_GO_BACK": "Tagasi",
-  "LABEL_BACK": "Back",
+  "LABEL_BACK": "Tagasi",
   "TITLE_SELECT_ADDRESS": "Vali aadress",
   "USE_THIS_ADDRESS": "Kasuta seda aadressi",
   "BTN_DELETE": "Kustuta",
@@ -308,7 +308,7 @@
   "MANDATORY_CAPTION": "Palun sisesta pealkiri",
   "LABEL_CAPTION": "Pealkiri",
   "LABEL_PICK_IMAGE": "Vali Pilt",
-  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
+  "IMAGE_UPLOAD_SUCCESS": "Pilt laeti edukalt üles.",
   "EMPTY_MEMORY_LIST": "Mälestusi pole veel jagatud.",
   "LABEL_DELUXE_MEMBERSHIP": "Luksusliikmelisus",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Nautige {{appname}} luksuskliendina hämmastavaid eeliseid. Vaadake, mis kaasneb teie liikmelisusega.",
@@ -342,7 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "Klõpsa vihjete nägemiseks.",
   "BONUS_POINTS_EARNED": "Teenitud boonuspunktid: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "Selle tellimuse boonuspunktid lisatakse <em>1:1 teie rahakotti ¤-Fund</em> tulevaste ostude jaoks!",
-  "ENTER_COUPON_CODE": "Please enter your coupon code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
-  "CHARGED_WALLET": "Wallet successfully charged."
+  "ENTER_COUPON_CODE": "Sisesta oma kupongi kood",
+  "COUPON_CODE_HINT": "Kupongi kood peab olema 10 tähemärki.",
+  "CHARGED_WALLET": "Tasu võeti edukalt rahakotist."
 }
