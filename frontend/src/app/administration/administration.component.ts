@@ -27,7 +27,7 @@ dom.watch()
 export class AdministrationComponent implements OnInit {
 
   public userDataSource: any
-  public userDataSourcePaginator: any
+  public userDataSourceHidden: any
   public userColumns = ['user','email','user_detail']
   public feedbackDataSource: any
   public feedbackColumns = ['user', 'comment', 'rating', 'remove']
@@ -47,12 +47,12 @@ export class AdministrationComponent implements OnInit {
   findAllUsers () {
     this.userService.find().subscribe((users) => {
       this.userDataSource = users
-      this.userDataSourcePaginator = users
+      this.userDataSourceHidden = users
       for (let user of this.userDataSource) {
         user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${user.token ? 'confirmation' : 'error'}">${user.email}</span>`)
       }
-      this.userDataSourcePaginator = new MatTableDataSource(this.userDataSourcePaginator)
-      this.userDataSourcePaginator.paginator = this.paginatorUsers
+      this.userDataSource = new MatTableDataSource(this.userDataSource)
+      this.userDataSource.paginator = this.paginatorUsers
       this.resultsLengthUser = users.length
 
     },(err) => {
