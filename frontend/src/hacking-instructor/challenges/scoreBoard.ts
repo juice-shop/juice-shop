@@ -32,7 +32,7 @@ export const ScoreBoardInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "You find the JavaScript code in the DevTools of your browser that will open with `F12`.",
+        'You find the JavaScript code in the DevTools of your browser that will open with `F12`.',
       fixture: 'app-navbar',
       resolved: waitForDevTools()
     },

@@ -133,7 +133,7 @@ export function waitForDevTools () {
 
   const element = new Image()
   Object.defineProperty(element, 'id', {
-    get: function() {
+    get: function () {
       checkStatus = true
     }
   })
