@@ -336,13 +336,13 @@
   "CONFIRM_REVIEW_SAVED": "Votre avis a été enregistré.",
   "CONFIRM_CHANGES_SAVED": "Vos modifications ont été enregistrées.",
   "CONFIRM_RECYCLING_BOX": "Nous vous remercions d’utiliser notre self-service de recyclage écologique et nous vous enverrons une boîte de recyclage au plus vite.",
-  "CONFIRM_RECYCLING_PICKUP": "Thank you for using our convenient recycling service. We will pick up your pomace on {{pickupdate}}.",
-  "CHALLENGE_UNAVAILABLE": "This challenge is unavailable in a {{env}} environment!",
-  "CLICK_FOR_MORE_HINTS": "Click for more hints.",
-  "CLICK_TO_OPEN_HINTS": "Click to open hints.",
-  "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
-  "ENTER_COUPON_CODE": "Please enter your coupon code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
-  "CHARGED_WALLET": "Wallet successfully charged."
+  "CONFIRM_RECYCLING_PICKUP": "Merci d'utiliser notre service pratique de recyclage. Nous ramasserons votre marc de fruit le {{pickupdate}}.",
+  "CHALLENGE_UNAVAILABLE": "Ce défi n'est pas disponible dans un environnement {{env}}!",
+  "CLICK_FOR_MORE_HINTS": "Cliquez pour plus d'indices.",
+  "CLICK_TO_OPEN_HINTS": "Cliquez pour ouvrir les indices.",
+  "BONUS_POINTS_EARNED": "Points Bonus gagnés : {{bonus}}",
+  "BONUS_FOR_FUTURE_PURCHASES": "Les points bonus de cette commande seront <em>ajoutés 1:1 à votre portefeuille ¤-fund</em> pour de futurs achats !",
+  "ENTER_COUPON_CODE": "Veuillez entrer votre code de coupon",
+  "COUPON_CODE_HINT": "Le code promo doit comporter 10 caractères.",
+  "CHARGED_WALLET": "Portefeuille chargé avec succès."
 }
