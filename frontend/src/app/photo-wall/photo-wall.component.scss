@@ -7,6 +7,18 @@ mat-form-field {
   width: 100%;
 }
 
+.mat-own-card {
+  display: block;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#submitButton {
+  margin-left: 20%;
+  margin-top: 10px;
+  width: 60%;
+}
+
 input {
   &[type='file'] {
     visibility: hidden;
@@ -20,11 +32,6 @@ input {
 
 .image-preview img {
   height: 100%;
-}
-
-.heading {
-  background: rgba(0, 0, 0, .2);
-  padding: 12px 20px;
 }
 
 .heading-main {

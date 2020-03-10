@@ -8,7 +8,7 @@ const utils = require('../../lib/utils')
 const pastebinLeakProduct = config.get('products').filter(product => product.keywordsForPastebinDataLeakChallenge)[0]
 
 describe('/#/contact', () => {
-  let comment, rating, submitButton, captcha
+  let comment, rating, submitButton, captcha, snackBar
 
   beforeEach(() => {
     browser.get('/#/contact')
@@ -16,6 +16,7 @@ describe('/#/contact', () => {
     rating = $$('.br-unit').last()
     captcha = element(by.id('captchaControl'))
     submitButton = element(by.id('submitButton'))
+    snackBar = element(by.css('.mat-simple-snackbar-action.ng-star-inserted')).element(by.css('.mat-focus-indicator.mat-button.mat-button-base'))
     solveNextCaptcha()
   })
 
@@ -171,14 +172,22 @@ describe('/#/contact', () => {
   })
 
   describe('challenge "captchaBypass"', () => {
+    const EC = protractor.ExpectedConditions
+
     it('should be possible to post 10 or more customer feedbacks in less than 10 seconds', () => {
+      browser.ignoreSynchronization = true
+
       for (var i = 0; i < 11; i++) {
         comment.sendKeys('Spam #' + i)
         rating.click()
         submitButton.click()
-        browser.sleep(200)
+        browser.wait(EC.visibilityOf(snackBar), 100, 'SnackBar did not become visible')
+        snackBar.click()
+        browser.sleep(100)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
+
+      browser.ignoreSynchronization = false
     })
 
     protractor.expect.challengeSolved({ challenge: 'CAPTCHA Bypass' })
