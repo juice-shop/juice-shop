@@ -15,6 +15,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faStar, faTrophy, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
+import { ActivatedRoute, ParamMap } from '@angular/router'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 
@@ -51,7 +52,7 @@ export class ScoreBoardComponent implements OnInit {
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit () {
@@ -100,6 +101,12 @@ export class ScoreBoardComponent implements OnInit {
     }, (err) => {
       this.challenges = []
       console.log(err)
+    })
+
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('challenge')) {
+        this.startHackingInstructor(paramMap.get('challenge'))
+      }
     })
 
     this.ngZone.runOutsideAngular(() => {

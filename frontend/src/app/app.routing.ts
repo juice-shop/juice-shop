@@ -168,6 +168,10 @@ const routes: Routes = [
     component: ScoreBoardComponent
   },
   {
+    path: 'hacking-instructor/:challenge',
+    component: ScoreBoardComponent
+  },
+  {
     path: 'track-order',
     component: TrackOrderComponent
   },
