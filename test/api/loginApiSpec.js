@@ -136,7 +136,7 @@ describe('/rest/user/login', () => {
         tmpToken: Joi.string()
       })
       .expect('json', {
-        status: 'totp_token_requried'
+        status: 'totp_token_required'
       })
   })
 
