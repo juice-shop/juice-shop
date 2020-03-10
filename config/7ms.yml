@@ -35,6 +35,8 @@ application:
   easterEggPlanet:
     name: 'Mad Billy-7'
     overlayMap: 'https://static1.squarespace.com/static/59505bc2414fb538a0532c76/t/599e266aebbd1a759716569b/1503536748248/logo+2.png'
+challenges:
+  xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/265098051&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
 hackingInstructor:
   avatarImage: 'https://images.squarespace-cdn.com/content/v1/59f9e1c4d0e6281017434039/1509770498383-8VJKZ4PXTTHVIGIEG0KF/ke17ZwdGBToddI8pDm48kMreedPISwI1jnn2bzTr4CdZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzByX1XvUQea7698-2ac2uOajsBu-kHm1WemVMRSlEblOw5yevDuXqve6GdwpxNsnc/BrianJohnson-headshot.jpg?format=300w'
 products:
