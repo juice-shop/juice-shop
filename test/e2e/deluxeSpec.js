@@ -23,7 +23,7 @@ describe('/#/deluxe-membership', () => {
       browser.get('/#/')
       browser.manage().getCookie('token').then((token) => {
         browser.executeAsyncScript(() => {
-          var callback = arguments[arguments.length - 1]
+          var callback = arguments[arguments.length - 1] // eslint-disable-line
           var xhttp = new XMLHttpRequest()
           xhttp.open('POST', 'http://localhost:3000/rest/deluxe-membership', true)
           xhttp.setRequestHeader('Authorization', 'Bearer ' + token.value)
@@ -35,7 +35,7 @@ describe('/#/deluxe-membership', () => {
           xhttp.send()
         }).then(response => {
           protractor.expect(response.status).toEqual('success')
-          protractor.expect.challengeSolved({ challenge: 'Free Deluxe Account'})
+          protractor.expect.challengeSolved({ challenge: 'Free Deluxe Account' })
         })
       })
     })
