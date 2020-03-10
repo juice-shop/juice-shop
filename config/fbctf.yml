@@ -289,3 +289,6 @@ ctf:
     csrfChallenge:
       name: Luxembourg
       code: LU
+    xssBonusChallenge:
+      name: Ethiopia
+      code: ET
