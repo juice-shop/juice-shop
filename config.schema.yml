@@ -608,7 +608,7 @@ ctf:
       code:
         type: string
     freeDeluxeChallenge:
-       name:
+      name:
         type: string
       code:
         type: string
