@@ -28,7 +28,7 @@ describe('/profile', () => {
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "usernameXss"', () => {
-      it('Username field should be susceptible to XSS attacks', () => {
+      it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
         browser.waitForAngularEnabled(false)
         browser.get('/profile')
 
@@ -56,7 +56,7 @@ describe('/profile', () => {
         browser.get('/')
         browser.waitForAngularEnabled(true)
       })
-      protractor.expect.challengeSolved({ challenge: 'Classic Stored XSS' })
+      protractor.expect.challengeSolved({ challenge: 'CSP Bypass' })
     })
 
     describe('challenge "ssti"', () => {
