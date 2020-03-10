@@ -93,6 +93,7 @@ async function createUsers () {
           email: completeEmail,
           password,
           role,
+          deluxeToken: role === insecurity.roles.deluxe ? insecurity.deluxeToken(completeEmail) : '',
           profileImage: profileImage || 'default.svg',
           totpSecret
         })

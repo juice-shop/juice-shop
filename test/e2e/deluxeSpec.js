@@ -15,4 +15,29 @@ describe('/#/deluxe-membership', () => {
 
     protractor.expect.challengeSolved({ challenge: 'Cross-Site Imaging' })
   })
+
+  describe('challenge "freeDeluxe"', () => {
+    protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
+
+    it('should upgrade to deluxe for free by making a post request to /#/deluxe-membership by setting the payUsingWallet parameter to false', () => {
+      browser.get('/#/')
+      browser.manage().getCookie('token').then((token) => {
+        browser.executeAsyncScript(() => {
+          var callback = arguments[arguments.length - 1]
+          var xhttp = new XMLHttpRequest()
+          xhttp.open('POST', 'http://localhost:3000/rest/deluxe-membership', true)
+          xhttp.setRequestHeader('Authorization', 'Bearer ' + token.value)
+          xhttp.onreadystatechange = () => {
+            if (this.readyState === 4) {
+              callback(JSON.parse(this.responseText))
+            }
+          }
+          xhttp.send()
+        }).then(response => {
+          protractor.expect(response.status).toEqual('success')
+          protractor.expect.challengeSolved({ challenge: 'Free Deluxe Account'})
+        })
+      })
+    })
+  })
 })
