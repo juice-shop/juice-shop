@@ -10,7 +10,7 @@ const sequelizeNoUpdateAttributes = require('sequelize-noupdate-attributes')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
-  storage: 'data/juiceshop.sqlite',
+  storage: ':memory:', // replace with 'data/juiceshop.sqlite' for debugging
   logging: false
 })
 sequelizeNoUpdateAttributes(sequelize)
