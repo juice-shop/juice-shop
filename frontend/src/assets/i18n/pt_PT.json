@@ -224,6 +224,7 @@
   "LABEL_STATE": "Estado",
   "STATE_PLACEHOLDER": "Por favor seleccione o estado",
   "LABEL_GO_BACK": "Voltar atrás",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Seleccione a morada",
   "USE_THIS_ADDRESS": "Usar esta morada",
   "BTN_DELETE": "Apagar",
@@ -307,6 +308,7 @@
   "MANDATORY_CAPTION": "Por favor insere uma legenda",
   "LABEL_CAPTION": "Legenda",
   "LABEL_PICK_IMAGE": "Escolhe uma imagem",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "Ainda não foram partilhadas memórias.",
   "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Desfruta dos benefícios fantásticos de seres um cliente deluxe da aplicação : {{appname}}. Verifica quais os benefícios associdados a seres um cliente deluxe.",
@@ -339,5 +341,8 @@
   "CLICK_FOR_MORE_HINTS": "Click for more hints.",
   "CLICK_TO_OPEN_HINTS": "Click to open hints.",
   "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
+  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged."
 }

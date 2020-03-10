@@ -12,6 +12,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faStar, faPaperPlane)
 dom.watch()
@@ -34,14 +35,15 @@ export class ContactComponent implements OnInit {
   public confirmation: any
   public error: any
 
-  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private userService: UserService, private captchaService: CaptchaService, private feedbackService: FeedbackService,
+    private formSubmitService: FormSubmitService, private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.userService.whoAmI().subscribe((data: any) => {
       this.feedback = {}
       this.userIdControl.setValue(data.id)
       this.feedback.UserId = data.id
-      this.authorControl.setValue(data.email || 'anonymous')
+      this.authorControl.setValue(data.email ? '***' + data.email.slice(3) : 'anonymous')
     }, (err) => {
       this.feedback = undefined
       console.log(err)
@@ -61,30 +63,28 @@ export class ContactComponent implements OnInit {
   save () {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
-    this.feedback.comment = this.feedbackControl.value
+    this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
-      this.error = null
       if (savedFeedback.rating === 5) {
         this.translate.get('FEEDBACK_FIVE_STAR_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.confirmation = feedbackThankYou
+          this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
-          this.confirmation = translationId
+          this.snackBarHelperService.open(translationId)
         })
       } else {
         this.translate.get('FEEDBACK_THANK_YOU').subscribe((feedbackThankYou) => {
-          this.confirmation = feedbackThankYou
+          this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
-          this.confirmation = translationId
+          this.snackBarHelperService.open(translationId)
         })
       }
       this.feedback = {}
       this.ngOnInit()
       this.resetForm()
-    }, (error) => {
-      this.error = error.error
-      this.confirmation = null
+    }, (err) => {
+      this.snackBarHelperService.open(err.error?.error,'errorBar')
       this.feedback = {}
       this.resetCaptcha()
     })

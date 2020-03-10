@@ -287,5 +287,10 @@
 	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(这个挑战在Docker上 <strong>存在潜在威胁</strong>!)</em>",
 	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(这个挑战在Heroku上 <strong>存在潜在威胁</strong>!)</em>",
 	"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.": "找出后端服务使用<a href=\"https://github.com/prometheus/prometheus\">常见监测软件</a>获得的服务器数据",
-	"Try to guess what URL the endpoint might have.": "尝试猜测后端可能使用什么URL。"
+	"Try to guess what URL the endpoint might have.": "尝试猜测后端可能使用什么URL。",
+	"Look for a url parameter where its value appears in the page it is leading to.": "查找一个URL参数，它的值出现在它指向的页面中。",
+	"Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.": "Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.",
+	"Find a form which updates the username and then construct a malicious page in the online HTML editor.": "Find a form which updates the username and then construct a malicious page in the online HTML editor.",
+	"Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.": "Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.",
+	"Copy + Paste = Solved!": "Copy + Paste = Solved!"
 }
