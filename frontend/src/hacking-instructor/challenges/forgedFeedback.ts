@@ -1,6 +1,6 @@
 import {
   waitInMs,
-  sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked
+  sleep, waitForAngularRouteToBeVisited, waitForElementToGetClicked, waitForDevTools
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
@@ -36,7 +36,7 @@ export const ForgedFeedbackInstruction: ChallengeInstruction = {
       text:
           "Open the browser's _Development Tools_ and try finding anything interesting while inspecting the feedback form.",
       fixture: 'app-navbar',
-      resolved: waitInMs(15000)
+      resolved: waitForDevTools()
     },
     {
       text:
