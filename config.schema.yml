@@ -605,3 +605,8 @@ ctf:
         type: string
       code:
         type: string
+    freeDeluxeChallenge:
+      name:
+        type: string
+      code:
+        type: string
