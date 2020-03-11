@@ -9,7 +9,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateConfig = require('../../lib/startup/validateConfig')
-const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema } = require('../../lib/startup/validateConfig')
+const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
@@ -109,6 +109,43 @@ describe('configValidation', () => {
       ]
 
       expect(checkUniqueSpecialOnProducts(products)).to.equal(false)
+    })
+  })
+
+  describe('checkMinimumRequiredNumberOfProducts', () => {
+    it('should accept a valid config', () => {
+      const products = [
+        {
+          name: 'Apple Juice'
+        },
+        {
+          name: 'Orange Juice'
+        },
+        {
+          name: 'Melon Juice'
+        },
+        {
+          name: 'Rippertuer Special Juice'
+        }
+      ]
+
+      expect(checkMinimumRequiredNumberOfProducts(products)).to.equal(true)
+    })
+
+    it('should fail if less than 4 products are configured', () => {
+      const products = [
+        {
+          name: 'Apple Juice'
+        },
+        {
+          name: 'Orange Juice'
+        },
+        {
+          name: 'Melon Juice'
+        }
+      ]
+
+      expect(checkMinimumRequiredNumberOfProducts(products)).to.equal(false)
     })
   })
 

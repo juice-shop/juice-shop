@@ -224,6 +224,7 @@
   "LABEL_STATE": "Provincie",
   "STATE_PLACEHOLDER": "Voer een provincie in.",
   "LABEL_GO_BACK": "Terug",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Selecteer een adres",
   "USE_THIS_ADDRESS": "Gebruik dit adres",
   "BTN_DELETE": "Verwijderen",
@@ -307,6 +308,7 @@
   "MANDATORY_CAPTION": "Voer een tekst in",
   "LABEL_CAPTION": "Tekst",
   "LABEL_PICK_IMAGE": "Afbeelding kiezen",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "Er zijn nog geen ervaringen gedeeld.",
   "LABEL_DELUXE_MEMBERSHIP": "Luxe lidmaatschap",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Geniet van geweldige voordelen als een luxe klant van {{appname}}. Bekijk wat er is inbegrepen in uw lidmaatschap.",
@@ -339,5 +341,8 @@
   "CLICK_FOR_MORE_HINTS": "Klik voor meer hints.",
   "CLICK_TO_OPEN_HINTS": "Klik om hints te openen.",
   "BONUS_POINTS_EARNED": "Bonuspunten verdiend: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "De bonuspunten van deze bestelling worden <em>toegevoegd 1:1 aan uw portemonnee ¤-fund</em> voor toekomstige aankopen!"
+  "BONUS_FOR_FUTURE_PURCHASES": "De bonuspunten van deze bestelling worden <em>toegevoegd 1:1 aan uw portemonnee ¤-fund</em> voor toekomstige aankopen!",
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged."
 }
