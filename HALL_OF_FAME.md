@@ -165,6 +165,9 @@ translations as of Fri, 28 Feb 2020 (ordered alphabetically).
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+* Official
+  [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
+  written and performed by [Brian Johnson](https://github.com/braimee)
 
 ## Stargazers (over time)
 
