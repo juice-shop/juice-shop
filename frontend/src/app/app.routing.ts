@@ -171,10 +171,6 @@ const routes: Routes = [
     component: ScoreBoardComponent
   },
   {
-    path: 'track-order',
-    component: TrackOrderComponent
-  },
-  {
     path: 'track-result',
     component: TrackResultComponent
   },
