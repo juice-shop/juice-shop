@@ -41,7 +41,7 @@ html(lang='en')
               .mdl-card__supporting-text.mdl-grid.mdl-grid--no-spacing
                  h1.mdl-cell.mdl-cell--12-col(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400;') User Profile
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
-                    img.img-rounded(src='assets/public/images/uploads/' + profileImage, alt='profile picture', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
+                    img.img-rounded(src=profileImage, alt='profile picture', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
                     p(style='margin-top:8%; color: _textColor_; text-align: center;') _username_
                     form(action='/profile/image/file' , style='margin-top:10%; width: 90%; margin-right: auto; margin-left: auto;', method='post', enctype='multipart/form-data')
                       .form-group
@@ -63,9 +63,9 @@ html(lang='en')
                     form(action='/profile/image/url' , style='margin-top:5%; width: 90%; margin-right: auto; margin-left: auto;', method='post')
                       .form-group
                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
-                          input#url.form-control.mdl-textfield__input(type='text', name='imageUrl', style='color: _textColor_;', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_', aria-label='Text field for the Gravatar link')
-                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Gravatar URL:
-                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to include the link from Gravatar').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Gravatar
+                          input#url.form-control.mdl-textfield__input(type='text', name='imageUrl', style='color: _textColor_;', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_', aria-label='Text field for the image link')
+                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Image URL:
+                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to include image from link').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Image
                       p(style='margin-bottom:10%;')
 
                  .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
