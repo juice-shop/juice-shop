@@ -124,3 +124,27 @@ export function waitForLogOut () {
     }
   }
 }
+
+/**
+ * see https://stackoverflow.com/questions/7798748/find-out-whether-chrome-console-is-open/48287643#48287643
+ */
+export function waitForDevTools () {
+  let checkStatus = false
+
+  const element = new Image()
+  Object.defineProperty(element, 'id', {
+    get: function () {
+      checkStatus = true
+    }
+  })
+
+  return async () => {
+    while (true) {
+      console.dir(element)
+      if (checkStatus) {
+        break
+      }
+      await sleep(100)
+    }
+  }
+}

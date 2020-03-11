@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -17,17 +17,27 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { WalletComponent } from './wallet.component'
 import { WalletService } from '../Services/wallet.service'
+import { EventEmitter } from '@angular/core'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('WalletComponent', () => {
   let component: WalletComponent
   let fixture: ComponentFixture<WalletComponent>
   let walletService
+  let translateService
+  let snackBar: any
 
   beforeEach(async(() => {
 
     walletService = jasmine.createSpyObj('AddressService',['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -44,7 +54,9 @@ describe('WalletComponent', () => {
       ],
       declarations: [ WalletComponent],
       providers: [
-        { provide: WalletService, useValue: walletService }
+        { provide: WalletService, useValue: walletService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
