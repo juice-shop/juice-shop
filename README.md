@@ -57,10 +57,14 @@ overview please visit the official project page:
 ![GitHub repo size](https://img.shields.io/github/repo-size/bkimminich/juice-shop.svg)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 1. Install [node.js](#nodejs-version-compatibility) the Angular CLI requires a minimum Node.js version of either v10.13 or v12.0.
 =======
 1. Install [node.js](#nodejs-version-compatibility) The Angular CLI requires a minimum Node.js version of either v10.13 or v12.0.
 >>>>>>> beb8f068d8299fb3d85e4c1fd8619626bfb998ba
+=======
+1. Install [node.js](#nodejs-version-compatibility) 
+>>>>>>> d0691db99bf9d6c1c9f1ea05e42b11a667290fb9
 2. Run `git clone https://github.com/bkimminich/juice-shop.git` (or
    clone [your own fork](https://github.com/bkimminich/juice-shop/fork)
    of the repository)
