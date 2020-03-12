@@ -163,6 +163,10 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   {
+    path: 'hacking-instructor',
+    component: SearchResultComponent
+  },
+  {
     path: 'score-board',
     component: ScoreBoardComponent
   },
