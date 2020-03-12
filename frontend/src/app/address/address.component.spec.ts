@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateModule } from '@ngx-translate/core'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -24,17 +23,29 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { EventEmitter } from '@angular/core'
 
 describe('AddressComponent', () => {
   let component: AddressComponent
   let fixture: ComponentFixture<AddressComponent>
   let addressService
+  let snackBar: any
+  let translateService
 
   beforeEach(async(() => {
 
     addressService = jasmine.createSpyObj('AddressService',['get', 'del'])
     addressService.get.and.returnValue(of([]))
     addressService.del.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
       imports: [
@@ -57,7 +68,9 @@ describe('AddressComponent', () => {
       ],
       declarations: [ AddressComponent, AddressCreateComponent ],
       providers: [
-        { provide: AddressService, useValue: addressService }
+        { provide: AddressService, useValue: addressService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
@@ -104,4 +117,11 @@ describe('AddressComponent', () => {
     expect(addressService.del).toHaveBeenCalled()
     expect(addressService.get).toHaveBeenCalled()
   }))
+
+  it('should store address id in session storage', () => {
+    component.addressId = 1
+    spyOn(sessionStorage,'setItem')
+    component.chooseAddress()
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
+  })
 })

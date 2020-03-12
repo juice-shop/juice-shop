@@ -17,7 +17,6 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       set (username) {
         if (!utils.disableOnContainerEnv()) {
           username = insecurity.sanitizeLegacy(username)
-          utils.solveIf(challenges.usernameXssChallenge, () => { return utils.contains(username, '<script>alert(`xss`)</script>') })
         } else {
           username = insecurity.sanitizeSecure(username)
         }
@@ -55,7 +54,7 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
     },
     profileImage: {
       type: STRING,
-      defaultValue: 'default.svg'
+      defaultValue: '/assets/public/images/uploads/default.svg'
     },
     totpSecret: {
       type: STRING,
