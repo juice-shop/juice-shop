@@ -13,12 +13,6 @@
         <span id="searchValue" [innerHTML]="searchValue"></span>
       </div>
       <div *ngIf="!searchValue">{{"TITLE_ALL_PRODUCTS" | translate}}</div>
-      <div *ngIf="confirmation" style="margin-top:5px;">
-        <p class="confirmation">{{ confirmation }}</p>
-      </div>
-      <div *ngIf="error" style="margin-top:5px;">
-        <p class="error">{{error?.error}}</p>
-      </div>
       <div id="search-result-heading"></div>
     </div>
     <div *ngIf=" !emptyState; else emptyResult">

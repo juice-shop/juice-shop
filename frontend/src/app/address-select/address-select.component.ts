@@ -13,6 +13,7 @@ import { Router } from '@angular/router'
 })
 export class AddressSelectComponent {
   public addressId: any = undefined
+  public showNextButton: boolean = true
 
   constructor (private router: Router, private ngZone: NgZone) {}
 
@@ -20,8 +21,4 @@ export class AddressSelectComponent {
     this.addressId = id
   }
 
-  chooseAddress () {
-    sessionStorage.setItem('addressId', this.addressId)
-    this.ngZone.run(() => this.router.navigate(['/delivery-method']))
-  }
 }

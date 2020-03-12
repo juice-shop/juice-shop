@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
       this.userService.isLoggedIn.next(true)
       this.ngZone.run(() => this.router.navigate(['/search']))
     }, ({ error }) => {
-      if (error.status && error.data && error.status === 'totp_token_requried') {
+      if (error.status && error.data && error.status === 'totp_token_required') {
         localStorage.setItem('totp_tmp_token', error.data.tmpToken)
         this.ngZone.run(() => this.router.navigate(['/2fa/enter']))
         return

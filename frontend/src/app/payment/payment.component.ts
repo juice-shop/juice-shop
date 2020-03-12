@@ -28,6 +28,8 @@ import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngx-cookie'
+import { Location } from '@angular/common'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
@@ -68,7 +70,12 @@ export class PaymentComponent implements OnInit {
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
-  constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute, private ngZone: NgZone) { }
+  constructor (private location: Location, private cookieService: CookieService,
+    private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService,
+    private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService,
+    private basketService: BasketService, private translate: TranslateService,
+    private activatedRoute: ActivatedRoute, private ngZone: NgZone,
+    private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.initTotal()
@@ -162,13 +169,21 @@ export class PaymentComponent implements OnInit {
     this.payUsingWallet = false
   }
 
+  routeToPreviousUrl () {
+    this.location.back()
+  }
+
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
     if (this.mode === 'wallet') {
       this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
         sessionStorage.removeItem('walletTotal')
         this.ngZone.run(() => this.router.navigate(['/wallet']))
-      },(err) => console.log(err))
+        this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
+      },(err) => {
+        console.log(err)
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      })
     } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
         this.logout()
