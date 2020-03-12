@@ -5,7 +5,7 @@
 
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { Component, NgZone, OnInit } from '@angular/core'
 
 @Component({
@@ -31,7 +31,7 @@ export class OAuthComponent implements OnInit {
 
   login (profile: any) {
     this.userService.login({ email: profile.email, password: btoa(profile.email.split('').reverse().join('')), oauth: true }).subscribe((authentication) => {
-      this.cookieService.put('token', authentication.token)
+      this.cookieService.set('token', authentication.token)
       localStorage.setItem('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
@@ -44,7 +44,7 @@ export class OAuthComponent implements OnInit {
 
   invalidateSession (error: Error) {
     console.log(error)
-    this.cookieService.remove('token')
+    this.cookieService.delete('token')
     localStorage.removeItem('token')
     sessionStorage.removeItem('bid')
   }

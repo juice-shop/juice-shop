@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
-      this.cookieService.put('token', authentication.token)
+      this.cookieService.set('token', authentication.token)
       sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
       this.ngZone.run(() => this.router.navigate(['/search']))
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
         return
       }
       localStorage.removeItem('token')
-      this.cookieService.remove('token')
+      this.cookieService.delete('token')
       sessionStorage.removeItem('bid')
       this.error = error
       this.userService.isLoggedIn.next(false)
