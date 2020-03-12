@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { CookieModule } from 'ngx-cookie'
 import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -53,7 +52,6 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         MatToolbarModule,
-        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         ClipboardModule,
         MatIconModule,
