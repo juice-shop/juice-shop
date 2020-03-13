@@ -20,7 +20,7 @@ describe('/#/deluxe-membership', () => {
   describe('challenge "freeDeluxe"', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
 
-    it('should upgrade to deluxe for free by making a post request to /rest/deluxe-membership by setting the payUsingWallet parameter to false', () => {
+    it('should upgrade to deluxe for free by making a post request to /rest/deluxe-membership by setting the paymentMode parameter to null', () => {
       browser.get('/#/')
       browser.manage().getCookie('token').then((token) => {
         request.post('http://localhost:3000/rest/deluxe-membership', {

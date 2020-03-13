@@ -131,7 +131,7 @@
         {{'LABEL_BACK' | translate}}
       </button>
       <button mat-raised-button mat-button class="btn nextButton" color="primary" aria-label="Proceed to review"
-              [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
+              [disabled]="paymentId === undefined && paymentMode !== 'wallet'" (click)="choosePayment()">
         <mat-icon>
           navigate_next
         </mat-icon>
