@@ -243,7 +243,6 @@ app.use('/rest/user/reset-password', new RateLimit({
 /** Authorization **/
 /* Checks on JWT in Authorization header */
 app.use(verify.jwtChallenges())
-app.use(insecurity.updateAuthenticatedUsers())
 /* Baskets: Unauthorized users are not allowed to access baskets */
 app.use('/rest/basket', insecurity.isAuthorized(), insecurity.appendUserId())
 /* BasketItems: API only accessible for authenticated users */
