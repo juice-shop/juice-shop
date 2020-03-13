@@ -5,9 +5,9 @@
 
 const models = require('../models/index')
 const insecurity = require('../lib/insecurity')
-const utils = require('../lib/utils')
-const cache = require('../data/datacache')
-const challenges = cache.challenges
+// const utils = require('../lib/utils')
+// const cache = require('../data/datacache')
+// const challenges = cache.challenges
 
 module.exports = function updateUserProfile () {
   return (req, res, next) => {
