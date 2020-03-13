@@ -10,7 +10,7 @@ const challenges = require('../data/datacache').challenges
 
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req, res, next) => {
-    if (req.body.payUsingWallet) {
+    if (req.body.paymentMode === 'wallet') {
       await models.Wallet.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
     }
     models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
@@ -18,7 +18,7 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
         if (user) {
           user.update({ role: insecurity.roles.deluxe, deluxeToken: insecurity.deluxeToken(user.dataValues.email) })
             .then(user => {
-              utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && !req.body.payUsingWallet })
+              utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
               res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!' } })
             })
         } else {
