@@ -27,7 +27,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
@@ -202,7 +202,7 @@ export class PaymentComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.remove('token')
+    this.cookieService.delete('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/login']))
