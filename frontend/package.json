@@ -45,7 +45,7 @@
     "ng2-bar-rating": "^1.1.50",
     "ng2-file-upload": "^1.4.0",
     "ngx-clipboard": "^12.3.1",
-    "ngx-cookie": "^4.1.2",
+    "ngx-cookie-service": "^3.0.2",
     "ngx-spinner": "~8.0.3",
     "node-sass": "^4.13.1",
     "rxjs": "6.5.4",

@@ -289,9 +289,9 @@ ctf:
     freeDeluxeChallenge:
       name: Vietnam
       code: VN
-    csrfChallenge:
-      name: Luxembourg
-      code: LU
+#    csrfChallenge:
+#      name: Luxembourg
+#      code: LU
     xssBonusChallenge:
       name: Ethiopia
       code: ET
