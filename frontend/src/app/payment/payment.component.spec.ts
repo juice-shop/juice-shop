@@ -218,7 +218,7 @@ describe('PaymentComponent', () => {
   it('should store payment id on calling getMessage', () => {
     component.getMessage(1)
     expect(component.paymentId).toBe(1)
-    expect(component.payUsingWallet).toBe(false)
+    expect(component.paymentMode).toEqual('card')
   })
 
   it('should open QrCodeComponent for Bitcoin', () => {
@@ -305,23 +305,23 @@ describe('PaymentComponent', () => {
     expect(component.initTotal).toHaveBeenCalled()
   })
 
-  it('should make payUsingWallet true on calling useWallet', () => {
+  it('should make paymentMode wallet on calling useWallet', () => {
     component.useWallet()
-    expect(component.payUsingWallet).toBe(true)
+    expect(component.paymentMode).toEqual('wallet')
   })
 
   it('should store paymentId in session storage on calling choosePayment in shop mode', () => {
     component.mode = 'shop'
-    component.payUsingWallet = false
+    component.paymentMode = 'card'
     component.paymentId = 1
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
   })
 
-  it('should store wallet as paymentId in session storage on calling choosePayment while payUsingWallet is true', () => {
+  it('should store wallet as paymentId in session storage on calling choosePayment while paymentMode is equal to wallet', () => {
     component.mode = 'shop'
-    component.payUsingWallet = true
+    component.paymentMode = 'wallet'
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')

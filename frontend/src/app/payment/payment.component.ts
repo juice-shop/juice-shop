@@ -57,7 +57,7 @@ export class PaymentComponent implements OnInit {
   public walletBalance: number = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
-  public payUsingWallet: boolean = false
+  public paymentMode: string = 'card'
   private campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
@@ -166,7 +166,7 @@ export class PaymentComponent implements OnInit {
 
   getMessage (id) {
     this.paymentId = id
-    this.payUsingWallet = false
+    this.paymentMode = 'card'
   }
 
   routeToPreviousUrl () {
@@ -185,11 +185,12 @@ export class PaymentComponent implements OnInit {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
       })
     } else if (this.mode === 'deluxe') {
-      this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
+      window.alert(this.paymentMode)
+      this.userService.upgradeToDeluxe(this.paymentMode).subscribe(() => {
         this.logout()
       }, (err) => console.log(err))
     } else {
-      if (this.payUsingWallet) {
+      if (this.paymentMode === 'wallet') {
         sessionStorage.setItem('paymentId', 'wallet')
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
@@ -244,7 +245,7 @@ export class PaymentComponent implements OnInit {
   }
 
   useWallet () {
-    this.payUsingWallet = true
+    this.paymentMode = 'wallet'
   }
 
   resetCouponForm () {
