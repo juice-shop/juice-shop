@@ -20,7 +20,7 @@ async function verify (req, res) {
   const { tmpToken, totpToken } = req.body
 
   try {
-    const { userId, type } = insecurity.verify(tmpToken)
+    const { userId, type } = insecurity.verify(tmpToken) && insecurity.decode(tmpToken)
 
     if (type !== 'password_valid_needs_second_factor_token') {
       throw new Error('Invalid token type')
@@ -111,7 +111,7 @@ async function setup (req, res) {
       throw new Error('User has 2fa already setup')
     }
 
-    const { secret, type } = insecurity.verify(setupToken)
+    const { secret, type } = insecurity.verify(setupToken) && insecurity.decode(setupToken)
     if (type !== 'totp_setup_secret') {
       throw new Error('SetupToken is of wrong type')
     }
