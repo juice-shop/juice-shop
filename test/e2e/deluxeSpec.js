@@ -29,7 +29,7 @@ describe('/#/deluxe-membership', () => {
           expect(err).not.toBeTruthy()
           expect(JSON.parse(body).status).toEqual('success')
 
-          protractor.expect.challengeSolved({ challenge: 'Free Deluxe Account' })
+          protractor.expect.challengeSolved({ challenge: 'Deluxe Fraud' })
         })
       })
     })
