@@ -7,7 +7,7 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
 import { BasketService } from '../Services/basket.service'
-import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild, OnInit } from '@angular/core'
+import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { forkJoin, Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -16,7 +16,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { ChangeDetectorRef } from '@angular/core'
 
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
@@ -60,7 +59,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService,
    private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService,
    private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService,
-   private snackBarHelperService: SnackBarHelperService, private cdRef:ChangeDetectorRef) { }
+   private snackBarHelperService: SnackBarHelperService, private cdRef: ChangeDetectorRef) { }
 
   ngAfterViewInit () {
     const products = this.productService.search('')
