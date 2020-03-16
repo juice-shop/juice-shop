@@ -73,8 +73,10 @@
 
     <mat-paginator #paginator
                    [pageSize]="12"
+                   [pageSizeOptions]="pageSizeOptions"
                    [length]="resultsLength"
                    class="mat-elevation-z6"
+                   (page)="pageEvent = $event"
                    color="accent">
     </mat-paginator>
   </div>
