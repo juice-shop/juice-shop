@@ -88,7 +88,7 @@ async function createUsers () {
   const users = await loadStaticData('users')
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret: totpSecret = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get('application.domain')}`
         const user = await models.User.create({
