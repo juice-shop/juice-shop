@@ -12,6 +12,7 @@ import { Location } from '@angular/common'
 import { DeliveryMethod } from '../Models/deliveryMethod.model'
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faRocket, faShippingFast, faTruck } from '@fortawesome/free-solid-svg-icons'
+import { SelectionModel } from '@angular/cdk/collections'
 
 library.add(faRocket, faShippingFast, faTruck)
 dom.watch()
@@ -28,6 +29,7 @@ export class DeliveryMethodComponent implements OnInit {
   public address: any
   public dataSource
   public deliveryMethodId: Number = undefined
+  selection = new SelectionModel<DeliveryMethod>(false, [])
 
   constructor (private location: Location,private deliverySerivce: DeliveryService,
     private addressService: AddressService, private router: Router, private ngZone: NgZone) { }
@@ -45,7 +47,11 @@ export class DeliveryMethodComponent implements OnInit {
   }
 
   selectMethod (id) {
-    this.deliveryMethodId = id
+    if (this.selection.hasValue()) {
+      this.deliveryMethodId = id
+    } else {
+      this.deliveryMethodId = undefined
+    }
   }
 
   routeToPreviousUrl () {
