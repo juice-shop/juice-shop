@@ -188,7 +188,7 @@
   "ADD_BASKET": "Agregar a Carrito de Compras",
   "BTN_SHOW_ALL": "Mostrar todo",
   "BTN_SHOW_UNAVAILABLE": "Mostrar no disponibles ",
-  "INFO_DISABLED_CHALLENGES": "{{num}} no hay retos disponibles en  {{env}} por  <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>razones de seguridad</a>!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
   "BTN_HIDE_ALL": "Ocultar todo",
   "TYPE_THESE_LETTERS": "Introduzca las siguientes {{length}} letras",
   "BTN_REQUEST": "Solicitar",
