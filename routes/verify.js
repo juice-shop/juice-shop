@@ -68,7 +68,7 @@ exports.jwtChallenges = () => (req, res, next) => {
   if (utils.notSolved(challenges.jwtUnsignedChallenge)) {
     jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
   }
-  if (utils.notSolved(challenges.jwtForgedChallenge)) {
+  if (!utils.disableOnWindowsEnv() && utils.notSolved(challenges.jwtForgedChallenge)) {
     jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
   }
   next()

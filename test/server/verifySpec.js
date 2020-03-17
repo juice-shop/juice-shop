@@ -11,6 +11,7 @@ chai.use(sinonChai)
 const cache = require('../../data/datacache')
 const insecurity = require('../../lib/insecurity')
 const config = require('config')
+const utils = require('../../lib/utils')
 
 describe('verify', () => {
   const verify = require('../../routes/verify')
@@ -281,37 +282,39 @@ describe('verify', () => {
       expect(challenges.jwtForgedChallenge.solved).to.equal(false)
     })
 
-    it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
-      /*
-      Header: { "alg": "HS256", "typ": "JWT" }
-      Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
-       */
-      this.req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgyMjIxNTc1fQ.ycFwtqh4ht4Pq9K5rhiPPY256F9YCTIecd4FHFuSEAg' }
+    if (!utils.disableOnWindowsEnv()) {
+      it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+        /*
+        Header: { "alg": "HS256", "typ": "JWT" }
+        Payload: { "data": { "email": "rsa_lord@juice-sh.op" }, "iat": 1508639612, "exp": 9999999999 }
+         */
+        this.req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgyMjIxNTc1fQ.ycFwtqh4ht4Pq9K5rhiPPY256F9YCTIecd4FHFuSEAg' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+        verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtForgedChallenge.solved).to.equal(true)
-    })
+        expect(challenges.jwtForgedChallenge.solved).to.equal(true)
+      })
 
-    it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
-      /*
-      Header: { "alg": "HS256", "typ": "JWT" }
-      Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
-       */
-      this.req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTU4MjIyMTY3NX0.50f6VAIQk2Uzpf3sgH-1JVrrTuwudonm2DKn2ec7Tg8' }
+      it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', () => {
+        /*
+        Header: { "alg": "HS256", "typ": "JWT" }
+        Payload: { "data": { "email": "rsa_lord@" }, "iat": 1508639612, "exp": 9999999999 }
+         */
+        this.req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTU4MjIyMTY3NX0.50f6VAIQk2Uzpf3sgH-1JVrrTuwudonm2DKn2ec7Tg8' }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+        verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtForgedChallenge.solved).to.equal(true)
-    })
+        expect(challenges.jwtForgedChallenge.solved).to.equal(true)
+      })
 
-    it('"jwtForgedChallenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
-      const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
-      this.req.headers = { authorization: 'Bearer ' + token }
+      it('"jwtForgedChallenge" is not solved when token regularly signed with private RSA-key has email rsa_lord@juice-sh.op in the payload', () => {
+        const token = insecurity.authorize({ data: { email: 'rsa_lord@juice-sh.op' } })
+        this.req.headers = { authorization: 'Bearer ' + token }
 
-      verify.jwtChallenges()(this.req, this.res, this.next)
+        verify.jwtChallenges()(this.req, this.res, this.next)
 
-      expect(challenges.jwtForgedChallenge.solved).to.equal(false)
-    })
+        expect(challenges.jwtForgedChallenge.solved).to.equal(false)
+      })
+    }
   })
 })
