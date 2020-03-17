@@ -188,7 +188,7 @@
   "ADD_BASKET": "Ajouter au panier",
   "BTN_SHOW_ALL": "Tout afficher",
   "BTN_SHOW_UNAVAILABLE": "Afficher indisponible",
-  "INFO_DISABLED_CHALLENGES": "{{num}} défis sont indisponibles sur {{env}} en raison de <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>problèmes de sécurité</a>!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
   "BTN_HIDE_ALL": "Tout cacher",
   "TYPE_THESE_LETTERS": "Tapez ces {{length}} lettres",
   "BTN_REQUEST": "Demander",
