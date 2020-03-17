@@ -12,5 +12,6 @@ mat-divider {
 }
 
 mat-dialog-content {
-  width: 450px;
+  max-width: 320px;
+  min-width: 280px;
 }
