@@ -75,6 +75,7 @@
     "i18n": "^0.8.5",
     "is-docker": "^2.0.0",
     "is-heroku": "^2.0.0",
+    "is-windows": "^1.0.2",
     "js-yaml": "^3.13.1",
     "jsonwebtoken": "0.4.0",
     "jssha": "^2.3.1",

@@ -237,6 +237,8 @@
   hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#forge-an-almost-properly-rsa-signed-jwt-token'
   key: jwtForgedChallenge
+  disabledEnv:
+    - Windows
 -
   name: 'Forgotten Developer Backup'
   category: 'Sensitive Data Exposure'
