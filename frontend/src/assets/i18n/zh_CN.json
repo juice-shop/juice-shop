@@ -188,7 +188,7 @@
   "ADD_BASKET": "添加到购物车",
   "BTN_SHOW_ALL": "显示全部",
   "BTN_SHOW_UNAVAILABLE": "显示不可用",
-  "INFO_DISABLED_CHALLENGES": "{{num}} 个挑战在 {{env}} 中不可用，因为 <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>安全问题</a>！",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
   "BTN_HIDE_ALL": "隐藏全部",
   "TYPE_THESE_LETTERS": "键入 {{length}} 长度的字符",
   "BTN_REQUEST": "请求",
