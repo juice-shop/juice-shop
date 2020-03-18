@@ -112,6 +112,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich:
+  [OWASP Juice Shop v10.0.0 released](https://owasp.org/2020/03/17/juice-shop-v10.html)
 * [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)
   on [eLearnSecurity](https://blog.elearnsecurity.com/) :mega:
 * Blog post on
@@ -213,7 +215,9 @@ where this project was mentioned or used!
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
   on
   [prepared working packages](https://github.com/bkimminich/juice-shop/milestone/10)
-  and the `v10.0.0` release, 27.-29.02.2020
+  and
+  [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
+  27.-29.02.2020
 * [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
   and related working sessions organized by Björn Kimminich,
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
