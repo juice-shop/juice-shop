@@ -11,7 +11,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { RouterTestingModule } from '@angular/router/testing'
 import { of } from 'rxjs'
 import { HttpClientModule } from '@angular/common/http'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { LoginGuard } from '../app.guard'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { SidenavComponent } from './sidenav.component'
@@ -44,7 +44,7 @@ describe('SidenavComponent', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({}))
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
-    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
+    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
     mockSocket = new MockSocket()
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
@@ -62,7 +62,6 @@ describe('SidenavComponent', () => {
         MatButtonModule,
         MatMenuModule,
         MatListModule,
-        CookieModule.forRoot(),
         RouterTestingModule
       ],
       providers: [

@@ -38,7 +38,7 @@ module.exports = function login () {
           })
         } else if (user.data && user.data.id && user.data.totpSecret !== '') {
           res.status(401).json({
-            status: 'totp_token_requried',
+            status: 'totp_token_required',
             data: {
               tmpToken: insecurity.authorize({
                 userId: user.data.id,

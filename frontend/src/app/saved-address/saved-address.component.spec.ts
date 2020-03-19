@@ -22,11 +22,13 @@ import { AddressComponent } from '../address/address.component'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 
 describe('SavedAddressComponent', () => {
   let component: SavedAddressComponent
   let fixture: ComponentFixture<SavedAddressComponent>
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -51,7 +53,7 @@ describe('SavedAddressComponent', () => {
         MatCheckboxModule
       ],
       declarations: [ SavedAddressComponent, AddressComponent ],
-      providers: []
+      providers: [{ provide: MatSnackBar, useValue: snackBar }]
     })
     .compileComponents()
   }))

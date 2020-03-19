@@ -1,4 +1,4 @@
-# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop) [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
+# ![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://www.owasp.org/index.php/OWASP_Project_Inventory#tab=Flagship_Projects) [![GitHub release](https://img.shields.io/github/release/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/releases/latest) [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop) [![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
 [![Build Status](https://travis-ci.org/bkimminich/juice-shop.svg?branch=master)](https://travis-ci.org/bkimminich/juice-shop)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/bkimminich/juice-shop.svg)](https://cloud.docker.com/repository/docker/bkimminich/juice-shop/builds)
@@ -90,8 +90,10 @@ overview please visit the official project page:
 [![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://registry.hub.docker.com/u/bkimminich/juice-shop/)
 ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
-[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
+"Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
+"Get your own version badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -146,6 +148,26 @@ docker run -d -p 80:3000 bkimminich/juice-shop
 4. Your container will be available at `http://<dns name
    label>.<location name>.azurecontainer.io:3000`
 
+### Google Compute Engine Instance
+
+1. Login to the Google Cloud Console and
+   [open Cloud Shell](https://console.cloud.google.com/home/dashboard?cloudshell=true).
+2. Launch a new GCE instance based on the juice-shop container. Take
+   note of the `EXTERNAL_IP` provided in the output.
+
+```
+gcloud compute instances create-with-container owasp-juice-shop-app --container-image bkimminich/juice-shop
+```
+
+3. Create a firewall rule that allows inbound traffic to port 3000
+
+```
+gcloud compute firewall-rules create juice-rule --allow tcp:3000
+```
+
+4. Your container is now running and available at
+   `http://<EXTERNAL_IP>:3000/`
+
 ## Node.js version compatibility
 
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/cpu/bkimminich/juice-shop)
@@ -163,6 +185,11 @@ images and packaged distributions are offered accordingly.
 | 11.x     | (:heavy_check_mark:) |                                                                                                                                                                                                                                                                   |                                                                                              |
 | 10.x     | :heavy_check_mark:   | [![Windows](docs/win32.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![Linux](docs/linux.png)](https://github.com/bkimminich/juice-shop/releases/latest) [![MacOS](docs/darwin.png)](https://github.com/bkimminich/juice-shop/releases/latest) |                                                                                              |
 | <10.x    | :x:                  |                                                                                                                                                                                                                                                                   |                                                                                              |
+
+Juice Shop is automatically tested _only on the latest `.x` minor
+version_ of each node.js version mentioned above! There is no guarantee
+that older minor node.js releases will always work with Juice Shop!
+Please make sure you stay up to date with your chosen version.
 
 ## Demo
 
@@ -208,7 +235,7 @@ questions!**
 
 ## Documentation
 
-### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
+### Pwning OWASP Juice Shop [![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-47129532.svg)](https://www.goodreads.com/review/edit/47129532)
 
 This is the official companion guide to the OWASP Juice Shop. It will
 give you a complete overview of the vulnerabilities found in the
@@ -226,9 +253,9 @@ also [browse the full content online](https://pwning.owasp-juice.shop)!
 
 * [Introduction Slide Deck](http://bkimminich.github.io/juice-shop) in
   HTML5
-* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20An%20intentionally%20insecure%20JavaScript%20Web%20Application.pdf)
+* [PDF of the Intro Slide Deck](docs/OWASP%20Juice%20Shop%20-%20Probably%20the%20most%20modern%20and%20sophisticated%20insecure%20web%20application.pdf)
 
-## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
+## Contributing [![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/bkimminich/juice-shop/graphs/contributors) [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop) [![Bountysource Activity](https://img.shields.io/bountysource/team/juice-shop/activity.svg)](https://www.bountysource.com/teams/juice-shop) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg) ![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
 
 We are always happy to get new contributors on board! Please check
 [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to

@@ -27,7 +27,7 @@ import { PaymentMethodComponent } from '../payment-method/payment-method.compone
 import { RouterTestingModule } from '@angular/router/testing'
 import { OrderSummaryComponent } from '../order-summary/order-summary.component'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
@@ -37,6 +37,7 @@ import { WalletComponent } from '../wallet/wallet.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('PaymentComponent', () => {
   let component: PaymentComponent
@@ -50,6 +51,7 @@ describe('PaymentComponent', () => {
   let deliveryService: any
   let userService: any
   let location: Location
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -64,7 +66,7 @@ describe('PaymentComponent', () => {
     basketService.applyCoupon.and.returnValue(of({}))
     dialog = jasmine.createSpyObj('MatDialog',['open'])
     dialog.open.and.returnValue(null)
-    cookieService = jasmine.createSpyObj('CookieService',['remove'])
+    cookieService = jasmine.createSpyObj('CookieService',['delete'])
     walletService = jasmine.createSpyObj('AddressService',['get', 'put'])
     walletService.get.and.returnValue(of({}))
     walletService.put.and.returnValue(of({}))
@@ -76,6 +78,7 @@ describe('PaymentComponent', () => {
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
     userService.isLoggedIn.next.and.returnValue({})
     userService.saveLastLoginIp.and.returnValue(of({}))
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -110,7 +113,8 @@ describe('PaymentComponent', () => {
         { provide: CookieService, useValue: cookieService },
         { provide: WalletService, useValue: walletService },
         { provide: DeliveryService, useValue: deliveryService },
-        { provide: UserService, useValue: userService }
+        { provide: UserService, useValue: userService },
+        { provide: MatSnackBar, useValue: snackBar }
 
       ]
     })
@@ -214,7 +218,7 @@ describe('PaymentComponent', () => {
   it('should store payment id on calling getMessage', () => {
     component.getMessage(1)
     expect(component.paymentId).toBe(1)
-    expect(component.payUsingWallet).toBe(false)
+    expect(component.paymentMode).toEqual('card')
   })
 
   it('should open QrCodeComponent for Bitcoin', () => {
@@ -264,7 +268,7 @@ describe('PaymentComponent', () => {
 
   it('should remove authentication token from cookies', () => {
     component.logout()
-    expect(cookieService.remove).toHaveBeenCalledWith('token')
+    expect(cookieService.delete).toHaveBeenCalledWith('token')
   })
 
   it('should remove basket id from session storage', () => {
@@ -301,23 +305,23 @@ describe('PaymentComponent', () => {
     expect(component.initTotal).toHaveBeenCalled()
   })
 
-  it('should make payUsingWallet true on calling useWallet', () => {
+  it('should make paymentMode wallet on calling useWallet', () => {
     component.useWallet()
-    expect(component.payUsingWallet).toBe(true)
+    expect(component.paymentMode).toEqual('wallet')
   })
 
   it('should store paymentId in session storage on calling choosePayment in shop mode', () => {
     component.mode = 'shop'
-    component.payUsingWallet = false
+    component.paymentMode = 'card'
     component.paymentId = 1
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
   })
 
-  it('should store wallet as paymentId in session storage on calling choosePayment while payUsingWallet is true', () => {
+  it('should store wallet as paymentId in session storage on calling choosePayment while paymentMode is equal to wallet', () => {
     component.mode = 'shop'
-    component.payUsingWallet = true
+    component.paymentMode = 'wallet'
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')

@@ -99,6 +99,8 @@ challenges:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string
+  xssBonusPayload:
+    type: string
   safetyOverride:
     type: boolean
 hackingInstructor:
@@ -601,6 +603,16 @@ ctf:
       code:
         type: string
     exposedMetricsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    freeDeluxeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    csrfChallenge:
       name:
         type: string
       code:

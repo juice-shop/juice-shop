@@ -8,10 +8,10 @@
   text-justify: inter-word;
 }
 
-:host /deep/ h1 a {
+:host ::ng-deep h1 a {
   font-size: 20px;
 }
 
-:host /deep/ strong {
+:host ::ng-deep strong {
   font-style: italic;
 }

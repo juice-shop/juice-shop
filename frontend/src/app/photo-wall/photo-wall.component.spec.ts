@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
@@ -25,12 +25,17 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatInputModule } from '@angular/material/input'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { EventEmitter } from '@angular/core'
 
 describe('PhotoWallComponent', () => {
   let component: PhotoWallComponent
   let fixture: ComponentFixture<PhotoWallComponent>
   let photoWallService: any
   let configurationService: any
+  let snackBar: any
+  let translateService
+
   beforeEach(async(() => {
 
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
@@ -38,6 +43,12 @@ describe('PhotoWallComponent', () => {
     photoWallService = jasmine.createSpyObj('PhotoWallService', ['get', 'addMemory'])
     photoWallService.get.and.returnValue(of([]))
     photoWallService.addMemory.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       declarations: [ PhotoWallComponent ],
@@ -62,7 +73,9 @@ describe('PhotoWallComponent', () => {
       ],
       providers: [
         { provide: PhotoWallService, useValue: photoWallService },
-        { provide: ConfigurationService, useValue: configurationService }
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()

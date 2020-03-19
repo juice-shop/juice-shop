@@ -19,12 +19,14 @@ import { AddressService } from '../Services/address.service'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 
 describe('AddressCreateComponent', () => {
   let component: AddressCreateComponent
   let fixture: ComponentFixture<AddressCreateComponent>
   let addressService
   let translateService
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -37,6 +39,8 @@ describe('AddressCreateComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
+    snackBar.open.and.returnValue(null)
 
     TestBed.configureTestingModule({
       imports: [
@@ -50,12 +54,14 @@ describe('AddressCreateComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatGridListModule,
-        MatIconModule
+        MatIconModule,
+        MatSnackBarModule
       ],
       declarations: [ AddressCreateComponent],
       providers: [
         { provide: AddressService, useValue: addressService },
-        { provide: TranslateService, useValue: translateService }
+        { provide: TranslateService, useValue: translateService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents()
@@ -200,9 +206,8 @@ describe('AddressCreateComponent', () => {
     addressService.save.and.returnValue(throwError({ error: 'Error' }))
     spyOn(component,'resetForm')
     component.save()
-    expect(component.confirmation).toBeNull()
-    expect(component.error).toBe('Error')
     expect(component.resetForm).toHaveBeenCalled()
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should clear the form and display error if updating address fails', fakeAsync(() => {
@@ -210,9 +215,8 @@ describe('AddressCreateComponent', () => {
     component.mode = 'edit'
     spyOn(component,'resetForm')
     component.save()
-    expect(component.confirmation).toBeNull()
-    expect(component.error).toBe('Error')
     expect(component.resetForm).toHaveBeenCalled()
+    expect(snackBar.open).toHaveBeenCalled()
   }))
 
   it('should populate the form on calling initializeForm', () => {
