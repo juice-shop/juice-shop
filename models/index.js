@@ -10,6 +10,14 @@ const sequelizeNoUpdateAttributes = require('sequelize-noupdate-attributes')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: 'sqlite',
+  retry: {
+    match: [
+      /SQLITE_BUSY/
+    ],
+    name: 'query',
+    max: 5
+  },
+  transactionType: 'IMMEDIATE',
   storage: 'data/juiceshop.sqlite',
   logging: false
 })
