@@ -230,13 +230,14 @@ function createMemories () {
   })]
   Array.prototype.push.apply(memories, Promise.all(
     config.get('memories').map((memory) => {
+      let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
-        memory.image = utils.extractFilename(memory.image)
-        utils.downloadToFile(imageUrl, 'assets/public/images/uploads/' + memory.image)
+        tmpImageFileName = utils.extractFilename(memory.image)
+        utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       return models.Memory.create({
-        imagePath: 'assets/public/images/uploads/' + memory.image,
+        imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: datacache.users[memory.user].id
       }).catch((err) => {
