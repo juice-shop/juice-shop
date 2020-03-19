@@ -17,6 +17,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     name: 'query',
     max: 5
   },
+  transactionType: 'IMMEDIATE',
   storage: 'data/juiceshop.sqlite',
   logging: false,
   pool: {
