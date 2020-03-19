@@ -19,10 +19,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   },
   transactionType: 'IMMEDIATE',
   storage: 'data/juiceshop.sqlite',
-  logging: false,
-  pool: {
-    max: 1
-  }
+  logging: false
 })
 sequelizeNoUpdateAttributes(sequelize)
 const db = {}

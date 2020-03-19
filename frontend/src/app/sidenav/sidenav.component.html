@@ -66,15 +66,6 @@
         {{"LABEL_ORDER_HISTORY" | translate}}
       </span>
       </a>
-      <a mat-list-item *ngIf="isLoggedIn()" routerLink="/track-order"
-         (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to track order page">
-        <mat-icon>
-          local_shipping
-        </mat-icon>
-        <span class="menu-text truncate">
-        {{"TITLE_TRACK_ORDERS" | translate}}
-      </span>
-      </a>
       <a mat-list-item *ngIf="isLoggedIn()" routerLink="/recycle"
          (click)="onToggleSidenav(); showOrdersSubmenu = !showOrdersSubmenu" aria-label="Go to recycling page">
         <mat-icon>

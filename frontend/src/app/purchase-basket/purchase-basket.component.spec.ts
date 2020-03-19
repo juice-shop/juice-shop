@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { BasketService } from '../Services/basket.service'
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing'
@@ -19,13 +19,17 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { UserService } from '../Services/user.service'
 import { DeluxeGuard } from '../app.guard'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+import { EventEmitter } from '@angular/core'
 
 describe('PurchaseBasketComponent', () => {
   let component: PurchaseBasketComponent
   let fixture: ComponentFixture<PurchaseBasketComponent>
   let basketService
   let userService
+  let translateService: any
   let deluxeGuard
+  let snackBar: any
 
   beforeEach(async(() => {
 
@@ -36,8 +40,14 @@ describe('PurchaseBasketComponent', () => {
     basketService.put.and.returnValue(of({}))
     userService = jasmine.createSpyObj('UserService',['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
+    translateService = jasmine.createSpyObj('TranslateService', ['get'])
+    translateService.get.and.returnValue(of({}))
+    translateService.onLangChange = new EventEmitter()
+    translateService.onTranslationChange = new EventEmitter()
+    translateService.onDefaultLangChange = new EventEmitter()
     deluxeGuard = jasmine.createSpyObj('',['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       declarations: [ PurchaseBasketComponent ],
@@ -50,10 +60,13 @@ describe('PurchaseBasketComponent', () => {
         MatCardModule,
         MatTableModule,
         MatButtonModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatSnackBarModule
       ],
       providers: [
+        { provide: TranslateService, useValue: translateService },
         { provide: BasketService, useValue: basketService },
+        { provide: MatSnackBar, useValue: snackBar },
         { provide: UserService , useValue: userService },
         { provide: DeluxeGuard, useValue: deluxeGuard }
       ]

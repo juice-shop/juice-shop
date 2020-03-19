@@ -23,8 +23,8 @@
 	"In previous releases this challenge was wrongly accused of being based on CSRF.": "在先前发布的版本中，这一挑战被错误地认为是基于CSRF。",
 	"Order the Christmas special offer of 2014.": "订购2014年圣诞节特别优惠。",
 	"Find out how the application handles unavailable products and try to find a loophole.": "了解应用程序如何处理不可用商品并试图找到漏洞。",
-	"Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.": "在应用的传统页面上使用代码<code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> 执行一个XSS攻击",
-	"What is even \"better\" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!": "有什么比基于RegEx的本地验证更“出色”的呢？ 基于RegEx的本地过滤！",
+	"Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.": "在应用的传统页面上绕过内容安全策略CSP并使用代码<code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> 执行一个XSS攻击",
+	"What is even \"better\" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!": "还有比带有原生RegEx过滤器的旧版页面“更好”的了么？同样在页面中还有CSP注入问题！",
 	"Perform a <i>persisted</i> XSS attack with <code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code> bypassing a <i>client-side</i> security mechanism.": "使用<code>&lt;iframe src=\"javascript:alert(`xss`)\"&gt;</code>代码绕过 <i>客户端</i>安全措施进行 <i>存储型</i> XSS 攻击。",
 	"Only some input fields validate their input. Even less of these are persisted in a way where their content is shown on another screen.": "仅某些输入字段会验证其输入。 这些内容甚至会以某种方式显示在另一个地方。",
 	"Access a confidential document.": "查阅机密文件。",
@@ -287,5 +287,10 @@
 	" <em>(This challenge is <strong>potentially harmful</strong> on Docker!)</em>": " <em>(这个挑战在Docker上 <strong>存在潜在威胁</strong>!)</em>",
 	" <em>(This challenge is <strong>potentially harmful</strong> on Heroku!)</em>": " <em>(这个挑战在Heroku上 <strong>存在潜在威胁</strong>!)</em>",
 	"Find the endpoint that serves usage data to be scraped by a <a href=\"https://github.com/prometheus/prometheus\">popular monitoring system</a>.": "找出后端服务使用<a href=\"https://github.com/prometheus/prometheus\">常见监测软件</a>获得的服务器数据",
-	"Try to guess what URL the endpoint might have.": "尝试猜测后端可能使用什么URL。"
+	"Try to guess what URL the endpoint might have.": "尝试猜测后端可能使用什么URL。",
+	"Look for a url parameter where its value appears in the page it is leading to.": "查找一个URL参数，它的值出现在它指向的页面中。",
+	"Change the name of a user by performing Cross-Site Request Forgery from <a href=\"http://htmledit.squarefree.com\">another origin</a>.": "使用跨站点请求伪造从 <a href=\"http://htmledit.squarefree.com\">另一个来源</a> 更改用户的名字。",
+	"Find a form which updates the username and then construct a malicious page in the online HTML editor.": "找到更新用户名的表单，然后在 HTML 在线编辑器中构建恶意页面。",
+	"Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.": "在 <i>DOM XSS</i> 挑战中使用奖励payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code>",
+	"Copy + Paste = Solved!": "复制 + 粘贴 = 解决！"
 }

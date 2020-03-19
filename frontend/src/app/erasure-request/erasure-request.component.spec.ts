@@ -9,7 +9,7 @@ import { DataSubjectService } from '../Services/data-subject.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { UserService } from '../Services/user.service'
 import { Location } from '@angular/common'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
@@ -32,7 +32,7 @@ describe('ErasureRequestComponent', () => {
   let location: Location
 
   beforeEach(async(() => {
-    cookieService = jasmine.createSpyObj('CookieService',['remove', 'get', 'put'])
+    cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
     userService = jasmine.createSpyObj('UserService',['saveLastLoginIp'])
     userService.saveLastLoginIp.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn',['next'])
@@ -147,7 +147,7 @@ describe('ErasureRequestComponent', () => {
 
   it('should remove authentication token from cookies', () => {
     component.logout()
-    expect(cookieService.remove).toHaveBeenCalledWith('token')
+    expect(cookieService.delete).toHaveBeenCalledWith('token')
   })
 
   it('should remove basket id from session storage', () => {

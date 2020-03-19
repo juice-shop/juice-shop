@@ -27,7 +27,9 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
+import { Location } from '@angular/common'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe)
 dom.watch()
@@ -55,7 +57,7 @@ export class PaymentComponent implements OnInit {
   public walletBalance: number = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
-  public payUsingWallet: boolean = false
+  public paymentMode: string = 'card'
   private campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
@@ -68,7 +70,12 @@ export class PaymentComponent implements OnInit {
     ORANGE2023: { validOn: 1683154800000, discount: 40 }
   }
 
-  constructor (private cookieService: CookieService, private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService, private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService, private basketService: BasketService, private translate: TranslateService, private activatedRoute: ActivatedRoute, private ngZone: NgZone) { }
+  constructor (private location: Location, private cookieService: CookieService,
+    private userService: UserService, private deliveryService: DeliveryService, private walletService: WalletService,
+    private router: Router, private dialog: MatDialog, private configurationService: ConfigurationService,
+    private basketService: BasketService, private translate: TranslateService,
+    private activatedRoute: ActivatedRoute, private ngZone: NgZone,
+    private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     this.initTotal()
@@ -159,7 +166,11 @@ export class PaymentComponent implements OnInit {
 
   getMessage (id) {
     this.paymentId = id
-    this.payUsingWallet = false
+    this.paymentMode = 'card'
+  }
+
+  routeToPreviousUrl () {
+    this.location.back()
   }
 
   choosePayment () {
@@ -168,13 +179,18 @@ export class PaymentComponent implements OnInit {
       this.walletService.put({ balance: this.totalPrice }).subscribe(() => {
         sessionStorage.removeItem('walletTotal')
         this.ngZone.run(() => this.router.navigate(['/wallet']))
-      },(err) => console.log(err))
+        this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
+      },(err) => {
+        console.log(err)
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      })
     } else if (this.mode === 'deluxe') {
-      this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
+      window.alert(this.paymentMode)
+      this.userService.upgradeToDeluxe(this.paymentMode).subscribe(() => {
         this.logout()
       }, (err) => console.log(err))
     } else {
-      if (this.payUsingWallet) {
+      if (this.paymentMode === 'wallet') {
         sessionStorage.setItem('paymentId', 'wallet')
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
@@ -186,7 +202,7 @@ export class PaymentComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.remove('token')
+    this.cookieService.delete('token')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/login']))
@@ -229,7 +245,7 @@ export class PaymentComponent implements OnInit {
   }
 
   useWallet () {
-    this.payUsingWallet = true
+    this.paymentMode = 'wallet'
   }
 
   resetCouponForm () {

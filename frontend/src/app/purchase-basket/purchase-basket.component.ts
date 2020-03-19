@@ -10,6 +10,7 @@ import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import { DeluxeGuard } from '../app.guard'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 dom.watch()
@@ -25,13 +26,13 @@ export class PurchaseBasketComponent implements OnInit {
   @Input('displayTotal') public displayTotal: boolean = false
   @Output() emitTotal = new EventEmitter()
   @Output() emitProductCount = new EventEmitter()
-  public tableColumns = ['image', 'product','price','quantity','total price']
+  public tableColumns = ['image', 'product','quantity','price']
   public dataSource = []
   public bonus = 0
   public itemTotal = 0
-  public error = undefined
   public userEmail: string
-  constructor (private deluxeGuard: DeluxeGuard, private basketService: BasketService, private userService: UserService) { }
+  constructor (private deluxeGuard: DeluxeGuard, private basketService: BasketService,
+    private userService: UserService, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
@@ -73,16 +74,13 @@ export class PurchaseBasketComponent implements OnInit {
   }
 
   addToQuantity (id,value) {
-    this.error = null
     this.basketService.get(id).subscribe((basketItem) => {
       let newQuantity = basketItem.quantity + value
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
         this.load()
       },(err) => {
-        {
-          this.error = err.error
-          console.log(err)
-        }
+        this.snackBarHelperService.open(err.error?.error,'errorBar')
+        console.log(err)
       })
     }, (err) => console.log(err))
   }

@@ -17,7 +17,6 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       set (username) {
         if (!utils.disableOnContainerEnv()) {
           username = insecurity.sanitizeLegacy(username)
-          utils.solveIf(challenges.usernameXssChallenge, () => { return utils.contains(username, '<script>alert(`xss`)</script>') })
         } else {
           username = insecurity.sanitizeSecure(username)
         }
@@ -49,13 +48,17 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
         isIn: [['customer', 'deluxe', 'accounting', 'admin']]
       }
     },
+    deluxeToken: {
+      type: STRING,
+      defaultValue: ''
+    },
     lastLoginIp: {
       type: STRING,
       defaultValue: '0.0.0.0'
     },
     profileImage: {
       type: STRING,
-      defaultValue: 'default.svg'
+      defaultValue: '/assets/public/images/uploads/default.svg'
     },
     totpSecret: {
       type: STRING,
