@@ -230,7 +230,7 @@ function createMemories () {
   })]
   Array.prototype.push.apply(memories, Promise.all(
     config.get('memories').map((memory) => {
-      tmpImageFileName = memory.image
+      let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
