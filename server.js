@@ -178,6 +178,7 @@ app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
 /* Create middleware to change paths from the serve-index plugin from absolute to relative */
 const serveIndexMiddleware = (req, res, next) => {
+<<<<<<< HEAD
   const origEnd = res.end
   res.end = function () {
     if (arguments.length) {
@@ -186,6 +187,16 @@ const serveIndexMiddleware = (req, res, next) => {
     origEnd.apply(this, arguments)
   }
   next()
+=======
+	const origEnd = res.end
+	res.end = function() {
+		if(arguments.length) {
+			arguments[0] = arguments[0].replace(/a href="\/([^"]+?)"/, 'a href="$1"')
+		}
+		origEnd.apply(this, arguments)
+	}
+	next()
+>>>>>>> Patch output from serve-index package to fix it breaking links in subdirectories
 }
 
 /* /ftp directory browsing and file download */
