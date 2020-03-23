@@ -7,7 +7,7 @@
 import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
-import { DomXssInstruction } from './challenges/localXss'
+import { DomXssInstruction } from './challenges/domXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
 import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
 import { LoginJimInstruction } from './challenges/loginJim'
