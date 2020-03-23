@@ -28,8 +28,7 @@ describe('challengeTutorialSequence', () => {
   it('should have unique tutorial orders', async () => {
     const tutorialOrderCounts = {}
 
-    for (const { name, tutorial } of challenges) {
-
+    for (const { tutorial } of challenges) {
       if (tutorial) {
         const order = tutorial.order
         if (!Object.prototype.hasOwnProperty.call(tutorialOrderCounts, order)) {
