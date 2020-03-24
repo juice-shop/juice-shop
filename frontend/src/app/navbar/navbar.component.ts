@@ -153,7 +153,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.delete('token')
+    this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/']))
@@ -163,7 +163,7 @@ export class NavbarComponent implements OnInit {
     this.translate.use(langKey)
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.set('language', langKey, expires)
+    this.cookieService.set('language', langKey, expires, '/')
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey

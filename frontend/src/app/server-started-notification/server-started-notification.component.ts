@@ -64,7 +64,7 @@ export class ServerStartedNotificationComponent implements OnInit {
   }
 
   clearProgress () {
-    this.cookieService.delete('continueCode')
+    this.cookieService.delete('continueCode', '/')
     this.hackingProgress.cleared = true
   }
 
