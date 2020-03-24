@@ -73,7 +73,9 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe((authentication: any) => {
       localStorage.setItem('token', authentication.token)
-      this.cookieService.set('token', authentication.token)
+      let expires = new Date()
+      expires.setHours(expires.getHours() + 8)
+      this.cookieService.set('token', authentication.token, expires, '/')
       sessionStorage.setItem('bid', authentication.bid)
       this.userService.isLoggedIn.next(true)
       this.ngZone.run(() => this.router.navigate(['/search']))
@@ -84,7 +86,7 @@ export class LoginComponent implements OnInit {
         return
       }
       localStorage.removeItem('token')
-      this.cookieService.delete('token')
+      this.cookieService.delete('token', '/')
       sessionStorage.removeItem('bid')
       this.error = error
       this.userService.isLoggedIn.next(false)
