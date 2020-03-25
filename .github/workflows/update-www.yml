@@ -23,7 +23,7 @@ jobs:
         wget https://raw.githubusercontent.com/bkimminich/juice-shop/master/data/static/challenges.yml
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
       with:
-        commit_message: "Auto-update challenges.yml from $GITHUB_SHA"
+        commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
 
