@@ -13,6 +13,7 @@ jobs:
     - name: Check out Git repository
       uses: actions/checkout@v2
       with:
+        token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
         branch: master
     - name: 'Update challenges.yml'
