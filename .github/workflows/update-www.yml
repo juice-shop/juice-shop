@@ -13,7 +13,7 @@ jobs:
     - name: Check out Git repository
       uses: actions/checkout@v2
       with:
-        repository: OWASP/www-project-juice-shop/
+        repository: OWASP/www-project-juice-shop
         branch: master
     - name: 'Update challenges.yml'
       run: |
