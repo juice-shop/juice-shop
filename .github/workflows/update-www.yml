@@ -1,4 +1,4 @@
-name: "auto update https://github.com/OWASP/www-project-juice-shop/"
+name: "Update challenges on owasp-juice.shop"
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - 'data/static/challenges.yml'
 
 jobs:
-  UpdateWebsite:
+  UpdateChallengesOnWebsite:
     runs-on: ubuntu-latest
     steps:
     - name: Check out Git repository
@@ -22,7 +22,7 @@ jobs:
         wget https://raw.githubusercontent.com/bkimminich/juice-shop/master/data/static/challenges.yml
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
       with:
-        commit_message: "update challenges.yml after juice-shop release"
+        commit_message: "Auto-update challenges.yml from $GITHUB_SHA"
         branch: master
         commit_options: '--signoff'
 
