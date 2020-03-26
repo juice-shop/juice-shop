@@ -14,7 +14,7 @@ jobs:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
         branch: master
-    - name: 'Update tab_news.md'
+    - name: Update tab_news.md
       run: |
         sed -i 's/<!-- next:juice-shop -->/<!-- next:juice-shop -->\n* ${{ github.event.release.published_at }}: juice-shop [`${{ github.event.release.tag_name }}`](https:\/\/github.com\/bkimminich\/juice-shop\/releases\/tag\/${{ github.event.release.tag_name }})/' tab_news.md
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
