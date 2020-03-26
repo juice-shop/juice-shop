@@ -224,7 +224,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#post-some-feedback-in-another-users-name'
   key: forgedFeedbackChallenge
   tutorial:
-    order: 7
+    order: 8
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
@@ -335,7 +335,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-the-administrators-user-account'
   key: loginAdminChallenge
   tutorial:
-    order: 4
+    order: 5
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
@@ -353,7 +353,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-benders-user-account'
   key: loginBenderChallenge
   tutorial:
-    order: 9
+    order: 10
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
@@ -379,7 +379,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-jims-user-account'
   key: loginJimChallenge
   tutorial:
-    order: 8
+    order: 9
 -
   name: 'Login MC SafeSearch'
   category: 'Sensitive Data Exposure'
@@ -475,7 +475,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-authentication.html#log-in-with-the-administrators-user-credentials-without-previously-changing-them-or-applying-sql-injection'
   key: weakPasswordChallenge
   tutorial:
-    order: 5
+    order: 6
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'
@@ -501,7 +501,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#read-our-privacy-policy'
   key: privacyPolicyChallenge
   tutorial:
-    order: 3
+    order: 4
 -
   name: 'Privacy Policy Inspection'
   category: 'Security through Obscurity'
@@ -712,7 +712,7 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#view-another-users-shopping-basket'
   key: basketAccessChallenge
   tutorial:
-    order: 6
+    order: 7
 -
   name: 'Vulnerable Library'
   category: 'Vulnerable Components'
@@ -815,3 +815,5 @@
   hint: 'Copy + Paste = Solved!'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#use-the-bonus-payload-in-the-dom-xss-challenge'
   key: xssBonusChallenge
+  tutorial:
+    order: 3
