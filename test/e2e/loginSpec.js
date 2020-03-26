@@ -147,7 +147,19 @@ describe('/#/login', () => {
       rememberMeCheckbox.click()
       loginButton.click()
 
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); }}; xhttp.open("POST","'+browser.baseUrl+'/rest/user/login", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.setRequestHeader("X-User-Email", localStorage.getItem("email")); xhttp.send(JSON.stringify({email: "admin@juice-sh.op", password: "admin123", oauth: true}));') // eslint-disable-line
+      browser.executeScript(baseUrl => {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.status === 200) {
+            console.log("Success");
+          }
+        };
+        xhttp.open("POST", baseUrl + '/rest/user/login', true);
+        xhttp.setRequestHeader("Content-type","application/json");
+        xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`);
+        xhttp.setRequestHeader("X-User-Email", localStorage.getItem("email"));
+        xhttp.send(JSON.stringify({email: "admin@juice-sh.op", password: "admin123", oauth: true}));
+      }, browser.baseUrl)
 
       // Deselect to clear email field for subsequent tests
       rememberMeCheckbox.click()
