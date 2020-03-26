@@ -563,12 +563,14 @@ function createOrders () {
   const basket1Products = [
     {
       quantity: 3,
+      id: products[0].id,
       name: products[0].name,
       price: products[0].price,
       total: products[0].price * 3
     },
     {
       quantity: 1,
+      id: products[1].id,
       name: products[1].name,
       price: products[1].price,
       total: products[1].price * 1
@@ -578,6 +580,7 @@ function createOrders () {
   const basket2Products = [
     {
       quantity: 3,
+      id: products[2].id,
       name: products[2].name,
       price: products[2].price,
       total: products[2].price * 3
@@ -587,12 +590,14 @@ function createOrders () {
   const basket3Products = [
     {
       quantity: 3,
+      id: products[0].id,
       name: products[0].name,
       price: products[0].price,
       total: products[0].price * 3
     },
     {
       quantity: 5,
+      id: products[3].id,
       name: products[3].name,
       price: products[3].price,
       total: products[3].price * 5

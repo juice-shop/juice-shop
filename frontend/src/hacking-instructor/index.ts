@@ -14,6 +14,7 @@ import { LoginJimInstruction } from './challenges/loginJim'
 import { ViewBasketInstruction } from './challenges/viewBasket'
 import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 import { PasswordStrengthInstruction } from './challenges/passwordStrength'
+import { BonusPayloadInstruction } from './challenges/bonusPayload'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -23,7 +24,8 @@ const challengeInstructions: ChallengeInstruction[] = [
   PrivacyPolicyInstruction,
   ViewBasketInstruction,
   ForgedFeedbackInstruction,
-  PasswordStrengthInstruction
+  PasswordStrengthInstruction,
+  BonusPayloadInstruction
 ]
 
 export interface ChallengeInstruction {

@@ -188,7 +188,7 @@
   "ADD_BASKET": "Agregar a Carrito de Compras",
   "BTN_SHOW_ALL": "Mostrar todo",
   "BTN_SHOW_UNAVAILABLE": "Mostrar no disponibles ",
-  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
+  "INFO_DISABLED_CHALLENGES": "¡{{num}} retos no están disponibles en {{env}} por <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>razones de seguridad</a> o incompatibilidad técnica!",
   "BTN_HIDE_ALL": "Ocultar todo",
   "TYPE_THESE_LETTERS": "Introduzca las siguientes {{length}} letras",
   "BTN_REQUEST": "Solicitar",
@@ -224,7 +224,7 @@
   "LABEL_STATE": "Estado",
   "STATE_PLACEHOLDER": "Por favor indicar un estado",
   "LABEL_GO_BACK": "Atras",
-  "LABEL_BACK": "Back",
+  "LABEL_BACK": "Volver",
   "TITLE_SELECT_ADDRESS": "Seleccionar una dirección",
   "USE_THIS_ADDRESS": "Usar esta dirección",
   "BTN_DELETE": "Eliminar",
@@ -308,7 +308,7 @@
   "MANDATORY_CAPTION": "Por favor ingresar un subtitulo ",
   "LABEL_CAPTION": "Subtitulo ",
   "LABEL_PICK_IMAGE": "Escoger imagen ",
-  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
+  "IMAGE_UPLOAD_SUCCESS": "Tu imagen se cargó correctamente.",
   "EMPTY_MEMORY_LIST": "No han sido compartido recuerdos aun ",
   "LABEL_DELUXE_MEMBERSHIP": "Membresía Deluxe ",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Disfrute de increíbles beneficios como un cliente de lujo de {{appname}}. Echa un vistazo a lo que incluye tu membresía.",
@@ -342,7 +342,7 @@
   "CLICK_TO_OPEN_HINTS": "Haga clic para mostrar pistas.",
   "BONUS_POINTS_EARNED": "Puntos de Bonificación Obtenidos: {{bonus}}",
   "BONUS_FOR_FUTURE_PURCHASES": "Los puntos de bonus de este pedido serán <em>añadidos 1:1 a su billetera ¤-fund</em> para futuras compras!",
-  "ENTER_COUPON_CODE": "Please enter your coupon code",
-  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
-  "CHARGED_WALLET": "Wallet successfully charged."
+  "ENTER_COUPON_CODE": "Por favor ingresa tu código de cupón",
+  "COUPON_CODE_HINT": "El código de cupón debe tener 10 caracteres de longitud.",
+  "CHARGED_WALLET": "La billetera se cargó correctamente."
 }
