@@ -16,7 +16,7 @@ describe('/promotion', () => {
   it('GET promotion video page contains embedded video', () => {
     return frisby.get(URL + '/promotion')
       .expect('header', 'content-type', /text\/html/)
-      .expect('bodyContains', '<source src="/video" type="video/mp4">')
+      .expect('bodyContains', '<source src="./video" type="video/mp4">')
   })
 
   it('GET promotion video page contains subtitles as <script>', () => {
