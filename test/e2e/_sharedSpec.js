@@ -4,12 +4,17 @@
  */
 
 const otplib = require('otplib')
+const url = require('url')
+
+let basePath = (new url.URL(browser.baseUrl)).pathname
+if (basePath === '/') basePath = ''
+protractor.basePath = basePath
 
 protractor.expect = {
   challengeSolved: function (context) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get('/#/score-board')
+        browser.get(protractor.basePath + '/#/score-board')
       })
 
       it("challenge '" + context.challenge + "' should be solved on score board", () => {
@@ -24,7 +29,7 @@ protractor.beforeEach = {
   login: function (context) {
     describe('(shared)', () => {
       beforeEach(() => {
-        browser.get('/#/login')
+        browser.get(protractor.basePath + '/#/login')
 
         element(by.id('email')).sendKeys(context.email)
         element(by.id('password')).sendKeys(context.password)

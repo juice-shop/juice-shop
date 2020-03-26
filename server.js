@@ -181,7 +181,19 @@ const serveIndexMiddleware = (req, res, next) => {
   const origEnd = res.end
   res.end = function () {
     if (arguments.length) {
-      arguments[0] = arguments[0].replace(/a href="\/([^"]+?)"/, 'a href="$1"')
+      const reqPath = req.originalUrl.replace(/\?.*$/, '')
+      const currentFolder = reqPath.split('/').pop()
+      arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString, matchedUrl) {
+        let relativePath = path.relative(reqPath, matchedUrl)
+        if (relativePath === '') {
+          relativePath = currentFolder
+        } else if (!relativePath.startsWith('.') && currentFolder !== '') {
+          relativePath = currentFolder + '/' + relativePath
+        } else {
+          relativePath = relativePath.replace('..', '.')
+        }
+        return 'a href="' + relativePath + '"'
+      })
     }
     origEnd.apply(this, arguments)
   }

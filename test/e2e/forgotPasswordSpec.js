@@ -17,7 +17,7 @@ describe('/#/forgot-password', () => {
       }
     })
     browser.wait(EC.stalenessOf($('#logout')), 5000)
-    browser.get('/#/forgot-password')
+    browser.get(protractor.basePath + '/#/forgot-password')
     email = element(by.id('email'))
     securityAnswer = element(by.id('securityAnswer'))
     newPassword = element(by.id('newPassword'))
