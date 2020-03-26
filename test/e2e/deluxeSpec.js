@@ -11,7 +11,7 @@ describe('/#/deluxe-membership', () => {
     protractor.beforeEach.login({ email: 'jim@' + config.get('application.domain'), password: 'ncc-1701' })
 
     it('should be possible to pass in a forgotten test parameter abusing the redirect-endpoint to load an external image', () => {
-      browser.get('/#/deluxe-membership?testDecal=..%2F..%2F..%2F..%2Fredirect%3Fto%3Dhttps:%2F%2Fplacekitten.com%2Fg%2F200%2F100%3Fx%3Dhttps:%2F%2Fgithub.com%2Fbkimminich%2Fjuice-shop')
+      browser.get(protractor.basePath + '/#/deluxe-membership?testDecal=' + encodeURIComponent('../../../..' + protractor.basePath + '/redirect?to=https://placekitten.com/g/200/100?x=https://github.com/bkimminich/juice-shop'))
     })
 
     protractor.expect.challengeSolved({ challenge: 'Cross-Site Imaging' })

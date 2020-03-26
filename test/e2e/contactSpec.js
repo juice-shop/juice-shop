@@ -11,7 +11,7 @@ describe('/#/contact', () => {
   let comment, rating, submitButton, captcha, snackBar
 
   beforeEach(() => {
-    browser.get('/#/contact')
+    browser.get(protractor.basePath + '/#/contact')
     comment = element(by.id('comment'))
     rating = $$('.br-unit').last()
     captcha = element(by.id('captchaControl'))
@@ -37,7 +37,7 @@ describe('/#/contact', () => {
 
       submitButton.click()
 
-      browser.get('/#/administration')
+      browser.get(protractor.basePath + '/#/administration')
       expect($$('mat-row mat-cell.mat-column-user').last().getText()).toMatch('2')
     })
 
@@ -56,15 +56,18 @@ describe('/#/contact', () => {
 
         submitButton.click()
 
+        browser.sleep(5000)
+
         browser.waitForAngularEnabled(false)
-        browser.get('/#/about')
+        browser.get(protractor.basePath + '/#/about')
+
         browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/about")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
         })
 
-        browser.get('/#/administration')
+        browser.get(protractor.basePath + '/#/administration')
         browser.wait(EC.alertIsPresent(), 15000, "'xss' alert is not present on /#/administration")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
@@ -137,7 +140,7 @@ describe('/#/contact', () => {
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
-      browser.executeAsyncScript(() => {
+      browser.executeAsyncScript(baseUrl => {
         var callback = arguments[arguments.length - 1] // eslint-disable-line
         var xhttp = new XMLHttpRequest()
         var captcha
@@ -148,7 +151,7 @@ describe('/#/contact', () => {
           }
         }
 
-        xhttp.open('GET', 'http://localhost:3000/rest/captcha/', true)
+        xhttp.open('GET', baseUrl + '/rest/captcha/', true)
         xhttp.setRequestHeader('Content-type', 'text/plain')
         xhttp.send()
 
@@ -161,11 +164,11 @@ describe('/#/contact', () => {
             }
           }
 
-          xhttp.open('POST', 'http://localhost:3000/api/Feedbacks', true)
+          xhttp.open('POST', baseUrl + '/api/Feedbacks', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.send(JSON.stringify({"captchaId": _captcha.captchaId, "captcha": `${_captcha.answer}`, "comment": "Comment", "rating": 0})) // eslint-disable-line
         }
-      })
+      }, browser.baseUrl)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Zero Stars' })

@@ -76,7 +76,13 @@ jobs:
       os: linux
       script:
         - export NODE_ENV=test
-        - npm run protractor
+        - npm run e2e
+    - stage: e2e
+      if: tag IS blank
+      os: linux
+      script:
+        - export NODE_ENV=test
+        - npm run e2e -- subfolder
     - stage: smoke
       if: tag IS blank
       os: linux
