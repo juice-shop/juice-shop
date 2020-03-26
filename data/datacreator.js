@@ -60,7 +60,7 @@ async function createChallenges () {
 
   await Promise.all(
     challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, key, disabledEnv }) => {
-      const effectiveDisabledEnv = utils.determineDisabledContainerEnv(disabledEnv)
+      const effectiveDisabledEnv = utils.determineDisabledEnv(disabledEnv)
       description = description.replace('juice-sh.op', config.get('application.domain'))
       description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
       hint = hint.replace(/OWASP Juice Shop's/, `${config.get('application.name')}'s`)
@@ -96,6 +96,7 @@ async function createUsers () {
           email: completeEmail,
           password,
           role,
+          deluxeToken: role === insecurity.roles.deluxe ? insecurity.deluxeToken(completeEmail) : '',
           profileImage: profileImage || '/assets/public/images/uploads/default.svg',
           totpSecret
         })
@@ -230,13 +231,14 @@ function createMemories () {
   })]
   Array.prototype.push.apply(memories, Promise.all(
     config.get('memories').map((memory) => {
+      let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
-        memory.image = utils.extractFilename(memory.image)
-        utils.downloadToFile(imageUrl, 'assets/public/images/uploads/' + memory.image)
+        tmpImageFileName = utils.extractFilename(memory.image)
+        utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
       }
       return models.Memory.create({
-        imagePath: 'assets/public/images/uploads/' + memory.image,
+        imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: datacache.users[memory.user].id
       }).catch((err) => {

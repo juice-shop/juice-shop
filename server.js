@@ -461,7 +461,7 @@ app.post('/rest/user/login', login())
 app.get('/rest/user/change-password', changePassword())
 app.post('/rest/user/reset-password', resetPassword())
 app.get('/rest/user/security-question', securityQuestion())
-app.get('/rest/user/whoami', currentUser())
+app.get('/rest/user/whoami', insecurity.updateAuthenticatedUsers(), currentUser())
 app.get('/rest/user/authentication-details', authenticatedUsers())
 app.get('/rest/products/search', search())
 app.get('/rest/basket/:id', basket())
@@ -512,7 +512,7 @@ app.get('/promotion', videoHandler.promotionVideo())
 app.get('/video', videoHandler.getVideo())
 
 /* Routes for profile page */
-app.get('/profile', userProfile())
+app.get('/profile', insecurity.updateAuthenticatedUsers(), userProfile())
 app.post('/profile', updateUserProfile())
 
 app.use(angular())

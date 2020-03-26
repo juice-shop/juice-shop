@@ -2,6 +2,7 @@
  * Copyright (c) 2014-2020 Bjoern Kimminich.
  * SPDX-License-Identifier: MIT
  */
+const utils = require('../../lib/utils')
 
 describe('/', () => {
   describe('challenge "jwtUnsigned"', () => {
@@ -13,12 +14,14 @@ describe('/', () => {
     protractor.expect.challengeSolved({ challenge: 'Unsigned JWT' })
   })
 
-  describe('challenge "jwtForged"', () => {
-    it('should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ', () => {
-      browser.executeScript('localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTA4NjM5NjEyLCJleHAiOjk5OTk5OTk5OTl9.dFeqI0EGsOecwi5Eo06dFUBtW5ziRljFgMWOCYeA8yw")')
-      browser.get('/#/')
-    })
+  if (!utils.disableOnWindowsEnv()) {
+    describe('challenge "jwtForged"', () => {
+      it('should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ', () => {
+        browser.executeScript('localStorage.setItem("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgzMDM3NzExfQ.gShXDT5TrE5736mpIbfVDEcQbLfteJaQUG7Z0PH8Xc8")')
+        browser.get('/#/')
+      })
 
-    protractor.expect.challengeSolved({ challenge: 'Forged Signed JWT' })
-  })
+      protractor.expect.challengeSolved({ challenge: 'Forged Signed JWT' })
+    })
+  }
 })
