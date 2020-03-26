@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "10.1.0-SNAPSHOT",
+  "version": "10.1.0",
   "description": "Probably the most modern and sophisticated insecure web application",
   "homepage": "https://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -75,8 +75,9 @@
     "i18n": "^0.8.5",
     "is-docker": "^2.0.0",
     "is-heroku": "^2.0.0",
+    "is-windows": "^1.0.2",
     "js-yaml": "^3.13.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "0.4.0",
     "jssha": "^2.3.1",
     "libxmljs2": "^0.22.0",
     "marsdb": "^0.6.11",

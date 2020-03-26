@@ -48,6 +48,10 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
         isIn: [['customer', 'deluxe', 'accounting', 'admin']]
       }
     },
+    deluxeToken: {
+      type: STRING,
+      defaultValue: ''
+    },
     lastLoginIp: {
       type: STRING,
       defaultValue: '0.0.0.0'

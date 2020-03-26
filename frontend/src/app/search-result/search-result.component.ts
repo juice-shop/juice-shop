@@ -99,6 +99,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
+      let challenge: string = this.route.snapshot.queryParams.challenge
+      if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
+        this.startHackingInstructor(decodeURIComponent(challenge))
+      }
       if (window.innerWidth < 2600) {
         this.breakpoint = 4
         if (window.innerWidth < 1740) {
@@ -150,6 +154,13 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.searchValue = undefined
       this.emptyState = false
     }
+  }
+
+  startHackingInstructor (challengeName: String) {
+    console.log(`Starting instructions for challenge "${challengeName}"`)
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor(challengeName)
+    })
   }
 
   showDetail (element: Product) {

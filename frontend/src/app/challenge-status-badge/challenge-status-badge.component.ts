@@ -6,6 +6,11 @@
 import { Component, Input } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
+import { faWindows } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faWindows)
+dom.watch()
 
 import { Challenge } from '../Models/challenge.model'
 
