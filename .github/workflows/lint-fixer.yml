@@ -8,12 +8,12 @@ jobs:
     steps:
     - name: Check out Git repository
       uses: actions/checkout@v2
-    - name: 'Install Linter'
+    - name: Install Linter
       run: |
         npm install --ignore-scripts
         cd frontend
         npm install --ignore-scripts
-    - name: 'Fix everything which can be fixed'
+    - name: Fix everything which can be fixed
       run: 'npm run lint:fix'
     - uses: stefanzweifel/git-auto-commit-action@v4.0.0
       with:

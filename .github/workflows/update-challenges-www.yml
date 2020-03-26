@@ -16,7 +16,7 @@ jobs:
         token: ${{ secrets.BOT_TOKEN }}
         repository: OWASP/www-project-juice-shop
         branch: master
-    - name: 'Update challenges.yml'
+    - name: Update challenges.yml
       run: |
         cd _data/
         rm challenges.yml
