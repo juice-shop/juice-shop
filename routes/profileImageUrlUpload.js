@@ -33,7 +33,7 @@ module.exports = function profileImageUrlUpload () {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
       }
     }
-    res.location((process.env.basePath || '') + '/profile')
-    res.redirect((process.env.basePath || '') + '/profile')
+    res.location((process.env.BASE_PATH || '') + '/profile')
+    res.redirect((process.env.BASE_PATH || '') + '/profile')
   }
 }
