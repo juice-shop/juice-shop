@@ -1,5 +1,6 @@
 server:
   port: 3000
+  basePath: ''
 application:
   domain: juice-sh.op
   name: 'OWASP Juice Shop'
