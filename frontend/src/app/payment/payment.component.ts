@@ -215,7 +215,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: 'bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
-        url: '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        url: './redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
         address: '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
         title: 'TITLE_BITCOIN_ADDRESS'
       }
@@ -226,7 +226,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: 'dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
-        url: '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        url: './redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
         address: 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
         title: 'TITLE_DASH_ADDRESS'
       }
@@ -237,7 +237,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
-        url: '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        url: './redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
         address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
         title: 'TITLE_ETHER_ADDRESS'
       }
