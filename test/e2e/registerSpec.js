@@ -9,15 +9,15 @@ const utils = require('../../lib/utils')
 
 describe('/#/register', () => {
   beforeEach(() => {
-    browser.get('/#/register')
+    browser.get(protractor.basePath + '/#/register')
   })
 
   if (!utils.disableOnContainerEnv()) {
     describe('challenge "persistedXssUser"', () => {
       protractor.beforeEach.login({ email: 'admin@' + config.get('application.domain'), password: 'admin123' })
 
-      it('should be possible to bypass validation by directly using Rest API', () => {
-        browser.executeScript(() => {
+      it('should be possible to bypass validation by directly using Rest API', async () => {
+        browser.executeScript(baseUrl => {
           var xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 201) {
@@ -25,7 +25,7 @@ describe('/#/register', () => {
             }
           }
 
-          xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+          xhttp.open('POST', baseUrl + '/api/Users/', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.send(JSON.stringify({
             email: '<iframe src="javascript:alert(`xss`)">',
@@ -33,11 +33,13 @@ describe('/#/register', () => {
             passwordRepeat: 'XSSed',
             role: 'admin'
           }))
-        })
+        }, browser.baseUrl)
+
+        browser.driver.sleep(5000)
 
         browser.waitForAngularEnabled(false)
         const EC = protractor.ExpectedConditions
-        browser.get('/#/administration')
+        browser.get(protractor.basePath + '/#/administration')
         browser.wait(EC.alertIsPresent(), 10000, "'xss' alert is not present on /#/administration")
         browser.switchTo().alert().then(alert => {
           expect(alert.getText()).toEqual('xss')
@@ -62,7 +64,7 @@ describe('/#/register', () => {
 
   describe('challenge "registerAdmin"', () => {
     it('should be possible to register admin user using REST API', () => {
-      browser.executeScript(() => {
+      browser.executeScript(baseUrl => {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 201) {
@@ -70,10 +72,10 @@ describe('/#/register', () => {
           }
         }
 
-        xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+        xhttp.open('POST', baseUrl + '/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.send(JSON.stringify({ email: 'testing@test.com', password: 'pwned', passwordRepeat: 'pwned', role: 'admin' }))
-      })
+      }, browser.baseUrl)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Admin Registration' })
@@ -81,7 +83,7 @@ describe('/#/register', () => {
 
   describe('challenge "passwordRepeat"', () => {
     it('should be possible to register user without repeating the password', () => {
-      browser.executeScript(() => {
+      browser.executeScript(baseUrl => {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function () {
           if (this.status === 201) {
@@ -89,10 +91,10 @@ describe('/#/register', () => {
           }
         }
 
-        xhttp.open('POST', 'http://localhost:3000/api/Users/', true)
+        xhttp.open('POST', baseUrl + '/api/Users/', true)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.send(JSON.stringify({ email: 'uncle@bob.com', password: 'ThereCanBeOnlyOne' }))
-      })
+      }, browser.baseUrl)
     })
 
     protractor.expect.challengeSolved({ challenge: 'Repetitive Registration' })

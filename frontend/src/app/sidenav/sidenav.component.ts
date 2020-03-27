@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
@@ -83,7 +84,7 @@ export class SidenavComponent implements OnInit {
   }
 
   goToProfilePage () {
-    window.location.replace('/profile')
+    window.location.replace(environment.hostServer + '/profile')
   }
 
   // tslint:disable-next-line:no-empty

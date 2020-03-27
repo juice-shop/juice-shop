@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
@@ -190,7 +191,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfilePage () {
-    window.location.replace('/profile')
+    window.location.replace(environment.hostServer + '/profile')
   }
 
   onToggleSidenav = () => {
