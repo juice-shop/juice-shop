@@ -176,16 +176,40 @@ app.use('/assets/i18n', verify.accessControlChallenges())
 /* Checks for challenges solved by abusing SSTi and SSRF bugs */
 app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
+/* Create middleware to change paths from the serve-index plugin from absolute to relative */
+const serveIndexMiddleware = (req, res, next) => {
+  const origEnd = res.end
+  res.end = function () {
+    if (arguments.length) {
+      const reqPath = req.originalUrl.replace(/\?.*$/, '')
+      const currentFolder = reqPath.split('/').pop()
+      arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString, matchedUrl) {
+        let relativePath = path.relative(reqPath, matchedUrl)
+        if (relativePath === '') {
+          relativePath = currentFolder
+        } else if (!relativePath.startsWith('.') && currentFolder !== '') {
+          relativePath = currentFolder + '/' + relativePath
+        } else {
+          relativePath = relativePath.replace('..', '.')
+        }
+        return 'a href="' + relativePath + '"'
+      })
+    }
+    origEnd.apply(this, arguments)
+  }
+  next()
+}
+
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { icons: true }))
+app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
 app.use('/ftp/:file', fileServer())
 
 /* /encryptionkeys directory browsing */
-app.use('/encryptionkeys', serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
 
 /* /logs directory browsing */
-app.use('/support/logs', serveIndex('logs', { icons: true, view: 'details' }))
+app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
 app.use('/support/logs', verify.accessControlChallenges())
 app.use('/support/logs/:file', logFileServer())
 

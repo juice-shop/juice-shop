@@ -14,21 +14,21 @@ describe('/api', () => {
 
       it('should be possible to create a new product when logged in', () => {
         const EC = protractor.ExpectedConditions
-        browser.executeScript(() => {
+        browser.executeScript(baseUrl => {
           var xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
             }
           }
-          xhttp.open('POST', 'http://localhost:3000/api/Products', true)
+          xhttp.open('POST', baseUrl + '/api/Products', true)
           xhttp.setRequestHeader('Content-type', 'application/json')
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.send(JSON.stringify({ name: 'RestXSS', description: '<iframe src="javascript:alert(`xss`)">', price: 47.11 }))
-        })
+        }, browser.baseUrl)
 
         browser.waitForAngularEnabled(false)
-        browser.get('/#/search?q=RestXSS')
+        browser.get(protractor.basePath + '/#/search?q=RestXSS')
         browser.refresh()
         browser.driver.sleep(1000)
         const productImage = element(by.css('img[alt="RestXSS"]'))
@@ -70,11 +70,24 @@ describe('/api', () => {
 
     it('should be possible to change product via PUT request without being logged in', () => {
       browser.waitForAngularEnabled(false)
-      browser.executeScript(`var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); } }; xhttp.open("PUT","${"http://localhost:3000/api/Products/" + tamperingProductId}", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.send(JSON.stringify({"description" : "<a href=\\"${overwriteUrl}\\" target=\\"_blank\\">More...</a>"}));`) // eslint-disable-line
+
+      browser.executeScript((baseUrl, tamperingProductId, overwriteUrl) => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('PUT', baseUrl + '/api/Products/' + tamperingProductId, true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify({
+          description: '<a href="' + overwriteUrl + '" target="_blank">More...</a>'
+        }))
+      }, browser.baseUrl, tamperingProductId, overwriteUrl)
       browser.driver.sleep(1000)
       browser.waitForAngularEnabled(true)
 
-      browser.get('/#/search')
+      browser.get(protractor.basePath + '/#/search')
     })
 
     protractor.expect.challengeSolved({ challenge: 'Product Tampering' })
@@ -88,18 +101,18 @@ describe('/rest/saveLoginIp', () => {
 
       it('should be possible to save log-in IP when logged in', () => {
         browser.waitForAngularEnabled(false)
-        browser.executeScript(() => {
+        browser.executeScript(baseUrl => {
           var xhttp = new XMLHttpRequest()
           xhttp.onreadystatechange = function () {
             if (this.status === 200) {
               console.log('Success')
             }
           }
-          xhttp.open('GET', 'http://localhost:3000/rest/saveLoginIp', true)
+          xhttp.open('GET', baseUrl + '/rest/saveLoginIp', true)
           xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
           xhttp.setRequestHeader('True-Client-IP', '<iframe src="javascript:alert(`xss`)">')
           xhttp.send()
-        })
+        }, browser.baseUrl)
         browser.driver.sleep(1000)
         browser.waitForAngularEnabled(true)
       })
@@ -110,7 +123,7 @@ describe('/rest/saveLoginIp', () => {
 
   it('should not be possible to save log-in IP when not logged in', () => {
     browser.waitForAngularEnabled(false)
-    browser.get('/rest/saveLoginIp')
+    browser.get(protractor.basePath + '/rest/saveLoginIp')
     $('pre').getText().then(function (text) {
       expect(text).toMatch('Unauthorized')
     })
