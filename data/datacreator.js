@@ -97,7 +97,7 @@ async function createUsers () {
           password,
           role,
           deluxeToken: role === insecurity.roles.deluxe ? insecurity.deluxeToken(completeEmail) : '',
-          profileImage: profileImage || '/assets/public/images/uploads/default.svg',
+          profileImage: `assets/public/images/uploads/${profileImage || 'default.svg'}`,
           totpSecret
         })
         datacache.users[key] = user
