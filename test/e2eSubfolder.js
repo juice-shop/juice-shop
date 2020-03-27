@@ -15,7 +15,7 @@ const originalBase = require('../protractor.conf.js').config.baseUrl
 const baseUrl = new url.URL(require('../protractor.subfolder.conf.js').config.baseUrl)
 const basePath = baseUrl.pathname
 const proxyPort = baseUrl.port
-process.env.basePath = basePath
+process.env.BASE_PATH = basePath
 
 app.use('/subfolder', (req, res) => {
   const proxyUrl = originalBase + req.url
