@@ -1,6 +1,8 @@
 server:
   port:
     type: number
+  basePath:
+    type: string
 application:
   domain:
     type: string
