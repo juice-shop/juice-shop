@@ -185,7 +185,6 @@ export class PaymentComponent implements OnInit {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
       })
     } else if (this.mode === 'deluxe') {
-      window.alert(this.paymentMode)
       this.userService.upgradeToDeluxe(this.paymentMode).subscribe(() => {
         this.logout()
       }, (err) => console.log(err))
