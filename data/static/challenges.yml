@@ -820,8 +820,8 @@
 -
   name: 'Reset Scar''s Password'
   category: 'Sensitive Data Exposure'
-  description: 'Reset Scar''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question. He sometimes goes by MSC4R online.'
+  description: 'Reset Scar''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
-  hint: 'Maybe you can find some hints across his social media.'
+  hint: 'Maybe you can find some hints across his social media. If only you could find something like an alias...'
   hintUrl: ''
   key: resetPasswordScarChallenge
