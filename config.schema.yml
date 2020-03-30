@@ -384,6 +384,11 @@ ctf:
         type: string
       code:
         type: string
+    resetPasswordScarChallenge:
+      name:
+        type: string
+      code:
+        type: string
     resetPasswordBjoernChallenge:
       name:
         type: string
