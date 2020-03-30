@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe <em>1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt</em>!",
   "ENTER_COUPON_CODE": "Bitte gib deinen Gutscheidcode ein",
   "COUPON_CODE_HINT": "Gutscheincode muss 10 Zeichen lang sein.",
-  "CHARGED_WALLET": "Brieftasche erfolgreich aufgeladen."
+  "CHARGED_WALLET": "Brieftasche erfolgreich aufgeladen.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
