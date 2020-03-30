@@ -98,6 +98,11 @@ export class ScoreBoardComponent implements OnInit {
       this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
       this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
 
+      if (this.showOnlyTutorialChallenges) {
+        this.challenges.sort((a, b) => {
+          return a.tutorialOrder - b.tutorialOrder
+        })
+      }
       this.spinner.hide()
     }, (err) => {
       this.challenges = []
