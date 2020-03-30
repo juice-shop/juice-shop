@@ -345,5 +345,6 @@
   "ENTER_COUPON_CODE": "Please enter your coupon code",
   "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
   "CHARGED_WALLET": "Wallet successfully charged.",
-  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
+  "INFO_FULL_CHALLENGE_MODE": "Complete the challenges with tutorials to unveil all {{num}} challenges and unlock the advanced Score Board filters!"
 }
