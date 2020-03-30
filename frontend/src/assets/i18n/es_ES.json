@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "Los puntos de bonus de este pedido serán <em>añadidos 1:1 a su billetera ¤-fund</em> para futuras compras!",
   "ENTER_COUPON_CODE": "Por favor ingresa tu código de cupón",
   "COUPON_CODE_HINT": "El código de cupón debe tener 10 caracteres de longitud.",
-  "CHARGED_WALLET": "La billetera se cargó correctamente."
+  "CHARGED_WALLET": "La billetera se cargó correctamente.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
