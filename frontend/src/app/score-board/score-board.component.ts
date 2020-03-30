@@ -37,6 +37,7 @@ export class ScoreBoardComponent implements OnInit {
   public showSolvedChallenges: boolean = true
   public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
+  public showOnlyTutorialChallenges: boolean = true
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
@@ -57,9 +58,10 @@ export class ScoreBoardComponent implements OnInit {
   ngOnInit () {
     this.spinner.show()
 
-    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
+    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1, 2, 3]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
     this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
+    this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : true
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
@@ -209,6 +211,22 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
   }
 
+  toggleShowOnlyTutorialChallenges () {
+    this.showOnlyTutorialChallenges = !this.showOnlyTutorialChallenges
+    localStorage.setItem('showOnlyTutorialChallenges', JSON.stringify(this.showOnlyTutorialChallenges))
+    if (this.showOnlyTutorialChallenges) {
+      this.challenges.sort((a, b) => {
+        return a.tutorialOrder - b.tutorialOrder
+      })
+    } else {
+      this.challenges.sort((a,b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+        return 0
+      })
+    }
+  }
+
   toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
@@ -244,6 +262,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
       if (!this.showDisabledChallenges && challenge.disabledEnv) return false
+      if (this.showOnlyTutorialChallenges && !challenge.hasTutorial) return false
       return true
     })
 
