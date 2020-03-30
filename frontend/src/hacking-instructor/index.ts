@@ -16,6 +16,7 @@ import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 import { PasswordStrengthInstruction } from './challenges/passwordStrength'
 import { BonusPayloadInstruction } from './challenges/bonusPayload'
 import { LoginBenderInstruction } from './challenges/loginBender'
+import { TutorialUnavailableInstruction } from './tutorialUnavailable'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -29,6 +30,8 @@ const challengeInstructions: ChallengeInstruction[] = [
   BonusPayloadInstruction,
   LoginBenderInstruction
 ]
+
+const fallbackInstruction = TutorialUnavailableInstruction
 
 export interface ChallengeInstruction {
   name: string
@@ -118,7 +121,7 @@ export function hasInstructions (challengeName: String): boolean {
 }
 
 export async function startHackingInstructorFor (challengeName: String): Promise<void> {
-  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName)
+  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) || TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction!.hints) {
     const element = loadHint(hint)
