@@ -44,6 +44,13 @@
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
 
+      <mat-button-toggle (change)="toggleShowOnlyTutorialChallenges()" [checked]="showOnlyTutorialChallenges">
+        <mat-icon>
+          school
+        </mat-icon>
+        {{"BTN_SHOW_ONLY_TUTORIALS" | translate}}
+      </mat-button-toggle>
+
       <mat-button-toggle *ngIf="numDisabledChallenges > 0" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges">
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>

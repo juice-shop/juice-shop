@@ -15,6 +15,7 @@ import { ViewBasketInstruction } from './challenges/viewBasket'
 import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 import { PasswordStrengthInstruction } from './challenges/passwordStrength'
 import { BonusPayloadInstruction } from './challenges/bonusPayload'
+import { LoginBenderInstruction } from './challenges/loginBender'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -25,7 +26,8 @@ const challengeInstructions: ChallengeInstruction[] = [
   ViewBasketInstruction,
   ForgedFeedbackInstruction,
   PasswordStrengthInstruction,
-  BonusPayloadInstruction
+  BonusPayloadInstruction,
+  LoginBenderInstruction
 ]
 
 export interface ChallengeInstruction {
