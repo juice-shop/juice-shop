@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "Selle tellimuse boonuspunktid lisatakse <em>1:1 teie rahakotti ¤-Fund</em> tulevaste ostude jaoks!",
   "ENTER_COUPON_CODE": "Sisesta oma kupongi kood",
   "COUPON_CODE_HINT": "Kupongi kood peab olema 10 tähemärki.",
-  "CHARGED_WALLET": "Tasu võeti edukalt rahakotist."
+  "CHARGED_WALLET": "Tasu võeti edukalt rahakotist.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
