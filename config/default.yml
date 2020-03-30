@@ -250,6 +250,8 @@ products:
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
     image: carrot_juice.jpeg
+    reviews:
+      - { text: 'Just left a 0 star review for the horrible security. -msc4r', author: scar }
   -
     name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
