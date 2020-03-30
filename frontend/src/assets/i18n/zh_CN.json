@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "此次订单的奖励积分会<em>1:1加入你的钱包</em>,并可用于下次购物支付",
   "ENTER_COUPON_CODE": "请输入你的优惠代码",
   "COUPON_CODE_HINT": "优惠代码必须是10个字符。",
-  "CHARGED_WALLET": "钱包已成功充值。"
+  "CHARGED_WALLET": "钱包已成功充值。",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
