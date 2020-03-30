@@ -29,7 +29,7 @@ dom.watch()
 export class ScoreBoardComponent implements OnInit {
 
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
-  public displayedDifficulties: number[] = []
+  public displayedDifficulties: number[] = [1, 2, 3]
   public availableChallengeCategories: string[] = []
   public displayedChallengeCategories: string[] = []
   public toggledMajorityOfDifficulties: boolean = false
@@ -38,6 +38,8 @@ export class ScoreBoardComponent implements OnInit {
   public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
   public showOnlyTutorialChallenges: boolean = true
+  public fullModeUnlocked: boolean = true
+  public allTutorialsCompleted: boolean = false
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
@@ -70,6 +72,7 @@ export class ScoreBoardComponent implements OnInit {
       this.showContributionInfoBox = config.application.showGitHubLinks
       this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
       this.appName = config.application.name
+      this.fullModeUnlocked = config.challenges.isFullModeUnlocked
     }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -262,7 +265,11 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   filterToDataSource (challenges: Challenge[]) {
+    this.allTutorialsCompleted = true
     challenges = challenges.filter((challenge) => {
+      if (challenge.tutorialOrder && !challenge.disabledEnv) {
+        this.allTutorialsCompleted = this.allTutorialsCompleted && challenge.solved
+      }
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false

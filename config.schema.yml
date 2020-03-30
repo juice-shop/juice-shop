@@ -99,6 +99,8 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  isFullModeUnlocked:
+    type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string
   xssBonusPayload:
