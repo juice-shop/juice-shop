@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "Бонусные баллы от этого заказа будут <em>добавлены 1:1 в ваш ¤-кошелек,</em> для будущих покупок!",
   "ENTER_COUPON_CODE": "Please enter your coupon code",
   "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
-  "CHARGED_WALLET": "Wallet successfully charged."
+  "CHARGED_WALLET": "Wallet successfully charged.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
