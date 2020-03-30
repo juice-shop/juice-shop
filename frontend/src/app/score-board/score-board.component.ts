@@ -97,6 +97,7 @@ export class ScoreBoardComponent implements OnInit {
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
+      this.calculateTutorialCompletion(challenges)
 
       this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
       this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
@@ -124,6 +125,7 @@ export class ScoreBoardComponent implements OnInit {
           this.calculateProgressPercentage()
           this.populateFilteredChallengeLists()
           this.calculateGradientOffsets(this.challenges)
+          this.calculateTutorialCompletion(this.challenges)
         }
       })
     })
@@ -165,6 +167,15 @@ export class ScoreBoardComponent implements OnInit {
       solvedChallenges += (this.challenges[i].solved) ? 1 : 0
     }
     this.percentChallengesSolved = (100 * solvedChallenges / this.challenges.length).toFixed(0)
+  }
+
+  calculateTutorialCompletion (challenges: Challenge[]) {
+    this.allTutorialsCompleted = true
+    for (let i = 0; i < challenges.length; i++) {
+      if (!this.fullModeUnlocked && challenges[i].tutorialOrder && !challenges[i].disabledEnv) {
+        this.allTutorialsCompleted = this.allTutorialsCompleted && challenges[i].solved
+      }
+    }
   }
 
   calculateGradientOffsets (challenges: Challenge[]) {
@@ -265,11 +276,7 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   filterToDataSource (challenges: Challenge[]) {
-    this.allTutorialsCompleted = true
     challenges = challenges.filter((challenge) => {
-      if (challenge.tutorialOrder && !challenge.disabledEnv) {
-        this.allTutorialsCompleted = this.allTutorialsCompleted && challenge.solved
-      }
       if (!this.displayedDifficulties.includes(challenge.difficulty)) return false
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
