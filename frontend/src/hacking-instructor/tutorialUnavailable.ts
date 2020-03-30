@@ -13,7 +13,7 @@ export const TutorialUnavailableInstruction: ChallengeInstruction = {
   hints: [
     {
       text:
-        "😓 Sorry, this hacking challenge does not have a step-by-step tutorial (yet) ... 🧭 Can you find your own way to solve it?",
+        '😓 Sorry, this hacking challenge does not have a step-by-step tutorial (yet) ... 🧭 Can you find your own way to solve it?',
       fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
@@ -25,7 +25,7 @@ export const TutorialUnavailableInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "And now: 👾 **GLHF** with this challenge! ",
+        'And now: 👾 **GLHF** with this challenge! ',
       fixture: 'app-navbar',
       resolved: waitInMs(10000)
     }
