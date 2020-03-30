@@ -19,13 +19,13 @@ export const TutorialUnavailableInstruction: ChallengeInstruction = {
     },
     {
       text:
-        "✍️ Do you want to contribute a tutorial for this challenge? [Check out our documentation](https://pwning.owasp-juice.shop/part3/tutorials.html) to learn how! 🏫",
+        '✍️ Do you want to contribute a tutorial for this challenge? [Check out our documentation](https://pwning.owasp-juice.shop/part3/tutorials.html) to learn how! 🏫',
       fixture: 'app-navbar',
       resolved: waitInMs(15000)
     },
     {
       text:
-        'And now: 👾 **GLHF** with this challenge! ',
+        'And now: 👾 **GLHF** with this challenge!',
       fixture: 'app-navbar',
       resolved: waitInMs(10000)
     }
