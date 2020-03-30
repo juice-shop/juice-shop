@@ -344,5 +344,6 @@
   "BONUS_FOR_FUTURE_PURCHASES": "Les points bonus de cette commande seront <em>ajoutés 1:1 à votre portefeuille ¤-fund</em> pour de futurs achats !",
   "ENTER_COUPON_CODE": "Veuillez entrer votre code de coupon",
   "COUPON_CODE_HINT": "Le code promo doit comporter 10 caractères.",
-  "CHARGED_WALLET": "Portefeuille chargé avec succès."
+  "CHARGED_WALLET": "Portefeuille chargé avec succès.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only"
 }
