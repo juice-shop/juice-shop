@@ -29,7 +29,7 @@ dom.watch()
 export class ScoreBoardComponent implements OnInit {
 
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
-  public displayedDifficulties: number[] = [1, 2, 3]
+  public displayedDifficulties: number[] = [1]
   public availableChallengeCategories: string[] = []
   public displayedChallengeCategories: string[] = []
   public toggledMajorityOfDifficulties: boolean = false
@@ -40,6 +40,7 @@ export class ScoreBoardComponent implements OnInit {
   public showOnlyTutorialChallenges: boolean = true
   public restrictToTutorialsFirst: boolean = false
   public allTutorialsCompleted: boolean = false
+  public tutorialsTier: number = 1
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
@@ -60,7 +61,7 @@ export class ScoreBoardComponent implements OnInit {
   ngOnInit () {
     this.spinner.show()
 
-    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1, 2, 3]
+    this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
     this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
     this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : true
@@ -97,7 +98,7 @@ export class ScoreBoardComponent implements OnInit {
       this.calculateProgressPercentage()
       this.populateFilteredChallengeLists()
       this.calculateGradientOffsets(challenges)
-      this.calculateTutorialCompletion(challenges)
+      this.calculateTutorialTier(challenges)
 
       this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
       this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
@@ -125,7 +126,7 @@ export class ScoreBoardComponent implements OnInit {
           this.calculateProgressPercentage()
           this.populateFilteredChallengeLists()
           this.calculateGradientOffsets(this.challenges)
-          this.calculateTutorialCompletion(this.challenges)
+          this.calculateTutorialTier(this.challenges)
         }
       })
     })
@@ -169,11 +170,19 @@ export class ScoreBoardComponent implements OnInit {
     this.percentChallengesSolved = (100 * solvedChallenges / this.challenges.length).toFixed(0)
   }
 
-  calculateTutorialCompletion (challenges: Challenge[]) {
+  calculateTutorialTier (challenges: Challenge[]) {
     this.allTutorialsCompleted = true
-    for (let i = 0; i < challenges.length; i++) {
-      if (this.restrictToTutorialsFirst && challenges[i].tutorialOrder && !challenges[i].disabledEnv) {
-        this.allTutorialsCompleted = this.allTutorialsCompleted && challenges[i].solved
+    this.tutorialsTier = 1
+
+    for (let difficulty = 1; difficulty <= 6; difficulty++) {
+      const challengesWithTutorial = challenges.filter((c) => c.tutorialOrder && c.difficulty === difficulty).length
+      const solvedChallengesWithTutorial = challenges.filter((c) => c.tutorialOrder && c.difficulty === difficulty && c.solved).length
+      this.allTutorialsCompleted = this.allTutorialsCompleted && challengesWithTutorial === solvedChallengesWithTutorial
+      if (this.tutorialsTier === difficulty && challengesWithTutorial === solvedChallengesWithTutorial) this.tutorialsTier++
+    }
+    if (!this.allTutorialsCompleted) {
+      for (let tier = 1; tier <= this.tutorialsTier; tier++) {
+        if (!this.displayedDifficulties.includes(tier)) this.toggleDifficulty(this.tutorialsTier)
       }
     }
   }

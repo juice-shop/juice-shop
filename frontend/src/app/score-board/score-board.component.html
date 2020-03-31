@@ -14,7 +14,7 @@
   <mat-card>
     <div class="star-container" fxLayout="row wrap">
       <mat-button-toggle *ngFor="let difficulty of availableDifficulties" (change)="toggleDifficulty(difficulty)"
-                         [checked]="displayedDifficulties.includes(difficulty)" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">
+                         [checked]="displayedDifficulties.includes(difficulty)" [disabled]="restrictToTutorialsFirst && difficulty > tutorialsTier">
         <label>
         <span class="fa-4x fa-layers fa-fw" style="display: block; margin: 5px;">
           <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18 star-border" aria-hidden="true"
