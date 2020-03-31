@@ -99,7 +99,7 @@ challenges:
     type: boolean
   showHints:
     type: boolean
-  isFullModeUnlocked:
+  restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string

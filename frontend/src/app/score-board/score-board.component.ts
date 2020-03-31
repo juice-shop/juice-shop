@@ -38,7 +38,7 @@ export class ScoreBoardComponent implements OnInit {
   public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
   public showOnlyTutorialChallenges: boolean = true
-  public fullModeUnlocked: boolean = true
+  public restrictToTutorialsFirst: boolean = false
   public allTutorialsCompleted: boolean = false
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
@@ -72,7 +72,7 @@ export class ScoreBoardComponent implements OnInit {
       this.showContributionInfoBox = config.application.showGitHubLinks
       this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
       this.appName = config.application.name
-      this.fullModeUnlocked = config.challenges.isFullModeUnlocked
+      this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
     }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -172,7 +172,7 @@ export class ScoreBoardComponent implements OnInit {
   calculateTutorialCompletion (challenges: Challenge[]) {
     this.allTutorialsCompleted = true
     for (let i = 0; i < challenges.length; i++) {
-      if (!this.fullModeUnlocked && challenges[i].tutorialOrder && !challenges[i].disabledEnv) {
+      if (this.restrictToTutorialsFirst && challenges[i].tutorialOrder && !challenges[i].disabledEnv) {
         this.allTutorialsCompleted = this.allTutorialsCompleted && challenges[i].solved
       }
     }
