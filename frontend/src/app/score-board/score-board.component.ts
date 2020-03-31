@@ -37,7 +37,7 @@ export class ScoreBoardComponent implements OnInit {
   public showSolvedChallenges: boolean = true
   public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
-  public showOnlyTutorialChallenges: boolean = true
+  public showOnlyTutorialChallenges: boolean = false
   public restrictToTutorialsFirst: boolean = false
   public allTutorialsCompleted: boolean = false
   public tutorialsTier: number = 1
@@ -64,7 +64,7 @@ export class ScoreBoardComponent implements OnInit {
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
     this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
-    this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : true
+    this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
