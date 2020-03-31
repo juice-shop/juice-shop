@@ -60,7 +60,6 @@ exports.config = {
     // Ensure score board shows all challenges (by default only 1-star challenges are shown)
     browser.get(basePath + '/#/score-board')
     element(by.id('btnToggleAllDifficulties')).click()
-    element(by.id('btnToggleShowOnlyTutorialChallenges')).click()
   }
 }
 
