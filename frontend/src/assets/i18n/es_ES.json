@@ -346,5 +346,6 @@
   "COUPON_CODE_HINT": "El código de cupón debe tener 10 caracteres de longitud.",
   "CHARGED_WALLET": "La billetera se cargó correctamente.",
   "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
-  "INFO_FULL_CHALLENGE_MODE": "Complete the challenges with tutorials to unveil all {{num}} challenges and unlock the advanced Score Board filters!"
+  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
 }
