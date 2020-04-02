@@ -346,5 +346,6 @@
   "COUPON_CODE_HINT": "优惠代码必须是10个字符。",
   "CHARGED_WALLET": "钱包已成功充值。",
   "BTN_SHOW_ONLY_TUTORIALS": "仅显示教程",
-  "INFO_FULL_CHALLENGE_MODE": "完成带教程的挑战以打开所有 {{num}} 个挑战并解锁高级的计分板过滤器！"
+  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
 }
