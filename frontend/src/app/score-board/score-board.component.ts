@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
@@ -26,7 +26,7 @@ dom.watch()
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
 })
-export class ScoreBoardComponent implements OnInit {
+export class ScoreBoardComponent implements OnInit, OnChanges {
 
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
@@ -131,6 +131,14 @@ export class ScoreBoardComponent implements OnInit {
         }
       })
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.showOnlyTutorialChallenges) {
+      this.challenges.sort((a, b) => {
+        return a.tutorialOrder - b.tutorialOrder
+      })
+    }
   }
 
   augmentHintText (challenge: Challenge) {
