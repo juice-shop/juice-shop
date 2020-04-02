@@ -40,6 +40,7 @@ export class ScoreBoardComponent implements OnInit {
   public showOnlyTutorialChallenges: boolean = false
   public restrictToTutorialsFirst: boolean = false
   public allTutorialsCompleted: boolean = false
+  public isLastTutorialsTier: boolean = false
   public tutorialsTier: number = 1
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
@@ -64,7 +65,6 @@ export class ScoreBoardComponent implements OnInit {
     this.displayedDifficulties = localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : [1]
     this.showSolvedChallenges = localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : true
     this.showDisabledChallenges = localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : false
-    this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : false
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf.showFlagsInNotifications
@@ -74,6 +74,7 @@ export class ScoreBoardComponent implements OnInit {
       this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
+      this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
     }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -172,6 +173,7 @@ export class ScoreBoardComponent implements OnInit {
 
   calculateTutorialTier (challenges: Challenge[]) {
     this.allTutorialsCompleted = true
+    this.isLastTutorialsTier = true
     this.tutorialsTier = 1
 
     for (let difficulty = 1; difficulty <= 6; difficulty++) {
@@ -181,6 +183,7 @@ export class ScoreBoardComponent implements OnInit {
       if (this.tutorialsTier === difficulty && challengesWithTutorial === solvedChallengesWithTutorial) this.tutorialsTier++
     }
     if (!this.allTutorialsCompleted) {
+      this.isLastTutorialsTier = challenges.filter((c) => c.tutorialOrder && !c.solved && c.difficulty > this.tutorialsTier).length === 0
       for (let tier = 1; tier <= this.tutorialsTier; tier++) {
         if (!this.displayedDifficulties.includes(tier)) this.toggleDifficulty(this.tutorialsTier)
       }
