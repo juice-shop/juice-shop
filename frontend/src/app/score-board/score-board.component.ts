@@ -133,7 +133,7 @@ export class ScoreBoardComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges (changes: SimpleChanges): void {
     if (this.showOnlyTutorialChallenges) {
       this.challenges.sort((a, b) => {
         return a.tutorialOrder - b.tutorialOrder
