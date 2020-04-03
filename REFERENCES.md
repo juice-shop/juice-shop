@@ -25,6 +25,9 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* 15min video tutorial by
+  [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
+  [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 5.21:
     [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
@@ -243,7 +246,16 @@ where this project was mentioned or used!
 
 #### 2020
 
-_t.b.a._
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
+
+_Please stay safe at home for now and watch an existing recording
+instead!_
+
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
 
 #### 2019
 
