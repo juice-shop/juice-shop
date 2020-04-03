@@ -295,6 +295,6 @@ ctf:
     xssBonusChallenge:
       name: Ethiopia
       code: ET
-    resetPasswordScarChallenge:
+    resetPasswordUvoginChallenge:
       name: Republic of South Africa
       code: RSA
