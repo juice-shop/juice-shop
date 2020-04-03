@@ -346,6 +346,6 @@
   "COUPON_CODE_HINT": "Gutscheincode muss 10 Zeichen lang sein.",
   "CHARGED_WALLET": "Brieftasche erfolgreich aufgeladen.",
   "BTN_SHOW_ONLY_TUTORIALS": "Nur Tutorials anzeigen",
-  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "INFO_FULL_CHALLENGE_MODE": "Schließe die übrigen Tutorial-Herausforderungen ab, um alle {{num}} Herausforderungen zu enthüllen und die fortgeschrittenen Punkteübersichtsfilter freizuschalten!",
+  "INFO_NEXT_TUTORIAL_TIER": "Schließe die {{tier}} Tutorial-Herausforderungen ab, um die nächste Schwierigkeitsstufe zu enthüllen!"
 }
