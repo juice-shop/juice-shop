@@ -21,6 +21,7 @@ describe('/#/track-order', () => {
           expect(alert.getText()).toEqual('xss')
           alert.accept()
         })
+        browser.waitForAngularEnabled(true)
       })
 
       protractor.expect.challengeSolved({ challenge: 'Reflected XSS' })
