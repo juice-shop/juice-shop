@@ -384,7 +384,7 @@ ctf:
         type: string
       code:
         type: string
-    resetPasswordScarChallenge:
+    resetPasswordUvoginChallenge:
       name:
         type: string
       code:

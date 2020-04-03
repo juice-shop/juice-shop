@@ -818,10 +818,10 @@
   tutorial:
     order: 3
 -
-  name: 'Reset Scar''s Password'
+  name: 'Reset Uvogin''s Password'
   category: 'Sensitive Data Exposure'
-  description: 'Reset Scar''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
+  description: 'Reset Uvogin''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
   difficulty: 3
   hint: 'Maybe you can find some hints across his social media. If only you could find something like an alias...'
   hintUrl: ''
-  key: resetPasswordScarChallenge
+  key: resetPasswordUvoginChallenge
