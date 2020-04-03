@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
-import { Component, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { Component, NgZone, OnInit} from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { NgxSpinnerService } from 'ngx-spinner'
 
@@ -26,7 +26,7 @@ dom.watch()
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
 })
-export class ScoreBoardComponent implements OnInit, OnChanges {
+export class ScoreBoardComponent implements OnInit {
 
   public availableDifficulties: number[] = [1, 2, 3, 4, 5, 6]
   public displayedDifficulties: number[] = [1]
@@ -75,6 +75,11 @@ export class ScoreBoardComponent implements OnInit, OnChanges {
       this.appName = config.application.name
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
+      if (this.showOnlyTutorialChallenges) {
+        this.challenges.sort((a, b) => {
+          return a.tutorialOrder - b.tutorialOrder
+        })
+      }
     }, (err) => console.log(err))
 
     this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -104,11 +109,6 @@ export class ScoreBoardComponent implements OnInit, OnChanges {
       this.toggledMajorityOfDifficulties = this.determineToggledMajorityOfDifficulties()
       this.toggledMajorityOfCategories = this.determineToggledMajorityOfCategories()
 
-      if (this.showOnlyTutorialChallenges) {
-        this.challenges.sort((a, b) => {
-          return a.tutorialOrder - b.tutorialOrder
-        })
-      }
       this.spinner.hide()
     }, (err) => {
       this.challenges = []
@@ -131,14 +131,6 @@ export class ScoreBoardComponent implements OnInit, OnChanges {
         }
       })
     })
-  }
-
-  ngOnChanges (changes: SimpleChanges): void {
-    if (this.showOnlyTutorialChallenges) {
-      this.challenges.sort((a, b) => {
-        return a.tutorialOrder - b.tutorialOrder
-      })
-    }
   }
 
   augmentHintText (challenge: Challenge) {
