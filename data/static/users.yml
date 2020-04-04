@@ -198,6 +198,15 @@
     id: 7
     answer: 'sdAffsdfrefrbgreq3423'
 -
+  email: uvogin
+  password: 'muda-muda > ora-ora' # https://www.youtube.com/watch?v=vnJv8IoLMwc
+  key: uvogin
+  role: 'customer'
+  walletBalance: 100
+  securityQuestion:
+    id: 12
+    answer: 'Silence of the Lambs' # https://www.imdb.com/title/tt0102926/
+-
   email: demo
   password: 'demo'
   customDomain: true

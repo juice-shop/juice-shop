@@ -89,6 +89,8 @@ products:
     price: 2.99
     deluxePrice: 2.49
     image: orange_juice.jpg
+    reviews:
+      - { text: 'y0ur f1r3wall needs m0r3 musc13' author: uvogin }
   -
     name: 'Eggfruit Juice (500ml)'
     description: 'Now with even more exotic flavour.'
@@ -251,6 +253,8 @@ products:
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
     image: carrot_juice.jpeg
+    reviews:
+      - { text: '0 st4rs f0r 7h3 h0rr1bl3 s3cur17y', author: uvogin }
   -
     name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'

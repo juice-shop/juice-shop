@@ -386,6 +386,11 @@ ctf:
         type: string
       code:
         type: string
+    resetPasswordUvoginChallenge:
+      name:
+        type: string
+      code:
+        type: string
     resetPasswordBjoernChallenge:
       name:
         type: string
