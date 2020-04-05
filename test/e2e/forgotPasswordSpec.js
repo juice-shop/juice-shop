@@ -104,7 +104,7 @@ describe('/#/forgot-password', () => {
 
   describe('as Uvogin', () => {
     it('should be able to reset password with his security answer', () => {
-      email.sendKeys('Uvogin@' + config.get('application.domain'))
+      email.sendKeys('uvogin@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys('Silence of the Lambs')
       newPassword.sendKeys('ora-ora > muda-muda')
