@@ -90,7 +90,7 @@ products:
     deluxePrice: 2.49
     image: orange_juice.jpg
     reviews:
-      - { text: 'y0ur f1r3wall needs m0r3 musc13' author: uvogin }
+      - { text: 'y0ur f1r3wall needs m0r3 musc13', author: uvogin }
   -
     name: 'Eggfruit Juice (500ml)'
     description: 'Now with even more exotic flavour.'
