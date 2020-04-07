@@ -293,9 +293,9 @@
 	"Find a form which updates the username and then construct a malicious page in the online HTML editor.": "找到更新用户名的表单，然后在 HTML 在线编辑器中构建恶意页面。",
 	"Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.": "在 <i>DOM XSS</i> 挑战中使用奖励payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code>",
 	"Copy + Paste = Solved!": "复制 + 粘贴 = 解决！",
-	"Obtain a Deluxe Membership without paying for it.": "Obtain a Deluxe Membership without paying for it.",
-	"Look closely at what happens when you attempt to upgrade your account.": "Look closely at what happens when you attempt to upgrade your account.",
-	" <em>(This challenge is <strong>not available</strong> on Windows!)</em>": " <em>(This challenge is <strong>not available</strong> on Windows!)</em>",
-	"Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.": "Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.",
+	"Obtain a Deluxe Membership without paying for it.": "无需付费获得高级会员资格。",
+	"Look closely at what happens when you attempt to upgrade your account.": "仔细观察当你试图升级你的帐户时会发生什么。",
+	" <em>(This challenge is <strong>not available</strong> on Windows!)</em>": " <em>(这个挑战在Windows上 <strong>不可用</strong>!)</em>",
+	"Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.": "通过<a href=\"/#/forgot-password\">忘记密码</a>功能中安全问题的<i>原始答案</i>来重置Uvogin的密码.",
 	"You might have to do some OSINT on his social media personas to find out his honest answer to the security question.": "You might have to do some OSINT on his social media personas to find out his honest answer to the security question."
 }
