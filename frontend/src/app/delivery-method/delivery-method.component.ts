@@ -47,7 +47,7 @@ export class DeliveryMethodComponent implements OnInit {
   }
 
   selectMethod (id) {
-    if (this.selection.hasValue()) {
+    if (this.selection.hasValue() || id ) {
       this.deliveryMethodId = id
     } else {
       this.deliveryMethodId = undefined
