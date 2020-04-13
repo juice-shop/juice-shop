@@ -188,7 +188,7 @@
   "ADD_BASKET": "Add to Basket",
   "BTN_SHOW_ALL": "Vis alle",
   "BTN_SHOW_UNAVAILABLE": "Show unavailable",
-  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
   "BTN_HIDE_ALL": "Skjul alle",
   "TYPE_THESE_LETTERS": "Skriv disse {{length}} bogstaver",
   "BTN_REQUEST": "Anmodning",
@@ -224,6 +224,7 @@
   "LABEL_STATE": "State",
   "STATE_PLACEHOLDER": "Please provide a state.",
   "LABEL_GO_BACK": "Go Back",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "Select an address",
   "USE_THIS_ADDRESS": "Use this address",
   "BTN_DELETE": "Delete",
@@ -307,6 +308,7 @@
   "MANDATORY_CAPTION": "Please enter a caption",
   "LABEL_CAPTION": "Caption",
   "LABEL_PICK_IMAGE": "Pick image",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "No memories have been shared yet.",
   "LABEL_DELUXE_MEMBERSHIP": "Deluxe Membership",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a a deluxe customer of {{appname}}. Check out what is included with your membership.",
@@ -339,5 +341,11 @@
   "CLICK_FOR_MORE_HINTS": "Click for more hints.",
   "CLICK_TO_OPEN_HINTS": "Click to open hints.",
   "BONUS_POINTS_EARNED": "Bonus Points Earned: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
+  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
+  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
 }

@@ -10,73 +10,54 @@
 
 ## GitHub Contributors
 
-Based on [GitHub](https://github.com/bkimminich/juice-shop) commits on
-`master` as of Wed, 06 Nov 2019 (ordered by number of commits).
+As reported by [`gitstats`](http://gitstats.sourceforge.net/) analysis
+of `master` as of Fri, 27 Mar 2020 after deduplication with `.mailmap`
+and
+[conversion into Markdown](https://jmalarcon.github.io/markdowntables/).
 
-- [Aashish Singh](https://github.com/Aashish683) aka `Aashish683`
-- [Arpit Agrawal](https://github.com/agrawalarpit14) aka
-  `agrawalarpit14`
-- [Supratik Das](https://github.com/supra08) aka `supra08`
-- [Shoeb Patel](https://github.com/CaptainFreak) aka `CaptainFreak`
-- [Marc Rüttler](https://github.com/MarcRler) aka `MarcRler`
-- [Aaryan Budhiraja](https://github.com/aaryan01) aka `aaryan01`
-- [m4l1c3](https://github.com/m4l1c3) aka `m4l1c3`
-- [Josh Grossman](https://github.com/tghosth) aka `tghosth`
-- [Martin Rock-Evans](https://github.com/rockydevnet) aka `rockydevnet`
-- [Omer Levi Hevroni](https://github.com/omerlh) aka `omerlh`
-- [Alejandro Saenz](https://github.com/Whamo12) aka `Whamo12`
-- [Jorge Estigarribia](https://github.com/jorgestiga) aka `jorgestiga`
-- [Nathaniel McHugh](https://github.com/natmchugh) aka `natmchugh`
-- [Madhur Wadhwa](https://github.com/madhurw7) aka `madhurw7`
-- [Greg Guthe](https://github.com/g-k) aka `g-k`
-- [Jln Wntr](https://github.com/JlnWntr) aka `JlnWntr`
-- [Simon Basset](https://github.com/simbas) aka `simbas`
-- [Shivam Luthra](https://github.com/shivamluthra) aka `shivamluthra`
-- [Ingo Bente](https://github.com/ingben) aka `ingben`
-- [Yuvraj](https://github.com/evalsocket) aka `evalsocket`
-- [Devansh Batra](https://github.com/devanshbatra04) aka
-  `devanshbatra04`
-- [Aaron Edwards](https://github.com/aaron-m-edwards) aka
-  `aaron-m-edwards`
-- [Viktor Lindström](https://github.com/ViktorLindstrm) aka
-  `ViktorLindstrm`
-- [João Fonseca](https://github.com/Jpfonseca) aka `Jpfonseca`
-- [Andrew Stubbs](https://github.com/Andrew-Stubbs) aka `Andrew-Stubbs`
-- [abdelrhman magdy](https://github.com/AbdelrhmanMagdy) aka
-  `AbdelrhmanMagdy`
-- [Stephen O'Brien](https://github.com/wayofthepie) aka `wayofthepie`
-- [Jet Anderson](https://github.com/thatsjet) aka `thatsjet`
-- [Simon De Lang](https://github.com/simondel) aka `simondel`
-- [Priit Pääsukene](https://github.com/priitpaasukene) aka
-  `priitpaasukene`
-- [Manabu Niseki](https://github.com/ninoseki) aka `ninoseki`
-- [Roberto Abdelkader Martínez Pérez](https://github.com/nilp0inter) aka
-  `nilp0inter`
-- [Ken Friis Larsen](https://github.com/kfl) aka `kfl`
-- [Johanna](https://github.com/johanna-a) aka `johanna-a`
-- [jamiemcgregor](https://github.com/jamiemcgregor) aka `jamiemcgregor`
-- [Joe Butler](https://github.com/incognitjoe) aka `incognitjoe`
-- [Gorka Vicente](https://github.com/gorkavicente) aka `gorkavicente`
-- [Christian Kühn](https://github.com/cy4n) aka `cy4n`
-- [Chris Castle](https://github.com/crcastle) aka `crcastle`
-- [battletux](https://github.com/battletux) aka `battletux`
-- [Artemiy Knipe](https://github.com/awflwafl) aka `awflwafl`
-- [AviD](https://github.com/avidouglen) aka `avidouglen`
-- [Alvaro Viebrantz](https://github.com/alvarowolfx) aka `alvarowolfx`
-- [Achim Grimm](https://github.com/achimgrimm) aka `achimgrimm`
-- [Abhishek bundela](https://github.com/abhibundela) aka `abhibundela`
-- [Zander Mackie](https://github.com/Zandar) aka `Zandar`
-- [Stuart Winter-Tear](https://github.com/StuartWinterTear) aka
-  `StuartWinterTear`
-- [M4ttsson](https://github.com/M4ttsson) aka `M4ttsson`
-- [Jason Haley](https://github.com/JasonHaley) aka `JasonHaley`
-- [Dinis Cruz](https://github.com/DinisCruz) aka `DinisCruz`
+| Author             | Commits (%)    | + lines | - lines | First commit | Last commit | Age                 | Active days | # by commits |
+|:-------------------|:---------------|:--------|:--------|:-------------|:------------|:--------------------|:------------|:-------------|
+| Björn Kimminich    | 11430 (89.28%) | 382635  | 357166  | 2014-09-19   | 2020-03-27  | 2015 days, 20:17:22 | 1076        | 1            |
+| Jannik Hollenbach  | 292 (2.28%)    | 7554    | 4765    | 2017-04-14   | 2020-03-27  | 1078 days, 8:26:25  | 85          | 2            |
+| Aashish683         | 229 (1.79%)    | 149990  | 3609    | 2018-01-31   | 2018-08-04  | 184 days, 15:12:04  | 65          | 3            |
+| greenkeeper\[bot\] | 151 (1.18%)    | 2047    | 1486    | 2018-01-30   | 2019-07-06  | 521 days, 16:54:22  | 109         | 4            |
+| agrawalarpit14     | 136 (1.06%)    | 14899   | 5871    | 2019-02-19   | 2019-08-16  | 178 days, 4:13:54   | 62          | 5            |
+| MarcRler           | 128 (1.00%)    | 4279    | 2864    | 2019-03-18   | 2020-02-29  | 348 days, 8:29:08   | 42          | 6            |
+| CaptainFreak       | 85 (0.66%)     | 2632    | 801     | 2018-01-29   | 2018-08-09  | 192 days, 11:01:12  | 45          | 7            |
+| Supratik Das       | 84 (0.66%)     | 1461    | 415     | 2018-12-29   | 2019-05-06  | 127 days, 13:24:18  | 21          | 8            |
+| Scar26             | 37 (0.29%)     | 462     | 167     | 2020-02-06   | 2020-03-25  | 47 days, 19:33:44   | 18          | 9            |
+| aaryan10           | 25 (0.20%)     | 764     | 369     | 2019-01-12   | 2019-04-19  | 96 days, 11:34:16   | 12          | 10           |
+| m4l1c3             | 18 (0.14%)     | 82      | 42      | 2017-02-09   | 2017-02-13  | 4 days, 19:08:33    | 2           | 11           |
+| Timo Pagel         | 15 (0.12%)     | 447     | 222     | 2016-09-06   | 2019-06-29  | 1025 days, 11:26:33 | 9           | 12           |
+| Josh Grossman      | 15 (0.12%)     | 3358    | 1815    | 2017-08-06   | 2018-03-18  | 224 days, 8:30:24   | 4           | 13           |
+| Mohit Sharma       | 13 (0.10%)     | 2       | 1       | 2020-02-04   | 2020-03-19  | 43 days, 13:31:51   | 13          | 14           |
+| JuiceShopBot       | 12 (0.09%)     | 33      | 33      | 2020-02-28   | 2020-03-26  | 27 days, 5:39:56    | 9           | 15           |
+| JamesCullum        | 11 (0.09%)     | 327     | 186     | 2019-09-18   | 2020-03-26  | 190 days, 10:32:23  | 6           | 16           |
+| omerlh             | 10 (0.08%)     | 103     | 27      | 2017-11-28   | 2018-12-23  | 389 days, 16:27:55  | 6           | 17           |
+| Martin Rock-Evans  | 10 (0.08%)     | 266     | 52      | 2019-06-04   | 2019-06-06  | 2 days, 8:23:06     | 3           | 18           |
+| Alejandro Saenz    | 10 (0.08%)     | 313     | 139     | 2019-03-31   | 2019-09-22  | 175 days, 7:38:26   | 3           | 19           |
+| Marc O'Polo        | 6 (0.05%)      | 563     | 266     | 2019-03-16   | 2019-03-17  | 1 day, 23:36:28     | 2           | 20           |
+
+**Additional contributions by:** Jorge Estigarribia, madhurw7, Nat
+McHugh, Rick Daalhuizen, Julian Winter, João Fonseca, Greg Guthe,
+yuvraj, Viktor Lindström, Simon Basset, Shivam Luthra, Roberto
+Abdelkader Martínez Pérez, Paulino Calderon, Nick Murison, Ingo Bente,
+Devansh Batra, Benjamin Liebe, Andrew Stubbs, Abdelrhman Magdy, Aaron
+Edwards, whitesource-bolt-for-github\[bot\], root, ridhishjain, ninoseki,
+jamiemcgregor, battletux, adam, Zander Mackie, Travis Webb, The Gitter
+Badger, Stuart Winter-Tear, Stephen OBrien, Simon de Lang, Priit
+Pääsukene, M4ttsson, Ken Friis Larsen, Johanna A, Joe Butler, Jet
+Anderson, Jason Haley, Jainendra Mandavi, Gorka Vicente, Dinis Cruz,
+Christian Kühn, Chris Castle, Bitdeli Chef, AviD, Artemiy Knipe |
+Артемий Кондатьев, Alvaro Viebrantz, Alec Brooks, Achim Grimm, Abhishek
+bundela
 
 ## Translators
 
 Based on [CrowdIn](https://crowdin.com/project/owasp-juice-shop)
-translations as of Wed, 06 Nov 2019 (ordered alphabetically).
+translations as of Fri, 28 Feb 2020 (ordered alphabetically).
 
+- Abdo Farwan aka `abdofarwan` (Arabic, Turkish)
 - adeyosemanputra (Indonesian)
 - Albert Camps aka `campsupc` (Catalan; Spanish)
 - Aleksandra Niemyska aka `niemyskaa` (Polish)
@@ -100,6 +81,8 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - Daniel Paniagua aka `danielgpm` (Spanish)
 - dav1ds (French)
 - Davis Freimanis aka `davisfreimanis` (Latvian)
+- Diego Andreé Porras Rivas aka `andree.rivas` (Spanish)
+- Dmitry aka `shipko` (Russian)
 - Egert Aia aka `aiaegert` (Estonian)
 - Ender Çulha aka `ecu` (Turkish)
 - Estevam Arantes aka `Es7evam` (Portuguese; Portuguese, Brazilian)
@@ -136,8 +119,10 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - nilfigo (Japanese)
 - OliverkeHU (Hungarian)
 - orjen (Romanian)
+- OrNol aka `TRNSLR` (Dutch)
 - Oussama Bouthouri aka `Boussama`/`oussama.bouthouri` (Arabic)
 - owangen (Norwegian; Danish)
+- Pablo Barrera aka `pablo.barrera` (Spanish)
 - Pär Svedberg aka `grebdevs` (Swedish)
 - r0n1am (Chinese Traditional, Hong Kong)
 - rachidbm (Dutch)
@@ -160,6 +145,7 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
 - thinbashane (Burmese)
 - timexlord (Romanian)
 - Tomas Rosenqvist aka `Muamaidbengt` (Swedish)
+- tongsonghua aka `yolylight` (Chinese Simplified)
 - vientspam (Dutch; Italian; French)
 - Wout Huygens aka `lenkadubois` (Dutch)
 - zvargun (Turkish)
@@ -180,6 +166,9 @@ translations as of Wed, 06 Nov 2019 (ordered alphabetically).
   and
   [flyer](https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/flyers)
   artwork by [logicainfo](https://99designs.de/profiles/logicainfo)
+* Official
+  [OWASP Juice Shop Jingle](https://soundcloud.com/braimee/owasp-juice-shop-jingle)
+  written and performed by [Brian Johnson](https://github.com/braimee)
 
 ## Stargazers (over time)
 

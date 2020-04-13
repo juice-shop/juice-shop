@@ -286,3 +286,15 @@ ctf:
     exposedMetricsChallenge:
       name: Japan
       code: JP
+    freeDeluxeChallenge:
+      name: Vietnam
+      code: VN
+    csrfChallenge:
+      name: Luxembourg
+      code: LU
+    xssBonusChallenge:
+      name: Ethiopia
+      code: ET
+    resetPasswordUvoginChallenge:
+      name: Republic of South Africa
+      code: RSA

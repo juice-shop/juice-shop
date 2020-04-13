@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 
-import { CookieModule } from 'ngx-cookie'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 
@@ -34,7 +33,6 @@ describe('OAuthComponent', () => {
         ]
         ),
         ReactiveFormsModule,
-        CookieModule.forRoot(),
         TranslateModule.forRoot(),
         MatInputModule,
         MatIconModule ,

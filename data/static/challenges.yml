@@ -96,12 +96,12 @@
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#order-the-christmas-special-offer-of-2014'
   key: christmasSpecialChallenge
 -
-  name: 'Classic Stored XSS'
+  name: 'CSP Bypass'
   category: 'XSS'
-  description: 'Perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
-  difficulty: 2
-  hint: 'What is even "better" than homegrown validation based on a RegEx? Homegrown sanitization based on a RegEx!'
-  hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-an-xss-attack-on-a-legacy-page-within-the-application'
+  description: 'Bypass the Content Security Policy and perform an XSS attack with <code>&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> on a legacy page within the application.'
+  difficulty: 4
+  hint: 'What is even "better" than a legacy page with a homegrown RegEx sanitizer? Having CSP injection issues on the exact same page as well!'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#bypass-the-content-security-policy-and-perform-an-xss-attack-on-a-legacy-page'
   key: usernameXssChallenge
   disabledEnv:
     - Docker
@@ -133,6 +133,8 @@
   hint: 'Look for an input field where its content appears in the HTML when its form is submitted.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-dom-xss-attack'
   key: localXssChallenge
+  tutorial:
+    order: 2
 -
   name: 'Database Schema'
   category: 'Injection'
@@ -221,6 +223,8 @@
   hint: 'You can solve this by tampering with the user interface or by intercepting the communication with the RESTful backend.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#post-some-feedback-in-another-users-name'
   key: forgedFeedbackChallenge
+  tutorial:
+    order: 8
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
@@ -237,6 +241,8 @@
   hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#forge-an-almost-properly-rsa-signed-jwt-token'
   key: jwtForgedChallenge
+  disabledEnv:
+    - Windows
 -
   name: 'Forgotten Developer Backup'
   category: 'Sensitive Data Exposure'
@@ -328,6 +334,8 @@
   hint: 'Try different SQL Injection attack patterns depending whether you know the admin''s email address or not.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-the-administrators-user-account'
   key: loginAdminChallenge
+  tutorial:
+    order: 5
 -
   name: 'Login Amy'
   category: 'Sensitive Data Exposure'
@@ -344,6 +352,8 @@
   hint: 'If you know Bender''s email address, try SQL Injection. Bender''s password hash might not help you very much.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-benders-user-account'
   key: loginBenderChallenge
+  tutorial:
+    order: 10
 -
   name: 'Login Bjoern'
   category: 'Broken Authentication'
@@ -368,6 +378,8 @@
   hint: 'Try cracking Jim''s password hash if you harvested it already. Alternatively, if you know Jim''s email address, try SQL Injection.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/injection.html#log-in-with-jims-user-account'
   key: loginJimChallenge
+  tutorial:
+    order: 9
 -
   name: 'Login MC SafeSearch'
   category: 'Sensitive Data Exposure'
@@ -462,6 +474,8 @@
   hint: 'This one should be equally easy to a) brute force, b) crack the password hash or c) simply guess.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-authentication.html#log-in-with-the-administrators-user-credentials-without-previously-changing-them-or-applying-sql-injection'
   key: weakPasswordChallenge
+  tutorial:
+    order: 6
 -
   name: 'Payback Time'
   category: 'Improper Input Validation'
@@ -486,6 +500,8 @@
   hint: 'We won''t even ask you to confirm that you did. Just read it. Please. Pretty please.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/miscellaneous.html#read-our-privacy-policy'
   key: privacyPolicyChallenge
+  tutorial:
+    order: 4
 -
   name: 'Privacy Policy Inspection'
   category: 'Security through Obscurity'
@@ -506,8 +522,8 @@
   name: 'Reflected XSS'
   category: 'XSS'
   description: 'Perform a <i>reflected</i> XSS attack with <code>&lt;iframe src="javascript:alert(`xss`)"&gt;</code>.'
-  difficulty: 1
-  hint: 'Look for an input field where its content appears in the response HTML when its form is submitted.'
+  difficulty: 2
+  hint: 'Look for a url parameter where its value appears in the page it is leading to.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#perform-a-reflected-xss-attack'
   key: reflectedXssChallenge
   disabledEnv:
@@ -588,6 +604,8 @@
   hint: 'Try to find a reference or clue behind the scenes. Or simply guess what URL the Score Board might have.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/score-board.html#find-the-carefully-hidden-score-board-page'
   key: scoreBoardChallenge
+  tutorial:
+    order: 1
 -
   name: 'Security Policy'
   category: 'Miscellaneous'
@@ -693,6 +711,8 @@
   hint: 'Have an eye on the HTTP traffic while shopping. Alternatively try to find a client-side association of users to their basket.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#view-another-users-shopping-basket'
   key: basketAccessChallenge
+  tutorial:
+    order: 7
 -
   name: 'Vulnerable Library'
   category: 'Vulnerable Components'
@@ -771,3 +791,37 @@
   hint: 'Try to guess what URL the endpoint might have.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#find-the-endpoint-that-serves-usage-data-to-be-scraped-by-a-popular-monitoring-system'
   key: exposedMetricsChallenge
+-
+  name: 'Deluxe Fraud'
+  category: 'Improper Input Validation'
+  description: 'Obtain a Deluxe Membership without paying for it.'
+  difficulty: 3
+  hint: 'Look closely at what happens when you attempt to upgrade your account.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#obtain-a-deluxe-membership-without-paying-for-it'
+  key: freeDeluxeChallenge
+-
+  name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 or other latest browsers!
+  category: 'Broken Access Control'
+  description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
+  difficulty: 3
+  hint: 'Find a form which updates the username and then construct a malicious page in the online HTML editor.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#change-the-name-of-a-user-by-performing-cross-site-request-forgery-from-another-origin'
+  key: csrfChallenge
+-
+  name: 'Bonus Payload'
+  category: 'XSS'
+  description: 'Use the bonus payload <code>&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;</code> in the <i>DOM XSS</i> challenge.'
+  difficulty: 1
+  hint: 'Copy + Paste = Solved!'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/xss.html#use-the-bonus-payload-in-the-dom-xss-challenge'
+  key: xssBonusChallenge
+  tutorial:
+    order: 3
+-
+  name: 'Reset Uvogin''s Password'
+  category: 'Sensitive Data Exposure'
+  description: 'Reset Uvogin''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
+  difficulty: 4
+  hint: 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#reset-uvogins-password-via-the-forgot-password-mechanism'
+  key: resetPasswordUvoginChallenge

@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { SocketIoService } from '../Services/socket-io.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faCartPlus, faEye } from '@fortawesome/free-solid-svg-icons'
@@ -47,15 +48,16 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
-  public confirmation?: string
-  public error = undefined
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private productSubscription?: Subscription
   private routerSubscription?: Subscription
   public breakpoint: number = 6
   public emptyState = false
 
-  constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService, private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService, private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService) { }
+  constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService,
+   private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService,
+   private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService,
+   private snackBarHelperService: SnackBarHelperService) { }
 
   ngAfterViewInit () {
     const products = this.productService.search('')
@@ -90,6 +92,10 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
       })
+      let challenge: string = this.route.snapshot.queryParams.challenge
+      if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
+        this.startHackingInstructor(decodeURIComponent(challenge))
+      }
       if (window.innerWidth < 2600) {
         this.breakpoint = 4
         if (window.innerWidth < 1740) {
@@ -121,13 +127,11 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
 
   filterTable () {
     let queryParam: string = this.route.snapshot.queryParams.q
-    if (queryParam && queryParam.includes('javascript:alert')) {
+    if (queryParam) {
+      queryParam = queryParam.trim()
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
       })
-    }
-    if (queryParam) {
-      queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam)
       this.gridDataSource.subscribe((result: any) => {
@@ -144,6 +148,13 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  startHackingInstructor (challengeName: String) {
+    console.log(`Starting instructions for challenge "${challengeName}"`)
+    import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
+      module.startHackingInstructorFor(challengeName)
+    })
+  }
+
   showDetail (element: Product) {
     this.dialog.open(ProductDetailsComponent, {
       width: '500px',
@@ -155,7 +166,6 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
   }
 
   addToBasket (id?: number) {
-    this.error = null
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe((basket) => {
       let productsInBasket: any = basket.Products
       let found = false
@@ -167,14 +177,13 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
             this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
                 this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
-                  this.confirmation = basketAddSameProduct
+                  this.snackBarHelperService.open(basketAddSameProduct,'confirmBar')
                 }, (translationId) => {
-                  this.confirmation = translationId
+                  this.snackBarHelperService.open(translationId,'confirmBar')
                 })
               }, (err) => console.log(err))
             },(err) => {
-              this.confirmation = undefined
-              this.error = err.error
+              this.snackBarHelperService.open(err.error?.error,'errorBar')
               console.log(err)
             })
           }, (err) => console.log(err))
@@ -185,14 +194,13 @@ export class SearchResultComponent implements AfterViewInit, OnDestroy {
         this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
             this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
-              this.confirmation = basketAddProduct
+              this.snackBarHelperService.open(basketAddProduct,'confirmBar')
             }, (translationId) => {
-              this.confirmation = translationId
+              this.snackBarHelperService.open(translationId,'confirmBar')
             })
           }, (err) => console.log(err))
         }, (err) => {
-          this.confirmation = undefined
-          this.error = err.error
+          this.snackBarHelperService.open(err.error?.error,'errorBar')
           console.log(err)
         })
       }
