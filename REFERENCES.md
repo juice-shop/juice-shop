@@ -25,7 +25,7 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
-* [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw) playlist of [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA) :godmode:
+* [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw) playlist of [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA)
   * [★ Zero Stars](https://youtu.be/0YSNRz0NRt8) :godmode:
   * [★ Confidential Document](https://youtu.be/Yi7OiMtzGXc) :godmode:
   * [★ DOM XSS](https://youtu.be/BuVxyBo05F8) :godmode:
@@ -35,6 +35,11 @@ where this project was mentioned or used!
   * [★ Privacy Policy](https://youtu.be/f5tM_4vBq-w) :godmode:
   * [★ Repetitive Registration](https://youtu.be/mHjYOtKGYQM) :godmode:
   * [★★ Login Admin](https://youtu.be/LuU1fSuc7Gg) :godmode:
+  * [★★ Admin Section](https://youtu.be/BPLhu354esc) :godmode:
+  * [★★ Classic Stored XSS](https://youtu.be/dxzU6djocJQ) :godmode:
+  * [★★ Deprecated Interface](https://youtu.be/yQ40B_eSj48) :godmode:
+  * [★★ Five Star Feedback](https://youtu.be/9BsfRJA_-ik) :godmode:
+  * [★★ Login MC SafeSearch](https://youtu.be/8VhGBdVK9ik) :godmode:
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
