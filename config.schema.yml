@@ -1,6 +1,8 @@
 server:
   port:
     type: number
+  basePath:
+    type: string
 application:
   domain:
     type: string
@@ -97,7 +99,11 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  restrictToTutorialsFirst:
+    type: boolean
   overwriteUrlForProductTamperingChallenge:
+    type: string
+  xssBonusPayload:
     type: string
   safetyOverride:
     type: boolean
@@ -380,6 +386,11 @@ ctf:
         type: string
       code:
         type: string
+    resetPasswordUvoginChallenge:
+      name:
+        type: string
+      code:
+        type: string
     resetPasswordBjoernChallenge:
       name:
         type: string
@@ -601,6 +612,16 @@ ctf:
       code:
         type: string
     exposedMetricsChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    freeDeluxeChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    csrfChallenge:
       name:
         type: string
       code:

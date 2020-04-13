@@ -14,5 +14,6 @@ export interface Challenge {
   hintUrl?: string
   disabledEnv?: string
   solved?: boolean
+  tutorialOrder?: number
   hasTutorial?: boolean
 }

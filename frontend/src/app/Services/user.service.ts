@@ -76,7 +76,7 @@ export class UserService {
     return this.http.get(this.hostServer + '/rest/deluxe-membership').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
-  upgradeToDeluxe (payUsingWallet: boolean) {
-    return this.http.post(this.hostServer + '/rest/deluxe-membership', { payUsingWallet: payUsingWallet }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+  upgradeToDeluxe (paymentMode: string) {
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode: paymentMode }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

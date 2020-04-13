@@ -25,6 +25,9 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* 15min video tutorial by
+  [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
+  [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 5.21:
     [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
@@ -70,6 +73,8 @@ where this project was mentioned or used!
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
 * [7 Minute Security](https://7ms.us) Podcast:
+  * Episode #403:
+    [7MOOMAMA - Juice Shop Song + Backdoors and Breaches Jingle](https://7ms.us/7ms-403-7moomama-juice-shop-song-backdoors-and-breaches-jingle/)
   * Episode #318:
     [Interview with Bjorn Kimminich of OWASP Juice Shop](https://7ms.us/7ms-318-interview-with-bjorn-kimminich-of-owasp-juice-shop/)
   * Shout outs in various episodes:
@@ -110,6 +115,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich:
+  [OWASP Juice Shop v10.0.0 released](https://owasp.org/2020/03/17/juice-shop-v10.html)
 * [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)
   on [eLearnSecurity](https://blog.elearnsecurity.com/) :mega:
 * Blog post on
@@ -211,7 +218,9 @@ where this project was mentioned or used!
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
   on
   [prepared working packages](https://github.com/bkimminich/juice-shop/milestone/10)
-  and the `v10.0.0` release, 27.-29.02.2020
+  and
+  [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
+  27.-29.02.2020
 * [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
   and related working sessions organized by Björn Kimminich,
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
@@ -237,7 +246,16 @@ where this project was mentioned or used!
 
 #### 2020
 
-_t.b.a._
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
+
+_Please stay safe at home for now and watch an existing recording
+instead!_
+
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
 
 #### 2019
 

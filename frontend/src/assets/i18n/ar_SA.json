@@ -188,7 +188,7 @@
   "ADD_BASKET": "أضف إلى السلة",
   "BTN_SHOW_ALL": "إظهار الكل",
   "BTN_SHOW_UNAVAILABLE": "Show unavailable",
-  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a>!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
   "BTN_HIDE_ALL": "إخفاء الكل",
   "TYPE_THESE_LETTERS": "أدخل هذه الأحرف الـ{{length}}",
   "BTN_REQUEST": "تقدیم طلب",
@@ -224,6 +224,7 @@
   "LABEL_STATE": "المنطقة / الولاية",
   "STATE_PLACEHOLDER": "يرجى تقديم الولاية.",
   "LABEL_GO_BACK": "العودة للخلف",
+  "LABEL_BACK": "Back",
   "TITLE_SELECT_ADDRESS": "اختيار عنوان",
   "USE_THIS_ADDRESS": "استخدم عنوان هذا",
   "BTN_DELETE": "حذف",
@@ -307,6 +308,7 @@
   "MANDATORY_CAPTION": "الرجاء إدخال تعليق",
   "LABEL_CAPTION": "Caption",
   "LABEL_PICK_IMAGE": "اختيار صورة",
+  "IMAGE_UPLOAD_SUCCESS": "Your image was successfully uploaded.",
   "EMPTY_MEMORY_LIST": "No memories have been shared yet.",
   "LABEL_DELUXE_MEMBERSHIP": "عضوية ديلوكس",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Enjoy amazing benefits as a a deluxe customer of {{appname}}. Check out what is included with your membership.",
@@ -339,5 +341,11 @@
   "CLICK_FOR_MORE_HINTS": "انقر لمزيد من التلميحات. (Hints)",
   "CLICK_TO_OPEN_HINTS": "انقر لعرض التلميحات. (Hints).",
   "BONUS_POINTS_EARNED": "النقاط المكتسبة: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!"
+  "BONUS_FOR_FUTURE_PURCHASES": "The bonus points from this order will be <em>added 1:1 to your wallet ¤-fund</em> for future purchases!",
+  "ENTER_COUPON_CODE": "Please enter your coupon code",
+  "COUPON_CODE_HINT": "Coupon code must be 10 characters long.",
+  "CHARGED_WALLET": "Wallet successfully charged.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
+  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
 }

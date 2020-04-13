@@ -18,6 +18,9 @@ update_configs:
       - match:
           dependency_name: "unzipper"
           version_requirement: "0.9.15"
+      - match:
+          dependency_name: "jsonwebtoken"
+          version_requirement: "0.4.0"
   - package_manager: "javascript"
     directory: "/frontend"
     update_schedule: "live"

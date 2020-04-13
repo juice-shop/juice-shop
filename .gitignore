@@ -52,3 +52,4 @@ config/*.yml
 !config/7ms.yml
 !config/mozilla.yml
 !config/unsafe.yml
+!config/tutorial.yml

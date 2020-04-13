@@ -188,7 +188,7 @@
   "ADD_BASKET": "Zum Warenkorb hinzufügen",
   "BTN_SHOW_ALL": "Alle anzeigen",
   "BTN_SHOW_UNAVAILABLE": "Nicht verfügbare anzeigen",
-  "INFO_DISABLED_CHALLENGES": "{{num}} Herausforderungen sind in einer {{env}}-Umgebung wegen <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>Sicherheitsbedenken</a> nicht verfügbar!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} Herausforderungen sind in einer {{env}}-Umgebung wegen <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>Sicherheitsbedenken</a> oder technischer Inkompatibilität nicht verfügbar!",
   "BTN_HIDE_ALL": "Alle ausblenden",
   "TYPE_THESE_LETTERS": "Gib diese {{length}} Zeichen ein",
   "BTN_REQUEST": "Anfordern",
@@ -224,6 +224,7 @@
   "LABEL_STATE": "Bundesland",
   "STATE_PLACEHOLDER": "Bitte gib ein Bundesland ein.",
   "LABEL_GO_BACK": "Gehe zurück",
+  "LABEL_BACK": "Zurück",
   "TITLE_SELECT_ADDRESS": "Adresse auswählen",
   "USE_THIS_ADDRESS": "Diese Adresse verwenden",
   "BTN_DELETE": "Löschen",
@@ -307,6 +308,7 @@
   "MANDATORY_CAPTION": "Bitte gib eine Bildunterschrift an",
   "LABEL_CAPTION": "Bildunterschrift",
   "LABEL_PICK_IMAGE": "Bild auswählen",
+  "IMAGE_UPLOAD_SUCCESS": "Dein Foto wurde erfolgreich hochgeladen.",
   "EMPTY_MEMORY_LIST": "Bisher wurden keine Erinnerungen geteilt.",
   "LABEL_DELUXE_MEMBERSHIP": "Deluxe-Mitgliedschaft",
   "DESCRIPTION_DELUXE_MEMBERSHIP": "Genieße erstaunliche Vorteile als Deluxe-Kunde von {{appname}}. Schau dir an, was in deiner Mitgliedschaft enthalten ist.",
@@ -339,5 +341,11 @@
   "CLICK_FOR_MORE_HINTS": "Klicken, um mehr Hinweise anzuzeigen.",
   "CLICK_TO_OPEN_HINTS": "Klicken, um Hinweise anzuzeigen.",
   "BONUS_POINTS_EARNED": "Verdiente Bonuspunkte: {{bonus}}",
-  "BONUS_FOR_FUTURE_PURCHASES": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe <em>1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt</em>!"
+  "BONUS_FOR_FUTURE_PURCHASES": "Die Bonuspunkte aus dieser Bestellung werden für zukünftige Einkäufe <em>1:1 deinem Brieftaschen-¤-Kontostand hinzugefügt</em>!",
+  "ENTER_COUPON_CODE": "Bitte gib deinen Gutscheidcode ein",
+  "COUPON_CODE_HINT": "Gutscheincode muss 10 Zeichen lang sein.",
+  "CHARGED_WALLET": "Brieftasche erfolgreich aufgeladen.",
+  "BTN_SHOW_ONLY_TUTORIALS": "Nur Tutorials anzeigen",
+  "INFO_FULL_CHALLENGE_MODE": "Schließe die übrigen Tutorial-Herausforderungen ab, um alle {{num}} Herausforderungen zu enthüllen und die fortgeschrittenen Punkteübersichtsfilter freizuschalten!",
+  "INFO_NEXT_TUTORIAL_TIER": "Schließe die {{tier}} Tutorial-Herausforderungen ab, um die nächste Schwierigkeitsstufe zu enthüllen!"
 }

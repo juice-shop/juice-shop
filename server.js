@@ -146,6 +146,7 @@ app.use(cors())
 app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
+app.disable('x-powered-by')
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use((req, res, next) => {
@@ -176,16 +177,40 @@ app.use('/assets/i18n', verify.accessControlChallenges())
 /* Checks for challenges solved by abusing SSTi and SSRF bugs */
 app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
+/* Create middleware to change paths from the serve-index plugin from absolute to relative */
+const serveIndexMiddleware = (req, res, next) => {
+  const origEnd = res.end
+  res.end = function () {
+    if (arguments.length) {
+      const reqPath = req.originalUrl.replace(/\?.*$/, '')
+      const currentFolder = reqPath.split('/').pop()
+      arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString, matchedUrl) {
+        let relativePath = path.relative(reqPath, matchedUrl)
+        if (relativePath === '') {
+          relativePath = currentFolder
+        } else if (!relativePath.startsWith('.') && currentFolder !== '') {
+          relativePath = currentFolder + '/' + relativePath
+        } else {
+          relativePath = relativePath.replace('..', '.')
+        }
+        return 'a href="' + relativePath + '"'
+      })
+    }
+    origEnd.apply(this, arguments)
+  }
+  next()
+}
+
 /* /ftp directory browsing and file download */
-app.use('/ftp', serveIndex('ftp', { icons: true }))
+app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
 app.use('/ftp/:file', fileServer())
 
 /* /encryptionkeys directory browsing */
-app.use('/encryptionkeys', serveIndex('encryptionkeys', { icons: true, view: 'details' }))
+app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
 app.use('/encryptionkeys/:file', keyServer())
 
 /* /logs directory browsing */
-app.use('/support/logs', serveIndex('logs', { icons: true, view: 'details' }))
+app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' }))
 app.use('/support/logs', verify.accessControlChallenges())
 app.use('/support/logs/:file', logFileServer())
 
@@ -461,7 +486,7 @@ app.post('/rest/user/login', login())
 app.get('/rest/user/change-password', changePassword())
 app.post('/rest/user/reset-password', resetPassword())
 app.get('/rest/user/security-question', securityQuestion())
-app.get('/rest/user/whoami', currentUser())
+app.get('/rest/user/whoami', insecurity.updateAuthenticatedUsers(), currentUser())
 app.get('/rest/user/authentication-details', authenticatedUsers())
 app.get('/rest/products/search', search())
 app.get('/rest/basket/:id', basket())
@@ -512,7 +537,7 @@ app.get('/promotion', videoHandler.promotionVideo())
 app.get('/video', videoHandler.getVideo())
 
 /* Routes for profile page */
-app.get('/profile', userProfile())
+app.get('/profile', insecurity.updateAuthenticatedUsers(), userProfile())
 app.post('/profile', updateUserProfile())
 
 app.use(angular())
@@ -525,9 +550,13 @@ exports.start = async function (readyCallback) {
   await models.sequelize.sync({ force: true })
   await datacreator()
   const port = process.env.PORT || config.get('server.port')
+  process.env.BASE_PATH = process.env.BASE_PATH || config.get('server.basePath')
 
   server.listen(port, () => {
-    logger.info(colors.cyan(`Server listening on port ${port}`))
+    logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
+    if (process.env.BASE_PATH !== '') {
+      logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
+    }
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()
