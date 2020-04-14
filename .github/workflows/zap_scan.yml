@@ -13,4 +13,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: 'https://demo.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+          cmd_options: '-a -j -m 5'
