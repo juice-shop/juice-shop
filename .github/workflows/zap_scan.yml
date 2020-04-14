@@ -1,16 +1,16 @@
 on:
   schedule:
-    - cron:  '0 18 * * *'
+    - cron:  '0 21 * * *'
 
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: Scan ZAP website
+    name: Scan Juice Shop preview instance on Heroku
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: 'https://demo.owasp-juice.shop'
+          target: 'https://preview.owasp-juice.shop'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -j -m 5'
