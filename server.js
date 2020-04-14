@@ -147,6 +147,11 @@ app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 app.disable('x-powered-by')
+app.use(helmet.featurePolicy({
+  features: {
+    payment: ["'self'"]
+  }
+}))
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use((req, res, next) => {
