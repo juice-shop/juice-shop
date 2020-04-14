@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '0 18 * * 5'
+    - cron:  '0 18 * * *'
 
 jobs:
   zap_scan:
@@ -12,4 +12,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: 'https://demo.owasp-juice.shop'
-          
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a -j -m 5'
