@@ -1,12 +1,18 @@
+name: "ZAP Baseline Scan"
+
 on:
   schedule:
-    - cron:  '0 21 * * *'
+    - cron:  '0 0 * * *'
 
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
     name: Scan Juice Shop preview instance on Heroku
     steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+        with:
+          ref: master
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.2.0
         with:
