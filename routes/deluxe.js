@@ -19,7 +19,10 @@ module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
           user.update({ role: insecurity.roles.deluxe, deluxeToken: insecurity.deluxeToken(user.dataValues.email) })
             .then(user => {
               utils.solveIf(challenges.freeDeluxeChallenge, () => { return insecurity.verify(utils.jwtFrom(req)) && req.body.paymentMode !== 'wallet' && req.body.paymentMode !== 'card' })
-              res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!' } })
+              user = utils.queryResultToJson(user)
+              const updatedToken = insecurity.authorize(user)
+              insecurity.authenticatedUsers.put(updatedToken, user)
+              res.status(200).json({ status: 'success', data: { confirmation: 'Congratulations! You are now a deluxe member!', token: updatedToken } })
             })
         } else {
           res.status(400).json({ status: 'error', error: 'Something went wrong. Please try again!' })
