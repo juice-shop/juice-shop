@@ -188,7 +188,7 @@ export class PaymentComponent implements OnInit {
       this.userService.upgradeToDeluxe(this.paymentMode).subscribe((data) => {
         localStorage.setItem('token', data.token)
         this.cookieService.set('token', data.token)
-        this.ngZone.run(() => this.router.navigate(['/#/deluxe-membership']))
+        this.ngZone.run(() => this.router.navigate(['/deluxe-membership']))
       }, (err) => console.log(err))
     } else {
       if (this.paymentMode === 'wallet') {
