@@ -11,7 +11,13 @@ const challenges = require('../data/datacache').challenges
 module.exports.upgradeToDeluxe = function upgradeToDeluxe () {
   return async (req, res, next) => {
     if (req.body.paymentMode === 'wallet') {
-      await models.Wallet.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
+      const wallet = await models.Wallet.findOne({ where: { UserId: req.body.UserId } })
+      if (wallet.balance < 49) {
+        res.status(400).json({ status: 'error', error: 'Insuffienct funds in Wallet' })
+        return
+      } else {
+        await models.Wallet.decrement({ balance: 49 }, { where: { UserId: req.body.UserId } })
+      }
     }
     models.User.findOne({ where: { id: req.body.UserId, role: insecurity.roles.customer } })
       .then(user => {
