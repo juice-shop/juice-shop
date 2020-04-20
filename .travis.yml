@@ -92,6 +92,9 @@ jobs:
     - stage: smoke
       if: tag IS blank
       os: linux
+      arch:
+        - amd64
+        - arm64
       before_install:
         - chmod +x test/smoke/smoke-test.sh
       install:
