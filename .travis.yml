@@ -4,6 +4,9 @@ os:
   - linux
   - osx
   - windows
+arch:
+  - amd64
+  - arm64
 node_js:
   - 12
   - 10
@@ -57,6 +60,7 @@ jobs:
     - stage: integration
       if: tag IS blank
       os: linux
+      arch: amd64
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
@@ -74,12 +78,14 @@ jobs:
     - stage: e2e
       if: tag IS blank
       os: linux
+      arch: amd64
       script:
         - export NODE_ENV=test
         - npm run e2e
     - stage: e2e
       if: tag IS blank
       os: linux
+      arch: amd64
       script:
         - export NODE_ENV=test
         - npm run e2e -- subfolder
@@ -100,6 +106,7 @@ jobs:
     - stage: deploy
       if: "(branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request"
       os: linux
+      arch: amd64
       node_js: 12
       install: skip
       script: skip
