@@ -14,7 +14,8 @@
   <mat-card>
     <div class="star-container" fxLayout="row wrap">
       <mat-button-toggle *ngFor="let difficulty of availableDifficulties" (change)="toggleDifficulty(difficulty)"
-                         [checked]="displayedDifficulties.includes(difficulty)">
+                         [checked]="displayedDifficulties.includes(difficulty)" [disabled]="restrictToTutorialsFirst && difficulty > tutorialsTier"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted && difficulty > tutorialsTier ? ( isLastTutorialsTier ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ('INFO_NEXT_TUTORIAL_TIER' | translate: {tier: '★'.repeat(tutorialsTier)})) : ''" matTooltipPosition="above">
         <label>
         <span class="fa-4x fa-layers fa-fw" style="display: block; margin: 5px;">
           <svg [style.fill]="'url(#' + difficulty + ')'" class="svg-inline--fa fa-star fa-w-18 star-border" aria-hidden="true"
@@ -38,13 +39,24 @@
         </label>
       </mat-button-toggle>
 
-      <button id="btnToggleAllDifficulties" class="mat-button" (click)="toggleAllDifficulty()">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+      <button id="btnToggleAllDifficulties" class="mat-button" (click)="toggleAllDifficulty()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfDifficulties ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
 
-      <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges">
+      <mat-button-toggle (change)="toggleShowSolvedChallenges()" [checked]="showSolvedChallenges" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
         <i class="fa-2x fas fa-trophy" aria-hidden="true"></i> {{"BTN_SHOW_SOLVED" | translate}}
       </mat-button-toggle>
 
-      <mat-button-toggle *ngIf="numDisabledChallenges > 0" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges">
+      <mat-button-toggle id="btnToggleShowOnlyTutorialChallenges" (change)="toggleShowOnlyTutorialChallenges()"
+                         [checked]="showOnlyTutorialChallenges" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
+        <mat-icon>
+          school
+        </mat-icon>
+        {{"BTN_SHOW_ONLY_TUTORIALS" | translate}}
+      </mat-button-toggle>
+
+      <mat-button-toggle *ngIf="numDisabledChallenges > 0" (change)="toggleShowDisabledChallenges()" [checked]="showDisabledChallenges"
+                         [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted" [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
         <i class="fa-2x fas fa-exclamation-circle" aria-hidden="true"></i> {{"BTN_SHOW_UNAVAILABLE" | translate}}
       </mat-button-toggle>
 
@@ -55,11 +67,12 @@
     <div class="category-container" fxLayout="row wrap">
       <mat-button-toggle class="category-toggle" appearance="legacy" *ngFor="let category of availableChallengeCategories"
                          (change)="toggleShowChallengeCategory(category)"
-                         [checked]="displayedChallengeCategories.includes(category)">
+                         [checked]="displayedChallengeCategories.includes(category)" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted"
+                         [matTooltip]="restrictToTutorialsFirst && !allTutorialsCompleted ? ('INFO_FULL_CHALLENGE_MODE' | translate: {num: challenges.length}) : ''" matTooltipPosition="above">
         {{category}}
       </mat-button-toggle>
 
-      <button class="mat-button" (click)="toggleAllChallengeCategory()">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
+      <button class="mat-button" (click)="toggleAllChallengeCategory()" [disabled]="restrictToTutorialsFirst && !allTutorialsCompleted">{{(this.toggledMajorityOfCategories ? "BTN_HIDE_ALL" : "BTN_SHOW_ALL") | translate}}</button>
     </div>
 
   </mat-card>
