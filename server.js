@@ -146,6 +146,12 @@ app.use(cors())
 app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
+app.disable('x-powered-by')
+app.use(helmet.featurePolicy({
+  features: {
+    payment: ["'self'"]
+  }
+}))
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use((req, res, next) => {
@@ -549,9 +555,13 @@ exports.start = async function (readyCallback) {
   await models.sequelize.sync({ force: true })
   await datacreator()
   const port = process.env.PORT || config.get('server.port')
+  process.env.BASE_PATH = process.env.BASE_PATH || config.get('server.basePath')
 
   server.listen(port, () => {
-    logger.info(colors.cyan(`Server listening on port ${port}`))
+    logger.info(colors.cyan(`Server listening on port ${colors.bold(port)}`))
+    if (process.env.BASE_PATH !== '') {
+      logger.info(colors.cyan(`Server using proxy base path ${colors.bold(process.env.BASE_PATH)} for redirects`))
+    }
     require('./lib/startup/registerWebsocketEvents')(server)
     if (readyCallback) {
       readyCallback()

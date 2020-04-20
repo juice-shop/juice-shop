@@ -101,4 +101,19 @@ describe('/#/forgot-password', () => {
 
     protractor.expect.challengeSolved({ challenge: 'Reset Morty\'s Password' })
   })
+
+  describe('as Uvogin', () => {
+    it('should be able to reset password with his security answer', () => {
+      email.sendKeys('uvogin@' + config.get('application.domain'))
+      browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
+      securityAnswer.sendKeys('Silence of the Lambs')
+      newPassword.sendKeys('ora-ora > muda-muda')
+      newPasswordRepeat.sendKeys('ora-ora > muda-muda')
+      resetButton.click()
+
+      expect($('.confirmation').getAttribute('hidden')).not.toBeTruthy()
+    })
+
+    protractor.expect.challengeSolved({ challenge: 'Reset Uvogin\'s Password' })
+  })
 })

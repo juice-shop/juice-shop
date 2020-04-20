@@ -1,6 +1,8 @@
 server:
   port:
     type: number
+  basePath:
+    type: string
 application:
   domain:
     type: string
@@ -96,6 +98,8 @@ challenges:
   showSolvedNotifications:
     type: boolean
   showHints:
+    type: boolean
+  restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
     type: string
@@ -378,6 +382,11 @@ ctf:
       code:
         type: string
     resetPasswordMortyChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    resetPasswordUvoginChallenge:
       name:
         type: string
       code:

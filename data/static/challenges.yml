@@ -817,3 +817,11 @@
   key: xssBonusChallenge
   tutorial:
     order: 3
+-
+  name: 'Reset Uvogin''s Password'
+  category: 'Sensitive Data Exposure'
+  description: 'Reset Uvogin''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.'
+  difficulty: 4
+  hint: 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#reset-uvogins-password-via-the-forgot-password-mechanism'
+  key: resetPasswordUvoginChallenge
