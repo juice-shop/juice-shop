@@ -24,6 +24,7 @@ export class PurchaseBasketComponent implements OnInit {
 
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('displayTotal') public displayTotal: boolean = false
+  @Input('totalPrice') public totalPrice: boolean = true
   @Output() emitTotal = new EventEmitter()
   @Output() emitProductCount = new EventEmitter()
   public tableColumns = ['image', 'product','quantity','price']
@@ -62,6 +63,7 @@ export class PurchaseBasketComponent implements OnInit {
   delete (id) {
     this.basketService.del(id).subscribe(() => {
       this.load()
+      this.basketService.updateNumberOfCardItems()
     }, (err) => console.log(err))
   }
 
@@ -78,6 +80,7 @@ export class PurchaseBasketComponent implements OnInit {
       let newQuantity = basketItem.quantity + value
       this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
         this.load()
+        this.basketService.updateNumberOfCardItems()
       },(err) => {
         this.snackBarHelperService.open(err.error?.error,'errorBar')
         console.log(err)

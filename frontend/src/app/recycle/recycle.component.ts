@@ -13,6 +13,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressComponent } from '../address/address.component'
 import { TranslateService } from '@ngx-translate/core'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 library.add(faPaperPlane)
 dom.watch()
@@ -35,7 +36,9 @@ export class RecycleComponent implements OnInit {
   public userEmail: any
   public confirmation: any
   public addressId: any = undefined
-  constructor (private recycleService: RecycleService, private userService: UserService, private configurationService: ConfigurationService, private formSubmitService: FormSubmitService, private translate: TranslateService) { }
+  constructor (private recycleService: RecycleService, private userService: UserService,
+    private configurationService: ConfigurationService, private formSubmitService: FormSubmitService,
+    private translate: TranslateService, private snackBarHelperService: SnackBarHelperService) { }
 
   ngOnInit () {
 
@@ -72,21 +75,24 @@ export class RecycleComponent implements OnInit {
     this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
       if (savedRecycle.isPickup) {
         this.translate.get('CONFIRM_RECYCLING_PICKUP',{ pickupdate: savedRecycle.pickupDate }).subscribe((confirmRecyclingPickup) => {
-          this.confirmation = confirmRecyclingPickup
+          this.snackBarHelperService.open(confirmRecyclingPickup, 'confirmBar')
         }, (translationId) => {
-          this.confirmation = translationId
+          this.snackBarHelperService.open(translationId, 'confirmBar')
         })
       } else {
         this.translate.get('CONFIRM_RECYCLING_BOX').subscribe((confirmRecyclingBox) => {
-          this.confirmation = confirmRecyclingBox
+          this.snackBarHelperService.open(confirmRecyclingBox, 'confirmBar')
         }, (translationId) => {
-          this.confirmation = translationId
+          this.snackBarHelperService.open(translationId, 'confirmBar')
         })
       }
       this.addressComponent.load()
       this.initRecycle()
       this.resetForm()
-    },(err) => console.log(err))
+    },(err) => {
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      console.log(err)
+    })
   }
 
   findAll () {

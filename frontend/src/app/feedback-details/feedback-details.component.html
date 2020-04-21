@@ -5,30 +5,19 @@
 
 <mat-dialog-content class="mat-typography">
   <header>
-    <h1>{{"LABEL_USER" | translate}} #{{user?.id}}</h1>
+    <h1>{{"LABEL_COMMENT" | translate}}</h1>
   </header>
   <mat-divider></mat-divider>
   <div class="container" fxLayout="column">
-    <div fxLayout="row" fxLayoutGap="10px">
-      <div>
-        <strong translate="LABEL_EMAIL"></strong>
-        <p>{{user?.email}}</p>
+
+      <div fxLayout="row" fxLayoutGap="10px">
+        <span>{{"LABEL_USER" | translate}}:</span>
+        <p>#{{id}}</p>
       </div>
-      <!--<div>
-        <strong translate="LABEL_PASSWORD"></strong>
-        <p>{{user?.password}}</p>
-      </div>-->
-    </div>
-    <div fxLayout="row" fxLayoutGap="10px">
-      <div>
-        <strong translate="LABEL_CREATED_AT"></strong>
-        <p>{{user?.createdAt}}</p>
+
+      <div style="margin-top: 10px !important;">
+        <cite [innerHTML]="feedback"></cite>
       </div>
-      <div>
-        <strong translate="LABEL_UPDATED_AT"></strong>
-        <p>{{user?.updatedAt}}</p>
-      </div>
-    </div>
   </div>
   <mat-dialog-actions align="end" class="dialogAction">
     <button mat-button style="height: 0; position: absolute;">

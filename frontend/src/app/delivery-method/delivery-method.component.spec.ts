@@ -100,12 +100,13 @@ describe('DeliveryMethodComponent', () => {
   })
 
   it('should hold delivery methods on ngOnInit', () => {
-    deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1 }]))
+    deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1, icon: '1' }]))
     component.ngOnInit()
     expect(component.methods[0].id).toEqual(1)
     expect(component.methods[0].name).toEqual('1')
     expect(component.methods[0].price).toEqual(1)
     expect(component.methods[0].eta).toEqual(1)
+    expect(component.methods[0].icon).toEqual('1')
   })
 
   it('should store delivery method id on selectMethod', () => {

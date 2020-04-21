@@ -10,3 +10,8 @@ mat-divider {
 .dialogAction {
   margin-bottom: 0 !important;
 }
+
+mat-dialog-content {
+  max-width: 320px;
+  min-width: 280px;
+}

@@ -238,6 +238,7 @@ export class PaymentComponent implements OnInit {
 
   useWallet () {
     this.paymentMode = 'wallet'
+    this.choosePayment()
   }
 
   resetCouponForm () {
