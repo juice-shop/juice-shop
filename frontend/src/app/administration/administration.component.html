@@ -3,73 +3,120 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+<mat-card class="mat-elevation-z6 mat-own-card">
+  <h1 translate>TITLE_ADMINISTRATION</h1>
+  <div class="container" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
 
-  <div class="user-container" fxFlexAlign="center">
-    <div class="user-table mat-elevation-z8">
-      <div class="heading">
-        <span translate>TITLE_ADMINISTRATION</span>
-        <small style="margin-left: 10px;" translate>SECTION_USER</small>
+    <div class="user-container" fxFlexAlign="center">
+      <div class="user-table">
+        <div class="heading">
+          <span translate>SECTION_USER</span>
+        </div>
+        <mat-table [dataSource]="userDataSource" style="height: 700px;">
+
+          <ng-container matColumnDef="user">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let user" style="vertical-align: middle"><i *ngIf="user.token"
+                                                                               class="fas fa-user fa-lg confirmation"></i>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+            <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="user_detail">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <button mat-button (click)="showUserDetail(user.id)"><i class="fas fa-eye"></i></button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: userColumns; "></mat-row>
+
+        </mat-table>
+
+        <mat-paginator #paginatorUsers
+                       [pageSize]="10"
+                       [length]="resultsLengthUser"
+                       class="mat-elevation-z0"
+                       color="accent">
+        </mat-paginator>
       </div>
-      <mat-table [dataSource]="userDataSource">
+      <mat-table [dataSource]="userDataSourceHidden" style="visibility: hidden; height: 0px;">
 
         <ng-container matColumnDef="user">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let user"> <i *ngIf="user.token" class="fas fa-user fa-lg confirmation"></i>  </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_EMAIL</mat-header-cell>
-          <mat-cell *matCellDef="let user" [innerHTML]="user.email"> </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="user_detail">
-          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-          <mat-cell *matCellDef="let user"><button mat-icon-button (click)="showUserDetail(user.id)"><i class="fas fa-eye"></i></button></mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: userColumns;"></mat-row>
-
-      </mat-table>
-    </div>
-  </div>
-
-  <div class="customer-container" fxFlexAlign.lt-md="center">
-    <div class="customer-table mat-elevation-z8">
-      <div class="heading">
-        <span translate>SECTION_CUSTOMER_FEEDBACK</span>
-      </div>
-      <mat-table [dataSource]="feedbackDataSource">
-
-        <ng-container matColumnDef="user">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_USER</mat-header-cell>
-          <mat-cell *matCellDef="let feedback"> {{feedback.UserId}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="comment">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_COMMENT</mat-header-cell>
-          <mat-cell *matCellDef="let feedback" [innerHTML]="feedback.comment"> </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="rating">
-          <mat-header-cell *matHeaderCellDef translate>LABEL_RATING</mat-header-cell>
-          <mat-cell *matCellDef="let feedback">
-            <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let user" style="vertical-align: middle">
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="remove">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let feedback"><button mat-icon-button (click)="deleteFeedback(feedback.id)"><i class="fas fa-trash-alt"></i></button></mat-cell>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+          <mat-cell *matCellDef="let user" [innerHTML]="user.email" style="vertical-align: middle"></mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="feedbackColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: feedbackColumns;"></mat-row>
+        <ng-container matColumnDef="user_detail">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <button mat-button (click)="showUserDetail(user.id)"><i class="fas fa-eye"></i></button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="userColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: userColumns; "></mat-row>
+
       </mat-table>
 
     </div>
-  </div>
 
-  <img src="assets/public/images/padding/19px.png"/>
-</div>
+    <div class="customer-container" fxFlexAlign.lt-md="center">
+      <div class="customer-table">
+        <div class="heading">
+          <span translate>SECTION_CUSTOMER_FEEDBACK</span>
+        </div>
+        <mat-table [dataSource]="feedbackDataSource" style="height: 700px;">
+
+          <ng-container matColumnDef="user">
+            <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+            <mat-cell *matCellDef="let feedback"> {{feedback.UserId}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+            <mat-cell *matCellDef="let feedback" (click)="showFeedbackDetails(feedback.comment, feedback.UserId)"><p
+              [innerHTML]="feedback.comment" matTooltip="Click for more information" matTooltipPosition="above"></p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
+            <mat-cell *matCellDef="let feedback">
+              <bar-rating [rate]="feedback.rating" readOnly="true" [max]="5"></bar-rating>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="remove">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let feedback">
+              <button mat-button (click)="deleteFeedback(feedback.id)"><i class="fas fa-trash-alt"></i></button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="feedbackColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: feedbackColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginatorFeedb
+                       [pageSize]="10"
+                       [length]="resultsLengthFeedback"
+                       class="mat-elevation-z0"
+                       color="accent">
+        </mat-paginator>
+
+      </div>
+    </div>
+    <img src="assets/public/images/padding/19px.png"/>
+  </div>
+</mat-card>

@@ -8,4 +8,5 @@ export interface DeliveryMethod {
   name: string
   price: number
   eta: number
+  icon: string
 }
