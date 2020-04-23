@@ -31,6 +31,7 @@ before_deploy:
   - npm install --production --prefer-offline
   - npm prune --production && cd frontend && npm prune --production && cd ..
   - npm dedupe && cd frontend && npm dedupe && cd ..
+  - npm install grunt-cli
   - npm run package
 deploy:
   - provider: releases
