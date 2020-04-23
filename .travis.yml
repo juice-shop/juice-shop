@@ -25,10 +25,10 @@ env:
 addons:
   chrome: stable
 install:
-  - if [[ -z "$TRAVIS_TAG" ]]; then npm install --prefer-offline --no-audit; fi
+  - if [[ -z "$TRAVIS_TAG" ]]; then npm install --prefer-offline; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH" == "amd64" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
-  - npm install --production --prefer-offline --no-audit
+  - npm install --production --prefer-offline
   - npm prune --production && cd frontend && npm prune --production && cd ..
   - npm dedupe && cd frontend && npm dedupe && cd ..
   - npm run package
