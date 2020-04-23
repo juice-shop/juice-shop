@@ -8,6 +8,7 @@ arch:
   - amd64
   - arm64
 node_js:
+  - 14
   - 13
   - 12
   - 10
