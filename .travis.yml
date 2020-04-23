@@ -108,6 +108,8 @@ jobs:
       if: "(branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request"
       install: skip
       script: skip
+      before_deploy:
+        - npm install --production --prefer-offline
       deploy:
         - provider: heroku
           strategy: api
