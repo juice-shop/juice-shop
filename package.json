@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "10.2.0",
+  "version": "10.2.1",
   "description": "Probably the most modern and sophisticated insecure web application",
   "homepage": "https://owasp-juice.shop",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
@@ -152,7 +152,7 @@
     "protractor": "npm run e2e",
     "e2e": "node test/e2eTests.js",
     "vagrant": "cd vagrant && vagrant up",
-    "package": "npm dedupe && grunt package"
+    "package": "grunt package"
   },
   "engines": {
     "node": "10 - 13"
