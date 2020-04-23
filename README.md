@@ -167,6 +167,20 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 
 4. Your container is now running and available at
    `http://<EXTERNAL_IP>:3000/`
+   
+   
+# Raspberry Pi (ARM) Container
+
+1. Install [Ubuntu Server](https://ubuntu.com/download/raspberry-pi) or [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) in your Raspberry Pi.
+
+2. Install [Docker](https://phoenixnap.com/kb/docker-on-raspberry-pi).
+
+3. Run `docker pull santosomar/juice-shop-arm64`
+
+4. Run `docker run -d --rm -p 3000:3000 santosomar/juice-shop-arm64`
+
+5. Browse to your Raspberry Pi's IP address on port 3000. For instance <http://10.1.1.1:3000>. In this example, the IP address of the Raspberry Pi is 10.1.1.1.
+
 
 ## Node.js version compatibility
 
