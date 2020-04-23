@@ -8,9 +8,13 @@ arch:
   - amd64
   - arm64
 node_js:
+  - 13
   - 12
   - 10
-  - 13
+cache:
+  directories:
+    - node_modules
+    - frontend/node_modules
 stages:
   - lint
   - test
@@ -20,12 +24,14 @@ env:
     secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
 addons:
   chrome: stable
-install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
+install:
+  - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH" == "amd64" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
-  - rm -rf node_modules
-  - rm -rf frontend/node_modules
   - npm install --production
+  - npm prune --production && cd frontend && npm prune --production && cd ..
+  - npm dedupe && cd frontend && npm dedupe && cd ..
+  - npm install grunt-cli
   - npm run package
 deploy:
   - provider: releases
@@ -56,6 +62,7 @@ jobs:
         - npm run lint:config -- -f ./config/juicebox.yml
         - npm run lint:config -- -f ./config/mozilla.yml
         - npm run lint:config -- -f ./config/quiet.yml
+        - npm run lint:config -- -f ./config/tutorial.yml
         - npm run lint:config -- -f ./config/unsafe.yml
     - stage: integration
       if: tag IS blank
@@ -90,6 +97,9 @@ jobs:
         - chmod +x test/smoke/smoke-test.sh
       install:
         - npm install --production
+        - npm prune --production && cd frontend && npm prune --production && cd ..
+        - npm dedupe && cd frontend && npm dedupe && cd ..
+        - npm install grunt-cli
         - npm run package
       script:
         - cd dist
@@ -101,6 +111,8 @@ jobs:
       if: "(branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request"
       install: skip
       script: skip
+      before_deploy:
+        - npm install --production
       deploy:
         - provider: heroku
           strategy: api

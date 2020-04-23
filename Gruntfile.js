@@ -33,6 +33,7 @@ module.exports = function (grunt) {
         files: [
           {
             src: [
+              'LICENSE',
               '*.md',
               'app.js',
               'server.js',
