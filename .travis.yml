@@ -8,9 +8,9 @@ arch:
   - amd64
   - arm64
 node_js:
+  - 13
   - 12
   - 10
-  - 13
 cache:
   directories:
     - node_modules
