@@ -9,7 +9,6 @@ arch:
   - arm64
 node_js:
   - 14
-  - 13
   - 12
   - 10
 cache:
