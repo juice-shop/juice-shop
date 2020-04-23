@@ -97,6 +97,9 @@ jobs:
         - chmod +x test/smoke/smoke-test.sh
       install:
         - npm install --production
+        - npm prune --production && cd frontend && npm prune --production && cd ..
+        - npm dedupe && cd frontend && npm dedupe && cd ..
+        - npm install grunt-cli
         - npm run package
       script:
         - cd dist
