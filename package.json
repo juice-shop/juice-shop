@@ -152,7 +152,8 @@
     "protractor": "npm run e2e",
     "e2e": "node test/e2eTests.js",
     "vagrant": "cd vagrant && vagrant up",
-    "package": "grunt package"
+    "package": "grunt package",
+    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package"
   },
   "engines": {
     "node": "10 - 14"
