@@ -184,9 +184,9 @@ describe('/#/contact', () => {
         comment.sendKeys('Spam #' + i)
         rating.click()
         submitButton.click()
-        browser.wait(EC.visibilityOf(snackBar), 80, 'SnackBar did not become visible')
+        browser.wait(EC.visibilityOf(snackBar), 200, 'SnackBar did not become visible')
         snackBar.click()
-        browser.sleep(80)
+        browser.sleep(200)
         solveNextCaptcha() // first CAPTCHA was already solved in beforeEach
       }
 
