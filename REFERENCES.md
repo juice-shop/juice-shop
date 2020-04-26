@@ -40,6 +40,11 @@ where this project was mentioned or used!
   * [★★ Deprecated Interface](https://youtu.be/yQ40B_eSj48) :godmode:
   * [★★ Five Star Feedback](https://youtu.be/9BsfRJA_-ik) :godmode:
   * [★★ Login MC SafeSearch](https://youtu.be/8VhGBdVK9ik) :godmode:
+  * [★★ Password Strength](https://youtu.be/fnuz-3QM8ac) :godmode:
+  * [★★ Security Policy](https://youtu.be/_h829JTNtKo) :godmode:
+  * [★★ View Basket](https://youtu.be/hBbdxn3-aiU) :godmode:
+  * [★★ Weird Crypto](https://youtu.be/GWJouiMUJno) :godmode:
+  * [★★★ API-Only XSS](https://youtu.be/aGjLR4uc0ys) :godmode:
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
@@ -524,4 +529,3 @@ instead!_
   by Björn Kimminich,
   [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/),
   27.01.2015
-
