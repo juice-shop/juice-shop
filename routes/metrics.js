@@ -78,13 +78,13 @@ exports.observeMetrics = function observeMetrics () {
 
   const challengeSolvedMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved`,
-    help: 'Number of solved challenges grouped by difficulty.',
+    help: 'Number of solved challenges grouped by difficulty and category.',
     labelNames: ['difficulty', 'category']
   })
 
   const challengeTotalMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_total`,
-    help: 'Total number of challenges grouped by difficulty.',
+    help: 'Total number of challenges grouped by difficulty and category.',
     labelNames: ['difficulty', 'category']
   })
 
