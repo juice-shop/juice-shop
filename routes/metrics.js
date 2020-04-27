@@ -116,8 +116,8 @@ exports.observeMetrics = function observeMetrics () {
   })
 
   const updateLoop = setInterval(() => {
-    const version = utils.version();
-    const { mayor, minor, patch } = version.match(/(?<mayor>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups;
+    const version = utils.version()
+    const { mayor, minor, patch } = version.match(/(?<mayor>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
     versionMetrics.set({ version, mayor, minor, patch }, 1)
 
     const challengeStatuses = new Map()
