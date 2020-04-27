@@ -11,7 +11,7 @@ describe('/metrics', () => {
     return frisby.get(API_URL)
       .expect('status', 200)
       .expect('header', 'content-type', /text\/plain/)
-      .expect('bodyContains', /^.*_version_info{version="[0-9]+.[0-9]+.[0-9]+",major="[0-9]+",minor="[0-9]+",patch="[0-9]+",app=".*"} 1$/gm)
+      .expect('bodyContains', /^.*_version_info{version="[0-9]+.[0-9]+.[0-9]+(-SNAPSHOT)?",major="[0-9]+",minor="[0-9]+",patch="[0-9]+",app=".*"} 1$/gm)
       .expect('bodyContains', /^.*_challenges_solved{difficulty="[1-6]",category=".*",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_challenges_total{difficulty="[1-6]",category=".*",app=".*"} [0-9]*$/gm)
       .expect('bodyContains', /^.*_orders_placed_total{app=".*"} [0-9]*$/gm)
