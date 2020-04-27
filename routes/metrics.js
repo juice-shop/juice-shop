@@ -72,8 +72,8 @@ exports.observeMetrics = function observeMetrics () {
 
   const versionMetrics = new Prometheus.Gauge({
     name: `${app}_version_info`,
-    help: `${config.get('application.name')} version info`,
-    labelNames: ['version', 'mayor', 'minor', 'patch']
+    help: `Release version of ${config.get('application.name')}.`,
+    labelNames: ['version', 'major', 'minor', 'patch']
   })
 
   const challengeSolvedMetrics = new Prometheus.Gauge({
@@ -117,8 +117,8 @@ exports.observeMetrics = function observeMetrics () {
 
   const updateLoop = setInterval(() => {
     const version = utils.version()
-    const { mayor, minor, patch } = version.match(/(?<mayor>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
-    versionMetrics.set({ version, mayor, minor, patch }, 1)
+    const { major, minor, patch } = version.match(/(?<major>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
+    versionMetrics.set({ version, major, minor, patch }, 1)
 
     const challengeStatuses = new Map()
     const challengeCount = new Map()
