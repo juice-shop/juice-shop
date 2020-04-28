@@ -89,7 +89,6 @@ products:
     price: 3
     deluxePrice: 6.00
     image: blauwetas.jpg
-      - { text: 'y0ur f1r3wall needs m0r3 musc13', author: uvogin }	
   -
     name: 'Cotton Shopper'
     description: 'Cotton material'
@@ -209,14 +208,6 @@ products:
     price: 0.01
     image: undefined_kiwa.png
     urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
-   -
-    name: 'Rippertuer Special Juice'
-    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
-    price: 16.99
-    image: undefined.jpg
-    keywordsForPastebinDataLeakChallenge:
-      - hueteroneel
-      - eurogium edule
   -
     name: 'Christmas Super-Surprise-Box (2018 Edition)'
     description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
@@ -251,12 +242,6 @@ products:
     description: 'You are getting flagged.'
     price: 2.99
     image: tableflag.jpg
-  -
-    name: 'OWASP Juice Shop Logo (3D-printed)'
-    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
-    price: 99.99
-    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
-    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
   -
     name: 'Carrot Juice (1000ml)'
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'

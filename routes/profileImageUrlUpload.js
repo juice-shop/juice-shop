@@ -19,9 +19,7 @@ module.exports = function profileImageUrlUpload () {
         const imageRequest = request
           .get(url)
           .on('error', function (err) {
-<<<<<<< HEAD
             logger.warn('Error retrieving user profile image: ' + err.message)
-=======
             models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url }) }).catch(error => { next(error) })
             logger.warn('Error retrieving user profile image: ' + err.message + '; using image link directly')
           })
@@ -31,7 +29,6 @@ module.exports = function profileImageUrlUpload () {
               imageRequest.pipe(fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`))
               models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` }) }).catch(error => { next(error) })
             } else models.User.findByPk(loggedInUser.data.id).then(user => { return user.update({ profileImage: url }) }).catch(error => { next(error) })
->>>>>>> upstream/master
           })
       } else {
         next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
