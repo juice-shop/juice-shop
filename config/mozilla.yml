@@ -35,10 +35,7 @@ application:
 challenges:
   showSolvedNotifications: true
   showHints: false
-<<<<<<< HEAD
-=======
   xssBonusPayload: '<iframe width="560" height="315" src="https://www.youtube.com/embed/0u9g0LhRkGk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
->>>>>>> upstream/master
 hackingInstructor:
   isEnabled: false
 products:

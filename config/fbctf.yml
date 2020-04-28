@@ -286,8 +286,6 @@ ctf:
     exposedMetricsChallenge:
       name: Japan
       code: JP
-<<<<<<< HEAD
-=======
     freeDeluxeChallenge:
       name: Vietnam
       code: VN
@@ -300,4 +298,3 @@ ctf:
     resetPasswordUvoginChallenge:
       name: Republic of South Africa
       code: RSA
->>>>>>> upstream/master

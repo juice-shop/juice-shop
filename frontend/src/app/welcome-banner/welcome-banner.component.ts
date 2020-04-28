@@ -6,11 +6,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
-<<<<<<< HEAD
-import { CookieService } from 'ngx-cookie'
-=======
 import { CookieService } from 'ngx-cookie-service'
->>>>>>> upstream/master
 
 @Component({
   selector: 'app-welcome-banner',

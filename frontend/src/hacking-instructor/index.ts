@@ -14,12 +14,9 @@ import { LoginJimInstruction } from './challenges/loginJim'
 import { ViewBasketInstruction } from './challenges/viewBasket'
 import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 import { PasswordStrengthInstruction } from './challenges/passwordStrength'
-<<<<<<< HEAD
-=======
 import { BonusPayloadInstruction } from './challenges/bonusPayload'
 import { LoginBenderInstruction } from './challenges/loginBender'
 import { TutorialUnavailableInstruction } from './tutorialUnavailable'
->>>>>>> upstream/master
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -29,13 +26,9 @@ const challengeInstructions: ChallengeInstruction[] = [
   PrivacyPolicyInstruction,
   ViewBasketInstruction,
   ForgedFeedbackInstruction,
-<<<<<<< HEAD
-  PasswordStrengthInstruction
-=======
   PasswordStrengthInstruction,
   BonusPayloadInstruction,
   LoginBenderInstruction
->>>>>>> upstream/master
 ]
 
 const fallbackInstruction = TutorialUnavailableInstruction

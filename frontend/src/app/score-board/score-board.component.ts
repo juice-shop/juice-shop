@@ -37,14 +37,11 @@ export class ScoreBoardComponent implements OnInit {
   public showSolvedChallenges: boolean = true
   public numDisabledChallenges: number = 0
   public showDisabledChallenges: boolean = false
-<<<<<<< HEAD
-=======
   public showOnlyTutorialChallenges: boolean = false
   public restrictToTutorialsFirst: boolean = false
   public allTutorialsCompleted: boolean = false
   public isLastTutorialsTier: boolean = false
   public tutorialsTier: number = 1
->>>>>>> upstream/master
   public disabledEnv?: string
   public displayedColumns = ['name', 'difficulty', 'description', 'category', 'status']
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
@@ -76,20 +73,6 @@ export class ScoreBoardComponent implements OnInit {
       this.showContributionInfoBox = config.application.showGitHubLinks
       this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
       this.appName = config.application.name
-<<<<<<< HEAD
-    }, (err) => console.log(err))
-
-    this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
-      this.challenges = challenges
-      for (let i = 0; i < this.challenges.length; i++) {
-        this.augmentHintText(this.challenges[i])
-        this.trustDescriptionHtml(this.challenges[i])
-        if (this.challenges[i].name === 'Score Board') {
-          this.challenges[i].solved = true
-        }
-        if (!this.availableChallengeCategories.includes(challenges[i].category)) {
-          this.availableChallengeCategories.push(challenges[i].category)
-=======
       this.restrictToTutorialsFirst = config.challenges.restrictToTutorialsFirst
       this.showOnlyTutorialChallenges = localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : this.restrictToTutorialsFirst
       this.challengeService.find({ sort: 'name' }).subscribe((challenges) => {
@@ -108,7 +91,6 @@ export class ScoreBoardComponent implements OnInit {
               challenges[i].hasTutorial = module.hasInstructions(challenges[i].name)
             })
           }
->>>>>>> upstream/master
         }
         this.availableChallengeCategories.sort()
         this.displayedChallengeCategories = localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : this.availableChallengeCategories
@@ -260,8 +242,6 @@ export class ScoreBoardComponent implements OnInit {
     localStorage.setItem('showDisabledChallenges', JSON.stringify(this.showDisabledChallenges))
   }
 
-<<<<<<< HEAD
-=======
   toggleShowOnlyTutorialChallenges () {
     this.showOnlyTutorialChallenges = !this.showOnlyTutorialChallenges
     localStorage.setItem('showOnlyTutorialChallenges', JSON.stringify(this.showOnlyTutorialChallenges))
@@ -278,7 +258,6 @@ export class ScoreBoardComponent implements OnInit {
     }
   }
 
->>>>>>> upstream/master
   toggleShowChallengeCategory (category: string) {
     if (!this.displayedChallengeCategories.includes(category)) {
       this.displayedChallengeCategories.push(category)
@@ -314,10 +293,7 @@ export class ScoreBoardComponent implements OnInit {
       if (!this.displayedChallengeCategories.includes(challenge.category)) return false
       if (!this.showSolvedChallenges && challenge.solved) return false
       if (!this.showDisabledChallenges && challenge.disabledEnv) return false
-<<<<<<< HEAD
-=======
       if (this.showOnlyTutorialChallenges && !challenge.hasTutorial) return false
->>>>>>> upstream/master
       return true
     })
 

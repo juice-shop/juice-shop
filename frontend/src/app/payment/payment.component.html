@@ -106,18 +106,6 @@
             <i style="margin-left: 3px;" class="fas fa-thumbs-up confirmation"></i>)
           </small>
           <div class="button-container" style="margin-top: 6px;">
-<<<<<<< HEAD
-            <a href="/redirect?to=http://shop.spreadshirt.com/juiceshop">
-              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button>
-            </a>
-            <a href="/redirect?to=http://shop.spreadshirt.de/juiceshop">
-              <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (DE)</button>
-            </a>
-            <a href="/redirect?to=https://www.stickeryou.com/products/owasp-juice-shop/794">
-              <button mat-stroked-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button>
-            </a>
-            <a href="/redirect?to=http://leanpub.com/juice-shop">
-=======
             <a href="./redirect?to=http://shop.spreadshirt.com/juiceshop">
               <button mat-stroked-button><i class="fas fa-tshirt fa-lg"></i> Spreadshirt (US)</button>
             </a>
@@ -128,7 +116,6 @@
               <button mat-stroked-button><i class="fas fa-sticky-note fa-lg"></i> StickerYou</button>
             </a>
             <a href="./redirect?to=http://leanpub.com/juice-shop">
->>>>>>> upstream/master
               <button mat-stroked-button><i class="fab fa-leanpub fa-lg"></i> Leanpub</button>
             </a>
           </div>
@@ -144,11 +131,7 @@
         {{'LABEL_BACK' | translate}}
       </button>
       <button mat-raised-button mat-button class="btn nextButton" color="primary" aria-label="Proceed to review"
-<<<<<<< HEAD
-              [disabled]="paymentId === undefined && payUsingWallet === false" (click)="choosePayment()">
-=======
               [disabled]="paymentId === undefined && paymentMode !== 'wallet'" (click)="choosePayment()">
->>>>>>> upstream/master
         <mat-icon>
           navigate_next
         </mat-icon>
@@ -156,10 +139,6 @@
       </button>
       <p style="text-align: center;margin-top: -27px;">
         <span translate *ngIf="mode !== 'deluxe' && mode !== 'wallet'">REVIEW_ALERT</span>
-<<<<<<< HEAD
-        <span translate *ngIf="mode === 'deluxe'">REVIEW_DELUXE</span>
-=======
->>>>>>> upstream/master
         <span translate *ngIf="mode === 'wallet'">REVIEW_WALLET</span>
       </p>
     </div>

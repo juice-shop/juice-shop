@@ -58,10 +58,6 @@ export class DeliveryMethodComponent implements OnInit {
     this.location.back()
   }
 
-  routeToPreviousUrl () {
-    this.location.back()
-  }
-
   chooseDeliveryMethod () {
     sessionStorage.setItem('deliveryMethodId', this.deliveryMethodId.toString())
     this.ngZone.run(() => this.router.navigate(['/payment', 'shop']))

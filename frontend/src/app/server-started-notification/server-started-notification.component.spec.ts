@@ -3,11 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-<<<<<<< HEAD
-import { CookieModule, CookieService } from 'ngx-cookie'
-=======
 import { CookieService } from 'ngx-cookie-service'
->>>>>>> upstream/master
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'

@@ -124,8 +124,6 @@ export function waitForLogOut () {
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 /**
  * see https://stackoverflow.com/questions/7798748/find-out-whether-chrome-console-is-open/48287643#48287643
@@ -150,4 +148,3 @@ export function waitForDevTools () {
     }
   }
 }
->>>>>>> upstream/master

@@ -167,13 +167,10 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   {
-<<<<<<< HEAD
-=======
     path: 'score-board',
     component: ScoreBoardComponent
   },
   {
->>>>>>> upstream/master
     path: 'track-result',
     component: TrackResultComponent
   },

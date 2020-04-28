@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-<<<<<<< HEAD
-=======
 import { environment } from '../../environments/environment'
->>>>>>> upstream/master
 import { ChallengeService } from '../Services/challenge.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'

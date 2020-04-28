@@ -5,11 +5,7 @@
 
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
-<<<<<<< HEAD
-import { CookieService } from 'ngx-cookie'
-=======
 import { CookieService } from 'ngx-cookie-service'
->>>>>>> upstream/master
 import { Component, NgZone, OnInit } from '@angular/core'
 
 @Component({

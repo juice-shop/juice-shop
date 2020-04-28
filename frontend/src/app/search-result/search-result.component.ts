@@ -49,10 +49,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public dataSource!: MatTableDataSource<TableEntry>
   public gridDataSource!: any
   public searchValue?: SafeHtml
-<<<<<<< HEAD
-=======
   public resultsLength = 0
->>>>>>> upstream/master
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private productSubscription?: Subscription
   private routerSubscription?: Subscription
@@ -62,11 +59,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   constructor (private deluxeGuard: DeluxeGuard, private dialog: MatDialog, private productService: ProductService,
    private quantityService: QuantityService, private basketService: BasketService, private translateService: TranslateService,
    private router: Router, private route: ActivatedRoute, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService,
-<<<<<<< HEAD
-   private snackBarHelperService: SnackBarHelperService) { }
-=======
    private snackBarHelperService: SnackBarHelperService, private cdRef: ChangeDetectorRef) { }
->>>>>>> upstream/master
 
   ngAfterViewInit () {
     const products = this.productService.search('')
@@ -193,15 +186,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
                 this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
                   this.snackBarHelperService.open(basketAddSameProduct,'confirmBar')
-<<<<<<< HEAD
-                }, (translationId) => {
-                  this.snackBarHelperService.open(translationId,'confirmBar')
-=======
                   this.basketService.updateNumberOfCardItems()
                 }, (translationId) => {
                   this.snackBarHelperService.open(translationId,'confirmBar')
                   this.basketService.updateNumberOfCardItems()
->>>>>>> upstream/master
                 })
               }, (err) => console.log(err))
             },(err) => {
@@ -217,15 +205,10 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
             this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
               this.snackBarHelperService.open(basketAddProduct,'confirmBar')
-<<<<<<< HEAD
-            }, (translationId) => {
-              this.snackBarHelperService.open(translationId,'confirmBar')
-=======
               this.basketService.updateNumberOfCardItems()
             }, (translationId) => {
               this.snackBarHelperService.open(translationId,'confirmBar')
               this.basketService.updateNumberOfCardItems()
->>>>>>> upstream/master
             })
           }, (err) => console.log(err))
         }, (err) => {

@@ -3,11 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-<<<<<<< HEAD
-import { CookieService } from 'ngx-cookie'
-=======
 import { CookieService } from 'ngx-cookie-service'
->>>>>>> upstream/master
 import { WindowRefService } from '../Services/window-ref.service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'

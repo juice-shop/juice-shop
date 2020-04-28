@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-<<<<<<< HEAD
-=======
 import { environment } from '../../environments/environment'
->>>>>>> upstream/master
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'

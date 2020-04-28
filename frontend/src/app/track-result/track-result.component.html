@@ -3,19 +3,11 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<<<<<<< HEAD
-<div fxLayoutAlign="center">
-  <mat-card>
-    <mat-card-header></mat-card-header>
-    <h3><span translate>TITLE_SEARCH_RESULTS</span> - <span [innerHtml]="results.orderNo"></span></h3>
-    <h4 translate>LABEL_EXPECTED_DELIVERY</h4>
-=======
 
 <mat-card class="mat-elevation-z6 mat-own-card">
     <h1><span translate>TITLE_SEARCH_RESULTS</span> - <span [innerHtml]="results.orderNo"></span></h1>
     <div style="text-align: center;">
     <h3 translate>LABEL_EXPECTED_DELIVERY</h3>
->>>>>>> upstream/master
     <div class="container-fluid well">
       <div class="row fa-4x">
         <span *ngIf="status === Status.New"><i class="fas fa-warehouse confirmation"></i></span>
@@ -79,10 +71,3 @@
 
 
 
-<<<<<<< HEAD
-<div class="bonus-container">
-  <h2 translate [translateParams]="{'bonus': results.bonus}">BONUS_POINTS_EARNED</h2>
-  <p>(<span [innerHtml]="'BONUS_FOR_FUTURE_PURCHASES' | translate"></span>)</p>
-</div>
-=======
->>>>>>> upstream/master
