@@ -95,7 +95,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            payUsingWallet: false
+            paymentMode: 'card'
           }
         })
           .expect('status', 200)
@@ -116,7 +116,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            payUsingWallet: false
+            paymentMode: 'card'
           }
         })
           .expect('status', 400)
@@ -137,7 +137,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            payUsingWallet: false
+            paymentMode: 'card'
           }
         })
           .expect('status', 400)
@@ -158,7 +158,7 @@ describe('/rest/deluxe-membership', () => {
         return frisby.post(REST_URL + '/deluxe-membership', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
-            payUsingWallet: false
+            paymentMode: 'card'
           }
         })
           .expect('status', 400)

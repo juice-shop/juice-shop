@@ -6,7 +6,7 @@
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { DataSubjectService } from '../Services/data-subject.service'
 import { UserService } from '../Services/user.service'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router'
 import { Component, NgZone, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
@@ -71,7 +71,7 @@ export class ErasureRequestComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.remove('token')
+    this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/']))

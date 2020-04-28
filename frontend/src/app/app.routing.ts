@@ -163,10 +163,17 @@ const routes: Routes = [
     component: SearchResultComponent
   },
   {
+    path: 'hacking-instructor',
+    component: SearchResultComponent
+  },
+  {
+<<<<<<< HEAD
+=======
     path: 'score-board',
     component: ScoreBoardComponent
   },
   {
+>>>>>>> upstream/master
     path: 'track-result',
     component: TrackResultComponent
   },

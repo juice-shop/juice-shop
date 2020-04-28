@@ -86,7 +86,7 @@ function handleXmlUpload ({ file }, res, next) {
         const xmlString = xmlDoc.toString(false)
         utils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (matchesSystemIniFile(xmlString) || matchesEtcPasswdFile(xmlString)) })
         res.status(410)
-        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 200) + ' (' + file.originalname + ')'))
+        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
       } catch (err) {
         if (utils.contains(err.message, 'Script execution timed out')) {
           if (utils.notSolved(challenges.xxeDosChallenge)) {

@@ -25,6 +25,29 @@ where this project was mentioned or used!
 
 ### Pod- & Webcasts
 
+* [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw) playlist of [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA)
+  * [★ Zero Stars](https://youtu.be/0YSNRz0NRt8) :godmode:
+  * [★ Confidential Document](https://youtu.be/Yi7OiMtzGXc) :godmode:
+  * [★ DOM XSS](https://youtu.be/BuVxyBo05F8) :godmode:
+  * [★ Error Handling](https://youtu.be/WGafQnjSMk4) :godmode:
+  * [★ Missing Encoding](https://youtu.be/W7Bt2AmYtao) :godmode:
+  * [★ Outdated Whitelist](https://youtu.be/TEdZAXuTfpk) :godmode:
+  * [★ Privacy Policy](https://youtu.be/f5tM_4vBq-w) :godmode:
+  * [★ Repetitive Registration](https://youtu.be/mHjYOtKGYQM) :godmode:
+  * [★★ Login Admin](https://youtu.be/LuU1fSuc7Gg) :godmode:
+  * [★★ Admin Section](https://youtu.be/BPLhu354esc) :godmode:
+  * [★★ Classic Stored XSS](https://youtu.be/dxzU6djocJQ) :godmode:
+  * [★★ Deprecated Interface](https://youtu.be/yQ40B_eSj48) :godmode:
+  * [★★ Five Star Feedback](https://youtu.be/9BsfRJA_-ik) :godmode:
+  * [★★ Login MC SafeSearch](https://youtu.be/8VhGBdVK9ik) :godmode:
+  * [★★ Password Strength](https://youtu.be/fnuz-3QM8ac) :godmode:
+  * [★★ Security Policy](https://youtu.be/_h829JTNtKo) :godmode:
+  * [★★ View Basket](https://youtu.be/hBbdxn3-aiU) :godmode:
+  * [★★ Weird Crypto](https://youtu.be/GWJouiMUJno) :godmode:
+  * [★★★ API-Only XSS](https://youtu.be/aGjLR4uc0ys) :godmode:
+* 15min video tutorial by
+  [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
+  [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
   * Episode 5.21:
     [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
@@ -70,6 +93,8 @@ where this project was mentioned or used!
   [Signal Sciences](https://vimeo.com/signalsciences):
   [Secure Development Lessons from Purposely Insecure Applications](https://vimeo.com/241965102/40f6b1778b)
 * [7 Minute Security](https://7ms.us) Podcast:
+  * Episode #403:
+    [7MOOMAMA - Juice Shop Song + Backdoors and Breaches Jingle](https://7ms.us/7ms-403-7moomama-juice-shop-song-backdoors-and-breaches-jingle/)
   * Episode #318:
     [Interview with Bjorn Kimminich of OWASP Juice Shop](https://7ms.us/7ms-318-interview-with-bjorn-kimminich-of-owasp-juice-shop/)
   * Shout outs in various episodes:
@@ -110,6 +135,8 @@ where this project was mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich:
+  [OWASP Juice Shop v10.0.0 released](https://owasp.org/2020/03/17/juice-shop-v10.html)
 * [20+ Free Resources To Legally Practice Your Ethical Hacking Skills](https://blog.elearnsecurity.com/free-resources-to-legally-practice-ethical-hacking.html?utm_source=twitter&utm_medium=social&utm_campaign=eh_resources_blogpost)
   on [eLearnSecurity](https://blog.elearnsecurity.com/) :mega:
 * Blog post on
@@ -211,7 +238,9 @@ where this project was mentioned or used!
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
   on
   [prepared working packages](https://github.com/bkimminich/juice-shop/milestone/10)
-  and the `v10.0.0` release, 27.-29.02.2020
+  and
+  [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
+  27.-29.02.2020
 * [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
   and related working sessions organized by Björn Kimminich,
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),
@@ -237,7 +266,16 @@ where this project was mentioned or used!
 
 #### 2020
 
-_t.b.a._
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
+
+_Please stay safe at home for now and watch an existing recording
+instead!_
+
+🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠
+:mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask: 🦠 :mask:
+🦠
 
 #### 2019
 
@@ -491,4 +529,3 @@ _t.b.a._
   by Björn Kimminich,
   [17. OWASP Stammtisch Hamburg](http://lanyrd.com/2015/owasp-de/),
   27.01.2015
-

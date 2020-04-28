@@ -7,13 +7,19 @@
 import snarkdown from 'snarkdown' // TODO Remove ts-ignore when https://github.com/developit/snarkdown/pull/74 is merged
 
 import { LoginAdminInstruction } from './challenges/loginAdmin'
-import { DomXssInstruction } from './challenges/localXss'
+import { DomXssInstruction } from './challenges/domXss'
 import { ScoreBoardInstruction } from './challenges/scoreBoard'
 import { PrivacyPolicyInstruction } from './challenges/privacyPolicy'
 import { LoginJimInstruction } from './challenges/loginJim'
 import { ViewBasketInstruction } from './challenges/viewBasket'
 import { ForgedFeedbackInstruction } from './challenges/forgedFeedback'
 import { PasswordStrengthInstruction } from './challenges/passwordStrength'
+<<<<<<< HEAD
+=======
+import { BonusPayloadInstruction } from './challenges/bonusPayload'
+import { LoginBenderInstruction } from './challenges/loginBender'
+import { TutorialUnavailableInstruction } from './tutorialUnavailable'
+>>>>>>> upstream/master
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -23,8 +29,16 @@ const challengeInstructions: ChallengeInstruction[] = [
   PrivacyPolicyInstruction,
   ViewBasketInstruction,
   ForgedFeedbackInstruction,
+<<<<<<< HEAD
   PasswordStrengthInstruction
+=======
+  PasswordStrengthInstruction,
+  BonusPayloadInstruction,
+  LoginBenderInstruction
+>>>>>>> upstream/master
 ]
+
+const fallbackInstruction = TutorialUnavailableInstruction
 
 export interface ChallengeInstruction {
   name: string
@@ -114,7 +128,7 @@ export function hasInstructions (challengeName: String): boolean {
 }
 
 export async function startHackingInstructorFor (challengeName: String): Promise<void> {
-  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName)
+  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) || TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction!.hints) {
     const element = loadHint(hint)

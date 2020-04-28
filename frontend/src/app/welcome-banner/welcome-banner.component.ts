@@ -6,7 +6,11 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
+<<<<<<< HEAD
 import { CookieService } from 'ngx-cookie'
+=======
+import { CookieService } from 'ngx-cookie-service'
+>>>>>>> upstream/master
 
 @Component({
   selector: 'app-welcome-banner',
@@ -38,6 +42,7 @@ export class WelcomeBannerComponent implements OnInit {
   }
 
   startHackingInstructor () {
+    this.dialogRef.close()
     console.log('Starting instructions for challenge "Score Board"')
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor('Score Board')
@@ -48,6 +53,6 @@ export class WelcomeBannerComponent implements OnInit {
     this.dialogRef.close()
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.put(this.welcomeBannerStatusCookieKey, 'dismiss', { expires })
+    this.cookieService.set(this.welcomeBannerStatusCookieKey, 'dismiss', expires, '/')
   }
 }

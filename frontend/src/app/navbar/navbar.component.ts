@@ -3,17 +3,22 @@
  * SPDX-License-Identifier: MIT
  */
 
+<<<<<<< HEAD
+=======
+import { environment } from '../../environments/environment'
+>>>>>>> upstream/master
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
 import { AdministrationService } from '../Services/administration.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core'
-import { CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { BasketService } from '../Services/basket.service'
 
 import {
   faBomb,
@@ -60,15 +65,19 @@ export class NavbarComponent implements OnInit {
   public logoSrc: string = 'assets/public/images/JuiceShop_Logo.png'
   public scoreBoardVisible: boolean = false
   public shortKeyLang: string = 'placeholder'
+  public itemTotal = 0
 
   @Output() public sidenavToggle = new EventEmitter()
 
   constructor (private administrationService: AdministrationService, private challengeService: ChallengeService,
     private configurationService: ConfigurationService, private userService: UserService, private ngZone: NgZone,
-    private cookieService: CookieService, private router: Router, private translate: TranslateService, private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard, private snackBar: MatSnackBar) { }
+    private cookieService: CookieService, private router: Router, private translate: TranslateService,
+    private io: SocketIoService, private langService: LanguagesService, private loginGuard: LoginGuard,
+    private snackBar: MatSnackBar, private basketService: BasketService) { }
 
   ngOnInit () {
     this.getLanguages()
+    this.basketService.getItemTotal().subscribe(x => this.itemTotal = x)
     this.administrationService.getApplicationVersion().subscribe((version: any) => {
       if (version) {
         this.version = 'v' + version
@@ -153,7 +162,7 @@ export class NavbarComponent implements OnInit {
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
-    this.cookieService.remove('token')
+    this.cookieService.delete('token', '/')
     sessionStorage.removeItem('bid')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(() => this.router.navigate(['/']))
@@ -163,7 +172,7 @@ export class NavbarComponent implements OnInit {
     this.translate.use(langKey)
     let expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.put('language', langKey, { expires })
+    this.cookieService.set('language', langKey, expires, '/')
     if (this.languages.find((y: { key: string }) => y.key === langKey)) {
       const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
@@ -185,7 +194,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfilePage () {
-    window.location.replace('/profile')
+    window.location.replace(environment.hostServer + '/profile')
   }
 
   onToggleSidenav = () => {

@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
-import { CookieModule, CookieService } from 'ngx-cookie'
+import { CookieService } from 'ngx-cookie-service'
 import { ReactiveFormsModule } from '@angular/forms'
 import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
@@ -130,6 +130,7 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guard'
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -188,7 +189,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     OrderHistoryComponent,
     DeliveryMethodComponent,
     PhotoWallComponent,
-    DeluxeUserComponent
+    DeluxeUserComponent,
+    FeedbackDetailsComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -209,7 +211,6 @@ export function HttpLoaderFactory (http: HttpClient) {
         }
       }
     ),
-    CookieModule.forRoot(),
     MatPasswordStrengthModule.forRoot(),
     FlexLayoutModule,
     HttpClientModule,

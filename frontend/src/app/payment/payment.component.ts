@@ -27,7 +27,11 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router'
 import { WalletService } from '../Services/wallet.service'
 import { DeliveryService } from '../Services/delivery.service'
 import { UserService } from '../Services/user.service'
+<<<<<<< HEAD
 import { CookieService } from 'ngx-cookie'
+=======
+import { CookieService } from 'ngx-cookie-service'
+>>>>>>> upstream/master
 import { Location } from '@angular/common'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
@@ -57,7 +61,7 @@ export class PaymentComponent implements OnInit {
   public walletBalance: number = 0
   public walletBalanceStr: string
   public totalPrice: any = 0
-  public payUsingWallet: boolean = false
+  public paymentMode: string = 'card'
   private campaigns = {
     WMNSDY2019: { validOn: 1551999600000, discount: 75 },
     WMNSDY2020: { validOn: 1583622000000, discount: 60 },
@@ -166,7 +170,11 @@ export class PaymentComponent implements OnInit {
 
   getMessage (id) {
     this.paymentId = id
-    this.payUsingWallet = false
+    this.paymentMode = 'card'
+  }
+
+  routeToPreviousUrl () {
+    this.location.back()
   }
 
   routeToPreviousUrl () {
@@ -185,11 +193,13 @@ export class PaymentComponent implements OnInit {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
       })
     } else if (this.mode === 'deluxe') {
-      this.userService.upgradeToDeluxe(this.payUsingWallet).subscribe(() => {
-        this.logout()
+      this.userService.upgradeToDeluxe(this.paymentMode).subscribe((data) => {
+        localStorage.setItem('token', data.token)
+        this.cookieService.set('token', data.token)
+        this.ngZone.run(() => this.router.navigate(['/deluxe-membership']))
       }, (err) => console.log(err))
     } else {
-      if (this.payUsingWallet) {
+      if (this.paymentMode === 'wallet') {
         sessionStorage.setItem('paymentId', 'wallet')
       } else {
         sessionStorage.setItem('paymentId', this.paymentId)
@@ -198,6 +208,7 @@ export class PaymentComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   logout () {
     this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
     localStorage.removeItem('token')
@@ -207,6 +218,8 @@ export class PaymentComponent implements OnInit {
     this.ngZone.run(() => this.router.navigate(['/login']))
   }
 
+=======
+>>>>>>> upstream/master
   // tslint:disable-next-line:no-empty
   noop () { }
 
@@ -214,7 +227,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: 'bitcoin:1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
-        url: '/redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+        url: './redirect?to=https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
         address: '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
         title: 'TITLE_BITCOIN_ADDRESS'
       }
@@ -225,7 +238,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: 'dash:Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
-        url: '/redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+        url: './redirect?to=https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
         address: 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
         title: 'TITLE_DASH_ADDRESS'
       }
@@ -236,7 +249,7 @@ export class PaymentComponent implements OnInit {
     this.dialog.open(QrCodeComponent, {
       data: {
         data: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
-        url: '/redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
+        url: './redirect?to=https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6',
         address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
         title: 'TITLE_ETHER_ADDRESS'
       }
@@ -244,7 +257,8 @@ export class PaymentComponent implements OnInit {
   }
 
   useWallet () {
-    this.payUsingWallet = true
+    this.paymentMode = 'wallet'
+    this.choosePayment()
   }
 
   resetCouponForm () {

@@ -62,6 +62,10 @@ export class OrderSummaryComponent implements OnInit {
       sessionStorage.removeItem('deliveryMethodId')
       sessionStorage.removeItem('couponDetails')
       sessionStorage.removeItem('couponDiscount')
+<<<<<<< HEAD
+=======
+      this.basketService.updateNumberOfCardItems()
+>>>>>>> upstream/master
       this.ngZone.run(() => this.router.navigate(['/order-completion', orderConfirmationId]))
     }, (err) => console.log(err))
   }

@@ -11,6 +11,10 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { TranslateService } from '@ngx-translate/core'
 import { Router } from '@angular/router'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+<<<<<<< HEAD
+=======
+import { SelectionModel } from '@angular/cdk/collections'
+>>>>>>> upstream/master
 
 library.add(faEdit, faTrashAlt)
 dom.watch()
@@ -28,6 +32,7 @@ export class AddressComponent implements OnInit {
   @Input('showNextButton') public showNextButton: boolean = false
   public addressId: any = undefined
   public displayedColumns = ['Name', 'Address', 'Country']
+  selection = new SelectionModel<Element>(false, [])
   public storedAddresses: any[]
   public dataSource
   public confirmation: any
@@ -58,8 +63,18 @@ export class AddressComponent implements OnInit {
   }
 
   emitSelectionToParent (id: number) {
+<<<<<<< HEAD
     this.emitSelection.emit(id)
     this.addressId = id
+=======
+    if (this.selection.hasValue()) {
+      this.emitSelection.emit(id)
+      this.addressId = id
+    } else {
+      this.emitSelection.emit(undefined)
+      this.addressId = undefined
+    }
+>>>>>>> upstream/master
   }
 
   chooseAddress () {

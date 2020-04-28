@@ -20,7 +20,7 @@ dom.watch()
 export class UserDetailsComponent implements OnInit {
 
   public user: any
-  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any,private userService: UserService) { }
+  constructor (@Inject(MAT_DIALOG_DATA) public dialogData: any, private userService: UserService) { }
 
   ngOnInit () {
     this.userService.get(this.dialogData.id).subscribe((user) => {

@@ -1,7 +1,13 @@
 import {
+<<<<<<< HEAD
     waitInMs,
     sleep, waitForAngularRouteToBeVisited, waitForLogIn
   } from '../helpers/helpers'
+=======
+  waitInMs,
+  sleep, waitForAngularRouteToBeVisited, waitForLogIn, waitForDevTools
+} from '../helpers/helpers'
+>>>>>>> upstream/master
 import { ChallengeInstruction } from '../'
 
 export const ViewBasketInstruction: ChallengeInstruction = {
@@ -43,7 +49,11 @@ export const ViewBasketInstruction: ChallengeInstruction = {
       text:
           "Open the browser's _Development Tools_ and locate the _Session Storage_ tab. Similar to 🍪s, it can be used to store data in key/value pairs for each website.",
       fixture: 'app-navbar',
+<<<<<<< HEAD
       resolved: waitInMs(15000)
+=======
+      resolved: waitForDevTools()
+>>>>>>> upstream/master
     },
     {
       text:

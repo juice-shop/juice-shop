@@ -1,0 +1,315 @@
+CONFLICT (content): Merge conflict in lib/startup/validateConfig.js
+Auto-merging lib/startup/registerWebsocketEvents.js
+CONFLICT (content): Merge conflict in lib/startup/registerWebsocketEvents.js
+Auto-merging lib/startup/customizeEasterEgg.js
+Auto-merging lib/insecurity.js
+CONFLICT (content): Merge conflict in lib/insecurity.js
+Auto-merging frontend/src/styles.scss
+CONFLICT (content): Merge conflict in frontend/src/styles.scss
+Auto-merging frontend/src/hacking-instructor/index.ts
+CONFLICT (content): Merge conflict in frontend/src/hacking-instructor/index.ts
+Auto-merging frontend/src/hacking-instructor/helpers/helpers.ts
+CONFLICT (content): Merge conflict in frontend/src/hacking-instructor/helpers/helpers.ts
+CONFLICT (add/add): Merge conflict in frontend/src/hacking-instructor/challenges/viewBasket.ts
+Auto-merging frontend/src/hacking-instructor/challenges/viewBasket.ts
+Auto-merging frontend/src/hacking-instructor/challenges/scoreBoard.ts
+CONFLICT (add/add): Merge conflict in frontend/src/hacking-instructor/challenges/forgedFeedback.ts
+Auto-merging frontend/src/hacking-instructor/challenges/forgedFeedback.ts
+Auto-merging frontend/src/hacking-instructor/challenges/domXss.ts
+Auto-merging frontend/src/assets/i18n/zh_HK.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/zh_HK.json
+Auto-merging frontend/src/assets/i18n/zh_CN.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/zh_CN.json
+Auto-merging frontend/src/assets/i18n/ur_PK.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ur_PK.json
+Auto-merging frontend/src/assets/i18n/tr_TR.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/tr_TR.json
+Auto-merging frontend/src/assets/i18n/tlh_AA.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/tlh_AA.json
+Auto-merging frontend/src/assets/i18n/sv_SE.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/sv_SE.json
+Auto-merging frontend/src/assets/i18n/ru_RU.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ru_RU.json
+Auto-merging frontend/src/assets/i18n/ro_RO.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ro_RO.json
+Auto-merging frontend/src/assets/i18n/pt_PT.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/pt_PT.json
+Auto-merging frontend/src/assets/i18n/pt_BR.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/pt_BR.json
+Auto-merging frontend/src/assets/i18n/pl_PL.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/pl_PL.json
+Auto-merging frontend/src/assets/i18n/no_NO.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/no_NO.json
+Auto-merging frontend/src/assets/i18n/nl_NL.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/nl_NL.json
+Auto-merging frontend/src/assets/i18n/my_MM.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/my_MM.json
+Auto-merging frontend/src/assets/i18n/lv_LV.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/lv_LV.json
+Auto-merging frontend/src/assets/i18n/lt_LT.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/lt_LT.json
+Auto-merging frontend/src/assets/i18n/ko_KR.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ko_KR.json
+Auto-merging frontend/src/assets/i18n/ka_GE.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ka_GE.json
+Auto-merging frontend/src/assets/i18n/ja_JP.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ja_JP.json
+Auto-merging frontend/src/assets/i18n/it_IT.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/it_IT.json
+Auto-merging frontend/src/assets/i18n/id_ID.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/id_ID.json
+Auto-merging frontend/src/assets/i18n/hu_HU.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/hu_HU.json
+Auto-merging frontend/src/assets/i18n/hi_IN.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/hi_IN.json
+Auto-merging frontend/src/assets/i18n/he_IL.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/he_IL.json
+Auto-merging frontend/src/assets/i18n/fr_FR.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/fr_FR.json
+Auto-merging frontend/src/assets/i18n/fi_FI.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/fi_FI.json
+Auto-merging frontend/src/assets/i18n/et_EE.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/et_EE.json
+Auto-merging frontend/src/assets/i18n/es_ES.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/es_ES.json
+Auto-merging frontend/src/assets/i18n/en.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/en.json
+Auto-merging frontend/src/assets/i18n/el_GR.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/el_GR.json
+Auto-merging frontend/src/assets/i18n/de_DE.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/de_DE.json
+Auto-merging frontend/src/assets/i18n/de_CH.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/de_CH.json
+Auto-merging frontend/src/assets/i18n/da_DK.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/da_DK.json
+Auto-merging frontend/src/assets/i18n/cs_CZ.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/cs_CZ.json
+Auto-merging frontend/src/assets/i18n/ca_ES.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ca_ES.json
+Auto-merging frontend/src/assets/i18n/bg_BG.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/bg_BG.json
+Auto-merging frontend/src/assets/i18n/az_AZ.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/az_AZ.json
+Auto-merging frontend/src/assets/i18n/ar_SA.json
+CONFLICT (content): Merge conflict in frontend/src/assets/i18n/ar_SA.json
+Auto-merging frontend/src/app/welcome/welcome.component.ts
+Auto-merging frontend/src/app/welcome/welcome.component.spec.ts
+CONFLICT (content): Merge conflict in frontend/src/app/welcome/welcome.component.spec.ts
+Auto-merging frontend/src/app/welcome-banner/welcome-banner.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/welcome-banner/welcome-banner.component.ts
+Auto-merging frontend/src/app/welcome-banner/welcome-banner.component.spec.ts
+CONFLICT (content): Merge conflict in frontend/src/app/welcome-banner/welcome-banner.component.spec.ts
+Auto-merging frontend/src/app/welcome-banner/welcome-banner.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/welcome-banner/welcome-banner.component.html
+Auto-merging frontend/src/app/user-details/user-details.component.ts
+Auto-merging frontend/src/app/user-details/user-details.component.scss
+Auto-merging frontend/src/app/user-details/user-details.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/user-details/user-details.component.html
+Auto-merging frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.ts
+Auto-merging frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.spec.ts
+Auto-merging frontend/src/app/track-result/track-result.component.scss
+CONFLICT (content): Merge conflict in frontend/src/app/track-result/track-result.component.scss
+Auto-merging frontend/src/app/track-result/track-result.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/track-result/track-result.component.html
+Auto-merging frontend/src/app/token-sale/token-sale.component.html
+Auto-merging frontend/src/app/sidenav/sidenav.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/sidenav/sidenav.component.ts
+Auto-merging frontend/src/app/sidenav/sidenav.component.spec.ts
+Auto-merging frontend/src/app/sidenav/sidenav.component.html
+Auto-merging frontend/src/app/server-started-notification/server-started-notification.component.ts
+Auto-merging frontend/src/app/server-started-notification/server-started-notification.component.spec.ts
+CONFLICT (content): Merge conflict in frontend/src/app/server-started-notification/server-started-notification.component.spec.ts
+Auto-merging frontend/src/app/search-result/search-result.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/search-result/search-result.component.ts
+Auto-merging frontend/src/app/search-result/search-result.component.spec.ts
+Auto-merging frontend/src/app/search-result/search-result.component.html
+Auto-merging frontend/src/app/score-board/score-board.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/score-board/score-board.component.ts
+Auto-merging frontend/src/app/score-board/score-board.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/score-board/score-board.component.html
+Auto-merging frontend/src/app/recycle/recycle.component.ts
+Auto-merging frontend/src/app/recycle/recycle.component.spec.ts
+Auto-merging frontend/src/app/recycle/recycle.component.scss
+Auto-merging frontend/src/app/recycle/recycle.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/recycle/recycle.component.html
+Auto-merging frontend/src/app/purchase-basket/purchase-basket.component.ts
+Auto-merging frontend/src/app/purchase-basket/purchase-basket.component.spec.ts
+Auto-merging frontend/src/app/purchase-basket/purchase-basket.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/purchase-basket/purchase-basket.component.html
+Auto-merging frontend/src/app/payment/payment.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/payment/payment.component.ts
+Auto-merging frontend/src/app/payment/payment.component.spec.ts
+Auto-merging frontend/src/app/payment/payment.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/payment/payment.component.html
+Auto-merging frontend/src/app/order-summary/order-summary.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/order-summary/order-summary.component.ts
+Auto-merging frontend/src/app/order-summary/order-summary.component.spec.ts
+Auto-merging frontend/src/app/order-summary/order-summary.component.scss
+Auto-merging frontend/src/app/order-summary/order-summary.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/order-summary/order-summary.component.html
+Auto-merging frontend/src/app/order-completion/order-completion.component.scss
+Auto-merging frontend/src/app/order-completion/order-completion.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/order-completion/order-completion.component.html
+Auto-merging frontend/src/app/oauth/oauth.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/oauth/oauth.component.ts
+Auto-merging frontend/src/app/oauth/oauth.component.spec.ts
+Auto-merging frontend/src/app/navbar/navbar.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/navbar/navbar.component.ts
+Auto-merging frontend/src/app/navbar/navbar.component.spec.ts
+Auto-merging frontend/src/app/navbar/navbar.component.html
+Auto-merging frontend/src/app/login/login.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/login/login.component.ts
+Auto-merging frontend/src/app/login/login.component.spec.ts
+Auto-merging frontend/src/app/error-page/error-page.component.ts
+Auto-merging frontend/src/app/error-page/error-page.component.scss
+Auto-merging frontend/src/app/error-page/error-page.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/error-page/error-page.component.html
+Auto-merging frontend/src/app/erasure-request/erasure-request.component.ts
+Auto-merging frontend/src/app/erasure-request/erasure-request.component.spec.ts
+Auto-merging frontend/src/app/deluxe-user/deluxe-user.component.ts
+Auto-merging frontend/src/app/deluxe-user/deluxe-user.component.spec.ts
+Auto-merging frontend/src/app/delivery-method/delivery-method.component.ts
+Auto-merging frontend/src/app/delivery-method/delivery-method.component.spec.ts
+Auto-merging frontend/src/app/delivery-method/delivery-method.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/delivery-method/delivery-method.component.html
+Auto-merging frontend/src/app/contact/contact.component.ts
+Auto-merging frontend/src/app/challenge-status-badge/challenge-status-badge.component.ts
+Auto-merging frontend/src/app/challenge-status-badge/challenge-status-badge.component.html
+Auto-merging frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.ts
+Auto-merging frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.spec.ts
+Auto-merging frontend/src/app/app.routing.ts
+CONFLICT (content): Merge conflict in frontend/src/app/app.routing.ts
+Auto-merging frontend/src/app/app.module.ts
+Auto-merging frontend/src/app/app.component.spec.ts
+CONFLICT (content): Merge conflict in frontend/src/app/app.component.spec.ts
+Auto-merging frontend/src/app/administration/administration.component.ts
+Auto-merging frontend/src/app/administration/administration.component.spec.ts
+Auto-merging frontend/src/app/administration/administration.component.scss
+CONFLICT (content): Merge conflict in frontend/src/app/administration/administration.component.scss
+Auto-merging frontend/src/app/administration/administration.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/administration/administration.component.html
+Auto-merging frontend/src/app/address/address.component.ts
+CONFLICT (content): Merge conflict in frontend/src/app/address/address.component.ts
+Auto-merging frontend/src/app/address/address.component.scss
+Auto-merging frontend/src/app/address/address.component.html
+CONFLICT (content): Merge conflict in frontend/src/app/address/address.component.html
+Auto-merging frontend/src/app/about/about.component.html
+Auto-merging frontend/src/app/Services/user.service.ts
+CONFLICT (content): Merge conflict in frontend/src/app/Services/user.service.ts
+Auto-merging frontend/src/app/Services/user.service.spec.ts
+CONFLICT (content): Merge conflict in frontend/src/app/Services/user.service.spec.ts
+Auto-merging frontend/src/app/Services/socket-io.service.ts
+Auto-merging frontend/src/app/Services/configuration.service.ts
+CONFLICT (content): Merge conflict in frontend/src/app/Services/configuration.service.ts
+Auto-merging frontend/src/app/Services/basket.service.ts
+Auto-merging frontend/src/app/Models/deliveryMethod.model.ts
+Auto-merging frontend/src/app/Models/challenge.model.ts
+CONFLICT (content): Merge conflict in frontend/src/app/Models/challenge.model.ts
+Auto-merging frontend/package.json
+CONFLICT (content): Merge conflict in frontend/package.json
+Auto-merging docs/OWASP Juice Shop - Probably the most modern and sophisticated insecure web application.pdf
+Auto-merging data/static/i18n/zh_HK.json
+CONFLICT (content): Merge conflict in data/static/i18n/zh_HK.json
+Auto-merging data/static/i18n/zh_CN.json
+CONFLICT (content): Merge conflict in data/static/i18n/zh_CN.json
+Auto-merging data/static/i18n/ur_PK.json
+CONFLICT (content): Merge conflict in data/static/i18n/ur_PK.json
+Auto-merging data/static/i18n/tr_TR.json
+CONFLICT (content): Merge conflict in data/static/i18n/tr_TR.json
+Auto-merging data/static/i18n/tlh_AA.json
+CONFLICT (content): Merge conflict in data/static/i18n/tlh_AA.json
+Auto-merging data/static/i18n/sv_SE.json
+CONFLICT (content): Merge conflict in data/static/i18n/sv_SE.json
+Auto-merging data/static/i18n/ru_RU.json
+CONFLICT (content): Merge conflict in data/static/i18n/ru_RU.json
+Auto-merging data/static/i18n/ro_RO.json
+CONFLICT (content): Merge conflict in data/static/i18n/ro_RO.json
+Auto-merging data/static/i18n/pt_PT.json
+CONFLICT (content): Merge conflict in data/static/i18n/pt_PT.json
+Auto-merging data/static/i18n/pt_BR.json
+CONFLICT (content): Merge conflict in data/static/i18n/pt_BR.json
+Auto-merging data/static/i18n/pl_PL.json
+CONFLICT (content): Merge conflict in data/static/i18n/pl_PL.json
+Auto-merging data/static/i18n/no_NO.json
+CONFLICT (content): Merge conflict in data/static/i18n/no_NO.json
+Auto-merging data/static/i18n/nl_NL.json
+CONFLICT (content): Merge conflict in data/static/i18n/nl_NL.json
+Auto-merging data/static/i18n/my_MM.json
+CONFLICT (content): Merge conflict in data/static/i18n/my_MM.json
+Auto-merging data/static/i18n/lv_LV.json
+CONFLICT (content): Merge conflict in data/static/i18n/lv_LV.json
+Auto-merging data/static/i18n/lt_LT.json
+CONFLICT (content): Merge conflict in data/static/i18n/lt_LT.json
+Auto-merging data/static/i18n/ko_KR.json
+CONFLICT (content): Merge conflict in data/static/i18n/ko_KR.json
+Auto-merging data/static/i18n/ka_GE.json
+CONFLICT (content): Merge conflict in data/static/i18n/ka_GE.json
+Auto-merging data/static/i18n/ja_JP.json
+CONFLICT (content): Merge conflict in data/static/i18n/ja_JP.json
+Auto-merging data/static/i18n/it_IT.json
+CONFLICT (content): Merge conflict in data/static/i18n/it_IT.json
+Auto-merging data/static/i18n/id_ID.json
+CONFLICT (content): Merge conflict in data/static/i18n/id_ID.json
+Auto-merging data/static/i18n/hu_HU.json
+CONFLICT (content): Merge conflict in data/static/i18n/hu_HU.json
+Auto-merging data/static/i18n/hi_IN.json
+CONFLICT (content): Merge conflict in data/static/i18n/hi_IN.json
+Auto-merging data/static/i18n/he_IL.json
+CONFLICT (content): Merge conflict in data/static/i18n/he_IL.json
+Auto-merging data/static/i18n/fr_FR.json
+CONFLICT (content): Merge conflict in data/static/i18n/fr_FR.json
+Auto-merging data/static/i18n/fi_FI.json
+CONFLICT (content): Merge conflict in data/static/i18n/fi_FI.json
+Auto-merging data/static/i18n/et_EE.json
+CONFLICT (content): Merge conflict in data/static/i18n/et_EE.json
+Auto-merging data/static/i18n/es_ES.json
+CONFLICT (content): Merge conflict in data/static/i18n/es_ES.json
+Auto-merging data/static/i18n/en.json
+CONFLICT (content): Merge conflict in data/static/i18n/en.json
+Auto-merging data/static/i18n/el_GR.json
+CONFLICT (content): Merge conflict in data/static/i18n/el_GR.json
+Auto-merging data/static/i18n/de_DE.json
+CONFLICT (content): Merge conflict in data/static/i18n/de_DE.json
+Auto-merging data/static/i18n/de_CH.json
+CONFLICT (content): Merge conflict in data/static/i18n/de_CH.json
+Auto-merging data/static/i18n/da_DK.json
+CONFLICT (content): Merge conflict in data/static/i18n/da_DK.json
+Auto-merging data/static/i18n/cs_CZ.json
+CONFLICT (content): Merge conflict in data/static/i18n/cs_CZ.json
+Auto-merging data/static/i18n/ca_ES.json
+CONFLICT (content): Merge conflict in data/static/i18n/ca_ES.json
+Auto-merging data/static/i18n/bg_BG.json
+CONFLICT (content): Merge conflict in data/static/i18n/bg_BG.json
+Auto-merging data/static/i18n/az_AZ.json
+CONFLICT (content): Merge conflict in data/static/i18n/az_AZ.json
+Auto-merging data/static/i18n/ar_SA.json
+CONFLICT (content): Merge conflict in data/static/i18n/ar_SA.json
+Auto-merging data/static/challenges.yml
+CONFLICT (content): Merge conflict in data/static/challenges.yml
+Auto-merging data/datacreator.js
+Auto-merging config/mozilla.yml
+CONFLICT (content): Merge conflict in config/mozilla.yml
+Auto-merging config/juicebox.yml
+Auto-merging config/fbctf.yml
+CONFLICT (content): Merge conflict in config/fbctf.yml
+Auto-merging config/default.yml
+CONFLICT (content): Merge conflict in config/default.yml
+Auto-merging config/bodgeit.yml
+CONFLICT (content): Merge conflict in config/bodgeit.yml
+Auto-merging config/addo.yml
+CONFLICT (content): Merge conflict in config/addo.yml
+Auto-merging config/7ms.yml
+CONFLICT (content): Merge conflict in config/7ms.yml
+CONFLICT (add/add): Merge conflict in config.schema.yml
+Auto-merging config.schema.yml
+Auto-merging SECURITY.md
+CONFLICT (content): Merge conflict in SECURITY.md
+Auto-merging README.md
+Auto-merging HALL_OF_FAME.md
+CONFLICT (content): Merge conflict in HALL_OF_FAME.md
+Auto-merging Gruntfile.js
+Auto-merging Dockerfile
+CONFLICT (content): Merge conflict in Dockerfile
+Auto-merging .gitignore
+CONFLICT (content): Merge conflict in .gitignore
+CONFLICT (add/add): Merge conflict in .github/workflows/lint-fixer.yml

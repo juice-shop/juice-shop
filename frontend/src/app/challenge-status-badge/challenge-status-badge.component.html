@@ -28,7 +28,8 @@
 <button *ngIf="challenge.disabledEnv" [id]="challenge.name + '.unavailable'" mat-raised-button
         [matTooltip]="challenge.hint" matTooltipPosition="above">
   <span>
-    <i class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
+    <i *ngIf="challenge.disabledEnv !== 'Windows'" class="{{ 'icon-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
+    <i *ngIf="challenge.disabledEnv === 'Windows'" class="{{ 'fab fa-' + challenge.disabledEnv?.toString().toLowerCase() }}"></i>
     {{'STATUS_UNAVAILABLE' | translate}}
   </span>
 </button>

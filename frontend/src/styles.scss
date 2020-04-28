@@ -123,12 +123,21 @@
   }
 
   .mat-snack-bar-container.errorBar {
+<<<<<<< HEAD
     color: mat-color(map-get($theme, warn)) !important;;
   }
 
   .mat-snack-bar-container.confirmBar {
       color: mat-color(map-get($theme, accent)) !important;;
     }
+=======
+    color: mat-color(map-get($theme, warn)) !important;
+  }
+
+  .mat-snack-bar-container.confirmBar {
+    color: mat-color(map-get($theme, accent)) !important;
+  }
+>>>>>>> upstream/master
 }
 
 @mixin google-button($theme) {
