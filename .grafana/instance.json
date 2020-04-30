@@ -1738,32 +1738,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "datasource": "Loki",
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 35
-      },
-      "id": 23,
-      "options": {
-        "showLabels": false,
-        "showTime": true,
-        "sortOrder": "Ascending",
-        "wrapLogMessage": true
-      },
-      "targets": [
-        {
-          "expr": "{app=\"juice-shop\"}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Logs",
-      "type": "logs"
     }
   ],
   "refresh": "10s",
