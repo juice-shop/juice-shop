@@ -655,16 +655,16 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "red",
+                  "color": "super-light-green",
                   "value": null
                 },
                 {
-                  "color": "yellow",
+                  "color": "semi-dark-green",
                   "value": 20
                 },
                 {
-                  "color": "green",
-                  "value": 80
+                  "color": "dark-green",
+                  "value": 60
                 }
               ]
             },
@@ -2218,5 +2218,5 @@
   "variables": {
     "list": []
   },
-  "version": 5
+  "version": 6
 }
