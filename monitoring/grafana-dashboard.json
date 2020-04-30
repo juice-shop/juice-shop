@@ -655,11 +655,15 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green",
+                  "color": "red",
                   "value": null
                 },
                 {
-                  "color": "red",
+                  "color": "yellow",
+                  "value": 20
+                },
+                {
+                  "color": "green",
                   "value": 80
                 }
               ]
@@ -1346,6 +1350,127 @@
       }
     },
     {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 0,
+        "y": 17
+      },
+      "id": 90,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 100
+                }
+              ]
+            },
+            "title": "",
+            "unit": "none"
+          },
+          "overrides": [],
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.7.3",
+      "targets": [
+        {
+          "expr": "rate(file_uploads_count[1h]) * 3600",
+          "instant": false,
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{file_type}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "File Uploads",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 5,
+        "w": 15,
+        "x": 9,
+        "y": 17
+      },
+      "id": 91,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 5
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            },
+            "title": "",
+            "unit": "short"
+          },
+          "overrides": [],
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.7.3",
+      "targets": [
+        {
+          "expr": "rate(file_upload_errors[1h]) * 3600",
+          "interval": "1m",
+          "intervalFactor": 1,
+          "legendFormat": "{{file_type}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "File Upload Errors",
+      "type": "gauge"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -1357,7 +1482,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 17
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 46,
@@ -1456,7 +1581,7 @@
         "h": 10,
         "w": 7,
         "x": 9,
-        "y": 17
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1557,7 +1682,7 @@
         "h": 6,
         "w": 5,
         "x": 16,
-        "y": 17
+        "y": 22
       },
       "id": 52,
       "interval": null,
@@ -1640,7 +1765,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 17
+        "y": 22
       },
       "id": 84,
       "interval": "",
@@ -1725,7 +1850,7 @@
         "h": 3,
         "w": 3,
         "x": 21,
-        "y": 20
+        "y": 25
       },
       "id": 50,
       "interval": "",
@@ -1800,7 +1925,7 @@
         "h": 11,
         "w": 8,
         "x": 16,
-        "y": 23
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 56,
@@ -1899,7 +2024,7 @@
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 27
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 54,
@@ -2000,126 +2125,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": null,
-      "gridPos": {
-        "h": 5,
-        "w": 9,
-        "x": 0,
-        "y": 34
-      },
-      "id": 90,
-      "links": [],
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "yellow",
-                  "value": 0.5
-                },
-                {
-                  "color": "red",
-                  "value": 1
-                }
-              ]
-            },
-            "title": "",
-            "unit": "opm"
-          },
-          "overrides": [],
-          "values": false
-        },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "6.7.3",
-      "targets": [
-        {
-          "expr": "rate(file_uploads_count[1h]) * 60",
-          "instant": false,
-          "interval": "1m",
-          "intervalFactor": 1,
-          "legendFormat": "{{file_type}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "File Uploads",
-      "type": "gauge"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": null,
-      "gridPos": {
-        "h": 5,
-        "w": 15,
-        "x": 9,
-        "y": 34
-      },
-      "id": 91,
-      "links": [],
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "yellow",
-                  "value": 0.25
-                },
-                {
-                  "color": "red",
-                  "value": 0.5
-                }
-              ]
-            },
-            "unit": "opm"
-          },
-          "overrides": [],
-          "values": false
-        },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "6.7.3",
-      "targets": [
-        {
-          "expr": "rate(file_upload_errors[1h]) * 60",
-          "interval": "1m",
-          "intervalFactor": 1,
-          "legendFormat": "{{file_type}}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "File Upload Errors",
-      "type": "gauge"
     }
   ],
   "refresh": "10s",
@@ -2213,5 +2218,5 @@
   "variables": {
     "list": []
   },
-  "version": 4
+  "version": 5
 }
