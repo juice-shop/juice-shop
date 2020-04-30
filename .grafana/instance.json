@@ -16,11 +16,11 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1588222860099,
+  "iteration": 1588242543747,
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -29,666 +29,665 @@
         "y": 0
       },
       "id": 25,
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 0,
-            "y": 1
-          },
-          "id": 2,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": "difficulties",
-          "repeatDirection": "h",
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "1",
-              "value": "1"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 4,
-            "y": 1
-          },
-          "id": 79,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "repeatDirection": "h",
-          "repeatIteration": 1588222860096,
-          "repeatPanelId": 2,
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "2",
-              "value": "2"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 8,
-            "y": 1
-          },
-          "id": 80,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "repeatDirection": "h",
-          "repeatIteration": 1588222860096,
-          "repeatPanelId": 2,
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "3",
-              "value": "3"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 12,
-            "y": 1
-          },
-          "id": 81,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "repeatDirection": "h",
-          "repeatIteration": 1588222860096,
-          "repeatPanelId": 2,
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "4",
-              "value": "4"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 16,
-            "y": 1
-          },
-          "id": 82,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "repeatDirection": "h",
-          "repeatIteration": 1588222860096,
-          "repeatPanelId": 2,
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "5",
-              "value": "5"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorPostfix": false,
-          "colorPrefix": false,
-          "colorValue": true,
-          "colors": [
-            "#C8F2C2",
-            "#56A64B",
-            "#37872D"
-          ],
-          "datasource": "Prometheus",
-          "decimals": 0,
-          "description": "",
-          "format": "percent",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 4,
-            "x": 20,
-            "y": 1
-          },
-          "id": 83,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "maxPerRow": 6,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "pluginVersion": "6.7.3",
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "repeat": null,
-          "repeatDirection": "h",
-          "repeatIteration": 1588222860096,
-          "repeatPanelId": 2,
-          "scopedVars": {
-            "difficulties": {
-              "selected": true,
-              "text": "6",
-              "value": "6"
-            }
-          },
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true,
-            "ymax": 100,
-            "ymin": 0
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "thresholds": "20,60",
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved $difficulties Star Challenges",
-          "type": "singlestat",
-          "valueFontSize": "120%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "datasource": null,
-          "gridPos": {
-            "h": 4,
-            "w": 24,
-            "x": 0,
-            "y": 5
-          },
-          "id": 78,
-          "maxPerRow": 4,
-          "options": {
-            "colorMode": "value",
-            "fieldOptions": {
-              "calcs": [
-                "max"
-              ],
-              "defaults": {
-                "mappings": [],
-                "max": 100,
-                "min": 1,
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                },
-                "unit": "percent"
-              },
-              "overrides": [],
-              "values": false
-            },
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical"
-          },
-          "pluginVersion": "6.7.3",
-          "repeat": null,
-          "repeatDirection": "h",
-          "targets": [
-            {
-              "expr": "sum by (category)(juiceshop_challenges_solved{}) / sum by (category)(juiceshop_challenges_total{}) * 100 != 0",
-              "interval": "",
-              "legendFormat": "{{category}} ",
-              "refId": "A"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Solved Challenges by Category",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Challenge Progress",
       "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": "difficulties",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 79,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1588242543747,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "2",
+          "value": "2"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 80,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1588242543747,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "3",
+          "value": "3"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 81,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1588242543747,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "4",
+          "value": "4"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 82,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1588242543747,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "5",
+          "value": "5"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": true,
+      "colors": [
+        "#C8F2C2",
+        "#56A64B",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "decimals": 0,
+      "description": "",
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 83,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "maxPerRow": 6,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "pluginVersion": "6.7.3",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "repeat": null,
+      "repeatDirection": "h",
+      "repeatIteration": 1588242543747,
+      "repeatPanelId": 2,
+      "scopedVars": {
+        "difficulties": {
+          "selected": true,
+          "text": "6",
+          "value": "6"
+        }
+      },
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": true,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": 100,
+        "ymin": 0
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "20,60",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved $difficulties Star Challenges",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 78,
+      "maxPerRow": 4,
+      "options": {
+        "colorMode": "value",
+        "fieldOptions": {
+          "calcs": [
+            "max"
+          ],
+          "defaults": {
+            "mappings": [],
+            "max": 100,
+            "min": 1,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": [],
+          "values": false
+        },
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical"
+      },
+      "pluginVersion": "6.7.3",
+      "repeat": null,
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "expr": "sum by (category)(juiceshop_challenges_solved{}) / sum by (category)(juiceshop_challenges_total{}) * 100 != 0",
+          "interval": "",
+          "legendFormat": "{{category}} ",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Solved Challenges by Category",
+      "type": "stat"
     },
     {
       "collapsed": true,
@@ -697,7 +696,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 9
       },
       "id": 32,
       "panels": [
@@ -713,7 +712,7 @@
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 11,
@@ -770,7 +769,7 @@
             {
               "decimals": 0,
               "format": "short",
-              "label": "Orders per Minute",
+              "label": "",
               "logBase": 1,
               "max": null,
               "min": "0",
@@ -802,7 +801,7 @@
             "h": 6,
             "w": 16,
             "x": 0,
-            "y": 7
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 64,
@@ -901,7 +900,7 @@
             "h": 3,
             "w": 8,
             "x": 16,
-            "y": 7
+            "y": 15
           },
           "id": 13,
           "interval": null,
@@ -985,7 +984,7 @@
             "h": 3,
             "w": 8,
             "x": 16,
-            "y": 10
+            "y": 18
           },
           "id": 14,
           "interval": null,
@@ -1057,7 +1056,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 10
       },
       "id": 39,
       "panels": [],
@@ -1076,7 +1075,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 71,
@@ -1181,7 +1180,7 @@
         "h": 7,
         "w": 10,
         "x": 0,
-        "y": 9
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 46,
@@ -1280,7 +1279,7 @@
         "h": 7,
         "w": 9,
         "x": 10,
-        "y": 9
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1381,7 +1380,7 @@
         "h": 4,
         "w": 5,
         "x": 19,
-        "y": 9
+        "y": 17
       },
       "id": 52,
       "interval": null,
@@ -1464,7 +1463,7 @@
         "h": 3,
         "w": 5,
         "x": 19,
-        "y": 13
+        "y": 21
       },
       "id": 50,
       "interval": "",
@@ -1539,7 +1538,7 @@
         "h": 7,
         "w": 16,
         "x": 0,
-        "y": 16
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 54,
@@ -1653,7 +1652,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 16
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 56,
@@ -1809,7 +1808,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1832,5 +1831,5 @@
   "variables": {
     "list": []
   },
-  "version": 2
+  "version": 3
 }
