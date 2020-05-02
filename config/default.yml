@@ -73,7 +73,7 @@ challenges:
   safetyOverride: false
 hackingInstructor:
   isEnabled: true
-  avatarImage: juicyBot.png
+  avatarImage: juicyBot_MedicalMask.png
 products:
   -
     name: 'Apple Juice (1000ml)'
