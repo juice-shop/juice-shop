@@ -146,12 +146,6 @@ where this project was mentioned or used!
   [40+ Intentionally Vulnerable Websites To (Legally) Practice Your Hacking Skills](https://www.bonkersabouttech.com/security/40-intentionally-vulnerable-websites-to-practice-your-hacking-skills/392)
 * Hacking-session writeup on [Testhexen](http://testhexen.de):
   [Learning Application Security – Fun with the Juice Shop](http://testhexen.de/?p=117)
-* Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
-  [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
-  :godmode:
-* Blog post on [IncognitJoe](https://incognitjoe.github.io/):
-  [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
-  :godmode:
 * Guest post (:de:) on
   [Informatik Aktuell](http://www.informatik-aktuell.de/):
   [Juice Shop - Der kleine Saftladen für Sicherheitstrainings](http://www.informatik-aktuell.de/betrieb/sicherheit/juice-shop-der-kleine-saftladen-fuer-sicherheitstrainings.html)
@@ -190,6 +184,10 @@ where this project was mentioned or used!
   and
   [the `v10.0.0` release](https://owasp.org/2020/03/17/juice-shop-v10.html),
   27.-29.02.2020
+* Student project from
+  [Google Summer of Code 2019](https://summerofcode.withgoogle.com/archive/2019/projects)
+  * [OWASP Juice Shop: Feature Pack 2019](https://summerofcode.withgoogle.com/archive/2019/projects/6526397403627520/)
+    by Arpit Agrawal (mentored by Jannik Hollenbach, Björn Kimminich and Shoeb Patel)
 * [OWASP Juice Shop track](https://github.com/OpenSecuritySummit/oss2019/tree/master/content/tracks/OWASP-Juice-Shop)
   and related working sessions organized by Björn Kimminich,
   [Open Security Summit 2019](https://github.com/OpenSecuritySummit/oss2019),

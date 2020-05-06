@@ -10,12 +10,17 @@ Shop easier to hack!
 > themselves are not individually tagged! You might not want to view
 > anything from this page before tackling the related challenges
 > yourself!
+>
+> 🧃 is followed by the last known major release of OWASP Juice Shop
+> that a solution/script/tool is supposedly working with or that a video
+> guide/solution was recorded for.
 
 ## Hacking Videos
 
 * [Hack OWASP Juice Shop](https://www.youtube.com/watch?v=0YSNRz0NRt8&list=PL8j1j35M7wtKXpTBE6V1RlN_pBZ4StKZw)
   playlist of
   [Hacksplained](https://www.youtube.com/channel/UCyv6ItVqQPnlFFi2zLxlzXA)
+  (🧃`v10.x`)
   * [★ Zero Stars](https://youtu.be/0YSNRz0NRt8)
   * [★ Confidential Document](https://youtu.be/Yi7OiMtzGXc)
   * [★ DOM XSS](https://youtu.be/BuVxyBo05F8)
@@ -39,15 +44,14 @@ Shop easier to hack!
   * [★★★ Björn's Favorite Pet](https://youtu.be/a0k465G8Zkc)
   * [★★★ Captcha Bypass](https://youtu.be/pgGVVOhIiaM)
   * [★★★ Client-side XSS Protection](https://youtu.be/bNjsjs0T0_k)
-
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
-  Youtube channel:
+  Youtube channel (🧃`v7.x`)
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
   * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q)
   * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys)
   * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18)
   * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
-* [7 Minute Security](https://7ms.us) Podcast:
+* [7 Minute Security](https://7ms.us) Podcast (🧃`v2.x`)
   * Episode #234:
     [7MS #234: Pentesting OWASP Juice Shop - Part 5](https://7ms.us/7ms-234-pentesting-owasp-juice-shop-part5/)
     ([Youtube](https://www.youtube.com/watch?v=lGVAXCfFwv0))
@@ -67,8 +71,22 @@ Shop easier to hack!
     [7MS #229: Intro to Docker for Pentesters](https://7ms.us/7ms-229-intro-to-docker-for-pentesters/)
     ([Youtube](https://youtu.be/WIpxvBpnylI?t=407))
 
+### Walkthroughs
+
+* Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
+  [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
+  (🧃`v2.x`)
+* Blog post on [IncognitJoe](https://incognitjoe.github.io/):
+  [Hacking(and automating!) the OWASP Juice Shop](https://incognitjoe.github.io/hacking-the-juice-shop.html)
+  (🧃`v2.x`)
+
 ### Scripts & Tools
 
+* [Session management script for OWASP Juice Shop](https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/dist/scripts/templates/session/Juice%20Shop%20Session%20Management.js)
+  distributed as a scripting template with
+  [OWASP ZAP](https://github.com/zaproxy/zaproxy) since version 2.9.0
+  (🧃`v10.x`)
 * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
-  written in Python by @incognitjoe :godmode:
+  written in Python by [@incognitjoe](https://github.com/incognitjoe)
+  (🧃`v2.x`)
 
