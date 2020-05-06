@@ -47,6 +47,8 @@ where this project was mentioned or used!
   * [★★★ API-Only XSS](https://youtu.be/aGjLR4uc0ys) :godmode:
   * [★★★ Admin Registration](https://youtu.be/-H3Ngs-S0Ms) :godmode:
   * [★★★ Björn's Favorite Pet](https://youtu.be/a0k465G8Zkc) :godmode:
+  * [★★★ Captcha Bypass](https://youtu.be/pgGVVOhIiaM) :godmode:
+  * [★★★ Client-side XSS Protection](https://youtu.be/bNjsjs0T0_k) :godmode:
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
