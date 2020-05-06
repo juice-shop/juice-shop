@@ -44,11 +44,8 @@ Shop easier to hack!
   Youtube channel:
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
   * [Web App Penetration Testing - #15 - HTTP Attributes (Cookie Stealing)](https://youtu.be/8s3ChNKU85Q)
-    :bulb:
   * [Web App Penetration Testing - #14 - Cookie Collection & Reverse Engineering](https://youtu.be/qtr0qtptYys)
-    :bulb:
   * [Web App Penetration Testing - #13 - CSRF (Cross Site Request Forgery)](https://youtu.be/TwG0Rd0hr18)
-    :bulb:
   * [How To Install OWASP Juice Shop](https://youtu.be/tvNKp1QXV_8)
 * [7 Minute Security](https://7ms.us) Podcast:
   * Episode #234:
