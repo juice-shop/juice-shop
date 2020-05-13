@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="160"
+   height="160"
+   id="svg-001">
+  <title
+     id="title-001">JSON logo</title>
+  <defs
+     id="gradients-001">
+    <linearGradient
+       id="linearGradient8385">
+      <stop
+         id="stop8387"
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop8389"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="-553.26971"
+       y1="525.90778"
+       x2="-666.11639"
+       y2="413.0452"
+       id="linearGradient3002"
+       xlink:href="#linearGradient8385"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99884,0,0,0.998699,689.00774,-388.84375)" />
+    <linearGradient
+       x1="-666.11664"
+       y1="413.04492"
+       x2="-553.2699"
+       y2="525.90759"
+       id="linearGradient3005"
+       xlink:href="#linearGradient8385"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99884,0,0,0.998699,689.00774,-388.84375)" />
+  </defs>
+  <metadata
+     id="metadata-json-logo">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>JSON logo</dc:title>
+        <dc:date>2011-09-05 22:42:49</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>fzap</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>PD</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>openclipart.org</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:description>JSON-Logo adapted from the JSON-Website: http://json.org</dc:description>
+        <dc:language>en_GB</dc:language>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>json</rdf:li>
+            <rdf:li>logo</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="m 79.8646,119.09957 c 35.39768,48.25534 70.03957,-13.46852 69.98868,-50.58675 C 149.79308,24.62677 105.31237,0.09913 79.8356,0.09913 38.94318,0.09913 0,33.89521 0,80.13502 c 0,51.396 44.64038,79.86497 79.8356,79.86497 -7.96447,-1.14675 -34.5062,-6.83395 -34.86292,-67.96677 -0.23987,-41.3466 13.48757,-57.86551 34.80527,-50.59905 0.47743,0.17707 23.51392,9.26451 23.51392,38.95053 0,29.55992 -23.42727,38.71487 -23.42727,38.71487 z"
+     id="path7508"
+     style="color:#000000;fill:url(#linearGradient3005);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible" />
+  <path
+     d="M 79.82327,41.40081 C 56.43322,33.33893 27.78025,52.61662 27.78025,91.22962 c 0,63.04798 46.72055,68.77037 52.38416,68.77037 C 121.05683,159.99999 160,126.20391 160,79.9641 160,28.5681 115.35962,0.09913 80.16441,0.09913 c 9.74811,-1.35 52.54087,10.54991 52.54087,69.0368 0,38.14117 -31.95286,58.90496 -52.73547,50.03344 -0.47743,-0.17707 -23.51392,-9.26451 -23.51392,-38.95053 0,-29.55992 23.36738,-38.81803 23.36738,-38.81803 z"
+     id="path7510"
+     style="color:#000000;fill:url(#linearGradient3002);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible" />
+</svg>
