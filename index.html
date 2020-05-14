@@ -31,6 +31,14 @@
       document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</script>
 
+	<!-- Challenges of current Juice Shop release -->
+	<script>
+		fetch("http://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
+			const challenges = await res.json();
+			document.getElementById('numChallenges').innerHTML = challenges.data.length
+		})
+	</script>
+
 	<!--[if lt IE 9]>
 	<script src="lib/js/html5shiv.js"></script>
 	<![endif]-->
@@ -43,31 +51,25 @@
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
 		<section data-transition="zoom">
-			<h2>OWASP Juice Shop 10.x</h2>
+			<h2>OWASP Juice Shop</h2>
 			<p>
 				<small>Probably the most modern and sophisticated insecure web application</small>
 			</p>
 			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
-			<small>The most trustworthy online shop out there <small>(<a href="https://twitter.com/dschadow/status/706781693504589824">@dschadow</a>)</small>
-				— The best juice shop on the whole internet! <small>(<a href="https://twitter.com/shehackspurple/status/907335357775085568">@shehackspurple</a>)</small><br>
-				Actually the most bug-free vulnerable application in existence! <small>(<a href="https://youtu.be/TXAztSpYpvE?t=26m35s">@vanderaj</a>)</small>
-				— First you 😂😂then you 😢 <small>(<a href="https://twitter.com/kramse/status/1073168529405472768">@kramse</a>)</small><br>
-				But this doesn't have anything to do with juice <small>(<a href="https://twitter.com/coderPatros/status/1199268774626488320">@coderPatros</a>' wife)</small>
-			</small>
-			<h3>
+			<h2>
 				<a href="https://owasp-juice.shop">https://owasp-juice.shop</a>
-			</h3>
+			</h2>
 			<p>
-				<small>Presentation by <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a></small>
+				Copyright (c) 2014-2020 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
 			</p>
 		</section>
 
 		<section data-transition="fade-in convex-out">
 			<h2>What is "OWASP"?!?</h2>
-			<blockquote>
-				The Open Web Application Security Project (OWASP) is a 501(c)(3) worldwide not-for-profit charitable organization focused on improving the security of software.
-			</blockquote>
-			<img src="assets/owasp_logo_rev_icon.png" width="200" class="no-box"/>
+			<blockquote><small>
+				The Open Web Application Security Project (OWASP) is a nonprofit foundation that works to improve the security of software. Through community-led open source software projects, hundreds of local chapters worldwide, tens of thousands of members, and leading educational and training conferences, the OWASP Foundation is the source for developers and technologists to secure the web.
+			</small></blockquote>
+			<img src="assets/owasp_logo_rev_icon.png" width="250" class="no-box"/>
 		</section>
 
 		<section>
@@ -81,6 +83,15 @@
 			</blockquote>
 		</section>
 
+		<section>
+			<h2>Customer Testimonials</h2>
+			<blockquote>The most trustworthy online shop out there <small>(<a href="https://twitter.com/dschadow/status/706781693504589824">@dschadow</a>)</small></blockquote>
+			<blockquote>The best juice shop on the whole internet! <small>(<a href="https://twitter.com/shehackspurple/status/907335357775085568">@shehackspurple</a>)</small></blockquote>
+			<blockquote>Actually the most bug-free vulnerable application in existence! <small>(<a href="https://youtu.be/TXAztSpYpvE?t=26m35s">@vanderaj</a>)</small></blockquote>
+			<blockquote>First you 😂😂 then you 😢 <small>(<a href="https://twitter.com/kramse/status/1073168529405472768">@kramse</a>)</small></blockquote>
+			<blockquote>But this doesn't have anything to do with juice <small>(<a href="https://twitter.com/coderPatros/status/1199268774626488320">@coderPatros</a>' wife)</small></blockquote>
+		</section>
+
 		<section data-background="assets/JuiceShop_Wallpaper_1920x1080.jpg">
 			<div style="background-color: rgba(13, 13, 13, 0.6); padding: 10px;">
 				<h2>Click <a href="http://demo.owasp-juice.shop" target="_blank">here</a> for a happy path shopping tour!</h2>
@@ -92,7 +103,7 @@
 
 		<section>
 			<section>
-				<h2>95+ Hacking Challenges</h2>
+				<h2><span id="numChallenges"></span> Hacking Challenges</h2>
 				<p>
 					Covering various vulnerabilities and serious design flaws
 				</p>
@@ -679,7 +690,7 @@ products:
 		<section>
 			<h2>Project Roadmap</h2>
 			<ul>
-				<li>Deliver <a href="https://github.com/bkimminich/pwning-juice-shop/blob/develop/appendix/integration.md#challenge-solution-webhook" target="_blank">new Webhook integration</a> for external progress tracking</li>
+				<li>Release <a href="https://github.com/bkimminich/pwning-juice-shop/blob/develop/appendix/integration.md#challenge-solution-webhook" target="_blank">new Webhook integration</a> for external progress tracking</li>
 				<li>Participate in <a href="https://owasp.org/www-community/initiatives/gsoc/gsoc2020ideas#owasp-juice-shop" target="_blank">GSoC 2020</a> with one student project</li>
 				<li>Participate in <a href="https://open-security-summit-2020.heysummit.com/" target="_blank">Open Security Summit 2020</a> with a dedicated track</li>
 			</ul><br>
@@ -706,10 +717,16 @@ products:
 						<a href="https://github.com/bkimminich/pwning-juice-shop">https://github.com/bkimminich/pwning-juice-shop</a> (<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND</a>)
 					</td>
 				</tr>
+				<tr>
+					<td>Artwork</td>
+					<td style="font-size: 80%">
+						<a href="https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop">https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC-BY</a>)<br>
+					</td>
+				</tr>
 				</tbody>
 			</table>
 			<hr>
-			<h4>Bonus Material on Web Application Security</h4>
+			<h4>Björn's Bonus Material on Web Application Security</h4>
 			<table style="font-size: 50%">
 				<tbody>
 				<tr>
@@ -726,7 +743,9 @@ products:
 
 		<section data-transition="fade">
 			<img src="assets/JuiceShop_Logo.png" width="300" class="no-box"/>
-			<h3>Copyright (c) 2014-2020 <a href="http://kimminich.de">Björn Kimminich</a></h3>
+			<p>
+				Copyright (c) 2014-2020 <a href="http://kimminich.de">Björn Kimminich</a> / <a href="http://twitter.com/bkimminich">@bkimminich</a>
+			</p>
 			<p>
 				Licensed under the <a href="https://github.com/bkimminich/juice-shop/blob/master/LICENSE">MIT license</a>.
 			</p>
