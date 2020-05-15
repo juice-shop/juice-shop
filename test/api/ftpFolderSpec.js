@@ -141,48 +141,18 @@ describe('/ftp', () => {
       .expect('bodyContains', '"epilogue-js": "~0.7",')
   })
 
-  it('GET existing file /ftp/quarantine/juicy_malware_linux_64.url will return a 403 error for invalid file type .url', () => {
+  it('GET file /ftp/quarantine/juicy_malware_linux_64.url', () => {
     return frisby.get(URL + '/ftp/quarantine/juicy_malware_linux_64.url')
-      .expect('status', 403)
+      .expect('status', 200)
   })
 
-  it('GET existing file /ftp/quarantine/juicy_malware_macos_64.url will return a 403 error for invalid file type .url', () => {
+  it('GET existing file /ftp/quarantine/juicy_malware_macos_64.url', () => {
     return frisby.get(URL + '/ftp/quarantine/juicy_malware_macos_64.url')
-      .expect('status', 403)
+      .expect('status', 200)
   })
 
-  it('GET existing file /ftp/quarantine/juicy_malware_windows_64.exe.url will return a 403 error for invalid file type .url', () => {
+  it('GET existing file /ftp/quarantine/juicy_malware_windows_64.exe.url', () => {
     return frisby.get(URL + '/ftp/quarantine/juicy_malware_windows_64.exe.url')
-      .expect('status', 403)
-  })
-
-  it('GET the quarantined Linux malware URL file with .md suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_linux_64.url&2500.md')
-      .expect('status', 200)
-  })
-
-  it('GET the quarantined MacOS malware URL file with .md suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_macos_64.url%2500.md')
-      .expect('status', 200)
-  })
-
-  it('GET the quarantined Windows malware URL file with .md suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_windows_64.exe.url%2500.md')
-      .expect('status', 200)
-  })
-
-  it('GET the quarantined Linux malware URL file with .pdf suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_linux_64.url&2500.pdf')
-      .expect('status', 200)
-  })
-
-  it('GET the quarantined MacOS malware URL file with .pdf suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_macos_64.url%2500.pdf')
-      .expect('status', 200)
-  })
-
-  it('GET the quarantined Windows malware URL file with .pdf suffix', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_windows_64.exe.url%2500.pdf')
       .expect('status', 200)
   })
 })
