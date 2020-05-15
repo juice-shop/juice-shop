@@ -141,8 +141,13 @@ describe('/ftp', () => {
       .expect('bodyContains', '"epilogue-js": "~0.7",')
   })
 
-  it('GET file /ftp/quarantine/juicy_malware_linux_64.url', () => {
-    return frisby.get(URL + '/ftp/quarantine/juicy_malware_linux_64.url')
+  it('GET file /ftp/quarantine/juicy_malware_amd_linux_64.url', () => {
+    return frisby.get(URL + '/ftp/quarantine/juicy_malware_amd_linux_64.url')
+      .expect('status', 200)
+  })
+
+  it('GET file /ftp/quarantine/juicy_malware_arm_linux_64.url', () => {
+    return frisby.get(URL + '/ftp/quarantine/juicy_malware_arm_linux_64.url')
       .expect('status', 200)
   })
 
