@@ -306,6 +306,15 @@ products:
       - { text: "Rad, dude!", author: rapper }
       - { text: "Looks spacy on Bones' new tricorder!", author: jim }
       - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
+  -
+    name: 'OWASP Juice Shop "King of the Hill" Facemask'
+    description: "Facemask with compartment for filter from 50% cotton and 50% polyester."
+    price: 13.49
+    quantity: 0
+    image: fan_facemask.jpg
+    reviews:
+      - { text: "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!", author: uvogin }
+      - { text: "Puny mask for puny human weaklings!", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
