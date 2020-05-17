@@ -44,7 +44,7 @@ export class WelcomeBannerComponent implements OnInit {
   }
 
   startHackingInstructor () {
-    this.dialogRef.close()
+    this.closeWelcome()
     console.log('Starting instructions for challenge "Score Board"')
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor('Score Board')
