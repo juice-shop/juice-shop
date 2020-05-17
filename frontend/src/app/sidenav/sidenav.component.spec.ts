@@ -41,7 +41,7 @@ describe('SidenavComponent', () => {
   beforeEach(async(() => {
 
     configurationService = jasmine.createSpyObj('ConfigurationService',['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {}}, hackingInstructor: {}}))
     challengeService = jasmine.createSpyObj('ChallengeService',['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
     cookieService = jasmine.createSpyObj('CookieService',['delete', 'get', 'set'])
