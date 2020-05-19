@@ -626,3 +626,8 @@ ctf:
         type: string
       code:
         type: string
+    xssBonusChallenge:
+      name:
+        type: string
+      code:
+        type: string

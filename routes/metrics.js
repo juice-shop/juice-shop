@@ -70,16 +70,22 @@ exports.observeMetrics = function observeMetrics () {
   const intervalCollector = Prometheus.collectDefaultMetrics({ timeout: 5000 })
   register.setDefaultLabels({ app })
 
+  const versionMetrics = new Prometheus.Gauge({
+    name: `${app}_version_info`,
+    help: `Release version of ${config.get('application.name')}.`,
+    labelNames: ['version', 'major', 'minor', 'patch']
+  })
+
   const challengeSolvedMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_solved`,
-    help: 'Number of solved challenges grouped by difficulty.',
-    labelNames: ['difficulty']
+    help: 'Number of solved challenges grouped by difficulty and category.',
+    labelNames: ['difficulty', 'category']
   })
 
   const challengeTotalMetrics = new Prometheus.Gauge({
     name: `${app}_challenges_total`,
-    help: 'Total number of challenges grouped by difficulty.',
-    labelNames: ['difficulty']
+    help: 'Total number of challenges grouped by difficulty and category.',
+    labelNames: ['difficulty', 'category']
   })
 
   const orderMetrics = new Prometheus.Gauge({
@@ -110,10 +116,26 @@ exports.observeMetrics = function observeMetrics () {
   })
 
   const updateLoop = setInterval(() => {
-    const challengeKeys = Object.keys(challenges)
-    for (let difficulty = 1; difficulty <= 6; difficulty++) {
-      challengeSolvedMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty && challenges[key].solved)).length)
-      challengeTotalMetrics.set({ difficulty }, challengeKeys.filter((key) => (challenges[key].difficulty === difficulty)).length)
+    const version = utils.version()
+    const { major, minor, patch } = version.match(/(?<major>[0-9]+).(?<minor>[0-9]+).(?<patch>[0-9]+)/).groups
+    versionMetrics.set({ version, major, minor, patch }, 1)
+
+    const challengeStatuses = new Map()
+    const challengeCount = new Map()
+
+    for (const { difficulty, category, solved } of Object.values(challenges)) {
+      const key = `${difficulty}:${category}`
+
+      // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
+      challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
+      challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
+    }
+
+    for (const key of challengeStatuses.keys()) {
+      const [difficulty, category] = key.split(':', 2)
+
+      challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
+      challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
     }
 
     orders.count({}).then(orders => {
