@@ -344,8 +344,8 @@
   "ENTER_COUPON_CODE": "Sisesta oma kupongi kood",
   "COUPON_CODE_HINT": "Kupongi kood peab olema 10 tähemärki.",
   "CHARGED_WALLET": "Tasu võeti edukalt rahakotist.",
-  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
+  "BTN_SHOW_ONLY_TUTORIALS": "Kuva ainult õpetused",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
   "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
-  "SHOW_COMMENT": "Show Comment"
+  "SHOW_COMMENT": "Kuva kommentaar"
 }
