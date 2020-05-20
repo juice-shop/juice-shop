@@ -4,7 +4,7 @@ server:
 application:
   domain: kiwa-worksh.op
   name: 'OWASP Kiwa Workshop'
-  logo: JuiceShop_Logo.png
+  logo: kiwa_logo.png
   favicon: favicon_js.ico
   theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
   showVersionNumber: true
