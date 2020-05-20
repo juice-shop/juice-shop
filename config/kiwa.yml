@@ -2,11 +2,11 @@ server:
   port: 3000
   basePath: ''
 application:
-  domain: juice-sh.op
-  name: 'OWASP Juice Shop'
+  domain: kiwa-worksh.op
+  name: 'OWASP Kiwa Workshop'
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
-  theme: blue-lightblue # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
+  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo
   showVersionNumber: true
   showGitHubLinks: false
   numberOfRandomFakeUsers: 0
@@ -25,16 +25,16 @@ application:
     bottomProductImage: undefined_kiwa.png
   welcomeBanner:
     showOnFirstStart: true
-    title: 'Welcome to OWASP Juice Shop!'
+    title: 'Welcome to OWASP Kiwa webshop!'
     message: "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>Kiwa Workshop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong>, which the Kiwa Workshop is based on, is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='http://owasp-juice.shop' target='_blank'>http://owasp-juice.shop</a></h1>"
   cookieConsent:
     backgroundColor: '#546e7a'
     textColor: '#ffffff'
     buttonColor: '#558b2f'
     buttonTextColor: '#ffffff'
-    message: 'This website uses a myriad of 3rd-party cookies, abuses cookies and cookiewalls for our own gain and to ensure you get the best tracking experience.'
-    dismissText: 'Nope!'
-    linkText: 'someinfo'
+    message: 'This website uses cookies to ensure you get the most extreme tracking experience. By using this website you agree to paint your wall purple.'
+    dismissText: 'I agree but have not read it'
+    linkText: 'Will not allow you to opt out'
     linkUrl: 'https://www.youtube.com/watch?v=9PnbKL3wuH4'
   securityTxt:
     contact: 'mailto:donotreply@owasp-juice.shop'
@@ -66,7 +66,7 @@ application:
       - { uri: 'http://penguin.termina.linux.test:3000', proxy: 'http://localchromeos.owasp-juice.shop' }
 challenges:
   showSolvedNotifications: true
-  showHints: false
+  showHints: true
   restrictToTutorialsFirst: false
   overwriteUrlForProductTamperingChallenge: 'https://owasp.slack.com'
   xssBonusPayload: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
@@ -81,7 +81,7 @@ products:
     deluxePrice: 20.99
     description: 'The Original'
     image: bever.jpg
-    reviews: # Options 'author': admin, jim, bender, ciso, support, morty, mc.safesearch
+    reviews:
       - { text: 'One of my favorites!', author: admin }
   -
     name: 'Bag Jute'
@@ -89,6 +89,8 @@ products:
     price: 3
     deluxePrice: 6.00
     image: blauwetas.jpg
+    reviews:
+      - { text: 'y0ur f1r3wall needs m0r3 musc13', author: uvogin }
   -
     name: 'Cotton Shopper'
     description: 'Cotton material'
@@ -96,23 +98,6 @@ products:
     image: cottontas.jpg
     reviews:
       - { text: 'I bought it, would buy again. 5/7', author: admin }
-  -
-    name: 'Special Package 1'
-    description: 'This Very Splendid Package includes a ladies Kiwa navy t-shirt, a cap, and a coffee mug in a Kiwa Jute bag.'
-    price: 37
-    image: undefined_kiwa.png
-  -
-    name: 'Special Package 2'
-    description: 'This Very Splendid Package includes a unisex navy polo, a cap, and a coffee mug in a Kiwa Jute bag.'
-    price: 37
-    image: undefined_kiwa.png
-  -
-    name: 'Special Package 3'
-    description: 'The Most Splendid Package includes a Kiwa Champion sweatshirt in a drawstring tote, a Beaverskin notebook, and a Kiwa Commuter 2.0 Laptop Bag.'
-    price: 300.89
-    image: undefined_kiwa.png
-    reviews:
-      - { text: 'Fry liked it too.', author: bender }
   -
     name: 'Kiwa Unisex polo, navy'
     price: 13.51
@@ -155,9 +140,11 @@ products:
     name: 'Kiwa Helmet USB stick'
     description: '4gb'
     price: 16.11
+    deluxePrice: 11.99
     image: helmetusb.jpg
   -
     name: 'Kiwa Powerbank'
+    description: 'All the power you need'
     price: 15.32
     image: powerbank.jpg
     reviews:
@@ -209,11 +196,19 @@ products:
     image: undefined_kiwa.png
     urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
   -
-    name: 'Christmas Super-Surprise-Box (2018 Edition)'
+    name: 'Christmas Super-Surprise-Box (2020 Edition)'
     description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
     price: 29.99
     image: undefined_kiwa.png
     useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined_kiwa.png
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
   -
     name: 'OWASP Juice Shop Sticker (2015/2016 design)'
     description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
@@ -226,7 +221,7 @@ products:
     price: 14.99
     image: taperolls.jpg
     reviews:
-      - { text: 'I straight-up gots nuff props fo these rolls!', author: mc.safesearch }
+      - { text: 'I straight-up gots nuff props fo these rolls!', author: rapper }
   -
     name: 'Surfing Beaver'
     description: 'Kiwa Surfin Beaver. Your colleagues will envy you!'
@@ -243,12 +238,86 @@ products:
     price: 2.99
     image: tableflag.jpg
   -
-    name: 'Carrot Juice (1000ml)'
-    description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
-    price: 2.99
-    image: carrot_juice.jpeg
+    name: 'OWASP Juice Shop-CTF Velcro Patch'
+    description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
+    price: 2.92
+    quantity: 5
+    image: velcro-patch.jpg
+    reviews:
+      - { text: 'This thang would look phat on Bobbys jacked fur coat!', author: rapper }
+      - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
+  -
+    name: 'Green Smoothie'
+    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
+    price: 1.99
+    image: green_smoothie.jpg
+    reviews:
+      - { text: 'Fresh out of a replicator.', author: jim }
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+  -
+    name: 'Kiwa Fire Safety Products Artwork'
+    description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
+    price: 278.74
+    quantity: 1
+    image: artwork.jpg
+  -
+    name: 'Global OWASP WASPY Award 2017 Nomination'
+    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
+    price: 0.03
+    image: waspy.png
+    deletedDate: '2017-07-01'
+  -
+    name: 'Kiwa Keychain'
+    description: 'I did all of this work and then i got only this Kiwa keychain.'
+    price: 3.74
+    quantity: 6
+    image: beavertail.jpg
     reviews:
       - { text: '0 st4rs f0r 7h3 h0rr1bl3 s3cur17y', author: uvogin }
+  -
+    name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
+    description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
+    price: 19.1
+    image: stickersheet_se.png
+    deletedDate: '2017-09-20'
+  -
+    name: 'Pwning OWASP Juice Shop'
+    description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and also <a href="https://pwning.owasp-juice.shop">readable online</a>!'
+    price: 5.99
+    image: cover_small.jpg
+    reviews:
+      - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
+  -
+    name: 'Kiwa Keychain'
+    description: 'I did all of this work and then i got only this Kiwa keychain.'
+    price: 3.74
+    quantity: 6
+    image: beavertail.jpg
+  -
+    name: 'Kiwa Umbrella'
+    description: 'Unique masterpiece painted with different kinds of kiwa colors'
+    price: 28.74
+    quantity: 0
+    image: paraplu.jpg
+  -
+    name: 'Kiwa cycling shirt'
+    price: 14
+    image: cyclingshirt.jpg	
+  -
+    name: 'Kiwa Rain Jacket'
+    price: 17
+    image: rainjacket.jpg
+  -
+    name: 'Kiwa Americano Mug'
+    description: 'Might be removed lated because of a mugging.'
+    price: 7.74
+    quantity: 6
+    image: americano.jpg
   -
     name: 'OWASP Snakes and Ladders - Web Applications'
     description: 'This amazing web application security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
@@ -275,93 +344,6 @@ products:
       - { text: "Rad, dude!", author: rapper }
       - { text: "Looks spacy on Bones' new tricorder!", author: jim }
       - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
-  -
-    name: 'Kiwa clip-on'
-    description: 'The ultimate decal for every tactical bag or backpack!'
-    price: 2.92
-    quantity: 5
-    image: clip.jpg
-    reviews:
-      - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: mc.safesearch }
-      - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
-  -
-    name: 'Global OWASP WASPY Award 2017 Nomination'
-    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
-    price: 0.03
-    image: waspy.png
-    deletedDate: '2017-07-01'
-  -
-    name: 'Green Smoothie'
-    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
-    price: 1.99
-    image: green_smoothie.jpg
-    reviews:
-      - { text: 'Fresh out of a replicator.', author: jim }
-  -
-    name: 'OWASP Juice Shop Logo (3D-printed)'
-    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
-    price: 99.99
-    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
-    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
-  -
-    name: 'Workshop Artwork'
-    description: 'Unique masterpiece painted with different kinds of paint on 90g/m² lined paper.'
-    price: 278.74
-    quantity: 1
-    image: undefined_kiwa.png
-  -
-    name: 'Kiwa Keychain'
-    description: 'I did all of this work and then i got only this Kiwa keychain.'
-    price: 3.74
-    quantity: 6
-    image: beavertail.jpg
-  -
-    name: 'Kiwa Umbrella'
-    description: 'Unique masterpiece painted with different kinds of kiwa colors'
-    price: 28.74
-    quantity: 0
-    image: paraplu.jpg
-  -
-    name: 'Kiwa cycling shirt'
-    price: 14
-    image: cyclingshirt.jpg	
-  -
-    name: 'Kiwa Rain Jacket'
-    price: 17
-    image: rainjacket.jpg	
-  -
-    name: 'Global OWASP WASPY Award 2017 Nomination'
-    description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
-    price: 0.03
-    image: waspy.png
-    deletedDate: '2017-07-01'
-  -
-    name: 'OWASP Juice Shop Sweden Tour 2017 Sticker Sheet (Special Edition)'
-    description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
-    price: 19.1
-    image: undefined_kiwa.png
-    deletedDate: '2017-09-20'
-  -
-    name: 'Rippertuer Special Juice'
-    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
-    price: 16.99
-    image: undefined.jpg
-    keywordsForPastebinDataLeakChallenge:
-      - hueteroneel
-      - eurogium edule
-  -
-    name: 'Pwning OWASP Juice Shop'
-    description: '<em>The official Companion Guide</em> by Björn Kimminich.'
-    price: 5.99
-    image: cover_small.jpg
-    reviews:
-      - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
-  -
-    name: 'Kiwa Americano Mug'
-    description: 'Might be removed lated because of a mugging.'
-    price: 7.74
-    quantity: 6
-    image: americano.jpg
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
