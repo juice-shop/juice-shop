@@ -31,6 +31,8 @@ where this project was mentioned or used!
     :mega:
   * [ZAP in Ten: ADDO Workshop Section 3 - Packaged Scans](https://play.vidyard.com/iT5C1onahsh3YhQi5SRnLL)
     :mega:
+  * [ZAP in Ten: ADDO Workshop Section 4 - Intro to Authentication](https://play.vidyard.com/zwWm4qMRc8wD2KAgozvC5t)
+    :mega:
 * 15min video tutorial by
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:

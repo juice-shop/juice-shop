@@ -231,6 +231,15 @@
       {{"TITLE_SCORE_BOARD" | translate}}
     </span>
   </a>
+  <a *ngIf="!scoreBoardVisible && offerScoreBoardTutorial" mat-list-item (click)="startHackingInstructor()"
+     aria-label="Launch beginners tutorial">
+    <i class="material-icons">
+      school
+    </i>
+    <span class="menu-text truncate">
+      {{"BTN_GETTING_STARTED" | translate}}
+    </span>
+  </a>
 
   <a *ngIf="showGitHubLink" mat-list-item href="./redirect?to=https://github.com/bkimminich/juice-shop"
      aria-label="Go to OWASP Juice Shop GitHub page">
