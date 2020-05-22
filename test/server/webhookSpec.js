@@ -10,7 +10,7 @@ describe('webhook', () => {
   const webhook = require('../../lib/webhook')
 
   const challenge = {
-    key: 'key',
+    key: 'key'
   }
 
   describe('notify', () => {
