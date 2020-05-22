@@ -119,6 +119,7 @@
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
             class="hacking-instructor-button"
+            [disabled]="challenge.solved"
             >
             <mat-icon>
               school
