@@ -125,13 +125,13 @@ jobs:
 notifications:
   webhooks:
     urls:
-      - secure: "VGccCJ3fxItbqpAKNwcG+e4YK15zb/JLwfWx20pmhRO2BX0gvp40HQzBcA5NkMMtNNhAkxIoroCWNCqI2XJy/9zsQDGSNkbOQU4sQyeb0MkXiQwKrjTkYAKOg4iXj7ei9VM8AMqv6vBGVC9R3Yij/JHGObgRSc9NH3eHTDmpVv4="
+      - secure: cmxowwRhxwvGeFTyLT7d+xNsrB5JWaolb4rtuXCjbYVvnukaxJDKcKJ1/pyNi5OMu6qkMEVdAgNYE6q3H0TGE1leJmoaoMwIQo5I3GNMLtr4VNASmRupJrWV0Gjamj+3uC6d5iyg0PpeT73fvuUTQ8TNz5696svZtK7FtmwvigU=
     on_success: always
     on_failure: always
     on_start: never
   slack:
     rooms:
-      - secure: "S6eiEntuEmSEMWXrmvPEbHZKTT16ce0ofYqFdCOnTN+4cLGuB8fC11zVG3iJXfNjZ5nKbsrFP02Yq//wQsf0Q0Ad+5h/kzi5trL9ruaPLzchd/5ZBw3DeRTm3a8IFflaHgvqgwpv5wsDdkHXiJvi8eJg+SVkyH8mewJ/lVQqSDY="
+      - secure: SpuG3G8p/B0qXmU6snPJ+JmcQoHMg/YmUuv9s0as+FdZquWURfbuOH51BxpiWIWlE23BMVGykQR+T0eKsYQ6cPNHLShaesE1qGJf/hG0tHWRK2fK6d3VTTpwZt6XxR3AGYnpCz8gmUxwMBZ1lESjHhQiQKy2AjFBweTTU2IfQaQ=
     on_success: change
     on_failure: change
     on_pull_requests: false
