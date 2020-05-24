@@ -1,9 +1,34 @@
 {
   "name": "juice-shop",
   "version": "11.0.0-SNAPSHOT",
+  "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
+  "keywords": [
+    "web security",
+    "web application security",
+    "webappsec",
+    "owasp",
+    "pentest",
+    "pentesting",
+    "security",
+    "vulnerable",
+    "vulnerability",
+    "broken",
+    "bodgeit",
+    "ctf",
+    "capture the flag",
+    "awareness"
+  ],
   "homepage": "https://owasp-juice.shop",
-  "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://www.owasp.org/index.php/User:Bjoern_Kimminich)",
+  "bugs": {
+    "url": "https://github.com/bkimminich/juice-shop/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bkimminich/juice-shop.git"
+  },
+  "license": "MIT",
+  "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://kimminich.de)",
   "contributors": [
     "Björn Kimminich",
     "Jannik Hollenbach",
@@ -26,23 +51,50 @@
     "Alejandro Saenz",
     "Marc O'Polo"
   ],
-  "private": true,
-  "keywords": [
-    "web security",
-    "web application security",
-    "webappsec",
-    "owasp",
-    "pentest",
-    "pentesting",
-    "security",
-    "vulnerable",
-    "vulnerability",
-    "broken",
-    "bodgeit",
-    "ctf",
-    "capture the flag",
-    "awareness"
-  ],
+  "scripts": {
+    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
+    "e2e": "node test/e2eTests.js",
+    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
+    "postinstall": "cd frontend && npm install && cd .. && npm run build",
+    "lint": "standard && cd frontend && ng lint && cd ..",
+    "lint:config": "schema validate -s config.schema.yml",
+    "lint:fix": "standard --fix && cd frontend && ./node_modules/.bin/ng lint --fix && cd ..",
+    "package": "grunt package",
+    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package",
+    "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
+    "protractor": "npm run e2e",
+    "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
+    "start": "node app",
+    "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
+    "vagrant": "cd vagrant && vagrant up"
+  },
+  "jest": {
+    "globalSetup": "./test/apiTestsSetup.js",
+    "globalTeardown": "./test/apiTestsTeardown.js",
+    "setupFilesAfterEnv": [
+      "./test/apiTestsSetupJest.js"
+    ],
+    "testMatch": [
+      "**/test/api/*Spec.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/frontend/node_modules/"
+    ],
+    "testURL": "http://localhost"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "lib/*.js",
+      "routes/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "check-dependencies": "^1.1.0",
@@ -129,41 +181,9 @@
     "standard": "^14.3.3",
     "webdriver-manager": "^12.1.7"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bkimminich/juice-shop.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bkimminich/juice-shop/issues"
-  },
-  "license": "MIT",
-  "scripts": {
-    "postinstall": "cd frontend && npm install && cd .. && npm run build",
-    "serve": "concurrently --kill-others \"node app\" \"cd frontend && ng serve\"",
-    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
-    "start": "node app",
-    "lint": "standard && cd frontend && ng lint && cd ..",
-    "lint:fix": "standard --fix && cd frontend && ./node_modules/.bin/ng lint --fix && cd ..",
-    "lint:config": "schema validate -s config.schema.yml",
-    "test": "cd frontend && ng test --watch=false --source-map=false && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "test:chromium": "cd frontend && ng test --watch=false --source-map=false --browsers=ChromiumHeadless && cd .. && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
-    "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
-    "protractor": "npm run e2e",
-    "e2e": "node test/e2eTests.js",
-    "vagrant": "cd vagrant && vagrant up",
-    "package": "grunt package",
-    "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package"
-  },
   "engines": {
     "node": "10 - 14"
   },
-  "cpu": [
-    "x64",
-    "x32",
-    "arm64",
-    "arm"
-  ],
   "os": [
     "win32",
     "linux",
@@ -171,6 +191,13 @@
     "freebsd",
     "openbsd"
   ],
+  "cpu": [
+    "x64",
+    "x32",
+    "arm64",
+    "arm"
+  ],
+  "heroku-run-build-script": true,
   "standard": {
     "ignore": [
       "/app/private/**",
@@ -188,32 +215,5 @@
       "angular",
       "inject"
     ]
-  },
-  "nyc": {
-    "include": [
-      "lib/*.js",
-      "routes/*.js"
-    ],
-    "all": true,
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ]
-  },
-  "jest": {
-    "testURL": "http://localhost",
-    "globalSetup": "./test/apiTestsSetup.js",
-    "globalTeardown": "./test/apiTestsTeardown.js",
-    "setupFilesAfterEnv": [
-      "./test/apiTestsSetupJest.js"
-    ],
-    "testMatch": [
-      "**/test/api/*Spec.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/frontend/node_modules/"
-    ]
-  },
-  "heroku-run-build-script": true
+  }
 }
