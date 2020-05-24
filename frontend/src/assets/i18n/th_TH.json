@@ -21,7 +21,7 @@
   "ALREADY_A_CUSTOMER": "เป็นสมาชิกอยู่แล้ว?",
   "TITLE_REGISTRATION": "ลงทะเบียนผู้ใช้งาน",
   "INVALID_EMAIL": "อีเมล์ไม่ถูกต้อง",
-  "SECURITY_ANSWER": "Answer",
+  "SECURITY_ANSWER": "คำตอบ",
   "MANDATORY_PASSWORD_REPEAT": "โปรดยืนยันรหัสผ่าน",
   "INVALID_PASSWORD_LENGTH": "รหัสผ่านต้องมีความยาวอย่างน้อย {{length}} ตัวอักษร",
   "LABEL_PASSWORD_REPEAT": "ยืนยันรหัสผ่าน",
