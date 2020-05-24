@@ -131,7 +131,7 @@ notifications:
     on_start: never
   slack:
     rooms:
-      secure: jis/Fcasy+4QCqg6SZnf1XxXTNFrQENutYCN4QuMUQbfiD6QsLxTQS5o0MZ8e9EYTdptUXmjjgkaEulxO5fIUtmDcOrKcPxToDMjyCZEglfEf9CzRVRap7LnZwoCZ5yet/0E68qt4QhfTgfwYc9QIfSZo45rdyNS6BXI2vomGqE=
+      - secure: QNjis7MLJH5mD1mEWUwXkkzJ/GaLpOLqDYwGNPiW4xntLxqqynmL/7U1UvdDkweYBqgDEvpqXL90MmIDswxKehh/Biot0y6OHmzukQdUEK/eEbhIttne8jUnQuBMkQ9f5axEuWHKKCuhbQg3z/72fYEOWW7bzHIMIMP5U5S7Wi0=
     on_success: change
     on_failure: change
     on_pull_requests: false
