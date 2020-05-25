@@ -164,6 +164,10 @@ where this project was mentioned or used!
 
 ## Lectures and Trainings
 
+* [Web Application Ethical Hacking - Penetration Testing Course for Beginners](https://youtu.be/X4eRbHgRawI)
+  :godmode: by The Cyber Mentor on
+  [freeCodeCamp.org](https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ)'s
+  YouTube channel
 * [Real World Web Penetration Testing](https://training.secureideas.com/course/real-world-web-pentesting/start-course/)
   course by Jason Gillam :dollar:
 * [Brakeing Down Security Web App Sec Training #1](https://drive.google.com/drive/folders/0B-qfQ-gWynwidlJ1YjgxakdPWDA)
