@@ -166,10 +166,6 @@ products:
     price: 7
     image: tieblue.jpg
   -
-    name: 'Kiwa Tie green'
-    price: 7
-    image: tiegreen.jpg	
-  -
     name: 'Kiwa Tie purple'
     price: 7
     image: tiepurple.jpg	
@@ -223,7 +219,7 @@ products:
     reviews:
       - { text: 'I straight-up gots nuff props fo these rolls!', author: rapper }
   -
-    name: 'Surfing Beaver'
+    name: 'Kiwa Surfin Beaver'
     description: 'Kiwa Surfin Beaver. Your colleagues will envy you!'
     price: 21.99
     image: surfinbeaver.jpg
@@ -247,13 +243,6 @@ products:
       - { text: 'This thang would look phat on Bobbys jacked fur coat!', author: rapper }
       - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
   -
-    name: 'Green Smoothie'
-    description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
-    price: 1.99
-    image: green_smoothie.jpg
-    reviews:
-      - { text: 'Fresh out of a replicator.', author: jim }
-  -
     name: 'OWASP Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
@@ -264,7 +253,7 @@ products:
     description: 'Unique masterpiece painted with different kinds of juice on 90g/m² lined paper.'
     price: 278.74
     quantity: 1
-    image: artwork.jpg
+    image: kiwa_artwork.png
   -
     name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
@@ -292,12 +281,6 @@ products:
     image: cover_small.jpg
     reviews:
       - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
-  -
-    name: 'Kiwa Keychain'
-    description: 'I did all of this work and then i got only this Kiwa keychain.'
-    price: 3.74
-    quantity: 6
-    image: beavertail.jpg
   -
     name: 'Kiwa Umbrella'
     description: 'Unique masterpiece painted with different kinds of kiwa colors'
