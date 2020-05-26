@@ -315,6 +315,13 @@ products:
     reviews:
       - { text: "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!", author: uvogin }
       - { text: "Puny mask for puny human weaklings!", author: bender }
+  -
+    name: 'Adversary Trading Cards - 1x "Juice Shop" (Common)'
+    description: 'Common rarity "Juice Shop" card for the <a href="">Adversary Trading Cards</a> CCG.'
+    price: 0.99
+    image: ccg_common.png
+    reviews:
+      - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
