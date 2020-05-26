@@ -252,7 +252,7 @@ function createMemories () {
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
-    product.price = product.price || Math.floor(Math.random())
+    product.price = product.price || Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice || product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
