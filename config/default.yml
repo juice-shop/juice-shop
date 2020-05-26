@@ -331,6 +331,16 @@ products:
     image: ccg_common.png
     reviews:
       - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
+  -
+    name: 'Juice Shop Adversary Trading Card (Super Rare)'
+    description: 'Super rare "Juice Shop" card with holographic foil-coating for the <a href="">Adversary Trading Cards</a> CCG.'
+    price: 99.99
+    deluxePrice: 69.99
+    quantity: 2
+    limitPerUser: 1
+    image: ccg_foil.png
+    reviews:
+      - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
