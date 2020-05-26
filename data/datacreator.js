@@ -209,13 +209,12 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const limitPerUserProuductIds = [1, 5, 7, 20, 24, 39]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
-        limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
+        limitPerUser: product.limitPerUser || null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })

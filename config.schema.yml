@@ -126,6 +126,8 @@ products:
       type: string
     quantity:
       type: number
+    limitPerUser:
+      type: number
     deletedDate:
       type: string
     urlForProductTamperingChallenge:

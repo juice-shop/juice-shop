@@ -79,6 +79,7 @@ products:
     name: 'Apple Juice (1000ml)'
     price: 1.99
     deluxePrice: 0.99
+    limitPerUser: 5
     description: 'The all-time classic.'
     image: apple_juice.jpg
     reviews:
@@ -108,6 +109,7 @@ products:
     description: 'Sour but full of vitamins.'
     price: 2.99
     deluxePrice: 1.99
+    limitPerUser: 5
     image: lemon_juice.jpg
   -
     name: 'Banana Juice (1000ml)'
@@ -120,6 +122,7 @@ products:
     name: 'OWASP Juice Shop T-Shirt'
     description: 'Real fans wear it 24/7!'
     price: 22.49
+    limitPerUser: 5
     image: fan_shirt.jpg
   -
     name: 'OWASP Juice Shop CTF Girlie-Shirt'
@@ -194,6 +197,7 @@ products:
     description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
     price: 2.92
     quantity: 5
+    limitPerUser: 5
     image: velcro-patch.jpg
     reviews:
       - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: rapper }
@@ -219,6 +223,7 @@ products:
     name: 'Apple Pomace'
     description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recycle">sent back to us</a> for recycling.'
     price: 0.89
+    limitPerUser: 5
     image: apple_pressings.jpg
   -
     name: 'Fruit Press'
@@ -273,6 +278,7 @@ products:
     description: 'The wheels of this bicycle are made from real water melons. You might not want to ride it up/down the curb too hard.'
     price: 2999
     quantity: 3
+    limitPerUser: 1
     image: melon_bike.jpeg
   -
     name: 'OWASP Juice Shop Coaster (10pcs)'
@@ -311,6 +317,7 @@ products:
     description: "Facemask with compartment for filter from 50% cotton and 50% polyester."
     price: 13.49
     quantity: 0
+    limitPerUser: 1
     image: fan_facemask.jpg
     reviews:
       - { text: "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!", author: uvogin }
@@ -318,7 +325,9 @@ products:
   -
     name: 'Juice Shop Adversary Trading Card (Common)'
     description: 'Common rarity "Juice Shop" card for the <a href="">Adversary Trading Cards</a> CCG.'
-    price: 0.99
+    price: 2.99
+    deluxePrice: 0.99
+    limitPerUser: 5
     image: ccg_common.png
     reviews:
       - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
