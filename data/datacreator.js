@@ -209,7 +209,7 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const limitPerUserProuductIds = [1, 5, 7, 20, 24]
+  const limitPerUserProuductIds = [1, 5, 7, 20, 24, 39]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
