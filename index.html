@@ -37,6 +37,18 @@
 			const challenges = await res.json();
 			document.getElementById('numChallenges').innerHTML = challenges.data.length
 		})
+		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop/master/package.json").then(async (res) => {
+			const juiceShopPackage = await res.json();
+			document.getElementById('juiceShopVersion').innerHTML = juiceShopPackage.version
+		})
+		fetch("https://raw.githubusercontent.com/bkimminich/juice-shop-ctf/master/package.json").then(async (res) => {
+			const ctfExtensionPackage = await res.json();
+			document.getElementById('ctfExtensionVersion').innerHTML = ctfExtensionPackage.version
+		})
+		fetch("https://raw.githubusercontent.com/iteratec/multi-juicer/master/helm/multi-juicer/Chart.yaml").then(async (res) => {
+			const multiJuicerChart = await res.text();
+			document.getElementById('multiJuicerVersion').innerHTML = multiJuicerChart.match(/version: (.*)/)[1]
+		})
 	</script>
 
 	<!--[if lt IE 9]>
@@ -51,7 +63,7 @@
 	<!-- Any section element inside of this container is displayed as a slide -->
 	<div class="slides">
 		<section data-transition="zoom">
-			<h2>OWASP Juice Shop</h2>
+			<h2>OWASP Juice Shop <span id="juiceShopVersion"></span></h2>
 			<p>
 				<small>Probably the most modern and sophisticated insecure web application</small>
 			</p>
@@ -185,7 +197,7 @@
 			</section>
 
 			<section>
-				<h2>CTF Extension 8.x</h2>
+				<h2>CTF Extension <span id="ctfExtensionVersion"></span></h2>
 				<p>
 					<a href="https://github.com/bkimminich/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a>, <a href="https://github.com/facebook/fbctf">FBCTF</a> or <a href="https://github.com/moloch--/RootTheBox">RootTheBox</a>
 				</p>
@@ -240,7 +252,7 @@ insertHintUrls: none | free | paid
 		<section>
 
 			<section>
-				<h2>MultiJuicer Platform 3.x</h2>
+				<h2>MultiJuicer Platform <span id="multiJuicerVersion"></span></h2>
 				<p>
 					<a href="https://github.com/iteratec/multi-juicer">3rd party project</a> to run separate Juice Shop instances for training or CTF participants on a central Kubernetes cluster
 				</p>
