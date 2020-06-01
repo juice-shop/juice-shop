@@ -298,10 +298,10 @@
 	" <em>(This challenge is <strong>not available</strong> on Windows!)</em>": " <em>(这个挑战在Windows上 <strong>不可用</strong>!)</em>",
 	"Reset Uvogin's password via the <a href=\"/#/forgot-password\">Forgot Password</a> mechanism with <i>the original answer</i> to his security question.": "通过<a href=\"/#/forgot-password\">忘记密码</a>功能中安全问题的<i>原始答案</i>来重置Uvogin的密码.",
 	"You might have to do some OSINT on his social media personas to find out his honest answer to the security question.": "你可能必须对他的社交媒体做一些OSINT(公开资源情报计划)工作，以便找到他对安全问题的诚实回答。",
-	"Juice Shop Adversary Trading Card (Common)": "Juice Shop Adversary Trading Card (Common)",
-	"Common rarity \"Juice Shop\" card for the <a href=\"\">Adversary Trading Cards</a> CCG.": "Common rarity \"Juice Shop\" card for the <a href=\"\">Adversary Trading Cards</a> CCG.",
-	"Juice Shop Adversary Trading Card (Super Rare)": "Juice Shop Adversary Trading Card (Super Rare)",
-	"Super rare \"Juice Shop\" card with holographic foil-coating for the <a href=\"\">Adversary Trading Cards</a> CCG.": "Super rare \"Juice Shop\" card with holographic foil-coating for the <a href=\"\">Adversary Trading Cards</a> CCG.",
-	"OWASP Juice Shop \"King of the Hill\" Facemask": "OWASP Juice Shop \"King of the Hill\" Facemask",
-	"Facemask with compartment for filter from 50% cotton and 50% polyester.": "Facemask with compartment for filter from 50% cotton and 50% polyester."
+	"Juice Shop Adversary Trading Card (Common)": "Juice Shop攻击者集换式卡片 (常见)",
+	"Common rarity \"Juice Shop\" card for the <a href=\"\">Adversary Trading Cards</a> CCG.": "常见稀有度的 \"Juice Shop\"  <a href=\"\">攻击者集换式卡片</a>",
+	"Juice Shop Adversary Trading Card (Super Rare)": "Juice Shop攻击者集换式卡片 (超级稀有)",
+	"Super rare \"Juice Shop\" card with holographic foil-coating for the <a href=\"\">Adversary Trading Cards</a> CCG.": "超级稀有的带有全息金箔纸的 \"Juice Shop\"<a href=\"\">攻击者集换式卡片</a>",
+	"OWASP Juice Shop \"King of the Hill\" Facemask": "OWASP Juice Shop \"山丘之王\" 面罩",
+	"Facemask with compartment for filter from 50% cotton and 50% polyester.": "含有50%棉和50%聚酯纤维的过滤面罩。"
 }
