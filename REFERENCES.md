@@ -188,6 +188,11 @@ where this project was mentioned or used!
 
 ## Summits & Open Source Events
 
+* [Drinks with Adversaries: Creating Adversary Trading Cards](https://pre-summit-training-sessions.heysummit.com/talks/social-drinks-and-adversaries)
+  with Mark Miller at
+  [Open Security Summit 2020](https://open-security-summit.org/),
+  01.06.2020 ([Youtube](https://www.youtube.com/watch?v=3roVZNwptOU))
+  :mega:
 * Selected Project at
   [OWASP Projects Summit - Winter 2020](https://owasp.org/www-staff/projects/202002-Projects-Summit-Q1.html)
   with Björn Kimminich, Jannik Hollenbach and Marc Rüttler collaborating
