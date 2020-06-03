@@ -48,6 +48,7 @@ Shop easier to hack!
   * [★★★ Forged Feedback](https://youtu.be/99iKTSkZ814)
   * [★★★ Forged Review](https://youtu.be/k2abfhtuU9c)
   * [★★★ GDPR Data Erasure](https://youtu.be/zBTYSpp41u8)
+  * [★★★ Login Amy](https://youtu.be/ICln3xcVxzI)
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel (🧃`v7.x`)
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
