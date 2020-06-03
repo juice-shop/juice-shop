@@ -188,6 +188,14 @@ where this project was mentioned or used!
 
 ## Summits & Open Source Events
 
+* [Juice Shop Track](https://open-security-summit-2020.heysummit.com/topics/owasp-juiceshop/)
+  at [Open Security Summit 2020](https://open-security-summit.org/)
+  * [MultiJuicer Introduction](https://pre-summit-training-sessions.heysummit.com/talks/multijuicer-introduction/)
+    with Jannik Hollenbach and Robert Seedorf, 02.06.2020
+    ([Youtube](https://youtu.be/6NMjZbfnTOU))
+  * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop/)
+    with Björn Kimminich, 02.06.2020
+    ([Youtube](https://youtu.be/Ry0mXz6ZPXc))
 * [Drinks with Adversaries: Creating Adversary Trading Cards](https://pre-summit-training-sessions.heysummit.com/talks/social-drinks-and-adversaries)
   with Mark Miller at
   [Open Security Summit 2020](https://open-security-summit.org/),
