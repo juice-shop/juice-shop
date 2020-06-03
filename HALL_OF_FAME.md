@@ -20,7 +20,7 @@ and
 | Björn Kimminich   | 11754 (89.32%) | 383740  | 357746  | 2014-09-19   | 2020-04-21  | 2041 days, 0:45:48  | 1097        | 1            |
 | Jannik Hollenbach | 292 (2.22%)    | 7554    | 4765    | 2017-04-14   | 2020-03-27  | 1078 days, 8:26:25  | 85          | 2            |
 | Aashish683        | 229 (1.74%)    | 149990  | 3609    | 2018-01-31   | 2018-08-04  | 184 days, 15:12:04  | 65          | 3            |
-| greenkeeper[bot]  | 151 (1.15%)    | 2047    | 1486    | 2018-01-30   | 2019-07-06  | 521 days, 16:54:22  | 109         | 4            |
+| greenkeeper\[bot\]  | 151 (1.15%)    | 2047    | 1486    | 2018-01-30   | 2019-07-06  | 521 days, 16:54:22  | 109         | 4            |
 | MarcRler          | 147 (1.12%)    | 5049    | 3257    | 2019-03-18   | 2020-04-08  | 386 days, 13:04:25  | 52          | 5            |
 | agrawalarpit14    | 136 (1.03%)    | 14899   | 5871    | 2019-02-19   | 2019-08-16  | 178 days, 4:13:54   | 62          | 6            |
 | CaptainFreak      | 85 (0.65%)     | 2632    | 801     | 2018-01-29   | 2018-08-09  | 192 days, 11:01:12  | 45          | 7            |
@@ -43,7 +43,7 @@ McHugh, Rick Daalhuizen, Julian Winter, João Fonseca, Greg Guthe,
 yuvraj, Viktor Lindström, Simon Basset, Shivam Luthra, Roberto
 Abdelkader Martínez Pérez, Paulino Calderon, Nick Murison, Ingo Bente,
 Devansh Batra, Benjamin Liebe, Andrew Stubbs, Abdelrhman Magdy, Aaron
-Edwards, whitesource-bolt-for-github[bot], root, ridhishjain, ninoseki,
+Edwards, whitesource-bolt-for-github\[bot\], root, ridhishjain, ninoseki,
 jamiemcgregor, battletux, adam, Zander Mackie, Travis Webb, The Gitter
 Badger, Stuart Winter-Tear, Stephen OBrien, Simon de Lang, Priit
 Pääsukene, M4ttsson, Ken Friis Larsen, Johanna A, Joe Butler, Jet
