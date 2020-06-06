@@ -60,7 +60,7 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       resolved: waitForAngularRouteToBeVisited('login')
     },
     {
-      text: "Supply Jim's email address in the **email field**.",
+      text: "Supply Bender's email address in the **email field**.",
       fixture: '#email',
       unskippable: true,
       resolved: waitForInputToHaveValue('#email', 'bender@juice-sh.op') // TODO Use domain from config instead
@@ -83,10 +83,10 @@ export const LoginBenderInstruction: ChallengeInstruction = {
       resolved: waitInMs(10000)
     },
     {
-      text: "You can comment out the entire password check clause of the DB query by adding `'--` to Jim's email address!",
+      text: "You can comment out the entire password check clause of the DB query by adding `'--` to Bender's email address!",
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', "jim@juice-sh.op'--") // TODO Use domain from config instead
+      resolved: waitForInputToHaveValue('#email', "bender@juice-sh.op'--") // TODO Use domain from config instead
     },
     {
       text: 'Now click the _Log in_ button again.',
