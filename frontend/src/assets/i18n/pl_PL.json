@@ -205,7 +205,7 @@
   "2FA_SETUP_ERROR": "Failed to change 2FA setup. Check if you entered your password (and token) correctly.",
   "2FA_SUCCESSFUL_SETUP": "You have enabled 2FA for your account. Thank you for taking the time to keep your juices safe!",
   "REMOVE_TWO_FACTOR_AUTH": "Remove 2FA from your account",
-  "BTN_REMOVE": "Remove",
+  "BTN_REMOVE": "Usuń",
   "MANDATORY_REVIEW": "Please provide a review text.",
   "WRITE_REVIEW": "Write a review",
   "WRITE_REVIEW_PLACEHOLDER": "What did you like or dislike?",
