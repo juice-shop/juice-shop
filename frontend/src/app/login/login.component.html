@@ -43,6 +43,8 @@
 
       <a class="primary-link forgot-pw" routerLink="/forgot-password" translate>FORGOT_PASSWORD</a>
 
+      <div *ngIf="isCaptchaRequired" class="g-recaptcha" data-sitekey="6LdVAQEVAAAAAP8_onzM7oB3O6iiyzsBCeH3kQmB"></div>
+
       <button type="submit" id="loginButton" [disabled]="!emailControl.value||!passwordControl.value" mat-raised-button
               color="primary" (click)="login()" aria-label="Login">
         <mat-icon>
