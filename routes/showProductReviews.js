@@ -26,7 +26,8 @@ module.exports = function productReviews () {
 
     // Measure how long the query takes to find out if an there was a nosql dos attack
     const t0 = new Date().getTime()
-    db.reviews.find({ $where: 'this.product == ' + id }).then(reviews => {
+    const id = Number(req.params.id) 
+    db.reviews.find({ $expr: { $eq: [ "$product" , "id" ] } }).then(reviews => {
       const t1 = new Date().getTime()
       utils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
       const user = insecurity.authenticatedUsers.from(req)

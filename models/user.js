@@ -27,11 +27,11 @@ module.exports = (sequelize, { STRING, BOOLEAN }) => {
       type: STRING,
       unique: true,
       set (email) {
-        if (!utils.disableOnContainerEnv()) {
-          utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
-        } else {
+        //if (!utils.disableOnContainerEnv()) {
+          //utils.solveIf(challenges.persistedXssUserChallenge, () => { return utils.contains(email, '<iframe src="javascript:alert(`xss`)">') })
+        //} else {
           email = insecurity.sanitizeSecure(email)
-        }
+        //}
         this.setDataValue('email', email)
       }
     },

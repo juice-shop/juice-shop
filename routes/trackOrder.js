@@ -9,7 +9,7 @@ const db = require('../data/mongodb')
 
 module.exports = function trackOrder () {
   return (req, res) => {
-    const id = utils.disableOnContainerEnv() ? String(req.params.id).replace(/[^\w-]+/g, '') : req.params.id
+    const id = String(req.params.id).replace(/[^\w-]+/g, '')
 
     utils.solveIf(challenges.reflectedXssChallenge, () => { return utils.contains(id, '<iframe src="javascript:alert(`xss`)">') })
     db.orders.find({ $where: `this.orderId === '${id}'` }).then(order => {

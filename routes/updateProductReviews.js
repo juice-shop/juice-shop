@@ -7,13 +7,16 @@ const utils = require('../lib/utils')
 const challenges = require('../data/datacache').challenges
 const db = require('../data/mongodb')
 const insecurity = require('../lib/insecurity')
+var sanitize = require('mongo-sanitize')
 
 module.exports = function productReviews () {
   return (req, res, next) => {
     const user = insecurity.authenticatedUsers.from(req)
+    var sanitized_id = sanitize(req.body.id)
+	  var sanitized_message = sanitize(req.body.message)
     db.reviews.update(
-      { _id: req.body.id },
-      { $set: { message: req.body.message } },
+      { _id: sanitized_id },
+      { $set: { sanitized_message } },
       { multi: true }
     ).then(
       result => {
