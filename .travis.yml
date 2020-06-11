@@ -1,5 +1,7 @@
 dist: xenial
 language: node_js
+services:
+  - docker
 os:
   - linux
   - osx
@@ -121,6 +123,10 @@ jobs:
           on:
             repo: bkimminich/juice-shop
           edge: true
+    - stage: docker
+      if: "(branch = develop) AND NOT type = pull_request"
+      install: skip
+      script: docker build -t bkimminich/juice-shop:snapshot .
 notifications:
   webhooks:
     urls:
