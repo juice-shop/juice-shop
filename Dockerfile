@@ -1,11 +1,11 @@
-FROM node:13 as installer
+FROM node:14 as installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm install --production --unsafe-perm
 RUN npm dedupe
 RUN rm -rf frontend/node_modules
 
-FROM node:13-alpine
+FROM node:14-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
