@@ -126,7 +126,11 @@ jobs:
     - stage: docker
       if: "(branch = develop) AND NOT type = pull_request"
       install: skip
-      script: docker build -t bkimminich/juice-shop:snapshot .
+      script: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:snapshot-amd64 .
+    - stage: docker
+      if: "(branch = master) AND NOT type = pull_request"
+      install: skip
+      script: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:latest-amd64 .
 notifications:
   webhooks:
     urls:
