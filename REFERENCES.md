@@ -37,7 +37,9 @@ where this project was mentioned or used!
   [Nick Malcolm](https://www.youtube.com/channel/UCgU77NClL2pLS92viQro6yA):
   [OWASP Juice Shop 101](https://youtu.be/8ZYoe0xu6QY) :godmode:
 * [Application Security Podcast](https://securityjourney.com/application-security-podcast):
-  * Episode 7.2: [Jannik Hollenbach — Multijuicer: JuiceShop with a side of Kubernetes](https://podcast.securityjourney.com/jannik-hollenbach-multijuicer-juiceshop-with-a-side-of-kubernetes/) ([Youtube](https://youtu.be/3M6EMDKIAYs)) 
+  * Episode 7.2:
+    [Jannik Hollenbach — Multijuicer: JuiceShop with a side of Kubernetes](https://podcast.securityjourney.com/jannik-hollenbach-multijuicer-juiceshop-with-a-side-of-kubernetes/)
+    ([Youtube](https://youtu.be/3M6EMDKIAYs))
   * Episode 5.21:
     [Season 5 Finale — A cross section of #AppSec (S05E21)](https://podcast.securityjourney.com/season-5-finale-a-cross-section-of-appsec/)
     (contains
@@ -191,6 +193,9 @@ where this project was mentioned or used!
 
 * [Juice Shop Track](https://open-security-summit-2020.heysummit.com/topics/owasp-juiceshop/)
   at [Open Security Summit 2020](https://open-security-summit.org/)
+  * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop-introduction/)
+    with Björn Kimminich, 11.06.2020
+    ([Youtube](https://youtu.be/Ry0mXz6ZPXc))
   * [MultiJuicer Introduction](https://pre-summit-training-sessions.heysummit.com/talks/multijuicer-introduction/)
     with Jannik Hollenbach and Robert Seedorf, 02.06.2020
     ([Youtube](https://youtu.be/6NMjZbfnTOU))
