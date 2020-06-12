@@ -25,6 +25,9 @@ stages:
 - integration
 addons:
   chrome: stable
+env:
+  global:
+    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
 install:
 - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH"
@@ -135,8 +138,6 @@ jobs:
     arch: amd64
     node_js: 14
     if: "(branch = master) AND NOT type = pull_request"
-    env:
-      - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64
       .
@@ -147,8 +148,6 @@ jobs:
     arch: arm64
     node_js: 14
     if: "(branch = master) AND NOT type = pull_request"
-    env:
-      - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8
       .
@@ -159,8 +158,6 @@ jobs:
     arch: amd64
     node_js: 14
     if: "(branch = develop) AND NOT type = pull_request"
-    env:
-    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64
       .
@@ -171,8 +168,6 @@ jobs:
     arch: arm64
     node_js: 14
     if: "(branch = develop) AND NOT type = pull_request"
-    env:
-    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8
       .
@@ -183,8 +178,6 @@ jobs:
     arch: amd64
     node_js: 14
     if: "tag IS NOT blank"
-    env:
-    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64
       .
@@ -195,8 +188,6 @@ jobs:
     arch: arm64
     node_js: 14
     if: "tag IS NOT blank"
-    env:
-    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
       .
@@ -209,6 +200,7 @@ jobs:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
       - chmod +x manifest-tool
     script:
+      - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: manifest
     if: "(branch = develop) AND NOT type = pull_request"
@@ -216,6 +208,7 @@ jobs:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
       - chmod +x manifest-tool
     script:
+      - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: manifest
@@ -224,6 +217,7 @@ jobs:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
       - chmod +x manifest-tool
     script:
+      - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - sed -i 's/latest/$TRAVIS_TAG/g' multi-arch-manifest.yaml
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
