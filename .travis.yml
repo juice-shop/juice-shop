@@ -152,7 +152,7 @@ jobs:
     if: "(branch = master) AND NOT type = pull_request"
     env:
       - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
-    install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
+    install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8
       .
     script:
@@ -185,7 +185,7 @@ jobs:
     if: "(branch = develop) AND NOT type = pull_request"
     env:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
-    install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
+    install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8
       .
     script:
@@ -219,7 +219,7 @@ jobs:
     if: "tag IS NOT blank"
     env:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
-    install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
+    install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
       .
     script:
