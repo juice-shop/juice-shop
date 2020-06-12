@@ -107,6 +107,15 @@ challenges:
     type: string
   safetyOverride:
     type: boolean
+  geoStalking:
+    securityQuestionIdEasy:
+      type: number
+    securityAnswerEasy:
+      type: string
+    securityQuestionIdHard:
+      type: number
+    securityAnswerHard:
+      type: string
 hackingInstructor:
   isEnabled:
     type: boolean
