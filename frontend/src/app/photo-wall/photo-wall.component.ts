@@ -91,4 +91,14 @@ export class PhotoWallComponent implements OnInit {
     this.form.get('caption').markAsUntouched()
     this.form.get('caption').setErrors(null)
   }
+
+  isGeostalkingImage (image: IImage) {
+    return (image.caption === 'I love going hiking here...' || image.caption === 'My old workplace...')
+  }
+
+  getUserEmailByGeostalkingImage (image: IImage) {
+    return (image.caption === 'I love going hiking here...' ? 'geo1@gmail.com'
+      : image.caption === 'My old workplace...' ? 'geo2@gmail.com'
+      : '')
+  }
 }
