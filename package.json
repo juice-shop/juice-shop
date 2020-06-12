@@ -52,7 +52,7 @@
     "Marc O'Polo"
   ],
   "scripts": {
-    "build": "cd frontend && node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
+    "build": "cd frontend && node ./node_modules/@angular/cli/bin/ng build --aot --prod --output-hashing=none --vendor-chunk=true --source-map=false",
     "e2e": "node test/e2eTests.js",
     "frisby": "nyc --report-dir=./build/reports/coverage/api-tests jest --silent --runInBand --forceExit",
     "postinstall": "cd frontend && npm install && cd .. && npm run build",
