@@ -4,8 +4,8 @@ manifests:
     platform:
       architecture: amd64
       os: linux
-  - image: bkimminich/juice-shop:latest-arm64v8
-    platform:
-      architecture: arm64
-      os: linux
-      variant: v8
+#  - image: bkimminich/juice-shop:latest-arm64v8
+#    platform:
+#      architecture: arm64
+#      os: linux
+#      variant: v8
