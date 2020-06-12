@@ -130,6 +130,8 @@ jobs:
         repo: bkimminich/juice-shop
       edge: true
   - stage: docker
+    arch: amd64
+    node_js: 14
     if: "(branch = develop) AND NOT type = pull_request"
     env:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
@@ -139,6 +141,22 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-amd64
+    after_success:
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+    - chmod +x manifest-tool
+    - "./manifest-tool push from-spec multi-arch-manifest.yaml"
+  - stage: docker
+    arch: arm64
+    node_js: 14
+    if: "(branch = develop) AND NOT type = pull_request"
+    env:
+    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
+    install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
+      BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:snapshot-arm64v8
+      .
+    script:
+    - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
+    - docker push bkimminich/juice-shop:snapshot-arm64v8
     after_success:
     - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
     - chmod +x manifest-tool
