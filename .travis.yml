@@ -158,7 +158,7 @@ jobs:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-arm64v8
     after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-arm64
     - chmod +x manifest-tool
     - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
