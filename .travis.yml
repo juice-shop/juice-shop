@@ -19,6 +19,7 @@ cache:
   - frontend/node_modules
 stages:
 - docker
+- dockerhub
 - lint
 - test
 - integration
