@@ -21,10 +21,6 @@ stages:
 - lint
 - test
 - integration
-env:
-  global:
-  - secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
-  - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
 addons:
   chrome: stable
 install:
@@ -69,6 +65,8 @@ jobs:
     - npm run lint:config -- -f ./config/unsafe.yml
   - stage: integration
     if: tag IS blank
+    env:
+      - secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
     before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
       > ./cc-test-reporter
@@ -133,6 +131,8 @@ jobs:
       edge: true
   - stage: docker
     if: "(branch = develop) AND NOT type = pull_request"
+    env:
+    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:snapshot-amd64
       .
