@@ -18,6 +18,7 @@ cache:
   - node_modules
   - frontend/node_modules
 stages:
+- docker
 - lint
 - test
 - integration
