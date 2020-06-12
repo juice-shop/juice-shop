@@ -136,64 +136,28 @@ jobs:
           edge: true
     - stage: docker
       arch: amd64
-      node_js: 14
-      if: "(branch = master) AND NOT type = pull_request"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64
-        .
+      if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+      install:
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64 .; fi
       script:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:latest-amd64
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-amd64; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-amd64; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-amd64; fi
     - stage: docker
       arch: arm64
-      node_js: 14
-      if: "(branch = master) AND NOT type = pull_request"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8
-        .
+      if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+      install:
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8 .; fi
       script:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:latest-arm64v8
-    - stage: docker
-      arch: amd64
-      node_js: 14
-      if: "(branch = develop) AND NOT type = pull_request"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64
-        .
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:snapshot-amd64
-    - stage: docker
-      arch: arm64
-      node_js: 14
-      if: "(branch = develop) AND NOT type = pull_request"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8
-        .
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:snapshot-arm64v8
-    - stage: docker
-      arch: amd64
-      node_js: 14
-      if: "tag IS NOT blank"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64
-        .
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:$TRAVIS_TAG-amd64
-    - stage: docker
-      arch: arm64
-      node_js: 14
-      if: "tag IS NOT blank"
-      install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-        BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
-        .
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-arm64v8; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-arm64v8; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8; fi
     - stage: manifest
       if: "(branch = master) AND NOT type = pull_request"
       install:
