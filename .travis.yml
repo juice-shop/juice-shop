@@ -142,10 +142,6 @@ jobs:
     script:
       - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - docker push bkimminich/juice-shop:latest-amd64
-    after_success:
-      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
-      - chmod +x manifest-tool
-      - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
     arch: arm64
     node_js: 14
@@ -158,10 +154,6 @@ jobs:
     script:
       - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - docker push bkimminich/juice-shop:latest-arm64v8
-    after_success:
-      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
-      - chmod +x manifest-tool
-      - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
     arch: amd64
     node_js: 14
@@ -174,11 +166,6 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-amd64
-    after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
-    - chmod +x manifest-tool
-    - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
-    - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
     arch: arm64
     node_js: 14
@@ -191,11 +178,6 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-arm64v8
-    after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
-    - chmod +x manifest-tool
-    - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
-    - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
     arch: amd64
     node_js: 14
@@ -208,11 +190,6 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:$TRAVIS_TAG-amd64
-    after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
-    - chmod +x manifest-tool
-    - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
-    - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
     arch: arm64
     node_js: 14
@@ -225,11 +202,29 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
-    after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
-    - chmod +x manifest-tool
-    - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
-    - "./manifest-tool push from-spec multi-arch-manifest.yaml"
+  - stage: dockerhub
+    if: "(branch = master) AND NOT type = pull_request"
+    install:
+      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
+      - chmod +x manifest-tool
+    script:
+      - "./manifest-tool push from-spec multi-arch-manifest.yaml"
+  - stage: dockerhub
+    if: "(branch = develop) AND NOT type = pull_request"
+    install:
+      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
+      - chmod +x manifest-tool
+    script:
+      - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
+      - "./manifest-tool push from-spec multi-arch-manifest.yaml"
+  - stage: dockerhub
+    if: "tag IS NOT blank"
+    install:
+      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
+      - chmod +x manifest-tool
+    script:
+      - sed -i 's/latest/$TRAVIS_TAG/g' multi-arch-manifest.yaml
+      - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
   webhooks:
     urls:
