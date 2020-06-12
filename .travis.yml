@@ -168,7 +168,9 @@ jobs:
       arch: arm64
       node_js: 14
       if: "(branch = develop) AND NOT type = pull_request"
-      install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
+      install:
+        - docker version
+        - travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
         BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8
         .
       script:
