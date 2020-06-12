@@ -825,3 +825,19 @@
   hint: 'You might have to do some OSINT on his social media personas to find out his honest answer to the security question.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#reset-uvogins-password-via-the-forgot-password-mechanism'
   key: resetPasswordUvoginChallenge
+-
+  name: 'Geo Stalking - Easy'
+  category: 'Sensitive Data Exposure'
+  description: 'Determine the answer to someone''s security question by looking at images on the Photo wall.'
+  difficulty: 2
+  hint: 'Take a look at the meta data of the relevant image.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-someones-security-question-by-looking-at-the-metadata-of-images-on-the-photo-wall'
+  key: geoStalkingEasyChallenge
+-
+  name: 'Geo Stalking - Hard'
+  category: 'Sensitive Data Exposure'
+  description: 'Determine the answer to someone''s security question by looking at images on the Photo wall.'
+  difficulty: 4
+  hint: 'Take a look at the details of the image to determine the location of where it was taken.'
+  hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-someones-security-question-by-looking-at-images-on-the-photo-wall'
+  key: geoStalkingHardChallenge  
