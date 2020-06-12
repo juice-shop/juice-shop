@@ -143,7 +143,7 @@ jobs:
       - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - docker push bkimminich/juice-shop:latest-amd64
     after_success:
-      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
       - chmod +x manifest-tool
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
@@ -159,7 +159,7 @@ jobs:
       - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
       - docker push bkimminich/juice-shop:latest-arm64v8
     after_success:
-      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-arm64
+      - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
       - chmod +x manifest-tool
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
   - stage: docker
@@ -175,7 +175,7 @@ jobs:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-amd64
     after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
     - chmod +x manifest-tool
     - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
     - "./manifest-tool push from-spec multi-arch-manifest.yaml"
@@ -192,7 +192,7 @@ jobs:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:snapshot-arm64v8
     after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-arm64
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
     - chmod +x manifest-tool
     - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
     - "./manifest-tool push from-spec multi-arch-manifest.yaml"
@@ -209,7 +209,7 @@ jobs:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:$TRAVIS_TAG-amd64
     after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-amd64
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
     - chmod +x manifest-tool
     - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
     - "./manifest-tool push from-spec multi-arch-manifest.yaml"
@@ -226,7 +226,7 @@ jobs:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
     after_success:
-    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-arm64
+    - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-arm64
     - chmod +x manifest-tool
     - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
     - "./manifest-tool push from-spec multi-arch-manifest.yaml"
