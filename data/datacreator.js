@@ -103,9 +103,17 @@ async function createUsers () {
         })
         datacache.users[key] = user
         if (securityQuestion) {
-          if (email === 'geo1@gmail.com') { securityQuestion.id = config.get('challenges.geoStalking.securityQuestionIdEasy') } else if (email === 'geo2@gmail.com') { securityQuestion.id = config.get('challenges.geoStalking.securityQuestionIdHard') }
-
           await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        } else {
+          if (email === 'geo1@gmail.com') {
+            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdEasy')
+            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerEasy')
+            await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
+          } else if (email === 'geo2@gmail.com') {
+            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdHard')
+            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerHard')
+            await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
+          }
         }
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
         if (deletedFlag) await deleteUser(user.id)
