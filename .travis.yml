@@ -23,9 +23,6 @@ stages:
 - integration
 addons:
   chrome: stable
-  apt:
-    packages:
-      docker-ce
 env:
   global:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
@@ -139,6 +136,11 @@ jobs:
     arch: amd64
     node_js: 14
     if: "(branch = master) AND NOT type = pull_request"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64
       .
@@ -149,6 +151,11 @@ jobs:
     arch: arm64
     node_js: 14
     if: "(branch = master) AND NOT type = pull_request"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8
       .
@@ -159,6 +166,11 @@ jobs:
     arch: amd64
     node_js: 14
     if: "(branch = develop) AND NOT type = pull_request"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64
       .
@@ -169,6 +181,11 @@ jobs:
     arch: arm64
     node_js: 14
     if: "(branch = develop) AND NOT type = pull_request"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8
       .
@@ -179,6 +196,11 @@ jobs:
     arch: amd64
     node_js: 14
     if: "tag IS NOT blank"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64
       .
@@ -189,6 +211,11 @@ jobs:
     arch: arm64
     node_js: 14
     if: "tag IS NOT blank"
+    before_install:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      - sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+      - sudo apt-get update
+      - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
     install: travis_wait 30 docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
       BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
       .
