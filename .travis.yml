@@ -1,7 +1,5 @@
 dist: xenial
 language: node_js
-services:
-- docker
 os:
 - linux
 - osx
@@ -18,11 +16,16 @@ cache:
   - node_modules
   - frontend/node_modules
 stages:
+- docker
+- manifest
 - lint
 - test
 - integration
 addons:
   chrome: stable
+  apt:
+    packages:
+      docker-ce
 env:
   global:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
