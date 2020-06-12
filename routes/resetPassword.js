@@ -8,6 +8,7 @@ const challenges = require('../data/datacache').challenges
 const users = require('../data/datacache').users
 const insecurity = require('../lib/insecurity')
 const models = require('../models/index')
+const config = require('config')
 
 module.exports = function resetPassword () {
   return ({ body, connection }, res, next) => {
