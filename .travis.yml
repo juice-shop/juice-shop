@@ -23,9 +23,6 @@ addons:
   chrome: stable
 services:
   - docker
-env:
-  global:
-    - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
 install:
   - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
 script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH"
@@ -134,6 +131,8 @@ jobs:
           edge: true
     - stage: docker
       arch: amd64
+      env:
+        - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
       if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
       install:
         - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64 .; fi
@@ -157,6 +156,8 @@ jobs:
 #        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-arm64v8; fi
 #        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8; fi
     - stage: manifest
+      env:
+        - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
       if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
       install:
         - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
