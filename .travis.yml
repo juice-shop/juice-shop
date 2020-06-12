@@ -19,7 +19,7 @@ cache:
   - frontend/node_modules
 stages:
 - docker
-- dockerhub
+- manifest
 - lint
 - test
 - integration
@@ -203,14 +203,14 @@ jobs:
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     - docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8
-  - stage: dockerhub
+  - stage: manifest
     if: "(branch = master) AND NOT type = pull_request"
     install:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
       - chmod +x manifest-tool
     script:
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
-  - stage: dockerhub
+  - stage: manifest
     if: "(branch = develop) AND NOT type = pull_request"
     install:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
@@ -218,7 +218,7 @@ jobs:
     script:
       - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
       - "./manifest-tool push from-spec multi-arch-manifest.yaml"
-  - stage: dockerhub
+  - stage: manifest
     if: "tag IS NOT blank"
     install:
       - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
