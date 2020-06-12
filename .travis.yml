@@ -159,30 +159,14 @@ jobs:
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-arm64v8; fi
         - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8; fi
     - stage: manifest
-      if: "(branch = master) AND NOT type = pull_request"
+      if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
       install:
         - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
         - chmod +x manifest-tool
       script:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - "./manifest-tool push from-spec multi-arch-manifest.yaml"
-    - stage: manifest
-      if: "(branch = develop) AND NOT type = pull_request"
-      install:
-        - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
-        - chmod +x manifest-tool
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml
-        - "./manifest-tool push from-spec multi-arch-manifest.yaml"
-    - stage: manifest
-      if: "tag IS NOT blank"
-      install:
-        - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
-        - chmod +x manifest-tool
-      script:
-        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
-        - sed -i 's/latest/$TRAVIS_TAG/g' multi-arch-manifest.yaml
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' multi-arch-manifest.yaml; fi
         - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
   webhooks:
