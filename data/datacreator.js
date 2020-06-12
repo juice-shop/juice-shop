@@ -102,7 +102,11 @@ async function createUsers () {
           totpSecret
         })
         datacache.users[key] = user
-        if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        if (securityQuestion) {
+          if (email === 'geo1@gmail.com') { securityQuestion.id = config.get('challenges.geoStalking.securityQuestionIdEasy') } else if (email === 'geo2@gmail.com') { securityQuestion.id = config.get('challenges.geoStalking.securityQuestionIdHard') }
+
+          await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
+        }
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
         if (deletedFlag) await deleteUser(user.id)
         if (address) await createAddresses(user.id, address)
