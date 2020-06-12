@@ -1,6 +1,6 @@
 import {
   waitInMs,
-  sleep, waitForAngularRouteToBeVisited, waitForLogIn, waitForDevTools,  waitForInputToNotBeEmpty, waitForElementToGetClicked, waitForInputToHaveValue
+  sleep, waitForAngularRouteToBeVisited, waitForLogIn, waitForDevTools, waitForInputToNotBeEmpty, waitForElementToGetClicked, waitForInputToHaveValue
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
