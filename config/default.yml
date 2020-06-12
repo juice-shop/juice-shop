@@ -320,6 +320,14 @@ memories:
     image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
+  -
+    image: 'favorite-hiking-place.png' 
+    caption: 'I love going hiking here...'
+    user: GeoStalking1
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    user: GeoStalking2
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
