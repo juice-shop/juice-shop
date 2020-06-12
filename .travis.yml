@@ -134,7 +134,7 @@ jobs:
   - stage: docker
     if: "(branch = develop) AND NOT type = pull_request"
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-      BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:snapshot-amd64
+      BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64
       .
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
