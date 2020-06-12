@@ -152,7 +152,7 @@ jobs:
     env:
     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     install: docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg
-      BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ” -t bkimminich/juice-shop:snapshot-arm64v8
+      BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-arm64v8
       .
     script:
     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
