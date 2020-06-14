@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  sut:
+    build: ./test/smoke/
+    links:
+      - app
+  app:
+    image: bkimminich/juice-shop:latest-arm64v8
+    build:
+      context: ./
+      dockerfile: Dockerfile.arm64v8

@@ -139,6 +139,10 @@ jobs:
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64 .; fi
         - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64 .; fi
       script:
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.test.yml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.test.yml; fi
+        - docker-compose -f docker-compose.test.yml up --no-recreate --exit-code-from sut
+      after_success:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
         - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-amd64; fi
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-amd64; fi
@@ -153,6 +157,10 @@ jobs:
     #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8 .; fi
     #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8 .; fi
     #   script:
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.test.arm64v8.yml; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.test.arm64v8.yml; fi
+    #     - docker-compose -f docker-compose.test.arm64v8.yml up --no-recreate --exit-code-from sut
+    #   after_success:
     #     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-arm64v8; fi
     #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-arm64v8; fi
