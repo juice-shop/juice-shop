@@ -167,7 +167,7 @@ jobs:
       script:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml; fi
-        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' multi-arch-manifest.yaml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/'"$TRAVIS_TAG"'/g' multi-arch-manifest.yaml; fi
         - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
   webhooks:
