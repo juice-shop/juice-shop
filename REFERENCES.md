@@ -195,7 +195,7 @@ where this project was mentioned or used!
   at [Open Security Summit 2020](https://open-security-summit.org/)
   * [OWASP Juice Shop Introduction](https://pre-summit-training-sessions.heysummit.com/talks/owasp-juice-shop-introduction/)
     with Björn Kimminich, 11.06.2020
-    ([Youtube](https://youtu.be/Ry0mXz6ZPXc))
+    ([Youtube](https://youtu.be/wCF08BdXdDg))
   * [MultiJuicer Introduction](https://pre-summit-training-sessions.heysummit.com/talks/multijuicer-introduction/)
     with Jannik Hollenbach and Robert Seedorf, 02.06.2020
     ([Youtube](https://youtu.be/6NMjZbfnTOU))
