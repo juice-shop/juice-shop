@@ -298,3 +298,9 @@ ctf:
     resetPasswordUvoginChallenge:
       name: Republic of South Africa
       code: RSA
+    geoStalkingEasyChallenge:
+      name: Belgium
+      code: BE
+    geoStalkingHardChallenge:
+      name: The Netherlands
+      code: NL
