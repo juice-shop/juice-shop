@@ -87,7 +87,6 @@ overview please visit the official project page:
 
 ### Docker Container
 
-[![Docker Automated build](https://img.shields.io/docker/automated/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
 [![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
