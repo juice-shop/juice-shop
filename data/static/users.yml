@@ -230,13 +230,13 @@
       expMonth: 12
       expYear: 2099
 -
-  email: geo1@gmail.com
+  email: john@juice.shop
   customDomain: true
   password: 'y&x5Z#f6W532ZUf$q3DsdLw3$idF5#Ae2HkwZVyYmxxUsv&qiW6G9$nDb7&oCUaDzFU'
   key: GeoStalking1
   role: 'customer'
 - 
-  email: geo2@gmail.com
+  email: emma@juice.shop
   customDomain: true
   password: 'y&x5Z#f6W532ZUf$q3DsdLw3$idF5#Ae2HkwZVyYmxxUsv&qiW6G9$nDb7&oCUaDzFU'
   key: GeoStalking2

@@ -33,7 +33,7 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
       resolved: waitForAngularRouteToBeVisited('photo-wall')
     },
     {
-      text: 'Now take a look at the picture uploaded by geo1@gmail.com and notice the comment',
+      text: 'Now take a look at the picture uploaded by john@juice.shop and notice the comment',
       fixture: 'app-photo-wall',
       resolved: waitInMs(18000)
     },
@@ -56,7 +56,7 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
     {
       text: 'Fill in the e-mail adress and then the security question and try to change the password',
       fixture: 'app-navbar',
-      resolved: waitForInputToHaveValue('#email','geo1@gmail.com')
+      resolved: waitForInputToHaveValue('#email','john@juice.shop')
     },
     {
       text: 'Now fill in the answer to the security question',
