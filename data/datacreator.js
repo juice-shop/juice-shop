@@ -105,11 +105,11 @@ async function createUsers () {
         if (securityQuestion) {
           await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         } else {
-          if (email === 'geo1@gmail.com') {
+          if (email === 'john@juice.shop') {
             const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdEasy')
             const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerEasy')
             await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
-          } else if (email === 'geo2@gmail.com') {
+          } else if (email === 'emma@juice.shop') {
             const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdHard')
             const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerHard')
             await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
