@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Mit Brieftasche bezahlen",
   "LABEL_PAY": "Bezahlen",
   "LABEL_ADD": "Hinzufügen",
-  "REVIEW_DELUXE": "Du wirst nach erfolgreichem Abschluss abgemeldet.",
   "REVIEW_WALLET": "Du wirst wieder zu deiner Brieftasche weitergeleitet.",
   "ORDERS_AND_PAYMENT": "Bestellungen & Zahlung",
   "ADDRESS_REMOVED": "Deine Adresse wurde entfernt.",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "Brieftasche erfolgreich aufgeladen.",
   "BTN_SHOW_ONLY_TUTORIALS": "Nur Tutorials anzeigen",
   "INFO_FULL_CHALLENGE_MODE": "Schließe die übrigen Tutorial-Herausforderungen ab, um alle {{num}} Herausforderungen zu enthüllen und die fortgeschrittenen Punkteübersichtsfilter freizuschalten!",
-  "INFO_NEXT_TUTORIAL_TIER": "Schließe die {{tier}} Tutorial-Herausforderungen ab, um die nächste Schwierigkeitsstufe zu enthüllen!"
+  "INFO_NEXT_TUTORIAL_TIER": "Schließe die {{tier}} Tutorial-Herausforderungen ab, um die nächste Schwierigkeitsstufe zu enthüllen!",
+  "SHOW_COMMENT": "Kommentar anzeigen"
 }

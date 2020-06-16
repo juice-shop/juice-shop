@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Betaal met portemonnee",
   "LABEL_PAY": "Betaal",
   "LABEL_ADD": "Toevoegen",
-  "REVIEW_DELUXE": "U zal worden uitgelogd bij het voltooien ervan.",
   "REVIEW_WALLET": "U wordt teruggestuurd naar uw portemonnee.",
   "ORDERS_AND_PAYMENT": "Bestellingen & Betalingen",
   "ADDRESS_REMOVED": "Het adres is verwijderd.",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "Wallet successfully charged.",
   "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
+  "SHOW_COMMENT": "Show Comment"
 }

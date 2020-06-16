@@ -144,13 +144,14 @@ async function createDeliveryMethods () {
   const deliveries = await loadStaticData('deliveries')
 
   await Promise.all(
-    deliveries.map(async ({ name, price, deluxePrice, eta }) => {
+    deliveries.map(async ({ name, price, deluxePrice, eta, icon }) => {
       try {
         await models.Delivery.create({
           name,
           price,
           deluxePrice,
-          eta
+          eta,
+          icon
         })
       } catch (err) {
         logger.error(`Could not insert Delivery Method: ${err.message}`)
@@ -220,13 +221,12 @@ function createRandomFakeUsers () {
 }
 
 function createQuantity () {
-  const limitPerUserProuductIds = [1, 5, 7, 20, 24]
   return Promise.all(
     config.get('products').map((product, index) => {
       return models.Quantity.create({
         ProductId: index + 1,
         quantity: product.quantity !== undefined ? product.quantity : Math.floor(Math.random() * 70 + 30),
-        limitPerUser: limitPerUserProuductIds.includes(index + 1) ? 5 : null
+        limitPerUser: product.limitPerUser || null
       }).catch((err) => {
         logger.error(`Could not create quantity: ${err.message}`)
       })
@@ -263,7 +263,7 @@ function createMemories () {
 
 function createProducts () {
   const products = utils.thaw(config.get('products')).map((product) => {
-    product.price = product.price || Math.floor(Math.random())
+    product.price = product.price || Math.floor(Math.random() * 9 + 1)
     product.deluxePrice = product.deluxePrice || product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 

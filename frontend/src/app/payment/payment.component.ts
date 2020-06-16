@@ -185,8 +185,10 @@ export class PaymentComponent implements OnInit {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
       })
     } else if (this.mode === 'deluxe') {
-      this.userService.upgradeToDeluxe(this.paymentMode).subscribe(() => {
-        this.logout()
+      this.userService.upgradeToDeluxe(this.paymentMode).subscribe((data) => {
+        localStorage.setItem('token', data.token)
+        this.cookieService.set('token', data.token)
+        this.ngZone.run(() => this.router.navigate(['/deluxe-membership']))
       }, (err) => console.log(err))
     } else {
       if (this.paymentMode === 'wallet') {
@@ -196,15 +198,6 @@ export class PaymentComponent implements OnInit {
       }
       this.ngZone.run(() => this.router.navigate(['/order-summary']))
     }
-  }
-
-  logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => console.log(err))
-    localStorage.removeItem('token')
-    this.cookieService.delete('token', '/')
-    sessionStorage.removeItem('bid')
-    this.userService.isLoggedIn.next(false)
-    this.ngZone.run(() => this.router.navigate(['/login']))
   }
 
   // tslint:disable-next-line:no-empty
@@ -245,6 +238,7 @@ export class PaymentComponent implements OnInit {
 
   useWallet () {
     this.paymentMode = 'wallet'
+    this.choosePayment()
   }
 
   resetCouponForm () {

@@ -56,6 +56,7 @@ describe('RecycleComponent', () => {
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
+    snackBar = jasmine.createSpyObj('MatSnackBar',['open'])
 
     TestBed.configureTestingModule({
       imports: [

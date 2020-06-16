@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Paga utilizando billetera",
   "LABEL_PAY": "Pagar",
   "LABEL_ADD": "Agregar",
-  "REVIEW_DELUXE": "Se cerrará la sesión después de la finalización exitosa.",
   "REVIEW_WALLET": "Serás re dirigido de regreso a tu billetera ",
   "ORDERS_AND_PAYMENT": "Pedidos & Pagos",
   "ADDRESS_REMOVED": "La dirección ha sido eliminada.",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "La billetera se cargó correctamente.",
   "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
+  "SHOW_COMMENT": "Show Comment"
 }

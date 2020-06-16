@@ -4,26 +4,33 @@ os:
   - linux
   - osx
   - windows
+arch:
+  - amd64
+  - arm64
 node_js:
+  - 14
   - 12
   - 10
-  - 13
+cache:
+  directories:
+    - node_modules
+    - frontend/node_modules
 stages:
   - lint
   - test
   - integration
-env:
-  global:
-    secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
 addons:
   chrome: stable
-install: if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
-script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" ]]; then NODE_ENV=test npm test; fi
+services:
+  - docker
+install:
+  - if [[ -z "$TRAVIS_TAG" ]]; then npm install; fi
+script: if [[ -z "$TRAVIS_TAG" && "$TRAVIS_OS_NAME" != "windows" && "$TRAVIS_CPU_ARCH"
+  == "amd64" ]]; then NODE_ENV=test npm test; fi
 before_deploy:
-  - rm -rf node_modules
-  - rm -rf frontend/node_modules
   - npm install --production
-  - npm run package
+  - npm install -g grunt-cli
+  - npm run package:ci
 deploy:
   - provider: releases
     overwrite: true
@@ -41,7 +48,8 @@ jobs:
   include:
     - stage: lint
       if: tag IS blank
-      install: npm i -g standard@14 && npm i -g yaml-schema-validator && cd frontend && npm install && cd ..
+      install: npm i -g standard@14 && npm i -g yaml-schema-validator && cd frontend
+        && npm install && cd ..
       script:
         - npm run lint
         - npm run lint:config -- -f ./config/7ms.yml
@@ -53,10 +61,12 @@ jobs:
         - npm run lint:config -- -f ./config/juicebox.yml
         - npm run lint:config -- -f ./config/mozilla.yml
         - npm run lint:config -- -f ./config/quiet.yml
+        - npm run lint:config -- -f ./config/tutorial.yml
         - npm run lint:config -- -f ./config/unsafe.yml
     - stage: integration
       if: tag IS blank
-      os: linux
+      env:
+        - secure: KBx27d+h4Aa1vsRG1/gBxIFgee5N4Ln9rf1hmCcpHYp+9A+qspXpJRGm8Loy1dF+NhfY0POnQshAzOgG2isv7/CnNIJmWjHLXwqNvMkKpl2EDbl7EGBGByjvR9K9A84rn7BJJAEsb0/6NNofLhvhheL5mxd1SYvdlbewYeyg3dU=
       before_script:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
           > ./cc-test-reporter
@@ -66,43 +76,47 @@ jobs:
         - npm test
         - npm run frisby
       after_success:
-        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json build/reports/coverage/frontend-tests/lcov.info"
-        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json build/reports/coverage/server-tests/lcov.info"
-        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json build/reports/coverage/api-tests/lcov.info"
-        - "./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p 3"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.frontend.json
+      build/reports/coverage/frontend-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.server.json
+      build/reports/coverage/server-tests/lcov.info"
+        - "./cc-test-reporter format-coverage -t lcov -o build/reports/coverage/codeclimate.api.json
+      build/reports/coverage/api-tests/lcov.info"
+        - "./cc-test-reporter sum-coverage build/reports/coverage/codeclimate.*.json -p
+      3"
         - "./cc-test-reporter upload-coverage"
     - stage: e2e
       if: tag IS blank
-      os: linux
       script:
         - export NODE_ENV=test
-        - npm run e2e
+        - npm run protractor
     - stage: e2e
       if: tag IS blank
-      os: linux
       script:
         - export NODE_ENV=test
+        - npm run preprotractor
         - npm run e2e -- subfolder
     - stage: smoke
       if: tag IS blank
-      os: linux
       before_install:
         - chmod +x test/smoke/smoke-test.sh
       install:
         - npm install --production
-        - npm run package
+        - npm install -g grunt-cli
+        - npm run package:ci
       script:
         - cd dist
         - tar -zxf juice-shop-*.tgz
         - cd juice-shop_*
         - npm start &
-        - ../../test/smoke/smoke-test.sh http://localhost:3000
+        - "../../test/smoke/smoke-test.sh http://localhost:3000"
     - stage: deploy
-      if: "(branch = master OR branch = develop OR branch = facelift) AND NOT type = pull_request"
-      os: linux
-      node_js: 12
+      if: "(branch = master OR branch = develop OR branch = gsoc2020) AND NOT type =
+      pull_request"
       install: skip
       script: skip
+      before_deploy:
+        - npm install --production
       deploy:
         - provider: heroku
           strategy: api
@@ -111,20 +125,68 @@ jobs:
           app:
             master: juice-shop
             develop: juice-shop-staging
-            facelift: juice-shop-experimental
+            gsoc2020: juice-shop-gsoc
           on:
             repo: bkimminich/juice-shop
           edge: true
+    - stage: docker
+      arch: amd64
+      env:
+        - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
+      if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+      install:
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64 .; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64 .; fi
+      script:
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.test.yml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.test.yml; fi
+        - docker-compose -f docker-compose.test.yml up --no-recreate --exit-code-from sut
+      after_success:
+        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
+        - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-amd64; fi
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-amd64; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-amd64; fi
+    # - stage: docker
+    #   arch: arm64
+    #   env:
+    #     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
+    #   if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+    #   install:
+    #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8 .; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8 .; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8 .; fi
+    #   script:
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.arm64v8.test.yml; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.arm64v8.test.yml; fi
+    #     - docker-compose -f docker-compose.arm64v8.test.yml up --no-recreate --exit-code-from sut
+    #   after_success:
+    #     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
+    #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-arm64v8; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker push bkimminich/juice-shop:snapshot-arm64v8; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker push bkimminich/juice-shop:$TRAVIS_TAG-arm64v8; fi
+    - stage: manifest
+      env:
+        - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
+      if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+      install:
+        - curl -Lo manifest-tool https://github.com/estesp/manifest-tool/releases/download/v1.0.2/manifest-tool-linux-amd64
+        - chmod +x manifest-tool
+      script:
+        - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/'"$TRAVIS_TAG"'/g' multi-arch-manifest.yaml; fi
+        - "./manifest-tool push from-spec multi-arch-manifest.yaml"
 notifications:
   webhooks:
     urls:
-      - secure: QZ3/2h7hThg527PX1z7kTTRGL5jEbTTHRbetYHt8Gzgdhvtruq4cjxMQZdUcmxKlncAhoB976iFl/Ja9EpExgrXnt/Tj0Aft6JDc7g8y0kuD/SiQpFT7d46R7vOTJeFHyMzfQN9M/h81DXrG+VO5OPGR/QYNa39kMzkTc86tt1E=
+      - secure: cmxowwRhxwvGeFTyLT7d+xNsrB5JWaolb4rtuXCjbYVvnukaxJDKcKJ1/pyNi5OMu6qkMEVdAgNYE6q3H0TGE1leJmoaoMwIQo5I3GNMLtr4VNASmRupJrWV0Gjamj+3uC6d5iyg0PpeT73fvuUTQ8TNz5696svZtK7FtmwvigU=
     on_success: always
     on_failure: always
     on_start: never
   slack:
     rooms:
-      secure: jis/Fcasy+4QCqg6SZnf1XxXTNFrQENutYCN4QuMUQbfiD6QsLxTQS5o0MZ8e9EYTdptUXmjjgkaEulxO5fIUtmDcOrKcPxToDMjyCZEglfEf9CzRVRap7LnZwoCZ5yet/0E68qt4QhfTgfwYc9QIfSZo45rdyNS6BXI2vomGqE=
+      - secure: SpuG3G8p/B0qXmU6snPJ+JmcQoHMg/YmUuv9s0as+FdZquWURfbuOH51BxpiWIWlE23BMVGykQR+T0eKsYQ6cPNHLShaesE1qGJf/hG0tHWRK2fK6d3VTTpwZt6XxR3AGYnpCz8gmUxwMBZ1lESjHhQiQKy2AjFBweTTU2IfQaQ=
     on_success: change
     on_failure: change
     on_pull_requests: false

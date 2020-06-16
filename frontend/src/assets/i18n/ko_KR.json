@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Pay using wallet",
   "LABEL_PAY": "Pay",
   "LABEL_ADD": "Add",
-  "REVIEW_DELUXE": "You will be logged out on successful completion.",
   "REVIEW_WALLET": "You will be redirected back to your wallet.",
   "ORDERS_AND_PAYMENT": "Orders & Payment",
   "ADDRESS_REMOVED": "Your address has been removed.",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "Wallet successfully charged.",
   "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
+  "SHOW_COMMENT": "Show Comment"
 }

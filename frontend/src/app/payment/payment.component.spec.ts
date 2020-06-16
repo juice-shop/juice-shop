@@ -260,39 +260,6 @@ describe('PaymentComponent', () => {
     expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent,data)
   })
 
-  it('should remove authentication token from localStorage', () => {
-    spyOn(localStorage,'removeItem')
-    component.logout()
-    expect(localStorage.removeItem).toHaveBeenCalledWith('token')
-  })
-
-  it('should remove authentication token from cookies', () => {
-    component.logout()
-    expect(cookieService.delete).toHaveBeenCalledWith('token', '/')
-  })
-
-  it('should remove basket id from session storage', () => {
-    spyOn(sessionStorage,'removeItem')
-    component.logout()
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
-  })
-
-  it('should set the login status to be false via UserService', () => {
-    component.logout()
-    expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
-  })
-
-  it('should save the last login IP address', () => {
-    component.logout()
-    expect(userService.saveLastLoginIp).toHaveBeenCalled()
-  })
-
-  it('should forward to login page', fakeAsync(() => {
-    component.logout()
-    tick()
-    expect(location.path()).toBe('/login')
-  }))
-
   it('should call initTotal on calling ngOnInit', () => {
     spyOn(component,'initTotal')
     component.ngOnInit()
@@ -325,14 +292,6 @@ describe('PaymentComponent', () => {
     spyOn(sessionStorage,'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')
-  })
-
-  it('should call logout on calling choosePayment in deluxe mode', () => {
-    component.mode = 'deluxe'
-    userService.upgradeToDeluxe.and.returnValue(of([]))
-    spyOn(component,'logout')
-    component.choosePayment()
-    expect(component.logout).toHaveBeenCalled()
   })
 
   it('should log error from upgrade to deluxe API call directly to browser console', fakeAsync(() => {

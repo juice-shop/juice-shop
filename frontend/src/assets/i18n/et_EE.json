@@ -188,7 +188,7 @@
   "ADD_BASKET": "Lisa korvi",
   "BTN_SHOW_ALL": "Kuva kõik",
   "BTN_SHOW_UNAVAILABLE": "Kuba mitte saadaval",
-  "INFO_DISABLED_CHALLENGES": "{{num}} challenges are unavailable on {{env}} due to <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potentially-dangerous-challenges'>security concerns</a> or technical incompatibility!",
+  "INFO_DISABLED_CHALLENGES": "{{num}} väljakutset pole {{env}} saidil saadaval seoses <a href='https://pwning.owasp-juice.shop/part1/challenges.html#potential-dangerous-challenges'>turvaprobleemide</ a> või tehnilise sobimatuse tulemusel!",
   "BTN_HIDE_ALL": "Peida kõik",
   "TYPE_THESE_LETTERS": "Tippige need {{length}} tähte",
   "BTN_REQUEST": "Päring",
@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Maksa rahakoti abil",
   "LABEL_PAY": "Maksa",
   "LABEL_ADD": "Lisa",
-  "REVIEW_DELUXE": "Eduka tehingu korral logitakse teid välja.",
   "REVIEW_WALLET": "Teid suunatakse tagasi rahakotile.",
   "ORDERS_AND_PAYMENT": "Tellimused & Maksmine",
   "ADDRESS_REMOVED": "Aadress on eemaldatud.",
@@ -345,7 +344,8 @@
   "ENTER_COUPON_CODE": "Sisesta oma kupongi kood",
   "COUPON_CODE_HINT": "Kupongi kood peab olema 10 tähemärki.",
   "CHARGED_WALLET": "Tasu võeti edukalt rahakotist.",
-  "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
-  "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "BTN_SHOW_ONLY_TUTORIALS": "Kuva ainult õpetused",
+  "INFO_FULL_CHALLENGE_MODE": "Vii lõpule kõik õpetuslikud väljakutsed, et ligi pääseda  {{num}} väljakutsele ning saada juurdepääs täpsematele tulemustabeli filtritele.",
+  "INFO_NEXT_TUTORIAL_TIER": "Lõpeta {{tier}} õpetavad väljakutsed, et saada juurdepääs järgmisele raskusastmele",
+  "SHOW_COMMENT": "Kuva kommentaar"
 }
