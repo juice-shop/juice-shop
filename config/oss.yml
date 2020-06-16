@@ -10,7 +10,7 @@ application:
     message: 'We are not only using cookies but also recorded this session on YouTube!'
     dismissText: "I've been there live, so thanks!"
     linkText: 'I want to watch that!'
-    linkUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    linkUrl: 'https://youtu.be/WtY712DdlR8?t=413'
   social:
     twitterUrl: 'https://twitter.com/opensecsummit'
     facebookUrl: ~
