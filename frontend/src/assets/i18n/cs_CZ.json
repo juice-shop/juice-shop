@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "Zaplatit pomocí peněženky",
   "LABEL_PAY": "Zaplatit",
   "LABEL_ADD": "Přidat",
-  "REVIEW_DELUXE": "Po úspěšném dokončení budete odhlášeni.",
   "REVIEW_WALLET": "Budete přesměrováni zpět do vaši peněženky.",
   "ORDERS_AND_PAYMENT": "Objednávky & Platby",
   "ADDRESS_REMOVED": "Your address has been removed.",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "Wallet successfully charged.",
   "BTN_SHOW_ONLY_TUTORIALS": "Show tutorials only",
   "INFO_FULL_CHALLENGE_MODE": "Complete the remaining tutorial challenges to unveil all {{num}} challenges and unlock the advanced Score Board filters!",
-  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!"
+  "INFO_NEXT_TUTORIAL_TIER": "Complete the {{tier}} tutorial challenges to unveil the next difficulty tier!",
+  "SHOW_COMMENT": "Show Comment"
 }

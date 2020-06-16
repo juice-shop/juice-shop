@@ -1,4 +1,5 @@
 .git/
+monitoring/
 node_modules/
 screenshots/
 test/

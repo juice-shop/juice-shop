@@ -41,6 +41,7 @@ const repeatNotification = require('./routes/repeatNotification')
 const continueCode = require('./routes/continueCode')
 const restoreProgress = require('./routes/restoreProgress')
 const fileServer = require('./routes/fileServer')
+const quarantineServer = require('./routes/quarantineServer')
 const keyServer = require('./routes/keyServer')
 const logFileServer = require('./routes/logfileServer')
 const metrics = require('./routes/metrics')
@@ -147,6 +148,11 @@ app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 app.disable('x-powered-by')
+app.use(helmet.featurePolicy({
+  features: {
+    payment: ["'self'"]
+  }
+}))
 
 /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
 app.use((req, res, next) => {
@@ -203,7 +209,8 @@ const serveIndexMiddleware = (req, res, next) => {
 
 /* /ftp directory browsing and file download */
 app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true }))
-app.use('/ftp/:file', fileServer())
+app.use('/ftp(?!/quarantine)/:file', fileServer())
+app.use('/ftp/quarantine/:file', quarantineServer())
 
 /* /encryptionkeys directory browsing */
 app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))

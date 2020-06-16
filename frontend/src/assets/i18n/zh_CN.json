@@ -322,7 +322,6 @@
   "LABEL_PAY_USING_WALLET": "使用钱包支付",
   "LABEL_PAY": "支付",
   "LABEL_ADD": "添加",
-  "REVIEW_DELUXE": "您将在成功完成后注销。",
   "REVIEW_WALLET": "您将跳转到您的钱包。",
   "ORDERS_AND_PAYMENT": "订单和付款方式",
   "ADDRESS_REMOVED": "您的地址已被移除。",
@@ -347,5 +346,6 @@
   "CHARGED_WALLET": "钱包已成功充值。",
   "BTN_SHOW_ONLY_TUTORIALS": "仅显示教程",
   "INFO_FULL_CHALLENGE_MODE": "完成剩余带教程的挑战以打开所有 {{num}} 个挑战并解锁高级的计分板过滤器！",
-  "INFO_NEXT_TUTORIAL_TIER": "完成 {{tier}} 含教程挑战来解锁下一个难度等级！"
+  "INFO_NEXT_TUTORIAL_TIER": "完成 {{tier}} 含教程挑战来解锁下一个难度等级！",
+  "SHOW_COMMENT": "显示评论"
 }

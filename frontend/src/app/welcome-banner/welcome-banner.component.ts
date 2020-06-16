@@ -17,6 +17,7 @@ export class WelcomeBannerComponent implements OnInit {
   public title: string = 'Welcome to OWASP Juice Shop'
   public message: string = "<p>Being a web application with a vast number of intended security vulnerabilities, the <strong>OWASP Juice Shop</strong> is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications. The <strong>OWASP Juice Shop</strong> is an open-source project hosted by the non-profit <a href='https://owasp.org' target='_blank'>Open Web Application Security Project (OWASP)</a> and is developed and maintained by volunteers. Check out the link below for more information and documentation on the project.</p><h1><a href='https://owasp-juice.shop' target='_blank'>https://owasp-juice.shop</a></h1>"
   public showHackingInstructor: boolean = true
+  public showDismissBtn: boolean = true
 
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 
@@ -34,11 +35,16 @@ export class WelcomeBannerComponent implements OnInit {
       if (config && config.application) {
         this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
       }
+      // Don't allow to skip the tutorials when restrictToTutorialsFirst and showHackingInstructor are enabled
+      if (this.showHackingInstructor && config.challenges && config.challenges.restrictToTutorialsFirst) {
+        this.dialogRef.disableClose = true
+        this.showDismissBtn = false
+      }
     }, (err) => console.log(err))
   }
 
   startHackingInstructor () {
-    this.dialogRef.close()
+    this.closeWelcome()
     console.log('Starting instructions for challenge "Score Board"')
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor('Score Board')

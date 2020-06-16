@@ -3,65 +3,69 @@
   ~ SPDX-License-Identifier: MIT
   -->
 
-<div fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="main-wrapper">
-    <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
-        <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">
-            <mat-card class="mat-elevation-z6" fxFlex="60%">
-                <div>
-                    <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
-                    <div>{{address?.fullName}}</div>
-                    <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
-                    <div>{{address?.country}}</div>
-                    <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
-                </div>
-            </mat-card>
-            <mat-card class="mat-elevation-z6" fxFlex="40%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
-                <div>
-                    <div><b translate>PAYMENT_METHOD</b></div>
-                    <div><span translate>CARD_ENDING_IN</span> {{paymentMethod?.cardNum}}</div>
-                    <div><span translate>CARD_HOLDER</span> {{paymentMethod?.fullName}}</div>
-                </div>
-            </mat-card>
-
-            <ng-template #walletPayment>
-                <mat-card class="mat-elevation-z6" fxFlex="40%">
-                    <div>
-                        <div><b translate>PAYMENT_METHOD</b></div>
-                        <div><span translate>DIGITAL_WALLET</span></div>
-                    </div>
-                </mat-card>
-            </ng-template>
+<mat-card fxLayout="row" fxLayoutGap="10%" fxLayout.lt-md="column" class="mat-elevation-z6 mat-own-card">
+  <div fxLayout="column" fxLayoutGap="20px" fxFlex="70%">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">
+      <mat-card class="mat-elevation-z0" fxFlex="60%">
+        <div>
+          <div><b translate>LABEL_DELIVERY_ADDRESS</b></div>
+          <div>{{address?.fullName}}</div>
+          <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
+          <div>{{address?.country}}</div>
+          <div><span translate>PHONE_NUMBER</span> {{address?.mobileNum}}</div>
         </div>
-      <app-purchase-basket [allowEdit]="false" (emitTotal)="getMessage($event)"></app-purchase-basket>
-    </div>
-    <div fxFlex="30%">
-        <mat-card class="mat-elevation-z6">
-            <div class="order-summary" translate>ORDER_SUMMARY</div>
-            <table class="mat-table">
-              <tr class="mat-row">
-                <td class="mat-cell label" translate>ITEMS</td>
-                <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}&curren;</td>
-              </tr>
-              <tr class="mat-row">
-                  <td class="mat-cell label" translate>DELIVERY</td>
-                  <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}&curren;</td>
-                </tr>
-              <tr class="mat-row">
-                  <td class="mat-cell label" translate>PROMOTION</td>
-                  <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}&curren;</td>
-              </tr>
-              <tr class="mat-row">
-                  <td class="mat-footer-cell label" translate>LABEL_TOTAL_PRICE</td>
-                  <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2) }}&curren;</td>
-              </tr>
-            </table>
-            <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase" id="checkoutButton" (click)="placeOrder()">
-              <mat-icon>
-                monetization_on
-              </mat-icon>
-              <span translate>PLACE_ORDER_AND_PAY</span>
-            </button>
-            <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+      </mat-card>
+      <mat-card class="mat-elevation-z0" fxFlex="40%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
+        <div>
+          <div><b translate>PAYMENT_METHOD</b></div>
+          <div><span translate>CARD_ENDING_IN</span> {{paymentMethod?.cardNum}}</div>
+          <div><span translate>CARD_HOLDER</span> {{paymentMethod?.fullName}}</div>
+        </div>
+      </mat-card>
+
+      <ng-template #walletPayment>
+        <mat-card class="mat-elevation-z0" fxFlex="40%">
+          <div>
+            <div><b translate>PAYMENT_METHOD</b></div>
+            <div><span translate>DIGITAL_WALLET</span></div>
+          </div>
         </mat-card>
+      </ng-template>
     </div>
-</div>
+    <app-purchase-basket [allowEdit]="false" [totalPrice]="false"
+                         (emitTotal)="getMessage($event)"></app-purchase-basket>
+  </div>
+  <div fxFlex="40%">
+    <mat-card class="mat-elevation-z0">
+      <div class="order-summary" translate>ORDER_SUMMARY</div>
+      <table class="mat-table">
+        <tr class="mat-row">
+          <td class="mat-cell label" translate>ITEMS</td>
+          <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}&curren;</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell label" translate>DELIVERY</td>
+          <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}&curren;</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell label" translate>PROMOTION</td>
+          <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}&curren;</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-footer-cell label" translate>LABEL_TOTAL_PRICE</td>
+          <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2)
+            }}&curren;
+          </td>
+        </tr>
+      </table>
+      <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase"
+              id="checkoutButton" (click)="placeOrder()">
+        <mat-icon>
+          monetization_on
+        </mat-icon>
+        <span translate>PLACE_ORDER_AND_PAY</span>
+      </button>
+      <div class="bonus-points" translate [translateParams]="{'bonus': bonus}">CHECKOUT_FOR_BONUS_POINTS</div>
+    </mat-card>
+  </div>
+</mat-card>
