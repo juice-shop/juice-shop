@@ -195,7 +195,7 @@ where this project was mentioned or used!
   at [Open Security Summit 2020](https://open-security-summit.org/)
   * [OWASP Juice Shop Cocktail Party: Ask us anything!](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-cocktail-party-ask-us-anything/)
     with Björn Kimminich, Jannik Hollenbach & Timo Pagel 15.06.2020
-    ([Youtube]())
+    ([Youtube](https://youtu.be/h5ApBfFMmao))
   * [OWASP Juice Shop Deep Dive: MultiJuicer](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-multijuicer/)
     with Jannik Hollenbach & Robert Seedorf, 15.06.2020 ([Youtube]())
   * [OWASP Juice Shop Deep Dive: Integration](https://open-security-summit-2020.heysummit.com/talks/owasp-juice-shop-deep-dive-integration/)
