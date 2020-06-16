@@ -1,6 +1,7 @@
 [
   { "key": "en", "icons": ["gb", "us"], "shortKey": "EN", "lang": "English" },
   { "key": "ar_SA", "icons": ["ae", "tn"], "shortKey": "AR", "lang": "عربى" },
+  { "key": "hy_AM", "icons": ["am"], "shortKey": "AM", "lang": "հայերեն" },
   { "key": "az_AZ", "icons": ["az"], "shortKey": "AZ", "lang": "Azərbaycanca" },
   { "key": "bg_BG", "icons": ["bg"], "shortKey": "BG", "lang": "български (език)" },
   { "key": "ca_ES", "icons": ["es-ct"], "shortKey": "CA", "lang": "Catalan" },
