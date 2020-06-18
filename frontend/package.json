@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "11.1.1",
+  "version": "11.2.0-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
