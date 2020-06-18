@@ -134,6 +134,9 @@ jobs:
       env:
         - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
       if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
+      before_install:
+        - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' multi-arch-manifest.yaml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/'"$TRAVIS_TAG"'/g' multi-arch-manifest.yaml; fi
       install:
         - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-amd64 .; fi
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-amd64 .; fi
