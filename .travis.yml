@@ -140,7 +140,7 @@ jobs:
         - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-amd64 .; fi
       script:
         - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.test.yml; fi
-        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.test.yml; fi
+        - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/'"$TRAVIS_TAG"'/g' docker-compose.test.yml; fi
         - docker-compose -f docker-compose.test.yml up --no-recreate --exit-code-from sut
       after_success:
         - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
@@ -153,13 +153,14 @@ jobs:
     #     - secure: Tyoy/YPivlB0aVnkkBRa2BRshwhdPqC6TY+OE5u6fLHD/AconqyonKhFYSRDiYH8l5+bTbuPhWZ5NJATUm4k4mCTp9bIAQLrfGe5ws7rSGPBh4ohOItPXahNAUdTRhwJlOnzNkmTVdONhhCLhMceTlVNbU0c9rSTdRZF6LVN1Hk=
     #   if: "((branch = master OR branch = develop) AND NOT type = pull_request) OR tag IS NOT blank"
     #   install:
-    #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:latest-arm64v8 .; fi
-    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:snapshot-arm64v8 .; fi
-    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -f Dockerfile.arm64v8 -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8 .; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:latest-arm64v8 .; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:snapshot-arm64v8 .; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then docker build --build-arg VCS_REF=`git rev-parse --short HEAD` --build-arg BUILD_DATE=`date -u +”%Y-%m-%dT%H:%M:%SZ”` -t bkimminich/juice-shop:$TRAVIS_TAG-arm64v8 .; fi
     #   script:
-    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest/snapshot/g' docker-compose.arm64v8.test.yml; fi
-    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest/$TRAVIS_TAG/g' docker-compose.arm64v8.test.yml; fi
-    #     - docker-compose -f docker-compose.arm64v8.test.yml up --no-recreate --exit-code-from sut
+    #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then sed -i 's/amd64/arm64v8/g' docker-compose.test.yml; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then sed -i 's/latest-amd64/snapshot-arm64v8/g' docker-compose.test.yml; fi
+    #     - if [[ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]]; then sed -i 's/latest-amd64/'"$TRAVIS_TAG"'-arm64v8/g' docker-compose.test.yml; fi
+    #     - docker-compose -f docker-compose.test.yml up --no-recreate --exit-code-from sut
     #   after_success:
     #     - echo "$DOCKER_ACCESS_TOKEN" | docker login -u bkimminich --password-stdin
     #     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker push bkimminich/juice-shop:latest-arm64v8; fi
