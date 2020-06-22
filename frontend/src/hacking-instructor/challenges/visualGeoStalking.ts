@@ -4,8 +4,8 @@ import {
 } from '../helpers/helpers'
 import { ChallengeInstruction } from '../'
 
-export const GeoStalkingEasyInstruction: ChallengeInstruction = {
-  name: 'Geo Stalking - Easy',
+export const VisualGeoStalkingInstruction: ChallengeInstruction = {
+  name: 'Visual Geo Stalking',
   hints: [
     {
       text:
@@ -21,6 +21,7 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
         }
       }
     },
+
     {
       text: 'This challenge is about **sensitive data exposure**, meaning sensitive data has been exposed leaving open a vector for attack',
       fixture: 'app-navbar',
@@ -33,12 +34,12 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
       resolved: waitForAngularRouteToBeVisited('photo-wall')
     },
     {
-      text: 'Now take a look at the picture uploaded by john@juice.shop and notice the comment',
+      text: 'Now take a look at the picture uploaded by emma@juice.shop and notice the comment',
       fixture: 'app-photo-wall',
       resolved: waitInMs(18000)
     },
     {
-      text: 'Download the image and analyze its metadata (geodata) to find interesting information ',
+      text: 'Take a close look at the photo and notice how it gives away an answer to a potential security question',
       fixture: 'app-navbar',
       resolved: waitInMs(18000)
     },
@@ -56,7 +57,7 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
     {
       text: 'Fill in the e-mail adress and then the security question and try to change the password',
       fixture: 'app-navbar',
-      resolved: waitForInputToHaveValue('#email','john@juice.shop')
+      resolved: waitForInputToHaveValue('#email','emma@juice.shop')
     },
     {
       text: 'Now fill in the answer to the security question',
@@ -84,5 +85,6 @@ export const GeoStalkingEasyInstruction: ChallengeInstruction = {
       fixture: 'app-navbar',
       resolved: waitInMs(20000)
     }
+
   ]
 }

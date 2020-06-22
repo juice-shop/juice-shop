@@ -17,8 +17,8 @@ import { PasswordStrengthInstruction } from './challenges/passwordStrength'
 import { BonusPayloadInstruction } from './challenges/bonusPayload'
 import { LoginBenderInstruction } from './challenges/loginBender'
 import { TutorialUnavailableInstruction } from './tutorialUnavailable'
-import { GeoStalkingEasyInstruction } from './challenges/geoStalkingEasy'
-import { GeoStalkingHardInstruction } from './challenges/geoStalkingHard'
+import { MetaGeoStalkingInstruction } from './challenges/metaGeoStalking'
+import { VisualGeoStalkingInstruction } from './challenges/visualGeoStalking'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -31,8 +31,8 @@ const challengeInstructions: ChallengeInstruction[] = [
   PasswordStrengthInstruction,
   BonusPayloadInstruction,
   LoginBenderInstruction,
-  GeoStalkingEasyInstruction,
-  GeoStalkingHardInstruction
+  MetaGeoStalkingInstruction,
+  VisualGeoStalkingInstruction
 ]
 
 const fallbackInstruction = TutorialUnavailableInstruction

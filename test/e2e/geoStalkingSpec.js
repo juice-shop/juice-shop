@@ -36,7 +36,7 @@ describe('/#/geo', () => {
       newPasswordRepeat.sendKeys('123456')
       resetButton.click()
 
-      protractor.expect.challengeSolved({ challenge: 'Geo Stalking - Easy' })
+      protractor.expect.challengeSolved({ challenge: 'Meta Geo Stalking' })
     })
   })
 
@@ -51,7 +51,7 @@ describe('/#/geo', () => {
       newPasswordRepeat.sendKeys('123456')
       resetButton.click()
 
-      protractor.expect.challengeSolved({ challenge: 'Geo Stalking - Hard' })
+      protractor.expect.challengeSolved({ challenge: 'Visual Geo Stalking' })
     })
   })
 })
