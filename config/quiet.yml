@@ -5,7 +5,7 @@ application:
   welcomeBanner:
     showOnFirstStart: false
 challenges:
-  showSolvedNotifications: true
+  showSolvedNotifications: false
   showHints: false
 hackingInstructor:
   isEnabled: false
