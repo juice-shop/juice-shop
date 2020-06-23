@@ -150,6 +150,12 @@ products:
     deluxePrice: 11.99
     image: helmetusb.jpg
   -
+    name: 'Kiwa Kryptonizer'
+    description: 'An insecure way to store your personal data in a single book, so that it is a single point of failure'
+    price: 14.11
+    deluxePrice: 10.99
+    image: kiwakryptonizer.jpg
+  -
     name: 'Kiwa Powerbank'
     description: 'All the power you need'
     price: 15.32
@@ -168,6 +174,14 @@ products:
     name: 'Kiwa pens, 50 pack'
     price: 50.00
     image: pens.jpg
+  -
+    name: 'Kiwa branded tulips'
+    price: 12.00
+    image: kiwatulips.jpg
+  -
+    name: 'Bert Beaver Game'
+    price: 24.00
+    image: bertbever.jpg
   -
     name: 'Kiwa Tie blue'
     price: 7
@@ -261,6 +275,12 @@ products:
     price: 278.74
     quantity: 1
     image: kiwa_artwork.png
+  -
+    name: 'Kiwa Fire Safety Products Artwork - Special Edition'
+    description: 'Special edition of the artwork.'
+    price: 999.99
+    quantity: 0
+    image: kiwa_artwork_se.png
   -
     name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
