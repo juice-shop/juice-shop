@@ -47,6 +47,14 @@ Shop easier to hack!
   * [★★★ Database Schema](https://youtu.be/0-D-e66U2Z0)
   * [★★★ Forged Feedback](https://youtu.be/99iKTSkZ814)
   * [★★★ Forged Review](https://youtu.be/k2abfhtuU9c)
+  * [★★★ GDPR Data Erasure](https://youtu.be/zBTYSpp41u8)
+  * [★★★ Login Amy](https://youtu.be/ICln3xcVxzI)
+  * [★★★ Login Bender](https://youtu.be/a6kh9fL77A0)
+* [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
+  by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
+  (fake) bugbounty report for all findings (🧃`v10.x`)
+* [OWASP Juice Shop All Challenges Solved || ETHIKERS](https://youtu.be/Fjdhf6OHgRk)
+  full-spoiler, time-lapsed, no-commentary hacking trip (🧃`v8.x`)
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel (🧃`v7.x`)
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
@@ -92,3 +100,4 @@ Shop easier to hack!
 * [Automated solving script for the OWASP Juice Shop](https://github.com/incognitjoe/juice-shop-solver)
   written in Python by [@incognitjoe](https://github.com/incognitjoe)
   (🧃`v2.x`)
+
