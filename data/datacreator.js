@@ -105,13 +105,13 @@ async function createUsers () {
         if (securityQuestion) {
           await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         } else {
-          if (email === 'john@juice.shop') {
-            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdEasy')
-            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerEasy')
+          if (email === `john@${config.get('application.domain')}`) {
+            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdJohn')
+            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerJohn')
             await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
-          } else if (email === 'emma@juice.shop') {
-            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdHard')
-            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerHard')
+          } else if (email === `emma@${config.get('application.domain')}`) {
+            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdEmma')
+            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerEmma')
             await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
           }
         }

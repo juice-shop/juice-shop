@@ -57,6 +57,6 @@ function verifySecurityAnswerChallenges (user, answer) {
   utils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
   utils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
   utils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
-  utils.solveIf(challenges.geoStalkingMetaChallenge, () => { return user.id === users.GeoStalking1.id && answer === config.get('challenges.geoStalking.securityAnswerEasy') })
-  utils.solveIf(challenges.geoStalkingVisualChallenge, () => { return user.id === users.GeoStalking2.id && answer === config.get('challenges.geoStalking.securityAnswerHard') })
+  utils.solveIf(challenges.geoStalkingMetaChallenge, () => { return user.id === users.john.id && answer === config.get('challenges.geoStalking.securityAnswerJohn') })
+  utils.solveIf(challenges.geoStalkingVisualChallenge, () => { return user.id === users.emma.id && answer === config.get('challenges.geoStalking.securityAnswerEmma') })
 }
