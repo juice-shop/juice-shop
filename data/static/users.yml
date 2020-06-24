@@ -231,11 +231,13 @@
       expYear: 2099
 -
   email: john
+  username: j0hNny
   password: 'y&x5Z#f6W532ZUf$q3DsdLw3$idF5#Ae2HkwZVyYmxxUsv&qiW6G9$nDb7&oCUaDzFU'
   key: john
   role: 'customer'
 - 
   email: emma
+  username: E=ma²
   password: 'y&x5Z#f6W532ZUf$q3DsdLw3$idF5#Ae2HkwZVyYmxxUsv&qiW6G9$nDb7&oCUaDzFU'
   key: emma
   role: 'customer'

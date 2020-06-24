@@ -837,7 +837,7 @@
   name: 'Visual Geo Stalking'
   category: 'Sensitive Data Exposure'
   description: 'Determine the answer to Emma''s security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
-  difficulty: 4
+  difficulty: 2
   hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-emmas-security-question'
   key: geoStalkingVisualChallenge
