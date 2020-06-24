@@ -221,6 +221,7 @@ function createQuantity () {
     })
   )
 }
+
 function createMemories () {
   const memories = [models.Memory.create({
     imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
@@ -236,6 +237,12 @@ function createMemories () {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+      }
+      if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
+        createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+      }
+      if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
+        createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
       }
       return models.Memory.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,

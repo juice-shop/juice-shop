@@ -18,6 +18,9 @@
                                 <i class="fab fa-twitter fa-lg"></i>
                             </button>
                          </a>
+                        <div *ngIf="isGeostalkingImage(image)">
+                          <small translate>UPLOADED_BY</small><small> {{ getUserEmailByGeostalkingImage(image) }}</small>
+                        </div>
                     </div>
                 </span>
     </div>

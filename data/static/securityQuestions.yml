@@ -24,4 +24,5 @@
   question: 'Your favorite movie?'
 -
   question: 'Number of one of your customer or ID cards?'
-  
+-
+  question: "What's your favorite place to go hiking?"

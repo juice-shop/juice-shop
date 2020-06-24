@@ -152,6 +152,14 @@ memories:
       type: string
     user:
       type: string
+    geoStalkingMetaSecurityQuestion:
+      type: number
+    geoStalkingMetaSecurityAnswer:
+      type: string
+    geoStalkingVisualSecurityQuestion:
+      type: number
+    geoStalkingVisualSecurityAnswer:
+      type: string
 ctf:
   showFlagsInNotifications:
     type: boolean
