@@ -350,6 +350,18 @@ memories:
     image: 'my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg'
     caption: 'My rare collectors item! [̲̅$̲̅(̲̅ ͡° ͜ʖ ͡°̲̅)̲̅$̲̅]'
     user: bjoernGoogle
+  -
+    image: 'favorite-hiking-place.png' 
+    caption: 'I love going hiking here...'
+    user: john
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    user: emma
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'
 ctf:
   showFlagsInNotifications: false
   showCountryDetailsInNotifications: none # Options: none  name  flag  both
