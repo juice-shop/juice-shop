@@ -231,7 +231,7 @@ function createMemories () {
     logger.error(`Could not create memory: ${err.message}`)
   })]
   Array.prototype.push.apply(memories, Promise.all(
-    config.get('memories').map((memory) => {
+    utils.thaw(config.get('memories')).map((memory) => {
       let tmpImageFileName = memory.image
       if (utils.startsWith(memory.image, 'http')) {
         const imageUrl = memory.image
@@ -240,9 +240,11 @@ function createMemories () {
       }
       if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
         createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+        memory.user = 'john'
       }
       if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
         createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
+        memory.user = 'emma'
       }
       return models.Memory.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,

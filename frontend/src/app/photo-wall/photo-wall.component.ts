@@ -44,6 +44,9 @@ export class PhotoWallComponent implements OnInit {
         this.emptyState = false
       }
       for (const memory of memories) {
+        if (memory.User?.username) {
+          memory.caption += ` (© ${memory.User.username})`
+        }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
     },(err) => console.log(err))
@@ -90,15 +93,5 @@ export class PhotoWallComponent implements OnInit {
     this.form.get('caption').markAsPristine()
     this.form.get('caption').markAsUntouched()
     this.form.get('caption').setErrors(null)
-  }
-
-  isGeostalkingImage (image: IImage) {
-    return (image.caption === 'I love going hiking here...' || image.caption === 'My old workplace...')
-  }
-
-  getUserEmailByGeostalkingImage (image: IImage) {
-    return (image.caption === 'I love going hiking here...' ? 'john@juice.shop'
-      : image.caption === 'My old workplace...' ? 'emma@juice.shop'
-      : '')
   }
 }
