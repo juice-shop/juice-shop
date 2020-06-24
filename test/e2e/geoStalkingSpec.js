@@ -27,7 +27,14 @@ describe('/#/geo', () => {
 
   describe('challenge "geoStalkingMeta"', () => {
     it('Should be possible to find the answer to a security question in the meta-data of a photo on the photo wall', () => {
-      const answer = config.get('challenges.geoStalking.securityAnswerJohn')
+      const answer = ((() => {
+        const memories = config.get('memories')
+        for (let i = 0; i < memories.length; i++) {
+          if (memories[i].geoStalkingMetaSecurityAnswer) {
+            return memories[i].geoStalkingMetaSecurityAnswer
+          }
+        }
+      })())
 
       email.sendKeys('john@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
@@ -42,7 +49,14 @@ describe('/#/geo', () => {
 
   describe('challenge "geoStalkingVisual"', () => {
     it('Should be possible to determine the answer to a security question by looking closely at an image on the photo wall', () => {
-      const answer = config.get('challenges.geoStalking.securityAnswerEmma')
+      const answer = ((() => {
+        const memories = config.get('memories')
+        for (let i = 0; i < memories.length; i++) {
+          if (memories[i].geoStalkingVisualSecurityAnswer) {
+            return memories[i].geoStalkingVisualSecurityAnswer
+          }
+        }
+      })())
 
       email.sendKeys('emma@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
