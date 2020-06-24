@@ -17,8 +17,6 @@ import { PasswordStrengthInstruction } from './challenges/passwordStrength'
 import { BonusPayloadInstruction } from './challenges/bonusPayload'
 import { LoginBenderInstruction } from './challenges/loginBender'
 import { TutorialUnavailableInstruction } from './tutorialUnavailable'
-import { MetaGeoStalkingInstruction } from './challenges/metaGeoStalking'
-import { VisualGeoStalkingInstruction } from './challenges/visualGeoStalking'
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -30,9 +28,7 @@ const challengeInstructions: ChallengeInstruction[] = [
   ForgedFeedbackInstruction,
   PasswordStrengthInstruction,
   BonusPayloadInstruction,
-  LoginBenderInstruction,
-  MetaGeoStalkingInstruction,
-  VisualGeoStalkingInstruction
+  LoginBenderInstruction
 ]
 
 const fallbackInstruction = TutorialUnavailableInstruction
