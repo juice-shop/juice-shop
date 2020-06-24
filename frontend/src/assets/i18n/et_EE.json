@@ -347,6 +347,5 @@
   "BTN_SHOW_ONLY_TUTORIALS": "Kuva ainult õpetused",
   "INFO_FULL_CHALLENGE_MODE": "Vii lõpule kõik õpetuslikud väljakutsed, et ligi pääseda  {{num}} väljakutsele ning saada juurdepääs täpsematele tulemustabeli filtritele.",
   "INFO_NEXT_TUTORIAL_TIER": "Lõpeta {{tier}} õpetavad väljakutsed, et saada juurdepääs järgmisele raskusastmele",
-  "SHOW_COMMENT": "Kuva kommentaar",
-  "UPLOADED_BY": "Uploaded by"
+  "SHOW_COMMENT": "Kuva kommentaar"
 }
