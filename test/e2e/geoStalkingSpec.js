@@ -25,11 +25,11 @@ describe('/#/geo', () => {
     resetButton = element(by.id('resetButton'))
   })
 
-  describe('challenge geoStalkingEasy', () => {
+  describe('challenge "geoStalkingMeta"', () => {
     it('Should be possible to find the answer to a security question in the meta-data of a photo on the photo wall', () => {
       const answer = config.get('challenges.geoStalking.securityAnswerJohn')
 
-      email.sendKeys('john@juice.shop')
+      email.sendKeys('john@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')
@@ -40,11 +40,11 @@ describe('/#/geo', () => {
     })
   })
 
-  describe('challenge geoStalkingHard', () => {
+  describe('challenge "geoStalkingVisual"', () => {
     it('Should be possible to determine the answer to a security question by looking closely at an image on the photo wall', () => {
       const answer = config.get('challenges.geoStalking.securityAnswerEmma')
 
-      email.sendKeys('emma@juice.shop')
+      email.sendKeys('emma@' + config.get('application.domain'))
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
       securityAnswer.sendKeys(answer)
       newPassword.sendKeys('123456')
