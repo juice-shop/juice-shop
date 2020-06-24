@@ -347,6 +347,5 @@
   "BTN_SHOW_ONLY_TUTORIALS": "Показать только обучение",
   "INFO_FULL_CHALLENGE_MODE": "Заверши оставшиеся задания обучения, чтобы открыть все {{num}} испытаний и разблокировать расширенные фильтры для таблицы результатов!",
   "INFO_NEXT_TUTORIAL_TIER": "Пройдите {{tier}} тренировочных испытания, чтобы открыть следующий уровень сложности!",
-  "SHOW_COMMENT": "Show Comment",
-  "UPLOADED_BY": "Uploaded by"
+  "SHOW_COMMENT": "Show Comment"
 }
