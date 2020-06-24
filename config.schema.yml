@@ -107,15 +107,6 @@ challenges:
     type: string
   safetyOverride:
     type: boolean
-  geoStalking:
-    securityQuestionIdJohn:
-      type: number
-    securityAnswerJohn:
-      type: string
-    securityQuestionIdEmma:
-      type: number
-    securityAnswerEmma:
-      type: string
 hackingInstructor:
   isEnabled:
     type: boolean
@@ -160,6 +151,14 @@ memories:
     caption:
       type: string
     user:
+      type: string
+    geoStalkingMetaSecurityQuestion:
+      type: number
+    geoStalkingMetaSecurityAnswer:
+      type: string
+    geoStalkingVisualSecurityQuestion:
+      type: number
+    geoStalkingVisualSecurityAnswer:
       type: string
 ctf:
   showFlagsInNotifications:

@@ -102,19 +102,7 @@ async function createUsers () {
           totpSecret
         })
         datacache.users[key] = user
-        if (securityQuestion) {
-          await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
-        } else {
-          if (email === `john@${config.get('application.domain')}`) {
-            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdJohn')
-            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerJohn')
-            await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
-          } else if (email === `emma@${config.get('application.domain')}`) {
-            const securityQuestionId = config.get('challenges.geoStalking.securityQuestionIdEmma')
-            const securityQuestionAnswer = config.get('challenges.geoStalking.securityAnswerEmma')
-            await createSecurityAnswer(user.id, securityQuestionId, securityQuestionAnswer)
-          }
-        }
+        if (securityQuestion) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
         if (deletedFlag) await deleteUser(user.id)
         if (address) await createAddresses(user.id, address)
@@ -233,6 +221,7 @@ function createQuantity () {
     })
   )
 }
+
 function createMemories () {
   const memories = [models.Memory.create({
     imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
@@ -248,6 +237,12 @@ function createMemories () {
         const imageUrl = memory.image
         tmpImageFileName = utils.extractFilename(memory.image)
         utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/uploads/' + tmpImageFileName)
+      }
+      if (memory.geoStalkingMetaSecurityQuestion && memory.geoStalkingMetaSecurityAnswer) {
+        createSecurityAnswer(datacache.users.john.id, memory.geoStalkingMetaSecurityQuestion, memory.geoStalkingMetaSecurityAnswer)
+      }
+      if (memory.geoStalkingVisualSecurityQuestion && memory.geoStalkingVisualSecurityAnswer) {
+        createSecurityAnswer(datacache.users.emma.id, memory.geoStalkingVisualSecurityQuestion, memory.geoStalkingVisualSecurityAnswer)
       }
       return models.Memory.create({
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
