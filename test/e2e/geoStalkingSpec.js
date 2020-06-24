@@ -27,7 +27,7 @@ describe('/#/geo', () => {
 
   describe('challenge geoStalkingEasy', () => {
     it('Should be possible to find the answer to a security question in the meta-data of a photo on the photo wall', () => {
-      const answer = config.get('challenges.geoStalking.securityAnswerEasy')
+      const answer = config.get('challenges.geoStalking.securityAnswerJohn')
 
       email.sendKeys('john@juice.shop')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')
@@ -42,7 +42,7 @@ describe('/#/geo', () => {
 
   describe('challenge geoStalkingHard', () => {
     it('Should be possible to determine the answer to a security question by looking closely at an image on the photo wall', () => {
-      const answer = config.get('challenges.geoStalking.securityAnswerHard')
+      const answer = config.get('challenges.geoStalking.securityAnswerEmma')
 
       email.sendKeys('emma@juice.shop')
       browser.wait(EC.visibilityOf(securityAnswer), 1000, 'Security answer field did not become visible')

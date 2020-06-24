@@ -828,16 +828,16 @@
 -
   name: 'Meta Geo Stalking'
   category: 'Sensitive Data Exposure'
-  description: 'Determine the answer to someone''s security question by looking at images on the Photo wall.'
+  description: 'Determine the answer to John''s security question by looking at an upload of him to the Photo Wall and use it to reset his password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 2
-  hint: 'Take a look at the meta data of the relevant image.'
+  hint: 'Take a look at the meta data of the corresponding photo.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-someones-security-question-by-looking-at-the-metadata-of-images-on-the-photo-wall'
   key: geoStalkingMetaChallenge
 -
   name: 'Visual Geo Stalking'
   category: 'Sensitive Data Exposure'
-  description: 'Determine the answer to someone''s security question by looking at images on the Photo wall.'
+  description: 'Determine the answer to Emma''s security question by looking at an upload of her to the Photo Wall and use it to reset her password via the <a href="/#/forgot-password">Forgot Password</a> mechanism.'
   difficulty: 4
-  hint: 'Take a look at the details of the image to determine the location of where it was taken.'
+  hint: 'Take a look at the details in the photo to determine the location of where it was taken.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#determine-the-answer-to-someones-security-question-by-looking-at-images-on-the-photo-wall'
   key: geoStalkingVisualChallenge

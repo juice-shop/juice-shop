@@ -108,13 +108,13 @@ challenges:
   safetyOverride:
     type: boolean
   geoStalking:
-    securityQuestionIdEasy:
+    securityQuestionIdJohn:
       type: number
-    securityAnswerEasy:
+    securityAnswerJohn:
       type: string
-    securityQuestionIdHard:
+    securityQuestionIdEmma:
       type: number
-    securityAnswerHard:
+    securityAnswerEmma:
       type: string
 hackingInstructor:
   isEnabled:
