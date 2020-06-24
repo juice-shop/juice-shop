@@ -347,6 +347,5 @@
   "BTN_SHOW_ONLY_TUTORIALS": "仅显示教程",
   "INFO_FULL_CHALLENGE_MODE": "完成剩余带教程的挑战以打开所有 {{num}} 个挑战并解锁高级的计分板过滤器！",
   "INFO_NEXT_TUTORIAL_TIER": "完成 {{tier}} 含教程挑战来解锁下一个难度等级！",
-  "SHOW_COMMENT": "显示评论",
-  "UPLOADED_BY": "Uploaded by"
+  "SHOW_COMMENT": "显示评论"
 }
