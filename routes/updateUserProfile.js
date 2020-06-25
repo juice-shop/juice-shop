@@ -16,14 +16,18 @@ module.exports = function updateUserProfile () {
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
         utils.solveIf(challenges.csrfChallenge, () => { return req.headers.origin.includes('://htmledit.squarefree.com') && req.body.username !== user.username })
-        return user.update({ username: req.body.username })
+        user.update({ username: req.body.username }).then(newuser => {
+          newuser = utils.queryResultToJson(user)
+          const updatedToken = insecurity.authorize(newuser)
+          res.cookie('token', updatedToken)
+          res.location(process.env.BASE_PATH + '/profile')
+          res.redirect(process.env.BASE_PATH + '/profile')
+        })
       }).catch(error => {
         next(error)
       })
     } else {
       next(new Error('Blocked illegal activity by ' + req.connection.remoteAddress))
     }
-    res.location(process.env.BASE_PATH + '/profile')
-    res.redirect(process.env.BASE_PATH + '/profile')
   }
 }
