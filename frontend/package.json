@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "postinstall": "ngcc"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
