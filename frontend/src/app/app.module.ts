@@ -192,6 +192,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeluxeUserComponent,
     FeedbackDetailsComponent
   ],
+  entryComponents: [
+    ProductDetailsComponent,
+    QrCodeComponent,
+    UserDetailsComponent,
+    ProductReviewEditComponent,
+    WelcomeBannerComponent
+  ],
   imports: [
     BrowserModule,
     Routing,
