@@ -33,7 +33,7 @@
 
       <div class="rating-container">
         <label style="font-weight:500; margin-right: 8px; float:left;" translate>LABEL_RATING</label>
-        <mat-slider [(value)]="rating" min="1" max="5" thumbLabel tickInterval="1" aria-label="Slider for selecting the 1-5 star rating"></mat-slider>
+        <mat-slider [(value)]="rating" min="1" max="5" thumbLabel [displayWith]="formatRating" tickInterval="1" aria-label="Slider for selecting the star rating"></mat-slider>
       </div>
 
       <div style="margin-bottom: 10px; margin-top: 10px; ">
