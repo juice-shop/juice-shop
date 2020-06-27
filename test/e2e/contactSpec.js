@@ -118,7 +118,7 @@ describe('/#/contact', () => {
 
   describe('challenge "typosquattingAngular"', () => {
     it('should be possible to post typosquatting Bower package as feedback', () => {
-      comment.sendKeys('You are a typosquatting victim of this Bower package: ng2-bar-rating')
+      comment.sendKeys('You are a typosquatting victim of this Bower package: anuglar2-qrcode')
       rating.click()
 
       submitButton.click()
