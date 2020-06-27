@@ -4,7 +4,7 @@
  */
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { BarRatingModule } from 'ng2-bar-rating'
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ChallengeService } from '../Services/challenge.service'
 import { ConfigurationService } from '../Services/configuration.service'
@@ -65,7 +65,7 @@ describe('ScoreBoardComponent', () => {
       imports: [
         HttpClientTestingModule,
         TranslateModule.forRoot(),
-        BarRatingModule,
+
         BrowserAnimationsModule,
         NgxSpinnerModule,
         MatCardModule,
