@@ -324,4 +324,8 @@ export class ScoreBoardComponent implements OnInit {
   trackById (index: number, item: any) {
     return item.id
   }
+
+  times(numberOfTimes: number) {
+    return Array(numberOfTimes).fill(0)
+  }
 }
