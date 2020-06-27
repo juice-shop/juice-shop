@@ -326,6 +326,6 @@ export class ScoreBoardComponent implements OnInit {
   }
 
   times(numberOfTimes: number) {
-    return Array(numberOfTimes).fill(0)
+    return Array(numberOfTimes).fill('★')
   }
 }
