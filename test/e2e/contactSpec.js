@@ -13,7 +13,7 @@ describe('/#/contact', () => {
   beforeEach(() => {
     browser.get(protractor.basePath + '/#/contact')
     comment = element(by.id('comment'))
-    rating = $$('.br-unit').last()
+    rating = element(by.id('rating'))
     captcha = element(by.id('captchaControl'))
     submitButton = element(by.id('submitButton'))
     snackBar = element(by.css('.mat-simple-snackbar-action.ng-star-inserted')).element(by.css('.mat-focus-indicator.mat-button.mat-button-base'))
