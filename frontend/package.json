@@ -34,7 +34,7 @@
     "@nguniversal/express-engine": "9.0.0-rc.2",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
-    "anuglar2-qrcode": "^2.0.999",
+    "anuglar2-qrcode": "^2.0.9998",
     "core-js": "^3.6.5",
     "flag-icon-css": "^3.4.6",
     "font-mfizz": "^2.4.1",
