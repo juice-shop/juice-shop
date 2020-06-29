@@ -115,18 +115,29 @@
                                       [showChallengeHints]="showChallengeHints">
           </app-challenge-status-badge>
           <button
-            *ngIf="showHackingInstructor && !challenge.disabledEnv && challenge.hasTutorial"
+            *ngIf="showHackingInstructor && !challenge.solved && !challenge.disabledEnv && challenge.hasTutorial"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
             class="hacking-instructor-button"
-            [disabled]="challenge.solved"
             >
             <mat-icon>
               school
             </mat-icon>
           </button>
+          <a *ngIf="showVulnerabilityMitigations && challenge.solved && challenge.mitigationUrl" [href]="challenge.mitigationUrl" target="_blank">
+            <button
+              mat-raised-button color="accent"
+              [matTooltip]="('INFO_VULNERABILITY_MITIGATION_LINK' | translate)"
+              matTooltipPosition="above"
+              class="vulnerability-mitigation-button"
+              >
+              <mat-icon>
+                policy
+              </mat-icon>
+            </button>
+          </a>
         </mat-cell>
       </ng-container>
 

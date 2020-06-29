@@ -99,6 +99,8 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  showMitigations:
+    type: boolean
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
