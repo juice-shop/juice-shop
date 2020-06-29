@@ -47,6 +47,7 @@ export class ScoreBoardComponent implements OnInit {
   public offsetValue = ['100%', '100%', '100%', '100%', '100%', '100%']
   public allowRepeatNotifications: boolean = false
   public showChallengeHints: boolean = true
+  public showVulnerabilityMitigations: boolean = true
   public showHackingInstructor: boolean = true
   public challenges: Challenge[] = []
   public percentChallengesSolved: string = '0'
@@ -69,6 +70,7 @@ export class ScoreBoardComponent implements OnInit {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.allowRepeatNotifications = config.challenges.showSolvedNotifications && config.ctf?.showFlagsInNotifications
       this.showChallengeHints = config.challenges.showHints
+      this.showVulnerabilityMitigations = config.challenges.showMitigations
       this.showHackingInstructor = config.hackingInstructor && config.hackingInstructor.isEnabled
       this.showContributionInfoBox = config.application.showGitHubLinks
       this.questionnaireUrl = config.application.social && config.application.social.questionnaireUrl
