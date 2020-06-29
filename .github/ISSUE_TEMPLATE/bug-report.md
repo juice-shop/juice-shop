@@ -12,6 +12,8 @@ assignees: ''
 To expedite issue processing please search open and closed issues before submitting a new one.
 Existing issues often contain information about workarounds, resolution, or progress updates.
 
+Please also review the troubleshooting guide at: https://pwning.owasp-juice.shop/appendix/troubleshooting.html
+
 🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅🔅-->
 
 # :bug: Bug report
