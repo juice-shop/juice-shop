@@ -6,45 +6,12 @@
 const { Bot } = require('../../juicy-chat-bot/index')
 const insecurity = require('../lib/insecurity')
 const utils = require('../lib/utils')
-const challenges = require('../data/datacache').challenges
+const config = require('config')
+const fs = require('fs')
 
-const trainingSet = {
-  lang: 'en',
-  intents: [
-    {
-    question: 'goodbye for now',
-    intent: 'greetings.bye'
-    },
-    {
-    question: 'bye bye take care',
-    intent: 'greetings.bye'
-    },
-    {
-    question: 'hello',
-    intent: 'greetings.hello'
-    },
-    {
-    question: 'hi',
-    intent: 'greetings.hello'
-    },
-    {
-    question: 'howdy',
-    intent: 'greetings.hello'
-    }
-  ],
-  answers: [
-    {
-    intent: 'greetings.bye',
-    answer: 'Ok Cya'
-    },
-    {
-    intent: 'greetings.hello',
-    answer: 'Hello there <customer-name>!'
-    }
-  ]
-  }
+const trainingSet = fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`)
 
-const bot = new Bot('Jeff', 'Ma Nemma <bot-name>', JSON.stringify(trainingSet))
+const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet)
 bot.train()
 
 module.exports.status = function test () {
@@ -66,13 +33,19 @@ module.exports.process = function respond () {
     }
 
     const user = insecurity.authenticatedUsers.tokenMap[token].data
+    const username = user.username || user.email.split('@')[0]
+
     if (!bot.factory.run(`currentUser('${user.id}')`)) {
-      bot.addUser(`${user.id}`, user.username)
+      bot.addUser(`${user.id}`, username)
       res.status(200).json({
         action: 'response',
         body: bot.greet(),
       })
       return
+    }
+
+    if (bot.factory.run(`currentUser('${user.id}')`) && bot.factory.run(`currentUser('${user.id}')`) !== username) {
+      bot.addUser(`${user.id}`, username)
     }
 
     if (!req.body.query) {
