@@ -267,7 +267,7 @@
   difficulty: 6
   hint: 'This challenge is explicitly not about acquiring the RSA private key used for JWT signing.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#forge-an-almost-properly-rsa-signed-jwt-token'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html'
   key: jwtForgedChallenge
   disabledEnv:
     - Windows
@@ -743,7 +743,7 @@
   difficulty: 5
   hint: 'This challenge exploits a weird option that is supported when signing tokens with JWT.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/vulnerable-components.html#forge-an-essentially-unsigned-jwt-token'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html'
   key: jwtUnsignedChallenge
 -
   name: 'Upload Size'
@@ -752,7 +752,7 @@
   difficulty: 3
   hint: 'You can attach a small file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-larger-than-100-kb'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html'
   key: uploadSizeChallenge
 -
   name: 'Upload Type'
@@ -761,7 +761,7 @@
   difficulty: 3
   hint: 'You can attach a PDF or ZIP file to the "Complaint" form. Investigate how this upload actually works.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/improper-input-validation.html#upload-a-file-that-has-no-pdf-or-zip-extension'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html'
   key: uploadTypeChallenge
 -
   name: 'User Credentials'
@@ -829,7 +829,7 @@
   difficulty: 3
   hint: 'The leverage point for this challenge is the deprecated B2B interface.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xxe.html#retrieve-the-content-of-cwindowssystemini-or-etcpasswd-from-the-server'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html'
   key: xxeFileDisclosureChallenge
   disabledEnv:
   - Docker
@@ -841,7 +841,7 @@
   difficulty: 5
   hint: 'It is not as easy as sending a large amount of data directly to the deprecated B2B interface.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/xxe.html#give-the-server-something-to-chew-on-for-quite-a-while'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html'
   key: xxeDosChallenge
   disabledEnv:
   - Docker
