@@ -348,5 +348,5 @@
   "INFO_FULL_CHALLENGE_MODE": "Vii lõpule kõik õpetuslikud väljakutsed, et ligi pääseda  {{num}} väljakutsele ning saada juurdepääs täpsematele tulemustabeli filtritele.",
   "INFO_NEXT_TUTORIAL_TIER": "Lõpeta {{tier}} õpetavad väljakutsed, et saada juurdepääs järgmisele raskusastmele",
   "SHOW_COMMENT": "Kuva kommentaar",
-  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to mitigate similar vulnerabilities!"
+  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to avoid or mitigate similar vulnerabilities!"
 }
