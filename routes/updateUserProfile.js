@@ -15,7 +15,7 @@ module.exports = function updateUserProfile () {
 
     if (loggedInUser) {
       models.User.findByPk(loggedInUser.data.id).then(user => {
-        utils.solveIf(challenges.csrfChallenge, () => { return req.headers.origin.includes('://htmledit.squarefree.com') && req.body.username !== user.username })
+        utils.solveIf(challenges.csrfChallenge, () => { return req.headers.origin && req.headers.origin.includes('://htmledit.squarefree.com') && req.body.username !== user.username })
         return user.update({ username: req.body.username })
       }).catch(error => {
         next(error)
