@@ -173,18 +173,19 @@ gcloud compute firewall-rules create juice-rule --allow tcp:3000
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/os/bkimminich/juice-shop)
 
 OWASP Juice Shop officially supports the following versions of
-[node.js](http://nodejs.org) in line as close as possible with the
-official [node.js LTS schedule](https://github.com/nodejs/LTS). Docker
-images and packaged distributions are offered accordingly.
+[node.js](http://nodejs.org) in line with the official
+[node.js LTS schedule](https://github.com/nodejs/LTS) as close as
+possible. Docker images and packaged distributions are offered
+accordingly.
 
-| node.js | Supported            | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
-|:--------|:---------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
-| 14.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| 13.x    | (:heavy_check_mark:) |                                                        |                                                  |                                                   |
-| 12.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
-| 11.x    | (:heavy_check_mark:) |                                                        |                                                  |                                                   |
-| 10.x    | :heavy_check_mark:   | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
-| <10.x   | :x:                  |                                                        |                                                  |                                                   |
+| node.js | Supported            | Tested             | [Packaged Distributions](#packaged-distributions)      | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
+|:--------|:---------------------|:-------------------|:-------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| 14.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
+| 13.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
+| 12.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) | `latest` (`linux/amd64`, `linux/arm`)            | `snapshot` (`linux/amd64`)                        |
+| 11.x    | (:heavy_check_mark:) | :x:                |                                                        |                                                  |                                                   |
+| 10.x    | :heavy_check_mark:   | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`, `arm64`) |                                                  |                                                   |
+| <10.x   | :x:                  | :x:                |                                                        |                                                  |                                                   |
 
 Juice Shop is automatically tested _only on the latest `.x` minor
 version_ of each node.js version mentioned above! There is no guarantee
