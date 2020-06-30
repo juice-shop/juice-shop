@@ -348,5 +348,5 @@
   "INFO_FULL_CHALLENGE_MODE": "Finalizați provocările tutoriale rămase pentru a dezvălui toate provocările {{num}} și pentru a debloca filtrele avansate ale tabloului de origine!",
   "INFO_NEXT_TUTORIAL_TIER": "Finalizați provocările tutorialului {{tier}} pentru a dezvălui următoarea dificultate de nivel !",
   "SHOW_COMMENT": "Arată Comentariu",
-  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to mitigate similar vulnerabilities!"
+  "INFO_VULNERABILITY_MITIGATION_LINK": "Click to learn how to avoid or mitigate similar vulnerabilities!"
 }
