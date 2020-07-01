@@ -33,6 +33,10 @@ application:
       type: string
     trainingData:
       type: string
+    testCommand:
+      type: string
+    testResponse:
+      type: string
   social:
     twitterUrl:
       type: string
