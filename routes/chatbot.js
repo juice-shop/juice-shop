@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-const { Bot } = require('../../juicy-chat-bot/index')
+const { Bot } = require('juicy-chat-bot')
 const insecurity = require('../lib/insecurity')
+const jwt = require('jsonwebtoken')
 const utils = require('../lib/utils')
 const config = require('config')
 const fs = require('fs')
@@ -14,10 +15,10 @@ const trainingSet = fs.readFileSync(`data/BotTrainingData/${config.get('applicat
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet)
 bot.train()
 
+module.exports.bot = bot
+
 module.exports.status = function test () {
   return async (req, res, next) => {
-    const token = utils.jwtFrom(req) || req.cookies.token
-    const user = insecurity.authenticatedUsers.tokenMap[token].data
     res.status(200).json({
       status: bot.training.state,
     })
@@ -32,7 +33,22 @@ module.exports.process = function respond () {
       return
     }
 
-    const user = insecurity.authenticatedUsers.tokenMap[token].data
+    let user
+    jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+      if (err !== null) {
+        res.status(401).json({
+          error: 'Unauthenticated user',
+        })
+        return
+      } else {
+        user = decoded.data
+      }
+    })
+
+    if (!user) {
+      return
+    }
+ 
     const username = user.username || user.email.split('@')[0]
 
     if (!bot.factory.run(`currentUser('${user.id}')`)) {

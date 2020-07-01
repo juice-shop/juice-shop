@@ -17,6 +17,8 @@ application:
     name: 'Juicy'
     greeting: "Nice to meet you <customer-name>, I'm <bot-name>"
     trainingData: 'default.json'
+    testCommand: 'bye'
+    testResponse: 'Ok Cya'
   social:
     twitterUrl: 'https://twitter.com/owasp_juiceshop'
     facebookUrl: 'https://www.facebook.com/owasp.juiceshop'
