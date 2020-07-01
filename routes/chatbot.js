@@ -20,7 +20,7 @@ module.exports.bot = bot
 module.exports.status = function test () {
   return async (req, res, next) => {
     res.status(200).json({
-      status: bot.training.state,
+      status: bot.training.state
     })
   }
 }
@@ -37,9 +37,8 @@ module.exports.process = function respond () {
     jwt.verify(token, insecurity.publicKey, (err, decoded) => {
       if (err !== null) {
         res.status(401).json({
-          error: 'Unauthenticated user',
+          error: 'Unauthenticated user'
         })
-        return
       } else {
         user = decoded.data
       }
@@ -48,14 +47,14 @@ module.exports.process = function respond () {
     if (!user) {
       return
     }
- 
+
     const username = user.username || user.email.split('@')[0]
 
     if (!bot.factory.run(`currentUser('${user.id}')`)) {
       bot.addUser(`${user.id}`, username)
       res.status(200).json({
         action: 'response',
-        body: bot.greet(),
+        body: bot.greet()
       })
       return
     }
@@ -67,9 +66,9 @@ module.exports.process = function respond () {
     if (!req.body.query) {
       res.status(200).json({
         action: 'response',
-        body: bot.greet(),
+        body: bot.greet()
       })
-      return 
+      return
     }
 
     const response = await bot.respond(req.body.query, user.id)
