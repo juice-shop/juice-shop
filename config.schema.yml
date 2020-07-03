@@ -110,6 +110,8 @@ challenges:
     type: boolean
   showHints:
     type: boolean
+  showMitigations:
+    type: boolean
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
@@ -162,6 +164,14 @@ memories:
     caption:
       type: string
     user:
+      type: string
+    geoStalkingMetaSecurityQuestion:
+      type: number
+    geoStalkingMetaSecurityAnswer:
+      type: string
+    geoStalkingVisualSecurityQuestion:
+      type: number
+    geoStalkingVisualSecurityAnswer:
       type: string
 ctf:
   showFlagsInNotifications:

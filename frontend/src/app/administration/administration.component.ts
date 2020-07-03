@@ -101,4 +101,8 @@ export class AdministrationComponent implements OnInit {
       }
     })
   }
+
+  times (numberOfTimes: number) {
+    return Array(numberOfTimes).fill('★')
+  }
 }

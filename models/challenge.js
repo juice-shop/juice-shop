@@ -13,6 +13,7 @@ module.exports = (sequelize, { STRING, INTEGER, BOOLEAN, NUMBER }) => {
     difficulty: INTEGER,
     hint: STRING,
     hintUrl: STRING,
+    mitigationUrl: STRING,
     solved: BOOLEAN,
     disabledEnv: STRING,
     tutorialOrder: NUMBER

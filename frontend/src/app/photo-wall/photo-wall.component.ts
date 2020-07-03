@@ -44,6 +44,9 @@ export class PhotoWallComponent implements OnInit {
         this.emptyState = false
       }
       for (const memory of memories) {
+        if (memory.User?.username) {
+          memory.caption += ` (© ${memory.User.username})`
+        }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
       }
     },(err) => console.log(err))
