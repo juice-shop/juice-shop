@@ -9,7 +9,7 @@ const expect = chai.expect
 chai.use(sinonChai)
 
 const validateConfig = require('../../lib/startup/validateConfig')
-const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts } = require('../../lib/startup/validateConfig')
+const { checkUnambiguousMandatorySpecialProducts, checkUniqueSpecialOnProducts, checkYamlSchema, checkMinimumRequiredNumberOfProducts, checkUnambiguousMandatorySpecialMemories, checkMinimumRequiredNumberOfMemories, checkUniqueSpecialOnMemories, checkSpecialMemoriesHaveNoUserAssociated } = require('../../lib/startup/validateConfig')
 
 describe('configValidation', () => {
   describe('checkThatThereIsOnlyOneProductPerSpecial', () => {
@@ -36,7 +36,7 @@ describe('configValidation', () => {
       expect(checkUnambiguousMandatorySpecialProducts(products)).to.equal(true)
     })
 
-    it('should fail if a multiple products are configured for the same challenge', () => {
+    it('should fail if multiple products are configured for the same challenge', () => {
       const products = [
         {
           name: 'Apple Juice',
@@ -146,6 +146,190 @@ describe('configValidation', () => {
       ]
 
       expect(checkMinimumRequiredNumberOfProducts(products)).to.equal(false)
+    })
+  })
+
+  describe('checkThatThereIsOnlyOneMemoryPerSpecial', () => {
+    it('should accept a valid config', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        },
+        {
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkUnambiguousMandatorySpecialMemories(memories)).to.equal(true)
+    })
+
+    it('should fail if multiple memories are configured for the same challenge', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        },
+        {
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        },
+        {
+          image: 'lalala.png',
+          geoStalkingMetaSecurityQuestion: 46,
+          geoStalkingMetaSecurityAnswer: 'foobarfoo'
+        }
+      ]
+
+      expect(checkUnambiguousMandatorySpecialMemories(memories)).to.equal(false)
+    })
+
+    it('should fail if a required challenge memory is missing', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        }
+      ]
+
+      expect(checkUnambiguousMandatorySpecialMemories(memories)).to.equal(false)
+    })
+
+    it('should fail if memories have mixed up the required challenge keys', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingVisualSecurityAnswer: 'foobar'
+        },
+        {
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingMetaSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkUnambiguousMandatorySpecialMemories(memories)).to.equal(false)
+    })
+  })
+
+  describe('checkThatThereIsOnlyOneMemoryPerSpecial', () => {
+    it('should accept a valid config', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        },
+        {
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkUniqueSpecialOnMemories(memories)).to.equal(true)
+    })
+
+    it('should fail if a memory is configured for multiple challenges', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          caption: 'Bla',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkUniqueSpecialOnMemories(memories)).to.equal(false)
+    })
+  })
+
+  describe('checkSpecialMemoriesHaveNoUserAssociated', () => {
+    it('should accept a valid config', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        },
+        {
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkSpecialMemoriesHaveNoUserAssociated(memories)).to.equal(true)
+    })
+
+    it('should accept a config where the default users are associated', () => {
+      const memories = [
+        {
+          user: 'john',
+          image: 'bla.png',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        },
+        {
+          user: 'emma',
+          image: 'blubb.png',
+          geoStalkingVisualSecurityQuestion: 43,
+          geoStalkingVisualSecurityAnswer: 'barfoo'
+        }
+      ]
+
+      expect(checkSpecialMemoriesHaveNoUserAssociated(memories)).to.equal(true)
+    })
+
+    it('should fail if a memory is linked to another user', () => {
+      const memories = [
+        {
+          user: 'admin',
+          image: 'bla.png',
+          caption: 'Bla',
+          geoStalkingMetaSecurityQuestion: 42,
+          geoStalkingMetaSecurityAnswer: 'foobar'
+        }
+      ]
+
+      expect(checkSpecialMemoriesHaveNoUserAssociated(memories)).to.equal(false)
+    })
+  })
+
+  describe('checkMinimumRequiredNumberOfMemories', () => {
+    it('should accept a valid config', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          user: 'admin'
+        },
+        {
+          image: 'blubb.png',
+          user: 'bjoern'
+        }
+      ]
+
+      expect(checkMinimumRequiredNumberOfMemories(memories)).to.equal(true)
+    })
+
+    it('should fail if less than 2 memories are configured', () => {
+      const memories = [
+        {
+          image: 'bla.png',
+          user: 'admin'
+        }
+      ]
+
+      expect(checkMinimumRequiredNumberOfMemories(memories)).to.equal(false)
     })
   })
 

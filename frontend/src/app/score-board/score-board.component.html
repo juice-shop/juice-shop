@@ -88,7 +88,9 @@
       <ng-container matColumnDef="difficulty">
         <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md translate>LABEL_DIFFICULTY</mat-header-cell>
         <mat-cell *matCellDef="let challenge" fxShow fxHide.lt-md>
-          <bar-rating [rate]="challenge.difficulty" [max]="challenge.difficulty" readOnly="true"></bar-rating>
+          <mat-icon *ngFor="let i of times(challenge.difficulty)">
+            star_rate
+          </mat-icon>
         </mat-cell>
       </ng-container>
 
@@ -113,18 +115,29 @@
                                       [showChallengeHints]="showChallengeHints">
           </app-challenge-status-badge>
           <button
-            *ngIf="showHackingInstructor && !challenge.disabledEnv && challenge.hasTutorial"
+            *ngIf="showHackingInstructor && !challenge.solved && !challenge.disabledEnv && challenge.hasTutorial"
             mat-raised-button color="warn"
             (click)="startHackingInstructor(challenge.name)"
             [matTooltip]="('INFO_HACKING_INSTRUCTOR' | translate)"
             matTooltipPosition="above"
             class="hacking-instructor-button"
-            [disabled]="challenge.solved"
             >
             <mat-icon>
               school
             </mat-icon>
           </button>
+          <a *ngIf="showVulnerabilityMitigations && challenge.solved && challenge.mitigationUrl" [href]="challenge.mitigationUrl" target="_blank">
+            <button
+              mat-raised-button color="accent"
+              [matTooltip]="('INFO_VULNERABILITY_MITIGATION_LINK' | translate)"
+              matTooltipPosition="above"
+              class="vulnerability-mitigation-button"
+              >
+              <mat-icon>
+                policy
+              </mat-icon>
+            </button>
+          </a>
         </mat-cell>
       </ng-container>
 
