@@ -75,6 +75,7 @@ interface Config {
   challenges: {
     showSolvedNotifications: boolean
     showHints: boolean
+    showMitigations: boolean
     restrictToTutorialsFirst: boolean
     safetyOverride: boolean
     overwriteUrlForProductTamperingChallenge: string

@@ -1,6 +1,6 @@
 {
   "name": "juice-shop",
-  "version": "11.1.0",
+  "version": "12.0.0-SNAPSHOT",
   "private": true,
   "description": "Probably the most modern and sophisticated insecure web application",
   "keywords": [
@@ -113,6 +113,7 @@
     "express-rate-limit": "^5.1.1",
     "express-robots-txt": "^0.4.1",
     "express-security.txt": "^2.0.0",
+    "feature-policy": "^0.5.0",
     "file-stream-rotator": "^0.5.7",
     "file-type": "^12.4.2",
     "finale-rest": "^1.1.1",

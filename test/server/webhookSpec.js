@@ -10,7 +10,8 @@ describe('webhook', () => {
   const webhook = require('../../lib/webhook')
 
   const challenge = {
-    key: 'key'
+    key: 'key',
+    name: 'name'
   }
 
   describe('notify', () => {
@@ -23,7 +24,7 @@ describe('webhook', () => {
     })
 
     it('submits POST with payload to existing URL', () => {
-      expect(() => webhook.notify(challenge, 'https://webhook.site/f69013b6-c475-46ed-973f-aa07e5e573a3')).to.not.throw()
+      expect(() => webhook.notify(challenge, 'https://webhook.site/46beb3e9-df8f-495b-98b9-abf0d4ae38a0')).to.not.throw()
     })
   })
 })

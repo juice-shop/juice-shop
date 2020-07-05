@@ -10,7 +10,7 @@ application:
     message: 'We are not only using cookies but also recorded this session on YouTube!'
     dismissText: "I've been there live, so thanks!"
     linkText: 'I want to watch that!'
-    linkUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    linkUrl: 'https://youtu.be/WtY712DdlR8?t=413'
   social:
     twitterUrl: 'https://twitter.com/opensecsummit'
     facebookUrl: ~
@@ -109,3 +109,13 @@ memories:
     image: 'https://user-images.githubusercontent.com/15072044/41010154-be17a162-692d-11e8-84f8-3cb855ae473d.jpg'
     caption: 'Security'
     user: admin
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'
