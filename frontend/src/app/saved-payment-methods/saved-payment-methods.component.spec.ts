@@ -11,7 +11,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { BarRatingModule } from 'ng2-bar-rating'
+
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
@@ -43,7 +43,7 @@ describe('SavedPaymentMethodsComponent', () => {
         TranslateModule.forRoot(),
         HttpClientTestingModule,
         ReactiveFormsModule,
-        BarRatingModule,
+
         BrowserAnimationsModule,
         MatCardModule,
         MatTableModule,

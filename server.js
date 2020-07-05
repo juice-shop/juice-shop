@@ -11,6 +11,7 @@ const finale = require('finale-rest')
 const express = require('express')
 const compression = require('compression')
 const helmet = require('helmet')
+const featurePolicy = require('feature-policy')
 const errorhandler = require('errorhandler')
 const cookieParser = require('cookie-parser')
 const serveIndex = require('serve-index')
@@ -148,7 +149,7 @@ app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
 app.disable('x-powered-by')
-app.use(helmet.featurePolicy({
+app.use(featurePolicy({
   features: {
     payment: ["'self'"]
   }
@@ -521,7 +522,7 @@ app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalan
 app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
 app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
 app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
-app.get('/rest/memories', memory.getMemory())
+app.get('/rest/memories', memory.getMemories())
 /* NoSQL API endpoints */
 app.get('/rest/products/:id/reviews', showProductReviews())
 app.put('/rest/products/:id/reviews', createProductReviews())

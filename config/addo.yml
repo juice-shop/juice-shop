@@ -107,3 +107,13 @@ memories:
     image: 'https://pbs.twimg.com/media/EH1dQzVWoAA11q5?format=jpg&name=medium'
     caption: '"WE LOVE OUR SPEAKERS" - @AllDayDevOps - You clearly do! 😮😯😲😀😃😁'
     user: bjoernOwasp
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'IMG_4253.jpg'
+    caption: 'My old workplace...'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'ITsec'
