@@ -17,7 +17,7 @@
   difficulty: 4
   hint: 'Who would want a server access log to be accessible through a web application?'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#gain-access-to-any-access-log-file-of-the-server'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'
   key: accessLogDisclosureChallenge
 -
   name: 'Admin Registration'
@@ -305,7 +305,7 @@
   difficulty: 3
   hint: 'Turns out that something is technically and legally wrong with the implementation of the "right to be forgotten" for users.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-authentication.html#log-in-with-chris-erased-user-account'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html'
   key: ghostLoginChallenge
 -
   name: 'GDPR Data Theft'
@@ -314,7 +314,7 @@
   difficulty: 4
   hint: 'Trick the regular Data Export to give you more than actually belongs to you.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#steal-someone-elses-personal-data-without-using-injection'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/User_Privacy_Protection_Cheat_Sheet.html'
   key: dataExportChallenge
 -
   name: 'HTTP-Header XSS'
@@ -344,7 +344,7 @@
   difficulty: 5
   hint: 'Once you have it, a technique called "Password Spraying" might prove useful.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#dumpster-dive-the-internet-for-a-leaked-password-and-log-in-to-the-original-user-account-it-belongs-to'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html'
   key: dlpPasswordSprayingChallenge
 -
   name: 'Leaked Unsafe Product'
@@ -458,7 +458,7 @@
   difficulty: 4
   hint: 'You need to trick a security mechanism into thinking that the file you want has a valid file type.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/sensitive-data-exposure.html#access-a-misplaced-siem-signature-file'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'
   key: misplacedSignatureFileChallenge
 -
   name: 'Multiple Likes'
@@ -518,7 +518,7 @@
   difficulty: 1
   hint: 'We might have failed to take this out of our code properly.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/unvalidated-redirects.html#let-us-redirect-you-to-one-of-our-crypto-currency-addresses'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html'
   key: redirectCryptoCurrencyChallenge
 -
   name: 'Password Strength'
@@ -576,7 +576,7 @@
   difficulty: 3
   hint: 'Look for one of the following: a) broken admin functionality, b) holes in RESTful API or c) possibility for SQL Injection.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-access-control.html#change-the-href-of-the-link-within-the-o-saft-product-description'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html'
   key: changeProductChallenge
 -
   name: 'Reflected XSS'
@@ -633,7 +633,7 @@
   difficulty: 5
   hint: 'Find a way to bypass the rate limiting and brute force the obfuscated answer to Morty''s security question.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/broken-anti-automation.html#reset-mortys-password-via-the-forgot-password-mechanism'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html'
   key: resetPasswordMortyChallenge
 -
   name: 'Retrieve Blueprint'
@@ -820,7 +820,7 @@
   difficulty: 4
   hint: 'You have to find a way to beat the whitelist of allowed redirect URLs.'
   hintUrl: 'https://pwning.owasp-juice.shop/part2/unvalidated-redirects.html#enforce-a-redirect-to-a-page-you-are-not-supposed-to-redirect-to'
-  mitigationUrl: ~
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html'
   key: redirectChallenge
 -
   name: 'XXE Data Access'
