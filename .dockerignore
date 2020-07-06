@@ -8,6 +8,7 @@ dist/
 vagrant/
 docs/
 Dockerfile
+.npmrc
 
 # Pattern is *not covered* by node_modules/ above no matter what IntelliJ says!
 frontend/node_modules/
