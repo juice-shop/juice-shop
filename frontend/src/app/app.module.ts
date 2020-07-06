@@ -12,13 +12,11 @@ import { Routing } from './app.routing'
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
-import { QRCodeModule } from 'angular2-qrcode'
-import { BarRatingModule } from 'ng2-bar-rating'
+import { QRCodeModule } from 'anuglar2-qrcode'
 import { ClipboardModule } from 'ngx-clipboard'
 import { FileUploadModule } from 'ng2-file-upload'
 import { SlideshowModule } from 'ng-simple-slideshow'
 import { NgxSpinnerModule } from 'ngx-spinner'
-/* Imported Components */
 import { AppComponent } from './app.component'
 import { AboutComponent } from './about/about.component'
 import { AdministrationComponent } from './administration/administration.component'
@@ -49,7 +47,6 @@ import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
 import { NgMatSearchBarModule } from 'ng-mat-search-bar'
-/* Imported Services */
 import { RequestInterceptor } from './Services/request.interceptor'
 import { ProductService } from './Services/product.service'
 import { ConfigurationService } from './Services/configuration.service'
@@ -70,7 +67,6 @@ import { DataSubjectService } from './Services/data-subject.service'
 import { ImageCaptchaService } from './Services/image-captcha.service'
 import { AddressService } from './Services/address.service'
 import { QuantityService } from './Services/quantity.service'
-/* Modules required for Angular Material */
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -100,7 +96,6 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatBadgeModule } from '@angular/material/badge'
-/* Internal components */
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
@@ -131,6 +126,7 @@ import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guar
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { FeedbackDetailsComponent } from './feedback-details/feedback-details.component'
+import { MatSliderModule } from '@angular/material/slider'
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -192,13 +188,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     DeluxeUserComponent,
     FeedbackDetailsComponent
   ],
-  entryComponents: [
-    ProductDetailsComponent,
-    QrCodeComponent,
-    UserDetailsComponent,
-    ProductReviewEditComponent,
-    WelcomeBannerComponent
-  ],
   imports: [
     BrowserModule,
     Routing,
@@ -218,7 +207,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     BrowserAnimationsModule,
     SlideshowModule,
     QRCodeModule,
-    BarRatingModule,
     FileUploadModule,
     ClipboardModule,
     NgxSpinnerModule,
@@ -249,6 +237,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatBadgeModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatSliderModule,
     MatSlideToggleModule
   ],
   providers: [
