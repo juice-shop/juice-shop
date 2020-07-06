@@ -6,6 +6,7 @@
 const frisby = require('frisby')
 const config = require('config')
 const { bot } = require('../../routes/chatbot')
+const fs = require('fs')
 
 const REST_URL = 'http://localhost:3000/rest/'
 
@@ -64,6 +65,10 @@ describe('/chatbot', () => {
       email: `J12934@${config.get('application.domain')}`,
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
+    bot.addUser('12345' ,'J12934')
+    const trainingData = JSON.parse(fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
+    const testCommand = trainingData.intents[0].question
+    const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
       request: {
         headers: {
@@ -74,12 +79,12 @@ describe('/chatbot', () => {
     }, true)
       .post(REST_URL + 'chatbot/respond', {
         body: {
-          query: config.get('application.chatBot.testCommand')
+          query: testCommand
         }
       })
       .expect('status', 200)
       .expect('json', 'action', 'response')
-      .expect('json', 'body', config.get('application.chatBot.testResponse'))
+      .expect('json', 'body', testResponse.body)
   })
 
   it('POST returns error for unauthenticated user', () => {

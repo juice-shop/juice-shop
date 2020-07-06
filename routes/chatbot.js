@@ -29,19 +29,22 @@ module.exports.process = function respond () {
   return async (req, res, next) => {
     const token = utils.jwtFrom(req) || req.cookies.token
     if (!bot.training.state || !token) {
-      res.status(400)
+      res.status(400).json({
+        error: 'Unauthenticated user'
+      })
       return
     }
 
-    let user
-    jwt.verify(token, insecurity.publicKey, (err, decoded) => {
-      if (err !== null) {
-        res.status(401).json({
-          error: 'Unauthenticated user'
-        })
-      } else {
-        user = decoded.data
-      }
+    const user = await new Promise((resolve, reject) => {
+      jwt.verify(token, insecurity.publicKey, (err, decoded) => {
+        if (err !== null) {
+          res.status(401).json({
+            error: 'Unauthenticated user'
+          })
+        } else {
+          resolve(decoded.data)
+        }
+      })
     })
 
     if (!user) {
