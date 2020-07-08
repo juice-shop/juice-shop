@@ -523,7 +523,7 @@ app.get('/rest/wallet/balance', insecurity.appendUserId(), wallet.getWalletBalan
 app.put('/rest/wallet/balance', insecurity.appendUserId(), wallet.addWalletBalance())
 app.get('/rest/deluxe-membership', deluxe.deluxeMembershipStatus())
 app.post('/rest/deluxe-membership', insecurity.appendUserId(), deluxe.upgradeToDeluxe())
-app.get('/rest/memories', memory.getMemory())
+app.get('/rest/memories', memory.getMemories())
 app.get('/rest/chatbot/status', chatbot.status())
 app.post('/rest/chatbot/respond', chatbot.process())
 /* NoSQL API endpoints */
