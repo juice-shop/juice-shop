@@ -72,11 +72,16 @@ describe('/chatbot', () => {
     return frisby.setup({
       request: {
         headers: {
-          Authorization: `Bearer 12345`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       }
     }, true)
+      .post(REST_URL + 'chatbot/respond', {
+        body: {
+          query: testCommand
+        }
+      })
       .post(REST_URL + 'chatbot/respond', {
         body: {
           query: testCommand
