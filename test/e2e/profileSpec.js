@@ -102,7 +102,7 @@ describe('/profile', () => {
         }
 
         var formData = new FormData()
-        formData.append("username", "CSRF");
+        formData.append('username', 'CSRF')
 
         xhttp.open('POST', baseUrl + '/profile')
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
