@@ -9,6 +9,7 @@ const { bot } = require('../../routes/chatbot')
 const fs = require('fs')
 
 const REST_URL = 'http://localhost:3000/rest/'
+const trainingData = JSON.parse(fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
 
 async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby
@@ -41,34 +42,7 @@ describe('/chatbot', () => {
       email: `J12934@${config.get('application.domain')}`,
       password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
-    console.log(token)
-    return frisby.setup({
-      request: {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    }, true)
-      .post(REST_URL + 'chatbot/respond', {
-        body: {
-          query: config.get('application.chatBot.testCommand')
-        }
-      })
-      .expect('status', 200)
-      .expect('json', 'action', 'response')
-      .expect('json', 'body', bot.greet())
-  })
-
-  it('Returns proper response for registered user', async () => {
-    const { token } = await login({
-      email: `J12934@${config.get('application.domain')}`,
-      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
-    })
-    bot.addUser('12345', 'J12934')
-    const trainingData = JSON.parse(fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
     const testCommand = trainingData.intents[0].question
-    const testResponse = await bot.respond(testCommand, 12345)
     return frisby.setup({
       request: {
         headers: {
@@ -84,10 +58,37 @@ describe('/chatbot', () => {
       })
       .expect('status', 200)
       .expect('json', 'action', 'response')
+      .expect('json', 'body', bot.greet())
+  })
+
+  it('Returns proper response for registered user', async () => {
+    const { token } = await login({
+      email: `J12934@${config.get('application.domain')}`,
+      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+    })
+    bot.addUser('12345', 'J12934')
+    const testCommand = trainingData.intents[0].question
+    const testResponse = await bot.respond(testCommand, 12345)
+    return frisby.setup({
+      request: {
+        headers: {
+          Authorization: `Bearer 12345`,
+          'Content-Type': 'application/json'
+        }
+      }
+    }, true)
+      .post(REST_URL + 'chatbot/respond', {
+        body: {
+          query: testCommand
+        }
+      })
+      .expect('status', 200)
+      .expect('json', 'action', 'response')
       .expect('json', 'body', testResponse.body)
   })
 
   it('POST returns error for unauthenticated user', () => {
+    const testCommand = trainingData.intents[0].question
     return frisby.setup({
       request: {
         headers: {
@@ -98,7 +99,7 @@ describe('/chatbot', () => {
     }, true)
       .post(REST_URL + 'chatbot/respond', {
         body: {
-          query: config.get('application.chatBot.testCommand')
+          query: testCommand
         }
       })
       .expect('status', 401)
