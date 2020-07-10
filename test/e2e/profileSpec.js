@@ -90,5 +90,29 @@ describe('/profile', () => {
       browser.waitForAngularEnabled(true)
     })
     // protractor.expect.challengeSolved({ challenge: 'CSRF' })
+
+    xit('should be possible to fake a CSRF attack against the user profile page', () => {
+      browser.waitForAngularEnabled(false)
+      browser.executeScript(baseUrl => {
+        var xhttp = new XMLHttpRequest()
+        xhttp.onreadystatechange = function () {
+          if (this.status === 200) {
+            console.log('Success')
+          }
+        }
+
+        var formData = new FormData()
+        formData.append('username', 'CSRF')
+
+        xhttp.open('POST', baseUrl + '/profile')
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhttp.setRequestHeader('Origin', 'http://htmledit.squarefree.com') // FIXME Not allowed by browser due to "unsafe header not permitted"
+        xhttp.setRequestHeader('Cookie', `token=${localStorage.getItem('token')}`) // FIXME Not allowed by browser due to "unsafe header not permitted"
+        xhttp.send(formData) //eslint-disable-line
+      }, browser.baseUrl)
+      browser.driver.sleep(1000)
+      browser.waitForAngularEnabled(true)
+    })
+    // protractor.expect.challengeSolved({ challenge: 'CSRF' })
   })
 })
