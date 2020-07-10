@@ -11,3 +11,4 @@
 10063	IGNORE	(Feature Policy Header Not Set)
 10049	IGNORE	(Storable but Non-Cacheable Content)
 10049	IGNORE	(Non-Storable Content)
+10110	IGNORE	(Dangerous JS Functions)
