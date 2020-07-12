@@ -9,7 +9,7 @@ const { bot } = require('../../routes/chatbot')
 const fs = require('fs')
 
 const REST_URL = 'http://localhost:3000/rest/'
-const trainingData = JSON.parse(fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
+const trainingData = JSON.parse(fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`, { encoding: 'utf8' }))
 
 async function login ({ email, password, totpSecret }) {
   const loginRes = await frisby

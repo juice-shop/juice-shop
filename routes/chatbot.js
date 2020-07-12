@@ -10,7 +10,7 @@ const utils = require('../lib/utils')
 const config = require('config')
 const fs = require('fs')
 
-const trainingSet = fs.readFileSync(`data/BotTrainingData/${config.get('application.chatBot.trainingData')}`)
+const trainingSet = fs.readFileSync(`data/static/${config.get('application.chatBot.trainingData')}`)
 
 const bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet)
 bot.train()
