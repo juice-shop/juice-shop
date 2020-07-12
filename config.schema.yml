@@ -26,6 +26,13 @@ application:
     type: string
   customMetricsPrefix:
     type: string
+  chatBot:
+    name:
+      type: string
+    greeting:
+      type: string
+    trainingData:
+      type: string
   social:
     twitterUrl:
       type: string

@@ -132,6 +132,7 @@
     "js-yaml": "^3.13.1",
     "jsonwebtoken": "0.4.0",
     "jssha": "^2.4.2",
+    "juicy-chat-bot": "^0.2.0",
     "libxmljs2": "^0.25.3",
     "marsdb": "^0.6.11",
     "morgan": "^1.10.0",
