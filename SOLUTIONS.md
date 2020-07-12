@@ -53,6 +53,7 @@ Shop easier to hack!
   * [★★★ Login Jim](https://youtu.be/zJpJibswGWA)
   * [★★★ Manipluate Basket](https://youtu.be/pdtDtmIiSOQ)
   * [★★★ Payback Time](https://youtu.be/QN4f00VsXn4)
+  * [★★★ Privacy Policy Inspection](https://youtu.be/5DUXTmp5KbI)
 * [HackerOne #h1-2004 Community Day: Intro to Web Hacking - OWASP Juice Shop](https://youtu.be/KmlwIwG7Kv4)
   by [Nahamsec](https://twitch.tv/nahamsec) including the creation of a
   (fake) bugbounty report for all findings (🧃`v10.x`)
