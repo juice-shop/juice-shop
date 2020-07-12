@@ -58,6 +58,8 @@ Shop easier to hack!
   (fake) bugbounty report for all findings (🧃`v10.x`)
 * [OWASP Juice Shop All Challenges Solved || ETHIKERS](https://youtu.be/Fjdhf6OHgRk)
   full-spoiler, time-lapsed, no-commentary hacking trip (🧃`v8.x`)
+* [Hacking JavaScript - Intro to Hacking Web Apps (Episode 3)](https://youtu.be/ejB1i5n_d7o)
+  by Arthur Kay (🧃`v8.x`)
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
   Youtube channel (🧃`v7.x`)
   * [OWASP Juice Shop - SQL Injection](https://youtu.be/nH4r6xv-qGg)
