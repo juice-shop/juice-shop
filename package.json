@@ -58,7 +58,7 @@
     "postinstall": "cd frontend && npm install && cd .. && npm run build",
     "lint": "standard && cd frontend && ng lint && cd ..",
     "lint:config": "schema validate -s config.schema.yml",
-    "lint:fix": "standard --fix && cd frontend && ./node_modules/.bin/ng lint --fix && cd ..",
+    "lint:fix": "standard --fix && cd frontend && node ./node_modules/@angular/cli/bin/ng lint --fix && cd ..",
     "package": "grunt package",
     "package:ci": "npm prune --production && npm dedupe && cd frontend && npm prune --production && npm dedupe && cd .. && grunt package",
     "preprotractor": "npm dedupe && node ./node_modules/protractor/bin/webdriver-manager update --gecko false",
