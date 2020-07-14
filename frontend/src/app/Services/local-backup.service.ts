@@ -47,7 +47,7 @@ export class LocalBackupService {
     })
   }
 
-  private restoreCookie(cookieName: string, cookieValue: string) {
+  private restoreCookie (cookieName: string, cookieValue: string) {
     if (cookieValue) {
       let expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
@@ -57,7 +57,7 @@ export class LocalBackupService {
     }
   }
 
-  private restoreLocalStorage(propertyName: string, propertyValue: any) {
+  private restoreLocalStorage (propertyName: string, propertyValue: any) {
     if (propertyValue) {
       localStorage.setItem(propertyName, JSON.stringify(propertyValue))
     } else {
