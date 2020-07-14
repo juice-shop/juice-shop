@@ -10,7 +10,7 @@ export class LocalBackupService {
 
   constructor (private cookieService: CookieService) { }
 
-  save () {
+  save (fileName: string = 'owasp_juice_shop') {
     const backup: Backup = { }
 
     backup.scoreBoard = {
@@ -28,7 +28,7 @@ export class LocalBackupService {
     backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
 
     const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-    saveAs(blob, `juice-shop-backup_${new Date().toISOString()}.json`)
+    saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
   }
 
   restore (backupFile: File) {
