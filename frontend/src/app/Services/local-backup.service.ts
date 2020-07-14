@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Backup } from '../Models/backup.model'
 import { CookieService } from 'ngx-cookie-service'
+import { saveAs } from 'file-saver'
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class LocalBackupService {
     backup.language = this.cookieService.get('language')
     backup.continueCode = this.cookieService.get('continueCode')
 
-    return JSON.stringify(backup)
+    const blob = new Blob([JSON.stringify(backup)], {type: "text/plain;charset=utf-8"})
+    saveAs(blob, `juice-shop-backup_${new Date().toISOString()}.json`)
   }
 
   restore (backupData: string) {
