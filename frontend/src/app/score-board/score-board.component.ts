@@ -335,4 +335,8 @@ export class ScoreBoardComponent implements OnInit {
   saveBackup () {
     this.localBackupService.save()
   }
+
+  restoreBackup(file: File) {
+    this.localBackupService.restore(file)
+  }
 }
