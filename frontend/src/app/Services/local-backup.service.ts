@@ -27,7 +27,7 @@ export class LocalBackupService {
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
     backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
 
-    const blob = new Blob([JSON.stringify(backup)], {type: "text/plain;charset=utf-8"})
+    const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
     saveAs(blob, `juice-shop-backup_${new Date().toISOString()}.json`)
   }
 
