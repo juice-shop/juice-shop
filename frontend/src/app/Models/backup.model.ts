@@ -4,6 +4,7 @@
  */
 
 export interface Backup {
+  version: number
   continueCode?: string
   language?: string
   banners?: { welcomeBannerStatus?: string; cookieConsentStatus?: string }
