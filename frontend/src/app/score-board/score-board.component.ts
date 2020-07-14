@@ -18,7 +18,6 @@ import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
 import { LocalBackupService } from '../Services/local-backup.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -59,7 +58,7 @@ export class ScoreBoardComponent implements OnInit {
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService, private snackBar: MatSnackBar) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
   }
 
   ngOnInit () {
@@ -339,11 +338,5 @@ export class ScoreBoardComponent implements OnInit {
 
   restoreBackup (file: File) {
     this.localBackupService.restore(file)
-    let snackBarRef = this.snackBar.open('Backup has been restored from ' + file.name, 'Force page reload', {
-      duration: 5000
-    })
-    snackBarRef.onAction().subscribe(() => {
-      location.reload()
-    })
   }
 }
