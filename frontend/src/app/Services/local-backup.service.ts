@@ -14,36 +14,54 @@ export class LocalBackupService {
     const backup: Backup = { }
 
     backup.scoreBoard = {
-      displayedDifficulties: localStorage.getItem('displayedDifficulties'),
-      showSolvedChallenges: localStorage.getItem('showSolvedChallenges'),
-      showDisabledChallenges: localStorage.getItem('showDisabledChallenges'),
-      showOnlyTutorialChallenges: localStorage.getItem('showOnlyTutorialChallenges'),
-      displayedChallengeCategories: localStorage.getItem('displayedChallengeCategories')
+      displayedDifficulties: localStorage.getItem('displayedDifficulties') ? JSON.parse(String(localStorage.getItem('displayedDifficulties'))) : undefined,
+      showSolvedChallenges: localStorage.getItem('showSolvedChallenges') ? JSON.parse(String(localStorage.getItem('showSolvedChallenges'))) : undefined,
+      showDisabledChallenges: localStorage.getItem('showDisabledChallenges') ? JSON.parse(String(localStorage.getItem('showDisabledChallenges'))) : undefined,
+      showOnlyTutorialChallenges: localStorage.getItem('showOnlyTutorialChallenges') ? JSON.parse(String(localStorage.getItem('showOnlyTutorialChallenges'))) : undefined,
+      displayedChallengeCategories: localStorage.getItem('displayedChallengeCategories') ? JSON.parse(String(localStorage.getItem('displayedChallengeCategories'))) : undefined
     }
     backup.banners = {
-      welcomeBannerStatus: this.cookieService.get('welcomebanner_status'),
-      cookieConsentStatus: this.cookieService.get('cookieconsent_status')
+      welcomeBannerStatus: this.cookieService.get('welcomebanner_status') ? this.cookieService.get('welcomebanner_status') : undefined,
+      cookieConsentStatus: this.cookieService.get('cookieconsent_status') ? this.cookieService.get('cookieconsent_status') : undefined
     }
-    backup.language = this.cookieService.get('language')
-    backup.continueCode = this.cookieService.get('continueCode')
+    backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
+    backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
 
     const blob = new Blob([JSON.stringify(backup)], {type: "text/plain;charset=utf-8"})
     saveAs(blob, `juice-shop-backup_${new Date().toISOString()}.json`)
   }
 
-  restore (backupData: string) {
-    const backup: Backup = JSON.parse(backupData)
+  restore (backupFile: File) {
+    backupFile.text().then((backupData) => {
+      const backup: Backup = JSON.parse(backupData)
 
-    localStorage.setItem('displayedDifficulties', JSON.stringify(backup.scoreBoard.displayedDifficulties))
-    localStorage.setItem('showSolvedChallenges', JSON.stringify(backup.scoreBoard.showSolvedChallenges))
-    localStorage.setItem('showDisabledChallenges', JSON.stringify(backup.scoreBoard.showDisabledChallenges))
-    localStorage.setItem('showOnlyTutorialChallenges', JSON.stringify(backup.scoreBoard.showOnlyTutorialChallenges))
-    localStorage.setItem('displayedChallengeCategories', JSON.stringify(backup.scoreBoard.displayedChallengeCategories))
-    let expires = new Date()
-    expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.set('welcomebanner_status', JSON.stringify(backup.banners.welcomeBannerStatus), expires, '/')
-    this.cookieService.set('cookieconsent_status', JSON.stringify(backup.banners.cookieConsentStatus), expires, '/')
-    this.cookieService.set('language', JSON.stringify(backup.language), expires, '/')
-    this.cookieService.set('continueCode', JSON.stringify(backup.continueCode), expires, '/')
+      this.restoreLocalStorage('displayedDifficulties', backup.scoreBoard.displayedDifficulties)
+      this.restoreLocalStorage('showSolvedChallenges', backup.scoreBoard.showSolvedChallenges)
+      this.restoreLocalStorage('showDisabledChallenges', backup.scoreBoard.showDisabledChallenges)
+      this.restoreLocalStorage('showOnlyTutorialChallenges', backup.scoreBoard.showOnlyTutorialChallenges)
+      this.restoreLocalStorage('displayedChallengeCategories', backup.scoreBoard.displayedChallengeCategories)
+      this.restoreCookie('welcomebanner_status', backup.banners.welcomeBannerStatus)
+      this.restoreCookie('cookieconsent_status', backup.banners.cookieConsentStatus)
+      this.restoreCookie('language', backup.language)
+      this.restoreCookie('continueCode', backup.continueCode)
+    })
+  }
+
+  private restoreCookie(cookieName: string, cookieValue: string) {
+    if (cookieValue) {
+      let expires = new Date()
+      expires.setFullYear(expires.getFullYear() + 1)
+      this.cookieService.set(cookieName, cookieValue, expires, '/')
+    } else {
+      this.cookieService.delete(cookieName, '/')
+    }
+  }
+
+  private restoreLocalStorage(propertyName: string, propertyValue: any) {
+    if (propertyValue) {
+      localStorage.setItem(propertyName, JSON.stringify(propertyValue))
+    } else {
+      localStorage.removeItem(propertyName)
+    }
   }
 }

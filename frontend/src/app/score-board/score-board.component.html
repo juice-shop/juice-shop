@@ -70,13 +70,20 @@
         </mat-icon>
       </button>
 
-      <button mat-fab class="backupButton" color="primary" disabled
+      <div class="form-group">
+        <input type="file"
+               #restoreBackupFile
+               (change)="restoreBackup($event.target.files.item(0))"
+               style="display:none;">
+      </div>
+      <button mat-fab class="backupButton" color="primary" (click)="restoreBackupFile.click()"
               aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
               matTooltipPosition="above">
         <mat-icon>
           redo
         </mat-icon>
       </button>
+
 
     </div>
     <mat-divider></mat-divider>
