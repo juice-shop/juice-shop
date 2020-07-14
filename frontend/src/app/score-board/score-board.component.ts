@@ -17,6 +17,7 @@ import { faGem } from '@fortawesome/free-regular-svg-icons'
 import { faBtc, faGithub, faGitter } from '@fortawesome/free-brands-svg-icons'
 import { Challenge } from '../Models/challenge.model'
 import { TranslateService } from '@ngx-translate/core'
+import { LocalBackupService } from "../Services/local-backup.service";
 
 library.add(faStar, faGem, faGitter, faGithub, faBtc, faTrophy, faPollH)
 dom.watch()
@@ -57,7 +58,7 @@ export class ScoreBoardComponent implements OnInit {
   public questionnaireUrl: string = 'https://forms.gle/2Tr5m1pqnnesApxN8'
   public appName: string = 'OWASP Juice Shop'
 
-  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService) {
+  constructor (private configurationService: ConfigurationService, private challengeService: ChallengeService, private sanitizer: DomSanitizer, private ngZone: NgZone, private io: SocketIoService, private spinner: NgxSpinnerService, private translate: TranslateService, private localBackupService: LocalBackupService) {
   }
 
   ngOnInit () {
@@ -329,5 +330,9 @@ export class ScoreBoardComponent implements OnInit {
 
   times (numberOfTimes: number) {
     return Array(numberOfTimes).fill('★')
+  }
+
+  saveBackup () {
+    this.localBackupService.save()
   }
 }

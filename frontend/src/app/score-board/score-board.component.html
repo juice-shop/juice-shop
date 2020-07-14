@@ -62,6 +62,22 @@
 
       <div *ngIf="numDisabledChallenges > 0 && showDisabledChallenges" class="disabled-challenges-infoBox mat-button" [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numDisabledChallenges, env: disabledEnv}"></div>
 
+      <button mat-fab class="backupButton" color="primary" (click)="saveBackup()"
+              aria-label="Button to save local backup" matTooltip="{{ 'SAVE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          save_alt
+        </mat-icon>
+      </button>
+
+      <button mat-fab class="backupButton" color="primary"
+              aria-label="Button to restore local backup" matTooltip="{{ 'RESTORE_BACKUP_TOOLTIP' | translate  }}"
+              matTooltipPosition="above">
+        <mat-icon>
+          redo
+        </mat-icon>
+      </button>
+
     </div>
     <mat-divider></mat-divider>
     <div class="category-container" fxLayout="row wrap">
